@@ -226,18 +226,19 @@ class BackendController extends yupe\components\controllers\BackController
     public function actionThemesettings()
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
+            if ($this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Themes settings saved successfully!')
                 );
                 Yii::app()->cache->clear('yupe');
             }
-            else
+            else{
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
+            }
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
@@ -282,9 +283,11 @@ class BackendController extends yupe\components\controllers\BackController
                     $settings[$p]->param_value = $pval;
                     // Добавляем для параметра его правила валидации
                     $settings[$p]->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($p);
-                    if (!$settings[$p]->save())
+                    if (!$settings[$p]->save()) {
                         return false;
+                    }
                 }
+
             } else {
                 $settings[$p] = new Settings;
 
@@ -296,8 +299,9 @@ class BackendController extends yupe\components\controllers\BackController
                     )
                 );
 
-                if (!$settings[$p]->save())
+                if (!$settings[$p]->save()) {
                     return false;
+                }
             }
         }
         return true;

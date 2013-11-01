@@ -91,13 +91,13 @@
                                             array(
                                                 'icon'  => 'icon-thumbs-up',
                                                 'label' => Yii::t('UserModule.user', 'Order development and support'),
-                                                'url'   => 'http://yupe.ru/feedback/index?from=login',
+                                                'url'   => 'http://yupe.ru/contacts?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-warning-sign',
                                                 'label' => Yii::t('UserModule.user', 'Report error'),
-                                                'url'   => 'http://yupe.ru/feedback/index?from=login',
+                                                'url'   => 'http://yupe.ru/contacts?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(

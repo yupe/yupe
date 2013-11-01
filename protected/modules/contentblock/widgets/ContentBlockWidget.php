@@ -30,7 +30,9 @@ class ContentBlockWidget extends YWidget
         $output = Yii::app()->cache->get($cacheName);
 
         if ($output === false) {
+
             $block = ContentBlock::model()->find('code = :code', array(':code' => $this->code));
+
             if (null === $block) {
                 if ($this->silent === false) {
                     throw new CException(
@@ -41,7 +43,11 @@ class ContentBlockWidget extends YWidget
                         )
                     );
                 }
+
+                $output = '';
+
             } else {
+
                 switch ($block->type) {
 
                 case ContentBlock::PHP_CODE:
@@ -54,9 +60,9 @@ class ContentBlockWidget extends YWidget
                     $output = $block->content;
                     break;
                 }
-
-                Yii::app()->cache->set($cacheName, $output);
             }
+
+            Yii::app()->cache->set($cacheName, $output);
         }
 
         $this->render($this->view, array('output' => $output));

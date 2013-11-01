@@ -15,7 +15,7 @@ Yii::import('application.modules.install.InstallModule');
 
     <p> <?php echo Yii::t('FeedbackModule.feedback','If you interesting with quality project which simple in support'); ?></p>
 
-    <p><b><?php echo Yii::t('FeedbackModule.feedback','Immediately <a href="http://yupe.ru/feedback/index?from=contact" target="_blank">write to us</a> about it!'); ?></b></p>
+    <p><b><?php echo Yii::t('FeedbackModule.feedback','Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'); ?></b></p>
     <p> <?php echo Yii::t('FeedbackModule.feedback','We try to answer as fast as we can!'); ?></p>
 
     <p><b><?php echo Yii::t('FeedbackModule.feedback','Thanks for attention!'); ?></b></p>

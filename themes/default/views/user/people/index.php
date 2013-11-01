@@ -14,3 +14,5 @@
         'template' => "{items}\n{pager}",
     ));
 ?>
+
+<hr/>

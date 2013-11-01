@@ -475,14 +475,20 @@ class YupeModule extends WebModule
     public function init()
     {
         parent::init();
+    }
+
+    /**
+     * Возвращаем список модулей:
+     *
+     * @param bool $navigationOnly - только навигация
+     * @param bool $disableModule  - отключённые модули
+     *
+     * @return mixed
+     **/
+    public function getModules($navigationOnly = false, $disableModule = false)
+    {
 
         $this->otherCategoryName = Yii::t('YupeModule.yupe', 'Other');
-
-        $editors = $this->getEditors();
-        // если не выбран редактор, но редакторы есть - возмем первый попавшийся
-        if (!$this->editor && is_array($editors)) {
-            $this->editor = array_shift($editors);
-        }
 
         $this->categoryIcon = array(
             Yii::t('YupeModule.yupe', 'Services') => 'briefcase',
@@ -497,18 +503,7 @@ class YupeModule extends WebModule
             Yii::t('YupeModule.yupe', 'Yupe!'),
             $this->otherCategoryName,
         );
-    }
 
-    /**
-     * Возвращаем список модулей:
-     *
-     * @param bool $navigationOnly - только навигация
-     * @param bool $disableModule  - отключённые модули
-     *
-     * @return mixed
-     **/
-    public function getModules($navigationOnly = false, $disableModule = false)
-    {
         $modules = $yiiModules = $order = array();
 
         if (count(Yii::app()->modules)) {
