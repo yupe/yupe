@@ -879,7 +879,7 @@ class DefaultController extends yupe\components\controllers\BackController
             if (!$error) {
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
                 
-                yupe\components\ConfigManager::flushDump();
+                Yii::app()->configManager->flushDump();
                 
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file) {

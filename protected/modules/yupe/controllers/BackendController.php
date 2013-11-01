@@ -65,7 +65,7 @@ class BackendController extends yupe\components\controllers\BackController
  
         try {
         
-            $result = yupe\components\ConfigManager::flushDump(true);
+            $result = Yii::app()->configManager->flushDump(true);
         
         } catch (Exception $e) {
             Yii::app()->ajax->failure(

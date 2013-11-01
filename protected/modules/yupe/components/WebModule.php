@@ -525,7 +525,7 @@ abstract class WebModule extends \CWebModule
         $fileConfig = $yupe->getModulesConfig($this->getId());
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        ConfigManager::flushDump();
+        Yii::app()->configManager->flushDump();
 
         if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already enabled!'), 304);
@@ -582,7 +582,7 @@ abstract class WebModule extends \CWebModule
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        ConfigManager::flushDump();
+        Yii::app()->configManager->flushDump();
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));
@@ -676,7 +676,7 @@ abstract class WebModule extends \CWebModule
         );
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        ConfigManager::flushDump();
+        Yii::app()->configManager->flushDump();
 
         if ($this->getDependencies() !== array()) {
             foreach ($this->getDependencies() as $dep) {
@@ -736,7 +736,7 @@ abstract class WebModule extends \CWebModule
         if (!empty($history)) {
             
             Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-            ConfigManager::flushDump();
+            Yii::app()->configManager->flushDump();
             
             $message = '';
             

@@ -42,6 +42,8 @@ class ConfigManager extends CComponent
     public $appModules        = null;
     // Категории для слияния
     public $configCategories  = array();
+    // Кеш-файл настроек:
+    public $cacheFile = 'cached_settings';
 
     /**
      * Инициализация компонента:
@@ -64,7 +66,7 @@ class ConfigManager extends CComponent
                         ? require_once $this->basePath . '/config/userspace.php'
                         : $this->_userspace;
 
-        return $this->merge($this->_base, $this->_userspace);
+        $this->_cachefile = $this->modulePath . '/' . $this->cacheFile . '.php';
     }
 
     /**
@@ -84,7 +86,7 @@ class ConfigManager extends CComponent
         $this->_base         = $base;
         $this->_userspace    = $userspace;
         
-        // Выходим на несколько каталогов выше:
+        // Настройки путей:
         $this->basePath      = Yii::getPathOfAlias('application');
         $this->modulePath    = $this->basePath . '/config/modules';
         $this->userspacePath = $this->basePath . '/config/userspace';
@@ -107,7 +109,7 @@ class ConfigManager extends CComponent
      */
     public function getSettings()
     {
-        if (file_exists(($this->_cachefile = $this->modulePath . '/cached_settings.php'))) {
+        if (file_exists(($this->_cachefile = $this->modulePath . '/' . $this->cacheFile . '.php'))) {
             
             // Сливаем базовые настройки   - $this->_base
             // ---------------------------------------------------
@@ -392,9 +394,9 @@ class ConfigManager extends CComponent
      * 
      * @return bool - говорящий о результате сброса
      */
-    public static function flushDump($returnErrors = false)
+    public function flushDump($returnErrors = false)
     {
-        $cachedSettingsFile = Yii::getPathOfAlias('application.config.modules') . '/cached_settings.php';
+        $cachedSettingsFile = Yii::getPathOfAlias('application.config.modules') . '/' . $this->cacheFile . '.php';
         
         if ($returnErrors === true && file_exists($cachedSettingsFile) === false) {
             throw new Exception(

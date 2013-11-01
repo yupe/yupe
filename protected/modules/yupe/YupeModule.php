@@ -745,9 +745,11 @@ class YupeModule extends WebModule
             if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
+                $cacheFile = Yii::app()->configManager->cacheFile;
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
-                    if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false) {
+
+                    if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false && $cacheFile != $item->getBaseName('.php')) {
                         Yii::app()->cache->flush();
 
                         unlink($modConfigs . '/' . $item->getBaseName());
