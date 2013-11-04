@@ -183,7 +183,7 @@ return array (
   'Result' => 'Результат',
   'Recommended' => 'Рекомендованные',
   'Module site:' => 'Сайт модуля:',
-  'Please follow installation instructions.' => 'Следуйте инструкциям установщика и все у Вас получиться!',
+  'Please follow installation instructions.' => 'Следуйте инструкциям установщика и все у Вас получится!',
   'Look journal' => 'Смотреть журнал',
   'Create admin account' => 'Создайте учетную запись администратора сайта.',
   'Create DB on DBMS server' => 'Создать БД на сервере СУБД',
