@@ -5,6 +5,8 @@
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
 [![Dependencies Status](https://d2xishtp1ojlk0.cloudfront.net/d/1477472)](http://depending.in/yupe/yupe)
 
+**Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 
+
 **Юпи! — простая и легкая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
