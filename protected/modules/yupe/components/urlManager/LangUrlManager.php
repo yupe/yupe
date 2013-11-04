@@ -22,6 +22,8 @@ class LangUrlManager extends CUrlManager
     public $languageInPath    = true;
     public $preferredLanguage = false;
 
+    private $_appLang = false;
+
     /**
      * Инициализация компонента:
      * Здесь мы дополняем правила маршрутизации,
@@ -80,6 +82,28 @@ class LangUrlManager extends CUrlManager
     }
 
     /**
+     * Получаем язык приложения:
+     * 
+     * @return string
+     */
+    public function getAppLang()
+    {
+        if ($this->_appLang === false) {
+            // Берём язык системы, иначе,
+            // если происходит ошибка
+            // берём сорсовый
+            try {
+                $this->_appLang = Yii::app()->getModule('yupe')->defaultLanguage
+                                ?: $this->_appLang = Yii::app()->sourceLanguage;;
+            } catch (Exception $e) {
+                $this->_appLang = Yii::app()->sourceLanguage;
+            }
+        }
+
+        return $this->_appLang;
+    }
+
+    /**
      * Метод получения списка системных языков
      * 
      * @return void
@@ -122,7 +146,7 @@ class LangUrlManager extends CUrlManager
 
         // Если указан "нативный" язык и к тому же он текущий,
         // то делаем URL без него, т.к. он соответсвует пустому пути:
-        if ((Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language)) {
+        if (($this->getAppLang() == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language)) {
             unset($params[$this->langParam]);
         }
 
