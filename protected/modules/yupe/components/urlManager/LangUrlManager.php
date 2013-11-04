@@ -67,15 +67,22 @@ class LangUrlManager extends CUrlManager
                 $newRules, $this->rules
             );
 
-            // Получаем ответ от parent::init()
-            // для последующего возврата:
-            $parentInit = parent::init();
+            try {
+                // Получаем ответ от parent::init()
+                // для последующего возврата:
+                $parentInit = parent::init();
 
-            // Запускаем процесс обработки правил
-            // маршрутизации:
-            $this->processRules();
+                // Запускаем процесс обработки правил
+                // маршрутизации:
+                $this->processRules();   
+            } catch (Exception $e) {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    $e->getMessage()
+                );
+            }
 
-            return $parentInit;
+            return isset($parentInit) ? $parentInit : null;
         }
 
         return parent::init();

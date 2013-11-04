@@ -30,19 +30,31 @@ class LanguageBehavior extends CBehavior
         }
     }
 
+    /**
+     * Получаем язык из кукисов:
+     * 
+     * @return string
+     */
     public function getCookieLang()
     {
         $lm = Yii::app()->urlManager;
+        
+        // А вдруг запрещена запись в runtime-каталог:
+        try {
+            $lang = Yii::app()->getModule('yupe')->cache
+                    && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
+                    && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
+                ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
+                : (
+                    $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
+                    ? Yii::app()->locale->getLanguageID($this->lang)
+                    : false
+                );
+        } catch (Exception $e) {
+            $lang = Yii::app()->sourceLanguage;
+        }
 
-        return Yii::app()->getModule('yupe')->cache
-                && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
-                && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
-            ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
-            : (
-                $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
-                ? Yii::app()->locale->getLanguageID($this->lang)
-                : false
-            );
+        return $lang;
     }
 
     /**
