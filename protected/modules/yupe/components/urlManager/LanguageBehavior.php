@@ -118,7 +118,7 @@ class LanguageBehavior extends CBehavior
 
             // Если язык не получен, и не найден в списке возможных
             if (!$this->lang || !in_array($this->lang, $lm->languages)) {
-                $this->lang = Yii::app()->language = Yii::app()->sourceLanguage;
+                $this->lang = Yii::app()->language;
             }
 
             if ($oldLang != $this->lang
