@@ -55,7 +55,7 @@ if (isset($updates[$module->getId()]) && ($updates=$updates[$module->getId()])) 
                 )
             );
         $this->endWidget();
-        //<form action="#" method="post"><input type="submit" value="<?php echo Yii::t('YupeModule.yupe','Refresh');? >"></form>
+       
         ?>
         </div>
     </div>
