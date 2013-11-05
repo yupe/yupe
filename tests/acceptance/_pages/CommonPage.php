@@ -9,7 +9,7 @@ class CommonPage
 
     const LOGIN_LABEL = 'Войти';
 
-    const PANEL_URL = '/yupe/backend/index';
+    const PANEL_URL = '/backend/';
 
     const PANEL_LABEL = 'Панель управления "Юпи!"';
 

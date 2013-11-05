@@ -52,7 +52,7 @@ class FeedBackCest
         $I = new WebGuy\UserSteps($scenario);
         $I->loginAsAdminAndGoToThePanel(\CommonPage::TEST_USER_NAME,\CommonPage::TEST_PASSWORD);
 
-        $I->amOnPage('/feedback/default/index');
+        $I->amOnPage('/backend/feedback/feedback');
         $I->see('test_name');
         $I->click('#yw6');
         $I->selectOption('FeedBack[status]','Ответ отправлен');
@@ -62,7 +62,7 @@ class FeedBackCest
         $I->fillField('FeedBack[answer]','test_answer');
         $I->click('Сохранить сообщение и закрыть');
         $I->see('Сообщение обновлено!', \CommonPage::SUCCESS_CSS_CLASS);
-        $I->seeInCurrentUrl('/feedback/default/index');
+        $I->seeInCurrentUrl('/backend/feedback/feedback');
         $I->seeInDatabase('yupe_feedback_feedback', array(
             'name'   => 'test_name',
             'email'  => 'test@yupe.ru',

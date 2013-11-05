@@ -94,10 +94,12 @@ class YWebUser extends CWebUser
     public function getProfile($id = null,$moduleName = null)
     {
         if (!$moduleName) {
-			if (empty($id))
+			if (empty($id)){
 				$id = $this->id;
-            if ($this->_profile === null)
+            }
+            if ($this->_profile === null) {
                 $this->_profile = User::model()->findByPk($id);
+            }
             return $this->_profile;
         }
         return null;
