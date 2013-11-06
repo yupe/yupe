@@ -85,11 +85,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 )
             );
 
-            if ($model->save()) {
-
-                $model->getIsActivated() === false || UserToken::newVerifyEmail(
-                    $model, UserToken::STATUS_ACTIVATE
-                );
+            if ($model->save()) {                
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
@@ -103,6 +99,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
             }
         }
+        
         $this->render('create', array('model' => $model));
     }
 

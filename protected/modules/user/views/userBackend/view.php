@@ -70,8 +70,8 @@
             'value' => $model->getIsActivateStatus(),
         ),
         'last_visit',
-        'reg.created',
-        'reg.updated',
-        'reg.ip',
+        'registration_date',
+        'change_date',
+        'ip',
     ),
 )); ?>

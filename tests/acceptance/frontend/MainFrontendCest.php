@@ -11,7 +11,6 @@ class MainFrontendCest
         $I->amOnPage('/ru/');
         $I->see('Поздравляем!','h1');
 
-
         //blogs
         $I->amOnPage(\BlogPage::BLOGS_URL);
         $I->seeInTitle('Блоги');
@@ -58,7 +57,6 @@ class MainFrontendCest
         $I->amOnPage('/users/');
         $I->see('Пользователи', 'h1');
         $I->seeLink('yupe');
-
 
 
         $I->amOnPage('/en/');
