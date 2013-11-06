@@ -4,15 +4,6 @@ use \WebGuy;
 
 class CommentCest
 {
-
-    public function _before()
-    {
-    }
-
-    public function _after()
-    {
-    }
-
     // tests
     public function tryToTestCommentsAntispam(WebGuy $I, $scenario)
     {
