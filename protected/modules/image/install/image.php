@@ -17,5 +17,7 @@ return array(
         'application.modules.image.models.*',
     ),
     'component' => array(),
-    'rules'     => array(),
+    'rules'     => array(
+        '/images/<id:\d+>' => 'gallery/gallery/image/',
+    ),
 );

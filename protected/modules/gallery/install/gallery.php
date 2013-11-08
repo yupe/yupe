@@ -16,5 +16,8 @@ return array(
         'application.modules.gallery.models.*',
     ),
     'component' => array(),
-    'rules'     => array(),
+    'rules'     => array(
+        '/albums' => 'gallery/gallery/list',
+        '/albums/<id:\d+>' => 'gallery/gallery/show',
+    ),
 );

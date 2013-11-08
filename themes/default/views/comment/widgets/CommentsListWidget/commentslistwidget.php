@@ -42,7 +42,7 @@
             </div>
     <?php endforeach;?>
 <?php else:?>
-    <p><?php echo $this->label; ?> <?php echo Yii::t('CommentModule.comment','no comments, be first!');?>
+    <p><?php echo $this->label; ?> <?php echo Yii::t('CommentModule.comment','be first!');?>
 <?php endif;?>
 
 </div>

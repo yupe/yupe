@@ -59,7 +59,7 @@ return array (
   'Not available' => 'Нет в наличии',
   'Page was not found!' => 'Страница не найдена!',
   'Price' => 'Цена',
-  'Product' => 'Товар',
+  'Products' => 'Товары',
   'Product show' => 'Просмотр товара',
   'Product was not found!' => 'ТОвар не найден!',
   'Products' => 'Товары',

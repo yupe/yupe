@@ -61,7 +61,11 @@ $this->renderPartial('_search', array('model' => $model));
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => array(
-            'id',
+            array(
+                'header' => '',
+                'value'  => 'CHtml::image($data->previewImage(), $data->name, array("width" => 100,"height" => 75))',
+                'type'   => 'html'
+            ),
             'name',
             array(
                 'name'   => 'owner',
@@ -72,13 +76,15 @@ $this->renderPartial('_search', array('model' => $model));
                 'type' => 'html',
                 'name'  => 'description',
             ),
+            'imagesCount',
             array(
-                'name'  => 'status',
-                'value' => '$data->getStatus()'
+                'name'   => 'status',
+                'value'  => '$data->getStatus()',
+                'filter' => $model->getStatusList()
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
-                'template' => '{images}{view}{update}{delete}',
+                'template' => '{images}{update}{delete}',
                 'buttons'  => array(
                     'images' => array(
                         'icon'     => 'picture',

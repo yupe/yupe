@@ -54,6 +54,7 @@ $this->widget(
                 'content' => $this->renderPartial(
                     '_images_show', array(
                         'model' => $model,
+                        'dataProvider' => $dataProvider
                     ), true
                 ),
                 'active'  => $tab == '_images_show',

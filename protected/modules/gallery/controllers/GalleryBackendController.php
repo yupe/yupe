@@ -167,8 +167,20 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $this->_addImage($image, $imageData, $gallery);
         }
 
+        $dataProvider = new CActiveDataProvider(
+            'ImageToGallery', array(
+                'criteria' => array(
+                    'condition' => 't.gallery_id = :gallery_id',
+                    'params' => array(':gallery_id' => $gallery->id),
+                    'order' => 't.creation_date DESC',
+                    'with' => 'image',
+                ),
+            )
+        );
+
         $this->render(
             'images', array(
+                'dataProvider' => $dataProvider,
                 'image'        => $image,
                 'model'        => $gallery,
                 'tab'          => !($errors = $image->getErrors())
@@ -273,8 +285,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
      **/
     public function actionAddimages($id)
     {
-        if (($gallery = Gallery::model()->findByPk($id)) === null)
+        if (($gallery = Gallery::model()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
+        }
 
         $image = new Image;
 

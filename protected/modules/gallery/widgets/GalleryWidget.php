@@ -18,7 +18,7 @@ class GalleryWidget extends YWidget
 {
     // сколько изображений выводить на одной странице
     public $limit = 10;
-    
+
     // ID-галереи
     public $galleryId;
 
@@ -29,7 +29,7 @@ class GalleryWidget extends YWidget
 
     /**
      * Запускаем отрисовку виджета
-     * 
+     *
      * @return void
      */
     public function run()

@@ -51,7 +51,6 @@ $this->widget(
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => array(
-            'id',
             array(
                 'name'   => Yii::t('ImageModule.image', 'file'),
                 'type'   => 'raw',
@@ -72,9 +71,7 @@ $this->widget(
                             ? "---"
                             : CHtml::link(
                                 $data->gallery->name,
-                                Yii::app()->controller instanceof yupe\components\controllers\BackController
-                                ? array("/gallery/galleryBackend/update", "id" => $data->galleryId)
-                                : array("/gallery/gallery/update", "id" => $data->galleryId)
+                                array("/gallery/galleryBackend/images", "id" => $data->gallery->id)
                             )',
             ),
             'name',

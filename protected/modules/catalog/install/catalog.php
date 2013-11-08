@@ -17,5 +17,8 @@ return array(
         'application.modules.catalog.models.*',
     ),
     'component' => array(),
-    'rules'     => array(),
+    'rules'     => array(
+        '/catalog' => 'catalog/catalog/index',
+        '/catalog/<name>' => 'catalog/catalog/show',
+    ),
 );
