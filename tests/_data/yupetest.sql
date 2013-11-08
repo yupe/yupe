@@ -556,7 +556,9 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
 (26, 'contentblock', 'm000000_000000_contentblock_base', 1383667203),
 (27, 'page', 'm000000_000000_page_base', 1383667206),
 (28, 'page', 'm130115_155600_columns_rename', 1383667207),
-(29, 'mail', 'm000000_000000_mail_base', 1383667208);
+(29, 'mail', 'm000000_000000_mail_base', 1383667208),
+(30, 'user', 'm131106_111552_user_restore_fields', 1383667206);
+
 
 -- --------------------------------------------------------
 
@@ -696,7 +698,8 @@ INSERT INTO `yupe_user_tokens` (`id`, `user_id`, `token`, `type`, `status`, `cre
 -- Table structure for table `yupe_user_user`
 --
 
-CREATE TABLE IF NOT EXISTS `yupe_user_user` (
+
+CREATE TABLE `yupe_user_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `change_date` datetime NOT NULL,
   `first_name` varchar(250) DEFAULT NULL,
@@ -713,19 +716,22 @@ CREATE TABLE IF NOT EXISTS `yupe_user_user` (
   `access_level` int(11) NOT NULL DEFAULT '0',
   `last_visit` datetime DEFAULT NULL,
   `avatar` varchar(150) DEFAULT NULL,
-  `hash` varchar(255) NOT NULL DEFAULT 'c57f937004609512ff9f25001ffb6a920.79925800 1383667159',
+  `hash` varchar(255) NOT NULL,
+  `email_confirm` tinyint(1) NOT NULL DEFAULT '0',
+  `registration_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_user_user_nick_name` (`nick_name`),
   UNIQUE KEY `ux_yupe_user_user_email` (`email`),
   KEY `ix_yupe_user_user_status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
 
 --
 -- Dumping data for table `yupe_user_user`
 --
 
-INSERT INTO `yupe_user_user` (`id`, `change_date`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `last_visit`, `avatar`, `hash`) VALUES
-(1, '2013-11-05 20:02:30', '', '', '', 'yupe', 'yupe@yupe.local', 0, NULL, '', '', '', 1, 1, '2013-11-05 20:02:31', NULL, '$2a$13$DfQ.s4KZQR/zD.AvuJA6vuVsYoWPezsRDSZS/7q3rl.cGFqS7COGG');
+INSERT INTO `yupe_user_user` (`id`, `change_date`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `last_visit`, `avatar`, `hash`, `email_confirm`, `registration_date`) VALUES(1, '2013-11-05 20:02:30', '', '', '', 'yupe', 'yupe@yupe.local', 0, NULL, '', '', '', 1, 1, '2013-11-05 20:02:31', NULL, '$2a$13$DfQ.s4KZQR/zD.AvuJA6vuVsYoWPezsRDSZS/7q3rl.cGFqS7COGG', 1, '2013-11-05 20:02:30');
 
 
 -- --------------------------------------------------------
