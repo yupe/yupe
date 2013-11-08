@@ -9,6 +9,8 @@
  *   @link     http://yupe.ru
  **/
 
+
+
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
 if (!ini_get('date.timezone')) {
     date_default_timezone_set('UTC');
