@@ -58,6 +58,11 @@ class MainFrontendCest
         $I->see('Пользователи', 'h1');
         $I->seeLink('yupe');
 
+        //gallery
+        $I->amOnPage(\GalleryPage::ALBUMS_URL);
+        $I->see('Галереи изображений');
+        $I->seeLink('Первая галерея');
+
 
         $I->amOnPage('/en/');
         $I->see('Congratulations!','h1');

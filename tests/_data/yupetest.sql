@@ -358,6 +358,8 @@ CREATE TABLE IF NOT EXISTS `yupe_gallery_gallery` (
   KEY `ix_yupe_gallery_gallery_owner` (`owner`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+INSERT INTO `yupe_gallery_gallery` VALUES (1,'Первая галерея','<p>\r\n  Первая галерея\r\n</p>',1,1);
+
 -- --------------------------------------------------------
 
 --
@@ -374,6 +376,8 @@ CREATE TABLE IF NOT EXISTS `yupe_gallery_image_to_gallery` (
   KEY `ix_yupe_gallery_image_to_gallery_gallery_to_image_image` (`image_id`),
   KEY `ix_yupe_gallery_image_to_gallery_gallery_to_image_gallery` (`gallery_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `yupe_gallery_image_to_gallery` VALUES (1,1,1,'2013-11-08 13:21:15');
 
 -- --------------------------------------------------------
 
@@ -400,6 +404,10 @@ CREATE TABLE IF NOT EXISTS `yupe_image_image` (
   KEY `ix_yupe_image_image_category_id` (`category_id`),
   KEY `fk_yupe_image_image_parent_id` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `yupe_image_image` VALUES (1,NULL,NULL,'2013-10-22 22.33.28.jpg','','636b1da2749984e81de4adf1dd3d529f.jpg','2013-11-08 13:21:15',1,'2013-10-22 22.33.28.jpg',0,1);
+
+
 
 -- --------------------------------------------------------
 
