@@ -424,8 +424,6 @@ class ConfigManager extends CComponent
             );
         }
         
-        $result = @unlink($cachedSettingsFile);
-
-        return $result;
+        return @unlink($cachedSettingsFile);
     }
 }

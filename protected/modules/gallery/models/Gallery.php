@@ -86,8 +86,9 @@ class Gallery extends YModel
     public function beforeValidate()
     {
         // Проверяем наличие установленного хозяина галереи
-        if (isset($this->owner) && empty($this->owner))
+        if (isset($this->owner) && empty($this->owner)){
             $this->owner = Yii::app()->user->getId();
+        }
 
         return parent::beforeValidate();
     }
@@ -103,6 +104,7 @@ class Gallery extends YModel
             'owner'       => Yii::t('GalleryModule.gallery', 'Vendor'),
             'description' => Yii::t('GalleryModule.gallery', 'Description'),
             'status'      => Yii::t('GalleryModule.gallery', 'Status'),
+            'imagesCount' => Yii::t('GalleryModule.gallery', 'Images count'),
         );
     }
 

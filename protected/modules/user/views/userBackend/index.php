@@ -61,9 +61,10 @@ $this->renderPartial('_search', array('model' => $model));
 <p><?php echo Yii::t('UserModule.user', 'This section represents account management!'); ?></p>
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
-    'id'            => 'user-grid',
+    'id'           => 'user-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
+    'filter'       => $model,
     'columns'      => array(
         array(
             'name'        => 'id',
@@ -78,24 +79,37 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => 'CHtml::link($data->nick_name, array("/user/userBackend/update", "id" => $data->id))',
         ),
         array(
-            'name'  => 'email',
-            'type'  => 'raw',
-            'value' => '$data->getVerifyIcon() . " " . $data->email',
+            'name'  => 'email',            
+            'value' => '$data->email',
+        ),
+        array(
+            'name'  => 'email_confirm',
+            'type'  => 'html',
+            'value' => '$data->email_confirm  ? $data->getIsVerifyEmailStatus() : CHtml::link($data->getIsVerifyEmailStatus(), array("verifySend", "id" => $data->id),
+                    array(
+                        "class"  => "verify-email",
+                        "title"  => Yii::t("UserModule.user", "Send a letter to verify email"),
+                    ))',
+            'filter' => $model->getEmailConfirmStatusList()
         ),
         array(
             'name'   => 'access_level',
             'value'  => '$data->getAccessLevel()',
+            'filter' => $model->getAccessLevelsList()
         ),
-        array(
-            'header' => Yii::t('UserModule.user', 'Register date'),
-            'name'   => 'data.reg.created',
-            'value'  => 'UserToken::beautifyDate(isset($data->reg->created) ? $data->reg->created : null)',
+        array(            
+            'name'   => 'registration_date',            
+            'filter' => false
         ),
-        'last_visit',
+        array(            
+            'name'   => 'last_visit',            
+            'filter' => false
+        ),        
         array(
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->changeStatus($this->grid)',
+            'filter' => $model->getStatusList()
         ),
         array(
             'header'   => Yii::t('UserModule.user', 'Management'),

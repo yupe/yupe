@@ -19,10 +19,10 @@ class UserSteps extends \WebGuy
     public function logout()
     {
         $I = $this;
-        $I->amOnPage('/');
+        $I->amOnPage('/ru/');
         $I->seeLink(\LogoutPage::$linkLabel);
         $I->seeLink('Панель управления');
-        $I->click(\LogoutPage::$linkLabel);
+        $I->amOnPage(\LogoutPage::$URL);
         $I->dontSeeLink(\LogoutPage::$linkLabel);
         $I->dontSeeLink('Панель управления');
         $I->seeLink(\CommonPage::LOGIN_LABEL);

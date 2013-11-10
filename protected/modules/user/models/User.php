@@ -16,6 +16,9 @@
  * @property integer $status
  * @property integer $access_level
  * @property string  $last_visit
+ * @property bollean $email_confirm
+ * @property string  $registration_date
+ *
  */
 
 use yupe\widgets\CustomGridView;
@@ -75,13 +78,15 @@ class User extends YModel
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),
             array('gender, status, access_level', 'numerical', 'integerOnly' => true),
-            array('use_gravatar', 'numerical', 'integerOnly' => true, 'allowEmpty' => true),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('UserModule.user', 'This email already use by another user')),
             array('nick_name', 'unique', 'message' => Yii::t('UserModule.user', 'This nickname already use by another user')),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
+            array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('registration_date', 'length', 'max' => 50),
             array('id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, last_visit', 'safe', 'on' => 'search'),
         );
     }
@@ -204,23 +209,9 @@ class User extends YModel
      */
     public function getIsVerifyEmail()
     {
-        return $this->verify instanceof UserToken
-            && (int) $this->verify->status === UserToken::STATUS_ACTIVATE;
+        return $this->email_confirm;
     }
-
-    public function getVerifyIcon()
-    {
-        return $this->getIsVerifyEmail()
-                ? '<i class="icon icon-ok-sign" title=""></i>'
-                : CHtml::link(
-                    '<i class="icon icon-repeat" title=""></i>',
-                    array('verifySend', 'id' => $this->id),
-                    array(
-                        'class'  => 'verify-email',
-                        'title'  => Yii::t('UserModule.user', 'Send a letter to verify email'),
-                    )
-                );
-    }
+   
 
     /**
      * Строковое значение верификации почты пользователя:
@@ -243,45 +234,19 @@ class User extends YModel
     {
         $criteria = new CDbCriteria;
 
-        $ips = array();
-
-        empty($this->activation_ip) || array_push($ips, $this->activation_ip);
-        empty($this->registration_ip) || array_push($ips, $this->registration_ip);
-
-        $criteria->with = array('reg', 'verify');
-        $criteria->together = true;
-
-        if (($data = Yii::app()->getRequest()->getParam('UserToken')) !== null || !empty($ips)) {
-            $reg = new UserToken;
-            $reg->setAttributes($data);
-
-            if (!empty($reg->created) && strlen($reg->created) == 10) {
-                $criteria->addBetweenCondition('created', $reg->created . ' 00:00:00', $reg->created . ' 23:59:59');
-            }
-
-            if (!empty($reg->updated) && strlen($reg->updated) == 10) {
-                $criteria->addBetweenCondition('updated', $reg->updated . ' 00:00:00', $reg->updated . ' 23:59:59');
-            }
-
-            $criteria->addInCondition('reg.ip', $ips);
-        }
-
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.change_date', $this->change_date, true);
+        $criteria->compare('t.registration_date', $this->registration_date, true);
         $criteria->compare('t.first_name', $this->first_name, true);
         $criteria->compare('t.middle_name', $this->first_name, true);
         $criteria->compare('t.last_name', $this->last_name, true);
         $criteria->compare('t.nick_name', $this->nick_name, true);
         $criteria->compare('t.email', $this->email, true);
-        $criteria->compare('t.gender', $this->gender);
-        
-        if ((int) $this->status === self::STATUS_NOT_ACTIVE) {
-            $criteria->compare('reg.status', UserToken::STATUS_NULL);
-        } else {
-            $criteria->compare('t.status', $this->status);
-        }
+        $criteria->compare('t.gender', $this->gender);       
+        $criteria->compare('t.status', $this->status);        
         $criteria->compare('t.access_level', $this->access_level);
         $criteria->compare('t.last_visit', $this->last_visit, true);
+        $criteria->compare('t.email_confirm', $this->email_confirm);        
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
@@ -586,6 +551,20 @@ class User extends YModel
         return isset($data[$this->status])
                 ? $data[$this->status]
                 : Yii::t('UserModule.user', 'status is not set');
+    }
+
+    public function getEmailConfirmStatusList()
+    {
+         return array(
+             self::EMAIL_CONFIRM_YES => Yii::t('UserModule.user', 'Yes'),
+             self::EMAIL_CONFIRM_NO  => Yii::t('UserModule.user', 'No'),
+         );
+    }
+
+    public function getEmailConfirmStatus()
+    {
+        $data = $this->getEmailConfirmStatusList();
+        return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('UserModule.user', '*unknown*');
     }
 
     /**

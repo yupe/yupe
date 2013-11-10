@@ -54,7 +54,7 @@ class FeedBackCest
 
         $I->amOnPage('/backend/feedback/feedback');
         $I->see('test_name');
-        $I->click('#yw6');
+        $I->amOnPage('/backend/feedback/feedback/update/1');
         $I->selectOption('FeedBack[status]','Ответ отправлен');
         $I->dontSeeCheckboxIsChecked('FeedBack[is_faq]');
         $I->checkOption('FeedBack[is_faq]');
@@ -83,7 +83,7 @@ class FeedBackCest
         $I->seeLink('Подробнее...', \FeedBackPage::routeFaq(1));
         $I->click('Подробнее...');
 
-        $I->see('test_theme','h1');
+        $I->see('test_theme #1','h1');
         $I->see('Задайте вопрос ?!','.btn');
 
         $check = array('test_name','test_theme','test_text','test_answer','yupe');

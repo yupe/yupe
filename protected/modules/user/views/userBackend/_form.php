@@ -56,18 +56,19 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('use_gravatar') ? 'error' : ''; ?>">
-        <?php echo $form->checkBoxRow($model, 'use_gravatar', $model->gendersList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('use_gravatar'), 'data-content' => $model->getAttributeDescription('use_gravatar'))); ?>
-    </div>
-
     <div class="row-fluid control-group <?php echo $model->hasErrors('gender') ? 'error' : ''; ?>"> 
-        <?php echo $form->dropDownListRow($model, 'gender', $model->gendersList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('gender'), 'data-content' => $model->getAttributeDescription('gender'))); ?>
+        <?php echo $form->dropDownListRow($model, 'gender', $model->getGendersList(),array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('gender'), 'data-content' => $model->getAttributeDescription('gender'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('status') ? 'error' : ''; ?>"> 
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(),array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
     </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('email_confirm') ? 'error' : ''; ?>"> 
+        <?php echo $form->dropDownListRow($model, 'email_confirm', $model->getEmailConfirmStatusList(),array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('email_confirm'), 'data-content' => $model->getAttributeDescription('email_confirm'))); ?>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('access_level') ? 'error' : ''; ?>">     
-        <?php echo $form->dropDownListRow($model, 'access_level', $model->accessLevelsList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('access_level'), 'data-content' => $model->getAttributeDescription('access_level'))); ?>        
+        <?php echo $form->dropDownListRow($model, 'access_level', $model->getAccessLevelsList(),array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('access_level'), 'data-content' => $model->getAttributeDescription('access_level'))); ?>        
     </div>
 
    <?php $this->widget('bootstrap.widgets.TbButton', array(

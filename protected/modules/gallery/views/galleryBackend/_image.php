@@ -1,4 +1,4 @@
-<div class="image img-polaroid">
+<li class="gallery-thumbnail span3">
     <?php if ($data->image->canChange()) : ?>
         <div class="image-changes">
             <?php
@@ -6,7 +6,7 @@
             echo CHtml::link(
                 '<i class="icon-pencil"></i>',
                 Yii::app()->createAbsoluteUrl(
-                    'gallery/gallery/editImage',
+                    'image/imageBackend/update',
                     array(
                         'id' => $data->image->id
                     )
@@ -17,7 +17,7 @@
             echo CHtml::link(
                 '<i class="icon-remove"></i>',
                 Yii::app()->createAbsoluteUrl(
-                    'gallery/gallery/deleteImage',
+                    'gallery/galleryBackend/deleteImage',
                     array(
                         'id' => $data->image->id
                     )
@@ -37,4 +37,4 @@
             'rel' => $data->gallery->id
         )
     ); ?>
-</div>
+</li>

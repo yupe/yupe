@@ -118,7 +118,8 @@ return array(
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
-            'rules'          => array(
+            'useStrictParsing' => true,
+            'rules'            => array(
                 // общие правила
                 '/'                                                               => 'install/default/index',
                 '/backend'                                                        => 'yupe/backend/index',
@@ -126,11 +127,6 @@ return array(
                 '/backend/<module:\w+>/<controller:\w+>'                          => '<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'    => '<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
-                '<module:\w+>/<controller:\w+>/<action:[0-9a-zA-Z_\-]+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:[0-9a-zA-Z_\-]+>'          => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>'                                   => '<module>/<controller>/index',
-                '<controller:\w+>/<action:[0-9a-zA-Z_\-]+>'                       => '<controller>/<action>',
-                '<controller:\w+>'                                                => '<controller>/index',
             )
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security

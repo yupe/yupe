@@ -4,7 +4,7 @@
         <?php echo CHtml::image(
             $data->image->getUrl(320),
             $data->image->alt,
-            array('href' => $data->image->getUrl(), 'class' => 'gallery-image')
+            array('title' => $data->image->alt,'href' => $data->image->getUrl(), 'class' => 'gallery-image')
         ); ?>
         <div class="caption">
             <p class="text-center">

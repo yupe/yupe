@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    Yii::t('CatalogModule.catalog','Product') => array('/catalog/catalog/index/'),
+    Yii::t('CatalogModule.catalog','Products') => array('/catalog/catalog/index/'),
     CHtml::encode($good->name)
 );
 ?>
@@ -25,10 +25,10 @@ $this->breadcrumbs = array(
 
 <br/><br/><br/>
 
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $good, 'modelId' => $good->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $good, 'modelId' => $good->id, 'label' => 'Отзывов')); ?>
 
 <br/>
 
-<h3>Оставить комментарий</h3>
+<h3>Оставить отзыв</h3>
 
 <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $good->getPermaLink(), 'model' => $good, 'modelId' => $good->id)); ?>

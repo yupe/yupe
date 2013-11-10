@@ -10,5 +10,5 @@
  **/
 ?>
 <div id="gallery-wrapper">
-    <?php $this->widget('gallery.widgets.GalleryWidget', array('galleryId' => $model->id, 'gallery' => $model, 'limit' => 30)); ?>
+    <?php $this->renderPartial('gallerywidget-backend', array('gallery' => $model, 'model' => $model,'dataProvider' => $dataProvider));?>
 </div>

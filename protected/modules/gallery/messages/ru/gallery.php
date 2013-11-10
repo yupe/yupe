@@ -82,7 +82,7 @@ return array (
   'Remove gallery' => 'Удалить галерею',
   'Management' => 'Управление',
   'Gallery management' => 'Управление галереями',
-  'Photo was created!' => 'Фотография добавлена!',
+  'Photo was created!' => 'Изображение добавлено!',
   'This is private gallery' => 'Это приватная галерея!',
   'create' => 'добавление',
   'my own' => 'личная',
@@ -93,7 +93,7 @@ return array (
   'hidden' => 'скрытая',
   'management' => 'управление',
   'success' => 'успешно',
-  'Group adding' => 'Групповое добавление',
+  'Group adding' => 'Массовое добавление',
   'Update image'=>'Обновить изображение',
   'Image creation'=>'Добавление изображения',
   'Image edition'=>'Редактирование изображения',
@@ -101,4 +101,5 @@ return array (
   'Messages summary:'=>'Всего изображений:',
   'Edit message #{id}'=>'Редактирование изображения #{id}',
   'More...'=>'Подробнее...',
+  'Images count' => 'Кол-во изображений'
 );
