@@ -16,13 +16,8 @@ class RegistrationForm extends CFormModel
     public $email;
     public $password;
     public $cPassword;
-    public $verifyCode;
-    public $about;
-    public $hash;
-    public $status       = User::STATUS_NOT_ACTIVE;
-    public $emailConfirm = User::EMAIL_CONFIRM_NO;
-    public $first_name   = '';
-    public $last_name    = '';
+    public $verifyCode;   
+    
 
     public function rules()
     {
@@ -41,10 +36,7 @@ class RegistrationForm extends CFormModel
             array('email', 'checkEmail'),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Check code incorrect')),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements()),
-            array('verifyCode', 'emptyOnInvalid'),
-            array('status, emailConfirm', 'numerical', 'integerOnly' => true),
-            array('first_name, last_name', 'length', 'max' => 50),
-            array('hash', 'hashPassword'),
+            array('verifyCode', 'emptyOnInvalid')            
         );
     }
 
@@ -57,17 +49,7 @@ class RegistrationForm extends CFormModel
             'cPassword'  => Yii::t('UserModule.user', 'Password confirmation'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         );
-    }
-
-    public function beforeValidate()
-    {
-        if (Yii::app()->getModule('user')->autoNick) {
-            $this->nick_name = substr(
-                md5(uniqid()), 10
-            );
-        }
-        return parent::beforeValidate();
-    }
+    }    
 
     public function checkNickName($attribute,$params)
     {
@@ -81,28 +63,16 @@ class RegistrationForm extends CFormModel
     public function checkEmail($attribute,$params)
     {
         $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
-        if ($model)
+        
+        if ($model) {
             $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));
+        }
     }
 
-    /**
-     * Обнуляем введённое значение капчи, если оно введено неверно:
-     *
-     * @param string $attribute - имя атрибута
-     * @param mixed  $params    - параметры
-     *
-     * @return void
-     **/
     public function emptyOnInvalid($attribute, $params)
     {
-        if ($this->hasErrors())
+        if ($this->hasErrors()) {
             $this->verifyCode = null;
-    }
-
-    public function hashPassword($attribute, $params)
-    {
-        if ($this->hasErrors() === false) {
-            $this->hash = User::hashPassword($this->password);
         }
     }
 }

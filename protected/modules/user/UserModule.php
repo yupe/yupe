@@ -46,8 +46,7 @@ class UserModule extends WebModule
     public $passwordSuccessRecoveryMailEvent = 'USER_PASSWORD_SUCCESS_RECOVERY';
     public $userAccountActivationMailEvent   = 'USER_ACCOUNT_ACTIVATION';
 
-    public static $logCategory             = 'application.modules.user';
-    public $autoNick                       = false;
+    public static $logCategory             = 'application.modules.user';    
     public $profiles                       = array();
     public $attachedProfileEvents          = array();
 
@@ -133,8 +132,7 @@ class UserModule extends WebModule
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Maximum avatar size'),
             'defaultAvatar'                  => Yii::t('UserModule.user', 'Empty avatar'),
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Page after admin authorization'),
-            'registrationSucess'             => Yii::t('UserModule.user', 'Page after success register'),
-            'autoNick'                       => Yii::t('UserModule.user', 'Generate nick automaticly and don\'t requre it during register'),
+            'registrationSucess'             => Yii::t('UserModule.user', 'Page after success register'),            
             'sessionLifeTime'                => Yii::t('UserModule.user', 'Session lifetime (in days) when "Remember me" options enabled'),
         );
     }
@@ -153,8 +151,7 @@ class UserModule extends WebModule
             'avatarsDir',
             'showCaptcha'              => $this->getChoice(),
             'minCaptchaLength',
-            'maxCaptchaLength',
-            'emailAccountVerification' => $this->getChoice(),
+            'maxCaptchaLength',            
             'minPasswordLength',
             'autoRecoveryPassword'     => $this->getChoice(),
             'recoveryDisabled'         => $this->getChoice(),
@@ -166,8 +163,7 @@ class UserModule extends WebModule
             'accountActivationSuccess',
             'accountActivationFailure',
             'loginAdminSuccess',
-            'registrationSucess',
-            'autoNick'                 => $this->getChoice(),
+            'registrationSucess',            
             'sessionLifeTime'
         );
     }

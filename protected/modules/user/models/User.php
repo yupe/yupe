@@ -13,7 +13,6 @@
  * @property integer $gender
  * @property string  $avatar
  * @property string  $password
- * @property string  $salt
  * @property integer $status
  * @property integer $access_level
  * @property string  $last_visit
@@ -617,32 +616,7 @@ class User extends YModel
                 : $data[self::GENDER_THING];
     }
 
-    /**
-     * Проверка валидации пароля:
-     * 
-     * @param string $password - введённый пароль
-     * 
-     * @return boolean
-     */
-    public function validatePassword($password)
-    {
-        return CPasswordHelper::verifyPassword(
-            $password,
-            $this->hash
-        );
-    }
-
-    /**
-     * Хеширование пароля:
-     * 
-     * @param string $password - пароль
-     * 
-     * @return string
-     */
-    public static function hashPassword($password)
-    {
-        return CPasswordHelper::hashPassword($password);
-    }
+    
 
     /**
      * Генерируем случайный пароль:
@@ -765,63 +739,7 @@ class User extends YModel
         return ($this->first_name || $this->last_name)
             ? $this->last_name . $separator . $this->first_name . ($this->middle_name ? ($separator . $this->middle_name) : "")
             : $this->nick_name;
-    }
-
-    /**
-     * Создание пользователя:
-     *
-     * @todo Переписать на работу с формой регистрации,
-     *       незачем передавать туеву хучу параметров (ИМХО, angel-kulikov)
-     * 
-     * @param string  $nick_name    - Ник пользователя
-     * @param string  $email        - почта пользователя
-     * @param string  $password     - пароль
-     * @param string  $salt         - "соль" для пароля
-     * @param integer $status       - статус пользователя
-     * @param integer $emailConfirm - статус активации пользователя
-     * @param string  $first_name   - Имя пользователя
-     * @param string  $last_name    - Фамилия пользователя
-     * 
-     * @return void
-     */
-    public function createAccount(
-        $nick_name,
-        $email,
-        $password     = null,
-        $salt         = null,
-        $status       = self::STATUS_NOT_ACTIVE,
-        $emailConfirm = self::EMAIL_CONFIRM_NO,
-        $first_name   = '',
-        $last_name    = ''
-    )
-    {
-        $salt = ($salt === NULL) ? $this->generateSalt() : $salt;
-        $password = ($password === NULL) ? $this->generateRandomPassword() : $password;
-
-        $this->setAttributes(array(
-            'nick_name'         => $nick_name,
-            'first_name'        => $first_name,
-            'last_name'         => $last_name,
-            'hash'              => $this->hashPassword($password),
-            'registration_date' => new CDbExpression('NOW()'),
-            'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
-            'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
-            'status'            => $status,
-            'email_confirm'     => $emailConfirm,
-        ));
-
-        // если не определен емэйл то генерим уникальный
-        $setemail = empty($email);
-        $this->email = $setemail ? 'user-' . $this->generateRandomPassword() . '@' . $_SERVER['HTTP_HOST'] : $email;
-
-        $this->save(false);
-
-        // для красоты
-        if ($setemail) {
-            $this->email = "user-{$this->id}@{$_SERVER['HTTP_HOST']}";
-            $this->update(array('email'));
-        }
-    }
+    }    
 
     /**
      * Смена пароля:

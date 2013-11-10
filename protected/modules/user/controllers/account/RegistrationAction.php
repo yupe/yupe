@@ -17,6 +17,10 @@ class RegistrationAction extends CAction
 {
     public function run()
     {
+        if (Yii::app()->user->isAuthenticated()) {
+            $this->controller->redirect(Yii::app()->user->returnUrl);
+        }
+
         $module = Yii::app()->getModule('user');
 
         if ($module->registrationDisabled) {
@@ -24,10 +28,6 @@ class RegistrationAction extends CAction
         }
 
         $form = new RegistrationForm;
-
-        if (Yii::app()->user->isAuthenticated()) {
-            $this->controller->redirect(Yii::app()->user->returnUrl);
-        }
 
         $event = new CModelEvent($form);
 
@@ -37,110 +37,23 @@ class RegistrationAction extends CAction
             
             $form->setAttributes($data);
 
-            if ($form->validate()) {
-                
-                // если требуется активация по email
-                if ($module->emailAccountVerification) {
-                    $user = new User;
+            if ($form->validate()) {				
 
-                    // скопируем данные формы
-                    $data = $form->getAttributes();
-                    unset($data['cPassword'], $data['verifyCode']);
-
-                    $user->setAttributes($data);
-                    
-                    $salt = $user->generateRandomPassword();
-                    
-                    $user->setAttributes(
-                        array(
-                            'salt'     => $salt,
-                            'password' => $user->hashPassword($form->password, $salt),
-                        )
-                    );
-
-                    $transaction = Yii::app()->db->beginTransaction();
-
-                    try {
-                        if ($user->save()) {
-
-                            // запись в лог о создании учетной записи
-                            Yii::log(
-                                Yii::t('UserModule.user', 'Account {nick_name} was created', array('{nick_name}' => $user->nick_name)),
-                                CLogger::LEVEL_INFO, UserModule::$logCategory
-                            );
-
-                            $transaction->commit();
-
-                            // отправка email с просьбой активировать аккаунт
-                            yupe\components\Token::sendActivation(
-                                $user, '//user/account/needAccountActivationEmail'
-                            );
-
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::SUCCESS_MESSAGE,
-                                Yii::t('UserModule.user', 'Account was created! Check your email!')
-                            );
-                            $this->controller->redirect(array($module->registrationSucess));
-                        } else {
-                            $form->addErrors($user->getErrors());
-
-                            Yii::log(
-                                Yii::t('UserModule.user', 'Error when creating new account!'),
-                                CLogger::LEVEL_ERROR, UserModule::$logCategory
-                            );
-                        }
-                    } catch (Exception $e) {
-                        Yii::app()->getDb()->getCurrentTransaction() === null || $transaction->rollback();
-                        $form->addError('', Yii::t('UserModule.user', 'There is an error when creating user!'));
-                        $form->addError('', $e->getMessage());
-                    }
-                } else {
-                    // если активации не требуется - сразу создаем аккаунт
-                    $user = new User;
-
-                    $user->createAccount(
-                        $form->nick_name,
-                        $form->email,
-                        $form->password,
-                        null,
-                        User::STATUS_ACTIVE,
-                        User::EMAIL_CONFIRM_NO
-                    );
-
-                    if ($user && !$user->hasErrors()) {
-                        Yii::log(
-                            Yii::t('UserModule.user', 'Account {nick_name} was created without activation', array('{nick_name}' => $user->nick_name)),
-                            CLogger::LEVEL_INFO, UserModule::$logCategory
-                        );
-
-                        // отправить email с сообщением о успешной регистрации
-                        $emailBody = $this->controller->renderPartial('accountCreatedEmail', array('model' => $user), true);
-
-                        Yii::app()->mail->send(
-                            $module->notifyEmailFrom,
-                            $user->email,
-                            Yii::t('UserModule.user', 'Registration on {site}', array('{site}' => Yii::app()->name)),
-                            $emailBody
-                         );
-
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
-                            Yii::t('UserModule.user', 'Account was created! Please authorize!')
-                        );
-                        $this->controller->redirect(array($module->registrationSucess));
-                    }
-                    else
-                    {
-                        $form->addErrors($user->getErrors());
-
-                        Yii::log(
-                            Yii::t('UserModule.user', 'Error when creating new account without activation!'),
-                            CLogger::LEVEL_ERROR, UserModule::$logCategory
-                        );
-                    }
-                }
-            }
-        }
+                $user = Yii::app()->userManager->createUser($form);
+				
+				var_dump($user);die();
+				
+				if($user) {
+					
+				    Yii::app()->user->setFlash(
+						YFlashMessages::SUCCESS_MESSAGE,
+						Yii::t('UserModule.user', 'Account was created! Check your email!')
+					);
+					
+					$this->controller->redirect(array($module->registrationSucess));
+				}
+			}
+		}               
 
         $this->controller->render('registration', array('model' => $form, 'module' => $module));
     }
