@@ -40,9 +40,7 @@ class RegistrationAction extends CAction
             if ($form->validate()) {				
 
                 $user = Yii::app()->userManager->createUser($form);
-				
-				var_dump($user);die();
-				
+
 				if($user) {
 					
 				    Yii::app()->user->setFlash(

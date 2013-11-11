@@ -337,7 +337,6 @@ class User extends YModel
     public function beforeValidate()
     {
         $this->gender       = $this->gender ?: self::GENDER_THING;
-        $this->status       = $this->status ?: self::STATUS_NOT_ACTIVE;
         $this->use_gravatar = $this->use_gravatar ?: 0;
 
         return parent::beforeValidate();
@@ -371,30 +370,6 @@ class User extends YModel
 
                 return false;
             }
-
-            // Если есть токен регистрации,
-            // изменён статус и статус != заблокирован:
-            if (
-                $this->reg instanceof UserToken
-                && (int) $this->status !== $this->_oldStatus
-                && (int) $this->status !== self::STATUS_BLOCK
-            ) {
-                $this->reg->status = (int) $this->status === self::STATUS_ACTIVE
-                    ? UserToken::STATUS_ACTIVATE
-                    : null;
-
-                $this->reg->save();
-            } elseif (($this->reg instanceof UserToken) === false) {
-                UserToken::newActivate(
-                    $this, (int) $this->status === self::STATUS_ACTIVE
-                                ? UserToken::STATUS_ACTIVATE
-                                : null
-                );
-            }
-        }
-
-        if ($this->birth_date === '') {
-            unset($this->birth_date);
         }
 
         // Если используется граватар - удаляем текущие аватарки:
@@ -403,24 +378,6 @@ class User extends YModel
         return parent::beforeSave();
     }
 
-    /**
-     * Метод после сохранения:
-     * - если новый пользователь, то создаём токен активации.
-     * 
-     * @return void
-     */
-    public function afterSave()
-    {
-        if ($this->getIsNewRecord() === true) {
-            UserToken::newActivate(
-                $this, (int) $this->status === self::STATUS_ACTIVE
-                            ? UserToken::STATUS_ACTIVATE
-                            : null
-            );
-        }
-
-        return parent::afterSave();
-    }
 
     /**
      * Метод перед удалением:
@@ -437,29 +394,6 @@ class User extends YModel
             
             return false;
         }
-
-        $transaction = Yii::app()->getDb()->beginTransaction();
-
-        foreach ($this->tokens as $token) {
-            // Если нельзя удалить какой-то токен
-            // делаем rollBack и сообщаем о проблеме:
-            if (false === $token->delete()) {
-
-                $transaction->rollBack();
-
-                $errors = array();
-
-                foreach ((array) $token->getErrors() as $value) {
-                    $errors[] = implode("\n", $value);
-                }
-                
-                throw new Exception(
-                    implode("\n", $errors)
-                );
-            }
-        }
-
-        $transaction->commit();
 
         return parent::beforeDelete();
     }
@@ -487,7 +421,7 @@ class User extends YModel
             'notActivated'  => array(
                 'with'      => 'reg',
                 'condition' => 'reg.status = :notActivated_status',
-                'params'    => array(':notActivated_status' => UserToken::STATUS_NULL),
+                'params'    => array(':notActivated_status' => UserToken::STATUS_NEW),
             ),
             'admin'         => array(
                 'condition' => 'access_level = :access_level',

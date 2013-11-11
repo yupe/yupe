@@ -3,9 +3,9 @@
 class RegistrationPage
 {
     // include url of current page
-    const URL = '/registration';
+    const URL = '/ru/registration';
 
-    public static $buttonLabel = 'Зарегистрироваться';
+    public static $buttonLabel = 'Регистрация';
 
     public static $nickNameField = 'RegistrationForm[nick_name]';
 
@@ -17,6 +17,6 @@ class RegistrationPage
 
     public static function getActivateRoute($key)
     {
-        return "/activate/{$key}";
+        return "/ru/activate/{$key}";
     }
 }

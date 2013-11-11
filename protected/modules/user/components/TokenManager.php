@@ -12,7 +12,7 @@ class TokenManager extends CApplicationComponent
     
     public function setStorage(DbTokenStorage $storage)
     {
-        $thi->storage = $storage;
+        $this->storage = $storage;
     }
     
     public function createAccountActivationToken(User $user, $expire = 3600)
@@ -28,8 +28,17 @@ class TokenManager extends CApplicationComponent
         //@TODO
         $model->token = Yii::app()->userManager->hasher->generateRandomToken();
         //@TODO 
-        $token->ip = Yii::app()->getRequest()->getUserHostAddress();
-        $token->status = UserToken::STATUS_NULL;
-        return $token->save();
+        $model->ip = Yii::app()->getRequest()->getUserHostAddress();
+        $model->status = UserToken::STATUS_NEW;
+        return $model->save();
+    }
+
+    public function getToken($token, $type, $status = UserToken::STATUS_NEW)
+    {
+        return  UserToken::model()->find('token = :token AND type = :type AND status = :status', array(
+            ':token'  => $token,
+            ':type'   => (int)$type,
+            ':status' => (int)$status
+        ));
     }
 }

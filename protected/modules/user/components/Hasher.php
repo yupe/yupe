@@ -9,10 +9,10 @@ class Hasher extends CApplicationComponent
     
     public function checkPassword($password, $hash)
     {
-        return CPasswordHelper::verifyPassword($password, $this->hash);
+        return CPasswordHelper::verifyPassword($password, $hash);
     }
     
-    public function generateRandomToken($length=64)
+    public function generateRandomToken($length = 64)
     {
         return md5(time().date('d-m-Y'));
     }

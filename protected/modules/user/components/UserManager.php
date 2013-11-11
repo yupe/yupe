@@ -59,15 +59,62 @@ class UserManager extends CApplicationComponent
         }
         catch(Exception $e)
         {
-            //@TODO __toString
             Yii::log(
                 Yii::t('UserModule.user', 'Error {error} account creating!', array('{error}' => $e->__toString())),
                 CLogger::LEVEL_INFO, UserModule::$logCategory
             );
-            
-            CVarDumper::dump($e,10,true);die();
-            
+
             $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    public function activateUser($token)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+            $tokenModel = $this->tokenManager->getToken($token, UserToken::TYPE_ACTIVATE);
+
+            if(null === $tokenModel) {
+                return false;
+            }
+
+            $userModel = User::model()->findByPk($tokenModel->user_id);
+
+            if(null === $userModel) {
+                return false;
+            }
+
+            $tokenModel->status = UserToken::STATUS_ACTIVATE;
+
+            $userModel->status  = User::STATUS_ACTIVE;
+            $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
+
+            if($tokenModel->save() && $userModel->save()) {
+                // Записываем информацию о событии в лог-файл:
+                Yii::log(
+                    Yii::t(
+                        'UserModule.user', 'Account with activate_key = {activate_key} was activated!', array(
+                            '{activate_key}' => $token
+                        )
+                    ),
+                    CLogger::LEVEL_INFO, UserModule::$logCategory
+                );
+
+                $transaction->commit();
+
+                return true;
+            }
+
+            throw new CException(Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.'));
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+
             return false;
         }
     }

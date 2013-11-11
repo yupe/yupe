@@ -23,7 +23,7 @@ class UserIdentity extends CUserIdentity
     {
         if (($user = User::model()->active()->findByAttributes(array('email' => $this->username))) === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        } else if (!$user->validatePassword($this->password)) {
+        } else if (!Yii::app()->userManager->hasher->checkPassword($this->password, $user->hash)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } else {
             // запись данных в сессию пользователя

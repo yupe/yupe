@@ -17,6 +17,6 @@ class BlogsWidget extends YWidget
 
     public function run()
     { 
-        $this->render($this->view, array('models' => Blog::model()->public()->published()->with('membersCount','postsCount')->cache($this->cacheTime)->findAll(array('limit' => $this->limit))));
+        $this->render($this->view, array('models' => Blog::model()->public()->published()->cache($this->cacheTime)->with('membersCount','postsCount')->cache($this->cacheTime)->findAll(array('limit' => $this->limit))));
     }
 }

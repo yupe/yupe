@@ -33,7 +33,7 @@ class UserToken extends YModel
      * activate - использован
      * fail     - истёк/компроментирован
      */
-    const STATUS_NULL     = null;
+    const STATUS_NEW      = 0;
     const STATUS_ACTIVATE = 1;
     const STATUS_FAIL     = 2;
 
@@ -190,7 +190,7 @@ class UserToken extends YModel
     public static function getStatusList()
     {
         return array(
-            self::STATUS_NULL     => Yii::t('UserModule.user', 'Default'),
+            self::STATUS_NEW     => Yii::t('UserModule.user', 'Default'),
             self::STATUS_ACTIVATE => Yii::t('UserModule.user', 'Activated'),
             self::STATUS_FAIL     => Yii::t('UserModule.user', 'Compromised by'),
         );
@@ -281,7 +281,7 @@ class UserToken extends YModel
      *
      * @throws Exception
      */
-    public static function newActivate(User $user, $status = self::STATUS_NULL)
+    public static function newActivate(User $user, $status = self::STATUS_NEW)
     {
         if (!empty($status) && self::getStatus($status) === null) {
             throw new Exception(
@@ -316,7 +316,7 @@ class UserToken extends YModel
      *
      * @throws Exception
      */
-    public static function newVerifyEmail(User $user, $status = self::STATUS_NULL)
+    public static function newVerifyEmail(User $user, $status = self::STATUS_NEW)
     {
         if (!empty($status) && self::getStatus($status) === null) {
             throw new Exception(
@@ -348,7 +348,7 @@ class UserToken extends YModel
      *
      * @throws Exception
      */
-    protected static function newToken(User $user, $type = null, $status = self::STATUS_NULL)
+    protected static function newToken(User $user, $type = null, $status = self::STATUS_NEW)
     {
         $token          = new UserToken;
         $token->user_id = $user->id;
@@ -357,7 +357,7 @@ class UserToken extends YModel
         $token->status  = $status;
         $token->ip      = Yii::app()->getRequest()->getUserHostAddress();
 
-        if ($status !== self::STATUS_NULL) {
+        if ($status !== self::STATUS_NEW) {
             $token->updated = new CDbExpression('NOW()');
         }
 
@@ -425,13 +425,9 @@ class UserToken extends YModel
     {
         if ($this->getIsNewRecord()) {
             $this->created = new CDbExpression('NOW()');
-        } else {
-            $this->updated = new CDbExpression('NOW()');
         }
 
-        (int) $this->new_token === 0 || ($this->token = $this->generateToken());
-
-        Yii::app()->cache->clear('user-tokens-dateList');
+        $this->updated = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }

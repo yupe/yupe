@@ -31,7 +31,7 @@ class LoginAction extends CAction
         );
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
-            $form->setAttributes($_POST['LoginForm']);
+            $form->setAttributes(Yii::app()->request->getPost('LoginForm'));
 
             if ($form->validate()) {
                 Yii::app()->user->setFlash(
@@ -54,8 +54,6 @@ class LoginAction extends CAction
                 $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess)
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
-
-                #die('<pre>' . print_r(Yii::app()->user->getReturnUrl(), true) . ' ' . print_r($redirect, true));
 
                 /**
                  * #485 Редиректим запрошенный URL (если такой был задан)

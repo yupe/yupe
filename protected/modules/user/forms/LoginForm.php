@@ -56,6 +56,7 @@ class LoginForm extends YFormModel
     public function authenticate()
     {
         if (!$this->hasErrors()) {
+
             $this->_identity = new UserIdentity($this->email, $this->password);
 
             $duration = 0;
@@ -65,10 +66,12 @@ class LoginForm extends YFormModel
                 $duration = $sessionTimeInWeeks*24*60*60;
             }
 
-            if (!$this->_identity->authenticate())
+            if (!$this->_identity->authenticate()) {
                 $this->addError('password', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
-            else
+            }
+            else{
                 Yii::app()->user->login($this->_identity, $duration);
+            }
 
             $this->verifyCode = null;
         }
@@ -84,7 +87,8 @@ class LoginForm extends YFormModel
      **/
     public function emptyOnInvalid($attribute, $params)
     {
-        if ($this->hasErrors())
+        if ($this->hasErrors()) {
             $this->verifyCode = null;
+        }
     }
 }
