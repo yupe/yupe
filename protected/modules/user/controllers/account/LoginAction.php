@@ -24,29 +24,23 @@ class LoginAction extends CAction
          * Если было совершено больше 3х попыток входа
          * в систему, используем сценарий с капчей:
          **/
-        $form = new LoginForm(
-            Yii::app()->user->getState('badLoginCount', 0) >= 3
-                ? 'loginLimit'
-                : ''
-        );
+
+        $badLoginCount = Yii::app()->authManager->getBadLoginCount(Yii::app()->user);
+
+        //@TODO 3 вынести в настройки модуля
+        $scenario = $badLoginCount > 3 ? 'loginLimit' : '';
+
+        $form = new LoginForm($scenario);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
+
             $form->setAttributes(Yii::app()->request->getPost('LoginForm'));
 
-            if ($form->validate()) {
+            if ($form->validate() && Yii::app()->authManager->login($form, Yii::app()->user, Yii::app()->request)) {
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'You authorized successfully!')
-                );
-
-                Yii::log(
-                    Yii::t(
-                        'UserModule.user', 'User with {email} was logined with IP-address {ip}!', array(
-                            '{email}' => $form->email,
-                            '{ip}'    => Yii::app()->getRequest()->getUserHostAddress(),
-                        )
-                    ),
-                    CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
 
                 $module = Yii::app()->getModule('user');
@@ -55,26 +49,16 @@ class LoginAction extends CAction
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
 
-                /**
-                 * #485 Редиректим запрошенный URL (если такой был задан)
-                 * {@link CWebUser getReturnUrl}
-                 */
-                Yii::app()->user->setState('badLoginCount', null);
+                Yii::app()->authManager->setBadLoginCount(Yii::app()->user, 0);
 
                 $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
-            } else {
-                Yii::app()->user->setState('badLoginCount', Yii::app()->user->getState('badLoginCount', 0) + 1);
 
-                Yii::log(
-                    Yii::t(
-                        'user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
-                            '{email}'    => $form->email,
-                            '{password}' => $form->password,
-                            '{ip}'       => Yii::app()->getRequest()->getUserHostAddress(),
-                        )
-                    ),
-                    CLogger::LEVEL_ERROR, UserModule::$logCategory
-                );
+            } else {
+
+                $form->addError('hash', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
+
+                Yii::app()->authManager->setBadLoginCount(Yii::app()->user, $badLoginCount + 1);
+
             }
         }
         $this->controller->render($this->id, array('model' => $form));

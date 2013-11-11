@@ -16,7 +16,6 @@ class LoginForm extends YFormModel
     public $password;
     public $remember_me;
     public $verifyCode;
-    private $_identity;
 
     public function rules()
     {
@@ -28,8 +27,7 @@ class LoginForm extends YFormModel
             array('remember_me','boolean'),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Check code incorrect'), 'on' => 'loginLimit'),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'on' => 'loginLimit'),
-            array('verifyCode', 'emptyOnInvalid'),
-            array('password', 'authenticate'),
+            array('verifyCode', 'emptyOnInvalid')
         );
     }
 
@@ -51,30 +49,6 @@ class LoginForm extends YFormModel
             'remember_me'=> Yii::t('UserModule.user', 'Remember me'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         );
-    }
-
-    public function authenticate()
-    {
-        if (!$this->hasErrors()) {
-
-            $this->_identity = new UserIdentity($this->email, $this->password);
-
-            $duration = 0;
-
-            if ($this->remember_me) {
-                $sessionTimeInWeeks = (int)Yii::app()->getModule('user')->sessionLifeTime;
-                $duration = $sessionTimeInWeeks*24*60*60;
-            }
-
-            if (!$this->_identity->authenticate()) {
-                $this->addError('password', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
-            }
-            else{
-                Yii::app()->user->login($this->_identity, $duration);
-            }
-
-            $this->verifyCode = null;
-        }
     }
 
     /**

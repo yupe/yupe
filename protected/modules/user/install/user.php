@@ -33,6 +33,9 @@ return array(
                 )
             )
         ),
+        'authManager' => array(
+            'class' => 'application.modules.user.components.AuthManager'
+        )
     ),
 
     'rules'     => array(
