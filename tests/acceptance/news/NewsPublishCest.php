@@ -12,7 +12,7 @@ class NewsPublishCest
         $I->amGoingTo('test publishing news...');
         $I->amOnPage(\CommonPage::PANEL_URL);
         $I->see(\CommonPage::PANEL_LABEL,'h1');
-        $I->amOnPage('/news/default/index');
+        $I->amOnPage('/backend/news/news');
         $I->see('Новости');
         $I->seeLink('Вторая не опубликованная новость');
         $I->click('Вторая не опубликованная новость');

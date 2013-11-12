@@ -22,6 +22,8 @@ class LangUrlManager extends CUrlManager
     public $languageInPath    = true;
     public $preferredLanguage = false;
 
+    private $_appLang = false;
+
     /**
      * Инициализация компонента:
      * Здесь мы дополняем правила маршрутизации,
@@ -65,18 +67,47 @@ class LangUrlManager extends CUrlManager
                 $newRules, $this->rules
             );
 
-            // Получаем ответ от parent::init()
-            // для последующего возврата:
-            $parentInit = parent::init();
+            try {
+                // Получаем ответ от parent::init()
+                // для последующего возврата:
+                $parentInit = parent::init();
 
-            // Запускаем процесс обработки правил
-            // маршрутизации:
-            $this->processRules();
+                // Запускаем процесс обработки правил
+                // маршрутизации:
+                $this->processRules();   
+            } catch (Exception $e) {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    $e->getMessage()
+                );
+            }
 
-            return $parentInit;
+            return isset($parentInit) ? $parentInit : null;
         }
 
         return parent::init();
+    }
+
+    /**
+     * Получаем язык приложения:
+     * 
+     * @return string
+     */
+    public function getAppLang()
+    {
+        if ($this->_appLang === false) {
+            // Берём язык системы, иначе,
+            // если происходит ошибка
+            // берём сорсовый
+            try {
+                $this->_appLang = Yii::app()->getModule('yupe')->defaultLanguage
+                                ?: $this->_appLang = Yii::app()->sourceLanguage;;
+            } catch (Exception $e) {
+                $this->_appLang = Yii::app()->sourceLanguage;
+            }
+        }
+
+        return $this->_appLang;
     }
 
     /**
@@ -122,7 +153,7 @@ class LangUrlManager extends CUrlManager
 
         // Если указан "нативный" язык и к тому же он текущий,
         // то делаем URL без него, т.к. он соответсвует пустому пути:
-        if ((Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language)) {
+        if (($this->getAppLang() == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language)) {
             unset($params[$this->langParam]);
         }
 
