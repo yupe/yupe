@@ -46,6 +46,7 @@ return array(
         '/users/<username:\w+>/' => 'user/people/userInfo',
         '/activate/<token>'      => 'user/account/activate',
         '/confirm/<token>'       => 'user/account/confirm',
-        '/recovery/<token>'      => 'user/account/restore'
+        '/recovery/<token>'      => 'user/account/restore',
+        '/user/account/captcha/<v>' => '/user/account/captcha/'
     ),
 );
