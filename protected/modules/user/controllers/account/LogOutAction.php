@@ -14,7 +14,7 @@ class LogOutAction extends CAction
 {
     public function run()
     {
-        Yii::app()->authManager->logout(Yii::app()->user);
+        Yii::app()->authenticationManager->logout(Yii::app()->user);
 
         $this->controller->redirect(array(Yii::app()->getModule('user')->logoutSuccess));
     }

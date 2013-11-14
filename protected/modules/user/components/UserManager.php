@@ -11,20 +11,20 @@ class UserManager extends CApplicationComponent
 {
     public $hasher;    
     
-    public $tokenManager;
+    public $tokenStorage;
     
     public function init()
-    {
+    {          
+        parent::init();
+        
         $this->setHasher(Yii::createComponent($this->hasher));
         
-        $this->setTokenManager(Yii::createComponent($this->tokenManager));
-        
-        parent::init();
+        $this->setTokenStorage(Yii::createComponent($this->tokenStorage));
     }
     
-    public function setTokenManager(TokenManager $tokenManager)
+    public function setTokenStorage(DbTokenStorage $tokenStorage)
     {
-        $this->tokenManager = $tokenManager;
+        $this->tokenStorage = $tokenStorage;
     }    
     
     public function setHasher(Hasher $hasher)
@@ -44,7 +44,7 @@ class UserManager extends CApplicationComponent
             $user->setAttributes($data);
             $user->hash = $this->hasher->hashPassword($form->password);
             
-            if($user->save() && $this->tokenManager->createAccountActivationToken($user)) {
+            if($user->save() && $this->tokenStorage->createAccountActivationToken($user)) {
                 Yii::log(
                     Yii::t('UserModule.user', 'Account {nick_name} was created', array('{nick_name}' => $user->nick_name)),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
@@ -76,7 +76,7 @@ class UserManager extends CApplicationComponent
 
         try
         {
-            $tokenModel = $this->tokenManager->getToken($token, UserToken::TYPE_ACTIVATE);
+            $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_ACTIVATE);
 
             if(null === $tokenModel) {
                 return false;

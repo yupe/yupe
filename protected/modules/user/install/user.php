@@ -26,15 +26,12 @@ return array(
             'hasher' => array(
                 'class' => 'application.modules.user.components.Hasher'
             ),
-            'tokenManager' => array(
-                'class' => 'application.modules.user.components.TokenManager',
-                'storage' => array(
-                    'class' => 'application.modules.user.components.DbTokenStorage',
-                )
+            'tokenStorage' => array(
+                'class' => 'application.modules.user.components.DbTokenStorage',
             )
         ),
-        'authManager' => array(
-            'class' => 'application.modules.user.components.AuthManager'
+        'authenticationManager' => array(
+            'class' => 'application.modules.user.components.AuthenticationManager'
         )
     ),
 

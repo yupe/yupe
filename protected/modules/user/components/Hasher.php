@@ -2,6 +2,11 @@
 
 class Hasher extends CApplicationComponent
 {
+    public function init()
+    {
+        parent::init();
+    }
+
     public function hashPassword($password, array $params = array())
     {
         return CPasswordHelper::hashPassword($password);
@@ -12,8 +17,8 @@ class Hasher extends CApplicationComponent
         return CPasswordHelper::verifyPassword($password, $hash);
     }
     
-    public function generateRandomToken($length = 64)
+    public function generateRandomToken()
     {
-        return md5(time().date('d-m-Y'));
+        return str_shuffle(sha1(uniqid().spl_object_hash($this).microtime(true)));
     }
 }

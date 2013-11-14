@@ -1,6 +1,8 @@
 <?php
-class AuthManager extends CApplicationComponent
+class AuthenticationManager extends CApplicationComponent
 {
+    protected $badLoginCount  = 'badLoginCount';
+
     public function logout(IWebUser $user)
     {
         Yii::log(
@@ -56,12 +58,11 @@ class AuthManager extends CApplicationComponent
 
     public function getBadLoginCount(IWebUser $user)
     {
-        return (int)$user->getState('badLoginCount', 0);
+        return (int)$user->getState($this->badLoginCount, 0);
     }
 
     public function setBadLoginCount(IWebUser $user, $count)
     {
-        $user->setState('badLoginCount', (int)$count);
+        $user->setState($this->badLoginCount, (int)$count);
     }
-
 } 

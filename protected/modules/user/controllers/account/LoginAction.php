@@ -25,7 +25,7 @@ class LoginAction extends CAction
          * в систему, используем сценарий с капчей:
          **/
 
-        $badLoginCount = Yii::app()->authManager->getBadLoginCount(Yii::app()->user);
+        $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->user);
 
         //@TODO 3 вынести в настройки модуля
         $scenario = $badLoginCount > 3 ? 'loginLimit' : '';
@@ -36,7 +36,7 @@ class LoginAction extends CAction
 
             $form->setAttributes(Yii::app()->request->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authManager->login($form, Yii::app()->user, Yii::app()->request)) {
+            if ($form->validate() && Yii::app()->authenticationManager->login($form, Yii::app()->user, Yii::app()->request)) {
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
@@ -49,7 +49,7 @@ class LoginAction extends CAction
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
 
-                Yii::app()->authManager->setBadLoginCount(Yii::app()->user, 0);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);
 
                 $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
 
@@ -57,7 +57,7 @@ class LoginAction extends CAction
 
                 $form->addError('hash', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
 
-                Yii::app()->authManager->setBadLoginCount(Yii::app()->user, $badLoginCount + 1);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, $badLoginCount + 1);
 
             }
         }
