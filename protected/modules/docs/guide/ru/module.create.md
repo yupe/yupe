@@ -147,14 +147,13 @@ class ClientModule extends CWebModule
 
 
 * Все модули Юпи! должны наследовать класс WebModule
-Для этого импортируем пространство имен "use yupe\components\WebModule;" и указываем класс "WebModule" в качестве родительского для нашего нового модуля, должно получиться вот так:
+Для этого указываем класс "YWebModule" в качестве родительского для нашего нового модуля, должно получиться вот так:
 
 ~~~
 [php]
 <?php
-use yupe\components\WebModule;
 
-class ClientModule extends WebModule
+class ClientModule extends YWebModule
 {
 	public function init()
 	{
