@@ -16,19 +16,29 @@
  *
  * The followings are the available columns in table 'Category':
  * @property string $id
- * @property integer $parent_id
  * @property string $name
  * @property string $description
  * @property string $alias
  * @property integer $status
  * @property string $lang
+ *
+ * @method Category roots()
+ * @method Category descendants()
+ * @method Category children()
+ * @method Category ancestors()
+ * @method Category parent()
+ * @method bool saveNode()
+ * @method bool deleteNode()
+ * @method bool appendTo()
+ * @method bool prependTo()
  */
 class Category extends YModel
 {
-
     const STATUS_DRAFT      = 0;
     const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
+
+	public $parent_id;
 
     /**
      * @return string the associated database table name
@@ -58,16 +68,16 @@ class Category extends YModel
             array('name, description, short_description, alias', 'filter', 'filter' => 'trim'),
             array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias, lang', 'required'),
-            array('parent_id, status', 'numerical', 'integerOnly' => true),
-            array('parent_id, status', 'length', 'max' => 11),
-            array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('status', 'numerical', 'integerOnly' => true),
+            array('status', 'length', 'max' => 11),
             array('name, image', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2 ),
             array('alias', 'YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')),
             array('alias', 'YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
+			array('parent_id', 'safe'),
+            array('id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -75,6 +85,10 @@ class Category extends YModel
     {
         $module = Yii::app()->getModule('category');
         return array(
+			'NestedSetBehavior'=>array(
+				'class' => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
+				'hasManyRoots' => true,
+			),
             'imageUpload' => array(
                 'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
@@ -153,14 +167,15 @@ class Category extends YModel
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('parent_id', $this->parent_id,true);
         $criteria->compare('name', $this->name);
         $criteria->compare('description', $this->description);
         $criteria->compare('alias', $this->alias);
         $criteria->compare('lang', $this->lang);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+		$class = ($this->parent_id) ? Category::model()->findByPk($this->parent_id)->children() : get_class($this);
+
+        return new CActiveDataProvider($class, array('criteria' => $criteria));
     }
 
     public function getStatusList()
@@ -180,7 +195,7 @@ class Category extends YModel
 
     public function getAllCategoryList($selfId = false)
     {
-        $conditionArray = ($selfId) 
+        $conditionArray = ($selfId)
             ? array('condition' => 'id != :id', 'params' => array(':id' => $selfId))
             : array();
 
@@ -189,19 +204,20 @@ class Category extends YModel
         return CHtml::listData($category, 'id', 'name');
     }
 
-	public function getFormattedList($parent_id = null, $level = 0)
+	public function getFormattedList($parent = null)
 	{
-		$categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
+		if ($parent === null)
+			$children = Category::model()->roots()->findAll();
+		else
+			$children = $parent->children()->findAll();
 
 		$list = array();
 
-		foreach ($categories as $key => $category)
+		foreach($children as $child)
 		{
-			$category->name = str_repeat('&emsp;', $level) . $category->name;
+			$list[$child->id] = str_repeat('&emsp;', $child->level - 1) . $child->name;
 
-			$list[$category->id] = $category->name;
-
-			$list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1));
+			$list = CMap::mergeArray($list, $this->getFormattedList($child));
 		}
 
 		return $list;
@@ -209,12 +225,9 @@ class Category extends YModel
 
     public function getParentName()
     {
-        if ($this->parent_id)
+        if ($model = $this->parent()->find())
         {
-            $model = Category::model()->findByPk($this->parent_id);
-
-            if ($model)
-                return $model->name;
+			return $model->name;
         }
         return '---';
     }
@@ -236,4 +249,14 @@ class Category extends YModel
             ),
         );
     }
+
+	public function afterFind()
+	{
+		if ($parent = $this->parent()->find())
+		{
+			$this->parent_id = $parent->id;
+		}
+
+		return parent::afterFind();
+	}
 }
