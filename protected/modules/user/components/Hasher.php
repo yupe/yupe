@@ -21,4 +21,10 @@ class Hasher extends CApplicationComponent
     {
         return str_shuffle(sha1(uniqid().spl_object_hash($this).microtime(true)));
     }
+
+    public function generateRandomPassword($length = 8)
+    {
+        return substr($this->generateRandomToken(),0,$length);
+    }
+
 }

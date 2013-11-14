@@ -48,7 +48,7 @@ class RegistrationAction extends CAction
 						Yii::t('UserModule.user', 'Account was created! Check your email!')
 					);
 					
-					$this->controller->redirect(array($module->registrationSucess));
+					$this->controller->redirect(array($module->registrationSuccess  ));
 				}
 			}
 		}               

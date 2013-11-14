@@ -88,12 +88,10 @@ class UserManager extends CApplicationComponent
                 return false;
             }
 
-            $tokenModel->status = UserToken::STATUS_ACTIVATE;
-
             $userModel->status  = User::STATUS_ACTIVE;
             $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
 
-            if($tokenModel->save() && $userModel->save()) {
+            if($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
                 // Записываем информацию о событии в лог-файл:
                 Yii::log(
                     Yii::t(
@@ -110,6 +108,83 @@ class UserManager extends CApplicationComponent
             }
 
             throw new CException(Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.'));
+        }
+        catch(Exception $e)
+        {
+
+            $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    public function passwordRecovery($email)
+    {
+        if(!$email) {
+            return false;
+        }
+
+        $user = User::model()->active()->find('email = :email', array(
+            ':email' => $email
+        ));
+
+        if(null === $user) {
+            return false;
+        }
+
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+            if($this->tokenStorage->createPasswordRecoveryToken($user)) {
+
+                $transaction->commit();
+
+                return true;
+            }
+
+            throw new CException(Yii::t('UserModule.user', 'Password recovery error.'));
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    public function activatePassword($token, $password = null)
+    {
+        $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
+
+        if(null === $tokenModel) {
+            return false;
+        }
+
+        $userModel = User::model()->findByPk($tokenModel->user_id);
+
+        if(null === $userModel) {
+            return false;
+        }
+
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+            if(null === $password) {
+                $password = $this->hasher->generateRandomPassword();
+            }
+
+            $userModel->hash = $this->hasher->hashPassword($password);
+
+            if($userModel->save() && $this->tokenStorage->activate($tokenModel)) {
+
+                $transaction->commit();
+
+                return true;
+            }
+
+            throw new CException(Yii::t('UserModule.user','Error generating new password!'));
         }
         catch(Exception $e)
         {

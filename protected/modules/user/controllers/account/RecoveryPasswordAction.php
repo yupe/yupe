@@ -15,198 +15,77 @@ use yupe\components\WebModule;
 
 class RecoveryPasswordAction extends CAction
 {
-	/**
-	 * Попытка выполнить обновление пароля и сообщить
-	 * пользователю результат:
-	 * 
-	 * @param User   $user       - пользователь
-	 * @param string $password   - новый пароль
-	 * @param mixed  $successUrl - куда отправляем пользователя
-	 * 
-	 * @return void
-	 */
-	protected function tryUpdate($user, $password, $successUrl = null)
-	{
-		// Получаем модуль (для сокращения записи):
-		$module = Yii::app()->getModule('user');
-
-		// начинаем тразакцию:
-		$transaction = Yii::app()->getDb()->beginTransaction();
-		
-		try {
-			
-			// Сохраняем изменения и инвалидируем токен:
-			if ($user->update((array) 'hash') && $user->recovery->compromise()) {
-				
-				// Сообщаем пользователю:
-				Yii::app()->user->setFlash(
-					YFlashMessages::SUCCESS_MESSAGE,
-					(int) $module->autoRecoveryPassword === WebModule::CHOICE_YES
-						? Yii::t(
-                            'UserModule.user',
-                            'Letter with password recovery instructions was sent on email which you choose during register'
-                        )
-						: Yii::t('UserModule.user', 'Password was changed')
-				);
-
-				// Пишем в лог-файл:
-				Yii::log(
-					Yii::t(
-						'UserModule.user',
-						'Password for {user} user was changed successfully',
-						array('{user}' => $user->id)
-					),
-					CLogger::LEVEL_INFO, UserModule::$logCategory
-				);
-
-				// Формируем тело письма:
-				$emailBody = (int) $module->autoRecoveryPassword === WebModule::CHOICE_YES
-					// При автоматическом:
-					? $this->controller->renderPartial(
-						'passwordAutoRecoverySuccessEmail', array(
-							'model'    => $user,
-							'password' => $password,
-						), true
-					)
-					// При простом восстановлении:
-					: $this->controller->renderPartial(
-						'passwordRecoverySuccessEmail', array(
-							'model' => $user
-						), true
-					);
-				
-				// Отправляем письмо пользователю:
-				Yii::app()->mail->send(
-					$module->notifyEmailFrom,
-					$user->email,
-					Yii::t('UserModule.user', 'Password recover successfully'),
-					$emailBody
-				);
-
-				// Коммитим правки:
-				$transaction->commit();
-				
-				// Выполняем переадресацию:
-				$this->controller->redirect((array) $successUrl);
-			} else {
-				// Если не удалось сохранить модель пользователя
-				// или инвалидировать токен - создаём ексепшен:
-				throw new Exception(
-					// Ошибки забросим в лог:
-					"\n"
-					. print_r($user->getErrors(), true)
-					. "\n"
-					. print_r($user->recovery->getErrors(), true)
-				);
-			}
-
-		// Ловим все исключения:
-		} catch (Exception $e) {
-
-			// Откатываем правки:
-			$transaction->rollback();
-
-			// Сообщаем пользователю:
-			Yii::app()->user->setFlash(
-				YFlashMessages::ERROR_MESSAGE,
-				Yii::t('UserModule.user', 'Error when changing password!')
-			);
-
-			// Пишем в лог:
-			Yii::log(
-				Yii::t('UserModule.user', 'Error when changing password!')
-				. "Error: " . $e->getMessage(),
-				CLogger::LEVEL_ERROR, UserModule::$logCategory
-			);
-
-			// Перенаправляем по назначению:
-			$this->controller->redirect(array('/user/account/recovery'));
-		}
-	}
-
     /**
-     * Стартуем экшен сброса пароля:
-     * 
+     * Стартуем экшен сброса пароля
      * @param string $token - токен-сброса пароля
-     * 
-     * @return [type]      [description]
+     * @throws CHttpException
      */
     public function run($token)
     {
+        if (Yii::app()->user->isAuthenticated()) {
+            $this->controller->redirect(Yii::app()->user->returnUrl);
+        }
+
         $module = Yii::app()->getModule('user');
 
         // Если запрещено восстановление - печалька ;)
         if ($module->recoveryDisabled) {
-        
-        	throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
-        
-        // Если пользователь авторизирован - незачем идти дальше:
-        } elseif (Yii::app()->user->isAuthenticated()) {
+            throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
+        }
 
-        	$this->controller->redirect(Yii::app()->user->returnUrl);
+        // Если включено автоматическое восстановление пароля:
+        if ((int)$module->autoRecoveryPassword === WebModule::CHOICE_YES) {
 
-        // Выполняем поиск, если токен не найден - печалька :'(
-		} elseif (($user = User::model()->findRecovery($token)) === null) {
-			
-			// Записываем событие в лог-файл:
-			Yii::log(
-				Yii::t(
-					'UserModule.user',
-					'Recovery password key {code} was not found!',
-					array(
-						'{code}' => $token
-					)
-				),
-				CLogger::LEVEL_ERROR, UserModule::$logCategory
-			);
-			
-			// Сообщаем о проблеме пользователю:
-			Yii::app()->user->setFlash(
-				YFlashMessages::ERROR_MESSAGE,
-				Yii::t('UserModule.user', 'Recovery password key was not found! Please try one more!')
-			);
+            if (Yii::app()->userManager->activatePassword($token)) {
 
-			// Перенаправляем на необходимую страницу:
-			$this->controller->redirect(array('/user/account/recovery'));
-		}
+                Yii::app()->user->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('UserModule.user', 'New password was sent to your email')
+                );
 
-		// Если включено автоматическое восстановление пароля:
-		if ((int) $module->autoRecoveryPassword === WebModule::CHOICE_YES) {
-			
-			// Генерируем новый пароль:
-			$user->hash = User::hashPassword(
-				$newPassword = User::generateRandomPassword(
-					$module->minPasswordLength
-				)
-			);
+                $this->controller->redirect(array('/user/account/login'));
 
-			// Пытаемся обновить данные:
-			$this->tryUpdate($user, $newPassword, '/user/account/login');
-		}
+            } else {
 
-		// Форма смены пароля:
-		$changePasswordForm = new ChangePasswordForm;
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('UserModule.user', 'Error when changing password!')
+                );
 
-		// Получаем данные POST если таковые имеются:
-		if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
-			
-			// Заполняем поля формы POST-данными:
-			$changePasswordForm->setAttributes($data);
+                $this->controller->redirect(array('/user/account/recovery'));
+            }
+        }
 
-			// Проводим валидацию формы:
-			if ($changePasswordForm->validate()) {
+        // Форма смены пароля:
+        $changePasswordForm = new ChangePasswordForm;
 
-				// смена пароля пользователя
-				$user->hash = User::hashPassword(
-					$changePasswordForm->password
-				);
-				
-				// Пытаемся обновить данные:
-				$this->tryUpdate($user, $changePasswordForm->password, '/user/account/login');
-			}
-		}
+        // Получаем данные POST если таковые имеются:
+        if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
 
-		// Отрисовываем форму:
-		$this->controller->render('changePassword', array('model' => $changePasswordForm));
+            // Заполняем поля формы POST-данными:
+            $changePasswordForm->setAttributes($data);
+
+            // Проводим валидацию формы:
+            if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword($token, $changePasswordForm->password)) {
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('UserModule.user', 'Password recover successfully')
+                );
+
+                $this->controller->redirect(array('/user/account/login'));
+            } else {
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('UserModule.user', 'Error when changing password!')
+                );
+
+                $this->controller->redirect(array('/user/account/recovery'));
+            }
+        }
+
+        // Отрисовываем форму:
+        $this->controller->render('changePassword', array('model' => $changePasswordForm));
     }
 }

@@ -19,16 +19,16 @@ class UserModule extends WebModule
     public $accountActivationSuccess       = '/user/account/login';
     public $accountActivationFailure       = '/user/account/registration';
     public $loginSuccess;
-    public $registrationSucess             = '/user/account/login';
+    public $registrationSuccess            = '/user/account/login';
     public $loginAdminSuccess              = '';
     public $logoutSuccess;
     public $sessionLifeTime                = 7;
 
     public $notifyEmailFrom;
-    public $autoRecoveryPassword           = false;
+    public $autoRecoveryPassword           = true;
     public $recoveryDisabled               = false;
     public $registrationDisabled           = false;
-    public $minPasswordLength              = 5;
+    public $minPasswordLength              = 8;
     public $emailAccountVerification       = true;
     public $showCaptcha                    = false;
     public $minCaptchaLength               = 3;
@@ -113,13 +113,7 @@ class UserModule extends WebModule
             'loginSuccess'                   => Yii::t('UserModule.user', 'Page after authorization'),
             'logoutSuccess'                  => Yii::t('UserModule.user', 'Page after login'),
             'notifyEmailFrom'                => Yii::t('UserModule.user', 'From which email send a message'),
-            'autoRecoveryPassword'           => Yii::t('UserModule.user', 'Automatic password recovery')
-                                              . ' <span class="label label-important">'
-                                              . Yii::t('UserModule.user', 'not recommended')
-                                              . '</span>'
-                                              . '<br /> <small>('
-                                              . Yii::t('UserModule.user', 'generate new password and send to user, without creation recovery token')
-                                              . ')<small>',
+            'autoRecoveryPassword'           => Yii::t('UserModule.user', 'Automatic password recovery'),
             'recoveryDisabled'               => Yii::t('UserModule.user', 'Disable password recovery'),
             'registrationDisabled'           => Yii::t('UserModule.user', 'Disable registration'),
             'minPasswordLength'              => Yii::t('UserModule.user', 'Minimum password length'),
@@ -132,7 +126,7 @@ class UserModule extends WebModule
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Maximum avatar size'),
             'defaultAvatar'                  => Yii::t('UserModule.user', 'Empty avatar'),
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Page after admin authorization'),
-            'registrationSucess'             => Yii::t('UserModule.user', 'Page after success register'),            
+            'registrationSuccess  '             => Yii::t('UserModule.user', 'Page after success register'),
             'sessionLifeTime'                => Yii::t('UserModule.user', 'Session lifetime (in days) when "Remember me" options enabled'),
         );
     }
@@ -163,7 +157,7 @@ class UserModule extends WebModule
             'accountActivationSuccess',
             'accountActivationFailure',
             'loginAdminSuccess',
-            'registrationSucess',            
+            'registrationSuccess  ',
             'sessionLifeTime'
         );
     }
@@ -216,7 +210,7 @@ class UserModule extends WebModule
                     'accountActivationSuccess',
                     'accountActivationFailure',
                     'loginAdminSuccess',
-                    'registrationSucess'
+                    'registrationSuccess'
                 )
             ),
         );

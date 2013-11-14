@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle = Yii::t('UserModule.user', 'Sign in');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
+    $this->pageTitle = Yii::t('UserModule.user', 'Sign in');
+    $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 ?>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
