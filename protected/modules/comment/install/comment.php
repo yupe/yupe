@@ -19,5 +19,7 @@ return array(
         'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
     ),
     'component' => array(),
-    'rules'     => array(),
+    'rules'     => array(
+        '/comment/comment/captcha/<v>' => '/comment/comment/captcha/'
+    ),
 );
