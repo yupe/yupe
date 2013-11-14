@@ -14,7 +14,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 {
     /**
      * Отображает категорию по указанному идентификатору
-     * 
+     *
      * @param integer $id Идинтификатор категорию для отображения
      *
      * @return void
@@ -38,11 +38,18 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
-            
+
             $model->setAttributes($data);
 
-            if ($model->save()) {
-                
+			if ($model->parent_id)
+			{
+				$result = $model->appendTo($this->loadModel($model->parent_id));
+			} else {
+				$result = $model->saveNode();
+			}
+
+            if ($result) {
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CategoryModule.category', 'Record was created!')
@@ -64,7 +71,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
         if(!empty($id) && !empty($lang)) {
             $category = Category::model()->findByPk($id);
-            
+
             if(null === $category) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
@@ -72,13 +79,13 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 );
                 $this->redirect(array('create'));
             }
-            
+
             if(!array_key_exists($lang, $languages)) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('CategoryModule.category', 'Language was not found!')
                 );
-                
+
                 $this->redirect(array('create'));
             }
 
@@ -105,7 +112,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * 
+     *
      * @param integer $id the ID of the model to be updated
      *
      * @return void
@@ -121,8 +128,15 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getPost('Category'));
 
-            if ($model->save()) {
-                
+			if ($model->parent_id)
+			{
+				$result = $model->appendTo($this->loadModel($model->parent_id));
+			} else {
+				$result = $model->saveNode();
+			}
+
+			if ($result) {
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CategoryModule.category', 'Category was changed!')
@@ -159,7 +173,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     /**
      * Удаяет модель категории из базы.
      * Если удаление прошло успешно - возвращется в index
-     * 
+     *
      * @param integer $id идентификатор категории, который нужно удалить
      *
      * @return void
@@ -169,12 +183,12 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
                 // поддерживаем удаление только из POST-запроса
-                $this->loadModel($id)->delete();
+                $this->loadModel($id)->deleteNode();
                 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 
                 $transaction->commit();
@@ -207,18 +221,18 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     {
         $model = new Category('search');
         $model->unsetAttributes();  // clear any default values
-        
+
         if (isset($_GET['Category'])) {
             $model->attributes = $_GET['Category'];
         }
-        
+
         $this->render('index', array('model' => $model));
     }
 
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * 
+     *
      * @param integer идентификатор нужной модели
      *
      * @return Category $model
@@ -235,7 +249,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
     /**
      * Производит AJAX-валидацию
-     * 
+     *
      * @param CModel модель, которую необходимо валидировать
      *
      * @return void
