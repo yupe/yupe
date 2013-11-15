@@ -21,7 +21,7 @@ return array(
     'component' => array(
         // компонент для отправки почты
         'mail' => array(
-            'class' => 'application.modules.mail.components.YMail',
+            'class' => 'yupe\components\Mail',
         ),
         'mailMessage' => array(
             'class' => 'application.modules.mail.components.YMailMessage'

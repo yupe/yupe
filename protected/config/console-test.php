@@ -26,7 +26,7 @@ return array(
     'components' => array(
         // компонент для отправки почты
         'mail' => array(
-            'class' => 'application.modules.yupe.components.YMail',
+            'class' => 'yupe\components\Mail',
         ),
         'migrator'=>array(
             'class'=>'yupe\components\Migrator',

@@ -11,7 +11,7 @@
  * @abstract
  *
  */
-class YQueueMail extends YMail
+class YQueueMail extends yupe\components\Mail
 {
     public $queueComponent    = 'queue';
     public $queueMailWorkerId = 1;

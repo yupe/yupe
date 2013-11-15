@@ -137,26 +137,6 @@ class MailModule extends yupe\components\WebModule
     }
 
     /**
-     * Указываем, что модуль не отключаемый
-     *
-     * @return boolean
-     **/
-    public function getIsNoDisable()
-    {
-        return true;
-    }
-
-    /**
-     * Указываем, что модуль будет установлен поумолчанию:
-     *
-     * @return boolean
-     **/
-    public function getIsInstallDefault()
-    {
-        return true;
-    }
-
-    /**
      * Получаем массив с именами модулей, от которых зависит работа данного модуля
      * 
      * @return array Массив с именами модулей, от которых зависит работа данного модуля
