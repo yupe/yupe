@@ -52,6 +52,7 @@ class m131103_044317_category_nestedsets extends \yupe\components\DbMigration
 			->queryAll();
 
 		Yii::app()->db->createCommand()->truncateTable('{{category_category}}');
+        //Yii::app()->db->createCommand('DELETE FROM {{category_category}}')->execute();
 
 		/* Сначала сохраняем коренные элементы, потом циклом бегаем по дочерним и смотрим,
 		 у кого родительский элемент уже в базе, сохраняем и удаляем из массива,

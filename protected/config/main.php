@@ -122,6 +122,8 @@ return array(
             'rules'            => array(
                 // общие правила
                 '/'                                                               => 'install/default/index',
+                // для корректной работы устновщика
+                '/install/default/<action:\w+>'                                   => '/install/default/<action>',
                 '/backend'                                                        => 'yupe/backend/index',
                 '/backend/<action:\w+>'                                           => 'yupe/backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>'                          => '<module>/<controller>Backend/index',

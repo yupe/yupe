@@ -19,5 +19,9 @@
             )
         );?>
         </div>
+        <div class="alert alert-notice">
+            <strong><?php echo Yii::app()->name;?></strong> разрабатывается <a href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной поддержке <?php echo CHtml::link('amyLabs','http://amylabs.ru', array('target' => '_blank'));?>!
+            <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact')?></strong> при возникновении проблем!
+        </div>
     </div>
 <?php $this->endContent(); ?>

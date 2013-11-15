@@ -1031,22 +1031,19 @@ class DefaultController extends yupe\components\controllers\BackController
                         'gender'            => 0,
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,
                         'status'            => User::STATUS_ACTIVE,
-                        'hash'              => User::hashPassword(
+                        'hash'              => Yii::app()->userManager->hasher->hashPassword(
                             $model->userPassword
                         ),
                     )
                 );
 
                 if ($user->save()) {
-                    UserToken::newVerifyEmail(
-                        $user, UserToken::STATUS_ACTIVATE
-                    );
-                    
+
                     $login           = new LoginForm;
                     $login->email    = $model->userEmail;
                     $login->password = $model->userPassword;
 
-                    $login->authenticate();
+                    Yii::app()->authenticationManager->login($login, Yii::app()->user, Yii::app()->request);
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
