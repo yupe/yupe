@@ -1038,6 +1038,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         'gender'            => 0,
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,
                         'status'            => User::STATUS_ACTIVE,
+                        'email_confirm'     => User::EMAIL_CONFIRM_YES,
                         'hash'              => Yii::app()->userManager->hasher->hashPassword(
                             $model->userPassword
                         ),

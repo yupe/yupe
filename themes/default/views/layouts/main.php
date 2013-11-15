@@ -37,6 +37,7 @@
 
         <!-- sidebar -->
         <aside class="span3 sidebar">
+
             <?php if (Yii::app()->user->isAuthenticated()): ?>
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>

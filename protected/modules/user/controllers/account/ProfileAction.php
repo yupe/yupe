@@ -34,9 +34,11 @@ class ProfileAction extends CAction
 
         $form = new ProfileForm;
 
-        $form->setAttributes(
-            $user->getAttributes()
-        );
+        $formAttributes = $form->getAttributes();
+
+        unset($formAttributes['avatar'], $formAttributes['verifyCode']);
+
+        $form->setAttributes($user->getAttributes(array_keys($formAttributes)));
         
         // Очищаем необходимые поля:
         $form->password = $form->cPassword = null;
@@ -59,9 +61,7 @@ class ProfileAction extends CAction
                 if ($form->validate()) {
                     
                     // Новый пароль? - ок, запоминаем:
-                    $newPass = isset($data['password'])
-                                ? $data['password']
-                                : null;
+                    $newPass = isset($data['password'])? $data['password'] : null;
                     
                     // Удаляем ненужные данные:
                     unset($data['password'], $data['avatar']);
@@ -74,7 +74,7 @@ class ProfileAction extends CAction
 
                     // Новый пароль? - Генерируем хеш:
                     if ($newPass) {
-                        $user->password = Yii::app()->userManager->hasher->hashPassword($newPass);
+                        $user->hash = Yii::app()->userManager->hasher->hashPassword($newPass);
                     }
 
                     // Если есть ошибки в профиле - перекинем их в форму
@@ -133,13 +133,15 @@ class ProfileAction extends CAction
                         // Если включена верификация при смене почты:
                         if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
 
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::SUCCESS_MESSAGE,
-                                Yii::t(
-                                    'UserModule.user',
-                                    'You need to confirm your e-mail. Please check the mail!'
-                                )
-                            );
+                            if(Yii::app()->userManager->changeUserEmail($user, $form->email)) {
+                                Yii::app()->user->setFlash(
+                                    YFlashMessages::SUCCESS_MESSAGE,
+                                    Yii::t(
+                                        'UserModule.user',
+                                        'You need to confirm your e-mail. Please check the mail!'
+                                    )
+                                );
+                            }
                         }
 
                         $this->controller->redirect(array('/user/account/profile'));

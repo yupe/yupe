@@ -67,7 +67,7 @@
         ),
         array(
             'name'  => 'email_confirm',
-            'value' => $model->getIsActivateStatus(),
+            'value' => $model->getEmailConfirmStatus(),
         ),
         'last_visit',
         'registration_date',

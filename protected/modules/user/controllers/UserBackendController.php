@@ -27,7 +27,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id, 'reg')));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -47,9 +47,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             
             $form->setAttributes($data);
 
-            if ($form->validate() && $model->changePassword($form->password)) {
-                
-                $model->changePassword($form->password);
+            if ($form->validate() && Yii::app()->userManager->changeUserPassword($model, $form->password)) {
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
@@ -79,8 +77,8 @@ class UserBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes(
                 array(
-                    'hash' => User::hashPassword(
-                        User::generateRandomPassword()
+                    'hash' => Yii::app()->userManager->hasher->hashPassword(
+                        Yii::app()->userManager->hasher->generateRandomPassword()
                     ),
                 )
             );
@@ -200,7 +198,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         Yii::app()->getRequest()->getIsAjaxRequest() === true || $this->badRequest();
 
-        if (($user = $this->loadModel($id, array('reg'))) === null) {
+        if (($user = $this->loadModel($id)) === null) {
             if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
@@ -250,17 +248,16 @@ class UserBackendController extends yupe\components\controllers\BackController
      * If the data model is not found, an HTTP exception will be raised.
      * 
      * @param int   $id   - record ID
-     * @param mixed $with - relations
      * 
      * @return User
      *
      * @throws CHttpException
      */
-    public function loadModel($id = null, $with = null)
+    public function loadModel($id = null)
     {
         if ($this->_model === null || $this->_model instanceof User && $this->_model->id !== $id) {
             
-            if (($this->_model = User::model()->with((array) $with)->findbyPk($id)) === null) {
+            if (($this->_model = User::model()->findbyPk($id)) === null) {
                 throw new CHttpException(
                     404,
                     Yii::t('UserModule.user', 'requested page was not found!')
@@ -274,6 +271,8 @@ class UserBackendController extends yupe\components\controllers\BackController
      * Отправить письмо для подтверждения email:
      * 
      * @param integer $id - ID пользователя
+     *
+     * @throws CHttpException
      * 
      * @return void
      */
@@ -281,12 +280,12 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         Yii::app()->getRequest()->getIsAjaxRequest() === true || $this->badRequest();
 
-        if ($id === null || ($user = $this->loadModel($id, array('reg', 'verify'))) === null) {
+        if ($id === null || ($user = $this->loadModel($id)) === null) {
             throw new CHttpException(
                 404,
                 Yii::t('UserModule.user', 'requested page was not found!')
             );
-        } elseif ($user->getIsVerifyEmail() === true) {
+        } elseif ($user->email_confirm) {
             return $this->badRequest();
         }
 

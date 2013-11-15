@@ -85,7 +85,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'email_confirm',
             'type'  => 'html',
-            'value' => '$data->email_confirm  ? $data->getIsVerifyEmailStatus() : CHtml::link($data->getIsVerifyEmailStatus(), array("verifySend", "id" => $data->id),
+            'value' => '$data->email_confirm  ? $data->getEmailConfirmStatus() : CHtml::link($data->getEmailConfirmStatus(), array("verifySend", "id" => $data->id),
                     array(
                         "class"  => "verify-email",
                         "title"  => Yii::t("UserModule.user", "Send a letter to verify email"),
@@ -97,6 +97,12 @@ $this->renderPartial('_search', array('model' => $model));
             'value'  => '$data->getAccessLevel()',
             'filter' => $model->getAccessLevelsList()
         ),
+        array(
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
+            'filter' => $model->getStatusList()
+        ),
         array(            
             'name'   => 'registration_date',            
             'filter' => false
@@ -104,12 +110,6 @@ $this->renderPartial('_search', array('model' => $model));
         array(            
             'name'   => 'last_visit',            
             'filter' => false
-        ),        
-        array(
-            'name'   => 'status',
-            'type'   => 'raw',
-            'value'  => '$data->changeStatus($this->grid)',
-            'filter' => $model->getStatusList()
         ),
         array(
             'header'   => Yii::t('UserModule.user', 'Management'),
@@ -125,7 +125,7 @@ $this->renderPartial('_search', array('model' => $model));
                     'label'   => Yii::t('UserModule.user', 'Send activation confirm'),
                     'url'     => 'array("/user/userBackend/sendactivation", "id" => $data->id)',
                     'icon'    => 'repeat',
-                    'visible' => '$data->getIsActivated() === false',
+                    'visible' => '$data->status != User::STATUS_ACTIVE',
                     'options'  => array(
                         'class' => 'user sendactivation'
                     )

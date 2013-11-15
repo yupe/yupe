@@ -14,8 +14,19 @@ class EmailConfirmAction extends CAction
 {
     public function run($token)
     {
-        // пытаемся сделать выборку из таблицы пользователей
-        if (($user = User::model()->findVerifyEmail($token)) === null || $user->getIsVerifyEmail() === true) {
+        // пытаемся подтвердить почту
+        if (Yii::app()->userManager->verifyEmail($token)) {
+
+            Yii::app()->user->setFlash(
+                YFlashMessages::SUCCESS_MESSAGE,
+                Yii::t(
+                    'UserModule.user',
+                    'You confirmed new e-mail successfully!'
+                )
+            );
+
+        }else{
+
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t(
@@ -23,57 +34,12 @@ class EmailConfirmAction extends CAction
                     'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail'
                 )
             );
-
-            $this->controller->redirect(
-                (array) Yii::app()->user->isGuest
-                    ? '/user/account/login'
-                    : '/user/account/profile'
-            );
         }
-
-        // процедура активации
-        if (yupe\components\Token::confirmEmail($user)) {
-            Yii::log(
-                Yii::t(
-                    'UserModule.user', 'Email with activate_key = {activate_key}, id = {id} was activated!', array(
-                        '{activate_key}' => $token,
-                        '{id}'           => $user->id,
-                    )
-                ),
-                CLogger::LEVEL_INFO, UserModule::$logCategory
-            );
-
-            Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('UserModule.user', 'You confirmed new e-mail successfully!')
-            );
-
-            $this->controller->redirect(
-                (array) Yii::app()->user->isGuest
-                    ? '/user/account/login'
-                    : '/user/account/profile'
-            );
-        }
-        
-        Yii::app()->user->setFlash(
-            YFlashMessages::ERROR_MESSAGE,
-            Yii::t('UserModule.user', 'E-mail confirmation error. Please try again later')
-        );
-
-        Yii::log(
-            Yii::t(
-                'UserModule.user', 'There is an error when confirm e-mail with activate_key => {activate_key}', array(
-                    '{activate_key}' => $token
-                )
-            ),
-
-            CLogger::LEVEL_ERROR, UserModule::$logCategory
-        );
 
         $this->controller->redirect(
-            (array) Yii::app()->user->isGuest
-                ? '/user/account/login'
-                : '/user/account/profile'
+                Yii::app()->user->isGuest
+                ? array('/user/account/login')
+                : array('/user/account/profile')
         );
     }
 }

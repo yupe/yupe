@@ -91,7 +91,7 @@ class InstallForm extends YFormModel
              * Для настройки администратора:
              **/
             array('userName, userPassword, cPassword, userEmail', 'required', 'on' => 'createUser'),
-            array('userPassword, cPassword, userName', 'length', 'min' => 3),
+            array('userPassword, cPassword, userName', 'length', 'min' => 8),
             array('cPassword', 'compare', 'compareAttribute' => 'userPassword', 'message' => Yii::t('InstallModule.install', 'Passwords are not consistent')),
             array('userEmail', 'email'),
         );
@@ -202,10 +202,12 @@ class InstallForm extends YFormModel
          * Проверяем доступные СУБД:
          */
         
-        if (extension_loaded('pdo_mysql'))
+        if (extension_loaded('pdo_mysql')) {
             $dbTypes[self::DB_MYSQL] = 'MySQL';
-        if (extension_loaded('pdo_pgsql'))
+        }
+        if (extension_loaded('pdo_pgsql')) {
             $dbTypes[self::DB_POSTGRESQL] = 'PostgreSQL';
+        }
         
         return $dbTypes;
     }

@@ -37,7 +37,7 @@ class UserSteps extends \WebGuy
         $I->fillField(\EditProfilePage::$emailField, $email);
         $I->see('Внимание! После смены e-mail адреса','.text-warning');
         $I->click('Сохранить профиль',\CommonPage::BTN_PRIMARY_CSS_CLASS);
-        $I->see('Профиль обновлен!',\CommonPage::SUCCESS_CSS_CLASS);
+        $I->see('Вам необходимо продтвердить новый e-mail, проверьте почту!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->see('e-mail не подтвержден, проверьте почту!','.text-error');
         $I->seeInDatabase('yupe_user_user', array('email_confirm' => 0, 'email' => $email));
         //check token

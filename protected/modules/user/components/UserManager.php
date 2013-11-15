@@ -193,4 +193,78 @@ class UserManager extends CApplicationComponent
             return false;
         }
     }
+
+    public function changeUserPassword(User $user, $password)
+    {
+        $user->hash = $this->hasher->hashPassword($password);
+        return $user->save();
+    }
+
+    public function changeUserEmail(User $user, $email, $confirm = true)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+            $user->email_confirm = User::EMAIL_CONFIRM_NO;
+            $user->email = $email;
+            if($user->save()) {
+                if($confirm && !$this->tokenStorage->createEmailVerifyToken($user)) {
+                    throw new CException(Yii::t('UserModule.user','Error change Email!'));
+                }
+
+                $transaction->commit();
+                return true;
+            }
+
+            throw new CException(Yii::t('UserModule.user','Error change Email!'));
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
+    }
+
+    public function verifyEmail($token)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+            $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_EMAIL_VERIFY);
+
+            if(null === $tokenModel) {
+                return false;
+            }
+
+            $userModel = User::model()->findByPk($tokenModel->user_id);
+
+            if(null === $userModel) {
+                return false;
+            }
+
+            $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
+
+            if($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
+                $transaction->commit();
+                Yii::log(
+                    Yii::t(
+                        'UserModule.user', 'Email with activate_key = {activate_key}, id = {id} was activated!', array(
+                            '{activate_key}' => $token,
+                            '{id}'           => $userModel->id,
+                        )
+                    ),
+                    CLogger::LEVEL_INFO, UserModule::$logCategory
+                );
+                return true;
+            }
+
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
+    }
 }

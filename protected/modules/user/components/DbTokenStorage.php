@@ -25,6 +25,11 @@ class DbTokenStorage extends CApplicationComponent
         return $this->create($user, $expire, UserToken::TYPE_CHANGE_PASSWORD);
     }
 
+    public function createEmailVerifyToken(User $user, $expire=86400)
+    {
+        return $this->create($user, $expire, UserToken::TYPE_EMAIL_VERIFY);
+    }
+
 
     public function get($token, $type, $status = UserToken::STATUS_NEW)
     {

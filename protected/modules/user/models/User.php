@@ -140,28 +140,6 @@ class User extends YModel
         );
     }
 
-    /**
-     * Проверка активации пользователя:
-     * 
-     * @return boolean
-     */
-    public function getIsActivated()
-    {
-        return $this->reg instanceof UserToken
-            && (int) $this->reg->status === UserToken::STATUS_ACTIVATE;
-    }
-
-    /**
-     * Строковое значение активации пользователя:
-     * 
-     * @return string
-     */
-    public function getIsActivateStatus()
-    {
-        return $this->getIsActivated()
-                ? Yii::t('UserModule.user', 'Yes')
-                : Yii::t('UserModule.user', 'No');
-    }
 
     /**
      * Проверка верификации почты:
@@ -247,12 +225,9 @@ class User extends YModel
      */
     public function beforeSave()
     {
-        // Меняем дату изменения профиля:
-        $this->change_date = new CDbExpression('NOW()');
-
-        // Если это не новая запись:
-        if ($this->getIsNewRecord() === false) {
-            
+        if($this->getIsNewRecord()) {
+            $this->registration_date = new CDbExpression('NOW()');
+        }else{
             // Запрещаем действия, при которых администратор
             // может быть заблокирован или сайт останется без
             // администратора:
@@ -269,6 +244,9 @@ class User extends YModel
                 return false;
             }
         }
+
+        // Меняем дату изменения профиля:
+        $this->change_date = new CDbExpression('NOW()');
 
         // Если используется граватар - удаляем текущие аватарки:
         $this->use_gravatar === false || $this->removeOldAvatar();
