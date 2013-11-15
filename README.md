@@ -87,6 +87,6 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
 
 
-(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
+(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
-![amyLabs](http://amylabs.ru/assets/fecc88d8/labs/logo.png) ![Юпи!](http://yupe.ru/web/images/logo.png)
+![amyLabs](http://amylabs.ru/assets/fecc88d8/labs/logo.png)
