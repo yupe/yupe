@@ -1,4 +1,4 @@
-[Юпи!](http://yupe.ru/web/images/logo.png) - CMS на Yii
+![Юпи!](http://yupe.ru/web/images/logo.png) - CMS на Yii
 =================
 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
@@ -88,9 +88,9 @@
 
 (c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
 
-[Юпи!](http://yupe.ru/web/images/logo.png)
+![Юпи!](http://yupe.ru/web/images/logo.png)
 
-[amyLabs](http://amylabs.ru/assets/fecc88d8/labs/logo.png)
+![amyLabs](http://amylabs.ru/assets/fecc88d8/labs/logo.png)
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
