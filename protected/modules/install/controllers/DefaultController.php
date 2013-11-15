@@ -314,6 +314,13 @@ class DefaultController extends yupe\components\controllers\BackController
                 Yii::t('InstallModule.install', 'Need PHP version 5.3 and above.'),
             ),
             array(
+                Yii::t('InstallModule.install', 'Расширение json'),
+                true,
+                extension_loaded("json"),
+                'php_json',
+                Yii::t('InstallModule.install', 'Функции для работы с json')
+            ),
+            array(
                 Yii::t('InstallModule.install', 'Zend OPcache'),
                 false,
                 extension_loaded('Zend OPcache'),
