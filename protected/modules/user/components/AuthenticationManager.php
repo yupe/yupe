@@ -19,6 +19,8 @@ class AuthenticationManager extends CApplicationComponent
            return false;
         }
 
+
+
         $identity = new UserIdentity($form->email, $form->password);
 
         $duration = 0;

@@ -158,17 +158,6 @@ class UserToken extends YModel
     }
 
     /**
-     * Генерация токена для отправки пользователю:
-     * завязывая для поиска на почту + токен
-     * 
-     * @return string
-     */
-    public function genActivateCode()
-    {
-        return md5($this->user->email . $this->token);
-    }
-
-    /**
      * Получаем список пользователей:
      * 
      * @return array User List
@@ -258,7 +247,6 @@ class UserToken extends YModel
      */
     public static function getStatus($status = null)
     {
-
         $statusList = self::getStatusList();
 
         return !empty($status) && isset($statusList[$status])
@@ -271,148 +259,7 @@ class UserToken extends YModel
         return (int) $this->status === self::STATUS_FAIL;
     }
 
-    /**
-     * Создание токена активации:
-     * 
-     * @param User    $user   - пользователь
-     * @param integer $status - статус токена
-     * 
-     * @return mixed
-     *
-     * @throws Exception
-     */
-    public static function newActivate(User $user, $status = self::STATUS_NEW)
-    {
-        if (!empty($status) && self::getStatus($status) === null) {
-            throw new Exception(
-                Yii::t('UserModule.user', 'Unknown token status')
-            );
-        }
 
-        return self::newToken($user, self::TYPE_ACTIVATE, $status);
-    }
-
-    /**
-     * Создание токена изменения/сброса пароля:
-     * 
-     * @param User $user - пользователь
-     * 
-     * @return mixed
-     *
-     * @throws Exception
-     */
-    public static function newRecovery(User $user)
-    {
-        return self::newToken($user, self::TYPE_CHANGE_PASSWORD);
-    }
-
-    /**
-     * Верификация почты:
-     * 
-     * @param User    $user   - пользователь
-     * @param integer $status - статус токена
-     * 
-     * @return mixed
-     *
-     * @throws Exception
-     */
-    public static function newVerifyEmail(User $user, $status = self::STATUS_NEW)
-    {
-        if (!empty($status) && self::getStatus($status) === null) {
-            throw new Exception(
-                Yii::t('UserModule.user', 'Unknown token status')
-            );
-        }
-
-        return self::newToken($user, self::TYPE_EMAIL_VERIFY, $status);
-    }
-
-    /**
-     * Генерация нового токена:
-     * 
-     * @return string
-     */
-    protected static function generateToken()
-    {
-        return md5(uniqid(false, true));
-    }
-
-    /**
-     * Создание токена по типу:
-     * 
-     * @param User $user   - пользователь
-     * @param int  $type   - тип токена
-     * @param int  $status - статус токена
-     * 
-     * @return mixed
-     *
-     * @throws Exception
-     */
-    protected static function newToken(User $user, $type = null, $status = self::STATUS_NEW)
-    {
-        $token          = new UserToken;
-        $token->user_id = $user->id;
-        $token->token   = self::generateToken();
-        $token->type    = $type;
-        $token->status  = $status;
-        $token->ip      = Yii::app()->getRequest()->getUserHostAddress();
-
-        if ($status !== self::STATUS_NEW) {
-            $token->updated = new CDbExpression('NOW()');
-        }
-
-        try {
-            if ($token->save()) {
-
-                return true;
-
-            } else {
-
-                $errors = array();
-
-                foreach ((array)$token->getErrors() as $value) {
-                    $errors[] = implode("\n", $value);
-                }
-
-                throw new Exception(
-                    implode("\n", $errors)
-                );
-            }
-
-        } catch (Exception $e) {
-
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * Поиск токена по ключу и типу:
-     * 
-     * @param string  $token - ключ токена
-     * @param integer $type  - тип токена
-     * 
-     * @return UserToken $model
-     *
-     * @throws Exception If empty($type)
-     */
-    public function getToken($token, $type = null)
-    {
-        if (empty($type)) {
-            throw new Exception(
-                Yii::t('UserModule.user', 'Unknown token type')
-            );
-        }
-
-        $criteria = new CDbCriteria();
-        
-        $criteria->compare('token', $token);
-        $criteria->compare('type', $type);
-
-        // Токен не должен быть скомпроментированным:
-        $criteria->addCondition('status != :status', array(':status' => self::STATUS_FAIL));
-
-        return self::model()->find($criteria);
-    }
 
     /**
      * Перед сохранением необходимо:
@@ -455,28 +302,6 @@ class UserToken extends YModel
     public static function beautifyDate($dateField, $format = 'yyyy-MM-dd HH:mm')
     {
         return Yii::app()->dateFormatter->format($format, $dateField);
-    }
-
-    /**
-     * Метод инвалидации токена:
-     * 
-     * @return boolean
-     */
-    public function compromise()
-    {
-        $this->status = self::STATUS_FAIL;
-
-        return $this->save(array('status'));
-    }
-
-    public function activate()
-    {
-        // Обновляем статус, время обновления и ip:
-        $this->status  = self::STATUS_ACTIVATE;
-        $this->updated = new CDbExpression('NOW()');
-        $this->ip      = Yii::app()->getRequest()->getUserHostAddress();
-
-        return $this->update(array('status', 'updated', 'ip'));
     }
 
     /**

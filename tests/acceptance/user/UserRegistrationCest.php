@@ -74,7 +74,7 @@ class UserRegistrationCest
         // check user
         $I->seeInDatabase('yupe_user_user', array('email' => $testEMail, 'access_level' => 0, 'status' => 1, 'email_confirm' => 1, 'nick_name' => $testNickName));
         //check  token
-        $I->seeInDatabase('yupe_user_tokens', array('user_id' => 2,'type' => 1,'status' => 1));
+        $I->dontSeeInDatabase('yupe_user_tokens', array('user_id' => 2,'type' => 1,'status' => 0));
 
         $I->wantTo('Test login with new account...');
         $I = new WebGuy\UserSteps($scenario);

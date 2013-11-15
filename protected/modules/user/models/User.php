@@ -99,45 +99,6 @@ class User extends YModel
     public function relations()
     {
         return array(
-            // Токен активации пользователя,
-            // содержит:
-            // - дату регистрации
-            // - дату активации (может измениться если изменить статус пользователя)
-            // - статус активации
-            // - ip с какого была произведена активация
-            // - токен активации
-            'reg' => array(
-                self::HAS_ONE, 'UserToken', 'user_id', 'on' => 'reg.type = :reg_type AND (reg.status != :reg_status or reg.status IS NULL)', 'params' => array(
-                    ':reg_type'   => UserToken::TYPE_ACTIVATE,
-                    ':reg_status' => UserToken::STATUS_FAIL,
-                ),
-            ),
-            // Токен восстановления/смены пароля содержит:
-            // - дату создания запроса
-            // - дату активации токена
-            // - статус активации токена (токен автоматически
-            //   становится инвалидированным после использования)
-            // - ip с какого была произведена активация
-            // - токен восстановления
-            'recovery' => array(
-                self::HAS_ONE, 'UserToken', 'user_id', 'on' => 'recovery.type = :recovery_type AND (recovery.status != :recovery_status or recovery.status IS NULL)', 'params' => array(
-                    ':recovery_type'   => UserToken::TYPE_CHANGE_PASSWORD,
-                    ':recovery_status' => UserToken::STATUS_FAIL,
-                ),
-            ),
-            // Токен верификации почты содержит:
-            // - дату создания запроса
-            // - дату активации токена
-            // - статус активации токена (токен автоматически
-            //   становится активированным после использования)
-            // - ip с какого была произведена активация
-            // - токен верификации
-            'verify' => array(
-                self::HAS_ONE, 'UserToken', 'user_id', 'on' => 'verify.type = :verify_type AND (verify.status != :verify_status or verify.status IS NULL)', 'params' => array(
-                    ':verify_type'   => UserToken::TYPE_EMAIL_VERIFY,
-                    ':verify_status' => UserToken::STATUS_FAIL,
-                ),
-            ),
             // Все токены пользователя:
             'tokens' => array(
                 self::HAS_MANY, 'UserToken', 'user_id'
@@ -260,73 +221,11 @@ class User extends YModel
     {
         $this->_oldAccess_level = $this->access_level;
         $this->_oldStatus       = $this->status;
-        
         // Если пустое поле аватар - автоматически
         // включаем граватар:
         $this->use_gravatar = empty($this->avatar);
 
-        // Если пользователь не имеет токена активации
-        // или у токена статус не ACTIVATE пользователь
-        // не может иметь статус - "активирован":
-        $this->getIsActivated() && (int) $this->status !== self::STATUS_BLOCK || (
-            $this->status = self::STATUS_NOT_ACTIVE
-        );
-
         return parent::afterFind();
-    }
-
-    /**
-     * Поиск пользователя по токену активации:
-     * 
-     * @param string $token - token-активации
-     * 
-     * @return User $mode || null
-     */
-    public function findActivation($token)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->with = 'reg';
-
-        $criteria->addCondition('MD5(CONCAT(t.email, reg.token)) = :activation_token');
-        $criteria->params = array(':activation_token' => $token);
-
-        return $this->find($criteria);
-    }
-
-    /**
-     * Поиск пользователя по токену восстановления:
-     * 
-     * @param string $token - token-активации
-     * 
-     * @return User $mode || null
-     */
-    public function findRecovery($token)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->with = 'recovery';
-
-        $criteria->addCondition('MD5(CONCAT(t.email, recovery.token)) = :recovery_token');
-        $criteria->params = array(':recovery_token' => $token);
-
-        return $this->find($criteria);
-    }
-
-    /**
-     * Поиск пользователя по токену верификации почты:
-     * 
-     * @param string $token - token-верификации
-     * 
-     * @return User $mode || null
-     */
-    public function findVerifyEmail($token)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->with = 'verify';
-
-        $criteria->addCondition('MD5(CONCAT(t.email, verify.token)) = :verify_token');
-        $criteria->params = array(':verify_token' => $token);
-
-        return $this->find($criteria);
     }
 
     /**
@@ -338,7 +237,6 @@ class User extends YModel
     {
         $this->gender       = $this->gender ?: self::GENDER_THING;
         $this->use_gravatar = $this->use_gravatar ?: 0;
-
         return parent::beforeValidate();
     }
 
@@ -407,21 +305,14 @@ class User extends YModel
     {
         return array(
             'active'        => array(
-                'with'      => 'reg',
-                'condition' => 't.status != :user_status AND reg.status = :active_status',
+                'condition' => 't.status = :user_status',
                 'params'    => array(
-                    ':user_status'   => self::STATUS_BLOCK,
-                    ':active_status' => UserToken::STATUS_ACTIVATE
+                    ':user_status'   => self::STATUS_ACTIVE
                 ),
             ),
             'blocked'       => array(
                 'condition' => 'status = :blocked_status',
                 'params'    => array(':blocked_status' => self::STATUS_BLOCK),
-            ),
-            'notActivated'  => array(
-                'with'      => 'reg',
-                'condition' => 'reg.status = :notActivated_status',
-                'params'    => array(':notActivated_status' => UserToken::STATUS_NEW),
             ),
             'admin'         => array(
                 'condition' => 'access_level = :access_level',
@@ -529,25 +420,6 @@ class User extends YModel
                 : $data[self::GENDER_THING];
     }
 
-    
-
-    /**
-     * Генерируем случайный пароль:
-     * 
-     * @param integer $length - длина пароля
-     * 
-     * @return string - сгенерированная строка пароля
-     */
-    public static function generateRandomPassword($length = null)
-    {
-        return substr(
-            md5(
-                uniqid(mt_rand(), true) . microtime(true)
-            ), 0, $length
-                    ? $length
-                    : 32
-        );
-    }
 
     /**
      * Получить url аватарки пользователя:
@@ -603,20 +475,6 @@ class User extends YModel
     }
 
     /**
-     * Изменение статуса в gridView:
-     * 
-     * @param CustomGridView $grid - gridView
-     * 
-     * @return mixed
-     */
-    public function changeStatus(CustomGridView $grid)
-    {
-        return $grid->returnBootstrapStatusHtml(
-            $this, "status", "ChangeableStatus"
-        );
-    }
-
-    /**
      * Список доступных к изменению статусов:
      * --------------------------------------
      * заставлять пользователя проходить
@@ -652,45 +510,8 @@ class User extends YModel
         return ($this->first_name || $this->last_name)
             ? $this->last_name . $separator . $this->first_name . ($this->middle_name ? ($separator . $this->middle_name) : "")
             : $this->nick_name;
-    }    
-
-    /**
-     * Смена пароля:
-     *
-     * @param string $password - новый пароль
-     * 
-     * @return boolean - обновлён ли пароль
-     */
-    public function changePassword($password)
-    {
-        $this->hash = $this->hashPassword($password);
-        return $this->update(array('hash'));
     }
 
-    /**
-     * Активация пользователя:
-     * 
-     * @return boolean - выполнилась ли активация
-     */
-    public function activate()
-    {
-        if ($this->reg instanceof UserToken === false) {
-            return UserToken::newActivate(
-                $this, UserToken::STATUS_ACTIVATE
-            );
-        }
-
-        if ($this->verify instanceof UserToken === false) {
-            UserToken::newVerifyEmail($this, UserToken::STATUS_ACTIVATE);
-        } else {
-            $this->verify->activate();
-        }
-
-        $this->status = self::STATUS_ACTIVE;
-        
-        return $this->reg->activate()
-            && $this->update(array('status'));
-    }
 
     /**
      * Удаление старого аватара:
@@ -703,8 +524,8 @@ class User extends YModel
 
         if ($this->avatar) {
             //remove old resized avatars
-            if(file_exists($basePath . $filename)){
-                @unlink($basePath . $filename);
+            if(file_exists($basePath . $this->avatar)){
+                @unlink($basePath . $this->avatar);
             }
 
             foreach (glob($basePath . $this->id . '_*.*') as $oldThumbnail) {

@@ -22,7 +22,7 @@ return array(
     'Documentation' => 'Документация',
     'Support'=>'Поддержка',
     'Dcumentation'=>'Документация',
-    'API'=>'АПИ',
+    'API'=>'API',
     'Forum'=>'Форум',
     'FAQ'=>'Вопросы и ответы',
     'Contacts'=>'Контакты',

@@ -38,7 +38,6 @@ class ProfileForm extends CFormModel
             array('nick_name, email', 'required'),
             array('gender', 'numerical', 'min' => 0, 'max' => 3, 'integerOnly' => true),
             array('gender', 'default', 'value' => 0),
-            array('birth_date', 'date', 'allowEmpty' => true, 'format' => 'yyyy-M-dd'),
             array('birth_date', 'default', 'value' => null),
             array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
@@ -49,10 +48,8 @@ class ProfileForm extends CFormModel
             array('cPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('UserModule.user', 'Password is not coincide')),
             array('email', 'email'),
             array('email', 'checkEmail'),
-
             array('site', 'url', 'allowEmpty' => true),
             array('site', 'length', 'max' => 100),
-            
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
         );
@@ -78,28 +75,12 @@ class ProfileForm extends CFormModel
         );
     }
 
-    public function beforeValidate()
-    {
-        if (Yii::app()->getModule('user')->autoNick){
-            $this->nick_name = substr(User::model()->generateSalt(), 10);
-        }
-        return parent::beforeValidate();
-    }
-
-    public function afterValidate()
-    {
-        if ($this->birth_date){
-            $this->birth_date = date("Y-m-d", strtotime($this->birth_date));
-        }
-        parent::afterValidate();
-    }
-
     public function checkNickName($attribute,$params)
     {
         // Если ник поменяли
-        if (Yii::app()->user->profile->nick_name != $this->nick_name)
+        if (Yii::app()->user->profile->nick_name != $this->$attribute)
         {
-            $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->nick_name));
+            $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->$attribute));
             if ($model){
                  $this->addError('nick_name', Yii::t('UserModule.user', 'Nick in use'));
             }
@@ -109,9 +90,9 @@ class ProfileForm extends CFormModel
     public function checkEmail($attribute,$params)
     {
         // Если мыло поменяли
-        if (Yii::app()->user->profile->email != $this->email)
+        if (Yii::app()->user->profile->email != $this->$attribute)
         {
-            $model = User::model()->find('email = :email', array(':email' => $this->email));
+            $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
             if ($model){
                 $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));
             }
