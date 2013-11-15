@@ -194,7 +194,7 @@ class FeedBack extends YModel
      */
     public function getAnsweredUser()
     {
-        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('FeedbackModule.feedback', '-');
+        return $this->answer_user ? User::model()->findByPk($this->answer_user) : Yii::t('FeedbackModule.feedback', '-');
     }
 
     /**
@@ -295,8 +295,9 @@ class FeedBack extends YModel
      */
     public function getText($size = false)
     {
-        if (false === $size || $size > mb_strlen($this->text))
+        if (false === $size || $size > mb_strlen($this->text)){
             return $this->text;
+        }
         
         $p = new CHtmlPurifier();
         return $p->purify(

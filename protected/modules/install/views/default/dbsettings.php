@@ -65,35 +65,35 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->dropDownListRow($data['model'], 'dbType', $data['model']->getDbTypeNames(), array('class' => 'popover-help span7', 'data-original-title' => $data['model']->getAttributeLabel('dbType'), 'data-content' => $data['model']->getAttributeDescription('dbType'))); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('host') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('host') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'host', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('host'), 'data-content' => $data['model']->getAttributeDescription('host'), 'autocomplete' => 'off')); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('port') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('port') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'port', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('port'), 'data-content' => $data['model']->getAttributeDescription('port'))); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbName') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbName') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'dbName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbName'), 'data-content' => $data['model']->getAttributeDescription('dbName'), 'autocomplete' => 'off')); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('createDb') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('createDb') ? 'error' : ''; ?>">
         <?php echo $form->checkBoxRow($data['model'], 'createDb'); ?>
     </div>
 
-    <div class="row-fluid sqlite-enable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('tablePrefix') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('tablePrefix') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'tablePrefix', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('tablePrefix'), 'data-content' => $data['model']->getAttributeDescription('tablePrefix'))); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbUser') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbUser') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'dbUser', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbUser'), 'data-content' => $data['model']->getAttributeDescription('dbUser'), 'autocomplete' => 'off')); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbPassword') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbPassword') ? 'error' : ''; ?>">
         <?php echo $form->passwordFieldRow($data['model'], 'dbPassword', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbPassword'), 'data-content' => $data['model']->getAttributeDescription('dbPassword'), 'autocomplete' => 'off')); ?>
     </div>
 
-    <div class="row-fluid sqlite-disable mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('socket') ? 'error' : ''; ?>">
+    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('socket') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'socket', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('socket'), 'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
     </div>
 

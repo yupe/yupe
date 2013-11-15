@@ -12,4 +12,6 @@
 - Кучеров Антон [http://idexter.ru/](http://idexter.ru/)
 - Кирилл Чистов [http://brainstorage.me/hitakiri/profile](http://brainstorage.me/hitakiri/profile)
 
-[Ждем только тебя !](http://yupe.ru/contacts)
+И еще порядка [50 контрибьюторов на Github](https://github.com/yupe/yupe/graphs/contributors)!
+
+**[Ждем только тебя !](http://yupe.ru/contacts)**

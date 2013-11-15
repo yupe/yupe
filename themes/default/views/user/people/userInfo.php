@@ -25,7 +25,7 @@
          <?php endif;?>   
 
          <?php if($user->site):?>
-            <i class="icon-globe"></i> <?php echo CHtml::link($user->site,$user->site, array('rel' => 'nofollow'));?><br/>
+            <i class="icon-globe"></i> <?php echo CHtml::link($user->site,$user->site, array('rel' => 'nofollow', 'target' => '_blank'));?><br/>
          <?php endif;?>
 
      </div>     

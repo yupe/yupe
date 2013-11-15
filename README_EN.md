@@ -16,11 +16,12 @@ Links
 
 * [Official site](http://yupe.ru/)
 * [Docs](http://yupe.ru/docs/index.html)
+* [API](http://api.yupe.ru/)
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Forum](http://yupe.ru/talk/)
 * [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
 * [Contacts](http://yupe.ru/feedback/index)
-* [Help](http://yupe.ru/site/page/view/help)
+* [Help](http://yupe.ru/docs/yupe/assistance.project.html)
 * [Commercial support](http://amylabs.ru/contact)
 
 Capabilities

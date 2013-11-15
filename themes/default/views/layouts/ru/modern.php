@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo Yii::app()->language; ?>">
+<html lang="<?php echo Yii::app()->language; ?>" xmlns="http://www.w3.org/1999/html">
 <head prefix="og: http://ogp.me/ns#
     fb: http://ogp.me/ns/fb#
     article: http://ogp.me/ns/article#">
@@ -36,7 +36,7 @@
         <p>
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
-                'label' => 'Скачать Юпи!',
+                'label' => 'Скачать Юпи! '.$this->yupe->getVersion(),
                 'type' => 'primary',
                 'size' => 'large',
                 'url' => 'https://github.com/yupe/yupe/releases'
@@ -61,7 +61,7 @@
                 'label' => 'Скриншоты',
                 'type' => 'primary',
                 'size' => 'large',
-                'url' => 'http://yupe.ru/gallery/gallery/list'
+                'url' => 'http://yupe.ru/albums'
             ));
             ?>
 
@@ -105,6 +105,7 @@
                                                          alt="Dependencies Status" style="max-width:100%;"></a>
         </p>
     </div>
+
 
 
     <!-- Example row of columns -->
@@ -179,11 +180,15 @@
         </div>
     </div>
 
+
     <div class="row">
         <div class="span6">
             <h2>
                 <small>Преимущества</small>
             </h2>
+            <div class="alert alert-notice">
+                <strong>Первое место</strong> на <strong><a href="https://github.com/search?o=desc&q=Yii+CMS&ref=cmdform&s=stars&type=Repositories" target="_blank">Github</a></strong> среди CMS на Yiiframework!
+            </div>
             <?php
             $this->widget(
                 'bootstrap.widgets.TbTabs',
@@ -191,9 +196,13 @@
                     'type' => 'tabs', // 'tabs' or 'pills'
                     'tabs' => array(
                         array(
+                            'label' => 'Для всех',
+                            'content' => $this->renderPartial('//_partial/_all', array(), true),
+                            'active' => true
+                        ),
+                        array(
                             'label' => 'Для разработчика',
                             'content' => $this->renderPartial('//_partial/_dev', array(), true),
-                            'active' => true
                         ),
                         array(
                             'label' => 'Для заказчика',
@@ -217,6 +226,9 @@
             <h2>
                 <small>Последнее в блогах</small>
             </h2>
+            <div class="alert alert-notice">
+                <a href="/albums">Галерея</a> проектов на Юпи! <strong>Добавьте свою работу!</strong>
+            </div>
             <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3, 'view' => 'lastposts-index')); ?>
             <h2>
                 <small>Разработано сообществом</small>

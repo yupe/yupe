@@ -95,8 +95,9 @@
             <?php echo Yii::t('DocsModule.docs', 'Development and support'); ?></a> - <a href="http://amylabs.ru?from=yupe-docs">amyLabs
         </a>
         <br/>
+            <a href="http://api.yupe.ru" target="_blank">API</a>
+        <br/>
         <?php echo Yii::powered(); ?>
-        <?php $this->widget('YPerformanceStatistic'); ?>
     </footer>
     <?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "DISQUS_JS","silent" => true)); ?>
 </body>

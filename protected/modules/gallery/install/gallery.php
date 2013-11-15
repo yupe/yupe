@@ -19,5 +19,6 @@ return array(
     'rules'     => array(
         '/albums' => 'gallery/gallery/list',
         '/albums/<id:\d+>' => 'gallery/gallery/show',
+        '/albums/images/<id:\d+>' => 'gallery/gallery/image'
     ),
 );
