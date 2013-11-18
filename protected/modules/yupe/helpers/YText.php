@@ -65,14 +65,16 @@ class YText
         }
 
         $out = "";
-        foreach (explode(' ', trim($str)) as $val)
-        {
+
+        foreach (explode(' ', trim($str)) as $val) {
             $out .= $val . ' ';
 
-            if (mb_strlen($out) >= $n)
-            {
+            if (mb_strlen($out) >= $n) {
                 $out = trim($out);
-                return (mb_strlen($out) == mb_strlen($str)) ? $out : $out . $end_char;
+                $p   = new CHtmlPurifier();
+                return (mb_strlen($out) == mb_strlen($str))
+                    ? $out
+                    : $p->purify($out . $end_char);
             }
         }
     }
