@@ -1,0 +1,36 @@
+.user-popup-info {
+	padding: 10px;
+	min-height: 40px;
+	padding-left: 25px;
+}
+
+.user-popup-info .avatar, .user-popup-info > span {
+	float: left;
+}
+
+.user-popup-info > span, .user-popup-info-link, .user-popup-info-block span {
+	position: relative;
+	left: 15px
+}
+
+.user-popup-info {
+	font-weight: normal;
+}
+
+.user-popup-info > a, .user-popup-info > a > span {
+	text-decoration: none;
+	color: #000;
+}
+
+.user-popup-info .user-popup-info-link > a {
+	text-decoration: underline;
+	color: #0088cc;
+}
+
+.user-popup-info-widget .popover.bottom {
+	margin-left: 100px;
+}
+
+.user-popup-info-widget .popover.bottom .arrow {
+	margin-left: -110px;
+}
