@@ -227,4 +227,5 @@ return array (
     'There is no members' => 'Участников нет =(',
     'read also:' => 'читайте также:',
     'All posts' => 'Все записи',
+    'All' => 'Все',
 );

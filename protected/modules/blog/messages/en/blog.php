@@ -227,4 +227,5 @@ return array (
     'There is no members' => '',
     'read also:' => '',
     'All posts' => '',
+    'All' => '',
 );

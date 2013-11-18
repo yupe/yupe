@@ -2,42 +2,81 @@
 <?php $this->description = $blog->description; ?>
 
 <?php
+$mainAssets = Yii::app()->AssetManager->publish(
+    Yii::app()->theme->basePath . "/web/"
+);
+
+Yii::app()->clientScript->registerCssFile($mainAssets . '/css/blog.css');
+Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+
 $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
     $blog->name,
 );
 ?>
-
 <div class="row-fluid">
-
-    <div class='span3'>
-        <?php echo CHtml::image($blog->getImageUrl(),$blog->name,
+    <div class="blog-logo pull-left">
+        <?php echo CHtml::image(
+            $blog->getImageUrl(),$blog->name,
             array(
-                'width'  => 64,
-                'height' => 64
+                'width'  => 109,
+                'height' => 109
             )
         ); ?>
     </div>
+    <div class="blog-description">
+        <div class="blog-description-name">
+            <?php echo CHtml::link($blog->name, array('/blog/post/blog/','slug' => $blog->slug)); ?>
+            
+            <?php echo CHtml::link(
+                CHtml::image(
+                    $mainAssets . "/images/rss.png",
+                    Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
+                    array(
+                        'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
+                        'class' => 'rss'
+                    )
+                ), array(
+                    '/blog/blogRss/feed/', array(
+                        'blog' => $blog->id
+                    )
+                )
+            ); ?>
+        </div>
 
-    <div class='span6'>
+        <div class="blog-description-info">
+            <span class="blog-description-owner">
+                <i class="icon-user"></i>
+                <?php echo Yii::t('BlogModule.blog', 'Created'); ?>:
+                <b>
+                    <?php $this->widget(
+                        'application.modules.user.widgets.UserPopupInfoWidget', array(
+                            'model' => $blog->createUser
+                        )
+                    ); ?>
+                </b>
+            </span>
 
-        <i class="icon-pencil"></i> <?php echo CHtml::link($blog->name, array('/blog/post/blog/','slug' => $blog->slug)); ?>
-        <a href="<?php echo Yii::app()->createUrl('/blog/blogRss/feed/',array('blog' => $blog->id));?>"><img src="<?php echo Yii::app()->AssetManager->publish(Yii::app()->theme->basePath . "/web/images/rss.png"); ?>" alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates'); ?> '<?php echo $blog->name?>'" title="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates'); ?> '<?php echo $blog->name?>'"></a>
-        <br/>
+            <span class="blog-description-datetime">
+                <i class="icon-calendar"></i>
+                <?php echo Yii::app()->getDateFormatter()->formatDateTime($blog->create_date, "short", "short"); ?>
+            </span>
 
-        <i class="icon-user"></i> <?php echo Yii::t('BlogModule.blog', 'Created'); ?>: <b><?php echo CHtml::link($blog->createUser->nick_name, array('/user/people/userInfo/','username' => $blog->createUser->nick_name));?></b><br/>
+            <span class="blog-description-posts">
+                <i class="icon-pencil"></i>
+                <?php echo CHtml::link($blog->postsCount, array('/blog/post/blog/','slug' => $blog->slug)); ?>
+            </span>
+        </div>
 
-        <i class="icon-calendar"></i> <?php echo Yii::t('BlogModule.blog', 'Date'); ?>: <?php echo Yii::app()->getDateFormatter()->formatDateTime($blog->create_date, "short", "short"); ?></br>
-
-        <i class="icon-pencil"></i> <?php echo CHtml::link($blog->postsCount, array('/blog/post/blog/','slug' => $blog->slug)); ?> </br></br>
+        <?php if (mb_strlen($blog->description) > 0) : ?>
+        <div class="blog-description-text">
+            <?php echo $blog->description; ?>
+        </div>
+        <?php endif; ?>
+        
+        <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id)); ?>
     </div>
 </div>
-
-    <div class="content">
-        <p><?php echo $blog->description; ?></p>
-    </div>
-
-<?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id)); ?>
 
 <?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 3)); ?>
 
