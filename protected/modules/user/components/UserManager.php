@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: andrey
- * Date: 11/8/13
- * Time: 7:09 PM
- * To change this template use File | Settings | File Templates.
- */
-
 class UserManager extends CApplicationComponent
 {
     public $hasher;    
@@ -44,11 +36,17 @@ class UserManager extends CApplicationComponent
             $user->setAttributes($data);
             $user->hash = $this->hasher->hashPassword($form->password);
             
-            if($user->save() && $this->tokenStorage->createAccountActivationToken($user)) {
+            if($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
+
                 Yii::log(
                     Yii::t('UserModule.user', 'Account {nick_name} was created', array('{nick_name}' => $user->nick_name)),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
+
+                //@TODO
+                Yii::app()->notify->send($user, '//user/account/email/needAccountActivationEmail', array(
+                    'token' => $token
+                ));
                 
                 $transaction->commit();
                 return $user;
@@ -136,7 +134,12 @@ class UserManager extends CApplicationComponent
 
         try
         {
-            if($this->tokenStorage->createPasswordRecoveryToken($user)) {
+            if(($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
+
+                //@TODO
+                Yii::app()->notify->send($user, '//user/account/email/passwordRecoveryEmail', array(
+                    'token' => $token
+                ));
 
                 $transaction->commit();
 
@@ -153,7 +156,7 @@ class UserManager extends CApplicationComponent
         }
     }
 
-    public function activatePassword($token, $password = null)
+    public function activatePassword($token, $password = null, $notify = true)
     {
         $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
 
@@ -175,9 +178,14 @@ class UserManager extends CApplicationComponent
                 $password = $this->hasher->generateRandomPassword();
             }
 
-            $userModel->hash = $this->hasher->hashPassword($password);
+            if($this->changeUserPassword($userModel, $password) && $this->tokenStorage->activate($tokenModel)) {
 
-            if($userModel->save() && $this->tokenStorage->activate($tokenModel)) {
+                if(true === $notify) {
+                    //@TODO
+                    Yii::app()->notify->send($userModel, '//user/account/email/passwordRecoverySuccessEmail', array(
+                        'password' => $password
+                    ));
+                }
 
                 $transaction->commit();
 

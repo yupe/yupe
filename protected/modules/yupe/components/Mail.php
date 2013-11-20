@@ -13,6 +13,8 @@
 
 namespace yupe\components;
 
+use CApplicationComponent;
+
 class Mail extends CApplicationComponent
 {
     /**

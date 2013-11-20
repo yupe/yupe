@@ -19,7 +19,7 @@
         Yii::t('UserModule.user', 'link'),
         $link = Yii::app()->createAbsoluteUrl(
             '/user/account/activate', array(
-                'token' => $model->reg->genActivateCode()
+                'token' => $token->token
             )
         )
     ); ?>

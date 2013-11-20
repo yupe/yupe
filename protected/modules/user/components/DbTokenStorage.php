@@ -12,7 +12,11 @@ class DbTokenStorage extends CApplicationComponent
         //@TODO 
         $model->ip = Yii::app()->getRequest()->getUserHostAddress();
         $model->status = UserToken::STATUS_NEW;
-        return $model->save();
+        if($model->save()) {
+            return $model;
+        }
+
+        return false;
     }
 
     public function createAccountActivationToken(User $user, $expire=86400)

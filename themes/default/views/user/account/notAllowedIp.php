@@ -1,1 +1,0 @@
-<b><?php echo Yii::t('UserModule.user','Your IP was added to blacklist. You can\'t register!'); ?></b>

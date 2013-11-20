@@ -37,7 +37,7 @@
                         Yii::t('UserModule.user', 'link'),
                         $link = $this->createAbsoluteUrl(
                             '/user/account/restore', array(
-                                'token' => $model->recovery->genActivateCode(), 
+                                'token' => $token->token,
                             )
                         )
                     ),
