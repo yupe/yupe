@@ -29,5 +29,4 @@
 <div class="alert">
     <p>Donate us!</p>
     <p>Yandex money on <b>41001846363811</b></p>
-    <p>Webmoney on <b>R239262659267</b></p>
 </div>

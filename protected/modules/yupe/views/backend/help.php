@@ -35,7 +35,6 @@ $this->breadcrumbs = array(
 <div class="alert">
     <p><?php echo Yii::t('YupeModule.yupe','Donate us!');?></p>
     <p><?php echo Yii::t('YupeModule.yupe','Я.Money on');?> <b>41001846363811</b></p>
-    <p><?php echo Yii::t('YupeModule.yupe','Webmoney on')?> <b>R239262659267</b></p>
 </div>
 
 <br />
