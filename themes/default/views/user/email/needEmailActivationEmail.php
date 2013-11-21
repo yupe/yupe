@@ -25,7 +25,7 @@
 			Yii::t('user', 'link'),
 			$link = $this->createAbsoluteUrl(
 				'/user/account/confirm', array(
-					'token'=> $model->verify->genActivateCode()
+                    'token'=> $token->token
 				)
 			)
 		); ?>

@@ -1,36 +1,36 @@
 <?php
 class UserManager extends CApplicationComponent
 {
-    public $hasher;    
-    
+    public $hasher;
+
     public $tokenStorage;
-    
+
     public function init()
-    {          
+    {
         parent::init();
-        
+
         $this->setHasher(Yii::createComponent($this->hasher));
-        
+
         $this->setTokenStorage(Yii::createComponent($this->tokenStorage));
     }
-    
+
     public function setTokenStorage(DbTokenStorage $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
-    }    
-    
+    }
+
     public function setHasher(Hasher $hasher)
     {
         $this->hasher = $hasher;
     }
-    
+
     public function createUser(RegistrationForm $form)
     {
         $transaction = Yii::app()->db->beginTransaction();
-        
+
         try
         {
-            $user = new User;            
+            $user = new User;
             $data = $form->getAttributes();
             unset($data['cPassword'], $data['verifyCode']);
             $user->setAttributes($data);
@@ -46,17 +46,17 @@ class UserManager extends CApplicationComponent
                 Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Registration on {site}',  array('{site}' => Yii::app()->getModule('yupe')->siteName)), '//user/email/needAccountActivationEmail', array(
                     'token' => $token
                 ));
-                
+
                 $transaction->commit();
                 return $user;
             }
-            
+
             throw new CException(Yii::t('UserModule.user','Error creating account!'));
-            
+
         }
         catch(Exception $e)
         {
-            
+
             Yii::log(
                 Yii::t('UserModule.user', 'Error {error} account creating!', array('{error}' => $e->__toString())),
                 CLogger::LEVEL_INFO, UserModule::$logCategory
@@ -75,7 +75,7 @@ class UserManager extends CApplicationComponent
         try
         {
             $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_ACTIVATE);
-            
+
             if(null === $tokenModel) {
                 return false;
             }
@@ -88,7 +88,7 @@ class UserManager extends CApplicationComponent
 
             $userModel->status  = User::STATUS_ACTIVE;
             $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
-          
+
 
             if($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
                 // Записываем информацию о событии в лог-файл:
@@ -109,7 +109,7 @@ class UserManager extends CApplicationComponent
             throw new CException(Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.'));
         }
         catch(Exception $e)
-        {            
+        {
             $transaction->rollback();
 
             return false;
@@ -217,9 +217,15 @@ class UserManager extends CApplicationComponent
             $user->email_confirm = User::EMAIL_CONFIRM_NO;
             $user->email = $email;
             if($user->save()) {
-                if($confirm && !$this->tokenStorage->createEmailVerifyToken($user)) {
+
+                if($confirm && ($token = $this->tokenStorage->createEmailVerifyToken($user)) === false) {
                     throw new CException(Yii::t('UserModule.user','Error change Email!'));
                 }
+
+                //@TODO
+                Yii::app()->notify->send($user, Yii::t('UserModule.user','Email verification !'), '//user/email/needEmailActivationEmail', array(
+                    'token' => $token
+                ));
 
                 $transaction->commit();
                 return true;
@@ -229,6 +235,8 @@ class UserManager extends CApplicationComponent
         }
         catch(Exception $e)
         {
+            CVarDumper::dump($e, 10, true);
+            die();
             $transaction->rollback();
             return false;
         }
