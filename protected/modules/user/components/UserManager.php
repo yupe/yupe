@@ -56,6 +56,7 @@ class UserManager extends CApplicationComponent
         }
         catch(Exception $e)
         {
+            
             Yii::log(
                 Yii::t('UserModule.user', 'Error {error} account creating!', array('{error}' => $e->__toString())),
                 CLogger::LEVEL_INFO, UserModule::$logCategory
@@ -74,7 +75,7 @@ class UserManager extends CApplicationComponent
         try
         {
             $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_ACTIVATE);
-
+            
             if(null === $tokenModel) {
                 return false;
             }
@@ -87,6 +88,7 @@ class UserManager extends CApplicationComponent
 
             $userModel->status  = User::STATUS_ACTIVE;
             $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
+          
 
             if($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
                 // Записываем информацию о событии в лог-файл:
@@ -107,8 +109,7 @@ class UserManager extends CApplicationComponent
             throw new CException(Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.'));
         }
         catch(Exception $e)
-        {
-
+        {            
             $transaction->rollback();
 
             return false;

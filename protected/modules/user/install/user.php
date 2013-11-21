@@ -32,6 +32,12 @@ return array(
         ),
         'authenticationManager' => array(
             'class' => 'application.modules.user.components.AuthenticationManager'
+        ),
+        'notify' => array(
+            'class' => 'yupe\components\Notify',
+            'mail' => array(
+                'class' => 'yupe\components\Mail'
+            )
         )
     ),
 

@@ -15,7 +15,7 @@ class m131025_152911_clean_user_table extends yupe\components\DbMigration
     public function safeUp()
     {
         $this->dropColumn('{{user_user}}', 'creation_date');
-        $this->dropColumn('{{user_user}}', 'registration_date');
+        //$this->dropColumn('{{user_user}}', 'registration_date');
         $this->dropColumn('{{user_user}}', 'registration_ip');
         $this->dropColumn('{{user_user}}', 'activation_ip');
         $this->dropColumn('{{user_user}}', 'use_gravatar');
@@ -44,7 +44,7 @@ class m131025_152911_clean_user_table extends yupe\components\DbMigration
         $this->createIndex("ix_{{user_recovery_password}}_user_id", '{{user_recovery_password}}', "user_id", false);
 
         $this->addColumn('{{user_user}}', 'creation_date', 'datetime NOT NULL');
-        $this->addColumn('{{user_user}}', 'registration_date', 'datetime NOT NULL');
+        //$this->addColumn('{{user_user}}', 'registration_date', 'datetime NOT NULL');
         $this->addColumn('{{user_user}}', 'registration_ip', 'varchar(50) NOT NULL');
         $this->addColumn('{{user_user}}', 'activation_ip', 'varchar(50) NOT NULL');
         $this->addColumn('{{user_user}}', 'use_gravatar', "boolean NOT NULL DEFAULT '1'");

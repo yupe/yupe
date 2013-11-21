@@ -74,6 +74,7 @@ class RecoveryPasswordAction extends CAction
                 );
 
                 $this->controller->redirect(array('/user/account/login'));
+
             } else {
 
                 Yii::app()->user->setFlash(
