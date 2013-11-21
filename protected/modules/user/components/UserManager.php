@@ -35,7 +35,6 @@ class UserManager extends CApplicationComponent
             unset($data['cPassword'], $data['verifyCode']);
             $user->setAttributes($data);
             $user->hash = $this->hasher->hashPassword($form->password);
-            
             if($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
 
                 Yii::log(
@@ -44,7 +43,7 @@ class UserManager extends CApplicationComponent
                 );
 
                 //@TODO
-                Yii::app()->notify->send($user, '//user/account/email/needAccountActivationEmail', array(
+                Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Registration on {site}',  array('{site}' => Yii::app()->getModule('yupe')->siteName)), '//user/email/needAccountActivationEmail', array(
                     'token' => $token
                 ));
                 
@@ -137,7 +136,7 @@ class UserManager extends CApplicationComponent
             if(($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
 
                 //@TODO
-                Yii::app()->notify->send($user, '//user/account/email/passwordRecoveryEmail', array(
+                Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Password recovery!'), '//user/email/passwordRecoveryEmail', array(
                     'token' => $token
                 ));
 
@@ -182,7 +181,7 @@ class UserManager extends CApplicationComponent
 
                 if(true === $notify) {
                     //@TODO
-                    Yii::app()->notify->send($userModel, '//user/account/email/passwordRecoverySuccessEmail', array(
+                    Yii::app()->notify->send($userModel,  Yii::t('UserModule.user','Password reset!'), '//user/email/passwordRecoverySuccessEmail', array(
                         'password' => $password
                     ));
                 }

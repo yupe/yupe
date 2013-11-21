@@ -226,21 +226,6 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
             }
         }
-        
-        if ($user->reg instanceof UserToken === false) {
-            UserToken::newActivate(
-                $user, (int) $user->status == User::STATUS_ACTIVE
-                            ? UserToken::STATUS_ACTIVATE
-                            : null
-            );
-
-            $user->with('reg')->refresh();
-        }
-
-        // отправка email с просьбой активировать аккаунт
-        yupe\components\Token::sendActivation(
-            $user, '//user/account/needAccountActivationEmail'
-        );
     }
 
     /**

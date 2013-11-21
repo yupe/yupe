@@ -34,7 +34,6 @@ class DbTokenStorage extends CApplicationComponent
         return $this->create($user, $expire, UserToken::TYPE_EMAIL_VERIFY);
     }
 
-
     public function get($token, $type, $status = UserToken::STATUS_NEW)
     {
         return UserToken::model()->find('token = :token AND type = :type AND status = :status', array(

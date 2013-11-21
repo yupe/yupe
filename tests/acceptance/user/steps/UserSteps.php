@@ -28,7 +28,6 @@ class UserSteps extends \WebGuy
         $I->seeLink(\CommonPage::LOGIN_LABEL);
     }
 
-
     public function changeEmail($email)
     {
         $I = $this;

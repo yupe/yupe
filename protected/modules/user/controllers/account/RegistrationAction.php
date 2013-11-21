@@ -39,17 +39,20 @@ class RegistrationAction extends CAction
 
             if ($form->validate()) {				
 
-                $user = Yii::app()->userManager->createUser($form);
-
-				if($user) {
+				if(Yii::app()->userManager->createUser($form)) {
 					
 				    Yii::app()->user->setFlash(
 						YFlashMessages::SUCCESS_MESSAGE,
 						Yii::t('UserModule.user', 'Account was created! Check your email!')
 					);
 					
-					$this->controller->redirect(array($module->registrationSuccess  ));
+					$this->controller->redirect(array($module->registrationSuccess));
 				}
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('UserModule.user', 'Error creating account!')
+                );
 			}
 		}               
 

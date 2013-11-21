@@ -30,12 +30,15 @@ class Notify extends CApplicationComponent
         $this->mail = $mail;
     }
 
-
-    public function send(User $user, $view, $data)
+    public function send(User $user, $theme, $view, $data)
     {
         $body = Yii::app()->controller->renderPartial($view, $data, true);
 
-        CVarDumper::dump($body,10,true);
-        die();
+        return $this->mail->send(
+            Yii::app()->getModule('user')->notifyEmailFrom,
+            $user->email,
+            $theme,
+            $body
+        );
     }
 }
