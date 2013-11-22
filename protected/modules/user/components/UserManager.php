@@ -235,8 +235,6 @@ class UserManager extends CApplicationComponent
         }
         catch(Exception $e)
         {
-            CVarDumper::dump($e, 10, true);
-            die();
             $transaction->rollback();
             return false;
         }
