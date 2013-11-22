@@ -47,7 +47,7 @@ class YupeCode extendS CrudCode
                 {
                     $relationModel = CActiveRecord::model($relation[1]);
                     $suggestedName = $this->suggestName($relationModel->tableSchema->columns)->name;
-                    return "\$form->dropDownListRow(\$model, '{$relation[2]}', CHtml::listData($relation[1]::model()->findAll(), 'id', $suggestedName))";
+                    return "\$form->dropDownListRow(\$model, '{$relation[2]}', CHtml::listData($relation[1]::model()->findAll(), 'id', '{$suggestedName}'))";
                 }
         } 
         else
