@@ -129,6 +129,7 @@ return array(
                 '/backend/<module:\w+>/<controller:\w+>'                          => '<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'    => '<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
+                '/gii/<controller:\w+>/<action:\w+>'                              => 'gii/<controller>/<action>'
             )
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security

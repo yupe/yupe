@@ -928,12 +928,15 @@ abstract class WebModule extends \CWebModule
         // и возвращаем обратный результат
         // от полученного, то есть - требуется
         // ли обновление:
-        return !(
-            md5_file(
-                Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php'
-            ) === md5_file(
-                Yii::getPathOfAlias('application.config.modules.' . $this->getId()) . '.php'
-            )
-        );
+
+        $sourceFile = Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php';
+
+        $installedFile = Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php';
+
+        if(!file_exists($sourceFile) || !file_exists($installedFile)) {
+            return false;
+        }
+
+        return !(md5_file($sourceFile) === md5_file($installedFile));
     }
 }
