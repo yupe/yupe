@@ -1,16 +1,16 @@
 <?php
 /**
- * HpModule основной класс модуля hp
+ * HomepageModule основной класс модуля homepage
  *
  * @author Andrey Opeykin <hello@amylabs.ru>
  * @link http://amylabs.ru
  * @copyright 2013 amyLabs
- * @package yupe.modules.hp
+ * @package yupe.modules.homepage
  * @since 0.1
  *
  */
 
-class HpModule extends yupe\components\WebModule
+class HomepageModule extends yupe\components\WebModule
 {
     const MODE_POSTS = 1;
 
@@ -26,13 +26,13 @@ class HpModule extends yupe\components\WebModule
     {
         $modes = array();
         if(Yii::app()->hasModule('blog')){
-            $modes[self::MODE_POSTS] = Yii::t('HpModule.hp', 'Posts');
+            $modes[self::MODE_POSTS] = Yii::t('HomepageModule.homepage', 'Posts');
         }
         if(Yii::app()->hasModule('page')){
-            $modes[self::MODE_PAGE] = Yii::t('HpModule.hp', 'Page');
+            $modes[self::MODE_PAGE] = Yii::t('HomepageModule.homepage', 'Page');
         }
         if(empty($modes)){
-            $modes[null] = Yii::t('HpModule.hp', 'Please activate "Blogs" or/and "Pages" module');
+            $modes[null] = Yii::t('HomepageModule.homepage', 'Please activate "Blogs" or/and "Pages" module');
         }
         return $modes;
     }
@@ -54,22 +54,22 @@ class HpModule extends yupe\components\WebModule
 
     public function getName()
     {
-        return Yii::t('HpModule.hp', 'Home page');
+        return Yii::t('HomepageModule.homepage', 'Home page');
     }
 
     public function getCategory()
     {
-        return Yii::t('HpModule.hp', 'Yupe!');
+        return Yii::t('HomepageModule.homepage', 'Yupe!');
     }
 
     public function getDescription()
     {
-        return Yii::t('HpModule.hp', 'Main page management module');
+        return Yii::t('HomepageModule.homepage', 'Main page management module');
     }
 
     public function getAuthor()
     {
-        return Yii::t('HpModule.hp', 'Andrey Opeykin');
+        return Yii::t('HomepageModule.homepage', 'Andrey Opeykin');
     }
 
     public function getUrl()
@@ -104,12 +104,22 @@ class HpModule extends yupe\components\WebModule
         );
     }
 
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Main settings'),
+            )
+        );
+    }
+
+
     public function getParamsLabels()
     {
         return array(
-            'mode' => Yii::t('HpModule.hp', 'Whats will be displayed'),
-            'limit' => Yii::t('HpModule.hp', 'Pages count'),
-            'target' => Yii::t('HpModule.hp', 'Page or post')
+            'mode' => Yii::t('HomepageModule.homepage', 'Whats will be displayed'),
+            'limit' => Yii::t('HomepageModule.homepage', 'Pages count'),
+            'target' => Yii::t('HomepageModule.homepage', 'Page or post')
         );
     }
 
