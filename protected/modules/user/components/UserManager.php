@@ -14,7 +14,7 @@ class UserManager extends CApplicationComponent
         $this->setTokenStorage(Yii::createComponent($this->tokenStorage));
     }
 
-    public function setTokenStorage(DbTokenStorage $tokenStorage)
+    public function setTokenStorage(TokenStorage $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
@@ -88,7 +88,6 @@ class UserManager extends CApplicationComponent
 
             $userModel->status  = User::STATUS_ACTIVE;
             $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
-
 
             if($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
                 // Записываем информацию о событии в лог-файл:
@@ -182,7 +181,7 @@ class UserManager extends CApplicationComponent
 
                 if(true === $notify) {
                     //@TODO
-                    Yii::app()->notify->send($userModel,  Yii::t('UserModule.user','Password reset!'), '//user/email/passwordRecoverySuccessEmail', array(
+                    Yii::app()->notify->send($userModel,  Yii::t('UserModule.user','Password was changed successfully'), '//user/email/passwordRecoverySuccessEmail', array(
                         'password' => $password
                     ));
                 }
@@ -223,7 +222,7 @@ class UserManager extends CApplicationComponent
                 }
 
                 //@TODO
-                Yii::app()->notify->send($user, Yii::t('UserModule.user','Email verification !'), '//user/email/needEmailActivationEmail', array(
+                Yii::app()->notify->send($user, Yii::t('UserModule.user','Email verification'), '//user/email/needEmailActivationEmail', array(
                     'token' => $token
                 ));
 

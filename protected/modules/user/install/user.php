@@ -27,7 +27,7 @@ return array(
                 'class' => 'application.modules.user.components.Hasher'
             ),
             'tokenStorage' => array(
-                'class' => 'application.modules.user.components.DbTokenStorage',
+                'class' => 'application.modules.user.components.TokenStorage',
             )
         ),
         'authenticationManager' => array(

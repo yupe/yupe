@@ -1,6 +1,6 @@
 <?php
 
-class DbTokenStorage extends CApplicationComponent
+class TokenStorage extends CApplicationComponent
 {
     public function create(User $user, $expire, $type)
     {
