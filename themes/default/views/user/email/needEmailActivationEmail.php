@@ -19,16 +19,16 @@
 	</p>
 
 	<p>
-		<?php echo Yii::t(
-				'UserModule.user', 'To activate your email please follow the link '
-		) . CHtml::link(
-			Yii::t('user', 'link'),
+		<?php echo Yii::t('UserModule.user', 'To activate your email please follow the {link}', array(
+			 '{link}' => CHtml::link(
+			Yii::t('UserModule.user', 'link'),
 			$link = $this->createAbsoluteUrl(
 				'/user/account/confirm', array(
                     'token'=> $token->token
 				)
 			)
-		); ?>
+		 )
+		)); ?>
 	</p>
 
 	<p><?php echo $link; ?></p>

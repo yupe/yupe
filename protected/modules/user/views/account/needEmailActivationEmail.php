@@ -20,7 +20,7 @@
 
 	<p>
 		<?php echo Yii::t(
-				'UserModule.user', 'To activate your email please follow the link '
+				'UserModule.user', 'To activate your email please follow the {link}'
 		) . CHtml::link(
 			Yii::t('user', 'link'),
 			$link = $this->createAbsoluteUrl(

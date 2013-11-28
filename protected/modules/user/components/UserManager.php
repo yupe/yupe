@@ -181,7 +181,7 @@ class UserManager extends CApplicationComponent
 
                 if(true === $notify) {
                     //@TODO
-                    Yii::app()->notify->send($userModel,  Yii::t('UserModule.user','Password was changed successfully'), '//user/email/passwordRecoverySuccessEmail', array(
+                    Yii::app()->notify->send($userModel,  Yii::t('UserModule.user','Your password was changed successfully!'), '//user/email/passwordRecoverySuccessEmail', array(
                         'password' => $password
                     ));
                 }
