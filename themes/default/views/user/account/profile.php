@@ -82,15 +82,7 @@ $form = $this->beginWidget(
                 <?php echo Yii::t('UserModule.user','e-mail was not confirmed, please check you mail!');?>
             </p>
         <?php endif?>
-
-
-        <div class="row-fluid email-change-msg">
-            <?php if (Yii::app()->user->profile->getIsVerifyEmail()) : ?>
-                <p class="text-warning span6">
-                    <?php echo Yii::t('UserModule.user','Warning! After changing your e-mail you will receive a message explaining how to verify it');?>
-                </p>
-            <?php endif;?>
-        </div>
+       
     </div>
 
 
@@ -166,6 +158,14 @@ $form = $this->beginWidget(
     <?php endif;?>
 
     <div class="row-fluid  control-group">
+        
+         <div class="row-fluid email-change-msg">
+            <?php if (Yii::app()->user->profile->getIsVerifyEmail()) : ?>
+                <p class="text-warning span6">
+                    <?php echo Yii::t('UserModule.user','Warning! After changing your e-mail you will receive a message explaining how to verify it');?>
+                </p>
+            <?php endif;?>
+        </div>  
         
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
