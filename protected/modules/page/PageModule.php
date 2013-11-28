@@ -94,10 +94,9 @@ class PageModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(array(
-              'application.modules.page.models.*',
-              'application.modules.page.components.*',
+              'application.modules.page.models.*',              
               'application.modules.page.components.widgets.*',
-         ));
+        ));
 
         // Если у модуля не задан редактор - спросим у ядра
         if (!$this->editor) {

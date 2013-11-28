@@ -17,9 +17,7 @@ return array(
         // Указание здесь layout'a портит отображение на фронтенде:
         //'layout' => '//layouts/column2',
     ),
-    'import'    => array(
-        'application.modules.page.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(
         '/pages/<slug>' => 'page/page/show',

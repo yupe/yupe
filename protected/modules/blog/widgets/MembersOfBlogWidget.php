@@ -11,6 +11,8 @@
  *
  */
 
+Yii::import('application.modules.blog.models.*');  
+ 
 class MembersOfBlogWidget extends YWidget
 {
     public $blogId;

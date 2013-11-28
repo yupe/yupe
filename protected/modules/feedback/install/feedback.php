@@ -15,9 +15,7 @@ return array(
         'notifyEmailFrom' => 'test@test.ru',
         'emails'          => 'test_1@test.ru, test_2@test.ru',
     ),
-    'import'    => array(
-        'application.modules.feedback.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(
         '/contacts' => 'feedback/contact/index',

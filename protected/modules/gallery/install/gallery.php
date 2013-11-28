@@ -12,9 +12,7 @@ return array(
     'module'   => array(
         'class' => 'application.modules.gallery.GalleryModule',
     ),
-    'import'    => array(
-        'application.modules.gallery.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(
         '/albums' => 'gallery/gallery/list',

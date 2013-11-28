@@ -13,9 +13,7 @@ return array(
     'module'   => array(
         'class' => 'application.modules.blog.BlogModule',
     ),
-    'import'    => array(
-        'application.modules.blog.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(
         '/post/<slug>.html' => 'blog/post/show',

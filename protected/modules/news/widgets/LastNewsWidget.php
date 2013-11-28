@@ -11,6 +11,7 @@
  * @link     http://yupe.ru
  *
  **/
+Yii::import('application.modules.news.models.*');
 
 class LastNewsWidget extends YWidget
 {

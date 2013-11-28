@@ -23,6 +23,8 @@
  * ));
  * ?>
  */
+
+Yii::import('application.modules.menu.models.*'); 
  
 class MenuWidget extends YWidget
 {

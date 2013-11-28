@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-
+ 
 class PostCategoryWidget extends YWidget
 {
     public $view = 'post-category';

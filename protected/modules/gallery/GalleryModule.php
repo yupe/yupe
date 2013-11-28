@@ -79,8 +79,7 @@ class GalleryModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(array(
-            'gallery.models.*',
-            'gallery.components.*',
+            'gallery.models.*'          
         ));
     }
 

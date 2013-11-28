@@ -15,9 +15,7 @@ return array(
     'module'    => array(
         'class' => 'application.modules.mail.MailModule',
     ),
-    'import'    => array(
-        'application.modules.mail.models.*',
-    ),
+    'import'    => array(),
     'component' => array(
         // компонент для отправки почты
         'mail' => array(

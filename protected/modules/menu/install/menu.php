@@ -12,9 +12,7 @@ return array(
     'module'   => array(
         'class' => 'application.modules.menu.MenuModule',
     ),
-    'import'    => array(
-        'application.modules.menu.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(),
 );

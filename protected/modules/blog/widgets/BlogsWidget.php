@@ -11,6 +11,8 @@
  *
  */
 
+Yii::import('application.modules.blog.models.Blog'); 
+ 
 class BlogsWidget extends YWidget
 {
     public $view = 'blogswidget';

@@ -10,7 +10,8 @@
  * @since 0.1
  *
  */
-
+Yii::import('application.modules.blog.models.*'); 
+ 
 class LastPostsOfBlogWidget extends YWidget
 {
     public $blogId;

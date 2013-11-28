@@ -10,7 +10,8 @@
  * @link     http://yupe.ru
  *
  **/
-
+Yii::import('application.modules.feedback.models.FeedBack');
+ 
 class FaqWidget extends YWidget
 {
     public $view = 'faqwidget';

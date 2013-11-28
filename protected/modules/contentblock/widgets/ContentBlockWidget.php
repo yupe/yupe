@@ -9,6 +9,8 @@
  * @link     http://yupe.ru
  *
  **/
+Yii::import('application.modules.contentblock.models.ContentBlock');
+ 
 class ContentBlockWidget extends YWidget
 {
     public $code;

@@ -58,8 +58,7 @@ class ContentBlockModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(array(
-            'contentblock.models.*',
-            'contentblock.components.*',
+            'contentblock.models.*',           
         ));
     }
 

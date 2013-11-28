@@ -82,8 +82,7 @@ class MenuModule extends yupe\components\WebModule
     public function init()
     {
         $this->setImport(array(
-            'application.modules.menu.models.*',
-            'application.modules.menu.components.*',
+            'application.modules.menu.models.*'         
         ));
     }
 }

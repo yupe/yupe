@@ -175,8 +175,7 @@ class ImageModule extends WebModule
         $this->setImport(
             array_merge(
                 array(
-                    'image.models.*',
-                    'image.components.*',
+                    'image.models.*'                  
                 ), $forImport
             )
         );

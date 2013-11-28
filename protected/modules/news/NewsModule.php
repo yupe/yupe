@@ -178,8 +178,7 @@ class NewsModule extends WebModule
         parent::init();
 
         $this->setImport(array(
-            'news.models.*',
-            'news.components.*',
+            'news.models.*'          
         ));
     }
 }

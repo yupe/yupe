@@ -9,7 +9,7 @@
  * @since 0.1
  *
  */
-
+Yii::import( 'application.modules.page.models.*');
 
 class PagesWidget extends YWidget
 {

@@ -12,9 +12,7 @@ return array(
     'module'   => array(
         'class' => 'application.modules.news.NewsModule',
     ),
-    'import'    => array(
-        'application.modules.news.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(
         '/news/'        => 'news/news/index',
