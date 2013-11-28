@@ -1,7 +1,7 @@
 <?php
 class LoginPage
 {
-    public static $URL = '/ru/login';
+    public static $URL = '/login';
 
     public static $passwordField = 'LoginForm[password]';
 

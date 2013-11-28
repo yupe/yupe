@@ -739,7 +739,7 @@ CREATE TABLE `yupe_user_user` (
 -- Dumping data for table `yupe_user_user`
 --
 
-INSERT INTO `yupe_user_user` (`id`, `change_date`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `last_visit`, `avatar`, `hash`, `email_confirm`, `registration_date`) VALUES(1, '2013-11-05 20:02:30', '', '', '', 'yupe', 'yupe@yupe.local', 0, NULL, '', '', '', 1, 1, '2013-11-05 20:02:31', NULL, '$2a$13$DfQ.s4KZQR/zD.AvuJA6vuVsYoWPezsRDSZS/7q3rl.cGFqS7COGG', 1, '2013-11-05 20:02:30');
+INSERT INTO `yupe_user_user` (`id`, `change_date`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `last_visit`, `avatar`, `hash`, `email_confirm`, `registration_date`) VALUES(1, '2013-11-05 20:02:30', '', '', '', 'yupe', 'yupe@yupe.local', 0, NULL, '', '', '', 1, 1, '2013-11-05 20:02:31', NULL, '$2a$13$kV7qdBBM3MPYW.6LAKeiv.iIAMDa4BZFhwzjMWhCm78UmDT8wDH7G', 1, '2013-11-05 20:02:30');
 
 
 -- --------------------------------------------------------
