@@ -58,7 +58,14 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
     'yupe\widgets\CustomListView', array(
         'id'           => 'feed-back-list',
         'dataProvider' => $model->search(),
-        'itemView'     => '_view'
+        'itemView'     => '_view',
+        'sortableAttributes'=>array(
+            'creation_date',
+            'status',
+            'theme',
+            'category_id',
+            'is_faq'
+         ),
     )
 ); ?>
 

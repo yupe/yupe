@@ -137,7 +137,7 @@ class FeedBack extends YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 'status ASC, change_date ASC'),
+            'sort'     => array('defaultOrder' => 'creation_date DESC, status ASC'),
         ));
     }
 
