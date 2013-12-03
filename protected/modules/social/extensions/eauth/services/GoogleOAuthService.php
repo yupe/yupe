@@ -43,10 +43,10 @@ class GoogleOAuthService extends EOAuth2Service {
 
 		/*if (!empty($info['gender']))
 			$this->attributes['gender'] = $info['gender'] == 'male' ? 'M' : 'F';
-		
+
 		if (!empty($info['picture']))
 			$this->attributes['photo'] = $info['picture'];
-		
+
 		$info['given_name']; // first name
 		$info['family_name']; // last name
 		$info['birthday']; // format: 0000-00-00

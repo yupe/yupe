@@ -3,6 +3,8 @@ use yupe\components\WebModule;
 
 class SocialModule extends WebModule
 {
+    public $controllerNamespace = '\application\modules\social\controllers';
+
     public function getDependencies()
     {
         return array(
@@ -67,9 +69,6 @@ class SocialModule extends WebModule
 
     public function init()
     {
-        Yii::import('application.modules.social.extensions.eoauth.*');
-        Yii::import('application.modules.social.extensions.eoauth.lib.*');
-        Yii::import('application.modules.social.extensions.eauth.*');
-        Yii::import('application.modules.social.extensions.eauth.services.*');
+        parent::init();
     }
 }

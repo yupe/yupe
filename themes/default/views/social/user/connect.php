@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle = Yii::t('UserModule.user', 'Sign up');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
+$this->pageTitle = Yii::t('UserModule.user', 'Sign in');
+$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 ?>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
@@ -8,7 +8,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'registration-form',
+        'id' => 'login-form',
         'type' => 'vertical',
         'inlineErrors' => true,
         'htmlOptions' => array(
@@ -19,10 +19,6 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors('nick_name') ? 'error' : ''; ?>'>
-    <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'span6', 'required' => true)); ?>
-</div>
-
 <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
     <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
 </div>
@@ -31,11 +27,13 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
     <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span6', 'required' => true)); ?>
 </div>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors('cPassword') ? 'error' : ''; ?>'>
-    <?php echo $form->passwordFieldRow($model, 'cPassword', array('class' => 'span6', 'required' => true)); ?>
-</div>
+<?php if (Yii::app()->getModule('user')->sessionLifeTime > 0): ?>
+    <div class='row-fluid control-group <?php echo $model->hasErrors('remember_me') ? 'error' : ''; ?>'>
+        <?php echo $form->checkBoxRow($model, 'remember_me'); ?>
+    </div>
+<?php endif; ?>
 
-<?php if ($module->showCaptcha && CCaptcha::checkRequirements()): ?>
+<?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3 && CCaptcha::checkRequirements('gd')): ?>
     <?php $this->widget(
         'CCaptcha',
         array(
@@ -58,24 +56,32 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
     </div>
 <?php endif; ?>
 
-<div class="row-fluid control-group">
+
+<div class="row-fluid  control-group">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
             'type' => 'primary',
+            'icon' => 'signin',
+            'label' => Yii::t('UserModule.user', 'Sign in'),
+        )
+    ); ?>
+
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'link',
             'label' => Yii::t('UserModule.user', 'Sign up'),
+            'url' => Yii::app()->createUrl('/user/account/registration'),
         )
     ); ?>
 </div>
 
-<div class="row-fluid control-group">
-    <?php $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array(
-        'action' => '/social/login',
-        'predefinedServices' => array('google'),
-    )); ?>
-</div>
+<?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
 
 <?php $this->endWidget(); ?>
+
 <!-- form -->

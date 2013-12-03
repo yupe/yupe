@@ -75,10 +75,9 @@ class YWebUser extends CWebUser
         if (!$this->isAuthenticated())
             return false;
 
-        $loginAdmTime = $this->getState('loginAdmTime');
-        $isAdmin      = $this->getState('isAdmin');
+        $isAdmin = $this->getState('isAdmin');
 
-        if ($isAdmin == User::ACCESS_LEVEL_ADMIN && $loginAdmTime)
+        if ($isAdmin == User::ACCESS_LEVEL_ADMIN)
             return true;
         return false;
     }

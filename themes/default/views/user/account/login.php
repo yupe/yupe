@@ -81,7 +81,10 @@
 </div>
 
 <div class="row-fluid control-group">
-    <?php $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array('action' => '/login')); ?>
+    <?php $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array(
+        'action' => '/social/login',
+        'predefinedServices' => array('google'),
+    )); ?>
 </div>
 
 <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
