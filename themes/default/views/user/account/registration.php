@@ -73,7 +73,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 <div class="row-fluid control-group">
     <?php $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array(
         'action' => '/social/login',
-        'predefinedServices' => array('google'),
+        'predefinedServices' => array('google', 'facebook', 'vkontakte'),
     )); ?>
 </div>
 

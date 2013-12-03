@@ -23,6 +23,11 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
     <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'span6', 'required' => true)); ?>
 </div>
 
+<?php if (!isset($authData['email'])): ?>
+    <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
+        <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
+    </div>
+<?php endif; ?>
 
 <div class="row-fluid  control-group">
     <?php

@@ -68,7 +68,7 @@ return array(
 //                ),
                 'vkontakte' => array(
                     // register your app here: https://vk.com/editapp?act=create&site=1
-                    'class' => 'VKontakteOAuthService',
+                    'class' => 'application\modules\social\components\services\VKontakte',
                     'client_id' => '',
                     'client_secret' => '',
                     'title' => 'VKontakte',
@@ -107,8 +107,8 @@ return array(
         ),
     ),
     'rules' => array(
-        '/social/login/service/<service:(google|facebook)>' => 'social/user/login',
-        '/social/connect/service/<service:(google|facebook)>' => 'social/user/connect',
-        '/social/register/service/<service:(google|facebook)>' => 'social/user/register',
+        '/social/login/service/<service:(google|facebook|vkontakte)>' => 'social/user/login',
+        '/social/connect/service/<service:(google|facebook|vkontakte)>' => 'social/user/connect',
+        '/social/register/service/<service:(google|facebook|vkontakte)>' => 'social/user/register',
     ),
 );

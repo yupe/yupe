@@ -47,7 +47,7 @@ class UserController extends FrontController
                     $this->redirect(Yii::app()->user->getReturnUrl($redirect));
                 }
 
-                if (Yii::app()->userManager->isUserExist($this->service->email)) {
+                if ($this->service->hasAttribute('email') && Yii::app()->userManager->isUserExist($this->service->email)) {
                     Yii::app()->user->setFlash(
                         \YFlashMessages::INFO_MESSAGE,
                         Yii::t('SocialModule.social', 'Аккаунт с таким адресом уже существует! Войдите если хотите присоединить эту социальную сеть к своему аккаунту.')
@@ -86,10 +86,19 @@ class UserController extends FrontController
         $module->onBeginRegistration($event);
 
         if (Yii::app()->getRequest()->getIsPostRequest()) {
+            if (!isset($authData['email']) &&
+                Yii::app()->userManager->isUserExist($_POST['RegistrationForm']['email'])) {
+                Yii::app()->user->setFlash(
+                    \YFlashMessages::INFO_MESSAGE,
+                    Yii::t('SocialModule.social', 'Аккаунт с таким адресом уже существует! Войдите если хотите присоединить эту социальную сеть к своему аккаунту.')
+                );
+                $this->redirect(array('/social/connect', 'service' => $this->service->getServiceName()));
+            }
+
             $password = Yii::app()->userManager->hasher->generateRandomPassword();
             $form->setAttributes(array(
                 'nick_name' => $_POST['RegistrationForm']['nick_name'],
-                'email' => $authData['email'],
+                'email' => isset($authData['email']) ? $authData['email'] : $_POST['RegistrationForm']['email'],
                 'password' => $password,
                 'cPassword' => $password,
             ));
