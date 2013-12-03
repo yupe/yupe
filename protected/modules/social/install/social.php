@@ -56,8 +56,8 @@ return array(
                 'facebook' => array(
                     // register your app here: https://developers.facebook.com/apps/
                     'class' => 'application\modules\social\components\services\Facebook',
-                    'client_id' => '504346869686054',
-                    'client_secret' => '442217396b6c92183c18cd4d76a44f64',
+                    'client_id' => '',
+                    'client_secret' => '',
                     'scope' => 'email',
                 ),
 //                'live' => array(
@@ -66,13 +66,13 @@ return array(
 //                    'client_id' => '',
 //                    'client_secret' => '',
 //                ),
-//                'vkontakte' => array(
-//                    // register your app here: https://vk.com/editapp?act=create&site=1
-//                    'class' => 'VKontakteOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                    'title' => 'VKontakte',
-//                ),
+                'vkontakte' => array(
+                    // register your app here: https://vk.com/editapp?act=create&site=1
+                    'class' => 'VKontakteOAuthService',
+                    'client_id' => '',
+                    'client_secret' => '',
+                    'title' => 'VKontakte',
+                ),
 //                'mailru' => array(
 //                    // register your app here: http://api.mail.ru/sites/my/add
 //                    'class' => 'MailruOAuthService',
