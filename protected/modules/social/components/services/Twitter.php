@@ -1,17 +1,33 @@
 <?php
 
-class CustomTwitterService extends TwitterOAuthService {
+namespace application\modules\social\components\services;
 
-	protected function fetchAttributes() {
-		$info = $this->makeSignedRequest('https://api.twitter.com/1.1/account/verify_credentials.json');
+use \TwitterOAuthService;
 
-		$this->attributes['id'] = $info->id;
-		$this->attributes['name'] = $info->name;
-		$this->attributes['url'] = 'http://twitter.com/account/redirect_by_id?id=' . $info->id_str;
+class Twitter extends TwitterOAuthService {
 
-		$this->attributes['username'] = $info->screen_name;
-		$this->attributes['language'] = $info->lang;
-		$this->attributes['timezone'] = timezone_name_from_abbr('', $info->utc_offset, date('I'));
-		$this->attributes['photo'] = $info->profile_image_url;
-	}
+    const AUTH_DATA_KEY = 'authData';
+
+    public function authenticate()
+    {
+        if (parent::authenticate()) {
+            $this->setState(self::AUTH_DATA_KEY, array(
+                'uid' => $this->getId(),
+                'service' => $this->getServiceName(),
+                'type' => $this->getServiceType(),
+            ));
+            return true;
+        }
+        return false;
+    }
+
+    public function getAuthData()
+    {
+        return $this->getState(self::AUTH_DATA_KEY);
+    }
+
+    public function cleanAuthData()
+    {
+        $this->setState(self::AUTH_DATA_KEY, null);
+    }
 }

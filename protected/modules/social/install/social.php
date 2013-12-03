@@ -23,36 +23,13 @@ return array(
                         'email' => array('email', 'contact/email'),
                     ),
                 ),
-//                'google-oauth' => array(
-//                    // register your app here: https://code.google.com/apis/console/
-//                    'class' => 'GoogleOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                    'title' => 'Google (OAuth2)',
-//                ),
-//                'yandex' => array(
-//                    'class' => 'YandexOpenIDService',
-//                    'title' => 'Yandex',
-//                ),
-//                'yandex-oauth' => array(
-//                    // register your app here: https://oauth.yandex.ru/client/my
-//                    'class' => 'YandexOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                    'title' => 'Yandex (OAuth)',
-//                ),
-//                'twitter' => array(
-//                    // register your app here: https://dev.twitter.com/apps/new
-//                    'class' => 'TwitterOAuthService',
-//                    'key' => '',
-//                    'secret' => '',
-//                ),
-//                'linkedin' => array(
-//                    // register your app here: https://www.linkedin.com/secure/developer
-//                    'class' => 'LinkedinOAuthService',
-//                    'key' => '',
-//                    'secret' => '',
-//                ),
+                'twitter' => array(
+                    // register your app here: https://dev.twitter.com/apps/new
+                    'class' => 'application\modules\social\components\services\Twitter',
+                    'key' => '',
+                    'secret' => '',
+                ),
+
                 'facebook' => array(
                     // register your app here: https://developers.facebook.com/apps/
                     'class' => 'application\modules\social\components\services\Facebook',
@@ -60,12 +37,7 @@ return array(
                     'client_secret' => '',
                     'scope' => 'email',
                 ),
-//                'live' => array(
-//                    // register your app here: https://manage.dev.live.com/Applications/Index
-//                    'class' => 'LiveOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                ),
+
                 'vkontakte' => array(
                     // register your app here: https://vk.com/editapp?act=create&site=1
                     'class' => 'application\modules\social\components\services\VKontakte',
@@ -73,33 +45,6 @@ return array(
                     'client_secret' => '',
                     'title' => 'VKontakte',
                 ),
-//                'mailru' => array(
-//                    // register your app here: http://api.mail.ru/sites/my/add
-//                    'class' => 'MailruOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                ),
-//                'moikrug' => array(
-//                    // register your app here: https://oauth.yandex.ru/client/my
-//                    'class' => 'MoikrugOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                    //'title' => 'Moi Krug',
-//                ),
-//                'github' => array(
-//                    // register your app here: https://github.com/settings/applications
-//                    'class' => 'GitHubOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                ),
-//                'odnoklassniki' => array(
-//                    // register your app here: http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev
-//                    'class' => 'OdnoklassnikiOAuthService',
-//                    'client_id' => '...',
-//                    'client_public' => '...',
-//                    'client_secret' => '...',
-//                    'title' => 'Odnokl.',
-//                ),
             ),
         ),
         'loid' => array(
@@ -107,8 +52,8 @@ return array(
         ),
     ),
     'rules' => array(
-        '/social/login/service/<service:(google|facebook|vkontakte)>' => 'social/user/login',
-        '/social/connect/service/<service:(google|facebook|vkontakte)>' => 'social/user/connect',
-        '/social/register/service/<service:(google|facebook|vkontakte)>' => 'social/user/register',
+        '/social/login/service/<service:(google|facebook|vkontakte|twitter)>' => 'social/user/login',
+        '/social/connect/service/<service:(google|facebook|vkontakte|twitter)>' => 'social/user/connect',
+        '/social/register/service/<service:(google|facebook|vkontakte|twitter)>' => 'social/user/register',
     ),
 );

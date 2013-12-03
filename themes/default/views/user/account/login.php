@@ -83,7 +83,7 @@
 <div class="row-fluid control-group">
     <?php $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array(
         'action' => '/social/login',
-        'predefinedServices' => array('google', 'facebook', 'vkontakte'),
+        'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter'),
     )); ?>
 </div>
 
