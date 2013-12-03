@@ -18,7 +18,7 @@ return array(
             'popup' => false,
             'services' => array(
                 'google' => array(
-                    'class' => 'Google',
+                    'class' => 'application\modules\social\components\services\Google',
                     'requiredAttributes' => array(
                         'email' => array('email', 'contact/email'),
                     ),
@@ -53,13 +53,13 @@ return array(
 //                    'key' => '',
 //                    'secret' => '',
 //                ),
-//                'facebook' => array(
-//                    // register your app here: https://developers.facebook.com/apps/
-//                    'class' => 'Facebook',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                    'scope' => array('email'),
-//                ),
+                'facebook' => array(
+                    // register your app here: https://developers.facebook.com/apps/
+                    'class' => 'application\modules\social\components\services\Facebook',
+                    'client_id' => '504346869686054',
+                    'client_secret' => '442217396b6c92183c18cd4d76a44f64',
+                    'scope' => 'email',
+                ),
 //                'live' => array(
 //                    // register your app here: https://manage.dev.live.com/Applications/Index
 //                    'class' => 'LiveOAuthService',
@@ -107,8 +107,8 @@ return array(
         ),
     ),
     'rules' => array(
-        '/social/login/service/<service:(google)>' => 'social/user/login',
-        '/social/connect/service/<service:(google)>' => 'social/user/connect',
-        '/social/register/service/<service:(google)>' => 'social/user/register',
+        '/social/login/service/<service:(google|facebook)>' => 'social/user/login',
+        '/social/connect/service/<service:(google|facebook)>' => 'social/user/connect',
+        '/social/register/service/<service:(google|facebook)>' => 'social/user/register',
     ),
 );
