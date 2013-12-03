@@ -175,7 +175,7 @@ class UserController extends FrontController
 
             $form->setAttributes(Yii::app()->request->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login($form->email, $form->password, $form->remember_me, Yii::app()->user, Yii::app()->request)) {
+            if ($form->validate() && Yii::app()->authenticationManager->login($form, Yii::app()->user, Yii::app()->request)) {
 
                 $social = new \SocialUser();
                 $social->user_id = Yii::app()->user->getId();

@@ -1,4 +1,6 @@
 <?php
+namespace application\modules\social\components\services;
+use \GoogleOpenIDService;
 
 class Google extends GoogleOpenIDService {
 

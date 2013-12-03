@@ -1,16 +1,38 @@
 <?php
-class Facebook extends FacebookOAuthService {
-	/**
-	 * https://developers.facebook.com/docs/authentication/permissions/
-	 */
-	protected $scope = 'email,user_birthday,user_hometown,user_location';
+namespace application\modules\social\components\services;
 
-	/**
-	 * http://developers.facebook.com/docs/reference/api/user/
-	 *
-	 * @see FacebookOAuthService::fetchAttributes()
-	 */
-	protected function fetchAttributes() {
-		$this->attributes = (array)$this->makeSignedRequest('https://graph.facebook.com/me');
+use \FacebookOAuthService;
+
+class Facebook extends FacebookOAuthService {
+
+    const AUTH_DATA_KEY = 'authData';
+
+	protected function fetchAttributes()
+    {
+        $this->attributes = (array)$this->makeSignedRequest('https://graph.facebook.com/me');
 	}
+
+    public function authenticate()
+    {
+        if (parent::authenticate()) {
+            $this->setState(self::AUTH_DATA_KEY, array(
+                'email' => $this->email,
+                'uid' => $this->getId(),
+                'service' => $this->getServiceName(),
+                'type' => $this->getServiceType(),
+            ));
+            return true;
+        }
+        return false;
+    }
+
+    public function getAuthData()
+    {
+        return $this->getState(self::AUTH_DATA_KEY);
+    }
+
+    public function cleanAuthData()
+    {
+        $this->setState(self::AUTH_DATA_KEY, null);
+    }
 }
