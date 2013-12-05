@@ -11,6 +11,8 @@
  *
  **/
 
+Yii::import('application.modules.comment.CommentModule');
+
 class CommentsListWidget extends YWidget
 {
     public $model;
