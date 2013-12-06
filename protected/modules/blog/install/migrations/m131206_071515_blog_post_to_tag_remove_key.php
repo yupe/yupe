@@ -1,8 +1,9 @@
 <?php
 /**
- * m131206_065613_blog_post_to_tag_remove_key
+ * m131206_071515_blog_post_to_tag_remove_key
  *
- * Удаление неправильных ключей
+ * Blog install migration
+ * Класс миграций для модуля Blog:
  *
  * @category YupeMigration
  * @package  yupe.modules.blog.install.migrations
@@ -11,12 +12,11 @@
  * @link     http://yupe.ru
  **/
 
-class m131206_065613_blog_post_to_tag_remove_key extends yupe\components\DbMigration
+class m131206_071515_blog_post_to_tag_remove_key extends yupe\components\DbMigration
 {
     public function safeUp()
     {
         $this->dropPrimaryKey('post_id', '{{blog_post_to_tag}}');
-        $this->dropPrimaryKey('tag_id', '{{blog_post_to_tag}}');
     }
 
     public function safeDown()
