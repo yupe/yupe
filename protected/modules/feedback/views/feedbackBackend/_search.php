@@ -39,7 +39,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
         <div class="span3">
             <?php echo $form->dropDownListRow(
-                $model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainPostCategory), array(
+                $model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory), array(
                     'empty' => '---',
                 )
             ); ?>
