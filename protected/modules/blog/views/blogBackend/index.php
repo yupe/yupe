@@ -134,7 +134,7 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'name'  => 'category_id',
                 'value'  => 'empty($data->category) ? "---" : $data->category->name',
-                'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
+                'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainCategory)
             ),
             array(
                 'name'   => 'create_user_id',

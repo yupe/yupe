@@ -69,7 +69,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
         array(
             'name'  => 'category_id',
             'value' => '$data->getCategoryName()',
-            'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
+            'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('page')->mainCategory)
         ),
         array(
             'name'   => 'parent_id',

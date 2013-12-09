@@ -22,8 +22,7 @@ class FeedbackModule extends WebModule
     public $notifyEmailFrom;
     public $sendConfirmation = 0;
     public $successPage;
-    public $cacheTime        = 60;
-    public $mainCategory;
+    public $cacheTime        = 60;   
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
 
@@ -195,20 +194,7 @@ class FeedbackModule extends WebModule
     {
         return 'envelope';
     }
-
-    public function getCategoryList()
-    {
-        $criteria = ($this->mainCategory)
-            ? array(
-                'condition' => 'id = :id OR parent_id = :id',
-                'params'    => array(':id' => $this->mainCategory),
-                'order'     => 'id ASC',
-            )
-            : array();
-
-        return Category::model()->findAll($criteria);
-    }
-
+   
     public function init()
     {
         parent::init();

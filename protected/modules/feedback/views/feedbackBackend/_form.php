@@ -25,7 +25,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <div class="row-fluid control-group  <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model,'category_id',CHtml::listData($this->module->getCategoryList(),'id','name'), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help span12', 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+        <?php echo $form->dropDownListRow($model,'category_id',Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help span12', 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
     </div>
     <div class="row-fluid control-group  <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span12', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>

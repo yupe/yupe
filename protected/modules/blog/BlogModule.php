@@ -10,8 +10,7 @@
  *
  */
 class BlogModule extends yupe\components\WebModule
-{
-    public $mainCategory;
+{  
     public $mainPostCategory;
     public $minSize           = 0;
     public $maxSize           = 5368709120;
@@ -67,32 +66,11 @@ class BlogModule extends yupe\components\WebModule
             'maxSize',
             'rssCount'
         );
-    }
-
-    public function getCategoryList()
-    {
-        $criteria = ($this->mainCategory)
-            ? array(
-                'condition' => 'id = :id OR parent_id = :id',
-                'params'    => array(':id' => $this->mainCategory),
-                'order'     => 'id ASC',
-            )
-            : array();
-
-        return Category::model()->findAll($criteria);
-    }
+    }   
 
     public function getCategoryListForPost()
     {
-        $criteria = ($this->mainPostCategory)
-            ? array(
-                'condition' => 'id = :id OR parent_id = :id',
-                'params'    => array(':id' => $this->mainPostCategory),
-                'order'     => 'id ASC',
-            )
-            : array();
-
-        return Category::model()->findAll($criteria);
+       return $this->getCategoryList();
     }
 
     public function getNavigation()

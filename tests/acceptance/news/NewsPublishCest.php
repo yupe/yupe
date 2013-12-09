@@ -15,7 +15,7 @@ class NewsPublishCest
         $I->amOnPage('/backend/news/news');
         $I->see('Новости');
         $I->seeLink('Вторая не опубликованная новость');
-        $I->click('Вторая не опубликованная новость');
+        $I->amOnPage(\CommonPage::PANEL_URL.'news/news/update/2');
         $I->see('Редактирование новости');
         $I->see('Вторая не опубликованная новость');
         $I->fillField('News[status]',1);

@@ -27,7 +27,7 @@ $form = $this->beginWidget(
     <?php echo $form->errorSummary($model); ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("category_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Yii::app()->getModule('image')->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('GalleryModule.gallery', '--choose--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory), array('empty' => Yii::t('GalleryModule.gallery', '--choose--'))); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300, 'size' => 60)); ?>

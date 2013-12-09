@@ -12,12 +12,6 @@
 
 class PageModule extends yupe\components\WebModule
 {
-    /**
-     *  Основная категория для страниц
-     *
-    */
-    public $mainCategory;
-
     public function getDependencies()
     {
         return array(
@@ -107,18 +101,7 @@ class PageModule extends yupe\components\WebModule
     public function isMultiLang()
     {
         return true;
-    }
-
-    public function getCategoryList()
-    {
-        $criteria = array('order' => 'id ASC');
-        if ($this->mainCategory)
-            $criteria += array(
-                'condition' => 'id = :id OR parent_id = :id',
-                'params'    => array(':id' => $this->mainCategory),
-            );
-        return Category::model()->findAll($criteria);
-    }
+    }   
 
     public function getAdminPageLink()
     {

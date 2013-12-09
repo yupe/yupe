@@ -60,7 +60,7 @@ $this->widget(
             array(
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
-                'filter' => CHtml::listData(Yii::app()->getModule('image')->getCategoryList(),'id','name')
+                'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory)
             ),
             array(
                 'name'   => 'galleryId',

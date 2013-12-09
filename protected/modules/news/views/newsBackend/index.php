@@ -72,7 +72,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
            'name'   => 'category_id',
            'value'  => '$data->getCategoryName()',
-           'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
+           'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('news')->mainCategory)
         ),
         array(
             'name'   => 'status',

@@ -12,7 +12,6 @@
  * @link     http://yupe.ru
  *
  */
-
 namespace yupe\components;
 
 use CChainedCacheDependency;
@@ -33,7 +32,13 @@ abstract class WebModule extends \CWebModule
     const CHECK_NOTICE = 'notice';
 
     const CHOICE_YES = 1;
-    const CHOICE_NO = 0;
+    const CHOICE_NO = 0;    
+    
+    /**
+     * @var integer категория для контента модля
+     * @since 0.6
+     */
+    public $mainCategory;
 
     /**
      * @var str каталог с документацией внутри модуля
@@ -58,6 +63,14 @@ abstract class WebModule extends \CWebModule
      * @var array опции редактора
      */
     public $editorOptions = array();
+    
+    /**
+     * @var array  список категгорий
+     */
+    public function getCategoryList()
+    {
+        return \Category::model()->roots()->findAll();
+    }
 
     /**
      * текущая версия модуля

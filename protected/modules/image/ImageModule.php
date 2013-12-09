@@ -23,8 +23,6 @@ class ImageModule extends WebModule
     public $maxFiles          = 1;
     public $types;
 
-    public $mainCategory;
-
     public function getInstall()
     {
         if(parent::getInstall()) {
@@ -179,21 +177,7 @@ class ImageModule extends WebModule
                 ), $forImport
             )
         );
-    }
-
-    public function getCategoryList()
-    {
-        $criteria = array();
-
-        if ($this->mainCategory)
-            $criteria = array(
-                'condition' => 'id = :id OR parent_id = :id',
-                'params'    => array(':id' => $this->mainCategory),
-                'order'     => 'id ASC',
-            );
-
-        return Category::model()->findAll($criteria);
-    }
+    }  
 
     public function getNavigation()
     {

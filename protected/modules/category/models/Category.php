@@ -206,10 +206,19 @@ class Category extends YModel
 
 	public function getFormattedList($parent = null)
 	{
-		if ($parent === null)
+		$children = array();
+		
+		if ($parent === null) {
 			$children = Category::model()->roots()->findAll();
-		else
+		}
+		elseif(is_object($parent)) {
 			$children = $parent->children()->findAll();
+		}else{
+			$category = Category::model()->findByPk((int)$parent);
+			if($category) {
+			    $children = $category->descendants()->findAll();
+			}			
+		}
 
 		$list = array();
 
