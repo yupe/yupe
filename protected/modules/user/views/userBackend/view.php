@@ -70,7 +70,6 @@
         ),
         'last_visit',
         'registration_date',
-        'change_date',
-        'ip',
+        'change_date'     
     ),
 )); ?>

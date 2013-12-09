@@ -314,4 +314,11 @@ class UserToken extends YModel
     {
         return parent::model($className);
     }
+    
+    public function compromise()
+    {
+        $this->status = self::STATUS_FAIL;
+        
+        return $this->save();
+    }
 }
