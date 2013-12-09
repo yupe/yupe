@@ -84,6 +84,8 @@ class PostController extends yupe\components\controllers\FrontController
         $posts = new Post('search');
         $posts->unsetAttributes();
         $posts->blog_id = $blog->id;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
 
         $this->render('blog-post',array('target' => $blog,'posts' => $posts));
     }

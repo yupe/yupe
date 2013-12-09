@@ -157,15 +157,15 @@ class NewsModule extends WebModule
 
     public function getCategoryList()
     {
-        $criteria = ($this->mainCategory)
-            ? array(
-                'condition' => 'id = :id OR parent_id = :id',
-                'params'    => array(':id' => $this->mainCategory),
-                'order'     => 'id ASC',
-            )
-            : array();
-
-        return Category::model()->findAll($criteria);
+        if($this->mainCategory) {
+            $category = Category::model()->findByPk((int)$this->mainCategory);
+            
+            if($category) {
+                 return $category->descendants()->findAll();
+            }
+        }
+        
+        return array();
     }
 
     public function isMultiLang()
@@ -178,7 +178,7 @@ class NewsModule extends WebModule
         parent::init();
 
         $this->setImport(array(
-            'news.models.*'          
+            'news.models.*'            
         ));
     }
 }

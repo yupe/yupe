@@ -39,12 +39,6 @@ class PostBackendController extends yupe\components\controllers\BackController
         $model->publish_date_tmp = date('d-m-Y');
         $model->publish_time_tmp = date('h:i');
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-        if (Yii::app()->getRequest()->getQuery('blog')) {
-            $model->blog_id = (int) Yii::app()->getRequest()->getQuery('blog');
-        }
-
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(
                 Yii::app()->getRequest()->getPost('Post')

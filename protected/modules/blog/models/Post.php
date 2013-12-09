@@ -43,6 +43,8 @@
  * @property User $updateUser
  * @property Blog $blog
  */
+Yii::import('application.modules.blog.models.*');
+ 
 class Post extends YModel
 {
     const STATUS_DRAFT     = 0;

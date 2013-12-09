@@ -31,6 +31,7 @@ class UserSteps extends \WebGuy
     public function changeEmail($email)
     {
         $I = $this;
+        $I->logout();
         $I->login(\LoginPage::$userEmail, \LoginPage::$userPassword);
         $I->amOnPage(\EditProfilePage::URL);
         $I->fillField(\EditProfilePage::$emailField, $email);
