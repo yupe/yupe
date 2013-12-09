@@ -32,56 +32,56 @@ class m131103_044317_category_nestedsets extends \yupe\components\DbMigration
 		$this->dropForeignKey('fk_{{category_category}}_parent_id', '{{category_category}}');
 
 		/* Чистим кеш, если он есть, чтобы схема БД обновилась */
-		if ($cache = Yii::app()->getCache()) {
-			$cache->flush();
-		}
+		//if ($cache = Yii::app()->getCache()) {
+		//	$cache->flush();
+		//}
 
 		/* Здесь у нас будут храниться новые модели с ключом, равным id модели */
-		$models = array();
-
-		$roots = Yii::app()->db->createCommand()
-			->select('*')
-			->from('{{category_category}}')
-			->where('parent_id IS NULL')
-			->queryAll();
-
-		$children = Yii::app()->db->createCommand()
-			->select('*')
-			->from('{{category_category}}')
-			->where('parent_id IS NOT NULL')
-			->queryAll();
-
-		Yii::app()->db->createCommand()->truncateTable('{{category_category}}');
+		//$models = array();
+		//
+		//$roots = Yii::app()->db->createCommand()
+		//	->select('*')
+		//	->from('{{category_category}}')
+		//	->where('parent_id IS NULL')
+		//	->queryAll();
+		//
+		//$children = Yii::app()->db->createCommand()
+		//	->select('*')
+		//	->from('{{category_category}}')
+		//	->where('parent_id IS NOT NULL')
+		//	->queryAll();
+		//
+		//Yii::app()->db->createCommand()->truncateTable('{{category_category}}');
         //Yii::app()->db->createCommand('DELETE FROM {{category_category}}')->execute();
 
 		/* Сначала сохраняем коренные элементы, потом циклом бегаем по дочерним и смотрим,
 		 у кого родительский элемент уже в базе, сохраняем и удаляем из массива,
 		 т.о. за 1 проход мы сохраняем 1 уровень дерева */
 
-		foreach ($roots as $root) {
-			$model = new Category();
-			$model->setAttributes($root);
-			$model->id = $root['id'];
-			$model->saveNode(false);
-
-			$models[$model->id] = $model;
-		}
+		//foreach ($roots as $root) {
+		//	$model = new Category();
+		//	$model->setAttributes($root);
+		//	$model->id = $root['id'];
+		//	$model->saveNode(false);
+		//
+		//	$models[$model->id] = $model;
+		//}
 
 		/* Подразумевается, что цикл не зациклится, т.к. у нас был foreign key на parent_id и данные должны быть в целостности */
-		while (!empty($children)) {
-			foreach ($children as $key => $child) {
-				if (in_array($child['parent_id'], array_keys($models))) {
-					$model = new Category();
-					$model->setAttributes($child);
-					$model->id = $child['id'];
-					$model->appendTo($models[$child['parent_id']]);
-
-					$models[$model->id] = $model;
-
-					unset($children[$key]);
-				}
-			}
-		}
+		//while (!empty($children)) {
+		//	foreach ($children as $key => $child) {
+		//		if (in_array($child['parent_id'], array_keys($models))) {
+		//			$model = new Category();
+		//			$model->setAttributes($child);
+		//			$model->id = $child['id'];
+		//			$model->appendTo($models[$child['parent_id']]);
+		//
+		//			$models[$model->id] = $model;
+		//
+		//			unset($children[$key]);
+		//		}
+		//	}
+		//}
 
 		$this->dropColumn('{{category_category}}', 'parent_id');
 	}
@@ -94,7 +94,7 @@ class m131103_044317_category_nestedsets extends \yupe\components\DbMigration
 		Yii::import('application.modules.yupe.components.*');
 		Yii::import('application.modules.yupe.components.validators.*');
 
-		$models = Category::model()->findAll();
+		//$models = Category::model()->findAll();
 
 		/* Возвращаем parent_id и fk для него */
 		$this->addColumn('{{category_category}}', 'parent_id', 'integer DEFAULT NULL');
@@ -110,27 +110,27 @@ class m131103_044317_category_nestedsets extends \yupe\components\DbMigration
 		);
 
 		/* Чистим кеш, если он есть, чтобы схема БД обновилась */
-		if ($cache = Yii::app()->getCache()) {
-			$cache->flush();
-		}
-
-		/* Создаём команду для обновления, и пробегаемся по всем найденным моделям */
-		$command = Yii::app()->db->createCommand(
-			'UPDATE {{category_category}} SET parent_id = :parent_id WHERE id = :id'
-		);
-
-		foreach ($models as $model) {
-			$parent = $model->parent()->find();
-
-			$command->bindValues(
-				array(
-					':id'        => $model->id,
-					':parent_id' => (!empty($parent)) ? $parent->id : null
-				)
-			);
-
-			$command->execute();
-		}
+		//if ($cache = Yii::app()->getCache()) {
+		//	$cache->flush();
+		//}
+		//
+		///* Создаём команду для обновления, и пробегаемся по всем найденным моделям */
+		//$command = Yii::app()->db->createCommand(
+		//	'UPDATE {{category_category}} SET parent_id = :parent_id WHERE id = :id'
+		//);
+		//
+		//foreach ($models as $model) {
+		//	$parent = $model->parent()->find();
+		//
+		//	$command->bindValues(
+		//		array(
+		//			':id'        => $model->id,
+		//			':parent_id' => (!empty($parent)) ? $parent->id : null
+		//		)
+		//	);
+		//
+		//	$command->execute();
+		//}
 
 		/* Дропаем ненужные поля и чистим кеш */
 		$this->dropColumn('{{category_category}}', 'level');
@@ -138,8 +138,8 @@ class m131103_044317_category_nestedsets extends \yupe\components\DbMigration
 		$this->dropColumn('{{category_category}}', 'lft');
 		$this->dropColumn('{{category_category}}', 'rgt');
 
-		if ($cache = Yii::app()->getCache()) {
-			$cache->flush();
-		}
+		//if ($cache = Yii::app()->getCache()) {
+		//	$cache->flush();
+		//}
 	}
 }
