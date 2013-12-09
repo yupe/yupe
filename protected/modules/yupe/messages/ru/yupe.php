@@ -288,7 +288,7 @@ return array (
   'memory: {memory}' => 'память: {memory}',
   'module|module|modules' => 'модуль|модуля|модулей',
   'no' => 'нет',
-  'official site' => 'оффифиальный сайт',
+  'official site' => 'официальный сайт',
   'order to develop them' => 'заказать их разработку',
   'php version' => 'версия php',
   'read on site' => 'читать на сайте',

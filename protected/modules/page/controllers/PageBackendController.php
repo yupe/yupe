@@ -10,6 +10,8 @@
  * @version   0.6
  *
  */
+Yii::import('application.modules.menu.models.*');
+ 
 class PageBackendController extends yupe\components\controllers\BackController
 {
     /**
