@@ -302,7 +302,7 @@ return array (
     'New record was created!' => 'Создана новая запись!',
     'Tokens' => 'Токены',
     'Token list' => 'Список токенов',
-    'Default' => 'По умолчанию',
+    'New' => 'Новый',
     'Activated' => 'Активирован',
     'Compromised by' => 'Скомпроментирован',
     'Type' => 'Тип',

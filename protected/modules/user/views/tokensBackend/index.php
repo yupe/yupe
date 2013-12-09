@@ -66,7 +66,7 @@ SCRIPT;
             ),
             array(
                 'name'        => 'status',
-                'value'       => 'UserToken::getStatus($data->status)',
+                'value'       => '$data->getStatus()',
                 'htmlOptions' => array(
                     'style'  => implode(
                         ' ', array(

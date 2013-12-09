@@ -50,7 +50,7 @@ $this->menu = array(
 			),
 			array(
 				'name'  => 'status',
-				'value' => UserToken::getStatus($model->status),
+				'value' => $model->getStatus(),
 			),
 			array(
 				'name' => 'created',

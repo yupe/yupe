@@ -41,7 +41,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
      * @return void
      */
     //*
-        // Оставляю на всякий случай, если кто-то докопается:
+    // Оставляю на всякий случай, если кто-то докопается:
 	public function actionCreate()
 	{
 		$model = new UserToken;

@@ -35,11 +35,8 @@ $form = $this->beginWidget(
 
     	<div class="span6">
     		<div class="span8">
-    			<?php echo $form->textFieldRow($model, 'token',  array('class' => 'span12', 'readonly' => true)); ?>
-    		</div>
-			<div class="span4" style="padding-top: 30px;">
-    			<?php echo $form->checkBoxRow($model, 'new_token'); ?>
-    		</div>
+    			<?php echo $form->textFieldRow($model, 'token',  array('class' => 'span12')); ?>
+    		</div>			
     	</div>
     </div>
 
@@ -52,8 +49,7 @@ $form = $this->beginWidget(
 		    		'bootstrap.widgets.TbDateTimePicker', array(
 						'model'       => $model,
 						'attribute'   => 'created',
-						'htmlOptions' => array(
-							'readonly' => true,
+						'htmlOptions' => array(							
 							'class' => 'span11',
 							'value' => !empty($model->created)
 										? $model->beautifyDate($model->created, 'yyyy-MM-dd HH:mm')
@@ -72,8 +68,7 @@ $form = $this->beginWidget(
 		    		'bootstrap.widgets.TbDateTimePicker', array(
 						'model'       => $model,
 						'attribute'   => 'updated',
-						'htmlOptions' => array(
-							'readonly' => true,
+						'htmlOptions' => array(							
 							'class' => 'span11',
 							'value' => !empty($model->updated)
 										? $model->beautifyDate($model->updated, 'yyyy-MM-dd HH:mm')

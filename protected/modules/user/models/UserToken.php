@@ -42,14 +42,7 @@ class UserToken extends YModel
      * 
      * @var integer
      */
-    protected $oldStatus = null;
-
-    /**
-     * Необходима ли перегенерация токена:
-     * 
-     * @var boolean
-     */
-    public $new_token = false;
+    protected $oldStatus = null;  
 
     /**
      * @return string the associated database table name
@@ -70,7 +63,7 @@ class UserToken extends YModel
             array('user_id, type, ip, token', 'required'),
             array('user_id, type, status', 'numerical', 'integerOnly'=>true),
             array('token, ip', 'length', 'max' => 255),
-            array('updated, new_token', 'safe'),
+            array('updated', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, token, type, status, created, updated, ip', 'safe', 'on'=>'search'),
@@ -176,10 +169,10 @@ class UserToken extends YModel
      * 
      * @return array status list
      */
-    public static function getStatusList()
+    public function getStatusList()
     {
         return array(
-            self::STATUS_NEW     => Yii::t('UserModule.user', 'Default'),
+            self::STATUS_NEW     => Yii::t('UserModule.user', 'New'),
             self::STATUS_ACTIVATE => Yii::t('UserModule.user', 'Activated'),
             self::STATUS_FAIL     => Yii::t('UserModule.user', 'Compromised by'),
         );
@@ -245,21 +238,28 @@ class UserToken extends YModel
      * 
      * @return mixed
      */
-    public static function getStatus($status = null)
+    public function getStatus()
     {
-        $statusList = self::getStatusList();
+        $statusList = $this->getStatusList();
+        
+        $status = (int)$this->status;
 
-        return !empty($status) && isset($statusList[$status])
-                ? $statusList[$status]
-                : $status;
+        return isset($statusList[$status]) ? $statusList[$status] : $status;
     }
 
     public function getIsCompromised()
     {
         return (int) $this->status === self::STATUS_FAIL;
     }
-
-
+    
+    public function beforeValidate()
+    {
+        if(!$this->ip) {
+            $this->ip = Yii::app()->request->userHostAddress;
+        }
+        
+        return parent::beforeValidate();
+    }
 
     /**
      * Перед сохранением необходимо:
@@ -272,7 +272,7 @@ class UserToken extends YModel
     {
         if ($this->getIsNewRecord()) {
             $this->created = new CDbExpression('NOW()');
-        }
+        }     
 
         $this->updated = new CDbExpression('NOW()');
 
