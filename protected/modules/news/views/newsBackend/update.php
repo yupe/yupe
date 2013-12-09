@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('news')->getCategory() => array(),
+    $this->breadcrumbs = array(        
         Yii::t('NewsModule.news', 'News') => array('/news/newsBackend/index'),
         $model->title => array('/news/newsBackend/view', 'id' => $model->id),
         Yii::t('NewsModule.news', 'Edit'),

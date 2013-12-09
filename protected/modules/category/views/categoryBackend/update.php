@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('category')->getCategory() => array(),
+    $this->breadcrumbs = array(       
         Yii::t('CategoryModule.category', 'Categories') => array('/category/categoryBackend/index'),
         $model->name => array('/category/categoryBackend/view', 'id' => $model->id),
         Yii::t('CategoryModule.category', 'Change'),

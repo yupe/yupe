@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('menu')->getCategory() => array(),
+    $this->breadcrumbs = array(        
         Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
         Yii::t('MenuModule.menu', 'Menu items') => array('/menu/menuitemBackend/index'),
         Yii::t('MenuModule.menu', 'Create'),

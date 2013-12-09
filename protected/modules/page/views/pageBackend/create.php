@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('page')->getCategory() => array(),
+    $this->breadcrumbs = array(        
         Yii::t('PageModule.page', 'Pages') => array('/page/pageBackend/index'),
         Yii::t('PageModule.page', 'Add page'),
     );

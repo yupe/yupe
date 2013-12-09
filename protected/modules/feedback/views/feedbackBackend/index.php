@@ -1,6 +1,5 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::app()->getModule('feedback')->getCategory() => array(),
+$this->breadcrumbs = array(   
     Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/feedbackBackend/index'),
     Yii::t('FeedbackModule.feedback', 'Management'),
 );

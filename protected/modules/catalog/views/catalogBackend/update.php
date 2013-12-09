@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('catalog')->getCategory() => array(),
+    $this->breadcrumbs = array(        
         Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
         $model->name => array('/catalog/catalogBackend/view', 'id' => $model->id),
         Yii::t('CatalogModule.catalog', 'Edition'),

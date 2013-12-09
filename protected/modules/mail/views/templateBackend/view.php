@@ -1,6 +1,5 @@
 <?php
-$this->breadcrumbs=array(
-    $this->module->getCategory() => array('index'),
+$this->breadcrumbs=array(    
     Yii::t('MailModule.mail','Mail events')=>array('/mail/eventBackend/index'),
     Yii::t('MailModule.mail','Mail templates')=>array('index'),
     $model->name,

@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('dictionary')->getCategory() => array(),
+    $this->breadcrumbs = array(      
         Yii::t('DictionaryModule.dictionary', 'Dictionaries') => array('/dictionary/dictionaryBackend/index'),
         $model->name,
     );

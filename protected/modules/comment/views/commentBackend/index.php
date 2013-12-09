@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('comment')->getCategory() => array(),
+    $this->breadcrumbs = array(       
         Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
         Yii::t('CommentModule.comment', 'Manage'),
     );

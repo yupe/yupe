@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('queue')->getCategory() => array(),
+    $this->breadcrumbs = array(       
         Yii::t('QueueModule.queue', 'Tasks') => array('/queue/queueBackend/index'),
         Yii::t('QueueModule.queue', 'Management'),
     );

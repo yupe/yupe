@@ -8,8 +8,7 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(
-    Yii::app()->getModule('blog')->getCategory() => array(),
+$this->breadcrumbs = array(   
     Yii::t('BlogModule.blog', 'Posts') => array('/blog/postBackend/index'),
     Yii::t('BlogModule.blog', 'Add'),
 );

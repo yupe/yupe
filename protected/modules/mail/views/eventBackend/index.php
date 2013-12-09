@@ -8,8 +8,7 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-$this->breadcrumbs=array(
-    $this->module->getCategory() => array('index'),
+$this->breadcrumbs=array(    
     Yii::t('MailModule.mail', 'Mail events')=>array('index'),
     Yii::t('MailModule.mail', 'List'),
 );

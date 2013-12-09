@@ -1,4 +1,3 @@
-<?php ?>
 <legend>
     <?php
     echo Yii::t(

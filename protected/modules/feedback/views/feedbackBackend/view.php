@@ -1,8 +1,7 @@
 <?php if (Yii::app()->getRequest()->getIsAjaxRequest() === false) : ?>
 
     <?php
-        $this->breadcrumbs = array(
-            Yii::app()->getModule('feedback')->getCategory() => array(),
+        $this->breadcrumbs = array(          
             Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/feedbackBackend/index'),
             $model->theme,
         );

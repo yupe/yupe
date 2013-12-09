@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('image')->getCategory() => array(),
+    $this->breadcrumbs = array(       
         Yii::t('ImageModule.image', 'Images') => array('/image/imageBackend/index'),
         Yii::t('ImageModule.image', 'Management'),
     );

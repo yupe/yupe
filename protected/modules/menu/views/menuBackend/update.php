@@ -10,8 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-$this->breadcrumbs = array(
-    Yii::app()->getModule('menu')->getCategory() => array(),
+$this->breadcrumbs = array(    
     Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
     $model->name => array('/menu/menuBackend/view', 'id' => $model->id),
     Yii::t('MenuModule.menu', 'Edit'),

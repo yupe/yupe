@@ -1,6 +1,5 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('contentblock')->getCategory() => array(''),
+    $this->breadcrumbs = array(       
         Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/contentBlockBackend/index'),
         Yii::t('ContentBlockModule.contentblock', 'Administration'),
     );

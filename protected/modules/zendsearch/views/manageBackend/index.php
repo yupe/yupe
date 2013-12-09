@@ -1,8 +1,7 @@
 <?php
 /* @var $this DefaultController */
 
-$this->breadcrumbs = array(
-    Yii::app()->getModule('zendsearch')->getCategory() => array(),
+$this->breadcrumbs = array(    
     Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)') => array('/zendsearch/manageBackend/index'),
     Yii::t('ZendSearchModule.zendsearch', 'Manage'),
 );

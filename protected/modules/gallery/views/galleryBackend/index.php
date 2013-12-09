@@ -9,8 +9,7 @@
  *   @link     http://yupe.ru
  **/
 
-$this->breadcrumbs = array(
-    Yii::app()->getModule('gallery')->getCategory() => array(),
+$this->breadcrumbs = array(   
     Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/galleryBackend/index'),
     Yii::t('GalleryModule.gallery', 'Management'),
 );
