@@ -15,6 +15,7 @@ return array(
     ),
     'import'    => array(      
         'application.modules.comment.models.*',
+        'application.modules.blog.models.*',
         'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
     ),
     'component' => array(),
