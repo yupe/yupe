@@ -67,6 +67,9 @@ class ManageBackendController extends yupe\components\controllers\BackController
             if (extension_loaded('iconv') === true) {
                 // Пробежаться по всем моделям и добавить их в индекс
                 foreach ($searchModels as $modelName => $model) {
+                    if(!empty($model['path'])) {
+                        Yii::import($model['path']);
+                    }
                     if (!isset($model['module'])) {
                         $messages[] = Yii::t('ZendSearchModule.zendsearch', 'Update config file or module, Module index not found for model "{model}"!', array('{model}' => $modelName));
                     } elseif (is_file(Yii::getPathOfAlias($model['path']) . '.php') && Yii::app()->hasModule($model['module'])) {

@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'module' => array(
         'class' => 'application.modules.zendsearch.ZendSearchModule',
