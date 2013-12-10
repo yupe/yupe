@@ -23,10 +23,6 @@ $this->menu = array(
         '/gallery/galleryBackend/update',
         'id' => $model->id
     )),
-    array('icon' => 'eye-open', 'label' => Yii::t('GalleryModule.gallery', 'View gallery'), 'url' => array(
-        '/gallery/galleryBackend/view',
-        'id' => $model->id
-    )),
     array('icon' => 'picture', 'label' => Yii::t('GalleryModule.gallery', 'Gallery images'), 'url' => array('/gallery/galleryBackend/images', 'id' => $model->id)),
     array('icon' => 'trash', 'label' => Yii::t('GalleryModule.gallery', 'Remove gallery'), 'url' => '#', 'linkOptions' => array(
         'submit' => array('/gallery/galleryBackend/delete', 'id' => $model->id),

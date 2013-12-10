@@ -12,18 +12,6 @@
 class GalleryBackendController extends yupe\components\controllers\BackController
 {
     /**
-     * Отображает галерею по указанному идентификатору
-     * 
-     * @param integer $id Идинтификатор галерею для отображения
-     *
-     * @return void
-     */
-    public function actionView($id)
-    {
-        $this->render('view', array('model' => $this->loadModel($id)));
-    }
-
-    /**
      * Создает новую модель галереи.
      * Если создание прошло успешно - перенаправляет на просмотр.
      *
