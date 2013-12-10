@@ -13,6 +13,7 @@ $this->breadcrumbs = array(
     <p><?php echo CHtml::link(Yii::t('YupeModule.yupe', 'More about themes'),'http://yiiframework.com/doc/guide/topics.theming',array('target' => '_blank'));?></p>
 </div>
 
+
 <?php echo CHtml::beginForm(array('/yupe/backend/themesettings', 'post'), 'post', array('class' => 'well')); ?>
     <?php echo CHtml::label(Yii::t('YupeModule.yupe', 'Choose site theme'), 'theme');?>
     <?php echo CHtml::dropDownList('theme', $theme, $themes, array('class' => 'span5'));?>
