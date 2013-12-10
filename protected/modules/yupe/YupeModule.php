@@ -206,9 +206,9 @@ class YupeModule extends WebModule
     {
         return array(
             'coreCacheTime',
-            'theme' => $this->getThemes(),
-            'backendLayout',
-            'backendTheme' => $this->getThemes(true),
+            //'theme' => $this->getThemes(),
+            //'backendLayout',
+            //'backendTheme' => $this->getThemes(true),
             'siteName',
             'siteDescription',
             'siteKeyWords',
@@ -245,13 +245,6 @@ class YupeModule extends WebModule
         return array(
             'main' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Main settings'),
-            ),
-            'theme' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
-                'items' => array(
-                    'backendLayout',
-                    'backendTheme',
-                )
             ),
             'language' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Language settings'),
