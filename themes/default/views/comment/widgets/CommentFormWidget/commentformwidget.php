@@ -9,7 +9,7 @@
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => array('/comment/comment/add/'),
+        'action' => Yii::app()->createUrl('/comment/comment/add/'),
         'id' => 'comment-form',
         'type' => 'vertical',
         'inlineErrors' => true,

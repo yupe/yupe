@@ -19,6 +19,7 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        '/comment/comment/captcha/<v>' => '/comment/comment/captcha/'
+        '/comment/comment/captcha/<v>' => '/comment/comment/captcha/',
+        '/comment/add/' => 'comment/comment/add/'
     ),
 );

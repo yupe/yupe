@@ -24,7 +24,7 @@ $(document).ready(function() {
         submit.attr('disabled', 'disabled');
         $.ajax({
             type: 'post',
-            url: baseUrl + $(curForm).attr('action'),
+            url: $(curForm).attr('action'),
             data: $(curForm).serialize(),
             success: function(data) {
                 $(curForm).removeClass('loading');

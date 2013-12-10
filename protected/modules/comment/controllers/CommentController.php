@@ -57,9 +57,9 @@ class CommentController extends yupe\components\controllers\FrontController
     }
 
     /**
-     * Action добавления комментария:
+     * Action добавления комментария
      *
-     * @return nothing
+     *
      **/
     public function actionAdd()
     {
@@ -67,16 +67,16 @@ class CommentController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-
         $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
 
         $comment = new Comment;
+
         $comment->setAttributes(
             Yii::app()->getRequest()->getPost('Comment')
         );
 
         $module = Yii::app()->getModule('comment');
-        $comment->status = $module->defaultCommentStatus;
+        $comment->status = (int)$module->defaultCommentStatus;
 
         if (Yii::app()->user->isAuthenticated()) {
             $comment->setAttributes(
@@ -116,7 +116,9 @@ class CommentController extends yupe\components\controllers\FrontController
             {
                 $rootForComment = Comment::model()->findByPk($parentId);
                 $saveStatus = $comment->appendTo($rootForComment);
-            }else{ // Иначе если parent_id не указан...
+            }
+            else
+            { // Иначе если parent_id не указан...
 
                 $rootNode = Comment::createRootOfCommentsIfNotExists($comment->getAttribute("model"),
                     $comment->getAttribute("model_id"));
