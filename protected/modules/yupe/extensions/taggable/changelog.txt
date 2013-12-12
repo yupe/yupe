@@ -1,6 +1,7 @@
 1.5
 ---
 - updateCount now uses proper PK name (RSol)
+- added support for custom CDbExpression for finding tags (warden)
 
 1.4
 ----
