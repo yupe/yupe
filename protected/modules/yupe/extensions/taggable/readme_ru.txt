@@ -23,6 +23,11 @@ function behaviors() {
             // Имя внешнего ключа модели в кроcc-таблице.
             // По умолчанию равно имя_таблицы_моделиId
             'modelTableFk' => 'post_id',
+
+            // tagTableCondition - по умолчанию пусто. Может быть использовано в том случае, если тег составляется
+            // из нескольких полей и требуется особый SQL для его нахождения. Пример для таблицы user:
+            // 'tagTableCondition' => new CDbExpression("CONCAT(t.name,' ',t.surname) = :tag "),
+
             // Имя первичного ключа тега
             'tagTablePk' => 'id',
             // Имя поля названия тега
@@ -44,12 +49,12 @@ function behaviors() {
 			// Критерий по умолчанию для выборки тегов
             'scope' => array(
 				'condition' => ' t.user_id = :user_id ',
-				'params' => array( ':user_id' => Yii::app()->user->getId() ),
+				'params' => array( ':user_id' => Yii::app()->user->id ),
 			),
 
 			// Значения, которые необходимо вставлять при записи тега
 			'insertValues' => array(
-				'user_id' => Yii::app()->user->getId(),
+				'user_id' => Yii::app()->user->id,
 			),
         )
     );
