@@ -40,6 +40,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
         // $this->performAjaxValidation($model);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Blog') !== null) {
+
             $model->setAttributes(Yii::app()->getRequest()->getPost('Blog'));
 
             if ($model->save()) {

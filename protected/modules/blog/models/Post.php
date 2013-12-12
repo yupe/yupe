@@ -43,7 +43,7 @@
  * @property User $updateUser
  * @property Blog $blog
  */
-Yii::import('application.modules.blog.models.*');
+Yii::import('application.modules.blog.models.Blog');
  
 class Post extends YModel
 {
@@ -359,8 +359,9 @@ class Post extends YModel
 
     public function beforeValidate()
     {
-        if (!$this->slug)
+        if (!$this->slug) {
             $this->slug = YText::translit($this->title);
+        }
 
         return parent::beforeValidate();
     }
@@ -376,7 +377,7 @@ class Post extends YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
@@ -390,13 +391,13 @@ class Post extends YModel
 
     public function getAccessType()
     {
-        $data = $this->accessTypeList;
+        $data = $this->getAccessTypeList();
         return isset($data[$this->access_type]) ? $data[$this->access_type] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
     public function getCommentStatus()
     {
-        $data = $this->commentStatusList;
+        $data = $this->getCommentStatusList();
         return isset($data[$this->comment_status]) ? $data[$this->comment_status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
@@ -415,10 +416,6 @@ class Post extends YModel
      **/
     public function afterFind()
     {
-
-        /**
-         * Fixing publish date for UI:
-         **/
         $this->publish_date_tmp = date('d-m-Y', $this->publish_date);
         $this->publish_time_tmp = date('h:i', $this->publish_date);
 

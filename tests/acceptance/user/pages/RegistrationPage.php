@@ -3,7 +3,7 @@
 class RegistrationPage
 {
     // include url of current page
-    const URL = '/ru/registration';
+    const URL = '/registration';
 
     public static $buttonLabel = 'Регистрация';
 
@@ -17,6 +17,6 @@ class RegistrationPage
 
     public static function getActivateRoute($key)
     {
-        return "/ru/activate/{$key}";
+        return "/activate/{$key}";
     }
 }
