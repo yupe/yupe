@@ -21,9 +21,12 @@ function behaviors() {
             // Cross-table that stores tag-model connections.
             // By default it's your_model_tableTag
             'tagBindingTable' => 'PostTag',
-            // Foreign key in cross-table.
+            // Foreign key field field in cross-table.
             // By default it's your_model_tableId
             'modelTableFk' => 'post_id',
+            // tagTableCondition - empty by default. Can be used in cases where e.g. the tag is composed of 
+            // two fields and a custom search expression is needed to find the tag. Example for user table:
+            // 'tagTableCondition' => new CDbExpression("CONCAT(t.name,' ',t.surname) = :tag "),
             // Tag table PK field
             'tagTablePk' => 'id',
             // Tag name field
@@ -44,12 +47,12 @@ function behaviors() {
             // Default tag selection criteria
             'scope' => array(
 				'condition' => ' t.user_id = :user_id ',
-				'params' => array( ':user_id' => Yii::app()->user->getId() ),
+				'params' => array( ':user_id' => Yii::app()->user->id ),
 			),
 
 			// Values to insert to tag table on adding tag
 			'insertValues' => array(
-				'user_id' => Yii::app()->user->getId(),
+				'user_id' => Yii::app()->user->id,
 			),
         )
     );
