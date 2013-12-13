@@ -19,10 +19,11 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors('nick_name') ? 'error' : ''; ?>'>
-    <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'span6', 'required' => true)); ?>
-</div>
-
+<?php if(!$module->autoNick): ?>
+    <div class='row-fluid control-group <?php echo $model->hasErrors('nick_name') ? 'error' : ''; ?>'>
+        <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'span6', 'required' => true)); ?>
+    </div>
+<?php endif; ?>
 <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
     <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
 </div>
