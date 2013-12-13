@@ -17,11 +17,13 @@ $this->breadcrumbs = array('Регистрация новго пользоват
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'nick_name'); ?>
-        <?php echo $form->textField($model, 'nick_name') ?>
-        <?php echo $form->error($model, 'nick_name'); ?>
-    </div>
+    <?php if (!$module->autoNick): ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'nick_name'); ?>
+            <?php echo $form->textField($model, 'nick_name') ?>
+            <?php echo $form->error($model, 'nick_name'); ?>
+        </div>
+    <?php endif; ?>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'email'); ?>
