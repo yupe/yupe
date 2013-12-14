@@ -41,7 +41,7 @@ class YupeModule extends WebModule
     public $categoryIcon;
     public $categorySort;
 
-    public $availableLanguages = 'ru,en';
+    public $availableLanguages = 'ru,en,zh_cn';
     public $defaultLanguage = 'ru';
     public $defaultBackendLanguage = 'ru';
 
@@ -237,7 +237,7 @@ class YupeModule extends WebModule
 
     /**
      * массив групп параметров модуля, для группировки параметров на странице настроек
-     * 
+     *
      * @return array
      */
     public function getEditableParamsGroups()
@@ -618,7 +618,7 @@ class YupeModule extends WebModule
                         if ($key !== $this->id) {
                             $data['items'] = array_merge(
                                 $data['items'], $key == $this->id ? array() : $modSettings
-                            );                            
+                            );
                         }
 
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
@@ -1054,10 +1054,10 @@ class YupeModule extends WebModule
 
     /**
      * Генерация анкора PoweredBy
-     * 
+     *
      * @param string $color - цвет
      * @param string $text  - текс
-     * 
+     *
      * @return анкор poweredBy
      */
     public function poweredBy($color = 'yellow', $text = '')
@@ -1074,9 +1074,9 @@ class YupeModule extends WebModule
 
     /**
      * Получаем массив с именами модулей, от которых зависит работа данного модуля
-     * 
+     *
      * @return array Массив с именами модулей, от которых зависит работа данного модуля
-     * 
+     *
      * @since 0.5
      */
     public function getDependencies()
