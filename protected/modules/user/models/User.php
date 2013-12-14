@@ -88,7 +88,7 @@ class User extends YModel
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('registration_date', 'length', 'max' => 50),
             array('id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, last_visit', 'safe', 'on' => 'search'),
-			array('birth_date', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('birth_date', 'default', 'setOnEmpty' => true, 'value' => null),
         );
     }
 
