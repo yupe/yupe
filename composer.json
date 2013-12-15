@@ -75,8 +75,7 @@
         "clevertech/yii-booster": "2.0.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
-        "zhuravljov/yii2-debug": "dev-master",
-        "facebook/php-sdk": "3.*"
+        "zhuravljov/yii2-debug": "dev-master"
     },
     "require-dev": {
         "codeception/codeception": "1.6.*"
