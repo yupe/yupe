@@ -300,14 +300,6 @@ class UserModule extends WebModule
     {
         parent::init();
 
-        $homeUrl = '/' . Yii::app()->defaultController . '/index';
-
-        if (!$this->loginSuccess)
-            $this->loginSuccess = $homeUrl;
-
-        if (!$this->logoutSuccess)
-            $this->logoutSuccess = $homeUrl;
-
         $this->setImport(array(
             'user.models.*',
             'user.components.*',

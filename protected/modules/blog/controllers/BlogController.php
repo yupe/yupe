@@ -21,10 +21,13 @@ class BlogController extends yupe\components\controllers\FrontController
         $dataProvider = new CActiveDataProvider(
             'Blog', array(
                 'criteria' => array(
-                    'condition' => 't.status = :status',
-                    'params'    => array(':status' => Blog::STATUS_ACTIVE),
+                    'condition' => 't.status = :status AND t.type = :type',
+                    'params'    => array(
+                        ':status' => Blog::STATUS_ACTIVE,
+                        ':type'   => (int)Yii::app()->request->getQuery('type', Blog::TYPE_PUBLIC)
+                    ),
                     'with'      => array('createUser', 'postsCount', 'membersCount'),
-                    'order'     => 'create_date DESC',
+                    'order'     => 'name ASC',
                 ),
             )
         );

@@ -69,19 +69,18 @@ class CommentsListWidget extends YWidget
         if ($this->comment === null) {
             $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
             if (empty($comments)) {
-                if (empty($this->comments)) {
-                    $this->comments = Comment::model()->with('author')->findAll(
+                if (empty($this->comments)) {                 
+                    $this->comments = Comment::model()->findAll(
                         array(
                             'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
                             'params' => array(
                                 ':model' => $this->model,
                                 ':modelId' => $this->modelId,
                                 ':status' => $this->status,
-                            ),
-                            'with' => array('author'),
+                            ),                         
                             'order' => 't.lft',
                         )
-                    );
+                    );                    
                 }
                 //unset($this->comments[0]); // remove "root" node
                 foreach($this->comments as $k=>$v) {

@@ -45,6 +45,7 @@ class Blog extends YModel
 
     const TYPE_PUBLIC  = 1;
     const TYPE_PRIVATE = 2;
+    
 
     /**
      * Returns the static model of the specified AR class.
