@@ -81,7 +81,9 @@ function ajaxSetStatus(elem, id) {
     $.ajax({
         url: $(elem).attr('href'),
         success: function() {
-            $('#'+id).yiiGridView.update(id);
+            $('#'+id).yiiGridView.update(id, {
+                data : $('#'+id+'>.keys').attr('title')
+            });
         }
     });
 }
