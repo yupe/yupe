@@ -21,6 +21,6 @@ return array(
         '/blogs/<slug>'     => 'blog/blog/show',
         '/blogs'            => 'blog/blog/index',
         '/posts'            => 'blog/post/index',
-        '/posts/<slug>/'    => 'blog/post/blog'
+        '/posts/<slug>/'    => 'blog/post/blog'        
     ),
 );

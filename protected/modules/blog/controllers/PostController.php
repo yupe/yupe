@@ -107,4 +107,21 @@ class PostController extends yupe\components\controllers\FrontController
 
         $this->render('blog-post',array('target' => $category,'posts' => $posts));
     }
+
+    public function actionView($id)
+    {
+        $id = (int)$id;
+
+        if(!$id) {
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));        
+        } 
+
+        $post = Post::model()->public()->published()->findByPk($id);
+
+        if(null === $post) {
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));   
+        }
+
+        $this->redirect(array('/blog/post/show', 'slug' => $post->slug), true, 301);
+    }
 }

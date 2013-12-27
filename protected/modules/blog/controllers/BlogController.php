@@ -54,6 +54,7 @@ class BlogController extends yupe\components\controllers\FrontController
         $this->render('show', array('blog' => $blog));
     }
 
+
     /**
      * "вступление" в блог
      *

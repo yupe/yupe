@@ -6,6 +6,12 @@ Yii::import('application.modules.blog.models.*');
 Yii::import('application.modules.comment.models.*');
 Yii::import('application.modules.yupe.helpers.*');
 
+// for livestreet url mapping
+//'/blog/<blog_name>/<id>.html' => 'blog/post/view',
+//'/profile/<username:\w+>/' => 'user/people/userInfo',
+//'/tag/<tag>'  => 'blog/post/list',
+//'/people'     => 'user/people/index'
+
 class ImportLsCommand extends CConsoleCommand
 {
 
@@ -302,6 +308,8 @@ class ImportLsCommand extends CConsoleCommand
        catch(Exception $e)
        {
            $transaction->rollback(); 
+           CVarDumper::dump($e);
+           die();
        }
     }
 }
