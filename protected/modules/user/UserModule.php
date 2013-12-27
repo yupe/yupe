@@ -38,6 +38,7 @@ class UserModule extends WebModule
     public $avatarMaxSize                  = 10000;
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');
+    public $usersPerPage                   = 30;
 
     public $registrationActivateMailEvent  = 'USER_REGISTRATION_ACTIVATE';
     public $registrationMailEvent          = 'USER_REGISTRATION';
@@ -126,8 +127,9 @@ class UserModule extends WebModule
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Maximum avatar size'),
             'defaultAvatar'                  => Yii::t('UserModule.user', 'Empty avatar'),
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Page after admin authorization'),
-            'registrationSuccess  '             => Yii::t('UserModule.user', 'Page after success register'),
+            'registrationSuccess'            => Yii::t('UserModule.user', 'Page after success register'),
             'sessionLifeTime'                => Yii::t('UserModule.user', 'Session lifetime (in days) when "Remember me" options enabled'),
+            'usersPerPage'                   => Yii::t('UserModule.user', 'Users per page'),
         );
     }
 
@@ -158,7 +160,8 @@ class UserModule extends WebModule
             'accountActivationFailure',
             'loginAdminSuccess',
             'registrationSuccess  ',
-            'sessionLifeTime'
+            'sessionLifeTime',
+            'usersPerPage'
         );
     }
 

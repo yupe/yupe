@@ -43,6 +43,8 @@ class User extends YModel
     private $_oldStatus;
     public $use_gravatar = false;
 
+    public $pageSize;
+
     /**
      * @return string the associated database table name
      */
@@ -187,7 +189,15 @@ class User extends YModel
         $criteria->compare('t.last_visit', $this->last_visit, true);
         $criteria->compare('t.email_confirm', $this->email_confirm);        
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination'=> array(
+                'pageSize' => (int)$this->pageSize,
+            ),
+            'sort'=>array(
+                'defaultOrder'=>'last_visit DESC',
+            )
+        ));
     }
 
     /**
