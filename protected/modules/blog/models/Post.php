@@ -188,7 +188,7 @@ class Post extends YModel
         return array(
             'id'               => Yii::t('BlogModule.blog', 'id'),
             'blog_id'          => Yii::t('BlogModule.blog', 'Blog'),
-            'create_user_id'   => Yii::t('BlogModule.blog', 'Create user'),
+            'create_user_id'   => Yii::t('BlogModule.blog', 'Created'),
             'update_user_id'   => Yii::t('BlogModule.blog', 'Update user'),
             'create_date'      => Yii::t('BlogModule.blog', 'Created at'),
             'update_date'      => Yii::t('BlogModule.blog', 'Updated at'),

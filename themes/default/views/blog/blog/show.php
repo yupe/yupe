@@ -82,6 +82,11 @@ $this->breadcrumbs = array(
 
 <?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 10)); ?>
 
+<br/>
+
+<?php echo CHtml::link("Все записи блога '{$blog->name}'", array('/blog/post/blog/','slug' => $blog->slug), array('class' => 'btn'));?>
+
 <br/><br/>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget');?>
+
