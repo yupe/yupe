@@ -64,8 +64,8 @@ class ImportLsCommand extends CConsoleCommand
                 $email = $user['user_mail'] ? $user['user_mail'] : md5($user['user_login']);
 
                 Yii::app()->db->createCommand('
-                    INSERT INTO {{user_user}} (id, nick_name, email, hash, registration_date, status, gender, location, birth_date, about, change_date, avatar)
-                                       VALUES(:id,:nick_name,:email,:hash, :registration_date, :status, :gender, :location, :birth_date, :about, :change_date, :avatar)
+                    INSERT INTO {{user_user}} (id, nick_name, email, hash, registration_date, status, gender, location, birth_date, about, change_date, avatar, last_visit)
+                                       VALUES(:id,:nick_name,:email,:hash, :registration_date, :status, :gender, :location, :birth_date, :about, :change_date, :avatar, :last_visit)
                 ')->bindValue(':id', $user['user_id'])
                   ->bindValue(':nick_name', $user['user_login'])
                   ->bindValue(':email', $email)
@@ -78,6 +78,7 @@ class ImportLsCommand extends CConsoleCommand
                   ->bindValue(':about', $about)
                   ->bindValue(':change_date', $changeDate)
                   ->bindValue(':avatar', $user['user_profile_avatar'])
+                  ->bindValue(':last_visit', $user['user_profile_date'])
                   ->execute();
             }
 
