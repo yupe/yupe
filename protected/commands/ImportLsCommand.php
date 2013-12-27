@@ -63,6 +63,17 @@ class ImportLsCommand extends CConsoleCommand
 
                 $email = $user['user_mail'] ? $user['user_mail'] : md5($user['user_login']);
 
+                $avatar = null;
+
+                if($user['user_profile_avatar']) {
+
+                  $url = parse_url($user['user_profile_avatar']);
+
+                  if(!empty($url['path'])) {
+                    $avatar = str_replace('/uploads/','', $url['path']);
+                  }
+                }
+
                 Yii::app()->db->createCommand('
                     INSERT INTO {{user_user}} (id, nick_name, email, hash, registration_date, status, gender, location, birth_date, about, change_date, avatar, last_visit)
                                        VALUES(:id,:nick_name,:email,:hash, :registration_date, :status, :gender, :location, :birth_date, :about, :change_date, :avatar, :last_visit)
@@ -77,7 +88,7 @@ class ImportLsCommand extends CConsoleCommand
                   ->bindValue(':birth_date', $user['user_profile_birthday'])
                   ->bindValue(':about', $about)
                   ->bindValue(':change_date', $changeDate)
-                  ->bindValue(':avatar', $user['user_profile_avatar'])
+                  ->bindValue(':avatar', $avatar)
                   ->bindValue(':last_visit', $user['user_profile_date'])
                   ->execute();
             }
