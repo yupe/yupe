@@ -7,6 +7,7 @@ Yii::import('application.modules.comment.models.*');
 Yii::import('application.modules.yupe.helpers.*');
 
 // for livestreet url mapping
+//'/blog/<slug>'     => 'blog/blog/show', 
 //'/blog/<blog_name>/<id>.html' => 'blog/post/view',
 //'/profile/<username:\w+>/' => 'user/people/userInfo',
 //'/tag/<tag>'  => 'blog/post/list',
@@ -108,7 +109,15 @@ class ImportLsCommand extends CConsoleCommand
 
                 $updateDate = $blog['blog_date_edit'] ? $blog['blog_date_edit'] : $blog['blog_date_add'];
 
-                $icon = $blog['blog_avatar'] ? $blog['blog_avatar'] : '';
+                $icon = '';
+
+                if($blog['blog_avatar']) {
+                    $url = parse_url($blog['blog_avatar']);
+
+                    if(!empty($url['path'])) {
+                      $icon = str_replace('/uploads/','', $url['path']);
+                    }
+                }
 
                 $type = $blog['blog_type'] == 'personal' ? Blog::TYPE_PRIVATE : Blog::TYPE_PUBLIC;
 
@@ -124,7 +133,7 @@ class ImportLsCommand extends CConsoleCommand
                   ->bindValue(':update_user_id',$blog['user_owner_id'])
                   ->bindValue(':create_date', strtotime($blog['blog_date_add']))
                   ->bindValue(':update_date', strtotime($updateDate))
-                  ->bindValue(':icon', basename($icon))
+                  ->bindValue(':icon', $icon)
                   ->bindValue(':type', $type) 
                   ->execute();
             }
