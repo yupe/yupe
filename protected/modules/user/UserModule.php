@@ -21,11 +21,11 @@ class UserModule extends WebModule
     public $loginSuccess;
     public $registrationSuccess            = '/user/account/login';
     public $loginAdminSuccess              = '';
-    public $logoutSuccess;
+    public $logoutSuccess                  = '/';
     public $sessionLifeTime                = 7;
 
     public $notifyEmailFrom;
-    public $autoRecoveryPassword           = true;
+    public $autoRecoveryPassword           = false;
     public $recoveryDisabled               = false;
     public $registrationDisabled           = false;
     public $minPasswordLength              = 8;
