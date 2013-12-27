@@ -202,11 +202,14 @@ class Blog extends YModel
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
 
-        $criteria->with = array('createUser', 'updateUser');
+        $criteria->with = array('createUser', 'updateUser', 'postsCount', 'membersCount');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 10),
+            'sort' => array(
+                'defaultOrder' => 'name ASC',
+            )
         ));
     }
 
@@ -246,8 +249,9 @@ class Blog extends YModel
     {
         $this->update_user_id = Yii::app()->user->getId();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
+        }
 
         return parent::beforeSave();
     }
@@ -258,8 +262,9 @@ class Blog extends YModel
          * Если это новая запись - добавляем пользователя
          * который создал блог в его участники
          */
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->join();
+        }
 
         return parent::afterSave();
     }
@@ -307,8 +312,9 @@ class Blog extends YModel
 
     public function userInBlog($userId = null)
     {
-        if (!Yii::app()->user->isAuthenticated())
+        if (!Yii::app()->user->isAuthenticated()) {
             return false;
+        }
 
         $params = array(
             'user_id' => $userId !== null

@@ -18,21 +18,16 @@ class BlogController extends yupe\components\controllers\FrontController
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider(
-            'Blog', array(
-                'criteria' => array(
-                    'condition' => 't.status = :status AND t.type = :type',
-                    'params'    => array(
-                        ':status' => Blog::STATUS_ACTIVE,
-                        ':type'   => (int)Yii::app()->request->getQuery('type', Blog::TYPE_PUBLIC)
-                    ),
-                    'with'      => array('createUser', 'postsCount', 'membersCount'),
-                    'order'     => 'name ASC',
-                ),
-            )
-        );
+        $blogs = new Blog('search');
+        $blogs->unsetAttributes();
+        $blogs->status = Blog::STATUS_ACTIVE;
+        $blogs->type = (int)Yii::app()->request->getQuery('type', Blog::TYPE_PUBLIC);
 
-        $this->render('index', array('dataProvider' => $dataProvider));
+        if(isset($_GET['Blog']['name'])) {
+            $blogs->name = CHtml::encode($_GET['Blog']['name']);
+        }
+
+        $this->render('index', array('blogs' => $blogs));
     }
 
     /**

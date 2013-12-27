@@ -7,7 +7,7 @@
  * ИЗМЕНЕНИЯ В ДАННОМ ФАЙЛЕ МОГУТ ПРИВЕСТИ К ПОТЕРЕ РАБОТОСПОСОБНОСТИ
  * Для собственных настроек создайте и используйте "/protected/config/userspace.php"
  * Подробную информацию по использованию "userspace" можно узнать из официальной
- * документации.
+ * документаци - http://yupe.ru/docs/yupe/userspace.config.html
  *
  * @category YupeConfig
  * @package  Yupe

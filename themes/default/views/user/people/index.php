@@ -16,8 +16,8 @@
 
  <div class="input-append">  
      <?php echo $form->textField($users,'nick_name', array('placeholder' => 'поиск по нику', 'class' => 'span8'));?>
-     <button class="btn" type="submit">Искать!</button>
- </div>    
+     <button class="btn" type="submit">искать</button>
+ </div>
 
 <?php $this->endWidget(); ?>
 

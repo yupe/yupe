@@ -194,8 +194,8 @@ class User extends YModel
             'pagination'=> array(
                 'pageSize' => (int)$this->pageSize,
             ),
-            'sort'=>array(
-                'defaultOrder'=>'last_visit DESC',
+            'sort' => array(
+                'defaultOrder' => 'last_visit DESC',
             )
         ));
     }
