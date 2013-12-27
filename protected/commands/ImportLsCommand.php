@@ -16,6 +16,7 @@ class ImportLsCommand extends CConsoleCommand
         $this->actionTags();
         $this->actionPosts();         
         $this->actionComments(); 
+        $this->actionMembers();
     }
    
 
@@ -276,8 +277,31 @@ class ImportLsCommand extends CConsoleCommand
               CVarDumper::dump($e);
               $transaction->rollback();
               die;
-         }  
+         }
+    }
 
+    public function actionMembers()
+    {
+       $data = Yii::app()->ls->createCommand('SELECT * FROM prefix_blog_user')->queryAll();
 
+       $transaction = Yii::app()->db->beginTransaction();
+
+       try
+       {
+           UserToBlog::model()->deleteAll();
+           
+           foreach ($data as $member) {
+              $model = new UserToBlog;
+              $model->user_id = $member['user_id'];
+              $model->blog_id = $member['blog_id'];
+              $model->save();
+           } 
+
+           $transaction->commit(); 
+       }
+       catch(Exception $e)
+       {
+           $transaction->rollback(); 
+       }
     }
 }
