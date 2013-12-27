@@ -12,5 +12,6 @@
 	    'dataProvider' => $model->allPosts(),
 	    'itemView'     => '_view_all',
 	    'template'     => "{items}\n{pager}",
+	    'ajaxUpdate'   => false
 	)
 ); ?>

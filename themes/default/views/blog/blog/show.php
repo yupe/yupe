@@ -48,13 +48,13 @@ $this->breadcrumbs = array(
             <span class="blog-description-owner">
                 <i class="icon-user"></i>
                 <?php echo Yii::t('BlogModule.blog', 'Created'); ?>:
-                <b>
+                <strong>
                     <?php $this->widget(
                         'application.modules.user.widgets.UserPopupInfoWidget', array(
                             'model' => $blog->createUser
                         )
                     ); ?>
-                </b>
+                </strong>
             </span>
 
             <span class="blog-description-datetime">
@@ -75,20 +75,13 @@ $this->breadcrumbs = array(
         <?php endif; ?>
         
         <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id)); ?>
+
     </div>
+
 </div>
 
-<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 3)); ?>
+<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 10)); ?>
+
+<br/><br/>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget');?>
-<br /><br />
-
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $blog, 'modelId' => $blog->id)); ?>
-
-<h3><?php echo Yii::t('BlogModule.blog', 'Leave comment'); ?></h3>
-
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
-    'redirectTo' => Yii::app()->createUrl('/blog/blog/show/', array('slug' => $blog->slug)),
-    'model' => $blog,
-    'modelId' => $blog->id,
-)); ?>

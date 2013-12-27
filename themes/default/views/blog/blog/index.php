@@ -11,5 +11,6 @@ $this->widget(
         'dataProvider' => $dataProvider,
         'template' => '{items} {pager}',
         'itemView' => '_view',
+        'ajaxUpdate'  => false
     )
 ); ?>
