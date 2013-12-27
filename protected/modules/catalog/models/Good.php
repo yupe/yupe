@@ -283,7 +283,7 @@ class Good extends YModel
     public function getCategoryLink()
     {
         return $this->category instanceof Category
-            ? CHtml::link($this->category->name, array("/category/default/view", "id" => $this->id))
+            ? CHtml::link($this->category->name, array("/category/default/view", "id" => $this->category_id))
             : '---';
     }
 }
