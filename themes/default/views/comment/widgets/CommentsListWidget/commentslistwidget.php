@@ -18,12 +18,12 @@
     <?php foreach ($comments as $comment):?>
 
         <?php if(!$this->comment && is_object($comment)):?>
-            <?php  $level = ($comment->level < 10 ) ? $comment->level-2 : 10; ?>
+            <?php  $level = ($comment->level < 10 ) ? $comment->level : 10; ?>            
         <?php else:?>
             <?php $comment = $this->comment;?>
             <?php $level = 1;?>
         <?php endif;?>
-            <div class="well well-small comment-body" id="comment_<?php echo $comment->id;?>_<?php echo str_replace(' ', '_', $comment->creation_date); ?>" style="margin-left: <?php echo (20 * $level); ?>px; " level="<?php echo $level; ?>">
+            <div class="well well-small comment-body" id="comment_<?php echo $comment->id;?>_<?php echo str_replace(' ', '_', $comment->creation_date); ?>" style="margin-left: <?php echo (10 * $level); ?>px; " level="<?php echo $level; ?>">
                     <a class="pull-left" href="<?php echo $comment->getAuthorUrl()?>"><?php echo $comment->getAuthorAvatar();?></a> 
                     <ul>
                         <li><?php echo $comment->getAuthorLink();?></li>
@@ -44,5 +44,4 @@
 <?php else:?>
     <p><?php echo $this->label; ?> <?php echo Yii::t('CommentModule.comment','be first!');?>
 <?php endif;?>
-
 </div>
