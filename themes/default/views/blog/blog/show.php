@@ -64,7 +64,7 @@ $this->breadcrumbs = array(
 
             <span class="blog-description-posts">
                 <i class="icon-pencil"></i>
-                <?php echo CHtml::link($blog->postsCount, array('/blog/post/blog/','slug' => $blog->slug)); ?>
+                <?php echo CHtml::link(count($blog->posts), array('/blog/post/blog/','slug' => $blog->slug)); ?>
             </span>
         </div>
 
@@ -74,7 +74,7 @@ $this->breadcrumbs = array(
         </div>
         <?php endif; ?>
         
-        <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id)); ?>
+        <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id, 'blog' => $blog)); ?>
 
     </div>
 

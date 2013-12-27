@@ -17,12 +17,16 @@ class MembersOfBlogWidget extends YWidget
 {
     public $blogId;
 
+    public $blog;
+
     public $view = 'membersofblog';
 
     public function run()
     {
-        $blog = Blog::model()->with('members')->findByPk($this->blogId);
+        if(!$this->blog) {
+            $this->blog = Blog::model()->with('members')->findByPk($this->blogId);	
+        }        
 
-        $this->render($this->view, array('model' => $blog));
+        $this->render($this->view, array('model' => $this->blog));
     }
 }

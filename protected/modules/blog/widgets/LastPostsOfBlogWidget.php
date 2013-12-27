@@ -20,7 +20,7 @@ class LastPostsOfBlogWidget extends YWidget
 
     public function run()
     {
-        $posts = Post::model()->public()->published()->findAll(array(
+        $posts = Post::model()->public()->published()->with('commentsCount','createUser','blog')->findAll(array(
                 'condition' => 'blog_id = :blog_id',
                 'limit'  => (int)$this->limit,
                 'order'  => 'publish_date DESC',

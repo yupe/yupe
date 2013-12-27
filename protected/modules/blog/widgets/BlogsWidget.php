@@ -19,6 +19,14 @@ class BlogsWidget extends YWidget
 
     public function run()
     { 
-        $this->render($this->view, array('models' => Blog::model()->public()->published()->cache($this->cacheTime)->with('membersCount','postsCount')->cache($this->cacheTime)->findAll(array('limit' => $this->limit))));
+        $models = Blog::model()->public()->published()->cache($this->cacheTime)->with('membersCount','postsCount')->cache($this->cacheTime)->findAll(array(
+        	'join'   => 'JOIN {{blog_user_to_blog}} utb ON utb.blog_id = t.id', 
+        	'select' => 't.name, t.slug, utb.id',        	
+        	'order'  => 'count(utb.id) DESC',
+        	'group'  => 't.slug',
+        	'limit'  => $this->limit,
+        ));
+
+        $this->render($this->view, array('models' => $models));
     }
 }
