@@ -38,7 +38,7 @@ class UserModule extends WebModule
     public $avatarMaxSize                  = 10000;
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');
-    public $usersPerPage                   = 30;
+    public $usersPerPage                   = 20;
 
     public $registrationActivateMailEvent  = 'USER_REGISTRATION_ACTIVATE';
     public $registrationMailEvent          = 'USER_REGISTRATION';

@@ -426,40 +426,50 @@ class User extends YModel
         $size = (int) $size;
         $size || ($size = 32);
 
+        $ava  = null;
+
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
-        } else if ($this->avatar){
 
-            $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
-            $uploadPath = Yii::app()->getModule('yupe')->uploadPath;
-            $basePath   = Yii::app()->getModule('user')->getUploadPath();
-            $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
+            $ava = 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
 
-            // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
-            if (file_exists($basePath . "/" . $sizedFile)) {
-                return Yii::app()->getRequest()->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
-            }
+        }else{
 
-            if (file_exists($basePath . "/" . $this->avatar)){
-                // Есть! Можем сделать нужный размер
-                $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
-                if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick") {
-                    $image->resize($size, $size, CImage::WIDTH)
-                          ->crop($size, $size)
-                          ->quality(85)
-                          ->sharpen(15)
-                          ->save($basePath . "/" . $sizedFile);
-                } else {
-                    @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
+            $userModule = Yii::app()->getModule('user');
+            $avatarPath = $userModule->defaultAvatar;
+            $avatar = Yii::app()->getRequest()->baseUrl . $avatarPath;
+
+            if ($this->avatar){
+
+                $avatarsDir = $userModule->avatarsDir;
+                $basePath   = $userModule->getUploadPath();
+                $uploadPath = Yii::app()->getModule('yupe')->uploadPath;          
+                $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
+                $baseUrl    = Yii::app()->getRequest()->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
+
+                // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
+                if (file_exists($basePath . "/" . $sizedFile)) {                   
+                    $ava = $baseUrl;
+                } else if (file_exists($basePath . "/" . $this->avatar)){              
+                    // Есть! Можем сделать нужный размер
+                    $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
+
+                    if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick") {
+                        $image->resize($size, $size, CImage::WIDTH)
+                              ->crop($size, $size)
+                              ->quality(85)
+                              ->sharpen(15)
+                              ->save($basePath . "/" . $sizedFile);
+                    } else {
+                        @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
+                    }
+
+                    $ava = $baseUrl;
                 }
-
-                return Yii::app()->getRequest()->baseUrl . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
             }
         }
-        
-        // Нету аватарки, печалька :'(
-        return Yii::app()->getRequest()->baseUrl . Yii::app()->getModule('user')->defaultAvatar;
+     
+        return $ava ? $ava : $avatar;
     }
 
     /**
