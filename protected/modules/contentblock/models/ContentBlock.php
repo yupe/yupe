@@ -113,4 +113,19 @@ class ContentBlock extends YModel
         $data = $this->types;
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*unknown type*');
     }
+
+	protected function beforeSave()
+	{
+		if (parent::beforeSave()) {
+			Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+
+			if ($this->type == self::SIMPLE_TEXT) {
+				$this->content = strip_tags($this->content);
+			}
+
+			return true;
+		}
+
+		return false;
+	}
 }
