@@ -42,10 +42,10 @@
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
                 </div>
-            <?php endif; ?>
+            <?php endif; ?>         
 
-            <div class="widget blogs-widget">
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+             <div class="widget stream-widget">
+                <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
             </div>
 
             <div class="widget last-posts-widget">
@@ -63,6 +63,10 @@
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
             </div>
 
+            <div class="widget blogs-widget">
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+            </div>
+
             <div class="widget last-login-users-widget">
                 <?php $this->widget(
                     'application.modules.user.widgets.LastLoginUsersWidget',
@@ -70,7 +74,8 @@
                         'cacheTime' => $this->yupe->coreCacheTime,
                     )
                 ); ?>
-            </div>
+            </div> 
+
         </aside>
         <!-- sidebar end -->
     </div>
