@@ -5,14 +5,11 @@
         <li>
             <p>
                 <?php echo CHtml::link($model->name, array('/blog/blog/show/', 'slug' => $model->slug)); ?>
-            </p>
-            <p>
+                &rarr;
                 <i class="icon-user"></i>
-                <?php echo Yii::t('BlogModule.blog','Members:'); ?>
                 <?php echo $model->membersCount; ?>
-
+                &rarr;
                 <i class="icon-file-alt"></i>
-                <?php echo Yii::t('BlogModule.blog','Posts:'); ?>
                 <?php echo CHtml::link($model->postsCount,array('/blog/post/blog/','slug' => $model->slug)); ?>
             </p>
         </li>

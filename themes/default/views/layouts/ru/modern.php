@@ -96,13 +96,16 @@
 
         </p>
 
-        <p><a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
+        <p>
+            <a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
                     src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc"
                     alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
             <a href="https://packagist.org/packages/yupe/yupe"><img src="https://poser.pugx.org/yupe/yupe/downloads.png"
                                                                     alt="Total Downloads" style="max-width:100%;"></a>
             <a href="http://depending.in/yupe/yupe"><img src="https://d2xishtp1ojlk0.cloudfront.net/d/1477472"
                                                          alt="Dependencies Status" style="max-width:100%;"></a>
+            <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge" style="max-width:100%;"></a>
+
         </p>
     </div>
 
@@ -227,7 +230,7 @@
                 <small>Последнее в блогах</small>
             </h2>
             <div class="alert alert-notice">
-                <a href="/albums">Галерея</a> проектов на Юпи! <strong>Добавьте свою работу!</strong>
+                <a href="/albums/4">Галерея</a> проектов на Юпи! <strong>Добавьте свою работу!</strong>
             </div>
             <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3, 'view' => 'lastposts-index')); ?>
             <h2>
@@ -240,11 +243,8 @@
 
     <?php $this->widget('application.modules.gallery.widgets.GalleryWidget', array('limit' => 4, 'galleryId' => 4, 'view' => 'gallery-index')); ?>
 
-    <hr>
     <?php $this->renderPartial('//layouts/_footer'); ?>
 </div>
-
-</div> <!-- /container -->
 
 <script type="text/javascript">
     !function (d, s, id) {
@@ -256,8 +256,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }
     }(document, "script", "twitter-wjs");
-</script>
-<script type="text/javascript">
+
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
@@ -276,20 +275,14 @@
                 });
             }
         });
-    })
-</script>
-<div style="display: none;">
-    <?php //@TODO убрать данный костыль, без него стили бутсрапа не подтягиваются;?>
-    <?php $this->widget('bootstrap.widgets.TbBox'); ?>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
+
         $('#more-modules-link').click(function (event) {
             event.preventDefault();
             $('#more-modules').slideDown();
             $(this).fadeOut();
         });
-    });
+    })
 </script>
+
 </body>
 </html>
