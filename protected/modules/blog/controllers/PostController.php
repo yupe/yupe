@@ -26,13 +26,14 @@ class PostController extends yupe\components\controllers\FrontController
      */
     public function actionShow($slug)
     {
-        $post = Post::model()->with(
+        $post = Post::model()->public()->published()->with(
             'blog', 'createUser', 'comments.author'
         )->find(
             't.slug = :slug', array(
                 ':slug' => $slug
             )
         );
+
 
         if (null === $post){
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Post was not found!'));
