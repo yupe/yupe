@@ -143,6 +143,9 @@ class Post extends YModel
                 'condition' => 't.access_type = :access_type',
                 'params'    => array(':access_type' => self::ACCESS_PUBLIC),
             ),
+            'recent' => array(
+                'order' => 'publish_date DESC'
+            )
         );
     }
 
@@ -428,5 +431,28 @@ class Post extends YModel
             ?: YText::characterLimiter(
                 $this->content, (int) $limit
             );
+    }
+
+    public function getArchive($blogId = null)
+    {
+        $criteria = new CDbCriteria();
+
+        if($blogId) {
+            $criteria->condition = 'blog_id = :blog_id';
+            $criteria->params = array(
+                ':blog_id' =>  (int)$blogId
+            );
+        }
+
+        $models = $this->public()->published()->recent()->findAll($criteria);
+
+        $data = array();
+
+        foreach($models as $model) {
+            list($year, $month) = split('-',date('Y-m',$model->publish_date));
+            $data[$year][$month][] = $model;            
+        }
+
+        return $data;
     }
 }

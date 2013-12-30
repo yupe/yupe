@@ -14,9 +14,7 @@ class PostController extends yupe\components\controllers\FrontController
 
     public function actionIndex()
     {
-        $posts = Post::model();
-
-        $this->render('index', array('model' => $posts));
+        $this->render('index', array('model' => Post::model()));
     }
 
     /**

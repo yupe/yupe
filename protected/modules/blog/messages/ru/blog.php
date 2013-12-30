@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'archive'       => 'Архив',
+    'Posts archive' => 'Архив записей',
     '*unknown*' => '*неизвестно*',
     '--choose blog--' => '--выберите блог--',
     '--choose--' => '--выберите--',
