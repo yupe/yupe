@@ -10,7 +10,7 @@ class AuthenticationManager extends CApplicationComponent
             CLogger::LEVEL_INFO, UserModule::$logCategory
         );
 
-        $user->logout();
+        return $user->logout();
     }
 
     public function login(LoginForm $form, IWebUser $user, CHttpRequest $request = null)

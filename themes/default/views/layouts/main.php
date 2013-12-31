@@ -76,6 +76,10 @@
                 ); ?>
             </div> 
 
+            <div class="widget last-login-users-widget">
+               <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'web/images/amyLabs.jpg'), 'http://amylabs.ru?from=amy-banner', array('target' => '_blank'));?>
+            </div>
+
         </aside>
         <!-- sidebar end -->
     </div>
