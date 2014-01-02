@@ -9,6 +9,11 @@
  * @since 0.1
  *
  */
+namespace yupe\filters;
+
+use CAccessControlFilter;
+use Yii;
+
 class YFrontAccessControl extends CAccessControlFilter
 {
     public function preFilter($filterChain)

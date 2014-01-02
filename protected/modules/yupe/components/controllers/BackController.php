@@ -31,7 +31,7 @@ class BackController extends Controller
     public function filters()
     {
         return array(
-            array('application.modules.yupe.filters.YBackAccessControl'),
+            array('yupe\filters\YBackAccessControl'),
         );
     }
 
