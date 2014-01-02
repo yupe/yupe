@@ -26,14 +26,7 @@ class PostController extends yupe\components\controllers\FrontController
      */
     public function actionShow($slug)
     {
-        $post = Post::model()->public()->published()->with(
-            'blog', 'createUser', 'comments.author'
-        )->find(
-            't.slug = :slug', array(
-                ':slug' => $slug
-            )
-        );
-
+        $post = Post::model()->get($slug, array('blog', 'createUser', 'comments.author'));
 
         if (null === $post){
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Post was not found!'));
@@ -53,16 +46,11 @@ class PostController extends yupe\components\controllers\FrontController
     {
         $tag = CHtml::encode($tag);
 
-        $criteria = new CDbCriteria;
-        $criteria->order = 'publish_date DESC';
-
-        $posts = Post::model()->with(
-            'blog',
-            'createUser'
-        )->published()
+        $posts = Post::model()->with('blog','createUser')
+         ->published()
          ->public()
-         ->taggedWith($tag)
-         ->findAll($criteria);
+         ->sortByPubDate('DESC')
+         ->taggedWith($tag)->findAll();
 
         $this->render(
             'list', array(
@@ -115,7 +103,7 @@ class PostController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));        
         } 
 
-        $post = Post::model()->public()->published()->findByPk($id);
+        $post = Post::model()->get($id);
 
         if(null === $post) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));   

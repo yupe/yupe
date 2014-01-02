@@ -329,9 +329,11 @@ class Post extends YModel
 
     public function getImageUrl()
     {
-        if($this->image)
+        if($this->image) {
             return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
                 Yii::app()->getModule('blog')->uploadPath . '/' . $this->image;
+        }
+
         return false;
     }
 
@@ -420,7 +422,7 @@ class Post extends YModel
     public function afterFind()
     {
         $this->publish_date_tmp = date('d-m-Y', $this->publish_date);
-        $this->publish_time_tmp = date('h:i', $this->publish_date);
+        $this->publish_time_tmp = date('H:i', $this->publish_date);
 
         return parent::afterFind();
     }
@@ -454,5 +456,44 @@ class Post extends YModel
         }
 
         return $data;
+    }
+
+    public function getStream($limit = 10, $cacheTime)
+    {
+        $data = Yii::app()->cache->get('Blog::Post::Stream');
+
+        if(false === $data) {
+            $data = Yii::app()->db->createCommand()
+            ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) commentsCount')
+            ->from('{{comment_comment}} c')
+            ->join('{{blog_post}} p', 'c.model_id = p.id')
+               ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus', array(
+                        ':model'  => 'Post',
+                        ':status' => Post::STATUS_PUBLISHED,
+                        ':commentstatus' => Comment::STATUS_APPROVED
+                 ))
+                ->group('c.model, c.model_id')
+                ->order('comment_date DESC')
+            ->having('commentsCount > 1')
+            ->limit((int)$limit)          
+            ->queryAll();
+
+            Yii::app()->cache->set('Blog::Post::Stream', $data, $cacheTime);     
+        }
+
+        return $data;
+    }
+
+    public function get($id, array $with = array())
+    {
+        if(is_int($id)) {            
+            return Post::model()->public()->published()->with($with)->findByPk($id);
+        }
+
+        return Post::model()->public()->published()->with($with)->find(
+            't.slug = :slug', array(
+                ':slug' => $id
+            )
+        );
     }
 }
