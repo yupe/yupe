@@ -59,7 +59,7 @@ class ContentBlock extends yupe\models\YModel
             array('name', 'length', 'max' => 250),
             array('code', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
-            array('code', 'YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
+            array('code', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
             array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );

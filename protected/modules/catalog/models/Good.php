@@ -80,7 +80,7 @@ class Good extends yupe\models\YModel
             array('alias', 'length', 'max' => 150),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')),
+            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
             array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on' => 'search'),
         );

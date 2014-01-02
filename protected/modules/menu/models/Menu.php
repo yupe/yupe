@@ -56,7 +56,7 @@ class Menu extends yupe\models\YModel
             array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description', 'length', 'max' => 255),
             array('code', 'length', 'max' => 100),
-            array('code', 'YSLugValidator'),
+            array('code', 'yupe\components\validators\YSLugValidator'),
             array('code', 'unique'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, name, code, description, status', 'safe', 'on' => 'search'),
