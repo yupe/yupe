@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Users per page' => 'Пользователей на страницу',
     '*unknown*' => '*неизвестно*',
     '*no*' => '*нет*',
     '0.5' => '0.5',

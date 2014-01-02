@@ -159,9 +159,10 @@ class UserModule extends WebModule
             'accountActivationSuccess',
             'accountActivationFailure',
             'loginAdminSuccess',
-            'registrationSuccess  ',
+            'registrationSuccess',
             'sessionLifeTime',
-            'usersPerPage'
+            'usersPerPage',
+            'emailAccountVerification'  => $this->getChoice(),
         );
     }
 
@@ -175,10 +176,19 @@ class UserModule extends WebModule
                     'sessionLifeTime'
                 )
             ),
+             'avatar' => array(
+                'label' => Yii::t('UserModule.user', 'Avatar'),
+                'items' => array(
+                    'avatarsDir',
+                    'avatarMaxSize',
+                    'defaultAvatar'
+                )
+            ),
             'security' => array(
                 'label' => Yii::t('UserModule.user', 'Security settings'),
                 'items' => array(
                 	'registrationDisabled',
+                    'recoveryDisabled',
                     'emailAccountVerification',
                     'minPasswordLength',
                     'autoRecoveryPassword',
