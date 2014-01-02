@@ -2451,7 +2451,9 @@ class WebGuy extends \Codeception\AbstractGuy
      * Documentation taken from corresponding module.
      * ----------------------------------------------
      *
-     *
+     * Gets Driver from Db module and adds some sugar.
+     * Yo ho ho !!! :D
+     * @return array dbConfig
      * @see Codeception\Module\DbHelper::getDbConfig()
      * @return \Codeception\Maybe
      */
