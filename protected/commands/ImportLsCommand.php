@@ -117,7 +117,7 @@ class ImportLsCommand extends CConsoleCommand
 
                 echo "Import blog  '{$blog['blog_title']}' !\n";
 
-                $slug = $blog['blog_url'] ? $blog['blog_url'] : YText::translit($blog['blog_title']);
+                $slug = $blog['blog_url'] ? $blog['blog_url'] : yupe\helpers\YText::translit($blog['blog_title']);
 
                 $updateDate = $blog['blog_date_edit'] ? $blog['blog_date_edit'] : $blog['blog_date_add'];
 
@@ -186,7 +186,7 @@ class ImportLsCommand extends CConsoleCommand
               ')->bindValue(':id', $post['topic_id'])
                 ->bindValue(':blog_id', $post['blog_id'])
                 ->bindValue(':title', $post['topic_title'])
-                ->bindValue(':slug', YText::translit($post['topic_title']))
+                ->bindValue(':slug', yupe\helpers\YText::translit($post['topic_title']))
                 ->bindValue(':content', $post['topic_text'])
                 ->bindValue(':create_user_id', $post['user_id'])
                 ->bindValue(':update_user_id', $post['user_id'])
