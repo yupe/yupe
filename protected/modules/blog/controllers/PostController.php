@@ -46,11 +46,11 @@ class PostController extends yupe\components\controllers\FrontController
     {
         $tag = CHtml::encode($tag);
 
-        $posts = Post::model()->with('blog','createUser')
-         ->published()
-         ->public()
-         ->sortByPubDate('DESC')
-         ->taggedWith($tag)->findAll();
+        $posts = Post::model()->getByTag($tag);
+
+        if(empty($posts)) {
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Posts not found!'));
+        }
 
         $this->render(
             'list', array(

@@ -496,4 +496,13 @@ class Post extends YModel
             )
         );
     }
+
+    public function getByTag($tag)
+    {
+        return Post::model()->with('blog','createUser')
+         ->published()
+         ->public()
+         ->sortByPubDate('DESC')
+         ->taggedWith($tag)->findAll(); 
+    }
 }

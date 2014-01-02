@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Posts list' => 'Записи',
     'Discuss' => 'Обсуждают', 
     'archive'       => 'Архив',
     'Posts archive' => 'Архив записей',
