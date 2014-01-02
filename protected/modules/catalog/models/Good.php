@@ -36,7 +36,7 @@
  * @property Category $category
  * @property User $user
  */
-class Good extends YModel
+class Good extends yupe\models\YModel
 {
     const SPECIAL_NOT_ACTIVE = 0;
     const SPECIAL_ACTIVE     = 1;

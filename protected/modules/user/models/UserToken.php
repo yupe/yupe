@@ -13,7 +13,7 @@
  * @property string $updated
  * @property string $ip
  */
-class UserToken extends YModel
+class UserToken extends yupe\models\YModel
 {
     /**
      * Типы токенов:

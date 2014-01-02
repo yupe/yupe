@@ -37,7 +37,7 @@
  * @property User $updateUser
  * @property Post[] $posts
  */
-class Blog extends YModel
+class Blog extends yupe\models\YModel
 {
     const STATUS_BLOCKED = 0;
     const STATUS_ACTIVE  = 1;

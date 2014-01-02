@@ -29,7 +29,7 @@
  * @property User $updateUser
  * @property User $createUser
  */
-class DictionaryGroup extends YModel
+class DictionaryGroup extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.

@@ -20,13 +20,14 @@ use CDirectoryCacheDependency;
 use CException;
 use CList;
 use CLogger;
-use Settings;
 use TagsCache;
 use YFlashMessages;
 use Yii;
+use CWebModule;
 
+use yupe\models\Settings;
 
-abstract class WebModule extends \CWebModule
+abstract class WebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
     const CHECK_NOTICE = 'notice';
@@ -756,7 +757,7 @@ abstract class WebModule extends \CWebModule
             foreach ($history as $migrationName => $migrationTimeUp) {
 
                 // удалить настройки модуля из таблички Settings
-                Settings::model()->deleteAll('module_id = :module_id',array(
+                yupe\models\Settings::model()->deleteAll('module_id = :module_id',array(
                     ':module_id' => $this->getId()
                 ));
 

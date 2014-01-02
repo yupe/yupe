@@ -34,7 +34,7 @@
  * The followings are the available model relations:
  * @property Menu $menu
  */
-class MenuItem extends YModel
+class MenuItem extends yupe\models\YModel
 {
     const STATUS_DISABLED = 0;
     const STATUS_ACTIVE   = 1;

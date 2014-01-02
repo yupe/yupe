@@ -32,7 +32,7 @@
  * @method bool appendTo()
  * @method bool prependTo()
  */
-class Category extends YModel
+class Category extends yupe\models\YModel
 {
     const STATUS_DRAFT      = 0;
     const STATUS_PUBLISHED  = 1;

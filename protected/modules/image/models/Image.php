@@ -28,7 +28,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Image extends YModel
+class Image extends yupe\models\YModel
 {
     const STATUS_CHECKED    = 1;
     const STATUS_NEED_CHECK = 0;

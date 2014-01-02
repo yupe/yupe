@@ -45,7 +45,7 @@
  */
 Yii::import('application.modules.blog.models.Blog');
  
-class Post extends YModel
+class Post extends yupe\models\YModel
 {
     const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;

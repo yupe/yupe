@@ -22,7 +22,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class MailEvent extends YModel
+class MailEvent extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.

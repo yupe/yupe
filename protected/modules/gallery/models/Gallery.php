@@ -20,7 +20,7 @@
  * @property string $description
  * @property integer $status
  */
-class Gallery extends YModel
+class Gallery extends yupe\models\YModel
 {
     const STATUS_DRAFT    = 0;
     const STATUS_PUBLIC   = 1;

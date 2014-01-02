@@ -27,7 +27,7 @@
  * @property integer $category_id
  * @property string  $phone
  */
-class FeedBack extends YModel
+class FeedBack extends yupe\models\YModel
 {
 
     const STATUS_NEW           = 0;

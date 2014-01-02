@@ -37,7 +37,7 @@
 
 use application\modules\comment\components\NewCommentEvent;
 
-class Comment extends YModel
+class Comment extends yupe\models\YModel
 {
 
     const STATUS_NEED_CHECK = 0;
@@ -254,7 +254,7 @@ class Comment extends YModel
             $event = new NewCommentEvent($this);
             $event->module = $module;
             $event->comment = $this;
-            $event->commentOwner = YModel::model($this->model)->findByPk($this->model_id);
+            $event->commentOwner = yupe\models\YModel::model($this->model)->findByPk($this->model_id);
 
             $this->onNewComment($event);
 

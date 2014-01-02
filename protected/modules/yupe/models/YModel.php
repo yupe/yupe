@@ -14,7 +14,13 @@
  * 
  **/
 
-Yii::import('yupe.extensions.tagcache.TagsCache');
+namespace yupe\models;
+
+use CActiveRecord;
+use ReflectionClass;
+use TagsCache;
+use CCacheDependency;
+use CChainedCacheDependency;
 
 abstract class YModel extends CActiveRecord
 {

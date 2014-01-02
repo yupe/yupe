@@ -23,7 +23,7 @@
  * The followings are the available model relations:
  * @property MenuItem[] $menuItems
  */
-class Menu extends YModel
+class Menu extends yupe\models\YModel
 {
     const STATUS_DISABLED = 0;
     const STATUS_ACTIVE   = 1;

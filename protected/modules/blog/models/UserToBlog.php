@@ -30,7 +30,7 @@
  * @property Blog $blog
  * @property User $user
  */
-class UserToBlog extends YModel
+class UserToBlog extends yupe\models\YModel
 {
     const ROLE_USER      = 1;
     const ROLE_MODERATOR = 2;

@@ -28,7 +28,7 @@
  * @property string  $link
  * @property string  $image
  */
-class News extends YModel
+class News extends yupe\models\YModel
 {
 
     const STATUS_DRAFT      = 0;

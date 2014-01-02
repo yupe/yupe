@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class LoginForm extends YFormModel
+class LoginForm extends yupe\models\YFormModel
 {
     public $email;
     public $password;

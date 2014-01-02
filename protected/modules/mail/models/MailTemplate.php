@@ -27,7 +27,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class MailTemplate extends YModel
+class MailTemplate extends yupe\models\YModel
 {
     const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 0;

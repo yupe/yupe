@@ -20,7 +20,7 @@
  * @property string $content
  * @property string $description
  */
-class ContentBlock extends YModel
+class ContentBlock extends yupe\models\YModel
 {
     const SIMPLE_TEXT = 1;
     const PHP_CODE    = 2;

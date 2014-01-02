@@ -10,6 +10,8 @@
  * @link     http://yupe.ru
  **/
 
+use yupe\models\Settings;
+
 class DefaultController extends yupe\components\controllers\BackController
 {
     /**

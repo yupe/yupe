@@ -32,7 +32,7 @@
  * @property DictionaryGroup $group
  * @property User $createUser
  */
-class DictionaryData extends YModel
+class DictionaryData extends yupe\models\YModel
 {
     const STATUS_ACTIVE  = 1;
     const STATUS_DELETED = 0;

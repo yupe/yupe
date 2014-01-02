@@ -34,7 +34,7 @@
  * @property integer $order
  */
 
-class Page extends YModel
+class Page extends yupe\models\YModel
 {
 
     const STATUS_DRAFT      = 0;

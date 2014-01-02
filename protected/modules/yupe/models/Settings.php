@@ -21,6 +21,16 @@
  * The followings are the available model relations:
  * @property User $user
  */
+namespace yupe\models;
+
+use yupe\models\YModel;
+use Yii;
+use CDbExpression;
+use CDbCriteria;
+use CActiveDataProvider;
+use CMap;
+
+
 class Settings extends YModel
 {
     /*
