@@ -11,7 +11,7 @@ use CActiveRecordBehavior;
 use CValidator;
 use CUploadedFile;
 use Yii;
-use YFile;
+use yupe\helpers\YFile;
 
 class ImageUploadBehavior extends CActiveRecordBehavior
 {
@@ -158,7 +158,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         $imageName = $this->_getImageName();
         $image = Yii::app()->image->load($tmpName)->quality($quality);
 
-        if ( ! $newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
+        if ( ! $newFile = yupe\helpers\YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
             throw new CHttpException(500, Yii::t('YupeModule.yupe', 'Directory "{dir}" is not acceptable for write!', array('{dir}' => $this->uploadPath)));
 
         if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))

@@ -156,7 +156,7 @@ class Page extends YModel
     public function beforeValidate()
     {
         if (!$this->slug)
-            $this->slug = YText::translit($this->title);
+            $this->slug = yupe\helpers\YText::translit($this->title);
         if (!$this->lang)
             $this->lang = Yii::app()->language;
         return parent::beforeValidate();

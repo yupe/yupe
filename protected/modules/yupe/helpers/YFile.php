@@ -1,7 +1,7 @@
 <?php
 
 /**
- * YFile хелпер, содержащий вспомогательные функции для работы с файловой системой
+ * yupe\helpers\YFile:: хелпер, содержащий вспомогательные функции для работы с файловой системой
  *
  * @package  yupe.modules.yupe.helpers
  * @subpackage helpers
@@ -12,11 +12,16 @@
  *
  */
 
+
+namespace yupe\helpers;
+use CFileHelper;
+use Yii;
+
 class YFile extends CFileHelper
 {
     public static function getTranslatedName($word)
     {
-        return YText::translit($word);
+        return yupe\helpers\YText::translit($word);
     }
 
     public static function pathIsWritable($name, $ext, $path)

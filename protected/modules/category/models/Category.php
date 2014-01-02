@@ -111,7 +111,7 @@ class Category extends YModel
     public function beforeValidate()
     {
         if (!$this->alias)
-            $this->alias = YText::translit($this->name);
+            $this->alias = yupe\helpers\YText::translit($this->name);
 
         if(!$this->lang)
             $this->lang = Yii::app()->language;

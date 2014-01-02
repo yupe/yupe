@@ -513,7 +513,7 @@ class BackendController extends yupe\components\controllers\BackController
             $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
             if (is_array($dirsList)) {
                 foreach ($dirsList as $item) {
-                    YFile::rmDir($item);
+                    yupe\helpers\YFile::::rmDir($item);
                 }
             }
             return true;

@@ -226,7 +226,7 @@ class Good extends YModel
             $this->user_id = $this->change_user_id;
 
         if (!$this->alias)
-            $this->alias = YText::translit($this->name);
+            $this->alias = yupe\helpers\YText::translit($this->name);
 
         return parent::beforeValidate();
     }

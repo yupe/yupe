@@ -365,7 +365,7 @@ class Post extends YModel
     public function beforeValidate()
     {
         if (!$this->slug) {
-            $this->slug = YText::translit($this->title);
+            $this->slug = yupe\helpers\YText::translit($this->title);
         }
 
         return parent::beforeValidate();
@@ -430,7 +430,7 @@ class Post extends YModel
     public function getQuote($limit = 500)
     {
         return $this->quote
-            ?: YText::characterLimiter(
+            ?: yupe\helpers\YText::characterLimiter(
                 $this->content, (int) $limit
             );
     }

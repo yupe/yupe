@@ -195,7 +195,7 @@ class News extends YModel
     public function beforeValidate()
     {
         if (!$this->alias)
-            $this->alias = YText::translit($this->title);
+            $this->alias = yupe\helpers\YText::translit($this->title);
 
         if(!$this->lang)
             $this->lang = Yii::app()->language;
