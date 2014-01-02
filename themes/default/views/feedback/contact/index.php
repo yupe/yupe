@@ -66,12 +66,19 @@ Yii::import('application.modules.install.InstallModule');
 
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
 
-                <?php $this->widget('CCaptcha', array(
-                    'showRefreshButton' => true,
-                    'clickableImage' => true,
-                    'buttonLabel' => 'обновить',
-                    'buttonOptions' => array('class' => 'captcha-refresh-link')
-                )); ?>
+                <?php $this->widget(
+                    'CCaptcha',
+                    array(
+                        'showRefreshButton' => true,
+                        'imageOptions' => array(
+                            'width' => '150',
+                        ),
+                        'buttonOptions' => array(
+                            'class' => 'btn',
+                        ),
+                        'buttonLabel' => '<i class="icon-repeat"></i>',
+                    )
+                ); ?>
 
                 <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
                     <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => Yii::t('FeedbackModule.feedback', 'Insert symbols you see on image'),'class' => 'span6', 'required' => true)); ?>

@@ -57,16 +57,21 @@
         <?php if(CCaptcha::checkRequirements()) : ?>
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
 
-                <?php
-                $this->widget(
-                    'CCaptcha', array(
+                <?php $this->widget(
+                    'CCaptcha',
+                    array(
                         'showRefreshButton' => true,
-                        'clickableImage' => true,
-                        'buttonLabel' => 'обновить',
-                        'buttonOptions' => array('class' => 'captcha-refresh-link'),
+                        'imageOptions' => array(
+                            'width' => '150',
+                        ),
+                        'buttonOptions' => array(
+                            'class' => 'btn',
+                        ),
+                        'buttonLabel' => '<i class="icon-repeat"></i>',
                         'captchaAction' => '/comment/comment/captcha'
                     )
-                ); ?>
+                );
+                ?>
 
                 <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
                     <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => Yii::t('CommentModule.comment', 'Insert symbols you see on picture'),'class' => 'span6', 'required' => true)); ?>
