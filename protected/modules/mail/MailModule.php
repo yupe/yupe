@@ -19,7 +19,7 @@ class MailModule extends yupe\components\WebModule
      **/
     public function getVersion()
     {
-        return Yii::t('MailModule.mail', '0.1');
+        return Yii::t('MailModule.mail', '0.6');
     }
 
     /**

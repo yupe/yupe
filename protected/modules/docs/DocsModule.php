@@ -196,7 +196,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getVersion()
     {
-        return Yii::t('DocsModule.docs', '0.2');
+        return Yii::t('DocsModule.docs', '0.6');
     }
 
     /**

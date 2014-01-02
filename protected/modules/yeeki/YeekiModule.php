@@ -64,7 +64,7 @@ class YeekiModule extends yupe\components\WebModule
 
     public function getVersion()
     {
-        return Yii::t('YeekiModule.yeeki', '0.1');
+        return Yii::t('YeekiModule.yeeki', '0.6');
     }
 
     public function getAuthor()
