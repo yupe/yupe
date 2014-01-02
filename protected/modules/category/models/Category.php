@@ -90,7 +90,7 @@ class Category extends YModel
 				'hasManyRoots' => true,
 			),
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'uploadPath'    => $module !== null ? $module->getUploadPath() : null,

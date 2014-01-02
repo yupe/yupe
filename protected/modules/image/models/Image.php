@@ -89,7 +89,7 @@ class Image extends YModel
         $module = Yii::app()->getModule('image');
         return array(
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'file',
                 'minSize'       => $module->minSize,
