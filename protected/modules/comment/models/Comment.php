@@ -412,7 +412,7 @@ class Comment extends yupe\models\YModel
     public static function isItSpam(Comment $comment, $userId, $interval)
     {
         $dateDiffTime = new DateTime();
-        $dateDiffTime->setTimestamp( time() - $interval );
+        $dateDiffTime->setTimestamp( time() - $interval );       
 
         $newAuthorComments = self::model()->findByAttributes(
             array(
@@ -425,9 +425,9 @@ class Comment extends yupe\models\YModel
                 'now' => $dateDiffTime->format('Y-m-d H:i:s'),
                 'txt' => "%{$comment->getAttribute('text')}%",
             )
-        );
+        );        
 
-        if($newAuthorComments!=null){
+        if($newAuthorComments != null){
             return true;
         }
 
