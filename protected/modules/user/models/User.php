@@ -211,7 +211,7 @@ class User extends yupe\models\YModel
         $this->_oldStatus       = $this->status;
         // Если пустое поле аватар - автоматически
         // включаем граватар:
-        $this->use_gravatar = empty($this->avatar);
+        $this->use_gravatar = empty($this->avatar);       
 
         return parent::afterFind();
     }
@@ -222,9 +222,8 @@ class User extends yupe\models\YModel
      * @return void
      */
     public function beforeValidate()
-    {
-        $this->gender       = $this->gender ?: self::GENDER_THING;
-        $this->use_gravatar = $this->use_gravatar ?: 0;
+    {        
+        $this->gender = $this->gender ?: self::GENDER_THING;       
         return parent::beforeValidate();
     }
 
@@ -256,10 +255,7 @@ class User extends yupe\models\YModel
         }
 
         // Меняем дату изменения профиля:
-        $this->change_date = new CDbExpression('NOW()');
-
-        // Если используется граватар - удаляем текущие аватарки:
-        $this->use_gravatar === false || $this->removeOldAvatar();
+        $this->change_date = new CDbExpression('NOW()');       
 
         return parent::beforeSave();
     }
@@ -543,7 +539,8 @@ class User extends yupe\models\YModel
      *
      * @return void
      */
-    public function changeAvatar(CUploadedFile $uploadedFile) {        
+    public function changeAvatar(CUploadedFile $uploadedFile) {    
+
         $basePath = Yii::app()->getModule('user')->getUploadPath();
 
         //создаем каталог для аватарок, если не существует
@@ -555,7 +552,7 @@ class User extends yupe\models\YModel
 
         $this->removeOldAvatar();
 
-        if(!$uploadedFile->saveAs($basePath . $filename)) {
+        if(!$uploadedFile->saveAs($basePath . $filename)) {           
             throw new CException(Yii::t('UserModule.user','It is not possible to save avatar!'));
         }
 

@@ -44,7 +44,7 @@ class AuthenticationManager extends CApplicationComponent
 
         Yii::log(
             Yii::t(
-                'user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
+                'UserModule.user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
                     '{email}'    => $form->email,
                     '{password}' => $form->password,
                     '{ip}'       => $request->getUserHostAddress(),

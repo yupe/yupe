@@ -10,6 +10,8 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\models\Settings;
+
 class UserIdentity extends CUserIdentity
 {
     private $_id;
@@ -51,8 +53,9 @@ class UserIdentity extends CUserIdentity
                         /* Если есть атрибуты - продолжаем: */
                         if (isset($sets->attributes)) {
                             /* Наполняем нашу сессию: */
-                            if (!isset($sessionSettings[$sets->module_id]))
+                            if (!isset($sessionSettings[$sets->module_id])) {
                                 $sessionSettings[$sets->module_id] = array();
+                            }
                             $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;
                         }
                     }
@@ -66,6 +69,7 @@ class UserIdentity extends CUserIdentity
 
             $this->errorCode = self::ERROR_NONE;
         }
+        
         return $this->errorCode == self::ERROR_NONE;
     }
 
