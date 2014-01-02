@@ -21,6 +21,7 @@ use ReflectionClass;
 use TagsCache;
 use CCacheDependency;
 use CChainedCacheDependency;
+use Yii;
 
 abstract class YModel extends CActiveRecord
 {
