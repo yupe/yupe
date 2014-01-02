@@ -12,7 +12,7 @@
 
 namespace yupe\components\validators;
 
-use CValidator;
+use CUrlValidator;
 use Yii;
 
 class YUrlValidator extends CUrlValidator
