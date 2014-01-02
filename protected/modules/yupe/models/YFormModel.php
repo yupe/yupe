@@ -16,7 +16,7 @@ namespace yupe\models;
 
 use CFormModel;
  
-abstract class yupe\models\YFormModel extends CFormModel
+abstract class YFormModel extends CFormModel
 {
     public function attributeDescriptions()
     {

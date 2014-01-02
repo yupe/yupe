@@ -757,7 +757,7 @@ abstract class WebModule extends CWebModule
             foreach ($history as $migrationName => $migrationTimeUp) {
 
                 // удалить настройки модуля из таблички Settings
-                yupe\models\Settings::model()->deleteAll('module_id = :module_id',array(
+                Settings::model()->deleteAll('module_id = :module_id',array(
                     ':module_id' => $this->getId()
                 ));
 
