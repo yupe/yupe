@@ -5,8 +5,6 @@
     Yii::t('BlogModule.blog', 'Post list'),
 ); ?>
 
-<h1><?php echo Yii::t('BlogModule.blog', 'All posts'); ?>:</h1>
-
 <?php $this->widget(
 	'bootstrap.widgets.TbListView', array(
 	    'dataProvider' => $model->allPosts(),

@@ -38,6 +38,15 @@
         <!-- sidebar -->
         <aside class="span3 sidebar">
 
+            <div class="widget blogs-widget">
+                <?php $this->widget('application.modules.yupe.widgets.RandomDataWidget', array(
+                    'data' => array(
+                        CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/amyLabs.jpg','amylabs - разработка на Юпи! и Yii !'),'http://amylabs.ru?from=yupe-rb', array('title' => 'amylabs - разработка на Юпи! и Yii !','target' => '_blank')),
+                        CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/yupe-logo.jpg','Юпи! - cms на Yii !'),'http://yupe.ru?from=yupe-rb', array('title' => 'Юпи! - cms на Yii !','target' => '_blank')),
+                     )
+                )); ?>
+            </div>
+
             <?php if (Yii::app()->user->isAuthenticated()): ?>
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
@@ -74,11 +83,7 @@
                         'cacheTime' => $this->yupe->coreCacheTime,
                     )
                 ); ?>
-            </div> 
-
-            <div class="widget last-login-users-widget">
-               <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'web/images/amyLabs.jpg'), 'http://amylabs.ru?from=amy-banner', array('target' => '_blank'));?>
-            </div>
+            </div>            
 
         </aside>
         <!-- sidebar end -->
