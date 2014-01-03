@@ -114,7 +114,7 @@ class LanguageBehavior extends CBehavior
         }
 
         $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
-        $reqLang = current(explode('/', Yii::app()->getRequest()->getPathInfo()));
+        //$reqLang = current(explode('/', Yii::app()->getRequest()->getPathInfo()));
         
 
         return in_array($reqLang, $lm->languages)
@@ -149,7 +149,7 @@ class LanguageBehavior extends CBehavior
         // Проверяем переданный язык:
         
         $langIsset = (
-            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/' || substr($path, 5, 1) == '/'
+            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
         );
 
         $this->setLanguage(
