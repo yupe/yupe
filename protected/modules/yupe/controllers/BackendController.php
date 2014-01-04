@@ -22,6 +22,8 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\models\Settings;
+
 class BackendController extends yupe\components\controllers\BackController
 {
     /**
@@ -304,6 +306,7 @@ class BackendController extends yupe\components\controllers\BackController
                 }
             }
         }
+        
         return true;
     }
 
