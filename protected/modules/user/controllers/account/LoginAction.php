@@ -52,7 +52,7 @@ class LoginAction extends CAction
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
 
-                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);                
 
                 $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
 
