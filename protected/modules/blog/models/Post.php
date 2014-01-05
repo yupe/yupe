@@ -464,7 +464,7 @@ class Post extends yupe\models\YModel
 
         if(false === $data) {
             $data = Yii::app()->db->createCommand()
-            ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) commentsCount')
+            ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
             ->from('{{comment_comment}} c')
             ->join('{{blog_post}} p', 'c.model_id = p.id')
                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus', array(
@@ -472,9 +472,9 @@ class Post extends yupe\models\YModel
                         ':status' => Post::STATUS_PUBLISHED,
                         ':commentstatus' => Comment::STATUS_APPROVED
                  ))
-                ->group('c.model, c.model_id')
+                ->group('c.model, c.model_id, p.title, p.slug')
                 ->order('comment_date DESC')
-            ->having('commentsCount > 1')
+            ->having('count(c.id) > 1')
             ->limit((int)$limit)          
             ->queryAll();
 

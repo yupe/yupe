@@ -23,7 +23,7 @@ class BlogsWidget extends YWidget
         	'join'   => 'JOIN {{blog_user_to_blog}} utb ON utb.blog_id = t.id', 
         	'select' => 't.name, t.slug, utb.id',        	
         	'order'  => 'count(utb.id) DESC',
-        	'group'  => 't.slug',
+        	'group'  => 't.slug, t.name, utb.id, t.id',
         	'limit'  => $this->limit,
         ));
 
