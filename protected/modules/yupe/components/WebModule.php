@@ -33,10 +33,10 @@ abstract class WebModule extends CWebModule
     const CHECK_NOTICE = 'notice';
 
     const CHOICE_YES = 1;
-    const CHOICE_NO = 0;    
-    
+    const CHOICE_NO = 0;
+
     /**
-     * @var integer категория для контента модля
+     * @var integer категория для контента модуля
      * @since 0.6
      */
     public $mainCategory;
@@ -64,9 +64,9 @@ abstract class WebModule extends CWebModule
      * @var array опции редактора
      */
     public $editorOptions = array();
-    
+
     /**
-     * @var array  список категгорий
+     * @var array список категорий
      */
     public function getCategoryList()
     {
@@ -75,7 +75,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * текущая версия модуля
-     * 
+     *
      * @return string
      */
     public function getVersion()
@@ -85,7 +85,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * веб-сайт разработчика модуля или страничка самого модуля
-     * 
+     *
      * @return string
      */
     public function getUrl()
@@ -95,7 +95,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * имя автора модуля
-     * 
+     *
      * @return string
      */
     public function getAuthor()
@@ -105,7 +105,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * контактный email автора модуля
-     * 
+     *
      * @return string
      */
     public function getAuthorEmail()
@@ -116,7 +116,7 @@ abstract class WebModule extends CWebModule
     /**
      * ссылка которая будет отображена в панели управления
      * как правило, ведет на страничку для администрирования модуля
-     * 
+     *
      * @return string
      */
     public function getAdminPageLink()
@@ -127,8 +127,8 @@ abstract class WebModule extends CWebModule
     /**
      * ссылка которая будет отображена в панели управления
      * как правило, ведет на страничку для администрирования модуля
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getAdminPageLinkNormalize()
     {
@@ -137,9 +137,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * если модуль должен добавить несколько ссылок в панель управления - укажите массив
-     * 
+     *
      * @return array
-     * 
+     *
      * @example
      *
      * public function getNavigation()
@@ -158,11 +158,11 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
+     * Работоспособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
      * В этом методе необходимо выполнить все проверки.
-     * 
+     *
      * @return array или false
-     *   
+     *
      * @example
      *   if (!$this->uploadPath)
      *        return array(
@@ -180,8 +180,8 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * каждый модуль должен принадлежать одной категории, именно по категорям делятся модули в панели управления
-     * 
+     * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления
+     *
      * @return string
      */
     public function getCategory()
@@ -191,7 +191,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * массив лейблов для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
-     * 
+     *
      * @return array
      */
     public function getParamsLabels()
@@ -201,7 +201,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * массив параметров модуля, которые можно редактировать через панель управления (GUI)
-     * 
+     *
      * @return array
      */
     public function getEditableParams()
@@ -252,7 +252,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * массив групп параметров модуля, для группировки параметров на странице настроек
-     * 
+     *
      * @return array
      */
     public function getEditableParamsGroups()
@@ -268,8 +268,8 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * получение имена парамметров из getEditableParams()
-     * 
+     * получение имен параметров из getEditableParams()
+     *
      * @return array
      */
     public function getEditableParamsKey()
@@ -283,7 +283,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * порядок следования модуля в меню панели управления (сортировка)
-     * 
+     *
      * @return int
      */
     public function getAdminMenuOrder()
@@ -293,7 +293,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * показать или нет модуль в панели управления
-     * 
+     *
      * @return bool
      */
     public function getIsShowInAdminMenu()
@@ -303,9 +303,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * разрешено ли выключение
-     * 
+     *
      * @return bool
-     * 
+     *
      * @since 0.5
      */
     public function getIsNoDisable()
@@ -315,9 +315,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Массив с именами модулей и их зависимостями
-     * 
+     *
      * @return array
-     * 
+     *
      * @since 0.5
      */
     public function getModulesNoDisable()
@@ -345,9 +345,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Массив с именами модулей и их зависимостями
-     * 
+     *
      * @return array
-     * 
+     *
      * @since 0.5
      */
     public function getDependenciesAll()
@@ -375,9 +375,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Массив с именами модулей, от которых зависит работа данного модуля
-     * 
+     *
      * @return array
-     * 
+     *
      * @since 0.5
      */
     public function getDependencies()
@@ -387,9 +387,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Массив с зависимостями модулей
-     * 
+     *
      * @return array
-     * 
+     *
      * @since 0.5
      */
     public function getDependents()
@@ -414,9 +414,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Массив с именами модулей которые зависят от текущего модуля
-     * 
+     *
      * @return array
-     * 
+     *
      * @since 0.5
      */
     public function getDependent()
@@ -427,9 +427,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * устанавливает checkbox включенным по умолчанию при установке Yupe
-     * 
+     *
      * @return bool
-     * 
+     *
      * @since 0.5
      */
     public function getIsInstallDefault()
@@ -439,9 +439,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Метод определяет включен ли модуль
-     * 
+     *
      * @return bool
-     * 
+     *
      * @since 0.5
      */
     public function getIsActive()
@@ -455,7 +455,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * Метод проверяет установлен ли модуль
-     * 
+     *
      * @return bool состояние модуля
      */
     public function getIsInstalled()
@@ -467,14 +467,14 @@ abstract class WebModule extends CWebModule
 
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
-            
+
             // Зависимость на каталог 'application.config.modules':
             $chain->dependencies->add(
                 new CDirectoryCacheDependency(
                     Yii::getPathOfAlias('application.config.modules')
                 )
             );
-            
+
             // Зависимость на тег:
             $chain->dependencies->add(
                 new TagsCache('installedModules', 'disabledModules', 'yupe', $this->getId())
@@ -495,10 +495,10 @@ abstract class WebModule extends CWebModule
         $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->getId());
         if ($upd === false) {
             $upd = Yii::app()->migrator->checkForUpdates(array($this->getId() => $this));
-            
+
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
-            
+
             // Зависимость на тег:
             $chain->dependencies->add(
                 new TagsCache('installedModules', 'disabledModules', 'yupe', $this->getId())
@@ -748,12 +748,12 @@ abstract class WebModule extends CWebModule
         $history = Yii::app()->migrator->getMigrationHistory($this->getId(), -1);
 
         if (!empty($history)) {
-            
+
             Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
             Yii::app()->configManager->flushDump();
-            
+
             $message = '';
-            
+
             foreach ($history as $migrationName => $migrationTimeUp) {
 
                 // удалить настройки модуля из таблички Settings
@@ -798,7 +798,7 @@ abstract class WebModule extends CWebModule
     /**
      *  метод-хелпер именно для многих параметров модуля, где
      *  необходимо вывести варианты выбора да или нет
-     * 
+     *
      * @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
     public function getChoice()
@@ -811,7 +811,7 @@ abstract class WebModule extends CWebModule
 
     /**
      * название иконки для меню админки, например 'user'
-     * 
+     *
      * @return string
      */
     public function getIcon()
@@ -820,8 +820,8 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * стутус работы мультиязычности в модуле
-     * 
+     * статус работы мультиязычности в модуле
+     *
      * @return bool
      */
     public function isMultiLang()
@@ -836,8 +836,8 @@ abstract class WebModule extends CWebModule
      */
     public function init()
     {
-         
-        Yii::log("init {$this->id} ...",CLogger::LEVEL_INFO,'modinit'); 
+
+        Yii::log("init {$this->id} ...",CLogger::LEVEL_INFO,'modinit');
 
         parent::init();
 
@@ -846,9 +846,9 @@ abstract class WebModule extends CWebModule
 
     /**
      * Получаем настройки модуля:
-     * 
+     *
      * @param  boolean $needReset необходимо ли сбросить настройки
-     * 
+     *
      * @return void
      */
     public function getSettings($needReset = false)
@@ -895,7 +895,7 @@ abstract class WebModule extends CWebModule
      *
      * @param Controller $controller - инстанс контроллера
      * @param Action     $action     - инстанс экшена
-     * 
+     *
      * @todo пока не придумали куда перенести инициализацию editorOptions
      *
      * @return bool
@@ -911,9 +911,9 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * Можно ли включить модуль:
+     * Можно ли включить модуль
      *
-     * @return can activate module
+     * @return bool
      **/
     public function canActivate()
     {
@@ -923,7 +923,7 @@ abstract class WebModule extends CWebModule
     /**
      * Необходимо ли удаление
      *
-     * @return is needed uninstalDb
+     * @return bool
      **/
     public function isNeedUninstall()
     {
@@ -934,7 +934,7 @@ abstract class WebModule extends CWebModule
     /**
      * Проверяем настройки модуля, на необходимость обновления:
      *
-     * @return is module config need update
+     * @return bool
      **/
     public function isConfigNeedUpdate()
     {
