@@ -253,7 +253,9 @@ class User extends yupe\models\YModel
                 return false;
             }
         }
-
+        if(!$this->birth_date) {
+            $this->birth_date = null;
+        }
         // Меняем дату изменения профиля:
         $this->change_date = new CDbExpression('NOW()');       
 

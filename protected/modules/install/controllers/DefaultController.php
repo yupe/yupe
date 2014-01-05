@@ -1044,6 +1044,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         'hash'              => Yii::app()->userManager->hasher->hashPassword(
                             $model->userPassword
                         ),
+                        'birth_date' => null
                     )
                 );
 
