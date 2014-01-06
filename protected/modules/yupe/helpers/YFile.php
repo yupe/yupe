@@ -14,6 +14,7 @@
 
 
 namespace yupe\helpers;
+use yupe\helpers\YText;
 use CFileHelper;
 use Yii;
 
@@ -21,7 +22,7 @@ class YFile extends CFileHelper
 {
     public static function getTranslatedName($word)
     {
-        return yupe\helpers\YText::translit($word);
+        return YText::translit($word);
     }
 
     public static function pathIsWritable($name, $ext, $path)
