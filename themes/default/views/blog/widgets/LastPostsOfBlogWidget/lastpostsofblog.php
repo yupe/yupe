@@ -1,14 +1,7 @@
-<?php
-
-Yii::import('application.modules.blog.BlogModule');
-
-$mainAssets = Yii::app()->AssetManager->publish(
-    Yii::app()->theme->basePath . "/web/"
-);
-
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/last-posts.css'); ?>
+<?php Yii::import('application.modules.blog.BlogModule'); ?>
 
 <div class="posts">
+
     <p class="posts-header">
         <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog','Last blog posts'); ?></span>
     </p>
@@ -78,9 +71,7 @@ Yii::app()->clientScript->registerCssFile($mainAssets . '/css/last-posts.css'); 
                             <i class="icon-comments"></i>
 
                             <?php echo CHtml::link(
-                                ($post->commentsCount>0)
-                                    ? $post->commentsCount-1
-                                    : 0,
+                                $post->getCommentCount(),
                                 array(
                                     '/blog/post/show/',
                                     'slug' => $post->slug,

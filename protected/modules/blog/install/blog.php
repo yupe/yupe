@@ -22,6 +22,8 @@ return array(
         '/blogs'            => 'blog/blog/index',
         '/posts'            => 'blog/post/index',
         '/posts/archive'    => 'blog/archive/index',
-        '/posts/<slug>/'    => 'blog/post/blog'        
+        '/posts/categorys'  => 'blog/post/categorys',        
+        '/posts/<slug>/'    => 'blog/post/blog',
+        '/posts/category/<alias>'  => 'blog/post/category'
     ),
 );

@@ -515,4 +515,32 @@ class Post extends yupe\models\YModel
         $posts->access_type = Post::ACCESS_PUBLIC;
         return $posts;
     }
+
+    public function getForCategory($categoryId)
+    {
+        $posts = new Post('search');
+        $posts->unsetAttributes();
+        $posts->category_id = (int)$categoryId;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
+        return $posts;
+    }
+
+    public function getCategorys()
+    {
+        return Yii::app()->db->createCommand()
+        ->select('cc.name, bp.category_id, count(bp.id) cnt, cc.alias, cc.description')
+            ->from('yupe_blog_post bp')
+            ->join('yupe_category_category cc','bp.category_id = cc.id')
+        ->where('bp.category_id IS NOT NULL')
+            ->group('bp.category_id')
+            ->having('cnt > 0')
+            ->order('cnt DESC')
+        ->queryAll();
+    }
+
+    public function getCommentCount()
+    {
+        return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
+    }
 }

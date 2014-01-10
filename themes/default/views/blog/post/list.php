@@ -8,5 +8,5 @@
 <p><?php echo Yii::t('BlogModule.blog', 'Posts with tag'); ?> <strong><?php echo $tag; ?></strong>...</p>
 
 <?php foreach($posts as $post):?>
-    <?php $this->renderPartial('_view', array('data' => $post)); ?>
+    <?php $this->renderPartial('_post', array('data' => $post)); ?>
 <?php endforeach;?>

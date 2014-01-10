@@ -2,14 +2,26 @@
 
 <?php $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-    Yii::t('BlogModule.blog', 'Post list'),
+    Yii::t('BlogModule.blog', 'Latest posts'),
 ); ?>
 
-<?php $this->widget(
-	'bootstrap.widgets.TbListView', array(
-	    'dataProvider' => $model->allPosts(),
-	    'itemView'     => '_view_all',
-	    'template'     => "{items}\n{pager}",
-	    'ajaxUpdate'   => false
-	)
-); ?>
+<div class="posts">
+
+	<p class="posts-header">
+	   <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog','Latest posts'); ?></span>
+	</p>
+    
+    <?php $this->widget(
+		'bootstrap.widgets.TbListView', array(
+			'id' => 'posts-list',
+		    'dataProvider'  => $model->allPosts(),
+		    'itemView'      => '_post',
+		    'template'      => "{items}\n{pager}",
+		    'ajaxUpdate'    => false,		   
+		    'htmlOptions'   => array(
+		    	'class' => 'posts-list'
+		    )
+		)
+    ); ?>
+</div>
+

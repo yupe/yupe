@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Posts of "{category}" category' => 'Записи категории "{category}"',
+    'Categorys' => 'Категории',
     'Posts of "{blog}" blog' => 'Записи блога "{blog}"',
     'Latest posts' => 'Последние записи',
     'Posts list with tag "{tag}"'=> 'Записи с меткой "{tag}"',
