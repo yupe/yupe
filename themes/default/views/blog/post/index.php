@@ -9,7 +9,8 @@
 
 	<h1>
 	    <small>
-	        <?php echo Yii::t('BlogModule.blog', 'Latest posts'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/blogRss/feed/');?>"><img src="<?php echo Yii::app()->AssetManager->publish(Yii::app()->theme->basePath . "/web/images/rss.png"); ?>" alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>" title="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"></a>
+	        <?php echo Yii::t('BlogModule.blog', 'Latest posts'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/blogRss/feed/');?>">
+	          <img src="<?php echo Yii::app()->baseUrl . '/web/images/rss.png';?>" alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>" title="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"></a>
 	    </small>
     </h1>
 
