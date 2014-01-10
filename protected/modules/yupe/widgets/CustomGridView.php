@@ -16,7 +16,7 @@ namespace yupe\widgets;
 
 use CHtml;
 use Yii;
-use Settings;
+use yupe\models\Settings;
 use CClientScript;
 
 Yii::import('bootstrap.widgets.TbExtendedGridView');
