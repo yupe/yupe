@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Posts of "{blog}" blog' => 'Записи блога "{blog}"',
+    'Latest posts' => 'Последние записи',
+    'Posts list with tag "{tag}"'=> 'Записи с меткой "{tag}"',
     'Posts list' => 'Записи',
     'Discuss' => 'Обсуждают', 
     'archive'       => 'Архив',

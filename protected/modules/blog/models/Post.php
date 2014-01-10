@@ -505,4 +505,14 @@ class Post extends yupe\models\YModel
          ->sortByPubDate('DESC')
          ->taggedWith($tag)->findAll(); 
     }
+
+    public function getForBlog($blogId)
+    {
+        $posts = new Post('search');
+        $posts->unsetAttributes();
+        $posts->blog_id = (int)$blogId;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
+        return $posts;
+    }
 }

@@ -52,13 +52,9 @@ class PostController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Posts not found!'));
         }
 
-        $this->render(
-            'list', array(
-                'posts' => $posts,
-                'tag'   => $tag,
-            )
-        );
+        $this->render('list', array('posts' => $posts,'tag' => $tag));
     }
+
 
     public function actionBlog($slug)
     {
@@ -68,13 +64,7 @@ class PostController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $posts = new Post('search');
-        $posts->unsetAttributes();
-        $posts->blog_id = $blog->id;
-        $posts->status  = Post::STATUS_PUBLISHED;
-        $posts->access_type = Post::ACCESS_PUBLIC;
-
-        $this->render('blog-post',array('target' => $blog,'posts' => $posts));
+        $this->render('blog-post',array('target' => $blog,'posts' => $blog->getPosts()));
     }
 
 

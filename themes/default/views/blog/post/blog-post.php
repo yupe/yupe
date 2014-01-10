@@ -1,4 +1,4 @@
-<?php $this->pageTitle = $target->name; ?>
+<?php $this->pageTitle = Yii::t('BlogModule.blog','Posts of "{blog}" blog', array('{blog}' => $target->name)); ?>
 <?php
 $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
