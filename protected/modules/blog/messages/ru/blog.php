@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Search by blog name' => 'Искать по названию блога',
+    'search' => 'искать',
     'Posts of "{category}" category' => 'Записи категории "{category}"',
     'Categorys' => 'Категории',
     'Posts of "{blog}" blog' => 'Записи блога "{blog}"',

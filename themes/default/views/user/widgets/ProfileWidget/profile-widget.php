@@ -1,11 +1,11 @@
 <?php Yii::import('application.modules.user.UserModule'); ?>
 <div class="widget prifile-widget">
     <div class="bootstrap-widget">
-        <div class="bootstrap-widget-header">
+        <div class="yupe-widget-header">
             <i class="icon-user"></i>
             <h3><?php echo Yii::t('UserModule.user', 'My profile'); ?></h3>
         </div>
-        <div class="bootstrap-widget-content">
+        <div class="yupe-widget-content">
             <div class="row-fluid">
                 <div class="span12">
                     <?php echo CHtml::link(
