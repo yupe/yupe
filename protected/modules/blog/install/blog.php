@@ -18,6 +18,8 @@ return array(
     'rules'     => array(
         '/post/<slug>.html' => 'blog/post/show',
         '/posts/tag/<tag>'  => 'blog/post/list',
+        '/rss/blog/<blog>'  => 'blog/blogRss/feed',
+        '/rss/posts/'       => 'blog/blogRss/feed',
         '/blogs/<slug>'     => 'blog/blog/show',
         '/blogs'            => 'blog/blog/index',
         '/posts'            => 'blog/post/index',

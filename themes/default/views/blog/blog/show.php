@@ -37,9 +37,7 @@ $this->breadcrumbs = array(
                         'class' => 'rss'
                     )
                 ), array(
-                    '/blog/blogRss/feed/', array(
-                        'blog' => $blog->id
-                    )
+                    '/blog/blogRss/feed/', 'blog' => $blog->id                    
                 )
             ); ?>
         </div>

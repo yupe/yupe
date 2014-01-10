@@ -4,16 +4,16 @@
 ?>
 
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'method'      => 'get',
-    'type'        => 'vertical'
-));
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'method'      => 'get',
+        'type'        => 'vertical'
+    ));
 ?>
 
-    <div class="input-append">
-        <?php echo $form->textField($blogs,'name', array('placeholder' => 'поиск по названию блога', 'class' => 'span8'));?>
-        <button class="btn" type="submit">искать</button>
-    </div>
+<div class="input-append">
+    <?php echo $form->textField($blogs,'name', array('placeholder' => 'поиск по названию блога', 'class' => 'span8'));?>
+    <button class="btn" type="submit">искать</button>
+</div>
 
 <?php $this->endWidget(); ?>
 
