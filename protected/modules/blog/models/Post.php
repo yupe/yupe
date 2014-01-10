@@ -282,7 +282,7 @@ class Post extends yupe\models\YModel
             ':status'      => self::STATUS_PUBLISHED,
             ':access_type' => self::ACCESS_PUBLIC
         );
-        $criteria->with  = array('blog', 'createUser');
+        $criteria->with  = array('blog', 'createUser','commentsCount');
         $criteria->order = 'publish_date DESC';
 
         return new CActiveDataProvider(
@@ -497,9 +497,9 @@ class Post extends yupe\models\YModel
         );
     }
 
-    public function getByTag($tag)
+    public function getByTag($tag, array $with = array('blog','createUser', 'commentsCount'))
     {
-        return Post::model()->with('blog','createUser')
+        return Post::model()->with($with)
          ->published()
          ->public()
          ->sortByPubDate('DESC')
