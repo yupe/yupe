@@ -1,8 +1,8 @@
 <div class="bootstrap-widget">
-   <div class="bootstrap-widget-header">
+   <div class="yupe-widget-header">
       <i class="icon-pencil"></i><h3><?php echo Yii::t('BlogModule.blog', 'Discuss');?></h3>
    </div>
-   <div class="bootstrap-widget-content" id="yw11">
+   <div class="yupe-widget-content" id="disquss-widget">
     <ul class="unstyled">
     <?php foreach ($data as $model): ?>
         <li>

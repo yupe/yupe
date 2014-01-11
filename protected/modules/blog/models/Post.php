@@ -282,7 +282,7 @@ class Post extends yupe\models\YModel
             ':status'      => self::STATUS_PUBLISHED,
             ':access_type' => self::ACCESS_PUBLIC
         );
-        $criteria->with  = array('blog', 'createUser');
+        $criteria->with  = array('blog', 'createUser','commentsCount');
         $criteria->order = 'publish_date DESC';
 
         return new CActiveDataProvider(
@@ -497,12 +497,50 @@ class Post extends yupe\models\YModel
         );
     }
 
-    public function getByTag($tag)
+    public function getByTag($tag, array $with = array('blog','createUser', 'commentsCount'))
     {
-        return Post::model()->with('blog','createUser')
+        return Post::model()->with($with)
          ->published()
          ->public()
          ->sortByPubDate('DESC')
          ->taggedWith($tag)->findAll(); 
+    }
+
+    public function getForBlog($blogId)
+    {
+        $posts = new Post('search');
+        $posts->unsetAttributes();
+        $posts->blog_id = (int)$blogId;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
+        return $posts;
+    }
+
+    public function getForCategory($categoryId)
+    {
+        $posts = new Post('search');
+        $posts->unsetAttributes();
+        $posts->category_id = (int)$categoryId;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
+        return $posts;
+    }
+
+    public function getCategorys()
+    {
+        return Yii::app()->db->createCommand()
+        ->select('cc.name, bp.category_id, count(bp.id) cnt, cc.alias, cc.description')
+            ->from('yupe_blog_post bp')
+            ->join('yupe_category_category cc','bp.category_id = cc.id')
+        ->where('bp.category_id IS NOT NULL')
+            ->group('bp.category_id')
+            ->having('cnt > 0')
+            ->order('cnt DESC')
+        ->queryAll();
+    }
+
+    public function getCommentCount()
+    {
+        return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
     }
 }

@@ -52,13 +52,9 @@ class PostController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Posts not found!'));
         }
 
-        $this->render(
-            'list', array(
-                'posts' => $posts,
-                'tag'   => $tag,
-            )
-        );
+        $this->render('list', array('posts' => $posts,'tag' => $tag));
     }
+
 
     public function actionBlog($slug)
     {
@@ -68,31 +64,7 @@ class PostController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $posts = new Post('search');
-        $posts->unsetAttributes();
-        $posts->blog_id = $blog->id;
-        $posts->status  = Post::STATUS_PUBLISHED;
-        $posts->access_type = Post::ACCESS_PUBLIC;
-
-        $this->render('blog-post',array('target' => $blog,'posts' => $posts));
-    }
-
-
-    public function actionCategory($alias)
-    {
-        $category = Category::model()->cache($this->yupe->coreCacheTime)->find('alias = :alias',array(
-                ':alias' => $alias
-            ));
-
-        if(null === $category){
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
-        }
-
-        $posts = new Post('search');
-        $posts->unsetAttributes();
-        $posts->category_id = $category->id;
-
-        $this->render('blog-post',array('target' => $category,'posts' => $posts));
+        $this->render('blog-post',array('target' => $blog,'posts' => $blog->getPosts()));
     }
 
     public function actionView($id)
@@ -110,5 +82,22 @@ class PostController extends yupe\components\controllers\FrontController
         }
 
         $this->redirect(array('/blog/post/show', 'slug' => $post->slug), true, 301);
+    }
+
+
+    public function actionCategory($alias)
+    {
+        $category = Category::model()->getByAlias($alias);
+
+        if(null === $category){
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
+        }
+
+        $this->render('category-post',array('target' => $category,'posts' => Post::model()->getForCategory($category->id)));
+    }
+
+    public function actionCategorys()
+    {   
+        $this->render('categorys', array('categorys' => Post::model()->getCategorys()));
     }
 }

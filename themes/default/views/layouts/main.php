@@ -9,6 +9,15 @@
     <meta name="description" content="<?php echo $this->description; ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
     <meta property="og:description" content="<?php echo $this->description; ?>"/>
+    <?php
+        $mainAssets = Yii::app()->AssetManager->publish(
+            Yii::app()->theme->basePath . "/web/"
+        );
+
+        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/last-posts.css');
+        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/blog.css');
+        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+    ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -61,6 +70,10 @@
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
             </div>
 
+            <div class="widget blogs-widget">
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+            </div>
+
             <div class="widget tags-cloud-widget">
                 <?php $this->widget(
                     'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
@@ -70,19 +83,6 @@
 
             <div class="widget last-questions-widget">
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
-            </div>
-
-            <div class="widget blogs-widget">
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
-            </div>
-
-            <div class="widget last-login-users-widget">
-                <?php $this->widget(
-                    'application.modules.user.widgets.LastLoginUsersWidget',
-                    array(
-                        'cacheTime' => $this->yupe->coreCacheTime,
-                    )
-                ); ?>
             </div>            
 
         </aside>

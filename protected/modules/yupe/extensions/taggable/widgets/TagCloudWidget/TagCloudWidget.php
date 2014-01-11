@@ -1,7 +1,7 @@
 <?php
 class TagCloudWidget extends YWidget
 {
-    public $count = 10;
+    public $count = 50;
     public $model;
 
     public function run()
@@ -21,26 +21,9 @@ class TagCloudWidget extends YWidget
         }
         $model = $this->model;
         $model::model()->resetAllTagsCache();
-
         $criteria = new CDbCriteria;
-        $criteria->order = '"count" DESC';
-        $criteria->limit = $this->count;
-
-        $tags = $model::model()->getAllTagsWithModelsCount($criteria);
-
-        $total = 0;
-
-        foreach ($tags as $tag)
-            $total += $tag['count'];
-
-        $outtags = array();
-
-        if ($total > 0) {
-            foreach ($tags as $tag)
-                $outtags[$tag['name']] = 8 + (int) (16 * $tag['count'] / ($total + 10));
-            ksort($outtags);
-        }
-
-        $this->render('tagcloud', array('tags' => $outtags));
+        $criteria->order = '`count` DESC';
+        $criteria->limit = $this->count;            
+        $this->render('tagcloud', array('tags' => $model::model()->getAllTagsWithModelsCount($criteria)));
     }
 }

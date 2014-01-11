@@ -86,6 +86,7 @@ class Category extends yupe\models\YModel
     public function behaviors()
     {
         $module = Yii::app()->getModule('category');
+        
         return array(
 			'NestedSetBehavior'=>array(
 				'class' => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
@@ -112,11 +113,13 @@ class Category extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if (!$this->alias)
+        if (!$this->alias) {
             $this->alias = yupe\helpers\YText::translit($this->name);
+        }
 
-        if(!$this->lang)
+        if(!$this->lang) {
             $this->lang = Yii::app()->language;
+        }
 
         return parent::beforeValidate();
     }
@@ -241,6 +244,7 @@ class Category extends yupe\models\YModel
         {
 			return $model->name;
         }
+
         return '---';
     }
 
@@ -280,4 +284,11 @@ class Category extends yupe\models\YModel
 
 		return parent::afterFind();
 	}
+
+    public function getByAlias($alias)
+    {
+        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find('alias = :alias',array(
+                ':alias' => $alias
+            ));
+    }
 }

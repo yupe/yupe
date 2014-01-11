@@ -2,17 +2,10 @@
 <?php $this->description = $blog->description; ?>
 
 <?php
-$mainAssets = Yii::app()->AssetManager->publish(
-    Yii::app()->theme->basePath . "/web/"
-);
-
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/blog.css');
-Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-    $blog->name,
-);
+    $this->breadcrumbs = array(
+        Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
+        $blog->name,
+    );
 ?>
 <div class="row-fluid">
     <div class="blog-logo pull-left">
@@ -30,16 +23,14 @@ $this->breadcrumbs = array(
             
             <?php echo CHtml::link(
                 CHtml::image(
-                    $mainAssets . "/images/rss.png",
+                    Yii::app()->baseUrl . "/web/images/rss.png",
                     Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
                     array(
                         'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
                         'class' => 'rss'
                     )
                 ), array(
-                    '/blog/blogRss/feed/', array(
-                        'blog' => $blog->id
-                    )
+                    '/blog/blogRss/feed/', 'blog' => $blog->id                    
                 )
             ); ?>
         </div>
