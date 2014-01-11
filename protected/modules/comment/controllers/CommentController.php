@@ -168,7 +168,7 @@ class CommentController extends yupe\components\controllers\FrontController
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => $message
+                        'message' => $message                        
                     )
                 );
             }

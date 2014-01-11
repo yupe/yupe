@@ -1,19 +1,20 @@
 <?php
-$this->pageTitle = $post->title;
-$this->description = $post->description;
-$this->keywords = $post->keywords;
+    $this->pageTitle = $post->title;
+    $this->description = $post->description;
+    $this->keywords = $post->keywords;
 
-Yii::app()->clientScript->registerScript(
-    "ajaxBlogToken", "var ajaxToken = " . json_encode(
-        Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken
-    ) . ";", CClientScript::POS_BEGIN
-);
+    Yii::app()->clientScript->registerScript(
+        "ajaxBlogToken", "var ajaxToken = " . json_encode(
+            Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken
+        ) . ";", CClientScript::POS_BEGIN
+    );
 
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-    CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
-    CHtml::encode($post->title),
-); ?>
+    $this->breadcrumbs = array(
+        Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
+        CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
+        CHtml::encode($post->title),
+    ); 
+?>
 
 <div class="post">
     <div class="row">
@@ -39,26 +40,28 @@ $this->breadcrumbs = array(
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget');?>
 
-<br /><br />
+<hr/>
 
-<?php
-$this->widget(
-    'application.modules.comment.widgets.CommentsListWidget', array(
-        'model' => $post,
-        'modelId'  => $post->id,
-        'comments' => $post->comments
-    )
-); ?>
+<div class="comments-section">   
 
-<br/>
+    <?php
+        $this->widget(
+            'application.modules.comment.widgets.CommentsListWidget', array(
+                'model' => $post,
+                'modelId'  => $post->id,
+                'comments' => $post->comments
+            )
+        ); 
+    ?>
 
-<b><?php echo Yii::t('BlogModule.blog', 'Leave comment'); ?></b>
+     <?php
+        $this->widget(
+            'application.modules.comment.widgets.CommentFormWidget', array(
+                'redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)),
+                'model' => $post,
+                'modelId' => $post->id,
+            )
+        );
+    ?>
 
-<?php
-$this->widget(
-    'application.modules.comment.widgets.CommentFormWidget', array(
-        'redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)),
-        'model' => $post,
-        'modelId' => $post->id,
-    )
-); ?>
+</div>

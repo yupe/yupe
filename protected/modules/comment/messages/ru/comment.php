@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'reply' => 'ответить',
   '0.5' => '0.5',
   'Email' => 'Email',
   'Email for notifications' => 'Email для уведомлений?',
@@ -106,7 +107,7 @@ Comment text:  {comment}' =>   'На вашем сайте добавлен ко
   'Spam protection, try to create comment after {few} seconds!'=>'Защита от спама, попробуйте добавить комментарий спустя {few} секнд!',
   'Last comments' => 'Последние комментарии',
   'Reply' => 'Ответить',
-  'be first!' => 'пока нет, станьте первым!',
+  'Be first!' => 'Станьте первым!',
   'There is an error when create comments, try again later.'=>'При добавлении комментария возникла ошибка, повторите попытку позже.',
   'WRITE COMMENT'=>' НАПИСАТЬ КОММЕНТАРИЙ',
   'From user' => 'От имени',
