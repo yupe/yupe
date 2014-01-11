@@ -43,7 +43,7 @@ class NewsRssController extends yupe\components\controllers\FrontController
 
         return array(
             'feed' => array(
-                'class' => 'application.modules.yupe.components.actions.YFeedAction',
+                'class' => 'yupe\components\actions\YFeedAction',
                 'data' => $data,
                 'title' => $title,
                 'description' => $description,

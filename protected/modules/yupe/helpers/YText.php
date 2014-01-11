@@ -12,6 +12,11 @@
  *
  */
 
+namespace yupe\helpers;
+use CFileHelper;
+use Yii;
+use CHtmlPurifier;
+
 class YText
 {
     public static function translit($str)

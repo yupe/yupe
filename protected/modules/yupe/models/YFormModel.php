@@ -1,6 +1,6 @@
 <?php
 /**
- * YFormModel - базовый класс для всех form-моделей Юпи!
+ * yupe\models\YFormModel - базовый класс для всех form-моделей Юпи!
  *
  * Все модели, разработанные для Юпи! должны наследовать этот класс.
  *
@@ -11,6 +11,10 @@
  * @link http://yupe.ru - основной сайт
  * 
  */
+
+namespace yupe\models;
+
+use CFormModel;
  
 abstract class YFormModel extends CFormModel
 {

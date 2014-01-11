@@ -10,7 +10,7 @@ class AuthenticationManager extends CApplicationComponent
             CLogger::LEVEL_INFO, UserModule::$logCategory
         );
 
-        $user->logout();
+        return $user->logout();
     }
 
     public function login(LoginForm $form, IWebUser $user, CHttpRequest $request = null)
@@ -18,8 +18,6 @@ class AuthenticationManager extends CApplicationComponent
         if ($form->hasErrors()) {
            return false;
         }
-
-
 
         $identity = new UserIdentity($form->email, $form->password);
 
@@ -46,7 +44,7 @@ class AuthenticationManager extends CApplicationComponent
 
         Yii::log(
             Yii::t(
-                'user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
+                'UserModule.user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
                     '{email}'    => $form->email,
                     '{password}' => $form->password,
                     '{ip}'       => $request->getUserHostAddress(),

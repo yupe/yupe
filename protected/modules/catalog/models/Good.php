@@ -36,7 +36,7 @@
  * @property Category $category
  * @property User $user
  */
-class Good extends YModel
+class Good extends yupe\models\YModel
 {
     const SPECIAL_NOT_ACTIVE = 0;
     const SPECIAL_ACTIVE     = 1;
@@ -80,7 +80,7 @@ class Good extends YModel
             array('alias', 'length', 'max' => 150),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')),
+            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
             array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on' => 'search'),
         );
@@ -203,7 +203,7 @@ class Good extends YModel
                 'updateAttribute'   => 'update_time',
             ),
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
@@ -226,7 +226,7 @@ class Good extends YModel
             $this->user_id = $this->change_user_id;
 
         if (!$this->alias)
-            $this->alias = YText::translit($this->name);
+            $this->alias = yupe\helpers\YText::translit($this->name);
 
         return parent::beforeValidate();
     }
@@ -283,7 +283,7 @@ class Good extends YModel
     public function getCategoryLink()
     {
         return $this->category instanceof Category
-            ? CHtml::link($this->category->name, array("/category/default/view", "id" => $this->id))
+            ? CHtml::link($this->category->name, array("/category/default/view", "id" => $this->category_id))
             : '---';
     }
 }

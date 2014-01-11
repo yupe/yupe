@@ -14,7 +14,7 @@ class ContactController extends yupe\components\controllers\FrontController
     public function actions()
     {
         return array('captcha' => array(
-            'class'     => 'application.modules.yupe.components.actions.YCaptchaAction',
+            'class'     => 'yupe\components\actions\YCaptchaAction',
             'backColor' => 0xFFFFFF,
             'testLimit' => 1
         ));

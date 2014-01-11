@@ -32,7 +32,7 @@
  * @method bool appendTo()
  * @method bool prependTo()
  */
-class Category extends YModel
+class Category extends yupe\models\YModel
 {
     const STATUS_DRAFT      = 0;
     const STATUS_PUBLISHED  = 1;
@@ -73,8 +73,8 @@ class Category extends YModel
             array('name, image', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2 ),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')),
-            array('alias', 'YUniqueSlugValidator'),
+            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')),
+            array('alias', 'yupe\components\validators\YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
 			array('parent_id', 'safe'),
             array('id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
@@ -90,7 +90,7 @@ class Category extends YModel
 				'hasManyRoots' => true,
 			),
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'uploadPath'    => $module !== null ? $module->getUploadPath() : null,
@@ -111,7 +111,7 @@ class Category extends YModel
     public function beforeValidate()
     {
         if (!$this->alias)
-            $this->alias = YText::translit($this->name);
+            $this->alias = yupe\helpers\YText::translit($this->name);
 
         if(!$this->lang)
             $this->lang = Yii::app()->language;

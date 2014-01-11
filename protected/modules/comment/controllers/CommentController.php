@@ -49,7 +49,7 @@ class CommentController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class'     => 'application.modules.yupe.components.actions.YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             ),
@@ -106,8 +106,8 @@ class CommentController extends yupe\components\controllers\FrontController
         if($itIsSpamMessage) {
             $message = Yii::t(
                 'CommentModule.comment',
-                'Spam protection, try to create comment after {few} minutes!',
-                array('{few}' => round($antiSpamTime / 60, 1))
+                'Spam protection, try to create comment after {few} seconds!',
+                array('{few}' => $antiSpamTime)
             );
         }else{
 

@@ -53,6 +53,7 @@ return array(
         '/activate/<token>'      => 'user/account/activate',
         '/confirm/<token>'       => 'user/account/confirm',
         '/recovery/<token>'      => 'user/account/restore',
-        '/user/account/captcha/<v>' => '/user/account/captcha/'
+        '/user/account/captcha/refresh/<v>' => 'user/account/captcha/refresh',
+        '/user/account/captcha/<v>' => 'user/account/captcha/'
     ),
 );

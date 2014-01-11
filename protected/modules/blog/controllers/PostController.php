@@ -14,9 +14,7 @@ class PostController extends yupe\components\controllers\FrontController
 
     public function actionIndex()
     {
-        $posts = Post::model();
-
-        $this->render('index', array('model' => $posts));
+        $this->render('index', array('model' => Post::model()));
     }
 
     /**
@@ -28,13 +26,7 @@ class PostController extends yupe\components\controllers\FrontController
      */
     public function actionShow($slug)
     {
-        $post = Post::model()->with(
-            'blog', 'createUser', 'comments.author'
-        )->find(
-            't.slug = :slug', array(
-                ':slug' => $slug
-            )
-        );
+        $post = Post::model()->get($slug, array('blog', 'createUser', 'comments.author'));
 
         if (null === $post){
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Post was not found!'));
@@ -54,16 +46,11 @@ class PostController extends yupe\components\controllers\FrontController
     {
         $tag = CHtml::encode($tag);
 
-        $criteria = new CDbCriteria;
-        $criteria->order = 'publish_date DESC';
+        $posts = Post::model()->getByTag($tag);
 
-        $posts = Post::model()->with(
-            'blog',
-            'createUser'
-        )->published()
-         ->public()
-         ->taggedWith($tag)
-         ->findAll($criteria);
+        if(empty($posts)) {
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Posts not found!'));
+        }
 
         $this->render(
             'list', array(
@@ -106,5 +93,22 @@ class PostController extends yupe\components\controllers\FrontController
         $posts->category_id = $category->id;
 
         $this->render('blog-post',array('target' => $category,'posts' => $posts));
+    }
+
+    public function actionView($id)
+    {
+        $id = (int)$id;
+
+        if(!$id) {
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));        
+        } 
+
+        $post = Post::model()->get($id);
+
+        if(null === $post) {
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));   
+        }
+
+        $this->redirect(array('/blog/post/show', 'slug' => $post->slug), true, 301);
     }
 }

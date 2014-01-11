@@ -34,7 +34,7 @@
  * @property integer $order
  */
 
-class Page extends YModel
+class Page extends yupe\models\YModel
 {
 
     const STATUS_DRAFT      = 0;
@@ -76,12 +76,12 @@ class Page extends YModel
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('title, title_short, slug, keywords, description', 'length', 'max' => 150),
-            array('slug', 'YUniqueSlugValidator'),
+            array('slug', 'yupe\components\validators\YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
             array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
             array('title, title_short, slug, description, keywords', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('slug', 'YSLugValidator'),
+            array('slug', 'yupe\components\validators\YSLugValidator'),
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field')),
             array('lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang', 'safe', 'on' => 'search'),
         );
@@ -156,7 +156,7 @@ class Page extends YModel
     public function beforeValidate()
     {
         if (!$this->slug)
-            $this->slug = YText::translit($this->title);
+            $this->slug = yupe\helpers\YText::translit($this->title);
         if (!$this->lang)
             $this->lang = Yii::app()->language;
         return parent::beforeValidate();

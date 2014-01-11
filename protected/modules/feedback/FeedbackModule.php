@@ -172,7 +172,7 @@ class FeedbackModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('FeedbackModule.feedback', '0.5.1');
+        return Yii::t('FeedbackModule.feedback', '0.6');
     }
 
     public function getAuthor()

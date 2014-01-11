@@ -17,19 +17,17 @@ class BlogController extends yupe\components\controllers\FrontController
      * @return void
      */
     public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider(
-            'Blog', array(
-                'criteria' => array(
-                    'condition' => 't.status = :status',
-                    'params'    => array(':status' => Blog::STATUS_ACTIVE),
-                    'with'      => array('createUser', 'postsCount', 'membersCount'),
-                    'order'     => 'create_date DESC',
-                ),
-            )
-        );
+    {       
+        $blogs = new Blog('search');
+        $blogs->unsetAttributes();
+        $blogs->status = Blog::STATUS_ACTIVE;
+        $blogs->type = (int)Yii::app()->request->getQuery('type', Blog::TYPE_PUBLIC);
 
-        $this->render('index', array('dataProvider' => $dataProvider));
+        if(isset($_GET['Blog']['name'])) {
+            $blogs->name = CHtml::encode($_GET['Blog']['name']);
+        }
+
+        $this->render('index', array('blogs' => $blogs));
     }
 
     /**
@@ -41,8 +39,8 @@ class BlogController extends yupe\components\controllers\FrontController
      * @return void
      */
     public function actionShow($slug = null)
-    {
-        $blog = Blog::model()->with('posts')->getByUrl($slug)->published()->find();
+    {     
+        $blog = Blog::model()->with('posts', 'members', 'createUser')->getByUrl($slug)->published()->find();
 
         if ($blog === null){
            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Blog "{blog}" was not found!', array('{blog}' => $slug)));
@@ -50,6 +48,7 @@ class BlogController extends yupe\components\controllers\FrontController
 
         $this->render('show', array('blog' => $blog));
     }
+
 
     /**
      * "вступление" в блог
@@ -72,17 +71,21 @@ class BlogController extends yupe\components\controllers\FrontController
             }
         }
 
-        if ($blogId === null && Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
+        if ($blogId === null && Yii::app()->getRequest()->getIsPostRequest()){
             $blogId = Yii::app()->getRequest()->getPost('blogId');
+        }
 
         $errorMessage = false;
 
         $blogId = (int) $blogId;
-        if (!$blogId)
-            $errorMessage = Yii::t('BlogModule.blog', 'blogId is not set!');
 
-        if (($blog = Blog::model()->loadModel($blogId)) === null)
+        if (!$blogId) {
+            $errorMessage = Yii::t('BlogModule.blog', 'blogId is not set!');
+        }
+
+        if (($blog = Blog::model()->loadModel($blogId)) === null) {
             $errorMessage = Yii::t('BlogModule.blog', 'Blog with id = {id} was not found!', array('{id}' => $blogId));
+        }
 
         if ($errorMessage !== false) {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {

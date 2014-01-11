@@ -10,6 +10,8 @@
  * @link     http://yupe.ru
  **/
 
+use yupe\models\Settings;
+
 class DefaultController extends yupe\components\controllers\BackController
 {
     /**
@@ -1042,6 +1044,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         'hash'              => Yii::app()->userManager->hasher->hashPassword(
                             $model->userPassword
                         ),
+                        'birth_date' => null
                     )
                 );
 

@@ -1,1 +1,1 @@
-<?php $this->layout = 'modern';
+<?php $this->layout = 'main';

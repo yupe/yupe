@@ -30,7 +30,7 @@
  * @property Blog $blog
  * @property User $user
  */
-class UserToBlog extends YModel
+class UserToBlog extends yupe\models\YModel
 {
     const ROLE_USER      = 1;
     const ROLE_MODERATOR = 2;
@@ -96,8 +96,8 @@ class UserToBlog extends YModel
     {
         return array(
             'id'          => Yii::t('BlogModule.blog', 'id'),
-            'user_id'     => Yii::t('BlogModule.blog', 'User id'),
-            'blog_id'     => Yii::t('BlogModule.blog', 'Blog id'),
+            'user_id'     => Yii::t('BlogModule.blog', 'User'),
+            'blog_id'     => Yii::t('BlogModule.blog', 'Blog'),
             'create_date' => Yii::t('BlogModule.blog', 'Created at'),
             'update_date' => Yii::t('BlogModule.blog', 'Updated at'),
             'role'        => Yii::t('BlogModule.blog', 'Role'),
@@ -132,14 +132,14 @@ class UserToBlog extends YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('t.id', $this->id, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('blog_id', $this->blog_id, true);
-        $criteria->compare('create_date', $this->create_date, true);
-        $criteria->compare('update_date', $this->update_date, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('blog_id', $this->blog_id);
+        $criteria->compare('create_date', $this->create_date);
+        $criteria->compare('update_date', $this->update_date);
         $criteria->compare('role', $this->role);
         $criteria->compare('t.status', $this->status);
-        $criteria->compare('note', $this->note, true);
+        $criteria->compare('note', $this->note);
 
         $criteria->with = array('user', 'blog');
 

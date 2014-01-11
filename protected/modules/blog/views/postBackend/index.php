@@ -101,7 +101,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => CHtml::listData(Blog::model()->findAll(),'id','name')
             ),
             array(
-                'name'  => 'category_id',
+                'name'   => 'category_id',
                 'value'  => 'empty($data->category) ? "---" : $data->category->name',
                 'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory)
             ),

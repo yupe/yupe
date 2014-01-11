@@ -31,7 +31,7 @@ class PageModule extends yupe\components\WebModule
 
     public function  getVersion()
     {
-        return Yii::t('PageModule.page', '0.5');
+        return Yii::t('PageModule.page', '0.6');
     }
 
     public function getEditableParams()

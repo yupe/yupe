@@ -62,7 +62,6 @@ class RecoveryPasswordAction extends CAction
         // Получаем данные POST если таковые имеются:
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
 
-            // Заполняем поля формы POST-данными:
             $changePasswordForm->setAttributes($data);
 
             // Проводим валидацию формы:
@@ -74,15 +73,6 @@ class RecoveryPasswordAction extends CAction
                 );
 
                 $this->controller->redirect(array('/user/account/login'));
-
-            } else {
-
-                Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('UserModule.user', 'Error when changing password!')
-                );
-
-                $this->controller->redirect(array('/user/account/recovery'));
             }
         }
 

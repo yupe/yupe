@@ -28,7 +28,7 @@
  * @property string  $link
  * @property string  $image
  */
-class News extends YModel
+class News extends yupe\models\YModel
 {
 
     const STATUS_DRAFT      = 0;
@@ -71,11 +71,11 @@ class News extends YModel
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('alias', 'YUniqueSlugValidator'),
+            array('alias', 'yupe\components\validators\YUniqueSlugValidator'),
             array('description', 'length', 'max' => 250),
             array('link', 'length', 'max' => 250),
-            array('link', 'YUrlValidator'),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Bad characters in {attribute} field')),
+            array('link', 'yupe\components\validators\YUrlValidator'),
+            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Bad characters in {attribute} field')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected, lang', 'safe', 'on' => 'search'),
         );
@@ -86,7 +86,7 @@ class News extends YModel
         $module = Yii::app()->getModule('news');
         return array(
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
@@ -195,7 +195,7 @@ class News extends YModel
     public function beforeValidate()
     {
         if (!$this->alias)
-            $this->alias = YText::translit($this->title);
+            $this->alias = yupe\helpers\YText::translit($this->title);
 
         if(!$this->lang)
             $this->lang = Yii::app()->language;

@@ -11,12 +11,7 @@
  *
  **/
 class LoginAction extends CAction
-{
-    /**
-     * Запуск action'a:
-     *
-     * @return nothing
-     **/
+{   
     public function run()
     {
         if (Yii::app()->user->isAuthenticated()) {
@@ -50,11 +45,11 @@ class LoginAction extends CAction
 
                 $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess)
                     ? array($module->loginAdminSuccess)
-                    : array($module->loginSuccess);
+                    : empty($module->loginSuccess) ? Yii::app()->baseUrl : array($module->loginSuccess);
 
-                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);                
 
-                $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
+                $this->controller->redirect($redirect);
 
             } else {
 
@@ -64,6 +59,7 @@ class LoginAction extends CAction
 
             }
         }
+
         $this->controller->render($this->id, array('model' => $form));
     }
 }

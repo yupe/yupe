@@ -37,7 +37,7 @@
 
 use application\modules\comment\components\NewCommentEvent;
 
-class Comment extends YModel
+class Comment extends yupe\models\YModel
 {
 
     const STATUS_NEED_CHECK = 0;
@@ -86,9 +86,9 @@ class Comment extends YModel
             array('model', 'length', 'max' => 100),
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
-            array('url', 'YUrlValidator'),
+            array('url', 'yupe\components\validators\YUrlValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
+            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id', 'safe', 'on' => 'search'),
         );
@@ -254,7 +254,7 @@ class Comment extends YModel
             $event = new NewCommentEvent($this);
             $event->module = $module;
             $event->comment = $this;
-            $event->commentOwner = YModel::model($this->model)->findByPk($this->model_id);
+            $event->commentOwner = yupe\models\YModel::model($this->model)->findByPk($this->model_id);
 
             $this->onNewComment($event);
 
@@ -412,7 +412,7 @@ class Comment extends YModel
     public static function isItSpam(Comment $comment, $userId, $interval)
     {
         $dateDiffTime = new DateTime();
-        $dateDiffTime->setTimestamp( time() - $interval );
+        $dateDiffTime->setTimestamp( time() - $interval );       
 
         $newAuthorComments = self::model()->findByAttributes(
             array(
@@ -425,9 +425,9 @@ class Comment extends YModel
                 'now' => $dateDiffTime->format('Y-m-d H:i:s'),
                 'txt' => "%{$comment->getAttribute('text')}%",
             )
-        );
+        );        
 
-        if($newAuthorComments!=null){
+        if($newAuthorComments != null){
             return true;
         }
 

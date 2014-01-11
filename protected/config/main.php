@@ -7,7 +7,7 @@
  * ИЗМЕНЕНИЯ В ДАННОМ ФАЙЛЕ МОГУТ ПРИВЕСТИ К ПОТЕРЕ РАБОТОСПОСОБНОСТИ
  * Для собственных настроек создайте и используйте "/protected/config/userspace.php"
  * Подробную информацию по использованию "userspace" можно узнать из официальной
- * документации.
+ * документаци - http://yupe.ru/docs/yupe/userspace.config.html
  *
  * @category YupeConfig
  * @package  Yupe
@@ -69,7 +69,9 @@ return array(
         ),*/
     ),
     'behaviors' => array(
-        'onBeginRequest' => array('class' => 'application.modules.yupe.components.urlManager.LanguageBehavior'),
+        'onBeginRequest' => array(
+            'class' => 'yupe\components\urlManager\LanguageBehavior'
+         ),
     ),
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
@@ -112,7 +114,7 @@ return array(
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
-            'class'          => 'application.modules.yupe.components.urlManager.LangUrlManager',
+            'class'          => 'yupe\components\urlManager\LangUrlManager',
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',

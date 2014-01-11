@@ -25,7 +25,7 @@ class CommentModule extends WebModule
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
     public $rssCount         = 10;
-    public $antispamInterval = 10;
+    public $antispamInterval = 5;
     public $allowedTags;
 
     public function getDependencies()
@@ -134,7 +134,7 @@ class CommentModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('CommentModule.comment', '0.5.4');
+        return Yii::t('CommentModule.comment', '0.6');
     }
 
     public function getAuthor()

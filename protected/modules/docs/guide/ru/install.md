@@ -16,7 +16,7 @@
 
 ~~~
 [php]
-php composer.phar create-project yupe/yupe:master yupe-project
+php composer.phar create-project yupe/yupe:dev-master yupe-project
 ~~~
 
 Мы должны увидеть приблизительно вот такой вывод:
@@ -25,26 +25,26 @@ php composer.phar create-project yupe/yupe:master yupe-project
 ~~~
 [php]
 Installing yupe/yupe (dev-master 809840596f854a3f78b1e5415b0db6c969a6a3f9)
-       - Installing yupe/yupe (dev-master master)
-         Cloning master
+- Installing yupe/yupe (dev-master master)
+ Cloning master
 
-     Created project in yupe-project
-     Loading composer repositories with package information
-     Installing dependencies (including require-dev)
-       - Installing yiisoft/yii (1.1.14)
-         Loading from cache
+ Created project in yupe-project
+ Loading composer repositories with package information
+ Installing dependencies (including require-dev)
+- Installing yiisoft/yii (1.1.14)
+ Loading from cache
 
-       - Installing clevertech/yii-booster (v2.0.0)
-         Loading from cache
+- Installing clevertech/yii-booster (v2.0.0)
+ Loading from cache
 
-       - Installing yiiext/nested-set-behavior (dev-master c455cec)
-         Cloning c455cec6024b6dcd6550a3894a3a312854943dde
+- Installing yiiext/nested-set-behavior (dev-master c455cec)
+ Cloning c455cec6024b6dcd6550a3894a3a312854943dde
 
-       - Installing yiiext/imperavi-redactor-widget (dev-master f8b06d4)
-         Cloning f8b06d497d85799a266cd36144e43a551afdb877
+- Installing yiiext/imperavi-redactor-widget (dev-master f8b06d4)
+ Cloning f8b06d497d85799a266cd36144e43a551afdb877
 
-       - Installing zhuravljov/yii2-debug (dev-master 7a7e016)
-         Cloning 7a7e016281f4d6feb8785879d628c23843dc5d68
+- Installing zhuravljov/yii2-debug (dev-master 7a7e016)
+ Cloning 7a7e016281f4d6feb8785879d628c23843dc5d68
 ~~~
 
 Наливаем себе чашечку чая и ждем +)
@@ -58,6 +58,13 @@ Installing yupe/yupe (dev-master 809840596f854a3f78b1e5415b0db6c969a6a3f9)
 /public/assets/
 
 /public/uploads/
+ 
+
+**Загрузка полного архива (включая все зависимости)**
+
+Каждый релиз (стабильный и нет) содержит в себе полный архив Юпи!
+Если по каким-то причинам вы не можете воспользоваться composer - этот вариант установки подойдет для вас.
+Скачать Юпи! в архиве очень просто: переходим на страницу релизов [https://github.com/yupe/yupe/releases](https://github.com/yupe/yupe/releases) и нажимаем на большую зеленую кнопку необходимого релиза! В результате получаем полный архив готовый к установке!
 
 После того как все сделано переходим по адресу **http://localhost/yupe-project/public/** (поменять на свой) и если все хорошо - мы должны увидеть первый шаг установки:
 

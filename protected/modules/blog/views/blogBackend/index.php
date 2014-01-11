@@ -104,15 +104,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         'columns'      => array(
             array(
-                'name'  => 'id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->id, array("/blog/blogBackend/update", "id" => $data->id))',
-            ),
-            array(
                 'name'   => 'icon',
+                'header' => false,
                 'type'   => 'raw',
                 'value'  => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))',
                 'filter' => false
+            ),
+            array(
+                'name'  => 'id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->id, array("/blog/blogBackend/update", "id" => $data->id))',
             ),
             array(
                 'name'  => 'name',
@@ -154,11 +155,13 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'header' => Yii::t('BlogModule.blog', 'Posts'),
-                'value'  => '$data->postsCount',
+                'value'  => 'CHtml::link($data->postsCount, array("/blog/postBackend/index","Post[blog_id]" => $data->id ))',
+                'type'   => 'html'
             ),
             array(
                 'header' => Yii::t('BlogModule.blog', 'Members'),
-                'value'  => '$data->membersCount',
+                'value'  => 'CHtml::link($data->membersCount, array("/blog/userToBlogBackend/index","UserToBlog[blog_id]" => $data->id ))',
+                'type'   => 'html'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

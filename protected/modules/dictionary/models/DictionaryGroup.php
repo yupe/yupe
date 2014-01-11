@@ -29,7 +29,7 @@
  * @property User $updateUser
  * @property User $createUser
  */
-class DictionaryGroup extends YModel
+class DictionaryGroup extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.
@@ -61,7 +61,7 @@ class DictionaryGroup extends YModel
             array('code', 'length', 'max' => 100),
             array('name, description', 'length', 'max' => 250),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
-            array('code', 'YSLugValidator'),
+            array('code', 'yupe\components\validators\YSLugValidator'),
             array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

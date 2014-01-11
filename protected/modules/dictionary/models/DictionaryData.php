@@ -32,7 +32,7 @@
  * @property DictionaryGroup $group
  * @property User $createUser
  */
-class DictionaryData extends YModel
+class DictionaryData extends yupe\models\YModel
 {
     const STATUS_ACTIVE  = 1;
     const STATUS_DELETED = 0;
@@ -67,7 +67,7 @@ class DictionaryData extends YModel
             array('group_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('code', 'length', 'max' => 100),
             array('name, value, description', 'length', 'max' => 250),
-            array('code', 'YSLugValidator'),
+            array('code', 'yupe\components\validators\YSLugValidator'),
             array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

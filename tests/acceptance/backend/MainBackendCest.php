@@ -19,7 +19,7 @@ class MainBackendCest
 
         $I->fillField('LoginForm[password]',\CommonPage::TEST_PASSWORD);
         $I->click('Войти');
-        $I->see('Вы успешно авторизовались!', \CommonPage::SUCCESS_CSS_CLASS);
+        //$I->see('Вы успешно авторизовались!', \CommonPage::SUCCESS_CSS_CLASS);
         $I->amOnPage(\CommonPage::PANEL_URL);
         $I->see('Панель управления "Юпи!"','h1');
        

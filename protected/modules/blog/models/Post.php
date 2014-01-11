@@ -45,7 +45,7 @@
  */
 Yii::import('application.modules.blog.models.Blog');
  
-class Post extends YModel
+class Post extends yupe\models\YModel
 {
     const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;
@@ -93,11 +93,11 @@ class Post extends YModel
             array('quote, description, title, link, keywords', 'length', 'max' => 250),
             array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
             array('publish_time_tmp', 'type', 'type' => 'time', 'timeFormat' => 'hh:mm'),
-            array('link', 'YUrlValidator'),
+            array('link', 'yupe\components\validators\YUrlValidator'),
             array('comment_status', 'in', 'range' => array(0, 1)),
             array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Forbidden symbols in {attribute}')),
+            array('slug', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Forbidden symbols in {attribute}')),
             array('title, slug, link, keywords, description, publish_date', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
             array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang', 'safe', 'on' => 'search'),
@@ -143,6 +143,9 @@ class Post extends YModel
                 'condition' => 't.access_type = :access_type',
                 'params'    => array(':access_type' => self::ACCESS_PUBLIC),
             ),
+            'recent' => array(
+                'order' => 'publish_date DESC'
+            )
         );
     }
 
@@ -188,7 +191,7 @@ class Post extends YModel
         return array(
             'id'               => Yii::t('BlogModule.blog', 'id'),
             'blog_id'          => Yii::t('BlogModule.blog', 'Blog'),
-            'create_user_id'   => Yii::t('BlogModule.blog', 'Create user'),
+            'create_user_id'   => Yii::t('BlogModule.blog', 'Created'),
             'update_user_id'   => Yii::t('BlogModule.blog', 'Update user'),
             'create_date'      => Yii::t('BlogModule.blog', 'Created at'),
             'update_date'      => Yii::t('BlogModule.blog', 'Updated at'),
@@ -307,7 +310,7 @@ class Post extends YModel
                 'cacheID'              => 'cache',
             ),
             'imageUpload' => array(
-                'class'             =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'             =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'         => array('insert','update'),
                 'attributeName'     => 'image',
                 'minSize'           => $module->minSize,
@@ -326,9 +329,11 @@ class Post extends YModel
 
     public function getImageUrl()
     {
-        if($this->image)
+        if($this->image) {
             return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
                 Yii::app()->getModule('blog')->uploadPath . '/' . $this->image;
+        }
+
         return false;
     }
 
@@ -360,7 +365,7 @@ class Post extends YModel
     public function beforeValidate()
     {
         if (!$this->slug) {
-            $this->slug = YText::translit($this->title);
+            $this->slug = yupe\helpers\YText::translit($this->title);
         }
 
         return parent::beforeValidate();
@@ -417,7 +422,7 @@ class Post extends YModel
     public function afterFind()
     {
         $this->publish_date_tmp = date('d-m-Y', $this->publish_date);
-        $this->publish_time_tmp = date('h:i', $this->publish_date);
+        $this->publish_time_tmp = date('H:i', $this->publish_date);
 
         return parent::afterFind();
     }
@@ -425,8 +430,79 @@ class Post extends YModel
     public function getQuote($limit = 500)
     {
         return $this->quote
-            ?: YText::characterLimiter(
+            ?: yupe\helpers\YText::characterLimiter(
                 $this->content, (int) $limit
             );
+    }
+
+    public function getArchive($blogId = null)
+    {
+        $criteria = new CDbCriteria();
+
+        if($blogId) {
+            $criteria->condition = 'blog_id = :blog_id';
+            $criteria->params = array(
+                ':blog_id' =>  (int)$blogId
+            );
+        }
+
+        $models = $this->public()->published()->recent()->findAll($criteria);
+
+        $data = array();
+
+        foreach($models as $model) {
+            list($year, $month) = split('-',date('Y-m',$model->publish_date));
+            $data[$year][$month][] = $model;            
+        }
+
+        return $data;
+    }
+
+    public function getStream($limit = 10, $cacheTime)
+    {
+        $data = Yii::app()->cache->get('Blog::Post::Stream');
+
+        if(false === $data) {
+            $data = Yii::app()->db->createCommand()
+            ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
+            ->from('{{comment_comment}} c')
+            ->join('{{blog_post}} p', 'c.model_id = p.id')
+               ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus', array(
+                        ':model'  => 'Post',
+                        ':status' => Post::STATUS_PUBLISHED,
+                        ':commentstatus' => Comment::STATUS_APPROVED
+                 ))
+                ->group('c.model, c.model_id, p.title, p.slug')
+                ->order('comment_date DESC')
+            ->having('count(c.id) > 1')
+            ->limit((int)$limit)          
+            ->queryAll();
+
+            Yii::app()->cache->set('Blog::Post::Stream', $data, $cacheTime);     
+        }
+
+        return $data;
+    }
+
+    public function get($id, array $with = array())
+    {
+        if(is_int($id)) {            
+            return Post::model()->public()->published()->with($with)->findByPk($id);
+        }
+
+        return Post::model()->public()->published()->with($with)->find(
+            't.slug = :slug', array(
+                ':slug' => $id
+            )
+        );
+    }
+
+    public function getByTag($tag)
+    {
+        return Post::model()->with('blog','createUser')
+         ->published()
+         ->public()
+         ->sortByPubDate('DESC')
+         ->taggedWith($tag)->findAll(); 
     }
 }

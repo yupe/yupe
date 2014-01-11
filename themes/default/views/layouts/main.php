@@ -38,14 +38,23 @@
         <!-- sidebar -->
         <aside class="span3 sidebar">
 
+            <div class="widget blogs-widget">
+                <?php $this->widget('application.modules.yupe.widgets.RandomDataWidget', array(
+                    'data' => array(
+                        CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/amyLabs.jpg','amylabs - разработка на Юпи! и Yii !'),'http://amylabs.ru?from=yupe-rb', array('title' => 'amylabs - разработка на Юпи! и Yii !','target' => '_blank')),
+                        CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/yupe-logo.jpg','Юпи! - cms на Yii !'),'http://yupe.ru?from=yupe-rb', array('title' => 'Юпи! - cms на Yii !','target' => '_blank')),
+                     )
+                )); ?>
+            </div>
+
             <?php if (Yii::app()->user->isAuthenticated()): ?>
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
                 </div>
-            <?php endif; ?>
+            <?php endif; ?>         
 
-            <div class="widget blogs-widget">
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+             <div class="widget stream-widget">
+                <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
             </div>
 
             <div class="widget last-posts-widget">
@@ -55,12 +64,16 @@
             <div class="widget tags-cloud-widget">
                 <?php $this->widget(
                     'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
-                    array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post')
+                    array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
                 ); ?>
             </div>
 
             <div class="widget last-questions-widget">
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+            </div>
+
+            <div class="widget blogs-widget">
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
             </div>
 
             <div class="widget last-login-users-widget">
@@ -70,7 +83,8 @@
                         'cacheTime' => $this->yupe->coreCacheTime,
                     )
                 ); ?>
-            </div>
+            </div>            
+
         </aside>
         <!-- sidebar end -->
     </div>

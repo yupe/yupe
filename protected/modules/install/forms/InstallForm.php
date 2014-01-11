@@ -10,7 +10,7 @@
  * @version  0.0.1
  * @link     http://yupe.ru
  **/
-class InstallForm extends YFormModel
+class InstallForm extends yupe\models\YFormModel
 {
     /**
      * Типы баз данных:
