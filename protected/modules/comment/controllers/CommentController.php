@@ -124,7 +124,7 @@ class CommentController extends yupe\components\controllers\FrontController
                     $comment->getAttribute("model_id"));
 
                 // Добавляем комментарий к корню.
-                if ($rootNode!==false && $rootNode->id > 0)
+                if ($rootNode !== false && $rootNode->id > 0)
                 {
                     $saveStatus = $comment->appendTo($rootNode);
                 }
@@ -187,22 +187,10 @@ class CommentController extends yupe\components\controllers\FrontController
      *
      * @return string html отрисованного комментария
      **/
-    private function _renderComment(Comment $comment = null)
+    private function _renderComment(Comment $comment)
     {
-        if ($comment === null) {
-            return null;
-        }
-
-        ob_start();
-
         $comment->refresh();
 
-        $this->widget(
-            'application.modules.comment.widgets.CommentsListWidget', array(
-                'comment' => $comment
-            )
-        );
-
-        return ob_get_clean();
+        return $this->renderPartial('_comment', array('comment' => $comment, 'level' => $comment->getLevel()), true);
     }
 }

@@ -34,11 +34,12 @@ $(document).ready(function() {
         var $container = $('#comments');
         $.post($form.attr('action'), $form.serialize(), function(response){           
             var cssClass = response.result ? 'alert-success' : 'alert-error';            
-            var $result  = $('#comment-result'); 
-            $result.removeClass('alert-error').removeClass('alert-success').addClass(cssClass).html(response.data.message).fadeIn().fadeOut(3000);
+            var $result  = $('#comment-result');            
+            $result.removeClass('alert-error').removeClass('alert-success')
+               .addClass(cssClass).html(response.data.message).fadeIn().fadeOut(3000);
             if(response.data.commentContent) {                
                 if (response.data.comment.parent_id > 0){
-                    $container = $('#comment-' + response.data.comment.parent_id);
+                    $container = $('#comment-' + response.data.comment.parent_id);                    
                 }
             }
             $('#Comment_text').val('');            

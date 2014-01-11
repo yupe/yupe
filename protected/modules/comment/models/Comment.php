@@ -433,4 +433,11 @@ class Comment extends yupe\models\YModel
 
         return false;
     }
+
+    public function getLevel()
+    {
+        $level = $this->level < 10 ? $this->level - 2 : 10;
+
+        return $level > 0 ? $level : 0;
+    }
 }
