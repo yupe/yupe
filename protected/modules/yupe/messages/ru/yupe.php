@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Tags cloud' => 'Теги',
   ' The resulting interface is well integrated into the control panel of Yupe!.' => ' Полученный интерфейс благополучно интегрируется в панель управления Юпи!.',
   ' We are working with it =)' => ' активно ее пишем =)',
   ' Yupe! developed and maintained by a team of enthusiasts, you can use Yupe! and any part of it <b>absolutely for free</b>' => ' Юпи! разрабатывается и поддерживается командой энтузиастов, Вы можете использовать Юпи! и любую его часть <b>совершенно бесплатно</b>',

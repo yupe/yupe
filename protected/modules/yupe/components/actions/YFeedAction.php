@@ -13,6 +13,9 @@
 namespace yupe\components\actions;
 
 use CAction;
+use Yii;
+use EFeed;
+use DateTime;
 
 class YFeedAction extends CAction
 {

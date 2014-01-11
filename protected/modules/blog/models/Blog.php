@@ -365,4 +365,14 @@ class Blog extends yupe\models\YModel
         }
         return $icon;
     }
+
+    public function getPosts()
+    {
+        $posts = new Post('search');
+        $posts->unsetAttributes();
+        $posts->blog_id = $this->id;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
+        return $posts;
+    }
 }

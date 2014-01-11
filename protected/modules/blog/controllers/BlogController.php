@@ -223,8 +223,9 @@ class BlogController extends yupe\components\controllers\FrontController
                 }
             }
         } else {
-            if (Yii::app()->getRequest()->getIsAjaxRequest())
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'You are not the member of this blog!'));
+            }
             else
             {
                 Yii::app()->user->setFlash(
