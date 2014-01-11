@@ -22,6 +22,7 @@
  * @property integer $status
  * @property string $lang
  *
+ * @method bool isRoot()
  * @method Category roots()
  * @method Category descendants()
  * @method Category children()
@@ -39,6 +40,7 @@ class Category extends yupe\models\YModel
     const STATUS_MODERATION = 2;
 
 	public $parent_id;
+	public $sort;
 
     /**
      * @return string the associated database table name
@@ -134,6 +136,7 @@ class Category extends yupe\models\YModel
             'description'       => Yii::t('CategoryModule.category', 'Description'),
             'alias'             => Yii::t('CategoryModule.category', 'Alias'),
             'status'            => Yii::t('CategoryModule.category', 'Status'),
+            'sort'              => Yii::t('CategoryModule.category', 'Sort'),
         );
     }
 
@@ -164,12 +167,12 @@ class Category extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name);
-        $criteria->compare('description', $this->description);
-        $criteria->compare('alias', $this->alias);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('alias', $this->alias, true);
         $criteria->compare('lang', $this->lang);
         $criteria->compare('status', $this->status);
 
@@ -249,7 +252,16 @@ class Category extends yupe\models\YModel
                $this->image;
     }
 
-    public function scopes()
+    public function defaultScope()
+	{
+		return array(
+			'order' => $this->hasManyRoots
+					? $this->rootAttribute . ', ' . $this->leftAttribute
+					: $this->leftAttribute
+		);
+	}
+
+	public function scopes()
     {
         return array(
             'published' => array(

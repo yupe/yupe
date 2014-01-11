@@ -84,6 +84,11 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
             'filter' => $model->getStatusList()
         ),
+		array(
+			'name'  => 'sort',
+			'type'  => 'raw',
+			'value' => '$this->grid->getUpDownButtons($data)',
+		),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
