@@ -5,6 +5,14 @@
  *
 */
 
+namespace yupe\components\behaviors;
+
+use CActiveRecordBehavior;
+use CValidator;
+use CUploadedFile;
+use Yii;
+use yupe\helpers\YFile;
+
 class ImageUploadBehavior extends CActiveRecordBehavior
 {
     /*
@@ -112,8 +120,11 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         if ($this->owner->scenario !== 'altlang' && @is_file($this->_oldImage)) {
             // Удаляем связанные с данным изображением превьюшки:
             $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
-            foreach (glob($this->uploadPath . 'thumb_cache_*_' . $fileName) as $file)
+
+            foreach (glob($this->uploadPath . 'thumb_cache_*_' . $fileName) as $file){
                 @unlink($file);
+            }
+
             @unlink($this->_oldImage);
         }
     }

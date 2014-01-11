@@ -23,7 +23,7 @@
 
 use yupe\widgets\CustomGridView;
 
-class User extends YModel
+class User extends yupe\models\YModel
 {
     const GENDER_THING  = 0;
     const GENDER_MALE   = 1;
@@ -42,6 +42,8 @@ class User extends YModel
     private $_oldAccess_level;
     private $_oldStatus;
     public $use_gravatar = false;
+
+    public $pageSize;
 
     /**
      * @return string the associated database table name
@@ -188,7 +190,15 @@ class User extends YModel
         $criteria->compare('t.last_visit', $this->last_visit, true);
         $criteria->compare('t.email_confirm', $this->email_confirm);        
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination'=> array(
+                'pageSize' => (int)$this->pageSize,
+            ),
+            'sort' => array(
+                'defaultOrder' => 'last_visit DESC',
+            )
+        ));
     }
 
     /**
@@ -202,7 +212,7 @@ class User extends YModel
         $this->_oldStatus       = $this->status;
         // Если пустое поле аватар - автоматически
         // включаем граватар:
-        $this->use_gravatar = empty($this->avatar);
+        $this->use_gravatar = empty($this->avatar);       
 
         return parent::afterFind();
     }
@@ -213,9 +223,8 @@ class User extends YModel
      * @return void
      */
     public function beforeValidate()
-    {
-        $this->gender       = $this->gender ?: self::GENDER_THING;
-        $this->use_gravatar = $this->use_gravatar ?: 0;
+    {        
+        $this->gender = $this->gender ?: self::GENDER_THING;       
         return parent::beforeValidate();
     }
 
@@ -245,12 +254,11 @@ class User extends YModel
                 return false;
             }
         }
-
+        if(!$this->birth_date) {
+            $this->birth_date = null;
+        }
         // Меняем дату изменения профиля:
-        $this->change_date = new CDbExpression('NOW()');
-
-        // Если используется граватар - удаляем текущие аватарки:
-        $this->use_gravatar === false || $this->removeOldAvatar();
+        $this->change_date = new CDbExpression('NOW()');       
 
         return parent::beforeSave();
     }
@@ -417,40 +425,50 @@ class User extends YModel
         $size = (int) $size;
         $size || ($size = 32);
 
+        $ava  = null;
+
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
-        } else if ($this->avatar){
 
-            $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
-            $uploadPath = Yii::app()->getModule('yupe')->uploadPath;
-            $basePath   = Yii::app()->getModule('user')->getUploadPath();
-            $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
+            $ava = 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
 
-            // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
-            if (file_exists($basePath . "/" . $sizedFile)) {
-                return Yii::app()->getRequest()->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
-            }
+        }else{
 
-            if (file_exists($basePath . "/" . $this->avatar)){
-                // Есть! Можем сделать нужный размер
-                $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
-                if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick") {
-                    $image->resize($size, $size, CImage::WIDTH)
-                          ->crop($size, $size)
-                          ->quality(85)
-                          ->sharpen(15)
-                          ->save($basePath . "/" . $sizedFile);
-                } else {
-                    @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
+            $userModule = Yii::app()->getModule('user');
+            $avatarPath = $userModule->defaultAvatar;
+            $avatar = Yii::app()->getRequest()->baseUrl . $avatarPath;
+
+            if ($this->avatar){
+
+                $avatarsDir = $userModule->avatarsDir;
+                $basePath   = $userModule->getUploadPath();
+                $uploadPath = Yii::app()->getModule('yupe')->uploadPath;          
+                $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
+                $baseUrl    = Yii::app()->getRequest()->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
+
+                // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
+                if (file_exists($basePath . "/" . $sizedFile)) {                   
+                    $ava = $baseUrl;
+                } else if (file_exists($basePath . "/" . $this->avatar)){              
+                    // Есть! Можем сделать нужный размер
+                    $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
+
+                    if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick") {
+                        $image->resize($size, $size, CImage::WIDTH)
+                              ->crop($size, $size)
+                              ->quality(85)
+                              ->sharpen(15)
+                              ->save($basePath . "/" . $sizedFile);
+                    } else {
+                        @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
+                    }
+
+                    $ava = $baseUrl;
                 }
-
-                return Yii::app()->getRequest()->baseUrl . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
             }
         }
-        
-        // Нету аватарки, печалька :'(
-        return Yii::app()->getRequest()->baseUrl . Yii::app()->getModule('user')->defaultAvatar;
+     
+        return $ava ? $ava : $avatar;
     }
 
     /**
@@ -524,7 +542,8 @@ class User extends YModel
      *
      * @return void
      */
-    public function changeAvatar(CUploadedFile $uploadedFile) {        
+    public function changeAvatar(CUploadedFile $uploadedFile) {    
+
         $basePath = Yii::app()->getModule('user')->getUploadPath();
 
         //создаем каталог для аватарок, если не существует
@@ -536,7 +555,7 @@ class User extends YModel
 
         $this->removeOldAvatar();
 
-        if(!$uploadedFile->saveAs($basePath . $filename)) {
+        if(!$uploadedFile->saveAs($basePath . $filename)) {           
             throw new CException(Yii::t('UserModule.user','It is not possible to save avatar!'));
         }
 

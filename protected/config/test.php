@@ -48,7 +48,7 @@ return CMap::mergeArray(
             ),
             // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
             'urlManager' => array(
-                'class'          => 'application.modules.yupe.components.urlManager.LangUrlManager',
+                'class'          => 'yupe\components\urlManager\LangUrlManager',
                 'languageInPath' => true,
                 'langParam'      => 'language',
                 'urlFormat'      => 'path',

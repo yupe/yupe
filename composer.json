@@ -78,7 +78,7 @@
         "zhuravljov/yii2-debug": "dev-master"
     },
     "require-dev": {
-        "codeception/codeception": "1.6.*"
+        "codeception/codeception": "1.8.*"
     },
     "minimum-stability": "stable"
 }

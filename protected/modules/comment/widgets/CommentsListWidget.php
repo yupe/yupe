@@ -17,8 +17,7 @@ class CommentsListWidget extends YWidget
 {
     public $model;
     public $modelId;
-    public $label;
-    public $comment = null;
+    public $label;   
     public $comments;
     public $status;
     public $view = 'commentslistwidget';
@@ -30,25 +29,24 @@ class CommentsListWidget extends YWidget
      **/
     public function init()
     {
-        if ($this->comment === null) {
-            Yii::app()->clientScript->registerScriptFile(
-                Yii::app()->assetManager->publish(Yii::app()->theme->basePath . '/web/js/commentlist.js')
-            );
-            if ((empty($this->model) && empty($this->modelId)) && empty($this->comments)) {
-                throw new CException(
-                    Yii::t(
-                        'CommentModule.comment',
-                        'Please, set "model" and "modelId" for "{widget}" widget!',
-                        array(
-                            '{widget}' => get_class($this),
-                        )
-                    )
-                );
-            }
+        Yii::app()->clientScript->registerScriptFile(
+            Yii::app()->assetManager->publish(Yii::app()->theme->basePath . '/web/js/comments.js')
+        );
 
-            $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
-            $this->modelId = (int)$this->modelId;
+        if ((empty($this->model) && empty($this->modelId)) && empty($this->comments)) {
+            throw new CException(
+                Yii::t(
+                    'CommentModule.comment',
+                    'Please, set "model" and "modelId" for "{widget}" widget!',
+                    array(
+                        '{widget}' => get_class($this),
+                    )
+                )
+            );
         }
+
+        $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->modelId = (int)$this->modelId;
 
         if (empty($this->label)) {
             $this->label = Yii::t('CommentModule.comment', 'Comments');
@@ -65,47 +63,33 @@ class CommentsListWidget extends YWidget
      * @return void
      **/
     public function run()
-    {
-        if ($this->comment === null) {
-            $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
-            if (empty($comments)) {
-                if (empty($this->comments)) {
-                    $this->comments = Comment::model()->with('author')->findAll(
-                        array(
-                            'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
-                            'params' => array(
-                                ':model' => $this->model,
-                                ':modelId' => $this->modelId,
-                                ':status' => $this->status,
-                            ),
-                            'with' => array('author'),
-                            'order' => 't.lft',
-                        )
-                    );
-                }
-                //unset($this->comments[0]); // remove "root" node
-                foreach($this->comments as $k=>$v) {
-                    if($v->id == $v->root){
-                        unset($this->comments[$k]);
-                    }
-                }
-                $comments = $this->comments;
-                Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
-            }
-            $this->render(
-                $this->view,
-                array(
-                    'comments' => $comments
-                )
-            );
-        } else {
+    {       
+        $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
 
-            $this->render(
-                $this->view,
-                array(
-                    'comments' => array(0)
-                )
-            );
+        if (empty($comments)) {
+            if (empty($this->comments)) {                 
+                $this->comments = Comment::model()->findAll(
+                    array(
+                        'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
+                        'params' => array(
+                            ':model' => $this->model,
+                            ':modelId' => $this->modelId,
+                            ':status' => $this->status,
+                        ),                         
+                        'order' => 't.lft',
+                    )
+                );                    
+            }
+            //unset($this->comments[0]); // remove "root" node
+            foreach($this->comments as $k=>$v) {
+                if($v->id == $v->root){
+                    unset($this->comments[$k]);
+                }
+            }
+            $comments = $this->comments;
+            Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
         }
+
+        $this->render($this->view, array('comments' => $comments));        
     }
 }

@@ -20,7 +20,7 @@
  * @property string $content
  * @property string $description
  */
-class ContentBlock extends YModel
+class ContentBlock extends yupe\models\YModel
 {
     const SIMPLE_TEXT = 1;
     const PHP_CODE    = 2;
@@ -59,7 +59,7 @@ class ContentBlock extends YModel
             array('name', 'length', 'max' => 250),
             array('code', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
-            array('code', 'YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
+            array('code', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
             array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
@@ -113,4 +113,19 @@ class ContentBlock extends YModel
         $data = $this->types;
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*unknown type*');
     }
+
+	protected function beforeSave()
+	{
+		if (parent::beforeSave()) {
+			Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+
+			if ($this->type == self::SIMPLE_TEXT) {
+				$this->content = strip_tags($this->content);
+			}
+
+			return true;
+		}
+
+		return false;
+	}
 }

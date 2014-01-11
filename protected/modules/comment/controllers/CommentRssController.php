@@ -24,8 +24,10 @@ class CommentRssController extends yupe\components\controllers\FrontController
         $criteria->params = array();
         $criteria->limit = $limit;
 
-        $title = Yii::app()->getModule('yupe')->siteName;
-        $description = Yii::app()->getModule('yupe')->siteDescription;
+        $yupe = Yii::app()->getModule('yupe');
+
+        $title = $yupe->siteName;
+        $description = $yupe->siteDescription;
 
         $model = Yii::app()->getRequest()->getQuery('model');
         $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
@@ -43,11 +45,11 @@ class CommentRssController extends yupe\components\controllers\FrontController
             ':modelId'  => $modelId,
         );
 
-        $data = Comment::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->approved()->with('author')->findAll($criteria);
+        $data = Comment::model()->cache($yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);
 
         return array(
             'feed' => array(
-                'class' => 'application.modules.yupe.components.actions.YFeedAction',
+                'class' => 'yupe\components\actions\YFeedAction',
                 'data' => $data,
                 'title' => $title,
                 'description' => $description,

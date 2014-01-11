@@ -16,7 +16,7 @@ class AccountController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class'     => 'application.modules.yupe.components.actions.YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,

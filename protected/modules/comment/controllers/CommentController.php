@@ -49,7 +49,7 @@ class CommentController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class'     => 'application.modules.yupe.components.actions.YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             ),
@@ -106,8 +106,8 @@ class CommentController extends yupe\components\controllers\FrontController
         if($itIsSpamMessage) {
             $message = Yii::t(
                 'CommentModule.comment',
-                'Spam protection, try to create comment after {few} minutes!',
-                array('{few}' => round($antiSpamTime / 60, 1))
+                'Spam protection, try to create comment after {few} seconds!',
+                array('{few}' => $antiSpamTime)
             );
         }else{
 
@@ -124,7 +124,7 @@ class CommentController extends yupe\components\controllers\FrontController
                     $comment->getAttribute("model_id"));
 
                 // Добавляем комментарий к корню.
-                if ($rootNode!==false && $rootNode->id > 0)
+                if ($rootNode !== false && $rootNode->id > 0)
                 {
                     $saveStatus = $comment->appendTo($rootNode);
                 }
@@ -168,7 +168,7 @@ class CommentController extends yupe\components\controllers\FrontController
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => $message
+                        'message' => $message                        
                     )
                 );
             }
@@ -187,22 +187,10 @@ class CommentController extends yupe\components\controllers\FrontController
      *
      * @return string html отрисованного комментария
      **/
-    private function _renderComment(Comment $comment = null)
+    private function _renderComment(Comment $comment)
     {
-        if ($comment === null) {
-            return null;
-        }
-
-        ob_start();
-
         $comment->refresh();
 
-        $this->widget(
-            'application.modules.comment.widgets.CommentsListWidget', array(
-                'comment' => $comment
-            )
-        );
-
-        return ob_get_clean();
+        return $this->renderPartial('_comment', array('comment' => $comment, 'level' => $comment->getLevel()), true);
     }
 }

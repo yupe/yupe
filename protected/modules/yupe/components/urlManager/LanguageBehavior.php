@@ -8,6 +8,15 @@
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @link     http://yupe.ru
  */
+namespace yupe\components\urlManager;
+
+use CBehavior;
+use Yii;
+use Exception;
+use CException;
+use YFlashMessages;
+use CHttpCookie;
+
 class LanguageBehavior extends CBehavior
 {
     public $lang          = false;
@@ -18,9 +27,9 @@ class LanguageBehavior extends CBehavior
 
     /**
      * Подключение события:
-     * 
+     *
      * @param Component $owner - 'хозяин' события
-     * 
+     *
      * @return void
      */
     public function attach($owner)
@@ -32,7 +41,7 @@ class LanguageBehavior extends CBehavior
 
     /**
      * Получаем язык из кукисов:
-     * 
+     *
      * @return string
      */
     public function getCookieLang()
@@ -61,7 +70,7 @@ class LanguageBehavior extends CBehavior
      * Получаем язык по умолчанию
      * берём его либо из кукисов, либо определяя язык
      * браузера
-     * 
+     *
      * @return string
      */
     public function getDefaultLang()
@@ -91,7 +100,7 @@ class LanguageBehavior extends CBehavior
 
     /**
      * Получаем язык:
-     * 
+     *
      * @return string
      */
     public function getLang()
@@ -105,6 +114,8 @@ class LanguageBehavior extends CBehavior
         }
 
         $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
+        //$reqLang = current(explode('/', Yii::app()->getRequest()->getPathInfo()));
+        
 
         return in_array($reqLang, $lm->languages)
             ? $reqLang
@@ -136,6 +147,7 @@ class LanguageBehavior extends CBehavior
         $path = Yii::app()->getRequest()->getPathInfo();
 
         // Проверяем переданный язык:
+        
         $langIsset = (
             isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
         );
@@ -149,6 +161,8 @@ class LanguageBehavior extends CBehavior
         );
 
         // Если не передан язык не нативный:
+        
+        
         if ($langIsset === false && $lm->getAppLang() !== $this->getLang()) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(
@@ -167,7 +181,7 @@ class LanguageBehavior extends CBehavior
             Yii::app()->getRequest()->redirect(
                 $home . $lm->getCleanUrl(Yii::app()->getRequest()->url)
             );
-        } elseif ($langIsset === true && $this->lang !== substr($path, 0, 2)) {
+        } elseif ($langIsset === true && $this->lang !== current(explode('/',$path))) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(
                     $lm->getCleanUrl(Yii::app()->getRequest()->url), $this->lang
@@ -178,7 +192,7 @@ class LanguageBehavior extends CBehavior
 
     /**
      * Устанавливаем язык приложения:
-     * 
+     *
      * @param string $language - требуемый язык
      *
      * @return void

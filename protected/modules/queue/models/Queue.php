@@ -27,7 +27,7 @@
  * @property integer $status
  * @property string $notice
  */
-class Queue extends YModel
+class Queue extends yupe\models\YModel
 {
     const STATUS_NEW      = 0;
     const STATUS_COMLETED = 1;

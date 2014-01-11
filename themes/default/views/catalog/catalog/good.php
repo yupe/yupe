@@ -18,7 +18,7 @@ $this->breadcrumbs = array(
     <div class="nav">
         <?php echo Yii::t('CatalogModule.catalog','Price').': '; echo $good->price; ?>
         <br/>
-        <?php echo CHtml::link(Yii::t('CatalogModule.catalog','Constant link'), array('/news/news/show', 'name' => $good->alias));?>
+        <?php echo CHtml::link(Yii::t('CatalogModule.catalog','Constant link'), array('/catalog/catalog/show', 'name' => $good->alias));?>
     </div>
 </div>
 

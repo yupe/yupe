@@ -10,6 +10,13 @@
  * @link     http://yupe.ru
  *
  **/
+namespace yupe\components\actions;
+
+use CAction;
+use Yii;
+use EFeed;
+use DateTime;
+
 class YFeedAction extends CAction
 {
     /**
@@ -21,7 +28,7 @@ class YFeedAction extends CAction
      *     {
      *         return array(
      *             'atomfeed' => array(
-     *                 'class'        => 'application.modules.yupe.components.actions.YFeedAction',
+     *                 'class'        => 'yupe\components\actions\YFeedAction',
      *                 'data'         => News::model()->published()->findAll(),
      *                 // Параметр title по умолчанию берётся из настроек приложения
      *                 //'title'        => Yii::t('YupeModule.yupe', 'Site title'),

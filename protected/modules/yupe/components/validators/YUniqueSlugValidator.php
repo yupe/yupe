@@ -10,7 +10,10 @@
  * @since 0.1
  *
  */
+namespace yupe\components\validators;
 
+use CUniqueValidator;
+use Yii;
 
 class YUniqueSlugValidator extends CUniqueValidator
 {

@@ -28,14 +28,6 @@
     }
 ?>
 
-<?php $this->widget(
-    'bootstrap.widgets.TbBox',
-    array(
-        'title' => $error['code'],
-        'headerIcon' => 'icon-error',
-        'content' => $msg,
-    )
-);?>
 <p class="alert alert-error">
     <?php echo $msg;?>
 </p>

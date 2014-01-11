@@ -9,6 +9,12 @@
  * @since 0.1
  *
  */
+
+namespace yupe\components\validators;
+
+use CValidator;
+use Yii;
+
 class YRequiredValidator extends CValidator
 {
     public $requiredValue;

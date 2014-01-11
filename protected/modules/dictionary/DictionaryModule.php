@@ -58,7 +58,7 @@ class DictionaryModule extends yupe\components\WebModule
 
     public function getVersion()
     {
-        return Yii::t('DictionaryModule.dictionary', '0.2');
+        return Yii::t('DictionaryModule.dictionary', '0.6');
     }
 
     public function getAdminPageLink()

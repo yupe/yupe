@@ -24,7 +24,7 @@
  * @property Gallery $gallery
  * @property Image $image
  */
-class ImageToGallery extends YModel
+class ImageToGallery extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.

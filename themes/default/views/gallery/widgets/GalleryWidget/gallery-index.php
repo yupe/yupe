@@ -15,5 +15,4 @@
                 </div><!--/item-->
             </div><!--/carousel-inner-->
         </div><!--/myCarousel-->
-    </div><!--/well-->
 <?php endif;?>

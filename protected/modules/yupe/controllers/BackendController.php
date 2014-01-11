@@ -22,6 +22,8 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\models\Settings;
+
 class BackendController extends yupe\components\controllers\BackController
 {
     /**
@@ -304,6 +306,7 @@ class BackendController extends yupe\components\controllers\BackController
                 }
             }
         }
+        
         return true;
     }
 
@@ -513,7 +516,7 @@ class BackendController extends yupe\components\controllers\BackController
             $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
             if (is_array($dirsList)) {
                 foreach ($dirsList as $item) {
-                    YFile::rmDir($item);
+                    yupe\helpers\YFile::rmDir($item);
                 }
             }
             return true;
@@ -599,7 +602,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionReportBug()
     {
-        $form = new BugForm;
+        $form = new yupe\models\BugForm;
 
         if (Yii::app()->getRequest()->getIsPostRequest() && ($bugData = Yii::app()->getRequest()->getPost('BugForm'))) {
             $form->setAttributes($bugData);

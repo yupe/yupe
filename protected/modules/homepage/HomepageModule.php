@@ -9,6 +9,8 @@
  * @since 0.1
  *
  */
+Yii::import('application.modules.page.models.Page');
+Yii::import('application.modules.blog.models.Post');
 
 class HomepageModule extends yupe\components\WebModule
 {
@@ -98,9 +100,9 @@ class HomepageModule extends yupe\components\WebModule
     public function getEditableParams()
     {
         return array(
-            'mode'  => $this->getModes(),
-            'limit',
-            'target' => $this->getTargets()
+            'mode'  => $this->getModes(),           
+            'target' => $this->getTargets(),
+            'limit'
         );
     }
 

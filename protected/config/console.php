@@ -54,5 +54,19 @@ Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : array(),
+        'ls' => file_exists(__DIR__ . '/ls.php') ? require_once __DIR__ . '/ls.php' : array(),
     ),
+    'modules' => array(
+        'user' => array(
+            'class' => 'application.modules.user.UserModule',
+        ),
+        'blog' => array(
+            'class' => 'application.modules.blog.BlogModule',
+        ),
+        'yupe'  => array(
+            'class'        => 'application.modules.yupe.YupeModule',
+            'brandUrl'     => 'http://yupe.ru?from=engine',
+            'cache'        => true,
+        ),
+    )
 );

@@ -98,7 +98,7 @@ class NewsModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('NewsModule.news', '0.5');
+        return Yii::t('NewsModule.news', '0.6');
     }
 
     public function getIsInstallDefault()

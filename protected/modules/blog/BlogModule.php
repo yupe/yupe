@@ -90,7 +90,7 @@ class BlogModule extends yupe\components\WebModule
 
     public  function getVersion()
     {
-        return Yii::t('BlogModule.blog', '0.4');
+        return Yii::t('BlogModule.blog', '0.6');
     }
 
     public function getName()

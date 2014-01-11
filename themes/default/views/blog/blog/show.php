@@ -2,17 +2,10 @@
 <?php $this->description = $blog->description; ?>
 
 <?php
-$mainAssets = Yii::app()->AssetManager->publish(
-    Yii::app()->theme->basePath . "/web/"
-);
-
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/blog.css');
-Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-    $blog->name,
-);
+    $this->breadcrumbs = array(
+        Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
+        $blog->name,
+    );
 ?>
 <div class="row-fluid">
     <div class="blog-logo pull-left">
@@ -30,16 +23,14 @@ $this->breadcrumbs = array(
             
             <?php echo CHtml::link(
                 CHtml::image(
-                    $mainAssets . "/images/rss.png",
+                    Yii::app()->baseUrl . "/web/images/rss.png",
                     Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
                     array(
                         'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
                         'class' => 'rss'
                     )
                 ), array(
-                    '/blog/blogRss/feed/', array(
-                        'blog' => $blog->id
-                    )
+                    '/blog/blogRss/feed/', 'blog' => $blog->id                    
                 )
             ); ?>
         </div>
@@ -48,13 +39,13 @@ $this->breadcrumbs = array(
             <span class="blog-description-owner">
                 <i class="icon-user"></i>
                 <?php echo Yii::t('BlogModule.blog', 'Created'); ?>:
-                <b>
+                <strong>
                     <?php $this->widget(
                         'application.modules.user.widgets.UserPopupInfoWidget', array(
                             'model' => $blog->createUser
                         )
                     ); ?>
-                </b>
+                </strong>
             </span>
 
             <span class="blog-description-datetime">
@@ -64,7 +55,7 @@ $this->breadcrumbs = array(
 
             <span class="blog-description-posts">
                 <i class="icon-pencil"></i>
-                <?php echo CHtml::link($blog->postsCount, array('/blog/post/blog/','slug' => $blog->slug)); ?>
+                <?php echo CHtml::link(count($blog->posts), array('/blog/post/blog/','slug' => $blog->slug)); ?>
             </span>
         </div>
 
@@ -74,21 +65,19 @@ $this->breadcrumbs = array(
         </div>
         <?php endif; ?>
         
-        <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id)); ?>
+        <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id, 'blog' => $blog)); ?>
+
     </div>
+
 </div>
 
-<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 3)); ?>
+<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 10)); ?>
+
+<br/>
+
+<?php echo CHtml::link("Все записи блога '{$blog->name}'", array('/blog/post/blog/','slug' => $blog->slug), array('class' => 'btn'));?>
+
+<br/><br/>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget');?>
-<br /><br />
 
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $blog, 'modelId' => $blog->id)); ?>
-
-<h3><?php echo Yii::t('BlogModule.blog', 'Leave comment'); ?></h3>
-
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
-    'redirectTo' => Yii::app()->createUrl('/blog/blog/show/', array('slug' => $blog->slug)),
-    'model' => $blog,
-    'modelId' => $blog->id,
-)); ?>

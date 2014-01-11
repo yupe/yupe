@@ -14,7 +14,14 @@
  * 
  **/
 
-Yii::import('yupe.extensions.tagcache.TagsCache');
+namespace yupe\models;
+
+use CActiveRecord;
+use ReflectionClass;
+use TagsCache;
+use CCacheDependency;
+use CChainedCacheDependency;
+use Yii;
 
 abstract class YModel extends CActiveRecord
 {
@@ -104,10 +111,12 @@ abstract class YModel extends CActiveRecord
          * Если не указана зависимость,
          * выставляем тегирование
          */
-        if ($dependency === null)
+        if ($dependency === null) {
             return parent::cache($duration, new TagsCache($model, $module), $queryCount);
-        elseif ($dependency instanceof TagsCache)
+        }
+        elseif ($dependency instanceof TagsCache){
             return parent::cache($duration, $dependency, $queryCount);
+        }
         
         /**
          * Если же есть зависимость,

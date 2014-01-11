@@ -37,7 +37,7 @@
  * @property User $updateUser
  * @property Post[] $posts
  */
-class Blog extends YModel
+class Blog extends yupe\models\YModel
 {
     const STATUS_BLOCKED = 0;
     const STATUS_ACTIVE  = 1;
@@ -45,6 +45,7 @@ class Blog extends YModel
 
     const TYPE_PUBLIC  = 1;
     const TYPE_PRIVATE = 2;
+    
 
     /**
      * Returns the static model of the specified AR class.
@@ -77,7 +78,7 @@ class Blog extends YModel
             array('slug', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2),
             array('create_user_id, update_user_id, create_date, update_date, status', 'length', 'max' => 11),
-            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Illegal characters in {attribute}')),
+            array('slug', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Illegal characters in {attribute}')),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
@@ -201,11 +202,14 @@ class Blog extends YModel
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
 
-        $criteria->with = array('createUser', 'updateUser');
+        $criteria->with = array('createUser', 'updateUser', 'postsCount', 'membersCount');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 10),
+            'sort' => array(
+                'defaultOrder' => 'name ASC',
+            )
         ));
     }
 
@@ -214,7 +218,7 @@ class Blog extends YModel
         $module = Yii::app()->getModule('blog');
         return array(
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'icon',
                 'minSize'       => $module->minSize,
@@ -245,8 +249,9 @@ class Blog extends YModel
     {
         $this->update_user_id = Yii::app()->user->getId();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
+        }
 
         return parent::beforeSave();
     }
@@ -257,8 +262,9 @@ class Blog extends YModel
          * Если это новая запись - добавляем пользователя
          * который создал блог в его участники
          */
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->join();
+        }
 
         return parent::afterSave();
     }
@@ -306,8 +312,9 @@ class Blog extends YModel
 
     public function userInBlog($userId = null)
     {
-        if (!Yii::app()->user->isAuthenticated())
+        if (!Yii::app()->user->isAuthenticated()) {
             return false;
+        }
 
         $params = array(
             'user_id' => $userId !== null
@@ -357,5 +364,15 @@ class Blog extends YModel
             $icon = Yii::app()->getAssetManager()->publish($iconPath);
         }
         return $icon;
+    }
+
+    public function getPosts()
+    {
+        $posts = new Post('search');
+        $posts->unsetAttributes();
+        $posts->blog_id = $this->id;
+        $posts->status  = Post::STATUS_PUBLISHED;
+        $posts->access_type = Post::ACCESS_PUBLIC;
+        return $posts;
     }
 }

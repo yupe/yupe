@@ -22,7 +22,7 @@
  * The followings are the available model relations:
  * @property Post[] $yupePosts
  */
-class Tag extends YModel
+class Tag extends yupe\models\YModel
 {
 	/**
 	 * Returns the static model of the specified AR class.

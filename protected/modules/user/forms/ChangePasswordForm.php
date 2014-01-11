@@ -20,7 +20,7 @@ class ChangePasswordForm extends CFormModel
         return array(
             array('password, cPassword', 'required'),
             array('password, cPassword', 'length', 'min' => Yii::app()->getModule('user')->minPasswordLength),
-            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('UserModule.user', 'Password is not coincide!')),
+            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('UserModule.user', 'Password is not coincide!'))
         );
     }
 

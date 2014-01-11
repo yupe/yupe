@@ -265,7 +265,7 @@ class InstallModule extends WebModule
      **/
     public function getVersion()
     {
-        return Yii::t('InstallModule.install', '0.2');
+        return Yii::t('InstallModule.install', '0.6');
     }
 
     /**

@@ -1,15 +1,13 @@
-<?php Yii::import('application.modules.comment.CommentModule'); ?>
-<script type='text/javascript'>
-    var errorMessage = '<?php echo Yii::t("CommentModule.comment", 'There is an error when create comments, try again later.'); ?>';
-</script>
 <a href='#' id='wcml' style="display: none;"><?php echo Yii::t("CommentModule.comment", 'WRITE COMMENT'); ?></a>
-<br/>
+
 <div id='comment-form-wrap' class='comment-form-wrap'>
-<div class="form">
+
+<div id='comment-result' class='alert' style='display:none'></div>
+
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl('/comment/comment/add/'),
+        'action' => Yii::app()->createUrl('/comment/add/'),
         'id' => 'comment-form',
         'type' => 'vertical',
         'inlineErrors' => true,
@@ -19,11 +17,6 @@
     )
 ); ?>
 
-    <p class="note">
-        <?php echo Yii::t('CommentModule.comment', 'Fields with'); ?>
-        <span class="required">*</span> 
-        <?php echo Yii::t('CommentModule.comment', 'are require.'); ?>
-    </p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -43,30 +36,33 @@
 
         <div class='row-fluid control-group <?php echo $model->hasErrors('url') ? 'error' : ''; ?>'>
             <?php echo $form->textFieldRow($model, 'url', array('class' => 'span6')); ?>
-        </div>
-
-    <?php else: ?>
-        <p><?php echo Yii::t('CommentModule.comment', 'From user'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
+        </div>   
     <?php endif; ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>'>
-        <?php echo $form->textAreaRow($model, 'text', array('class' => 'span12', 'required' => true,'rows' => 7, 'cols' => 50)); ?>
+        <?php echo $form->textAreaRow($model, 'text', array('class' => 'span12', 'required' => true,'rows' => 3, 'cols' => 50)); ?>
     </div>
 
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
         <?php if(CCaptcha::checkRequirements()) : ?>
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
 
-                <?php
-                $this->widget(
-                    'CCaptcha', array(
+                <?php 
+                   $this->widget(
+                    'CCaptcha',
+                    array(
                         'showRefreshButton' => true,
-                        'clickableImage' => true,
-                        'buttonLabel' => 'обновить',
-                        'buttonOptions' => array('class' => 'captcha-refresh-link'),
+                        'imageOptions' => array(
+                            'width' => '150',
+                        ),
+                        'buttonOptions' => array(
+                            'class' => 'btn',
+                        ),
+                        'buttonLabel' => '<i class="icon-repeat"></i>',
                         'captchaAction' => '/comment/comment/captcha'
                     )
-                ); ?>
+                );
+                ?>
 
                 <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
                     <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => Yii::t('CommentModule.comment', 'Insert symbols you see on picture'),'class' => 'span6', 'required' => true)); ?>
@@ -74,17 +70,7 @@
         <?php endif; ?>
     <?php endif; ?>
     <div class="row-fluid  control-group">
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbButton',
-            array(
-                'buttonType' => 'submit',
-                'type' => 'primary',
-                'icon' => 'comment',
-                'label' => Yii::t('CommentModule.comment', 'Create comment'),
-            )
-        ); ?>
+        <button class="btn btn-primary" id="yw0" type="submit" name="yt0"><i class="icon-comment"></i> <?php echo Yii::t('CommentModule.comment', 'Create comment');?></button>        
     </div>
 <?php $this->endWidget(); ?>
-</div><!-- form -->
 </div>

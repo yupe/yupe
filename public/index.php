@@ -8,10 +8,9 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
 if (!ini_get('date.timezone')) {
-    date_default_timezone_set('UTC');
+    date_default_timezone_set('Europe/Moscow');
 }
 
 $development = isset($_SERVER['SERVER_ADDR'])

@@ -10,6 +10,11 @@
  *
  */
 
+namespace yupe\components\validators;
+
+use CUrlValidator;
+use Yii;
+
 class YUrlValidator extends CUrlValidator
 {
     public $pattern = '/^{schemes}:\/\/(([A-ZА-Я0-9][A-ZА-Я0-9_-]*)(\.[A-ZА-Я0-9][A-ZА-Я0-9_-]*)+)/iu';

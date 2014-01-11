@@ -28,7 +28,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Image extends YModel
+class Image extends yupe\models\YModel
 {
     const STATUS_CHECKED    = 1;
     const STATUS_NEED_CHECK = 0;
@@ -89,7 +89,7 @@ class Image extends YModel
         $module = Yii::app()->getModule('image');
         return array(
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'file',
                 'minSize'       => $module->minSize,
