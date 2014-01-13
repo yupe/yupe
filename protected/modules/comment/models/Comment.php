@@ -109,7 +109,7 @@ class Comment extends yupe\models\YModel
             'name' => Yii::t('CommentModule.comment', 'Name'),
             'email' => Yii::t('CommentModule.comment', 'Email'),
             'url' => Yii::t('CommentModule.comment', 'Site'),
-            'text' => Yii::t('CommentModule.comment', 'Text'),
+            'text' => Yii::t('CommentModule.comment', 'Comment'),
             'status' => Yii::t('CommentModule.comment', 'Status'),
             'verifyCode' => Yii::t('CommentModule.comment', 'Verification code'),
             'ip' => Yii::t('CommentModule.comment', 'IP address'),
@@ -432,5 +432,12 @@ class Comment extends yupe\models\YModel
         }
 
         return false;
+    }
+
+    public function getLevel()
+    {
+        $level = $this->level < 10 ? $this->level - 2 : 10;
+
+        return $level > 0 ? $level : 0;
     }
 }

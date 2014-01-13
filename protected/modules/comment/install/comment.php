@@ -22,6 +22,7 @@ return array(
     'rules'     => array(        
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/',
         '/comment/comment/captcha/<v>' => 'comment/comment/captcha/',
-        '/comment/add/' => 'comment/comment/add/'
+        '/comment/add/' => 'comment/comment/add/',
+        '/comments/rss/<model>/<modelId>' => 'comment/commentRss/feed'
     ),
 );

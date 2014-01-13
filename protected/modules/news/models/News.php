@@ -126,7 +126,7 @@ class News extends yupe\models\YModel
             ),
             'protected' => array(
                 'condition' => 't.is_protected = :is_protected',
-                'params'    => array(':is_prtected' => self::PROTECTED_YES),
+                'params'    => array(':is_protected' => self::PROTECTED_YES),
             ),
             'public'    => array(
                 'condition' => 't.is_protected = :is_protected',

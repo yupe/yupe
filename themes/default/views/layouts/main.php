@@ -14,8 +14,7 @@
             Yii::app()->theme->basePath . "/web/"
         );
 
-        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/last-posts.css');
-        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/blog.css');
+        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
     ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
