@@ -16,6 +16,7 @@ class CommentFormWidget extends YWidget
     public $modelId;
     public $redirectTo;
     public $view = 'commentformwidget';
+    public $allowGuestComment = false;
 
     public function init()
     {
@@ -37,10 +38,14 @@ class CommentFormWidget extends YWidget
             'model_id' => $this->modelId,
         ));
 
+        if($this->allowGuestComment == false && !Yii::app()->user->isAuthenticated()) {
+            $this->view = 'commentnotallowed';
+        }
+
         $this->render($this->view, array(
             'redirectTo' => $this->redirectTo,
             'model'      => $model,
-            'module'      => $module,
+            'module'     => $module,
         ));
     }
 }

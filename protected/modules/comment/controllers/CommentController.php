@@ -67,15 +67,20 @@ class CommentController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
+        $module = Yii::app()->getModule('comment');
+
+        if(!$module->allowGuestComment && !Yii::app()->user->isAuthenticated()) {
+            throw new CHttpException(404);
+        }      
 
         $comment = new Comment;
+
+        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
 
         $comment->setAttributes(
             Yii::app()->getRequest()->getPost('Comment')
         );
-
-        $module = Yii::app()->getModule('comment');
+       
         $comment->status = (int)$module->defaultCommentStatus;
 
         if (Yii::app()->user->isAuthenticated()) {
@@ -95,7 +100,7 @@ class CommentController extends yupe\components\controllers\FrontController
         $saveStatus = false;
         $parentId = $comment->getAttribute('parent_id');
         $message = Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!');
-        $antiSpamTime  = $this->module->antispamInterval;
+        $antiSpamTime = $this->module->antispamInterval;
 
         $itIsSpamMessage = Comment::isItSpam(
             $comment,
