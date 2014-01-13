@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'It will be interesting' => 'Будет интересно',
     'Search by blog name' => 'Искать по названию блога',
     'search' => 'искать',
     'Posts of "{category}" category' => 'Записи категории "{category}"',
