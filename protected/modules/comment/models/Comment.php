@@ -186,7 +186,12 @@ class Comment extends yupe\models\YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder'=>'id DESC',
+             )
+        ));
     }
 
     /**
@@ -218,7 +223,7 @@ class Comment extends yupe\models\YModel
         if ($this->isNewRecord) {
             $module = Yii::app()->getModule('comment');
             $notifierComponent = $module->notifier;
-            if ($module->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {                 
+            if ($this->level != 1 && $module->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {                 
                 $this->onNewComment = array($notifier, 'newComment');
                 $this->newComment();
             }
@@ -372,8 +377,8 @@ class Comment extends yupe\models\YModel
     {
         $rootNode = self::getRootOfCommentsTree($model, $model_id);
 
-        if ($rootNode === null)
-        {
+        if ($rootNode === null){
+
             $rootAttributes = array(
                 "user_id" => Yii::app()->user->getId(),
                 "model" => $model,
@@ -388,8 +393,7 @@ class Comment extends yupe\models\YModel
 
             $rootNode = new Comment();
             $rootNode->setAttributes($rootAttributes);
-            if($rootNode->saveNode(false))
-            {
+            if($rootNode->saveNode(false)){
                 return $rootNode;
             }
         }else{
