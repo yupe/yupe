@@ -13,7 +13,7 @@
  **/
 Yii::import('application.modules.news.models.*');
 
-class LastNewsWidget extends YWidget
+class LastNewsWidget extends yupe\widgets\YWidget
 {
     /** @var $categories mixed Список категорий, из которых выбирать новости. NULL - все */
     public $categories = null;

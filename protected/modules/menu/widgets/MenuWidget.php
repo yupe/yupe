@@ -26,7 +26,7 @@
 
 Yii::import('application.modules.menu.models.*'); 
  
-class MenuWidget extends YWidget
+class MenuWidget extends yupe\widgets\YWidget
 {
     /**
      * @var string уникальный код выводимого меню

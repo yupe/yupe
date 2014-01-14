@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class YAdminPanel extends YWidget
+class YAdminPanel extends yupe\widgets\YWidget
 {
     public $view = 'application.modules.yupe.views.widgets.YAdminPanel.adminpanel';
 

@@ -10,7 +10,7 @@
  * @version  0.0.1
  * @link     http://yupe.ru
  **/
-class GetHelpWidget extends YWidget
+class GetHelpWidget extends yupe\widgets\YWidget
 {
     public $view = 'gethelpwidget';
 

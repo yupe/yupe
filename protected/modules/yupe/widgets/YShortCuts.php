@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class YShortCuts extends YWidget
+class YShortCuts extends yupe\widgets\YWidget
 {
     public $shortcuts;
     public $modules;

@@ -13,7 +13,7 @@
 
 Yii::import('application.modules.comment.CommentModule');
 
-class CommentsListWidget extends YWidget
+class CommentsListWidget extends yupe\widgets\YWidget
 {
     public $model;
     public $modelId;

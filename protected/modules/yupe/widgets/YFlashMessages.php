@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class YFlashMessages extends YWidget
+class YFlashMessages extends yupe\widgets\YWidget
 {
     const SUCCESS_MESSAGE = 'success';
     const INFO_MESSAGE = 'info';

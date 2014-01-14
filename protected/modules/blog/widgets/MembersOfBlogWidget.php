@@ -13,7 +13,7 @@
 
 Yii::import('application.modules.blog.models.*');  
  
-class MembersOfBlogWidget extends YWidget
+class MembersOfBlogWidget extends yupe\widgets\YWidget
 {
     public $blogId;
 

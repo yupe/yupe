@@ -10,7 +10,7 @@
  *
  */
 
-class PostMetaWidget extends YWidget
+class PostMetaWidget extends yupe\widgets\YWidget
 {
     public $post;
 

@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class CommentFormWidget extends YWidget
+class CommentFormWidget extends yupe\widgets\YWidget
 {
     public $model;
     public $modelId;

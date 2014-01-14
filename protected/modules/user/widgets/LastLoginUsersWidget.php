@@ -2,7 +2,7 @@
 /**
  * Виджет для вывода последних активных пользователей
  */
-class LastLoginUsersWidget extends YWidget
+class LastLoginUsersWidget extends yupe\widgets\YWidget
 {
     public $view       = 'lastloginuserswidget';
     public $avatarSize = 25; // pixels (square, height==width)

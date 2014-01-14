@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class YPerformanceStatistic extends YWidget
+class YPerformanceStatistic extends yupe\widgets\YWidget
 {
     public $view = 'stat';
 

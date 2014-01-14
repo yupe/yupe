@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class YLanguageSelector extends YWidget
+class YLanguageSelector extends yupe\widgets\YWidget
 {
     public $enableFlag = true;
 

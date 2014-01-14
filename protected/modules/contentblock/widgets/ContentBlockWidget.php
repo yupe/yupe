@@ -11,7 +11,7 @@
  **/
 Yii::import('application.modules.contentblock.models.ContentBlock');
  
-class ContentBlockWidget extends YWidget
+class ContentBlockWidget extends yupe\widgets\YWidget
 {
     public $code;
     public $silent = false;

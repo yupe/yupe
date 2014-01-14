@@ -10,7 +10,7 @@
 
 Yii::import('application.modules.user.models.User');
 
-class UserPopupInfoWidget extends YWidget
+class UserPopupInfoWidget extends yupe\widgets\YWidget
 {
     public $model = null;
     public $view  = 'user-popup-info';
