@@ -196,8 +196,7 @@ class Comment extends yupe\models\YModel
      **/
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
-            // @TODO before migrate to NestedSets comments, please, comment row below and uncomment after migration
+        if ($this->isNewRecord) {            
             $this->creation_date = new CDbExpression('NOW()');
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
@@ -215,12 +214,11 @@ class Comment extends yupe\models\YModel
         if ($cache = Yii::app()->getCache()) {
             $cache->delete("Comment{$this->model}{$this->model_id}");
         }
-
-        // проверка на наличие модуля - для корректной отработки мигратора на нестед сетс
-        // @TODO remove before release version 1.0
-        if ($this->isNewRecord && Yii::app()->hasModule('comment')) {
-            $notifierComponent = Yii::app()->getModule('comment')->notifier;
-            if (Yii::app()->getModule('comment')->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {                 
+        
+        if ($this->isNewRecord) {
+            $module = Yii::app()->getModule('comment');
+            $notifierComponent = $module->notifier;
+            if ($module->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {                 
                 $this->onNewComment = array($notifier, 'newComment');
                 $this->newComment();
             }

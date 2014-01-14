@@ -75,8 +75,6 @@ class CommentController extends yupe\components\controllers\FrontController
 
         $comment = new Comment;
 
-        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
-
         $comment->setAttributes(
             Yii::app()->getRequest()->getPost('Comment')
         );
@@ -100,7 +98,7 @@ class CommentController extends yupe\components\controllers\FrontController
         $saveStatus = false;
         $parentId = $comment->getAttribute('parent_id');
         $message = Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!');
-        $antiSpamTime = $this->module->antispamInterval;
+        $antiSpamTime = $module->antispamInterval;
 
         $itIsSpamMessage = Comment::isItSpam(
             $comment,
@@ -137,6 +135,8 @@ class CommentController extends yupe\components\controllers\FrontController
         }
 
         if ($saveStatus) {
+
+            $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
 
             // сбросить кэш
             Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
@@ -181,6 +181,7 @@ class CommentController extends yupe\components\controllers\FrontController
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE, $message
             );
+            
             $this->redirect($redirect);
         }
     }
