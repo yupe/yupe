@@ -46,7 +46,9 @@
     </div>
 
     <?php if($post->link):?>
-        <i class='icon-globe'></i> <?php echo CHtml::link($post->link, $post->link, array('target' => '_blank','rel' => 'nofollow'));?>
+        <div>
+            <i class='icon-globe'></i> <?php echo CHtml::link($post->link, $post->link, array('target' => '_blank','rel' => 'nofollow'));?>
+        </div>    
     <?php endif;?>
 
     <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $post));?>

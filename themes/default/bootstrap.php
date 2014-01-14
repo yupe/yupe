@@ -23,6 +23,7 @@ $styles = array(
     'main.css',
     'flags.css'
 );
+
 foreach ($styles as $style) {
     $clientScript->registerCssFile($assetPath . '/css/' . $style);
 }
@@ -31,12 +32,12 @@ foreach ($styles as $style) {
 $scripts = array( // for example
     //'theme.js' => CClientScript::POS_END
 );
+
 foreach ($scripts as $script => $position) {
     $clientScript->registerScriptFile($assetPath . '/js/' . $script, $position);
 }
-if (Yii::app()->hasComponent('highlightjs')) {
-    Yii::app()->highlightjs->loadClientScripts();
-}
+
+
 $clientScript->registerScript('baseUrl', "var baseUrl = '" . Yii::app()->getBaseUrl() . "'", CClientScript::POS_HEAD);
 
 // Favicon
