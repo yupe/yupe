@@ -40,7 +40,7 @@ class GalleryController extends yupe\components\controllers\FrontController
                 if ($image->save() && $gallery->addImage($image)) {
                     $transaction->commit();
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
                     $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
@@ -50,7 +50,7 @@ class GalleryController extends yupe\components\controllers\FrontController
             {
                 $transaction->rollback();
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
             }
@@ -104,7 +104,7 @@ class GalleryController extends yupe\components\controllers\FrontController
         }
 
         Yii::app()->user->setFlash(
-            $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+            $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
             $message
         );
 
@@ -150,7 +150,7 @@ class GalleryController extends yupe\components\controllers\FrontController
                     );
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     $message
                 );
 

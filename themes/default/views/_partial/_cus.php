@@ -5,5 +5,5 @@
     <li>Простота расширения функционала</li>
     <li>Большое <a href="http://www.yiiframework.ru/forum/index.php" target="_blank">сообщество Yii-разработчиков</a> - легко найдете человека на поддержку</li>
     <li><strong>Вашему разработчику будет приятнее работать с Юпи!, чем с Бит...+)</strong></li>
-    <li>Коммерческая поддержка - <a href="http://amylabs.ru/contact/" target="_blank">напишите нам</a> </li>
+    <li>Коммерческая поддержка - <a href="http://yupe.ru/pages/support">напишите нам</a> </li>
 </ul>

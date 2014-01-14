@@ -77,7 +77,7 @@ class ContactController extends yupe\components\controllers\FrontController
                             }
 
                             Yii::app()->user->setFlash(
-                                YFlashMessages::SUCCESS_MESSAGE,
+                                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                                 Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!')
                             );
 
@@ -98,7 +98,7 @@ class ContactController extends yupe\components\controllers\FrontController
                                 FeedbackModule::$logCategory
                             );
                             Yii::app()->user->setFlash(
-                                YFlashMessages::ERROR_MESSAGE,
+                                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                                 Yii::t('FeedbackModule.feedback', 'There is an error when trying to send message! Please try later!')
                             );
                             $this->render('index', array('model' => $form, 'module' => $module));
@@ -124,7 +124,7 @@ class ContactController extends yupe\components\controllers\FrontController
                             FeedbackModule::$logCategory
                         );
                         Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
+                            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!')
                         );
 
@@ -136,7 +136,7 @@ class ContactController extends yupe\components\controllers\FrontController
                 }
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
                 );
 

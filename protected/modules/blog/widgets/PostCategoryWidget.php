@@ -11,7 +11,7 @@
  *
  */
  
-class PostCategoryWidget extends YWidget
+class PostCategoryWidget extends yupe\widgets\YWidget
 {
     public $view = 'post-category';
 

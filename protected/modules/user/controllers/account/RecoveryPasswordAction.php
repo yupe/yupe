@@ -39,7 +39,7 @@ class RecoveryPasswordAction extends CAction
             if (Yii::app()->userManager->activatePassword($token)) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
@@ -48,7 +48,7 @@ class RecoveryPasswordAction extends CAction
             } else {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error when changing password!')
                 );
 
@@ -68,7 +68,7 @@ class RecoveryPasswordAction extends CAction
             if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword($token, $changePasswordForm->password)) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Password recover successfully')
                 );
 

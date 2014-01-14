@@ -53,7 +53,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('<?php echo $this->mid;?>', 'Запись добавлена!')
                 );
 
@@ -85,7 +85,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('<?php echo $this->mid; ?>', 'Запись обновлена!')
                 );
 
@@ -114,7 +114,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('<?php echo $this->mid; ?>', 'Запись удалена!')
             );
 

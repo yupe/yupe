@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class LastCommentsWidget extends YWidget
+class LastCommentsWidget extends yupe\widgets\YWidget
 {
     public $model;
     public $commentStatus;

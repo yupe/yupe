@@ -7,7 +7,7 @@ Yii::import('application.modules.install.InstallModule');
 
 <h1><?php echo Yii::t('FeedbackModule.feedback','Contacts'); ?></h1>
 
-<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
+<?php $this->widget('application.modules.yupe.widgets.yupe\widgets\YFlashMessages'); ?>
 
 <div class="alert alert-notice">
 

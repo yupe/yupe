@@ -3,7 +3,7 @@
     $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 ?>
 
-<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
+<?php $this->widget('application.modules.yupe.widgets.yupe\widgets\YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',

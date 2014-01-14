@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
+namespace yupe\widgets;
+use CHtml;
+
 class YShortCuts extends YWidget
 {
     public $shortcuts;

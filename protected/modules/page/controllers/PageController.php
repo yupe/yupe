@@ -44,7 +44,7 @@ class PageController extends yupe\components\controllers\FrontController
         if ($page->is_protected == Page::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
             );
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));

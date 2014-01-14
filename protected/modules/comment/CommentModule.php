@@ -27,6 +27,7 @@ class CommentModule extends WebModule
     public $rssCount         = 10;
     public $antispamInterval = 5;
     public $allowedTags;
+    public $allowGuestComment = 0;
 
     public function getDependencies()
     {
@@ -48,13 +49,15 @@ class CommentModule extends WebModule
             'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Maximum captcha length'),
             'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
             'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
-            'antispamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval')
+            'antispamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
+            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?')
         );
     }
 
     public function getEditableParams()
     {
         return array(
+            'allowGuestComment'    => $this->getChoice(),  
             'defaultCommentStatus' => Comment::model()->getStatusList(),
             'autoApprove'          => $this->getChoice(),
             'notify'               => $this->getChoice(),

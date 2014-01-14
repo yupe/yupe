@@ -45,7 +45,7 @@ class RecoveryAction extends CAction
             if ($form->validate() && Yii::app()->userManager->passwordRecovery($form->email)) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'UserModule.user',
                         'Letter with password recovery instructions was sent on email which you choose during register'
@@ -57,7 +57,7 @@ class RecoveryAction extends CAction
             } else {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Password recovery error.')
                 );
             }

@@ -21,7 +21,7 @@ class ActivateAction extends CAction
 
             // Сообщаем пользователю:
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'You activate account successfully. Now you can login!')
             );
 
@@ -36,7 +36,7 @@ class ActivateAction extends CAction
 
         // Сообщаем об ошибке:
         Yii::app()->user->setFlash(
-            YFlashMessages::ERROR_MESSAGE,
+            yupe\widgets\YFlashMessages::ERROR_MESSAGE,
             Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.')
         );
 

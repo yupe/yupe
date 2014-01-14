@@ -869,7 +869,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     foreach ($deps as $dep) {
                         if (!isset($toInstall[$dep])) {
                             Yii::app()->user->setFlash(
-                                YFlashMessages::ERROR_MESSAGE,
+                                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                                 Yii::t(
                                     'InstallModule.install',
                                     'Module "{module}" depends on the module "{dep}", which is not activated.',
@@ -908,7 +908,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     ) {
                         $error = true;
                         Yii::app()->user->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
+                            yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                             Yii::t(
                                 'InstallModule.install',
                                 'An error occurred during the installation of modules - copying the file to a folder modulesBack with error!'
@@ -1057,7 +1057,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     Yii::app()->authenticationManager->login($login, Yii::app()->user, Yii::app()->request);
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('InstallModule.install', 'The administrator has successfully created!')
                     );
 
@@ -1153,7 +1153,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $transaction->commit();
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('InstallModule.install', 'Site settings saved successfully!')
                     );
 
@@ -1177,7 +1177,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $transaction->rollback();
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
+                        yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                         $e->__toString()
                     );
 
@@ -1211,7 +1211,7 @@ class DefaultController extends yupe\components\controllers\BackController
         try {
             Yii::app()->getModule('install')->getActivate();
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'InstallModule.install', "The module {name} is disabled!", array(
                         '{name}' => 'install',
@@ -1220,7 +1220,7 @@ class DefaultController extends yupe\components\controllers\BackController
             );
         } catch (Exception $e) {
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
         }

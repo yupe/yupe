@@ -12,7 +12,7 @@
  */
 Yii::import('application.modules.blog.models.*'); 
  
-class LastPostsWidget extends YWidget
+class LastPostsWidget extends yupe\widgets\YWidget
 {
     public $view = 'lastposts';
 

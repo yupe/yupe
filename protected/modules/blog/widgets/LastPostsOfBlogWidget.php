@@ -12,22 +12,28 @@
  */
 Yii::import('application.modules.blog.models.*'); 
  
-class LastPostsOfBlogWidget extends YWidget
+class LastPostsOfBlogWidget extends yupe\widgets\YWidget
 {
     public $blogId;
 
     public $view = 'lastpostsofblog';
 
+    public $postId;
+
     public function run()
     {
-        $posts = Post::model()->public()->published()->sortByPubDate('DESC')->with('commentsCount','createUser','blog')->findAll(array(
-                'condition' => 'blog_id = :blog_id',
-                'limit'  => (int)$this->limit,            
-                'params' => array(
-                    ':blog_id' => (int)$this->blogId
-                )
-        ));
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('blog_id = :blog_id');
+        $criteria->limit  = (int)$this->limit;
+        $criteria->params = array(
+            ':blog_id' => (int)$this->blogId
+        );
 
-        $this->render($this->view, array('posts' => $posts));
+        if($this->postId) {
+            $criteria->addCondition('t.id != :post_id');
+            $criteria->params[':post_id'] = (int)$this->postId;
+        }
+
+        $this->render($this->view, array('posts' => Post::model()->public()->published()->sortByPubDate('DESC')->with('commentsCount','createUser','blog')->findAll($criteria)));
     }
 }

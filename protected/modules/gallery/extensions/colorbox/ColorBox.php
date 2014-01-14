@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class ColorBox extends YWidget
+class ColorBox extends yupe\widgets\YWidget
 {
     public $id;
     public $target;

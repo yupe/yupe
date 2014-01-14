@@ -43,7 +43,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was created!')
                 );
 
@@ -66,7 +66,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             
             if (null === $news) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('NewsModule.news', 'Targeting news was not found!')
                 );
 
@@ -75,7 +75,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
             if (!array_key_exists($lang,$languages)) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('NewsModule.news', 'Language was not found!')
                 );
 
@@ -83,7 +83,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             }
             
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'NewsModule.news', 'You inserting translation for {lang} language', array(
                         '{lang}' => $languages[$lang]
@@ -126,7 +126,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was updated!')
                 );
 
@@ -175,7 +175,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             $this->loadModel($id)->delete();
             
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('NewsModule.news', 'Record was removed!')
             );
 

@@ -30,7 +30,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
                 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was created')
                 );
 
@@ -64,7 +64,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was updated')
                 );
 
@@ -97,7 +97,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('GalleryModule.gallery', 'Record was removed')
             );
 
@@ -199,7 +199,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
                 if (Yii::app()->getRequest()->getPost('ajax') === null) {
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
                     $this->redirect(array('/gallery/galleryBackend/images', 'id' => $gallery->id));
@@ -210,7 +210,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $transaction->rollback();
             
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
         }
@@ -251,7 +251,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         }
 
         Yii::app()->user->setFlash(
-            $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+            $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
             $message
         );
 

@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
+namespace yupe\widgets;
+use Yii;
+
 class YLanguageSelector extends YWidget
 {
     public $enableFlag = true;

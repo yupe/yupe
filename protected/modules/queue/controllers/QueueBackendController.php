@@ -43,7 +43,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('QueueModule.queue', 'Record was created!')
                 );
 
@@ -79,7 +79,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('QueueModule.queue', 'Record was updated!')
                 );
 
@@ -111,7 +111,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('QueueModule.queue', 'Record was removed!')
             );
 
@@ -157,7 +157,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
         Yii::app()->queue->flush();
         
         Yii::app()->user->setFlash(
-            YFlashMessages::SUCCESS_MESSAGE,
+            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
             Yii::t('QueueModule.queue', 'Queue cleaned!')
         );
         

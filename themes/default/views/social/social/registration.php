@@ -1,6 +1,6 @@
 <h1><?php echo Yii::t('default','Finishing register'); ?></h1>
 
-<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
+<?php $this->widget('application.modules.yupe.widgets.yupe\widgets\YFlashMessages'); ?>
 
 <div class="form">
 

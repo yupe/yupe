@@ -13,7 +13,7 @@
 
 Yii::import('application.modules.blog.models.Blog'); 
  
-class BlogsWidget extends YWidget
+class BlogsWidget extends yupe\widgets\YWidget
 {
     public $view = 'blogswidget';
 

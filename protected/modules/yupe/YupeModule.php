@@ -55,7 +55,7 @@ class YupeModule extends WebModule
      **/
     public function getVersion()
     {
-        return Yii::t('YupeModule.yupe', '0.6-beta-2');
+        return Yii::t('YupeModule.yupe', '0.6-beta-3');
     }
 
     /**
@@ -788,7 +788,7 @@ class YupeModule extends WebModule
             Yii::app()->cache->flush();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
             

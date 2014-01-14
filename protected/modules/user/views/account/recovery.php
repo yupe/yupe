@@ -2,7 +2,7 @@
 
 <h1><?php echo Yii::t('UserModule.user', 'Password recovery.'); ?></h1>
 
-<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
+<?php $this->widget('application.modules.yupe.widgets.yupe\widgets\YFlashMessages'); ?>
 
 <p><?php echo Yii::t('UserModule.user', 'For password recovery - select e-mail you used in registration form.'); ?></p>
 

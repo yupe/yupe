@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class ProfileWidget extends YWidget
+class ProfileWidget extends yupe\widgets\YWidget
 {
     public $view = 'profile-widget';
 

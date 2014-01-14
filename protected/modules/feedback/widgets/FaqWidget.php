@@ -12,7 +12,7 @@
  **/
 Yii::import('application.modules.feedback.models.FeedBack');
  
-class FaqWidget extends YWidget
+class FaqWidget extends yupe\widgets\YWidget
 {
     public $view = 'faqwidget';
 

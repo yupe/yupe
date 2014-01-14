@@ -12,7 +12,7 @@
  */
 Yii::import('application.modules.blog.models.*');
 
-class SimilarPostsWidget extends YWidget
+class SimilarPostsWidget extends yupe\widgets\YWidget
 {
     public $limit = 10;
 

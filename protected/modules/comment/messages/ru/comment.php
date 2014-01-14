@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Please, {login} or {register} for commenting!' => 'Пожалуйста, {login} или {register} для комментирования!',
+  'login' => 'авторизуйтесь',
+  'register' => 'зарегистрируйтесь',
+  'Guest can comment ?' => 'Гости могут комментировать ?',
   'reply' => 'ответить',
   '0.5' => '0.5',
   'Email' => 'Email',

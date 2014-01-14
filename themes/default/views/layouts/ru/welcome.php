@@ -1,4 +1,4 @@
- <?php $this->widget('YFlashMessages');?>
+ <?php $this->widget('yupe\widgets\YFlashMessages');?>
 
 
 <h1>Поздравляем!</h1>

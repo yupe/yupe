@@ -20,7 +20,7 @@ class ProfileAction extends CAction
 
         if (($user = Yii::app()->user->getProfile()) === null) {
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('UserModule.user', 'User not found.')
             );
 
@@ -103,7 +103,7 @@ class ProfileAction extends CAction
                         );
 
                         Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
+                            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
 
@@ -124,7 +124,7 @@ class ProfileAction extends CAction
                         }
 
                         Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
+                            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Profile was updated')
                         );
 
@@ -136,7 +136,7 @@ class ProfileAction extends CAction
 
                             if(Yii::app()->userManager->changeUserEmail($user, $form->email)) {
                                 Yii::app()->user->setFlash(
-                                    YFlashMessages::SUCCESS_MESSAGE,
+                                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                                     Yii::t(
                                         'UserModule.user',
                                         'You need to confirm your e-mail. Please check the mail!'
@@ -162,7 +162,7 @@ class ProfileAction extends CAction
                 $transaction->rollback();
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
             }

@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class SearchBlockWidget extends YWidget
+class SearchBlockWidget extends yupe\widgets\YWidget
 {
     public $view = 'searchblockwidget';
 

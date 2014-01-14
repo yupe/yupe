@@ -27,7 +27,7 @@ class NewsController extends yupe\components\controllers\FrontController
         if ($news->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
             );
 

@@ -50,7 +50,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             if ($form->validate() && Yii::app()->userManager->changeUserPassword($model, $form->password)) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Password was changed successfully')
                 );
 
@@ -86,7 +86,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {                
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New user was created!')
                 );
 
@@ -120,7 +120,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
                 );
 
@@ -153,7 +153,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Record was removed!')
             );
 
@@ -201,7 +201,7 @@ class UserBackendController extends yupe\components\controllers\BackController
         if (($user = $this->loadModel($id)) === null) {
             if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
                 );
                 $this->redirect(array('index'));
@@ -215,7 +215,7 @@ class UserBackendController extends yupe\components\controllers\BackController
         if ($user->getIsActivated()) {
             if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
                 );
                 

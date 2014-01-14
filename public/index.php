@@ -24,9 +24,7 @@ if ($development || defined('APPLICATION_ENV') || getenv('APPLICATION_ENV') !== 
     // независимо от среды
     ini_set('display_errors', 'On');
     define('YII_DEBUG', true);
-    defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
-    // В режиме разработки - отключаем кеширование настроек:
-    defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
+    defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);  
     // путь к фреймворку Yii
     $yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 

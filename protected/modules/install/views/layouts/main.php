@@ -140,7 +140,7 @@
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
         ?>
         <!-- breadcrumbs -->
-        <?php //$this->widget('YFlashMessages'); ?>
+        <?php //$this->widget('yupe\widgets\YFlashMessages'); ?>
         <div class="installContent">
             <?php echo $content; ?>
         </div>

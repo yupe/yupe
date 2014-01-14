@@ -201,7 +201,7 @@ class BackendController extends yupe\components\controllers\BackController
 
             if ($this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'YupeModule.yupe', 'Settings for "{module}" saved successfully!', array(
                             '{module}' => $module->getName()
@@ -211,7 +211,7 @@ class BackendController extends yupe\components\controllers\BackController
                 $module->getSettings(true);
             } else {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
             }
@@ -230,14 +230,14 @@ class BackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             if ($this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Themes settings saved successfully!')
                 );
                 Yii::app()->cache->clear('yupe');
             }
             else{
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
             }
@@ -330,7 +330,7 @@ class BackendController extends yupe\components\controllers\BackController
                     Yii::app()->migrator->updateToLatest($name);
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('YupeModule.yupe', 'Module was updated their migrations!')
                     );
                     $this->redirect(array("/yupe/backend"));
@@ -338,12 +338,12 @@ class BackendController extends yupe\components\controllers\BackController
                     $this->render('modupdate', array('updates' => $updates, 'module' => $module));
             } else
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Module doesn\'t installed!')
                 );
         } else {
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('YupeModule.yupe', 'Module name is not set!')
             );
 
@@ -475,7 +475,7 @@ class BackendController extends yupe\components\controllers\BackController
                         ? Yii::t('YupeModule.yupe', 'Settings file "{n}" updated successfully!', $name)
                         : Yii::t('YupeModule.yupe', 'There is en error when trying to update "{n}" file module!', $name);
                     Yii::app()->user->setFlash(
-                        $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+                        $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                         $message
                     );
                     break;
@@ -617,7 +617,7 @@ class BackendController extends yupe\components\controllers\BackController
                     $form->message
                 );
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Message sent!')
                 );
                 $this->redirect('/yupe/backend/reportBug');

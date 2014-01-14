@@ -4,7 +4,7 @@
 
 <h1><?php echo Yii::t('UserModule.user', 'Authorization'); ?></h1>
 
-<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
+<?php $this->widget('application.modules.yupe.widgets.yupe\widgets\YFlashMessages'); ?>
 
 <div class="form">
 

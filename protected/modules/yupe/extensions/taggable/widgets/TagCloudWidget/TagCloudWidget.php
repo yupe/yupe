@@ -1,5 +1,5 @@
 <?php
-class TagCloudWidget extends YWidget
+class TagCloudWidget extends yupe\widgets\YWidget
 {
     public $count = 50;
     public $model;

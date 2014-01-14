@@ -18,7 +18,7 @@ class EmailConfirmAction extends CAction
         if (Yii::app()->userManager->verifyEmail($token)) {
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'UserModule.user',
                     'You confirmed new e-mail successfully!'
@@ -28,7 +28,7 @@ class EmailConfirmAction extends CAction
         }else{
 
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t(
                     'UserModule.user',
                     'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail'

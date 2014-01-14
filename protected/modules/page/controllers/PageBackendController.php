@@ -73,7 +73,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     }
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('PageModule.page', 'Page was created')
                     );
 
@@ -101,7 +101,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             $page = Page::model()->findByPk($id);
             if (null === $page) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('PageModule.page', 'Targeting page was not found!')
                 );
                 
@@ -110,7 +110,7 @@ class PageBackendController extends yupe\components\controllers\BackController
 
             if (!array_key_exists($lang,$languages)) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('PageModule.page', 'Language was not found!')
                 );
                 
@@ -118,7 +118,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             }
             
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'PageModule.page', 'You add translation for {lang}', array(
                         '{lang}' => $languages[$lang]
@@ -189,7 +189,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                 }
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('PageModule.page', 'Page was updated!')
                 );
 
@@ -264,7 +264,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             $model->delete();
             
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('PageModule.page', 'Record was removed!')
             );
 

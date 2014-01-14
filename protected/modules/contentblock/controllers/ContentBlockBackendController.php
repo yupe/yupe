@@ -54,7 +54,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ContentBlockModule.contentblock', 'New content block was added!')
                 );
 
@@ -88,7 +88,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ContentBlockModule.contentblock', 'Content block was changed!')
                 );
 
