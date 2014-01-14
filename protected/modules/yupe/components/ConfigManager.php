@@ -20,6 +20,7 @@ use GlobIterator;
 use SplFileInfo;
 use Exception;
 use CComponent;
+use CException;
 
 class ConfigManager extends CComponent
 {
@@ -169,18 +170,11 @@ class ConfigManager extends CComponent
         // Если выключена опция кеширования настроек - не выполняем его:
         if (defined('\YII_DEBUG') && \YII_DEBUG === true) {
             return true;
-        }
+        }       
 
-        try {
-
-            $cachedSettings = '<?php return ' . var_export($this->_config, true) . ';';
-
-            file_put_contents($this->_cachefile, $cachedSettings);
-        
-        } catch (Exception $e) {
-
-            return $e->__toString();
-        }
+        if(!@file_put_contents($this->_cachefile, '<?php return ' . var_export($this->_config, true) . ';')) {
+            throw new CException(Yii::t('YupeModule.yupe', 'Error write cached modules setting in {file}...', array('{file}' => $this->_cachefile)));            
+        }    
 
         return true;
     }
