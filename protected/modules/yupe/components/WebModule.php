@@ -837,7 +837,7 @@ abstract class WebModule extends CWebModule
     public function init()
     {
 
-        Yii::log("init {$this->id} ...",CLogger::LEVEL_INFO,'modinit');
+        Yii::log("Init module '{$this->id}'...",CLogger::LEVEL_INFO);
 
         parent::init();
 
