@@ -166,9 +166,8 @@ class ConfigManager extends CComponent
      */
     public function dumpSettings()
     {
-        // Если выключена опция кеширования настроек - не выполняем
-        // его:
-        if (defined('\CACHE_SETTINGS') && \CACHE_SETTINGS === false) {
+        // Если выключена опция кеширования настроек - не выполняем его:
+        if (defined('\YII_DEBUG') && \YII_DEBUG === true) {
             return true;
         }
 
