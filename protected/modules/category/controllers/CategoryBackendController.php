@@ -51,7 +51,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             if ($result) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CategoryModule.category', 'Record was created!')
                 );
 
@@ -74,7 +74,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
             if(null === $category) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('CategoryModule.category', 'Targeting category was not found!')
                 );
                 $this->redirect(array('create'));
@@ -82,7 +82,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
             if(!array_key_exists($lang, $languages)) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('CategoryModule.category', 'Language was not found!')
                 );
 
@@ -90,7 +90,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             }
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'CategoryModule.category', 'You are adding translate in to {lang}!', array(
                         '{lang}' => $languages[$lang]
@@ -138,7 +138,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 			if ($result) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CategoryModule.category', 'Category was changed!')
                 );
 

@@ -45,7 +45,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Blog was added!')
                 );
                 $this->redirect(
@@ -77,7 +77,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
             $model->setAttributes(Yii::app()->getRequest()->getPost('Blog'));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Blog was updated!')
                 );
                 $this->redirect(
@@ -112,7 +112,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
             $model->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Blog was deleted!')
             );
 

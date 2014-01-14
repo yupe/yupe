@@ -62,7 +62,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Message saved!')
                 );
 
@@ -100,7 +100,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Message was updated')
                 );
 
@@ -167,7 +167,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
             );
         }
@@ -213,7 +213,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
                     if (Yii::app()->getRequest()->getIsAjaxRequest() == false) {
                         Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
+                            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
                         );
 

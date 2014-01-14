@@ -21,7 +21,7 @@ use CException;
 use CList;
 use CLogger;
 use TagsCache;
-use YFlashMessages;
+use yupe\widgets\YFlashMessages;
 use Yii;
 use CWebModule;
 
@@ -785,7 +785,7 @@ abstract class WebModule extends CWebModule
             }
 
             Yii::app()->user->setFlash(
-                YFlashMessages::WARNING_MESSAGE,
+                yupe\widgets\YFlashMessages::WARNING_MESSAGE,
                 $message
             );
 

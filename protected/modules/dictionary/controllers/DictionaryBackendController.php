@@ -43,7 +43,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
             if ($model->save()) {
                 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Record was created')
                 );
 
@@ -80,7 +80,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
             if ($model->save()) {
                 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Record was created')
                 );
 

@@ -17,7 +17,7 @@
 namespace yupe\components\urlManager;
 
 use CUrlManager;
-use YFlashMessages;
+use yupe\widgets\YFlashMessages;
 use Exception;
 use Yii;
 use CHttpCookie;
@@ -85,7 +85,7 @@ class LangUrlManager extends CUrlManager
                 $this->processRules();   
             } catch (Exception $e) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
             }

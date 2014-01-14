@@ -8,7 +8,7 @@
                          'links'    => $this->breadcrumbs,
                 ));
             ?><!-- breadcrumbs -->
-            <?php $this->widget('YFlashMessages');?>
+            <?php $this->widget('yupe\widgets\YFlashMessages');?>
             <div id="content">
                 <?php echo $content; ?>
             </div>
@@ -25,7 +25,7 @@
                     ); ?>
                 </div>
             <?php endif; ?>
-            <div class="well" style="padding: 8px;"><?php $this->widget('YModuleInfo'); ?></div>
+            <div class="well" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
         </div>
     </div>
 <?php $this->endContent(); ?>

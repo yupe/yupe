@@ -49,7 +49,7 @@ class PostBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Post was created!')
                 );
                 $this->redirect(
@@ -85,7 +85,7 @@ class PostBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Post was updated!')
                 );
 
@@ -122,7 +122,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                 $post->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Post was removed!')
             );
 

@@ -162,7 +162,7 @@ class CommentController extends yupe\components\controllers\FrontController
             }
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 $message
             );
 
@@ -179,7 +179,7 @@ class CommentController extends yupe\components\controllers\FrontController
             }
 
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE, $message
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE, $message
             );
             
             $this->redirect($redirect);

@@ -11,7 +11,9 @@
  * @link     http://yupe.ru
  *
  **/
-class YModuleInfo extends yupe\widgets\YWidget
+namespace yupe\widgets;
+
+class YModuleInfo extends YWidget
 {
     public $module;
 

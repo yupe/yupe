@@ -788,7 +788,7 @@ class YupeModule extends WebModule
             Yii::app()->cache->flush();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
             

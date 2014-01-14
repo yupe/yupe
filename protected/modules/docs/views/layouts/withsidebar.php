@@ -15,7 +15,7 @@ $this->beginContent("docs.views.layouts.docs");
         <!-- breadcrumbs -->
         <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs, 'homeLink' => false)); ?>
         <!-- /breadcrumbs -->
-        <?php $this->widget('YFlashMessages');?>
+        <?php $this->widget('yupe\widgets\YFlashMessages');?>
         <div id="content">
             <?php echo $content; ?>
         </div>

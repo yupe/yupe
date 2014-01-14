@@ -14,7 +14,7 @@
 namespace yupe\components\controllers;
 
 use Yii;
-use YFlashMessages;
+use yupe\widgets\YFlashMessages;
 use CHttpException;
 use CActiveRecord;
 use CDbCriteria;
@@ -65,7 +65,7 @@ class BackController extends Controller
             && count($updates) > 0
         ) {
             Yii::app()->user->setFlash(
-                YFlashMessages::WARNING_MESSAGE,
+                yupe\widgets\YFlashMessages::WARNING_MESSAGE,
                 Yii::t('YupeModule.yupe', 'You must install all migration before start working with module.')
             );
 

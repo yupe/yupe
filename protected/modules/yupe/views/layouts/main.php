@@ -34,7 +34,7 @@
         <!-- mainmenu -->
         <?php
         $brandTitle = Yii::t('YupeModule.yupe', 'Go to main page of control panel');
-        $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
+        $this->widget('yupe\widgets\YAdminPanel'); ?>
         <div class="container-fluid" id="page"><?php echo $content; ?></div>
         <div id="footer-guard"><!-- --></div>
     </div>
@@ -49,7 +49,7 @@
         </a>
         <br/>
         <?php echo Yii::powered(); ?>
-        <?php $this->widget('YPerformanceStatistic'); ?>
+        <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>
     </footer>
 </body>
 </html>

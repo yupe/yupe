@@ -42,7 +42,7 @@ class RegistrationAction extends CAction
 				if(Yii::app()->userManager->createUser($form)) {
 					
 				    Yii::app()->user->setFlash(
-						YFlashMessages::SUCCESS_MESSAGE,
+						yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
 						Yii::t('UserModule.user', 'Account was created! Check your email!')
 					);
 					
@@ -50,7 +50,7 @@ class RegistrationAction extends CAction
 				}
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error creating account!')
                 );
 			}

@@ -10,7 +10,14 @@
  * @link     http://yupe.ru
  *
  **/
-class YAdminPanel extends yupe\widgets\YWidget
+
+namespace yupe\widgets;
+use Yii;
+use CHtml;
+use CClientScript;
+use TagsCache;
+
+class YAdminPanel extends YWidget
 {
     public $view = 'application.modules.yupe.views.widgets.YAdminPanel.adminpanel';
 

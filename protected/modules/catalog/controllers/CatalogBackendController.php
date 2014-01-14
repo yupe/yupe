@@ -38,7 +38,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CatalogModule.catalog', 'Record was added!')
                 );
 
@@ -70,7 +70,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CatalogModule.catalog', 'Record was updated!')
                 );
 
@@ -96,7 +96,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('CatalogModule.catalog', 'Record was removed!')
             );
 

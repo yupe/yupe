@@ -58,7 +58,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Menu was created!')
                 );
 
@@ -91,7 +91,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Record was updated!')
                 );
 
@@ -119,7 +119,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MenuModule.menu', 'Record was removed!')
             );
 

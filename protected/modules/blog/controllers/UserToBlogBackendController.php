@@ -41,7 +41,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 if ($model->save())
                 {
                     Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('BlogModule.blog', 'Member was added!')
                     );
 
@@ -56,7 +56,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
         catch(Exception $e)
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::WARNING_MESSAGE,
+                yupe\widgets\YFlashMessages::WARNING_MESSAGE,
                 Yii::t('BlogModule.blog', 'Cannot add user to the blog. Please make sure he is not a member already.')
             );
             $this->redirect(array('admin'));
@@ -82,7 +82,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Member was updated!')
                 );
 
@@ -108,7 +108,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Member was deleted!')
             );
 

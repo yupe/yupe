@@ -41,7 +41,7 @@ class EventBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Record was created!')
                 );
 
@@ -73,7 +73,7 @@ class EventBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Record was created!')
                 );
 
@@ -104,7 +104,7 @@ class EventBackendController extends yupe\components\controllers\BackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MailModule.mail', 'Record was removed!')
             );
 

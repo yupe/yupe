@@ -56,7 +56,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
 
             if ($saveStatus) {
                 Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
-                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
+                Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
 
                 $this->redirect(
                     (array) Yii::app()->getRequest()->getPost(
@@ -88,7 +88,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
 
             if ($model->saveNode()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CommentModule.comment','Comment was updated!')
                 );
 

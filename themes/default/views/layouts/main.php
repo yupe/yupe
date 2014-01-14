@@ -28,7 +28,7 @@
 <!-- container -->
 <div class='container'>
     <!-- flashMessages -->
-    <?php $this->widget('YFlashMessages'); ?>
+    <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
     <!-- breadcrumbs -->
     <?php $this->widget(
         'bootstrap.widgets.TbBreadcrumbs',
