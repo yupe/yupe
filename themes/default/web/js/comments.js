@@ -7,7 +7,7 @@ $(document).ready(function() {
         var htmlForm = $("#comment-form-wrap").clone();
         htmlForm.addClass("comment-form").show();
         $("#comment-form-wrap").hide();
-        $this.parents("div.comments-item-message").after(htmlForm);
+        $this.parents("div.comments-item").after(htmlForm);
         $("#Comment_level").val(
             parseInt($this.parents("div.well").parent("div").attr('level'), 0) + 1
         );
@@ -39,11 +39,12 @@ $(document).ready(function() {
                .addClass(cssClass).html(response.data.message).fadeIn().fadeOut(3000);
             if(response.data.commentContent) {                
                 if (response.data.comment.parent_id > 0){
-                    $container = $('#comment-' + response.data.comment.parent_id);                    
+                    $container = $('#comment-' + response.data.comment.parent_id).parents('.comments-item');                    
                 }
             }
-            $('#Comment_text').val('');            
-            if ($container.attr('id') != 'comments') {
+            $('#Comment_text').val('');  
+            $('#wcml').click();          
+            if ($container.attr('id') != 'comments') {               
                 $container.after(response.data.commentContent);
             }else{
                 $container.append(response.data.commentContent);
