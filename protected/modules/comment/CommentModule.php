@@ -120,7 +120,7 @@ class CommentModule extends WebModule
                         '{{count}}' => $count,
                         '{{link}}'  => CHtml::link(
                             Yii::t('CommentModule.comment', 'Comments moderation'), array(
-                                    '/comment/commentBackend/index/order/status.asc/Comment_sort/status/',
+                                    '/comment/commentBackend/index','order' => 'tatus.asc', 'Comment_sort' => 'status',
                             )
                         ),
                     )

@@ -135,7 +135,7 @@ class FeedbackModule extends WebModule
                 'message' => Yii::t('FeedbackModule.feedback', 'You have {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('FeedbackModule.feedback', 'new message |new messages |new messages ', $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Show and reply?'), array(
-                    '/feedback/feedbackBackend/index/order/status.asc/FeedbBack_sort/status/',
+                    '/feedback/feedbackBackend/index/', 'order' => 'status.asc', 'FeedbBack_sort' => 'status'
                  ))
             );
 
