@@ -21,8 +21,7 @@ class PageController extends yupe\components\controllers\FrontController
      * экшн для отображения конкретной страницы, отображает опубликованные страницы и превью
      */
     public function actionShow($slug)
-    {
-        $this->layout = '//layouts/page-default';
+    {        
         $page = null;
         // превью
         $page = ((int) Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())

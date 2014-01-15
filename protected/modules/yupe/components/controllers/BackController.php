@@ -65,7 +65,7 @@ class BackController extends Controller
             && count($updates) > 0
         ) {
             Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::WARNING_MESSAGE,
+                YFlashMessages::WARNING_MESSAGE,
                 Yii::t('YupeModule.yupe', 'You must install all migration before start working with module.')
             );
 

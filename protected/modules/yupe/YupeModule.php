@@ -1076,4 +1076,16 @@ class YupeModule extends WebModule
     {
         return array('user');
     }
+
+    public function getLayoutsList()
+    {
+       $data = array();
+
+       foreach (new GlobIterator(Yii::app()->theme->basePath.DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR .'layouts' . DIRECTORY_SEPARATOR .'*.php') as $item) {           
+            $name = $item->getBaseName('.php');
+            $data[$name] = $name;
+       }
+       
+       return $data;
+    }
 }

@@ -108,6 +108,10 @@ $form = $this->beginWidget(
         </div>
     <?php endif?>
 
+     <div class="row-fluid control-group <?php echo $model->hasErrors('layout') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'layout', Yii::app()->getModule('yupe')->getLayoutsList() , array('empty' => '-----','maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('layout'), 'data-content' => $model->getAttributeDescription('layout'))); ?>
+    </div>    
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('title_short') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'title_short', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('title_short'), 'data-content' => $model->getAttributeDescription('title_short'))); ?>
     </div>

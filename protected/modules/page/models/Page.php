@@ -32,6 +32,7 @@
  * @property integer $user_id
  * @property integer $change_user_id
  * @property integer $order
+ * @property string  $layout
  */
 
 class Page extends yupe\models\YModel
@@ -75,7 +76,7 @@ class Page extends yupe\models\YModel
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('title, title_short, slug, keywords, description', 'length', 'max' => 150),
+            array('title, title_short, slug, keywords, description, layout', 'length', 'max' => 150),
             array('slug', 'yupe\components\validators\YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
@@ -124,6 +125,7 @@ class Page extends yupe\models\YModel
             'user_id'        => Yii::t('PageModule.page', 'Created by'),
             'change_user_id' => Yii::t('PageModule.page', 'Changed by'),
             'order'          => Yii::t('PageModule.page', 'Sorting'),
+            'layout'         => Yii::t('PageModule.page', 'Layout')
         );
     }
 
@@ -150,6 +152,7 @@ class Page extends yupe\models\YModel
             'user_id'        => Yii::t('PageModule.page', 'Page creator'),
             'change_user_id' => Yii::t('PageModule.page', 'Page editor'),
             'order'          => Yii::t('PageModule.page', 'Page priority in widgets and menu.'),
+            'layout'         => Yii::t('PageModule.page', 'Page layout')
         );
     }
 
@@ -222,6 +225,7 @@ class Page extends yupe\models\YModel
         $criteria->compare('t.status', $this->status);
         $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
+        $criteria->compare('layout', $this->layout);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
