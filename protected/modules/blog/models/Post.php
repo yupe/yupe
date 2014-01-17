@@ -256,7 +256,7 @@ class Post extends yupe\models\YModel
         $criteria->compare('t.update_user_id', $this->update_user_id, true);
         $criteria->compare('t.create_date', $this->create_date);
         $criteria->compare('t.update_date', $this->update_date);
-        $criteria->compare('slug', $this->slug, true);
+        $criteria->compare('t.slug', $this->slug, true);
         $criteria->compare('publish_date', $this->publish_date, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('quote', $this->quote, true);

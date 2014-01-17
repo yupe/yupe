@@ -83,12 +83,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'name' => 'id'
             ),
         ),
-        'columns' => array(
-            array(
-                'name'  => 'id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->id, array("/blog/postBackend/update", "id" => $data->id))',
-            ),
+        'columns' => array(          
             array(
                 'name'  => 'title',
                 'type'  => 'raw',

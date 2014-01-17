@@ -49,17 +49,16 @@ class UserIdentity extends CUserIdentity
                 
                 /* Если передан не пустой массив, проходим по нему: */
                 if (!empty($settings) && is_array($settings)) {
-                    foreach ($settings as $sets) {
-                        /* Если есть атрибуты - продолжаем: */
-                        if (isset($sets->attributes)) {
-                            /* Наполняем нашу сессию: */
-                            if (!isset($sessionSettings[$sets->module_id])) {
-                                $sessionSettings[$sets->module_id] = array();
-                            }
-                            $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;
+                    foreach ($settings as $sets) {                          
+                        /* Наполняем нашу сессию: */
+                        if (!isset($sessionSettings[$sets->module_id])) {
+                            $sessionSettings[$sets->module_id] = array();
                         }
+
+                        $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;                        
                     }
                 }
+                
                 $this->setState('modSettings', $sessionSettings);
             }
 

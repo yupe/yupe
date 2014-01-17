@@ -109,12 +109,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'type'   => 'raw',
                 'value'  => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))',
                 'filter' => false
-            ),
-            array(
-                'name'  => 'id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->id, array("/blog/blogBackend/update", "id" => $data->id))',
-            ),
+            ),         
             array(
                 'name'  => 'name',
                 'type'  => 'raw',
