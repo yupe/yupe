@@ -36,4 +36,9 @@ class FrontController extends Controller
             Yii::app()->theme = 'default';
         }
     }
+
+    public function actions()
+    {
+        return array( 'AjaxFileUpload' => 'application.modules.yupe.components.actions.YAjaxFileUploadAction');
+    }
 }
