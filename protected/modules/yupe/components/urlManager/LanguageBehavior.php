@@ -89,7 +89,7 @@ class LanguageBehavior extends CBehavior
                 $this->_defaultLang = $lm->getAppLang();
 
                 Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
             }
@@ -215,7 +215,7 @@ class LanguageBehavior extends CBehavior
             }
         } catch (CException $e) {
             Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
         }
