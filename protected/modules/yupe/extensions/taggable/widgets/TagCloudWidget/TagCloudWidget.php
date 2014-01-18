@@ -22,7 +22,7 @@ class TagCloudWidget extends yupe\widgets\YWidget
         $model = $this->model;
         $model::model()->resetAllTagsCache();
         $criteria = new CDbCriteria;
-        $criteria->order = '`count` DESC';
+        $criteria->order = 'count DESC';
         $criteria->limit = $this->count;            
         $this->render('tagcloud', array('tags' => $model::model()->getAllTagsWithModelsCount($criteria)));
     }
