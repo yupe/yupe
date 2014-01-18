@@ -38,7 +38,8 @@ class BackendController extends yupe\components\controllers\BackController
 
     public function actions()
     {
-        return array( 'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction');
+        return array( 'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction',
+                      'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction' );
     }
 
     /**

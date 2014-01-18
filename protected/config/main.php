@@ -131,7 +131,8 @@ return array(
                 '/backend/<module:\w+>/<controller:\w+>'                          => '<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'    => '<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
-                '/gii/<controller:\w+>/<action:\w+>'                              => 'gii/<controller>/<action>'
+                '/gii/<controller:\w+>/<action:\w+>'                              => 'gii/<controller>/<action>',
+                '/site/<action:\w+>'                                              => 'site/<action>',
             )
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
@@ -141,7 +142,7 @@ return array(
             'class'                  => 'yupe\components\HttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => array('backend/AjaxFileUpload'),
+            'noCsrfValidationRoutes' => array('site/AjaxFileUpload','site/AjaxImageUpload'),
             'enableCookieValidation' => true, // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ),
         // подключение компонента для генерации ajax-ответов

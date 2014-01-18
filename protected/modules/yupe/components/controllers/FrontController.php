@@ -37,8 +37,4 @@ class FrontController extends Controller
         }
     }
 
-    public function actions()
-    {
-        return array( 'AjaxFileUpload' => 'application.modules.yupe.components.actions.YAjaxFileUploadAction');
-    }
 }
