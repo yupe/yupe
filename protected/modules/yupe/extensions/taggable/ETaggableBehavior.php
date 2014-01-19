@@ -556,18 +556,18 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
 			if($this->tagTableCount !== null){
 				$tagsCriteria->select = sprintf(
-					"t.%s as `name`, %s as `count`",
+					"t.%s as name, %s as count",
 					$this->tagTableName,
 					$this->tagTableCount
 				);
 			}
 			else{
 				$tagsCriteria->select = sprintf(
-					"t.%s as `name`, count(*) as `count`",
+					"t.%s as name, count(*) as count",
 					$this->tagTableName
 				);
 				$tagsCriteria->join = sprintf(
-					"JOIN `%s` et ON t.{$this->tagTablePk} = et.%s",
+					"INNER JOIN %s et ON t.{$this->tagTablePk} = et.%s",
 					$this->getTagBindingTableName(),
 					$this->tagBindingTableTagId
 				);
