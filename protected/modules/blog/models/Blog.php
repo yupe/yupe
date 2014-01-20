@@ -375,4 +375,9 @@ class Blog extends yupe\models\YModel
         $posts->access_type = Post::ACCESS_PUBLIC;
         return $posts;
     }
+
+    public function getList()
+    {
+        return Blog::model()->published()->findAll(array('order' => 'name ASC'));        
+    }
 }

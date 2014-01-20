@@ -18,7 +18,7 @@ class UserModule extends WebModule
 {
     public $accountActivationSuccess       = '/user/account/login';
     public $accountActivationFailure       = '/user/account/registration';
-    public $loginSuccess;
+    public $loginSuccess                   = '/';
     public $registrationSuccess            = '/user/account/login';
     public $loginAdminSuccess              = '';
     public $logoutSuccess                  = '/';

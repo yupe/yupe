@@ -20,10 +20,7 @@ $form = $this->beginWidget(
 ?>
 
     <fieldset class="inline">
-        <div class="wide row-fluid control-group">
-            <div class="span3">
-                <?php echo $form->textFieldRow($model, 'id', array('class' => 'popover-help', 'maxlength' => 10, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id'))); ?>
-            </div>
+        <div class="wide row-fluid control-group">          
             <div class="span3">
                 <?php echo $form->textFieldRow($model, 'slug', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
             </div>
@@ -33,32 +30,13 @@ $form = $this->beginWidget(
         </div>
         <div class="wide row-fluid control-group">
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
+                <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('empty' => '----', 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
-            </div>
-            <?php /*
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'create_user_id', array('class' => 'span3 popover-help', 'maxlength' => 10, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('create_user_id'), 'data-content' => $model->getAttributeDescription('create_user_id'))); ?>
-            </div>
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'update_user_id', array('class' => 'span3 popover-help', 'maxlength' => 10, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('update_user_id'), 'data-content' => $model->getAttributeDescription('update_user_id'))); ?>
-            </div>
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'create_date', array('class' => 'span3 popover-help', 'maxlength' => 11, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('create_date'), 'data-content' => $model->getAttributeDescription('create_date'))); ?>
-            </div>
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'update_date', array('class' => 'span3 popover-help', 'maxlength' => 11, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('update_date'), 'data-content' => $model->getAttributeDescription('update_date'))); ?>
-            </div>
-             */ ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '----', 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+            </div>            
         </div>
-        <div class="row-fluid control-group">
-            <?php /*
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'icon', array('class' => 'span3 popover-help', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('icon'), 'data-content' => $model->getAttributeDescription('icon'))); ?>
-            </div>
-             */ ?>
+        <div class="row-fluid control-group">            
             <?php echo $form->textFieldRow($model, 'description', array('class' => 'span7 popover-help', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
         </div>
     </fieldset>

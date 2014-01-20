@@ -144,8 +144,9 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionIndex()
     {
-        $model = new Post('search');
+        $model = new Post('search');        
         $model->unsetAttributes(); // clear any default values
+        $model->comment_status = true;
         if (Yii::app()->getRequest()->getParam('Post'))
             $model->setAttributes(
                 Yii::app()->getRequest()->getParam('Post')

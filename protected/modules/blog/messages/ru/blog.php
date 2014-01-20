@@ -220,7 +220,7 @@ return array (
     'are required.' => 'обязательны.',
     'blogId is not set!' => 'Не передан blogId!',
     'choose blog' => 'выберите блог',
-    'description' => 'описание',
+    'description' => 'Описание',
     'http://yupe.ru' => 'http://yupe.ru',
     'id' => 'id',
     'tags' => 'теги',
