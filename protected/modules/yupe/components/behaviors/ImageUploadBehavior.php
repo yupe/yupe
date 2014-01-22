@@ -21,6 +21,11 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     public $attributeName = 'image';
 
     /*
+     * Атрибут для замены имени поля file если необходимо
+     */
+    public $fileInstanceName = '';
+
+    /*
      * Загружаемое изображение
      */
     public $image;
@@ -95,7 +100,13 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function beforeValidate($event)
     {
-        if ($this->checkScenario() && ($this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName))) {
+        if(empty($this->fileInstanceName)){
+            $this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName);
+        }else{
+            $this->_newImage = CUploadedFile::getInstanceByName($this->fileInstanceName);
+        }
+
+        if ($this->checkScenario() && $this->_newImage ) {
             $this->owner->{$this->attributeName} = $this->_newImage;
         }
     }
@@ -166,5 +177,10 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
 	    if ($image->save($newFile))
 		    $this->owner->{$this->attributeName} = pathinfo($newFile, PATHINFO_BASENAME);
+    }
+
+    public function addFileInstanceName($name)
+    {
+        $this->fileInstanceName = $name;
     }
 }

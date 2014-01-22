@@ -902,9 +902,10 @@ abstract class WebModule extends CWebModule
      **/
     public function beforeControllerAction($controller, $action)
     {
-        $uploadController = Yii::app()->createUrl('/yupe/backend/AjaxFileUpload');
+        $uploadController = Yii::app()->createUrl('/site/AjaxFileUpload');
+        $imageUploadController = Yii::app()->createUrl('/site/AjaxImageUpload');
         $this->editorOptions = array(
-            'imageUpload' => $uploadController,
+            'imageUpload' => $imageUploadController,
             'fileUpload' => $uploadController,
         );
         return true;

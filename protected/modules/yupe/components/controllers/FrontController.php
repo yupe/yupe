@@ -36,4 +36,5 @@ class FrontController extends Controller
             Yii::app()->theme = 'default';
         }
     }
+
 }

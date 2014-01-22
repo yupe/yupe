@@ -1,0 +1,58 @@
+<?php
+/**
+* YAjaxImageUploadAction.php file.
+*
+* @author Anton Kucherov <idexter.ru@gmail.com>
+* @link http://idexter.ru/
+* @copyright 2014 idexter.ru
+*/
+
+namespace yupe\components\actions;
+
+use Yii;
+
+class YAjaxImageUploadAction extends YAjaxFileUploadAction
+{
+    protected function uploadFile()
+    {
+        if(Yii::app()->hasModule("image") &&
+            Yii::app()->getModule('image')->getIsActive() &&
+            false !== getimagesize($this->uploadedFile->getTempName()))
+        {
+            $data["Image"]["category_id"] = "";
+            $data["Image"]["gallery_id"] = "";
+            $data["Image"]["type"] = 0;
+            $data["Image"]["status"] = 1;
+
+            $image = new \Image();
+            $image->setScenario('insert');
+            $image->addFileInstanceName('file');
+
+
+            $image->setAttribute('name',$this->uploadedFile->getName());
+            $image->setAttribute('alt',$this->uploadedFile->getName());
+            $image->setAttribute('file',$_FILES['file']);
+            $image->setAttributes($data);
+
+            $transaction = Yii::app()->db->beginTransaction();
+
+            try {
+                if ($image->save()) {
+                    $transaction->commit();
+
+                    $this->fileLink = $image->getUrl();
+                    $this->fileName = $image->getName();
+
+                    return true;
+                }
+            } catch(Exception $e) {
+                $transaction->rollback();
+                Yii::app()->ajax->rawText($e->getMessage());
+            }
+        }else{
+            parent::uploadFile();
+        }
+        return false;
+    }
+
+} 

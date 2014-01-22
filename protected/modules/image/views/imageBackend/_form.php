@@ -50,7 +50,7 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
-        <?php $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
+        <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
         <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>

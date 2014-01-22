@@ -6,7 +6,7 @@
 
 <br/><br/>
 
-<?php $this->widget('application.modules.yupe.widgets.yupe\widgets\YFlashMessages'); ?>
+<?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <div class="form">
 

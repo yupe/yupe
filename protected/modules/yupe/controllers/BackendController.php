@@ -36,6 +36,12 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render('index', $this->yupe->getModules(false, true));
     }
 
+    public function actions()
+    {
+        return array( 'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction',
+                      'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction' );
+    }
+
     /**
      * Экшен настройки модулей (список):
      *
@@ -349,54 +355,6 @@ class BackendController extends yupe\components\controllers\BackController
 
             $this->redirect(Yii::app()->getRequest()->urlReferrer !== null ? Yii::app()->getRequest()->urlReferrer : array("/yupe/backend"));
         }
-    }
-
-    /**
-     * Метод для загрузки файлов из редактора при создании контента
-     *
-     * @since 0.4
-     *
-     * Подробнее http://imperavi.com/redactor/docs/images/
-     *
-     * @return void
-     */
-    public function actionAjaxFileUpload()
-    {
-        if (!empty($_FILES['file']['name'])) {
-            $rename     = (bool) Yii::app()->getRequest()->getQuery('rename', true);
-            $webPath    = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
-            $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
-
-            if (!is_dir($uploadPath)) {
-                if (!@mkdir($uploadPath)) {
-                    Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Can\'t create catalog "{dir}" for files!', array('{dir}' => $uploadPath)));
-                }
-            }
-
-            $this->disableProfilers();
-
-            $file = CUploadedFile::getInstanceByName('file');
-
-            if ($file) {
-                //сгенерировать имя файла и сохранить его
-                $newFileName = $rename ? md5(time() . uniqid() . $file->name) . '.' . $file->extensionName : $file->name;
-
-                if (!$file->saveAs($uploadPath . $newFileName)) {
-                    Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
-                }
-
-                Yii::app()->ajax->rawText(
-                    json_encode(
-                        array(
-                            'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
-                            'filename' => $file->name
-                        )
-                    )
-                );
-            }
-        }
-
-        Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
     }
 
     /**

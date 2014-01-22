@@ -99,7 +99,7 @@
                       'model'       => $answerForm,
                       'attribute'   => 'answer',
                       'options'     => array(
-                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxImageUpload/',
                        ),
                       'htmlOptions' => array('rows' => 20,'cols' => 6),
                  )); ?>

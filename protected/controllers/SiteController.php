@@ -19,6 +19,12 @@ class SiteController extends yupe\components\controllers\FrontController
         $this->render('modern');
     }
 
+    public function actions()
+    {
+        return array( 'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction',
+            'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction');
+    }
+
 
     /**
      * Отображение главной страницы

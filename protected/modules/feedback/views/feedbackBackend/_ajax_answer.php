@@ -28,7 +28,7 @@
     <div class="row-fluid control-group">
         <?php echo $form->textAreaRow(
             $answerForm,  'answer',  array(
-                'imageUpload' => $this->createUrl('/yupe/backend/AjaxFileUpload'),
+                'imageUpload' => $this->createUrl('/yupe/backend/AjaxImageUpload'),
                 'class'       => 'span12 answer-text',
             )
         ); ?>
