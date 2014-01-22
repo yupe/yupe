@@ -129,7 +129,6 @@ class ConfigManager extends CComponent
         } else {
             $settings = $this->prepareSettings();
         }
-
         // Выполняем post-merging:
         $this->postMerging($settings);
 
@@ -369,8 +368,12 @@ class ConfigManager extends CComponent
             $search = null;
             
             $search = array_search($value, $rules);
-            
+
             if (!empty($search) || isset($rules[$key])) {
+                unset($settings['components']['urlManager']['rules'][$key]);
+            }
+
+            if ($value === false) {
                 unset($settings['components']['urlManager']['rules'][$key]);
             }
         }
