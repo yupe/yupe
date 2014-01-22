@@ -40,9 +40,15 @@
         'name',
         'description',
          array(
+             'name'   => 'file',
+             'type'   => 'raw',
+             'label'  => Yii::t('ImageModule.image','Link'),
+             'value'  => CHtml::link($model->getRawUrl(), $model->getRawUrl()),
+         ),
+        array(
              'name'  => 'file',
              'type'  => 'raw',
-             'value' => CHtml::image($model->getUrl(100), $model->alt, array("width" => 100, "height" => 100)),
+             'value' => CHtml::image($model->getUrl(100), $model->alt),
          ),
         'creation_date',
         array(

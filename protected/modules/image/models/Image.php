@@ -276,8 +276,9 @@ class Image extends yupe\models\YModel
      */
     public function getUrl($width = 0, $height = 0)
     {
-        if ($this->_url)
+        if ($this->_url) {
             return $this->_url.'/'.$this->file;
+        }
 
         $yupe = Yii::app()->getModule('yupe');
         $image = Yii::app()->getModule('image');
@@ -289,6 +290,15 @@ class Image extends yupe\models\YModel
                 ? $thumbnail
                 : $this->file
         );
+    }
+
+    public function getRawUrl()
+    {
+        $yupe = Yii::app()->getModule('yupe');
+
+        $image = Yii::app()->getModule('image');
+
+        return Yii::app()->createAbsoluteUrl('/').'/' . $yupe->uploadPath . '/' . $image->uploadPath . '/' . $this->file;      
     }
 
     /**
@@ -366,15 +376,17 @@ class Image extends yupe\models\YModel
      **/
     public function setGalleryId($value = null)
     {
-        if ($this->scenario === 'search' || !Yii::app()->hasModule('gallery'))
+        if ($this->scenario === 'search' || !Yii::app()->hasModule('gallery')){
             return ($this->_galleryId = $value);
+        }
 
         if ($this->gallery instanceof Gallery) {
             $this->galleryRell->delete();
         }
 
-        if (($gallery = Gallery::model()->loadModel($value)) === null)
+        if (($gallery = Gallery::model()->loadModel($value)) === null){
             return $value;
+        }
 
         return $gallery->addImage($this);
     }

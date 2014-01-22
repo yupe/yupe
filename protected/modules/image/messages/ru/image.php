@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Link' => 'Ссылка',
   '*unknown*' => '*неизвестно*',
   '--choose--' => '--выберите--',
   '0.4' => '0.4',

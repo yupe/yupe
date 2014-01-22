@@ -57,6 +57,11 @@ $this->widget(
                 'filter' => false
             ),
             array(
+                'header' => Yii::t('ImageModule.image', 'Link'),
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->getRawUrl(), $data->getRawUrl())'
+            ),
+            array(
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
                 'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory)
@@ -73,8 +78,7 @@ $this->widget(
                                 array("/gallery/galleryBackend/images", "id" => $data->gallery->id)
                             )',
             ),
-            'name',
-            'alt',
+            'name',           
             array(
                 'class'       => 'bootstrap.widgets.TbButtonColumn',
                 'htmlOptions' => array(
