@@ -62,7 +62,7 @@ class ECKEditorWidget extends CInputWidget{
         
         echo CHtml::activeTextArea($this->model,  $this->attribute ,array('rows'=>10, 'cols'=>70));
 
-		$this->setConfig($this->options);
+        $this->setConfig($this->options);
         
         $this->ECKE->replace($id, $this->_config);
     }
