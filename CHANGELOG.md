@@ -81,6 +81,7 @@
 - #1361: Исправлена ошибка: После сохранения page редирект на некорректный url (Kucherov Anton / @DexterHD)
 - #1367: Исправлена проблема YFlashMessages на странице логина вываливает ошибку (Kucherov Anton / @DexterHD)
 - #1373: Исправлена ошибка при создании ответа на вопрос в модуле FAQ (Object of class User could not be converted to string) (Kucherov Anton / @DexterHD)
+- #1374: Исправлена ошибка: BackendPageController редирект на news (Kucherov Anton / @DexterHD)
 
 Версия 0.5.3  3 июля 2013
 -------------------------------------

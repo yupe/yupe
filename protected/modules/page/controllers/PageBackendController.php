@@ -105,7 +105,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     Yii::t('PageModule.page', 'Targeting page was not found!')
                 );
                 
-                $this->redirect(array('/news/default/create'));
+                $this->redirect(array('index'));
             }
 
             if (!array_key_exists($lang,$languages)) {
@@ -114,7 +114,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     Yii::t('PageModule.page', 'Language was not found!')
                 );
                 
-                $this->redirect(array('/news/default/create'));
+                $this->redirect(array('index'));
             }
             
             Yii::app()->user->setFlash(
