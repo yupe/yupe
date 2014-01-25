@@ -68,7 +68,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
         array(
             'name'  => 'category_id',
             'value' => '$data->getCategoryName()',
-            'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('page')->mainCategory)
+			'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('page')->mainCategory), array('encode' => false, 'empty' => ''))
         ),
         array(
             'name'   => 'parent_id',
