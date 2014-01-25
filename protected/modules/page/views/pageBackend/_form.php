@@ -173,7 +173,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-            'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Create page and close') : Yii::t('PageModule.page', 'Save page nad close'),
+            'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Create page and close') : Yii::t('PageModule.page', 'Save page and close'),
         )
     ); ?>
 
