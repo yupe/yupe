@@ -78,6 +78,7 @@
 - #1263: Исправлена вёрстка страницы "карточка блога" (Mobelis, angel-kulikov)
 - #1303: Добавлен неймспейс, из-за отсутствия которого не работал компонент Mail (angel-kulikov)
 - #1304: Исправлена проблема в YText при обрезании текста с html-кодом (angel-kulikov)
+- #1361: Исправлена ошибка: После сохранения page редирект на некорректный url (Kucherov Anton / @DexterHD)
 - #1367: Исправлена проблема YFlashMessages на странице логина вываливает ошибку (Kucherov Anton / @DexterHD)
 - #1373: Исправлена ошибка при создании ответа на вопрос в модуле FAQ (Object of class User could not be converted to string) (Kucherov Anton / @DexterHD)
 
