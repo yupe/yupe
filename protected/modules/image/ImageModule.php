@@ -53,7 +53,7 @@ class ImageModule extends WebModule
 
     public function getIcon()
     {
-        return "picture";
+        return "picture-o";
     }
 
     public function getParamsLabels()

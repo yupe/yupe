@@ -41,7 +41,7 @@ class YShortCuts extends YWidget
     public function getIcons($icon)
     {
         return ($icons = explode(' ', $icon)) && count($icons) > 0
-            ? 'icon-'.implode(' icon-', explode(' ', $icon))
+            ? 'fa-'.implode(' fa-', explode(' ', $icon))
             : '';
     }
 
@@ -78,7 +78,7 @@ class YShortCuts extends YWidget
      **/
     public function getLabel($shortcut)
     {
-        return CHtml::tag('i', array('class' => "shortcut-icon " . $this->getIcons($shortcut['icon'])), '')
+        return CHtml::tag('i', array('class' => "shortcut-icon fa " . $this->getIcons($shortcut['icon'])), '')
              . CHtml::tag('span', array('class' => 'shortcut-label'), $shortcut['label']);
     }
 
@@ -97,7 +97,7 @@ class YShortCuts extends YWidget
                     && count($this->updates[$name]) > 0
                 )
             ? ''
-            : "<span class='label label-info'><i class='icon-spin icon-repeat'></i>&nbsp;"
+            : "<span class='label label-info'><i class='fa fa-spin fa-repeat'></i>&nbsp;"
              . count($this->updates[$name])
              . "</span>";
     }
