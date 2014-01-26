@@ -38,7 +38,7 @@ class BackController extends Controller
     public function init()
     {
         parent::init();
-        //$this->yupe->getComponent('bootstrap');
+        $this->yupe->getComponent('bootstrap');
         $this->layout = $this->yupe->getBackendLayoutAlias();
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
