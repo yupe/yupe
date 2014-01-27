@@ -66,7 +66,7 @@ class GalleryModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "picture";
+        return "picture-o";
     }
 
     public function getAdminPageLink()
