@@ -219,7 +219,7 @@ return array (
   'Yupe!' => 'Юпи!',
   'Yupe!, yupe, cms, yii' => 'Юпи!, yupe, цмс, yii',
   'Yupe! - the fastest way to create a site build on top of Yiiframework!' => 'Юпи! - самый простой способ создать сайт на Yii!',
-  'Yupe try to create DB if it doesn\'t exists.' => 'Юпи! попытается сам создать базу данных если Вы поставите галочку "Создать базу данных"',
+  'Yupe try to create DB if it doesn\'t exists.' => 'Юпи! попытается сам создать базу данных если вы поставите галочку "Создать базу данных"',
   'here' => 'вот здесь',
   'go frequently' => 'заходите чаще =)',
   'or' => 'или',

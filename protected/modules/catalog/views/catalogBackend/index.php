@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model));
             'name'   => 'category_id',
             'type'   => 'raw',
             'value'  => '$data->categoryLink',
-            'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('catalog')->mainCategory)
+			'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory), array('encode' => false, 'empty' => ''))
         ),
         'price',
         'article',

@@ -162,7 +162,7 @@ return array (
   'Modules' => 'Модули',
   'Modules developed for "{app}"' => 'Модули разработанные специально для "{app}"',
   'More about themes' => 'Подробнее про темы оформления',
-  'More information and technical support you can find in our site {site}.' => 'Более подробную информацию и техническую поддержку Вы можете получить на сайте {site}.',
+  'More information and technical support you can find in our site {site}.' => 'Более подробную информацию и техническую поддержку вы можете получить на сайте {site}.',
   'Multilanguage module' => 'Модуль мультиязычный',
   'New module parameters will be added' => 'Будут добавлены новые данные для работы модуля.',
   'No need to downgrade migrations for {module}' => 'Для модуля {module} не требуется откат миграции.',

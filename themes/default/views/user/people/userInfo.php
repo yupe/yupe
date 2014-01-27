@@ -7,12 +7,14 @@
 ?>
 
  <div class="row-fluid">
+
      <div class='span3'>
          <?php $this->widget('AvatarWidget', array('user' => $user)); ?>
      </div>
+
      <div class='span6'>
 
-         <i class="icon-user"></i> <?php echo CHtml::link($user->getFullName(), array('/user/people/userInfo/', 'username' => $user->nick_name)); ?><br/>
+         <i class="icon-user"></i> <?php echo CHtml::link(CHtml::encode($user->getFullName()), array('/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name))); ?><br/>
 
          <?php if($user->last_visit):?>
             <i class="icon-time"></i> <?php echo Yii::t('UserModule.user', 'Last visit {last_visit}', array(
@@ -21,7 +23,7 @@
          <?php endif;?>   
 
          <?php if($user->location):?>
-            <i class="icon-map-marker"></i> <?php echo $user->location;?><br/>
+            <i class="icon-map-marker"></i> <?php echo CHtml::encode($user->location);?><br/>
          <?php endif;?>   
 
          <?php if($user->site):?>
@@ -31,36 +33,32 @@
      </div>     
  </div>
 
-<?php if($user->about):?>            
-     <div class="row-fluid">
-         <div class="well">
-            <?php echo $user->about; ?>
-         </div>
-     </div>
-<?php endif;?>     
+ <br/>
 
-<hr/>
-
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array(
-    'label' => Yii::t('UserModule.user', 'Opinions'),
-    'model' => $user,
-    'modelId' => $user->id,
-)); ?>
+ <div class="row-fluid">
+    <?php if($user->about):?>          
+         <blockquote>
+            <p><?php echo $user->about; ?></p>
+         </blockquote>             
+    <?php endif;?> 
+ </div>
 
 <br/>
 
-<h3><?php echo Yii::t('UserModule.user', 'You can write something on my wall'); ?></h3>
+<?php $this->widget('application.modules.blog.widgets.UserBlogsWidget', array(
+    'userId' => $user->id
+)); ?>
 
-<?php if(Yii::app()->user->isAuthenticated()): ?>
-    <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
-        'redirectTo' => $this->createUrl('/user/people/userInfo/', array('username' => $user->nick_name)),
-        'model' => $user,
-        'modelId' => $user->id,
-    )); ?>
-<?php else: ?>
-    <div class="alert alert-notice">
-        <?php echo Yii::t('UserModule.user', 'Please,').' '; echo CHtml::link(Yii::t('UserModule.user', 'sign in'), array('/user/account/login/')); echo ' '.Yii::t('UserModule.user', 'or').' '; ?>
-        <?php echo CHtml::link(Yii::t('UserModule.user', 'sign up'), array('/user/account/registration/')); ?>
-        <?php echo ' '.Yii::t('UserModule.user', '- only authorized users can write on my wall =)'); ?>
-    </div>
-<?php endif; ?>
+
+<?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array(
+    'view' => 'lastuserposts',
+    'criteria' => array(
+        'condition' => 'create_user_id = :user_id',
+        'params' => array(
+            ':user_id' => $user->id
+        )
+    )
+)); ?>
+
+
+    

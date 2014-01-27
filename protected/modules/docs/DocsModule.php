@@ -286,6 +286,11 @@ class DocsModule extends yupe\components\WebModule
                 'icon'  => 'th-large',
                 'items' => array(
                     array(
+                        'label' => Yii::t('DocsModule.docs','Creating module'),
+                        'url'   => array('/docs/show/index', 'file' => 'module.create'),
+                        'icon'  => 'file'
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'Set testing environment'),
                         'url'   => array('/docs/show/index', 'file' => 'testing'),
                         'icon'  => 'file',
@@ -341,12 +346,7 @@ class DocsModule extends yupe\components\WebModule
                         'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
-                    ),
-                    array(
-                        'label' => Yii::t('DocsModule.docs', 'Curl wrapper'),
-                        'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
-                    ),
+                    ),                 
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Migrator'),
                         'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),

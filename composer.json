@@ -54,23 +54,16 @@
             "name": "Alexey Elizarov",
             "homepage": "http://amylabs.ru",
             "role": "Designer"
-        },
-        {
-            "name": "Kirill Chistov",
-            "homepage": "http://brainstorage.me/hitakiri/profile",
-            "role": "Web master"
-        }
-
+        },       
     ],
     "support": {
         "email": "team@yupe.ru",
         "issues": "https://github.com/yupe/yupe/issues",
-        "forum": "http://yupe.ru/talk/",
-        "wiki": "http://yupe.ru/wiki/default/pageIndex",
+        "forum": "http://yupe.ru/talk/",       
         "source": "https://github.com/yupe/yupe/"
     },
     "require": {
-        "php": ">=5.3.7",
+        "php": ">=5.3.3",
         "yiisoft/yii": ">=1.1.14",
         "clevertech/yii-booster": "2.1.*",
         "yiiext/nested-set-behavior": "dev-master",

@@ -82,6 +82,9 @@
 - #1367: Исправлена проблема YFlashMessages на странице логина вываливает ошибку (Kucherov Anton / @DexterHD)
 - #1373: Исправлена ошибка при создании ответа на вопрос в модуле FAQ (Object of class User could not be converted to string) (Kucherov Anton / @DexterHD)
 - #1374: Исправлена ошибка: BackendPageController редирект на news (Kucherov Anton / @DexterHD)
+- #1378: Исправлена ошибка: Параметр options никак не обрабатывался в виджете ECKEditorWidget (chemezov)
+- #1377: Исправлена ошибка: Параметр editorOptions в WebModule не мог быть перезаписан в наследуемых модулях (chemezov)
+- #1359: Категории переведены назад, в Adjacency list (chemezov)
 
 Версия 0.5.3  3 июля 2013
 -------------------------------------
