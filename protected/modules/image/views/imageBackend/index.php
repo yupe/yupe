@@ -64,7 +64,7 @@ $this->widget(
             array(
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
-                'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory)
+				'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('image')->mainCategory), array('encode' => false, 'empty' => ''))
             ),
             array(
                 'name'   => 'galleryId',

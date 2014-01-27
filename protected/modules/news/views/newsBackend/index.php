@@ -71,7 +71,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
            'name'   => 'category_id',
            'value'  => '$data->getCategoryName()',
-           'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('news')->mainCategory)
+		   'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory), array('encode' => false, 'empty' => ''))
         ),
         array(
             'name'   => 'status',
