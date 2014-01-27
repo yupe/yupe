@@ -22,7 +22,8 @@ class SiteController extends yupe\components\controllers\FrontController
     public function actions()
     {
         return array( 'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction',
-            'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction');
+                      'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction',
+                      'AjaxImageChoose' => 'yupe\components\actions\YAjaxImageChooseAction');
     }
 
 

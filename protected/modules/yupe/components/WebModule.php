@@ -904,11 +904,15 @@ abstract class WebModule extends CWebModule
     {
         $uploadController = Yii::app()->createUrl('/site/AjaxFileUpload');
         $imageUploadController = Yii::app()->createUrl('/site/AjaxImageUpload');
-        $this->editorOptions = array(
-            'imageUpload' => $imageUploadController,
-            'fileUpload' => $uploadController,
-        );
-        return true;
+		$this->editorOptions = \CMap::mergeArray(
+			array(
+				'imageUpload' => $imageUploadController,
+				'fileUpload'  => $uploadController,
+				'imageGetJson'=> Yii::app()->createUrl('/site/AjaxImageChoose'),
+			),
+			$this->editorOptions
+		);
+		return true;
     }
 
     /**

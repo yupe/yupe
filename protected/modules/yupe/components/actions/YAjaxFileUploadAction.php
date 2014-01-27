@@ -2,9 +2,12 @@
 /**
 * YAjaxFileUploadAction.php file.
 *
-* @author Anton Kucherov <idexter.ru@gmail.com>
-* @link http://idexter.ru/
-* @copyright 2014 idexter.ru
+* @category YupeComponents
+* @package  yupe.modules.yupe.components.actions
+* @author   Anton Kucherov <idexter.ru@gmail.com>
+* @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+* @version  0.1
+* @link     http://yupe.ru
 */
 
 namespace yupe\components\actions;
