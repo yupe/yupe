@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Member of :' => 'Состоит в :',
     'It will be interesting' => 'Будет интересно',
     'Search by blog name' => 'Искать по названию блога',
     'search' => 'искать',
