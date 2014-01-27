@@ -24,7 +24,7 @@ return array (
     'For index creation, please click button below.' => 'Для создания или обновления индекса нажмите кнопку ниже.',
     'Index is updating... Wait please...' => 'Индекс обновляется... Подождите...',
     'Index updated successfully!' => 'Индекс успешно обновлен!',
-    'Models you want to index is necessary to describe in configuration file.' => 'Модели, которые Вы хотите проиндексировать необходимо описать в конфигурационном файле.',
+    'Models you want to index is necessary to describe in configuration file.' => 'Модели, которые вы хотите проиндексировать необходимо описать в конфигурационном файле.',
     'Find module in terms of Zend Lucene' => 'Модуль поиска на основе Zend Lucene',
     'Update find index' => 'Обновить поисковый индекс',
     'Index data folder.' => 'Папка хранения индекса поиска',
