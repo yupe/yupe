@@ -40,6 +40,7 @@ class m000000_000000_yupe_base extends yupe\components\DbMigration
 
         //fk
         $this->addForeignKey("fk_{{yupe_settings}}_user_id", '{{yupe_settings}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+
     }
  
     /**

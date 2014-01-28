@@ -57,6 +57,7 @@ class m000000_000000_user_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{user_user}}_status", '{{user_user}}', "status", false);
         $this->createIndex("ix_{{user_user}}_email_confirm", '{{user_user}}', "email_confirm", false);
 
+
         // recovery password table
         $this->createTable(
             '{{user_recovery_password}}',

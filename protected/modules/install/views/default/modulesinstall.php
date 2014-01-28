@@ -80,10 +80,12 @@ Yii::app()->clientScript->registerScript(
                     continue;
                 }
                 $modulesSelection['all'][] = '#module_' . $module->getId();
-                if ($module->getIsInstallDefault())
+                if ($module->getIsInstallDefault()) {
                     $modulesSelection['recom'][] = '#module_' . $module->getId();
-                if ($module->getIsNoDisable())
+                }
+                if ($module->getIsNoDisable()) {
                     $modulesSelection['basic'][] = '#module_' . $module->getId();
+                }
             ?>
                 <tr>
                     <td>
@@ -127,8 +129,9 @@ Yii::app()->clientScript->registerScript(
 
                             if ($module->getId() != 'yupe' && count($module->getDependencies())) {
                                 $deps = $module->getDependencies();
-                                foreach($deps as &$dep)
+                                foreach($deps as &$dep){
                                     $dep = $data['modules'][$dep]->name;
+                                }
                                 $tabs[] = array(
                                     'label'   => Yii::t('InstallModule.install', 'Depends from'),
                                     'content' => implode(', ', $deps),
@@ -275,8 +278,9 @@ EOF;
                     $moduleCountTr = ceil(count($data['modules']) / 2);
                     $i = 0;
                     foreach ($data['modules'] as $module) {
-                        if ($moduleCountTr == $i)
+                        if ($moduleCountTr == $i) {
                             echo '</div><div class="span3">';
+                        }
                         echo '<div id="modal_' . $module->getId() . '"><i class="icon-minus"> </i> ' . $module->name . '</div>';
                         $i++;
                     }

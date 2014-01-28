@@ -901,7 +901,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $fileConfig = Yii::app()->moduleManager->getModulesConfig($name);
                     $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($name);
 
-                    if ($name != 'yupe' && ((!(@is_file($fileModule) && @md5_file($fileModule) == @md5_file(
+                    if ($name != \yupe\components\ModuleManager::CORE_MODULE && ((!(@is_file($fileModule) && @md5_file($fileModule) == @md5_file(
                                             $fileConfig
                                         )) && !@copy($fileConfig, $fileConfigBack)) || !@unlink($fileConfig))
                     ) {

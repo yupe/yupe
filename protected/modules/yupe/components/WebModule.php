@@ -324,7 +324,7 @@ abstract class WebModule extends CWebModule
     {
         $modulesNoDisable = Yii::app()->cache->get('YupeModulesNoDisable');
         if ($modulesNoDisable === false) {
-            $modules = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modules = Yii::app()->moduleManager->getModules(false, true);
             $modulesNoDisable = array();
 
             foreach ($modules['modules'] as $module) {

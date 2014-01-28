@@ -34,13 +34,14 @@ $this->widget(
 <script type="text/javascript">
 <?php
 // Выясним, какие модули нам нужно постараться поставить первыми
-$morder = array('yupe' => 99999, 'user' => 99998);
+$morder = array('user' => 99999, 'yupe' => 99998);
 
 foreach ($modules as $mid => $m) {
     $dep = $m->getDependencies();
     if (!empty($dep)) {
-        foreach ($dep as $d)
+        foreach ($dep as $d) {
             $morder[$d] = isset($morder[$d]) ? ($morder[$d] + 1) : 1;
+        }
     }
 }
 
