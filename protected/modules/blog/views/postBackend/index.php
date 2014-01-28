@@ -83,11 +83,51 @@ $this->renderPartial('_search', array('model' => $model));
                 'name' => 'id'
             ),
         ),
-        'columns' => array(          
+        'columns' => array( 
             array(
-                'name'  => 'title',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->title, array("/blog/postBackend/update", "id" => $data->id))',
+                'name'  => 'id',
+                'value' => 'CHtml::link($data->id, array("/blog/postBackend/update","id" => $data->id))',
+                'type'  => 'html'
+            ),         
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',                
+                'name'  => 'title',               
+                'editable' => array(   
+                    'url' => $this->createUrl('/blog/postBackend/inline'),                 
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )                    
+                )                
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',                
+                'name'  => 'slug',
+                'editable' => array(   
+                    'url'  => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )                                 
+                )                           
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',                
+                'name'  => 'publish_date',
+                'value' => 'date("d-m-Y H:i",$data->publish_date)',               
+                'editable' => array(   
+                    'url'  => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'inline',
+                    'type' => 'datetime',
+                    'options' => array(
+                        'datetimepicker' => array(
+                           
+                        )
+                    ),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )                                 
+                )                           
             ),
             array(
                 'name'   => 'blog_id',
