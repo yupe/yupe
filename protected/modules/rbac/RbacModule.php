@@ -75,4 +75,9 @@ class RbacModule extends WebModule
     {
         return 'user';
     }
+
+    public function getDependencies()
+    {
+        return array('user');
+    }
 }
