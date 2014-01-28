@@ -176,15 +176,12 @@ class BackendController extends yupe\components\controllers\BackController
 
         // разместим в начале основные параметры 
         $elements = array_merge($mainParams, $elements);
-        
-        // сформировать боковое меню из ссылок на настройки модулей
-        $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
         $this->render(
             'modulesettings', array(
-            'module'             => $module,
-            'elements'           => $elements,
-            'moduleParamsLabels' => $moduleParamsLabels,
+                'module'             => $module,
+                'elements'           => $elements,
+                'moduleParamsLabels' => $moduleParamsLabels,
             )
         );
     }

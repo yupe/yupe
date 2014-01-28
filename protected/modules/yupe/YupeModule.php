@@ -371,18 +371,23 @@ class YupeModule extends WebModule
                 )
             ),
             array(
-                'icon' => 'picture',
+                'icon'  => 'picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
-                'url' => array('/yupe/backend/themesettings'),
+                'url'   => array('/yupe/backend/themesettings'),
             ),
             array(
-                'icon' => 'wrench',
+                'icon'  => 'wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
-                'url' => array(
+                'url'   => array(
                     '/yupe/backend/modulesettings',
                     'module' => 'yupe',
                 ),
             ),
+            array(
+                'icon'  => "wrench",
+                'label' => Yii::t('YupeModule.yupe', 'Modules'),
+                'url'   => array('/yupe/backend/settings'),
+            )
         );
     }
 

@@ -92,12 +92,7 @@ class ModuleManager extends \CApplicationComponent
                 $modulesNavigation = array();
 
                 // Шаблон настройка модулей
-                $settings = array(
-                    'icon' => "wrench",
-                    'label' => Yii::t('YupeModule.yupe', 'Modules'),
-                    'url' => array('/yupe/backend/settings'),
-                    //'items' => array(),
-                );
+                $settings = array();
 
                 // Сортируем категории модулей
                 if (count($order) > 1) {
@@ -180,6 +175,11 @@ class ModuleManager extends \CApplicationComponent
 
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
                     }
+                }
+
+                // Удаляем последию категория, если она пуста
+                if (!isset($settings['items'][count($settings['items']) - 1]['icon'])) {
+                    unset($settings['items'][count($settings['items']) - 1]);
                 }
 
                 // Заполняем категорию Юпи!

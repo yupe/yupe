@@ -62,8 +62,9 @@
                 continue;
             }
             
-            if ($module->getIsActive() || $module->getIsNoDisable())
+            if ($module->getIsActive() || $module->getIsNoDisable()) {
                 $enableCount++;
+            }
         }
         ?>
         <?php echo Yii::t('YupeModule.yupe', 'Installed'); ?>

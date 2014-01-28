@@ -18,6 +18,9 @@ if (count($this->shortcuts) > 0) {
     foreach ($this->shortcuts as $name => $shortcut) {
         if (isset($shortcut['items'])) {
             foreach ($shortcut['items'] as $module => $item) {
+                if(!isset($item['icon'], $item['url'])) {
+                    continue;
+                }
                 echo CHtml::link(
                     '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $module) . "</div>",
                     $item['url'],
