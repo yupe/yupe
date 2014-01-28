@@ -826,7 +826,7 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $error = false;
 
-        $modules = $this->yupe->getModulesDisabled();
+        $modules = Yii::app()->moduleManager->getModulesDisabled();
         // Не выводить модуль install и yupe
         unset($modules['install']);
 
@@ -890,17 +890,16 @@ class DefaultController extends yupe\components\controllers\BackController
                 
                 Yii::app()->configManager->flushDump();
                 
-                $files = glob($this->yupe->getModulesConfig() . "*.php");
+                $files = glob(Yii::app()->moduleManager->getModulesConfig() . "*.php");
                 foreach ($files as $file) {
                     $name = pathinfo($file, PATHINFO_FILENAME);
                     if ($name == 'yupe') {
                         continue;
                     }
 
-                    $fileModule = $this->yupe->getModulesConfigDefault($name);
-                    $fileConfig = $this->yupe->getModulesConfig($name);
-                    $fileConfigBack = $this->yupe->getModulesConfigBack($name);
-
+                    $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($name);
+                    $fileConfig = Yii::app()->moduleManager->getModulesConfig($name);
+                    $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($name);
 
                     if ($name != 'yupe' && ((!(@is_file($fileModule) && @md5_file($fileModule) == @md5_file(
                                             $fileConfig
@@ -969,7 +968,7 @@ class DefaultController extends yupe\components\controllers\BackController
      **/
     public function actionModuleinstall($name = null)
     {
-        $modules = $this->yupe->getModulesDisabled();
+        $modules = Yii::app()->moduleManager->getModulesDisabled();
 
         if (empty($name) || !isset($modules[$name])) {
             throw new CHttpException(404, Yii::t(

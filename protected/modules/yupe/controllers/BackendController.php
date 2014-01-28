@@ -33,7 +33,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionIndex()
     {
-        $this->render('index', $this->yupe->getModules(false, true));
+        $this->render('index', Yii::app()->moduleManager->getModules(false, true));
     }
 
     public function actions()
@@ -50,7 +50,7 @@ class BackendController extends yupe\components\controllers\BackController
     public function actionSettings()
     {
         $this->hideSidebar = true;
-        $this->render('settings', $this->yupe->getModules(false, true));
+        $this->render('settings', Yii::app()->moduleManager->getModules(false, true));
     }
 
     /**
@@ -327,7 +327,7 @@ class BackendController extends yupe\components\controllers\BackController
     {
         if ($name) {
             if (($module = Yii::app()->getModule($name)) == null) {
-                $module = $this->yupe->getCreateModule($name);
+                $module = Yii::app()->moduleManager->getCreateModule($name);
             }
 
             if ($module->getIsInstalled()) {
@@ -392,7 +392,7 @@ class BackendController extends yupe\components\controllers\BackController
             && ($status = Yii::app()->getRequest()->getPost('status')) !== null
             && (($module = Yii::app()->getModule($name)) === null || $module->canActivate())
         )
-            $module = $this->yupe->getCreateModule($name);
+            $module = Yii::app()->moduleManager->getCreateModule($name);
         /**
          * Если статус неизвестен - ошибка:
          **/

@@ -354,7 +354,7 @@ abstract class WebModule extends CWebModule
     {
         $modulesDependent = Yii::app()->cache->get('YupeModulesDependenciesAll');
         if ($modulesDependent === false) {
-            $modules = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modules = Yii::app()->moduleManager->getModules(false, true);
             $modulesDependent = array();
 
             foreach ($modules['modules'] as $module) {
@@ -535,8 +535,8 @@ abstract class WebModule extends CWebModule
     public function getActivate($noDependen = false, $updateConfig = false)
     {
         $yupe = Yii::app()->getModule('yupe');
-        $fileModule = $yupe->getModulesConfigDefault($this->getId());
-        $fileConfig = $yupe->getModulesConfig($this->getId());
+        $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->getId());
+        $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
@@ -591,9 +591,9 @@ abstract class WebModule extends CWebModule
     public function getDeActivate($noDependen = false)
     {
         $yupe = Yii::app()->getModule('yupe');
-        $fileModule = $yupe->getModulesConfigDefault($this->id);
-        $fileConfig = $yupe->getModulesConfig($this->id);
-        $fileConfigBack = $yupe->getModulesConfigBack($this->id);
+        $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->id);
+        $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->id);
+        $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($this->id);
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
@@ -785,7 +785,7 @@ abstract class WebModule extends CWebModule
             }
 
             Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::WARNING_MESSAGE,
+                YFlashMessages::WARNING_MESSAGE,
                 $message
             );
 

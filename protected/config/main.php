@@ -90,6 +90,9 @@ return array(
         'configManager' => array(
             'class' => 'yupe\components\ConfigManager',
         ),
+        'moduleManager' => array(
+            'class' => 'yupe\components\ModuleManager',
+        ),
         // Работа с миграциями, обновление БД модулей
         'migrator'=>array(
             'class'=>'yupe\components\Migrator',

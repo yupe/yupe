@@ -30,7 +30,7 @@ $this->widget(
         'items'       => array(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
-                'items' => $this->controller->yupe->getModules(true),
+                'items' => Yii::app()->moduleManager->getModules(true),
             ),
             array(
                 'class'       => 'bootstrap.widgets.TbMenu',
