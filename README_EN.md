@@ -17,7 +17,7 @@ Yupe allows you to simple create web sites like:
 * public and personal blogs
 * e-shops
 
-**About 250 projects based on Yupe! Yupe! is using by several [developer teams](http://yupe.ru/pages/friends) and companies.**
+**About 350 projects based on Yupe! Yupe! is using by several [developer teams](http://yupe.ru/pages/friends) and companies.**
 
 First of all Yupe! have been developed for PHP-developers who knows Yii.
 
@@ -29,9 +29,9 @@ You can use simple and inexpensive small hosting and Yupe will be working:
 
 Requirements and Dependencies
 ------------------------
-* PHP >= 5.3.7
+* PHP >= 5.3.3
 * Yiiframework >= 1.1.14
-* YiiBooster >= 2.0
+* YiiBooster >= 2.1
 * Nested Set Behavior
 * Imperavi Redactor Widget
 * Yii2-debug
@@ -50,7 +50,7 @@ Links
 * [More about project](http://yupe.ru/pages/about)
 * [Our team](http://yupe.ru/docs/yupe/team.html)
 * [Forum](http://yupe.ru/talk/)
-* [Contacts](http://yupe.ru/feedback/index)
+* [Contacts](http://yupe.ru/contacts)
 * [How can I help you project?](http://yupe.ru/docs/yupe/assistance.project.html)
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Commercial support](http://amylabs.ru/contact)

@@ -18,7 +18,7 @@
 * каталоги товаров
 
 
-**На Юпи! уже работает более 250 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
+**На Юпи! уже работает более 350 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yii
 
@@ -28,11 +28,10 @@
 
 Для успешной работы проекта на Юпи! вполне достаточно самого простого (и дешевого) хостинга, минимальные требования:
 
-Требования и зависимости
-------------------------
-* PHP >= 5.3.7
+
+* PHP >= 5.3.3
 * Yiiframework >= 1.1.14
-* YiiBooster >= 2.0
+* YiiBooster >= 2.1
 * Nested Set Behavior
 * Imperavi Redactor Widget
 * Yii2-debug
@@ -50,7 +49,7 @@
 * [Подробнее о проекте](http://yupe.ru/pages/about)
 * [Команда](http://yupe.ru/docs/yupe/team.html)
 * [Форум](http://yupe.ru/talk/)
-* [Контакты](http://yupe.ru/feedback/index)
+* [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
 * [Коммерческая поддержка](http://amylabs.ru/contact)
