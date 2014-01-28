@@ -18,7 +18,7 @@
     <p><?php echo Yii::t('InstallModule.install', 'We always happy to see you on our site {link}. We also have {twitter} and {forum}!', array(
         '{twitter}' => CHtml::link('twitter', 'http://twitter.com/yupe', array('target' => '_blank')),
         '{link}' => CHtml::link('http://yupe.ru', 'http://yupe.ru?from=install', array('target' => '_blank')),
-        '{forum}' => CHtml::link('forum','http://yupe.ru/talk?from=install', array('target' => '_blank'))
+        '{forum}' => CHtml::link(Yii::t('InstallModule.install','forum'),'http://yupe.ru/talk?from=install', array('target' => '_blank'))
      )); ?>
     </p>
     <p><b><?php echo Yii::t('InstallModule.install','If you have a problem with install, please go to {link}',array(

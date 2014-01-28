@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'forum' => 'форум',
   'Thank you!' => 'Спасибо!',
   'Help us!' => 'Помоги нам!',
   'Error' => 'Ошибка',
