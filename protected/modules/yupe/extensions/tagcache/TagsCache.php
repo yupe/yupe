@@ -44,16 +44,19 @@ class TagsCache implements ICacheDependency
      */
     public function getHasChanged()
     {
-        $tags = array_map(
-            function ($tag) {
-                return TaggingCacheBehavior::PREFIX . $tag;
-            }, $this->tags
-        );
+        $tags = array();
+
+        foreach($this->tags as $tag) {
+            $tags[] = TaggingCacheBehavior::PREFIX . $tag;
+        }
+
         $values = Yii::app()->cache->mget($tags);
 
-        foreach ($values as $value)
-            if ((float) $value > $this->timestamp)
+        foreach ($values as $value){
+            if ((float) $value > $this->timestamp){
                 return true;
+            }
+        }
 
         return false;
     }
