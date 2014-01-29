@@ -21,15 +21,17 @@ class SiteController extends yupe\components\controllers\FrontController
 
     public function actions()
     {
-        return array( 'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction',
-                      'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction',
-                      'AjaxImageChoose' => 'yupe\components\actions\YAjaxImageChooseAction');
+        return array(
+            'AjaxFileUpload' => 'yupe\components\actions\YAjaxFileUploadAction',
+            'AjaxImageUpload' => 'yupe\components\actions\YAjaxImageUploadAction',
+            'AjaxImageChoose' => 'yupe\components\actions\YAjaxImageChooseAction'
+        );
     }
 
 
     /**
      * Отображение главной страницы
-     * 
+     *
      * @return void
      */
     public function actionIndex()
@@ -50,14 +52,9 @@ class SiteController extends yupe\components\controllers\FrontController
             $this->redirect(array('index'));
         }
 
-        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-            echo json_encode(
-                $error
-            );
-        } else {            
-            $this->render(
-                'error',
-                array(
+        if(!Yii::app()->getRequest()->getIsAjaxRequest()){
+
+            $this->render('error', array(
                     'error' => $error
                 )
             );
@@ -69,12 +66,12 @@ class SiteController extends yupe\components\controllers\FrontController
     {
         $dataProvider = new CActiveDataProvider('Post', array(
             'criteria' => new CDbCriteria(array(
-                'condition' => 't.status = :status',
-                'params'    => array(':status' => Post::STATUS_PUBLISHED),
-                'limit'     => self::POST_PER_PAGE,
-                'order'     => 't.id DESC',
-                'with'      => array('createUser', 'blog','commentsCount'),
-            )),
+                    'condition' => 't.status = :status',
+                    'params' => array(':status' => Post::STATUS_PUBLISHED),
+                    'limit' => self::POST_PER_PAGE,
+                    'order' => 't.id DESC',
+                    'with' => array('createUser', 'blog', 'commentsCount'),
+                )),
         ));
 
         $this->render('main', array('dataProvider' => $dataProvider));

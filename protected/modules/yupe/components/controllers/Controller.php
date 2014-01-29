@@ -20,6 +20,7 @@ use CException;
 class Controller extends \CController
 {
     public $yupe;
+
     public $layout;
 
     /**

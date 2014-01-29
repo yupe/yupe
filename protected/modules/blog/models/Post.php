@@ -85,8 +85,9 @@ class Post extends yupe\models\YModel
         return array(
             array('blog_id, slug, publish_date_tmp, publish_time_tmp, title, content', 'required', 'except' => 'search'),
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, category_id', 'numerical', 'integerOnly' => true),
-            array('blog_id, create_user_id, update_user_id, create_date, update_date, publish_date, status, comment_status, access_type', 'length', 'max' => 11),
+            array('blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type', 'length', 'max' => 11),
             array('lang', 'length', 'max' => 2),
+            array('publish_date', 'length', 'max' => 16),
             array('slug', 'length', 'max' => 150),
             array('image', 'length', 'max' => 300),
             array('create_user_ip', 'length', 'max' => 20),
@@ -339,7 +340,12 @@ class Post extends yupe\models\YModel
 
     public function beforeSave()
     {
-        $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
+        if($this->publish_date) {
+            $this->publish_date = strtotime($this->publish_date);
+        }else{
+            $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
+        }
+
         $this->update_user_id = Yii::app()->user->getId();
 
         if ($this->isNewRecord) {

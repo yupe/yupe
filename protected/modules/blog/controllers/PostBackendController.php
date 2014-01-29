@@ -11,45 +11,17 @@
  */
 class PostBackendController extends yupe\components\controllers\BackController
 {
-
-    public function actionInline()
+    public function actions()
     {
-        if(!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {
-            throw new CHttpException(404);            
-        }
-
-        $name  = Yii::app()->request->getPost('name');
-        $value = Yii::app()->request->getPost('value');
-        $pk    = (int)Yii::app()->request->getPost('pk');
-
-        if(!isset($name, $value, $pk)) {
-            throw new CHttpException(404);            
-        }
-
-        $validNames = array('title', 'slug', 'publish_date');
-
-        if(!in_array($name, $validNames)) {
-            throw new CHttpException(404);
-        }
-
-        $model = Post::model()->findByPk($pk);
-
-        if(null === $model) {
-            throw new CHttpException(404);    
-        }
-
-        if('publish_date' === $name) {
-            list($model->publish_date_tmp, $model->publish_time_tmp) = explode(' ', $value);
-        }else{
-            $model->$name = $value;
-        }
-
-        if($model->save()) {
-            Yii::app()->ajax->success();
-        }
-
-        throw new CHttpException(500, $model->publish_date_tmp);
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Post',
+                'validAttributes' => array('title', 'slug', 'publish_date')
+            )
+        );
     }
+
     /**
      * Отображает запись по указанному идентификатору
      * 
