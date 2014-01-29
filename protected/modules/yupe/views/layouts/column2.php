@@ -14,7 +14,7 @@
             </div>
             <!-- content -->
         </div>
-        <div class="<?php echo $this->hideSidebar ? 'hide' : 'span3'; ?>" style="margin-top: 18px;">
+        <div class="<?php echo $this->hideSidebar ? 'hide' : 'span3'; ?>">
             <?php if (count($this->menu)): ?>
                 <div class="well" style="padding: 8px 0;">
                     <?php $this->widget(
@@ -25,7 +25,7 @@
                     ); ?>
                 </div>
             <?php endif; ?>
-            <div class="well" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
+            <div class="well"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
         </div>
     </div>
 <?php $this->endContent(); ?>

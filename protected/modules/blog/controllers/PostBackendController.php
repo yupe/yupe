@@ -47,8 +47,8 @@ class PostBackendController extends yupe\components\controllers\BackController
     public function actionCreate()
     {
         $model = new Post;
-        $model->publish_date_tmp = date('d-m-Y');
-        $model->publish_time_tmp = date('h:i');
+
+        $model->publish_date = date('d-m-Y h:i');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(

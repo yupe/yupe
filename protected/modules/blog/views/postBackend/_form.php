@@ -37,20 +37,42 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
-     <?php echo $form->labelEx($model, 'blog_id'); ?>
+<div class="row-fluid control-grou">
+    <div class="span2 pull-left">
+        <?php echo $form->labelEx($model, 'blog_id'); ?>
         <?php
-            $this->widget(
-                'bootstrap.widgets.TbSelect2', array(
-                    'asDropDownList' => true,
-                    'model' => $model,
-                    'attribute' => 'blog_id',
-                    'data' => CHtml::listData(Blog::model()->getList(), 'id', 'name'),
-                    'val'  => null                
-                )
-            ); 
+        $this->widget(
+            'bootstrap.widgets.TbSelect2', array(
+                'asDropDownList' => true,
+                'model' => $model,
+                'attribute' => 'blog_id',
+                'data' => CHtml::listData(Blog::model()->getList(), 'id', 'name'),
+                'val' => null
+            )
+        );
         ?>
+    </div>
+
+    <div class="span2  pull-left">
+        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+    </div>
+
+    <div class="span2  pull-left popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>'
+         data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
+        <?php
+        echo $form->datetimepickerRow(
+            $model, 'publish_date', array(
+                'options' => array(
+                    'format' => 'dd-mm-yyyy hh:ii',
+                    'weekStart' => 1,
+                    'autoclose' => true
+                ),
+            )
+        ); ?>
+    </div>
+
 </div>
+
 <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
     <?php echo $form->textFieldRow($model, 'title', array('class' => 'span7 popover-help', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
 </div>
@@ -68,21 +90,22 @@ $form = $this->beginWidget(
         });
     </script>
 
-    <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>' data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
+    <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>'
+         data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
         <?php echo $form->labelEx($model, 'tags'); ?>
         <?php
-            $this->widget(
-                'bootstrap.widgets.TbSelect2', array(
-                    'asDropDownList' => false,
-                    'name' => 'tags',
-                    'options' => array(
-                        'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                        'placeholder' => Yii::t('BlogModule.blog', 'tags'),
-                        'width' => '40%',
-                        'tokenSeparators' => array(',', ' ')
-                    )
+        $this->widget(
+            'bootstrap.widgets.TbSelect2', array(
+                'asDropDownList' => false,
+                'name' => 'tags',
+                'options' => array(
+                    'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+                    'placeholder' => Yii::t('BlogModule.blog', 'tags'),
+                    'width' => '40%',
+                    'tokenSeparators' => array(',', ' ')
                 )
-            ); 
+            )
+        );
         ?>
     </div>
 </div>
@@ -96,8 +119,8 @@ $form = $this->beginWidget(
             $model->title, array(
                 'class' => 'preview-image',
                 'style' => !$model->isNewRecord && $model->image
-                    ? ''
-                    : 'display:none'
+                        ? ''
+                        : 'display:none'
             )
         ); ?>
         <?php echo $form->labelEx($model, 'image'); ?>
@@ -107,6 +130,7 @@ $form = $this->beginWidget(
         <?php echo $form->error($model, 'image'); ?>
     </div>
 </div>
+
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
     <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
@@ -147,51 +171,23 @@ $form = $this->beginWidget(
     </div>
     <div id="collapseTwo" class="accordion-body collapse">
         <div class="accordion-inner">
-          <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-            <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory), array('empty' => Yii::t('BlogModule.blog', '--choose--'), 'class' => 'popover-help span7', 'maxlength' => 11, 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
-          </div>        
-          <div class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('comment_status') || $model->hasErrors('access_type')) ? 'error' : ''; ?>">
-            <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+            <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
+                <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory), array('empty' => Yii::t('BlogModule.blog', '--choose--'), 'class' => 'popover-help span7', 'maxlength' => 11, 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
             </div>
-            <div class="span2">
-                <?php echo $form->dropDownListRow($model, 'access_type', $model->getAccessTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('access_type'), 'data-content' => $model->getAttributeDescription('access_type'))); ?>
-            </div>
-            <div class="span2">
-                <br/><br/>
-                <?php echo $form->checkBoxRow($model, 'comment_status', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
-            </div>
-        </div>
-        <div
-            class="wide row-fluid control-group <?php echo ($model->hasErrors('publish_date_tmp') || $model->hasErrors('publish_time_tmp')) ? 'error' : ''; ?>">
-            <div class="span4 popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date_tmp'); ?>'
-                 data-content='<?php echo $model->getAttributeDescription('publish_date_tmp'); ?>'>
-                <?php
-                echo $form->datepickerRow(
-                    $model, 'publish_date_tmp', array(
-                        'prepend' => '<i class="icon-calendar"></i>',
-                        'options' => array(
-                            'format' => 'dd-mm-yyyy',
-                            'weekStart' => 1,
-                            'autoclose' => true,
-                        ),
-                        'class' => 'span11'
-                    )
-                ); ?>
-            </div>
-            <div class="span3">
+            <div
+                class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('comment_status') || $model->hasErrors('access_type')) ? 'error' : ''; ?>">
 
-                <?php
-                echo $form->textFieldRow(
-                    $model, 'publish_time_tmp', array(
-                        'append' => '<i class="icon-time" style="cursor:pointer"></i>',
-                        'class' => 'span11',
-                    )
-                );?>
+                <div class="span2">
+                    <?php echo $form->dropDownListRow($model, 'access_type', $model->getAccessTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('access_type'), 'data-content' => $model->getAttributeDescription('access_type'))); ?>
+                </div>
+                <div class="span2">
+                    <br/><br/>
+                    <?php echo $form->checkBoxRow($model, 'comment_status', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
+                </div>
             </div>
-         </div>
         </div>
     </div>
+
 </div>
 
 <?php $this->endWidget(); ?>

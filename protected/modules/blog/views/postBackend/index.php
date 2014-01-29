@@ -123,7 +123,6 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',                
                 'name'  => 'publish_date',
-                'value' => 'date("d-m-Y H:i", $data->publish_date)',
                 'editable' => array(   
                     'url'  => $this->createUrl('/blog/postBackend/inline'),
                     'mode' => 'inline',

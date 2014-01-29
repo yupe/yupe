@@ -54,9 +54,6 @@ class Post extends yupe\models\YModel
     const ACCESS_PUBLIC  = 1;
     const ACCESS_PRIVATE = 2;
 
-    public $publish_date_tmp;
-    public $publish_time_tmp;
-
     /**
      * Returns the static model of the specified AR class.
      * @param string $className
@@ -83,7 +80,7 @@ class Post extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('blog_id, slug, publish_date_tmp, publish_time_tmp, title, content', 'required', 'except' => 'search'),
+            array('blog_id, slug,  title, content, status, publish_date', 'required', 'except' => 'search'),
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, category_id', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type', 'length', 'max' => 11),
             array('lang', 'length', 'max' => 2),
@@ -92,8 +89,6 @@ class Post extends yupe\models\YModel
             array('image', 'length', 'max' => 300),
             array('create_user_ip', 'length', 'max' => 20),
             array('quote, description, title, link, keywords', 'length', 'max' => 250),
-            array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
-            array('publish_time_tmp', 'type', 'type' => 'time', 'timeFormat' => 'hh:mm'),
             array('link', 'yupe\components\validators\YUrlValidator'),
             array('comment_status', 'in', 'range' => array(0, 1)),
             array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
@@ -197,8 +192,6 @@ class Post extends yupe\models\YModel
             'create_date'      => Yii::t('BlogModule.blog', 'Created at'),
             'update_date'      => Yii::t('BlogModule.blog', 'Updated at'),
             'publish_date'     => Yii::t('BlogModule.blog', 'Date'),
-            'publish_date_tmp' => Yii::t('BlogModule.blog', 'Publish date'),
-            'publish_time_tmp' => Yii::t('BlogModule.blog', 'Publish time'),
             'slug'             => Yii::t('BlogModule.blog', 'Url'),
             'title'            => Yii::t('BlogModule.blog', 'Title'),
             'quote'            => Yii::t('BlogModule.blog', 'Quote'),
@@ -225,8 +218,6 @@ class Post extends yupe\models\YModel
             'blog_id'          => Yii::t('BlogModule.blog', 'Choose a blog you want to add the record to'),
             'slug'             => Yii::t('BlogModule.blog', 'URL-friendly name of the blog.<br /><br /> For example: <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> It you don\'t know what is it you can leave this field empty.'),
             'publish_date'     => Yii::t('BlogModule.blog', 'Publish date'),
-            'publish_date_tmp' => Yii::t('BlogModule.blog', 'Publish date, formatted as:<br /><span class="label">05-09-2012</span>'),
-            'publish_time_tmp' => Yii::t('BlogModule.blog', 'Publish time, formatted as:<br /><span class="label">12:00</span>'),
             'title'            => Yii::t('BlogModule.blog', 'Post title, for example:<br /><span class="label">Our seaside vacation.</span>'),
             'quote'            => Yii::t('BlogModule.blog', 'Please enter announcement text. A couple of sentences is enough. The text will be used, for example, at the main page or in the posts list.'),
             'content'          => Yii::t('BlogModule.blog', 'Full text of the post which is displayed when you click on &laquo;More&raquo; link'),
@@ -268,10 +259,14 @@ class Post extends yupe\models\YModel
         $criteria->compare('access_type', $this->access_type);
         $criteria->compare('t.category_id', $this->category_id, true);
 
-        $criteria->order = 'publish_date DESC';
         $criteria->with  = array('createUser', 'updateUser', 'blog');
 
-        return new CActiveDataProvider('Post', array('criteria' => $criteria));
+        return new CActiveDataProvider('Post', array(
+            'criteria' => $criteria,
+            'sort'=>array(
+                'defaultOrder'=>'publish_date ASC',
+            )
+        ));
     }
 
     public function allPosts()
@@ -340,11 +335,7 @@ class Post extends yupe\models\YModel
 
     public function beforeSave()
     {
-        if($this->publish_date) {
-            $this->publish_date = strtotime($this->publish_date);
-        }else{
-            $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
-        }
+        $this->publish_date = strtotime($this->publish_date);
 
         $this->update_user_id = Yii::app()->user->getId();
 
@@ -427,8 +418,7 @@ class Post extends yupe\models\YModel
      **/
     public function afterFind()
     {
-        $this->publish_date_tmp = date('d-m-Y', $this->publish_date);
-        $this->publish_time_tmp = date('H:i', $this->publish_date);
+        $this->publish_date = date('d-m-Y H:i', $this->publish_date);
 
         return parent::afterFind();
     }
