@@ -16,7 +16,7 @@
 
 ~~~
 [php]
-php composer.phar create-project yupe/yupe:dev-master yupe-project
+php composer.phar create-project yupe/yupe:dev-dev yupe-project --no-dev --prefer-dist
 ~~~
 
 Мы должны увидеть приблизительно вот такой вывод:

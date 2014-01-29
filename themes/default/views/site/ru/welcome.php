@@ -25,7 +25,7 @@
  
  <p> Репозиторий дополнительных модулей и виджетов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
  
- <p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Возможно, Вы хотите присоединиться к разработке или помочь проекту ?</a></p>
+ <p><a href='http://yupe.ru/contacts?from=mainpage' target='_blank'> Возможно, вы хотите присоединиться к разработке или помочь проекту ?</a></p>
  
  <p>
  	  <iframe src="http://ghbtns.com/github-btn.html?user=yupe&repo=yupe&type=watch&count=true&size=large"

@@ -431,7 +431,7 @@ class Post extends yupe\models\YModel
             );
     }
 
-    public function getArchive($blogId = null)
+    public function getArchive($blogId = null, $cache = 3600)
     {
         $criteria = new CDbCriteria();
 
@@ -442,12 +442,12 @@ class Post extends yupe\models\YModel
             );
         }
 
-        $models = $this->public()->published()->recent()->findAll($criteria);
+        $models = $this->cache((int)$cache)->public()->published()->recent()->findAll($criteria);
 
         $data = array();
 
         foreach($models as $model) {
-            list($year, $month) = split('-',date('Y-m',$model->publish_date));
+            list($year, $month) = explode('-',date('Y-m',$model->publish_date));
             $data[$year][$month][] = $model;            
         }
 
