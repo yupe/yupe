@@ -9,9 +9,9 @@ class m140115_131455_auth_item extends yupe\components\DbMigration
             '{{user_user_auth_item}}', array(
                 'name'           => "char(64) NOT NULL",
                 'type'           => "integer NOT NULL",
-                'description'    => "text NOT NULL DEFAULT ''",
-                'bizrule'        => "text NOT NULL DEFAULT ''",
-                'data'           => "text NOT NULL DEFAULT ''",
+                'description'    => "text",
+                'bizrule'        => "text",
+                'data'           => "text",
             ),  $this->getOptions()
         );
 
