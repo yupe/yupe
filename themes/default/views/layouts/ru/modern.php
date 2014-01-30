@@ -72,8 +72,6 @@
                 'url' => 'http://yupe.ru/albums'
             ));
             ?>
-
-
         </p>
         <br/>
 
@@ -114,6 +112,10 @@
                                                          alt="Dependencies Status" style="max-width:100%;"></a>
             <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge" style="max-width:100%;"></a>
 
+            <script data-gittip-username="yupe"
+        data-gittip-widget="button"
+        src="//gttp.co/v1.js"></script>
+
         </p>
     </div>
 
@@ -134,14 +136,14 @@
         </div>
 
         <div class="span4 module-info">
-            <h3><i class="icon icon-file-text"></i> Страницы</h3>
+            <h3><i class="icon icon-file"></i> Страницы</h3>
 
             <p class="muted">
                 Просто и быстро создавайте страницы "О нас", "Контакты" и прочие "статические" странички.
             </p>
 
             <p>
-                Настройки модуля позволяют выбрать удобный для вас WYSIWYG редактор или добавить свой.
+                Настройки модуля позволяют выбрать удобный для вас WYSIWYG-редактор или добавить свой.
             </p>
         </div>
 
@@ -166,14 +168,13 @@
 
             <p class="muted">Создавайте индивидуальные и коллективные блоги.</p>
 
-            <p>Модуль позволяет каждому зарегистрированному пользователю вести свой собственный блог, что в свою очередь
-                способствует повышению интерактивности вашего ресурса.</p>
+            <p>Модуль позволяет вести собственный блог или создавать коллективные блоги/сообщества.</p>
         </div>
         <div class="span4 module-info">
             <h3><i class="icon icon-comment"></i> Комментариии</h3>
 
             <p class="muted">
-                Можно комментировать любую сущность с выстраиванием древовидных комментариев.
+                Модуль позволяет комментировать любую сущность с выстраиванием древовидных комментариев.
             </p>
 
             <p>
@@ -224,6 +225,24 @@
             );
             ?>
             <h2>
+                <small>Документация</small>
+            </h2>
+            <div class="posts-list-block-header">
+                <a href="http://yupe.ru/docs/install.html">Установка</a>       
+            </div>
+            <hr/>
+            <div class="posts-list-block-header">
+                <a href="http://yupe.ru/docs/module.create.html">Создание модуля</a>       
+            </div>
+            <hr/>
+            <div class="posts-list-block-header">
+                <a href="http://yupe.ru/docs/yupe/userspace.config.html">Использование настроек в userspace</a>       
+            </div>
+            <hr/>
+            <div class="posts-list-block-header">
+                <a href="http://yupe.ru/docs/testing.html">Настройка тестового окружения</a>       
+            </div>
+            <h2>
                 <small>Наш твиттер</small>
             </h2>
             <div class="widget twitter-widget">
@@ -272,7 +291,7 @@
             dataType: 'jsonp',
             success: function (data, status) {
                 $.each(data.data, function (key, contributor) {
-                    var image = "<img src=\"" + contributor.avatar_url + "\" width=\"48\" height=\"48\">";
+                    var image = "<img class=\"img-circle\" src=\"" + contributor.avatar_url + "\" width=\"48\" height=\"48\">";
                     var link = $(document.createElement('a'));
                     link.attr('href', 'https://github.com/' + contributor.login);
                     link.attr('target', "_blank");

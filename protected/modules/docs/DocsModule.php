@@ -265,6 +265,11 @@ class DocsModule extends yupe\components\WebModule
                 'icon'  => 'info-sign',
                 'items' => array(
                     array(
+                        'label' => Yii::t('DocsModule.docs', 'Install'),
+                        'url'   => array('/docs/show/index', 'file' => 'install', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'Abilities'),
                         'url'   => array('/docs/show/index', 'file' => 'capability', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
