@@ -121,7 +121,7 @@ class ModuleManager extends \CApplicationComponent
                     );
 
                     if (isset($this->categoryIcon[$keyCategory])) {
-                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory] . ' white';
+                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
                     }
 
                     // Сортируем модули в категории
@@ -148,7 +148,7 @@ class ModuleManager extends \CApplicationComponent
 
                         // Если нет иконка для данной категории, подставляется иконка первого модуля
                         if (!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon) {
-                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon . ' white';
+                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
                         }
 
                         // Шаблон модулей

@@ -17,8 +17,9 @@
 
 $this->widget(
     'bootstrap.widgets.TbNavbar', array(
-        'htmlOptions' => array('class' => 'navbar-inverse'),
+        'htmlOptions' => array('class' => 'navbar navbar-fixed-top'),
         'fluid'       => true,
+        'collapse'    => true,
         'brand'       => CHtml::image(
             Yii::app()->baseUrl . "/web/images/logo.png", Yii::app()->name, array(
                 'width'  => '38',
@@ -39,7 +40,7 @@ $this->widget(
                 'items'       => array_merge(
                     array(
                         array(
-                            'icon'  => 'question-sign white',
+                            'icon'  => 'question-sign',
                             'label' => Yii::t('YupeModule.yupe', 'Help'),
                             'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
                             'items' => array(
@@ -76,7 +77,7 @@ $this->widget(
                                 array(
                                     'icon'  => 'icon-thumbs-up',
                                     'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                    'url'   => 'http://yupe.ru/contacts?from=help-support',
+                                    'url'   => 'http://amylabs.ru/contact?from=help-support',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
@@ -93,7 +94,7 @@ $this->widget(
                             )
                         ),
                         array(
-                            'icon'        => 'home white',
+                            'icon'        => 'home',
                             'label'       => Yii::t('YupeModule.yupe', 'Go home'),
                             'linkOptions' => array('target' => '_blank'),
                             'visible'     => Yii::app()->controller instanceof yupe\components\controllers\BackController === true,

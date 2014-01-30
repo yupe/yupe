@@ -53,7 +53,7 @@ return array (
   'Maximum size (in bytes)' => 'Максимальный размер (в байтах)',
   'Menu items order' => 'Порядок следования в меню',
   'Minimum size (in bytes)' => 'Минимальный размер (в байтах)',
-  'This module allows creating a simple product catalog' => '',
+  'This module allows creating a simple product catalog' => 'Модуль позволяет создавать простой каталог',
   'No' => 'Нет',
   'Not active' => 'Не доступен',
   'Not available' => 'Нет в наличии',

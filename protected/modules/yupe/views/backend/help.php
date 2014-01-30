@@ -24,7 +24,7 @@ $this->breadcrumbs = array(
 
 <div class="alert">
     <p>
-        <?php echo Yii::t('YupeModule.yupe', ' Yupe! developed and maintained by a team of enthusiasts, you can use Yupe! and any part of it <b>absolutely for free</b>'); ?>
+        <?php echo Yii::t('YupeModule.yupe', ' Yupe! developed and maintained by a team of enthusiasts, you can use Yupe! and any part of it <b>absolutely for free</b>!'); ?>
     </p>
     <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'There is a page for tahnks =)'), 'http://yupe.ru/pages/help?form=help', array('target' => '_blank')); ?>
     <p><p><b>
@@ -87,7 +87,7 @@ $this->breadcrumbs = array(
     <tbody>
          <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Opeykin Andrey');?></th>
-            <td><?php echo CHtml::link('andrey.opeykin.ru','http://andrey.opeykin.ru?from=yupe_help');?></td>
+            <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Tischenko Alexander');?></th>
@@ -99,7 +99,7 @@ $this->breadcrumbs = array(
         </tr>
         <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Elizarov Alexander');?></th>
-            <td><?php echo CHtml::link('vk.com/valaraukar','http://vk.com/valaraukar');?></td>
+            <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Kulikov Engeniy');?></th>
@@ -115,11 +115,11 @@ $this->breadcrumbs = array(
         </tr>
         <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Sedov Nikolay');?></th>
-            <td><?php echo CHtml::link('https://twitter.com/mik_spark','https://twitter.com/mik_spark');?></td>
+            <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
         </tr>
          <tr class="odd">
              <th><?php echo Yii::t('YupeModule.yupe','Kucherov Anton');?></th>
-             <td><?php echo CHtml::link('http://idexter.ru/','http://idexter.ru/');?></td>
+             <td><?php echo CHtml::link('idexter.ru','http://idexter.ru/');?></td>
          </tr>
     </tbody>
 </table>

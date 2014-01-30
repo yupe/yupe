@@ -25,8 +25,14 @@
 }
 
 .navbar-fixed-top {
-    border-bottom: 5px solid #FF9600;
+    border-bottom: 1px solid #FF9600;
     min-width: 960px !important;
+}
+
+.navbar-inner {
+    background-image: none;
+    background-color: #FFF;
+    border: 1px solid #FFC200;
 }
 
 .navbar .brand {

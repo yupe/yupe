@@ -12,10 +12,9 @@
  **/ 
 namespace yupe\models;
 
-use yupe\models\YFormModel;
 use Yii;
 
-class BugForm extends yupe\models\YFormModel
+class BugForm extends YFormModel
 {
     const OTHER_MODULE = 0;
 
