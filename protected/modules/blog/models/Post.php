@@ -446,8 +446,8 @@ class Post extends yupe\models\YModel
 
         $data = array();
 
-        foreach($models as $model) {
-            list($year, $month) = explode('-',date('Y-m',$model->publish_date));
+        foreach($models as $model) {            
+            list($day, $month, $year) = explode('-', $model->publish_date);
             $data[$year][$month][] = $model;            
         }
 

@@ -10,7 +10,7 @@
  **/
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo Yii::app()->language;?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,8 +37,7 @@
         <!-- mainmenu -->
         <?php
         $this->widget(
-            'bootstrap.widgets.TbNavbar', array(
-                'htmlOptions' => array('class' => 'navbar-inverse'),
+            'bootstrap.widgets.TbNavbar', array(                
                 'fluid'       => true,
                 'brand'       => CHtml::image(
                          Yii::app()->baseUrl.'/web/images/logo.png',
@@ -62,14 +61,14 @@
                         'items'       => array_merge(
                             array(
                                 array(
-                                    'icon'        => 'home white',
+                                    'icon'        => 'home',
                                     'label'       => Yii::t('DocsModule.docs', 'Go home'),
                                     'linkOptions' => array('target' => '_blank'),
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                 ),
                                 array(
                                     'label' => $this->yupe->getVersion(),
-                                    'icon'  => 'icon-thumbs-up icon-white',
+                                    'icon'  => 'icon-thumbs-up',
                                     'url'   => 'http://yupe.ru/?from=doc-navbar'
                                 ),
                             ), $this->yupe->languageSelectorArray
