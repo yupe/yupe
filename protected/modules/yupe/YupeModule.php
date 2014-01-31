@@ -44,6 +44,7 @@ class YupeModule extends WebModule
 
     public $updateChannel = 'release';
 
+    public $adminMenuOrder = -1;
     /**
      * Возвращаем версию:
      *
@@ -387,6 +388,11 @@ class YupeModule extends WebModule
                 'icon'  => "wrench",
                 'label' => Yii::t('YupeModule.yupe', 'Modules'),
                 'url'   => array('/yupe/backend/settings'),
+            ),
+            array(
+                'icon'  => "exclamation-sign",
+                'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
+                'url'   => array('/yupe/backend/help'),
             )
         );
     }
