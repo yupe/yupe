@@ -97,9 +97,7 @@
                     }
                 }(document, 'script', 'twitter-wjs');</script>
 
-            <iframe frameborder="0" allowtransparency="true" scrolling="no"
-                    src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=m&amp;button-color=orange&amp;targets=%D0%9D%D0%B0+%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5+%D0%AE%D0%BF%D0%B8!&amp;default-sum=100&amp;mail=on"
-                    width="auto" height="42"></iframe>
+            <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?account=41001846363811&quickpay=small&yamoney-payment-type=on&button-text=05&button-size=l&button-color=orange&targets=%D0%97%D0%B0+%D0%AE%D0%BF%D0%B8!&default-sum=100&mail=on" width="230" height="54"></iframe>
 
 
         </p>
