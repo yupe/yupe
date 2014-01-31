@@ -13,6 +13,7 @@
 namespace yupe\components\actions;
 
 use Yii;
+use Image;
 
 class YAjaxImageUploadAction extends YAjaxFileUploadAction
 {
@@ -24,10 +25,10 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
         {
             $data["Image"]["category_id"] = "";
             $data["Image"]["gallery_id"] = "";
-            $data["Image"]["type"] = 0;
-            $data["Image"]["status"] = 1;
+            $data["Image"]["type"] = Image::TYPE_SIMPLE;
+            $data["Image"]["status"] = Image::STATUS_CHECKED;
 
-            $image = new \Image();
+            $image = new Image();
             $image->setScenario('insert');
             $image->addFileInstanceName('file');
 

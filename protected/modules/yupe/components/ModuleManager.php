@@ -49,6 +49,7 @@ class ModuleManager extends \CApplicationComponent
 
         $this->categoryIcon = array(
             Yii::t('YupeModule.yupe', 'Services') => 'briefcase',
+            Yii::t('YupeModule.yupe', 'Yupe!')    => 'cog',
             $this->otherCategoryName => 'cog',
         );
 
@@ -134,9 +135,9 @@ class ModuleManager extends \CApplicationComponent
                             $modSettings = array(
                                 '---',
                                 array(
-                                    'icon' => 'cog',
+                                    'icon'  => 'cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Module settings'),
-                                    'url' => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
+                                    'url'   => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
                                 ),
                             );
                         }
@@ -176,12 +177,7 @@ class ModuleManager extends \CApplicationComponent
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
                     }
                 }
-
-                // Удаляем последию категория, если она пуста
-                if (!isset($settings['items'][count($settings['items']) - 1]['icon'])) {
-                    unset($settings['items'][count($settings['items']) - 1]);
-                }
-
+           
                 // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
@@ -222,7 +218,7 @@ class ModuleManager extends \CApplicationComponent
             // Устанавливаем активный модуль
             $thisModule = (
                 (Yii::app(
-                    )->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe') ||
+                    )->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != self::CORE_MODULE) ||
                 Yii::app()->controller->action->id == 'settings'
             ) ? 'settings' : Yii::app()->controller->module->getId();
             $thisModule = & $thisCategory['items'][$thisModule];
