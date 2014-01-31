@@ -48,13 +48,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->datepickerRow(
                 $model,
                 'creation_date',
-                array(
-                    'class'   => 'span12', 
+                array(                   
                     'options' => array(
                         'language'   => Yii::app()->language,
                         'format'     => 'yyyy-mm-dd',
-                    ),
-                    'prepend' => '<i class="icon-calendar"></i>'
+                    ),                   
                 )
             ); ?>
         </div>
