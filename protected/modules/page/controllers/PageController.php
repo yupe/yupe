@@ -35,7 +35,7 @@ class PageController extends yupe\components\controllers\FrontController
                 ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
             ));
 
-        if (!$page) {
+        if (null === $page) {
             throw new CHttpException('404', Yii::t('PageModule.page', 'Page was not found'));
         }
 
@@ -46,8 +46,10 @@ class PageController extends yupe\components\controllers\FrontController
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
             );
+
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
+
         $this->currentPage = $page;
 
         $this->render('page', array('page' => $page));
