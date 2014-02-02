@@ -28,7 +28,7 @@ class RegistrationAction extends CAction
         }
 
         $form = new RegistrationForm;
-        $event = new CModelEvent($form);
+        $event = new CModelEvent($this->controller);
         $module->onBeginRegistration($event);
 
         if (($data = Yii::app()->getRequest()->getPost('RegistrationForm')) !== null) {

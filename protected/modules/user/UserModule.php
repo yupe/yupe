@@ -354,7 +354,7 @@ class UserModule extends WebModule
 
     /**
      * Событие происходящее при запросе на восстановление пароля.
-     * В обработчик передается Токен восстановления.
+     * В обработчик передается объект класса AccountController.
      * @param CEvent $event
      */
     public function onBeginPasswordRecovery($event)
@@ -364,7 +364,7 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при успеном автоматическом восстановлении
-     * пароля. В обработчик передается Токен.
+     * пароля. В обработчик передается объект класса AccountController.
      * @param CEvent $event
      */
     public function onSuccessAutoPasswordRecovery($event)
@@ -374,7 +374,7 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при ошибке автоматического восстановления пароля.
-     * В обработчик передается Токен.
+     * В обработчик передается объект класса AccountController.
      * @param CEvent $event
      */
     public function onErrorAutoPasswordRecovery($event)
@@ -404,7 +404,7 @@ class UserModule extends WebModule
 
     /**
  * Событие возникающее при активации экшена запроса восстановления пароля.
- * В обработчик передается пустое событие.
+ * В обработчик передается объект класса AccountController.
  * @param CEvent $event
  */
     public function onBeginRecovery($event)
@@ -434,7 +434,7 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при входе пользователя на страницу редактирования профиля.
-     * В обработчик передается объект класса ProfileForm
+     * В обработчик передается объект класса AccountController
      * @param CModelEvent $event
      */
     public function onBeginProfile($event)
@@ -460,6 +460,16 @@ class UserModule extends WebModule
     public function onErrorEditProfile($event)
     {
         $this->raiseEvent('onErrorEditProfile', $event);
+    }
+
+    /**
+     * Событие возникающее при выходе пользователя из Аккаунта
+     * В обработчик передается объект класса AccountController
+     * @param CEvent $event
+     */
+    public function onLogout($event)
+    {
+        $this->raiseEvent('onLogout', $event);
     }
 
 }

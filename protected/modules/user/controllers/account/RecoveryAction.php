@@ -26,7 +26,7 @@ class RecoveryAction extends CAction
         }
 
         $module = Yii::app()->getModule('user');
-        $module->onBeginRecovery(new CEvent);
+        $module->onBeginRecovery(new CEvent($this->controller));
 
         // Если восстановление отключено - ошбочка ;)
         if ($module->recoveryDisabled) {

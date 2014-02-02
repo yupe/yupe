@@ -27,8 +27,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         $module = Yii::app()->getModule('user');
-
-        $module->onBeginPasswordRecovery(new CEvent($token));
+        $module->onBeginPasswordRecovery(new CEvent($this->controller));
 
         // Если запрещено восстановление - печалька ;)
         if ($module->recoveryDisabled) {
@@ -45,7 +44,7 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
-                $module->onSuccessAutoPasswordRecovery(new CEvent($token));
+                $module->onSuccessAutoPasswordRecovery(new CEvent($this->controller));
 
                 $this->controller->redirect(array('/user/account/login'));
 
@@ -56,7 +55,7 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'Error when changing password!')
                 );
 
-                $module->onErrorAutoPasswordRecovery(new CEvent($token));
+                $module->onErrorAutoPasswordRecovery(new CEvent($this->controller));
 
                 $this->controller->redirect(array('/user/account/recovery'));
             }
