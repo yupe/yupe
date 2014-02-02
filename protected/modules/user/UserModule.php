@@ -353,6 +353,56 @@ class UserModule extends WebModule
     }
 
     /**
+     * Событие происходящее при запросе на восстановление пароля.
+     * В обработчик передается Токен восстановления.
+     * @param CEvent $event
+     */
+    public function onBeginPasswordRecovery($event)
+    {
+        $this->raiseEvent('onBeginPasswordRecovery', $event);
+    }
+
+    /**
+     * Событие возникающее при успеном автоматическом восстановлении
+     * пароля. В обработчик передается Токен.
+     * @param CEvent $event
+     */
+    public function onSuccessAutoPasswordRecovery($event)
+    {
+        $this->raiseEvent('onSuccessAutoPasswordRecovery', $event);
+    }
+
+    /**
+     * Собыие возникающее при ошибке автоматического восстановления пароля.
+     * В обработчик передается Токен.
+     * @param CEvent $event
+     */
+    public function onErrorAutoPasswordRecovery($event)
+    {
+        $this->raiseEvent('onErrorAutoPasswordRecovery', $event);
+    }
+
+    /**
+     * Событие возникающее при успешной ручной смене пароля.
+     * В обработчик передается объект ChangePasswordForm
+     * @param CModelEvent $event
+     */
+    public function onSuccessPasswordRecovery($event)
+    {
+        $this->raiseEvent('onSuccessPasswordRecovery', $event);
+    }
+
+    /**
+     * Собыие возникающее при ошибке ручного восстановления пароля.
+     * В обработчик передается объект ChangePasswordForm.
+     * @param CEvent $event
+     */
+    public function onErrorPasswordRecovery($event)
+    {
+        $this->raiseEvent('onErrorPasswordRecovery', $event);
+    }
+
+    /**
      * @param CModelEvent $event
      */
     public function onBeginProfile($event)
