@@ -433,11 +433,33 @@ class UserModule extends WebModule
     }
 
     /**
+     * Событие возникающее при входе пользователя на страницу редактирования профиля.
+     * В обработчик передается объект класса ProfileForm
      * @param CModelEvent $event
      */
     public function onBeginProfile($event)
     {
         $this->raiseEvent('onBeginProfile', $event);
+    }
+
+    /**
+     * Событие возникающее при успешном обновлении профиля пользователя.
+     * В обработчик передается объект класса ProfileForm
+     * @param CModelEvent $event
+     */
+    public function onSuccessEditProfile($event)
+    {
+        $this->raiseEvent('onSuccessEditProfile', $event);
+    }
+
+    /**
+     * Событие возникающее при ошибке обновления профиля пользователя.
+     * В обработчик передается объект класса ProfileForm
+     * @param CModelEvent $event
+     */
+    public function onErrorEditProfile($event)
+    {
+        $this->raiseEvent('onErrorEditProfile', $event);
     }
 
 }

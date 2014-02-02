@@ -145,9 +145,12 @@ class ProfileAction extends CAction
                             }
                         }
 
+                        $module->onSuccessEditProfile(new CModelEvent($form));
                         $this->controller->redirect(array('/user/account/profile'));
                     
                     } else {
+
+                        $module->onErrorEditProfile(new CModelEvent($form));
 
                         Yii::log(
                             Yii::t('UserModule.user', 'Error when save profile! #{id}', array('{id}' => $user->id)),
