@@ -472,4 +472,26 @@ class UserModule extends WebModule
         $this->raiseEvent('onLogout', $event);
     }
 
+    /**
+     * Событие возникающее при успешном входе пользователя
+     * В качестве отправителя выступает обект класса AccountController
+     * Параметром $params['loginForm'] передается объект формы авторизации.
+     * @param CEvent $event
+     */
+    public function onSuccessLogin($event)
+    {
+        $this->raiseEvent('onSuccessLogin', $event);
+    }
+
+    /**
+     * Событие возникающее при ошибке входа пользователя
+     * В качестве отправителя выступает обект класса AccountController
+     * Параметром $params['loginForm'] передается объект формы авторизации.
+     * @param CEvent $event
+     */
+    public function onErrorLogin($event)
+    {
+        $this->raiseEvent('onErrorLogin', $event);
+    }
+
 }

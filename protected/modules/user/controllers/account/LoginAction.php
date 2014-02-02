@@ -29,6 +29,8 @@ class LoginAction extends CAction
         $scenario = $badLoginCount > 3 ? 'loginLimit' : '';
 
         $form = new LoginForm($scenario);
+        $module = Yii::app()->getModule('user');
+
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
 
@@ -41,7 +43,9 @@ class LoginAction extends CAction
                     Yii::t('UserModule.user', 'You authorized successfully!')
                 );
 
-                $module = Yii::app()->getModule('user');
+                $module->onSuccessLogin(
+                    new CModelEvent($this->controller, array('loginForm' => $form))
+                );
 
                 $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess)
                     ? array($module->loginAdminSuccess)
@@ -57,6 +61,9 @@ class LoginAction extends CAction
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, $badLoginCount + 1);
 
+                $module->onErrorLogin(
+                    new CModelEvent($this->controller, array('loginForm' => $form))
+                );
             }
         }
 
