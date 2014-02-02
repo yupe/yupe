@@ -548,4 +548,28 @@ class UserModule extends WebModule
         $this->raiseEvent('onErrorEmailConfirm', $event);
     }
 
+    /**
+     * Событие возникающее при успешной активации аккаунта
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token активации.
+     * @param CModelEvent $event
+     * @since 0.7
+     */
+    public function onSuccessActivate($event)
+    {
+        $this->raiseEvent('onSuccessActivate', $event);
+    }
+
+    /**
+     * Событие возникающее при ошибке активации аккаунта
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token активации.
+     * @param CModelEvent $event
+     * @since 0.7
+     */
+    public function onErrorActivate($event)
+    {
+        $this->raiseEvent('onErrorActivate', $event);
+    }
+
 }
