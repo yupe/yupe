@@ -28,9 +28,7 @@ class RegistrationAction extends CAction
         }
 
         $form = new RegistrationForm;
-
         $event = new CModelEvent($form);
-
         $module->onBeginRegistration($event);
 
         if (($data = Yii::app()->getRequest()->getPost('RegistrationForm')) !== null) {
@@ -39,21 +37,27 @@ class RegistrationAction extends CAction
 
             if ($form->validate()) {				
 
-				if(Yii::app()->userManager->createUser($form)) {
+				if($user = Yii::app()->userManager->createUser($form)) {
 					
 				    Yii::app()->user->setFlash(
 						yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
 						Yii::t('UserModule.user', 'Account was created! Check your email!')
 					);
+
+                    $module->onSuccessRegistration(new CModelEvent($user));
 					
 					$this->controller->redirect(array($module->registrationSuccess));
 				}
+
+                $module->onErrorRegistration(new CModelEvent($form));
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error creating account!')
                 );
 			}
+
+            $module->onErrorRegistration(new CModelEvent($form));
 		}               
 
         $this->controller->render('registration', array('model' => $form, 'module' => $module));

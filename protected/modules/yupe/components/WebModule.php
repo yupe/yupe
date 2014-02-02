@@ -66,6 +66,28 @@ abstract class WebModule extends CWebModule
     public $editorOptions = array();
 
     /**
+     * @var array  Массив для задания обработчиков событий модуля при инициализации.
+     *
+     * @example
+     *
+     * $this->eventHandlers = array("onSomeEvent" => "someEventHandler");
+     *
+     * $this->eventHandlers = array( "onSomeEvent" => array(
+     *                               "someEventHandler",
+     *                               array(new EventClass,"eventHandlerMethod")
+     *                              ));
+     *
+     * $this->eventHandlers = array("onFirstEvent" => array("someEventHandler","someEventHandler2"),
+     *                              "onSecondEvent" => array(
+     *                                 array(new EventClassOne,"eventHandlerMethodOne"),
+     *                                 array(new EventClassTwo,"eventHandlerMethodTwo") )
+     *                             );
+     *
+     */
+
+    public $eventHandlers = array();
+
+    /**
      * @var array список категорий
      */
     public function getCategoryList()
@@ -842,6 +864,21 @@ abstract class WebModule extends CWebModule
         parent::init();
 
         $this->getSettings();
+
+        $reflection  = new \ReflectionClass($this);
+        if (is_array($this->eventHandlers)) {
+            foreach ($this->eventHandlers as $handlerName => $connectedHandlers) {
+                if ($reflection->hasMethod($handlerName)) {
+                    if (is_array($connectedHandlers)) {
+                        foreach ($connectedHandlers as $handler) {
+                            $this->attachEventHandler($handlerName, $handler);
+                        }
+                    } else {
+                        $this->attachEventHandler($handlerName, $connectedHandlers);
+                    }
+                }
+            }
+        }
     }
 
     /**

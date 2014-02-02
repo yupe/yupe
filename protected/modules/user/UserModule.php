@@ -49,7 +49,6 @@ class UserModule extends WebModule
 
     public static $logCategory             = 'application.modules.user';    
     public $profiles                       = array();
-    public $attachedProfileEvents          = array();
 
     public function getUploadPath()
     {
@@ -311,29 +310,51 @@ class UserModule extends WebModule
 
     public function init()
     {
-        parent::init();
-
         $this->setImport(array(
             'user.models.*',
             'user.components.*',
             'user.widgets.AvatarWidget'
         ));
 
-        if (is_array($this->attachedProfileEvents))
-        {
-            foreach ($this->attachedProfileEvents as $e)
-            {
-                $this->attachEventHandler("onBeginRegistration", array($e, "onBeginRegistration"));
-                $this->attachEventHandler("onBeginProfile", array($e, "onBeginProfile"));
-            }
-        }
+        parent::init();
     }
 
+    /**
+     * Событие происходящее в момент входа пользователя на страницу регистрации.
+     * В обработчик передается экземпляр формы регистрации.
+     * @param CModelEvent $event
+     */
     public function onBeginRegistration($event)
     {
         $this->raiseEvent('onBeginRegistration', $event);
     }
 
+    /**
+     * Событие происходящее при успешной регистрации пользователя.
+     * В обработчик передается экземпляр модели нового созданного
+     * пользователя.
+     * @param CModelEvent $event
+     */
+    public function onSuccessRegistration($event)
+    {
+        $this->raiseEvent('onSuccessRegistration', $event);
+    }
+
+    /**
+     * Событие происходящее при ошибке регистрации.
+     * Возникает при неправильной валидации или при ошибке записи
+     * в базу нового пользователя
+     * В обработчик передается экземпляр формы регистрации.
+     * @param CModelEvent $event
+     */
+    public function onErrorRegistration($event)
+    {
+        $this->raiseEvent('onErrorRegistration', $event);
+    }
+
+    /**
+     * @param CModelEvent $event
+     */
     public function onBeginProfile($event)
     {
         $this->raiseEvent('onBeginProfile', $event);
