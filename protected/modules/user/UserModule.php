@@ -5,7 +5,7 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2014 amyLabs && Yupe! team
  * @package yupe.modules.user
  * @since 0.1
  *
@@ -324,6 +324,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['registrationForm'] передается объект формы RegistrationForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onBeginRegistration($event)
     {
@@ -335,6 +336,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['user'] передается объект класса User.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onSuccessRegistration($event)
     {
@@ -347,6 +349,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['registrationForm'] передается объект формы RegistrationForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onErrorRegistration($event)
     {
@@ -357,7 +360,8 @@ class UserModule extends WebModule
      * Событие происходящее при запросе на восстановление пароля.
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['token'] передается Token восстановления.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onBeginPasswordRecovery($event)
     {
@@ -368,7 +372,8 @@ class UserModule extends WebModule
      * Событие возникающее при успшеном автоматическом восстановлении пароля
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['token'] передается Token восстановления.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onSuccessAutoPasswordRecovery($event)
     {
@@ -379,7 +384,8 @@ class UserModule extends WebModule
      * Событие возникающее при ошибке автоматического восстановления пароля.
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['token'] передается Token восстановления.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onErrorAutoPasswordRecovery($event)
     {
@@ -391,6 +397,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['changePasswordForm'] передается объект ChangePasswordForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onSuccessPasswordRecovery($event)
     {
@@ -401,7 +408,8 @@ class UserModule extends WebModule
      * Событие возникающее при ошибке ручного восстановления пароля.
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['changePasswordForm'] передается объект ChangePasswordForm.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onErrorPasswordRecovery($event)
     {
@@ -412,7 +420,8 @@ class UserModule extends WebModule
     * Событие возникающее при активации экшена запроса восстановления пароля.
     * В качестве отправителя выступает объект класса AccountController
     * Параметром $params['recoveryForm'] передается объект RecoveryForm.
-    * @param CEvent $event
+    * @param CModelEvent $event
+    * @since 0.7
     */
     public function onBeginRecovery($event)
     {
@@ -424,6 +433,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['recoveryForm'] передается объект RecoveryForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onSuccessRecovery($event)
     {
@@ -435,6 +445,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['recoveryForm'] передается объект RecoveryForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onErrorRecovery($event)
     {
@@ -446,6 +457,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['profileForm'] передается объект ProfileForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onBeginProfile($event)
     {
@@ -457,6 +469,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['profileForm'] передается объект ProfileForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onSuccessEditProfile($event)
     {
@@ -468,6 +481,7 @@ class UserModule extends WebModule
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['profileForm'] передается объект ProfileForm.
      * @param CModelEvent $event
+     * @since 0.7
      */
     public function onErrorEditProfile($event)
     {
@@ -478,7 +492,8 @@ class UserModule extends WebModule
      * Событие возникающее при выходе пользователя из Аккаунта
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['user'] передается объект пользователя который совершает выход.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onLogout($event)
     {
@@ -489,7 +504,8 @@ class UserModule extends WebModule
      * Событие возникающее при успешном входе пользователя
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['loginForm'] передается объект формы авторизации.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onSuccessLogin($event)
     {
@@ -500,11 +516,36 @@ class UserModule extends WebModule
      * Событие возникающее при ошибке входа пользователя
      * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['loginForm'] передается объект формы авторизации.
-     * @param CEvent $event
+     * @param CModelEvent $event
+     * @since 0.7
      */
     public function onErrorLogin($event)
     {
         $this->raiseEvent('onErrorLogin', $event);
+    }
+
+    /**
+     * Событие возникающее при успешном подтверждании e-mail
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token подтверждения e-mail.
+     * @param CModelEvent $event
+     * @since 0.7
+     */
+    public function onSuccessEmailConfirm($event)
+    {
+        $this->raiseEvent('onSuccessEmailConfirm', $event);
+    }
+
+    /**
+     * Событие возникающее при ошибке подтверждания e-mail
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token подтверждения e-mail.
+     * @param CModelEvent $event
+     * @since 0.7
+     */
+    public function onErrorEmailConfirm($event)
+    {
+        $this->raiseEvent('onErrorEmailConfirm', $event);
     }
 
 }
