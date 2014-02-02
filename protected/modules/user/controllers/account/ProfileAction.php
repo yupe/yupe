@@ -45,7 +45,7 @@ class ProfileAction extends CAction
         $module = Yii::app()->getModule('user');
 
         // Открываем ивент:
-        $event = new CModelEvent($this->controller);
+        $event = new CModelEvent($this->controller, array("profileForm" => $form));
         $module->onBeginProfile($event);
 
         // Если у нас есть данные из POST - получаем их:
@@ -145,12 +145,16 @@ class ProfileAction extends CAction
                             }
                         }
 
-                        $module->onSuccessEditProfile(new CModelEvent($form));
+                        $module->onSuccessEditProfile(
+                            new CModelEvent($this->controller, array("profileForm" => $form))
+                        );
                         $this->controller->redirect(array('/user/account/profile'));
                     
                     } else {
 
-                        $module->onErrorEditProfile(new CModelEvent($form));
+                        $module->onErrorEditProfile(
+                            new CModelEvent($this->controller, array("profileForm" => $form))
+                        );
 
                         Yii::log(
                             Yii::t('UserModule.user', 'Error when save profile! #{id}', array('{id}' => $user->id)),

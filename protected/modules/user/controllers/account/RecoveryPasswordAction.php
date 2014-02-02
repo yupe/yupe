@@ -27,7 +27,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         $module = Yii::app()->getModule('user');
-        $module->onBeginPasswordRecovery(new CEvent($this->controller));
+        $module->onBeginPasswordRecovery(new CEvent($this->controller, array("token" => $token)));
 
         // Если запрещено восстановление - печалька ;)
         if ($module->recoveryDisabled) {
@@ -44,7 +44,9 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
-                $module->onSuccessAutoPasswordRecovery(new CEvent($this->controller));
+                $module->onSuccessAutoPasswordRecovery(
+                    new CEvent($this->controller, array("token" => $token))
+                );
 
                 $this->controller->redirect(array('/user/account/login'));
 
@@ -55,7 +57,9 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'Error when changing password!')
                 );
 
-                $module->onErrorAutoPasswordRecovery(new CEvent($this->controller));
+                $module->onErrorAutoPasswordRecovery(
+                    new CEvent($this->controller, array("token" => $token))
+                );
 
                 $this->controller->redirect(array('/user/account/recovery'));
             }
@@ -77,11 +81,15 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'Password recover successfully')
                 );
 
-                $module->onSuccessPasswordRecovery(new CModelEvent($changePasswordForm));
+                $module->onSuccessPasswordRecovery(
+                    new CModelEvent($this->controller, array("changePasswordForm" => $changePasswordForm))
+                );
 
                 $this->controller->redirect(array('/user/account/login'));
             }else{
-                $module->onErrorPasswordRecovery(new CModelEvent($changePasswordForm));
+                $module->onErrorPasswordRecovery(
+                    new CModelEvent($this->controller, array("changePasswordForm" => $changePasswordForm))
+                );
             }
         }
 

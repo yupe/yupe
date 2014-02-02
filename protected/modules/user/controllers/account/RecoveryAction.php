@@ -26,7 +26,6 @@ class RecoveryAction extends CAction
         }
 
         $module = Yii::app()->getModule('user');
-        $module->onBeginRecovery(new CEvent($this->controller));
 
         // Если восстановление отключено - ошбочка ;)
         if ($module->recoveryDisabled) {
@@ -38,6 +37,8 @@ class RecoveryAction extends CAction
 
         // Новая форма восстановления пароля:
         $form = new RecoveryForm;
+
+        $module->onBeginRecovery(new CEvent($this->controller, array("recoveryForm" => $form)));
 
         if (($data = Yii::app()->getRequest()->getPost('RecoveryForm')) !== null) {
 
@@ -52,7 +53,9 @@ class RecoveryAction extends CAction
                         'Letter with password recovery instructions was sent on email which you choose during register'
                     )
                 );
-                $module->onSuccessRecovery(new CModelEvent($form));
+                $module->onSuccessRecovery(
+                    new CEvent($this->controller, array("recoveryForm" => $form))
+                );
                 $this->controller->redirect(array('/user/account/login'));
 
             } else {
@@ -61,7 +64,9 @@ class RecoveryAction extends CAction
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Password recovery error.')
                 );
-                $module->onErrorRecovery(new CModelEvent($form));
+                $module->onErrorRecovery(
+                    new CEvent($this->controller, array("recoveryForm" => $form))
+                );
             }
         }
 

@@ -321,7 +321,8 @@ class UserModule extends WebModule
 
     /**
      * Событие происходящее в момент входа пользователя на страницу регистрации.
-     * В обработчик передается экземпляр формы регистрации.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['registrationForm'] передается объект формы RegistrationForm.
      * @param CModelEvent $event
      */
     public function onBeginRegistration($event)
@@ -331,8 +332,8 @@ class UserModule extends WebModule
 
     /**
      * Событие происходящее при успешной регистрации пользователя.
-     * В обработчик передается экземпляр модели нового созданного
-     * пользователя.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['user'] передается объект класса User.
      * @param CModelEvent $event
      */
     public function onSuccessRegistration($event)
@@ -342,9 +343,9 @@ class UserModule extends WebModule
 
     /**
      * Событие происходящее при ошибке регистрации.
-     * Возникает при неправильной валидации или при ошибке записи
-     * в базу нового пользователя
-     * В обработчик передается экземпляр формы регистрации.
+     * Возникает при неправильной валидации или при ошибке записи в базу нового пользователя
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['registrationForm'] передается объект формы RegistrationForm.
      * @param CModelEvent $event
      */
     public function onErrorRegistration($event)
@@ -354,7 +355,8 @@ class UserModule extends WebModule
 
     /**
      * Событие происходящее при запросе на восстановление пароля.
-     * В обработчик передается объект класса AccountController.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token восстановления.
      * @param CEvent $event
      */
     public function onBeginPasswordRecovery($event)
@@ -363,8 +365,9 @@ class UserModule extends WebModule
     }
 
     /**
-     * Событие возникающее при успеном автоматическом восстановлении
-     * пароля. В обработчик передается объект класса AccountController.
+     * Событие возникающее при успшеном автоматическом восстановлении пароля
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token восстановления.
      * @param CEvent $event
      */
     public function onSuccessAutoPasswordRecovery($event)
@@ -374,7 +377,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при ошибке автоматического восстановления пароля.
-     * В обработчик передается объект класса AccountController.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['token'] передается Token восстановления.
      * @param CEvent $event
      */
     public function onErrorAutoPasswordRecovery($event)
@@ -384,7 +388,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при успешной ручной смене пароля.
-     * В обработчик передается объект ChangePasswordForm
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['changePasswordForm'] передается объект ChangePasswordForm.
      * @param CModelEvent $event
      */
     public function onSuccessPasswordRecovery($event)
@@ -394,7 +399,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при ошибке ручного восстановления пароля.
-     * В обработчик передается объект ChangePasswordForm.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['changePasswordForm'] передается объект ChangePasswordForm.
      * @param CEvent $event
      */
     public function onErrorPasswordRecovery($event)
@@ -403,10 +409,11 @@ class UserModule extends WebModule
     }
 
     /**
- * Событие возникающее при активации экшена запроса восстановления пароля.
- * В обработчик передается объект класса AccountController.
- * @param CEvent $event
- */
+    * Событие возникающее при активации экшена запроса восстановления пароля.
+    * В качестве отправителя выступает объект класса AccountController
+    * Параметром $params['recoveryForm'] передается объект RecoveryForm.
+    * @param CEvent $event
+    */
     public function onBeginRecovery($event)
     {
         $this->raiseEvent('onBeginRecovery', $event);
@@ -414,7 +421,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при успешном запросе восстановления пароля.
-     * В обработчик передается объект RecoveryForm.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['recoveryForm'] передается объект RecoveryForm.
      * @param CModelEvent $event
      */
     public function onSuccessRecovery($event)
@@ -424,7 +432,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при ошибке запроса восстановления пароля.
-     * В обработчик передается объект RecoveryForm.
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['recoveryForm'] передается объект RecoveryForm.
      * @param CModelEvent $event
      */
     public function onErrorRecovery($event)
@@ -434,7 +443,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при входе пользователя на страницу редактирования профиля.
-     * В обработчик передается объект класса AccountController
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['profileForm'] передается объект ProfileForm.
      * @param CModelEvent $event
      */
     public function onBeginProfile($event)
@@ -444,7 +454,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при успешном обновлении профиля пользователя.
-     * В обработчик передается объект класса ProfileForm
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['profileForm'] передается объект ProfileForm.
      * @param CModelEvent $event
      */
     public function onSuccessEditProfile($event)
@@ -454,7 +465,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при ошибке обновления профиля пользователя.
-     * В обработчик передается объект класса ProfileForm
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['profileForm'] передается объект ProfileForm.
      * @param CModelEvent $event
      */
     public function onErrorEditProfile($event)
@@ -464,7 +476,8 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при выходе пользователя из Аккаунта
-     * В обработчик передается объект класса AccountController
+     * В качестве отправителя выступает объект класса AccountController
+     * Параметром $params['user'] передается объект пользователя который совершает выход.
      * @param CEvent $event
      */
     public function onLogout($event)
@@ -474,7 +487,7 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при успешном входе пользователя
-     * В качестве отправителя выступает обект класса AccountController
+     * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['loginForm'] передается объект формы авторизации.
      * @param CEvent $event
      */
@@ -485,7 +498,7 @@ class UserModule extends WebModule
 
     /**
      * Событие возникающее при ошибке входа пользователя
-     * В качестве отправителя выступает обект класса AccountController
+     * В качестве отправителя выступает объект класса AccountController
      * Параметром $params['loginForm'] передается объект формы авторизации.
      * @param CEvent $event
      */
