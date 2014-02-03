@@ -16,6 +16,8 @@
 
         Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+        
     ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <!--[if IE]>
@@ -91,6 +93,7 @@
     <?php $this->renderPartial('//layouts/_footer'); ?>
     <!-- footer end -->
 </div>
+<div class='notifications top-right'></div>
 <!-- container end -->
 <?php $this->widget(
     "application.modules.contentblock.widgets.ContentBlockWidget",

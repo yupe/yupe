@@ -22,7 +22,6 @@
 	    <a href="javascript:void(0)" class='btn btn-link list-expanding <?php echo (count($model->members) < 3 ? 'btn-disabled' : ''); ?>'>
 	        <?php echo Yii::t('BlogModule.blog', 'All'); ?>
 	        <span></span>
-	    </a>		
-	    <!--<a class="btn btn-warning">Вступить в блог</a>-->
+	    </a>           
 	</div>
 </div>

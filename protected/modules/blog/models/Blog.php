@@ -310,39 +310,32 @@ class Blog extends yupe\models\YModel
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
-    public function userInBlog($userId = null)
-    {
-        if (!Yii::app()->user->isAuthenticated()) {
-            return false;
-        }
-
-        $params = array(
-            'user_id' => $userId !== null
-                ? $userId
-                : Yii::app()->user->getId(),
-            'blog_id' => $this->id,
-        );
-
-        return ($userToBlog = UserToBlog::model()->find('user_id = :user_id AND blog_id = :blog_id', $params)) !== null
-            ? $userToBlog
-            : false;
+    public function userInBlog($userId)
+    {       
+         return UserToBlog::model()->find('user_id = :userId AND blog_id = :blogId', array(            
+            ':userId' => (int)$userId,
+            ':blogId' => $this->id
+         ));
     }
 
-    public function join($userId = null)
+    public function join($userId)
     {
-        $params = array(
-            'user_id' => $userId ? $userId : Yii::app()->user->getId(),
-            'blog_id' => $this->id,
-        );
+       if($this->userInBlog($userId)) {
+           return true;
+       }
 
-        $userToBlog = new UserToBlog;
+       $model = new UserToBlog;
+       $model->blog_id = $this->id;
+       $model->user_id = (int)$userId;
+       return $model->save();
+    }
 
-        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params)) {
-            $userToBlog->setAttributes($params);
-            return $userToBlog->save();
-        }
+    public function leave($userId) {
 
-        return false;
+        return UserToBlog::model()->deleteAll('user_id = :userId AND blog_id = :blogId', array(
+                ':userId' => (int)$userId,
+                ':blogId' => $this->id
+            ));    
     }
 
     public function getMembers()
@@ -380,4 +373,10 @@ class Blog extends yupe\models\YModel
     {
         return Blog::model()->published()->findAll(array('order' => 'name ASC'));        
     }
+
+    public function get($id)
+    {
+        return $this->published()->public()->findByPk((int)$id); 
+    }
+
 }

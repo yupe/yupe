@@ -1,3 +1,32 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('.join-blog').on('click', function(event){
+            event.preventDefault();
+            var $button = $(this);
+            var blogId  = parseInt($(this).attr('href'));
+            $.post('<?php echo Yii::app()->baseUrl;?>/blog/join/', {'blogId' : blogId, '<?php echo Yii::app()->request->csrfTokenName;?>' : '<?php echo Yii::app()->request->csrfToken;?>'}, function(response){
+                if(response.result) {
+                    $button.hide();
+                    $('.top-right').notify({ message: { text: response.data } }).show();
+                }
+            },'json');
+        });
+
+         $('.leave-blog').on('click', function(event){
+            event.preventDefault();
+            var $button = $(this);
+            var blogId  = parseInt($(this).attr('href'));
+            $.post('<?php echo Yii::app()->baseUrl;?>/blog/leave/', {'blogId' : blogId, '<?php echo Yii::app()->request->csrfTokenName;?>' : '<?php echo Yii::app()->request->csrfToken;?>'}, function(response){
+                if(response.result) {
+                    $button.hide();
+                    $('.top-right').notify({ message: { text: response.data } }).show();
+                }
+            },'json');
+        });
+    });
+</script>
+
+
 <?php $this->pageTitle = $blog->name; ?>
 <?php $this->description = $blog->description; ?>
 
@@ -19,6 +48,7 @@
     </div>
     <div class="blog-description">
         <div class="blog-description-name">
+
             <?php echo CHtml::link($blog->name, array('/blog/post/blog/','slug' => $blog->slug)); ?>
             
             <?php echo CHtml::link(
@@ -33,9 +63,16 @@
                     '/blog/blogRss/feed/', 'blog' => $blog->id                    
                 )
             ); ?>
+             
+             <?php if(!$blog->userInBlog(Yii::app()->user->getId())):?>
+                 <a class="btn btn-warning pull-right join-blog" href="<?php echo $blog->id;?>">Вступить в блог</a>
+             <?php else:?>    
+                 <a class="btn btn-warning pull-right leave-blog" href="<?php echo $blog->id;?>">Покинуть блог</a>
+             <?php endif;?>    
         </div>
 
         <div class="blog-description-info">
+
             <span class="blog-description-owner">
                 <i class="icon-user"></i>
                 <?php echo Yii::t('BlogModule.blog', 'Created'); ?>:
@@ -56,10 +93,11 @@
             <span class="blog-description-posts">
                 <i class="icon-pencil"></i>
                 <?php echo CHtml::link(count($blog->posts), array('/blog/post/blog/','slug' => $blog->slug)); ?>
-            </span>
+            </span>       
+
         </div>
 
-        <?php if (mb_strlen($blog->description) > 0) : ?>
+        <?php if ($blog->description) : ?>
         <div class="blog-description-text">
             <?php echo $blog->description; ?>
         </div>
