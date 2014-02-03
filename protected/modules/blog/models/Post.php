@@ -433,22 +433,32 @@ class Post extends yupe\models\YModel
 
     public function getArchive($blogId = null, $cache = 3600)
     {
-        $criteria = new CDbCriteria();
+        $data = Yii::app()->cache->get("Blog::Post::archive::{$blogId}");
 
-        if($blogId) {
-            $criteria->condition = 'blog_id = :blog_id';
-            $criteria->params = array(
-                ':blog_id' =>  (int)$blogId
-            );
-        }
+        if(false === $data) {
 
-        $models = $this->cache((int)$cache)->public()->published()->recent()->findAll($criteria);
+            $criteria = new CDbCriteria();
 
-        $data = array();
+            if($blogId) {
+                $criteria->condition = 'blog_id = :blog_id';
+                $criteria->params = array(
+                    ':blog_id' =>  (int)$blogId
+                );
+            }
 
-        foreach($models as $model) {            
-            list($day, $month, $year) = explode('-', $model->publish_date);
-            $data[$year][$month][] = $model;            
+            $models = $this->public()->published()->recent()->findAll($criteria);
+
+            foreach($models as $model) {
+                list($day, $month, $year) = explode('.', Yii::app()->getDateFormatter()->formatDateTime($model->publish_date,'medium',null));
+                $data[$year][$month][] = array(
+                    'title' => $model->title,
+                    'slug'  => $model->slug,
+                    'publish_date' => $model->publish_date,
+                    'quote' => $model->getQuote()
+                );
+            }
+
+            Yii::app()->cache->set("Blog::Post::archive::{$blogId}", $data, (int)$cache);
         }
 
         return $data;

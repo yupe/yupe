@@ -14,8 +14,8 @@
     	<ul>
 	    	<?php foreach($posts as $post):?>	    		
 	    		<li>
-	    			<span><?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, 'long', false);?></span>
-	    			<?php echo CHtml::link($post->title, array('/blog/post/show/','slug' => $post->slug));?>
+	    			<span><?php echo Yii::app()->getDateFormatter()->formatDateTime($post['publish_date'], 'long', false);?></span>
+	    			<?php echo CHtml::link($post['title'], array('/blog/post/show/','slug' => $post['slug']));?>
 	    		</li>
 	    	<?php endforeach;?>	
 	    </ul>	
