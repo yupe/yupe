@@ -32,6 +32,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
+
             $model->setAttributes($data);
 
             $saveStatus = false;
@@ -43,7 +44,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 $saveStatus     = $model->appendTo($rootForComment);
             } else { // Иначе если parent_id не указан...
 
-                $rootNode = Comment::createRootOfCommentsIfNotExists(
+                $rootNode = $model->createRootOfCommentsIfNotExists(
                     $model->getAttribute("model"),
                     $model->getAttribute("model_id")
                 );
@@ -55,7 +56,9 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             }
 
             if ($saveStatus) {
+
                 Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+
                 Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
 
                 $this->redirect(

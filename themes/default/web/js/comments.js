@@ -32,7 +32,7 @@ $(document).ready(function() {
         var $form = $(this);
         var $submit = $form.find('input[type=submit]');
         var $container = $('#comments');
-        $.post($form.attr('action'), $form.serialize(), function(response){           
+        $.post($form.attr('action'), $form.serialize(), function(response){
             var cssClass = response.result ? 'alert-success' : 'alert-error';            
             var $result  = $('#comment-result');            
             $result.removeClass('alert-error').removeClass('alert-success')

@@ -18,7 +18,11 @@ return array(
         'application.modules.blog.models.*',
         'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
     ),
-    'component' => array(),
+    'component' => array(
+        'commentManager' => array(
+            'class' => 'application.modules.comment.components.CommentManager'
+        )
+    ),
     'rules'     => array(        
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/',
         '/comment/comment/captcha/<v>' => 'comment/comment/captcha/',

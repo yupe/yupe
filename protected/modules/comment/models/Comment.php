@@ -362,7 +362,7 @@ class Comment extends yupe\models\YModel
      * @param $model_id
      * @return CActiveRecord Комментарий являющийся корнем дерева комментариев.
      */
-    public static function getRootOfCommentsTree($model, $model_id)
+    public function getRootOfCommentsTree($model, $model_id)
     {
         return self::model()->findByAttributes(
                     array(
@@ -373,9 +373,9 @@ class Comment extends yupe\models\YModel
                 );
     }
 
-    public static function createRootOfCommentsIfNotExists($model, $model_id)
+    public function createRootOfCommentsIfNotExists($model, $model_id)
     {
-        $rootNode = self::getRootOfCommentsTree($model, $model_id);
+        $rootNode = $this->getRootOfCommentsTree($model, $model_id);
 
         if ($rootNode === null){
 

@@ -70,7 +70,7 @@
         <?php endif; ?>
     <?php endif; ?>
     <div class="row-fluid  control-group">
-        <button class="btn btn-primary" id="yw0" type="submit" name="yt0"><i class="icon-comment"></i> <?php echo Yii::t('CommentModule.comment', 'Create comment');?></button>        
+        <button class="btn btn-primary" id="add-comment" type="submit" name="add-comment"><i class="fa fa-comment"></i> <?php echo Yii::t('CommentModule.comment', 'Create comment');?></button>
     </div>
 <?php $this->endWidget(); ?>
 </div>
