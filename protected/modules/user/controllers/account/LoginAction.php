@@ -47,9 +47,11 @@ class LoginAction extends CAction
                     new CModelEvent($this->controller, array('loginForm' => $form))
                 );
 
-                $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess)
-                    ? array($module->loginAdminSuccess)
-                    : empty($module->loginSuccess) ? Yii::app()->baseUrl : $module->loginSuccess;
+                if (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess) {
+                    $redirect = array($module->loginAdminSuccess);
+                } else {
+                    $redirect = empty($module->loginSuccess) ? Yii::app()->baseUrl : $module->loginSuccess;
+                }
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);                
 
