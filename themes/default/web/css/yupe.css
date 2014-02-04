@@ -61,7 +61,7 @@
     100% { -webkit-transform: rotateY(-0deg); opacity: 1; }
 }
 
-keyframes notification {
+.keyframes notification {
     0% { -webkit-transform: rotateY(-90deg); opacity: 0; }
     70% { -webkit-transform: rotateY(20deg); opacity: .8; }
     90% { -webkit-transform: rotateY(-10deg); opacity: 1; }
@@ -175,9 +175,6 @@ keyframes notification {
     margin-bottom: 10px;
 }
 
-.blog-description-name > a {
-    color: #000;
-}
 
 .blog-description-name .rss {
     padding-bottom: 7px;

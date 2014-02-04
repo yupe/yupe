@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Join blog'  => 'Вступить в блог',
+    'Leave blog' => 'Покинуть блог',
     'You have joined!' => 'Вы присоединились!',
     'Good luck!'  => 'Удачи!',
     'Member of :' => 'Состоит в :',

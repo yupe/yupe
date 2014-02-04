@@ -54,6 +54,7 @@ class BlogController extends yupe\components\controllers\FrontController
      * "вступление" в блог
      *
      * @param int $blogId - id-блога
+     * @throw CHttpException
      *
      * @return void
      */

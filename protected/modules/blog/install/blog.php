@@ -22,6 +22,8 @@ return array(
         '/rss/posts/'       => 'blog/blogRss/feed',
         '/blogs/<slug>'     => 'blog/blog/show',
         '/blogs'            => 'blog/blog/index',
+        '/blog/join'        => 'blog/blog/join',
+        '/blog/leave'       => 'blog/blog/leave',
         '/posts'            => 'blog/post/index',
         '/posts/archive'    => 'blog/archive/index',
         '/posts/categorys'  => 'blog/post/categorys',        

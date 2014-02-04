@@ -33,10 +33,8 @@ $(document).ready(function() {
         var $submit = $form.find('input[type=submit]');
         var $container = $('#comments');
         $.post($form.attr('action'), $form.serialize(), function(response){
-            var cssClass = response.result ? 'alert-success' : 'alert-error';            
-            var $result  = $('#comment-result');            
-            $result.removeClass('alert-error').removeClass('alert-success')
-               .addClass(cssClass).html(response.data.message).fadeIn().fadeOut(3000);
+            var type = response.result ? 'success' : 'error';
+            $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();
             if(response.data.commentContent) {                
                 if (response.data.comment.parent_id > 0){
                     $container = $('#comment-' + response.data.comment.parent_id).parents('.comments-item');                    

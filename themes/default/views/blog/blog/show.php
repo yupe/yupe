@@ -1,32 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('.join-blog').on('click', function(event){
-            event.preventDefault();
-            var $button = $(this);
-            var blogId  = parseInt($(this).attr('href'));
-            $.post('<?php echo Yii::app()->baseUrl;?>/blog/join/', {'blogId' : blogId, '<?php echo Yii::app()->request->csrfTokenName;?>' : '<?php echo Yii::app()->request->csrfToken;?>'}, function(response){
-                if(response.result) {
-                    $button.hide();
-                    $('.top-right').notify({ message: { text: response.data } }).show();
-                }
-            },'json');
-        });
-
-         $('.leave-blog').on('click', function(event){
-            event.preventDefault();
-            var $button = $(this);
-            var blogId  = parseInt($(this).attr('href'));
-            $.post('<?php echo Yii::app()->baseUrl;?>/blog/leave/', {'blogId' : blogId, '<?php echo Yii::app()->request->csrfTokenName;?>' : '<?php echo Yii::app()->request->csrfToken;?>'}, function(response){
-                if(response.result) {
-                    $button.hide();
-                    $('.top-right').notify({ message: { text: response.data } }).show();
-                }
-            },'json');
-        });
-    });
-</script>
-
-
 <?php $this->pageTitle = $blog->name; ?>
 <?php $this->description = $blog->description; ?>
 
@@ -63,12 +34,16 @@
                     '/blog/blogRss/feed/', 'blog' => $blog->id                    
                 )
             ); ?>
-             
-             <?php if(!$blog->userInBlog(Yii::app()->user->getId())):?>
-                 <a class="btn btn-warning pull-right join-blog" href="<?php echo $blog->id;?>">Вступить в блог</a>
-             <?php else:?>    
-                 <a class="btn btn-warning pull-right leave-blog" href="<?php echo $blog->id;?>">Покинуть блог</a>
-             <?php endif;?>    
+
+            <?php if(Yii::app()->user->isAuthenticated()):?>
+                <?php if(!$blog->userInBlog(Yii::app()->user->getId())):?>
+                    <a class="btn btn-warning pull-right join-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
+                <?php else:?>
+                    <a class="btn btn-warning pull-right leave-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Leave blog');?></a>
+                <?php endif;?>
+            <?php else:?>
+                <a class="btn btn-warning pull-right" href="<?php echo Yii::app()->createUrl('/user/account/login');?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
+            <?php endif;?>
         </div>
 
         <div class="blog-description-info">

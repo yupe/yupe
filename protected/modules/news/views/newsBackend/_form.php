@@ -46,13 +46,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php
             echo $form->datepickerRow(
                 $model, 'date', array(
-                    'prepend' => '<i class="icon-calendar"></i>',
                     'options' => array(
                         'format'    => 'dd.mm.yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ),
-                    'class'   => 'span11'
                 )
             ); ?>
         </div>

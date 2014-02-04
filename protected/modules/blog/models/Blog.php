@@ -256,18 +256,6 @@ class Blog extends yupe\models\YModel
         return parent::beforeSave();
     }
 
-    public function afterSave()
-    {
-        /**
-         * Если это новая запись - добавляем пользователя
-         * который создал блог в его участники
-         */
-        if ($this->isNewRecord) {
-            $this->join();
-        }
-
-        return parent::afterSave();
-    }
 
     public function afterDelete()
     {
@@ -292,7 +280,7 @@ class Blog extends yupe\models\YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
@@ -306,16 +294,25 @@ class Blog extends yupe\models\YModel
 
     public function getType()
     {
-        $data = $this->typeList;
+        $data = $this->getTypeList();
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
     public function userInBlog($userId)
-    {       
-         return UserToBlog::model()->find('user_id = :userId AND blog_id = :blogId', array(            
-            ':userId' => (int)$userId,
-            ':blogId' => $this->id
-         ));
+    {
+         $blogs = Yii::app()->cache->get("Blog::Blog::members::{$userId}");
+
+         if(false === $blogs) {
+
+             $blogs = CHtml::listData(UserToBlog::model()->findAll('user_id = :userId AND status = :status', array(
+                 ':userId' => (int)$userId,
+                 ':status' => self::STATUS_ACTIVE
+             )),'blog_id','status');
+
+             Yii::app()->cache->set("Blog::Blog::members::{$userId}", $blogs);
+         }
+
+        return isset($blogs[$this->id]);
     }
 
     public function join($userId)
@@ -327,10 +324,15 @@ class Blog extends yupe\models\YModel
        $model = new UserToBlog;
        $model->blog_id = $this->id;
        $model->user_id = (int)$userId;
-       return $model->save();
+       if($model->save()) {
+           Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
+           return true;
+       }
     }
 
     public function leave($userId) {
+
+        Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
 
         return UserToBlog::model()->deleteAll('user_id = :userId AND blog_id = :blogId', array(
                 ':userId' => (int)$userId,
@@ -378,5 +380,4 @@ class Blog extends yupe\models\YModel
     {
         return $this->published()->public()->findByPk((int)$id); 
     }
-
 }

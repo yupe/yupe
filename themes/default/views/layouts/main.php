@@ -17,8 +17,12 @@
         Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
-        
+
     ?>
+    <script type="text/javascript">
+        var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
+        var yupeToken = '<?php echo Yii::app()->getRequest()->csrfToken;?>';
+    </script>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,7 +97,7 @@
     <?php $this->renderPartial('//layouts/_footer'); ?>
     <!-- footer end -->
 </div>
-<div class='notifications top-right'></div>
+<div class='notifications top-right' id="notifications"></div>
 <!-- container end -->
 <?php $this->widget(
     "application.modules.contentblock.widgets.ContentBlockWidget",

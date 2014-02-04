@@ -114,11 +114,11 @@ class Category extends yupe\models\YModel
 	{
 		return array(
 			'published' => array(
-				'condition' => $this->tableAlias . '.status = :status',
+				'condition' => 'status = :status',
 				'params'    => array(':status' => self::STATUS_PUBLISHED),
 			),
 			'roots'     => array(
-				'condition' => $this->tableAlias . '.parent_id IS NULL',
+				'condition' => 'parent_id IS NULL',
 			),
 		);
 	}
@@ -205,7 +205,7 @@ class Category extends yupe\models\YModel
 
 	public function getStatus()
 	{
-		$data = $this->statusList;
+		$data = $this->getStatusList();
 		return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CategoryModule.category', '*unknown*');
 	}
 
@@ -227,6 +227,7 @@ class Category extends yupe\models\YModel
 		$list = array();
 
 		foreach ($categories as $key => $category) {
+
 			$category->name = str_repeat('&emsp;', $level) . $category->name;
 
 			$list[$category->id] = $category->name;
