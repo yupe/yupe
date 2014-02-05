@@ -17,7 +17,7 @@
         Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
-
+        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
@@ -67,7 +67,7 @@
                 </div>
             <?php endif; ?>         
 
-             <div class="widget stream-widget">
+            <div class="widget stream-widget">
                 <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
             </div>
 

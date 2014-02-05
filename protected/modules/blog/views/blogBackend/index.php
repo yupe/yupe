@@ -65,20 +65,9 @@ $this->renderPartial('_search', array('model' => $model));
     'yupe\widgets\CustomGridView', array(
         'id'               => 'blog-grid',
         'type'             => 'condensed',
-        /**
-         *  headlinePosition:
-         *      YCustomGridView::HP_RIGHT - for default right position
-         *      YCustomGridView::HP_LEFT  - for left position
-         **/
-        //'headlinePosition' => YCustomGridView::HP_RIGHT,
         'dataProvider'     => $model->search(),
         'filter'           => $model,
-        /**
-        *   Можно указать количество прямо из вызова виджета:
-        **/
-        //'pageSizes'      => array(1, 3, 5, 10),
         'bulkActions'      => array(
-            /* Массив кнопок действий: */
             'actionButtons' => array(
                 array(
                     'id'         => 'delete-post',
@@ -86,44 +75,62 @@ $this->renderPartial('_search', array('model' => $model));
                     'type'       => 'danger',
                     'size'       => 'small',
                     'label'      => Yii::t('BlogModule.blog', 'Remove'),
-                    /**
-                     *   Логика следующая - получаем массив выбранных эллементов в переменную values,
-                     *   далее передаём в функцию multiaction - необходимое действие и эллементы.
-                     *   Multiaction - делает ajax-запрос на actionMultiaction, где уже происходит
-                     *   обработка данных (указывая собственные действия - необходимо создавать их
-                     *   обработчики в actionMultiaction):
-                     **/
                     'click'      => 'js:function(values){ if(!confirm("' . Yii::t('BlogModule.blog', 'Do you really want to delete selected items?') . '")) return false; multiaction("delete", values); }',
                 ),
             ),
-            // if grid doesn't have a checkbox column type, it will attach
-            // one and this configuration will be part of it
             'checkBoxColumnConfig' => array(
                 'name' => 'id'
             ),
         ),
-        'columns'      => array(
+        'columns' => array(
+            array(
+                'name'  => 'id',
+                'value' => 'CHtml::link($data->id, array("/blog/blogBackend/update","id" => $data->id))',
+                'type'  => 'html'
+            ),
             array(
                 'name'   => 'icon',
                 'header' => false,
                 'type'   => 'raw',
                 'value'  => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))',
                 'filter' => false
-            ),         
+            ),
             array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name'  => 'name',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->name, array("/blog/blogBackend/update", "id" => $data->id))',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/blogBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
             ),
             array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name'  => 'slug',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->slug, array("/blog/blogBackend/update", "id" => $data->id))',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/blogBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
             ),
             array(
-                'name'  => 'type',
-                'type'  => 'raw',
-                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "type", "Type", array(1 => "globe", 2 => "home"))',
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/blog/blogBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getTypeList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'type',
+                'type'   => 'raw',
+                'value'  => '$data->getType()',
                 'filter' => $model->getTypeList()
             ),
             array(
@@ -132,16 +139,26 @@ $this->renderPartial('_search', array('model' => $model));
 				'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory), array('encode' => false, 'empty' => ''))
             ),
             array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/blog/blogBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'status',
+                'type'   => 'raw',
+                'value'  => '$data->getStatus()',
+                'filter' => Post::model()->getStatusList()
+            ),
+            array(
                 'name'   => 'create_user_id',
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id))',
                 'filter' => CHtml::listData(User::model()->findAll(),'id','nick_name')
-            ),
-            array(
-                'name'  => 'status',
-                'type'  => 'raw',
-                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign", "remove"))',
-                'filter' => $model->getStatusList()
             ),
             array(
                 'name'   => 'create_date',

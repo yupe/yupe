@@ -37,7 +37,7 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row-fluid control-grou">
+<div class="row-fluid control-group">
     <div class="span2 pull-left">
         <?php echo $form->labelEx($model, 'blog_id'); ?>
         <?php

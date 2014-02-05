@@ -18,6 +18,7 @@ class BlogModule extends yupe\components\WebModule
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $uploadPath        = 'blogs';
     public $rssCount = 10;
+    public $publicPostStatus  = 3;
 
     public function getDependencies()
     {
@@ -50,6 +51,7 @@ class BlogModule extends yupe\components\WebModule
             'minSize'           => Yii::t('BlogModule.blog', 'Minimum size (in bytes)'),
             'maxSize'           => Yii::t('BlogModule.blog', 'Maximum size (in bytes)'),
             'rssCount'          => Yii::t('BlogModule.blog', 'RSS records count'),
+            'publicPostStatus'  => Yii::t('BlogModule.blog', 'Default status for public posts')
         );
     }
 
@@ -64,7 +66,8 @@ class BlogModule extends yupe\components\WebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
-            'rssCount'
+            'rssCount',
+            'publicPostStatus' => Post::model()->getStatusList()
         );
     }   
 

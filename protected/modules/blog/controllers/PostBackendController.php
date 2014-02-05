@@ -17,7 +17,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             'inline' => array(
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Post',
-                'validAttributes' => array('title', 'slug', 'publish_date')
+                'validAttributes' => array('title', 'slug', 'publish_date', 'status', 'comment_status')
             )
         );
     }
@@ -32,6 +32,7 @@ class PostBackendController extends yupe\components\controllers\BackController
     public function actionView($id)
     {
         if (($post = Post::model()->loadModel($id)) === null) {
+
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
         }
 

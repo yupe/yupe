@@ -12,6 +12,11 @@
 	        <?php echo Yii::t('BlogModule.blog', 'Latest posts'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/blogRss/feed/');?>">
 	          <img src="<?php echo Yii::app()->baseUrl . '/web/images/rss.png';?>" alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>" title="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"></a>
 	    </small>
+        <?php if(Yii::app()->getUser()->isAuthenticated()):?>
+            <a class="btn btn-warning pull-right" href="<?php echo Yii::app()->createUrl('/blog/publisher/write');?>"><?php echo Yii::t('BlogModule.blog','Write post!');?></a>
+        <?php else:?>
+            <a class="btn btn-warning pull-right" href="<?php echo Yii::app()->createUrl('/user/account/login');?>"><?php echo Yii::t('BlogModule.blog','Write post!');?></a>
+        <?php endif;?>
     </h1>
 
     <br/>

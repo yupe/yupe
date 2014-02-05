@@ -17,6 +17,13 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'My posts'    => 'Мои записи',
+    'Post saved!' => 'Запись сохранена!',
+    'Post sent for moderation!' => 'Запись отправлена на модерацию!',
+    'Post published!' => 'Запись опубликована!',
+    'Default status for public posts' => 'Статус по умолчанию для публичных постов',
+    'Moderated'  => 'Модерация',
+    'Write post!'=> 'Написать пост',
     'Join blog'  => 'Вступить в блог',
     'Leave blog' => 'Покинуть блог',
     'You have joined!' => 'Вы присоединились!',

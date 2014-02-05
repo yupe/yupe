@@ -86,10 +86,12 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                     Yii::t('BlogModule.blog', 'Member was updated!')
                 );
 
-                if (!isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
-                else
+                }
+                else {
                     $this->redirect(array($_POST['submit-type']));
+                }
             }
         }
         $this->render('update', array('model' => $model));
@@ -113,11 +115,13 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
+            if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
         }
-        else
+        else {
             throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this!'));
+        }
     }
 
     /**
@@ -127,8 +131,9 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
     {
         $model = new UserToBlog('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['UserToBlog']))
+        if (isset($_GET['UserToBlog'])) {
             $model->attributes = $_GET['UserToBlog'];
+        }
         $this->render('index', array('model' => $model));
     }
 
@@ -140,8 +145,10 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
     public function loadModel($id)
     {
         $model = UserToBlog::model()->findByPk($id);
-        if ($model === null)
+
+        if ($model === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
+        }
         return $model;
     }
 

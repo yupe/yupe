@@ -152,16 +152,36 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(),'id','nick_name')
             ),
             array(
-                'name'  => 'status',
-                'type'  => 'raw',
-                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'status',
+                'type'   => 'raw',
+                'value'  => '$data->getStatus()',
                 'filter' => Post::model()->getStatusList()
             ),
             array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getCommentStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
                 'name'  => 'comment_status',
                 'type'  => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "comment_status", "CommentStatus", array(1 => "ok-sign", 2 => "lock"))',
-                'filter' => Post::model()->getCommentStatusList()
+                'value' => '$data->getCommentStatus()',
+                'filter' => $model->getCommentStatusList()
             ),
             array(
                 'header' => Yii::t('BlogModule.blog','Tags'),

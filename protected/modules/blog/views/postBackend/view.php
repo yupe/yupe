@@ -81,8 +81,14 @@ $this->menu = array(
             ),
             'slug',
             'title',
-            'quote',
-            'content',
+            array(
+                'name' => 'quote',
+                'type' => 'raw'
+            ),
+            array(
+                'name' => 'content',
+                'type' => 'raw'
+            ),
             'link',
             array(
                 'name'  => 'status',

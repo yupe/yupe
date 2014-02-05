@@ -39,7 +39,7 @@ class PostController extends yupe\components\controllers\FrontController
      * Показываем посты по тегу
      * 
      * @param string $tag - Tag поста
-     * 
+     * @throws CHttpException
      * @return void
      */
     public function actionList($tag)
@@ -83,7 +83,6 @@ class PostController extends yupe\components\controllers\FrontController
 
         $this->redirect(array('/blog/post/show', 'slug' => $post->slug), true, 301);
     }
-
 
     public function actionCategory($alias)
     {

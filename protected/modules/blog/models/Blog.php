@@ -79,8 +79,8 @@ class Blog extends yupe\models\YModel
             array('lang', 'length', 'max' => 2),
             array('create_user_id, update_user_id, create_date, update_date, status', 'length', 'max' => 11),
             array('slug', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Illegal characters in {attribute}')),
-            array('type', 'in', 'range' => array_keys($this->typeList)),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('type', 'in', 'range' => array_keys($this->getTypeList())),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
             array('id, name, description, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id', 'safe', 'on' => 'search'),
@@ -373,7 +373,18 @@ class Blog extends yupe\models\YModel
 
     public function getList()
     {
-        return Blog::model()->published()->findAll(array('order' => 'name ASC'));        
+        return $this->published()->findAll(array('order' => 'name ASC'));
+    }
+
+    public function getListForUser($user)
+    {
+        return $this->with('userToBlog')->published()->public()->findAll(array(
+            'condition' => 'userToBlog.user_id = :userId',
+            'params'    =>  array(
+                ':userId' => (int)$user
+            ),
+            'order'    => 'name ASC'
+        ));
     }
 
     public function get($id)
