@@ -49,7 +49,7 @@
     $this->widget(
         'bootstrap.widgets.TbNavbar',
         array(
-            'htmlOptions' => array('class' => 'navbar navbar-inverse'),
+            'htmlOptions' => array('class' => 'navbar'),
             'fluid' => true,
             'brand' => CHtml::image(
                 Yii::app()->baseUrl . "/web/images/logo.png",
@@ -68,7 +68,7 @@
                     'htmlOptions' => array('class' => 'pull-right'),
                     'items' => array_merge(array(
                         array(
-                            'icon'  => 'question-sign white',
+                            'icon'  => 'question-sign',
                             'label' => Yii::t('YupeModule.yupe', 'Help'),
                             'url'   => 'http://yupe.ru/docs/index.html?from=install',
                             'items' => array(
@@ -124,7 +124,7 @@
                         ),
                         array(
                             'label' => $this->yupe->getVersion(),
-                            'icon' => 'icon-thumbs-up icon-white',
+                            'icon' => 'icon-thumbs-up',
                             'url' => 'http://yupe.ru/?from=install'
                         ),
                       ), $this->yupe->getLanguageSelectorArray()

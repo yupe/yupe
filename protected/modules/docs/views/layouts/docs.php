@@ -37,16 +37,17 @@
         <!-- mainmenu -->
         <?php
         $this->widget(
-            'bootstrap.widgets.TbNavbar', array(                
+            'bootstrap.widgets.TbNavbar', array(
+                'htmlOptions' => array('class' => 'navbar'),
                 'fluid'       => true,
                 'brand'       => CHtml::image(
-                         Yii::app()->baseUrl.'/web/images/logo.png',
-                         Yii::t('DocsModule.docs', 'Yupe! Documentation'),
-                         array(
-                            'width'  => '38',
-                            'height' => '38',
-                            'title'  => Yii::t('DocsModule.docs', 'Yupe! Documentation'),
-                         )
+                                     Yii::app()->baseUrl.'/web/images/logo.png',
+                                     Yii::t('DocsModule.docs', 'Yupe! Documentation'),
+                                     array(
+                                        'width'  => '38',
+                                        'height' => '38',
+                                        'title'  => Yii::t('DocsModule.docs', 'Yupe! Documentation'),
+                                     )
                 ),
                 'brandUrl'    => CHtml::normalizeUrl(array("index")),
                 'items'       => array(

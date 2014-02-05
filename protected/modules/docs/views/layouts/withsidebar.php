@@ -37,7 +37,7 @@ $this->beginContent("docs.views.layouts.docs");
         <div id="footer-guard"><!-- --></div>
     </div>
     <div class="span3">
-        <div class="well" style="padding: 8px 0;">
+        <div class="well">
             <?php
             $this->widget(
                 'bootstrap.widgets.TbMenu', array(
