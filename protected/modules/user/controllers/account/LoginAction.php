@@ -29,8 +29,8 @@ class LoginAction extends CAction
         $scenario = $badLoginCount > 3 ? 'loginLimit' : '';
 
         $form = new LoginForm($scenario);
-        $module = Yii::app()->getModule('user');
 
+        $module = Yii::app()->getModule('user');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
 

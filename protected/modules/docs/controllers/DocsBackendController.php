@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DocsBackendController - Класс для отображения файлов документации:
  *
@@ -58,13 +59,13 @@ class DocsBackendController extends yupe\components\controllers\BackController
         $content = $this->module->renderMarkdown($fileName);
 
         $this->pageTitle = ($title = $this->module->getDocTitle($content)) !== null
-                           ? $title
-                           : $file;
+            ? $title
+            : $file;
 
         $this->render(
             'show', array(
                 'content' => $content,
-                'title'   => $title,
+                'title' => $title,
             )
         );
 

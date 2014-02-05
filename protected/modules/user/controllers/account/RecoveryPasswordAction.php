@@ -27,6 +27,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         $module = Yii::app()->getModule('user');
+
         $module->onBeginPasswordRecovery(new CEvent($this->controller, array("token" => $token)));
 
         // Если запрещено восстановление - печалька ;)
@@ -86,7 +87,9 @@ class RecoveryPasswordAction extends CAction
                 );
 
                 $this->controller->redirect(array('/user/account/login'));
+
             }else{
+
                 $module->onErrorPasswordRecovery(
                     new CModelEvent($this->controller, array("changePasswordForm" => $changePasswordForm))
                 );

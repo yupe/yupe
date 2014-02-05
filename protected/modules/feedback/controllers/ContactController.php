@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ContactController контроллер публичной части для формы контактов и раздела faq
  *
@@ -14,7 +15,7 @@ class ContactController extends yupe\components\controllers\FrontController
     public function actions()
     {
         return array('captcha' => array(
-            'class'     => 'yupe\components\actions\YCaptchaAction',
+            'class' => 'yupe\components\actions\YCaptchaAction',
             'backColor' => 0xFFFFFF,
             'testLimit' => 1
         ));
@@ -25,47 +26,40 @@ class ContactController extends yupe\components\controllers\FrontController
         $form = new FeedBackForm;
 
         // если пользователь авторизован - подставить его данные
-        if (Yii::app()->user->isAuthenticated())
-        {
+        if (Yii::app()->user->isAuthenticated()) {
             $form->email = Yii::app()->user->getState('email');
-            $form->name  = Yii::app()->user->getState('nick_name');
+            $form->name = Yii::app()->user->getState('nick_name');
         }
 
-
         // проверить не передан ли тип и присвоить его аттрибуту модели
-        $form->type = (int) Yii::app()->getRequest()->getParam('type', FeedBack::TYPE_DEFAULT);
+        $form->type = (int)Yii::app()->getRequest()->getParam('type', FeedBack::TYPE_DEFAULT);
 
         $module = Yii::app()->getModule('feedback');
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm']))
-        {
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm'])) {
             $form->setAttributes($_POST['FeedBackForm']);
 
-            if ($form->validate())
-            {
+            if ($form->validate()) {
                 // обработка запроса
                 $backEnd = array_unique($module->backEnd);
 
-                if (is_array($backEnd) && count($backEnd))
-                {
+                if (is_array($backEnd) && count($backEnd)) {
                     // запись в базу
-                    if (in_array('db', $backEnd))
-                    {
+                    if (in_array('db', $backEnd)) {
                         unset($backEnd['db']);
 
                         $feedback = new FeedBack;
 
                         $feedback->setAttributes(array(
-                            'name'  => $form->name,
+                            'name' => $form->name,
                             'email' => $form->email,
                             'theme' => $form->theme,
-                            'text'  => $form->text,
+                            'text' => $form->text,
                             'phone' => $form->phone,
-                            'type'  => $form->type,
+                            'type' => $form->type,
                         ));
 
-                        if ($feedback->save())
-                        {
+                        if ($feedback->save()) {
                             Yii::log(
                                 Yii::t('FeedbackModule.feedback', 'Feedback was inserted in DB'),
                                 CLogger::LEVEL_INFO,
@@ -73,7 +67,7 @@ class ContactController extends yupe\components\controllers\FrontController
                             );
 
                             if ($module->sendConfirmation && !count($backEnd)) {
-                               $this->feedbackConfirmationEmail($feedback);
+                                $this->feedbackConfirmationEmail($feedback);
                             }
 
                             Yii::app()->user->setFlash(
@@ -82,16 +76,13 @@ class ContactController extends yupe\components\controllers\FrontController
                             );
 
 
-                            if (!count($backEnd))
-                            {
+                            if (!count($backEnd)) {
                                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                                     Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
                                 }
                                 $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact/faq'));
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Yii::log(
                                 Yii::t('FeedbackModule.feedback', 'Error when trying to record feedback in DB'),
                                 CLogger::LEVEL_ERROR,
@@ -106,8 +97,7 @@ class ContactController extends yupe\components\controllers\FrontController
                     }
 
                     // отправка на почту
-                    if (in_array('email', $backEnd) && count(explode(',', $module->emails)))
-                    {
+                    if (in_array('email', $backEnd) && count(explode(',', $module->emails))) {
                         $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);
 
                         foreach (explode(',', $module->emails) as $mail) {
@@ -145,9 +135,7 @@ class ContactController extends yupe\components\controllers\FrontController
                 }
 
                 $this->redirect(array('/feedback/contact/index/'));
-            }
-            else
-            {
+            } else {
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'Please check e-mail and fill the form correct.'));
                 }
@@ -156,7 +144,7 @@ class ContactController extends yupe\components\controllers\FrontController
         $this->render('index', array('model' => $form, 'module' => $module));
     }
 
-     /**
+    /**
      * Отправление потдтверждения пользователю о том, что его сообщение получено.
      * @param FeedBack $model
      * @return bool $result
@@ -171,18 +159,20 @@ class ContactController extends yupe\components\controllers\FrontController
             $emailBody
         );
 
-        if ($result)
+        if ($result) {
             Yii::log(
                 Yii::t('FeedbackModule.feedback', 'Feedback: Notification for user was sent to email successfully'),
                 CLogger::LEVEL_INFO,
                 FeedbackModule::$logCategory
             );
-        else
+        }
+        else {
             Yii::log(
                 Yii::t('FeedbackModule.feedback', 'Feedback: can\'t send message'),
                 CLogger::LEVEL_INFO,
                 FeedbackModule::$logCategory
             );
+        }
         return $result;
     }
 
@@ -190,21 +180,21 @@ class ContactController extends yupe\components\controllers\FrontController
     // @TODO CActiveDataProvider перенести в модуль
     public function actionFaq()
     {
-        $dataProvider = new CActiveDataProvider('FeedBack', array('criteria'  => array(
+        $dataProvider = new CActiveDataProvider('FeedBack', array('criteria' => array(
             'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
-            'params'    => array(
-                ':is_faq'   => FeedBack::IS_FAQ,
-                ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
+            'params' => array(
+                ':is_faq' => FeedBack::IS_FAQ,
+                ':sended' => FeedBack::STATUS_ANSWER_SENDED,
                 ':finished' => FeedBack::STATUS_FINISHED,
             ),
-            'order'     => 'id DESC',
+            'order' => 'id DESC',
         )));
         $this->render('faq', array('dataProvider' => $dataProvider));
     }
 
     public function actionFaqView($id)
     {
-        $id = (int) $id;
+        $id = (int)$id;
 
         if (!$id) {
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));

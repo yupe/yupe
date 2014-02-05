@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Класс для отображения файлов документации:
  *
@@ -36,17 +37,18 @@ class ShowController extends yupe\components\controllers\FrontController
          * достаточно изменить параметр в настройках модуля
          * (в веб-настройках, поумолчанию отключено):
          */
-        if ($this->module->cachePages == 0)
+        if ($this->module->cachePages == 0) {
             return false;
+        }
 
         $lcFile = $this->module->absoluteFilePath(Yii::app()->getRequest()->getParam('file'));
 
         return array(
             array(
                 'COutputCache',
-                'requestTypes' =>array('GET'),
-                'varyByParam'=>array('id', 'file'),
-                'dependency'   => new CFileCacheDependency($lcFile),
+                'requestTypes' => array('GET'),
+                'varyByParam' => array('id', 'file'),
+                'dependency' => new CFileCacheDependency($lcFile),
             )
         );
     }
@@ -55,19 +57,19 @@ class ShowController extends yupe\components\controllers\FrontController
      * Экшен отображения документации:
      *
      * @param string $file - файл, который необходимо отобразить
-     * 
+     *
      * @return desctription of returned
      **/
     public function actionIndex($file = null)
     {
-        if ($file === null)
+        if ($file === null) {
             $this->redirect(array('/docs/show/index', 'file' => 'index'));
-
+        }
         $moduleId = Yii::app()->getRequest()->getParam('moduleID');
         $moduleDocFolder = $module = null;
-        if(!empty($moduleId)){
+        if (!empty($moduleId)) {
             $module = Yii::app()->getModule(mb_strtolower($moduleId));
-            if(!empty($module)){
+            if (!empty($module)) {
                 $moduleDocFolder = "application.modules.{$moduleId}.{$module->docPath}";
             }
         }
@@ -76,7 +78,7 @@ class ShowController extends yupe\components\controllers\FrontController
          * @var $lcFile - в данную переменную помещаем абсолютный путь к файлу
          *                добавляя к нему текущий язык, но если файл не найден
          *                будет запрошен файл из языка поумолчанию
-         * @var $type   - получаем расширение файла 
+         * @var $type - получаем расширение файла
          */
         $lcFile = $this->module->absoluteFilePath($file, $moduleDocFolder);
 
@@ -87,34 +89,34 @@ class ShowController extends yupe\components\controllers\FrontController
          */
         switch (true) {
 
-        /**
-         * Обработка при несуществующем файле:
-         */
-        case !file_exists($lcFile):
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found'));
-            break;
+            /**
+             * Обработка при несуществующем файле:
+             */
+            case !file_exists($lcFile):
+                throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found'));
+                break;
 
-        /**
-         * Обработка при MD-файлах и пустом контенте:
-         */
-        case in_array($type, explode(',', $this->module->fileExtMD)) && ($content = $this->module->renderMarkdown($lcFile)) === null:
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
-            break;
+            /**
+             * Обработка при MD-файлах и пустом контенте:
+             */
+            case in_array($type, explode(',', $this->module->fileExtMD)) && ($content = $this->module->renderMarkdown($lcFile)) === null:
+                throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
+                break;
 
-        /**
-         * Обработка при HTML-файлах и пустом контенте (файл не найден):
-         */
-        case in_array($type, explode(',', $this->module->fileExtHTML)) && ($content = file_get_contents($lcFile)) === null:
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
-            break;
+            /**
+             * Обработка при HTML-файлах и пустом контенте (файл не найден):
+             */
+            case in_array($type, explode(',', $this->module->fileExtHTML)) && ($content = file_get_contents($lcFile)) === null:
+                throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
+                break;
         }
-        
+
         /**
          * Получаем заголовок для нашей страницы:
          */
         $this->pageTitle = ($title = $this->module->getDocTitle($content)) !== null
-                            ? $title . ' - ' . $this->module->name . ' - ' . $this->pageTitle
-                            : Yii::t('DocsModule.docs', 'Undefined title') . ' - ' . $this->module->name . ' - ' . $this->pageTitle;
+            ? $title . ' - ' . $this->module->name . ' - ' . $this->pageTitle
+            : Yii::t('DocsModule.docs', 'Undefined title') . ' - ' . $this->module->name . ' - ' . $this->pageTitle;
 
         /**
          * Баг-фикс, если файл отрендерить без отображения,
@@ -132,9 +134,9 @@ class ShowController extends yupe\components\controllers\FrontController
         $this->render(
             'index', array(
                 'content' => $content,
-                'title'  => $title,
+                'title' => $title,
                 'module' => $module,
-                'mtime'  => date("d-m-Y H:i", filemtime($lcFile))
+                'mtime' => date("d-m-Y H:i", filemtime($lcFile))
             )
         );
     }

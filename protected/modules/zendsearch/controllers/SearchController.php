@@ -8,7 +8,7 @@ class SearchController extends yupe\components\controllers\FrontController
         parent::init();
     }
 
-    public function actionSearch($q)
+    public function actionSearch()
     {
         $indexFiles = Yii::app()->getModule('zendsearch')->indexFiles;
         SetLocale(LC_ALL, 'ru_RU.UTF-8');
