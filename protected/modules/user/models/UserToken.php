@@ -115,7 +115,7 @@ class UserToken extends yupe\models\YModel
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->with = array('user');
 
@@ -141,11 +141,12 @@ class UserToken extends yupe\models\YModel
 
         $criteria->compare('t.ip', $this->ip, true);
 
-        $criteria->order = 't.user_id, t.status, t.created';
-
         return new CActiveDataProvider(
             $this, array(
-                'criteria'=>$criteria,
+                'criteria' => $criteria,
+                'sort' => array(
+                    'defaultOrder' => 't.id DESC',
+                )
             )
         );
     }

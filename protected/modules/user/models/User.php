@@ -196,7 +196,7 @@ class User extends yupe\models\YModel
                 'pageSize' => (int)$this->pageSize,
             ),
             'sort' => array(
-                'defaultOrder' => 'last_visit DESC',
+                'defaultOrder' => 'id DESC',
             )
         ));
     }
