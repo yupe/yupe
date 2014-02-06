@@ -144,9 +144,19 @@ return array(
         'request' => array(
             'class'                  => 'yupe\components\HttpRequest',
             'enableCsrfValidation'   => true,
+            'enableCookieValidation' => true,
+            'csrfCookie' => array(
+                'httpOnly' => true,
+            ),
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload', 'backend/image/image/AjaxImageUpload'),
             'enableCookieValidation' => true, // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
+        ),
+
+        'session' => array(
+            'cookieParams' => array(
+                'httponly' => true,
+            )
         ),
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
@@ -175,19 +185,13 @@ return array(
         // Подключение компоненты подсветки кода Highlight.js (Подробнее: http://softwaremaniacs.org/soft/highlight/)
         'highlightjs' => array(
             'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
-            'remote' => false,
-            'style'=>'github'
+            'remote'  => false,
+            'style   '=>'github'
         ),
 
         'errorHandler'=>array(
             // use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
-    ),
-    'rules'      => array(
-        // Настройки для урлов приложения
-        // (использовать лишь в userspace)
-        // Пример:
-        // '<slug>.html' => 'page/page/show',
     ),
 );

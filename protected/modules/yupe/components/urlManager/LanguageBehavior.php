@@ -114,8 +114,6 @@ class LanguageBehavior extends CBehavior
         }
 
         $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
-        //$reqLang = current(explode('/', Yii::app()->getRequest()->getPathInfo()));
-        
 
         return in_array($reqLang, $lm->languages)
             ? $reqLang
@@ -161,8 +159,6 @@ class LanguageBehavior extends CBehavior
         );
 
         // Если не передан язык не нативный:
-        
-        
         if ($langIsset === false && $lm->getAppLang() !== $this->getLang()) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(
@@ -201,14 +197,15 @@ class LanguageBehavior extends CBehavior
     {
         // Устанавливаем состояние языка:
         Yii::app()->user->setState(Yii::app()->urlManager->langParam, $language);
-        
+
         try {
             if (Yii::app()->getModule('yupe')->cache) {
                 Yii::app()->getRequest()->cookies->add(
                     Yii::app()->urlManager->langParam, new CHttpCookie(
                         Yii::app()->urlManager->langParam,
                         $language, array(
-                            'expire' => time() + (60 * 60 * 24 * 365)
+                            'expire'   => time() + (60 * 60 * 24 * 365),
+                            'httpOnly' => true
                         )
                     )
                 );

@@ -210,7 +210,7 @@ return array (
     'Type' => 'Тип',
     'URL' => 'УРЛ',
     'Update date' => 'Дата обновления',
-    'Update user' => 'Дата обновления',
+    'Update user' => 'Обновил',
     'Updated' => 'Обновлено',
     'Updated at' => 'Дата обновления',
     'Url' => 'Урл',

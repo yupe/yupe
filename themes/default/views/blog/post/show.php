@@ -41,7 +41,13 @@
     </div>
     <div class="row">
         <div class="span8">
-            <p> <?php echo $post->content; ?></p>
+            <p>
+                <?php if($post->image):?>
+                    <?php echo CHtml::image($post->getImageUrl());?>
+                <?php endif;?>
+
+                <?php echo $post->content; ?>
+            </p>
         </div>
     </div>
 

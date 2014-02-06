@@ -19,6 +19,9 @@ return array(
         'user' => array(
             'class'    => 'application.modules.user.components.YWebUser',
             'loginUrl' => '/user/account/login/',
+            'identityCookie' => array(
+                'httpOnly' => true,
+            ),
         ),
 
         'userManager' => array(
@@ -30,9 +33,11 @@ return array(
                 'class' => 'application.modules.user.components.TokenStorage',
             )
         ),
+
         'authenticationManager' => array(
             'class' => 'application.modules.user.components.AuthenticationManager'
         ),
+
         'notify' => array(
             'class' => 'yupe\components\Notify',
             'mail' => array(

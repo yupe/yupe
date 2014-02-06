@@ -86,6 +86,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'text',
             'value' => '(strlen($data->text) == 0 && strlen($data->name) == 0) ? "'.Yii::t("CommentModule.comment","КОРЕННОЙ УЗЕЛ ДЛЯ:").' $data->model -> $data->model_id" : $data->text',
+            'type'  => 'html'
         ),
         array(
             'name'  => 'creation_date',
