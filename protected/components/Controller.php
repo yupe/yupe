@@ -3,12 +3,16 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends yupe\components\controllers\MainController
+namespace application\components;
+
+use yupe\components\controllers\FrontController;
+
+class Controller extends FrontController
 {
     public $layout;
 
     /**
-     * Contains data for "CBreadcrumbs" widget (navigation element on a site, 
+     * Contains data for "CBreadcrumbs" widget (navigation element on a site,
      * a look "Main >> Category 1 >> Subcategory 1")
      */
     public $breadcrumbs = array();
