@@ -78,8 +78,7 @@
         "zhuravljov/yii2-debug": "dev-master"
     },
     "require-dev": {
-        "codeception/codeception": "1.8.*",
-        "imscp/phpmyadmin": "0.3.0.*@dev"
+        "codeception/codeception": "1.8.*"
     },
     "minimum-stability": "stable"
 }
