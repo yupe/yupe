@@ -152,8 +152,14 @@ class LanguageBehavior extends CBehavior
 
         // Проверяем переданный язык:
         
+        // $langIsset = (
+        //     isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
+        // );
+        // print_r(strlen($this->getLang())); exit();
+
+        // Add support to lang zh_cn;
         $langIsset = (
-            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
+            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, strlen($this->getLang()), 1) == '/'
         );
 
         $this->setLanguage(
