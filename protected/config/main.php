@@ -32,6 +32,7 @@ return array(
     'sourceLanguage'    => 'en',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
+    'controllerNamespace' => 'application\controllers',
     'preload'           => defined('YII_DEBUG')
                             && YII_DEBUG
                             && is_writable(Yii::getPathOfAlias('application.runtime'))

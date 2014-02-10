@@ -112,7 +112,13 @@ class LanguageBehavior extends CBehavior
                         : $this->getDefaultLang();
         }
 
-        $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
+        // $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
+        //$reqLang = current(explode('/', Yii::app()->getRequest()->getPathInfo()));
+        
+        // add support to zh_cn
+        $path = explode('/', Yii::app()->getRequest()->getPathInfo());
+        $reqLang = $path[0];
+                
 
         return in_array($reqLang, $lm->languages)
             ? $reqLang
@@ -145,8 +151,14 @@ class LanguageBehavior extends CBehavior
 
         // Проверяем переданный язык:
         
+        // $langIsset = (
+        //     isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
+        // );
+        // print_r(strlen($this->getLang())); exit();
+
+        // Add support to lang zh_cn;
         $langIsset = (
-            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
+            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, strlen($this->getLang()), 1) == '/'
         );
 
         $this->setLanguage(
@@ -158,6 +170,8 @@ class LanguageBehavior extends CBehavior
         );
 
         // Если не передан язык не нативный:
+        
+        
         if ($langIsset === false && $lm->getAppLang() !== $this->getLang()) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(
@@ -196,15 +210,14 @@ class LanguageBehavior extends CBehavior
     {
         // Устанавливаем состояние языка:
         Yii::app()->user->setState(Yii::app()->urlManager->langParam, $language);
-
+        
         try {
             if (Yii::app()->getModule('yupe')->cache) {
                 Yii::app()->getRequest()->cookies->add(
                     Yii::app()->urlManager->langParam, new CHttpCookie(
                         Yii::app()->urlManager->langParam,
                         $language, array(
-                            'expire'   => time() + (60 * 60 * 24 * 365),
-                            'httpOnly' => true
+                            'expire' => time() + (60 * 60 * 24 * 365)
                         )
                     )
                 );
