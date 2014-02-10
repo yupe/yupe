@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Members of "{blog}" blog' => '',
     '*unknown*' => '*未知*',
     '--choose blog--' => '--选择博客--',
     '--choose--' => '--选择--',

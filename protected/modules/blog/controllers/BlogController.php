@@ -87,7 +87,7 @@ class BlogController extends yupe\components\controllers\FrontController
      * "покинуть" блог
      *
      * @param int $blogId - id-блога
-     *
+     * @throw CHttpException
      * @return void
      */
     public function actionLeave()
@@ -113,5 +113,16 @@ class BlogController extends yupe\components\controllers\FrontController
         }
 
         Yii::app()->ajax->failure();
+    }
+
+    public function actionMembers($slug)
+    {
+        $blog = Blog::model()->get($slug);
+
+        if(null === $blog) {
+            throw new CHttpException(404);
+        }
+
+        $this->render('members', array('blog' => $blog, 'members' => $blog->getMembersList()));
     }
 }

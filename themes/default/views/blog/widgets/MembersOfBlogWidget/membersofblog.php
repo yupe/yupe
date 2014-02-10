@@ -1,8 +1,7 @@
-<?php Yii::import('application.modules.blog.BlogModule'); ?>
 <div class="blog-description-members without-btns">
 	<div class="blog-description-members-list">
 	    <span class="pull-left">
-	        <?php echo Yii::t('BlogModule.blog', 'Members'); ?>:
+	        <?php echo CHtml::link(Yii::t('BlogModule.blog', 'Members'), array('/blog/blog/members','slug' => $model->slug)); ?>:
 	    </span>
 	    <div class="member-listing">
 	        <?php if (count($model->members)) :?>	        
@@ -11,17 +10,11 @@
 	                    <?php echo CHtml::link(strip_tags($member->nick_name), array('/user/people/userInfo/', 'username' => $member->nick_name));?>
 	                </span>
 	            <?php endforeach;?>
+                ...
 	        <?php else : ?>
 	            <p><?php echo Yii::t('BlogModule.blog', 'There is no members'); ?></p>
 	        <?php endif; ?>
 	    </div>
 	    <div class="clear-both"></div>
-	</div>
-
-	<div class="">
-	    <a href="javascript:void(0)" class='btn btn-link list-expanding <?php echo (count($model->members) < 3 ? 'btn-disabled' : ''); ?>'>
-	        <?php echo Yii::t('BlogModule.blog', 'All'); ?>
-	        <span></span>
-	    </a>           
 	</div>
 </div>

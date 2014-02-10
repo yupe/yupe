@@ -20,7 +20,6 @@ class LastPostsWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-
         $criteria = array(
             'limit' => $this->limit,
             'order' => 't.id DESC',
@@ -30,7 +29,7 @@ class LastPostsWidget extends yupe\widgets\YWidget
             $criteria = CMap::mergeArray($criteria, $this->criteria);
         }
 
-        $posts = Post::model()->published()->with('createUser','commentsCount')->public()->cache($this->cacheTime)->findAll($criteria);
+        $posts = Post::model()->published()->with('createUser','commentsCount', 'blog')->public()->cache($this->cacheTime)->findAll($criteria);
 
         $this->render($this->view, array('models' =>$posts));
     }

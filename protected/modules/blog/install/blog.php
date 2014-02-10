@@ -24,6 +24,7 @@ return array(
         '/blogs'            => 'blog/blog/index',
         '/blog/join'        => 'blog/blog/join',
         '/blog/leave'       => 'blog/blog/leave',
+        '/blog/<slug>/members' => 'blog/blog/members',
         '/post/write'       => '/blog/post/write',
         '/post/my'          => '/blog/publisher/my',
         '/post/delete'      => '/blog/publisher/delete',

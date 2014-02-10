@@ -53,7 +53,7 @@
 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array(
     'view' => 'lastuserposts',
     'criteria' => array(
-        'condition' => 'create_user_id = :user_id',
+        'condition' => 't.create_user_id = :user_id',
         'params' => array(
             ':user_id' => $user->id
         )

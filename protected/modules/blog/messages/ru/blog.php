@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Last posts' => 'Последние записи',
+    'Members of "{blog}" blog' => 'Участники блога "{blog}"',
     'My posts'    => 'Мои записи',
     'Post saved!' => 'Запись сохранена!',
     'Post sent for moderation!' => 'Запись отправлена на модерацию!',

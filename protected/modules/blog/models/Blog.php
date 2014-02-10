@@ -97,10 +97,10 @@ class Blog extends yupe\models\YModel
         return array(
             'createUser'   => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser'   => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'posts'        => array(self::HAS_MANY, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
-            'userToBlog'   => array(self::HAS_MANY, 'UserToBlog', 'blog_id'),
-            'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
-            'postsCount'   => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
+            'posts'        => array(self::HAS_MANY, 'Post', 'blog_id', 'condition' => 't.status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
+            'userToBlog'   => array(self::HAS_MANY, 'UserToBlog', 'blog_id', 'joinType' => 'left join', 'condition' => 'userToBlog.status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
+            'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id') , 'through' => 'userToBlog'),
+            'postsCount'   => array(self::STAT, 'Post', 'blog_id', 'condition' => 't.status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
             'membersCount' => array(self::STAT, 'UserToBlog', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
             'category'     => array(self::BELONGS_TO,'Category','category_id')
         );
@@ -351,6 +351,14 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    public function getMembersList()
+    {
+        $members = new UserToBlog('search');
+        $members->unsetAttributes();
+        $members->blog_id = $this->id;
+        return $members;
+    }
+
     public function getImageUrl()
     {
         if ($this->icon) {
@@ -389,7 +397,7 @@ class Blog extends yupe\models\YModel
         ));
     }
 
-    public function get($id, array $with = array('posts', 'members', 'createUser'))
+    public function get($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
         if(!is_int($id)) {
             return $this->with($with)->getByUrl($id)->published()->public()->find();
