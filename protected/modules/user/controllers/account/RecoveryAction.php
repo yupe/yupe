@@ -10,9 +10,6 @@
  * @link     http://yupe.ru
  *
  **/
-
-use yupe\components\WebModule;
-
 class RecoveryAction extends CAction
 {
     public function run()

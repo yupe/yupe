@@ -486,7 +486,7 @@ class Post extends yupe\models\YModel
                 ->limit((int)$limit)
                 ->queryAll();
 
-            Yii::app()->cache->set('Blog::Post::Stream', $data, $cacheTime);
+            Yii::app()->cache->set('Blog::Post::Stream', $data, (int)$cacheTime);
         }
 
         return $data;

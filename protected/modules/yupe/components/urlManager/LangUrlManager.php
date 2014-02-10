@@ -17,7 +17,6 @@
 namespace yupe\components\urlManager;
 
 use CUrlManager;
-use yupe\widgets\YFlashMessages;
 use Exception;
 use Yii;
 

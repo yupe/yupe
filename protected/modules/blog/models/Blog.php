@@ -97,7 +97,7 @@ class Blog extends yupe\models\YModel
         return array(
             'createUser'   => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser'   => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'posts'        => array(self::HAS_MANY, 'Post', 'blog_id'),
+            'posts'        => array(self::HAS_MANY, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
             'userToBlog'   => array(self::HAS_MANY, 'UserToBlog', 'blog_id'),
             'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
             'postsCount'   => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
@@ -328,6 +328,8 @@ class Blog extends yupe\models\YModel
            Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
            return true;
        }
+
+       return false;
     }
 
     public function leave($userId) {
@@ -387,8 +389,12 @@ class Blog extends yupe\models\YModel
         ));
     }
 
-    public function get($id)
+    public function get($id, array $with = array('posts', 'members', 'createUser'))
     {
-        return $this->published()->public()->findByPk((int)$id); 
+        if(!is_int($id)) {
+            return $this->with($with)->getByUrl($id)->published()->public()->find();
+        }
+
+        return $this->with($with)->published()->public()->findByPk((int)$id);
     }
 }

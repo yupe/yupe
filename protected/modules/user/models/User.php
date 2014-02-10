@@ -21,8 +21,6 @@
  *
  */
 
-use yupe\widgets\CustomGridView;
-
 class User extends yupe\models\YModel
 {
     const GENDER_THING  = 0;

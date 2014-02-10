@@ -28,5 +28,6 @@ class YBackAccessControl extends CAccessControlFilter
         }
 
         $this->accessDenied(Yii::app()->user, Yii::t('yii', 'You are not authorized to perform this action.'));
+        return false;
     }
 }

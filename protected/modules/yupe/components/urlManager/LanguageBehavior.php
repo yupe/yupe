@@ -23,7 +23,6 @@ class LanguageBehavior extends CBehavior
 
     private $_lang        = false;
     private $_defaultLang = false;
-    private $_appLang     = false;
 
     /**
      * Подключение события:

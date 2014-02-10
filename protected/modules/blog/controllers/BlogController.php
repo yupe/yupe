@@ -40,7 +40,7 @@ class BlogController extends yupe\components\controllers\FrontController
      */
     public function actionShow($slug = null)
     {     
-        $blog = Blog::model()->with('posts', 'members', 'createUser')->getByUrl($slug)->published()->find();
+        $blog = Blog::model()->get($slug);
 
         if ($blog === null){
            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Blog "{blog}" was not found!', array('{blog}' => $slug)));

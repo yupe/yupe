@@ -141,6 +141,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
      * @param integer идентификатор нужной модели
+     * @return UserToBlog $model
      */
     public function loadModel($id)
     {

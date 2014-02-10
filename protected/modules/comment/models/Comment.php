@@ -39,10 +39,12 @@ use application\modules\comment\components\NewCommentEvent;
 
 class Comment extends yupe\models\YModel
 {
-
     const STATUS_NEED_CHECK = 0;
-    const STATUS_APPROVED = 1;
-    const STATUS_SPAM = 2;
+
+    const STATUS_APPROVED   = 1;
+
+    const STATUS_SPAM    = 2;
+
     const STATUS_DELETED = 3;
 
     public $verifyCode;
@@ -87,7 +89,7 @@ class Comment extends yupe\models\YModel
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'yupe\components\validators\YUrlValidator'),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id', 'safe', 'on' => 'search'),
@@ -301,7 +303,7 @@ class Comment extends yupe\models\YModel
      **/
     public function getStatus()
     {
-        $list = $this->statusList;
+        $list = $this->getStatusList();
         return isset($list[$this->status]) ? $list[$this->status] : Yii::t('CommentModule.comment', 'Unknown status');
     }
 
@@ -388,7 +390,7 @@ class Comment extends yupe\models\YModel
                 "email" => "",
                 "text" => "",
                 "status" => self::STATUS_APPROVED,
-                "ip" => "127.0.0.1"
+                "ip" => Yii::app()->getRequest()->userHostAddress
             );
 
             $rootNode = new Comment();
@@ -398,39 +400,6 @@ class Comment extends yupe\models\YModel
             }
         }else{
             return $rootNode;
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks for flood messages
-     *
-     * @param Comment $comment Filled Comment Form
-     * @param $userId string Current User Id
-     * @param $interval int Interval between messages
-     * @return bool True if it is spam, False if not
-     */
-    public static function isItSpam(Comment $comment, $userId, $interval)
-    {
-        $dateDiffTime = new DateTime();
-        $dateDiffTime->setTimestamp( time() - $interval );       
-
-        $newAuthorComments = self::model()->findByAttributes(
-            array(
-                "user_id" => $userId,
-                "model" => $comment->getAttribute("model"),
-                "model_id" => $comment->getAttribute("model_id")
-            ),
-            "creation_date > :now OR (creation_date > :now AND text LIKE :txt)",
-            array(
-                'now' => $dateDiffTime->format('Y-m-d H:i:s'),
-                'txt' => "%{$comment->getAttribute('text')}%",
-            )
-        );        
-
-        if($newAuthorComments != null){
-            return true;
         }
 
         return false;

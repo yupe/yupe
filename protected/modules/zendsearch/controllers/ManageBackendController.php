@@ -16,8 +16,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
 
     /**
      * Инициализируемся, подключаем ZendLucene:
-     * 
-     * @return void
+     *
      */
     public function init()
     {

@@ -14,7 +14,6 @@
 
 
 namespace yupe\helpers;
-use yupe\helpers\YText;
 use CFileHelper;
 use Yii;
 

@@ -2,7 +2,6 @@
 namespace yupe\components;
 
 use Yii;
-use CVarDumper;
 use CApplicationComponent;
 use User;
 
