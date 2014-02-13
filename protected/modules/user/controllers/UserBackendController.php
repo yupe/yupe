@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Контроллер, отвечающий за работу с пользователями в панели управления
  *
@@ -10,7 +11,6 @@
  * @link     http://yupe.ru
  *
  **/
-
 class UserBackendController extends yupe\components\controllers\BackController
 {
     /**
@@ -22,7 +22,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      * Displays a particular model.
      *
      * @param int $id - record ID
-     * 
+     *
      * @return void
      */
     public function actionView($id)
@@ -34,7 +34,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      * Экшен смены пароля:
      *
      * @param int $id - record ID
-     * 
+     *
      * @return void
      */
     public function actionChangepassword($id)
@@ -44,7 +44,7 @@ class UserBackendController extends yupe\components\controllers\BackController
         $form = new ChangePasswordForm;
 
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
-            
+
             $form->setAttributes($data);
 
             if ($form->validate() && Yii::app()->userManager->changeUserPassword($model, $form->password)) {
@@ -72,18 +72,18 @@ class UserBackendController extends yupe\components\controllers\BackController
         $model = new User;
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
-            
+
             $model->setAttributes($data);
 
             $model->setAttributes(
                 array(
                     'hash' => Yii::app()->userManager->hasher->hashPassword(
-                        Yii::app()->userManager->hasher->generateRandomPassword()
-                    ),
+                            Yii::app()->userManager->hasher->generateRandomPassword()
+                        ),
                 )
             );
 
-            if ($model->save()) {                
+            if ($model->save()) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -91,13 +91,14 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
         }
-        
+
         $this->render('create', array('model' => $model));
     }
 
@@ -114,19 +115,20 @@ class UserBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -148,7 +150,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -159,7 +161,7 @@ class UserBackendController extends yupe\components\controllers\BackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -177,15 +179,16 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new User('search');
-        
+
         $model->unsetAttributes(); // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'User', array()
+                'User',
+                array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -212,13 +215,13 @@ class UserBackendController extends yupe\components\controllers\BackController
             }
         }
 
-        if ($user->getIsActivated()) {
+        if ($user->status == User::STATUS_ACTIVE) {
             if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
                 );
-                
+
                 $this->redirect(array('index'));
             } else {
                 Yii::app()->ajax->failure(
@@ -226,14 +229,38 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
             }
         }
+
+        $tokenStorage = new TokenStorage();
+
+        if (($token = $tokenStorage->createEmailVerifyToken($user))) {
+            //@TODO
+            Yii::app()->notify->send(
+                $user,
+                Yii::t(
+                    'UserModule.user',
+                    'Registration on {site}',
+                    array('{site}' => Yii::app()->getModule('yupe')->siteName)
+                ),
+                '//user/email/needAccountActivationEmail',
+                array(
+                    'token' => $token
+                )
+            );
+
+            Yii::app()->ajax->success(Yii::t('UserModule.user', 'Sent!'));
+        }
+
+        Yii::app()->ajax->failure();
+
+
     }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
-     * 
-     * @param int   $id   - record ID
-     * 
+     *
+     * @param int $id - record ID
+     *
      * @return User
      *
      * @throws CHttpException
@@ -241,7 +268,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function loadModel($id = null)
     {
         if ($this->_model === null || $this->_model instanceof User && $this->_model->id !== $id) {
-            
+
             if (($this->_model = User::model()->findbyPk($id)) === null) {
                 throw new CHttpException(
                     404,
@@ -249,16 +276,17 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
             }
         }
+
         return $this->_model;
     }
 
     /**
      * Отправить письмо для подтверждения email:
-     * 
+     *
      * @param integer $id - ID пользователя
      *
      * @throws CHttpException
-     * 
+     *
      * @return void
      */
     public function actionVerifySend($id = null)
@@ -274,14 +302,27 @@ class UserBackendController extends yupe\components\controllers\BackController
             return $this->badRequest();
         }
 
-        yupe\components\Token::sendEmailVerify(
-            $user, '//user/account/needEmailActivationEmail'
-        );
+        $tokenStorage = new TokenStorage();
+
+        if (($token = $tokenStorage->createEmailVerifyToken($user))) {
+            Yii::app()->notify->send(
+                $user,
+                Yii::t('UserModule.user', 'Email verification'),
+                '//user/email/needEmailActivationEmail',
+                array(
+                    'token' => $token
+                )
+            );
+
+            Yii::app()->ajax->success(Yii::t('UserModule.user', 'Sent!'));
+        }
+
+        Yii::app()->ajax->failure();
     }
 
     /**
      * Performs the AJAX validation.
-     * 
+     *
      * @param User the model to be validated
      *
      * @return void

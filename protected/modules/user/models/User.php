@@ -470,30 +470,6 @@ class User extends yupe\models\YModel
     }
 
     /**
-     * Список доступных к изменению статусов:
-     * --------------------------------------
-     * заставлять пользователя проходить
-     * активацию по 100 раз - глупо, потому
-     * мы запрещаем в GridView выставлять
-     * статус "Не активирован", если есть
-     * необходимость - редактирование пользователя.
-     * 
-     * @return array
-     */
-    public function getChangeableStatusList()
-    {
-        $statuses = $this->getStatusList();
-
-        $status = $this->getIsActivated() === false
-                ? self::STATUS_ACTIVE
-                : self::STATUS_NOT_ACTIVE;
-
-        unset($statuses[$status]);
-
-        return $statuses;
-    }
-
-    /**
      * Получаем полное имя пользователя:
      * 
      * @param  string $separator - разделитель

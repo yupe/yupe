@@ -339,6 +339,7 @@ class ConfigManager extends CComponent
     {
         // Забираем настройки адресации и удаляем элемент:
         $rules = $settings['rules'];
+
         unset($settings['rules']);
 
         // Обходим массив Url'ов и убераем схожести:
