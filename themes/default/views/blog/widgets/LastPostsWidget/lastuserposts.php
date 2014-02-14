@@ -1,9 +1,6 @@
 <?php if(!empty($models)):?>
 <br/><br/>
 <div>
-    <?php echo Yii::t('BlogModule.blog','Latest posts');?>:
-    <?php Yii::import('application.modules.blog.BlogModule'); ?>
-
     <div class="posts">
 
         <p class="posts-header">
@@ -72,7 +69,7 @@
                         </span>
 
                         <span class="posts-list-block-tags-comments">
-                            <i class="icon-comments"></i>
+                            <i class="fa fa-comments"></i>
 
                             <?php echo CHtml::link(
                                 $post->getCommentCount(),

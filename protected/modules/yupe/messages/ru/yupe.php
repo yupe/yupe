@@ -90,7 +90,7 @@ return array (
   'Downgrade migration {class}' => 'Отменяем миграцию {class}',
   'Downgrade {migration} for {module}.' => 'Откат миграции {migration} для модуля {module}.',
   'During the processing of your request an unknown error occurred =(' => 'Во время обработки вашего запроса произошла неизвестная ошибка =(',
-  'Elizarov Alexander' => 'Елизаров Александр',
+  'Elizarov Alexey' => 'Елизаров Алексей',
   'Enable' => 'Включить',
   'Error description' => 'Описание ошибки',
   'Error was found when installing: {error}' => 'Во время установки возникла ошибка: {error}',

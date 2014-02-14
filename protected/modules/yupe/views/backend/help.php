@@ -98,7 +98,7 @@ $this->breadcrumbs = array(
             <td><?php echo CHtml::link('lyzhenkov.ru','http://lyzhenkov.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Elizarov Alexander');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Elizarov Alexey');?></th>
             <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">

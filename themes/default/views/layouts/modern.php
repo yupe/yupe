@@ -96,11 +96,17 @@
             <a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
                     src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc"
                     alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
-            <a href="https://packagist.org/packages/yupe/yupe"><img
-                    src="https://poser.pugx.org/yupe/yupe/downloads.png" alt="Total Downloads"
-                    style="max-width:100%;"></a>
-            <a href="http://depending.in/yupe/yupe"><img src="https://d2xishtp1ojlk0.cloudfront.net/d/1477472"
-                                                         alt="Dependencies Status" style="max-width:100%;"></a>
+            <a href="https://packagist.org/packages/yupe/yupe"><img src="https://poser.pugx.org/yupe/yupe/downloads.png"
+                                                                    alt="Total Downloads" style="max-width:100%;"></a>
+            <a href='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8'><img src='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png' alt="Dependency Status" /></a>
+            <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge" style="max-width:100%;"></a>
+            <a href="https://gitter.im/yupe/yupe" title="Чат пользователей Юпи!"><img src="https://badges.gitter.im/yupe/yupe.png"></a>
+
+
+            <script data-gittip-username="yupe"
+                    data-gittip-widget="button"
+                    src="//gttp.co/v1.js"></script>
+
         </p>
     </div>
 

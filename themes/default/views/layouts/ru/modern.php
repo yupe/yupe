@@ -9,13 +9,13 @@
     <meta name="description" content="<?php echo $this->description; ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
     <meta property="og:description" content="<?php echo $this->description; ?>"/>
-     <?php
-        $mainAssets = Yii::app()->AssetManager->publish(
-            Yii::app()->theme->basePath . "/web/"
-        );
+    <?php
+    $mainAssets = Yii::app()->AssetManager->publish(
+        Yii::app()->theme->basePath . "/web/"
+    );
 
-        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
-        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
     ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <!--[if IE]>
@@ -29,51 +29,13 @@
 
 <div class="container">
 
-    <!-- Main hero unit for a primary marketing message or call to action -->
-
-    <div class="hero-unit relative">
-
-        <a href="https://github.com/yupe/yupe" class="forkme" rel="nofollow"></a>
-        
+    <div class="jumbotron">
         <h1>Юпи!</h1>
 
-        <p>Простая, легкая и удобная CMS</p>
-
-        <p>Работаем на Yiiframework, Twitter Bootstrap и jQuery!</p>
-
-        <p>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'label' => 'Скачать Юпи! '.$this->yupe->getVersion(),
-                'type' => 'primary',
-                'size' => 'large',
-                'url' => 'https://github.com/yupe/yupe/releases'
-            ));
-            ?>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'htmlOptions' => array(
-                    'class' => 'btn btn-success'
-                ),
-                'label' => 'Документация',
-                'type' => 'primary',
-                'size' => 'large',
-                'url' => 'http://yupe.ru/docs/'
-            ));
-            ?>
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                'htmlOptions' => array(
-                    'class' => 'btn btn-info'
-                ),
-                'label' => 'Скриншоты',
-                'type' => 'primary',
-                'size' => 'large',
-                'url' => 'http://yupe.ru/albums'
-            ));
-            ?>
-        </p>
-        <br/>
+        <p class="lead">Простая, легкая и удобная CMS! Работаем на Yiiframework, Twitter Bootstrap и jQuery!</p>
+        <a class="btn btn-large btn-success" href="https://github.com/yupe/yupe/releases">Скачать
+            Юпи! <?php echo $this->yupe->getVersion(); ?></a>
+        <br/><br/>
 
         <p>
             <iframe src="http://ghbtns.com/github-btn.html?user=yupe&repo=yupe&type=watch&count=true&size=large"
@@ -82,42 +44,10 @@
                     allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
             <iframe src="http://ghbtns.com/github-btn.html?user=yupe&repo=yupe&type=follow&count=true&size=large"
                     allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="YupeCms" data-lang="ru"
-               data-size="large" data-hashtags="yupe">Твитнуть</a>
-            <script>!function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                    if (!d.getElementById(id)) {
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = p + '://platform.twitter.com/widgets.js';
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }
-                }(document, 'script', 'twitter-wjs');</script>
-
-            <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?account=41001846363811&quickpay=small&yamoney-payment-type=on&button-text=05&button-size=l&button-color=orange&targets=%D0%97%D0%B0+%D0%AE%D0%BF%D0%B8!&default-sum=100&mail=on" width="230" height="54"></iframe>
-
-
         </p>
-
-        <p>
-            <a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
-                    src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc"
-                    alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
-            <a href="https://packagist.org/packages/yupe/yupe"><img src="https://poser.pugx.org/yupe/yupe/downloads.png"
-                                                                    alt="Total Downloads" style="max-width:100%;"></a>
-            <a href="http://depending.in/yupe/yupe"><img src="https://d2xishtp1ojlk0.cloudfront.net/d/1477472"
-                                                         alt="Dependencies Status" style="max-width:100%;"></a>
-            <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge" style="max-width:100%;"></a>
-
-            <script data-gittip-username="yupe"
-        data-gittip-widget="button"
-        src="//gttp.co/v1.js"></script>
-
-        </p>
+        <span id="contributors"></span>
     </div>
-
-
+    <hr/>
 
     <!-- Example row of columns -->
     <div class="row">
@@ -158,9 +88,7 @@
         </div>
     </div>
 
-    <a class="btn" href="#" id='more-modules-link'>Еще модули >></a>
-
-    <div class="row" id='more-modules' style="display: none;">
+    <div class="row" id='more-modules'>
         <div class="span4 module-info">
             <h3><i class="icon icon-pencil"></i> Блоги</h3>
 
@@ -197,8 +125,27 @@
                 <small>Преимущества</small>
             </h2>
             <div class="alert alert-notice">
-                <strong>Первое место</strong> на <strong><a href="https://github.com/search?o=desc&q=Yii+CMS&ref=cmdform&s=stars&type=Repositories" target="_blank">Github</a></strong> среди CMS на Yiiframework!
+                <strong>Первое место</strong> на <strong><a
+                        href="https://github.com/search?o=desc&q=Yii+CMS&ref=cmdform&s=stars&type=Repositories"
+                        target="_blank">Github</a></strong> среди CMS на Yiiframework!
             </div>
+            <p>
+                <a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
+                        src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc"
+                        alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
+                <a href="https://packagist.org/packages/yupe/yupe"><img
+                        src="https://poser.pugx.org/yupe/yupe/downloads.png"
+                        alt="Total Downloads" style="max-width:100%;"></a>
+                <a href='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8'><img
+                        src='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png'
+                        alt="Dependency Status"/></a>
+                <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img
+                        src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge"
+                        style="max-width:100%;"></a>
+                <a href="https://gitter.im/yupe/yupe" title="Чат пользователей Юпи!"><img
+                        src="https://badges.gitter.im/yupe/yupe.png"></a>
+
+            </p>
             <?php
             $this->widget(
                 'bootstrap.widgets.TbTabs',
@@ -226,19 +173,19 @@
                 <small>Документация</small>
             </h2>
             <div class="posts-list-block-header">
-                <a href="http://yupe.ru/docs/install.html">Установка</a>       
+                <a href="http://yupe.ru/docs/install.html">Установка</a>
             </div>
             <hr/>
             <div class="posts-list-block-header">
-                <a href="http://yupe.ru/docs/module.create.html">Создание модуля</a>       
+                <a href="http://yupe.ru/docs/module.create.html">Создание модуля</a>
             </div>
             <hr/>
             <div class="posts-list-block-header">
-                <a href="http://yupe.ru/docs/yupe/userspace.config.html">Использование настроек в userspace</a>       
+                <a href="http://yupe.ru/docs/yupe/userspace.config.html">Использование настроек в userspace</a>
             </div>
             <hr/>
             <div class="posts-list-block-header">
-                <a href="http://yupe.ru/docs/testing.html">Настройка тестового окружения</a>       
+                <a href="http://yupe.ru/docs/testing.html">Настройка тестового окружения</a>
             </div>
             <h2>
                 <small>Наш твиттер</small>
@@ -257,16 +204,18 @@
             <div class="alert alert-notice">
                 <a href="/albums/4">Галерея</a> проектов на Юпи! <strong>Добавьте свою работу!</strong>
             </div>
-            <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3, 'view' => 'lastposts-index')); ?>
-            <h2>
-                <small>Разработано сообществом</small>
-            </h2>
-            <span id="contributors"></span>
+            <?php $this->widget(
+                'application.modules.blog.widgets.LastPostsWidget',
+                array('limit' => 3, 'view' => 'lastposts-index')
+            ); ?>
             <hr/>
         </div>
     </div>
 
-    <?php $this->widget('application.modules.gallery.widgets.GalleryWidget', array('limit' => 4, 'galleryId' => 4, 'view' => 'gallery-index')); ?>
+    <?php $this->widget(
+        'application.modules.gallery.widgets.GalleryWidget',
+        array('limit' => 4, 'galleryId' => 4, 'view' => 'gallery-index')
+    ); ?>
 
     <?php $this->renderPartial('//layouts/_footer'); ?>
 </div>

@@ -15,8 +15,6 @@ $url = Yii::app()->getAssetManager()->getPublishedUrl(
 Yii::app()->getClientScript()->registerScriptFile($url . '/js/masonry.min.js', CClientScript::POS_END);
 Yii::app()->getClientScript()->registerScriptFile($url . '/js/imagesloaded.min.js', CClientScript::POS_END);
 
-
-
 Yii::app()->clientScript->registerScript(
     $this->getId(),
     'var $container = jQuery(".gallery-thumbnails");

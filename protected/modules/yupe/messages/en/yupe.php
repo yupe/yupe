@@ -89,7 +89,7 @@ return array (
   'Downgrade migration {class}' => '',
   'Downgrade {migration} for {module}.' => '',
   'During the processing of your request an unknown error occurred =(' => '',
-  'Elizarov Alexander' => '',
+  'Elizarov Alexey' => '',
   'Enable' => '',
   'Error rescription' => '',
   'Error was found when installing: {error}' => '',

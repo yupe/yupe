@@ -3,7 +3,8 @@
 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
-[![Dependencies Status](https://d2xishtp1ojlk0.cloudfront.net/d/1477472)](http://depending.in/yupe/yupe)
+[![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
+[![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 **Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 

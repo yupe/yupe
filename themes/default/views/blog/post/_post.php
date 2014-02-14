@@ -52,7 +52,7 @@
 	        </span>
 
 	        <span class="posts-list-block-tags-comments">
-	            <i class="icon-comments"></i>
+	            <i class="fa fa-comments"></i>
 
 	            <?php echo CHtml::link(
 	                $data->getCommentCount(),
