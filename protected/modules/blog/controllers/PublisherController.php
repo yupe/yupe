@@ -30,7 +30,11 @@ class PublisherController extends yupe\components\controllers\FrontController
 
             $status = isset($_POST['publish']) ? (int)$module->publicPostStatus : Post::STATUS_DRAFT;
 
-            if ($post->createPublicPost(Yii::app()->getRequest()->getPost('Post'), Yii::app()->getRequest()->getPost('tags'), $status)) {
+            $data = Yii::app()->getRequest()->getPost('Post');
+
+            $data['user_id'] = Yii::app()->user->getId();
+
+            if ($post->createPublicPost($data, Yii::app()->getRequest()->getPost('tags'), $status)) {
 
                 $message = Yii::t('BlogModule.blog', 'Post saved!');
 

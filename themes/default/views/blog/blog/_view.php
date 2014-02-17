@@ -16,7 +16,7 @@
         <?php echo CHtml::image($data->createUser->getAvatar(24), $data->createUser->nick_name);?> <?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?> </span>
         <span class="fa fa-calendar"> <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "long", false); ?> </span>
         <span class="fa fa-pencil"> <?php echo CHtml::link($data->postsCount, array('/blog/post/blog/', 'slug' => $data->slug)); ?> </span>
-        <span class="fa fa-user"> <?php echo $data->membersCount;?> </span>
+        <span class="fa fa-user"> <?php echo CHtml::link($data->membersCount, array('/blog/blog/members','slug' => $data->slug));?> </span>
         <span class="fa fa-book"> <?php echo strip_tags($data->description); ?> </span>
     </div>
 </div>
