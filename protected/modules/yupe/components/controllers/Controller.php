@@ -16,6 +16,7 @@ use yupe\components\ContentType;
 use CHtml;
 use Yii;
 use CException;
+use CHttpException;
 
 class Controller extends \CController
 {
