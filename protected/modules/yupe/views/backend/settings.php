@@ -16,8 +16,9 @@ $this->breadcrumbs = array(
             $yupeCount = count($modules);
             $enableCount = 0;
             foreach ($modules as $module) {
-                if ($module instanceof yupe\components\WebModule && ($module->getIsActive() || $module->getIsNoDisable()))
+                if ($module instanceof yupe\components\WebModule && ($module->getIsActive() || $module->getIsNoDisable())){
                     $enableCount++;
+                }
             }
         ?>
         <?php echo Yii::t('YupeModule.yupe', 'Installed'); ?>

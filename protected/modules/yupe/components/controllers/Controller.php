@@ -50,6 +50,8 @@ class Controller extends \CController
      */
     public $headerTypeId = ContentType::TYPE_HTML;
 
+    public $assetUrl;
+
     /**
      * Устанавливает заголовок страниц
      * @param string $title заголовок

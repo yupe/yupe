@@ -17,13 +17,15 @@ if (count($modules)) :
             continue;
         }
 
-        if ($m->canActivate() === false)
+        if ($m->canActivate() === false){
             continue;
+        }
 
         if ($m->getIsActive() || $m->getIsNoDisable()) {
             $on[$m->id] = $m;
-            if (isset($updates[$m->id]))
+            if (isset($updates[$m->id])){
                 $has[$m->id] = $m;
+            }
         } else if ($m->getIsInstalled()) {
             $off[$m->id] = $m;
         } else {
@@ -112,8 +114,9 @@ function moduleRow($module, &$updates, &$modules)
                 if ($module->getId() != 'yupe' && count($module->getDependencies()))
                 {
                     $deps = $module->getDependencies();
-                    foreach($deps as &$dep)
+                    foreach($deps as $dep) {
                         $dep = $modules[$dep]->getName();
+                    }
                     $tabs[] = array(
                         'label'   => Yii::t('YupeModule.yupe', 'Depends on'),
                         'content' => implode(', ', $deps),
@@ -177,8 +180,9 @@ function moduleRow($module, &$updates, &$modules)
                         : CHtml::link('<i class="icon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Install') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'install')))
                     );
 
-                if (isset($updates[$module->getId()]) && $module->getIsInstalled())
+                if (isset($updates[$module->getId()]) && $module->getIsInstalled()){
                     echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Have {n} DB updates!|Have {n} DB updates!|Have {n} DB updates!', count($updates[$module->getId()])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->getId()));
+                }
                 if ($module->getIsActive() && $module->isConfigNeedUpdate())
                     echo CHtml::link('<i class="icon-repeat" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Have configuration file updates!') . '">&nbsp;</i>', $url + array('status' => '2'), array_merge($htmlOptions, array('status' => 2, 'method' => 'update')));
                 ?>
