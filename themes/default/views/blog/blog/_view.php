@@ -4,7 +4,7 @@
     </div>
     <div class="span7 blog-info">
         <?php if(Yii::app()->user->isAuthenticated()):?>
-            <?php if(!$data->userInBlog(Yii::app()->user->getId())):?>
+            <?php if(!$data->userIn(Yii::app()->user->getId())):?>
                 <a class="btn btn-warning pull-right join-blog" href="<?php echo $data->id;?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
             <?php else:?>
                 <a class="btn btn-warning pull-right leave-blog" href="<?php echo $data->id;?>"><?php echo Yii::t('BlogModule.blog','Leave blog');?></a>

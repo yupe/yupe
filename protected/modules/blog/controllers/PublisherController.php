@@ -36,12 +36,12 @@ class PublisherController extends yupe\components\controllers\FrontController
 
             if ($post->createPublicPost($data, Yii::app()->getRequest()->getPost('tags'), $status)) {
 
-                $message = Yii::t('BlogModule.blog', 'Post saved!');
+                $message = Yii::t('BlogModule.blog', 'Post sent for moderation!');
 
                 $redirect = array('/blog/publisher/my');
 
                 if ($status == Post::STATUS_DRAFT) {
-                    $message = Yii::t('BlogModule.blog', 'Post sent for moderation!');
+                    $message = Yii::t('BlogModule.blog',  'Post saved!');
                 }
 
                 if ($status == Post::STATUS_PUBLISHED) {

@@ -36,7 +36,7 @@
             ); ?>
 
             <?php if(Yii::app()->user->isAuthenticated()):?>
-                <?php if(!$blog->userInBlog(Yii::app()->user->getId())):?>
+                <?php if(!$blog->userIn(Yii::app()->user->getId())):?>
                     <a class="btn btn-warning pull-right join-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
                 <?php else:?>
                     <a class="btn btn-warning pull-right leave-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Leave blog');?></a>

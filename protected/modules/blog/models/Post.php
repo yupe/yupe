@@ -560,7 +560,7 @@ class Post extends yupe\models\YModel
             return false;
         }
 
-        if(!$blog->userInBlog($post['user_id'])){
+        if(!$blog->userIn($post['user_id'])){
             $this->addError('blog_id', Yii::t('BlogModule.blog', "You can't write in this blog!"));
             return false;
         }

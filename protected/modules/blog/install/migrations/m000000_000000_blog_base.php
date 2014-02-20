@@ -126,24 +126,28 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
             "user_id,blog_id",
             true
         );
+
         $this->createIndex(
             "ix_{{blog_user_to_blog}}_blog_user_to_blog_user_id",
             '{{blog_user_to_blog}}',
             "user_id",
             false
         );
+
         $this->createIndex(
             "ix_{{blog_user_to_blog}}_blog_user_to_blog_id",
             '{{blog_user_to_blog}}',
             "blog_id",
             false
         );
+
         $this->createIndex(
             "ix_{{blog_user_to_blog}}_blog_user_to_blog_status",
             '{{blog_user_to_blog}}',
             "status",
             false
         );
+
         $this->createIndex("ix_{{blog_user_to_blog}}_blog_user_to_blog_role", '{{blog_user_to_blog}}', "role", false);
 
         //fk

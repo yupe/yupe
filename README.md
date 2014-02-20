@@ -43,7 +43,7 @@
 Ссылки
 ------
 * [Официальный сайт](http://yupe.ru/)
-* [Блог Юпи!](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
+* [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
 * [Документация](http://yupe.ru/docs/index.html)
 * [API](http://api.yupe.ru/)
@@ -89,4 +89,4 @@
 
 (c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
-![amyLabs](http://amylabs.ru/assets/fecc88d8/labs/logo.png)
+![amyLabs](http://amylabs.ru/images/logo.png)
