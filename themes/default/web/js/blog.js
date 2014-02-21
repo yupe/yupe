@@ -15,6 +15,8 @@ $(document).ready(function($) {
             if(response.result) {
                 $button.hide();
                 $('#notifications').notify({ message: { text: response.data } }).show();
+            }else{
+                $('#notifications').notify({ message: { text: response.data }, type: 'error' }).show();
             }
         },'json');
     });
@@ -30,6 +32,8 @@ $(document).ready(function($) {
             if(response.result) {
                 $button.hide();
                 $('#notifications').notify({ message: { text: response.data } }).show();
+            }else{
+                $('#notifications').notify({ message: { text: response.data }, type: 'error' }).show();
             }
         },'json');
     });

@@ -1,7 +1,7 @@
 <?php
     $this->pageTitle = $post->title;
-    $this->description = $post->description;
-    $this->keywords = $post->keywords;
+    $this->description = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
+    $this->keywords = !empty($post->keywords) ? $post->keywords :  implode(', ',$post->getTags());
 
     Yii::app()->clientScript->registerScript(
         "ajaxBlogToken", "var ajaxToken = " . json_encode(
@@ -11,7 +11,7 @@
 
     $this->breadcrumbs = array(
         Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-        CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
+        CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)),
         CHtml::encode($post->title),
     ); 
 ?>
@@ -24,9 +24,9 @@
                 <span>
                     <i class="icon-pencil"></i>
                     <?php echo CHtml::link(
-                        $post->blog->name, array(
+                        CHtml::encode($post->blog->name), array(
                             '/blog/blog/show/',
-                            'slug' => $post->blog->slug
+                            'slug' => Chtml::encode($post->blog->slug)
                         )
                     ); ?>
                 </span>

@@ -5,8 +5,8 @@
     article: http://ogp.me/ns/article#">
     <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
     <meta charset="<?php echo Yii::app()->charset; ?>"/>
-    <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
-    <meta name="description" content="<?php echo $this->description; ?>"/>
+    <meta name="keywords" content="<?php echo CHtml::encode($this->keywords);?>"/>
+    <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
     <meta property="og:description" content="<?php echo $this->description; ?>"/>
     <?php

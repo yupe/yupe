@@ -9,8 +9,8 @@
 
 <?php foreach($categorys as $category):?>
    
-	<h4><strong><?php echo CHtml::link(CHtml::encode($category['name']), array('/blog/post/category/', 'alias' => $category['alias'])); ?></strong>
-	<?php echo strip_tags($category['description']); ?>  
+	<h4><strong><?php echo CHtml::link(CHtml::encode($category['name']), array('/blog/post/category/', 'alias' => CHtml::encode($category['alias']))); ?></strong>
+	<?php echo CHtml::encode($category['description']); ?>
 	<hr/>
 
 <?php endforeach;?>
