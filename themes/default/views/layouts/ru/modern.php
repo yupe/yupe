@@ -47,12 +47,29 @@
         </p>
         <span id="contributors"></span>
     </div>
+    <p>
+        <a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
+                src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc"
+                alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
+        <a href="https://packagist.org/packages/yupe/yupe"><img
+                src="https://poser.pugx.org/yupe/yupe/downloads.png"
+                alt="Total Downloads" style="max-width:100%;"></a>
+        <a href='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8'><img
+                src='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png'
+                alt="Dependency Status"/></a>
+        <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img
+                src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge"
+                style="max-width:100%;"></a>
+        <a href="https://gitter.im/yupe/yupe" title="Чат пользователей Юпи!"><img
+                src="https://badges.gitter.im/yupe/yupe.png"></a>
+
+    </p>
     <hr/>
 
     <!-- Example row of columns -->
     <div class="row">
         <div class="span4 module-info">
-            <h3><i class="icon icon-user"></i> Пользователи</h3>
+            <h3><i class="fa fa-user"></i> Пользователи</h3>
 
             <p class="muted">
                 Регистрация, авторизация, восстановление пароля через эл.почту, профили пользователей.
@@ -64,7 +81,7 @@
         </div>
 
         <div class="span4 module-info">
-            <h3><i class="icon icon-file"></i> Страницы</h3>
+            <h3><i class="fa fa-file"></i> Страницы</h3>
 
             <p class="muted">
                 Просто и быстро создавайте страницы "О нас", "Контакты" и прочие "статические" странички.
@@ -76,7 +93,7 @@
         </div>
 
         <div class="span4 module-info">
-            <h3><i class="icon icon-bullhorn"></i> Новости</h3>
+            <h3><i class="fa fa-bullhorn"></i> Новости</h3>
 
             <p class="muted">
                 Публикуйте новости, делитесь интересной информацией.
@@ -90,14 +107,17 @@
 
     <div class="row" id='more-modules'>
         <div class="span4 module-info">
-            <h3><i class="icon icon-pencil"></i> Блоги</h3>
+            <h3><i class="fa fa-pencil"></i> Блоги</h3>
 
             <p class="muted">Создавайте индивидуальные и коллективные блоги.</p>
 
-            <p>Модуль позволяет вести собственный блог или создавать коллективные блоги/сообщества.</p>
+            <p>
+                Модуль позволяет вести собственный блог или создавать коллективные блоги/сообщества.
+                Настраивайте премодерацию постов и участников блога.
+            </p>
         </div>
         <div class="span4 module-info">
-            <h3><i class="icon icon-comment"></i> Комментариии</h3>
+            <h3><i class="fa fa-comment"></i> Комментариии</h3>
 
             <p class="muted">
                 Модуль позволяет комментировать любую сущность с выстраиванием древовидных комментариев.
@@ -109,7 +129,7 @@
             </p>
         </div>
         <div class="span4 module-info">
-            <h3><i class="icon icon-shopping-cart"></i> Каталог</h3>
+            <h3><i class="fa fa-shopping-cart"></i> Каталог</h3>
 
             <p class="muted">Модуль позволит быстро и легко создать простой каталог товаров.</p>
 
@@ -129,23 +149,6 @@
                         href="https://github.com/search?o=desc&q=Yii+CMS&ref=cmdform&s=stars&type=Repositories"
                         target="_blank">Github</a></strong> среди CMS на Yiiframework!
             </div>
-            <p>
-                <a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img
-                        src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc"
-                        alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
-                <a href="https://packagist.org/packages/yupe/yupe"><img
-                        src="https://poser.pugx.org/yupe/yupe/downloads.png"
-                        alt="Total Downloads" style="max-width:100%;"></a>
-                <a href='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8'><img
-                        src='https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png'
-                        alt="Dependency Status"/></a>
-                <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img
-                        src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge"
-                        style="max-width:100%;"></a>
-                <a href="https://gitter.im/yupe/yupe" title="Чат пользователей Юпи!"><img
-                        src="https://badges.gitter.im/yupe/yupe.png"></a>
-
-            </p>
             <?php
             $this->widget(
                 'bootstrap.widgets.TbTabs',
@@ -187,15 +190,7 @@
             <div class="posts-list-block-header">
                 <a href="http://yupe.ru/docs/testing.html">Настройка тестового окружения</a>
             </div>
-            <h2>
-                <small>Наш твиттер</small>
-            </h2>
-            <div class="widget twitter-widget">
-                <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841"
-                   height="400">
-                    Твиты пользователя @YupeCms
-                </a>
-            </div>
+
         </div>
         <div class="span6">
             <h2>
@@ -221,16 +216,6 @@
 </div>
 
 <script type="text/javascript">
-    !function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-        if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = p + "://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }
-    }(document, "script", "twitter-wjs");
-
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
@@ -248,12 +233,6 @@
                     $('#contributors').append(link);
                 });
             }
-        });
-
-        $('#more-modules-link').click(function (event) {
-            event.preventDefault();
-            $('#more-modules').slideDown();
-            $(this).fadeOut();
         });
     })
 </script>

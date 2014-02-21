@@ -30,10 +30,7 @@ class FrontController extends Controller
             Yii::app()->theme = $this->yupe->theme;
             $bootstrap = Yii::app()->theme->basePath . DIRECTORY_SEPARATOR . "bootstrap.php";
             if (is_file($bootstrap)) {
-                require($bootstrap);
-            }
-            if(is_dir(\Yii::app()->theme->basePath . '/assets')) {
-                $this->assetUrl = \Yii::app()->getAssetManager()->publish(\Yii::app()->theme->basePath . '/assets');
+                require $bootstrap;
             }
         } else {
             Yii::app()->theme = 'default';

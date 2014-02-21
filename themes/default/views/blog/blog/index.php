@@ -25,9 +25,14 @@
     $this->widget(
         'bootstrap.widgets.TbListView', array(
             'dataProvider' => $blogs->search(),
-            'template' => '{items} {pager}',
+            'template' => '{sorter} {items} {pager}',
             'itemView' => '_view',
-            'ajaxUpdate'  => false
+            'ajaxUpdate'  => false,
+            'sortableAttributes'=>array(
+                'name',
+                'postsCount',
+                'membersCount'
+            ),
         )
     ); 
 ?>

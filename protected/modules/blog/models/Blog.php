@@ -238,10 +238,11 @@ class Blog extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
+
+        $criteria->select = 't.*, count(post.id) as postsCount, count(member.id) as membersCount';
+        $criteria->join = 'LEFT JOIN {{blog_post}} post ON post.blog_id = t.id LEFT JOIN {{blog_user_to_blog}} member ON member.blog_id = t.id';
+        $criteria->group = 't.id';
 
         $criteria->compare('t.id', $this->id, true);
         $criteria->compare('name', $this->name, true);
@@ -257,12 +258,29 @@ class Blog extends yupe\models\YModel
 
         $criteria->with = array('createUser', 'updateUser', 'postsCount', 'membersCount');
 
+        $sort = new CSort();
+        $sort->defaultOrder = array(
+            'postsCount' => CSort::SORT_DESC
+        );
+
+        $sort->attributes = array(
+            'postsCount' => array(
+                'asc' => 'postsCount ASC',
+                'desc' => 'postsCount DESC',
+                'label' => Yii::t('BlogModule.blog', 'Posts count')
+            ),
+            'membersCount' => array(
+                'asc' => 'membersCount ASC',
+                'desc' => 'membersCount DESC',
+                'label' => Yii::t('BlogModule.blog', 'Members count')
+            ),
+            '*', // add all of the other columns as sortable
+        );
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 10),
-            'sort' => array(
-                'defaultOrder' => 'name ASC',
-            )
+            'sort' => $sort
         ));
     }
 
@@ -361,14 +379,16 @@ class Blog extends yupe\models\YModel
 
         if (false === $blogs) {
 
-            $result = Yii::app()->db->createCommand('SELECT blog_id FROM {{blog_user_to_blog}} WHERE user_id = :userId AND status = :status')
+            $result = Yii::app()->db->createCommand(
+                'SELECT blog_id FROM {{blog_user_to_blog}} WHERE user_id = :userId AND status = :status'
+            )
                 ->bindValue(':userId', (int)$userId)
                 ->bindValue(':status', UserToBlog::STATUS_ACTIVE)
                 ->queryAll();
 
             $blogs = array();
 
-            foreach($result as $data) {
+            foreach ($result as $data) {
                 $blogs[$data['blog_id']] = $data['blog_id'];
             }
 
@@ -380,9 +400,11 @@ class Blog extends yupe\models\YModel
 
     public function hasUserInStatus($userId, $status)
     {
-        return Yii::app()->db->createCommand('SELECT count(id)
-                                                FROM {{blog_user_to_blog}}
-                                                 WHERE user_id = :userId AND blog_id = :blogId AND status = :status')
+        return Yii::app()->db->createCommand(
+            'SELECT count(id)
+                                                            FROM {{blog_user_to_blog}}
+                                                             WHERE user_id = :userId AND blog_id = :blogId AND status = :status'
+        )
             ->bindValue(':userId', (int)$userId)
             ->bindValue(':status', (int)$status)
             ->bindValue(':blogId', $this->id)

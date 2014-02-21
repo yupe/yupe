@@ -63,7 +63,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
             'status',
             'theme',
             'category_id',
-            'is_faq'
+            'is_faq',
          ),
     )
 ); ?>
