@@ -41,7 +41,8 @@ abstract class YModel extends CActiveRecord
                 $absModulesPath,
                 'models',
                 'modules',
-                '/'
+                '/',
+                '\\'
             ), '', $modulePath
         );
 
