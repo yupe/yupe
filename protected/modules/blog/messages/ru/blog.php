@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Joined' => 'Присоеденился',
+    'Last visit' => 'Последний визит',
+    'location'   => 'Откуда',
+    'All entries for blog "{blog}"' => 'Все записи блога "{blog}"',
     'Members count' => 'Участников',
     'Posts count'   => 'Записей',
     'You are blocking in this blog!' => 'Вы заблокированы в этом блоге!',

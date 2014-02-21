@@ -1,4 +1,8 @@
-<?php $this->pageTitle = Yii::t('BlogModule.blog', 'Latest posts'); ?>
+<?php
+    $this->pageTitle = Yii::t('BlogModule.blog', 'Latest posts');
+    $this->description = Yii::t('BlogModule.blog','Latest post');
+    $this->keywords = Yii::t('BlogModule.blog','Latest post');
+?>
 
 <?php $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),

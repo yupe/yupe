@@ -241,7 +241,8 @@ class Blog extends yupe\models\YModel
         $criteria = new CDbCriteria;
 
         $criteria->select = 't.*, count(post.id) as postsCount, count(member.id) as membersCount';
-        $criteria->join = 'LEFT JOIN {{blog_post}} post ON post.blog_id = t.id LEFT JOIN {{blog_user_to_blog}} member ON member.blog_id = t.id';
+        $criteria->join = ' LEFT JOIN {{blog_post}} post ON post.blog_id = t.id
+                            LEFT JOIN {{blog_user_to_blog}} member ON member.blog_id = t.id';
         $criteria->group = 't.id';
 
         $criteria->compare('t.id', $this->id, true);

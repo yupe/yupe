@@ -1,6 +1,6 @@
 <div class="posts-list-block">
 	<div class="posts-list-block-header">
-	    <?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => $data->slug));?>       
+	    <?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => CHtml::encode($data->slug)));?>
 	</div>
 
 	<div class="posts-list-block-meta">
@@ -17,9 +17,9 @@
 	            <i class="icon-pencil"></i>
 
 	            <?php echo CHtml::link(
-	                $data->blog->name, array(
+	                CHtml::encode($data->blog->name), array(
 	                    '/blog/blog/show/',
-	                    'slug' => $data->blog->slug
+	                    'slug' => CHtml::encode($data->blog->slug)
 	                )
 	            ); ?>
 	        </span>
@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="posts-list-block-text">
-	    <?php echo strip_tags($data->getQuote()); ?>      
+	    <?php echo strip_tags($data->getQuote()); ?>
 	</div>
 
 	<div class="posts-list-block-tags">
@@ -58,7 +58,7 @@
 	                $data->getCommentCount(),
 	                array(
 	                    '/blog/post/show/',
-	                    'slug' => $data->slug,
+	                    'slug' => CHtml::encode($data->slug),
 	                    '#' => 'comments'
 	                )
 	            );?>
