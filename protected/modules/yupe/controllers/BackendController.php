@@ -336,7 +336,7 @@ class BackendController extends yupe\components\controllers\BackController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('YupeModule.yupe', 'Module was updated their migrations!')
                     );
-                    $this->redirect(array("backend"));
+                    $this->redirect(array("index"));
                 } else
                     $this->render('modupdate', array('updates' => $updates, 'module' => $module));
             } else
