@@ -20,7 +20,7 @@ class UserModule extends WebModule
     public $accountActivationFailure       = '/user/account/registration';
     public $loginSuccess                   = '/';
     public $registrationSuccess            = '/user/account/login';
-    public $loginAdminSuccess              = '';
+    public $loginAdminSuccess              = '/yupe/backend/index';
     public $logoutSuccess                  = '/';
     public $sessionLifeTime                = 7;
 

@@ -19,6 +19,8 @@ use yupe\components\WebModule;
 
 class YupeModule extends WebModule
 {
+    const VERSION = '0.7-dev';
+
     public $enableAssets;
     public $cache;
 
@@ -52,7 +54,7 @@ class YupeModule extends WebModule
      **/
     public function getVersion()
     {
-        return Yii::t('YupeModule.yupe', '0.6');
+        return Yii::t('YupeModule.yupe', self::VERSION);
     }
 
     /**

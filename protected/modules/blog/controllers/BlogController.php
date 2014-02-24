@@ -40,7 +40,7 @@ class BlogController extends yupe\components\controllers\FrontController
      */
     public function actionShow($slug = null)
     {     
-        $blog = Blog::model()->get($slug);
+        $blog = Blog::model()->getBySlug($slug);
 
         if ($blog === null){
            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Blog "{blog}" was not found!', array('{blog}' => $slug)));
@@ -80,7 +80,12 @@ class BlogController extends yupe\components\controllers\FrontController
             Yii::app()->ajax->success(Yii::t('BlogModule.blog','You have joined!'));
         }
 
-        Yii::app()->ajax->failure();
+        //check if user is in blog but blocked
+        if($blog->hasUserInStatus(Yii::app()->getUser()->getId(), UserToBlog::STATUS_BLOCK)) {
+            Yii::app()->ajax->failure(Yii::t('BlogModule.blog','You are blocking in this blog!'));
+        }
+
+        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occured when you were joining the blog!'));
     }
 
     /**
@@ -109,15 +114,15 @@ class BlogController extends yupe\components\controllers\FrontController
         }
 
         if($blog->leave(Yii::app()->user->getId())) {
-             Yii::app()->ajax->success(Yii::t('BlogModule.blog','Good luck!'));
+             Yii::app()->ajax->success(Yii::t('BlogModule.blog','You left the blog!'));
         }
 
-        Yii::app()->ajax->failure();
+        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occured when you were leaving the blog!'));
     }
 
     public function actionMembers($slug)
     {
-        $blog = Blog::model()->get($slug);
+        $blog = Blog::model()->getBySlug($slug);
 
         if(null === $blog) {
             throw new CHttpException(404);

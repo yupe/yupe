@@ -553,6 +553,18 @@ class Post extends yupe\models\YModel
 
     public function createPublicPost(array $post, $tags, $status)
     {
+        $blog = Blog::model()->get((int)$post['blog_id'], array());
+
+        if(null === $blog) {
+            $this->addError('blog_id', Yii::t('BlogModule.blog', "You can't write in this blog!"));
+            return false;
+        }
+
+        if(!$blog->userIn($post['user_id'])){
+            $this->addError('blog_id', Yii::t('BlogModule.blog', "You can't write in this blog!"));
+            return false;
+        }
+
         $this->setAttributes($post);
         $this->setTags($tags);
         $this->publish_date = date('d-m-Y h:i');

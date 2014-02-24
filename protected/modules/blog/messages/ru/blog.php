@@ -17,6 +17,16 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Joined' => 'Присоеденился',
+    'Last visit' => 'Последний визит',
+    'location'   => 'Откуда',
+    'All entries for blog "{blog}"' => 'Все записи блога "{blog}"',
+    'Members count' => 'Участников',
+    'Posts count'   => 'Записей',
+    'You are blocking in this blog!' => 'Вы заблокированы в этом блоге!',
+    'An error occured when you were joining the blog!' => 'При вступлении в блог произошла ошибка!',
+    'Deleted' => 'Удален',
+    "You can't write in this blog!" => 'Вы не можете писать в этот блог!',
     'Last posts' => 'Последние записи',
     'Members of "{blog}" blog' => 'Участники блога "{blog}"',
     'My posts'    => 'Мои записи',

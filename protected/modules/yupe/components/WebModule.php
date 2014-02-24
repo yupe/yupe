@@ -985,12 +985,12 @@ abstract class WebModule extends CWebModule
 
         $sourceFile = Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php';
 
-        $installedFile = Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php';
+        $installedFile = Yii::getPathOfAlias('application.config.modules.' . $this->getId()) . '.php';
 
         if(!file_exists($sourceFile) || !file_exists($installedFile)) {
             return false;
         }
 
-        return !(md5_file($sourceFile) === md5_file($installedFile));
+        return md5_file($sourceFile) !== md5_file($installedFile);
     }
 }

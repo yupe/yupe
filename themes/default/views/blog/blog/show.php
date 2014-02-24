@@ -1,16 +1,19 @@
-<?php $this->pageTitle = $blog->name; ?>
-<?php $this->description = $blog->description; ?>
+<?php
+    $this->pageTitle   = CHtml::encode($blog->name);
+    $this->description = CHtml::encode($blog->name);
+    $this->keywords    = CHtml::encode($blog->name);
+?>
 
 <?php
     $this->breadcrumbs = array(
         Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-        $blog->name,
+        CHtml::encode($blog->name),
     );
 ?>
 <div class="row-fluid">
     <div class="blog-logo pull-left">
         <?php echo CHtml::image(
-            $blog->getImageUrl(),$blog->name,
+            $blog->getImageUrl(), CHtml::encode($blog->name),
             array(
                 'width'  => 109,
                 'height' => 109
@@ -20,14 +23,14 @@
     <div class="blog-description">
         <div class="blog-description-name">
 
-            <?php echo CHtml::link($blog->name, array('/blog/post/blog/','slug' => $blog->slug)); ?>
+            <?php echo CHtml::link(CHtml::encode($blog->name), array('/blog/post/blog/','slug' => CHtml::encode($blog->slug))); ?>
             
             <?php echo CHtml::link(
                 CHtml::image(
                     Yii::app()->baseUrl . "/web/images/rss.png",
-                    Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
+                    Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
                     array(
-                        'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . $blog->name,
+                        'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
                         'class' => 'rss'
                     )
                 ), array(
@@ -36,7 +39,7 @@
             ); ?>
 
             <?php if(Yii::app()->user->isAuthenticated()):?>
-                <?php if(!$blog->userInBlog(Yii::app()->user->getId())):?>
+                <?php if(!$blog->userIn(Yii::app()->user->getId())):?>
                     <a class="btn btn-warning pull-right join-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
                 <?php else:?>
                     <a class="btn btn-warning pull-right leave-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Leave blog');?></a>
@@ -67,14 +70,14 @@
 
             <span class="blog-description-posts">
                 <i class="icon-pencil"></i>
-                <?php echo CHtml::link(count($blog->posts), array('/blog/post/blog/','slug' => $blog->slug)); ?>
+                <?php echo CHtml::link(count($blog->posts), array('/blog/post/blog/','slug' => CHtml::encode($blog->slug))); ?>
             </span>       
 
         </div>
 
         <?php if ($blog->description) : ?>
         <div class="blog-description-text">
-            <?php echo $blog->description; ?>
+            <?php echo CHtml::encode($blog->description); ?>
         </div>
         <?php endif; ?>
         
@@ -88,7 +91,7 @@
 
 <br/>
 
-<?php echo CHtml::link("Все записи блога '{$blog->name}'", array('/blog/post/blog/','slug' => $blog->slug), array('class' => 'btn'));?>
+<?php echo CHtml::link(Yii::t('BlogModule.blog', 'All entries for blog "{blog}"', array('{blog}' => CHtml::encode($blog->name))), array('/blog/post/blog/','slug' => $blog->slug), array('class' => 'btn'));?>
 
 <br/><br/>
 

@@ -12,6 +12,16 @@
 
 class UserToBlogBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'UserToBlog',
+                'validAttributes' => array('status', 'role')
+            )
+        );
+    }
     /**
      * Отображает участника по указанному идентификатору
      * @param integer $id Идинтификатор участника для отображения
@@ -31,9 +41,6 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
 
         try
         {
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
-
             if (isset($_POST['UserToBlog']))
             {
                 $model->attributes = $_POST['UserToBlog'];
@@ -59,8 +66,10 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 yupe\widgets\YFlashMessages::WARNING_MESSAGE,
                 Yii::t('BlogModule.blog', 'Cannot add user to the blog. Please make sure he is not a member already.')
             );
+
             $this->redirect(array('admin'));
         }
+
         $this->render('create', array('model' => $model));
     }
 

@@ -13,12 +13,13 @@
 
 namespace yupe\components;
 
-use Yii;
 use CChainedCacheDependency;
-use CHtml;
 use CDirectoryCacheDependency;
-use TagsCache;
+use CHtml;
+use Exception;
 use GlobIterator;
+use TagsCache;
+use Yii;
 
 
 class ModuleManager extends \CApplicationComponent
