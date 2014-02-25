@@ -17,26 +17,114 @@ use CApplicationComponent;
 
 class Mail extends CApplicationComponent
 {
-    /**
-     * Функция отправки сообщения:
-     *
-     * @param string $from   - адрес отправителя
-     * @param string $to     - адрес получателя
-     * @param string $theme  - тема письма
-     * @param string $body   - тело письма
-     * @param bool   $isText - является ли тело письма текстом
-     *
-     * @return bool отправилось ли письмо
-     **/
-    public function send($from, $to, $theme, $body, $isText = false)
-    {
-        $headers = "From: {$from}\r\nReply-To: {$from}";
-        $body    = str_replace("\n.", "\n..", wordwrap($body, 70));
+	/**
+	 * @var \PHPMailer
+	 */
+	private $_mailer;
 
-        if (!$isText) {
-            $headers = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n" . $headers;
-        }
+	/**
+	 * Method to send mail: ("mail", "sendmail", or "smtp").
+	 * @var string
+	 */
+	public $method;
 
-        return @mail($to, '=?UTF-8?B?' . base64_encode($theme) . '?=', $body, $headers);
-    }
+	/**
+	 * Smtp settings. Associative array. Required on method = smtp.
+	 *
+	 * array(
+	 *      'host' => 'example.com',
+	 *      'username' => 'username',
+	 *      'password' => '*******'
+	 * );
+	 * @var array
+	 */
+	public $smtp;
+
+	/**
+	 * Layout of the email body
+	 * @var string
+	 */
+	public $layout;
+
+	public function init()
+	{
+		$this->_mailer = new \PHPMailer();
+
+		switch ($this->method) {
+			case 'smtp':
+				$this->_mailer->isSMTP();
+				$this->_mailer->Host = $this->smtp['host'];
+				if (!empty($this->smtp['username'])) {
+					$this->_mailer->SMTPAuth = true;
+					$this->_mailer->Username = $this->smtp['username'];
+					$this->_mailer->Password = $this->smtp['password'];
+				}
+				break;
+			case 'sendmail':
+				$this->_mailer->isSendmail();
+
+				break;
+			default:
+				$this->_mailer->isMail();
+		}
+		$this->_mailer->CharSet = \Yii::app()->charset;
+	}
+
+	public function getMailer()
+	{
+		return $this->_mailer;
+	}
+
+	public function getSubject()
+	{
+		return $this->_mailer->Subject;
+	}
+
+	public function setSubject($subject)
+	{
+		$this->_mailer->Subject = $subject;
+	}
+
+	public function setFrom($address, $name = '')
+	{
+		$this->_mailer->setFrom($address, $name);
+		$this->_mailer->addReplyTo($address, $name);
+	}
+
+	public function addAddress($address, $name = '')
+	{
+		$this->_mailer->addAddress($address, $name);
+	}
+
+	public function reset()
+	{
+		$this->init();
+	}
+
+	/**
+	 * Функция отправки сообщения:
+	 *
+	 * @param string $from - адрес отправителя
+	 * @param string $to - адрес получателя
+	 * @param string $theme - тема письма
+	 * @param string $body - тело письма
+	 * @param bool $isText - является ли тело письма текстом
+	 *
+	 * @return bool отправилось ли письмо
+	 **/
+	public function send($from, $to, $theme, $body, $isText = false)
+	{
+		$this->setFrom($from);
+		$this->addAddress($to);
+		$this->setSubject($theme);
+
+		if ($isText) {
+			$this->_mailer->Body = $body;
+			$this->_mailer->isHTML(false);
+		} else {
+			$this->_mailer->msgHTML($body, \Yii::app()->basePath);
+		}
+
+		return $this->_mailer->send();
+	}
 }
