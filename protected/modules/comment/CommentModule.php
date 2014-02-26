@@ -177,7 +177,7 @@ class CommentModule extends WebModule
     {
         parent::init();
 
-        $import = count($this->import) ? array_merge(array('comment.models.*',$this->import)) : array('comment.models.*');
+        $import = count($this->import) ? array_merge(array('comment.models.*'), $this->import) : array('comment.models.*');
 
         $this->setImport($import);
 

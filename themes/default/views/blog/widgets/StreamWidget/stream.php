@@ -6,8 +6,8 @@
     <ul class="unstyled">
     <?php foreach ($data as $model): ?>
         <li>
-            <?php echo CHtml::link($model['title'], array('/blog/post/show/', 'slug' => $model['slug'])); ?>
-            <i class="icon-comment-alt"></i>
+            <?php echo CHtml::link(CHtml::encode($model['title']), array('/blog/post/show/', 'slug' => CHtml::encode($model['slug']))); ?>
+            <i class="fa icon-comment"></i>
             <?php echo $model['commentsCount']; ?>                         
         </li>       
         <hr>

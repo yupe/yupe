@@ -13,7 +13,7 @@
                     <?php echo CHtml::link(
                         CHtml::encode($post->title), array(
                             '/blog/post/show/',
-                            'slug' => $post->slug
+                            'slug' => CHtml::encode($post->slug)
                         )
                     ); ?>
                 </div>
@@ -33,9 +33,9 @@
                         <i class="icon-pencil"></i>
 
                         <?php echo CHtml::link(
-                            $post->blog->name, array(
+                            CHtml::encode($post->blog->name), array(
                                 '/blog/blog/show/',
-                                'slug' => $post->blog->slug
+                                'slug' => CHtml::encode($post->blog->slug)
                             )
                         ); ?>
                     </span>
@@ -74,7 +74,7 @@
                                 $post->getCommentCount(),
                                 array(
                                     '/blog/post/show/',
-                                    'slug' => $post->slug,
+                                    'slug' => CHtml::encode($post->slug),
                                     '#' => 'comments'
                                 )
                             );?>

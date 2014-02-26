@@ -379,6 +379,12 @@ class DocsModule extends yupe\components\WebModule
                         'label' => Yii::t('DocsModule.docs', 'Comment'),
                         'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'comment' ),
                         'icon'  => 'file',
+                        'items' => array(
+                            array(
+                                'label' => Yii::t('DocsModule.docs', 'NestedSets'),
+                                'url' =>  array('/docs/show/index', 'file' => 'nsmigrate','moduleID' => 'comment' )
+                            )
+                        )
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'ZendSearch'),
