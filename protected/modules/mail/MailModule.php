@@ -12,7 +12,23 @@
 
 class MailModule extends yupe\components\WebModule
 {
-    /**
+	public function getParamsLabels()
+	{
+		return array(
+			'adminMenuOrder' => Yii::t('MailModule.mail', 'Menu items order'),
+			'editor'         => Yii::t('MailModule.mail', 'Visual editor'),
+		);
+	}
+
+	public function getEditableParams()
+	{
+		return array(
+			'adminMenuOrder',
+			'editor' => Yii::app()->getModule('yupe')->getEditors(),
+		);
+	}
+
+	/**
      * Метод получения версии:
      *
      * @return string version
