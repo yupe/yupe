@@ -17,6 +17,15 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Delete' => '',
+    'Wait for confirmation' => '',
+    'Confirmation'=> '',
+    'User status' => '',
+    'Post status' => '',
+    'Joined' => '',
+    'Last visit' => '',
+    'location'   => '',
+    'All entries for blog "{blog}"' => '',
     'Members of "{blog}" blog' => '',
     '*unknown*' => '*未知*',
     '--choose blog--' => '--选择博客--',

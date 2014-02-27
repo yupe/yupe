@@ -17,6 +17,11 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Delete' => 'Удалить',
+    'Wait for confirmation' => 'Ожидайте подтверждения',
+    'Confirmation'=> 'Подтверждение',
+    'User status' => 'Статус нового пользователя',
+    'Post status' => 'Статус добавленной записи',
     'Joined' => 'Присоеденился',
     'Last visit' => 'Последний визит',
     'location'   => 'Откуда',

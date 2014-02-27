@@ -38,15 +38,8 @@
                 )
             ); ?>
 
-            <?php if(Yii::app()->user->isAuthenticated()):?>
-                <?php if(!$blog->userIn(Yii::app()->user->getId())):?>
-                    <a class="btn btn-warning pull-right join-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
-                <?php else:?>
-                    <a class="btn btn-warning pull-right leave-blog" href="<?php echo $blog->id;?>"><?php echo Yii::t('BlogModule.blog','Leave blog');?></a>
-                <?php endif;?>
-            <?php else:?>
-                <a class="btn btn-warning pull-right" href="<?php echo Yii::app()->createUrl('/user/account/login');?>"><?php echo Yii::t('BlogModule.blog','Join blog');?></a>
-            <?php endif;?>
+            <?php $this->widget('application.modules.blog.widgets.JoinBlogWidget', array('user' => Yii::app()->user, 'blog' => $blog));?>
+
         </div>
 
         <div class="blog-description-info">
@@ -77,7 +70,7 @@
 
         <?php if ($blog->description) : ?>
         <div class="blog-description-text">
-            <?php echo CHtml::encode($blog->description); ?>
+            <?php echo strip_tags($blog->description); ?>
         </div>
         <?php endif; ?>
         

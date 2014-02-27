@@ -9,8 +9,12 @@
  * @since 0.1
  *
  */
+use yupe\components\WebModule;
+
 class BlogModule extends yupe\components\WebModule
-{  
+{
+    const VERSION = '0.7';
+
     public $mainPostCategory;
     public $minSize           = 0;
     public $maxSize           = 5368709120;
@@ -28,6 +32,36 @@ class BlogModule extends yupe\components\WebModule
             'comment'
         );
     }
+
+    public function checkSelf()
+    {
+        $messages = array();
+        // count moderated users
+        $membersCnt = UserToBlog::model()->count('status = :status', array(':status' => UserToBlog::STATUS_CONFIRMATION));
+
+        if($membersCnt) {
+            $messages[WebModule::CHECK_NOTICE][] = array(
+                'type' => WebModule::CHECK_NOTICE,
+                'message' => Yii::t('BlogModule.blog', '{count} new members of blog wait for confirmation!', array(
+                            '{count}' => CHtml::link($membersCnt, array('/blog/userToBlogBackend/index', 'UserToBlog[status]' => UserToBlog::STATUS_CONFIRMATION, 'order' => 'id.desc'))
+                        ))
+            );
+        }
+
+        $postsCount = Post::model()->count('status = :status', array(':status' => Post::STATUS_MODERATED));
+
+        if($postsCount) {
+            $messages[WebModule::CHECK_NOTICE][] = array(
+                'type' => WebModule::CHECK_NOTICE,
+                'message' => Yii::t('BlogModule.blog', '{count} new posts wait for moderation!', array(
+                            '{count}' => CHtml::link($postsCount, array('/blog/postBackend/index', 'Post[status]' => Post::STATUS_MODERATED, 'order' => 'id.desc'))
+                        ))
+            );
+        }
+
+        return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE]) ) ? $messages : true;
+    }
+
 
     public function getUploadPath()
     {
@@ -93,7 +127,7 @@ class BlogModule extends yupe\components\WebModule
 
     public  function getVersion()
     {
-        return Yii::t('BlogModule.blog', '0.6');
+        return Yii::t('BlogModule.blog', self::VERSION);
     }
 
     public function getName()

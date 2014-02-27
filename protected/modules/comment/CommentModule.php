@@ -15,6 +15,8 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
+    const VERSION = '0.7';
+
     public $notifier = 'application\modules\comment\components\Notifier';
     public $defaultCommentStatus;
     public $autoApprove          = true;
@@ -120,7 +122,7 @@ class CommentModule extends WebModule
                         '{{count}}' => $count,
                         '{{link}}'  => CHtml::link(
                             Yii::t('CommentModule.comment', 'Comments moderation'), array(
-                                    '/comment/commentBackend/index','order' => 'tatus.asc', 'Comment_sort' => 'status',
+                                    '/comment/commentBackend/index','Comment[status]' => Comment::STATUS_NEED_CHECK,
                             )
                         ),
                     )
@@ -137,7 +139,7 @@ class CommentModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('CommentModule.comment', '0.6');
+        return Yii::t('CommentModule.comment', self::VERSION);
     }
 
     public function getAuthor()
