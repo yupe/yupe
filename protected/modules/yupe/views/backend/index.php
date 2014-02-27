@@ -3,10 +3,9 @@
 </div>
 
 <?php foreach ($modules as $module): ?>
-    <?php
-    if ($module instanceof yupe\components\WebModule === false) {
-        continue;
-    } ?>
+    <?php  if ($module instanceof yupe\components\WebModule === false):?>
+        <?php continue; ?>
+    <?php endif; ?>
     <?php if ($module->getIsActive()): ?>
         <?php $messages = $module->checkSelf(); ?>
         <?php if (is_array($messages)): ?>
@@ -49,42 +48,17 @@
     <?php endif; ?>
 <?php endforeach; ?>
 
+<?php foreach ($modules as $module): ?>
+    <?php  if ($module instanceof yupe\components\WebModule === false):?>
+        <?php continue; ?>
+    <?php endif; ?>
 
-<div class="alert">
-    <p>
-        <?php
-        $yiiCount    = count($yiiModules);
-        $yupeCount   = count($modules);
-        $allCount    = $yupeCount + $yiiCount;
-        $enableCount = 0;
-        foreach ($modules as $module) {
-            if ($module instanceof yupe\components\WebModule === false) {
-                continue;
-            }
-            
-            if ($module->getIsActive() || $module->getIsNoDisable()) {
-                $enableCount++;
-            }
-        }
-        ?>
-        <?php echo Yii::t('YupeModule.yupe', 'Installed'); ?>
-        <small class="label label-info"><?php echo $allCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $allCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'enabled'); ?>
-        <small class="label label-info"><?php echo $enableCount + $yiiCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $enableCount + $yiiCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'disabled|disabled',$yupeCount - $enableCount); ?>
-        <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount - $enableCount); ?>
-        <br>
-        <small>
-            <?php echo Yii::t('YupeModule.yupe', '( You always can find another modules on {link} or {order_link} )', array(
-                '{link}'       => CHtml::link(Yii::t('YupeModule.yupe', 'official site'), 'http://yupe.ru/?from=mlist', array('target' => '_blank')),
-                '{order_link}' => CHtml::link(Yii::t('YupeModule.yupe', 'order to develop them'), 'http://yupe.ru/contacts/?from=mlist', array('target' => '_blank')),
-            )); ?>
-        </small>
-    </p>
-</div>
+    <?php if ($module->getIsActive()): ?>
+        <?php echo $module->getPanelWidget(); ?>
+    <?php endif;?>
+
+<?php endforeach;?>
+
 
 <legend><?php echo Yii::t('YupeModule.yupe', 'Fast access to modules'); ?></legend>
 <?php

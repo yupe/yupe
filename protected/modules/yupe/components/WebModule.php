@@ -201,6 +201,18 @@ abstract class WebModule extends CWebModule
         return true;
     }
 
+
+    /**
+     * Каждый модуль может выводить свои виджеты (например, со стаистикой) на главную страницу панели управления
+     *
+     * @return string или false
+     *
+     */
+    public function getPanelWidget()
+    {
+        return false;
+    }
+
     /**
      * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления
      *

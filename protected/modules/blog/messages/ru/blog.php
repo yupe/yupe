@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Users (last day / all)' => 'Пользователей (за сутки / всего)',
+    'Posts (last day / all)' => 'Записей (за сутки / всего)',
+    'Comments (last day / all)' => 'Комментариев (за сутки / всего)',
     'Delete' => 'Удалить',
     'Wait for confirmation' => 'Ожидайте подтверждения',
     'Confirmation'=> 'Подтверждение',
