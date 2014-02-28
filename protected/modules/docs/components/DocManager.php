@@ -15,8 +15,6 @@
  **/
 namespace app\modules\docs\components;
 
-use Yii;
-
 class DocManager extends CApplicationComponent
 {
 

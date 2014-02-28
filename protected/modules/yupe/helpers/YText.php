@@ -13,7 +13,6 @@
  */
 
 namespace yupe\helpers;
-use Yii;
 use CHtmlPurifier;
 
 class YText
