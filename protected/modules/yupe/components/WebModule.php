@@ -590,7 +590,6 @@ abstract class WebModule extends CWebModule
                                     'Error. Modules which depends from this module is disabled. First please enable this modules.'
                                 )
                             );
-                            return false;
                         }
                     }
                 }
@@ -609,7 +608,6 @@ abstract class WebModule extends CWebModule
                 );
             }
         }
-        return false;
     }
 
     /**
@@ -647,7 +645,6 @@ abstract class WebModule extends CWebModule
                                     'Error. You have enabled modules which depends for this module. Disable it first!'
                                 )
                             );
-                            return false;
                         }
                     }
                 }
