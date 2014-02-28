@@ -35,6 +35,7 @@
         <p class="lead">Простая, легкая и удобная CMS! Работаем на Yiiframework, Twitter Bootstrap и jQuery!</p>
         <a class="btn btn-large btn-success" href="https://github.com/yupe/yupe/releases">Скачать
             Юпи! <?php echo $this->yupe->getVersion(); ?></a>
+        <a class="btn btn-large btn-info" href="<?php echo Yii::app()->createUrl('/feedback/contact/index');?>">Хочу проект!</a>    
         <br/><br/>
 
         <p>
@@ -60,6 +61,7 @@
         <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img
                 src="https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png" alt="Bitdeli Badge"
                 style="max-width:100%;"></a>
+        <a><img src="https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png"></a>        
         <a href="https://gitter.im/yupe/yupe" title="Чат пользователей Юпи!"><img
                 src="https://badges.gitter.im/yupe/yupe.png"></a>
 
@@ -105,7 +107,7 @@
         </div>
     </div>
 
-    <div class="row" id='more-modules'>
+    <div class="row">
         <div class="span4 module-info">
             <h3><i class="fa fa-pencil"></i> Блоги</h3>
 
@@ -135,6 +137,39 @@
 
             <p>Для более удобной навигации по каталогу возможно разбивать его на категории и подкатегории, использовать
                 сортировку и постраничную разбивку. </p>
+        </div>
+    </div>
+
+
+     <div class="row">
+        <div class="span4 module-info">
+            <h3><i class="fa fa-list"></i> Меню</h3>
+
+            <p class="muted">Управляйте меню вашего сайта из панели управления.</p>
+
+            <p>
+                Создавайте меню с пунктами неограниченной вложенности, управляйте их видимостью, упорядочивайте и сортируйте.
+                Удобный вывод меню через виджеты.
+            </p>
+        </div>
+        <div class="span4 module-info">
+            <h3><i class="fa fa-picture-o"></i> Изображения</h3>
+
+            <p class="muted">
+               Хранение всех изображений в одном месте.
+            </p>
+
+            <p>
+                Используйте единую базу изабражений при создании новостей, страниц, постов и остального контента.
+                Группируйте изображения в альбомы и галереи.
+            </p>
+        </div>
+        <div class="span4 module-info">
+            <h3><i class="fa fa-envelope"></i> Обратная связь</h3>
+
+            <p class="muted">Простая форма контактов для ваших клиентов.</p>
+
+            <p>Получайте обратную связь, формируйте FAQ по вашему проекту, отвечайте клиентам прямо из панели управления.</p>
         </div>
     </div>
 
