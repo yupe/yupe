@@ -23,7 +23,6 @@
 class ContentBlock extends yupe\models\YModel
 {
     const SIMPLE_TEXT = 1;
-    const PHP_CODE    = 2;
     const HTML_TEXT   = 3;
 
     /**
@@ -103,7 +102,6 @@ class ContentBlock extends yupe\models\YModel
     {
         return array(
             self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Full text'),
-            self::PHP_CODE    => Yii::t('ContentBlockModule.contentblock', 'Executed PHP code'),
             self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
         );
     }

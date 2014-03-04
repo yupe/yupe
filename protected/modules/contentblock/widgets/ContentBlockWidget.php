@@ -10,7 +10,7 @@
  *
  **/
 Yii::import('application.modules.contentblock.models.ContentBlock');
- 
+
 class ContentBlockWidget extends yupe\widgets\YWidget
 {
     public $code;
@@ -19,9 +19,13 @@ class ContentBlockWidget extends yupe\widgets\YWidget
 
     public function init()
     {
-        if (empty($this->code))
-            throw new CException(Yii::t('ContentBlockModule.contentblock', 'Insert content block title for ContentBlockWidget!'));
-        
+        if (empty($this->code)) {
+            throw new CException(Yii::t(
+                'ContentBlockModule.contentblock',
+                'Insert content block title for ContentBlockWidget!'
+            ));
+        }
+
         $this->silent = (bool)$this->silent;
     }
 
@@ -39,7 +43,9 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 if ($this->silent === false) {
                     throw new CException(
                         Yii::t(
-                            'ContentBlockModule.contentblock', 'Content block "{code}" was not found !', array(
+                            'ContentBlockModule.contentblock',
+                            'Content block "{code}" was not found !',
+                            array(
                                 '{code}' => $this->code
                             )
                         )
@@ -52,15 +58,12 @@ class ContentBlockWidget extends yupe\widgets\YWidget
 
                 switch ($block->type) {
 
-                case ContentBlock::PHP_CODE:
-                    $output = eval($block->content);
-                    break;
-                case ContentBlock::SIMPLE_TEXT:
-                    $output = CHtml::encode($block->content);
-                    break;
-                case ContentBlock::HTML_TEXT:
-                    $output = $block->content;
-                    break;
+                    case ContentBlock::SIMPLE_TEXT:
+                        $output = CHtml::encode($block->content);
+                        break;
+                    case ContentBlock::HTML_TEXT:
+                        $output = $block->content;
+                        break;
                 }
             }
 
