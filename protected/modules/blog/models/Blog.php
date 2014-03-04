@@ -411,7 +411,7 @@ class Blog extends yupe\models\YModel
         }
 
         if(false !== $status) {
-            if(isset($blogs[$this->id]) && $blogs[$this->id] === $status) {
+            if(isset($blogs[$this->id]) && (int)$blogs[$this->id] === (int)$status) {
                 return true;
             }
             return false;

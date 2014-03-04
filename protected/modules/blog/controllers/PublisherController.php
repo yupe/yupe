@@ -11,7 +11,7 @@ class PublisherController extends yupe\components\controllers\FrontController
 
     public function actionWrite()
     {
-        $post = new Post();
+        $post = new Post;
 
         if (($postId = (int)Yii::app()->getRequest()->getQuery('id'))) {
 
@@ -26,25 +26,21 @@ class PublisherController extends yupe\components\controllers\FrontController
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['Post'])) {
 
-            $module = Yii::app()->getModule('blog');
-
-            $status = isset($_POST['publish']) ? (int)$module->publicPostStatus : Post::STATUS_DRAFT;
-
             $data = Yii::app()->getRequest()->getPost('Post');
 
             $data['user_id'] = Yii::app()->user->getId();
 
-            if ($post->createPublicPost($data, Yii::app()->getRequest()->getPost('tags'), $status)) {
+            if ($post->createPublicPost($data, Yii::app()->getRequest()->getPost('tags'))) {
 
                 $message = Yii::t('BlogModule.blog', 'Post sent for moderation!');
 
                 $redirect = array('/blog/publisher/my');
 
-                if ($status == Post::STATUS_DRAFT) {
+                if ($post->status === Post::STATUS_DRAFT) {
                     $message = Yii::t('BlogModule.blog',  'Post saved!');
                 }
 
-                if ($status == Post::STATUS_PUBLISHED) {
+                if ($post->status === Post::STATUS_PUBLISHED) {
 
                     $message = Yii::t('BlogModule.blog', 'Post published!');
 
@@ -57,7 +53,9 @@ class PublisherController extends yupe\components\controllers\FrontController
             }
         }
 
-        $this->render('write', array('post' => $post));
+        $blogs = Blog::model()->getListForUser(Yii::app()->getUser()->getId());
+
+        $this->render('write', array('post' => $post, 'blogs' => $blogs));
     }
 
     public function actionMy()
@@ -70,7 +68,6 @@ class PublisherController extends yupe\components\controllers\FrontController
         if (Post::model()->deleteUserPost(Yii::app()->getRequest()->getQuery('id'), Yii::app()->getUser()->getId())) {
 
             Yii::app()->ajax->success();
-
         }
 
         Yii::app()->ajax->failure();

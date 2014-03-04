@@ -551,8 +551,13 @@ class Post extends yupe\models\YModel
         return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
     }
 
-    public function createPublicPost(array $post, $tags, $status)
+    public function createPublicPost(array $post, $tags)
     {
+        if(empty($post['blog_id']) || empty($post['user_id'])) {
+            $this->addError('blog_id', Yii::t('BlogModule.blog', "Post form error!"));
+            return false;
+        }
+
         $blog = Blog::model()->get((int)$post['blog_id'], array());
 
         if(null === $blog) {
@@ -568,7 +573,7 @@ class Post extends yupe\models\YModel
         $this->setAttributes($post);
         $this->setTags($tags);
         $this->publish_date = date('d-m-Y h:i');
-        $this->status = (int)$status;
+        $this->status = $blog->post_status;
         return $this->save();
     }
 
