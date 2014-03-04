@@ -48,7 +48,6 @@ $this->renderPartial('_search', array('model' => $model));
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'bulkActions'      => array(
-        /* Массив кнопок действий: */
         'actionButtons' => array(
             array(
                 'id'         => 'delete-comment',
@@ -56,19 +55,9 @@ $this->renderPartial('_search', array('model' => $model));
                 'type'       => 'danger',
                 'size'       => 'small',
                 'label'      => Yii::t('CommentModule.comment', 'Delete'),
-                /**
-                 *   Логика следующая - получаем массив выбранных эллементов в переменную values,
-                 *   далее передаём в функцию multiaction - необходимое действие и эллементы.
-                 *   Multiaction - делает ajax-запрос на actionMultiaction, где уже происходит
-                 *   обработка данных (указывая собственные действия - необходимо создавать их
-                 *   обработчики в actionMultiaction):
-                 **/
                 'click'      => 'js:function(values){ if(!confirm("' . Yii::t('CommentModule.comment', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
             ),
         ),
-
-        // if grid doesn't have a checkbox column type, it will attach
-        // one and this configuration will be part of it
         'checkBoxColumnConfig' => array(
             'name' => 'id'
         ),
@@ -78,14 +67,24 @@ $this->renderPartial('_search', array('model' => $model));
         'model',
         'model_id',
         array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "fire", "remove"))',
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/comment/commentBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
             'filter' => $model->getStatusList()
         ),
         array(
             'name'  => 'text',
-            'value' => '(strlen($data->text) == 0 && strlen($data->name) == 0) ? "'.Yii::t("CommentModule.comment","КОРЕННОЙ УЗЕЛ ДЛЯ:").' $data->model -> $data->model_id" : $data->text',
+            'value' => '(strlen($data->text) == 0 && strlen($data->name) == 0) ? "'.Yii::t("CommentModule.comment","root for:").' $data->model -> $data->model_id" : $data->text',
             'type'  => 'html'
         ),
         array(

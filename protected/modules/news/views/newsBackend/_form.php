@@ -51,6 +51,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                         'weekStart' => 1,
                         'autoclose' => true,
                     ),
+                    'htmlOptions'   => array(
+                        'class' => 'span11'
+                    ),
+                ),
+                array(
+                    'prepend' => '<i class="icon-calendar"></i>',
                 )
             ); ?>
         </div>

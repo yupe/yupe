@@ -9,8 +9,12 @@
  * @since 0.1
  *
  */
+use yupe\components\WebModule;
+
 class BlogModule extends yupe\components\WebModule
-{  
+{
+    const VERSION = '0.7';
+
     public $mainPostCategory;
     public $minSize           = 0;
     public $maxSize           = 5368709120;
@@ -18,7 +22,6 @@ class BlogModule extends yupe\components\WebModule
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $uploadPath        = 'blogs';
     public $rssCount = 10;
-    public $publicPostStatus  = 3;
 
     public function getDependencies()
     {
@@ -28,6 +31,67 @@ class BlogModule extends yupe\components\WebModule
             'comment'
         );
     }
+
+    public function checkSelf()
+    {
+        $messages = array();
+        // count moderated users
+        $membersCnt = UserToBlog::model()->count('status = :status', array(':status' => UserToBlog::STATUS_CONFIRMATION));
+
+        if($membersCnt) {
+            $messages[WebModule::CHECK_NOTICE][] = array(
+                'type' => WebModule::CHECK_NOTICE,
+                'message' => Yii::t('BlogModule.blog', '{count} new members of blog wait for confirmation!', array(
+                            '{count}' => CHtml::link($membersCnt, array('/blog/userToBlogBackend/index', 'UserToBlog[status]' => UserToBlog::STATUS_CONFIRMATION, 'order' => 'id.desc'))
+                        ))
+            );
+        }
+
+        $postsCount = Post::model()->count('status = :status', array(':status' => Post::STATUS_MODERATED));
+
+        if($postsCount) {
+            $messages[WebModule::CHECK_NOTICE][] = array(
+                'type' => WebModule::CHECK_NOTICE,
+                'message' => Yii::t('BlogModule.blog', '{count} new posts wait for moderation!', array(
+                            '{count}' => CHtml::link($postsCount, array('/blog/postBackend/index', 'Post[status]' => Post::STATUS_MODERATED, 'order' => 'id.desc'))
+                        ))
+            );
+        }
+
+        return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE]) ) ? $messages : true;
+    }
+
+    public function getPanelWidget()
+    {
+        $cacheTime = Yii::app()->controller->yupe->coreCacheTime;
+
+        $dataProvider = new CActiveDataProvider('Post', array(
+            'sort' => array(
+                'defaultOrder' => 'id DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>3,
+            ),
+        ));
+
+        Yii::app()->controller->widget(
+            'bootstrap.widgets.TbBox',
+            array(
+                'title' => Yii::t('BlogModule.blog', 'Blogs'),
+                'headerIcon' => 'icon-pencil',
+                'content' =>  Yii::app()->controller->renderPartial('application.modules.blog.views.blogBackend.blog-panel', array(
+                            'postsCount'    => Post::model()->cache($cacheTime)->count('create_date >= :time', array(':time' => time() - 24 * 60 * 60)),
+                            'commentCount'  => Comment::model()->cache($cacheTime)->count('creation_date >= (CURDATE() - INTERVAL 1 DAY)'),
+                            'allPostsCnt'   => Post::model()->cache($cacheTime)->count(),
+                            'allCommentCnt' => Comment::model()->cache($cacheTime)->count(),
+                            'usersCount'  => User::model()->cache($cacheTime)->count('registration_date >= (CURDATE() - INTERVAL 1 DAY)'),
+                            'allUsersCnt' => User::model()->cache($cacheTime)->count(),
+                            'dataProvider' => $dataProvider
+                        ), true)
+            )
+        );
+    }
+
 
     public function getUploadPath()
     {
@@ -50,8 +114,7 @@ class BlogModule extends yupe\components\WebModule
             'allowedExtensions' => Yii::t('BlogModule.blog', 'Allowed extensions (separated by comma)'),
             'minSize'           => Yii::t('BlogModule.blog', 'Minimum size (in bytes)'),
             'maxSize'           => Yii::t('BlogModule.blog', 'Maximum size (in bytes)'),
-            'rssCount'          => Yii::t('BlogModule.blog', 'RSS records count'),
-            'publicPostStatus'  => Yii::t('BlogModule.blog', 'Default status for public posts')
+            'rssCount'          => Yii::t('BlogModule.blog', 'RSS records count')
         );
     }
 
@@ -66,8 +129,7 @@ class BlogModule extends yupe\components\WebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
-            'rssCount',
-            'publicPostStatus' => Post::model()->getStatusList()
+            'rssCount'
         );
     }   
 
@@ -93,7 +155,7 @@ class BlogModule extends yupe\components\WebModule
 
     public  function getVersion()
     {
-        return Yii::t('BlogModule.blog', '0.6');
+        return Yii::t('BlogModule.blog', self::VERSION);
     }
 
     public function getName()

@@ -13,7 +13,6 @@
 namespace yupe\components\validators;
 
 use CUniqueValidator;
-use Yii;
 
 class YUniqueSlugValidator extends CUniqueValidator
 {

@@ -11,6 +11,39 @@
  */
 class CommentBackendController extends yupe\components\controllers\BackController
 {
+    public function actionInline()
+    {
+        if (!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        $name = Yii::app()->request->getPost('name');
+        $value = Yii::app()->request->getPost('value');
+        $pk = (int)Yii::app()->request->getPost('pk');
+
+        if (!isset($name, $value, $pk)) {
+            throw new CHttpException(404);
+        }
+
+        if (!in_array($name, array('status'))) {
+            throw new CHttpException(404);
+        }
+
+        $model = Comment::model()->findByPk($pk);
+
+        if (null === $model) {
+            throw new CHttpException(404);
+        }
+
+        $model->$name = $value;
+
+        if ($model->saveNode()) {
+            Yii::app()->ajax->success();
+        }
+
+        throw new CHttpException(500, $model->getError($name));
+    }
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

@@ -29,7 +29,7 @@
                 $post->getCommentCount(),
                 array(
                     '/blog/post/show/',
-                    'slug' => $post->slug,
+                    'slug' => CHtml::encode($post->slug),
                     '#' => 'comments'
                 )
             );?>

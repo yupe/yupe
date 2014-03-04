@@ -15,7 +15,6 @@
 
 namespace yupe\helpers;
 use CFileHelper;
-use Yii;
 
 class YFile extends CFileHelper
 {

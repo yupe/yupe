@@ -39,6 +39,7 @@ class UserToBlog extends yupe\models\YModel
     const STATUS_ACTIVE  = 1;
     const STATUS_BLOCK   = 2;
     const STATUS_DELETED = 3;
+    const STATUS_CONFIRMATION = 4;
 
     /**
      * Returns the static model of the specified AR class.
@@ -198,7 +199,8 @@ class UserToBlog extends yupe\models\YModel
         return array(
             self::STATUS_ACTIVE   => Yii::t('BlogModule.blog', 'Active'),
             self::STATUS_BLOCK    => Yii::t('BlogModule.blog', 'Blocked'),
-            self::STATUS_DELETED  => Yii::t('BlogModule.blog', 'Deleted')
+            self::STATUS_DELETED  => Yii::t('BlogModule.blog', 'Deleted'),
+            self::STATUS_CONFIRMATION => Yii::t('BlogModule.blog', 'Confirmation')
         );
     }
 
@@ -216,6 +218,11 @@ class UserToBlog extends yupe\models\YModel
     public function isActive()
     {
         return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function isConfirmation()
+    {
+        return $this->status === self::STATUS_CONFIRMATION;
     }
 
     public function activate()

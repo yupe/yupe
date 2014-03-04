@@ -201,6 +201,18 @@ abstract class WebModule extends CWebModule
         return true;
     }
 
+
+    /**
+     * Каждый модуль может выводить свои виджеты (например, со стаистикой) на главную страницу панели управления
+     *
+     * @return string или false
+     *
+     */
+    public function getPanelWidget()
+    {
+        return false;
+    }
+
     /**
      * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления
      *
@@ -578,7 +590,6 @@ abstract class WebModule extends CWebModule
                                     'Error. Modules which depends from this module is disabled. First please enable this modules.'
                                 )
                             );
-                            return false;
                         }
                     }
                 }
@@ -597,7 +608,6 @@ abstract class WebModule extends CWebModule
                 );
             }
         }
-        return false;
     }
 
     /**
@@ -635,7 +645,6 @@ abstract class WebModule extends CWebModule
                                     'Error. You have enabled modules which depends for this module. Disable it first!'
                                 )
                             );
-                            return false;
                         }
                     }
                 }

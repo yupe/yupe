@@ -267,7 +267,6 @@ class Migrator extends \CApplicationComponent
                     )
                 )
             );
-            return false;
         }
     }
 

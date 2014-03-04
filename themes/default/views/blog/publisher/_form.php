@@ -33,7 +33,7 @@ $form = $this->beginWidget(
     Вы можете писать только  в блоги, подписчиком которых являетесь...
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model);?>
 
 <div class="row-fluid control-group">
     <div class="span2 pull-left">
@@ -44,8 +44,10 @@ $form = $this->beginWidget(
                     'asDropDownList' => true,
                     'model' => $model,
                     'attribute' => 'blog_id',
-                    'data' => CHtml::listData(Blog::model()->getListForUser(Yii::app()->getUser()->getId()), 'id', 'name'),
-                    'value'=> null
+                    'data' => CHtml::listData($blogs, 'id', 'name'),
+                    'options' => array(
+                        'placeholder' => 'blog'
+                    )
                 )
             );
         ?>

@@ -38,7 +38,7 @@ $form = $this->beginWidget(
 <?php echo $form->errorSummary($model); ?>
 
 <div class="row-fluid control-group">
-    <div class="span2 pull-left">
+    <div class="span3 pull-left">
         <?php echo $form->labelEx($model, 'blog_id'); ?>
         <?php
         $this->widget(
@@ -53,11 +53,11 @@ $form = $this->beginWidget(
         ?>
     </div>
 
-    <div class="span2  pull-left">
+    <div class="span3  pull-left">
         <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
     </div>
 
-    <div class="span2  pull-left popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>'
+    <div class="span3  pull-left popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>'
          data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
         <?php
         echo $form->datetimepickerRow(
@@ -67,6 +67,12 @@ $form = $this->beginWidget(
                     'weekStart' => 1,
                     'autoclose' => true
                 ),
+                'htmlOptions'   => array(
+                    'class' => 'span11'
+                ),
+            ),
+            array(
+                'prepend' => '<i class="icon-calendar"></i>',
             )
         ); ?>
     </div>

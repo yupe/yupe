@@ -4,7 +4,7 @@
 <div>
     <ul class="unstyled">
 		<?php foreach($posts as $data):?>  		  
-		     <li><?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => $data->slug)); ?></li>	  
+		     <li><?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => CHtml::encode($data->slug))); ?></li>
 		<?php endforeach?>
 	</ul>     
 </div> 

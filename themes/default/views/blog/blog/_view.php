@@ -7,25 +7,9 @@
         ); ?>
     </div>
     <div class="span7 blog-info">
-        <?php if (Yii::app()->user->isAuthenticated()): ?>
-            <?php if (!$data->userIn(Yii::app()->user->getId())): ?>
-                <a class="btn btn-warning pull-right join-blog" href="<?php echo $data->id; ?>"><?php echo Yii::t(
-                        'BlogModule.blog',
-                        'Join blog'
-                    ); ?></a>
-            <?php else: ?>
-                <a class="btn btn-warning pull-right leave-blog" href="<?php echo $data->id; ?>"><?php echo Yii::t(
-                        'BlogModule.blog',
-                        'Leave blog'
-                    ); ?></a>
-            <?php endif; ?>
-        <?php else: ?>
-            <a class="btn btn-warning pull-right"
-               href="<?php echo Yii::app()->createUrl('/user/account/login'); ?>"><?php echo Yii::t(
-                    'BlogModule.blog',
-                    'Join blog'
-                ); ?></a>
-        <?php endif; ?>
+
+        <?php $this->widget('application.modules.blog.widgets.JoinBlogWidget', array('user' => Yii::app()->user, 'blog' => $data));?>
+
         <h2><?php echo CHtml::link(
                 CHtml::encode($data->name),
                 array('/blog/blog/show/', 'slug' => CHtml::encode($data->slug))
@@ -50,7 +34,7 @@
                 CHtml::encode($data->membersCount),
                 array('/blog/blog/members', 'slug' => CHtml::encode($data->slug))
             ); ?> </span>
-        <span class="fa fa-book"> <?php echo CHtml::encode($data->description); ?> </span>
+        <span class="fa fa-book"> <?php echo strip_tags($data->description); ?> </span>
     </div>
 </div>
 <hr/>

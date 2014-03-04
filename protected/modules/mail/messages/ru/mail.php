@@ -96,4 +96,6 @@ return array (
   'not active' => 'не активен',
   'are required.' => 'обязательны.',
   'management' => 'управление',
+  'Visual editor' => 'Визуальный редактор',
+  'Menu items order' => 'Порядок следования в меню',
 );

@@ -51,6 +51,15 @@ $form = $this->beginWidget(
         </div>
     </div>
 
+    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('member_status') || $model->hasErrors('post_status')) ? 'error' : ''; ?>">
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model, 'member_status', $model->getMemberStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('member_status'), 'data-content' => $model->getAttributeDescription('member_status'))); ?>
+        </div>
+        <div class="span4">
+            <?php echo $form->dropDownListRow($model, 'post_status', $model->getPostStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('post_status'), 'data-content' => $model->getAttributeDescription('post_status'))); ?>
+        </div>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php
         echo $form->textFieldRow(

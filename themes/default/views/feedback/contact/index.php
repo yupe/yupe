@@ -96,31 +96,5 @@ Yii::import('application.modules.install.InstallModule');
         )
     ); ?>
 
-
     <?php $this->endWidget(); ?>
-</div>
-
-
-<div class="alert alert-success">
-
-    <p><?php echo Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
-
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Official docs'), 'http://yupe.ru/docs/index.html?from=contact'); ?>  - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
-
-    <br/><br/>
-
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Support Yupe forum'), 'http://yupe.ru/talk/'); ?>  - <?php echo Yii::t('InstallModule.install', 'All discussions here'); ?>
-
-    <br/><br/>
-
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
-
-    <br/><br/>
-
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Sources on GitHub'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('InstallModule.install', 'Send pull request'); ?>
-
-    <br/><br/>
-
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'General sponsor'), 'http://amylabs.ru?from=yupe-contact'); ?> - <?php echo Yii::t('InstallModule.install', 'Just good guys'); ?>
-
 </div>
