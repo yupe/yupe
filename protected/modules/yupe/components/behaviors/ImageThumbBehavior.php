@@ -113,7 +113,7 @@ class ImageThumbBehavior extends CActiveRecordBehavior
     public function deleteThumbs()
     {
         $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
-        foreach (glob($this->uploadPath . '/' . 'thumb_cache_*_' . $fileName) as $file)
+        foreach ((array)glob($this->uploadPath . '/' . 'thumb_cache_*_' . $fileName) as $file)
         {
             @unlink($file);
         }

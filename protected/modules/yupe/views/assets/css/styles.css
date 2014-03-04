@@ -154,3 +154,6 @@ pre .label{
     padding-bottom: 0;
     margin-bottom: 0;
 }
+.grid-view .button-column {
+    width: 60px;
+}
