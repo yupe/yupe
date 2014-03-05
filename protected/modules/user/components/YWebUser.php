@@ -37,7 +37,7 @@ class YWebUser extends CWebUser
      **/
     public function isAuthenticated()
     {
-        if ($this->isGuest) {
+        if ($this->getIsGuest()) {
             return false;
         }
 
@@ -72,14 +72,17 @@ class YWebUser extends CWebUser
      **/
     public function isSuperUser()
     {
-        if (!$this->isAuthenticated())
+        if (!$this->isAuthenticated()){
             return false;
+        }
 
         $loginAdmTime = $this->getState('loginAdmTime');
         $isAdmin      = $this->getState('isAdmin');
 
-        if ($isAdmin == User::ACCESS_LEVEL_ADMIN && $loginAdmTime)
+        if ((int)$isAdmin === User::ACCESS_LEVEL_ADMIN && $loginAdmTime){
             return true;
+        }
+
         return false;
     }
 
@@ -93,16 +96,57 @@ class YWebUser extends CWebUser
      */
     public function getProfile($id = null,$moduleName = null)
     {
-        if (!$moduleName) {
-			if (empty($id)){
-				$id = $this->id;
-            }
-            if ($this->_profile === null) {
-                $this->_profile = User::model()->findByPk($id);
-            }
-            return $this->_profile;
+        if ($moduleName) {
+            return null;
         }
-        return null;
+
+        $id = $id === null ? $this->id : $id;
+
+        if ( null === $this->_profile ) {
+            $this->_profile = User::model()->active()->findByPk($id);
+        }
+
+        return $this->_profile;
+    }
+
+    public function getFullName($separator = ' ')
+    {
+        if(Yii::app()->getUser()->hasState('full_name')) {
+            return Yii::app()->getUser()->getState('full_name');
+        }
+
+        $profile = $this->getProfile();
+
+        $fullName = Yii::app()->getUser()->getState('nick_name');
+
+        if(!empty($profile->last_name) && !empty($profile->first_name)){
+            $fullName =  $profile->first_name.$separator.$profile->last_name;
+        }
+
+        Yii::app()->getUser()->setState('full_name', $fullName);
+
+        return $fullName;
+    }
+
+    public function getAvatar($size = 64)
+    {
+        $size = (int)$size;
+
+        $avatars = Yii::app()->getUser()->getState('avatars');
+
+        if(!empty($avatars) && !empty($avatars[$size])) {
+            return $avatars[$size];
+        }
+
+        $avatars = array();
+
+        $profile = $this->getProfile();
+
+        $avatars[$size] = $profile->getAvatar($size);
+
+        Yii::app()->getUser()->setState('avatars', $avatars);
+
+        return $avatars[$size];
     }
 
     /**
@@ -121,7 +165,7 @@ class YWebUser extends CWebUser
      * Метод для действий после входа в систему:
      *
      * @param boolean $fromCookie - is authorize from cookie
-     * 
+     *
      * @return parent::afterLogin()
      */
     protected function afterLogin($fromCookie)
