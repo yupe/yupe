@@ -200,7 +200,7 @@ class BlogModule extends yupe\components\WebModule
         $this->setImport(array(
             'blog.models.*',
             'blog.components.*',
-            'yupe.extensions.taggable.*',
+            'vendor.yiiext.taggable-behavior.*',
         ));
     }
 }

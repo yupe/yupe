@@ -81,7 +81,7 @@
 
             <div class="widget tags-cloud-widget">
                 <?php $this->widget(
-                    'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
+                    'application.modules.blog.widgets.TagCloudWidget',
                     array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
                 ); ?>
             </div>

@@ -59,7 +59,7 @@
     "support": {
         "email": "team@yupe.ru",
         "issues": "https://github.com/yupe/yupe/issues",
-        "forum": "http://yupe.ru/talk/",       
+        "forum": "http://yupe.ru/talk/",
         "source": "https://github.com/yupe/yupe/"
     },
     "require": {
@@ -69,7 +69,22 @@
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
         "zhuravljov/yii2-debug": "dev-master",
-		"phpmailer/phpmailer": "dev-master"
+		"phpmailer/phpmailer": "dev-master",
+        "yiiext/taggable-behavior" : "1.5.*"
+    },
+    "repositories": {
+        "taggable": {
+            "type": "package",
+            "package": {
+                "name": "yiiext/taggable-behavior",
+                "version": "1.5.1",
+                "source": {
+                    "url": "https://github.com/yiiext/taggable-behavior.git",
+                    "type": "git",
+                    "reference": "b3713545565374522b3cb2b1fe066720466f0897"
+                }
+            }
+        }
     },
     "require-dev": {
         "codeception/codeception": "1.8.*"
