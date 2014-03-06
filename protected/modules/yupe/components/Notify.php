@@ -11,8 +11,9 @@ class Notify extends CApplicationComponent
 
     public function init()
     {
-        $this->setMail(Yii::createComponent($this->mail));
-
+        $mailer = Yii::createComponent($this->mail);
+        $mailer->init();
+        $this->setMail($mailer);
         parent::init();
     }
 
