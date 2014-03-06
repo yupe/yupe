@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class FeedbackModule extends WebModule
 {
-    public $backEnd          = array('email', 'db');
+    public $backEnd          = array('DbFeedbackSender', 'EmailFeedbackSender');
     public $emails;
     public $types;
     public $showCaptcha      = 0;
@@ -26,15 +26,16 @@ class FeedbackModule extends WebModule
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
 
-    const BACKEND_EMAIL = 'email';
-    const BACKEND_DB    = 'db';
+    const BACKEND_EMAIL = 'EmailFeedbackSender';
+    const BACKEND_DB    = 'DbFeedbackSender';
 
     public static $logCategory = 'application.modules.feedback';
 
     public function getDependencies()
     {
         return array(
-            'category'
+            'category',
+            'user'
         );
     }
 
@@ -100,12 +101,6 @@ class FeedbackModule extends WebModule
     {
         $messages = array();
 
-        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array(FeedbackModule::BACKEND_DB, $this->backEnd) && !in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd)))
-            $messages[WebModule::CHECK_ERROR][] = array(
-                'type'    => WebModule::CHECK_ERROR,
-                'message' => Yii::t('FeedbackModule.feedback', 'Select email which messages was sent or select DB for saving messages (Parameter backEnd in config/main.php)'),
-            );
-
         if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',', $this->emails))))
             $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
@@ -129,13 +124,14 @@ class FeedbackModule extends WebModule
             );
 
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
+
         if ($count)
             $messages[WebModule::CHECK_NOTICE][] = array(
                 'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t('FeedbackModule.feedback', 'You have {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('FeedbackModule.feedback', 'new message |new messages |new messages ', $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Show and reply?'), array(
-                    '/feedback/feedbackBackend/index/', 'FeedBack[status]' => FeedBack::STATUS_NEW
+                    '/feedback/feedbackBackend/index/', 'order' => 'status.asc', 'FeedbBack_sort' => 'status'
                  ))
             );
 
