@@ -7,7 +7,7 @@ if (isset($model))
 <div class="well well-small">
     <?php if (is_array($type->typeAttributes)): ?>
         <?php foreach ($type->typeAttributes as $attribute): ?>
-            <div class="row-fluid">
+            <div class="row-fluid control-group">
                 <div class="span2">
                     <label for="Attribute_<?= $attribute->name ?>"><?php echo $attribute->title; ?></label>
                 </div>
