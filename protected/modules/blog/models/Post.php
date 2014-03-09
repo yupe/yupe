@@ -120,7 +120,7 @@ class Post extends yupe\models\YModel
                 'order' => 'comments.id'
             ),
             'commentsCount' => array(self::STAT, 'Comment', 'model_id',
-                'condition' => 'model = :model AND status = :status', 'params' => array(
+                'condition' => 'model = :model AND status = :status AND id <> root', 'params' => array(
                     ':model' => 'Post',
                     ':status' => Comment::STATUS_APPROVED
                 )
@@ -475,14 +475,14 @@ class Post extends yupe\models\YModel
                 ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
                 ->from('{{comment_comment}} c')
                 ->join('{{blog_post}} p', 'c.model_id = p.id')
-                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus', array(
+                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus AND c.id <> c.root', array(
                     ':model' => 'Post',
                     ':status' => Post::STATUS_PUBLISHED,
                     ':commentstatus' => Comment::STATUS_APPROVED
                 ))
                 ->group('c.model, c.model_id, p.title, p.slug')
                 ->order('comment_date DESC')
-                ->having('count(c.id) > 1')
+                ->having('count(c.id) > 0')
                 ->limit((int)$limit)
                 ->queryAll();
 
