@@ -120,7 +120,7 @@ class Post extends yupe\models\YModel
                 'order' => 'comments.id'
             ),
             'commentsCount' => array(self::STAT, 'Comment', 'model_id',
-                'condition' => 'model = :model AND status = :status', 'params' => array(
+                'condition' => 'model = :model AND status = :status AND id <> root', 'params' => array(
                     ':model' => 'Post',
                     ':status' => Comment::STATUS_APPROVED
                 )
@@ -253,7 +253,7 @@ class Post extends yupe\models\YModel
         $criteria->compare('publish_date', $this->publish_date, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('quote', $this->quote, true);
-        $criteria->compare('content', $this->content, true);
+        $criteria->compare('сщ', $this->content, true);
         $criteria->compare('link', $this->link, true);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
@@ -298,7 +298,7 @@ class Post extends yupe\models\YModel
                 'updateAttribute' => 'update_date',
             ),
             'tags' => array(
-                'class' => 'vendor.yiiext.taggable-behavior.EARTaggableBehavior',
+                'class' => 'application.modules.yupe.extensions.taggable.EARTaggableBehavior',
                 'tagTable' => Yii::app()->db->tablePrefix . 'blog_tag',
                 'tagBindingTable' => Yii::app()->db->tablePrefix . 'blog_post_to_tag',
                 'tagModel' => 'Tag',
@@ -475,14 +475,14 @@ class Post extends yupe\models\YModel
                 ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
                 ->from('{{comment_comment}} c')
                 ->join('{{blog_post}} p', 'c.model_id = p.id')
-                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus', array(
+                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus AND c.id <> c.root', array(
                     ':model' => 'Post',
                     ':status' => Post::STATUS_PUBLISHED,
                     ':commentstatus' => Comment::STATUS_APPROVED
                 ))
                 ->group('c.model, c.model_id, p.title, p.slug')
                 ->order('comment_date DESC')
-                ->having('count(c.id) > 1')
+                ->having('count(c.id) > 0')
                 ->limit((int)$limit)
                 ->queryAll();
 
@@ -551,13 +551,8 @@ class Post extends yupe\models\YModel
         return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
     }
 
-    public function createPublicPost(array $post, $tags)
+    public function createPublicPost(array $post, $tags, $status)
     {
-        if(empty($post['blog_id']) || empty($post['user_id'])) {
-            $this->addError('blog_id', Yii::t('BlogModule.blog', "Post form error!"));
-            return false;
-        }
-
         $blog = Blog::model()->get((int)$post['blog_id'], array());
 
         if(null === $blog) {
@@ -573,7 +568,7 @@ class Post extends yupe\models\YModel
         $this->setAttributes($post);
         $this->setTags($tags);
         $this->publish_date = date('d-m-Y h:i');
-        $this->status = $blog->post_status;
+        $this->status = (int)$status;
         return $this->save();
     }
 

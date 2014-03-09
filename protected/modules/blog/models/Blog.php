@@ -25,14 +25,12 @@
  * @property string $slug
  * @property integer $type
  * @property integer $status
- * @property string  $create_user_id
- * @property string  $update_user_id
+ * @property string $create_user_id
+ * @property string $update_user_id
  * @property integer $create_date
  * @property integer $update_date
  * @property integer $category_id
  * @property string  $lang
- * @property integer $member_status
- * @property integer $post_status
  *
  * The followings are the available model relations:
  * @property User $createUser
@@ -76,7 +74,7 @@ class Blog extends yupe\models\YModel
             array('name, description, slug', 'required', 'except' => 'search'),
             array('name, description, slug', 'required', 'on' => array('update', 'insert')),
             array(
-                'type, status, create_user_id, update_user_id, create_date, update_date, category_id, member_status, post_status',
+                'type, status, create_user_id, update_user_id, create_date, update_date, category_id',
                 'numerical',
                 'integerOnly' => true
             ),
@@ -91,8 +89,6 @@ class Blog extends yupe\models\YModel
             ),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('member_status', 'in', 'range' => array_keys($this->getMemberStatusList())),
-            array('post_status', 'in', 'range' => array_keys($this->getPostStatusList())),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
             array(
@@ -101,16 +97,6 @@ class Blog extends yupe\models\YModel
                 'on' => 'search'
             ),
         );
-    }
-
-    public function  getPostStatusList()
-    {
-        return Post::model()->getStatusList();
-    }
-
-    public function getMemberStatusList()
-    {
-        return UserToBlog::model()->getStatusList();
     }
 
     /**
@@ -209,9 +195,7 @@ class Blog extends yupe\models\YModel
             'update_user_id' => Yii::t('BlogModule.blog', 'Updated'),
             'create_date' => Yii::t('BlogModule.blog', 'Created at'),
             'update_date' => Yii::t('BlogModule.blog', 'Updated at'),
-            'category_id' => Yii::t('BlogModule.blog', 'Category'),
-            'member_status' => Yii::t('BlogModule.blog', 'User status'),
-            'post_status' => Yii::t('BlogModule.blog', 'Post status'),
+            'category_id' => Yii::t('BlogModule.blog', 'Category')
         );
     }
 
@@ -390,53 +374,37 @@ class Blog extends yupe\models\YModel
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
-    public function userIn($userId, $status = UserToBlog::STATUS_ACTIVE)
+    public function userIn($userId)
     {
         $blogs = Yii::app()->cache->get("Blog::Blog::members::{$userId}");
 
         if (false === $blogs) {
 
             $result = Yii::app()->db->createCommand(
-                'SELECT blog_id, status FROM {{blog_user_to_blog}} WHERE user_id = :userId'
-            )->bindValue(':userId', (int)$userId)
-            ->queryAll();
+                'SELECT blog_id FROM {{blog_user_to_blog}} WHERE user_id = :userId AND status = :status'
+            )
+                ->bindValue(':userId', (int)$userId)
+                ->bindValue(':status', UserToBlog::STATUS_ACTIVE)
+                ->queryAll();
 
             $blogs = array();
 
             foreach ($result as $data) {
-                $blogs[$data['blog_id']] = $data['status'];
+                $blogs[$data['blog_id']] = $data['blog_id'];
             }
 
             Yii::app()->cache->set("Blog::Blog::members::{$userId}", $blogs);
         }
 
-        if(false !== $status) {
-            if(isset($blogs[$this->id]) && (int)$blogs[$this->id] === (int)$status) {
-                return true;
-            }
-            return false;
-        }
-
-        return isset($blogs[$this->id]) ? (int)$blogs[$this->id] : false;
-    }
-
-    public function getUserMembership($userId)
-    {
-        return UserToBlog::model()->find(
-            'user_id = :userId AND blog_id = :blogId',
-            array(
-                ':userId' => (int)$userId,
-                ':blogId' => $this->id
-            )
-        );
+        return isset($blogs[$this->id]);
     }
 
     public function hasUserInStatus($userId, $status)
     {
         return Yii::app()->db->createCommand(
             'SELECT count(id)
-                FROM {{blog_user_to_blog}}
-                 WHERE user_id = :userId AND blog_id = :blogId AND status = :status'
+                                                            FROM {{blog_user_to_blog}}
+                                                             WHERE user_id = :userId AND blog_id = :blogId AND status = :status'
         )
             ->bindValue(':userId', (int)$userId)
             ->bindValue(':status', (int)$status)
@@ -451,26 +419,30 @@ class Blog extends yupe\models\YModel
         }
 
         //check user status in blog
-        $member = $this->getUserMembership($userId);
+        $member = UserToBlog::model()->find(
+            'user_id = :userId AND blog_id = :blogId',
+            array(
+                ':userId' => (int)$userId,
+                ':blogId' => $this->id
+            )
+        );
 
-        if (null === $member) {
-
-            $member = new UserToBlog;
-            $member->blog_id = $this->id;
-            $member->user_id = (int)$userId;
-            $member->status = (int)$this->member_status;
-
-        } else {
+        if ($member) {
 
             if ($member->isDeleted()) {
                 $member->activate();
             } else {
                 return false;
             }
+
+        } else {
+
+            $member = new UserToBlog;
+            $member->blog_id = $this->id;
+            $member->user_id = (int)$userId;
         }
 
         if ($member->save()) {
-
             Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
 
             return true;
