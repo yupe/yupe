@@ -62,7 +62,7 @@ class RegistrationAction extends CAction
             $module->onErrorRegistration(
                 new CModelEvent($this->controller, array("registrationForm" => $form))
             );
-		}               
+		}
 
         $this->controller->render('registration', array('model' => $form, 'module' => $module));
     }

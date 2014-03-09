@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
+
+use yupe\widgets\YFlashMessages;
+
 class RecoveryAction extends CAction
 {
     public function run()
@@ -41,29 +44,35 @@ class RecoveryAction extends CAction
 
             $form->setAttributes($data);
 
-            if ($form->validate() && Yii::app()->userManager->passwordRecovery($form->email)) {
+            if ($form->validate()) {
+
+                if (Yii::app()->userManager->passwordRecovery($form->email)) {
+
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t(
+                            'UserModule.user',
+                            'Letter with password recovery instructions was sent on email which you choose during register'
+                        )
+                    );
+
+                    $module->onSuccessRecovery(
+                        new CEvent($this->controller, array("recoveryForm" => $form))
+                    );
+
+                    $this->controller->redirect(array('/user/account/login'));
+                }
 
                 Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t(
-                        'UserModule.user',
-                        'Letter with password recovery instructions was sent on email which you choose during register'
-                    )
-                );
-                $module->onSuccessRecovery(
-                    new CEvent($this->controller, array("recoveryForm" => $form))
-                );
-                $this->controller->redirect(array('/user/account/login'));
-
-            } else {
-
-                Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Password recovery error.')
                 );
+
                 $module->onErrorRecovery(
                     new CEvent($this->controller, array("recoveryForm" => $form))
                 );
+
+                $this->controller->redirect(array('/user/account/recovery'));
             }
         }
 
