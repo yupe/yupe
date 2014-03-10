@@ -19,6 +19,7 @@ namespace yupe\components\urlManager;
 use CUrlManager;
 use Exception;
 use Yii;
+use yupe\widgets\YFlashMessages;
 
 class LangUrlManager extends CUrlManager
 {
@@ -42,7 +43,7 @@ class LangUrlManager extends CUrlManager
     public function init()
     {
         // Получаем список языков:
-        $this->getLangs();
+        $this->loadLangs();
 
         // Если используемых языков меньше двух,
         // то нам сойдёт и стандартный urlManager:
@@ -50,48 +51,48 @@ class LangUrlManager extends CUrlManager
             return parent::init();
         }
 
+
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
-        if ($this->languageInPath) {
-
-            // Применяем преобразование, для строки с языками:
-            $langs = str_replace(',', '|', $this->langs);
-
-            // Обходим массив правил и выполняем
-            // преобразования для новых правил:
-            $newRules = array();
-
-            foreach ($this->rules as $rule => $p) {
-                $rule = ($rule[0] == '/'
-                    ? '/<' . $this->langParam . ':(' . $langs. ')>'
-                    : '<' . $this->langParam . ':(' . $langs . ')>/'
-                ) . $rule;
-                $newRules[$rule] = $p;
-            }
-
-            // Добавляем новые правила:
-            $this->rules = array_merge(
-                $newRules, $this->rules
-            );
-
-            try {
-                // Получаем ответ от parent::init()
-                // для последующего возврата:
-                $parentInit = parent::init();
-
-                // Запускаем процесс обработки правил
-                // маршрутизации:
-                $this->processRules();   
-            } catch (Exception $e) {
-                Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                    $e->getMessage()
-                );
-            }
-
-            return isset($parentInit) ? $parentInit : null;
+        if (!$this->languageInPath) {
+            return parent::init();
         }
 
-        return parent::init();
+        // Применяем преобразование, для строки с языками:
+        $langs = implode('|', $this->languages);
+
+        // Обходим массив правил и выполняем
+        // преобразования для новых правил:
+        $newRules = array();
+
+        foreach ($this->rules as $rule => $p) {
+            $rule = ($rule[0] == '/'
+                ? '/<' . $this->langParam . ':(' . $langs. ')>'
+                : '<' . $this->langParam . ':(' . $langs . ')>/'
+            ) . $rule;
+            $newRules[$rule] = $p;
+        }
+
+        // Добавляем новые правила:
+        $this->rules = array_merge(
+            $newRules, $this->rules
+        );
+
+        try {
+            // Получаем ответ от parent::init()
+            // для последующего возврата:
+            $parentInit = parent::init();
+
+            // Запускаем процесс обработки правил
+            // маршрутизации:
+            $this->processRules();
+        } catch (Exception $e) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                $e->getMessage()
+            );
+        }
+
+        return isset($parentInit) ? $parentInit : null;
     }
 
     /**
@@ -121,13 +122,15 @@ class LangUrlManager extends CUrlManager
      * 
      * @return void
      */
-    public function getLangs()
+    public function loadLangs()
     {
-        // Получаем из настроек доступные языки:
-        $this->langs = Yii::app()->getModule('yupe')->availableLanguages;
+        if(empty($this->languages)) {
+            // Получаем из настроек доступные языки:
+            $this->langs = Yii::app()->getModule('yupe')->availableLanguages;
 
-        // Разделяем на массив и удаляем пустые элементы:
-        $this->languages = explode(",", $this->langs);
+            // Разделяем на массив и удаляем пустые элементы:
+            $this->languages = explode(",", $this->langs);
+        }
     }
 
     /**
@@ -145,7 +148,7 @@ class LangUrlManager extends CUrlManager
     public function createUrl($route, $params = array(), $ampersand = '&')
     {
         // Обновляем список языков, ведь он мог измениться:
-        $this->getLangs();
+        $this->loadLangs();
 
         // Если используемых языков менее двух или параметр
         // $this->languages не массив языков, обработка не 
@@ -155,7 +158,9 @@ class LangUrlManager extends CUrlManager
         }
 
         // Если язык не указан - берем текущий
-        isset($params[$this->langParam]) or ($params[$this->langParam] = Yii::app()->language);
+        if(!isset($params[$this->langParam])) {
+            $params[$this->langParam] = Yii::app()->language;
+        }
 
         // Если указан "нативный" язык и к тому же он текущий,
         // то делаем URL без него, т.к. он соответсвует пустому пути:
