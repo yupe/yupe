@@ -46,6 +46,7 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
 
                     $this->fileLink = $image->getImageUrl();
                     $this->fileName = $image->getName();
+                    $this->additionalFields['thumb'] = $image->getImageUrl(300, 300, false);
 
                     return true;
                 }

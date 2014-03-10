@@ -2,14 +2,15 @@ if (typeof RedactorPlugins === 'undefined') var RedactorPlugins = {};
 
 RedactorPlugins.imagethumb = {
     init: function () {
+        this.buttonAdd('imagethumb', 'Картинка с превью', this.imagePreviewShow);
+        this.buttonAwesome('imagethumb', 'fa-camera-retro');
         $.extend(this.opts,
             {
-                modal_image: String()
+                modal_image_preview: String()
                     + '<section>'
                     + '<div id="redactor_tabs">'
                     + '<a href="#" id="redactor-tab-control-1" class="redactor_tabs_act">' + this.opts.curLang.upload + '</a>'
-                    + '<a href="#" id="redactor-tab-control-2">' + this.opts.curLang.choose + '(Shift + Click - вставить с превью)' + '</a>'
-                    + '<a href="#" id="redactor-tab-control-3">' + this.opts.curLang.link + '</a>'
+                    + '<a href="#" id="redactor-tab-control-2">' + this.opts.curLang.choose + '</a>'
                     + '</div>'
                     + '<div id="redactor-progress" class="redactor-progress-inline" style="display: none;"><span></span></div>'
                     + '<form id="redactorInsertImageForm" method="post" action="" enctype="multipart/form-data">'
@@ -53,7 +54,156 @@ RedactorPlugins.imagethumb = {
                     + '</footer>'
             });
     },
+    imagePreviewShow: function(){
+        this.selectionSave();
 
+        var callback = $.proxy(function()
+        {
+            // json
+            if (this.opts.imageGetJson)
+            {
+                $.getJSON(this.opts.imageGetJson, $.proxy(function(data)
+                {
+                    var folders = {}, count = 0;
+
+                    // folders
+                    $.each(data, $.proxy(function(key, val)
+                    {
+                        if (typeof val.folder !== 'undefined')
+                        {
+                            count++;
+                            folders[val.folder] = count;
+                        }
+
+                    }, this));
+
+                    var folderclass = false;
+                    $.each(data, $.proxy(function(key, val)
+                    {
+                        // title
+                        var thumbtitle = '';
+                        if (typeof val.title !== 'undefined') thumbtitle = val.title;
+
+                        var folderkey = 0;
+                        if (!$.isEmptyObject(folders) && typeof val.folder !== 'undefined')
+                        {
+                            folderkey = folders[val.folder];
+                            if (folderclass === false) folderclass = '.redactorfolder' + folderkey;
+                        }
+
+                        var img = $('<img src="' + val.thumb + '" class="redactorfolder redactorfolder' + folderkey + '" rel="' + val.image + '" title="' + thumbtitle + '" />');
+                        $('#redactor_image_box').append(img);
+                        $(img).click($.proxy(this.imagePreviewThumbClick, this));
+
+                    }, this));
+
+                    // folders
+                    if (!$.isEmptyObject(folders))
+                    {
+                        $('.redactorfolder').hide();
+                        $(folderclass).show();
+
+                        var onchangeFunc = function(e)
+                        {
+                            $('.redactorfolder').hide();
+                            $('.redactorfolder' + $(e.target).val()).show();
+                        };
+
+                        var select = $('<select id="redactor_image_box_select">');
+                        $.each( folders, function(k, v)
+                        {
+                            select.append( $('<option value="' + v + '">' + k + '</option>'));
+                        });
+
+                        $('#redactor_image_box').before(select);
+                        select.change(onchangeFunc);
+                    }
+                }, this));
+
+            }
+            else
+            {
+                $('#redactor-modal-tab-2').remove();
+            }
+
+            if (this.opts.imageUpload || this.opts.s3)
+            {
+                // dragupload
+                if (!this.isMobile()  && !this.isIPad() && this.opts.s3 === false)
+                {
+                    if ($('#redactor_file' ).length)
+                    {
+                        this.draguploadInit('#redactor_file', {
+                            url: this.opts.imageUpload,
+                            uploadFields: this.opts.uploadFields,
+                            success: $.proxy(this.imagePreviewCallback, this),
+                            error: $.proxy(function(obj, json)
+                            {
+                                this.callback('imageUploadError', json);
+
+                            }, this),
+                            uploadParam: this.opts.imageUploadParam
+                        });
+                    }
+                }
+
+                if (this.opts.s3 === false)
+                {
+                    // ajax upload
+                    this.uploadInit('redactor_file', {
+                        auto: true,
+                        url: this.opts.imageUpload,
+                        success: $.proxy(this.imagePreviewCallback, this),
+                        error: $.proxy(function(obj, json)
+                        {
+                            this.callback('imageUploadError', json);
+
+                        }, this)
+                    });
+                }
+                // s3 upload
+                else
+                {
+                    $('#redactor_file').on('change.redactor', $.proxy(this.s3handleFileSelect, this));
+                }
+
+            }
+            else
+            {
+                $('.redactor_tab').hide();
+                if (!this.opts.imageGetJson)
+                {
+                    $('#redactor_tabs').remove();
+                    $('#redactor_tab3').show();
+                }
+                else
+                {
+                    $('#redactor-modal-tab-1').remove();
+                    $('#redactor-modal-tab-2').addClass('redactor_tabs_act');
+                    $('#redactor_tab2').show();
+                }
+            }
+
+            if (!this.opts.imageTabLink && (this.opts.imageUpload || this.opts.imageGetJson))
+            {
+                $('#redactor-tab-control-3').hide();
+            }
+
+            $('#redactor_upload_btn').click($.proxy(this.imageCallbackLink, this));
+
+            if (!this.opts.imageUpload && !this.opts.imageGetJson)
+            {
+                setTimeout(function()
+                {
+                    $('#redactor_file_link').focus();
+
+                }, 200);
+            }
+
+        }, this);
+
+        this.modalInit(this.opts.curLang.image, this.opts.modal_image_preview, 610, callback);
+    },
     imageEdit: function (image) {
         var $el = image;
         var parent = $el.parent().parent();
@@ -158,25 +308,24 @@ RedactorPlugins.imagethumb = {
         this.sync();
 
     },
-    imageThumbClick: function (e) {
+    imagePreviewCallback: function(data)
+    {
+        this.insertImageWithPreview(data);
+    },
+    imagePreviewThumbClick: function (e) {
         var img = '<img id="image-marker" src="' + $(e.target).attr('rel') + '" alt="' + $(e.target).attr('title') + '" />';
 
         var parent = this.getParent();
         if (this.opts.paragraphy && $(parent).closest('li').size() == 0) img = '<p>' + img + '</p>';
+        this.insertImageWithPreview({thumb: $(e.target).attr('src'), filelink: $(e.target).attr('rel')});
 
-        if (e.shiftKey) {
-            this.insertImageWithPreview({thumb: $(e.target).attr('src'), image: $(e.target).attr('rel')});
-        }
-        else {
-            this.imageInsert(img, true);
-        }
     },
     insertImageWithPreview: function (img) {
         this.selectionRestore();
 
         if (img !== false) {
             var html = '';
-            html = '<a class="gallery" href="' + img.image + '"> <img id="image-marker" src="' + img.thumb + '" /></a>';
+            html = '<a class="gallery" href="' + img.filelink + '"> <img id="image-marker" src="' + img.thumb + '" /></a>';
             var parent = this.getParent();
             if (this.opts.paragraphy && $(parent).closest('li').size() == 0) {
                 html = '<p>' + html + '</p>';

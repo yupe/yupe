@@ -1,14 +1,14 @@
 <?php
 /**
-* YAjaxFileUploadAction.php file.
-*
-* @category YupeComponents
-* @package  yupe.modules.yupe.components.actions
-* @author   Anton Kucherov <idexter.ru@gmail.com>
-* @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
-* @version  0.1
-* @link     http://yupe.ru
-*/
+ * YAjaxFileUploadAction.php file.
+ *
+ * @category YupeComponents
+ * @package  yupe.modules.yupe.components.actions
+ * @author   Anton Kucherov <idexter.ru@gmail.com>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.1
+ * @link     http://yupe.ru
+ */
 
 namespace yupe\components\actions;
 
@@ -25,6 +25,8 @@ class YAjaxFileUploadAction extends CAction
     protected $rename;
     protected $webPath;
 
+    protected $additionalFields = array();
+
     /**
      * Метод для загрузки файлов из редактора при создании контента
      *
@@ -36,14 +38,17 @@ class YAjaxFileUploadAction extends CAction
      */
     public function run()
     {
-        if (!empty($_FILES['file']['name'])) {
-            $controller = $this->getController();
-            $this->rename     = (bool) Yii::app()->getRequest()->getQuery('rename', true);
+        if (!empty($_FILES['file']['name']))
+        {
+            $controller       = $this->getController();
+            $this->rename     = (bool)Yii::app()->getRequest()->getQuery('rename', true);
             $this->webPath    = '/' . $controller->yupe->uploadPath . '/' . date('dmY') . '/';
             $this->uploadPath = Yii::getPathOfAlias('webroot') . $this->webPath;
 
-            if (!is_dir($this->uploadPath)) {
-                if (!@mkdir($this->uploadPath)) {
+            if (!is_dir($this->uploadPath))
+            {
+                if (!@mkdir($this->uploadPath))
+                {
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Can\'t create catalog "{dir}" for files!', array('{dir}' => $this->uploadPath)));
                 }
             }
@@ -51,13 +56,14 @@ class YAjaxFileUploadAction extends CAction
             $controller->disableProfilers();
 
             $this->uploadedFile = CUploadedFile::getInstanceByName('file');
-            $this->fileLink = $this->fileName = null;
+            $this->fileLink     = $this->fileName = null;
 
             $this->uploadFile();
 
-            if($this->fileLink !== null && $this->fileName !== null) {
+            if ($this->fileLink !== null && $this->fileName !== null)
+            {
                 Yii::app()->ajax->rawText(
-                    json_encode( array('filelink' => $this->fileLink, 'filename' => $this->fileName) )
+                    json_encode(array_merge(array('filelink' => $this->fileLink, 'filename' => $this->fileName), $this->additionalFields))
                 );
             }
         }
@@ -67,11 +73,13 @@ class YAjaxFileUploadAction extends CAction
 
     protected function uploadFile()
     {
-        if ($this->uploadedFile) {
+        if ($this->uploadedFile)
+        {
             //сгенерировать имя файла и сохранить его
             $newFileName = $this->rename ? md5(time() . uniqid() . $this->uploadedFile->name) . '.' . $this->uploadedFile->extensionName : $this->uploadedFile->name;
 
-            if (!$this->uploadedFile->saveAs($this->uploadPath . $newFileName)) {
+            if (!$this->uploadedFile->saveAs($this->uploadPath . $newFileName))
+            {
                 Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
             }
 

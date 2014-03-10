@@ -1,14 +1,14 @@
 <?php
 /**
-* YAjaxImageUploadAction.php file.
-*
-* @category YupeComponents
-* @package  yupe.modules.yupe.components.actions
-* @author   Anton Kucherov <idexter.ru@gmail.com>
-* @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
-* @version  0.1
-* @link     http://yupe.ru
-*/
+ * YAjaxImageUploadAction.php file.
+ *
+ * @category YupeComponents
+ * @package  yupe.modules.yupe.components.actions
+ * @author   Anton Kucherov <idexter.ru@gmail.com>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.1
+ * @link     http://yupe.ru
+ */
 
 namespace yupe\components\actions;
 
@@ -18,24 +18,19 @@ class YAjaxImageChooseAction extends CAction
 {
     public function run()
     {
-        if(Yii::app()->hasModule("image") && Yii::app()->getModule('image')->getIsActive())
+        if (Yii::app()->hasModule("image") && Yii::app()->getModule('image')->getIsActive())
         {
-            $upPath = '/'. Yii::app()->getModule('yupe')->uploadPath .
-                      '/' . Yii::app()->getModule('image')->uploadPath .
-                      '/';
+            $images = Image::model()->findAll();
 
-            $imgs = Image::model()->findAllByAttributes(
-                array('category_id' => null, 'parent_id' => null)
-            );
-
-            if(!empty($imgs))
+            if (!empty($images))
             {
-                foreach($imgs as $img)
+                foreach ($images as $img)
                     $forJson[] = array(
                         'thumb' => $img->getImageUrl(300, 300, false),
                         'image' => $img->getImageUrl(),
-                        'title' => $img->name
-                    );
+                        'title' => $img->name,
+                        'folder' => $img->gallery->name ? : 'Без галереи',
+            );
 
                 echo json_encode($forJson);
             }
