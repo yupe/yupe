@@ -298,7 +298,7 @@ class Post extends yupe\models\YModel
                 'updateAttribute' => 'update_date',
             ),
             'tags' => array(
-                'class' => 'application.modules.yupe.extensions.taggable.EARTaggableBehavior',
+                'class' => 'vendor.yiiext.taggable-behavior.EARTaggableBehavior',
                 'tagTable' => Yii::app()->db->tablePrefix . 'blog_tag',
                 'tagBindingTable' => Yii::app()->db->tablePrefix . 'blog_post_to_tag',
                 'tagModel' => 'Tag',
