@@ -95,7 +95,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function afterFind($event)
     {
-        $this->_oldImage = $this->uploadPath . $this->owner{$this->attributeName};
+        $this->_oldImage = $this->uploadPath . '/' . $this->owner{$this->attributeName};
     }
 
     public function beforeValidate($event)
@@ -132,7 +132,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
             // Удаляем связанные с данным изображением превьюшки:
             $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
 
-            foreach (glob($this->uploadPath . 'thumb_cache_*_' . $fileName) as $file){
+            foreach (glob($this->uploadPath . '/thumb_cache_*_' . $fileName) as $file){
                 @unlink($file);
             }
 
@@ -169,7 +169,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         $imageName = $this->_getImageName();
         $image = Yii::app()->image->load($tmpName)->quality($quality);
 
-        if ( ! $newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
+        if ( ! $newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath . '/'))
             throw new CHttpException(500, Yii::t('YupeModule.yupe', 'Directory "{dir}" is not acceptable for write!', array('{dir}' => $this->uploadPath)));
 
         if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))

@@ -36,7 +36,7 @@ class ImageModule extends WebModule
     {
         return  Yii::getPathOfAlias('webroot') . '/' .
             Yii::app()->getModule('yupe')->uploadPath . '/' .
-            $this->uploadPath . '/';
+            $this->uploadPath;
     }
 
     public function getDependencies()

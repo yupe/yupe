@@ -79,7 +79,7 @@ class Category extends \yupe\models\YModel
                 'class'             => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'         => array('insert', 'update'),
                 'attributeName'     => 'image',
-                'uploadPath'        => $module !== null ? $module->getUploadPath() . 'category/' : null,
+                'uploadPath'        => $module !== null ? $module->getUploadPath() . '/category' : null,
                 'imageNameCallback' => array($this, 'generateFileName'),
                 'resize'            => array(
                     'quality' => 90,
@@ -89,7 +89,7 @@ class Category extends \yupe\models\YModel
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
                 'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath . '/category' : null,
-                'sourceFolder'  => $module !== null ? $module->getUploadPath() . 'category/' : null,
+                'sourceFolder'  => $module !== null ? $module->getUploadPath() . '/category' : null,
                 'attributeName' => 'image',
             ),
             'CategoryTreeBehavior'=>array(

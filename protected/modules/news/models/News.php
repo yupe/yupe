@@ -95,9 +95,15 @@ class News extends yupe\models\YModel
                 'uploadPath'    => $module->getUploadPath(),
                 'imageNameCallback' => array($this, 'generateFileName'),
                 'resize' => array(
-                    'quality' => 75,
+                    'quality' => 90,
                     'width' => 800,
                 )
+            ),
+            'imageThumb'  => array(
+                'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
+                'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath : null,
+                'sourceFolder'  => $module !== null ? $module->getUploadPath() : null,
+                'attributeName' => 'image',
             ),
         );
     }

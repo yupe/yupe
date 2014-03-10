@@ -33,7 +33,7 @@ class NewsModule extends WebModule
 
     public function getUploadPath()
     {
-        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
+        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
     }
 
     public function getInstall()

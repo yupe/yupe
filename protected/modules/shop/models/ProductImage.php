@@ -60,7 +60,7 @@ class ProductImage extends \yupe\models\YModel
                 'class'             => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'         => array('insert', 'update'),
                 'attributeName'     => 'name',
-                'uploadPath'        => $module !== null ? $module->getUploadPath() . 'product/' : null,
+                'uploadPath'        => $module !== null ? $module->getUploadPath() . '/product' : null,
                 'imageNameCallback' => array($this, 'generateFileName'),
                 'resize'            => array(
                     'quality' => 90,
@@ -70,7 +70,7 @@ class ProductImage extends \yupe\models\YModel
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
                 'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath . '/product' : null,
-                'sourceFolder'  => $module !== null ? $module->getUploadPath() . 'product/' : null,
+                'sourceFolder'  => $module !== null ? $module->getUploadPath() . '/product' : null,
                 'attributeName' => 'name',
             ),
         );

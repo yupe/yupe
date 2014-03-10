@@ -139,7 +139,7 @@ class Producer extends yupe\models\YModel
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module !== null ? $module->getUploadPath() . 'producer/' : null,
+                'uploadPath'    => $module !== null ? $module->getUploadPath() . '/producer' : null,
                 'resize'        => array(
                     'quality' => 90,
                     'width'   => 1024,
@@ -148,7 +148,7 @@ class Producer extends yupe\models\YModel
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
                 'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath . '/producer' : null,
-                'sourceFolder'  => $module !== null ? $module->getUploadPath() . 'producer/' : null,
+                'sourceFolder'  => $module !== null ? $module->getUploadPath() . '/producer' : null,
                 'attributeName' => 'image',
             ),
         );
