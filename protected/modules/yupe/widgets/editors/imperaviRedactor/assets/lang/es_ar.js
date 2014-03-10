@@ -69,6 +69,7 @@ $.Redactor.opts.langs['es_ar'] = {
 	underline: 'Underline',
 	alignment: 'Alignment',
 	filename: 'Name (optional)',
-	edit: 'Edit'
+	edit: 'Edit',
+	center: 'Center'
 };
 })( jQuery );

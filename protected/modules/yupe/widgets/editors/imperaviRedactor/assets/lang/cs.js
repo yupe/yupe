@@ -80,6 +80,7 @@ $.Redactor.opts.langs['cs'] = {
 	underline: 'Podtržené',
 	alignment: 'Zarovnání',
 	filename: 'Název (volitelné)',
-	edit: 'Upravit'
+	edit: 'Upravit',
+	center: 'Center'
 };
 })( jQuery );

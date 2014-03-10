@@ -72,6 +72,7 @@ $.Redactor.opts.langs['sl'] = {
 	underline: 'Podčrtano',
 	alignment: 'Poravnava',
 	filename: 'Name (optional)',
-	edit: 'Edit'
+	edit: 'Edit',
+	center: 'Center'
 };
 })( jQuery );

@@ -1,0 +1,23 @@
+{
+	"name": "yiiext/imperavi-redactor-widget",
+	"description": "Imperavi Redactor Widget for Yii",
+	"keywords": ["yii", "impravi", "wysiwyg"],
+	"homepage": "https://github.com/yiiext/imperavi-redactor-widget",
+	"type": "library",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Veaceslav Medvedev",
+			"email": "slavcopost@gmail.com"
+		},
+		{
+			"name": "Alexander Makarov",
+			"email": "sam@rmcreative.ru",
+			"homepage": "http://rmcreative.ru/"
+		}		
+	],
+	"support": {
+		"issues": "https://github.com/yiiext/imperavi-redactor-widget/issues?state=open",
+		"source": "https://github.com/yiiext/imperavi-redactor-widget/"
+	}
+}

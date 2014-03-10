@@ -103,6 +103,12 @@ class Image extends yupe\models\YModel
                     'width' => 1024,
                 )
             ),
+            'imageThumb'  => array(
+                'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
+                'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath : null,
+                'sourceFolder'  => $module !== null ? $module->getUploadPath() : null,
+                'attributeName' => 'file',
+            ),
         );
     }
 
@@ -230,75 +236,6 @@ class Image extends yupe\models\YModel
     public function getCategoryName()
     {
         return ($this->category === null) ? '---' : $this->category->name;
-    }
-
-    /**
-     * make thumbnail of image
-     *
-     * @param int $width  - ширина
-     * @param int $height - высота
-     *
-     * @return string filename
-     **/
-    public function makeThumbnail($width = 0, $height = 0)
-    {
-        $width = $width === 0
-            ? $height
-            : $width;
-
-        $height = $height === 0
-            ? $width
-            : $height;
-
-        $ext = pathinfo($this->file, PATHINFO_EXTENSION);
-        $file = 'thumb_cache_' . $width . 'x' . $height . '_' . pathinfo($this->file, PATHINFO_FILENAME) . '.' . $ext;
-        $image = Yii::app()->getModule('image');
-        
-        if (!file_exists($image->getUploadPath() . $this->file))
-            return null;
-
-        if (file_exists($image->getUploadPath() . $file) === false) {
-            $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
-            $thumb->adaptiveResize($width, $height);
-            $thumb->save($image->getUploadPath() . $file);
-        }
-
-        return $file;
-    }
-
-    /**
-     * Получаем URL к файлу:
-     * 
-     * @param int $width  - параметр ширины для изображения
-     * @param int $height - параметр высоты для изображения
-     * 
-     * @return string URL к файлу
-     */
-    public function getUrl($width = 0, $height = 0)
-    {
-        if ($this->_url) {
-            return $this->_url.'/'.$this->file;
-        }
-
-        $yupe = Yii::app()->getModule('yupe');
-        $image = Yii::app()->getModule('image');
-
-        return Yii::app()->baseUrl . '/' . $yupe->uploadPath . '/' . $image->uploadPath . '/' . (
-            ($width > 0 || $height > 0) && (
-                $thumbnail = $this->makeThumbnail($width, $height)
-            ) !== null
-                ? $thumbnail
-                : $this->file
-        );
-    }
-
-    public function getRawUrl()
-    {
-        $yupe = Yii::app()->getModule('yupe');
-
-        $image = Yii::app()->getModule('image');
-
-        return Yii::app()->createAbsoluteUrl('/').'/' . $yupe->uploadPath . '/' . $image->uploadPath . '/' . $this->file;      
     }
 
     /**

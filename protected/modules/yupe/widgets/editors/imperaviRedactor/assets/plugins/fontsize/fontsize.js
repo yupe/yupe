@@ -14,7 +14,7 @@ RedactorPlugins.fontsize = {
 
 		dropdown['remove'] = { title: 'Remove font size', callback: function() { that.resetFontsize(); } };
 
-		this.buttonAdd( 'fontsize', 'Change font size', false, dropdown);
+		this.buttonAdd('fontsize', 'Change font size', false, dropdown);
 	},
 	setFontsize: function(size)
 	{

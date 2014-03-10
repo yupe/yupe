@@ -9,7 +9,7 @@
  * @author Veaceslav Medvedev <slavcopost@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  *
- * @version 1.2.8
+ * @version 1.2.18
  *
  * @link https://github.com/yiiext/imperavi-redactor-widget
  * @link http://imperavi.com/redactor
@@ -142,7 +142,7 @@ class ImperaviRedactorWidget extends CInputWidget
 	 */
 	public function getAssetsUrl()
 	{
-		return Yii::app()->getAssetManager()->publish($this->getAssetsPath());
+		return Yii::app()->getAssetManager()->publish($this->getAssetsPath(), false, -1, YII_DEBUG);
 	}
 
 	/**
@@ -151,7 +151,7 @@ class ImperaviRedactorWidget extends CInputWidget
 	public function setPlugins(array $plugins)
 	{
 		foreach ($plugins as $id => $plugin) {
-			if (!isset($plugin['baseUrl'], $plugin['basePath'])) {
+			if (!isset($plugin['baseUrl']) && !isset($plugin['basePath'])) {
 				$plugin['baseUrl'] = $this->getAssetsUrl() . '/plugins/' . $id;
 			}
 

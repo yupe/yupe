@@ -18,7 +18,7 @@ $this->pageTitle = $model->name; ?>
 ?>
 <h1 class="page-header"><?php echo CHtml::encode($model->name); ?></h1>
 <div class="thumbnail">
-    <?php echo CHtml::image($model->getUrl(), $model->name); ?>
+    <?php echo CHtml::image($model->getImageUrl(), $model->name); ?>
 </div>
 <hr>
 <p>

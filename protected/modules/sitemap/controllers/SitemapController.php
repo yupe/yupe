@@ -9,7 +9,7 @@ class SitemapController extends yupe\components\controllers\FrontController
         {
             if (!Yii::app()->cache->get('sitemap.lock'))
             {
-                Yii::app()->cache->set('sitemap.lock', true);
+                Yii::app()->cache->set('sitemap.lock', true, 90);
 
                 $sitemapModule = Yii::app()->getModule('sitemap');
                 $host          = Yii::app()->request->hostInfo;

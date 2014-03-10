@@ -27,10 +27,10 @@
     <?php endif; ?>
     <?php echo CHtml::link(
         CHtml::image(
-            $data->image->getUrl(190),
+            $data->image->getImageUrl(190),
             $data->image->alt
         ),
-        $data->image->getUrl(),
+        $data->image->getImageUrl(),
         array(
             'class' => 'gallery-image',
             'title' => $data->image->description,

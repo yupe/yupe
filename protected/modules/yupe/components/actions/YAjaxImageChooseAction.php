@@ -32,9 +32,9 @@ class YAjaxImageChooseAction extends CAction
             {
                 foreach($imgs as $img)
                     $forJson[] = array(
-                        'thumb' => $upPath.$img->file,
-                        'image' => $upPath.$img->file,
-                        'title' => $upPath.$img->name
+                        'thumb' => $img->getImageUrl(300, 300, false),
+                        'image' => $img->getImageUrl(),
+                        'title' => $img->name
                     );
 
                 echo json_encode($forJson);

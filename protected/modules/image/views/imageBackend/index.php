@@ -53,13 +53,13 @@ $this->widget(
             array(
                 'name'   => Yii::t('ImageModule.image', 'file'),
                 'type'   => 'raw',
-                'value'  => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
+                'value'  => 'CHtml::image($data->getImageUrl(75), $data->alt, array("width" => 75, "height" => 75))',
                 'filter' => false
             ),
             array(
                 'header' => Yii::t('ImageModule.image', 'Link'),
                 'type'   => 'raw',
-                'value'  => 'CHtml::link($data->getRawUrl(), $data->getRawUrl())'
+                'value'  => 'CHtml::link($data->getImageUrl(), $data->getImageUrl())'
             ),
             array(
                 'name'   => 'category_id',

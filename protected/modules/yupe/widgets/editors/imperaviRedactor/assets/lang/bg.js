@@ -70,6 +70,7 @@ $.Redactor.opts.langs['bg'] = {
 	underline: 'Подчертай',
 	alignment: 'Подравняване',
 	filename: 'Name (optional)',
-	edit: 'Edit'
+	edit: 'Edit',
+	center: 'Center'
 };
 })( jQuery );

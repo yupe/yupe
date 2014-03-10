@@ -70,6 +70,7 @@ $.Redactor.opts.langs['ua'] = {
 	underline: 'Underline',
 	alignment: 'Alignment',
 	filename: 'Name (optional)',
-	edit: 'Ред.'
+	edit: 'Edit',
+	center: 'Center'
 };
 })( jQuery );

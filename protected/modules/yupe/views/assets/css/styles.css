@@ -41,7 +41,7 @@ div#page {
     border-bottom: 5px solid #FF9600;
     min-width: 960px !important;
 }
-footer {
+body > footer {
     clear: both;
     text-align: center;
 

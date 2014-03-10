@@ -9,6 +9,8 @@
 	margin-left: 0;
 	padding-left: 0;
 	list-style: none;
+	max-height: 250px;
+	overflow-x: scroll;
 }
 .redactor_clips_box li {
 	border-top: 1px solid #fff;
@@ -27,6 +29,6 @@
 	font-size: 13px;
 	display: block;
 }
-.redactor_clips_box li a:hover {	
+.redactor_clips_box li a:hover {
 	background-color: #fff;
 }

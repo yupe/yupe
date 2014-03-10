@@ -1,6 +1,58 @@
 Changelog
 =========
 
+1.2.18
+------
+
+- Fixed partially committed files (samdark)
+
+1.2.17
+------
+
+- Imperavi redactor, plugins and languages updated to 9.2.0 (samdark)
+
+1.2.16
+------
+
+- Imperavi redactor updated to 9.1.9 (Veaceslav Medvedev)
+- Update plugins (Veaceslav Medvedev)
+
+1.2.15
+------
+
+- Imperavi redactor updated to 9.1.8 (samdark)
+
+1.2.14
+------
+
+- Imperavi redactor updated to 9.1.7 (samdark)
+
+1.2.13
+------
+
+- Imperavi redactor updated to 9.1.6 (samdark)
+
+1.2.12
+------
+
+- Imperavi redactor updated to 9.1.5 (samdark)
+
+1.2.11
+------
+
+- Imperavi redactor updated to 9.1.4 (samdark)
+
+1.2.10
+------
+
+- Imperavi redactor updated to 9.1.2 (samdark)
+
+1.2.9
+----
+
+- #30: Fixed an error when adding plug-in with a custom baseUrl (Veaceslav Medvedev)
+- Imperavi redactor updated to 9.1.1 (samdark)
+
 1.2.8
 -----
 

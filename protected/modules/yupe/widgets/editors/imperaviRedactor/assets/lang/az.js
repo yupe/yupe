@@ -68,6 +68,7 @@ $.Redactor.opts.langs['az'] = {
 	underline: 'Altıxətli',
 	alignment: 'Düzləndirmə',
 	filename: 'Name (optional)',
-	edit: 'Edit'
+	edit: 'Edit',
+	center: 'Center'
 };
 })( jQuery );

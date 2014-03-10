@@ -44,7 +44,7 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
                 if ($image->save()) {
                     $transaction->commit();
 
-                    $this->fileLink = $image->getUrl();
+                    $this->fileLink = $image->getImageUrl();
                     $this->fileName = $image->getName();
 
                     return true;

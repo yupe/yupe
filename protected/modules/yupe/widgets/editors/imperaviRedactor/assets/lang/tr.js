@@ -6,9 +6,9 @@ $.Redactor.opts.langs['tr'] = {
 	table: 'Tablo',
 	link: 'Bağlantı',
 	link_insert: 'Bağlantı Ekle ...',
-	link_edit: 'Edit link',
+	link_edit: 'Bağlantıyı Düzenle',
 	unlink: 'Bağlantı Kaldır',
-	formatting: 'Stiller',
+	formatting: 'Biçimlendirme',
 	paragraph: 'Paragraf',
 	quote: 'Alıntı',
 	code: 'Kod',
@@ -30,7 +30,7 @@ $.Redactor.opts.langs['tr'] = {
 	save: 'Kaydet',
 	_delete: 'Sil',
 	insert_table: 'Tablo ekle',
-	insert_row_above: 'Yukarı satır ekle',
+	insert_row_above: 'Üste satır ekle',
 	insert_row_below: 'Alta satır ekle',
 	insert_column_left: 'Sola sütun ekle',
 	insert_column_right: 'Sağa sütun ekle',
@@ -47,7 +47,7 @@ $.Redactor.opts.langs['tr'] = {
 	left: 'sol',
 	right: 'sağ',
 	image_web_link: 'Görselin web bağlantısı',
-	text: 'Yazı',
+	text: 'Metin',
 	mailto: 'E-Posta',
 	web: 'URL',
 	video_html_code: 'Video embed kodu',
@@ -66,9 +66,10 @@ $.Redactor.opts.langs['tr'] = {
 	deleted: 'Silindi',
 	anchor: 'Çapa',
 	link_new_tab: 'Bağlantıyı yeni pencerede aç',
-	underline: 'Altı çizgili',
+	underline: 'Altı çizili',
 	alignment: 'Hizalama',
-	filename: 'Name (optional)',
-	edit: 'Edit'
+	filename: 'Dosya Adı (isteğe bağlı)',
+	edit: 'Düzenle',
+	center: 'Center'
 };
 })( jQuery );

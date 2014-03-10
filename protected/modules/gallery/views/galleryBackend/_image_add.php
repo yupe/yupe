@@ -34,7 +34,7 @@ $form = $this->beginWidget(
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("file") ? "error" : ""; ?>'>
         <?php if (!$model->isNewRecord) : ?>
-            <?php echo CHtml::image($model->getUrl(), $model->alt);?>
+            <?php echo CHtml::image($model->getImageUrl(), $model->alt);?>
         <?php endif; ?>
         <img id="preview" src="#" class='img-polaroid' alt="current preview of image" />
         <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span7', 'maxlength' => 500, 'size' => 60, 'onchange' => 'readURL(this);')); ?>

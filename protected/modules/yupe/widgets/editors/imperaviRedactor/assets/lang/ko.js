@@ -69,6 +69,7 @@ $.Redactor.opts.langs['ko'] = {
 	underline: '밑줄',
 	alignment: '정렬',
 	filename: '파일명 (선택)',
-	edit: '편집'
+	edit: '편집',
+	center: 'Center'
 };
 })( jQuery );
