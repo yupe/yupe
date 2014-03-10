@@ -51,6 +51,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         $model = new FeedBack;
 
+        $model->email = Yii::app()->user->getState('email');
+        $model->name  = Yii::app()->user->getFullName();
+
         if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
             
             $model->setAttributes($data);
