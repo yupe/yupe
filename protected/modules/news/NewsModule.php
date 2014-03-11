@@ -15,6 +15,8 @@ use yupe\components\WebModule;
 
 class NewsModule extends WebModule
 {
+    const VERSION = '0.7';
+
     public $uploadPath        = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
@@ -96,9 +98,39 @@ class NewsModule extends WebModule
         );
     }
 
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('NewsModule.news', 'General module settings'),
+                'items' => array(
+                    'adminMenuOrder',
+                    'editor',
+                    'mainCategory'
+                )
+            ),
+            'images' => array(
+                'label' => Yii::t('NewsModule.news', 'Images settings'),
+                'items' => array(
+                    'uploadPath',
+                    'allowedExtensions',
+                    'minSize',
+                    'maxSize'
+                )
+            ),
+            'list' => array(
+                'label' => Yii::t('NewsModule.news', 'News lists'),
+                'items' => array(
+                    'rssCount',
+                    'perPage'
+                )
+            ),
+        );
+    }
+
     public function getVersion()
     {
-        return Yii::t('NewsModule.news', '0.6');
+        return self::VERSION;
     }
 
     public function getIsInstallDefault()

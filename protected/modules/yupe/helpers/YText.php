@@ -17,6 +17,11 @@ use CHtmlPurifier;
 
 class YText
 {
+    public static function langToflag($lang)
+    {
+        return "<i class='iconflags iconflags-{$lang}'></i>";
+    }
+
     public static function translit($str)
     {
         $str = str_replace(' ', '-', $str);

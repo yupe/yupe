@@ -70,7 +70,7 @@ class News extends yupe\models\YModel
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('alias', 'yupe\components\validators\YUniqueSlugValidator'),
             array('description', 'length', 'max' => 250),
             array('link', 'length', 'max' => 250),
@@ -96,7 +96,7 @@ class News extends yupe\models\YModel
                 'imageNameCallback' => array($this, 'generateFileName'),
                 'resize' => array(
                     'quality' => 75,
-                    'width' => 800,
+                    'width'   => 800,
                 )
             ),
         );
@@ -194,11 +194,13 @@ class News extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if (!$this->alias)
+        if (!$this->alias) {
             $this->alias = yupe\helpers\YText::translit($this->title);
+        }
 
-        if(!$this->lang)
+        if(!$this->lang) {
             $this->lang = Yii::app()->language;
+        }
 
         return parent::beforeValidate();
     }
@@ -206,10 +208,9 @@ class News extends yupe\models\YModel
     public function beforeSave()
     {
         $this->change_date = new CDbExpression('NOW()');
-        $this->date        = date('Y-m-d', strtotime($this->date));
+        $this->date = date('Y-m-d', strtotime($this->date));
 
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
             $this->user_id       = Yii::app()->user->getId();
         }
@@ -219,9 +220,9 @@ class News extends yupe\models\YModel
 
     public function afterFind()
     {
-        parent::afterFind();
+        $this->date = date('d-m-Y', strtotime($this->date));
 
-        $this->date = date('d.m.Y', strtotime($this->date));
+        return parent::afterFind();
     }
 
     /**
@@ -238,16 +239,14 @@ class News extends yupe\models\YModel
         $criteria->compare('t.id', $this->id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('date', $this->date);
+        $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
         $criteria->compare('title', $this->title, true);
         $criteria->compare('t.alias', $this->alias, true);
         $criteria->compare('short_text', $this->short_text, true);
         $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);
-        if ($this->status != '')
-            $criteria->compare('t.status', $this->status);
-        if ($this->category_id != '')
-            $criteria->compare('category_id', $this->category_id);
+        $criteria->compare('t.status', $this->status);
+        $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('t.lang', $this->lang);
         $criteria->with = array('category');
@@ -298,9 +297,15 @@ class News extends yupe\models\YModel
 
     public function getImageUrl()
     {
-        if($this->image)
+        if($this->image) {
             return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
                    Yii::app()->getModule('news')->uploadPath . '/' . $this->image;
+        }
         return false;
+    }
+
+    public function getFlag()
+    {
+        return yupe\helpers\YText::langToflag($this->lang);
     }
 }
