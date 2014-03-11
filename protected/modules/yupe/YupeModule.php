@@ -44,6 +44,9 @@ class YupeModule extends WebModule
     public $defaultBackendLanguage = 'ru';
 
     public $adminMenuOrder = -1;
+
+    public $allowedIp;
+
     /**
      * Возвращаем версию:
      *
@@ -52,6 +55,11 @@ class YupeModule extends WebModule
     public function getVersion()
     {
         return self::VERSION;
+    }
+
+    public function getAllowedIp()
+    {
+        return explode(',', $this->allowedIp);
     }
 
     /**
@@ -187,7 +195,8 @@ class YupeModule extends WebModule
             'email' => Yii::t('YupeModule.yupe', 'Admin Email'),
             'availableLanguages' => Yii::t('YupeModule.yupe', 'List of available languages (for example. ru,en,de)'),
             'defaultLanguage' => Yii::t('YupeModule.yupe', 'Default language'),
-            'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language')
+            'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
+            'allowedIp' => Yii::t('YupeModule.yupe', 'Allowed IP')
         );
     }
 
@@ -210,19 +219,8 @@ class YupeModule extends WebModule
             'email',
             'availableLanguages',
             'defaultLanguage' => $this->getLanguagesList(),
-            'defaultBackendLanguage' => $this->getLanguagesList()
-        );
-    }
-
-    /**
-     * Возвращаем правила валидации для параметров модуля
-     *
-     * @return array Правила валидации для параметров модуля
-     */
-    public function rules()
-    {
-        return array(
-            array('availableLanguages','filter','filter'=>function($str){ return preg_replace('/\s+/','',$str); }),
+            'defaultBackendLanguage' => $this->getLanguagesList(),
+            'allowedIp'
         );
     }
 
@@ -236,6 +234,21 @@ class YupeModule extends WebModule
         return array(
             'main' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Main settings'),
+                'items' => array(
+                    'allowedIp',
+                    'email',
+                    'coreCacheTime'
+                )
+            ),
+            'site' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Site settings'),
+                'items' => array(
+                    'siteName',
+                    'siteDescription',
+                    'siteKeyWords',
+                    'theme',
+                    'backendTheme'
+                )
             ),
             'language' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Language settings'),
@@ -254,6 +267,22 @@ class YupeModule extends WebModule
             ),
         );
     }
+
+
+
+
+    /**
+     * Возвращаем правила валидации для параметров модуля
+     *
+     * @return array Правила валидации для параметров модуля
+     */
+    public function rules()
+    {
+        return array(
+            array('availableLanguages','filter','filter'=>function($str){ return preg_replace('/\s+/','',$str); }),
+        );
+    }
+
 
     /**
      * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:

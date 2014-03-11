@@ -920,7 +920,7 @@ abstract class WebModule extends CWebModule
             $editableParams = $this->getEditableParams();
 
             foreach ($settingsRows as $sRow) {
-                if (property_exists($this, $sRow['param_name']) && isset($editableParams[$sRow['param_name']])) {
+                if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams)) {
                     $this->{$sRow['param_name']} = $sRow['param_value'];
                 }
             }
@@ -950,7 +950,7 @@ abstract class WebModule extends CWebModule
 				'fileUpload'  => Yii::app()->createUrl('/image/imageBackend/AjaxFileUpload'),
 				'imageGetJson'=> Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
 			),
-            
+
 			$this->editorOptions
 		);
 
