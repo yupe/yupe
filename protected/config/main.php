@@ -56,7 +56,6 @@ return array(
         ),
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
-            'brandUrl'     => 'http://yupe.ru?from=engine',
             'cache'        => true,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app

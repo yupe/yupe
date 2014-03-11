@@ -33,18 +33,15 @@ class YupeModule extends WebModule
     public $emptyLayout = 'empty';
     public $theme;
 
-    public $brandUrl;
     public $coreCacheTime = 3600;
     public $coreModuleId = 'yupe';
     public $editorsDir = 'application.modules.yupe.widgets.editors';
     public $uploadPath = 'uploads';
     public $email;
 
-    public $availableLanguages = 'ru,en,zh_cn';
+    public $availableLanguages = 'ru';
     public $defaultLanguage = 'ru';
     public $defaultBackendLanguage = 'ru';
-
-    public $updateChannel = 'release';
 
     public $adminMenuOrder = -1;
     /**
@@ -54,7 +51,7 @@ class YupeModule extends WebModule
      **/
     public function getVersion()
     {
-        return Yii::t('YupeModule.yupe', self::VERSION);
+        return self::VERSION;
     }
 
     /**
@@ -185,14 +182,12 @@ class YupeModule extends WebModule
             'backendTheme' => Yii::t('YupeModule.yupe', 'Theme of backend'),
             'theme' => Yii::t('YupeModule.yupe', 'Frontend theme'),
             'coreCacheTime' => Yii::t('YupeModule.yupe', 'Chacing time (sec.)'),
-            'editorsDir' => Yii::t('YupeModule.yupe', 'Visual editors catalog'),
             'uploadPath' => Yii::t('YupeModule.yupe', 'File uploads catalog (relative to the site root)'),
             'editor' => Yii::t('YupeModule.yupe', 'Visual editor'),
             'email' => Yii::t('YupeModule.yupe', 'Admin Email'),
             'availableLanguages' => Yii::t('YupeModule.yupe', 'List of available languages (for example. ru,en,de)'),
             'defaultLanguage' => Yii::t('YupeModule.yupe', 'Default language'),
-            'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
-            'updateChannel' => Yii::t('YupeModule.yupe', 'Update Yupe'),
+            'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language')
         );
     }
 
@@ -205,20 +200,17 @@ class YupeModule extends WebModule
     {
         return array(
             'coreCacheTime',
-            //'theme' => $this->getThemes(),
-            //'backendLayout',
-            //'backendTheme' => $this->getThemes(true),
+            'theme' => $this->getThemes(),
+            'backendTheme' => $this->getThemes(true),
             'siteName',
             'siteDescription',
             'siteKeyWords',
-            'editorsDir',
             'uploadPath',
             'editor' => $this->getEditors(),
             'email',
             'availableLanguages',
             'defaultLanguage' => $this->getLanguagesList(),
-            'defaultBackendLanguage' => $this->getLanguagesList(),
-            //'updateChannel'          => $this->updateChannelList,
+            'defaultBackendLanguage' => $this->getLanguagesList()
         );
     }
 
@@ -256,7 +248,6 @@ class YupeModule extends WebModule
             'editors' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
                 'items' => array(
-                    'editorsDir',
                     'uploadPath',
                     'editor',
                 )
@@ -296,20 +287,6 @@ class YupeModule extends WebModule
             $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
         }
         return $langs;
-    }
-
-    /**
-     * Возвращаем массив возможных трекеров обновления:
-     *
-     * @return mixed
-     **/
-    protected function getUpdateChannelList()
-    {
-        $channelsList = array(
-            'disabled' => Yii::t('YupeModule.yupe', 'Update disabled'),
-            'release' => Yii::t('YupeModule.yupe', 'Update by releases'),
-        );
-        return $channelsList;
     }
 
     /**

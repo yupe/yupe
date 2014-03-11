@@ -309,7 +309,7 @@ abstract class WebModule extends CWebModule
     public function getEditableParamsKey()
     {
         $keyParams = array();
-        foreach ($this->editableParams as $key => $value) {
+        foreach ($this->getEditableParams() as $key => $value) {
             $keyParams[] = is_int($key) ? $value : $key;
         }
         return $keyParams;
@@ -867,10 +867,9 @@ abstract class WebModule extends CWebModule
      */
     public function init()
     {
-
-        Yii::log("Init module '{$this->id}'...",CLogger::LEVEL_INFO);
-
         parent::init();
+
+        Yii::log("Init module '{$this->id}'...", CLogger::LEVEL_TRACE);
 
         $this->getSettings();
 
@@ -899,9 +898,9 @@ abstract class WebModule extends CWebModule
      */
     public function getSettings($needReset = false)
     {
-        $settings = null;
-
-        $needReset === false || Yii::app()->cache->clear($this->getId());
+        if($needReset) {
+            Yii::app()->cache->clear($this->getId());
+        }
 
         try
         {
@@ -918,21 +917,18 @@ abstract class WebModule extends CWebModule
                 ->bindValue(':type', Settings::TYPE_CORE)
                 ->queryAll();
 
+            $editableParams = $this->getEditableParams();
+
             foreach ($settingsRows as $sRow) {
-                $settings[$sRow['param_name']] = $sRow['param_value'];
-            }
-
-        } catch (CDbException $e) {
-            // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
-            $settings = null;
-        }
-
-        if (!empty($settings)) {
-            foreach ($settings as $key => $value) {
-                if (property_exists($this, $key)) {
-                    $this->{$key} = $value;
+                if (property_exists($this, $sRow['param_name']) && isset($editableParams[$sRow['param_name']])) {
+                    $this->{$sRow['param_name']} = $sRow['param_value'];
                 }
             }
+
+            return true;
+
+        } catch (CDbException $e) {
+            return false;
         }
     }
 
@@ -954,8 +950,10 @@ abstract class WebModule extends CWebModule
 				'fileUpload'  => Yii::app()->createUrl('/image/imageBackend/AjaxFileUpload'),
 				'imageGetJson'=> Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
 			),
+            
 			$this->editorOptions
 		);
+
 		return true;
     }
 
