@@ -12,23 +12,23 @@
  **/
 class YWebUser extends CWebUser
 {
-    private $_profile;
+    const STATE_ACCESS_LEVEL = 'access_level';
 
-    /**
-     * Инициализация компонента:
-     *
-     * @return parent::init()
-     **/
-    public function init()
-    {
-        $this->allowAutoLogin  = true;
-        $this->authTimeout     = 24 * 2600;
-        $this->autoRenewCookie = true;
+    const STATE_NICK_NAME = 'nick_name';
 
-        $this->loginUrl = Yii::app()->createUrl($this->loginUrl);
+    const STATE_MOD_SETTINGS = 'modSettings';
 
-        return parent::init();
-    }
+    const STATE_ADM_CHECK_ATTEMPT = 'adm_check_attempt';
+
+    private $_profiles = array();
+
+    public $authTimeout = 62400;
+
+    public $autoRenewCookie = true;
+
+    public $allowAutoLogin = true;
+
+    public $attempt = 5;
 
     /**
      * Метод который проверяет, авторизирован ли пользователь:
@@ -37,32 +37,11 @@ class YWebUser extends CWebUser
      **/
     public function isAuthenticated()
     {
-        if ($this->getIsGuest()) {
-            return false;
-        }
-
-        $authData = $this->getAuthData();
-
-        if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id']) {
+        if (!$this->getIsGuest()) {
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Возвращаем данные по авторизации:
-     *
-     * @return mixed authdata
-     **/
-    protected function getAuthData()
-    {
-        return array(
-            'nick_name'    => $this->getState('nick_name'),
-            'access_level' => (int) $this->getState('access_level'),
-            'loginTime'    => $this->getState('loginTime'),
-            'id'           => (int) $this->getState('id'),
-        );
     }
 
     /**
@@ -76,10 +55,26 @@ class YWebUser extends CWebUser
             return false;
         }
 
-        $loginAdmTime = $this->getState('loginAdmTime');
-        $isAdmin      = $this->getState('isAdmin');
+        $attempt = (int)Yii::app()->getUser()->getState(self::STATE_ADM_CHECK_ATTEMPT, 0);
 
-        if ((int)$isAdmin === User::ACCESS_LEVEL_ADMIN && $loginAdmTime){
+        if($attempt >= $this->attempt) {
+
+            $attempt = 0;
+
+            $user = User::model()->active()->find('access_level = :level', array(
+                    ':level' => User::ACCESS_LEVEL_ADMIN
+                ));
+
+            if(null === $user) {
+                return false;
+            }
+        }
+
+        Yii::app()->user->setState(self::STATE_ADM_CHECK_ATTEMPT, ++$attempt);
+
+        $isAdmin = Yii::app()->user->getState(self::STATE_ACCESS_LEVEL);
+
+        if ((int)$isAdmin === User::ACCESS_LEVEL_ADMIN){
             return true;
         }
 
@@ -94,38 +89,38 @@ class YWebUser extends CWebUser
      *
      * @return User|null - Модель пользователя в случае успеха, иначе null
      */
-    public function getProfile($id = null,$moduleName = null)
+    public function getProfile($id = null,$moduleName = 'yupe')
     {
-        if ($moduleName) {
+        if (isset($this->_profiles[$moduleName])) {
+            return $this->_profiles[$moduleName];
+        }
+
+        $id = $id === null ? $this->id : (int)$id;
+
+        if (!isset($this->_profiles[$moduleName])) {
+            $this->_profiles[$moduleName] = User::model()->active()->findByPk($id);
+        }
+
+        return $this->_profiles[$moduleName];
+    }
+
+    public function getProfileField($field, $module = 'yupe')
+    {
+        if(Yii::app()->getUser()->hasState($field)) {
+            return Yii::app()->getUser()->getState($field);
+        }
+
+        $profile = $this->getProfile($this->getId(), $module);
+
+        if(null === $profile) {
             return null;
         }
 
-        $id = $id === null ? $this->id : $id;
+        $value = $profile->$field;
 
-        if ( null === $this->_profile ) {
-            $this->_profile = User::model()->active()->findByPk($id);
-        }
+        Yii::app()->getUser()->setState($field, $value);
 
-        return $this->_profile;
-    }
-
-    public function getFullName($separator = ' ')
-    {
-        if(Yii::app()->getUser()->hasState('full_name')) {
-            return Yii::app()->getUser()->getState('full_name');
-        }
-
-        $profile = $this->getProfile();
-
-        $fullName = Yii::app()->getUser()->getState('nick_name');
-
-        if(!empty($profile->last_name) && !empty($profile->first_name)){
-            $fullName =  $profile->first_name.$separator.$profile->last_name;
-        }
-
-        Yii::app()->getUser()->setState('full_name', $fullName);
-
-        return $fullName;
+        return $value;
     }
 
     public function getAvatar($size = 64)
@@ -171,6 +166,21 @@ class YWebUser extends CWebUser
     protected function afterLogin($fromCookie)
     {
         Yii::app()->cache->clear('loggedIn' . $this->getId());
+
+        if(true === $fromCookie) {
+
+            $user = User::model()->active()->findByPk((int)$this->getId());
+
+            if(null === $user) {
+
+                $this->logout();
+
+                return false;
+            }
+
+            Yii::app()->setState(self::STATE_ACCESS_LEVEL, $user->access_level);
+            Yii::app()->setState(self::STATE_NICK_NAME, $user->nick_name);
+        }
 
         return parent::afterLogin($fromCookie);
     }

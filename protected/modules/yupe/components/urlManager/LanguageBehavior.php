@@ -209,7 +209,8 @@ class LanguageBehavior extends CBehavior
                     Yii::app()->urlManager->langParam, new CHttpCookie(
                         Yii::app()->urlManager->langParam,
                         $language, array(
-                            'expire' => time() + (60 * 60 * 24 * 365)
+                            'expire'   => time() + (60 * 60 * 24 * 365),
+                            'httpOnly' => true
                         )
                     )
                 );

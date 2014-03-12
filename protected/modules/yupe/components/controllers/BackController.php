@@ -46,7 +46,7 @@ class BackController extends Controller
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
             Yii::app()->theme = "backend_" . $backendTheme;
         } else {
-            Yii::app()->theme = "default";
+            Yii::app()->theme = $this->yupe->theme;
             if (!$this->yupe->enableAssets) {
                 return;
             }
