@@ -97,7 +97,7 @@ class CommentController extends yupe\components\controllers\FrontController
             $params = CMap::mergeArray($params, array(
                     'user_id' => Yii::app()->user->getId(),
                     'name' => Yii::app()->user->getState('nick_name'),
-                    'email' => Yii::app()->user->getState('email'),
+                    'email' => Yii::app()->user->getEmail(),
                 )
             );
         }
