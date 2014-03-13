@@ -568,7 +568,6 @@ abstract class WebModule extends CWebModule
      */
     public function getActivate($noDependen = false, $updateConfig = false)
     {
-        $yupe = Yii::app()->getModule('yupe');
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->getId());
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
 
@@ -920,7 +919,7 @@ abstract class WebModule extends CWebModule
             $editableParams = $this->getEditableParams();
 
             foreach ($settingsRows as $sRow) {
-                if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams)) {
+                if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams) || array_key_exists($sRow['param_name'], $editableParams)) {
                     $this->{$sRow['param_name']} = $sRow['param_value'];
                 }
             }

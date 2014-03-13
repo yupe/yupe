@@ -2,7 +2,6 @@
 /**
  * Theme bootstrap file.
  */
-
 // We need to do this to ensure that assets was published even if we don't use any booster widget on the page
 if (Yii::app()->hasComponent('bootstrap')) {
     Yii::app()->getComponent('bootstrap');

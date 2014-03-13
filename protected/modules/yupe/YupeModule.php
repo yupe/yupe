@@ -59,7 +59,11 @@ class YupeModule extends WebModule
 
     public function getAllowedIp()
     {
-        return explode(',', $this->allowedIp);
+        if(strpos($this->allowedIp, ',')) {
+            return explode(',', trim($this->allowedIp));
+        }
+
+        return array();
     }
 
     /**
