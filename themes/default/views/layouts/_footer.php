@@ -7,9 +7,9 @@
             <li><a href="http://vk.com/amylabs" target="_blank"><?php echo Yii::t('default', 'Vk.com'); ?></a></li>
             <li><a href="https://www.facebook.com/amylabs.ru"
                    target="_blank"><?php echo Yii::t('default', 'Facebook'); ?></a></li>
-            <li><a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts"
+            <li><a href="https://plus.google.com/+AmylabsRu"
                    target="_blank"><?php echo Yii::t('default', 'Google+'); ?></a></li>
-            <li><a href="http://yupe.ru/blog/yupe-mini-cms-yii"
+            <li><a href="http://yupe.ru/blogs/yupe-mini-cms-yii"
                    target="_blank"><?php echo Yii::t('default', 'Blog'); ?></a></li>
             <li><a href="http://yupe.ru/" target="_blank"><?php echo Yii::t('default', 'Our site'); ?></a></li>
         </ul>
@@ -21,7 +21,7 @@
                    target="_blank"><?php echo Yii::t('default', 'Documentation'); ?></a></li>
             <li><a href="http://api.yupe.ru/" target="_blank"><?php echo Yii::t('default', 'API'); ?></a></li>
             <li><a href="http://yupe.ru/talk/" target="_blank"><?php echo Yii::t('default', 'Forum'); ?></a></li>
-            <li><a href="http://yupe.ru/feedback/faq/" target="_blank"><?php echo Yii::t('default', 'FAQ'); ?></a></li>
+            <li><a href="http://yupe.ru/faq/" target="_blank"><?php echo Yii::t('default', 'FAQ'); ?></a></li>
             <li><a href="http://yupe.ru/contacts?from=footer"
                    target="_blank"><?php echo Yii::t('default', 'Contacts'); ?></a></li>
         </ul>

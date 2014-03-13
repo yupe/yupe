@@ -138,6 +138,6 @@ php composer.phar install
 
 После зарешения переходим по адресу **http://localhost/yupe-project/public/** и попадаем в уже знакомый нам мастер установки
 
-При возникновении проблем с установкой - посетите [наш форум](http://laravel.com/docs/testing)
+При возникновении проблем с установкой - посетите [наш форум](http://yupe.ru/talk) или [чат](https://gitter.im/yupe/yupe)
 
 По вопросам разворачивания Юпи! для "боевых" проектов - [напишите нам](http://amylabs.ru/contact)
