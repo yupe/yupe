@@ -67,7 +67,8 @@ $this->renderPartial('_search', array('model' => $model));
     'columns'      => array(
         array(
             'name'        => 'id',
-            'value'       => '$data->id',
+            'value' => 'CHtml::link($data->id, array("/user/userBackend/update", "id" => $data->id))',
+            'type'  => 'html',
             'htmlOptions' => array(
                 'style'   => 'width: 40px; text-align: center'
             )
@@ -82,25 +83,52 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$data->email',
         ),
         array(
-            'name'  => 'email_confirm',
-            'type'  => 'html',
-            'value' => '$data->email_confirm  ? $data->getEmailConfirmStatus() : CHtml::link($data->getEmailConfirmStatus(), array("verifySend", "id" => $data->id),
-                    array(
-                        "class"  => "verify-email",
-                        "title"  => Yii::t("UserModule.user", "Send a letter to verify email"),
-                    ))',
-            'filter' => $model->getEmailConfirmStatusList()
-        ),
-        array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/user/userBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getAccessLevelsList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'   => 'access_level',
+            'type'   => 'raw',
             'value'  => '$data->getAccessLevel()',
             'filter' => $model->getAccessLevelsList()
         ),
         array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/user/userBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
             'filter' => $model->getStatusList()
+        ),
+        array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/user/userBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getEmailConfirmStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'email_confirm',
+            'type'   => 'raw',
+            'value'  => '$data->getEmailConfirmStatus()',
+            'filter' => $model->getEmailConfirmStatusList()
         ),
         array(            
             'name'   => 'registration_date',            

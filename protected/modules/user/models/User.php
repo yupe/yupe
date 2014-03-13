@@ -176,7 +176,9 @@ class User extends yupe\models\YModel
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.change_date', $this->change_date, true);
-        $criteria->compare('t.registration_date', $this->registration_date, true);
+        if($this->registration_date) {
+            $criteria->compare('t.registration_date', date('Y-m-d', strtotime($this->registration_date)), true);
+        }
         $criteria->compare('t.first_name', $this->first_name, true);
         $criteria->compare('t.middle_name', $this->first_name, true);
         $criteria->compare('t.last_name', $this->last_name, true);
@@ -185,7 +187,9 @@ class User extends yupe\models\YModel
         $criteria->compare('t.gender', $this->gender);       
         $criteria->compare('t.status', $this->status);        
         $criteria->compare('t.access_level', $this->access_level);
-        $criteria->compare('t.last_visit', $this->last_visit, true);
+        if($this->last_visit) {
+            $criteria->compare('t.last_visit', date('Y-m-d', strtotime($this->last_visit)), true);
+        }
         $criteria->compare('t.email_confirm', $this->email_confirm);        
 
         return new CActiveDataProvider(get_class($this), array(
