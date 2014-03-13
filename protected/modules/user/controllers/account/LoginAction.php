@@ -59,7 +59,7 @@ class LoginAction extends CAction
 
             } else {
 
-                $form->addError('hash', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
+                $form->addError('email', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, $badLoginCount + 1);
 

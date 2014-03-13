@@ -79,7 +79,7 @@
         ),
         array(
             'name'  => 'answer_user',
-            'value' => $model->getAnsweredUser(),
+            'value' => $model->getAnsweredUser()->getFullName(),
         ),
         array(
             'name'  => 'answer_date',

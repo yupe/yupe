@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'News lists'    => 'Списки новостей',
+  'General module settings' => 'Основные настройки модуля',
+  'Images settings' => 'Настройки изображений',
   'News per page' => 'Новостей на странице',
   '*unknown*' => '*неизвестно*',
   '- no matter -' => '- не важен -',

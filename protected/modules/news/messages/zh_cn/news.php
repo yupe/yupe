@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'News lists'    => '',
+    'General module settings' => '',
+    'Images settings' => '',
+    'News per page' => '',
     '*unknown*' => '',
     '- no matter -' => '',
     '-no matter-' => '',

@@ -202,7 +202,7 @@ class BackendController extends yupe\components\controllers\BackController
             if (!($module = Yii::app()->getModule($moduleId)))
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Module "{module}" was not found!', array('{module}' => $moduleId)));
 
-            if ($this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
+            if ($this->saveParamsSetting($moduleId, $module->getEditableParamsKey())) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(

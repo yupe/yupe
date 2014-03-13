@@ -32,8 +32,8 @@ class ContactController extends yupe\components\controllers\FrontController
 
         // если пользователь авторизован - подставить его данные
         if (Yii::app()->user->isAuthenticated()) {
-            $form->email = Yii::app()->user->getState('email');
-            $form->name = Yii::app()->user->getState('nick_name');
+            $form->email = Yii::app()->getUser()->getProFileField('email');
+            $form->name = Yii::app()->getUser()->getProFileField('nick_name');
         }
 
         // проверить не передан ли тип и присвоить его аттрибуту модели

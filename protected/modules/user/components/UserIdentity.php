@@ -25,51 +25,48 @@ class UserIdentity extends CUserIdentity
     {
         if (($user = User::model()->active()->findByAttributes(array('email' => $this->username))) === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        } else if (!Yii::app()->userManager->hasher->checkPassword($this->password, $user->hash)) {
+            return false;
+        }
+        if (!Yii::app()->userManager->hasher->checkPassword($this->password, $user->hash)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        } else {
-            // запись данных в сессию пользователя
-            $this->_id      = $user->id;
-            $this->username = $user->nick_name;
+            return false;
+        }
 
-            $this->setState('id', $user->id);
-            $this->setState('access_level', $user->access_level);
-            $this->setState('nick_name', $user->nick_name);
-            $this->setState('email', $user->email);
-            $this->setState('loginTime', time());
+        // запись данных в сессию пользователя
+        $this->_id = $user->id;
+        $this->username = $user->nick_name;
 
-            // для админа в сессию запишем еще несколько значений
-            if ($user->access_level == User::ACCESS_LEVEL_ADMIN) {
-                $this->setState('loginAdmTime', time());
-                $this->setState('isAdmin', $user->access_level);
+        Yii::app()->getUser()->setState('id', $user->id);
+        Yii::app()->getUser()->setState(YWebUser::STATE_ACCESS_LEVEL, $user->access_level);
+        Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $user->nick_name);
 
-                /* Получаем настройки по всем модулям для данного пользователя: */
-                $settings = Settings::model()->fetchUserModuleSettings($user->id);
-                $sessionSettings = array();
-                
-                /* Если передан не пустой массив, проходим по нему: */
-                if (!empty($settings) && is_array($settings)) {
-                    foreach ($settings as $sets) {                          
-                        /* Наполняем нашу сессию: */
-                        if (!isset($sessionSettings[$sets->module_id])) {
-                            $sessionSettings[$sets->module_id] = array();
-                        }
+        // для админа в сессию запишем еще несколько значений
+        if ($user->access_level == User::ACCESS_LEVEL_ADMIN) {
+            /* Получаем настройки по всем модулям для данного пользователя: */
+            $settings = Settings::model()->fetchUserModuleSettings($user->id);
+            $sessionSettings = array();
 
-                        $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;                        
+            /* Если передан не пустой массив, проходим по нему: */
+            if (!empty($settings) && is_array($settings)) {
+                foreach ($settings as $sets) {
+                    /* Наполняем нашу сессию: */
+                    if (!isset($sessionSettings[$sets->module_id])) {
+                        $sessionSettings[$sets->module_id] = array();
                     }
+
+                    $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;
                 }
-                
-                $this->setState('modSettings', $sessionSettings);
             }
 
-            // зафиксируем время входа
-            $user->last_visit = new CDbExpression('NOW()');
-            $user->update(array('last_visit'));
-
-            $this->errorCode = self::ERROR_NONE;
+            Yii::app()->getUser()->setState(YWebUser::STATE_MOD_SETTINGS, $sessionSettings);
         }
-        
-        return $this->errorCode == self::ERROR_NONE;
+
+        // зафиксируем время входа
+        $user->last_visit = new CDbExpression('NOW()');
+        $user->update(array('last_visit'));
+        $this->errorCode = self::ERROR_NONE;
+
+        return true;
     }
 
     /**

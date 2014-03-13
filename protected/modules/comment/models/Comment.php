@@ -314,7 +314,7 @@ class Comment extends yupe\models\YModel
      **/
     public function getAuthorName()
     {
-        return ($this->author) ? $this->author : $this->name;
+        return ($this->author) ? $this->author->nick_name : $this->name;
     }
 
 

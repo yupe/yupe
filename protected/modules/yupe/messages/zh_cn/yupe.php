@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Allowed IP' => '',
   ' The resulting interface is well integrated into the control panel of Yupe!.' => '',
   ' We are working with it =)' => '',
   ' Yupe! developed and maintained by a team of enthusiasts, you can use Yupe! and any part of it <b>absolutely for free</b>' => '',
