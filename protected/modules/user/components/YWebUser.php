@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл класса YWebUser, который расширяет возможности стандартного CWebUser
  *
@@ -37,11 +38,7 @@ class YWebUser extends CWebUser
      **/
     public function isAuthenticated()
     {
-        if (!$this->getIsGuest()) {
-            return true;
-        }
-
-        return false;
+        return !$this->getIsGuest();
     }
 
     /**
@@ -51,45 +48,43 @@ class YWebUser extends CWebUser
      **/
     public function isSuperUser()
     {
-        if (!$this->isAuthenticated()){
+        if (!$this->isAuthenticated()) {
             return false;
         }
 
         $attempt = (int)Yii::app()->getUser()->getState(self::STATE_ADM_CHECK_ATTEMPT, 0);
 
-        if($attempt >= $this->attempt) {
+        if ($attempt >= $this->attempt) {
 
             $attempt = 0;
 
-            $user = User::model()->active()->find('access_level = :level', array(
-                    ':level' => User::ACCESS_LEVEL_ADMIN
-                ));
+            $user = User::model()->active()->find(
+                'id = :id AND access_level = :level',
+                array(
+                    ':level' => User::ACCESS_LEVEL_ADMIN,
+                    ':id' => $this->getId()
+                )
+            );
 
-            if(null === $user) {
+            if (null === $user) {
                 return false;
             }
         }
 
-        Yii::app()->user->setState(self::STATE_ADM_CHECK_ATTEMPT, ++$attempt);
+        Yii::app()->getUser()->setState(self::STATE_ADM_CHECK_ATTEMPT, ++$attempt);
 
-        $isAdmin = Yii::app()->user->getState(self::STATE_ACCESS_LEVEL);
-
-        if ((int)$isAdmin === User::ACCESS_LEVEL_ADMIN){
-            return true;
-        }
-
-        return false;
+        return (int)Yii::app()->getUser()->getState(self::STATE_ACCESS_LEVEL) === User::ACCESS_LEVEL_ADMIN;
     }
 
     /**
      * Метод возвращающий профайл пользователя:
      *
-     * @param string $id  - идентификатор пользователя
-     * @param string $moduleName   - идентификатор модуля
+     * @param string $id - идентификатор пользователя
+     * @param string $moduleName - идентификатор модуля
      *
      * @return User|null - Модель пользователя в случае успеха, иначе null
      */
-    public function getProfile($id = null,$moduleName = 'yupe')
+    public function getProfile($id = null, $moduleName = 'yupe')
     {
         if (isset($this->_profiles[$moduleName])) {
             return $this->_profiles[$moduleName];
@@ -106,13 +101,13 @@ class YWebUser extends CWebUser
 
     public function getProfileField($field, $module = 'yupe')
     {
-        if(Yii::app()->getUser()->hasState($field)) {
+        if (Yii::app()->getUser()->hasState($field)) {
             return Yii::app()->getUser()->getState($field);
         }
 
         $profile = $this->getProfile($this->getId(), $module);
 
-        if(null === $profile) {
+        if (null === $profile) {
             return null;
         }
 
@@ -129,7 +124,7 @@ class YWebUser extends CWebUser
 
         $avatars = Yii::app()->getUser()->getState('avatars');
 
-        if(!empty($avatars) && !empty($avatars[$size])) {
+        if (!empty($avatars) && !empty($avatars[$size])) {
             return $avatars[$size];
         }
 
@@ -167,11 +162,11 @@ class YWebUser extends CWebUser
     {
         Yii::app()->cache->clear('loggedIn' . $this->getId());
 
-        if(true === $fromCookie) {
+        if (true === $fromCookie) {
 
             $user = User::model()->active()->findByPk((int)$this->getId());
 
-            if(null === $user) {
+            if (null === $user) {
 
                 $this->logout();
 
