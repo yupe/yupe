@@ -220,7 +220,7 @@ class Category extends yupe\models\YModel
 		return CHtml::listData($category, 'id', 'name');
 	}
 
-    public function getChildren($parent = null)
+    public function getDescendants($parent = null)
     {
         $out = array();
 
@@ -232,7 +232,7 @@ class Category extends yupe\models\YModel
 
         foreach($models as $model) {
             $out[] = $model;
-            $out   = CMap::mergeArray($out, $model->getChildren((int)$model->id));
+            $out   = CMap::mergeArray($out, $model->getDescendants((int)$model->id));
         }
 
         return $out;
@@ -244,7 +244,7 @@ class Category extends yupe\models\YModel
 
 		$list = array();
 
-		foreach ($categories as $key => $category) {
+		foreach ($categories as $category) {
 
 			$category->name = str_repeat('&emsp;', $level) . $category->name;
 
@@ -282,4 +282,9 @@ class Category extends yupe\models\YModel
 			)
 		);
 	}
+
+    public function getById($id)
+    {
+        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findByPk((int)$id);
+    }
 }
