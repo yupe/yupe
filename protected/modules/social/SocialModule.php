@@ -3,6 +3,8 @@ use yupe\components\WebModule;
 
 class SocialModule extends WebModule
 {
+    const VERSION = '0.2';
+
     public $controllerNamespace = '\application\modules\social\controllers';
 
     public function getDependencies()
@@ -49,7 +51,7 @@ class SocialModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('SocialModule.social', '0.1');
+        return Yii::t('SocialModule.social', self::VERSION);
     }
 
     public function getUrl()

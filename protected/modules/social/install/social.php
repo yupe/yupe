@@ -14,7 +14,7 @@ return array(
     ),
     'component' => array(
         'eauth' => array(
-            'class' => 'application.modules.social.extensions.eauth.EAuth',
+            'class' => 'vendor.nodge.yii-eauth.EAuth',
             'popup' => false,
             'services' => array(
                 'google' => array(
@@ -45,10 +45,16 @@ return array(
                     'client_secret' => '',
                     'title' => 'VKontakte',
                 ),
+                'github' => array(
+                    // register your app here: https://github.com/settings/applications
+                    'class' => 'GitHubOAuthService',
+                    'client_id' => '...',
+                    'client_secret' => '...',
+                ),
             ),
         ),
         'loid' => array(
-            'class' => 'application.modules.social.extensions.lightopenid.loid',
+            'class' => 'vendor.itmages.lightopenid.src.loid',
         ),
     ),
     'rules' => array(
