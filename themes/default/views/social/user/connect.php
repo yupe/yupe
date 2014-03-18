@@ -1,9 +1,9 @@
 <?php
-    $this->pageTitle = Yii::t('UserModule.user', 'Sign in');
-    $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
+$this->pageTitle = Yii::t('UserModule.user', 'Sign in');
+$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 ?>
 
-<?php $this->widget('yupe\widgets\YFlashMessages'); ?>
+<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
@@ -27,7 +27,7 @@
     <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span6', 'required' => true)); ?>
 </div>
 
-<?php if ($this->getModule()->sessionLifeTime > 0): ?>
+<?php if (Yii::app()->getModule('user')->sessionLifeTime > 0): ?>
     <div class='row-fluid control-group <?php echo $model->hasErrors('remember_me') ? 'error' : ''; ?>'>
         <?php echo $form->checkBoxRow($model, 'remember_me'); ?>
     </div>
@@ -78,13 +78,6 @@
             'url' => Yii::app()->createUrl('/user/account/registration'),
         )
     ); ?>
-</div>
-
-<div class="row-fluid control-group">
-    <?php $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array(
-        'action' => '/social/login',
-        'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter'),
-    )); ?>
 </div>
 
 <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
