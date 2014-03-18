@@ -163,7 +163,7 @@ class UserManager extends CApplicationComponent
             return false;
         }
 
-        $userModel = User::model()->findByPk($tokenModel->user_id);
+        $userModel = User::model()->active()->findByPk($tokenModel->user_id);
 
         if(null === $userModel) {
             return false;
@@ -251,7 +251,7 @@ class UserManager extends CApplicationComponent
                 return false;
             }
 
-            $userModel = User::model()->findByPk($tokenModel->user_id);
+            $userModel = User::model()->active()->findByPk($tokenModel->user_id);
 
             if(null === $userModel) {
                 return false;

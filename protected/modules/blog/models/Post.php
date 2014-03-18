@@ -548,7 +548,7 @@ class Post extends yupe\models\YModel
 
     public function getCommentCount()
     {
-        return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
+        return $this->commentsCount > 0 ? $this->commentsCount : 0;
     }
 
     public function createPublicPost(array $post, $tags)
