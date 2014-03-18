@@ -19,8 +19,8 @@ $this->pageTitle = Yii::t('MenuModule.menu', 'Menu - show');
 
 $this->menu = array(
     array('label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
-        array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
-        array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
+		array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
+		array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
         array('label' => Yii::t('MenuModule.menu', 'Menu') . ' «' . $model->name . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('MenuModule.menu', 'Change menu'), 'url' => array('/menu/menuBackend/update', 'id' => $model->id)),
         array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('MenuModule.menu', 'View menu'), 'url' => array(
@@ -33,8 +33,8 @@ $this->menu = array(
         ),
     )),
     array('label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
-        array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
-        array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
+		array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
+		array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
     )),
 );
 ?>
