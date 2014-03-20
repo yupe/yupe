@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.7.1';
 
     public $notifier = 'application\modules\comment\components\Notifier';
     public $defaultCommentStatus;
