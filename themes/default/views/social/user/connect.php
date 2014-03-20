@@ -3,7 +3,7 @@ $this->pageTitle = Yii::t('UserModule.user', 'Sign in');
 $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 ?>
 
-<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
+<?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',

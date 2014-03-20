@@ -283,6 +283,6 @@ class UserManager extends CApplicationComponent
 
     public function isUserExist($email)
     {
-        return User::model()->count('email = :email', array('email' => $email)) > 0;
+        return User::model()->active()->find('email = :email', array('email' => $email));
     }
 }

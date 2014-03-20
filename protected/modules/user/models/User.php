@@ -539,4 +539,9 @@ class User extends yupe\models\YModel
 
         $this->avatar = $filename;
     }
+
+    public function isActive()
+    {
+        return (int)$this->status === self::STATUS_ACTIVE;
+    }
 }

@@ -15,11 +15,11 @@ class RegistrationAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->user->isAuthenticated()) {
-            $this->controller->redirect(array(Yii::app()->user->returnUrl));
-        }
-
         $module = Yii::app()->getModule('user');
+
+        if (Yii::app()->user->isAuthenticated()) {
+            $this->controller->redirect(array($module->registrationSuccess));
+        }
 
         if ($module->registrationDisabled) {
         	throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));

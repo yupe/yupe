@@ -3,15 +3,6 @@ return array(
     'module' => array(
         'class' => 'application.modules.social.SocialModule',
     ),
-    'import' => array(
-        'application.modules.social.components.*',
-        'application.modules.social.components.services.*',
-        'application.modules.social.models.*',
-        'application.modules.social.extensions.eauth.services.*',
-        'application.modules.social.extensions.eauth.*',
-        'application.modules.social.extensions.eoauth.lib.*',
-        'application.modules.social.extensions.eoauth.*'
-    ),
     'component' => array(
         'eauth' => array(
             'class' => 'vendor.nodge.yii-eauth.EAuth',
@@ -47,9 +38,9 @@ return array(
                 ),
                 'github' => array(
                     // register your app here: https://github.com/settings/applications
-                    'class' => 'GitHubOAuthService',
-                    'client_id' => '...',
-                    'client_secret' => '...',
+                    'class' => 'application\modules\social\components\services\Github',
+                    'client_id' => '',
+                    'client_secret' => '',
                 ),
             ),
         ),
@@ -58,8 +49,8 @@ return array(
         ),
     ),
     'rules' => array(
-        '/social/login/service/<service:(google|facebook|vkontakte|twitter)>' => 'social/user/login',
-        '/social/connect/service/<service:(google|facebook|vkontakte|twitter)>' => 'social/user/connect',
-        '/social/register/service/<service:(google|facebook|vkontakte|twitter)>' => 'social/user/register',
+        '/social/login/service/<service:(google|facebook|vkontakte|twitter|github)>' => 'social/user/login',
+        '/social/connect/service/<service:(google|facebook|vkontakte|twitter|github)>' => 'social/user/connect',
+        '/social/register/service/<service:(google|facebook|vkontakte|twitter|github)>' => 'social/user/register',
     ),
 );

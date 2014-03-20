@@ -1,12 +1,13 @@
 <?php
 namespace application\modules\social\components;
 
-use \CBaseUserIdentity;
-use \IAuthService;
-use \SocialUser;
-use \User;
-use \Yii;
-use \CDbExpression;
+use CBaseUserIdentity;
+use IAuthService;
+use application\modules\social\models\SocialUser;
+use User;
+use Yii;
+use CDbExpression;
+use YWebUser;
 
 class UserIdentity extends CBaseUserIdentity
 {
@@ -26,29 +27,29 @@ class UserIdentity extends CBaseUserIdentity
     {
         $storage = SocialUser::model()
             ->with('user')
-            ->find('provider = :provider AND uid = :uid', array(
-                ':provider' => $this->service->getServiceName(),
-                ':uid' => $this->service->getId(),
-            ));
+            ->find(
+                'provider = :provider AND uid = :uid',
+                array(
+                    ':provider' => $this->service->getServiceName(),
+                    ':uid' => $this->service->getId(),
+                )
+            );
 
-        if ($storage !== null && (int)$storage->user->status !== User::STATUS_BLOCK) {
-            $user = $storage->user;
-            $this->id = $user->id;
-            $this->name = $user->nick_name;
-
-            $this->setPersistentStates(array(
-                'loginTime' => time(),
-                'isAdmin' => $user->access_level === User::ACCESS_LEVEL_ADMIN,
-                'nick_name' => $user->nick_name,
-                'access_level' => $user->accessLevel,
-                'id' => $user->id,
-            ));
-
-            $user->last_visit = new CDbExpression('NOW()');
-            $user->update(array('last_visit'));
-            $this->errorCode = self::ERROR_NONE;
+        if (null === $storage || !$storage->user->isActive()) {
+            return false;
         }
-        return $this->errorCode === self::ERROR_NONE;
+
+        $this->id = $storage->user->id;
+        $this->name = $storage->user->nick_name;
+
+        Yii::app()->getUser()->setState(YWebUser::STATE_ACCESS_LEVEL, $storage->user->access_level);
+        Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $storage->user->nick_name);
+
+        $storage->user->last_visit = new CDbExpression('NOW()');
+        $storage->user->update(array('last_visit'));
+        $this->errorCode = self::ERROR_NONE;
+
+        return true;
     }
 
     public function getId()
