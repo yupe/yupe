@@ -84,17 +84,37 @@ class YWebUser extends CWebUser
      *
      * @return User|null - Модель пользователя в случае успеха, иначе null
      */
-    public function getProfile($id = null, $moduleName = 'yupe')
+    public function getProfile($moduleName = 'yupe')
     {
         if (isset($this->_profiles[$moduleName])) {
             return $this->_profiles[$moduleName];
         }
 
-        $id = $id === null ? $this->id : (int)$id;
+        $module = Yii::app()->getModule($moduleName);
 
-        if (!isset($this->_profiles[$moduleName])) {
-            $this->_profiles[$moduleName] = User::model()->active()->findByPk($id);
+        if (null === $module) {
+            throw new CException(Yii::t(
+                'YupeModule.yupe',
+                'Module "{module}" not found!',
+                array(
+                    '{module}' => $moduleName
+                )
+            ));
         }
+
+        $model = $module->getProfileModel();
+
+        if(false === $module) {
+            throw new CException(Yii::t(
+                'YupeModule.yupe',
+                'Module "{module}" has no profile model!',
+                array(
+                    '{module}' => $moduleName
+                )
+            ));
+        }
+
+        $this->_profiles[$moduleName] = CActiveRecord::model($model)->findByPk($this->id);
 
         return $this->_profiles[$moduleName];
     }
@@ -105,7 +125,7 @@ class YWebUser extends CWebUser
             return Yii::app()->getUser()->getState($field);
         }
 
-        $profile = $this->getProfile($this->getId(), $module);
+        $profile = $this->getProfile($module);
 
         if (null === $profile) {
             return null;
@@ -148,7 +168,7 @@ class YWebUser extends CWebUser
     {
         Yii::app()->cache->clear('loggedIn' . $this->getId());
 
-        return parent::afterLogout();
+        parent::afterLogout();
     }
 
     /**
@@ -173,10 +193,10 @@ class YWebUser extends CWebUser
                 return false;
             }
 
-            Yii::app()->setState(self::STATE_ACCESS_LEVEL, $user->access_level);
-            Yii::app()->setState(self::STATE_NICK_NAME, $user->nick_name);
+            $this->setState(self::STATE_ACCESS_LEVEL, $user->access_level);
+            $this->setState(self::STATE_NICK_NAME, $user->nick_name);
         }
 
-        return parent::afterLogin($fromCookie);
+        parent::afterLogin($fromCookie);
     }
 }

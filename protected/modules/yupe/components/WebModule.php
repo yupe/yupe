@@ -88,6 +88,20 @@ abstract class WebModule extends CWebModule
     public $eventHandlers = array();
 
     /**
+     * @var bool | string
+     *
+     * Имя модели, которая является профилем пользователя для конкретного модуля
+     *
+     */
+    public $profileModel = false;
+
+
+    public function getProfileModel()
+    {
+        return $this->profileModel;
+    }
+
+    /**
      * @var array список категорий
      */
     public function getCategoryList()
