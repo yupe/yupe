@@ -104,7 +104,7 @@ class YWebUser extends CWebUser
 
         $model = $module->getProfileModel();
 
-        if(false === $module) {
+        if(false === $model) {
             throw new CException(Yii::t(
                 'YupeModule.yupe',
                 'Module "{module}" has no profile model!',
