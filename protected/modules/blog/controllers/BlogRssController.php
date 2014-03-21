@@ -10,7 +10,6 @@
  * @since 0.1
  *
  */
-
 class BlogRssController extends yupe\components\controllers\RssController
 {
     public function loadData()

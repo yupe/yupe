@@ -10,12 +10,11 @@
  * @since 0.1
  *
  */
-
 class CommentRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int) Yii::app()->getModule('news')->rssCount)) {
+        if (!($limit = (int)Yii::app()->getModule('news')->rssCount)) {
             throw new CHttpException(404);
         }
 
@@ -32,7 +31,7 @@ class CommentRssController extends yupe\components\controllers\RssController
         $model = Yii::app()->getRequest()->getQuery('model');
         $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
 
-        if(empty($model) || empty($modelId)) {
+        if (empty($model) || empty($modelId)) {
             throw new CHttpException(404);
         }
 
@@ -41,8 +40,8 @@ class CommentRssController extends yupe\components\controllers\RssController
             ->addCondition('t.id<>t.root');
 
         $criteria->params = array(
-            ':model'    => $model,
-            ':modelId'  => $modelId,
+            ':model' => $model,
+            ':modelId' => $modelId,
         );
 
         $this->data = Comment::model()->cache($yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);

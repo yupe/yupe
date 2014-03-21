@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NewsRssController контроллер для генерации rss-ленты новостей
  *
@@ -9,7 +10,6 @@
  * @since 0.1
  *
  */
-
 class NewsRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
@@ -39,7 +39,9 @@ class NewsRssController extends yupe\components\controllers\RssController
             $criteria->params[':category_id'] = $categoryId;
         }
 
-        $this->data = News::model()->cache($this->yupe->coreCacheTime)->with('user')->published()->public()->findAll($criteria);
+        $this->data = News::model()->cache($this->yupe->coreCacheTime)->with('user')->published()->public()->findAll(
+            $criteria
+        );
     }
 
     public function actions()
