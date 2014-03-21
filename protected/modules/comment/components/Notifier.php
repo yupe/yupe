@@ -13,7 +13,7 @@
 
 namespace application\modules\comment\components;
 
-use CModelEvent;
+use NewCommentEvent;
 use Yii;
 use CHtmlPurifier;
 
@@ -26,7 +26,7 @@ class Notifier extends \CApplicationComponent
      *
      * @return bool отправилось ли письмо
      **/
-    public function notify(CModelEvent $event = null)
+    public function notify(NewCommentEvent $event = null)
     {
         /**
          * Отправляем сообщение о добавлении нового комментария
