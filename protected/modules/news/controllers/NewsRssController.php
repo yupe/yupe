@@ -10,9 +10,9 @@
  *
  */
 
-class NewsRssController extends yupe\components\controllers\FrontController
+class NewsRssController extends yupe\components\controllers\RssController
 {
-    public function actions()
+    public function loadData()
     {
         if (!($limit = (int)$this->module->rssCount)) {
             throw new CHttpException(404);
@@ -23,8 +23,8 @@ class NewsRssController extends yupe\components\controllers\FrontController
         $criteria->params = array();
         $criteria->limit = $limit;
 
-        $title = $this->yupe->siteName;
-        $description = $this->yupe->siteDescription;
+        $this->title = $this->yupe->siteName;
+        $this->description = $this->yupe->siteDescription;
 
         $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
@@ -33,20 +33,23 @@ class NewsRssController extends yupe\components\controllers\FrontController
             if (null === $category) {
                 throw new CHttpException(404);
             }
-            $title = $category->name;
-            $description = $category->description;
+            $this->title = $category->name;
+            $this->description = $category->description;
             $criteria->addCondition('category_id = :category_id');
             $criteria->params[':category_id'] = $categoryId;
         }
 
-        $data = News::model()->cache($this->yupe->coreCacheTime)->with('user')->published()->public()->findAll($criteria);
+        $this->data = News::model()->cache($this->yupe->coreCacheTime)->with('user')->published()->public()->findAll($criteria);
+    }
 
+    public function actions()
+    {
         return array(
             'feed' => array(
                 'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $data,
-                'title' => $title,
-                'description' => $description,
+                'data' => $this->data,
+                'title' => $this->title,
+                'description' => $this->description,
                 'itemFields' => array(
                     'author_object' => 'user',
                     'author_nickname' => 'nick_name',

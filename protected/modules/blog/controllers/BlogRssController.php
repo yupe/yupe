@@ -11,9 +11,9 @@
  *
  */
 
-class BlogRssController extends yupe\components\controllers\FrontController
+class BlogRssController extends yupe\components\controllers\RssController
 {
-    public function actions()
+    public function loadData()
     {
         if (!($limit = (int)$this->module->rssCount)) {
             throw new CHttpException(404);
@@ -26,8 +26,8 @@ class BlogRssController extends yupe\components\controllers\FrontController
 
         $yupe = Yii::app()->getModule('yupe');
 
-        $title = $yupe->siteName;
-        $description = $yupe->siteDescription;
+        $this->title = $yupe->siteName;
+        $this->description = $yupe->siteDescription;
 
         $blogId = (int)Yii::app()->getRequest()->getQuery('blog');
 
@@ -36,8 +36,8 @@ class BlogRssController extends yupe\components\controllers\FrontController
             if (null === $blog) {
                 throw new CHttpException(404);
             }
-            $title = $blog->name;
-            $description = $blog->description;
+            $this->title = $blog->name;
+            $this->description = $blog->description;
             $criteria->addCondition('blog_id = :blog_id');
             $criteria->params[':blog_id'] = $blogId;
         }
@@ -49,8 +49,8 @@ class BlogRssController extends yupe\components\controllers\FrontController
             if (null === $category) {
                 throw new CHttpException(404);
             }
-            $title = $category->name;
-            $description = $category->description;
+            $this->title = $category->name;
+            $this->description = $category->description;
             $criteria->addCondition('category_id = :category_id');
             $criteria->params[':category_id'] = $categoryId;
         }
@@ -58,18 +58,21 @@ class BlogRssController extends yupe\components\controllers\FrontController
         $tag = Yii::app()->getRequest()->getQuery('tag');
 
         if (!empty($tag)) {
-            $data = Post::model()->with('createUser')->published()->public()->taggedWith($tag)->findAll();
+            $this->data = Post::model()->with('createUser')->published()->public()->taggedWith($tag)->findAll();
         } else {
-            $data = Post::model()->cache($yupe->coreCacheTime)->with('createUser')->published()->public(
+            $this->data = Post::model()->cache($yupe->coreCacheTime)->with('createUser')->published()->public(
             )->findAll($criteria);
         }
+    }
 
+    public function actions()
+    {
         return array(
             'feed' => array(
                 'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $data,
-                'title' => $title,
-                'description' => $description,
+                'data' => $this->data,
+                'title' => $this->title,
+                'description' => $this->description,
                 'itemFields' => array(
                     'author_object' => 'createUser',
                     'author_nickname' => 'nick_name',

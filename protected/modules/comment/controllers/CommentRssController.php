@@ -11,9 +11,9 @@
  *
  */
 
-class CommentRssController extends yupe\components\controllers\FrontController
+class CommentRssController extends yupe\components\controllers\RssController
 {
-    public function actions()
+    public function loadData()
     {
         if (!($limit = (int) Yii::app()->getModule('news')->rssCount)) {
             throw new CHttpException(404);
@@ -26,8 +26,8 @@ class CommentRssController extends yupe\components\controllers\FrontController
 
         $yupe = Yii::app()->getModule('yupe');
 
-        $title = $yupe->siteName;
-        $description = $yupe->siteDescription;
+        $this->title = $yupe->siteName;
+        $this->description = $yupe->siteDescription;
 
         $model = Yii::app()->getRequest()->getQuery('model');
         $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
@@ -45,14 +45,17 @@ class CommentRssController extends yupe\components\controllers\FrontController
             ':modelId'  => $modelId,
         );
 
-        $data = Comment::model()->cache($yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);
+        $this->data = Comment::model()->cache($yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);
+    }
 
+    public function actions()
+    {
         return array(
             'feed' => array(
                 'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $data,
-                'title' => $title,
-                'description' => $description,
+                'data' => $this->data,
+                'title' => $this->title,
+                'description' => $this->description,
                 'itemFields' => array(
                     'author_object' => false,
                     'author_nickname' => false,
