@@ -237,54 +237,7 @@ class Comment extends yupe\models\YModel
             $cache->delete("Comment{$this->model}{$this->model_id}");
         }
 
-        if ($this->isNewRecord) {
-            $module = Yii::app()->getModule('comment');
-            $notifierComponent = $module->notifier;
-            if ($this->level != 1 && $module->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {
-                $this->onNewComment = array($notifier, 'newComment');
-                $this->newComment();
-            }
-        }
-
         return parent::afterSave();
-    }
-
-
-    /**
-     * Добавляем новый комментарий:
-     *
-     * @return null
-     **/
-    public function newComment()
-    {
-        if (($module = Yii::app()->getModule('comment')) && $module->email) {
-            /**
-             * Объявляем новое событие
-             * и заполняем нужными данными:
-             **/
-            $event = new NewCommentEvent($this);
-            $event->module = $module;
-            $event->comment = $this;
-            $event->commentOwner = yupe\models\YModel::model($this->model)->findByPk($this->model_id);
-
-            $this->onNewComment($event);
-
-            return $event->isValid;
-        }
-
-        return true;
-    }
-
-    /**
-     * Определяем событие на создание нового комментария:
-     *
-     * @param CModelEvent $event - класс события
-     *
-     * @return null
-     **/
-    public function onNewComment($event)
-    {
-        $this->raiseEvent('onNewComment', $event);
     }
 
     /**

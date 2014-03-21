@@ -82,7 +82,7 @@ class CommentController extends yupe\components\controllers\FrontController
                                 'CommentModule.comment',
                                 'Spam protection, try to create comment after {few} seconds!',
                                 array(
-                                    '{few}' => $module->antispamInterval
+                                    '{few}' => $module->antiSpamInterval
                                 )
                             )
                     )
@@ -93,7 +93,7 @@ class CommentController extends yupe\components\controllers\FrontController
                 'CommentModule.comment',
                 'Spam protection, try to create comment after {few} seconds!',
                 array(
-                    '{few}' => $module->antispamInterval
+                    '{few}' => $module->antiSpamInterval
                 )
             ));
         }

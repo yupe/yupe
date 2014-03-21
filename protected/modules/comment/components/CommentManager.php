@@ -1,5 +1,7 @@
 <?php
 
+use application\modules\comment\components\NewCommentEvent;
+
 class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user)
@@ -47,7 +49,14 @@ class CommentManager extends CApplicationComponent
                 Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
 
                 // метка для проверки спама
-                Yii::app()->cache->set('Comment::Comment::spam::'.$user->getId(), time(), (int)$module->antispamInterval);
+                Yii::app()->cache->set('Comment::Comment::spam::'.$user->getId(), time(), (int)$module->antiSpamInterval);
+
+                //events
+                $event = new NewCommentEvent;
+                $event->comment = $comment;
+                $event->module  = $module;
+
+                $this->onNewComment($event);
 
                 return $comment;
             }
@@ -65,5 +74,10 @@ class CommentManager extends CApplicationComponent
     public function isSpam($user)
     {
        return Yii::app()->cache->get('Comment::Comment::spam::'.$user->getId());
+    }
+
+    public function onNewComment($event)
+    {
+        $this->raiseEvent('onNewComment', $event);
     }
 } 

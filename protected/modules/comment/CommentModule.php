@@ -17,7 +17,6 @@ class CommentModule extends WebModule
 {
     const VERSION = '0.7.1';
 
-    public $notifier = 'application\modules\comment\components\Notifier';
     public $defaultCommentStatus;
     public $autoApprove          = true;
     public $notify               = true;
@@ -27,7 +26,7 @@ class CommentModule extends WebModule
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
     public $rssCount         = 10;
-    public $antispamInterval = 5;
+    public $antiSpamInterval = 5;
     public $allowedTags;
     public $allowGuestComment = 0;
 
@@ -51,7 +50,7 @@ class CommentModule extends WebModule
             'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Maximum captcha length'),
             'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
             'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
-            'antispamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
+            'antiSpamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
             'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?')
         );
     }
@@ -70,7 +69,7 @@ class CommentModule extends WebModule
             'maxCaptchaLength',
             'rssCount',
             'allowedTags',
-            'antispamInterval'
+            'antiSpamInterval'
         );
     }
 
