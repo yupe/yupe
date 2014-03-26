@@ -21,7 +21,7 @@ return array(
     'component' => array(
         'commentManager' => array(
             'class' => 'application.modules.comment.components.CommentManager',
-            'onNewComment' => array(new application\modules\comment\components\Notifier(), 'notify')
+            'onNewComment' => array('application\modules\comment\components\Notifier', 'notify')
         )
     ),
     'rules'     => array(        

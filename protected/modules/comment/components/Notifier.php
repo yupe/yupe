@@ -13,11 +13,12 @@
 
 namespace application\modules\comment\components;
 
-use NewCommentEvent;
+
 use Yii;
 use CHtmlPurifier;
+use CApplicationComponent;
 
-class Notifier extends \CApplicationComponent
+class Notifier extends CApplicationComponent
 {
     /**
      * Comment Notifier Function
@@ -26,23 +27,8 @@ class Notifier extends \CApplicationComponent
      *
      * @return bool отправилось ли письмо
      **/
-    public function notify(NewCommentEvent $event = null)
+    public static function notify(NewCommentEvent $event = null)
     {
-        /**
-         * Отправляем сообщение о добавлении нового комментария
-         * на указанный Email в настройках модуля комментариев
-         * и добавляем об этом запись в лог-файл:
-         **/
-        Yii::log(
-            Yii::t(
-                'CommentModule.comment',
-                '{className}: Sending information about new site comment.',
-                array(
-                    '{className}' => get_class($this)
-                )
-            )
-        );
-
         $htmlPurifier = new CHtmlPurifier;
         $htmlPurifier->options = array(
             'HTML.SafeObject' => true,
