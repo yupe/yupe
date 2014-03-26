@@ -95,7 +95,6 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'class'       => 'bootstrap.widgets.TbButtonColumn',
                 'template'    => '{view}{update}{delete}{add}',
-                'htmlOptions' => array('style' => 'width:60px'),
                 'buttons'  => array(
                     'add' => array(
                         'label'   => false,
