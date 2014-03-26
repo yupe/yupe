@@ -24,6 +24,7 @@ use TagsCache;
 use yupe\widgets\YFlashMessages;
 use Yii;
 use CWebModule;
+use Category;
 
 use yupe\models\Settings;
 
@@ -106,7 +107,7 @@ abstract class WebModule extends CWebModule
      */
     public function getCategoryList()
     {
-        return \Category::model()->roots()->findAll();
+        return Category::model()->roots()->findAll();
     }
 
     /**
@@ -930,11 +931,14 @@ abstract class WebModule extends CWebModule
                 ->bindValue(':type', Settings::TYPE_CORE)
                 ->queryAll();
 
-            $editableParams = $this->getEditableParams();
+            if(!empty($settingsRows)) {
 
-            foreach ($settingsRows as $sRow) {
-                if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams) || array_key_exists($sRow['param_name'], $editableParams)) {
-                    $this->{$sRow['param_name']} = $sRow['param_value'];
+                $editableParams = $this->getEditableParams();
+
+                foreach ($settingsRows as $sRow) {
+                    if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams) || array_key_exists($sRow['param_name'], $editableParams)) {
+                        $this->{$sRow['param_name']} = $sRow['param_value'];
+                    }
                 }
             }
 
