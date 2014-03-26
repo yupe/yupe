@@ -70,7 +70,7 @@ footer {
 .wide select {
     width: 100% !important;
 }
-.wide input[type=text].not([class*="span"]),
+.wide input[type=text]:not([class*="span"]),
 .wide textarea {
     width: 99% !important;
 }
@@ -119,8 +119,8 @@ footer {
     background-color: #08C;
 }
 .dropdown .dropdown-menu .nav-header {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0;
+    margin-right: 0;
 }
 pre .label{
     white-space: normal !important;
@@ -153,4 +153,8 @@ pre .label{
 .well .form-actions {
     padding-bottom: 0;
     margin-bottom: 0;
+}
+
+.table .button-column {
+	white-space: nowrap;
 }
