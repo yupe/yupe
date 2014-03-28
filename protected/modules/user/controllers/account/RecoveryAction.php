@@ -19,7 +19,7 @@ class RecoveryAction extends CAction
     {
         // Незачем выполнять последующие действия
         // для авторизованного пользователя:
-        if (Yii::app()->user->isAuthenticated()) {
+        if (Yii::app()->getUser()->isAuthenticated()) {
             $this->controller->redirect(
                 Yii::app()->getUser()->getReturnUrl()
             );
@@ -48,7 +48,7 @@ class RecoveryAction extends CAction
 
                 if (Yii::app()->userManager->passwordRecovery($form->email)) {
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t(
                             'UserModule.user',

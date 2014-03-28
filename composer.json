@@ -70,7 +70,8 @@
         "yiiext/imperavi-redactor-widget": "dev-master",
         "zhuravljov/yii2-debug": "dev-master",
 		"phpmailer/phpmailer": "dev-master",
-        "yiiext/taggable-behavior" : "1.5.*"
+        "yiiext/taggable-behavior" : "1.5.*",
+        "nodge/yii-eauth": "dev-master"
     },
     "repositories": {
         "taggable": {

@@ -50,10 +50,39 @@ $form = $this->beginWidget(
     </div>
 
     <div class="row-fluid">
-        <div class="span6">
-            <?php echo $form->textFieldRow($model, 'change_date', array('class' => 'span12')); ?>
+        <div class="span3">
+            <?php echo $form->datepickerRow($model, 'registration_date', array(
+                    'options' => array(
+                        'format' => 'dd-mm-yyyy',
+                        'weekStart' => 1,
+                        'autoclose' => true,
+                    ),
+                    'htmlOptions' => array(
+                        'class' => 'span12'
+                    ),
+                ),
+                array(
+                    'prepend' => '<i class="icon-calendar"></i>',
+                ));
+            ?>
         </div>
-        <div class="span6">
+        <div class="span3">
+        <?php echo $form->datepickerRow($model, 'last_visit', array(
+                'options' => array(
+                    'format' => 'dd-mm-yyyy',
+                    'weekStart' => 1,
+                    'autoclose' => true,
+                ),
+                'htmlOptions' => array(
+                    'class' => 'span12'
+                ),
+            ),
+            array(
+                'prepend' => '<i class="icon-calendar"></i>',
+            ));
+        ?>
+        </div>
+        <div class="span3">
             <?php echo $form->dropDownListRow(
                 $model, 'gender', $model->getGendersList(), array(
                     'empty' => '---',
@@ -80,10 +109,6 @@ $form = $this->beginWidget(
                 )
             ); ?>
         </div>
-    </div>
-
-    <div class="row-fluid">
-        <?php echo $form->textFieldRow($model, 'last_visit'); ?>
     </div>
 
     <div class="form-actions">

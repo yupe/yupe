@@ -90,12 +90,16 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             {
                 $productMainImage->is_main = 0;
                 $productMainImage->save();
+                $productMainImage = false;
             }
-            elseif (!$productMainImage)
+            if (!$productMainImage)
             {
-                $newProductMainImage          = ProductImage::model()->findByPk($_POST['main_image']);
-                $newProductMainImage->is_main = 1;
-                $newProductMainImage->save();
+                $newProductMainImage = ProductImage::model()->findByPk($_POST['main_image']);
+                if ($newProductMainImage)
+                {
+                    $newProductMainImage->is_main = 1;
+                    $newProductMainImage->save();
+                }
             }
         }
 

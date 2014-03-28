@@ -13,6 +13,17 @@
  **/
 class UserBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'User',
+                'validAttributes' => array('access_level', 'status', 'email_confirm')
+            )
+        );
+    }
+
     /**
      * @var CActiveRecord the currently loaded data model instance.
      */

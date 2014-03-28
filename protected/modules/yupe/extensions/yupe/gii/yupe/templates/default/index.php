@@ -26,15 +26,15 @@ echo <<<EOF
  **/
     \$this->breadcrumbs = array(
         Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
-        Yii::t('{$this->mid}', '{$label}') => array('/{$this->controller}/index'),
+        Yii::t('{$this->mid}', '{$label}') => array('/{$this->mid}/{$this->controller}/index'),
         Yii::t('{$this->mid}', 'Управление'),
     );
 
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - управление');
 
     \$this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
     );
 ?>
 EOF;

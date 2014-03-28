@@ -44,8 +44,9 @@
  * @property Blog $blog
  */
 Yii::import('application.modules.blog.models.Blog');
+Yii::import('application.modules.comment.components.ICommentable');
 
-class Post extends yupe\models\YModel
+class Post extends yupe\models\YModel implements ICommentable
 {
     const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;
@@ -548,7 +549,7 @@ class Post extends yupe\models\YModel
 
     public function getCommentCount()
     {
-        return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
+        return $this->commentsCount > 0 ? $this->commentsCount : 0;
     }
 
     public function createPublicPost(array $post, $tags)
@@ -601,5 +602,15 @@ class Post extends yupe\models\YModel
             ':id' => (int)$postId,
             ':status' => self::STATUS_PUBLISHED
         ));
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getLink()
+    {
+        return Yii::app()->createUrl('/blog/post/show/', array('slug' => $this->slug));
     }
 }

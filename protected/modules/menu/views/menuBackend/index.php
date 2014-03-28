@@ -18,18 +18,20 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('MenuModule.menu', 'Menu - manage');
 
 $this->menu = array(
-    array(
-        'label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
-        )
-    ),
-    array(
-        'label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
-        )
-    ),
+	array(
+		'label' => Yii::t('MenuModule.menu', 'Menu'),
+		'items' => array(
+			array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
+			array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
+		)
+	),
+	array(
+		'label' => Yii::t('MenuModule.menu', 'Menu items'),
+		'items' => array(
+			array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
+			array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
+		)
+	),
 );
 ?>
 <div class="page-header">
@@ -93,7 +95,6 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'class'       => 'bootstrap.widgets.TbButtonColumn',
                 'template'    => '{view}{update}{delete}{add}',
-                'htmlOptions' => array('style' => 'width:60px'),
                 'buttons'  => array(
                     'add' => array(
                         'label'   => false,

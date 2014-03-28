@@ -29,7 +29,8 @@ $form = $this->beginWidget(
             ),
             array(
                 'prepend' => '<i class="icon-calendar"></i>',
-            )); ?>
+            ));
+        ?>
     </div>
 </div>
 

@@ -45,6 +45,8 @@ class YupeModule extends WebModule
 
     public $adminMenuOrder = -1;
 
+    public $profileModel = 'User';
+
     public $allowedIp;
 
     /**

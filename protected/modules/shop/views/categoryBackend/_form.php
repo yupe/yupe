@@ -94,6 +94,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'type'       => 'primary',
     'label'      => $model->isNewRecord ? Yii::t('ShopModule.category', 'Create category and continue') : Yii::t('ShopModule.category', 'Save category and continue'),
 )); ?>
+
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'buttonType'  => 'submit',
     'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),

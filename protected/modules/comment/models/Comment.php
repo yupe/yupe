@@ -10,8 +10,8 @@
  * @const    int STATUS_NEED_CHECK  - Проверка
  * @const    int STATUS_SPAM        - Спам
  *
- * @var      public $verifyCode     - капча
- * @var      public $level          - уровень вложенности комментария
+ * @var      public $verifyCode - капча
+ * @var      public $level - уровень вложенности комментария
  *
  * The followings are the available columns in table 'Comment':
  * @property string $id
@@ -41,9 +41,9 @@ class Comment extends yupe\models\YModel
 {
     const STATUS_NEED_CHECK = 0;
 
-    const STATUS_APPROVED   = 1;
+    const STATUS_APPROVED = 1;
 
-    const STATUS_SPAM    = 2;
+    const STATUS_SPAM = 2;
 
     const STATUS_DELETED = 3;
 
@@ -79,6 +79,7 @@ class Comment extends yupe\models\YModel
     public function rules()
     {
         $module = Yii::app()->getModule('comment');
+
         return array(
             array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
@@ -90,9 +91,21 @@ class Comment extends yupe\models\YModel
             array('email', 'email'),
             array('url', 'yupe\components\validators\YUrlValidator'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
-            array('id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id', 'safe', 'on' => 'search'),
+            array(
+                'verifyCode',
+                'yupe\components\validators\YRequiredValidator',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+            ),
+            array(
+                'verifyCode',
+                'captcha',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+            ),
+            array(
+                'id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -157,10 +170,11 @@ class Comment extends yupe\models\YModel
     public function behaviors()
     {
         return array(
-            'NestedSetBehavior'=>array(
-                'class'=>'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
-                'hasManyRoots'=>true,
-            ));
+            'NestedSetBehavior' => array(
+                'class' => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
+                'hasManyRoots' => true,
+            )
+        );
     }
 
 
@@ -187,12 +201,13 @@ class Comment extends yupe\models\YModel
         $criteria->compare('text', $this->text, true);
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip, true);
+        $criteria->addCondition('level <> 1');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort' => array(
-                'defaultOrder'=>'id DESC',
-             )
+                'defaultOrder' => 'id DESC',
+            )
         ));
     }
 
@@ -203,7 +218,7 @@ class Comment extends yupe\models\YModel
      **/
     public function beforeSave()
     {
-        if ($this->isNewRecord) {            
+        if ($this->isNewRecord) {
             $this->creation_date = new CDbExpression('NOW()');
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
@@ -221,64 +236,8 @@ class Comment extends yupe\models\YModel
         if ($cache = Yii::app()->getCache()) {
             $cache->delete("Comment{$this->model}{$this->model_id}");
         }
-        
-        if ($this->isNewRecord) {
-            $module = Yii::app()->getModule('comment');
-            $notifierComponent = $module->notifier;
-            if ($this->level != 1 && $module->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {                 
-                $this->onNewComment = array($notifier, 'newComment');
-                $this->newComment();
-            }
-        }
 
         return parent::afterSave();
-    }
-
-    /**
-     * Событие, которое вызывается после валидации модели:
-     *
-     * @return parent::afterValidate()
-     **/
-    public function afterValidate()
-    {
-        return parent::afterValidate();
-    }
-
-    /**
-     * Добавляем новый комментарий:
-     *
-     * @return null
-     **/
-    public function newComment()
-    {
-        if (($module = Yii::app()->getModule('comment')) && $module->email) {
-            /**
-             * Объявляем новое событие
-             * и заполняем нужными данными:
-             **/
-            $event = new NewCommentEvent($this);
-            $event->module = $module;
-            $event->comment = $this;
-            $event->commentOwner = yupe\models\YModel::model($this->model)->findByPk($this->model_id);
-
-            $this->onNewComment($event);
-
-            return $event->isValid;
-        }
-
-        return true;
-    }
-
-    /**
-     * Определяем событие на создание нового комментария:
-     *
-     * @param CModelEvent $event - класс события
-     *
-     * @return null
-     **/
-    public function onNewComment($event)
-    {
-        $this->raiseEvent('onNewComment', $event);
     }
 
     /**
@@ -304,6 +263,7 @@ class Comment extends yupe\models\YModel
     public function getStatus()
     {
         $list = $this->getStatusList();
+
         return isset($list[$this->status]) ? $list[$this->status] : Yii::t('CommentModule.comment', 'Unknown status');
     }
 
@@ -330,7 +290,11 @@ class Comment extends yupe\models\YModel
     public function getAuthorLink(array $params = array('rel' => 'nofollow'))
     {
         if ($this->author) {
-            return CHtml::link($this->name, array('/user/people/userInfo/', 'username' => $this->author->nick_name), $params);
+            return CHtml::link(
+                $this->name,
+                array('/user/people/userInfo/', 'username' => $this->author->nick_name),
+                $params
+            );
         }
 
         if ($this->url) {
@@ -343,7 +307,11 @@ class Comment extends yupe\models\YModel
     public function getAuthorUrl(array $params = array('rel' => 'nofollow'))
     {
         if ($this->author) {
-            return Yii::app()->createUrl('/user/people/userInfo/', array('username' => $this->author->nick_name), $params);
+            return Yii::app()->createUrl(
+                '/user/people/userInfo/',
+                array('username' => $this->author->nick_name),
+                $params
+            );
         }
 
         if ($this->url) {
@@ -367,19 +335,19 @@ class Comment extends yupe\models\YModel
     public function getRootOfCommentsTree($model, $model_id)
     {
         return self::model()->findByAttributes(
-                    array(
-                        "model" => $model,
-                        "model_id" => $model_id,
-                    ),
-                    "id=root"
-                );
+            array(
+                "model" => $model,
+                "model_id" => $model_id,
+            ),
+            "id=root"
+        );
     }
 
     public function createRootOfCommentsIfNotExists($model, $model_id)
     {
         $rootNode = $this->getRootOfCommentsTree($model, $model_id);
 
-        if ($rootNode === null){
+        if ($rootNode === null) {
 
             $rootAttributes = array(
                 "user_id" => Yii::app()->user->getId(),
@@ -395,10 +363,10 @@ class Comment extends yupe\models\YModel
 
             $rootNode = new Comment();
             $rootNode->setAttributes($rootAttributes);
-            if($rootNode->saveNode(false)){
+            if ($rootNode->saveNode(false)) {
                 return $rootNode;
             }
-        }else{
+        } else {
             return $rootNode;
         }
 
@@ -410,5 +378,47 @@ class Comment extends yupe\models\YModel
         $level = $this->level < 10 ? $this->level - 2 : 10;
 
         return $level > 0 ? $level : 0;
+    }
+
+    public function getTarget()
+    {
+        $model = CActiveRecord::model($this->model);
+
+        if ($model instanceof ICommentable) {
+
+            $model = $model->findByPk($this->model_id);
+
+            if (null === $model) {
+                return $this->model;
+            }
+
+            return $model;
+        }
+
+        return $this->model;
+    }
+
+
+    public function getTargetTitle()
+    {
+        $target = $this->getTarget();
+
+        if (is_object($target)) {
+            return $target->getTitle();
+        }
+
+        return $this->model;
+    }
+
+
+    public function getTargetTitleLink()
+    {
+        $target = $this->getTarget();
+
+        if (is_object($target)) {
+            return CHtml::link($target->getTitle(), $target->getLink());
+        }
+
+        return $target->model;
     }
 }

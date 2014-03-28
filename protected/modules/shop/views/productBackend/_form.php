@@ -1,6 +1,8 @@
 <?php
 $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.shop.views.assets'), false, -1, YII_DEBUG);
 Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shop.css');
+
+
 ?>
 
 <script type='text/javascript'>
@@ -34,7 +36,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab">Общие</a></li>
     <li><a href="#stock" data-toggle="tab">Склад</a></li>
-    <li><a href="#images" data-toggle="tab">Изображениея</a></li>
+    <li><a href="#images" data-toggle="tab">Изображения</a></li>
     <li><a href="#attributes" data-toggle="tab">Атрибуты</a></li>
     <li><a href="#seo" data-toggle="tab">SEO</a></li>
 </ul>
@@ -174,7 +176,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 </div>
             </div>
 
-            <?php if (!$model->isNewRecord): ?>
+            <?php if (!$model->isNewRecord): $model->refresh();?>
                 <?php foreach ((array)$model->images as $image): ?>
                     <div class="product-image">
                         <div>
