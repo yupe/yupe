@@ -68,43 +68,53 @@ class CommentController extends yupe\components\controllers\FrontController
 
         $module = Yii::app()->getModule('comment');
 
-        if (!$module->allowGuestComment && !Yii::app()->user->isAuthenticated()) {
+        if (!$module->allowGuestComment && !Yii::app()->getUser()->isAuthenticated()) {
             throw new CHttpException(404);
         }
 
-        if(Yii::app()->commentManager->isSpam(Yii::app()->user)) {
+        if (Yii::app()->commentManager->isSpam(Yii::app()->user)) {
 
-            if(Yii::app()->getRequest()->getIsAjaxRequest()){
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => Yii::t('CommentModule.comment', 'Spam protection, try to create comment after {few} seconds!', array(
-                                '{few}' => $module->antispamInterval
-                            ))
+                        'message' => Yii::t(
+                                'CommentModule.comment',
+                                'Spam protection, try to create comment after {few} seconds!',
+                                array(
+                                    '{few}' => $module->antiSpamInterval
+                                )
+                            )
                     )
                 );
             }
 
-            throw new CHttpException(404, Yii::t('CommentModule.comment', 'Spam protection, try to create comment after {few} seconds!', array(
-                '{few}' => $module->antispamInterval
-            )));
+            throw new CHttpException(404, Yii::t(
+                'CommentModule.comment',
+                'Spam protection, try to create comment after {few} seconds!',
+                array(
+                    '{few}' => $module->antiSpamInterval
+                )
+            ));
         }
 
         $params = Yii::app()->getRequest()->getPost('Comment');
 
-        if (Yii::app()->user->isAuthenticated()) {
+        if (Yii::app()->getUser()->isAuthenticated()) {
 
-            $params = CMap::mergeArray($params, array(
-                    'user_id' => Yii::app()->user->getId(),
-                    'name' => Yii::app()->user->getState('nick_name'),
-                    'email' => Yii::app()->user->getState('email'),
+            $params = CMap::mergeArray(
+                $params,
+                array(
+                    'user_id' => Yii::app()->getUser()->getId(),
+                    'name' => Yii::app()->getUser()->getState('nick_name'),
+                    'email' => Yii::app()->getUser()->getProfileField('email'),
                 )
             );
         }
 
-        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
+        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->returnUrl);
 
-        if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->user))) {
+        if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
 
             $commentContent = $comment->status == Comment::STATUS_APPROVED ? $this->_renderComment($comment) : '';
 
@@ -121,7 +131,7 @@ class CommentController extends yupe\components\controllers\FrontController
                 );
             }
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('CommentModule.comment', 'You record was created. Thanks.')
             );
@@ -139,8 +149,9 @@ class CommentController extends yupe\components\controllers\FrontController
                 );
             }
 
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::ERROR_MESSAGE, Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+            Yii::app()->getUser()->setFlash(
+                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
             );
 
             $this->redirect($redirect);

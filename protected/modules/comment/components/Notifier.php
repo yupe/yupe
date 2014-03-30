@@ -13,11 +13,12 @@
 
 namespace application\modules\comment\components;
 
-use CModelEvent;
+
 use Yii;
 use CHtmlPurifier;
+use CApplicationComponent;
 
-class Notifier implements INotifier
+class Notifier extends CApplicationComponent
 {
     /**
      * Comment Notifier Function
@@ -26,25 +27,14 @@ class Notifier implements INotifier
      *
      * @return bool отправилось ли письмо
      **/
-    public function newComment(CModelEvent $event = null)
+    public static function notify(NewCommentEvent $event = null)
     {
-        /**
-         * Отправляем сообщение о добавлении нового комментария
-         * на указанный Email в настройках модуля комментариев
-         * и добавляем об этом запись в лог-файл:
-         **/
-        Yii::log(
-            Yii::t(
-                'CommentModule.comment', '{className}: Sending information about new site comment.', array(
-                    '{className}' => get_class($this)
-                )
-            )
-        );
         $htmlPurifier = new CHtmlPurifier;
         $htmlPurifier->options = array(
-            'HTML.SafeObject'    => true,
+            'HTML.SafeObject' => true,
             'Output.FlashCompat' => true,
         );
+
         return Yii::app()->mail->send(
             // От кого (отправитель комментария):
             $event->comment->email,
@@ -52,20 +42,24 @@ class Notifier implements INotifier
             $event->module->email,
             // Тема письма:
             Yii::t(
-                'CommentModule.comment', 'New post was created on site "{app}"!', array('{app}' => Yii::app()->name)
+                'CommentModule.comment',
+                'New post was created on site "{app}"!',
+                array('{app}' => Yii::app()->name)
             ),
             // Текст письма (сам комментарий и немного информации):
             Yii::t(
-                'CommentModule.comment', 'Comment was created on your site:
-Author: {author}
-Model/ID: {model}/{model_id}
-Comment text:  {comment}', array(
+                'CommentModule.comment',
+                'Comment was created on your site:
+               Author: {author}
+               Model/ID: {model}/{model_id}
+               Comment text:  {comment}',
+                array(
                     '{author}'   => isset($event->comment->author->nick_name) ? $event->comment->author->nick_name : $event->comment->author,
                     '{model}'    => $event->comment->model,
                     '{model_id}' => $event->comment->model_id,
-                    '{comment}'  => $htmlPurifier->purify(
-                        $event->comment->text
-                    ),
+                    '{comment}' => $htmlPurifier->purify(
+                            $event->comment->text
+                        ),
                 )
             )
         );

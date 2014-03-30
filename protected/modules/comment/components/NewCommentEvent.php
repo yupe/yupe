@@ -26,9 +26,4 @@ class NewCommentEvent extends CModelEvent
      * Инстанс комментария:
      **/
     public $comment;
-    
-    /**
-     * Инстанс модели, к которой добавлен комментарий:
-     **/
-    public $commentOwner;
 }

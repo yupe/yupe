@@ -3,7 +3,7 @@
  *
  * @package  yupe.modules.yupe.components.behaviors
  *
-*/
+ */
 
 namespace yupe\components\behaviors;
 
@@ -72,10 +72,8 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     {
         parent::attach($owner);
 
-        if ($this->checkScenario())
-        {
-            if ($this->requiredOn)
-            {
+        if ($this->checkScenario()) {
+            if ($this->requiredOn) {
                 $requiredValidator = CValidator::createValidator('required', $owner, $this->attributeName, array(
                     'on' => $this->requiredOn,
                 ));
@@ -83,9 +81,9 @@ class ImageUploadBehavior extends CActiveRecordBehavior
             }
 
             $fileValidator = CValidator::createValidator('file', $owner, $this->attributeName, array(
-                'types'      => $this->types,
-                'minSize'    => $this->minSize,
-                'maxSize'    => $this->maxSize,
+                'types' => $this->types,
+                'minSize' => $this->minSize,
+                'maxSize' => $this->maxSize,
                 'allowEmpty' => true,
             ));
 
@@ -95,26 +93,25 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function afterFind($event)
     {
-        $this->_oldImage = $this->uploadPath . $this->owner{$this->attributeName};
+        $this->_oldImage = $this->getUploadPath() . $this->owner{$this->attributeName};
     }
 
     public function beforeValidate($event)
     {
-        if(empty($this->fileInstanceName)){
+        if (empty($this->fileInstanceName)) {
             $this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName);
-        }else{
+        } else {
             $this->_newImage = CUploadedFile::getInstanceByName($this->fileInstanceName);
         }
 
-        if ($this->checkScenario() && $this->_newImage ) {
+        if ($this->checkScenario() && $this->_newImage) {
             $this->owner->{$this->attributeName} = $this->_newImage;
         }
     }
 
     public function beforeSave($event)
     {
-        if ($this->checkScenario() && $this->_newImage instanceof CUploadedFile)
-        {
+        if ($this->checkScenario() && $this->_newImage instanceof CUploadedFile) {
             $this->saveImage();
             $this->deleteImage();
         }
@@ -127,12 +124,11 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function deleteImage()
     {
-        // не удаляем файл если сценарий altlang, используется модулями news, category
-        if ($this->owner->scenario !== 'altlang' && @is_file($this->_oldImage)) {
+        if (@is_file($this->_oldImage)) {
             // Удаляем связанные с данным изображением превьюшки:
             $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
 
-            foreach (glob($this->uploadPath . 'thumb_cache_*_' . $fileName) as $file){
+            foreach (glob($this->getUploadPath() . 'thumb_cache_*_' . $fileName) as $file) {
                 @unlink($file);
             }
 
@@ -151,7 +147,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     /*
      * Генерирует имя файла с использованием callback функции если возможно
      */
-    protected  function _getImageName() 
+    protected function _getImageName()
     {
         return (is_callable($this->imageNameCallback))
             ? (call_user_func($this->imageNameCallback))
@@ -169,18 +165,37 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         $imageName = $this->_getImageName();
         $image = Yii::app()->image->load($tmpName)->quality($quality);
 
-        if ( ! $newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
+        if (!$newFile = YFile::pathIsWritable($imageName, $image->ext, $this->getUploadPath())) {
             throw new CHttpException(500, Yii::t('YupeModule.yupe', 'Directory "{dir}" is not acceptable for write!', array('{dir}' => $this->uploadPath)));
+        }
 
-        if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))
+        if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height)) {
             $image->resize($width, $height);
+        }
 
-	    if ($image->save($newFile))
-		    $this->owner->{$this->attributeName} = pathinfo($newFile, PATHINFO_BASENAME);
+        if ($image->save($newFile)) {
+            $this->owner->{$this->attributeName} = pathinfo($newFile, PATHINFO_BASENAME);
+        }
     }
 
     public function addFileInstanceName($name)
     {
         $this->fileInstanceName = $name;
+    }
+
+    /**
+     * Получить каталог для загрузки изображений
+     * С версии 0.7 может быть задан как callback
+     *
+     * @since 0.7
+     * @return string
+     */
+    public function getUploadPath()
+    {
+        if (is_callable($this->uploadPath)) {
+            return call_user_func($this->uploadPath);
+        }
+
+        return $this->uploadPath;
     }
 }

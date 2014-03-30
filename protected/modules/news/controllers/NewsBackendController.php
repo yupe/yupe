@@ -11,6 +11,16 @@
  */
 class NewsBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'News',
+                'validAttributes' => array('title', 'alias', 'date', 'status')
+            )
+        );
+    }
     /**
      * Displays a particular model.
      * 

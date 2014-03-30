@@ -9,6 +9,9 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
+
+Yii::import('application.modules.mail.MailModule');
+
 class YMailMessage extends CApplicationComponent
 {
     public $mailComponent = 'mail';
@@ -111,7 +114,7 @@ class YMailMessage extends CApplicationComponent
     /**
      * sendTemplate:
      *
-     * @param \MailTemplate $template - класс темы
+     * @param \MailTemplate $template - модель шаблона
      * @param array $data     - данные
      *
      * @return string mail text body

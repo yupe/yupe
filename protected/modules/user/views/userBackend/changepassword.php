@@ -50,14 +50,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'type'                   => 'vertical',
     'htmlOptions'            => array('class' => 'well'),
     'inlineErrors'           => true,
-)); ?>
+));
+?>
     <?php echo $form->errorSummary($changePasswordForm); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>"> 
-        <?php echo $form->passwordFieldRow($changePasswordForm, 'password'); ?>
+        <?php echo $form->passwordFieldRow($changePasswordForm, 'password', array('class' => 'span6')); ?>
     </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('cPassword') ? 'error' : ''; ?>"> 
-        <?php echo $form->passwordFieldRow($changePasswordForm, 'cPassword'); ?>
+        <?php echo $form->passwordFieldRow($changePasswordForm, 'cPassword', array('class' => 'span6')); ?>
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

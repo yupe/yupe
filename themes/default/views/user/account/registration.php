@@ -58,7 +58,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
     </div>
 <?php endif; ?>
 
-<div class="row-fluid  control-group">
+<div class="row-fluid control-group">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
@@ -68,6 +68,15 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
             'label' => Yii::t('UserModule.user', 'Sign up'),
         )
     ); ?>
+</div>
+
+<hr/>
+
+<div class="row-fluid control-group">
+    <?php $this->widget('vendor.nodge.yii-eauth.EAuthWidget', array(
+        'action' => '/social/login',
+        'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github', 'yandex'),
+    )); ?>
 </div>
 
 <?php $this->endWidget(); ?>

@@ -16,6 +16,19 @@ use Yii;
 
 class FrontController extends Controller
 {
+    private $_assetsUrl;
+
+    public function getAssetsUrl()
+    {
+        if (null === $this->_assetsUrl) {
+            $this->_assetsUrl = Yii::app()->getAssetManager()->publish(
+                Yii::app()->theme->basePath . DIRECTORY_SEPARATOR . 'web'
+            );
+        }
+
+        return $this->_assetsUrl;
+    }
+
     /**
      * Вызывается при инициализации FrontController
      * Присваивает значения, необходимым переменным

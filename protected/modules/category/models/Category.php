@@ -220,13 +220,31 @@ class Category extends yupe\models\YModel
 		return CHtml::listData($category, 'id', 'name');
 	}
 
+    public function getDescendants($parent = null)
+    {
+        $out = array();
+
+        $parent = $parent === null ? (int)$this->id : (int)$parent;
+
+        $models = self::findAll('parent_id = :id', array(
+            ':id' => $parent
+        ));
+
+        foreach($models as $model) {
+            $out[] = $model;
+            $out   = CMap::mergeArray($out, $model->getDescendants((int)$model->id));
+        }
+
+        return $out;
+    }
+
 	public function getFormattedList($parent_id = null, $level = 0)
 	{
 		$categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
 
 		$list = array();
 
-		foreach ($categories as $key => $category) {
+		foreach ($categories as $category) {
 
 			$category->name = str_repeat('&emsp;', $level) . $category->name;
 
@@ -264,4 +282,9 @@ class Category extends yupe\models\YModel
 			)
 		);
 	}
+
+    public function getById($id)
+    {
+        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findByPk((int)$id);
+    }
 }

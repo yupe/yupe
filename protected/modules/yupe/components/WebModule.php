@@ -24,6 +24,7 @@ use TagsCache;
 use yupe\widgets\YFlashMessages;
 use Yii;
 use CWebModule;
+use Category;
 
 use yupe\models\Settings;
 
@@ -88,11 +89,25 @@ abstract class WebModule extends CWebModule
     public $eventHandlers = array();
 
     /**
+     * @var bool | string
+     *
+     * Имя модели, которая является профилем пользователя для конкретного модуля
+     *
+     */
+    public $profileModel = false;
+
+
+    public function getProfileModel()
+    {
+        return $this->profileModel;
+    }
+
+    /**
      * @var array список категорий
      */
     public function getCategoryList()
     {
-        return \Category::model()->roots()->findAll();
+        return Category::model()->roots()->findAll();
     }
 
     /**
@@ -309,7 +324,7 @@ abstract class WebModule extends CWebModule
     public function getEditableParamsKey()
     {
         $keyParams = array();
-        foreach ($this->editableParams as $key => $value) {
+        foreach ($this->getEditableParams() as $key => $value) {
             $keyParams[] = is_int($key) ? $value : $key;
         }
         return $keyParams;
@@ -568,7 +583,6 @@ abstract class WebModule extends CWebModule
      */
     public function getActivate($noDependen = false, $updateConfig = false)
     {
-        $yupe = Yii::app()->getModule('yupe');
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->getId());
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
 
@@ -867,10 +881,9 @@ abstract class WebModule extends CWebModule
      */
     public function init()
     {
-
-        Yii::log("Init module '{$this->id}'...",CLogger::LEVEL_INFO);
-
         parent::init();
+
+        Yii::log("Init module '{$this->id}'...", CLogger::LEVEL_TRACE);
 
         $this->getSettings();
 
@@ -899,9 +912,9 @@ abstract class WebModule extends CWebModule
      */
     public function getSettings($needReset = false)
     {
-        $settings = null;
-
-        $needReset === false || Yii::app()->cache->clear($this->getId());
+        if($needReset) {
+            Yii::app()->cache->clear($this->getId());
+        }
 
         try
         {
@@ -918,21 +931,21 @@ abstract class WebModule extends CWebModule
                 ->bindValue(':type', Settings::TYPE_CORE)
                 ->queryAll();
 
-            foreach ($settingsRows as $sRow) {
-                $settings[$sRow['param_name']] = $sRow['param_value'];
-            }
+            if(!empty($settingsRows)) {
 
-        } catch (CDbException $e) {
-            // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
-            $settings = null;
-        }
+                $editableParams = $this->getEditableParams();
 
-        if (!empty($settings)) {
-            foreach ($settings as $key => $value) {
-                if (property_exists($this, $key)) {
-                    $this->{$key} = $value;
+                foreach ($settingsRows as $sRow) {
+                    if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams) || array_key_exists($sRow['param_name'], $editableParams)) {
+                        $this->{$sRow['param_name']} = $sRow['param_value'];
+                    }
                 }
             }
+
+            return true;
+
+        } catch (CDbException $e) {
+            return false;
         }
     }
 
@@ -954,8 +967,10 @@ abstract class WebModule extends CWebModule
 				'fileUpload'  => Yii::app()->createUrl('/image/imageBackend/AjaxFileUpload'),
 				'imageGetJson'=> Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
 			),
+
 			$this->editorOptions
 		);
+
 		return true;
     }
 

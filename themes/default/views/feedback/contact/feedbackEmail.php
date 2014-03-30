@@ -8,7 +8,6 @@
 
 <?php echo Yii::t('FeedbackModule.feedback','Author:'); ?> <?php echo $model->name?> - <?php echo $model->email;?> <br/>
 <?php echo Yii::t('FeedbackModule.feedback','Topic:'); ?> <?php echo $model->theme;?><br/>
-<?php echo Yii::t('FeedbackModule.feedback','Type:'); ?>  <?php echo $model->getType();?><br/>
 <?php echo Yii::t('FeedbackModule.feedback','Text:'); ?> <?php echo $model->text;?><br/>
 
 <br/><br/>

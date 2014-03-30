@@ -150,19 +150,11 @@ class LanguageBehavior extends CBehavior
         $path = Yii::app()->getRequest()->getPathInfo();
 
         // Проверяем переданный язык:
-        
-        // $langIsset = (
-        //     isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, 2, 1) == '/'
-        // );
-        // print_r(strlen($this->getLang())); exit();
+
 
         // Add support to lang zh_cn;
         $langIsset = (
             isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, strlen($this->getLang()), 1) == '/'
-        );
-
-        $this->setLanguage(
-            $this->getDefaultLang()
         );
 
         $this->setLanguage(
@@ -217,7 +209,8 @@ class LanguageBehavior extends CBehavior
                     Yii::app()->urlManager->langParam, new CHttpCookie(
                         Yii::app()->urlManager->langParam,
                         $language, array(
-                            'expire' => time() + (60 * 60 * 24 * 365)
+                            'expire'   => time() + (60 * 60 * 24 * 365),
+                            'httpOnly' => true
                         )
                     )
                 );

@@ -20,7 +20,8 @@ return array(
     ),
     'component' => array(
         'commentManager' => array(
-            'class' => 'application.modules.comment.components.CommentManager'
+            'class' => 'application.modules.comment.components.CommentManager',
+            'onNewComment' => array('application\modules\comment\components\Notifier', 'notify')
         )
     ),
     'rules'     => array(        

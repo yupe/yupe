@@ -12,12 +12,25 @@
  **/
 class RegistrationForm extends CFormModel
 {
+
     public $nick_name;
     public $email;
     public $password;
     public $cPassword;
-    public $verifyCode;   
-    
+    public $verifyCode;
+
+    public $disableCaptcha = false;
+
+    public function isCaptchaEnabled()
+    {
+        $module = Yii::app()->getModule('user');
+
+        if(!$module->showCaptcha || !CCaptcha::checkRequirements() || $this->disableCaptcha) {
+            return false;
+        }
+
+        return true;
+    }
 
     public function rules()
     {
@@ -25,7 +38,7 @@ class RegistrationForm extends CFormModel
 
         return array(
             array('nick_name, email', 'filter', 'filter' => 'trim'),
-            array('nick_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('nick_name, email', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password, cPassword', 'required'),
             array('nick_name, email', 'length', 'max' => 50),
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
@@ -34,8 +47,8 @@ class RegistrationForm extends CFormModel
             array('cPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('UserModule.user', 'Password is not coincide')),
             array('email', 'email'),
             array('email', 'checkEmail'),
-            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Check code incorrect')),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements()),
+            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$this->isCaptchaEnabled(), 'message' => Yii::t('UserModule.user', 'Check code incorrect')),
+            array('verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()),
             array('verifyCode', 'emptyOnInvalid')            
         );
     }

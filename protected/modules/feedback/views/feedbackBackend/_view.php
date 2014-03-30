@@ -103,8 +103,9 @@
 			<span class="pull-left label label-<?php echo $data->getStatusClass(); ?>">
 				<?php echo $data->getStatus(); ?>
 			</span>
-			&nbsp;| <?php echo '<i class="icon-time"></i> ' . Yii::app()->getDateFormatter()->format('yyyy-MM-dd H:mm', $data->creation_date); ?>		
+			&nbsp;| <?php echo '<i class="icon-time"></i> ' . Yii::app()->getDateFormatter()->format('yyyy-MM-dd H:mm', $data->creation_date); ?>
 			| <?php echo '<i class="icon-user"></i> ' . $data->name . ' &laquo;' . $data->email . '&raquo; '; ?>
+            | &laquo;<?php echo $data->getCategory();?>&raquo;
 		</div>
 		<div class="text-item">
 			<?php echo $data->getText(300); ?>

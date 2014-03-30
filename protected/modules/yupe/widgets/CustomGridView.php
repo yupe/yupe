@@ -121,7 +121,7 @@ class CustomGridView extends \TbExtendedGridView
      */
     protected function initPageSizes()
     {
-        $modSettings = Yii::app()->user->getState('modSettings', null);
+        $modSettings = Yii::app()->user->getState(\YWebUser::STATE_MOD_SETTINGS, null);
         $pagination = $this->dataProvider->getPagination();
         if (
             !$this->enablePagination
@@ -260,7 +260,7 @@ class CustomGridView extends \TbExtendedGridView
         // ID текущей модели
         $modelID = strtolower($this->_modelName);
         // Делаем так, ибо при попытке править Yii::app()->session['modSettings'] - получаем ошибку
-        $sessionSettings = Yii::app()->user->getState('modSettings', null);
+        $sessionSettings = Yii::app()->user->getState(\YWebUser::STATE_MOD_SETTINGS, null);
         $currentPageSize = $this->dataProvider->getPagination()->pageSize;
 
         if (!isset($sessionSettings[$modelID])) {
@@ -289,7 +289,7 @@ class CustomGridView extends \TbExtendedGridView
         }
         $sessionSettings[$modelID]['pageSize'] = $currentPageSize;
         // Перезаписываем сессию
-        Yii::app()->user->setState('modSettings', $sessionSettings);
+        Yii::app()->user->setState(\YWebUser::STATE_MOD_SETTINGS, $sessionSettings);
     }
 
     /**

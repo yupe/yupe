@@ -44,8 +44,9 @@
  * @property Blog $blog
  */
 Yii::import('application.modules.blog.models.Blog');
+Yii::import('application.modules.comment.components.ICommentable');
 
-class Post extends yupe\models\YModel
+class Post extends yupe\models\YModel implements ICommentable
 {
     const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;
@@ -120,7 +121,7 @@ class Post extends yupe\models\YModel
                 'order' => 'comments.id'
             ),
             'commentsCount' => array(self::STAT, 'Comment', 'model_id',
-                'condition' => 'model = :model AND status = :status', 'params' => array(
+                'condition' => 'model = :model AND status = :status AND id <> root', 'params' => array(
                     ':model' => 'Post',
                     ':status' => Comment::STATUS_APPROVED
                 )
@@ -298,7 +299,7 @@ class Post extends yupe\models\YModel
                 'updateAttribute' => 'update_date',
             ),
             'tags' => array(
-                'class' => 'application.modules.yupe.extensions.taggable.EARTaggableBehavior',
+                'class' => 'vendor.yiiext.taggable-behavior.EARTaggableBehavior',
                 'tagTable' => Yii::app()->db->tablePrefix . 'blog_tag',
                 'tagBindingTable' => Yii::app()->db->tablePrefix . 'blog_post_to_tag',
                 'tagModel' => 'Tag',
@@ -475,14 +476,14 @@ class Post extends yupe\models\YModel
                 ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
                 ->from('{{comment_comment}} c')
                 ->join('{{blog_post}} p', 'c.model_id = p.id')
-                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus', array(
+                ->where('c.model = :model AND p.status = :status AND c.status = :commentstatus AND c.id <> c.root', array(
                     ':model' => 'Post',
                     ':status' => Post::STATUS_PUBLISHED,
                     ':commentstatus' => Comment::STATUS_APPROVED
                 ))
                 ->group('c.model, c.model_id, p.title, p.slug')
                 ->order('comment_date DESC')
-                ->having('count(c.id) > 1')
+                ->having('count(c.id) > 0')
                 ->limit((int)$limit)
                 ->queryAll();
 
@@ -548,7 +549,7 @@ class Post extends yupe\models\YModel
 
     public function getCommentCount()
     {
-        return $this->commentsCount > 0 ? $this->commentsCount - 1 : 0;
+        return $this->commentsCount > 0 ? $this->commentsCount : 0;
     }
 
     public function createPublicPost(array $post, $tags)
@@ -601,5 +602,15 @@ class Post extends yupe\models\YModel
             ':id' => (int)$postId,
             ':status' => self::STATUS_PUBLISHED
         ));
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getLink()
+    {
+        return Yii::app()->createUrl('/blog/post/show/', array('slug' => $this->slug));
     }
 }

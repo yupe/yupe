@@ -15,7 +15,7 @@ class LoginAction extends CAction
     public function run()
     {
         if (Yii::app()->user->isAuthenticated()) {
-            $this->controller->redirect(array(Yii::app()->user->returnUrl));
+            $this->controller->redirect(Yii::app()->getUser()->getReturnUrl());
         }
 
         /**
@@ -23,7 +23,7 @@ class LoginAction extends CAction
          * в систему, используем сценарий с капчей:
          **/
 
-        $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->user);
+        $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->getUser());
 
         //@TODO 3 вынести в настройки модуля
         $scenario = $badLoginCount > 3 ? 'loginLimit' : '';
@@ -36,7 +36,7 @@ class LoginAction extends CAction
 
             $form->setAttributes(Yii::app()->request->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login($form, Yii::app()->user, Yii::app()->request)) {
+            if ($form->validate() && Yii::app()->authenticationManager->login($form, Yii::app()->getUser(), Yii::app()->getRequest())) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -47,7 +47,7 @@ class LoginAction extends CAction
                     new CModelEvent($this->controller, array('loginForm' => $form))
                 );
 
-                if (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess) {
+                if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
                     $redirect = array($module->loginAdminSuccess);
                 } else {
                     $redirect = empty($module->loginSuccess) ? Yii::app()->baseUrl : array($module->loginSuccess);
@@ -59,9 +59,9 @@ class LoginAction extends CAction
 
             } else {
 
-                $form->addError('hash', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
+                $form->addError('email', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
 
-                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, $badLoginCount + 1);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), $badLoginCount + 1);
 
                 $module->onErrorLogin(
                     new CModelEvent($this->controller, array('loginForm' => $form))

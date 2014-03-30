@@ -16,6 +16,8 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
+    const VERSION = '0.7';
+
     public $accountActivationSuccess       = '/user/account/login';
     public $accountActivationFailure       = '/user/account/registration';
     public $loginSuccess                   = '/';
@@ -286,7 +288,7 @@ class UserModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('UserModule.user', '0.6');
+         return self::VERSION;
     }
 
     public function getIcon()
