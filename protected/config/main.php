@@ -186,7 +186,7 @@ return array(
         'highlightjs' => array(
             'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
             'remote'  => false,
-            'style   '=>'github'
+            'style'=>'github'
         ),
 
         'errorHandler'=>array(
