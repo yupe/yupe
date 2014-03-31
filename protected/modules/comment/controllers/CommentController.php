@@ -72,7 +72,13 @@ class CommentController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->commentManager->isSpam(Yii::app()->user)) {
+	    $invisibleCaptcha = Yii::app()->session['invisibleCaptcha'];
+	    $antispamField = Yii::app()->request->getParam($invisibleCaptcha, false);
+	    $urlAntispamField = Yii::app()->request->getParam('url');
+
+        if (Yii::app()->commentManager->isSpam(Yii::app()->user)
+	        || $antispamField != Yii::app()->session['invisibleCaptchaValue']
+	        || $urlAntispamField) {
 
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
@@ -99,6 +105,8 @@ class CommentController extends yupe\components\controllers\FrontController
         }
 
         $params = Yii::app()->getRequest()->getPost('Comment');
+
+
 
         if (Yii::app()->getUser()->isAuthenticated()) {
 
