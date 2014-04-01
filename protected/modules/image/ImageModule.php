@@ -25,18 +25,11 @@ class ImageModule extends WebModule
 
     public function getInstall()
     {
-        if(parent::getInstall()) {
-            @mkdir($this->getUploadPath(),0755);
+        if (parent::getInstall()) {
+            @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
         }
 
         return false;
-    }
-
-    public function getUploadPath()
-    {
-        return  Yii::getPathOfAlias('webroot') . '/' .
-            Yii::app()->getModule('yupe')->uploadPath . '/' .
-            $this->uploadPath . '/';
     }
 
     public function getDependencies()
@@ -53,7 +46,7 @@ class ImageModule extends WebModule
 
     public function getIcon()
     {
-        return "picture-o";
+        return "picture";
     }
 
     public function getParamsLabels()
@@ -78,22 +71,13 @@ class ImageModule extends WebModule
         );
     }
 
-    public function createUploadDir()
-    {
-        $current = '/' . date('Y/m/d');
-        $dirName = $this->getUploadPath() . $current;
-
-        if (is_dir($dirName))
-            return $current;
-
-        return @mkdir($dirName, 0700, true) ? $current : false;
-    }
-
     public function checkSelf()
     {
         $messages = array();
 
-        if (!$this->uploadPath)
+        $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
+
+        if (!$uploadPath)
              $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('ImageModule.image', 'Please, choose catalog for images! {link}', array(
@@ -104,11 +88,11 @@ class ImageModule extends WebModule
                 )),
             );
 
-        if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath()))
+        if (!is_dir($uploadPath) || !is_writable($uploadPath))
             $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('ImageModule.image', 'Directory "{dir}" is not accessible for writing ot not exists! {link}', array(
-                    '{dir}' => $this->getUploadPath(),
+                    '{dir}' => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => $this->id,

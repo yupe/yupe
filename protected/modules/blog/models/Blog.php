@@ -307,18 +307,16 @@ class Blog extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'class' => 'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios' => array('insert', 'update'),
                 'attributeName' => 'icon',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module->getUploadPath(),
-                'imageNameCallback' => array($this, 'generateFileName'),
-                'resize' => array(
-                    'quality' => 75,
-                    'width' => 64,
-                )
+                'uploadPath' => $module->uploadPath,
+                'fileName' => function () {
+                    return md5($this->name . microtime(true));
+                },
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -327,11 +325,6 @@ class Blog extends yupe\models\YModel
                 'updateAttribute' => 'update_date',
             ),
         );
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->name . microtime(true));
     }
 
     public function beforeSave()

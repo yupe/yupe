@@ -92,12 +92,6 @@ class BlogModule extends yupe\components\WebModule
         );
     }
 
-
-    public function getUploadPath()
-    {
-        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
-    }
-
     public function getCategory()
     {
         return Yii::t('BlogModule.blog', 'Content');

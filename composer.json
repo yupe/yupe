@@ -71,7 +71,8 @@
         "zhuravljov/yii2-debug": "dev-master",
 		"phpmailer/phpmailer": "dev-master",
         "yiiext/taggable-behavior" : "1.5.*",
-        "nodge/yii-eauth": "dev-master"
+        "nodge/yii-eauth": "dev-master",
+        "imagine/imagine": "v0.5.0"
     },
     "repositories": {
         "taggable": {

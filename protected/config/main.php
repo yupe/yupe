@@ -101,16 +101,11 @@ return array(
         'dao' => array(
             'class' => 'yupe\components\DAO',
         ),
-        // библиотека для работы с картинками через GD/ImageMagick
-        // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
-            'class'  => 'application.modules.yupe.extensions.image.CImageComponent',
-            'driver' => 'GD',                               // если ImageMagick, надо указать к нему путь ниже
-            'params' => array( 'directory' => '/usr/bin' ), // в этой директории должен быть convert
+            'class'  => 'application\modules\yupe\components\image\Image',
         ),
-        'thumbs' => array(
-            'class'   => 'application.modules.yupe.extensions.EPhpThumb.EPhpThumb',
-            'options' => array('jpegQuality' => 80),
+        'uploadManager' => array(
+            'class'  => 'application\modules\yupe\components\UploadManager',
         ),
         'themeManager'       => array(
             'basePath'       => dirname(__DIR__) . '/../themes',

@@ -308,21 +308,18 @@ class Post extends yupe\models\YModel implements ICommentable
                 'cacheID' => 'cache',
             ),
             'imageUpload' => array(
-                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'class' => 'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios' => array('insert', 'update'),
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module->getUploadPath(),
-                'imageNameCallback' => array($this, 'generateFileName'),
+                'uploadPath' => $module->uploadPath,
+                'fileName' => function () {
+                    return md5($this->slug . microtime(true));
+                },
             ),
         );
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->slug . microtime(true) . rand());
     }
 
     public function getImageUrl()
