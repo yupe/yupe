@@ -203,17 +203,16 @@ class Good extends yupe\models\YModel
                 'updateAttribute'   => 'update_time',
             ),
             'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module->getUploadPath(),
-                'resize' => array(
-                    'quality' => 70,
-                    'width' => 1024,
-                )
+                'uploadPath'    => $module->uploadPath,
+                'fileName' => function() {
+                    return md5($this->name . microtime(true) . rand());
+                }
             ),
         );
     }
@@ -265,14 +264,17 @@ class Good extends yupe\models\YModel
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 
-    public function getImageUrl()
+    public function getImageUrl($width = 75, $height = 75)
     {
-        return ($this->image)
-            ? Yii::app()->baseUrl . '/' .
-              Yii::app()->getModule('yupe')->uploadPath . '/' .
-              Yii::app()->getModule('catalog')->uploadPath . '/' .
-              $this->image
-            : false;
+        $module = Yii::app()->getModule('catalog');
+
+        if (false !== $this->image) {
+            return Yii::app()->image->makeThumbnail(
+                $this->image, $module->uploadPath, $width, $height, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+            );
+        }
+
+        return false;
     }
 
     /**

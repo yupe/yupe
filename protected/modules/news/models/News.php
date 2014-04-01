@@ -86,25 +86,18 @@ class News extends yupe\models\YModel
         $module = Yii::app()->getModule('news');
         return array(
             'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,              
-                'uploadPath'    => $module->getUploadPath(),
-                'imageNameCallback' => array($this, 'generateFileName'),
-                'resize' => array(
-                    'quality' => 75,
-                    'width'   => 800,
-                )
+                'uploadPath'    => $module->uploadPath,
+                'fileName' => function() {
+                    return md5($this->title . microtime(true));
+                },
             ),
         );
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->title . microtime(true));
     }
     /**
      * @return array relational rules.
