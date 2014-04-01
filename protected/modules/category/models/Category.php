@@ -88,12 +88,15 @@ class Category extends yupe\models\YModel
 				'scenarios'         => array('insert', 'update'),
 				'attributeName'     => 'image',
 				'uploadPath'        => $module->uploadPath,
-				'fileName' => function() {
-                    return md5($this->name . time());
-                 },
+                'fileName' => array($this, 'generateFileName'),
 			),
 		);
 	}
+
+    public function generateFileName()
+    {
+        return md5($this->name . microtime(true) . uniqid());
+    }
 
 	public function relations()
 	{

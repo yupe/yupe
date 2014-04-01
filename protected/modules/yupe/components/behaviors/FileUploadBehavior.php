@@ -163,7 +163,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
     {
         return is_callable($this->fileName)
             ? call_user_func($this->fileName)
-            : md5(microtime(true) . rand() . rand());
+            : md5(microtime(true) . uniqid());
     }
 
     /**

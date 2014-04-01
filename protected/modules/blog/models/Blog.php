@@ -314,9 +314,7 @@ class Blog extends yupe\models\YModel
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath,
-                'fileName' => function () {
-                    return md5($this->name . microtime(true));
-                },
+                'fileName' => array($this, 'generateFileName'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -325,6 +323,11 @@ class Blog extends yupe\models\YModel
                 'updateAttribute' => 'update_date',
             ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function beforeSave()

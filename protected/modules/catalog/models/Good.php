@@ -210,11 +210,14 @@ class Good extends yupe\models\YModel
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName' => function() {
-                    return md5($this->name . microtime(true) . rand());
-                }
+                'fileName' => array($this, 'generateFileName'),
             ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function beforeValidate()
