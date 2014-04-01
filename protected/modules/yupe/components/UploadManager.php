@@ -3,6 +3,7 @@ namespace application\modules\yupe\components;
 
 use Yii;
 use CUploadedFile;
+use yupe\helpers\YFile;
 
 class UploadManager extends \CApplicationComponent
 {
@@ -12,6 +13,7 @@ class UploadManager extends \CApplicationComponent
     public function save(CUploadedFile $fileInstance, $uploadPath, $fileName)
     {
         $path = $this->getFilePath($fileName, $uploadPath);
+        YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME));
 
         return $fileInstance->saveAs($path);
     }
