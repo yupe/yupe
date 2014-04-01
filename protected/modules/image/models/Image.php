@@ -97,9 +97,6 @@ class Image extends yupe\models\YModel
                 'types'         => $module->allowedExtensions,
                 'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
-                'fileName' => function() {
-                    return md5($this->name . microtime(true) . rand());
-                }
             ),
         );
     }

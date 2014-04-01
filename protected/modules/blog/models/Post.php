@@ -315,11 +315,14 @@ class Post extends yupe\models\YModel implements ICommentable
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath,
-                'fileName' => function () {
-                    return md5($this->slug . microtime(true));
-                },
+                'fileName' => array($this, 'generateFileName'),
             ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->slug . microtime(true) . uniqid());
     }
 
     public function getImageUrl()
