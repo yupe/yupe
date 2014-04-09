@@ -140,11 +140,20 @@ $form = $this->beginWidget(
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
     <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
-        <?php if (!$model->isNewRecord && $model->image): ?>
-            <?php echo CHtml::image($model->imageUrl, $model->title, array('width' => 300, 'height' => 300)); ?>
-        <?php endif; ?>
+        <?php
+        echo CHtml::image(
+            !$model->isNewRecord && $model->image
+                ? $model->getImageUrl()
+                : '#',
+            $model->title, array(
+                'class' => 'preview-image',
+                'style' => !$model->isNewRecord && $model->image
+                        ? ''
+                        : 'display:none'
+            )
+        ); ?>
         <?php echo $form->labelEx($model, 'image'); ?>
-        <?php echo $form->fileField($model, 'image'); ?>
+        <?php echo $form->fileField($model, 'image', array('onchange' => 'readURL(this);')); ?>
     </div>
     <div class="span5">
         <?php echo $form->error($model, 'image'); ?>
