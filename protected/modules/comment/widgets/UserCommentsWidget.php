@@ -22,9 +22,10 @@ class UserCommentsWidget extends yupe\widgets\YWidget
                 ':user' => (int)$this->userId,
                 ':status' => Comment::STATUS_APPROVED
             ),
-            'order' => 't.lft, t.id DESC',
+            'order' => 't.id DESC',
+            'limit' => (int)$this->limit
         ));
 
         $this->render($this->view, array('comments' => $comments));
     }
-} 
+}
