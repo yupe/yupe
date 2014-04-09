@@ -100,6 +100,8 @@ class FileUploadBehavior extends CActiveRecordBehavior
     public function afterFind($event)
     {
         $this->_oldFile = Yii::app()->uploadManager->getFilePath($this->owner{$this->attributeName}, $this->getUploadPath());
+
+        return parent::beforeFind($event);
     }
 
     public function beforeValidate($event)
@@ -126,6 +128,8 @@ class FileUploadBehavior extends CActiveRecordBehavior
     public function beforeDelete($event)
     {
         $this->removeFile();
+
+        return parent::beforeDelete($event);
     }
 
     public function removeFile()

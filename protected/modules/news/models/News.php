@@ -100,7 +100,7 @@ class News extends yupe\models\YModel
 
     public function generateFileName()
     {
-        return md5($this->name . microtime(true) . uniqid());
+        return md5($this->title . microtime(true) . uniqid());
     }
     /**
      * @return array relational rules.
@@ -235,7 +235,9 @@ class News extends yupe\models\YModel
         $criteria->compare('t.id', $this->id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
+        if($this->date) {
+            $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
+        }
         $criteria->compare('title', $this->title, true);
         $criteria->compare('t.alias', $this->alias, true);
         $criteria->compare('short_text', $this->short_text, true);
