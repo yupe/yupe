@@ -35,8 +35,6 @@
  * @link     http://yupe.ru
  */
 
-use application\modules\comment\components\NewCommentEvent;
-
 class Comment extends yupe\models\YModel
 {
     const STATUS_NEED_CHECK = 0;
@@ -284,7 +282,7 @@ class Comment extends yupe\models\YModel
             return CHtml::image($this->author->getAvatar((int)$size), $this->author->nick_name, $params);
         }
 
-        return CHtml::image(User::model()->getAvatar((int)$size), $this->name, $params);
+        return CHtml::image(Yii::app()->getModule('user')->defaultAvatar, $this->name, $params);
     }
 
     public function getAuthorLink(array $params = array('rel' => 'nofollow'))
@@ -301,7 +299,7 @@ class Comment extends yupe\models\YModel
             return CHtml::link($this->name, $this->url, $params);
         }
 
-        return $this->name;
+        return null;
     }
 
     public function getAuthorUrl(array $params = array('rel' => 'nofollow'))
@@ -318,7 +316,7 @@ class Comment extends yupe\models\YModel
             return Yii::app()->createUrl($this->url, $params);
         }
 
-        return $this->name;
+        return null;
     }
 
     public function getText()
