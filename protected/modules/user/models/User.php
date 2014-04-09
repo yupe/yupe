@@ -424,53 +424,24 @@ class User extends yupe\models\YModel
      */
     public function getAvatar($size = 64)
     {
-        $size = (int) $size;
-        $size || ($size = 32);
-
-        $ava  = null;
+        $size = (int)$size;
 
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-
-            $ava = 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
-
-        }else{
-
-            $userModule = Yii::app()->getModule('user');
-            $avatarPath = $userModule->defaultAvatar;
-            $avatar = Yii::app()->getRequest()->baseUrl . $avatarPath;
-
-            if ($this->avatar){
-
-                $avatarsDir = $userModule->avatarsDir;
-                $basePath   = $userModule->getUploadPath();
-                $uploadPath = Yii::app()->getModule('yupe')->uploadPath;          
-                $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
-                $baseUrl    = Yii::app()->getRequest()->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
-
-                // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
-                if (file_exists($basePath . "/" . $sizedFile)) {                   
-                    $ava = $baseUrl;
-                } else if (file_exists($basePath . "/" . $this->avatar)){              
-                    // Есть! Можем сделать нужный размер
-                    $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
-
-                    if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick") {
-                        $image->resize($size, $size, CImage::WIDTH)
-                              ->crop($size, $size)
-                              ->quality(85)
-                              ->sharpen(15)
-                              ->save($basePath . "/" . $sizedFile);
-                    } else {
-                        @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
-                    }
-
-                    $ava = $baseUrl;
-                }
-            }
+            return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
         }
-     
-        return $ava ? $ava : $avatar;
+
+        $userModule = Yii::app()->getModule('user');
+        $avatar = $this->avatar;
+        $path = $userModule->getUploadPath().$avatar;
+
+        if(!file_exists($path)) {
+            $avatar = $userModule->defaultAvatar;
+        }
+
+        return Yii::app()->image->makeThumbnail(
+            $avatar, $userModule->avatarsDir, $size, $size, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+        );
     }
 
     /**
