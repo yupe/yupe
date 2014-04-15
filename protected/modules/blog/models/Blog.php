@@ -93,7 +93,7 @@ class Blog extends yupe\models\YModel
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('member_status', 'in', 'range' => array_keys($this->getMemberStatusList())),
             array('post_status', 'in', 'range' => array_keys($this->getPostStatusList())),
-            array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, slug, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
             array(
                 'id, name, description, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id',

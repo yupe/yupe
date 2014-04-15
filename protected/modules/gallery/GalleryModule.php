@@ -12,6 +12,8 @@
 
 class GalleryModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
     public function getDependencies()
     {
         return array(
@@ -31,7 +33,7 @@ class GalleryModule extends yupe\components\WebModule
 
     public  function getVersion()
     {
-        return Yii::t('GalleryModule.gallery', '0.6');
+        return self::VERSION;
     }
 
     public function getCategory()

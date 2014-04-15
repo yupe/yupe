@@ -72,12 +72,14 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 
 <hr/>
 
+<?php if(Yii::app()->hasModule('social')):?>
 <div class="row-fluid control-group">
     <?php $this->widget('vendor.nodge.yii-eauth.EAuthWidget', array(
         'action' => '/social/login',
         'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github', 'yandex'),
     )); ?>
 </div>
+<?php endif;?>
 
 <?php $this->endWidget(); ?>
 <!-- form -->

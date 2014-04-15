@@ -12,7 +12,9 @@
 
 namespace yupe\components\actions;
 
-use Yii, CAction, Image;
+use Yii;
+use CAction;
+use Image;
 
 class YAjaxImageChooseAction extends CAction
 {

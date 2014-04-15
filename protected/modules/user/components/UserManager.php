@@ -209,6 +209,10 @@ class UserManager extends CApplicationComponent
 
     public function changeUserEmail(User $user, $email, $confirm = true)
     {
+        if($user->email == $email) {
+            return true;
+        }
+
         $transaction = Yii::app()->db->beginTransaction();
 
         try

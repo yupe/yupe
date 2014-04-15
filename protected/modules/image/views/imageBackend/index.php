@@ -49,13 +49,29 @@ $this->widget(
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'bulkActions'      => array(
+            'actionButtons' => array(
+                array(
+                    'id'         => 'delete-comment',
+                    'buttonType' => 'button',
+                    'type'       => 'danger',
+                    'size'       => 'small',
+                    'label'      => Yii::t('ImageModule.image', 'Delete'),
+                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('ImageModule.image', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+                ),
+            ),
+            'checkBoxColumnConfig' => array(
+                'name' => 'id'
+            ),
+        ),
         'columns'      => array(
             array(
                 'name'   => Yii::t('ImageModule.image', 'file'),
                 'type'   => 'raw',
-                'value'  => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
+                'value'  => 'CHtml::image($data->getUrl(75, 75), $data->alt, array("width" => 75, "height" => 75))',
                 'filter' => false
             ),
+            'name',
             array(
                 'header' => Yii::t('ImageModule.image', 'Link'),
                 'type'   => 'raw',
@@ -78,7 +94,6 @@ $this->widget(
                                 array("/gallery/galleryBackend/images", "id" => $data->gallery->id)
                             )',
             ),
-            'name',           
             array(
                 'class'       => 'bootstrap.widgets.TbButtonColumn',
                 'htmlOptions' => array(

@@ -15,6 +15,8 @@ use yupe\components\WebModule;
 
 class ImageModule extends WebModule
 {
+    const VERSION = '0.7';
+
     public $uploadPath        = 'image';
     public $documentRoot;
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -22,11 +24,17 @@ class ImageModule extends WebModule
     public $maxSize           = 5242880 /* 5 MB */;
     public $maxFiles          = 1;
     public $types;
+    public $mimeTypes = 'image/gif, image/jpeg, image/png';
+
+    public function getUploadPath()
+    {
+        return Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
+    }
 
     public function getInstall()
     {
         if (parent::getInstall()) {
-            @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
+            @mkdir($this->getUploadPath(), 0755);
         }
 
         return false;
@@ -41,7 +49,7 @@ class ImageModule extends WebModule
 
     public  function getVersion()
     {
-        return Yii::t('ImageModule.image', '0.6');
+        return self::VERSION;
     }
 
     public function getIcon()
@@ -57,6 +65,7 @@ class ImageModule extends WebModule
             'allowedExtensions' => Yii::t('ImageModule.image', 'Allowed extensions (separated by comma)'),
             'minSize'           => Yii::t('ImageModule.image', 'Minimum size (in bytes)'),
             'maxSize'           => Yii::t('ImageModule.image', 'Maximum size (in bytes)'),
+            'mimeTypes'         => Yii::t('ImageModule.image', 'Mime types')
         );
     }
 
@@ -68,6 +77,24 @@ class ImageModule extends WebModule
             'minSize',
             'maxSize',
             'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
+            'mimeTypes'
+        );
+    }
+
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('ImageModule.image', 'General module settings'),
+                'items' => array(
+                    'allowedExtensions',
+                    'mimeTypes',
+                    'minSize',
+                    'maxSize',
+                    'uploadPath',
+                    'mainCategory'
+                )
+            )
         );
     }
 

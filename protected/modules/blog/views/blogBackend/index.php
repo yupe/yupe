@@ -152,7 +152,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'name'   => 'status',
                 'type'   => 'raw',
                 'value'  => '$data->getStatus()',
-                'filter' => Post::model()->getStatusList()
+                'filter' => $model->getStatusList()
             ),
             array(
                 'name'   => 'create_user_id',

@@ -29,7 +29,38 @@ $form = $this->beginWidget(
 
 <div class="row-fluid control-group">
 
-    <div class="span3">
+    <div class="span2 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>'
+         data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
+        <?php
+        echo $form->datepickerRow(
+            $model,
+            'date',
+            array(
+                'options' => array(
+                    'format' => 'dd-mm-yyyy',
+                    'weekStart' => 1,
+                    'autoclose' => true,
+                ),
+                'htmlOptions' => array(
+                    'class' => 'span11'
+                ),
+            ),
+            array(
+                'prepend' => '<i class="icon-calendar"></i>',
+            )
+        ); ?>
+    </div>
+
+    <div class="span2 <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow(
+            $model,
+            'status',
+            $model->getStatusList(),
+            array('class' => 'span7 popover-help')
+        ); ?>
+    </div>
+
+    <div class="span2">
         <?php if (count($languages) > 1): ?>
             <?php echo $form->dropDownListRow(
                 $model,
@@ -65,38 +96,6 @@ $form = $this->beginWidget(
         <?php else: ?>
             <?php echo $form->hiddenField($model, 'lang'); ?>
         <?php endif; ?>
-    </div>
-
-
-    <div class="span2 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
-        <?php
-        echo $form->datepickerRow(
-            $model,
-            'date',
-            array(
-                'options' => array(
-                    'format' => 'dd-mm-yyyy',
-                    'weekStart' => 1,
-                    'autoclose' => true,
-                ),
-                'htmlOptions' => array(
-                    'class' => 'span11'
-                ),
-            ),
-            array(
-                'prepend' => '<i class="icon-calendar"></i>',
-            )
-        ); ?>
-    </div>
-
-    <div class="span3 <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow(
-            $model,
-            'status',
-            $model->getStatusList(),
-            array('class' => 'span7 popover-help')
-        ); ?>
     </div>
 
 </div>

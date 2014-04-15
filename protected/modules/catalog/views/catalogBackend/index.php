@@ -47,26 +47,89 @@ $this->renderPartial('_search', array('model' => $model));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('CatalogModule.catalog', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('CatalogModule.catalog', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
-        'id',
         array(
+            'name' => 'id',
+            'htmlOptions' => array('style' => 'width:20px'),
+            'type' => 'raw',
+            'value' => 'CHtml::link($data->id, array("/catalog/catalogBackend/update", "id" => $data->id))'
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'name',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/catalog/catalogBackend/update", "id" => $data->id))',
+            'editable' => array(
+                'url' => $this->createUrl('/catalog/catalogBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'alias',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->alias, $data->permaLink)',
+            'editable' => array(
+                'url' => $this->createUrl('/catalog/catalogBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/catalog/catalogBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'   => 'category_id',
             'type'   => 'raw',
-            'value'  => '$data->categoryLink',
-			'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory), array('encode' => false, 'empty' => ''))
+            'value'  => '$data->category->name',
+            'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory), array('encode' => false, 'empty' => ''))
         ),
-        'price',
-        'article',
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'price',
+            'editable' => array(
+                'url' => $this->createUrl('/catalog/catalogBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'article',
+            'editable' => array(
+                'url' => $this->createUrl('/catalog/catalogBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+
         array(
             'name'  => 'is_special',
             'type'  => 'raw',
@@ -74,9 +137,19 @@ $this->renderPartial('_search', array('model' => $model));
             'filter' => Yii::app()->getModule('catalog')->getChoice()
         ),
         array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/catalog/catalogBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'   => 'status',
             'type'   => 'raw',
-            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("time", "ok-sign", "minus-sign"))',
+            'value'  => '$data->getStatus()',
             'filter' => $model->getStatusList()
         ),
         array(
@@ -84,10 +157,6 @@ $this->renderPartial('_search', array('model' => $model));
             'type'   => 'raw',
             'value'  => 'CHtml::link($data->user->getFullName(), array("/user/catalogBackend/view", "id" => $data->user->id))',
             'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
-        ),       
-        array(
-            'name'  => 'create_time',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
