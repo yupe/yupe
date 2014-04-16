@@ -417,6 +417,6 @@ class Comment extends yupe\models\YModel
             return CHtml::link($target->getTitle(), $target->getLink());
         }
 
-        return $target->model;
+        return $target;
     }
 }
