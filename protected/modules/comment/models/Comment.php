@@ -409,12 +409,12 @@ class Comment extends yupe\models\YModel
     }
 
 
-    public function getTargetTitleLink()
+    public function getTargetTitleLink(array $options)
     {
         $target = $this->getTarget();
 
         if (is_object($target)) {
-            return CHtml::link($target->getTitle(), $target->getLink());
+            return CHtml::link($target->getTitle(), $target->getLink(), $options);
         }
 
         return $target;

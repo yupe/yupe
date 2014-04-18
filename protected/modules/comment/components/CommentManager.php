@@ -65,6 +65,8 @@ class CommentManager extends CApplicationComponent
 
         }catch (Exception $e) {
 
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR, 'comment');
+
             $transaction->rollback();
 
             return false;

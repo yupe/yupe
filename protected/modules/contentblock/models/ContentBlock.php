@@ -19,6 +19,7 @@
  * @property integer $type
  * @property string $content
  * @property string $description
+ * @protected string $code
  */
 class ContentBlock extends yupe\models\YModel
 {

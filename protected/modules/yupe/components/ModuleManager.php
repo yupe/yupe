@@ -20,6 +20,7 @@ use Exception;
 use GlobIterator;
 use TagsCache;
 use Yii;
+use yupe\widgets\YFlashMessages;
 
 
 class ModuleManager extends \CApplicationComponent
@@ -317,7 +318,7 @@ class ModuleManager extends \CApplicationComponent
             Yii::app()->cache->flush();
 
             Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
 

@@ -162,14 +162,14 @@ class Image extends yupe\models\YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare($this->tableAlias . '.id', $this->id);
-        $criteria->compare($this->tableAlias . '.name', $this->name, true);
-        $criteria->compare($this->tableAlias . '.description', $this->description, true);
-        $criteria->compare($this->tableAlias . '.file', $this->file, true);
-        $criteria->compare($this->tableAlias . '.creation_date', $this->creation_date, true);
-        $criteria->compare($this->tableAlias . '.user_id', $this->user_id, true);
-        $criteria->compare($this->tableAlias . '.alt', $this->alt, true);
-        $criteria->compare($this->tableAlias . '.status', $this->status);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('t.name', $this->name, true);
+        $criteria->compare('t.description', $this->description, true);
+        $criteria->compare('t.file', $this->file, true);
+        $criteria->compare('t.creation_date', $this->creation_date, true);
+        $criteria->compare('t.user_id', $this->user_id, true);
+        $criteria->compare('t.alt', $this->alt, true);
+        $criteria->compare('t.status', $this->status);
 
         if (Yii::app()->hasModule('gallery')) {
             $criteria->with = array('gallery', 'image');

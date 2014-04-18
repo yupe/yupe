@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GalleryModule основной класс модуля gallery
  *
@@ -9,7 +10,6 @@
  * @since     0.6
  *
  */
-
 class GalleryModule extends yupe\components\WebModule
 {
     const VERSION = '0.7';
@@ -27,11 +27,11 @@ class GalleryModule extends yupe\components\WebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('GalleryModule.gallery', 'Menu items order'),
-            'editor'         => Yii::t('GalleryModule.gallery', 'Visual Editor'),
+            'editor' => Yii::t('GalleryModule.gallery', 'Visual Editor'),
         );
     }
 
-    public  function getVersion()
+    public function getVersion()
     {
         return self::VERSION;
     }
@@ -39,11 +39,11 @@ class GalleryModule extends yupe\components\WebModule
     public function getCategory()
     {
         return Yii::t('GalleryModule.gallery', 'Content');
-    }   
+    }
 
     public function getName()
     {
-        return Yii::t('GalleryModule.gallery', 'Image galleries');
+        return Yii::t('GalleryModule.gallery', 'Galleries');
     }
 
     public function getDescription()
@@ -68,7 +68,7 @@ class GalleryModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "camera-retro";
+        return "camera";
     }
 
     public function getAdminPageLink()
@@ -80,24 +80,34 @@ class GalleryModule extends yupe\components\WebModule
     {
         parent::init();
 
-        $this->setImport(array(
-            'gallery.models.*'          
-        ));
+        $this->setImport(
+            array(
+                'gallery.models.*'
+            )
+        );
     }
 
     public function getEditableParams()
     {
         return array(
             'adminMenuOrder',
-            'editor'        => Yii::app()->getModule('yupe')->editors,
+            'editor' => Yii::app()->getModule('yupe')->editors,
         );
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Galleries list'), 'url' => array('/gallery/galleryBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
+            array(
+                'icon' => 'list-alt',
+                'label' => Yii::t('GalleryModule.gallery', 'Galleries list'),
+                'url' => array('/gallery/galleryBackend/index')
+            ),
+            array(
+                'icon' => 'plus-sign',
+                'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
+                'url' => array('/gallery/galleryBackend/create')
+            ),
         );
     }
 }

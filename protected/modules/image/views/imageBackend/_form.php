@@ -61,7 +61,7 @@ $form = $this->beginWidget(
     <div class='row-fluid control-group'>
 
         <div class='span2'>
-            <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
+            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
         </div>
 
              <span class="span2">
