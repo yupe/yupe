@@ -341,6 +341,14 @@ class Blog extends yupe\models\YModel
         return parent::beforeSave();
     }
 
+    public function beforeValidate()
+    {
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->name);
+        }
+
+        return parent::beforeValidate();
+    }
 
     public function afterDelete()
     {
