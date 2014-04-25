@@ -50,6 +50,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo $form->textFieldRow($model, 'title', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
     </div>
 
+    <div class="row-fluid control-group <?php echo $model->hasErrors("regular_link") ? "error" : ""; ?>">
+        <?php echo $form->checkBoxRow($model, 'regular_link', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('regular_link'), 'data-content' => $model->getAttributeDescription('regular_link'))); ?>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors("href") ? "error" : ""; ?>">
         <?php echo $form->textFieldRow($model, 'href', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('href'), 'data-content' => $model->getAttributeDescription('href'))); ?>
     </div>
@@ -62,9 +66,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
     </div>
 
-     <div class="row-fluid control-group <?php echo $model->hasErrors("regular_link") ? "error" : ""; ?>">
-         <?php echo $form->checkBoxRow($model, 'regular_link', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('regular_link'), 'data-content' => $model->getAttributeDescription('regular_link'))); ?>
-    </div>
 
     <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse');?>
     <div class="accordion-group">

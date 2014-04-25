@@ -378,13 +378,13 @@ class Comment extends yupe\models\YModel
         return $level > 0 ? $level : 0;
     }
 
-    public function getTarget()
+    public function getTarget(array $with = array())
     {
         $model = CActiveRecord::model($this->model);
 
         if ($model instanceof ICommentable) {
 
-            $model = $model->findByPk($this->model_id);
+            $model = $model->with($with)->findByPk($this->model_id);
 
             if (null === $model) {
                 return $this->model;
@@ -409,7 +409,7 @@ class Comment extends yupe\models\YModel
     }
 
 
-    public function getTargetTitleLink(array $options)
+    public function getTargetTitleLink(array $options = null)
     {
         $target = $this->getTarget();
 

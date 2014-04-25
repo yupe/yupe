@@ -74,23 +74,58 @@ $this->renderPartial('_search', array('model' => $model));
         'filter'       => $model,
         'columns'      => array(
             array(
-                'name'        => 'id',
-                'htmlOptions' => array('style' => 'width:50px'),
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'name',
+                'editable' => array(
+                    'url' => $this->createUrl('/menu/menuBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
             ),
-            'name',
-            'code',
-            'description',
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'code',
+                'editable' => array(
+                    'url' => $this->createUrl('/menu/menuBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'description',
+                'editable' => array(
+                    'url' => $this->createUrl('/menu/menuBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/menu/menuBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'status',
+                'type'   => 'raw',
+                'value'  => '$data->getStatus()',
+                'filter' => $model->getStatusList()
+            ),
             array(
                 'header' => Yii::t('MenuModule.menu', 'Items'),
                 'type'   => 'raw',
                 'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitemBackend/index", array("MenuItem[menu_id]" => $data->id)))',
-            ),
-            array(
-                'name'        => 'status',
-                'type'        => 'raw',
-                'value'       => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
-                'filter'      => $model->statusList,
-                'htmlOptions' => array('style' => 'width:110px'),
             ),
             array(
                 'class'       => 'bootstrap.widgets.TbButtonColumn',

@@ -44,19 +44,19 @@ class CommentManager extends CApplicationComponent
 
             if($comment->appendTo($root)){
 
-                $transaction->commit();
-                // сбросить кэш
-                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
-
-                // метка для проверки спама
-                Yii::app()->cache->set('Comment::Comment::spam::'.$user->getId(), time(), (int)$module->antiSpamInterval);
-
                 //events
                 $event = new NewCommentEvent;
                 $event->comment = $comment;
                 $event->module  = $module;
 
                 $this->onNewComment($event);
+
+                $transaction->commit();
+                // сбросить кэш
+                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
+
+                // метка для проверки спама
+                Yii::app()->cache->set('Comment::Comment::spam::'.$user->getId(), time(), (int)$module->antiSpamInterval);
 
                 return $comment;
             }

@@ -13,6 +13,8 @@
 
 class MenuModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
     public $defaultController = 'menu';
 
     public $menuCache         = 'menu.cache';
@@ -39,7 +41,7 @@ class MenuModule extends yupe\components\WebModule
 
     public function getVersion()
     {
-        return Yii::t('MenuModule.menu', '0.3');
+        return self::VERSION;
     }
 
     public function getAuthor()
@@ -81,6 +83,8 @@ class MenuModule extends yupe\components\WebModule
 
     public function init()
     {
+        parent::init();
+
         $this->setImport(array(
             'application.modules.menu.models.*'         
         ));

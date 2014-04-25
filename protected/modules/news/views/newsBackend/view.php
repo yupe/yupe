@@ -43,7 +43,7 @@
         <div style="margin-bottom: 20px;">
             <h6>
                 <span class="label"><?php echo $model->date; ?></span> 
-                <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?>
+                <?php echo CHtml::link($model->title, array('/news/news/show', 'alias' => $model->alias)); ?>
             </h6>
             <p>
                 <?php echo $model->short_text; ?>
@@ -53,7 +53,7 @@
     </div>
     <div id="full"  class="tab-pane fade">
         <div style="margin-bottom: 20px;">
-            <h3><?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?></h3>
+            <h3><?php echo CHtml::link($model->title, array('/news/news/show', 'alias' => $model->alias)); ?></h3>
             <p><?php echo $model->full_text; ?></p>
             <span class="label"><?php echo $model->date; ?></span>
             <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName, array('/user/people/' . $model->user->nick_name)); ?>
