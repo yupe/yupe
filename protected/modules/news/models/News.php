@@ -256,7 +256,7 @@ class News extends yupe\models\YModel
 
     public function getPermaLink()
     {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('title' => $this->alias));
+        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('alias' => $this->alias));
     }
 
     public function getStatusList()

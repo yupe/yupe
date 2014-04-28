@@ -56,22 +56,39 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'menu-items-grid',
-    'type'         => 'condensed',
+    'type'         => 'condensed striped',
+    'sortableRows' => true,
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
         array(
-            'name'        => 'id',
-            'htmlOptions' => array('style' => 'width:50px'),
-        ),
-        'title',
-        'href',
-        array(
             'name'        => 'menu_id',
             'type'        => 'raw',
             'value'       => 'CHtml::link($data->menu->name, Yii::app()->createUrl("/menu/menuBackend/update", array("id" => $data->menu->id)))',
-            'filter'      => CHtml::activeDropDownList($model, 'menu_id', $model->menuList, array('empty' => '')),
+            'filter'      => CHtml::activeDropDownList($model, 'menu_id', $model->getMenuList(), array('empty' => '')),
             'htmlOptions' => array('style' => 'width:110px'),
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'title',
+            'editable' => array(
+                'url' => $this->createUrl('/menu/menuitemBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'href',
+            'editable' => array(
+                'url' => $this->createUrl('/menu/menuitemBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
             'name'   => 'parent_id',
@@ -89,11 +106,20 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$this->grid->getUpDownButtons($data)',
         ),
         array(
-            'name'        => 'status',
-            'type'        => 'raw',
-            'value'       => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
-            'filter'      => $model->statusList,
-            'htmlOptions' => array('style' => 'width:110px'),
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/menu/menuitemBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
+            'filter' => $model->getStatusList()
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

@@ -11,6 +11,17 @@
  */
 class MenuitemBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MenuItem',
+                'validAttributes' => array('title', 'href', 'status', 'menu_id', 'sort')
+            )
+        );
+    }
+
     /**
      * Получаем JSON меню через ajax-запрос:
      * 

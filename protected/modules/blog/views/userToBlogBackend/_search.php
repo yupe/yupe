@@ -21,22 +21,19 @@ $form = $this->beginWidget(
 
     <fieldset class="inline">
         <div class="wide row-fluid control-group">
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'id', array('class' => 'span2 popover-help', 'maxlength' => 10, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id'))); ?>
-            </div>
-            <div class="span2">
-                <?php echo $form->dropDownListRow($model, 'role', $model->getRoleList(), array('class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('role'), 'data-content' => $model->getAttributeDescription('role'))); ?>
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'role', $model->getRoleList(), array('class' => ' popover-help', 'data-original-title' => $model->getAttributeLabel('role'), 'data-content' => $model->getAttributeDescription('role'))); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => ' popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
             </div>
         </div>
         <div class="wide row-fluid control-group">
-            <div class="span4">
-                <?php echo $form->dropDownListRow($model, 'user_id', CHtml::listData(User::model()->findAll(), 'id', 'nick_name'), array('class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('user_id'), 'data-content' => $model->getAttributeDescription('user_id'))); ?>
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'user_id', CHtml::listData(User::model()->findAll(), 'id', 'nick_name'), array('class' => ' popover-help', 'data-original-title' => $model->getAttributeLabel('user_id'), 'data-content' => $model->getAttributeDescription('user_id'))); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
+                <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('class' => ' popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
             </div>
         </div>
         <?php /*

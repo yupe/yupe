@@ -19,12 +19,23 @@ $form = $this->beginWidget(
     )
 ); ?>
 
-    <fieldset>
-        <?php echo $form->textFieldRow($model, 'id'); ?>
-        <?php echo $form->textFieldRow($model, 'name'); ?>
-        <?php echo $form->textFieldRow($model, 'code'); ?>
-        <?php echo $form->textFieldRow($model, 'description'); ?>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
+    <fieldset class="inline">
+        <div class="wide row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'name'); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'code'); ?>
+            </div>
+        </div>
+        <div class="wide row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '----')); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'description'); ?>
+            </div>
+        </div>
     </fieldset>
 
     <?php

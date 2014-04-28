@@ -26,4 +26,5 @@ class NewCommentEvent extends CModelEvent
      * Инстанс комментария:
      **/
     public $comment;
+
 }
