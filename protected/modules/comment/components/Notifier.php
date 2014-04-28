@@ -35,6 +35,9 @@ class Notifier extends CApplicationComponent
             'Output.FlashCompat' => true,
         );
 
+        // Если не установлен модуль Mail, то ничего не отправляем
+        if(!isset(Yii::app()->modules['mail'])) return false;
+
         return Yii::app()->mail->send(
             // От кого (отправитель комментария):
             $event->comment->email,
