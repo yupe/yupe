@@ -30,8 +30,3 @@ $this->breadcrumbs = array(
         </div>
     </div>
 </div>
-
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $news, 'modelId' => $news->id)); ?>
-    <br/>
-    <h3>Оставить комментарий</h3>
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $news->getPermaLink(), 'model' => $news, 'modelId' => $news->id, 'allowGuestComment'=>true)); ?>
