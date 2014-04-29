@@ -60,11 +60,11 @@
         ),
         array(
             'name'  => 'create_user_id',
-            'value' => $model->createUser->getFullName(),
+            'value' => $model->createUser->FullName,
         ),
         array(
             'name'  => 'update_user_id',
-            'value' => $model->updateUser->getFullName(),
+            'value' => $model->updateUser->FullName,
         ),
         array(
             'name'  => 'status',

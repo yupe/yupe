@@ -155,7 +155,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'user_id',
             'type'   => 'raw',
-            'value'  => 'CHtml::link($data->user->getFullName(), array("/user/catalogBackend/view", "id" => $data->user->id))',
+            'value'  => 'CHtml::link($data->user->FullName, array("/user/catalogBackend/view", "id" => $data->user->id))',
             'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
         ),
         array(

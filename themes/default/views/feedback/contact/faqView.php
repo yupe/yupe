@@ -42,7 +42,7 @@ $this->breadcrumbs = array(
         ),
         array(
             'name' => 'answer_user',
-            'value' => $model->getAnsweredUser()->getFullName()
+            'value' => $model->getAnsweredUser()->FullName
         ),
         'answer_date',
         array(

@@ -13,7 +13,7 @@
 	                    'height' => $this->avatarSize,
 	                )
 	            );?>
-	            <?php echo CHtml::link($model->getFullName(), array('/user/people/userInfo/', 'username' => $model->nick_name)); ?>
+	            <?php echo CHtml::link($model->FullName, array('/user/people/userInfo/', 'username' => $model->nick_name)); ?>
 	        </li>
 	        <?php $i++; if ($i != $cnt) echo '<hr>'; ?>
 	    <?php endforeach;?>

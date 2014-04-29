@@ -58,7 +58,7 @@ $this->menu = array(
             'id',
             array(
                 'name'  => 'user_id',
-                'value' => $model->user->getFullName(),
+                'value' => $model->user->FullName,
             ),
             array(
                 'name'  => 'blog_id',

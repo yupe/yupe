@@ -313,7 +313,7 @@ class Image extends yupe\models\YModel
     public function getUserName()
     {
         return $this->user instanceof User
-            ? $this->user->getFullName()
+            ? $this->user->FullName
             : '---';
     }
 

@@ -78,11 +78,11 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'name'  => 'create_user_id',
-            'value' => '$data->createUser->getFullName()',
+            'value' => '$data->createUser->FullName',
         ),
         array(
             'name'  => 'update_user_id',
-            'value' => '$data->updateUser->getFullName()',
+            'value' => '$data->updateUser->FullName',
         ),
         array(
             'name'  => 'status',
