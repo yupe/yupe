@@ -48,7 +48,7 @@
             <p>
                 <?php echo $model->short_text; ?>
             </p>
-            <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
+            <i class="icon-globe"></i> <?php echo CHtml::link($model->getPermaLink(), $model->getPermaLink()); ?>
         </div>
     </div>
     <div id="full"  class="tab-pane fade">
@@ -57,7 +57,7 @@
             <p><?php echo $model->full_text; ?></p>
             <span class="label"><?php echo $model->date; ?></span>
             <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName, array('/user/people/' . $model->user->nick_name)); ?>
-            <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
+            <i class="icon-globe"></i> <?php echo CHtml::link($model->getPermaLink(), $model->getPermaLink()); ?>
         </div>
     </div>
 </div>
