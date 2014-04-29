@@ -2,7 +2,7 @@
     $this->pageTitle = CHtml::encode($user->nick_name);
     $this->breadcrumbs = array(
         Yii::t('UserModule.user','Users') => array('/user/people/index/'),
-        CHtml::encode($user->getfullName()),
+        CHtml::encode($user->FullName),
     );
 ?>
 
@@ -14,7 +14,7 @@
 
      <div class='span6'>
 
-         <i class="icon-user"></i> <?php echo CHtml::link(CHtml::encode($user->getFullName()), array('/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name))); ?><br/>
+         <i class="icon-user"></i> <?php echo CHtml::link(CHtml::encode($user->FullName), array('/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name))); ?><br/>
 
          <?php if($user->last_visit):?>
             <i class="icon-time"></i> <?php echo Yii::t('UserModule.user', 'Last visit {last_visit}', array(

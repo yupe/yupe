@@ -197,7 +197,7 @@ class Gallery extends yupe\models\YModel
     public function getOwnerName()
     {
         return $this->user instanceof User
-            ? $this->user->getFullName()
+            ? $this->user->FullName
             : '---';
     }
 

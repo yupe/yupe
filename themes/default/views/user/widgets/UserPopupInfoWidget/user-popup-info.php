@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript(
 							'user'    => $model,
 							'size'    => '40',
 	                	), true
-	                ) . "<span>" . $model->getFullName() . "</span>",
+	                ) . "<span>" . $model->FullName . "</span>",
 	                array('/user/people/userInfo/', 'username' => $model->nick_name),
 	                array('title' => Yii::t('UserModule.user', 'User profile'), 'class' => 'user-popup-info-block')
 	            )

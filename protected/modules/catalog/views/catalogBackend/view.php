@@ -68,11 +68,11 @@
         ),
         array(
             'name'  => 'user_id',
-            'value' => $model->user->getFullName(),
+            'value' => $model->user->FullName,
         ),
         array(
             'name'  => 'change_user_id',
-            'value' => $model->changeUser->getFullName(),
+            'value' => $model->changeUser->FullName,
         ),
         array(
             'name'  => 'create_time',
