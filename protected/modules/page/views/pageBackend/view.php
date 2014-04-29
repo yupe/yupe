@@ -12,7 +12,7 @@
         array('label' => Yii::t('PageModule.page', 'Page') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('PageModule.page', 'Edit page'), 'url' => array(
             '/page/pageBackend/update',
-            'slug'=> $model->slug
+            'id'=> $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('PageModule.page', 'Show page'), 'url' => array(
             '/page/pageBackend/view',
