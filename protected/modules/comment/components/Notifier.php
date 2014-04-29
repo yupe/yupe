@@ -36,7 +36,7 @@ class Notifier extends CApplicationComponent
         );
 
         // Если не установлен модуль Mail, то ничего не отправляем
-        if(!Yii::app()->hasModule['mail']) return false;
+        if(!Yii::app()->hasModule('mail')) return false;
 
         return Yii::app()->mail->send(
             // От кого (отправитель комментария):
