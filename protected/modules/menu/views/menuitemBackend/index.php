@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#menu-items-grid").attr("style","cursor:move;");
+        $("#menu-items-grid").find('tr').attr("style","cursor:move;");
     });
 </script>
 
@@ -69,7 +69,27 @@ $this->renderPartial('_search', array('model' => $model));
     'sortableAction'=>'/menu/menuitemBackend/sortable',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('MenuModule.menu', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('MenuModule.menu', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
+        array(
+            'name'   => 'menu_id',
+            'value'  => '$data->menu->name',
+            'filter' =>  CHtml::listData(Menu::model()->findAll(), 'id', 'name')
+        ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'title',

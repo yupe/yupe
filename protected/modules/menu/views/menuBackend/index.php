@@ -72,6 +72,21 @@ $this->renderPartial('_search', array('model' => $model));
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'bulkActions'      => array(
+            'actionButtons' => array(
+                array(
+                    'id'         => 'delete-post',
+                    'buttonType' => 'button',
+                    'type'       => 'danger',
+                    'size'       => 'small',
+                    'label'      => Yii::t('MenuModule.menu', 'Delete'),
+                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('MenuModule.menu', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+                ),
+            ),
+            'checkBoxColumnConfig' => array(
+                'name' => 'id'
+            ),
+        ),
         'columns'      => array(
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',

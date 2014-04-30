@@ -47,21 +47,49 @@ $this->renderPartial('_search', array('model' => $model));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('CategoryModule.category', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('CategoryModule.category', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
         array(
-            'name'  => 'id',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))',
+            'name' => 'id',
+            'htmlOptions' => array('style' => 'width:20px'),
+            'type' => 'raw',
+            'value' => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))'
         ),
         array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'name',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/category/categoryBackend/update", "id" => $data->id))',
+            'editable' => array(
+                'url' => $this->createUrl('/category/categoryBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'alias',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->alias, array("/category/categoryBackend/update", "id" => $data->id))',
+            'editable' => array(
+                'url' => $this->createUrl('/category/categoryBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
             'name'  => 'parent_id',
@@ -69,20 +97,31 @@ $this->renderPartial('_search', array('model' => $model));
 			'filter' => CHtml::activeDropDownList($model, 'parent_id', Category::model()->getFormattedList(), array('encode' => false, 'empty' => ''))
         ),
         array(
-            'name'  => 'image',
-            'type'  => 'raw',
-            'value' => '$data->image ? CHtml::image($data->imageSrc, $data->name, array("width"  => 100, "height" => 100)) : "---"',
+            'name'   => 'image',
+            'type'   => 'raw',
+            'value'  => '$data->image ? CHtml::image($data->imageSrc, $data->name, array("width"  => 100, "height" => 100)) : "---"',
+            'filter' => false
+        ),
+        array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/category/categoryBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
+            'filter' => $model->getStatusList()
         ),
         array(
             'name'  => 'lang',
             'value'  => '$data->lang',
             'filter' => $this->yupe->getLanguagesList()
-        ),
-        array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
-            'filter' => $model->getStatusList()
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

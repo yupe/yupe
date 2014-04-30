@@ -11,6 +11,16 @@
  */
 class DictionaryDataBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'DictionaryData',
+                'validAttributes' => array('name', 'code', 'description', 'value', 'status')
+            )
+        );
+    }
     /**
      * Displays a particular model.
      * 

@@ -54,34 +54,65 @@ $this->renderPartial('_search', array('model' => $model));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
-    'columns'      => array(
-        'id',
-        array(
-            'name'  => 'name',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/dictionary/dictionaryBackend/update", "id" => $data->id))',
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('DictionaryModule.dictionary', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('DictionaryModule.dictionary', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
         ),
-        'code',
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
+    'columns'      => array(
+        array(
+            'name' => 'id',
+            'htmlOptions' => array('style' => 'width:20px'),
+            'type' => 'raw',
+            'value' => 'CHtml::link($data->id, array("/dictionary/dictionaryBackend/update", "id" => $data->id))'
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'name',
+            'editable' => array(
+                'url' => $this->createUrl('/dictionary/dictionaryBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'code',
+            'editable' => array(
+                'url' => $this->createUrl('/dictionary/dictionaryBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'description',
+            'editable' => array(
+                'url' => $this->createUrl('/dictionary/dictionaryBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
         array(
             'header' => Yii::t('DictionaryModule.dictionary', 'Records'),
             'type'   => 'raw',
             'value'  => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryDataBackend/index", "group_id" => $data->id))',
-        ),
-        array(
-            'name'  => 'creation_date',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
-        ),
-        array(
-            'name'  => 'update_date',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "short", "short")',
-        ),
-        array(
-            'name'  => 'create_user_id',
-            'value' => '$data->createUser->getFullName()',
-        ),
-        array(
-            'name'  => 'update_user_id',
-            'value' => '$data->updateUser->getFullName()',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
