@@ -1,3 +1,9 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#menu-items-grid").attr("style","cursor:move;");
+    });
+</script>
+
 <?php
     $this->breadcrumbs = array(       
         Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
@@ -58,16 +64,12 @@ $this->renderPartial('_search', array('model' => $model));
     'id'           => 'menu-items-grid',
     'type'         => 'condensed striped',
     'sortableRows' => true,
+    'sortableAjaxSave'=>true,
+    'sortableAttribute'=>'sort',
+    'sortableAction'=>'/menu/menuitemBackend/sortable',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        array(
-            'name'        => 'menu_id',
-            'type'        => 'raw',
-            'value'       => 'CHtml::link($data->menu->name, Yii::app()->createUrl("/menu/menuBackend/update", array("id" => $data->menu->id)))',
-            'filter'      => CHtml::activeDropDownList($model, 'menu_id', $model->getMenuList(), array('empty' => '')),
-            'htmlOptions' => array('style' => 'width:110px'),
-        ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'title',
@@ -99,11 +101,6 @@ $this->renderPartial('_search', array('model' => $model));
             'name'   => 'condition_name',
             'value'  => '$data->getConditionName()',
             'filter' => $model->getConditionList(),
-        ),
-        array(
-            'name'  => 'sort',
-            'type'  => 'raw',
-            'value' => '$this->grid->getUpDownButtons($data)',
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
