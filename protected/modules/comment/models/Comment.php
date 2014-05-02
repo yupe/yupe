@@ -299,7 +299,7 @@ class Comment extends yupe\models\YModel
             return CHtml::link($this->name, $this->url, $params);
         }
 
-        return null;
+        return $this->name;
     }
 
     public function getAuthorUrl(array $params = array('rel' => 'nofollow'))
