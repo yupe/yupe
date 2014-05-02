@@ -119,4 +119,5 @@ return array (
   'no' => 'нет',
   'are required.' => 'обязательны.',
   'manage' => 'управление',
+  'Removed' => 'Удален',
 );

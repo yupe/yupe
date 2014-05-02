@@ -35,7 +35,7 @@
 
 <h2><?php echo $model->title; ?></h2>
 
-<small><?php echo Yii::t('PageModule.page', 'Author'); ?>: <?php echo $model->changeAuthor->getFullName(); ?></small>
+<small><?php echo Yii::t('PageModule.page', 'Author'); ?>: <?php echo ($model->changeAuthor instanceof User) ? $model->changeAuthor->getFullName() : Yii::t('PageModule.page', 'Removed'); ?></small>
 <br /><br />
 
 <p><?php echo $model->body; ?></p>
