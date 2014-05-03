@@ -35,7 +35,8 @@ class FeedbackModule extends WebModule
     {
         return array(
             'category',
-            'user'
+            'user',
+            'mail'
         );
     }
 
