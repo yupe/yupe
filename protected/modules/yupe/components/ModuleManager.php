@@ -110,6 +110,7 @@ class ModuleManager extends \CApplicationComponent
                     }
                 }
 
+                $uniqueMenuId = 0;
                 // Обходим категории модулей
                 foreach ($order as $keyCategory => $valueCategory) {
                     // Настройки модуля, если таковые имеются:
@@ -121,7 +122,9 @@ class ModuleManager extends \CApplicationComponent
                         'label' => $keyCategory,
                         'url' => '#',
                         'items' => array(),
+                        'submenuOptions' => array("id"=>"mainmenu_".$uniqueMenuId)
                     );
+                    $uniqueMenuId++;
 
                     if (isset($this->categoryIcon[$keyCategory])) {
                         $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
@@ -159,6 +162,7 @@ class ModuleManager extends \CApplicationComponent
                             'icon' => $modules[$key]->icon,
                             'label' => $modules[$key]->name,
                             'url' => $modules[$key]->adminPageLinkNormalize,
+                            'submenuOptions'=>array("id"=>"submenu_".$key),
                             'items' => array(),
                         );
 

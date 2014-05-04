@@ -67,7 +67,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
 
 
-    <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse');?>
+    <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"memuitem_extended_settings")));?>
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">

@@ -215,7 +215,7 @@ $form = $this->beginWidget(
     <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
 </div>
 
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"news_seodata"))); ?>
 <div class="accordion-group">
     <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
