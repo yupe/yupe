@@ -19,9 +19,11 @@ class YFrontAccessControl extends CAccessControlFilter
 {
     public function preFilter($filterChain)
     {
-        if (Yii::app()->user->isAuthenticated()) {
+        if (Yii::app()->getUser()->isAuthenticated()) {
             return true;
         }
+
+        Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
 
         throw new CHttpException(404);
     }
