@@ -85,4 +85,9 @@ class ContentBlockModule extends yupe\components\WebModule
             ),
         );
     }
+
+	public function getIsInstallDefault()
+	{
+		return true;
+	}
 }
