@@ -28,7 +28,8 @@ class BlogModule extends yupe\components\WebModule
         return array(
             'user',
             'category',
-            'comment'
+            'comment',
+            'image'
         );
     }
 
