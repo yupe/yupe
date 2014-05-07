@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за авторизацию пользователя
  *
@@ -11,7 +12,7 @@
  *
  **/
 class LoginAction extends CAction
-{   
+{
     public function run()
     {
         if (Yii::app()->user->isAuthenticated()) {
@@ -36,7 +37,12 @@ class LoginAction extends CAction
 
             $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login($form, Yii::app()->getUser(), Yii::app()->getRequest())) {
+            if ($form->validate() && Yii::app()->authenticationManager->login(
+                    $form,
+                    Yii::app()->getUser(),
+                    Yii::app()->getRequest()
+                )
+            ) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -47,16 +53,15 @@ class LoginAction extends CAction
                     new CModelEvent($this->controller, array('loginForm' => $form))
                 );
 
-                if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
-                    $redirect = array($module->loginAdminSuccess);
-                } else {
-                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : array($module->loginSuccess);
-                }
+                $redirect = Yii::app()->getUser()->getReturnUrl();
 
-                $returnUrl = Yii::app()->getUser()->getReturnUrl();
-
-                if($returnUrl) {
-                    $redirect = $returnUrl;
+                if (!$redirect) {
+                    if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
+                        $redirect = array($module->loginAdminSuccess);
+                    } else {
+                        $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl(
+                        ) : array($module->loginSuccess);
+                    }
                 }
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);

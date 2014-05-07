@@ -25,6 +25,8 @@ class YFrontAccessControl extends CAccessControlFilter
 
         Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
 
-        throw new CHttpException(404);
+        Yii::app()->request->redirect('/user/account/login');
+
+        //throw new CHttpException(404);
     }
 }

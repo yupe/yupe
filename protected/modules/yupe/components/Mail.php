@@ -58,6 +58,15 @@ class Mail extends CApplicationComponent
                     $this->_mailer->SMTPAuth = true;
                     $this->_mailer->Username = $this->smtp['username'];
                     $this->_mailer->Password = $this->smtp['password'];
+                    if (isset($this->smtp['port'])) {
+                        $this->_mailer->Port = $this->smtp['port'];
+                    }
+                    if (isset($this->smtp['secure'])) {
+                        $this->_mailer->SMTPSecure = $this->smtp['secure'];
+                    }
+                    if (isset($this->smtp['debug'])) {
+                        $this->_mailer->SMTPDebug = (int)$this->smtp['debug'];
+                    }
                 }
                 break;
             case 'sendmail':
@@ -128,6 +137,11 @@ class Mail extends CApplicationComponent
             $this->_mailer->msgHTML($body, \Yii::app()->basePath);
         }
 
-        return $this->_mailer->send();
+        try {
+           return $this->_mailer->send();
+        } catch (\Exception $e) {
+           Yii::log($e->__toString(), \CLogger::LEVEL_ERROR, 'mail');
+           return false;
+        }
     }
 }

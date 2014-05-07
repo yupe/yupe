@@ -5,6 +5,8 @@ class UserCommentsWidget extends yupe\widgets\YWidget
 
     public $view = 'usercommentswidget';
 
+    public $label;
+
     public function init()
     {
         if(!$this->userId) {
@@ -26,6 +28,6 @@ class UserCommentsWidget extends yupe\widgets\YWidget
             'limit' => (int)$this->limit
         ));
 
-        $this->render($this->view, array('comments' => $comments));
+        $this->render($this->view, array('comments' => $comments, 'label' => $this->label));
     }
 }
