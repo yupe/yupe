@@ -78,6 +78,7 @@ return array(
     'components' => array(
         'debug' => array(
             'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'internalUrls' => false,
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
@@ -131,6 +132,7 @@ return array(
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
                 '/gii/<controller:\w+>/<action:\w+>'                              => 'gii/<controller>/<action>',
                 '/site/<action:\w+>'                                              => 'site/<action>',
+                '/debug/<controller:\w+>/<action:\w+>'                            => 'debug/<controller>/<action>', // Для  YiiDebugPanel
             )
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
