@@ -635,6 +635,11 @@ class YupeModule extends WebModule
             return array();
         }
 
+        if(!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
+            Yii::log('For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager', CLogger::LEVEL_WARNING);
+            return array();
+        }
+
         $items = array();
         $currentLanguage = Yii::app()->language;
 

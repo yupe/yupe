@@ -68,6 +68,8 @@ return array(
             'ipFilters'=>array(),
         ),*/
     ),
+
+    //comment this behaviors if multilingual unnecessary
     'behaviors' => array(
         'onBeginRequest' => array(
             'class' => 'yupe\components\urlManager\LanguageBehavior'
@@ -113,9 +115,10 @@ return array(
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
-            'class'          => 'yupe\components\urlManager\LangUrlManager',
-            'languageInPath' => true,
-            'langParam'      => 'language',
+            'class'          => 'yupe\components\urlManager\LangUrlManager', //comment this if if multilingual unnecessary
+            //'class'          => 'CUrlManager', // default yii UrlManager
+            'languageInPath' => true, //comment this if if multilingual unnecessary
+            'langParam'      => 'language', //comment this if if multilingual unnecessary
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
