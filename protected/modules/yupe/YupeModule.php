@@ -19,7 +19,7 @@ use yupe\components\WebModule;
 
 class YupeModule extends WebModule
 {
-    const VERSION = '0.7-dev';
+    const VERSION = '0.7-beta-1';
 
     public $enableAssets;
     public $cache;
@@ -39,7 +39,7 @@ class YupeModule extends WebModule
     public $uploadPath = 'uploads';
     public $email;
 
-    public $availableLanguages = 'ru';
+    public $availableLanguages = 'ru, en, zh_cn';
     public $defaultLanguage = 'ru';
     public $defaultBackendLanguage = 'ru';
 
