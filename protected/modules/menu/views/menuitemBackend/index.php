@@ -86,11 +86,6 @@ $this->renderPartial('_search', array('model' => $model));
     ),
     'columns'      => array(
         array(
-            'name'   => 'menu_id',
-            'value'  => '$data->menu->name',
-            'filter' =>  CHtml::listData(Menu::model()->findAll(), 'id', 'name')
-        ),
-        array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'title',
             'editable' => array(
@@ -111,6 +106,11 @@ $this->renderPartial('_search', array('model' => $model));
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
             )
+        ),
+        array(
+            'name'   => 'menu_id',
+            'value'  => '$data->menu->name',
+            'filter' =>  CHtml::listData(Menu::model()->findAll(), 'id', 'name')
         ),
         array(
             'name'   => 'parent_id',

@@ -39,7 +39,7 @@ class YupeModule extends WebModule
     public $uploadPath = 'uploads';
     public $email;
 
-    public $availableLanguages = 'ru, en, zh_cn';
+    public $availableLanguages = 'ru,en,zh_cn';
     public $defaultLanguage = 'ru';
     public $defaultBackendLanguage = 'ru';
 
