@@ -54,7 +54,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php
         echo CHtml::image(
             !$model->isNewRecord && $model->image
-                ? $model->getImageSrc()
+                ? $model->getImageUrl()
                 : '#',
             $model->name, array(
                 'class' => 'preview-image',
