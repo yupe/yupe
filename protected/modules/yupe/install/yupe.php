@@ -18,14 +18,6 @@ return array(
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
     ),
-    'cache'     => array(
-        'class' => 'CFileCache',
-        'behaviors' => array(
-            'clear' => array(
-                'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
-            ),
-        ),
-    ),
     'preload'   => array('log'),
     'component' => array(
         // Массив компонентов, которые требует данный модуль
