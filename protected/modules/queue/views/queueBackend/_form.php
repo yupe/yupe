@@ -16,10 +16,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->errorSummary($model); ?>
 
     <div class='control-group <?php echo $model->hasErrors("worker") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'worker', array('class' => 'span7', 'maxlength'=> 11)); ?>
+        <?php echo $form->dropDownListRow($model, 'worker', Yii::app()->getModule('queue')->getWorkerNamesMap(), array('class' => 'span7', 'maxlength'=> 11, 'empty' => '---')); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("task") ? "error" : ""; ?>'>
-        <?php echo $form->textAreaRow($model, 'task', array('rows' => 6, 'cols' => 50, 'class'=> 'span8')); ?>
+        <?php echo $form->textAreaRow($model, 'task', array('rows' => 6, 'cols' => 50, 'class'=> 'span7')); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("notice") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'notice', array('class' => 'span7', 'maxlength'=> 255)); ?>

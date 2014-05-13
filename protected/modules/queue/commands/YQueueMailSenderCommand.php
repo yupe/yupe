@@ -74,7 +74,7 @@ class YQueueMailSenderCommand extends CConsoleCommand
 
             if (Yii::app()->mail->send($data['from'], $data['to'], $data['theme'], $data['body']))
             {
-                $model->status = Queue::STATUS_COMLETED;
+                $model->status = Queue::STATUS_COMPLETED;
 
                 $model->complete_time = new CDbExpression('NOW()');
 

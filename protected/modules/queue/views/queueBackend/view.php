@@ -36,7 +36,10 @@
     'data'      => $model,
     'attributes'=> array(
         'id',
-        'worker',
+        array(
+            'name'  => 'worker',
+            'value' => $model->getWorkerName()
+        ),
         'create_time',
         'task',
         'start_time',

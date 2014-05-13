@@ -46,7 +46,7 @@ $this->renderPartial('_search', array('model' => $model));
 $this->widget(
     'yupe\widgets\CustomGridView', array(
         'id'           => 'image-grid',
-        'type'         => 'condensed',
+        'type'         => 'striped condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'bulkActions'      => array(

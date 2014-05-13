@@ -73,7 +73,7 @@ $this->renderPartial('_search', array('model'=>$model));
 $this->widget(
     'yupe\widgets\CustomGridView', array(
         'id'           => 'mail-event-grid',
-        'type'         => 'condensed',
+        'type'         => 'striped condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => array(

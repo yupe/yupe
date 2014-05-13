@@ -62,7 +62,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'menu-items-grid',
-    'type'         => 'condensed striped',
+    'type'         => 'striped condensedstriped',
     'sortableRows' => true,
     'sortableAjaxSave'=>true,
     'sortableAttribute'=>'sort',

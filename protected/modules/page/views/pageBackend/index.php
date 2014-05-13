@@ -44,7 +44,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'page-grid',
-    'type'         => 'condensed',
+    'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'sortField'    => 'order',

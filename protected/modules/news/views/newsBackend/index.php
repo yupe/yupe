@@ -45,7 +45,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'news-grid',
-    'type'         => 'condensed',
+    'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'bulkActions'      => array(

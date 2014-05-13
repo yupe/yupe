@@ -30,7 +30,7 @@
 class Queue extends yupe\models\YModel
 {
     const STATUS_NEW      = 0;
-    const STATUS_COMLETED = 1;
+    const STATUS_COMPLETED = 1;
     const STATUS_PROGRESS = 2;
     const STATUS_ERROR    = 3;
 
@@ -129,7 +129,7 @@ class Queue extends yupe\models\YModel
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
-        public function getPriorityList()
+    public function getPriorityList()
     {
         return array(
             self::PRIORITY_LOW    => Yii::t('QueueModule.queue', 'Low'),
@@ -140,7 +140,7 @@ class Queue extends yupe\models\YModel
 
     public function getPriority()
     {
-        $data = $this->priorityList;
+        $data = $this->getPriorityList();
         return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('QueueModule.queue', '-unknown-');
     }
 
@@ -148,7 +148,7 @@ class Queue extends yupe\models\YModel
     {
         return array(
             self::STATUS_NEW      => Yii::t('QueueModule.queue', 'New'),
-            self::STATUS_COMLETED => Yii::t('QueueModule.queue', 'Completed'),
+            self::STATUS_COMPLETED => Yii::t('QueueModule.queue', 'Completed'),
             self::STATUS_PROGRESS => Yii::t('QueueModule.queue', 'Working'),
             self::STATUS_ERROR    => Yii::t('QueueModule.queue', 'Error'),
         );
@@ -156,7 +156,14 @@ class Queue extends yupe\models\YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('QueueModule.queue', '-unknown-');
+    }
+
+    public function getWorkerName()
+    {
+        $list = Yii::app()->getModule('queue')->getWorkerNamesMap();
+
+        return isset($list[$this->worker]) ? $list[$this->worker] : $this->worker;
     }
 }
