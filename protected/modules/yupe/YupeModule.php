@@ -344,7 +344,11 @@ class YupeModule extends WebModule
         return array(
             array(
                 'label' => Yii::t('YupeModule.yupe', 'Clean cache'),
-                'url' => 'javascript::void();',
+                'url' => array('/yupe/backend/ajaxflush', 'method' => 1),
+                'linkOptions' => array(
+                    'class' => 'flushAction',
+                    'method' => 'cacheAll',
+                ),
                 'icon' => 'trash',
                 'items' => array(
                     array(

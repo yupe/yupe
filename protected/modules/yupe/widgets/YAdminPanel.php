@@ -66,6 +66,7 @@ class YAdminPanel extends YWidget
                             'confirm_uninstall'        => Yii::t('YupeModule.yupe', 'Do you really want to delete module?') . '<br />' . Yii::t('YupeModule.yupe', 'All module parameters will be deleted'),
                             'confirm_install'          => Yii::t('YupeModule.yupe', 'Do you really want to install module?') . '<br />' . Yii::t('YupeModule.yupe', 'New module parameters will be added'),
                             'confirm_cacheFlush'       => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
+                            'confirm_cacheAll'         => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
                             'confirm_assetsFlush'      => Yii::t('YupeModule.yupe', 'Do you really want to clean assets?'),
                             'confirm_cacheAssetsFlush' => Yii::t('YupeModule.yupe', 'Do you really want to clean cache and assets?') . '<br />' . Yii::t('YupeModule.yupe', 'This process can take much time!'),
                             'unknown'                  => Yii::t('YupeModule.yupe', 'Unknown action was selected!'),

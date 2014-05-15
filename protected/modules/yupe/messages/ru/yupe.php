@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Chat' => 'Чат',
   'Allowed IP' => 'Ограничение по IP (через запятую)',
   'Tags cloud' => 'Теги',
   ' The resulting interface is well integrated into the control panel of Yupe!.' => ' Полученный интерфейс благополучно интегрируется в панель управления Юпи!.',

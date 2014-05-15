@@ -263,7 +263,7 @@ class UserModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t('UserModule.user', 'Yupe!');
+        return Yii::t('UserModule.user', 'Users');
     }
 
     public function getDescription()

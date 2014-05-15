@@ -20,13 +20,52 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
         <div class="row-fluid control-group">
             <div class="span3">
-                <?php echo $form->textFieldRow($model, 'create_time'); ?>
+                <?php echo $form->datepickerRow($model, 'create_time', array(
+                        'options' => array(
+                            'format' => 'dd-mm-yyyy',
+                            'weekStart' => 1,
+                            'autoclose' => true,
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'span11'
+                        ),
+                    ),
+                    array(
+                        'prepend' => '<i class="icon-calendar"></i>',
+                    ));
+                ?>
             </div>
             <div class="span3">
-                <?php echo $form->textFieldRow($model, 'start_time'); ?>
+                <?php echo $form->datepickerRow($model, 'start_time', array(
+                        'options' => array(
+                            'format' => 'dd-mm-yyyy',
+                            'weekStart' => 1,
+                            'autoclose' => true,
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'span11'
+                        ),
+                    ),
+                    array(
+                        'prepend' => '<i class="icon-calendar"></i>',
+                    ));
+                ?>
             </div>
             <div class="span3">
-                <?php echo $form->textFieldRow($model, 'complete_time'); ?>
+                <?php echo $form->datepickerRow($model, 'complete_time', array(
+                        'options' => array(
+                            'format' => 'dd-mm-yyyy',
+                            'weekStart' => 1,
+                            'autoclose' => true,
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'span11'
+                        ),
+                    ),
+                    array(
+                        'prepend' => '<i class="icon-calendar"></i>',
+                    ));
+                ?>
             </div>
         </div>
 

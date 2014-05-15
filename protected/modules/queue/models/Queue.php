@@ -118,10 +118,16 @@ class Queue extends yupe\models\YModel
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('worker', $this->worker, true);
-        $criteria->compare('create_time', $this->create_time, true);
+        if($this->create_time) {
+            $criteria->compare('DATE(create_time)', date('Y-m-d', strtotime($this->create_time)));
+        }
         $criteria->compare('task', $this->task, true);
-        $criteria->compare('start_time', $this->start_time, true);
-        $criteria->compare('complete_time', $this->complete_time, true);
+        if($this->start_time) {
+            $criteria->compare('DATE(start_time)', date('Y-m-d', strtotime($this->start_time)));
+        }
+        if($this->complete_time) {
+            $criteria->compare('DATE(complete_time)', date('Y-m-d', strtotime($this->complete_time)));
+        }
         $criteria->compare('status', $this->status);
         $criteria->compare('notice', $this->notice, true);
         $criteria->compare('priority', $this->priority, true);
