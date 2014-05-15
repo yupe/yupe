@@ -14,6 +14,8 @@ Yii::import('application.modules.blog.models.Post');
 
 class HomepageModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
     const MODE_POSTS = 1;
 
     const MODE_PAGE = 2;
@@ -56,6 +58,11 @@ class HomepageModule extends yupe\components\WebModule
     public function getName()
     {
         return Yii::t('HomepageModule.homepage', 'Home page');
+    }
+
+    public function getVersion()
+    {
+        return self::VERSION;
     }
 
     public function getCategory()
