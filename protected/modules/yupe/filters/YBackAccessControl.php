@@ -14,6 +14,7 @@ namespace yupe\filters;
 use CAccessControlFilter;
 use CHttpException;
 use Yii;
+use yupe\components\WebModule;
 
 class YBackAccessControl extends CAccessControlFilter
 {
@@ -35,6 +36,10 @@ class YBackAccessControl extends CAccessControlFilter
 
         Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
 
-        throw new CHttpException(404);
+        if($filterChain->controller->yupe->hidePanelUrls == WebModule::CHOICE_YES) {
+            throw new CHttpException(404);
+        }
+
+        $filterChain->controller->redirect(array('/user/account/backendlogin'));
     }
 }

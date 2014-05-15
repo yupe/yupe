@@ -12,7 +12,6 @@
 namespace yupe\filters;
 
 use CAccessControlFilter;
-use CHttpException;
 use Yii;
 
 class YFrontAccessControl extends CAccessControlFilter
@@ -25,8 +24,6 @@ class YFrontAccessControl extends CAccessControlFilter
 
         Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
 
-        Yii::app()->request->redirect('/user/account/login');
-
-        //throw new CHttpException(404);
+        Yii::app()->getRequest()->redirect('/user/account/login');
     }
 }

@@ -48,6 +48,7 @@ class YupeModule extends WebModule
     public $profileModel = 'User';
 
     public $allowedIp;
+    public $hidePanelUrls = 0;
 
     /**
      * Возвращаем версию:
@@ -202,7 +203,8 @@ class YupeModule extends WebModule
             'availableLanguages' => Yii::t('YupeModule.yupe', 'List of available languages (for example. ru,en,de)'),
             'defaultLanguage' => Yii::t('YupeModule.yupe', 'Default language'),
             'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
-            'allowedIp' => Yii::t('YupeModule.yupe', 'Allowed IP')
+            'allowedIp' => Yii::t('YupeModule.yupe', 'Allowed IP'),
+            'hidePanelUrls' => Yii::t('YupeModule.yupe', 'Hide panel urls'),
         );
     }
 
@@ -226,7 +228,8 @@ class YupeModule extends WebModule
             'availableLanguages',
             'defaultLanguage' => $this->getLanguagesList(),
             'defaultBackendLanguage' => $this->getLanguagesList(),
-            'allowedIp'
+            'allowedIp',
+            'hidePanelUrls' => $this->getChoice()
         );
     }
 
@@ -239,8 +242,9 @@ class YupeModule extends WebModule
     {
         return array(
             'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Main settings'),
+                'label' => Yii::t('YupeModule.yupe', 'Main settings admin panel'),
                 'items' => array(
+                    'hidePanelUrls',
                     'allowedIp',
                     'email',
                     'coreCacheTime'
@@ -251,11 +255,18 @@ class YupeModule extends WebModule
                 'items' => array(
                     'siteName',
                     'siteDescription',
-                    'siteKeyWords',
+                    'siteKeyWords'
+                )
+            ),
+
+            'theme' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Themes'),
+                'items' => array(
                     'theme',
                     'backendTheme'
                 )
             ),
+
             'language' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Language settings'),
                 'items' => array(
