@@ -38,7 +38,7 @@ class BackendController extends yupe\components\controllers\BackController
 
     public function actions()
     {
-        var_dump($this->module->getId());die();
+       // var_dump($this->module->getId());die();
 
         return array(
             'AjaxFileUpload' => array(
