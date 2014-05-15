@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Session expired' => 'Cессия истекла...',
   'Chat' => 'Чат',
   'Allowed IP' => 'Ограничение по IP (через запятую)',
   'Tags cloud' => 'Теги',
