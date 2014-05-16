@@ -23,7 +23,8 @@ class UserIdentity extends CUserIdentity
      **/
     public function authenticate()
     {
-        if (($user = User::model()->active()->findByAttributes(array('email' => $this->username))) === null) {
+        if (($user = User::model()->active()->findByAttributes(array('email' => $this->username))) === null
+            && ($user = User::model()->active()->findByAttributes(array('nick_name' => $this->username))) === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
             return false;
         }
