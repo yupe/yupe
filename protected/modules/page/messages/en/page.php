@@ -116,4 +116,5 @@ return array (
     'no' => '',
     'are required.' => '',
     'manage' => '',
+    'Removed' => '',
 );

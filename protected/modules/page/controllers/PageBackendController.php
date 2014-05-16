@@ -14,6 +14,16 @@ Yii::import('application.modules.menu.models.*');
  
 class PageBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Page',
+                'validAttributes' => array('title', 'slug', 'status', 'title_short')
+            )
+        );
+    }
     /**
      * @var Page $model the currently loaded data model instance.
      */

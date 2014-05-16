@@ -63,7 +63,7 @@ class News extends yupe\models\YModel
     {
         return array(
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
-            array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
+            array('title, alias, keywords, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('date, title, alias, full_text', 'required', 'on' => array('update', 'insert')),
             array('status, is_protected, category_id', 'numerical', 'integerOnly' => true),
             array('title, alias, keywords', 'length', 'max' => 150),
@@ -182,7 +182,7 @@ class News extends yupe\models\YModel
             'full_text'     => Yii::t('NewsModule.news', 'Full text'),
             'user_id'       => Yii::t('NewsModule.news', 'Author'),
             'status'        => Yii::t('NewsModule.news', 'Status'),
-            'is_protected'  => Yii::t('NewsModule.news', 'Access: * Only for authorized users'),
+            'is_protected'  => Yii::t('NewsModule.news', 'Access only for authorized'),
             'keywords'      => Yii::t('NewsModule.news', 'Keywords (SEO)'),
             'description'   => Yii::t('NewsModule.news', 'Description (SEO)'),
         );
@@ -256,7 +256,7 @@ class News extends yupe\models\YModel
 
     public function getPermaLink()
     {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('title' => $this->alias));
+        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('alias' => $this->alias));
     }
 
     public function getStatusList()

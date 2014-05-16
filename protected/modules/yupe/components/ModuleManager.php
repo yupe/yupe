@@ -20,6 +20,7 @@ use Exception;
 use GlobIterator;
 use TagsCache;
 use Yii;
+use yupe\widgets\YFlashMessages;
 
 
 class ModuleManager extends \CApplicationComponent
@@ -55,6 +56,7 @@ class ModuleManager extends \CApplicationComponent
         );
 
         $this->categorySort = array(
+            Yii::t('YupeModule.yupe', 'Users'),
             Yii::t('YupeModule.yupe', 'Content'),
             Yii::t('YupeModule.yupe', 'Structure'),
             Yii::t('YupeModule.yupe', 'Users'),
@@ -109,6 +111,7 @@ class ModuleManager extends \CApplicationComponent
                     }
                 }
 
+                $uniqueMenuId = 0;
                 // Обходим категории модулей
                 foreach ($order as $keyCategory => $valueCategory) {
                     // Настройки модуля, если таковые имеются:
@@ -120,7 +123,9 @@ class ModuleManager extends \CApplicationComponent
                         'label' => $keyCategory,
                         'url' => '#',
                         'items' => array(),
+                        'submenuOptions' => array("id"=>"mainmenu_".$uniqueMenuId)
                     );
+                    $uniqueMenuId++;
 
                     if (isset($this->categoryIcon[$keyCategory])) {
                         $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
@@ -158,6 +163,7 @@ class ModuleManager extends \CApplicationComponent
                             'icon' => $modules[$key]->icon,
                             'label' => $modules[$key]->name,
                             'url' => $modules[$key]->adminPageLinkNormalize,
+                            'submenuOptions'=>array("id"=>"submenu_".$key),
                             'items' => array(),
                         );
 
@@ -317,7 +323,7 @@ class ModuleManager extends \CApplicationComponent
             Yii::app()->cache->flush();
 
             Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
 

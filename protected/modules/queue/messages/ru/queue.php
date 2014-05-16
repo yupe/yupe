@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Delete' => 'Удалить',
+  'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
   '-unknown-' => '-неизвестно-',
   '0.1' => '0.1',
   'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.' => 'CDbQueue.connectionId "{id}" не верно. Пожалуйста буедитесь что вы ссылаетесь на верный ID компонента CDbConnection.',

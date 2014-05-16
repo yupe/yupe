@@ -44,15 +44,30 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'queue-grid',
-    'type'         => 'condensed',
+    'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('QueueModule.queue', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('QueueModule.queue', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
         'id',
         array(
             'name'   => 'worker',
-            'value'  => 'isset(Yii::app()->queue->workerNamesMap[$data->worker]) ? Yii::app()->queue->workerNamesMap[$data->worker] : $data->worker',
-            'filter' => CHtml::activeDropDownList($model, 'worker', Yii::app()->queue->workerNamesMap)
+            'value'  => '$data->getWorkerName()',
+            'filter' => Yii::app()->getModule('queue')->getWorkerNamesMap()
         ),
         'create_time',
         'start_time',
@@ -61,13 +76,13 @@ $this->renderPartial('_search', array('model' => $model));
             'name'  => 'priority',
             'type'  => 'raw',
             'value' => "'<span class=\"label label-'.(\$data->priority?((\$data->priority==Queue::PRIORITY_HIGH)?'warning':((\$data->priority==Queue::PRIORITY_LOW)?'success':'error')):'info').'\">'.\$data->getPriority().'</span>'",
-            'filter' => CHtml::activeDropDownList($model, 'priority', $model->priorityList),
+            'filter' => $model->getPriorityList(),
         ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
             'value' => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">'.\$data->getStatus().'</span>'",
-            'filter' => CHtml::activeDropDownList($model, 'status', $model->statusList),
+            'filter' => $model->getStatusList(),
         ),
         'notice',
         array(

@@ -1,7 +1,7 @@
 <li class="gallery-thumbnail span3">
     <div class="thumbnail">
         <?php echo CHtml::image(
-            $data->image->getUrl(320),
+            $data->image->getUrl(90, 90),
             $data->image->alt,
             array('title' => $data->image->alt,'href' => $data->image->getUrl(), 'class' => 'gallery-image')
         ); ?>

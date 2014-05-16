@@ -62,7 +62,7 @@ class SiteController extends Controller
 
             'criteria' => new \CDbCriteria(array(
                     'condition' => 't.status = :status',
-                    'params' => array(':status' => Post::STATUS_PUBLISHED),
+                    'params' => array(':status' => \Post::STATUS_PUBLISHED),
                     'limit' => self::POST_PER_PAGE,
                     'order' => 't.id DESC',
                     'with' => array('createUser', 'blog', 'commentsCount'),

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MenuitemBackendController контроллер для управления пунктами меню в панели управления
  *
@@ -11,9 +12,35 @@
  */
 class MenuitemBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MenuItem',
+                'validAttributes' => array('title', 'href', 'status', 'menu_id', 'sort')
+            )
+        );
+    }
+
+    public function actionSortable()
+    {
+        $sortOrder = Yii::app()->request->getPost('sortOrder');
+
+        if (empty($sortOrder)) {
+            throw new CHttpException(404);
+        }
+
+        if(MenuItem::model()->sort($sortOrder)) {
+            Yii::app()->ajax->success();
+        }
+
+        Yii::app()->ajax->failure();
+    }
+
     /**
      * Получаем JSON меню через ajax-запрос:
-     * 
+     *
      * @return void
      *
      * @throws CHttpException If not ajax/post query || record not found
@@ -24,14 +51,14 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             throw new CHttpException(404);
         }
 
-        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) !== null){
+        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) !== null) {
             throw new CHttpException(404);
         }
 
         $items = MenuItem::model()->public()->findAll(
             array(
                 'condition' => 'menu_id = :menu_id',
-                'order'  => 'title DESC',
+                'order' => 'title DESC',
                 'params' => array(
                     ':menu_id' => $menuId
                 )
@@ -40,14 +67,16 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
         Yii::app()->ajax->success(
             CHtml::listData(
-                $items, 'id', 'title'
+                $items,
+                'id',
+                'title'
             )
         );
     }
 
     /**
      * Отображает пункт меню по указанному идентификатору
-     * 
+     *
      * @param integer $id Идинтификатор меню для отображения
      *
      * @return void
@@ -70,7 +99,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         $model->menu_id = Yii::app()->getRequest()->getQuery('mid', null);
-        
+
         if (($data = Yii::app()->getRequest()->getPost('MenuItem')) !== null) {
 
             $model->setAttributes($data);
@@ -83,8 +112,9 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -93,7 +123,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         $criteria = new CDbCriteria;
 
         $criteria->select = new CDbExpression('MAX(sort) as sort');
-        
+
         $max = $model->find($criteria);
 
         $model->sort = $max->sort + 1; // Set sort in Adding Form as ma x+ 1
@@ -103,7 +133,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
     /**
      * Редактирование пункта меню.
-     * 
+     *
      * @param integer $id Идинтификатор пункта меню для редактирования
      *
      * @return void
@@ -126,8 +156,9 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -139,7 +170,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     /**
      * Удаляет модель пункта меню из базы.
      * Если удаление прошло успешно - возвращется в index
-     * 
+     *
      * @param integer $id идентификатор пункта меню, который нужно удалить
      *
      * @return void
@@ -159,7 +190,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -177,13 +208,13 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     public function actionIndex()
     {
         $model = new MenuItem('search');
-        
-        $model->unsetAttributes();  // clear any default values
-        
+
+        $model->unsetAttributes(); // clear any default values
+
         if (($data = Yii::app()->getRequest()->getParam('MenuItem')) !== null) {
             $model->setAttributes($data);
         }
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -194,18 +225,21 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
      */
     public function actionDynamicParent()
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && ($data = Yii::app()->getRequest()->getParam('MenuItem')) !== null) {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && ($data = Yii::app()->getRequest()->getParam(
+                'MenuItem'
+            )) !== null
+        ) {
             $model = new MenuItem('search');
-            
+
             $model->setAttributes($data);
-            
+
             if ($model->menu_id) {
                 if (isset($_GET['id'])) {
                     $model->id = $_GET['id'];
                 }
 
                 $data = $model->parentTree;
-                
+
                 foreach ($data as $value => $name) {
                     echo CHtml::tag('option', array('value' => $value), $name, true);
                 }
@@ -218,7 +252,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * 
+     *
      * @param integer идентификатор нужной модели
      *
      * @return void
@@ -239,14 +273,17 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
     /**
      * Производит AJAX-валидацию
-     * 
+     *
      * @param MenuItem модель, которую необходимо валидировать
      *
      * @return void
      */
     protected function performAjaxValidation(MenuItem $model)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'menuitem-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+                'ajax'
+            ) === 'menuitem-form'
+        ) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

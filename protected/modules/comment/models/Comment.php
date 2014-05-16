@@ -299,7 +299,7 @@ class Comment extends yupe\models\YModel
             return CHtml::link($this->name, $this->url, $params);
         }
 
-        return null;
+        return $this->name;
     }
 
     public function getAuthorUrl(array $params = array('rel' => 'nofollow'))
@@ -378,13 +378,13 @@ class Comment extends yupe\models\YModel
         return $level > 0 ? $level : 0;
     }
 
-    public function getTarget()
+    public function getTarget(array $with = array())
     {
         $model = CActiveRecord::model($this->model);
 
         if ($model instanceof ICommentable) {
 
-            $model = $model->findByPk($this->model_id);
+            $model = $model->with($with)->findByPk($this->model_id);
 
             if (null === $model) {
                 return $this->model;
@@ -409,14 +409,14 @@ class Comment extends yupe\models\YModel
     }
 
 
-    public function getTargetTitleLink()
+    public function getTargetTitleLink(array $options = null)
     {
         $target = $this->getTarget();
 
         if (is_object($target)) {
-            return CHtml::link($target->getTitle(), $target->getLink());
+            return CHtml::link($target->getTitle(), $target->getLink(), $options);
         }
 
-        return $target->model;
+        return $target;
     }
 }

@@ -44,13 +44,6 @@ class CommentManager extends CApplicationComponent
 
             if($comment->appendTo($root)){
 
-                $transaction->commit();
-                // сбросить кэш
-                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
-
-                // метка для проверки спама
-                Yii::app()->cache->set('Comment::Comment::spam::'.$user->getId(), time(), (int)$module->antiSpamInterval);
-
                 //events
                 $event = new NewCommentEvent;
                 $event->comment = $comment;
@@ -58,12 +51,21 @@ class CommentManager extends CApplicationComponent
 
                 $this->onNewComment($event);
 
+                $transaction->commit();
+                // сбросить кэш
+                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
+
+                // метка для проверки спама
+                Yii::app()->cache->set('Comment::Comment::spam::'.$user->getId(), time(), (int)$module->antiSpamInterval);
+
                 return $comment;
             }
 
             throw new CDbException(Yii::t('CommentModule.comment','Error append comment to root!'));
 
         }catch (Exception $e) {
+
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR, 'comment');
 
             $transaction->rollback();
 

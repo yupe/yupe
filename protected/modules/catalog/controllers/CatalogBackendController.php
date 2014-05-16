@@ -11,6 +11,16 @@
  */
 class CatalogBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Good',
+                'validAttributes' => array('name', 'alias', 'price', 'article', 'status')
+            )
+        );
+    }
     /**
      * Отображает товар по указанному идентификатору
      * @param integer $id Идинтификатор товар для отображения

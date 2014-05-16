@@ -14,6 +14,8 @@ use yupe\components\WebModule;
 
 class CategoryModule extends WebModule
 {
+    const VERSION = '0.7';
+
     public $uploadPath = 'category';
 
     public function checkSelf()
@@ -69,7 +71,7 @@ class CategoryModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('CategoryModule.category', '0.6');
+        return self::VERSION;
     }
 
     public function getCategory()

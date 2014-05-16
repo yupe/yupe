@@ -224,11 +224,13 @@ class Good extends yupe\models\YModel
     {
         $this->change_user_id = Yii::app()->user->getId();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->user_id = $this->change_user_id;
+        }
 
-        if (!$this->alias)
+        if (!$this->alias) {
             $this->alias = yupe\helpers\YText::translit($this->name);
+        }
 
         return parent::beforeValidate();
     }
@@ -249,7 +251,7 @@ class Good extends yupe\models\YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 
@@ -263,7 +265,7 @@ class Good extends yupe\models\YModel
 
     public function getSpecial()
     {
-        $data = $this->specialList;
+        $data = $this->getSpecialList();
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 

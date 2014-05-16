@@ -56,7 +56,10 @@ $this->menu = array(
         'attributes' => array(
             'id',
             'name',
-            'description',
+            array(
+                'name' => 'description',
+                'type' => 'raw'
+            ),
             array(
                 'name'  => Yii::t('BlogModule.blog', 'Posts'),
                 'value' => $model->postsCount

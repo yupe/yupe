@@ -12,7 +12,7 @@
         array('label' => Yii::t('PageModule.page', 'Page') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('PageModule.page', 'Edit page'), 'url' => array(
             '/page/pageBackend/update',
-            'slug'=> $model->slug
+            'id'=> $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('PageModule.page', 'Show page'), 'url' => array(
             '/page/pageBackend/view',
@@ -35,7 +35,7 @@
 
 <h2><?php echo $model->title; ?></h2>
 
-<small><?php echo Yii::t('PageModule.page', 'Author'); ?>: <?php echo $model->changeAuthor->getFullName(); ?></small>
+<small><?php echo Yii::t('PageModule.page', 'Author'); ?>: <?php echo ($model->changeAuthor instanceof User) ? $model->changeAuthor->getFullName() : Yii::t('PageModule.page', 'Removed'); ?></small>
 <br /><br />
 
 <p><?php echo $model->body; ?></p>

@@ -1,6 +1,6 @@
 <script type='text/javascript'>
     $(document).ready(function () {
-        $('#post-form').liTranslit({
+        $('#blog-form').liTranslit({
             elName: '#Blog_name',
             elAlias: '#Blog_slug'
         });

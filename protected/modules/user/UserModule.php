@@ -148,7 +148,7 @@ class UserModule extends WebModule
             'avatarsDir',
             'showCaptcha'              => $this->getChoice(),
             'minCaptchaLength',
-            'maxCaptchaLength',            
+            'maxCaptchaLength',
             'minPasswordLength',
             'autoRecoveryPassword'     => $this->getChoice(),
             'recoveryDisabled'         => $this->getChoice(),
@@ -263,7 +263,7 @@ class UserModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t('UserModule.user', 'Yupe!');
+        return Yii::t('UserModule.user', 'Users');
     }
 
     public function getDescription()
@@ -315,7 +315,8 @@ class UserModule extends WebModule
         $this->setImport(array(
             'user.models.*',
             'user.components.*',
-            'user.widgets.AvatarWidget'
+            'user.widgets.AvatarWidget',
+            'yupe.YupeModule'
         ));
 
         parent::init();

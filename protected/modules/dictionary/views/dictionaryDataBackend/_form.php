@@ -24,8 +24,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class='control-group <?php echo $model->hasErrors("group_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
+    <div class="row-fluid control-group">
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+        </div>
     </div>
 
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
@@ -49,9 +54,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             )); ?>
         </div>
     </div>
-    <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
-    </div>
+
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',

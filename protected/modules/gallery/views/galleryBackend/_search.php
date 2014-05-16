@@ -6,10 +6,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions' => array('class' => 'well'),
 )); ?>
     <fieldset class="inline">
-        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => 10, 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id'))); ?>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
         <?php echo $form->textAreaRow($model, 'description', array('class' => 'span5 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '----', 'class' => 'span5')); ?>
     </fieldset>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

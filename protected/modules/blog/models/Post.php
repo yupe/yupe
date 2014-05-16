@@ -251,7 +251,9 @@ class Post extends yupe\models\YModel implements ICommentable
         $criteria->compare('t.create_date', $this->create_date);
         $criteria->compare('t.update_date', $this->update_date);
         $criteria->compare('t.slug', $this->slug, true);
-        $criteria->compare('publish_date', $this->publish_date, true);
+        if($this->publish_date) {
+            $criteria->compare('DATE(from_unixtime(publish_date))', date('Y-m-d', strtotime($this->publish_date)));
+        }
         $criteria->compare('title', $this->title, true);
         $criteria->compare('quote', $this->quote, true);
         $criteria->compare('content', $this->content, true);

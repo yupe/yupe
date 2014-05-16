@@ -35,7 +35,8 @@ class FeedbackModule extends WebModule
     {
         return array(
             'category',
-            'user'
+            'user',
+            'mail'
         );
     }
 
@@ -190,6 +191,16 @@ class FeedbackModule extends WebModule
     {
         return 'envelope';
     }
+   
+    /**
+     * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
+     *
+     * @return bool
+     **/
+    public function getIsInstallDefault()
+    {
+        return true;
+    }   
    
     public function init()
     {

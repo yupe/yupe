@@ -10,9 +10,10 @@
  * @since 0.1
  *
  */
-
 class ContentBlockModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
     public function getCategory()
     {
         return Yii::t('ContentBlockModule.contentblock', 'Content');
@@ -30,7 +31,7 @@ class ContentBlockModule extends yupe\components\WebModule
 
     public function getVersion()
     {
-        return Yii::t('ContentBlockModule.contentblock', '0.6');
+        return self::VERSION;
     }
 
     public function getAuthor()
@@ -57,9 +58,11 @@ class ContentBlockModule extends yupe\components\WebModule
     {
         parent::init();
 
-        $this->setImport(array(
-            'contentblock.models.*',           
-        ));
+        $this->setImport(
+            array(
+                'contentblock.models.*',
+            )
+        );
     }
 
     public function getAdminPageLink()
@@ -70,8 +73,21 @@ class ContentBlockModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'), 'url' => array('/contentblock/contentBlockBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'), 'url' => array('/contentblock/contentBlockBackend/create')),
+            array(
+                'icon' => 'list-alt',
+                'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'),
+                'url' => array('/contentblock/contentBlockBackend/index')
+            ),
+            array(
+                'icon' => 'plus-sign',
+                'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'),
+                'url' => array('/contentblock/contentBlockBackend/create')
+            ),
         );
     }
+
+	public function getIsInstallDefault()
+	{
+		return true;
+	}
 }

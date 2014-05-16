@@ -66,7 +66,7 @@ $this->renderPartial('_search', array('model' => $model));
 <?php $this->widget(
     'yupe\widgets\CustomGridView', array(
         'id'           => 'user-to-blog-grid',
-        'type'         => 'condensed',
+        'type'         => 'striped condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'bulkActions'      => array(
@@ -85,7 +85,12 @@ $this->renderPartial('_search', array('model' => $model));
             ),
         ),
         'columns'      => array(
-            'id',
+            array(
+                'name' => 'id',
+                'htmlOptions' => array(
+                    'style' => 'width:10px;'
+                )
+            ),
             array(
                 'name'   => 'user_id',
                 'type'   => 'raw',
@@ -133,7 +138,7 @@ $this->renderPartial('_search', array('model' => $model));
             'note',
             array(
                 'name'  => 'create_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "medium", "short")',
             ),
             array(
                 'name'  => 'update_date',

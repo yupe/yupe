@@ -240,12 +240,15 @@ Yii::app()->clientScript->registerScript(
             switch ($(this).attr('id')) {
                 case 'recom-check':
                     $("{$modulesSelection['recom']}").prop('checked', true);
+                    $('#module_{$keyDependencies}').change();
                     break;
                 case 'all-check':
                     $("{$modulesSelection['all']}").prop('checked', true);
+                    $('#module_{$keyDependencies}').change();
                     break;
                 case 'basic-check':
                     $("{$modulesSelection['basic']}").prop('checked', true);
+                    $('#module_{$keyDependencies}').change();
                     break;
             }
             checkedCount();

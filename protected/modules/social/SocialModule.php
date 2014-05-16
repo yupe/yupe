@@ -26,7 +26,7 @@ class SocialModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t('SocialModule.social', 'Сервисы');
+        return Yii::t('SocialModule.social', 'Users');
     }
 
     public function getName()

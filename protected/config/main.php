@@ -68,6 +68,8 @@ return array(
             'ipFilters'=>array(),
         ),*/
     ),
+
+    //comment this behaviors if multilingual unnecessary
     'behaviors' => array(
         'onBeginRequest' => array(
             'class' => 'yupe\components\urlManager\LanguageBehavior'
@@ -78,6 +80,7 @@ return array(
     'components' => array(
         'debug' => array(
             'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'internalUrls' => false,
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
@@ -112,9 +115,10 @@ return array(
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
-            'class'          => 'yupe\components\urlManager\LangUrlManager',
-            'languageInPath' => true,
-            'langParam'      => 'language',
+            'class'          => 'yupe\components\urlManager\LangUrlManager', //comment this if if multilingual unnecessary
+            //'class'          => 'CUrlManager', // default yii UrlManager
+            'languageInPath' => true, //comment this if if multilingual unnecessary
+            'langParam'      => 'language', //comment this if if multilingual unnecessary
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
@@ -131,6 +135,7 @@ return array(
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
                 '/gii/<controller:\w+>/<action:\w+>'                              => 'gii/<controller>/<action>',
                 '/site/<action:\w+>'                                              => 'site/<action>',
+                '/debug/<controller:\w+>/<action:\w+>'                            => 'debug/<controller>/<action>', // Для  YiiDebugPanel
             )
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security

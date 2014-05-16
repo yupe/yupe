@@ -120,7 +120,7 @@ function sendFlush(link) {
         dataType: 'json',
         error: function(data) {
             $(myDialog).find('.modal-body').html(
-                typeof data.data == 'undefined' ? actionToken.error : data.data
+                 data.data ? data.data : actionToken.error
             );
             $(myDialog).find('div.modal-footer a.btn').show();
             $(myDialog).find('div.modal-footer img').hide();

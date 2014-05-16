@@ -61,7 +61,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'user-grid',
-    'type'         => 'condensed',
+    'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(

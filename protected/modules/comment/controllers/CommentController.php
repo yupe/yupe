@@ -114,32 +114,53 @@ class CommentController extends yupe\components\controllers\FrontController
 
         $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->returnUrl);
 
-        if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
+        try
+        {
+            if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
 
-            $commentContent = $comment->status == Comment::STATUS_APPROVED ? $this->_renderComment($comment) : '';
+                $commentContent = $comment->status == Comment::STATUS_APPROVED ? $this->_renderComment($comment) : '';
 
-            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
-                Yii::app()->ajax->success(
-                    array(
-                        'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
-                        'comment' => array(
-                            'parent_id' => $comment->parent_id
-                        ),
-                        'commentContent' => $commentContent
-                    )
+                    Yii::app()->ajax->success(
+                        array(
+                            'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
+                            'comment' => array(
+                                'parent_id' => $comment->parent_id
+                            ),
+                            'commentContent' => $commentContent
+                        )
+                    );
+                }
+
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('CommentModule.comment', 'You record was created. Thanks.')
                 );
+
+                $this->redirect($redirect);
+
+            } else {
+
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+
+                    Yii::app()->ajax->failure(
+                        array(
+                            'message' => Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                        )
+                    );
+                }
+
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                );
+
+                $this->redirect($redirect);
             }
-
-            Yii::app()->getUser()->setFlash(
-                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('CommentModule.comment', 'You record was created. Thanks.')
-            );
-
-            $this->redirect($redirect);
-
-        } else {
-
+        }
+        catch(Exception $e)
+        {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
                 Yii::app()->ajax->failure(

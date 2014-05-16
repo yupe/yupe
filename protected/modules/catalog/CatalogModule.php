@@ -13,7 +13,9 @@
 use yupe\components\WebModule;
 
 class CatalogModule extends WebModule
-{   
+{
+    const VERSION = '0.7';
+
     public $uploadPath        = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
@@ -99,7 +101,7 @@ class CatalogModule extends WebModule
     
     public function getVersion()
     {
-        return '0.6';
+        return self::VERSION;
     }
 
     public function getCategory()
@@ -144,7 +146,6 @@ class CatalogModule extends WebModule
         $this->setImport(array(
             'catalog.models.*',
             'catalog.components.*',
-            //'category.models.*',
         ));
     }  
 }

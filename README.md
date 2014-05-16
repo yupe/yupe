@@ -10,17 +10,17 @@
 
 **Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 
 
-**Юпи! — простая и легкая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
+**Юпи! — простая и быстрая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
 * сайты-визитки
 * корпоративные порталы
-* коллективные и персональные блоги
+* блоги / сообщества
 * каталоги товаров
 
 
-**На Юпи! уже работает более 350 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
+**На Юпи! уже работает более 450 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yii
 
@@ -44,6 +44,7 @@
 Ссылки
 ------
 * [Официальный сайт](http://yupe.ru/)
+* [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
 * [Документация](http://yupe.ru/docs/index.html)
@@ -59,7 +60,7 @@
 Возможности
 -----------
 
-Из коробки Вы получаете каркас приложения, со следующим уже готовым
+Из коробки Вы получаете каркас Yii-приложения, со следующим уже готовым
 функционалом (всё разделено на модули - используйте только то, что необходимо):
 
 * [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
@@ -74,8 +75,9 @@
 * Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
 * Модуль для работы с блоками контента ([модуль contentblock](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
 * Wiki - работает через [модуль yeeki](http://rmcreative.ru/blog/post/yeeki).
-* Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums)).
+* Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums/5)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
+* Авторизация через социальные сети (с использованием nodge/yii-eauth)
 
 **Если Вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
 
@@ -88,6 +90,6 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
 
 
-(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+(c) 2009 - 2014 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
 ![amyLabs](http://amylabs.ru/images/logo.png)
