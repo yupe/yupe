@@ -29,14 +29,14 @@
  */
 class Queue extends yupe\models\YModel
 {
-    const STATUS_NEW      = 0;
+    const STATUS_NEW = 0;
     const STATUS_COMPLETED = 1;
     const STATUS_PROGRESS = 2;
-    const STATUS_ERROR    = 3;
+    const STATUS_ERROR = 3;
 
     const PRIORITY_NORMAL = 1;
-    const PRIORITY_LOW    = 0;
-    const PRIORITY_HIGH   = 2;
+    const PRIORITY_LOW = 0;
+    const PRIORITY_HIGH = 2;
 
     public function beforeSave()
     {
@@ -76,7 +76,7 @@ class Queue extends yupe\models\YModel
         return array(
             array('worker, task', 'required'),
             array('status, worker, priority', 'numerical', 'integerOnly' => true),
-            array('status', 'in', 'range'  => array_keys($this->statusList)),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('priority', 'in', 'range' => array_keys($this->priorityList)),
             array('notice', 'length', 'max' => 255),
             array('start_time, complete_time', 'safe'),
@@ -92,15 +92,15 @@ class Queue extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('QueueModule.queue', 'ID'),
-            'worker'        => Yii::t('QueueModule.queue', 'Handler'),
-            'create_time'   => Yii::t('QueueModule.queue', 'Created at'),
-            'task'          => Yii::t('QueueModule.queue', 'Task.'),
-            'start_time'    => Yii::t('QueueModule.queue', 'Start'),
+            'id' => Yii::t('QueueModule.queue', 'ID'),
+            'worker' => Yii::t('QueueModule.queue', 'Handler'),
+            'create_time' => Yii::t('QueueModule.queue', 'Created at'),
+            'task' => Yii::t('QueueModule.queue', 'Task.'),
+            'start_time' => Yii::t('QueueModule.queue', 'Start'),
             'complete_time' => Yii::t('QueueModule.queue', 'Completing'),
-            'status'        => Yii::t('QueueModule.queue', 'Status'),
-            'notice'        => Yii::t('QueueModule.queue', 'Notice'),
-            'priority'      => Yii::t('QueueModule.queue', 'Priority'),
+            'status' => Yii::t('QueueModule.queue', 'Status'),
+            'notice' => Yii::t('QueueModule.queue', 'Notice'),
+            'priority' => Yii::t('QueueModule.queue', 'Priority'),
         );
     }
 
@@ -118,29 +118,34 @@ class Queue extends yupe\models\YModel
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('worker', $this->worker, true);
-        if($this->create_time) {
+        if ($this->create_time) {
             $criteria->compare('DATE(create_time)', date('Y-m-d', strtotime($this->create_time)));
         }
         $criteria->compare('task', $this->task, true);
-        if($this->start_time) {
+        if ($this->start_time) {
             $criteria->compare('DATE(start_time)', date('Y-m-d', strtotime($this->start_time)));
         }
-        if($this->complete_time) {
+        if ($this->complete_time) {
             $criteria->compare('DATE(complete_time)', date('Y-m-d', strtotime($this->complete_time)));
         }
         $criteria->compare('status', $this->status);
         $criteria->compare('notice', $this->notice, true);
         $criteria->compare('priority', $this->priority, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => 'id DESC'
+            )
+        ));
     }
 
     public function getPriorityList()
     {
         return array(
-            self::PRIORITY_LOW    => Yii::t('QueueModule.queue', 'Low'),
+            self::PRIORITY_LOW => Yii::t('QueueModule.queue', 'Low'),
             self::PRIORITY_NORMAL => Yii::t('QueueModule.queue', 'Normal'),
-            self::PRIORITY_HIGH   => Yii::t('QueueModule.queue', 'High'),
+            self::PRIORITY_HIGH => Yii::t('QueueModule.queue', 'High'),
         );
     }
 
@@ -153,10 +158,10 @@ class Queue extends yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_NEW      => Yii::t('QueueModule.queue', 'New'),
+            self::STATUS_NEW => Yii::t('QueueModule.queue', 'New'),
             self::STATUS_COMPLETED => Yii::t('QueueModule.queue', 'Completed'),
             self::STATUS_PROGRESS => Yii::t('QueueModule.queue', 'Working'),
-            self::STATUS_ERROR    => Yii::t('QueueModule.queue', 'Error'),
+            self::STATUS_ERROR => Yii::t('QueueModule.queue', 'Error'),
         );
     }
 
@@ -172,4 +177,38 @@ class Queue extends yupe\models\YModel
 
         return isset($list[$this->worker]) ? $list[$this->worker] : $this->worker;
     }
+
+    public function getTasksForWorker($worker, $limit = 10)
+    {
+        return $this->findAll(array(
+            'condition' => 'worker = :worker AND status = :status',
+            'params' => array(
+                ':worker' => (int)$worker,
+                ':status' => Queue::STATUS_NEW
+            ),
+            'limit' => (int)$limit,
+            'order' => 'priority, id desc'
+        ));
+    }
+
+    public function decodeJson()
+    {
+        return (array) json_decode($this->task);
+    }
+
+    public function completeWithError($notice, $status = self::STATUS_ERROR)
+    {
+        $this->notice = $notice;
+        $this->status = (int)$status;
+        $this->complete_time = new CDbExpression('NOW()');
+        return $this->save();
+    }
+
+    public function complete()
+    {
+        $this->status = self::STATUS_COMPLETED;
+        $this->complete_time = new CDbExpression('NOW()');
+        return $this->save();
+    }
+
 }
