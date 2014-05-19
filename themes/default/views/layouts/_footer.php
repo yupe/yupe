@@ -67,7 +67,7 @@
                 ); ?>
             </li>
             <li class="pull-right">
-                © 2009 - <?php echo date('Y'); ?> <?php echo CHtml::link(
+                © 2010 - <?php echo date('Y'); ?> <?php echo CHtml::link(
                     'amyLabs',
                     'http://amylabs.ru?from=yupe'
                 ); ?>

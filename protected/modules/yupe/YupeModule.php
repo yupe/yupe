@@ -401,6 +401,11 @@ class YupeModule extends WebModule
                 )
             ),
             array(
+                'icon'  => "th",
+                'label' => Yii::t('YupeModule.yupe', 'Modules'),
+                'url'   => array('/yupe/backend/settings'),
+            ),
+            array(
                 'icon'  => 'picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
                 'url'   => array('/yupe/backend/themesettings'),
@@ -412,11 +417,6 @@ class YupeModule extends WebModule
                     '/yupe/backend/modulesettings',
                     'module' => 'yupe',
                 ),
-            ),
-            array(
-                'icon'  => "wrench",
-                'label' => Yii::t('YupeModule.yupe', 'Modules'),
-                'url'   => array('/yupe/backend/settings'),
             ),
             array(
                 'icon'  => "exclamation-sign",
