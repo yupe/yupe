@@ -163,4 +163,54 @@ abstract class YModel extends CActiveRecord
 
         return parent::cache($duration, $chain, $queryCount);
     }
+
+	/**
+	 * Выборка (scope) по условию, опубликована ли запись
+	 * Предварительно проверяется, есть ли у модели необходимые для проверки атрибуты.
+	 *
+	 * @author Zalatov A.
+	 *
+	 * @return $this
+	 */
+	public function published() {
+		$condition = array();// Список условий
+
+		$tableAlias = $this->getTableAlias();// Получаем alias для модели, если, вдруг, модель подключена через relations
+
+		// -- Если есть атрибут публикации, проверяем его
+		if ($this->hasAttribute('is_published')) {// Проверяем флаг "опубликовано"
+			$condition['publish'] = '`' . $tableAlias . '`.`is_published` = 1';
+		} else if ($this->hasAttribute('publish_stamp')) {// Проверяем поле "дата публикации"
+			$condition['publish'] = '`' . $tableAlias . '`.`publish_stamp` IS NOT NULL';
+		}
+		// -- -- -- --
+
+		// -- Если есть атрибут проверки администратором, проверяем его
+		if ($this->hasAttribute('is_approved')) {// Проверяем флаг "проверено"
+			$condition['publish'] = '`' . $tableAlias . '`.`is_approved` = 1';
+		} else if ($this->hasAttribute('approve_stamp')) {// Проверяем поле "дата проверки"
+			$condition['publish'] = '`' . $tableAlias . '`.`approve_stamp` IS NOT NULL';
+		}
+		// -- -- -- --
+
+		// -- Если есть аттрибут удаления записи, проверяем его
+		if ($this->hasAttribute('is_deleted')) {// Проверяем флаг "удалено"
+			$condition['delete'] = '`' . $tableAlias . '`.`is_deleted` = 0';
+		} else if ($this->hasAttribute('delete_stamp')) {// Проверяем поле "Дата удаления"
+			$condition['delete'] = '`' . $tableAlias . '`.`delete_stamp` IS NULL';
+		}
+		// -- -- -- --
+
+		// -- Если у модели есть атрибуты для проверки, объединяем их в критерию
+		if (count($condition) != 0) {
+			$condition = implode(' AND ', $condition);
+
+			$this->getDbCriteria()->mergeWith(array(
+				'condition' => $condition,
+			));
+		}
+		// -- -- -- --
+
+		return $this;
+	}
 }
