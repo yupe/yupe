@@ -26,6 +26,21 @@ use Yii;
 abstract class YModel extends CActiveRecord
 {
     public $cacheKey = false;
+
+	/**
+	 * Получение ссылки на объект модели
+	 * Это позволяет не писать каждый раз publiс static model в моделях Yii.
+	 *
+	 * @author Zalatov A.
+	 *
+	 * @param string $class_name Если необходимо, можно вручную указать имя класса
+	 * @return $this
+	 */
+	public static function model($class_name = null) {
+		if ($class_name === null) $class_name = get_called_class();
+		return parent::model($class_name);
+	}
+
     /**
      * Функция получения id-модуля:
      *
