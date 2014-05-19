@@ -419,7 +419,7 @@ class YupeModule extends WebModule
                 ),
             ),
             array(
-                'icon'  => "exclamation-sign",
+                'icon'  => "question-sign",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                 'url'   => array('/yupe/backend/help'),
             )

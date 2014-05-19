@@ -12,6 +12,8 @@
 
 class MailModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
 	public function getParamsLabels()
 	{
 		return array(
@@ -35,7 +37,7 @@ class MailModule extends yupe\components\WebModule
      **/
     public function getVersion()
     {
-        return Yii::t('MailModule.mail', '0.6');
+        return self::VERSION;
     }
 
     /**

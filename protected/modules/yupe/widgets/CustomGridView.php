@@ -88,6 +88,8 @@ class CustomGridView extends \TbExtendedGridView
 
     public $ajaxUrl;
 
+
+
     /**
      * Widget initialization
      *
@@ -101,7 +103,25 @@ class CustomGridView extends \TbExtendedGridView
         $this->ajaxUrl = empty($this->ajaxUrl)
             ? (array) Yii::app()->controller->action->id
             : $this->ajaxUrl;
-        parent::init();
+
+        $this->bulkActions = empty($this->bulkActions) ? array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('YupeModule.yupe', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('YupeModule.yupe', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        )) : $this->bulkActions;
+
+        $this->type = empty($this->type) ? 'striped condensed' : $this->type;
+
+        $this->bulkActionAlign = 'left';
 
         // live hack before yii 1.1.15 release:
         strtolower($this->ajaxType) != 'post' || $this->beforeAjaxUpdate = 'function(id, options) {
@@ -111,6 +131,8 @@ class CustomGridView extends \TbExtendedGridView
                 )
             ) . ');
         }';
+
+        parent::init();
     }
 
     /**

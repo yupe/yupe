@@ -64,24 +64,8 @@ $this->renderPartial('_search', array('model' => $model));
 <?php $this->widget(
     'yupe\widgets\CustomGridView', array(
         'id'               => 'blog-grid',
-        'type'             => 'striped condensedstriped',
         'dataProvider'     => $model->search(),
         'filter'           => $model,
-        'bulkActions'      => array(
-            'actionButtons' => array(
-                array(
-                    'id'         => 'delete-post',
-                    'buttonType' => 'button',
-                    'type'       => 'danger',
-                    'size'       => 'small',
-                    'label'      => Yii::t('BlogModule.blog', 'Remove'),
-                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('BlogModule.blog', 'Do you really want to delete selected items?') . '")) return false; multiaction("delete", values); }',
-                ),
-            ),
-            'checkBoxColumnConfig' => array(
-                'name' => 'id'
-            ),
-        ),
         'columns' => array(
             array(
                 'name'  => 'id',
