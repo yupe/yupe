@@ -17,15 +17,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->errorSummary($model); ?>
 
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status')) ? 'error' : ''; ?>">
-        <div class="span6">
-            <?php echo $form->dropDownListRow($model, 'type', Yii::app()->getModule('feedback')->types, array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model, 'type', Yii::app()->getModule('feedback')->types, array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
         </div>
-        <div class="span6">
-            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model,'category_id',Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help span12', 'data-original-title' => $model->getAttributeLabel('category_id'), 'encode' => false, 'data-content' => $model->getAttributeDescription('category_id'))); ?>
         </div>
-    </div>
-    <div class="row-fluid control-group  <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model,'category_id',Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help span12', 'data-original-title' => $model->getAttributeLabel('name'), 'encode' => false, 'data-content' => $model->getAttributeDescription('name'))); ?>
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+        </div>
     </div>
     <div class="row-fluid control-group  <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span12', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
@@ -69,7 +69,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="row-fluid control-group  <?php echo $model->hasErrors('is_faq') ? 'error' : ''; ?>">
         <?php echo $form->checkBoxRow($model, 'is_faq', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('is_faq'), 'data-content' => $model->getAttributeDescription('is_faq'))); ?>
     </div>
-    <?php if ($model->status == FeedBack::STATUS_ANSWER_SENDED): ?>
+    <?php if ($model->status == FeedBack::STATUS_ANSWER_SENDED && isset($model->answer_user)): ?>
         <div class="row-fluid control-group">
             <div class="span7">
                 <label><?php echo Yii::t('FeedbackModule.feedback', 'Ответил'); ?> <?php echo CHtml::link($model->getAnsweredUser()->nick_name, array( '/user/userBackend/view', 'id' => $model->answer_user )); ?> (<?php echo $model->answer_date; ?>)</label>
