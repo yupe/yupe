@@ -73,4 +73,9 @@ class SocialModule extends WebModule
     {
         parent::init();
     }
+
+	public function getIsInstallDefault()
+	{
+		return true;
+	}
 }
