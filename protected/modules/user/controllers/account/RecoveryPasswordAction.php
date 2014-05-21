@@ -23,7 +23,7 @@ class RecoveryPasswordAction extends CAction
     public function run($token)
     {
         if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->controller->redirect(Yii::app()->user->returnUrl);
+            $this->controller->redirect( Yii::app()->getUser()->getReturnUrl());
         }
 
         $module = Yii::app()->getModule('user');
