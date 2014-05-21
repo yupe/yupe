@@ -320,6 +320,7 @@ class ModuleManager extends \CApplicationComponent
                 Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
             }
         } catch (Exception $e) {
+
             Yii::app()->cache->flush();
 
             Yii::app()->user->setFlash(
@@ -327,9 +328,9 @@ class ModuleManager extends \CApplicationComponent
                 $e->getMessage()
             );
 
-            return Yii::app()->controller->redirect(
-                Yii::app()->getRequest()->url
-            );
+            Yii::log($e->__toString(), \CLogger::LEVEL_ERROR);
+
+            return false;
         }
 
         return $modules;
