@@ -26,6 +26,18 @@ use yupe\models\Settings;
 
 class BackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'AjaxFileUpload' => array(
+                'class' => 'yupe\components\actions\YAjaxFileUploadAction',
+                'maxSize' => $this->module->maxSize,
+                'mimeTypes' => $this->module->mimeTypes,
+                'types' => $this->module->allowedExtensions
+            ),
+        );
+    }
+
     /**
      * Экшен главной страницы панели управления:
      *
@@ -522,7 +534,7 @@ class BackendController extends yupe\components\controllers\BackController
                 try {
                     Yii::app()->cache->flush();
                     $this->_cleanAssets();
-                    if(Yii::app()->configManager->isCached()) {
+                    if (Yii::app()->configManager->isCached()) {
                         Yii::app()->configManager->flushDump(true);
                     }
                     Yii::app()->ajax->success(
