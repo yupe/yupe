@@ -51,7 +51,7 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/#!/yupe'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/yupecms'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
 
 <br/><br/>
 
