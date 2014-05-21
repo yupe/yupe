@@ -36,26 +36,6 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render('index', Yii::app()->moduleManager->getModules(false, true));
     }
 
-    public function actions()
-    {
-        // var_dump($this->module->getId());die();
-
-        return array(
-            'AjaxFileUpload' => array(
-                'class' => 'yupe\components\actions\YAjaxFileUploadAction',
-                'maxSize' => $this->module->maxSize,
-                'mimeTypes' => $this->module->mimeTypes,
-                'types' => $this->module->allowedExtensions
-            ),
-            'AjaxImageUpload' => array(
-                'class' => 'yupe\components\actions\YAjaxImageUploadAction',
-                'maxSize' => $this->module->maxSize,
-                'mimeTypes' => $this->module->mimeTypes,
-                'types' => $this->module->allowedExtensions
-            )
-        );
-    }
-
     /**
      * Экшен настройки модулей (список):
      *
