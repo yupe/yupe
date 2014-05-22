@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Messages categories' => 'Категории сообщений',
   'continue' => ' продолжить ?',
   '*unknown*' => '*неизвестно*',
   '--choose--' => '--укажите--',

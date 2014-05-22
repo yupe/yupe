@@ -10,6 +10,16 @@
  **/
 class TemplateBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MailTemplate',
+                'validAttributes' => array('event_id', 'name','description', 'from', 'to', 'theme', 'status')
+            )
+        );
+    }
     /**
      * Отображает почтовый шаблон по указанному идентификатору
      *

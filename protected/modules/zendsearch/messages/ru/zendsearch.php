@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Search' => 'Поиск',
     '0.2' => '0.2',
     'WebAction webstudio' => 'WebAction webstudio',
     'http://webaction.su' => 'http://webaction.su',

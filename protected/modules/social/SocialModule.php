@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class SocialModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.3';
 
     public $controllerNamespace = '\application\modules\social\controllers';
 
@@ -31,12 +31,12 @@ class SocialModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('SocialModule.social', 'Социализация');
+        return Yii::t('SocialModule.social', 'Socialization');
     }
 
     public function getDescription()
     {
-        return Yii::t('SocialModule.social', 'Модуль для входа и регистрации через социальные сети');
+        return Yii::t('SocialModule.social', 'Module for login and registration via social networks');
     }
 
     public function getAuthor()
@@ -67,6 +67,18 @@ class SocialModule extends WebModule
     public function getIcon()
     {
         return "globe";
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            array('label' => Yii::t('SocialModule.social', 'Users')),
+            array(
+                'icon' => 'list-alt',
+                'label' => Yii::t('SocialModule.social', 'Accounts'),
+                'url' => array('/social/socialBackend/index')
+            ),
+        );
     }
 
     public function init()

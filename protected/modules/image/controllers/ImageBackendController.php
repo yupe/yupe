@@ -16,7 +16,6 @@ class ImageBackendController extends yupe\components\controllers\BackController
     public function actions()
     {
         return array(
-
             'AjaxImageUpload' => array(
                 'class' => 'yupe\components\actions\YAjaxImageUploadAction',
                 'maxSize' => $this->module->maxSize,

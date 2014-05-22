@@ -149,7 +149,7 @@ return array(
                 'httpOnly' => true,
             ),
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload', 'backend/image/image/AjaxImageUpload'),
+            'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload','backend/AjaxFileUpload'),
             'enableCookieValidation' => true, // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ),
 
@@ -163,8 +163,9 @@ return array(
             'class' => 'yupe\components\AsyncResponse',
         ),
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
+        // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
         'cache' => array(
-            'class' => 'CDummyCache',
+            'class' => 'CFileCache',
             'behaviors' => array(
                 'clear' => array(
                     'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',

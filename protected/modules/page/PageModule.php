@@ -115,6 +115,7 @@ class PageModule extends yupe\components\WebModule
         return array(
             array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/pageBackend/create')),
+            array('icon' => 'icon-folder-open', 'label' => Yii::t('PageModule.page', 'Pages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
 }

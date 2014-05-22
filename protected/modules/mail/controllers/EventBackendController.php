@@ -11,6 +11,16 @@
  **/
 class EventBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MailEvent',
+                'validAttributes' => array('name', 'code','description')
+            )
+        );
+    }
     /**
      * Отображает почтовое событие по указанному идентификатору
      *

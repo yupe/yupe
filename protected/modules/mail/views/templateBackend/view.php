@@ -31,7 +31,10 @@ $this->menu=array(
         'from',
         'to',
         'theme',
-        'body',
+        array(
+            'name' => 'body',
+            'type' => 'raw'
+        ),
         array(
             'name'  => 'status',
             'value' => $model->getStatus(),

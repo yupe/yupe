@@ -15,6 +15,9 @@
 namespace application\modules\social\models;
 
 use yupe\models\YModel;
+use CDbCriteria;
+use CActiveDataProvider;
+use Yii;
 
 class SocialUser extends YModel
 {
@@ -59,11 +62,11 @@ class SocialUser extends YModel
     {
         return array(
             'id' => 'ID',
-            'user_id' => 'User',
-            'provider' => 'Provider',
-            'uid' => 'Uid',
-            'username' => 'Username',
-            'email' => 'Email'
+            'user_id' => Yii::t('SocialModule.social', 'User'),
+            'provider' => Yii::t('SocialModule.social', 'Service'),
+            'uid' => Yii::t('SocialModule.social', 'Uuid'),
+            'username' => Yii::t('SocialModule.social', 'User name'),
+            'email' => Yii::t('SocialModule.social', 'Email')
         );
     }
 
