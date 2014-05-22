@@ -19,7 +19,7 @@ class CatalogModule extends WebModule
     public $uploadPath        = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
-    public $maxSize;
+    public $maxSize           = 5242880;
     public $maxFiles          = 1;
 
     public function getDependencies()
@@ -78,7 +78,7 @@ class CatalogModule extends WebModule
         return array(
             'mainCategory'      => Yii::t('CatalogModule.catalog', 'Main category of products'),
             'adminMenuOrder'    => Yii::t('CatalogModule.catalog', 'Menu items order'),
-            'uploadPath'        => Yii::t('CatalogModule.catalog', 'File uploads directory (relative to Yii::app()->getModule("yupe")->uploadPath)'),
+            'uploadPath'        => Yii::t('CatalogModule.catalog', 'File uploads directory (relative to {dir})', array('{dir}' => Yii::app()->getModule("yupe")->uploadPath)),
             'editor'            => Yii::t('CatalogModule.catalog', 'Visual editor'),
             'allowedExtensions' => Yii::t('CatalogModule.catalog', 'Accepted extensions (separated by comma)'),
             'minSize'           => Yii::t('CatalogModule.catalog', 'Minimum size (in bytes)'),

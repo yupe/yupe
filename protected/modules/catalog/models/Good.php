@@ -118,7 +118,7 @@ class Good extends yupe\models\YModel
         return array(
             'id'                => Yii::t('CatalogModule.catalog', 'ID'),
             'category_id'       => Yii::t('CatalogModule.catalog', 'Category'),
-            'name'              => Yii::t('CatalogModule.catalog', 'Title'),
+            'name'              => Yii::t('CatalogModule.catalog', 'Name'),
             'price'             => Yii::t('CatalogModule.catalog', 'Price'),
             'article'           => Yii::t('CatalogModule.catalog', 'Article'),
             'image'             => Yii::t('CatalogModule.catalog', 'Image'),
@@ -143,7 +143,7 @@ class Good extends yupe\models\YModel
         return array(
             'id'                => Yii::t('CatalogModule.catalog', 'ID'),
             'category_id'       => Yii::t('CatalogModule.catalog', 'Category'),
-            'name'              => Yii::t('CatalogModule.catalog', 'Title'),
+            'name'              => Yii::t('CatalogModule.catalog', 'Name'),
             'price'             => Yii::t('CatalogModule.catalog', 'Price'),
             'article'           => Yii::t('CatalogModule.catalog', 'Article'),
             'image'             => Yii::t('CatalogModule.catalog', 'Image'),
@@ -271,9 +271,10 @@ class Good extends yupe\models\YModel
 
     public function getImageUrl($width = 75, $height = 75)
     {
-        $module = Yii::app()->getModule('catalog');
-
         if (false !== $this->image) {
+
+            $module = Yii::app()->getModule('catalog');
+
             return Yii::app()->image->makeThumbnail(
                 $this->image, $module->uploadPath, $width, $height, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
             );

@@ -293,12 +293,17 @@ class News extends yupe\models\YModel
         return ($this->category === null) ? '---' : $this->category->name;
     }
 
-    public function getImageUrl()
+    public function getImageUrl($width = 75, $height = 75)
     {
-        if($this->image) {
-            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
-                   Yii::app()->getModule('news')->uploadPath . '/' . $this->image;
+        if ($this->image) {
+
+            $module = Yii::app()->getModule('news');
+
+            return Yii::app()->image->makeThumbnail(
+                $this->image, $module->uploadPath, $width, $height, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+            );
         }
+
         return false;
     }
 
