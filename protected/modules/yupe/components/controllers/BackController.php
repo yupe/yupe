@@ -82,6 +82,7 @@ class BackController extends Controller
         }
 
         $model = Yii::app()->getRequest()->getPost('model');
+        var_dump($model);die();
         $action = Yii::app()->getRequest()->getPost('do');
 
         if (!isset($model, $action)) {
