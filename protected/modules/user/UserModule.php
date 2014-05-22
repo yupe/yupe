@@ -18,12 +18,12 @@ class UserModule extends WebModule
 {
     const VERSION = '0.7';
 
-    public $accountActivationSuccess = '/user/account/login';
-    public $accountActivationFailure = '/user/account/registration';
-    public $loginSuccess = '/site/index';
-    public $registrationSuccess = '/user/account/login';
-    public $loginAdminSuccess = '/yupe/backend/index';
-    public $logoutSuccess = '/site/index';
+    public $accountActivationSuccess = '/login';
+    public $accountActivationFailure = '/registration';
+    public $loginSuccess = '/';
+    public $registrationSuccess = '/login';
+    public $loginAdminSuccess = '/backend';
+    public $logoutSuccess = '/';
     public $sessionLifeTime = 7;
 
     public $notifyEmailFrom;

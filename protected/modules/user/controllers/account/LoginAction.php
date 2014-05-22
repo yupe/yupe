@@ -66,7 +66,7 @@ class LoginAction extends CAction
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
-                $this->controller->redirect($redirect === '/' ? $redirect : array($redirect));
+                $this->controller->redirect($redirect);
 
             } else {
 
