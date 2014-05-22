@@ -39,7 +39,7 @@ $form = $this->beginWidget(
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('BlogModule.blog','--choose--'),'class' => 'popover-help span7', 'maxlength' => 11,'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'), 'encode' => false)); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainCategory), array('empty' => Yii::t('BlogModule.blog','--choose--'),'class' => 'popover-help span7', 'maxlength' => 11,'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'), 'encode' => false)); ?>
     </div>
 
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status')) ? 'error' : ''; ?>">

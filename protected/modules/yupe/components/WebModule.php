@@ -96,6 +96,31 @@ abstract class WebModule extends CWebModule
      */
     public $profileModel = false;
 
+    /**
+     * @var int
+     * @since 0.7
+     *
+     * Максимальный размер загружаемых файлов - 5 MB
+     */
+    public $maxSize = 5242880;
+
+    /**
+     * @var string
+     * @since 0.7
+     *
+     * Разрешенные mime types файлов для загрузки
+     *
+     */
+    public $mimeTypes = 'image/gif, image/jpeg, image/png, application/zip, application/rar';
+
+    /**
+     * @var string
+     * @since 0.7
+     *
+     * Разрешенные расширения файлов для загрузки
+     */
+
+    public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar';
 
     public function getProfileModel()
     {
@@ -933,10 +958,8 @@ abstract class WebModule extends CWebModule
 
             if(!empty($settingsRows)) {
 
-                $editableParams = $this->getEditableParams();
-
                 foreach ($settingsRows as $sRow) {
-                    if (property_exists($this, $sRow['param_name']) && in_array($sRow['param_name'], $editableParams) || array_key_exists($sRow['param_name'], $editableParams)) {
+                    if (property_exists($this, $sRow['param_name'])) {
                         $this->{$sRow['param_name']} = $sRow['param_value'];
                     }
                 }
@@ -964,7 +987,7 @@ abstract class WebModule extends CWebModule
 		$this->editorOptions = \CMap::mergeArray(
 			array(
 				'imageUpload' => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
-				'fileUpload'  => Yii::app()->createUrl('/image/imageBackend/AjaxFileUpload'),
+				'fileUpload'  => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
 				'imageGetJson'=> Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
 			),
 

@@ -57,11 +57,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             ); ?>
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="span4">
-            <?php echo $form->textFieldRow($model, 'id', array('maxlength' => 10, 'size' => 60)); ?>
-        </div>
-    </div>
     <?php echo $form->checkBoxRow($model, 'is_faq', $model->isFaqList); ?>
     <div class='hide'>
         <?php $this->widget(
@@ -78,15 +73,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'encodeLabel' => false,
             'buttonType'  => 'submit',
             'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('FeedbackModule.feedback', 'Find messages '),
-        )
-    ); ?>
-
-    <?php $this->widget(
-        'bootstrap.widgets.TbButton', array(
-            'type'        => 'danger',
-            'encodeLabel' => false,
-            'buttonType'  => 'reset',
-            'label'       => Yii::t('FeedbackModule.feedback', 'Reset'),
         )
     ); ?>
 

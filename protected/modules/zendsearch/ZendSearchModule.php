@@ -69,7 +69,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getName()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)');
+        return Yii::t('ZendSearchModule.zendsearch', 'Search');
     }
 
     public function getDescription()

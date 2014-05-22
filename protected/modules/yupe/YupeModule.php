@@ -19,7 +19,7 @@ use yupe\components\WebModule;
 
 class YupeModule extends WebModule
 {
-    const VERSION = '0.7-beta-2';
+    const VERSION = '0.7-beta-3';
 
     public $enableAssets;
     public $cache;
@@ -401,6 +401,11 @@ class YupeModule extends WebModule
                 )
             ),
             array(
+                'icon'  => "th",
+                'label' => Yii::t('YupeModule.yupe', 'Modules'),
+                'url'   => array('/yupe/backend/settings'),
+            ),
+            array(
                 'icon'  => 'picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
                 'url'   => array('/yupe/backend/themesettings'),
@@ -414,12 +419,7 @@ class YupeModule extends WebModule
                 ),
             ),
             array(
-                'icon'  => "wrench",
-                'label' => Yii::t('YupeModule.yupe', 'Modules'),
-                'url'   => array('/yupe/backend/settings'),
-            ),
-            array(
-                'icon'  => "exclamation-sign",
+                'icon'  => "question-sign",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                 'url'   => array('/yupe/backend/help'),
             )

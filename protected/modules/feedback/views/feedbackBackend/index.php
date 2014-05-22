@@ -54,17 +54,115 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
 <!-- <p><?php echo Yii::t('FeedbackModule.feedback', 'This section represent feedback management'); ?></p> -->
 
 <?php $this->widget(
-    'yupe\widgets\CustomListView', array(
+    'yupe\widgets\CustomGridView', array(
         'id'           => 'feed-back-list',
         'dataProvider' => $model->search(),
-        'itemView'     => '_view',
-        'sortableAttributes'=>array(
+        'columns' => array(
+            array(
+                'name' => 'id',
+                'htmlOptions' => array('style' => 'width:20px'),
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->id, array("/feedback/feedbackBackend/update", "id" => $data->id))'
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'theme',
+                'editable' => array(
+                    'url' => $this->createUrl('/feedback/feedbackBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'name',
+                'editable' => array(
+                    'url' => $this->createUrl('/feedback/feedbackBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'email',
+                'editable' => array(
+                    'url' => $this->createUrl('/feedback/feedbackBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/feedback/feedbackBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getTypeList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'type',
+                'type'   => 'raw',
+                'value'  => '$data->getType()',
+                'filter' => $model->getTypeList()
+            ),
+            array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/feedback/feedbackBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'status',
+                'type'   => 'raw',
+                'value'  => '$data->getStatus()',
+                'filter' => $model->getStatusList()
+            ),
+
+            array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/feedback/feedbackBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getIsFaqList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'is_faq',
+                'type'   => 'raw',
+                'value'  => '$data->getIsFaq()',
+                'filter' => $model->getIsFaqList()
+            ),
             'creation_date',
-            'status',
-            'theme',
-            'category_id',
-            'is_faq',
-         ),
+            'answer_date',
+            array(
+                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'template' => '{answer}{view}{update}{delete}',
+                'buttons'  => array(
+                    'answer' => array(
+                        'label'   => false,
+                        'url'     => 'Yii::app()->createUrl("/feedback/feedbackBackend/answer", array("id" => $data->id))',
+                        'options' => array(
+                            'class' => 'icon-envelope',
+                            'title' => Yii::t('FeedbackModule.feedback', 'Messages - answer'),
+                        ),
+                    )
+                )
+            ),
+        )
     )
 ); ?>
 

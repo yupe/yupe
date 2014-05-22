@@ -32,12 +32,7 @@ class ActivateAction extends CAction
             );
 
             // Выполняем переадресацию на соответствующую страницу:
-            $this->controller->redirect(
-                array(
-                    $module->accountActivationSuccess
-                )
-            );
-
+            $this->controller->redirect($module->accountActivationSuccess);
         }
 
         // Сообщаем об ошибке:

@@ -40,7 +40,7 @@
     </div>
 
     <footer>
-        Copyright &copy; 2009-<?php echo date('Y'); ?>
+        Copyright &copy; 2010-<?php echo date('Y'); ?>
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>

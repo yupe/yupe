@@ -44,25 +44,9 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'page-grid',
-    'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'sortField'    => 'order',
-    'bulkActions'      => array(
-        'actionButtons' => array(
-            array(
-                'id'         => 'delete-post',
-                'buttonType' => 'button',
-                'type'       => 'danger',
-                'size'       => 'small',
-                'label'      => Yii::t('PageModule.page', 'Delete'),
-                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('PageModule.page', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
-            ),
-        ),
-        'checkBoxColumnConfig' => array(
-            'name' => 'id'
-        ),
-    ),
     'columns'      => array(
         array(
             'name'  => 'id',

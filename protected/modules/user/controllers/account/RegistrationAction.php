@@ -46,7 +46,7 @@ class RegistrationAction extends CAction
                         new CModelEvent($this->controller, array("user" => $user))
                     );
 					
-					$this->controller->redirect(array($module->registrationSuccess));
+					$this->controller->redirect($module->registrationSuccess);
 				}
 
                 $module->onErrorRegistration(
