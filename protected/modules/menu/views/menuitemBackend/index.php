@@ -58,7 +58,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 </br>
 
-<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Items Management'); ?></p>
+<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Items Management'); ?> <span class="label label-info"><?php echo Yii::t('MenuModule.menu','Use drag and drop to sort');?></span></p>
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'menu-items-grid',
@@ -121,6 +121,12 @@ $this->renderPartial('_search', array('model' => $model));
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
             'filter' => $model->getStatusList()
+        ),
+        array(
+            'name'   => 'sort',
+            'type'   => 'raw',
+            'value'  => '$this->grid->getUpDownButtons($data)',
+            'filter' => false
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

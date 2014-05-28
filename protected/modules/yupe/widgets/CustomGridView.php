@@ -236,17 +236,10 @@ class CustomGridView extends \TbExtendedGridView
     */
     public function getUpDownButtons($data)
     {
-        $downUrlImage = CHtml::image(
-            Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/down.gif'),
-            Yii::t('YupeModule.yupe', 'Turn down'),
-            array('title' => Yii::t('YupeModule.yupe', 'Turn down'))
-        );
+        $downUrlImage = '<i class="icon-circle-arrow-down"></i>';
 
-        $upUrlImage = CHtml::image(
-            Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/up.gif'),
-            Yii::t('YupeModule.yupe', 'Turn up'),
-            array('title' => Yii::t('YupeModule.yupe', 'Turn up'))
-        );
+        $upUrlImage = '<i class="icon-circle-arrow-up"></i>';
+
         $urlUp = Yii::app()->controller->createUrl(
             "sort", array(
                 'model'     => $this->_modelName,
@@ -267,9 +260,7 @@ class CustomGridView extends \TbExtendedGridView
 
         $options = array('onclick' => 'ajaxSetSort(this, "' . $this->id . '"); return false;',);
 
-        return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' .
-                $data->{$this->sortField} . ' ' .
-                CHtml::link($downUrlImage, $urlDown, $options);
+        return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' . CHtml::link($downUrlImage, $urlDown, $options);
     }
 
     /**
