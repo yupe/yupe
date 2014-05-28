@@ -41,6 +41,7 @@ class UserModule extends WebModule
     public $defaultAvatar = '/web/images/avatar.png';
     public $avatarExtensions = array('jpg', 'png', 'gif');
     public $usersPerPage = 20;
+    public $badLoginCount = 3;
 
     public $registrationActivateMailEvent;
     public $registrationMailEvent;
@@ -157,6 +158,7 @@ class UserModule extends WebModule
                     'Session lifetime (in days) when "Remember me" options enabled'
                 ),
             'usersPerPage' => Yii::t('UserModule.user', 'Users per page'),
+            'badLoginCount'=> Yii::t('UserModule.user', 'Number of login attempts')
         );
     }
 
@@ -190,6 +192,7 @@ class UserModule extends WebModule
             'sessionLifeTime',
             'usersPerPage',
             'emailAccountVerification' => $this->getChoice(),
+            'badLoginCount'
         );
     }
 
@@ -220,6 +223,7 @@ class UserModule extends WebModule
                     'minPasswordLength',
                     'autoRecoveryPassword',
                     'recoveryDisabled',
+                    'badLoginCount'
                 )
             ),
             'captcha' => array(

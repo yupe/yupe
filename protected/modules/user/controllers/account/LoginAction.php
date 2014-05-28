@@ -26,12 +26,11 @@ class LoginAction extends CAction
 
         $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->getUser());
 
-        //@TODO 3 вынести в настройки модуля
-        $scenario = $badLoginCount > 3 ? 'loginLimit' : '';
+        $module = Yii::app()->getModule('user');
+
+        $scenario = $badLoginCount > (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
 
         $form = new LoginForm($scenario);
-
-        $module = Yii::app()->getModule('user');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
 
@@ -66,7 +65,7 @@ class LoginAction extends CAction
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
-                $this->controller->redirect($redirect);
+                $this->controller->redirect(Yii::app()->createAbsoluteUrl($redirect));
 
             } else {
 

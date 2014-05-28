@@ -12,6 +12,8 @@
  **/
 class LoginForm extends yupe\models\YFormModel
 {
+    const LOGIN_LIMIT_SCENARIO = 'loginLimit';
+
     public $email;
     public $password;
     public $remember_me;
@@ -26,7 +28,7 @@ class LoginForm extends yupe\models\YFormModel
             array('email', 'email'),
             array('remember_me','boolean'),
             array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Check code incorrect'), 'on' => 'loginLimit'),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'on' => 'loginLimit'),
+            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'on' => self::LOGIN_LIMIT_SCENARIO),
             array('verifyCode', 'emptyOnInvalid')
         );
     }
