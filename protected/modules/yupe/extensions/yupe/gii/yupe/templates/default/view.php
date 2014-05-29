@@ -37,14 +37,14 @@ echo <<<EOF
     \$this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
-        array('label' => Yii::t('{$this->mid}', '{$labelIm}') . ' «' . mb_substr(\$model->id, 0, 32) . '»'),
+        array('label' => Yii::t('{$this->mid}', '{$labelIm}') . ' «' . mb_substr(\$model->{$this->tableSchema->primaryKey}, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('{$this->mid}', 'Редактирование {$this->rod}'), 'url' => array(
             '/{$this->mid}/{$this->controller}/update',
-            '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
+            'id' => \$model->{$this->tableSchema->primaryKey}
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('{$this->mid}', 'Просмотреть {$this->vin}'), 'url' => array(
             '/{$this->mid}/{$this->controller}/view',
-            '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
+            'id' => \$model->{$this->tableSchema->primaryKey}
         )),
         array('icon' => 'trash', 'label' => Yii::t('{$this->mid}', 'Удалить {$this->vin}'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/{$this->mid}/{$this->controller}/delete', 'id' => \$model->{$this->tableSchema->primaryKey}),
