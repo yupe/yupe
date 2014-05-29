@@ -29,6 +29,8 @@ class YBackAccessControl extends CAccessControlFilter
             return true;
         }
 
+        Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
+
         throw new CHttpException(404);
     }
 }

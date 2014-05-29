@@ -69,6 +69,12 @@ $this->widget(
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
+                                    'icon'  => 'icon-comment',
+                                    'label' => Yii::t('YupeModule.yupe', 'Chat'),
+                                    'url'   => 'http://gitter.im/yupe/yupe',
+                                    'linkOptions' => array('target' => '_blank'),
+                                ),
+                                array(
                                     'icon'  => 'icon-globe',
                                     'label' => Yii::t('YupeModule.yupe', 'Community on github'),
                                     'url'   => 'https://github.com/yupe/yupe',

@@ -11,6 +11,17 @@
  **/
 class GalleryBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Gallery',
+                'validAttributes' => array('name', 'description', 'status')
+            )
+        );
+    }
+
     /**
      * Создает новую модель галереи.
      * Если создание прошло успешно - перенаправляет на просмотр.

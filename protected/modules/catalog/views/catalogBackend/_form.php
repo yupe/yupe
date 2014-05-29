@@ -51,10 +51,20 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo $form->textFieldRow($model, 'article', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 100, 'data-original-title' => $model->getAttributeLabel('article'), 'data-content' => $model->getAttributeDescription('article'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
-        <?php if(!$model->isNewRecord && $model->image):?>
-            <?php echo CHtml::image($model->imageUrl, $model->name, array('width' => 300, 'height' => 300)); ?>
-        <?php endif; ?>
-        <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span4 popover-help', 'size' => 60, 'maxlength' => 250, 'data-original-title' => $model->getAttributeLabel('image'), 'data-content' => $model->getAttributeDescription('image'))); ?>
+        <?php
+        echo CHtml::image(
+            !$model->isNewRecord && $model->image
+                ? $model->getImageUrl()
+                : '#',
+            $model->name, array(
+                'class' => 'preview-image',
+                'style' => !$model->isNewRecord && $model->image
+                        ? ''
+                        : 'display:none'
+            )
+        ); ?>
+        <?php echo $form->labelEx($model, 'image'); ?>
+        <?php echo  $form->fileField($model, 'image', array('onchange' => 'readURL(this);')); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>

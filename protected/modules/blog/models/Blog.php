@@ -93,7 +93,7 @@ class Blog extends yupe\models\YModel
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('member_status', 'in', 'range' => array_keys($this->getMemberStatusList())),
             array('post_status', 'in', 'range' => array_keys($this->getPostStatusList())),
-            array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, slug, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
             array(
                 'id, name, description, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id',
@@ -307,18 +307,14 @@ class Blog extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'class' => 'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios' => array('insert', 'update'),
                 'attributeName' => 'icon',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module->getUploadPath(),
-                'imageNameCallback' => array($this, 'generateFileName'),
-                'resize' => array(
-                    'quality' => 75,
-                    'width' => 64,
-                )
+                'uploadPath' => $module->uploadPath,
+                'fileName' => array($this, 'generateFileName'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -331,7 +327,7 @@ class Blog extends yupe\models\YModel
 
     public function generateFileName()
     {
-        return md5($this->name . microtime(true));
+        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function beforeSave()
@@ -345,6 +341,14 @@ class Blog extends yupe\models\YModel
         return parent::beforeSave();
     }
 
+    public function beforeValidate()
+    {
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->name);
+        }
+
+        return parent::beforeValidate();
+    }
 
     public function afterDelete()
     {

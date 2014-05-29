@@ -49,7 +49,10 @@
         'code',
         'name',
         'value',
-        'description',
+        array(
+            'name' => 'description',
+            'type' => 'raw'
+        ),
         array(
             'name'  => 'creation_date',
             'value' => Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"),

@@ -26,12 +26,27 @@ $form = $this->beginWidget(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class='row-fluid control-group <?php echo $model->hasErrors("category_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory), array('empty' => Yii::t('GalleryModule.gallery', '--choose--'))); ?>
+    <div class='row-fluid control-group'>
+        <div class="span2">
+            <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory), array('empty' => Yii::t('GalleryModule.gallery', '--choose--'))); ?>
+        </div>
+        <div class='span2'>
+            <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
+        </div>
+
+        <div class='span2'>
+            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+        </div>
     </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300, 'size' => 60)); ?>
     </div>
+
+    <div class='row-fluid control-group <?php echo $model->hasErrors("alt") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>
+    </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("file") ? "error" : ""; ?>'>
         <?php if (!$model->isNewRecord) : ?>
             <?php echo CHtml::image($model->getImageUrl(), $model->alt);?>
@@ -39,18 +54,11 @@ $form = $this->beginWidget(
         <img id="preview" src="#" class='img-polaroid' alt="current preview of image" />
         <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span7', 'maxlength' => 500, 'size' => 60, 'onchange' => 'readURL(this);')); ?>
     </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("alt") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>
-    </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("type") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
-    </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
         <?php $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
     </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
-    </div>
+
 
     <?php
     $this->widget(

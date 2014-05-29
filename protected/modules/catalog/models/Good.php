@@ -203,30 +203,34 @@ class Good extends yupe\models\YModel
                 'updateAttribute'   => 'update_time',
             ),
             'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module->getUploadPath(),
-                'resize' => array(
-                    'quality' => 70,
-                    'width' => 1024,
-                )
+                'uploadPath'    => $module->uploadPath,
+                'fileName' => array($this, 'generateFileName'),
             ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function beforeValidate()
     {
         $this->change_user_id = Yii::app()->user->getId();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->user_id = $this->change_user_id;
+        }
 
-        if (!$this->alias)
+        if (!$this->alias) {
             $this->alias = yupe\helpers\YText::translit($this->name);
+        }
 
         return parent::beforeValidate();
     }
@@ -247,7 +251,7 @@ class Good extends yupe\models\YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 
@@ -261,18 +265,21 @@ class Good extends yupe\models\YModel
 
     public function getSpecial()
     {
-        $data = $this->specialList;
+        $data = $this->getSpecialList();
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 
-    public function getImageUrl()
+    public function getImageUrl($width = 75, $height = 75)
     {
-        return ($this->image)
-            ? Yii::app()->baseUrl . '/' .
-              Yii::app()->getModule('yupe')->uploadPath . '/' .
-              Yii::app()->getModule('catalog')->uploadPath . '/' .
-              $this->image
-            : false;
+        $module = Yii::app()->getModule('catalog');
+
+        if (false !== $this->image) {
+            return Yii::app()->image->makeThumbnail(
+                $this->image, $module->uploadPath, $width, $height, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+            );
+        }
+
+        return false;
     }
 
     /**

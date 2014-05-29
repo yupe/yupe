@@ -22,7 +22,7 @@ class m131017_064101_fix_menu_test_data extends yupe\components\DbMigration
         '/login'        => '/user/account/login',
         '/logout'       => '/user/account/logout',
         '/registration' => '/user/account/registration',
-        '/faq'          => 'feedback/contact/faq',
+        '/faq'          => '/feedback/contact/faq',
     );
 
     public function safeUp()

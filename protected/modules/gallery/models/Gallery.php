@@ -1,14 +1,16 @@
 <?php
 /**
- * Gallery основная модель
+ * Gallery
  *
- * @category YupeMigration
- * @package  yupe.modules.gallery.models
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * Модель для работы с галереями
  *
- **/
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.gallery.models
+ * @since 0.1
+ *
+ */
 
 
 /**
@@ -53,11 +55,11 @@ class Gallery extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('name, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('name, description, owner', 'required'),
             array('status, owner', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 250),            
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
+            array('name', 'length', 'max' => 250),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, name, description, status, owner', 'safe', 'on' => 'search'),
         );
     }
@@ -140,7 +142,7 @@ class Gallery extends yupe\models\YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('GalleryModule.gallery', '*неизвестно*');
     }
 
@@ -164,7 +166,7 @@ class Gallery extends yupe\models\YModel
      * 
      * @return string image Url
      **/
-    public function previewImage($width = 190, $height = 0)
+    public function previewImage($width = 190, $height = 190)
     {
         return $this->imagesCount > 0
             ? $this->images[0]->getImageUrl($width, $height)
@@ -215,20 +217,6 @@ class Gallery extends yupe\models\YModel
     }
 
     /**
-     * Список статусов опубликованых галерей
-     *
-     * @return array of published status
-     **/
-    public function getPublishedStatus()
-    {
-        return array(
-            Gallery::STATUS_PERSONAL,
-            Gallery::STATUS_PRIVATE,
-            Gallery::STATUS_PUBLIC,
-        );
-    }
-
-    /**
      * Именованные условия
      *
      * @return array of scopes
@@ -237,7 +225,10 @@ class Gallery extends yupe\models\YModel
     {
         return array(
             'published' => array(
-                'condition'=>'status IN (' . implode(', ', $this->publishedStatus) . ')',
+                'condition'=>'status  = :status',
+                'params' => array(
+                    ':status' => self::STATUS_PUBLIC
+                )
             ),
         );
     }

@@ -13,7 +13,9 @@
 use yupe\components\WebModule;
 
 class CatalogModule extends WebModule
-{   
+{
+    const VERSION = '0.7';
+
     public $uploadPath        = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
@@ -28,18 +30,11 @@ class CatalogModule extends WebModule
         );
     }
 
-    public function getUploadPath()
-    {
-        return  Yii::getPathOfAlias('webroot') . '/' .
-                Yii::app()->getModule('yupe')->uploadPath . '/' .
-                $this->uploadPath . '/';
-    }
-
     public function checkSelf()
     {
         $messages = array();
 
-        $uploadPath = $this->getUploadPath();
+        $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath))
             $messages[WebModule::CHECK_ERROR][] =  array(
@@ -58,8 +53,8 @@ class CatalogModule extends WebModule
 
     public function getInstall()
     {
-        if(parent::getInstall()) {
-            @mkdir($this->getUploadPath(),0755);
+        if (parent::getInstall()) {
+            @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
         }
 
         return false;
@@ -106,7 +101,7 @@ class CatalogModule extends WebModule
     
     public function getVersion()
     {
-        return '0.6';
+        return self::VERSION;
     }
 
     public function getCategory()
@@ -151,7 +146,6 @@ class CatalogModule extends WebModule
         $this->setImport(array(
             'catalog.models.*',
             'catalog.components.*',
-            //'category.models.*',
         ));
     }  
 }

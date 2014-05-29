@@ -35,8 +35,6 @@
  * @link     http://yupe.ru
  */
 
-use application\modules\comment\components\NewCommentEvent;
-
 class Comment extends yupe\models\YModel
 {
     const STATUS_NEED_CHECK = 0;
@@ -284,7 +282,7 @@ class Comment extends yupe\models\YModel
             return CHtml::image($this->author->getAvatar((int)$size), $this->author->nick_name, $params);
         }
 
-        return CHtml::image(User::model()->getAvatar((int)$size), $this->name, $params);
+        return CHtml::image(Yii::app()->getModule('user')->defaultAvatar, $this->name, $params);
     }
 
     public function getAuthorLink(array $params = array('rel' => 'nofollow'))
@@ -318,7 +316,7 @@ class Comment extends yupe\models\YModel
             return Yii::app()->createUrl($this->url, $params);
         }
 
-        return $this->name;
+        return null;
     }
 
     public function getText()
@@ -380,13 +378,13 @@ class Comment extends yupe\models\YModel
         return $level > 0 ? $level : 0;
     }
 
-    public function getTarget()
+    public function getTarget(array $with = array())
     {
         $model = CActiveRecord::model($this->model);
 
         if ($model instanceof ICommentable) {
 
-            $model = $model->findByPk($this->model_id);
+            $model = $model->with($with)->findByPk($this->model_id);
 
             if (null === $model) {
                 return $this->model;
@@ -411,14 +409,14 @@ class Comment extends yupe\models\YModel
     }
 
 
-    public function getTargetTitleLink()
+    public function getTargetTitleLink(array $options = null)
     {
         $target = $this->getTarget();
 
         if (is_object($target)) {
-            return CHtml::link($target->getTitle(), $target->getLink());
+            return CHtml::link($target->getTitle(), $target->getLink(), $options);
         }
 
-        return $target->model;
+        return $target;
     }
 }

@@ -1,3 +1,9 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#menu-items-grid").find('tr').attr("style","cursor:move;");
+    });
+</script>
+
 <?php
     $this->breadcrumbs = array(       
         Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
@@ -56,22 +62,55 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'menu-items-grid',
-    'type'         => 'condensed',
+    'type'         => 'condensed striped',
+    'sortableRows' => true,
+    'sortableAjaxSave'=>true,
+    'sortableAttribute'=>'sort',
+    'sortableAction'=>'/menu/menuitemBackend/sortable',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('MenuModule.menu', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('MenuModule.menu', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
         array(
-            'name'        => 'id',
-            'htmlOptions' => array('style' => 'width:50px'),
+            'name'   => 'menu_id',
+            'value'  => '$data->menu->name',
+            'filter' =>  CHtml::listData(Menu::model()->findAll(), 'id', 'name')
         ),
-        'title',
-        'href',
         array(
-            'name'        => 'menu_id',
-            'type'        => 'raw',
-            'value'       => 'CHtml::link($data->menu->name, Yii::app()->createUrl("/menu/menuBackend/update", array("id" => $data->menu->id)))',
-            'filter'      => CHtml::activeDropDownList($model, 'menu_id', $model->menuList, array('empty' => '')),
-            'htmlOptions' => array('style' => 'width:110px'),
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'title',
+            'editable' => array(
+                'url' => $this->createUrl('/menu/menuitemBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'href',
+            'editable' => array(
+                'url' => $this->createUrl('/menu/menuitemBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
             'name'   => 'parent_id',
@@ -84,16 +123,20 @@ $this->renderPartial('_search', array('model' => $model));
             'filter' => $model->getConditionList(),
         ),
         array(
-            'name'  => 'sort',
-            'type'  => 'raw',
-            'value' => '$this->grid->getUpDownButtons($data)',
-        ),
-        array(
-            'name'        => 'status',
-            'type'        => 'raw',
-            'value'       => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
-            'filter'      => $model->statusList,
-            'htmlOptions' => array('style' => 'width:110px'),
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/menu/menuitemBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
+            'filter' => $model->getStatusList()
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

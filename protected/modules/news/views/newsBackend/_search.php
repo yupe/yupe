@@ -61,11 +61,16 @@ $form = $this->beginWidget(
             array('empty' => Yii::t('NewsModule.news', '- no matter -'))
         ); ?>
     </div>
+</div>
 
+
+<div class="row-fluid">
     <div class="span6">
         <?php echo $form->dropDownListRow($model, 'is_protected', $model->getProtectedStatusList(), array('empty' => '----')); ?>
     </div>
 </div>
+
+
 
 
 <?php $this->widget(

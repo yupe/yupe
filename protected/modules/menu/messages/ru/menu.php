@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Delete' => 'Удалить',
+  'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
   '*unknown*' => '*неизвестно*',
   '--choose menu--' => '--выберите меню--',
   '0.3' => '0.3',

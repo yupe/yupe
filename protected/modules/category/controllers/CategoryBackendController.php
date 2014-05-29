@@ -12,6 +12,17 @@
 
 class CategoryBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Category',
+                'validAttributes' => array('name', 'description', 'alias', 'status')
+            )
+        );
+    }
+
     /**
      * Отображает категорию по указанному идентификатору
      *

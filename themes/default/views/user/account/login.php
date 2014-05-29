@@ -82,6 +82,7 @@
 
 <hr/>
 
+<?php if(Yii::app()->hasModule('social')):?>
 <div class="row-fluid control-group">
     <?php
       $this->widget('vendor.nodge.yii-eauth.EAuthWidget', array(
@@ -90,6 +91,7 @@
       ));
     ?>
 </div>
+<?php endif;?>
 
 <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
 

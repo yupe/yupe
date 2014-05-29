@@ -65,13 +65,14 @@
     "require": {
         "php": ">=5.3.3",
         "yiisoft/yii": ">=1.1.14",
-        "clevertech/yii-booster": "2.1.*",
+        "clevertech/yii-booster": "3.0.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
         "zhuravljov/yii2-debug": "dev-master",
 		"phpmailer/phpmailer": "dev-master",
         "yiiext/taggable-behavior" : "1.5.*",
-        "nodge/yii-eauth": "dev-master"
+        "nodge/yii-eauth": "dev-master",
+        "imagine/imagine": "v0.5.0"
     },
     "repositories": {
         "taggable": {

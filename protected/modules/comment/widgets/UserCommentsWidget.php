@@ -5,6 +5,8 @@ class UserCommentsWidget extends yupe\widgets\YWidget
 
     public $view = 'usercommentswidget';
 
+    public $label;
+
     public function init()
     {
         if(!$this->userId) {
@@ -22,9 +24,10 @@ class UserCommentsWidget extends yupe\widgets\YWidget
                 ':user' => (int)$this->userId,
                 ':status' => Comment::STATUS_APPROVED
             ),
-            'order' => 't.lft, t.id DESC',
+            'order' => 't.id DESC',
+            'limit' => (int)$this->limit
         ));
 
-        $this->render($this->view, array('comments' => $comments));
+        $this->render($this->view, array('comments' => $comments, 'label' => $this->label));
     }
-} 
+}

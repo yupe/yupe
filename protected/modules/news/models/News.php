@@ -63,7 +63,7 @@ class News extends yupe\models\YModel
     {
         return array(
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
-            array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
+            array('title, alias, keywords, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('date, title, alias, full_text', 'required', 'on' => array('update', 'insert')),
             array('status, is_protected, category_id', 'numerical', 'integerOnly' => true),
             array('title, alias, keywords', 'length', 'max' => 150),
@@ -86,18 +86,13 @@ class News extends yupe\models\YModel
         $module = Yii::app()->getModule('news');
         return array(
             'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
+                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
-                'types'         => $module->allowedExtensions,              
-                'uploadPath'    => $module->getUploadPath(),
-                'imageNameCallback' => array($this, 'generateFileName'),
-                'resize' => array(
-                    'quality' => 90,
-                    'width' => 800,
-                )
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module->uploadPath,
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
@@ -110,7 +105,7 @@ class News extends yupe\models\YModel
 
     public function generateFileName()
     {
-        return md5($this->title . microtime(true));
+        return md5($this->title . microtime(true) . uniqid());
     }
     /**
      * @return array relational rules.
@@ -192,7 +187,7 @@ class News extends yupe\models\YModel
             'full_text'     => Yii::t('NewsModule.news', 'Full text'),
             'user_id'       => Yii::t('NewsModule.news', 'Author'),
             'status'        => Yii::t('NewsModule.news', 'Status'),
-            'is_protected'  => Yii::t('NewsModule.news', 'Access: * Only for authorized users'),
+            'is_protected'  => Yii::t('NewsModule.news', 'Access only for authorized'),
             'keywords'      => Yii::t('NewsModule.news', 'Keywords (SEO)'),
             'description'   => Yii::t('NewsModule.news', 'Description (SEO)'),
         );
@@ -245,7 +240,9 @@ class News extends yupe\models\YModel
         $criteria->compare('t.id', $this->id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('date', !($this->date)?:date('Y-m-d', strtotime($this->date)), true);
+        if($this->date) {
+            $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
+        }
         $criteria->compare('title', $this->title, true);
         $criteria->compare('t.alias', $this->alias, true);
         $criteria->compare('short_text', $this->short_text, true);

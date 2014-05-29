@@ -29,7 +29,7 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array(Yii::app()->baseUrl)); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/')); ?>
 
 <?php echo Yii::t('InstallModule.install', 'or');?>
 

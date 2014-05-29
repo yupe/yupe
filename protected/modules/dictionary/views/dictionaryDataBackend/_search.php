@@ -7,12 +7,25 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
     <fieldset class="inline">
-        <?php echo $form->textFieldRow($model, 'id', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
-        <?php echo $form->textFieldRow($model, 'code', array('size' => 50, 'maxlength' => 50)); ?>
-        <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->textFieldRow($model, 'description', array('size' => 60, 'maxlength' => 300)); ?>
-        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+        <div class="row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'code', array('size' => 50, 'maxlength' => 50)); ?>
+            </div>
+        </div>
+        <div class="row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'description', array('size' => 60, 'maxlength' => 300)); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '----')); ?>
+            </div>
+        </div>
     </fieldset>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

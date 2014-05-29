@@ -62,8 +62,13 @@ $this->renderPartial('_search', array('model' => $model));
             'name' => 'id'
         ),
     ),
-    'columns'      => array(
-        'id',
+    'columns' => array(
+        array(
+            'name' => 'id',
+            'htmlOptions' => array('style' => 'width:20px'),
+            'value' => 'CHtml::link($data->id, array("/comment/commentBackend/update", "id" => $data->id))',
+            'type'  => 'raw'
+        ),
         array(
             'name'   => 'model',
             'value'  => '$data->getTargetTitleLink()',
@@ -88,7 +93,7 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'name'  => 'text',
-            'value' => '(strlen($data->text) == 0 && strlen($data->name) == 0) ? "'.Yii::t("CommentModule.comment","root for:").' $data->model -> $data->model_id" : $data->text',
+            'value' => 'yupe\helpers\YText::characterLimiter($data->text, 150)',
             'type'  => 'html'
         ),
         array(

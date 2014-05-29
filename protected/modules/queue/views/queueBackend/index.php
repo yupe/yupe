@@ -52,7 +52,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'worker',
             'value'  => 'isset(Yii::app()->queue->workerNamesMap[$data->worker]) ? Yii::app()->queue->workerNamesMap[$data->worker] : $data->worker',
-            'filter' => CHtml::activeDropDownList($model, 'worker', Yii::app()->queue->workerNamesMap)
+            'filter' => Yii::app()->queue->workerNamesMap
         ),
         'create_time',
         'start_time',
@@ -61,13 +61,13 @@ $this->renderPartial('_search', array('model' => $model));
             'name'  => 'priority',
             'type'  => 'raw',
             'value' => "'<span class=\"label label-'.(\$data->priority?((\$data->priority==Queue::PRIORITY_HIGH)?'warning':((\$data->priority==Queue::PRIORITY_LOW)?'success':'error')):'info').'\">'.\$data->getPriority().'</span>'",
-            'filter' => CHtml::activeDropDownList($model, 'priority', $model->priorityList),
+            'filter' => $model->getPriorityList(),
         ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
             'value' => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">'.\$data->getStatus().'</span>'",
-            'filter' => CHtml::activeDropDownList($model, 'status', $model->statusList),
+            'filter' => $model->getStatusList(),
         ),
         'notice',
         array(

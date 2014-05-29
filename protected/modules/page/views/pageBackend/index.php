@@ -48,6 +48,21 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'sortField'    => 'order',
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('PageModule.page', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('PageModule.page', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
         array(
             'name'  => 'id',
@@ -55,15 +70,26 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'value' => 'CHtml::link($data->id, array("/page/pageBackend/update", "id" => $data->id))',
         ),
         array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'title',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->title, array("/page/pageBackend/update", "id" => $data->id))',
+            'editable' => array(
+                'url' => $this->createUrl('/page/pageBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
-        'title_short',
         array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'slug',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->slug, array("/page/pageBackend/update", "id" => $data->id))',
+            'editable' => array(
+                'url' => $this->createUrl('/page/pageBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
         ),
         array(
             'name'  => 'category_id',
@@ -87,9 +113,19 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'filter' => $this->yupe->getLanguagesList()
         ),
         array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/page/pageBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
             'filter' => $model->getStatusList()
         ),
         array(

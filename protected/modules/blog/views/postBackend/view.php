@@ -45,7 +45,7 @@ $this->menu = array(
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'View posts'); ?><br />
+        <?php echo Yii::t('BlogModule.blog', 'View post'); ?><br />
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>

@@ -28,7 +28,8 @@ class BlogModule extends yupe\components\WebModule
         return array(
             'user',
             'category',
-            'comment'
+            'comment',
+            'image'
         );
     }
 
@@ -90,12 +91,6 @@ class BlogModule extends yupe\components\WebModule
                         ), true)
             )
         );
-    }
-
-
-    public function getUploadPath()
-    {
-        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
     }
 
     public function getCategory()
@@ -193,6 +188,16 @@ class BlogModule extends yupe\components\WebModule
         return "pencil";
     }
 
+    /**
+     * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
+     *
+     * @return bool
+     **/
+    public function getIsInstallDefault()
+    {
+        return true;
+    }	
+	
     public function init()
     {
         parent::init();

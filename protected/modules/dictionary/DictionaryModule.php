@@ -12,6 +12,8 @@
 
 class DictionaryModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
     public function getDependencies()
     {
         return array(
@@ -58,7 +60,7 @@ class DictionaryModule extends yupe\components\WebModule
 
     public function getVersion()
     {
-        return Yii::t('DictionaryModule.dictionary', '0.6');
+        return self::VERSION;
     }
 
     public function getAdminPageLink()

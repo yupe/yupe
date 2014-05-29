@@ -30,11 +30,11 @@
 
 <div class="btn-group">
     <?php $languages = $this->yupe->getLanguagesList(); ?>
-    <?php foreach ((array) explode(',', $this->yupe->availableLanguages) as $lang) : ?>
+    <?php foreach ($languages as $lang => $lang_label) : ?>
     <?php $this->widget(
         'bootstrap.widgets.TbButton', array(
             'icon'  => 'iconflags iconflags-' . $lang,
-            'label' => isset($languages[$lang]) ? $languages[$lang] : $lang,
+            'label' => isset($lang_label) ? $lang_label : $lang,
             'url'   => array('/install/default/environment', 'language' => $lang),
         )
     ); ?>

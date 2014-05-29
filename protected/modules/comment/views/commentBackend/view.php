@@ -45,7 +45,10 @@
         'name',
         'email',
         'url',
-        'text',
+        array(
+            'name' => 'text',
+            'type' => 'raw'
+        ),
         array(
             'name'  => 'status',
             'value' => $model->getStatus(),

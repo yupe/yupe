@@ -133,17 +133,13 @@ class Producer extends yupe\models\YModel
         $module = Yii::app()->getModule('shop');
         return array(
             'imageUpload' => array(
-                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => array('insert', 'update'),
+                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
+                'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module !== null ? $module->getUploadPath() . '/producer' : null,
-                'resize'        => array(
-                    'quality' => 90,
-                    'width'   => 1024,
-                )
+                'uploadPath'    => $module !== null ? $module->uploadPath . '/producer' : null,
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',

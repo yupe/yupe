@@ -29,7 +29,38 @@ $form = $this->beginWidget(
 
 <div class="row-fluid control-group">
 
-    <div class="span3">
+    <div class="span2 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>'
+         data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
+        <?php
+        echo $form->datepickerRow(
+            $model,
+            'date',
+            array(
+                'options' => array(
+                    'format' => 'dd-mm-yyyy',
+                    'weekStart' => 1,
+                    'autoclose' => true,
+                ),
+                'htmlOptions' => array(
+                    'class' => 'span11'
+                ),
+            ),
+            array(
+                'prepend' => '<i class="icon-calendar"></i>',
+            )
+        ); ?>
+    </div>
+
+    <div class="span2 <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow(
+            $model,
+            'status',
+            $model->getStatusList(),
+            array('class' => 'span7 popover-help')
+        ); ?>
+    </div>
+
+    <div class="span2">
         <?php if (count($languages) > 1): ?>
             <?php echo $form->dropDownListRow(
                 $model,
@@ -65,38 +96,6 @@ $form = $this->beginWidget(
         <?php else: ?>
             <?php echo $form->hiddenField($model, 'lang'); ?>
         <?php endif; ?>
-    </div>
-
-
-    <div class="span2 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
-        <?php
-        echo $form->datepickerRow(
-            $model,
-            'date',
-            array(
-                'options' => array(
-                    'format' => 'dd-mm-yyyy',
-                    'weekStart' => 1,
-                    'autoclose' => true,
-                ),
-                'htmlOptions' => array(
-                    'class' => 'span11'
-                ),
-            ),
-            array(
-                'prepend' => '<i class="icon-calendar"></i>',
-            )
-        ); ?>
-    </div>
-
-    <div class="span3 <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow(
-            $model,
-            'status',
-            $model->getStatusList(),
-            array('class' => 'span7 popover-help')
-        ); ?>
     </div>
 
 </div>
@@ -140,11 +139,20 @@ $form = $this->beginWidget(
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
     <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
-        <?php if (!$model->isNewRecord && $model->image): ?>
-            <?php echo CHtml::image($model->imageUrl, $model->title, array('width' => 300, 'height' => 300)); ?>
-        <?php endif; ?>
+        <?php
+        echo CHtml::image(
+            !$model->isNewRecord && $model->image
+                ? $model->getImageUrl()
+                : '#',
+            $model->title, array(
+                'class' => 'preview-image',
+                'style' => !$model->isNewRecord && $model->image
+                        ? ''
+                        : 'display:none'
+            )
+        ); ?>
         <?php echo $form->labelEx($model, 'image'); ?>
-        <?php echo $form->fileField($model, 'image'); ?>
+        <?php echo $form->fileField($model, 'image', array('onchange' => 'readURL(this);')); ?>
     </div>
     <div class="span5">
         <?php echo $form->error($model, 'image'); ?>
@@ -207,7 +215,7 @@ $form = $this->beginWidget(
     <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
 </div>
 
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"news_seodata"))); ?>
 <div class="accordion-group">
     <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">

@@ -25,6 +25,9 @@ class CommentFormWidget extends yupe\widgets\YWidget
         );
         $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
         $this->modelId = (int) $this->modelId;
+
+        $module = Yii::app()->getModule("comment");
+        $this->allowGuestComment = $module->allowGuestComment ? true : false;
     }
 
     public function run()

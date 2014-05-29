@@ -84,23 +84,19 @@ class Category extends yupe\models\YModel
 
 		return array(
 			'imageUpload' => array(
-				'class'             => 'yupe\components\behaviors\ImageUploadBehavior',
+				'class'             => 'yupe\components\behaviors\FileUploadBehavior',
 				'scenarios'         => array('insert', 'update'),
 				'attributeName'     => 'image',
-				'uploadPath'        => $module !== null ? $module->getUploadPath() : null,
-				'imageNameCallback' => array($this, 'generateFileName'),
-				'resize'            => array(
-					'quality' => 70,
-					'width'   => 800,
-				)
+				'uploadPath'        => $module->uploadPath,
+                'fileName' => array($this, 'generateFileName'),
 			),
 		);
 	}
 
-	public function generateFileName()
-	{
-		return md5($this->name . time());
-	}
+    public function generateFileName()
+    {
+        return md5($this->name . microtime(true) . uniqid());
+    }
 
 	public function relations()
 	{

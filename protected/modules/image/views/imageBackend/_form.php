@@ -26,35 +26,50 @@ $form = $this->beginWidget(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class='row-fluid control-group <?php echo $model->hasErrors("category_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('ImageModule.image', '--choose--'), 'encode' => false)); ?>
+    <div class='row-fluid control-group'>
+
+        <div class='span2'>
+            <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
     </div>
+
     <?php if (Yii::app()->hasModule('gallery')) : ?>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("galleryId") ? "error" : ""; ?>'>
+            <div class='span2'>
         <?php echo $form->dropDownListRow($model, 'galleryId', $model->galleryList(), array('empty' => Yii::t('ImageModule.image', '--choose--'))); ?>
     </div>
     <?php endif; ?>
+    </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>
     </div>
+
+    <div class='row-fluid control-group <?php echo $model->hasErrors("alt") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>
+    </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("file") ? "error" : ""; ?>'>
         <?php if (!$model->isNewRecord) : ?>
             <?php echo CHtml::image($model->getImageUrl(300), $model->alt, array("width" => 300, "height" => 300));?>
         <?php endif; ?>
         <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span7', 'maxlength' => 500, 'size' => 60)); ?>
     </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("alt") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>
-    </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("type") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
-    </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
         <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
     </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
+
+    <div class='row-fluid control-group'>
+
+        <div class='span2'>
+            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
     </div>
+
+             <span class="span2">
+                <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('ImageModule.image', '--choose--'), 'encode' => false)); ?>
+            </span>
+
+    </div>
+
 
     <?php
     $this->widget(

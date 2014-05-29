@@ -42,25 +42,82 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('ContentBlockModule.contentblock', 'This section presents content blocks management'); ?></p>
 
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'content-block-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions'      => array(
+        'actionButtons' => array(
+            array(
+                'id'         => 'delete-post',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('ContentBlockModule.contentblock', 'Delete'),
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('ContentBlockModule.contentblock', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+            ),
+        ),
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
-        'id',
         array(
-            'name'  => 'name',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/contentblock/contentBlockBackend/update", "id" => $data->id))',
+            'name' => 'id',
+            'htmlOptions' => array('style' => 'width:20px'),
+            'value' => 'CHtml::link($data->id, array("/contentblock/contentBlockBackend/update", "id" => $data->id))',
+            'type'  => 'raw'
         ),
         array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'name',
+            'editable' => array(
+                'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getTypes(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'   => 'type',
+            'type'   => 'raw',
             'value'  => '$data->getType()',
             'filter' => $model->getTypes()
         ),
-        'code',
-        'description',
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'code',
+            'editable' => array(
+                'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'description',
+            'editable' => array(
+                'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

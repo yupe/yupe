@@ -11,6 +11,16 @@
  */
 class ContentBlockBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'ContentBlock',
+                'validAttributes' => array('name', 'code', 'type', 'description')
+            )
+        );
+    }
     /**
      * Displays a particular model.
      * 

@@ -313,4 +313,36 @@ class MenuItem extends yupe\models\YModel
         $data = $this->getConditionDenialList();
         return isset($data[$this->condition_denial]) ? Yii::t('MenuModule.menu', 'negation') . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*unknown*');
     }
+
+    public function sort(array $items)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+
+            foreach ($items as $id => $priority) {
+
+                $model = $this->findByPk($id);
+
+                if (null === $model) {
+                    continue;
+                }
+
+                $model->sort = (int)$priority;
+
+                if (!$model->update('sort')) {
+                    throw new CDbException('Error sort menu items!');
+                }
+            }
+
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
+    }
 }

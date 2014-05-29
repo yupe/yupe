@@ -6,17 +6,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions' => array('class' => 'well'),
 )); ?>
     <fieldset class="inline">
-        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10,'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'category_id', array('class' => 'span5', 'maxlength'=>10,'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'parent_id', array('class' => 'span5', 'size' => 60,'maxlength' => 60)); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('class' => 'span5', 'encode' => false, 'empty' => '----')); ?>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 300,'size' => 60)); ?>
         <?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
-        <?php echo $form->textFieldRow($model, 'file', array('class' => 'span5', 'maxlength'=>500, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'creation_date', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'user_id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
         <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span5', 'maxlength' => 150, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'type', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'span5', 'empty' => '----')); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'span5','empty' => '----')); ?>
     </fieldset>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

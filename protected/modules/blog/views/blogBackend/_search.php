@@ -20,12 +20,12 @@ $form = $this->beginWidget(
 ?>
 
     <fieldset class="inline">
-        <div class="wide row-fluid control-group">          
-            <div class="span3">
-                <?php echo $form->textFieldRow($model, 'slug', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
-            </div>
+        <div class="wide row-fluid control-group">
             <div class="span3">
                 <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'slug', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
             </div>
         </div>
         <div class="wide row-fluid control-group">

@@ -86,7 +86,8 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'name'  => 'id',
                 'value' => 'CHtml::link($data->id, array("/blog/blogBackend/update","id" => $data->id))',
-                'type'  => 'html'
+                'type'  => 'html',
+                'htmlOptions' => array('style' => 'width:10px'),
             ),
             array(
                 'name'   => 'icon',
@@ -134,11 +135,6 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => $model->getTypeList()
             ),
             array(
-                'name'  => 'category_id',
-                'value'  => 'empty($data->category) ? "---" : $data->category->name',
-				'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory), array('encode' => false, 'empty' => ''))
-            ),
-            array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
                     'url'  => $this->createUrl('/blog/blogBackend/inline'),
@@ -152,7 +148,12 @@ $this->renderPartial('_search', array('model' => $model));
                 'name'   => 'status',
                 'type'   => 'raw',
                 'value'  => '$data->getStatus()',
-                'filter' => Post::model()->getStatusList()
+                'filter' => $model->getStatusList()
+            ),
+            array(
+                'name'  => 'category_id',
+                'value'  => 'empty($data->category) ? "---" : $data->category->name',
+				'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory), array('encode' => false, 'empty' => ''))
             ),
             array(
                 'name'   => 'create_user_id',

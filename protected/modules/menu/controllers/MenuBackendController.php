@@ -11,6 +11,17 @@
  */
 class MenuBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Menu',
+                'validAttributes' => array('name', 'code', 'status', 'description')
+            )
+        );
+    }
+
     /**
      * Отображает меню по указанному идентификатору
      * @param integer $id Идинтификатор меню для отображения
@@ -20,17 +31,17 @@ class MenuBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         $code = "<?php \$this->widget(
-    'application.modules.menu.widgets.MenuWidget', array(
-        'name'         => '{$model->code}',
-        'params'       => array('hideEmptyItems' => true),
-        'layoutParams' => array(
-            'htmlOptions' => array(
-                'class' => 'jqueryslidemenu',
-                'id'    => 'myslidemenu',
-            )
-        ),
-    )
-); ?>";
+                    'application.modules.menu.widgets.MenuWidget', array(
+                        'name'         => '{$model->code}',
+                        'params'       => array('hideEmptyItems' => true),
+                        'layoutParams' => array(
+                            'htmlOptions' => array(
+                                'class' => 'jqueryslidemenu',
+                                'id'    => 'myslidemenu',
+                            )
+                        ),
+                    )
+                ); ?>";
 
         $highlighter = new CTextHighlighter;
         $highlighter->language = 'PHP';

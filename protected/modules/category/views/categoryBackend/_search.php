@@ -6,14 +6,29 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions' => array('class' => 'well'),
 )); ?>
     <fieldset class="inline">
-        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'parent_id', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 150, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 300, 'size' => 60)); ?>
-        <?php echo $form->textAreaRow($model, 'short_description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
-        <?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
-        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span5', 'maxlength' => 100, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <div class="row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'name', array('maxlength' => 150, 'size' => 60)); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'alias', array('maxlength' => 100, 'size' => 60)); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '----')); ?>
+            </div>
+        </div>
+        <div class="row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'short_description', array('size' => 60, 'maxlength' => 60)); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'description', array('size' => 60, 'maxlength' => 60)); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'parent_id', Category::model()->getFormattedList(), array('empty' => '----', 'encode' => false)); ?>
+            </div>
+        </div>
+
     </fieldset>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

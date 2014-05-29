@@ -76,15 +76,13 @@ class Category extends \yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class'             => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'         => array('insert', 'update'),
-                'attributeName'     => 'image',
-                'uploadPath'        => $module !== null ? $module->getUploadPath() . '/category' : null,
-                'imageNameCallback' => array($this, 'generateFileName'),
-                'resize'            => array(
-                    'quality' => 90,
-                    'width'   => 800,
-                )
+                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'image',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module !== null ? $module->uploadPath . '/category' : null,
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',

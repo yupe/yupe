@@ -23,7 +23,7 @@ class UserController extends FrontController
     {
         return array(
             'captcha' => array(
-                'class'     => 'yupe\components\actions\YCaptchaAction',
+                'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
@@ -143,21 +143,21 @@ class UserController extends FrontController
 
             $form->setAttributes(
                 array(
-                    'password'   => $password,
-                    'cPassword'  => $password,
+                    'password' => $password,
+                    'cPassword' => $password,
                     'verifyCode' => null
                 )
             );
 
             if ($form->validate()) {
 
-                if($user = Yii::app()->userManager->createUser($form)) {
+                if ($user = Yii::app()->userManager->createUser($form)) {
 
                     $social = new SocialUser;
                     $social->user_id = $user->id;
                     $social->provider = $authData['service'];
                     $social->uid = $authData['uid'];
-                    if($social->save()) {
+                    if ($social->save()) {
                         Yii::app()->getUser()->setFlash(
                             YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t(

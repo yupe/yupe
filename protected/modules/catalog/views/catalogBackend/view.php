@@ -45,10 +45,19 @@
         'price',
         'article',
         'image',
-        'short_description',
-        'description',
+        array(
+            'name' => 'short_description',
+            'type' => 'raw'
+        ),
+        array(
+            'name' => 'description',
+            'type' => 'raw'
+        ),
         'alias',
-        'data',
+        array(
+            'name' => 'data',
+            'type' => 'raw'
+        ),
         array(
             'name'  => 'is_special',
             'value' => $model->getSpecial(),

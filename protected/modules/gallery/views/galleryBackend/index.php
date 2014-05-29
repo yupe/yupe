@@ -59,27 +59,76 @@ $this->renderPartial('_search', array('model' => $model));
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'bulkActions'      => array(
+            'actionButtons' => array(
+                array(
+                    'id'         => 'delete-post',
+                    'buttonType' => 'button',
+                    'type'       => 'danger',
+                    'size'       => 'small',
+                    'label'      => Yii::t('GalleryModule.gallery', 'Delete'),
+                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('GalleryModule.gallery', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+                ),
+            ),
+            'checkBoxColumnConfig' => array(
+                'name' => 'id'
+            ),
+        ),
         'columns'      => array(
             array(
                 'header' => '',
                 'value'  => 'CHtml::image($data->previewImage(), $data->name, array("width" => 100,"height" => 75))',
                 'type'   => 'html'
             ),
-            'name',
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'name',
+                'editable' => array(
+                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'description',
+                'value' => 'strip_tags($data->description)',
+                'editable' => array(
+                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'  => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'source' => $model->getStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name'   => 'status',
+                'type'   => 'raw',
+                'value'  => '$data->getStatus()',
+                'filter' => $model->getStatusList()
+            ),
             array(
                 'name'   => 'owner',
-                'filter' => $model->usersList,
+                'filter' => $model->getUsersList(),
                 'value'  => '$data->ownerName',
             ),
             array(
-                'type' => 'html',
-                'name'  => 'description',
-            ),
-            'imagesCount',
-            array(
-                'name'   => 'status',
-                'value'  => '$data->getStatus()',
-                'filter' => $model->getStatusList()
+                'name'   => 'imagesCount',
+                'value'  => 'CHtml::link($data->imagesCount, array("/gallery/gallery/images/", "id" => $data->id))',
+                'type'   => 'raw',
+                'filter' => false
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

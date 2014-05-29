@@ -33,6 +33,7 @@ class NewsModule extends WebModule
         );
     }
 
+
     public function getUploadPath()
     {
         return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
@@ -41,7 +42,7 @@ class NewsModule extends WebModule
     public function getInstall()
     {
         if(parent::getInstall()) {
-            @mkdir($this->getUploadPath(),0755);
+            @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
         }
 
         return false;
@@ -51,7 +52,7 @@ class NewsModule extends WebModule
     {
         $messages = array();
 
-        $uploadPath = $this->getUploadPath();
+        $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath))
             $messages[WebModule::CHECK_ERROR][] =  array(

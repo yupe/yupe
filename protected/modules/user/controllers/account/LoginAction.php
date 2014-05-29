@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за авторизацию пользователя
  *
@@ -11,7 +12,7 @@
  *
  **/
 class LoginAction extends CAction
-{   
+{
     public function run()
     {
         if (Yii::app()->user->isAuthenticated()) {
@@ -34,9 +35,14 @@ class LoginAction extends CAction
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
 
-            $form->setAttributes(Yii::app()->request->getPost('LoginForm'));
+            $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login($form, Yii::app()->getUser(), Yii::app()->getRequest())) {
+            if ($form->validate() && Yii::app()->authenticationManager->login(
+                    $form,
+                    Yii::app()->getUser(),
+                    Yii::app()->getRequest()
+                )
+            ) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -47,13 +53,18 @@ class LoginAction extends CAction
                     new CModelEvent($this->controller, array('loginForm' => $form))
                 );
 
-                if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
-                    $redirect = array($module->loginAdminSuccess);
-                } else {
-                    $redirect = empty($module->loginSuccess) ? Yii::app()->baseUrl : array($module->loginSuccess);
+                $redirect = Yii::app()->getUser()->getReturnUrl();
+
+                if (!$redirect) {
+                    if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
+                        $redirect = array($module->loginAdminSuccess);
+                    } else {
+                        $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl(
+                        ) : array($module->loginSuccess);
+                    }
                 }
 
-                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->user, 0);                
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
                 $this->controller->redirect($redirect);
 

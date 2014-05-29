@@ -14,6 +14,12 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set('UTC');
 }
 
+// Setting internal encoding to UTF-8.
+if(!ini_get('mbstring.internal_encoding')) {
+    @ini_set("mbstring.internal_encoding", 'UTF-8');
+    mb_internal_encoding('UTF-8');
+}
+
 // Комментируем перед выпуском в продакшен:
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);

@@ -68,6 +68,8 @@ return array(
             'ipFilters'=>array(),
         ),*/
     ),
+
+    //comment this behaviors if multilingual unnecessary
     'behaviors' => array(
         'onBeginRequest' => array(
             'class' => 'yupe\components\urlManager\LanguageBehavior'
@@ -78,6 +80,7 @@ return array(
     'components' => array(
         'debug' => array(
             'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'internalUrls' => false,
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
@@ -101,25 +104,21 @@ return array(
         'dao' => array(
             'class' => 'yupe\components\DAO',
         ),
-        // библиотека для работы с картинками через GD/ImageMagick
-        // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
-            'class'  => 'application.modules.yupe.extensions.image.CImageComponent',
-            'driver' => 'GD',                               // если ImageMagick, надо указать к нему путь ниже
-            'params' => array( 'directory' => '/usr/bin' ), // в этой директории должен быть convert
+            'class'  => 'application\modules\yupe\components\image\Image',
         ),
-        'thumbs' => array(
-            'class'   => 'application.modules.yupe.extensions.EPhpThumb.EPhpThumb',
-            'options' => array('jpegQuality' => 80),
+        'uploadManager' => array(
+            'class'  => 'application\modules\yupe\components\UploadManager',
         ),
         'themeManager'       => array(
             'basePath'       => dirname(__DIR__) . '/../themes',
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
-            'class'          => 'yupe\components\urlManager\LangUrlManager',
-            'languageInPath' => true,
-            'langParam'      => 'language',
+            'class'          => 'yupe\components\urlManager\LangUrlManager', //comment this if if multilingual unnecessary
+            //'class'          => 'CUrlManager', // default yii UrlManager
+            'languageInPath' => true, //comment this if if multilingual unnecessary
+            'langParam'      => 'language', //comment this if if multilingual unnecessary
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
@@ -136,6 +135,7 @@ return array(
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
                 '/gii/<controller:\w+>/<action:\w+>'                              => 'gii/<controller>/<action>',
                 '/site/<action:\w+>'                                              => 'site/<action>',
+                '/debug/<controller:\w+>/<action:\w+>'                            => 'debug/<controller>/<action>', // Для  YiiDebugPanel
             )
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
@@ -186,7 +186,7 @@ return array(
         'highlightjs' => array(
             'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
             'remote'  => false,
-            'style   '=>'github'
+            'style'=>'github'
         ),
 
         'errorHandler'=>array(

@@ -37,7 +37,7 @@ $this->widget(
 ); ?>
 
 <div class="accordion" id="accordion2">
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"docs_existingfiles"))); ?>
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">

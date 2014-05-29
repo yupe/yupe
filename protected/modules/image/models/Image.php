@@ -38,7 +38,6 @@ class Image extends yupe\models\YModel
 
     public $galleryId;
 
-    private $_url;
     private $_galleryId = null;
 
     /**
@@ -71,14 +70,14 @@ class Image extends yupe\models\YModel
     public function rules()
     {
         return array(
+            array('name, description, alt', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('name , alt, type', 'required'),
             array('galleryId', 'numerical'),
             array('name, description, alt', 'filter', 'filter' => 'trim'),
-            array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),           
             array('user_id, parent_id, category_id, type, status', 'length', 'max' => 11),
             array('alt, name, file', 'length', 'max' => 250),
-            array('type', 'in', 'range' => array_keys($this->typeList)),
+            array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, name, description, creation_date, user_id, alt, status, galleryId', 'safe', 'on' => 'search'),
         );
@@ -87,21 +86,17 @@ class Image extends yupe\models\YModel
     public function behaviors()
     {
         $module = Yii::app()->getModule('image');
+
         return array(
             'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\ImageUploadBehavior',
+                'class' => 'yupe\components\behaviors\FileUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'file',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'requiredOn'    => 'insert',
-                'uploadPath'    => $module->getUploadPath(),
-                'imageNameCallback' => array($this, 'generateFileName'),
-                'resize' => array(
-                    'quality' => 70,
-                    'width' => 1024,
-                )
+                'uploadPath' => $module->uploadPath,
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
@@ -112,9 +107,11 @@ class Image extends yupe\models\YModel
         );
     }
 
-    public function generateFileName()
+    public function afterDelete()
     {
-        return md5($this->name . microtime(true) . rand());
+        @unlink(Yii::app()->getModule('image')->getUploadPath() . '/' . $this->file);
+
+        return parent::afterDelete();
     }
 
     /**
@@ -129,7 +126,8 @@ class Image extends yupe\models\YModel
                 'image'       => array(self::BELONGS_TO, 'Image', 'id'),
                 'category'    => array(self::BELONGS_TO, 'Category', 'category_id'),
                 'user'        => array(self::BELONGS_TO, 'User', 'user_id'),
-            ), Yii::app()->hasModule('gallery')
+            ),
+            Yii::app()->hasModule('gallery')
             ? array(
                 'galleryRell' => array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id')),
                 'gallery'     => array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
@@ -170,14 +168,14 @@ class Image extends yupe\models\YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare($this->tableAlias . '.id', $this->id);
-        $criteria->compare($this->tableAlias . '.name', $this->name, true);
-        $criteria->compare($this->tableAlias . '.description', $this->description, true);
-        $criteria->compare($this->tableAlias . '.file', $this->file, true);
-        $criteria->compare($this->tableAlias . '.creation_date', $this->creation_date, true);
-        $criteria->compare($this->tableAlias . '.user_id', $this->user_id, true);
-        $criteria->compare($this->tableAlias . '.alt', $this->alt, true);
-        $criteria->compare($this->tableAlias . '.status', $this->status);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('t.name', $this->name, true);
+        $criteria->compare('t.description', $this->description, true);
+        $criteria->compare('t.file', $this->file, true);
+        $criteria->compare('t.creation_date', $this->creation_date, true);
+        $criteria->compare('t.user_id', $this->user_id, true);
+        $criteria->compare('t.alt', $this->alt, true);
+        $criteria->compare('t.status', $this->status);
         
         if (Yii::app()->hasModule('gallery')) {
             $criteria->with = array('gallery', 'image');
@@ -190,8 +188,7 @@ class Image extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->creation_date = new CDbExpression('NOW()');
             $this->user_id       = Yii::app()->user->getId();
         }
@@ -272,8 +269,11 @@ class Image extends yupe\models\YModel
         return Yii::app()->hasModule('gallery')
             ? CHtml::listData(
                 Gallery::model()->cache(
-                    100, new CDbCacheDependency('SELECT MAX(id) FROM {{gallery_gallery}}')
-                )->findAll(), 'id', 'name'
+                    100,
+                    new CDbCacheDependency('SELECT MAX(id) FROM {{gallery_gallery}}')
+                )->findAll(),
+                'id',
+                'name'
             )
             : array(
                 Yii::t('ImageModule.image', 'Gallery module is not installed'),

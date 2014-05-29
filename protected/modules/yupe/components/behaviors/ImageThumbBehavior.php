@@ -2,7 +2,9 @@
 namespace yupe\components\behaviors;
 
 use CActiveRecordBehavior;
+use Imagine\Image\ImageInterface;
 use Yii;
+use application\modules\yupe\components\image\Imagine;
 
 class ImageThumbBehavior extends CActiveRecordBehavior
 {
@@ -43,15 +45,8 @@ class ImageThumbBehavior extends CActiveRecordBehavior
 
         if (file_exists($this->uploadPath . '/' . $file) === false)
         {
-            $thumb = Yii::app()->thumbs->create($this->sourceFolder . '/' . $this->owner->{$this->attributeName});
-            if ($adaptiveResize)
-            {
-                $thumb->adaptiveResize($width, $height);
-            }
-            else
-            {
-                $thumb->resize($width, $height);
-            }
+            $thumb = Imagine::thumbnail($this->sourceFolder . '/' . $this->owner->{$this->attributeName}, $width, $height, $adaptiveResize ? ImageInterface::THUMBNAIL_OUTBOUND: ImageInterface::THUMBNAIL_INSET);
+
             if (!file_exists($this->uploadPath))
             {
                 mkdir($this->uploadPath, 0755, true);

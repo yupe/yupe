@@ -15,12 +15,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
+    <div class='row-fluid control-group'>
+
+        <div class="span2">
+            <?php echo $form->dropDownListRow($model, 'owner', $model->usersList); ?>
+        </div>
+
+        <div class='span2'>
+            <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
+        </div>
+
+    </div>
+
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-    <div class='control-group <?php echo $model->hasErrors("owner") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'owner', $model->usersList); ?>
-    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'description'); ?>
@@ -32,9 +42,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->error($model, 'description'); ?>
         </div>
     </div>
-    <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
-    </div>
+
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',

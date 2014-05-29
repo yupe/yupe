@@ -151,7 +151,9 @@ class UserToBlog extends yupe\models\YModel
         $criteria->compare('t.id', $this->id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('blog_id', $this->blog_id);
-        $criteria->compare('create_date', $this->create_date);
+        if($this->create_date) {
+            $criteria->compare('DATE(from_unixtime(t.create_date))', date('Y-m-d', strtotime($this->create_date)));
+        }
         $criteria->compare('update_date', $this->update_date);
         $criteria->compare('role', $this->role);
         $criteria->compare('t.status', $this->status);
