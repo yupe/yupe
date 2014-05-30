@@ -176,8 +176,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 </div>
             </div>
 
-            <?php if (!$model->isNewRecord): $model->refresh();?>
-                <?php foreach ((array)$model->images as $image): ?>
+            <?php if (!$model->isNewRecord):?>
+                <?php foreach ($model->images as $image):?>
+
                     <div class="product-image">
                         <div>
                             <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-polaroid"/>
@@ -202,13 +203,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     </div>
     <div class="tab-pane" id="seo">
-        <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
+        <div class="row-fluid control-group <?php echo $model->hasErrors('meta_title') ? 'error' : ''; ?>">
             <?php echo $form->textFieldRow($model, 'meta_title', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 ', 'data-original-title' => $model->getAttributeLabel('meta_title'), 'data-content' => $model->getAttributeDescription('meta_title'))); ?>
         </div>
-        <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
+        <div class="row-fluid control-group <?php echo $model->hasErrors('meta_keywords') ? 'error' : ''; ?>">
             <?php echo $form->textFieldRow($model, 'meta_keywords', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 ', 'data-original-title' => $model->getAttributeLabel('meta_keywords'), 'data-content' => $model->getAttributeDescription('meta_keywords'))); ?>
         </div>
-        <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
+        <div class="row-fluid control-group <?php echo $model->hasErrors('meta_description') ? 'error' : ''; ?>">
             <?php echo $form->textAreaRow($model, 'meta_description', array('rows' => 3, 'cols' => 98, 'class' => 'span7 ', 'data-original-title' => $model->getAttributeLabel('meta_description'), 'data-content' => $model->getAttributeDescription('meta_description'))); ?>
         </div>
     </div>

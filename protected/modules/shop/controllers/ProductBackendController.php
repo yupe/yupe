@@ -25,11 +25,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         if (isset($_POST['Product']))
         {
             $model->attributes = $_POST['Product'];
-
+            $model->setTypeAttributes($_POST['Attribute']);
             if ($model->save())
             {
                 $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
-                $model->updateEavAttributes($_POST['Attribute']);
+
                 $this->updateProductImages($model);
 
                 Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('ShopModule.product', 'Record was added!'));
@@ -59,10 +59,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         if (isset($_POST['Product']))
         {
             $model->attributes = $_POST['Product'];
+            $model->setTypeAttributes($_POST['Attribute']);
             if ($model->save())
             {
                 $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
-                $model->updateEavAttributes($_POST['Attribute']);
                 $this->updateProductImages($model);
                 Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('ShopModule.product', 'Record was updated!'));
 
@@ -168,7 +168,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function loadModel($id)
     {
-        $model = Product::model()->findByPk($id);
+        $model = Product::model()->with('images')->findByPk($id);
         if ($model === null)
         {
             throw new CHttpException(404, Yii::t('ShopModule.product', 'Page was not found!'));

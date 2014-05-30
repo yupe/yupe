@@ -15,13 +15,13 @@
  */
 class Attribute extends \yupe\models\YModel
 {
-    const TYPE_TEXT          = 0;
-    const TYPE_TEXTAREA      = 1;
-    const TYPE_DROPDOWN      = 2;
-    const TYPE_CHECKBOX      = 3;
+    const TYPE_TEXT = 0;
+    const TYPE_TEXTAREA = 1;
+    const TYPE_DROPDOWN = 2;
+    const TYPE_CHECKBOX = 3;
     const TYPE_CHECKBOX_LIST = 4;
-    const TYPE_IMAGE         = 5;
-    const TYPE_NUMBER        = 6;
+    const TYPE_IMAGE = 5;
+    const TYPE_NUMBER = 6;
 
     /**
      * @return string the associated database table name
@@ -168,7 +168,7 @@ class Attribute extends \yupe\models\YModel
                 break;
             case self::TYPE_DROPDOWN:
                 $data = CHtml::listData($this->options, 'id', 'value');
-                return CHtml::dropDownList($name, $value, $data, array('empty' => '---'));
+                return CHtml::dropDownList($name, $value, $data, $this->required ? array() : array('empty' => '---'));
                 break;
             case self::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($this->options, 'id', 'value');
@@ -224,5 +224,10 @@ class Attribute extends \yupe\models\YModel
     public static function getTypesWithOptions()
     {
         return array(self::TYPE_DROPDOWN, self::TYPE_CHECKBOX_LIST);
+    }
+
+    public function getAttributeByName($name)
+    {
+        return $name ? self::model()->findByAttributes(array('name' => $name)) : null;
     }
 }

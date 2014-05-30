@@ -79,3 +79,8 @@ ol.type-attributes li span{
     filter: alpha(opacity=0);
     cursor: pointer;
 }
+
+.error input, .error select {
+    border-color: #b94a48;
+    color: #b94a48;
+}

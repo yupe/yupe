@@ -39,14 +39,14 @@
 class Product extends yupe\models\YModel
 {
     const SPECIAL_NOT_ACTIVE = 0;
-    const SPECIAL_ACTIVE     = 1;
+    const SPECIAL_ACTIVE = 1;
 
-    const STATUS_ZERO       = 0;
-    const STATUS_ACTIVE     = 1;
+    const STATUS_ZERO = 0;
+    const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 2;
 
     const STATUS_NOT_IN_STOCK = 0;
-    const STATUS_IN_STOCK     = 1;
+    const STATUS_IN_STOCK = 1;
 
     /**
      * Returns the static model of the specified AR class.
@@ -240,6 +240,15 @@ class Product extends yupe\models\YModel
             $this->alias = yupe\helpers\YText::translit($this->name);
         }
 
+        foreach ((array)$this->_eavAttributes as $name => $value)
+        {
+            $model = Attribute::model()->getAttributeByName($name);
+            if ($model->required && !$value)
+            {
+                $this->addError('eav.' . $name, Yii::t("ShopModule.product", "Атрибут \"title\" обязателен", array('title' => $model->title)));
+            }
+        }
+
         return parent::beforeValidate();
     }
 
@@ -344,6 +353,13 @@ class Product extends yupe\models\YModel
         return $list;
     }
 
+    private $_eavAttributes = null;
+
+    public function setTypeAttributes($attributes)
+    {
+        $this->_eavAttributes = $attributes;
+    }
+
     /**
      * @param $attributes
      */
@@ -361,6 +377,20 @@ class Product extends yupe\models\YModel
 
     public function attr($attribute)
     {
-        return $this->getEavAttribute($attribute);
+        return isset($this->_eavAttributes[$attribute]) ? $this->_eavAttributes[$attribute] : $this->getEavAttribute($attribute);
+    }
+
+    public function afterDelete()
+    {
+        foreach ((array)$this->images as $image)
+        {
+            $image->delete();
+        }
+    }
+
+    public function afterSave()
+    {
+        parent::afterSave();
+        $this->updateEavAttributes($this->_eavAttributes);
     }
 }
