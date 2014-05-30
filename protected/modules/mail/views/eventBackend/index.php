@@ -73,17 +73,34 @@ $this->renderPartial('_search', array('model'=>$model));
 $this->widget(
     'yupe\widgets\CustomGridView', array(
         'id'           => 'mail-event-grid',
-        'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => array(
-            'id',
-            'code',
-            'name',
             array(
-                'header' => Yii::t('MailModule.mail', 'Templates'),
-                'type'   => 'raw',
-                'value'  => 'CHtml::link(count($data->templates), array("/mail/templateBackend/index/", "event" => $data->id))',
+                'name' => 'id',
+                'htmlOptions' => array('style' => 'width:20px'),
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'code',
+                'editable' => array(
+                    'url' => $this->createUrl('/mail/eventBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name'  => 'name',
+                'editable' => array(
+                    'url' => $this->createUrl('/mail/eventBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                )
             ),
             array(
                 'header'      => $model->getAttributeLabel('description'),
@@ -91,6 +108,11 @@ $this->widget(
                 'htmlOptions' => array(
                     'style'   => 'width: 20%;'
                 ),
+            ),
+            array(
+                'header' => Yii::t('MailModule.mail', 'Templates'),
+                'type'   => 'raw',
+                'value'  => 'CHtml::link(count($data->templates), array("/mail/templateBackend/index/", "event" => $data->id))',
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbButtonColumn',

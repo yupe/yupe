@@ -13,9 +13,18 @@
 
 class QueueModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
+
+    public $workerNamesMap;
+
+    public function getWorkerNamesMap()
+    {
+        return $this->workerNamesMap;
+    }
+
     public function  getVersion()
     {
-        return Yii::t('QueueModule.queue', '0.6');
+        return self::VERSION;
     }
 
     public function getCategory()

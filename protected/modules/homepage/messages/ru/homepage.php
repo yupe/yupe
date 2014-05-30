@@ -30,4 +30,5 @@ return array (
   'Records' => 'Записи',
   'Pages' => 'Страницы',
   'read...' => 'читать...',
+  'Structure' => 'Структура'
 );

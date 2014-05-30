@@ -466,12 +466,13 @@ class User extends yupe\models\YModel
     {
         $size = (int)$size;
 
+        $userModule = Yii::app()->getModule('user');
+
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
+            return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size."&d=".urlencode(Yii::app()->createAbsoluteUrl('/')."/".$userModule->defaultAvatar);
         }
 
-        $userModule = Yii::app()->getModule('user');
         $avatar = $this->avatar;
         $path = $userModule->getUploadPath() . $avatar;
 

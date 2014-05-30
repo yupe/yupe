@@ -55,7 +55,6 @@ SCRIPT;
 <?php $this->widget(
     'yupe\widgets\CustomGridView', array(
         'id'            => 'user-tokens-grid',
-        'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'ajaxType'     => 'POST',
         'columns'      => array(

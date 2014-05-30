@@ -29,7 +29,7 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/site/index')); ?>
 
 <?php echo Yii::t('InstallModule.install', 'or');?>
 
@@ -51,7 +51,7 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/#!/yupe'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/yupecms'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
 
 <br/><br/>
 

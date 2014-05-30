@@ -16,6 +16,6 @@ return array(
     'import'    => array(),
     'component' => array(),
     'rules'     => array(
-        '/home' => 'homepage/homepage/index',
+        '/' => 'homepage/hp/index',
     ),
 );

@@ -46,24 +46,99 @@ $this->renderPartial('_search', array('model'=>$model));
 <?php
 $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'mail-template-grid',
-    'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
-        'code',
         array(
+            'name' => 'id',
+            'htmlOptions' => array('style' => 'width:20px'),
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'name',
+            'editable' => array(
+                'url' => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'code',
+            'editable' => array(
+                'url' => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'   => 'event_id',
+            'type'   => 'raw',
             'value'  => '$data->event->name',
             'filter' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name')
         ),
-        'name',
-        'theme',
-        'from',
-        'to',
         array(
-            'name'  => 'status',
-            'value' => '$data->getStatus()',
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'theme',
+            'editable' => array(
+                'url' => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'from',
+            'editable' => array(
+                'url' => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'name'  => 'to',
+            'editable' => array(
+                'url' => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'inline',
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            )
+        ),
+        array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'  => $this->createUrl('/mail/templateBackend/inline'),
+                'mode' => 'popup',
+                'type' => 'select',
+                'source' => $model->getStatusList(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$data->getStatus()',
+            'filter' => $model->getStatusList()
         ),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',

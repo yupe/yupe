@@ -17,6 +17,12 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Delete' => 'Удалить',
+  'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
+  'Main settings admin panel' => 'Основные настройки панели управления',
+  'Hide panel urls' => 'Скрывать урл-адреса панели управления',
+  'Session expired' => 'Cессия истекла...',
+  'Chat' => 'Чат',
   'Allowed IP' => 'Ограничение по IP (через запятую)',
   'Tags cloud' => 'Теги',
   ' The resulting interface is well integrated into the control panel of Yupe!.' => ' Полученный интерфейс благополучно интегрируется в панель управления Юпи!.',
@@ -71,7 +77,7 @@ return array (
   'Control panel "{app}"' => 'Панель управления "{app}"',
   'Creating table for store migration versions {table}' => 'Создаем таблицу для хранения версий миграций {table}',
   'Creation date' => 'Дата создания',
-  'Current backend theme' => 'Текущая тема административной части',
+  'Current backend theme' => 'Текущая тема панели управления',
   'Current theme' => 'Текущая тема',
   'Default backend language' => 'Язык по умолчанию для панели управления',
   'Default language' => 'Язык по умолчанию для сайта',
@@ -227,7 +233,7 @@ return array (
   'Theme choise' => 'Выбор темы',
   'Theme is don\'t use' => 'Тема не используется',
   'Theme is not using' => 'Тема не используется',
-  'Theme of backend' => 'Тема административной части',
+  'Theme of backend' => 'Тема панели управления',
   'Theme settings' => 'Настройки темы',
   'Themes' => 'Темы',
   'Themes settings saved successfully!' => 'Настройки темы успешно сохранены!',

@@ -5,7 +5,7 @@
         <?php $this->widget(
             'bootstrap.widgets.TbExtendedGridView', array(
                 'id'           => 'post-grid',
-                'type'         => 'condensed',
+                'type'         => 'striped condensed',
                 'dataProvider' => $dataProvider,
                 'template' => '{items}',
                 'htmlOptions' => array(

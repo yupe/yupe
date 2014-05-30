@@ -26,6 +26,7 @@
  * @property integer $ip
  * @property integer $category_id
  * @property string  $phone
+ * @property integer $is_faq
  */
 class FeedBack extends yupe\models\YModel
 {
@@ -86,7 +87,7 @@ class FeedBack extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('FeedbackModule.feedback', 'Identifier'),
+            'id'            => Yii::t('FeedbackModule.feedback', 'ID'),
             'creation_date' => Yii::t('FeedbackModule.feedback', 'Created'),
             'change_date'   => Yii::t('FeedbackModule.feedback', 'Updated'),
             'name'          => Yii::t('FeedbackModule.feedback', 'Name'),
@@ -275,10 +276,10 @@ class FeedBack extends yupe\models\YModel
     {
         return $this->status
                 ? (
-                    ($this->status == 1)
+                    ($this->status == self::STATUS_NEW)
                     ? 'warning'
                     : (
-                        ($this->status==3)
+                        ($this->status== self::STATUS_ANSWER_SENDED)
                         ?  'success'
                         : 'default'
                     )

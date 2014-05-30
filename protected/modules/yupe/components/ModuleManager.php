@@ -56,6 +56,7 @@ class ModuleManager extends \CApplicationComponent
         );
 
         $this->categorySort = array(
+            Yii::t('YupeModule.yupe', 'Users'),
             Yii::t('YupeModule.yupe', 'Content'),
             Yii::t('YupeModule.yupe', 'Structure'),
             Yii::t('YupeModule.yupe', 'Users'),

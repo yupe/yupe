@@ -33,11 +33,23 @@ $form = $this->beginWidget(
     </div>
 
     <?php if (Yii::app()->hasModule('gallery')) : ?>
-            <div class='span2'>
-        <?php echo $form->dropDownListRow($model, 'galleryId', $model->galleryList(), array('empty' => Yii::t('ImageModule.image', '--choose--'))); ?>
-    </div>
+        <div class='span2'>
+            <?php echo $form->dropDownListRow($model, 'galleryId', $model->galleryList(), array('empty' => Yii::t('ImageModule.image', '--choose--'))); ?>
+        </div>
     <?php endif; ?>
     </div>
+
+<div class='row-fluid control-group'>
+
+    <div class='span2'>
+        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+    </div>
+
+     <span class="span2">
+        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('ImageModule.image', '--choose--'), 'encode' => false)); ?>
+    </span>
+
+</div>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>
@@ -57,19 +69,6 @@ $form = $this->beginWidget(
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
         <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
     </div>
-
-    <div class='row-fluid control-group'>
-
-        <div class='span2'>
-            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
-    </div>
-
-             <span class="span2">
-                <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('ImageModule.image', '--choose--'), 'encode' => false)); ?>
-            </span>
-
-    </div>
-
 
     <?php
     $this->widget(

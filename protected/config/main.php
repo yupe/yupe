@@ -149,7 +149,7 @@ return array(
                 'httpOnly' => true,
             ),
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload', 'backend/image/image/AjaxImageUpload'),
+            'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload'),
             'enableCookieValidation' => true, // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ),
 

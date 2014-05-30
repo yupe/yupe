@@ -83,7 +83,7 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
-<table class="detail-view table table-striped table-condensed" id="yupe-core-team">
+<table class="detail-view table table-striped table-striped condensed" id="yupe-core-team">
     <tbody>
          <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Opeykin Andrey');?></th>

@@ -76,7 +76,7 @@ EOF;
 
 <?php echo "<?php\n"; ?> $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
-    'type'         => 'condensed',
+    'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(

@@ -26,17 +26,17 @@ class SocialModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t('SocialModule.social', 'Сервисы');
+        return Yii::t('SocialModule.social', 'Users');
     }
 
     public function getName()
     {
-        return Yii::t('SocialModule.social', 'Социализация');
+        return Yii::t('SocialModule.social', 'Socialization');
     }
 
     public function getDescription()
     {
-        return Yii::t('SocialModule.social', 'Модуль для входа и регистрации через социальные сети');
+        return Yii::t('SocialModule.social', 'Module for login and registration via social networks');
     }
 
     public function getAuthor()

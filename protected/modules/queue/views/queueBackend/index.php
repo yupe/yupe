@@ -44,15 +44,14 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'queue-grid',
-    'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
         'id',
         array(
             'name'   => 'worker',
-            'value'  => 'isset(Yii::app()->queue->workerNamesMap[$data->worker]) ? Yii::app()->queue->workerNamesMap[$data->worker] : $data->worker',
-            'filter' => Yii::app()->queue->workerNamesMap
+            'value'  => '$data->getWorkerName()',
+            'filter' => Yii::app()->getModule('queue')->getWorkerNamesMap()
         ),
         'create_time',
         'start_time',

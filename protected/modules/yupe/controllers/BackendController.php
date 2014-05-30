@@ -36,26 +36,6 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render('index', Yii::app()->moduleManager->getModules(false, true));
     }
 
-    public function actions()
-    {
-        var_dump($this->module->getId());die();
-
-        return array(
-            'AjaxFileUpload' => array(
-                'class' => 'yupe\components\actions\YAjaxFileUploadAction',
-                'maxSize' => $this->module->maxSize,
-                'mimeTypes' => $this->module->mimeTypes,
-                'types' => $this->module->allowedExtensions
-            ),
-            'AjaxImageUpload' => array(
-                'class' => 'yupe\components\actions\YAjaxImageUploadAction',
-                'maxSize' => $this->module->maxSize,
-                'mimeTypes' => $this->module->mimeTypes,
-                'types' => $this->module->allowedExtensions
-            )
-        );
-    }
-
     /**
      * Экшен настройки модулей (список):
      *
@@ -85,7 +65,6 @@ class BackendController extends yupe\components\controllers\BackController
             );
         }
 
-        $json = array();
         $message = array(
             'success' => Yii::t('YupeModule.yupe', 'Settings cache was reset successfully'),
             'failure' => Yii::t('YupeModule.yupe', 'There was an error when processing the request'),
@@ -530,9 +509,6 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionAjaxflush()
     {
-        /**
-         * Если это не POST-запрос - посылаем лесом:
-         **/
         if (!Yii::app()->getRequest()->getIsPostRequest()
             || !Yii::app()->getRequest()->getIsAjaxRequest()
             || ($method = Yii::app()->getRequest()->getPost('method')) === null
@@ -541,6 +517,25 @@ class BackendController extends yupe\components\controllers\BackController
         }
 
         switch ($method) {
+            case 'cacheAll':
+
+                try {
+                    Yii::app()->cache->flush();
+                    $this->_cleanAssets();
+                    if(Yii::app()->configManager->isCached()) {
+                        Yii::app()->configManager->flushDump(true);
+                    }
+                    Yii::app()->ajax->success(
+                        Yii::t('YupeModule.yupe', 'Cache cleaned successfully!')
+                    );
+
+                } catch (Exception $e) {
+                    Yii::app()->ajax->failure(
+                        $e->getMessage()
+                    );
+                }
+                break;
+
             /**
              * Очистка только кеша:
              **/

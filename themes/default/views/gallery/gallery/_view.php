@@ -11,7 +11,7 @@
 ?>
 <div class="media">
     <?php echo CHtml::link(
-        CHtml::image($data->previewImage(), $data->name, array('class' => 'thumbnail media-object')),
+        CHtml::image($data->previewImage(300, 300), $data->name, array('class' => 'thumbnail media-object')),
         array('/gallery/gallery/show/', 'id' => $data->id),
         array('class' => 'pull-left')
     ); ?>

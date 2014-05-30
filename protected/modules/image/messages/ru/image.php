@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Images categories' => 'Категории изображений',
   'General module settings' => 'Основные настройки модуля',
   'Link' => 'Ссылка',
   '*unknown*' => '*неизвестно*',
