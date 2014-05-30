@@ -37,6 +37,31 @@ class ModuleManager extends \CApplicationComponent
         parent::init();
     }
 
+    public function getExtendedMenu()
+    {
+        $menuItems = array();
+
+        if (count(Yii::app()->modules))
+        {
+            foreach (Yii::app()->modules as $key => $value)
+            {
+                $key    = strtolower($key);
+                $module = Yii::app()->getModule($key);
+                if (($module !== null))
+                {
+                    if ($module instanceof WebModule)
+                    {
+                        $tmp = $module->getExtendedNavigation();
+                        if($tmp){
+                            $menuItems = array_merge($menuItems, $tmp);
+                        }
+                    }
+                }
+            }
+        }
+        return $menuItems;
+    }
+
     /**
      * Возвращаем список модулей:
      *

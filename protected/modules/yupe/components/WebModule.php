@@ -1017,4 +1017,8 @@ abstract class WebModule extends CWebModule
 
         return md5_file($sourceFile) !== md5_file($installedFile);
     }
+
+    public function getExtendedNavigation(){
+        return array();
+    }
 }

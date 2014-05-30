@@ -34,6 +34,10 @@ $this->widget(
                 'items' => Yii::app()->moduleManager->getModules(true),
             ),
             array(
+                'class' => 'bootstrap.widgets.TbMenu',
+                'items' => Yii::app()->moduleManager->getExtendedMenu(),
+            ),
+            array(
                 'class'       => 'bootstrap.widgets.TbMenu',
                 'htmlOptions' => array('class' => 'pull-right'),
                 'encodeLabel' => false,

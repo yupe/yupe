@@ -67,49 +67,58 @@ class ShopModule extends WebModule
 
     public function getNavigation()
     {
+        return array();
+    }
+
+    public function getExtendedNavigation()
+    {
         return array(
-            array('icon'  => 'folder-open',
-                  'label' => Yii::t('ShopModule.category', 'Категории'),
-                  'url'   => array('/shop/categoryBackend/index'),
-                  'items' => array(
-                      array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.category', 'Список категорий'), 'url' => array('/shop/categoryBackend/index')),
-                      array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.category', 'Добавить категорию'), 'url' => array('/shop/categoryBackend/create')),
-                  ),
-            ),
-            array('icon'  => 'edit',
-                  'label' => Yii::t('ShopModule.attribute', 'Атрибуты'),
-                  'url'   => array('/shop/attributeBackend/index'),
-                  'items' => array(
-                      array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.attribute', 'Список атрибутов'), 'url' => array('/shop/attributeBackend/index')),
-                      array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.attribute', 'Добавить атрибут'), 'url' => array('/shop/attributeBackend/create')),
-                  ),
-            ),
-            array('icon'  => 'icon-list-alt',
-                  'label' => Yii::t('ShopModule.type', 'Типы товаров'),
-                  'url'   => array('/shop/typeBackend/index'),
-                  'items' => array(
-                      array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.type', 'Список типов'), 'url' => array('/shop/typeBackend/index')),
-                      array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.type', 'Добавить тип'), 'url' => array('/shop/typeBackend/create')),
-                  ),
-            ),
-            array('icon'  => 'icon-plane',
-                  'label' => Yii::t('ShopModule.producer', 'Производители'),
-                  'url'   => array('/shop/producerBackend/index'),
-                  'items' => array(
-                      array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.producer', 'Список производителей'), 'url' => array('/shop/producerBackend/index')),
-                      array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.producer', 'Добавить производителя'), 'url' => array('/shop/producerBackend/create')),
-                  ),
-            ),
-            array('icon'  => 'icon-shopping-cart',
-                  'label' => Yii::t('ShopModule.product', 'Товары'),
-                  'url'   => array('/shop/productBackend/index'),
-                  'items' => array(
-                      array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.product', 'Список товаров'), 'url' => array('/shop/productBackend/index')),
-                      array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.product', 'Добавить товар'), 'url' => array('/shop/productBackend/create')),
-                  ),
-            )
-            //array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.catalog', 'Product list'), 'url' => array('/catalog/catalogBackend/index')),
-            //array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
+            array('icon' => 'icon-shopping-cart',
+            'label' => Yii::t('ShopModule.product', 'Каталог'),
+            'items' => array(
+                array('icon'  => 'folder-open',
+                    'label' => Yii::t('ShopModule.category', 'Категории'),
+                    'url'   => array('/shop/categoryBackend/index'),
+                    'items' => array(
+                        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.category', 'Список категорий'), 'url' => array('/shop/categoryBackend/index')),
+                        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.category', 'Добавить категорию'), 'url' => array('/shop/categoryBackend/create')),
+                    ),
+                ),
+                array('icon'  => 'edit',
+                    'label' => Yii::t('ShopModule.attribute', 'Атрибуты'),
+                    'url'   => array('/shop/attributeBackend/index'),
+                    'items' => array(
+                        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.attribute', 'Список атрибутов'), 'url' => array('/shop/attributeBackend/index')),
+                        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.attribute', 'Добавить атрибут'), 'url' => array('/shop/attributeBackend/create')),
+                    ),
+                ),
+                array('icon'  => 'icon-list-alt',
+                    'label' => Yii::t('ShopModule.type', 'Типы товаров'),
+                    'url'   => array('/shop/typeBackend/index'),
+                    'items' => array(
+                        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.type', 'Список типов'), 'url' => array('/shop/typeBackend/index')),
+                        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.type', 'Добавить тип'), 'url' => array('/shop/typeBackend/create')),
+                    ),
+                ),
+                array('icon'  => 'icon-plane',
+                    'label' => Yii::t('ShopModule.producer', 'Производители'),
+                    'url'   => array('/shop/producerBackend/index'),
+                    'items' => array(
+                        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.producer', 'Список производителей'), 'url' => array('/shop/producerBackend/index')),
+                        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.producer', 'Добавить производителя'), 'url' => array('/shop/producerBackend/create')),
+                    ),
+                ),
+                array('icon'  => 'icon-shopping-cart',
+                    'label' => Yii::t('ShopModule.product', 'Товары'),
+                    'url'   => array('/shop/productBackend/index'),
+                    'items' => array(
+                        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.product', 'Список товаров'), 'url' => array('/shop/productBackend/index')),
+                        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.product', 'Добавить товар'), 'url' => array('/shop/productBackend/create')),
+                    ),
+                )
+                //array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.catalog', 'Product list'), 'url' => array('/catalog/catalogBackend/index')),
+                //array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
+            )),
         );
     }
 
@@ -125,7 +134,7 @@ class ShopModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t('ShopModule.shop', 'Магазин');
+
     }
 
     public function getName()
