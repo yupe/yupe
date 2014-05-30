@@ -26,7 +26,7 @@ class ContactController extends yupe\components\controllers\FrontController
         );
     }
 
-    public function actionIndex()
+    public function actionIndex($type = null)
     {
         $form = new FeedBackForm;
 
@@ -37,7 +37,7 @@ class ContactController extends yupe\components\controllers\FrontController
         }
 
         // проверить не передан ли тип и присвоить его аттрибуту модели
-        $form->type = (int)Yii::app()->getRequest()->getParam('type', FeedBack::TYPE_DEFAULT);
+        $form->type = empty($type) ? FeedBack::TYPE_DEFAULT : (int)$type;
 
         $module = Yii::app()->getModule('feedback');
 
