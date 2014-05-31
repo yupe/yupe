@@ -63,12 +63,11 @@ class ProductImage extends \yupe\models\YModel
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module !== null ? $module->uploadPath . '/product' : null,
+                'uploadPath'    => $module->uploadPath . '/product',
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath . '/product' : null,
-                'sourceFolder'  => $module !== null ? $module->getUploadPath() . '/product' : null,
+                'uploadPath'    => $module->uploadPath . '/product',
                 'attributeName' => 'name',
             ),
         );

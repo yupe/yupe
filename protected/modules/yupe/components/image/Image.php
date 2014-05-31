@@ -24,8 +24,8 @@ class Image extends \CApplicationComponent
 
         if (false === $url) {
             $path = $this->getUploadManager()->getBasePath() .
-                DIRECTORY_SEPARATOR . $uploadDir .
-                DIRECTORY_SEPARATOR . $this->thumbDir;
+                DIRECTORY_SEPARATOR . $this->thumbDir .
+                DIRECTORY_SEPARATOR . $uploadDir;
 
             if (false === YFile::checkPath($path)) {
                 throw new CHttpException(
@@ -37,7 +37,7 @@ class Image extends \CApplicationComponent
             Imagine::thumbnail($this->getUploadManager()->getFilePath($file, $uploadDir), $width, $height, $mode)
                 ->save($path . DIRECTORY_SEPARATOR . $name, $saveOptions);
 
-            $url = $this->getUploadManager()->getBaseUrl() . '/' . $uploadDir . '/' . $this->thumbDir . '/' . $name;
+            $url = $this->getUploadManager()->getBaseUrl() . '/' . $this->thumbDir . '/' .  $uploadDir  . '/' . $name;
             Yii::app()->cache->set($cacheId, $url);
         }
 

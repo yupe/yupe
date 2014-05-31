@@ -37,9 +37,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 </div>
 <div class='row-fluid control-group <?php echo $model->hasErrors("image") ? "error" : ""; ?>'>
     <?php if (!$model->isNewRecord && $model->image): ?>
-        <?php echo CHtml::image($model->getImageUrl(200, 200), $model->name); ?>
+        <?php echo CHtml::image($model->getImageUrl(200, 200), $model->name, array('class' => 'preview-image img-polaroid')); ?>
     <?php endif; ?>
-    <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 250, 'size' => 60)); ?>
+    <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 250, 'size' => 60, 'onchange' => 'readURL(this);')); ?>
 </div>
 
 <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>

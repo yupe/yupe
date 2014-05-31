@@ -143,8 +143,7 @@ class Producer extends yupe\models\YModel
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath . '/producer' : null,
-                'sourceFolder'  => $module !== null ? $module->getUploadPath() . '/producer' : null,
+                'uploadPath'    =>  $module->uploadPath . '/producer',
                 'attributeName' => 'image',
             ),
         );

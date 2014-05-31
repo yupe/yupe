@@ -100,8 +100,7 @@ class Image extends yupe\models\YModel
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath'    => $module !== null ? Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/cache/' . $module->uploadPath : null,
-                'sourceFolder'  => $module !== null ? $module->getUploadPath() : null,
+                'uploadPath'    => $module->uploadPath,
                 'attributeName' => 'file',
             ),
         );

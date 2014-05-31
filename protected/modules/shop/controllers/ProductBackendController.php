@@ -118,7 +118,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         if (Yii::app()->request->isAjaxRequest)
         {
-            ProductImage::model()->deleteByPk($id);
+            ProductImage::model()->findByPk($id)->delete();
         }
     }
 

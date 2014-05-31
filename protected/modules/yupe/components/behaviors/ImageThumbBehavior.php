@@ -4,58 +4,16 @@ namespace yupe\components\behaviors;
 use CActiveRecordBehavior;
 use Imagine\Image\ImageInterface;
 use Yii;
-use application\modules\yupe\components\image\Imagine;
+use application\modules\yupe\components\UploadManager;
 
 class ImageThumbBehavior extends CActiveRecordBehavior
 {
     public $attributeName;
-    public $moduleName;
-    public $subFolder;
     public $uploadPath;
-    public $sourceFolder;
 
     protected $_oldImage;
-    /**
-     * make thumbnail of image
-     *
-     * @param int $width - ширина
-     * @param int $height - высота
-     * @param bool $adaptiveResize - обрезать ли фотографию для соблюдения пропорций
-     *
-     * @return string filename
-     **/
-    public function makeThumbnail($width = 0, $height = 0, $adaptiveResize = true)
-    {
-        $width = $width === 0
-            ? $height
-            : $width;
 
-        $height = $height === 0
-            ? $width
-            : $height;
-
-        $ext = pathinfo($this->owner->{$this->attributeName}, PATHINFO_EXTENSION);
-        $file = 'thumb_cache_' . $width . 'x' . $height . '_' . ($adaptiveResize ? 'ar_' : '') . pathinfo($this->owner->{$this->attributeName}, PATHINFO_FILENAME) . '.' . $ext;
-
-        if (!file_exists($this->sourceFolder . '/' . $this->owner->{$this->attributeName}))
-        {
-            return null;
-        }
-
-
-        if (file_exists($this->uploadPath . '/' . $file) === false)
-        {
-            $thumb = Imagine::thumbnail($this->sourceFolder . '/' . $this->owner->{$this->attributeName}, $width, $height, $adaptiveResize ? ImageInterface::THUMBNAIL_OUTBOUND: ImageInterface::THUMBNAIL_INSET);
-
-            if (!file_exists($this->uploadPath))
-            {
-                mkdir($this->uploadPath, 0755, true);
-            }
-            $thumb->save($this->uploadPath . '/' . $file);
-        }
-
-        return $file;
-    }
+    private $_uploadManager;
 
     /**
      * Получаем URL к файлу:
@@ -68,25 +26,23 @@ class ImageThumbBehavior extends CActiveRecordBehavior
      */
     public function getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
     {
-
-        if (!$this->owner->{$this->attributeName})
-        {
-            return false;
-        }
-
         if ($width || $height)
         {
-            return str_replace(Yii::getPathOfAlias('webroot'), '', $this->uploadPath) . '/' .
-            (($thumbnail = $this->makeThumbnail($width, $height, $adaptiveResize)) !== null
-                ? $thumbnail
-                : $this->owner->{$this->attributeName}
-            );
+            $width = $width === 0
+                ? $height
+                : $width;
+
+            $height = $height === 0
+                ? $width
+                : $height;
+            $url = Yii::app()->image->makeThumbnail($this->owner->{$this->attributeName}, $this->uploadPath, $width, $height, $adaptiveResize ? ImageInterface::THUMBNAIL_OUTBOUND: ImageInterface::THUMBNAIL_INSET);
         }
-        else
-        {
-            return str_replace(array(Yii::getPathOfAlias('webroot')), '', $this->sourceFolder) . '/' . $this->owner->{$this->attributeName};
+        else{
+            $url = $this->getUploadManager()->getBaseUrl() . '/' . $this->uploadPath . '/' . $this->owner->{$this->attributeName};
         }
+        return $url;
     }
+
     public function afterFind($event)
     {
         $this->_oldImage = $this->owner->{$this->attributeName};
@@ -108,9 +64,21 @@ class ImageThumbBehavior extends CActiveRecordBehavior
     public function deleteThumbs()
     {
         $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
-        foreach ((array)glob($this->uploadPath . '/' . 'thumb_cache_*_' . $fileName) as $file)
+        foreach ((array)glob($this->getUploadManager()->getBasePath() . '/' . Yii::app()->image->thumbDir . DIRECTORY_SEPARATOR . $this->uploadPath . DIRECTORY_SEPARATOR . '*_' . $fileName) as $file)
         {
             @unlink($file);
         }
+    }
+
+    /**
+     * @return UploadManager
+     */
+    protected function getUploadManager()
+    {
+        if ($this->_uploadManager === null) {
+            $this->_uploadManager = Yii::app()->getComponent('uploadManager');
+        }
+
+        return $this->_uploadManager;
     }
 }

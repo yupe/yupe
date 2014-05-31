@@ -41,11 +41,11 @@ $form = $this->beginWidget(
 <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
     <?php echo $form->textFieldRow($model, 'slug', array('class' => 'span7', 'size' => 60, 'maxlength' => 150, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
 </div>
-<div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
+<div class='row-fluid control-group <?php echo $model->hasErrors("image") ? "error" : ""; ?>'>
     <?php if (!$model->isNewRecord && $model->image): ?>
-        <?php echo CHtml::image($model->imageUrl, $model->name, array('class' => 'img-polaroid')); ?>
+        <?php echo CHtml::image($model->getImageUrl(200, 200), $model->name, array('class' => 'preview-image img-polaroid')); ?>
     <?php endif; ?>
-    <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span4', 'size' => 60, 'maxlength' => 250, 'data-original-title' => $model->getAttributeLabel('image'), 'data-content' => $model->getAttributeDescription('image'))); ?>
+    <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 250, 'size' => 60, 'onchange' => 'readURL(this);')); ?>
 </div>
 <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
     <div class="" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>

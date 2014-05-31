@@ -254,7 +254,7 @@ class Product extends yupe\models\YModel
 
     public function afterFind()
     {
-        return parent::afterFind();
+        parent::afterFind();
     }
 
     public function getStatusList()
