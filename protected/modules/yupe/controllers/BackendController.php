@@ -298,41 +298,21 @@ class BackendController extends yupe\components\controllers\BackController
      * @return bool
      **/
     public function saveParamsSetting($moduleId, $params)
-    {
-        $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
+    {    	
+    	$param_values = array();
 
-        foreach ($params as $p) {
-            $pval = Yii::app()->getRequest()->getPost($p);
-            // Если параметр уже был - обновим, иначе надо создать новый
-            if (isset($settings[$p])) {
-                // Если действительно изменили настройку
-                if ($settings[$p]->param_value != $pval) {
-                    $settings[$p]->param_value = $pval;
-                    // Добавляем для параметра его правила валидации
-                    $settings[$p]->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($p);
-                    if (!$settings[$p]->save()) {
-                        return false;
-                    }
-                }
-
-            } else {
-                $settings[$p] = new Settings;
-
-                $settings[$p]->setAttributes(
-                    array(
-                        'module_id' => $moduleId,
-                        'param_name' => $p,
-                        'param_value' => $pval,
-                    )
-                );
-
-                if (!$settings[$p]->save()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+    	// Перебираем все параметры модуля
+    	foreach ($params as $param_name) {
+    		$param_value = Yii::app()->getRequest()->getPost($param_name, null);
+    		// Если параметр есть в post-запросе добавляем его в массив
+    		if ($param_value !== null)
+    		{
+    			$param_values[$param_name] = $param_value;    			
+    		}    		
+    	}    	
+    	
+    	// Запускаем сохранение параметров
+    	return Settings::model()->saveModuleSettings($moduleId, $param_values);
     }
 
     /**

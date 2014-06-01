@@ -191,6 +191,44 @@ class Settings extends YModel
     }
 
     /**
+     * Сохраняет настройки модуля
+     * @param string $module_id Идентификатор модуля
+     * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
+     * 
+     */
+    public function saveModuleSettings($moduleId, $param_values)
+    {
+    	foreach ($param_values as $param_name=>$value)
+    	{
+    		// Получаем настройку
+    		$setting = Settings::model()->find('module_id = :module_id and param_name = :param_name', array(':module_id'=>$moduleId, ':param_name'=>$param_name));
+    		    		   		
+    		// Если новая запись
+    		if ($setting == null)
+    		{
+    			$setting = new Settings();
+    			$setting->module_id = $moduleId;
+    			$setting->param_name = $param_name;
+    		}
+    		// Если значение не изменилось то не сохраняем
+    		elseif ($setting->param_value == $value) continue;
+    		
+    		// Присваиваем новое значение
+    		$setting->param_value = $value;
+    		
+    		// Добавляем для параметра его правила валидации
+    		$setting->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($param_name);
+    		
+    		//Сохраняем
+    		if (!$setting->save()) {
+    			return false;
+    		}  		    		
+    	}
+    	
+    	return true;
+    }
+    
+    /**
      *  Получает настройки модуля/модулей из базы данных (пользователельские)
      *
      *  @param string $userId  - Идентификатор пользователя
