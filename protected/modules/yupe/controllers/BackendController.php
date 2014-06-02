@@ -299,7 +299,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function saveParamsSetting($moduleId, $params)
     {    	
-    	$param_values = array();
+    	$paramValues = array();
 
     	// Перебираем все параметры модуля
     	foreach ($params as $param_name) {
@@ -307,12 +307,12 @@ class BackendController extends yupe\components\controllers\BackController
     		// Если параметр есть в post-запросе добавляем его в массив
     		if ($param_value !== null)
     		{
-    			$param_values[$param_name] = $param_value;    			
+    			$paramValues[$param_name] = $param_value;    			
     		}    		
     	}    	
     	
     	// Запускаем сохранение параметров
-    	return Settings::model()->saveModuleSettings($moduleId, $param_values);
+    	return Settings::model()->saveModuleSettings($moduleId, $paramValues);
     }
 
     /**

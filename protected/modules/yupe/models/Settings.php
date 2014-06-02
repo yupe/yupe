@@ -196,28 +196,32 @@ class Settings extends YModel
      * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
      * 
      */
-    public function saveModuleSettings($moduleId, $param_values)
+    public function saveModuleSettings($moduleId, $paramValues)
     {
-    	foreach ($param_values as $param_name=>$value)
+    	foreach ($paramValues as $name=>$value)
     	{
     		// Получаем настройку
-    		$setting = Settings::model()->find('module_id = :module_id and param_name = :param_name', array(':module_id'=>$moduleId, ':param_name'=>$param_name));
+    		$setting = Settings::model()->find('module_id = :module_id and param_name = :param_name', array(':module_id'=>$moduleId, ':param_name'=>$name));
     		    		   		
     		// Если новая запись
     		if ($setting == null)
     		{
     			$setting = new Settings();
     			$setting->module_id = $moduleId;
-    			$setting->param_name = $param_name;
+    			$setting->param_name = $name;
     		}
     		// Если значение не изменилось то не сохраняем
-    		elseif ($setting->param_value == $value) continue;
+    		else
+    		if ($setting->param_value == $value)
+    		{
+    			continue;
+    		}
     		
     		// Присваиваем новое значение
     		$setting->param_value = $value;
     		
     		// Добавляем для параметра его правила валидации
-    		$setting->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($param_name);
+    		$setting->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($name);
     		
     		//Сохраняем
     		if (!$setting->save()) {
