@@ -45,7 +45,7 @@ Yii::app()->clientScript->registerCssFile(
                        <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot password?'), array('/user/account/recovery')); ?>
                     <?php endif;?>
                 </div>
-                <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
+                <?php if (Yii::app()->user->getState('badLoginCount', 0) >= $this->getModule()->badLoginCount): ?>
                     <div class='row-fluid'>
                         <?php if (CCaptcha::checkRequirements('gd')): ?>
                             <?php echo $form->labelEx($model, 'verifyCode'); ?>

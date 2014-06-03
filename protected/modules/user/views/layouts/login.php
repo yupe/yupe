@@ -36,13 +36,13 @@
     <?php
             $this->widget(
                 'bootstrap.widgets.TbNavbar', array(
-                    'htmlOptions' => array('class' => 'navbar-inverse'),
+                    'htmlOptions' => array('class' => 'navbar'),
                     'fluid'       => true,
                     'brand'       => CHtml::image(
-                        Yii::app()->baseUrl . "/web/images/logo.png", Yii::app()->name, array(
+                        Yii::app()->getModule('yupe')->getLogo(), CHtml::encode(Yii::app()->name), array(
                             'width'  => '38',
                             'height' => '38',
-                            'title'  => Yii::app()->name,
+                            'title'  => CHtml::encode(Yii::app()->name),
                         )
                     ),
                     'brandUrl'    => CHtml::normalizeUrl(array("/yupe/backend/index")),
@@ -54,7 +54,7 @@
                             'items'       => array_merge(
                                 array(
                                     array(
-                                        'icon'  => 'question-sign white',
+                                        'icon'  => 'question-sign',
                                         'label' => Yii::t('UserModule.user', 'Help'),
                                         'url'   => 'http://yupe.ru/docs/index.html?from=login',
                                         'items' => array(
@@ -80,6 +80,12 @@
                                                 'icon'  => 'icon-comment',
                                                 'label' => Yii::t('UserModule.user', 'Forum'),
                                                 'url'   => 'http://yupe.ru/talk/?from=login',
+                                                'linkOptions' => array('target' => '_blank'),
+                                            ),
+                                            array(
+                                                'icon'  => 'icon-comment',
+                                                'label' => Yii::t('YupeModule.yupe', 'Chat'),
+                                                'url'   => 'http://gitter.im/yupe/yupe',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
@@ -109,7 +115,7 @@
                                         )
                                     ),
                                     array(
-                                        'icon'        => 'home white',
+                                        'icon'        => 'home',
                                         'label'       => Yii::t('UserModule.user', 'Go home'),
                                         'linkOptions' => array('target' => '_blank'),
                                         'url'         => array('/' . Yii::app()->defaultController . '/index/'),
@@ -127,11 +133,11 @@
 </div>
 
 <footer>
-    Copyright &copy; 2009-<?php echo date('Y'); ?>
+    Copyright &copy; 2010-<?php echo date('Y'); ?>
     <?php echo $this->yupe->poweredBy();?>
     <br/>
     <a href="http://amylabs.ru/?from=yupe-panel">
-        <?php echo Yii::t('UserModule.user', 'Development and support'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amyLabs
+        <?php echo Yii::t('UserModule.user', 'Development and support'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amylabs
     </a>
 </footer>
 

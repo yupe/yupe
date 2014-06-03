@@ -99,14 +99,18 @@ class ShowController extends yupe\components\controllers\FrontController
             /**
              * Обработка при MD-файлах и пустом контенте:
              */
-            case in_array($type, explode(',', $this->module->fileExtMD)) && ($content = $this->module->renderMarkdown($lcFile)) === null:
+            case in_array($type, explode(',', $this->module->fileExtMD)) && ($content = $this->module->renderMarkdown(
+                    $lcFile
+                )) === null:
                 throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
                 break;
 
             /**
              * Обработка при HTML-файлах и пустом контенте (файл не найден):
              */
-            case in_array($type, explode(',', $this->module->fileExtHTML)) && ($content = file_get_contents($lcFile)) === null:
+            case in_array($type, explode(',', $this->module->fileExtHTML)) && ($content = file_get_contents(
+                    $lcFile
+                )) === null:
                 throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
                 break;
         }
@@ -132,7 +136,8 @@ class ShowController extends yupe\components\controllers\FrontController
         );
 
         $this->render(
-            'index', array(
+            'index',
+            array(
                 'content' => $content,
                 'title' => $title,
                 'module' => $module,

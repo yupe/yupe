@@ -20,7 +20,7 @@
 * каталоги товаров
 
 
-**На Юпи! уже работает более 450 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
+**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yii
 
@@ -33,7 +33,7 @@
 
 * PHP >= 5.3.3
 * Yiiframework >= 1.1.14
-* YiiBooster >= 2.1
+* YiiBooster = 3.x
 * Nested Set Behavior
 * Imperavi Redactor Widget
 * Yii2-debug
@@ -55,7 +55,7 @@
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
-* [Коммерческая поддержка](http://amylabs.ru/contact)
+* Коммерческая [разработка](http://amylabs.ru/yupe/development) и [поддержка](http://amylabs.ru/yupe/support)
 
 Возможности
 -----------
@@ -79,7 +79,7 @@
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 * Авторизация через социальные сети (с использованием nodge/yii-eauth)
 
-**Если Вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
+**Если вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
 
 
 Лицензия
@@ -90,6 +90,6 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
 
 
-(c) 2009 - 2014 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+(c) 2010 - 2014 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
 ![amyLabs](http://amylabs.ru/images/logo.png)

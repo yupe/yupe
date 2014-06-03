@@ -5,9 +5,9 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h1><?php echo Yii::t('YupeModule.yupe', 'Module Settings'); ?></h1>
+<h1><?php echo Yii::t('YupeModule.yupe', 'Modules'); ?></h1>
 
-<?php echo Yii::t('YupeModule.yupe', 'Setup modules "{app}" for your needs', array('{app}' => Yii::app()->name)); ?>
+<?php echo Yii::t('YupeModule.yupe', 'Setup modules "{app}" for your needs', array('{app}' => CHtml::encode(Yii::app()->name))); ?>
 
 <br/><br/>
 <div class="alert">

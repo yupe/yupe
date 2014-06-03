@@ -32,16 +32,7 @@ if (count($modules)) :
             $dis[$m->id] = $m;
         }
     } ?>
-    <div class="page-header">
-    <h6>
-        <?php
-        echo Yii::t(
-            'YupeModule.yupe', 'Modules developed for "{app}"', array(
-                '{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)),
-            )
-        ); ?>
-    </h6>
-    </div>
+
     <?php
     $tabs = array();
 

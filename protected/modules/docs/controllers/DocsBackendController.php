@@ -21,10 +21,15 @@ class DocsBackendController extends yupe\components\controllers\BackController
     public function init()
     {
         $this->menu = array(
-            array('icon' => 'file', 'label' => Yii::t('DocsModule.docs', 'About module'), 'url' => array('/docs/docsBackend/index')),
+            array(
+                'icon' => 'file',
+                'label' => Yii::t('DocsModule.docs', 'About module'),
+                'url' => array('/docs/docsBackend/index')
+            ),
             '',
             array(
-                'label' => Yii::t('DocsModule.docs', 'Files'), 'items' => $this->module->renderProjectDocs()
+                'label' => Yii::t('DocsModule.docs', 'Files'),
+                'items' => $this->module->renderProjectDocs()
             ),
         );
 
@@ -53,8 +58,12 @@ class DocsBackendController extends yupe\components\controllers\BackController
     public function actionShow($file = null)
     {
 
-        if (($fileName = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $file) && !file_exists($fileName))
+        if (($fileName = Yii::getPathOfAlias(
+                    'webroot'
+                ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $file) && !file_exists($fileName)
+        ) {
             throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found'));
+        }
 
         $content = $this->module->renderMarkdown($fileName);
 
@@ -63,7 +72,8 @@ class DocsBackendController extends yupe\components\controllers\BackController
             : $file;
 
         $this->render(
-            'show', array(
+            'show',
+            array(
                 'content' => $content,
                 'title' => $title,
             )

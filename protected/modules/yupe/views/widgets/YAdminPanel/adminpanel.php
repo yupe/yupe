@@ -103,7 +103,7 @@ $this->widget(
                             'icon'        => 'home',
                             'label'       => Yii::t('YupeModule.yupe', 'Go home'),
                             'visible'     => Yii::app()->controller instanceof yupe\components\controllers\BackController === true,
-                            'url'         => Yii::app()->createUrl('/')
+                            'url'         => Yii::app()->createAbsoluteUrl('/')
                         ),
                         array(
                             'label'       => '

@@ -11,6 +11,7 @@
  */
 class DocsModule extends yupe\components\WebModule
 {
+    const VERSION = '0.7';
 
     public $categorySort    = 9999;
     public $docFolder       = 'application.modules.docs.guide';
@@ -196,7 +197,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getVersion()
     {
-        return Yii::t('DocsModule.docs', '0.6');
+        return self::VERSION;
     }
 
     /**

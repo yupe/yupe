@@ -16,4 +16,4 @@
 - [Присылайте pull requests](https://github.com/yupe/yupe/pulls) (патчи)
 - Отдыхайте и наслаждайтесь жизнью!
 
-При возникновении проблем [мы](http://amylabs.ru/contact) готовы Вам помочь!
+При возникновении проблем [мы](http://amylabs.ru/contact) готовы вам помочь!
