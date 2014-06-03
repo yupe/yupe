@@ -50,6 +50,8 @@ class YupeModule extends WebModule
     public $allowedIp;
     public $hidePanelUrls = 0;
 
+    public $logo;
+
     /**
      * Возвращаем версию:
      *
@@ -67,6 +69,14 @@ class YupeModule extends WebModule
         }
 
         return array();
+    }
+
+    /**
+     * @since 0.7
+     */
+    public function getLogo()
+    {
+        return Yii::app()->createUrl($this->uploadPath.'/'.$this->logo);
     }
 
     /**
@@ -205,6 +215,7 @@ class YupeModule extends WebModule
             'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
             'allowedIp' => Yii::t('YupeModule.yupe', 'Allowed IP'),
             'hidePanelUrls' => Yii::t('YupeModule.yupe', 'Hide panel urls'),
+            'logo' => Yii::t('YupeModule.yupe', 'Logo')
         );
     }
 
@@ -229,7 +240,8 @@ class YupeModule extends WebModule
             'defaultLanguage' => $this->getLanguagesList(),
             'defaultBackendLanguage' => $this->getLanguagesList(),
             'allowedIp',
-            'hidePanelUrls' => $this->getChoice()
+            'hidePanelUrls' => $this->getChoice(),
+            'logo'
         );
     }
 
@@ -253,6 +265,7 @@ class YupeModule extends WebModule
             'site' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
                 'items' => array(
+                    'logo',
                     'siteName',
                     'siteDescription',
                     'siteKeyWords'
