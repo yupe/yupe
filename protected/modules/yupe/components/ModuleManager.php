@@ -52,6 +52,7 @@ class ModuleManager extends \CApplicationComponent
         $this->categoryIcon = array(
             Yii::t('YupeModule.yupe', 'Services') => 'briefcase',
             Yii::t('YupeModule.yupe', 'Yupe!')    => 'cog',
+            Yii::t('YupeModule.yupe', 'Content')  => 'file',
             $this->otherCategoryName => 'cog',
         );
 
