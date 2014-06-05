@@ -111,6 +111,7 @@ return array(
             'class'  => 'application\modules\yupe\components\UploadManager',
         ),
         'themeManager'       => array(
+            'class'          => 'CThemeManager',
             'basePath'       => dirname(__DIR__) . '/../themes',
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
@@ -162,16 +163,7 @@ return array(
         'ajax' => array(
             'class' => 'yupe\components\AsyncResponse',
         ),
-        // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
-        // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
-        'cache' => array(
-            'class' => 'CFileCache',
-            'behaviors' => array(
-                'clear' => array(
-                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
-                ),
-            ),
-        ),
+
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
         'log' => array(
             'class'  => 'CLogRouter',
@@ -181,13 +173,6 @@ return array(
                     'levels' => 'error, warning, info, trace', // на продакшн лучше оставить error, warning
                 ),
             ),
-        ),
-
-        // Подключение компоненты подсветки кода Highlight.js (Подробнее: http://softwaremaniacs.org/soft/highlight/)
-        'highlightjs' => array(
-            'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
-            'remote'  => false,
-            'style'=>'github'
         ),
 
         'errorHandler'=>array(

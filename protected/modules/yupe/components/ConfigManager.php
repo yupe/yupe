@@ -154,7 +154,7 @@ class ConfigManager extends CComponent
         // Если выключена опция кеширования настроек - не выполняем его:
         if (defined('\YII_DEBUG') && \YII_DEBUG === true) {
             return true;
-        }       
+        }
 
         if(!@file_put_contents($this->_cachefile, '<?php return ' . var_export($this->_config, true) . ';')) {
             throw new CException(Yii::t('YupeModule.yupe', 'Error write cached modules setting in {file}...', array('{file}' => $this->_cachefile)));            
@@ -211,6 +211,7 @@ class ConfigManager extends CComponent
             if ($item->getBaseName('.php') == 'install') {
                 unset($this->_base['components']['urlManager']['rules']['/']);
                 unset($this->_base['modules']['install']);
+                continue;
             }
 
             // Просматриваем основные настройки для
