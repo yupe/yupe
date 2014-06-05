@@ -270,7 +270,11 @@ abstract class WebModule extends CWebModule
      */
     public function getParamsLabels()
     {
-        return array('adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'));
+        return array(
+			'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
+			'coreCacheTime' => Yii::t('YupeModule.yupe', 'Cache time')
+		);
+
     }
 
     /**
