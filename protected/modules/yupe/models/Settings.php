@@ -85,15 +85,14 @@ class Settings extends YModel
         if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
         }
-
-        if (!isset($this->user_id)) {
-            $this->user_id = Yii::app()->user->getId();
+		
+        if (isset(Yii::app()->user))
+        {        	
+        	$this->user_id = Yii::app()->user->getId();        	
         }
-
-        if ($this->user_id !== Yii::app()->user->getId()) {
-            $this->user_id = Yii::app()->user->getId();
-        }
-
+        else
+        	$this->user_id = 0;        
+        
         return parent::beforeSave();
     }
 
