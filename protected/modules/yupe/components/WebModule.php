@@ -280,7 +280,7 @@ abstract class WebModule extends CWebModule
      */
     public function getEditableParams()
     {
-        return array('adminMenuOrder');
+        return array('adminMenuOrder', 'coreCacheTime');
     }
 
     /**
