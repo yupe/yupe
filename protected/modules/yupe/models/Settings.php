@@ -91,7 +91,7 @@ class Settings extends YModel
         	$this->user_id = Yii::app()->user->getId();        	
         }
         else
-        	$this->user_id = 0;        
+        	$this->user_id = null;        
         
         return parent::beforeSave();
     }
