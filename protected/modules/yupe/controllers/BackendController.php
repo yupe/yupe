@@ -26,6 +26,37 @@ use yupe\models\Settings;
 
 class BackendController extends yupe\components\controllers\BackController
 {
+
+    // Подключаем accessControl
+    /**
+     * @return array action filters
+     */
+    public function filters()
+    {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+            //'postOnly + delete', // we only allow deletion via POST request
+        );
+    }
+
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules()
+    {
+        return array(
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index'),
+                'roles' => array('backend'), // указываем либо действие, либо роль, либо задачу, можно передавать список параметров (например для редактирования своего профиля или комментария)
+            ),
+            array('deny', // deny all users
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actions()
     {
         return array(
