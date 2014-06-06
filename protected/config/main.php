@@ -56,7 +56,7 @@ return array(
         ),
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
-            'cache'        => true,
+            'cache'        => false,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
@@ -114,6 +114,14 @@ return array(
             'class'          => 'CThemeManager',
             'basePath'       => dirname(__DIR__) . '/../themes',
         ),
+        'cache' => array(
+            'class' => 'CFileCache',
+            'behaviors' => array(
+                'clear' => array(
+                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
+                ),
+            ),
+        ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'          => 'yupe\components\urlManager\LangUrlManager', //comment this if if multilingual unnecessary
@@ -139,16 +147,7 @@ return array(
                 '/debug/<controller:\w+>/<action:\w+>'                            => 'debug/<controller>/<action>', // Для  YiiDebugPanel
             )
         ),
-        // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
-        // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
-        'cache' => array(
-            'class' => 'CFileCache',
-            'behaviors' => array(
-                'clear' => array(
-                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
-                ),
-            ),
-        ),
+
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/

@@ -21,6 +21,16 @@ return array(
     'preload'   => array('log'),
     'component' => array(
         // Массив компонентов, которые требует данный модуль
+        // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
+        // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
+        'cache' => array(
+            'class' => 'CDummyCache',
+            'behaviors' => array(
+                'clear' => array(
+                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
+                ),
+            ),
+        ),
     ),
     'rules' => array(
         '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',

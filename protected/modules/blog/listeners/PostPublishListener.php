@@ -6,6 +6,6 @@ class PostPublishListener
     public static function onPublish(Event $event)
     {
        $post = $event->getPost();
-       Yii::log("Public post {$post->title}", CLogger::LEVEL_TRACE);
+       Yii::log("Publish post {$post->title} ...", CLogger::LEVEL_TRACE);
     }
 } 
