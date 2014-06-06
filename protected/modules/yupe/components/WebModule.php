@@ -912,7 +912,7 @@ abstract class WebModule extends CWebModule
     {
         parent::init();
 
-        Yii::log("Init module '{$this->id}'...", CLogger::LEVEL_TRACE);
+        //Yii::log("Init module '{$this->id}'...", CLogger::LEVEL_TRACE);
 
         $this->getSettings();
 

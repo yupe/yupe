@@ -1,14 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aopeykin
- * Date: 05.06.14
- * Time: 13:16
- */
+use Symfony\Component\EventDispatcher\Event;
 
-namespace listeners;
-
-
-class PostPublishListener {
-
+class PostPublishListener
+{
+    public static function onPublish(Event $event)
+    {
+       $post = $event->getPost();
+       Yii::log("Public post {$post->title}", CLogger::LEVEL_TRACE);
+    }
 } 

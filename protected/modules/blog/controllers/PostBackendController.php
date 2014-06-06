@@ -101,6 +101,10 @@ class PostBackendController extends yupe\components\controllers\BackController
                     Yii::t('BlogModule.blog', 'Post was updated!')
                 );
 
+                if(isset($_POST['post-publish'])) {
+                    $model->publish();
+                }
+
                 $this->redirect(
                     (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array(
