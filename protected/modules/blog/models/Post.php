@@ -44,6 +44,8 @@
  * @property Blog $blog
  */
 Yii::import('application.modules.blog.models.Blog');
+Yii::import('application.modules.blog.events.*');
+Yii::import('application.modules.blog.listeners.*');
 Yii::import('application.modules.comment.components.ICommentable');
 
 class Post extends yupe\models\YModel implements ICommentable
@@ -614,5 +616,33 @@ class Post extends yupe\models\YModel implements ICommentable
     public function getLink()
     {
         return Yii::app()->createUrl('/blog/post/show/', array('slug' => $this->slug));
+    }
+
+    public function isPublished()
+    {
+        return $this->status == self::STATUS_PUBLISHED;
+    }
+
+    public function publish()
+    {
+
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try
+        {
+            $this->status = self::STATUS_PUBLISHED;
+            $this->publish_date = date('d-m-Y h:i');
+            if($this->save()) {
+                Yii::app()->eventManager->fire(PostEvents::POST_PUBLISH, new PostPublishEvent($this, Yii::app()->getUser()));
+            }
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            return true;
+        }
     }
 }

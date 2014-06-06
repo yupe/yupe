@@ -221,6 +221,24 @@ $form = $this->beginWidget(
 
 <br/>
 
+<?php if(!$model->getIsNewRecord() && !$model->isPublished()):?>
+
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'id' => 'post-publish',
+            'buttonType' => 'submit',
+            'type' => 'success',
+            'label' => Yii::t('BlogModule.blog', 'Publish'),
+            'htmlOptions' => array(
+                'name' => 'post-publish'
+            )
+        )
+    );
+    ?>
+
+<?php endif;?>
+
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton', array(
