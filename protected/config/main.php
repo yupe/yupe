@@ -56,7 +56,7 @@ return array(
         ),
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
-            'cache'        => false,
+            'cache'        => true,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
