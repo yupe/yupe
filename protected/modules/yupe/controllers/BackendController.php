@@ -48,7 +48,7 @@ class BackendController extends yupe\components\controllers\BackController
     {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index'),
+                'actions' => array('index','Settings','FlushDumpSettings','Modulesettings','SaveModulesettings','Themesettings','ParamsSetting','Modupdate','Help','Modulestatus','Ajaxflush','ReportBug'),
                 'roles' => array('backend'), // указываем либо действие, либо роль, либо задачу, можно передавать список параметров (например для редактирования своего профиля или комментария)
             ),
             array('deny', // deny all users
