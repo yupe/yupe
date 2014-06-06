@@ -137,10 +137,10 @@ class Attribute extends \yupe\models\YModel
             self::TYPE_TEXT => Yii::t('ShopModule.attribute', 'Короткий текст (до 250 символов)'),
             self::TYPE_TEXTAREA => Yii::t('ShopModule.attribute', 'Текст'),
             self::TYPE_DROPDOWN => Yii::t('ShopModule.attribute', 'Список'),
-            self::TYPE_CHECKBOX_LIST => Yii::t('ShopModule.attribute', 'Список чекбоксов'),
+            //self::TYPE_CHECKBOX_LIST => Yii::t('ShopModule.attribute', 'Список чекбоксов'),
             self::TYPE_CHECKBOX => Yii::t('ShopModule.attribute', 'Чекбокс'),
-            self::TYPE_IMAGE => Yii::t('ShopModule.attribute', 'Изображение'),
-            self::TYPE_NUMBER => Yii::t('ShopModule.attribute', 'Число'),
+            //self::TYPE_IMAGE => Yii::t('ShopModule.attribute', 'Изображение'),
+            //self::TYPE_NUMBER => Yii::t('ShopModule.attribute', 'Число'),
         );
     }
 
@@ -150,9 +150,9 @@ class Attribute extends \yupe\models\YModel
         return $list[$type];
     }
 
-    public function renderField($value = null)
+    public function renderField($value = null, $name = null)
     {
-        $name = 'Attribute[' . $this->name . ']';
+        $name = $name ? : 'Attribute[' . $this->name . ']';
         switch ($this->type)
         {
             case self::TYPE_TEXT:
@@ -199,6 +199,9 @@ class Attribute extends \yupe\models\YModel
                 $data = CHtml::listData($this->options, 'id', 'value');
                 if (!is_array($value) && isset($data[$value]))
                     return $data[$value];
+                break;
+            case self::TYPE_CHECKBOX:
+                return $value ? Yii::t("ShopModule.default", "Да") : Yii::t("ShopModule.default", "Нет");
                 break;
         }
     }

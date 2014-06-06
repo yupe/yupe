@@ -1,0 +1,164 @@
+/* товар */
+.col-item
+{
+    border: 1px solid #E1E1E1;
+    border-radius: 5px;
+    background: #FFF;
+}
+.col-item .photo {
+    height: 200px;      /* equals max image height */
+    width: 200px;
+    text-align: center;
+}
+.col-item .photo:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.col-item .photo img
+{
+    vertical-align: middle;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.col-item .info
+{
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    margin-top: 1px;
+}
+
+.col-item:hover .info {
+    background-color: #F5F5DC;
+}
+.col-item .price
+{
+    /*width: 50%;*/
+    float: left;
+    margin-top: 5px;
+}
+
+.col-item .price h5
+{
+    line-height: 20px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.price-text-color
+{
+    color: #219FD1;
+}
+
+.col-item .info .rating
+{
+    color: #777;
+}
+
+.col-item .rating
+{
+    /*width: 50%;*/
+    float: left;
+    font-size: 17px;
+    text-align: right;
+    line-height: 52px;
+    margin-bottom: 10px;
+    height: 52px;
+}
+
+.col-item .separator
+{
+    border-top: 1px solid #E1E1E1;
+}
+
+.clear-left
+{
+    clear: left;
+}
+
+.col-item .separator p
+{
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.col-item .separator p i
+{
+    margin-right: 5px;
+}
+.col-item .btn-add
+{
+    width: 50%;
+    float: left;
+}
+
+.col-item .btn-add
+{
+    border-right: 1px solid #E1E1E1;
+}
+
+.col-item .btn-details
+{
+    /*width: 50%;*/
+    float: left;
+    padding-left: 10px;
+}
+
+/*---*/
+
+a.asc:after {
+    font-family: FontAwesome;
+    content: "\f0dd";
+    color: #000;
+    padding-left: 4px;
+}
+a.desc:after {
+    font-family: FontAwesome;
+    content: "\f0de";
+    color: #000;
+    padding-left: 4px;
+}
+
+li.active > a{
+    text-decoration: underline;
+    color: #000;
+}
+
+/*product-info*/
+span.title {
+    display: block;
+    border-bottom: 3px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #4c7ed3;
+}
+
+.product-feature {
+    margin-bottom: 30px;
+}
+.product-feature select {
+    margin-bottom: 0;
+}
+
+/*product-info-images*/
+
+.image-preview {
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    vertical-align: middle;
+    /* display: inline-block; */
+    line-height: 300px;
+}
+
+.image-preview > img {
+    vertical-align: middle;
+    display: inline-block;
+}

@@ -16,7 +16,7 @@
 
         Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+        //Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
         Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     ?>
     <script type="text/javascript">
@@ -51,6 +51,11 @@
 
         <!-- sidebar -->
         <aside class="span3 sidebar">
+            <?php if (Yii::app()->hasModule('shop')): ?>
+                <div class="widget shopping-cart-widget" id="shopping-cart-widget">
+                    <?php $this->widget('application.modules.shop.widgets.ShoppingCartWidget'); ?>
+                </div>
+            <?php endif; ?>
 
             <div class="widget blogs-widget">
                 <?php $this->widget('yupe\widgets\RandomDataWidget', array(

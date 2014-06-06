@@ -34,9 +34,14 @@
  * @property ProductImage $mainImage
  * @property ProductImage[] $images
  * @property ProductImage[] $imageNotMain
+ * @property ProductVariant[] $variants
  *
  */
-class Product extends yupe\models\YModel
+Yii::import('zii.behaviors.CTimestampBehavior');
+Yii::import('application.modules.shop.components.behaviors.EEavBehavior');
+Yii::import('application.modules.shop.extensions.shopping-cart.*');
+
+class Product extends yupe\models\YModel implements IECartPosition
 {
     const SPECIAL_NOT_ACTIVE = 0;
     const SPECIAL_ACTIVE = 1;
@@ -47,6 +52,9 @@ class Product extends yupe\models\YModel
 
     const STATUS_NOT_IN_STOCK = 0;
     const STATUS_IN_STOCK = 1;
+
+    public $category;
+    public $selectedVariants = array();
 
     /**
      * Returns the static model of the specified AR class.
@@ -84,7 +92,7 @@ class Product extends yupe\models\YModel
             array('alias', 'unique'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('is_special', 'in', 'range' => array(0, 1)),
-            array('id, type_id, producer_id, sku, name, alias, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords', 'safe', 'on' => 'search'),
+            array('id, type_id, producer_id, sku, name, alias, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category', 'safe', 'on' => 'search'),
         );
     }
 
@@ -104,6 +112,7 @@ class Product extends yupe\models\YModel
             'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
             'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
             'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
+            'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute', 'option'), 'order' => 'variants.id'),
         );
     }
 
@@ -153,6 +162,7 @@ class Product extends yupe\models\YModel
             'quantity' => Yii::t('ShopModule.product', 'Quantity'),
             'producer_id' => Yii::t('ShopModule.product', 'Producer'),
             'in_stock' => Yii::t('ShopModule.product', 'Stock status'),
+            'category' => Yii::t('ShopModule.product', 'Category'),
         );
     }
 
@@ -212,6 +222,12 @@ class Product extends yupe\models\YModel
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('producer_id', $this->producer_id);
+
+        if ($this->category)
+        {
+            $criteria->with = array('categoryRelation' => array('together' => true));
+            $criteria->compare('categoryRelation.category_id', $this->category);
+        }
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
@@ -386,11 +402,100 @@ class Product extends yupe\models\YModel
         {
             $image->delete();
         }
+        foreach ((array)$this->variants as $variant)
+        {
+            $variant->delete();
+        }
     }
 
     public function afterSave()
     {
         parent::afterSave();
         $this->updateEavAttributes($this->_eavAttributes);
+        $this->updateVariants($this->_variants);
+    }
+
+    private $_variants = array();
+
+    public function setProductVariants($variants)
+    {
+        if (is_array($variants))
+        {
+            $this->_variants = $variants;
+        }
+    }
+
+    private function updateVariants($variants)
+    {
+        $productVariants = array();
+        foreach ($variants as $var)
+        {
+            $variant = null;
+            if (isset($var['id']))
+            {
+                $variant = ProductVariant::model()->findByPk($var['id']);
+            }
+            $variant             = $variant ? : new ProductVariant();
+            $variant->attributes = $var;
+            $variant->product_id = $this->id;
+            if ($variant->save())
+            {
+                $productVariants[] = $variant->id;
+            }
+
+        }
+        //var_dump($variants);
+        //die();
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('product_id = :product_id');
+        $criteria->params = array(':product_id' => $this->id);
+        $criteria->addNotInCondition('id', $productVariants);
+        ProductVariant::model()->deleteAll($criteria);
+    }
+
+    public function getBasePrice()
+    {
+        return $this->price;
+    }
+
+    public function getResultPrice()
+    {
+        return (float)$this->discount_price ? : (float)$this->price * (1 - ((float)$this->discount ? : 0) / 100);
+    }
+
+    /**
+     * @return mixed id
+     */
+    public function getId()
+    {
+        $variantIds = array_map(function ($var)
+            {
+                return $var->id;
+            },
+            $this->selectedVariants);
+        sort($variantIds);
+        return 'product_' . $this->id . '_' . join('_', $variantIds);
+    }
+
+    /**
+     * @return float price
+     */
+    public function getPrice()
+    {
+        $basePrice = $this->getResultPrice();
+        $newPrice  = $basePrice;
+        foreach ($this->selectedVariants as $variant)
+        {
+            switch ($variant->type)
+            {
+                case ProductVariant::TYPE_SUM:
+                    $newPrice += $variant->amount;
+                    break;
+                case ProductVariant::TYPE_PERCENT:
+                    $newPrice += $basePrice * ($variant->amount / 100);
+                    break;
+            }
+        }
+        return $newPrice;
     }
 }

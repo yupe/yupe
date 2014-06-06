@@ -123,7 +123,7 @@ class Type extends \yupe\models\YModel
     public function afterDelete()
     {
         TypeAttribute::model()->deleteAllByAttributes(array('type_id' => $this->id));
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     public function getFormattedList()

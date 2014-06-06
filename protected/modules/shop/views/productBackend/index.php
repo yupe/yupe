@@ -39,10 +39,17 @@ $this->menu = array(
             'type' => 'raw',
             'value' => 'CHtml::link($data->name, array("/shop/productBackend/update", "id" => $data->id))',
         ),
-        array(
+        /*array(
             'name' => 'alias',
             'type' => 'raw',
             'value' => 'CHtml::link($data->alias, array("/shop/productBackend/update", "id" => $data->id))',
+        ),*/
+        array(
+            'name' => 'category',
+            'type' => 'raw',
+            'value' => '$data->mainCategory->name',
+            'filter' => CHtml::activeDropDownList($model, 'category', Category::model()->getFormattedList(), array('encode' => false, 'empty' => '')),
+            'htmlOptions' => array('width' => '220px'),
         ),
         array(
             'name' => 'producer_id',

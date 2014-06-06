@@ -60,6 +60,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         {
             $model->attributes = $_POST['Product'];
             $model->setTypeAttributes($_POST['Attribute']);
+            $model->setProductVariants($_POST['ProductVariant']);
             if ($model->save())
             {
                 $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
@@ -191,5 +192,31 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         $type = Type::model()->findByPk($id);
         $this->renderPartial('_attribute_form', array('type' => $type));
+    }
+
+    public function actionVariantRow($id){
+        $variant = new ProductVariant();
+        $variant->attribute_id = $id;
+        $this->renderPartial('_variant_row', array('variant' => $variant));
+    }
+
+    public function actionTypeAttributes($id){
+        $type_id = $id;
+        $type = Type::model()->findByPk($type_id);
+        if($type){
+            $tmp = array();
+            foreach($type->typeAttributes as $attr){
+                if($attr->type == Attribute::TYPE_DROPDOWN){
+                    $tmp[] = array_merge($attr->attributes, array('options' => $attr->options));
+                }
+                else if(in_array($attr->type, array(Attribute::TYPE_CHECKBOX, Attribute::TYPE_TEXT))){
+                    $tmp[] = array_merge($attr->attributes, array('options' => array()));
+                }
+            }
+            Yii::app()->ajax->rawText(
+                CJSON::encode($tmp)
+            );
+        }
+
     }
 }

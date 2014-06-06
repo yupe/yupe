@@ -173,8 +173,8 @@ class ShopModule extends WebModule
 
         $this->setImport(array(
             'shop.models.*',
-            //'catalog.components.*',
-            //'category.models.*',
+            'shop.extensions.shopping-cart.*',
+            'shop.widgets.ShoppingCartWidget',
         ));
     }
 }
