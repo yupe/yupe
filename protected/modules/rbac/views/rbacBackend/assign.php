@@ -10,17 +10,16 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Действия' => array('index'),
+    'Пользователи' => array('userlist'),
     'Назначение прав',
 );
 
 $this->menu = array(
     array('label' => Yii::t('RbacModule.rbac', 'Roles'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('RbacModule.rbac', 'Manage roles'), 'url' => array('/rbac/rbacBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('RbacModule.rbac', 'Create role'), 'url' => array('/rbac/rbacBackend/create')),
-        array('icon' => 'list-alt', 'label' => Yii::t('RbacModule.rbac', 'User list'), 'url' => array('/rbac/rbacBackend/userList')),
+        array('icon' => 'list-alt', 'label' => Yii::t('RbacModule.rbac', 'Manage roles'), 'url' => array('index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('RbacModule.rbac', 'Create role'), 'url' => array('create')),
+        array('icon' => 'user', 'label' => Yii::t('RbacModule.rbac', 'User list'), 'url' => array('userList')),
     )),
-
 );
 
 ?>

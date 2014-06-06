@@ -60,8 +60,8 @@
 <?php if ($model->isNewRecord): ?>
     <div id="operations-list" style="display:none;">
        <br/>
-       <?php echo CHtml::textField(Yii::t('RbacModule.rbac', 'Искать'), '', array('id'=>'search','class' => 'span5', 'placeholder' => 'Фильтр'));?>
-       <div><?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Выбрать все'),'#', array('id' => 'check-all'));?></div>
+       <?php echo CHtml::textField('Искать', '', array('id'=>'search','class' => 'span5', 'placeholder' => 'Фильтр'));?>
+       <div><?php echo CHtml::link('Выбрать все','#', array('id' => 'check-all'));?></div>
        <?php foreach($operations as $k => $v):?>
          <div class="row-fluid operation" style="width: 30%">
            <div class="span1"><?php echo CHtml::checkBox('operations[]',false,array('class' => 'item', 'value' => $k));?></div>

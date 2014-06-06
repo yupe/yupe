@@ -15,6 +15,7 @@
         )
     ),
     'rules'=>array(
-    '/backend/rbac/rbac/<action:\w+>/<id:\w+>'	=> 'rbac/rbacBackend/<action>', // Для модуля rbac id передается в виде строки а не числового идентификатора
-)
+        '/backend/rbac/<action:\w+>'	=> 'rbac/rbacBackend/<action>',
+        '/backend/rbac/<action:\w+>/<id:\w+>'	=> 'rbac/rbacBackend/<action>', // Для модуля rbac id передается в виде строки а не числового идентификатора
+    )
 );

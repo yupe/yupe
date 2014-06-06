@@ -1,7 +1,6 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(
-        'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
@@ -13,7 +12,7 @@ $form = $this->beginWidget(
                 $model, 'nick_name', array(
                     'size'      => 60,
                     'maxlength' => 150,
-                    'class'     => 'span12'
+                    'class'     => 'input-block-level'
                 )
             ); ?>
         </div>
@@ -22,7 +21,7 @@ $form = $this->beginWidget(
                 $model, 'email', array(
                     'size'      => 60,
                     'maxlength' => 150,
-                    'class'     => 'span12'
+                    'class'     => 'input-block-level'
                 )
             ); ?>
         </div>
@@ -34,7 +33,7 @@ $form = $this->beginWidget(
                 $model, 'first_name', array(
                     'size'      => 60,
                     'maxlength' => 150,
-                    'class'     => 'span12'
+                    'class'     => 'input-block-level'
                 )
             ); ?>
         </div>
@@ -43,7 +42,7 @@ $form = $this->beginWidget(
                 $model, 'last_name', array(
                     'size'      => 60,
                     'maxlength' => 150,
-                    'class'     => 'span12'
+                    'class'     => 'input-block-level'
                 )
             ); ?>
         </div>
@@ -58,7 +57,7 @@ $form = $this->beginWidget(
                         'autoclose' => true,
                     ),
                     'htmlOptions' => array(
-                        'class' => 'span12'
+                        'class' => 'input-block-level'
                     ),
                 ),
                 array(
@@ -74,7 +73,7 @@ $form = $this->beginWidget(
                     'autoclose' => true,
                 ),
                 'htmlOptions' => array(
-                    'class' => 'span12'
+                    'class' => 'input-block-level'
                 ),
             ),
             array(
@@ -86,7 +85,7 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListRow(
                 $model, 'gender', $model->getGendersList(), array(
                     'empty' => '---',
-                    'class' => 'span12',
+                    'class' => 'input-block-level',
                 )
             ); ?>
         </div>
@@ -97,7 +96,7 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListRow(
                 $model, 'status', $model->getStatusList(), array(
                     'empty' => '---',
-                    'class' => 'span12',
+                    'class' => 'input-block-level',
                 )
             ); ?>
         </div>
@@ -105,7 +104,7 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListRow(
                 $model, 'access_level', $model->getAccessLevelsList(), array(
                     'empty' => '---',
-                    'class' => 'span12',
+                    'class' => 'input-block-level',
                 )
             ); ?>
         </div>

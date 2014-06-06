@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
     'Действия' => array('index'),
-    'редактирование элемента',
+    'список пользователей',
 );
 
 $this->menu = array(
@@ -14,10 +14,21 @@ $this->menu = array(
 
 ?>
 
-<h1>Редактирование действия "<?php echo $model->description; ?>" (<?php echo $model->getType() . ' ' . $model->name;?>
-    )</h1>
+<h1>Просмотр действия "<?php echo $model->name; ?>"</h1>
 
-<?php echo $this->renderPartial(
-    '_form',
-    array('model' => $model, 'operations' => $operations, 'tasks' => $tasks, 'listModels' => $listModels)
+<?php $this->widget(
+    'bootstrap.widgets.TbDetailView',
+    array(
+        'data' => $model,
+        'attributes' => array(
+            'name',
+            array(
+                'name' => 'type',
+                'value' => $model->getType()
+            ),
+            'description',
+            'bizrule',
+            'data',
+        ),
+    )
 ); ?>
