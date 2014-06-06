@@ -139,6 +139,16 @@ return array(
                 '/debug/<controller:\w+>/<action:\w+>'                            => 'debug/<controller>/<action>', // Для  YiiDebugPanel
             )
         ),
+        // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
+        // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
+        'cache' => array(
+            'class' => 'CFileCache',
+            'behaviors' => array(
+                'clear' => array(
+                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
+                ),
+            ),
+        ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
