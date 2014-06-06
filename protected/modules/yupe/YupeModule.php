@@ -19,7 +19,7 @@ use yupe\components\WebModule;
 
 class YupeModule extends WebModule
 {
-    const VERSION = '0.7-beta-4';
+    const VERSION = '0.7-beta.4';
 
     public $enableAssets;
     public $cache;
@@ -50,7 +50,7 @@ class YupeModule extends WebModule
     public $allowedIp;
     public $hidePanelUrls = 0;
 
-    public $logo;
+    public $logo = '/web/images/logo.png';
 
     /**
      * Возвращаем версию:
@@ -76,7 +76,7 @@ class YupeModule extends WebModule
      */
     public function getLogo()
     {
-        return Yii::app()->createUrl($this->uploadPath.'/'.$this->logo);
+        return Yii::app()->createUrl(Yii::app()->getBaseUrl().'/'.$this->logo);
     }
 
     /**
