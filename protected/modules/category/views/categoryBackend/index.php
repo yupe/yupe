@@ -92,6 +92,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'url'  => $this->createUrl('/category/categoryBackend/inline'),
                 'mode' => 'popup',
                 'type' => 'select',
+				'title'  => Yii::t('CategoryModule.category', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
                 'source' => $model->getStatusList(),
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

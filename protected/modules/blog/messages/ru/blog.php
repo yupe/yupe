@@ -275,4 +275,5 @@ return array (
     'read also:' => 'читайте также:',
     'All posts' => 'Все записи',
     'All' => 'Все',
+	'Select {field}' => 'Выберите {field}',
 );

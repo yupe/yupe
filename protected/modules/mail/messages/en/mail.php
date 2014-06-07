@@ -98,4 +98,6 @@ return array (
     'management' => '',
 	'Visual editor' => '',
 	'Menu items order' => '',
+	'Template' => '',
+	'Select {field}' => '',
 );

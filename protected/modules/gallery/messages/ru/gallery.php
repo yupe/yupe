@@ -103,5 +103,6 @@ return array (
   'Messages summary:'=>'Всего изображений:',
   'Edit message #{id}'=>'Редактирование изображения #{id}',
   'More...'=>'Подробнее...',
-  'Images count' => 'Кол-во изображений'
+  'Images count' => 'Кол-во изображений',
+  'Select {field}' => 'Выберите {field}',
 );

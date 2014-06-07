@@ -17,7 +17,7 @@
  * @property integer $status
  * @property integer $access_level
  * @property string  $last_visit
- * @property bollean $email_confirm
+ * @property boolean $email_confirm
  * @property string  $registration_date
  *
  */

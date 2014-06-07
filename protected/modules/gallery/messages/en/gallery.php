@@ -101,4 +101,5 @@ return array (
     'Messages summary:'=>'',
     'Edit message #{id}'=>'',
     'More...'=>'',
+	'Select {field}' => '',
 );

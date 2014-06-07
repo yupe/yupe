@@ -113,4 +113,5 @@ return array (
   'are required' => 'обязательны.',
   'management' => 'управление',
   'read...' => 'читать...',
+  'Select {field}' => 'Выберите {field}',
 );

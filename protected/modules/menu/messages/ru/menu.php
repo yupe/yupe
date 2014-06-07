@@ -129,5 +129,6 @@ return array (
   'negation' => 'отрицание',
   'manage' => 'управление',
   'New item was added to menu!' => 'Новый пункт был добавлен в меню!',
-  'Menu was created!' => 'Меню было создано!'
+  'Menu was created!' => 'Меню было создано!',
+  'Select {field}' => 'Выберите {field}',
 );

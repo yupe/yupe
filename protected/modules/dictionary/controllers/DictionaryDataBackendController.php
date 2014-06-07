@@ -56,7 +56,12 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
+				Yii::app()->user->setFlash(
+					yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+					Yii::t('DictionaryModule.dictionary', 'Record was added!')
+				);
+
                 $this->redirect(
                     (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
@@ -91,7 +96,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('DictionaryModule.dictionary', 'Record was updated')
+                    Yii::t('DictionaryModule.dictionary', 'Record was updated!')
                 );
 
                 $this->redirect(
@@ -123,11 +128,14 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
             $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost(
-                    'returnUrl', 'index'
-                )
-            );
+			Yii::app()->user->setFlash(
+				yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+				Yii::t('DictionaryModule.dictionary', 'Record was removed!')
+			);
+
+			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+			if (!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 
         } else {
             throw new CHttpException(

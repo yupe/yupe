@@ -104,15 +104,16 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'  => $this->createUrl('/blog/blogBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'source' => $model->getTypeList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/blogBackend/inline'),
+					'mode'   => 'popup',
+					'type'   => 'select',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('type')))),
+					'source' => $model->getTypeList(),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
                 'name'   => 'type',
                 'type'   => 'raw',
                 'value'  => '$data->getType()',
@@ -120,15 +121,16 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'  => $this->createUrl('/blog/blogBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/blogBackend/inline'),
+					'mode'   => 'popup',
+					'type'   => 'select',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+					'source' => $model->getStatusList(),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
                 'name'   => 'status',
                 'type'   => 'raw',
                 'value'  => '$data->getStatus()',

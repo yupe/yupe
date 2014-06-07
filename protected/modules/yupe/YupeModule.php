@@ -76,7 +76,7 @@ class YupeModule extends WebModule
      */
     public function getLogo()
     {
-        return Yii::app()->createUrl(Yii::app()->getBaseUrl().'/'.$this->logo);
+		return Yii::app()->getBaseUrl() . '/' . $this->logo;
     }
 
     /**

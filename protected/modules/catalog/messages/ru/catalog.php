@@ -77,7 +77,7 @@ return array (
   'Product list' => 'Список товаров',
   'Record was added!' => 'Запись добавлена!',
   'Record was removed!' => 'Запись удалена!',
-  'Record was updated!' => 'Записб изменена!',
+  'Record was updated!' => 'Запись изменена!',
   'Remove product' => 'Удалить товар',
   'Save product and close' => 'Сохранить товар и закрыть',
   'Save product and continue' => 'Сохранить товар и продолжить',
@@ -99,4 +99,5 @@ return array (
   'team@yupe.ru' => 'team@yupe.ru',
   'yupe team' => 'yupe team',
   'Constant link' => 'Постоянная ссылка',
+  'Select {field}' => 'Выберите {field}',
 );

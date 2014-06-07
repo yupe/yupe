@@ -61,7 +61,7 @@ class SocialModule extends WebModule
 
     public function getAdminPageLink()
     {
-        return '/social/default/index';
+        return '/social/socialBackend/index';
     }
 
     public function getIcon()

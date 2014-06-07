@@ -56,25 +56,25 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'name',
-            'editable' => array(
-                'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
-                'mode' => 'inline',
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            )
+			'editable' => array(
+				'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+				'mode'   => 'inline',
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			)
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/contentblock/contentBlockBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getTypes(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+				'type'   => 'select',
+				'title'  => Yii::t('ContentBlockModule.contentblock', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('type')))),
+				'source' => $model->getTypes(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'type',
             'type'   => 'raw',
             'value'  => '$data->getType()',
@@ -83,24 +83,25 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'code',
-            'editable' => array(
-                'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
-                'mode' => 'inline',
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            )
+			'editable' => array(
+				'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+				'mode'   => 'inline',
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			)
         ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'description',
-            'editable' => array(
-                'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
-                'mode' => 'inline',
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            )
+			'editable' => array(
+				'url'       => $this->createUrl('/contentblock/contentBlockBackend/inline'),
+				'title'     => Yii::t('ContentBlockModule.contentblock', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+				'emptytext' => Yii::t('ContentBlockModule.contentblock', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+				'params'    => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			)
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

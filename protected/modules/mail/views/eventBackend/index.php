@@ -77,8 +77,10 @@ $this->widget(
         'filter'       => $model,
         'columns'      => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
+				'name'        => 'id',
+				'type'        => 'raw',
+				'value'       => 'Chtml::link($data->id, array("/mail/eventBackend/update", "id" => $data->id))',
+				'htmlOptions' => array('style' => 'width:20px'),
             ),
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -102,13 +104,24 @@ $this->widget(
                     )
                 )
             ),
-            array(
-                'header'      => $model->getAttributeLabel('description'),
-                'value'       => '$data->shortDescription;',
-                'htmlOptions' => array(
-                    'style'   => 'width: 20%;'
-                ),
-            ),
+			array(
+				'class' => 'bootstrap.widgets.TbEditableColumn',
+				'name'  => 'description',
+				'value'       => '$data->shortDescription;',
+				'editable' => array(
+					'url'        => $this->createUrl('/mail/eventBackend/inline'),
+					'mode'       => 'popup',
+					'type'       => 'textarea',
+					'inputclass' => 'input-large',
+					'title'      => Yii::t('MailModule.mail', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+					'params'     => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
+				'htmlOptions' => array(
+					'style' => 'width: 20%;'
+				),
+			),
             array(
                 'header' => Yii::t('MailModule.mail', 'Templates'),
                 'type'   => 'raw',

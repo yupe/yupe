@@ -1,6 +1,11 @@
 <?php
 
-    $this->breadcrumbs = array(       
+/**
+ * @var $model News
+ * @var $this NewsBackendController
+ */
+
+$this->breadcrumbs = array(
         Yii::t('NewsModule.news', 'News') => array('/news/newsBackend/index'),
         Yii::t('NewsModule.news', 'Management'),
     );
@@ -88,6 +93,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'url'  => $this->createUrl('/news/newsBackend/inline'),
                 'mode' => 'popup',
                 'type' => 'select',
+				'title'  => Yii::t('NewsModule.news', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
                 'source' => $model->getStatusList(),
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

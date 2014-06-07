@@ -93,4 +93,8 @@ return array (
     'create' => '',
     'are required.' => '',
     'management' => '',
+	'Record was added!' => '',
+	'Record was removed!' => '',
+	'Record was updated!' => '',
+	'Select {field}' => '',
 );

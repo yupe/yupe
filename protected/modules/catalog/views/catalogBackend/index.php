@@ -1,5 +1,10 @@
 <?php
-    $this->breadcrumbs = array(
+
+/**
+ * @var $model Good
+ * @var $this CatalogBackendController
+ */
+$this->breadcrumbs = array(
         Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
         Yii::t('CatalogModule.catalog', 'Manage'),
     );
@@ -77,15 +82,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/catalog/catalogBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('CatalogModule.catalog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
+				'source' => Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'category_id',
             'type'   => 'raw',
             'value'  => '$data->category->name',
@@ -122,15 +128,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/catalog/catalogBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('CatalogModule.catalog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'source' => $model->getStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
@@ -139,7 +146,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'user_id',
             'type'   => 'raw',
-            'value'  => 'CHtml::link($data->user->getFullName(), array("/user/catalogBackend/view", "id" => $data->user->id))',
+            'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
             'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
         ),
         array(

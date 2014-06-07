@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для postBackend/index:
- * 
+ *
  *   @category YupeView
  *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
@@ -68,12 +68,14 @@ $this->renderPartial('_search', array('model' => $model));
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => array(
-            array(
-                'name' => 'id',
-                'htmlOptions' => array(
-                    'style' => 'width:10px;'
-                )
-            ),
+			array(
+				'name'        => 'id',
+				'type'        => 'raw',
+				'value'       => 'CHtml::link($data->id, array("/blog/userToBlogBackend/update", "id" => $data->id))',
+				'htmlOptions' => array(
+					'style' => 'width:10px;'
+				)
+			),
             array(
                 'name'   => 'user_id',
                 'type'   => 'raw',
@@ -88,15 +90,16 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'  => $this->createUrl('/blog/userToBlogBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'source' => $model->getRoleList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/userToBlogBackend/inline'),
+					'mode'   => 'popup',
+					'type'   => 'select',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('role')))),
+					'source' => $model->getRoleList(),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
                 'name'   => 'role',
                 'type'   => 'raw',
                 'value'  => '$data->getRole()',
@@ -104,21 +107,34 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'  => $this->createUrl('/blog/userToBlogBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/userToBlogBackend/inline'),
+					'mode'   => 'popup',
+					'type'   => 'select',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+					'source' => $model->getStatusList(),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
                 'name'   => 'status',
                 'type'   => 'raw',
                 'value'  => '$data->getStatus()',
                 'filter' => $model->getStatusList()
             ),
-            'note',
+			array(
+				'class'    => 'bootstrap.widgets.TbEditableColumn',
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/userToBlogBackend/inline'),
+					'mode'   => 'inline',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('note')))),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
+				'name'     => 'note',
+				'type'     => 'raw',
+			),
             array(
                 'name'  => 'create_date',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "medium", "short")',

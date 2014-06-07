@@ -346,4 +346,5 @@ return array (
     'Email verification' => '',
     'User not found' => '',
     'Send a letter to verify email' => '',
+	'Select {field}' => '',
 );

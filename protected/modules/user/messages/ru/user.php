@@ -349,4 +349,5 @@ return array (
     'Email verification' => 'Подтверждение email',
     'User not found' => 'Пользователь не найден',
     'Send a letter to verify email' => 'Отправить письмо для проверки email',
+	'Select {field}' => 'Выберите {field}',
 );

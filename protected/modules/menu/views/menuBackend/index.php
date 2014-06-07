@@ -97,13 +97,16 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name'  => 'description',
-                'editable' => array(
-                    'url' => $this->createUrl('/menu/menuBackend/inline'),
-                    'mode' => 'inline',
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                )
+				'editable' => array(
+					'url'        => $this->createUrl('/menu/menuBackend/inline'),
+					'mode'       => 'popup',
+					'type'       => 'textarea',
+					'inputclass' => 'input-large',
+					'title'      => Yii::t('MenuModule.menu', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+					'params'     => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				)
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
@@ -111,6 +114,7 @@ $this->renderPartial('_search', array('model' => $model));
                     'url'  => $this->createUrl('/menu/menuBackend/inline'),
                     'mode' => 'popup',
                     'type' => 'select',
+					'title'      => Yii::t('MenuModule.menu', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
                     'source' => $model->getStatusList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

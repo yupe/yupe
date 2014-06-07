@@ -254,10 +254,7 @@ class Image extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('image');
 
-        return Yii::app()->createAbsoluteUrl('/') . Yii::app()->uploadManager->getFileUrl(
-            $this->file,
-            $module->uploadPath
-        );
+		return Yii::app()->uploadManager->getFileUrl($this->file, $module->uploadPath);
     }
 
     /**

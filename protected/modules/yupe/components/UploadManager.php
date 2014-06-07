@@ -45,7 +45,7 @@ class UploadManager extends \CApplicationComponent
     public function getBaseUrl()
     {
         if ($this->_baseUrl === null) {
-            $this->setBaseUrl(Yii::app()->request->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath);
+            $this->setBaseUrl(Yii::app()->request->getBaseUrl(true) . '/' . Yii::app()->getModule('yupe')->uploadPath);
         }
 
         return $this->_baseUrl;
