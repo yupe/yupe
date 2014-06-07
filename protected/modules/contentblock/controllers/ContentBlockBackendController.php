@@ -165,11 +165,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * 
-     * @param integer the ID of the model to be loaded
+     * @param integer $id the ID of the model to be loaded
      *
      * @return ContentBlock $model
      *
-     * @throws CHttpEcxeption
+     * @throws CHttpException
      */
     public function loadModel($id)
     {
@@ -182,7 +182,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     /**
      * Performs the AJAX validation.
      * 
-     * @param CModel the model to be validated
+     * @param ContentBlock $model the model to be validated
      *
      * @return void
      */
