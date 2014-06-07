@@ -79,20 +79,22 @@ $this->renderPartial('_search', array('model' => $model));
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name'  => 'description',
                 'value' => 'strip_tags($data->description)',
-                'editable' => array(
-                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'mode' => 'inline',
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                )
+				'editable' => array(
+					'url'        => $this->createUrl('/gallery/galleryBackend/inline'),
+					'type'       => 'textarea',
+					'title'      => Yii::t('GalleryModule.gallery', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+					'inputclass' => 'input-large',
+					'params'     => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				)
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
                     'url'  => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'mode' => 'popup',
                     'type' => 'select',
+					'title'  => Yii::t('GalleryModule.gallery', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
                     'source' => $model->getStatusList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -110,7 +112,7 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'name'   => 'imagesCount',
-                'value'  => 'CHtml::link($data->imagesCount, array("/gallery/gallery/images/", "id" => $data->id))',
+                'value'  => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
                 'type'   => 'raw',
                 'filter' => false
             ),

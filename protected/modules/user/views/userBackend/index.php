@@ -1,5 +1,11 @@
 <?php
-    $this->breadcrumbs = array(       
+
+/**
+ * @var $model User
+ * @var $this UserBackendController
+ */
+
+$this->breadcrumbs = array(
         Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
         Yii::t('UserModule.user', 'Management'),
     );
@@ -78,20 +84,22 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => 'CHtml::link($data->nick_name, array("/user/userBackend/update", "id" => $data->id))',
         ),
         array(
-            'name'  => 'email',            
-            'value' => '$data->email',
+			'name'  => 'email',
+			'type'  => 'raw',
+			'value' => 'CHtml::link($data->email, "mailto:" . $data->email)',
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/user/userBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getAccessLevelsList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/user/userBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('UserModule.user', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('access_level')))),
+				'source' => $model->getAccessLevelsList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'access_level',
             'type'   => 'raw',
             'value'  => '$data->getAccessLevel()',
@@ -99,15 +107,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/user/userBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/user/userBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('UserModule.user', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'source' => $model->getStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
@@ -115,15 +124,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/user/userBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getEmailConfirmStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/user/userBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('UserModule.user', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('email_confirm')))),
+				'source' => $model->getEmailConfirmStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'email_confirm',
             'type'   => 'raw',
             'value'  => '$data->getEmailConfirmStatus()',

@@ -100,4 +100,6 @@ return array (
   'management' => 'управление',
   'Visual editor' => 'Визуальный редактор',
   'Menu items order' => 'Порядок следования в меню',
+  'Template' => 'Шаблон',
+  'Select {field}' => 'Выберите {field}',
 );

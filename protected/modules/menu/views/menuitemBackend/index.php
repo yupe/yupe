@@ -108,15 +108,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/menu/menuitemBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/menu/menuitemBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('MenuModule.menu', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'source' => $model->getStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',

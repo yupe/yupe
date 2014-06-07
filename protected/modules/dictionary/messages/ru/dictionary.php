@@ -95,4 +95,8 @@ return array (
   'create' => 'добавление',
   'are required.' => 'обязательны.',
   'management' => 'управление',
+  'Record was added!' => 'Запись добавлена!',
+  'Record was removed!' => 'Запись удалена!',
+  'Record was updated!' => 'Запись изменена!',
+  'Select {field}' => 'Выберите {field}',
 );

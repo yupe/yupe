@@ -125,5 +125,6 @@ return array (
     'negation' => '',
     'manage' => '',
     'New item was added to menu!' => '',
-    'Menu was created!' => ''
+    'Menu was created!' => '',
+	'Select {field}' => '',
 );

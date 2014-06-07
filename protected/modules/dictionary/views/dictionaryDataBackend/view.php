@@ -25,8 +25,9 @@
                 'id' => $model->id
             )),
             array('icon' => 'trash', 'label' => Yii::t('DictionaryModule.dictionary', 'Remove dictionary item'), 'url' => '#', 'linkOptions' => array(
-                'submit' => array('/dictionary/dictionaryDataBackend/delete', 'id' => $model->id),
-                'confirm' => Yii::t('DictionaryModule.dictionary', 'Do you really want do delete dictionary item?'),
+				'submit'  => array('/dictionary/dictionaryDataBackend/delete', 'id' => $model->id),
+				'confirm' => Yii::t('DictionaryModule.dictionary', 'Do you really want do delete dictionary item?'),
+				'csrf'    => true,
             )),
         )),
     );

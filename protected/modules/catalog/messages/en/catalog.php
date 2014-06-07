@@ -95,4 +95,5 @@ return array (
   'team@yupe.ru' => '',
   'yupe team' => '',
   'Constant link' => '',
+  'Select {field}' => '',
 );

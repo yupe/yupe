@@ -73,4 +73,5 @@ return array (
   'id' => 'id',
   'team@yupe.ru' => 'team@yupe.ru',
   'yupe team' => 'yupe team',
+  'Select {field}' => 'Выберите {field}',
 );

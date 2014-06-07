@@ -95,15 +95,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/dictionary/dictionaryDataBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name'),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/dictionary/dictionaryDataBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('DictionaryModule.dictionary', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('group_id')))),
+				'source' => CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name'),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'group_id',
             'type'   => 'raw',
             'value'  => '$data->group->name',
@@ -111,15 +112,16 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/dictionary/dictionaryDataBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/dictionary/dictionaryDataBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('DictionaryModule.dictionary', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'source' => $model->getStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
