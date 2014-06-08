@@ -22,6 +22,8 @@ $this->menu = array(
     array('icon' => 'trash', 'label' => Yii::t('ShopModule.producer', 'Удалить производителя'), 'url' => '#', 'linkOptions' => array(
         'submit'  => array('/shop/producerBackend/delete', 'id' => $model->id),
         'confirm' => Yii::t('ShopModule.producer', 'Вы уверены, что хотите удалить производителя?'),
+        'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'csrf' => true,
     )),
 );
 ?>

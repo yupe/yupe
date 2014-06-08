@@ -1,8 +1,16 @@
 $(document).ready(function () {
-    var priceElement = $('#result-price');
-    var basePrice = parseFloat($('#base-price').val());
-    var quantityElement = $('#product-quantity');
     var cartWidgetSelector = '#shopping-cart-widget';
+
+    /*страница продукта*/
+    var priceElement = $('#result-price'); //итоговая цена на странице продукта
+    var basePrice = parseFloat($('#base-price').val()); //базовая цена на странице продукта
+    var quantityElement = $('#product-quantity');
+
+    /*корзина*/
+
+    var shippingCostElement = $('#cart-shipping-cost');
+    var cartFullCostElement = $('#cart-full-cost');
+    var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
     function showNotify(element, result, message) {
         element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
@@ -97,7 +105,7 @@ $(document).ready(function () {
         var count = parseInt(tr.find('.position-count').val());
         var price = parseFloat(tr.find('.position-price').text());
         tr.find('.position-sum-price').html(price * count);
-        updateTotalCost();
+        updateCartTotalCost();
     }
 
     function changePositionQuantity(productId, quantity) {
@@ -140,7 +148,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result == 'success') {
                     el.parents('tr').remove();
-                    updateTotalCost();
+                    updateCartTotalCost();
                 }
             }
         });
@@ -155,12 +163,68 @@ $(document).ready(function () {
         changePositionQuantity(productId, quantity);
     });
 
-    function updateTotalCost() {
+    $('input[name="Order[delivery_id]"]').change(function () {
+        updateShippingCost();
+    });
+
+    function getCartTotalCost() {
         var cost = 0;
         $.each($('.position-sum-price'), function (index, elem) {
             cost += parseFloat($(elem).text());
         });
-        $('#cart-full-cost').html(cost);
+        return cost;
     }
 
+    function updateCartTotalCost() {
+        cartFullCostElement.html(getCartTotalCost());
+        refreshDeliveryTypes();
+        updateShippingCost();
+        updateFullCostWithShipping();
+    }
+
+    function refreshDeliveryTypes() {
+        var cartTotalCost = getCartTotalCost();
+        console.log(cartTotalCost);
+        $.each($('input[name="Order[delivery_id]"]'), function (index, el) {
+            var elem = $(el);
+            var availableFrom = elem.data('available-from');
+            if (availableFrom.length && parseFloat(availableFrom) > cartTotalCost) {
+                if (elem.prop('checked')) {
+                    checkFirstAvailableDeliveryType();
+                }
+                elem.prop('disabled', true);
+            } else {
+                elem.prop('disabled', false);
+            }
+        });
+    }
+
+    function checkFirstAvailableDeliveryType() {
+        $('input[name="Order[delivery_id]"]:not(:disabled):first').prop('checked', true);
+    }
+
+
+    function getShippingCost() {
+        var cartTotalCost = getCartTotalCost();
+        var selectedDeliveryType = $('input[name="Order[delivery_id]"]:checked');
+        if(!selectedDeliveryType[0]){return 0;}
+        if (parseInt(selectedDeliveryType.data('separate-payment')) || parseFloat(selectedDeliveryType.data('free-from')) < cartTotalCost) {
+            return 0;
+        } else {
+            return parseFloat(selectedDeliveryType.data('price'));
+        }
+    }
+
+    function updateShippingCost() {
+        shippingCostElement.html(getShippingCost());
+        updateFullCostWithShipping();
+    }
+
+    function updateFullCostWithShipping() {
+        cartFullCostWithShippingElement.html(getShippingCost() + getCartTotalCost());
+    }
+
+    refreshDeliveryTypes();
+    checkFirstAvailableDeliveryType();
+    updateFullCostWithShipping();
 });

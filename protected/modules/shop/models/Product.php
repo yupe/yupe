@@ -243,7 +243,7 @@ class Product extends yupe\models\YModel implements IECartPosition
             ),
             'eavAttr' => array(
                 'class' => 'application.modules.shop.components.behaviors.EEavBehavior',
-                'tableName' => 'shop_product_attribute_eav',
+                'tableName' => '{{shop_product_attribute_eav}}',
                 'entityField' => 'product_id',
             )
         );
@@ -331,7 +331,8 @@ class Product extends yupe\models\YModel implements IECartPosition
 
     public function setProductCategories($categories, $mainCategory)
     {
-        $mainCategory = $mainCategory ? : (is_array($categories) ? $categories[0] : null);
+        $categories   = is_array($categories) ? $categories : (array)$categories;
+        $mainCategory = $mainCategory ? : $categories[0];
         if (!in_array($mainCategory, $categories))
         {
             array_push($categories, $mainCategory);
