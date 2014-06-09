@@ -33,7 +33,7 @@ class YFile extends CFileHelper
         }
     }
 
-    public static function checkPath($path)
+    public static function checkPath($path, $rights=0777, $recursive = true)
     {
         if (!is_dir($path)) { // проверка на существование директории
             return mkdir($path, 0777, true); // возвращаем результат создания директории
