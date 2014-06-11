@@ -5,7 +5,7 @@ Yupe! - CMS, based on Yii framework
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
 [![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
 [![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yupe/yupe/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 
 **Attention! All pull-requests must be made in [dev branch](https://github.com/yupe/yupe/tree/dev)**
@@ -33,7 +33,7 @@ Requirements and Dependencies
 ------------------------
 * PHP >= 5.3.3
 * Yiiframework >= 1.1.14
-* YiiBooster >= 2.1
+* YiiBooster >= 2.x
 * Nested Set Behavior
 * Imperavi Redactor Widget
 * Yii2-debug

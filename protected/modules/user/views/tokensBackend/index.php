@@ -56,16 +56,25 @@ SCRIPT;
     'yupe\widgets\CustomGridView', array(
         'id'            => 'user-tokens-grid',
         'dataProvider' => $model->search(),
-        'ajaxType'     => 'POST',
+        'filter'       => $model,
         'columns'      => array(
-            'id',
+            array(
+                'name'        => 'id',
+                'value' => 'CHtml::link($data->id, array("/user/tokensBackend/update", "id" => $data->id))',
+                'type'  => 'html',
+                'htmlOptions' => array(
+                    'style'   => 'width: 40px; text-align: center'
+                )
+            ),
             array(
                 'name'        => 'user_id',
                 'value'       => '$data->getFullName()',
+                'filter'      => $model->getUserList()
             ),
             array(
                 'name'        => 'status',
                 'value'       => '$data->getStatus()',
+                'filter'      => $model->getStatusList(),
                 'htmlOptions' => array(
                     'style'  => implode(
                         ' ', array(
@@ -80,6 +89,7 @@ SCRIPT;
             array(
                 'name'        => 'type',
                 'value'       => '$data->getType()',
+                'filter'      => $model->getTypeList(),
                 'htmlOptions' => array(
                     'style'  => implode(
                         ' ', array(

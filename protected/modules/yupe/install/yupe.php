@@ -24,7 +24,7 @@ return array(
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
         'cache' => array(
-            'class' => 'CDummyCache',
+            'class' => 'CFileCache',
             'behaviors' => array(
                 'clear' => array(
                     'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',

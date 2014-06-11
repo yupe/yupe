@@ -17,14 +17,13 @@ class Hasher extends CApplicationComponent
         return CPasswordHelper::verifyPassword($password, $hash);
     }
     
-    public function generateRandomToken()
+    public function generateRandomToken($length = 32)
     {
-        return str_shuffle(sha1(uniqid().spl_object_hash($this).microtime(true)));
+        return Yii::app()->getSecurityManager()->generateRandomString((int)$length);
     }
 
     public function generateRandomPassword($length = 8)
     {
         return substr($this->generateRandomToken(),0,$length);
     }
-
 }

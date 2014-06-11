@@ -19,18 +19,29 @@ class TokenStorage extends CApplicationComponent
         return false;
     }
 
+    public function deleteByTypeAndUser($type, User $user)
+    {
+        return UserToken::model()->deleteAll('type = :type AND user_id = :user_id', array(
+                ':type' => (int)$type,
+                ':user_id' => $user->id
+            ));
+    }
+
     public function createAccountActivationToken(User $user, $expire=86400)
     {
+        $this->deleteByTypeAndUser(UserToken::TYPE_ACTIVATE, $user);
         return $this->create($user, $expire, UserToken::TYPE_ACTIVATE);
     }
 
     public function createPasswordRecoveryToken(User $user, $expire=86400)
     {
+        $this->deleteByTypeAndUser(UserToken::TYPE_CHANGE_PASSWORD, $user);
         return $this->create($user, $expire, UserToken::TYPE_CHANGE_PASSWORD);
     }
 
     public function createEmailVerifyToken(User $user, $expire=86400)
     {
+        $this->deleteByTypeAndUser(UserToken::TYPE_EMAIL_VERIFY, $user);
         return $this->create($user, $expire, UserToken::TYPE_EMAIL_VERIFY);
     }
 
@@ -49,7 +60,7 @@ class TokenStorage extends CApplicationComponent
 
         if($token->save()) {
             if($invalidate) {
-                UserToken::model()->updateAll(array('status' => UserToken::STATUS_FAIL),'id != :id AND user_id = :user_id AND type = :type', array(
+                UserToken::model()->deleteAll('id != :id AND user_id = :user_id AND type = :type', array(
                     ':user_id' => $token->user_id,
                     ':type' => $token->type,
                     ':id' => $token->id
