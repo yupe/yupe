@@ -50,7 +50,7 @@ class YupeModule extends WebModule
     public $allowedIp;
     public $hidePanelUrls = 0;
 
-    public $logo = '/web/images/logo.png';
+    public $logo = 'web/images/logo.png';
 
     /**
      * Возвращаем версию:
