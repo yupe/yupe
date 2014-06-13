@@ -42,7 +42,7 @@ class UserManager extends CApplicationComponent
                     CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
 
-                //@TODO
+                //@TODO Отправка почты при создании пользователя
                 Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Registration on {site}',  array('{site}' => Yii::app()->getModule('yupe')->siteName)), '//user/email/needAccountActivationEmail', array(
                     'token' => $token
                 ));
@@ -135,10 +135,16 @@ class UserManager extends CApplicationComponent
         {
             if(($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
 
-                //@TODO
-                Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Password recovery!'), '//user/email/passwordRecoveryEmail', array(
-                    'token' => $token
-                ));
+                //@TODO Отправка почты при восставновлении пароля
+                $data = array(
+                    '{from}' => Yii::app()->getModule('user')->notifyEmailFrom,
+                    '{to}' => $user->email,
+                    '{user}' => CHtml::encode($user->nick_name),
+                    '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName),
+                    '{link}' => Yii::app()->createAbsoluteUrl('/user/account/restore', array('token' => $token->token)),
+                );
+
+                Yii::app()->mailMessage->sendTemplate('password-recovery', $data);
 
                 $transaction->commit();
 
@@ -180,7 +186,7 @@ class UserManager extends CApplicationComponent
             if($this->changeUserPassword($userModel, $password) && $this->tokenStorage->activate($tokenModel)) {
 
                 if(true === $notify) {
-                    //@TODO
+                    //@TODO Отправка почты при смене пароля пользователя
                     Yii::app()->notify->send($userModel,  Yii::t('UserModule.user','Your password was changed successfully!'), '//user/email/passwordRecoverySuccessEmail', array(
                         'password' => $password
                     ));
@@ -225,7 +231,7 @@ class UserManager extends CApplicationComponent
                     throw new CException(Yii::t('UserModule.user','Error change Email!'));
                 }
 
-                //@TODO
+                //@TODO Отправка почты при смене почты пользователя
                 Yii::app()->notify->send($user, Yii::t('UserModule.user','Email verification'), '//user/email/needEmailActivationEmail', array(
                     'token' => $token
                 ));
