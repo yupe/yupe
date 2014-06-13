@@ -51,4 +51,13 @@ return array(
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : array()
     ),
+
+	'modules' => array(
+			
+			'yupe'  => array(
+					'class'        => 'application.modules.yupe.YupeModule',
+					'cache'        => true,
+			),
+	)
+
 );

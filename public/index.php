@@ -23,12 +23,22 @@ if(!ini_get('mbstring.internal_encoding')) {
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
+
+if (YII_DEBUG)
+{	
+	ini_set("display_errors","1");
+	ini_set("display_startup_errors","1");
+	ini_set('error_reporting', E_ALL);
+}
+
 require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
+
 
 $base = require dirname(__FILE__) . '/../protected/config/main.php';
 
 $confManager = new yupe\components\ConfigManager();
+$config = $confManager->merge($base);
 
 require dirname(__FILE__).'/../vendor/autoload.php';
 
-Yii::createWebApplication($confManager->merge($base))->run();
+Yii::createWebApplication($config)->run();

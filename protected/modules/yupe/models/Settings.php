@@ -85,13 +85,11 @@ class Settings extends YModel
         if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
         }
-
-        if (!isset($this->user_id)) {
-            $this->user_id = Yii::app()->user->getId();
-        }
-
-        if ($this->user_id !== Yii::app()->user->getId()) {
-            $this->user_id = Yii::app()->user->getId();
+		
+        // Пользователя можно получить только для веб-приложения
+        if (get_class(Yii::app()) == 'CWebApplication' )
+        {        	
+        	$this->user_id = Yii::app()->user->getId();        	
         }
 
         return parent::beforeSave();
