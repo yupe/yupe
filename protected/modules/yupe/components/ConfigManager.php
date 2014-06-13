@@ -69,11 +69,10 @@ class ConfigManager extends CComponent
      * пути и принемаем необходимыей параметры:
      * 
      * @param  array  $base      - базовые настройки
-     * @param string $type 		 - тип загружаемого конфига (console, web)
      * 
      * @return array - получаем настройки приложения
      */
-    public function merge($base = array(), $type = 'web')
+    public function merge($base = array())
     {
         $this->_base = $base;
         // Настройки путей:
@@ -83,7 +82,7 @@ class ConfigManager extends CComponent
         $this->appModules    = $this->basePath . '/modules';
 
         // Задаем название файла кеша для настроек
-        $this->cacheFileName.='_'.$type;
+        $this->cacheFileName.='_'.YII_APP_TYPE;
         $this->_cacheFilePath = $this->modulePath . '/' . $this->cacheFileName . '.php';
         
         // Категории настроек для слития:
@@ -232,6 +231,11 @@ class ConfigManager extends CComponent
                         }
                     break;
                     
+                    
+                    case 'commandMap':
+                    	// commandMap заполняем только для консоли
+                    	if (YII_APP_TYPE !== 'console')
+                    		continue;                    
                     default:                   	
                         // Стандартное слитие:
                         if (!empty($moduleConfig[$category])) {
@@ -244,9 +248,7 @@ class ConfigManager extends CComponent
                 }
 
             }
-        }
-
-        
+        }        
         
         if (empty($settings)) {
             unset($this->_config['components']['db']);
@@ -266,6 +268,7 @@ class ConfigManager extends CComponent
      */
     public function mergeSettings($settings = array())
     {
+    	
         $this->_config = CMap::mergeArray(
             $this->_base,
             array(
@@ -320,6 +323,13 @@ class ConfigManager extends CComponent
             )
         );
 
+
+        if (YII_APP_TYPE == 'web')
+        {
+        	unset($this->_config['commandMap']);
+        }
+        
+        
         if(!array_key_exists('rules',$settings)) {
             $settings['rules'] = array();
         }

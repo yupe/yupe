@@ -87,7 +87,7 @@ class Settings extends YModel
         }
 		
         // Пользователя можно получить только для веб-приложения
-        if (get_class(Yii::app()) == 'CWebApplication' )
+        if (YII_APP_TYPE == 'web')
         {        	
         	$this->user_id = Yii::app()->user->getId();        	
         }
