@@ -24,6 +24,7 @@ class Notify extends CApplicationComponent
 
     public function send(User $user, $theme, $view, $data)
     {
+        $data['user'] = $user; // Хочу в шаблоне письма использовать имя пользователя или хотя бы nick_name 
         return $this->mail->send(
             Yii::app()->getModule('user')->notifyEmailFrom,
             $user->email,
