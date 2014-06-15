@@ -193,3 +193,4 @@ return array(
         //подробнее http://yupe.ru/docs/yupe/userspace.config.html
     )
 );
+

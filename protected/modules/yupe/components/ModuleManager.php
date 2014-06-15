@@ -269,7 +269,7 @@ class ModuleManager extends \CApplicationComponent
             if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
-                $cacheFile = Yii::app()->configManager->cacheFile;
+                $cacheFile = Yii::app()->configManager->cacheFileName;
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
 

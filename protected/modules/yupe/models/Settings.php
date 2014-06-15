@@ -86,7 +86,9 @@ class Settings extends YModel
             $this->creation_date = $this->change_date;
         }
 		
-        if (isset(Yii::app()->user))
+
+        // Пользователя можно получить только для веб-приложения
+        if (YII_APP_TYPE == 'web')
         {        	
         	$this->user_id = Yii::app()->user->getId();        	
         }
