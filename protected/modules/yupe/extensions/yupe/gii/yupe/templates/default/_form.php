@@ -21,6 +21,10 @@ echo <<<EOF
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
+ *
+ *   @var \$model {$this->modelClass}
+ *   @var \$form TbActiveForm
+ *   @var \$this {$this->controllerClass}
  **/
 \$form = \$this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(

@@ -39,6 +39,10 @@ class YupeCode extendS CrudCode
             return "\$form->checkBoxRow(\$model, '{$column->name}', array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
         else if (stripos($column->dbType, 'text') !== false)
             return "\$form->textAreaRow(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
+		elseif ($column->dbType == 'date')
+			return "\$form->datePickerRow(\$model, '{$column->name}', array('options' => array('autoclose' => true)), array('class' => 'span5'))";
+		elseif ($column->dbType == 'datetime')
+			return "\$form->dateTimePickerRow(\$model, '{$column->name}', array('options' => array('autoclose' => true)), array('class' => 'span5'))";
         else if ($column->isForeignKey)
         {
             $relations = CActiveRecord::model($modelClass)->relations();
@@ -58,9 +62,9 @@ class YupeCode extendS CrudCode
                 $inputField = 'textFieldRow';
 
             if ($column->type !== 'string' || $column->size === null)
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
             else
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => {$column->size}, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => {$column->size}, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
         }
     }
 
