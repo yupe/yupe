@@ -86,12 +86,15 @@ class Settings extends YModel
             $this->creation_date = $this->change_date;
         }
 		
+
         // Пользователя можно получить только для веб-приложения
         if (YII_APP_TYPE == 'web')
         {        	
         	$this->user_id = Yii::app()->user->getId();        	
         }
-
+        else
+        	$this->user_id = null;        
+        
         return parent::beforeSave();
     }
 
@@ -152,7 +155,7 @@ class Settings extends YModel
      * @param mixed $params Список параметров, которые требуется прочитать
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      */
-    public function fetchModuleSettings($moduleId, array $params = null)
+    public static function fetchModuleSettings($moduleId, array $params = null)
     {
 
         $settings = array();
@@ -169,7 +172,7 @@ class Settings extends YModel
 
             $dependency = new TagsCache($moduleId, 'yupe');
 
-            $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime, $dependency)->findAll($criteria);
+            $q = Settings::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime, $dependency)->findAll($criteria);
 
             if(count($q))
             {
@@ -194,7 +197,7 @@ class Settings extends YModel
      * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
      * 
      */
-    public function saveModuleSettings($moduleId, $paramValues)
+    public static function saveModuleSettings($moduleId, $paramValues)
     {
     	foreach ($paramValues as $name=>$value)
     	{

@@ -268,7 +268,7 @@ class BackendController extends yupe\components\controllers\BackController
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
-        $settings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'));
+        $settings = Settings::fetchModuleSettings('yupe', array('theme', 'backendTheme'));
         $noThemeValue = Yii::t('YupeModule.yupe', 'Theme is don\'t use');
 
         $theme = isset($settings['theme']) && $settings['theme']->param_value != ''
@@ -312,7 +312,7 @@ class BackendController extends yupe\components\controllers\BackController
     	}    	
     	
     	// Запускаем сохранение параметров
-    	return Settings::model()->saveModuleSettings($moduleId, $paramValues);
+    	return Settings::saveModuleSettings($moduleId, $paramValues);
     }
 
     /**

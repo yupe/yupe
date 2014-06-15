@@ -68,19 +68,19 @@ class ModuleManager extends \CApplicationComponent
 
         $modules = $yiiModules = $order = array();
 
-        if (count(Yii::app()->modules)) {
+        if (count(Yii::app()->getModules())) {
             /**
              * @todo внести получение модулей в кэш
              * Получаем модули и заполняем основные массивы
              **/
-            foreach (Yii::app()->modules as $key => $value) {
+            foreach (Yii::app()->getModules() as $key => $value) {
                 $key = strtolower($key);
                 $module = Yii::app()->getModule($key);
                 if (($module !== null)) {
                     if ($module instanceof WebModule) {
-                        $category = (!$module->category)
+                        $category = (!$module->getCategory())
                             ? $this->otherCategoryName
-                            : $module->category;
+                            : $module->getCategory();
                         $modules[$key] = $module;
                         $order[$category][$key] = $module->adminMenuOrder;
                     } else {
@@ -89,7 +89,7 @@ class ModuleManager extends \CApplicationComponent
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->getLanguage());
 
             if ($modulesNavigation === false) {
 
@@ -352,13 +352,11 @@ class ModuleManager extends \CApplicationComponent
         if (Yii::app()->hasModule($name)) {
             return Yii::app()->getModule($name);
         }
-
         $path = $this->getModulesConfigDefault();
         $module = null;
         if ($path) {
             //посмотреть внутри файл с окончанием Module.php
             $files = glob($path . '/' . $name . '/' . '*Module.php');
-            // @TODO А если файлов не 1, добавить прочтение install/module.php
             if (count($files) == 1) {
                 $className = pathinfo($files[0], PATHINFO_FILENAME);
                 Yii::app()->cache->set('tmpImports', 'application.modules.' . $name . '.' . $className);
@@ -372,7 +370,7 @@ class ModuleManager extends \CApplicationComponent
     /**
      * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
      *
-     * @param string $module - Имя модуля
+     * @param boo $module - Имя модуля
      *
      * @since 0.5
      * @return string путь к папке или файлу с конфигурацией модуля(-ей)

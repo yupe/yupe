@@ -25,16 +25,7 @@ define('YII_APP_TYPE', 'web');
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
-
-if (YII_DEBUG)
-{	
-	ini_set("display_errors","1");
-	ini_set("display_startup_errors","1");
-	ini_set('error_reporting', E_ALL);
-}
-
 require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
-
 
 $base = require dirname(__FILE__) . '/../protected/config/main.php';
 

@@ -12,7 +12,6 @@
 
 class HpController extends yupe\components\controllers\FrontController
 {
-
     /**
      * Index action:
      * 

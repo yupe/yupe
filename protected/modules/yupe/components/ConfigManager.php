@@ -30,7 +30,6 @@ class ConfigManager extends CComponent
     private $_base             = array();
     // Файл кеша:
     private $_cacheFilePath       = null;
-    
     // Основной путь, к приложению:
     public $basePath          = null;
     // Путь к настройкам модулей
@@ -46,7 +45,7 @@ class ConfigManager extends CComponent
 
     /**
      * Инициализация компонента:
-     * 
+     *
      * @return void
      */
     public function init()
@@ -58,8 +57,8 @@ class ConfigManager extends CComponent
         $this->appModules    = $this->basePath . '/modules';
 
         $this->_base = empty($this->_base)
-                        ? require_once $this->basePath . '/config/main.php'
-                        : $this->_base;
+            ? require_once $this->basePath . '/config/main.php'
+            : $this->_base;
 
         $this->_cacheFilePath = $this->modulePath . '/' . $this->cacheFileName . '.php';
     }
@@ -67,9 +66,9 @@ class ConfigManager extends CComponent
     /**
      * Инициализируем компонент, настраиваем
      * пути и принемаем необходимыей параметры:
-     * 
+     *
      * @param  array  $base      - базовые настройки
-     * 
+     *
      * @return array - получаем настройки приложения
      */
     public function merge($base = array())
@@ -97,13 +96,12 @@ class ConfigManager extends CComponent
     /**
      * Получение настроек из кеш-файла или, запускаем обработчик
      * на создание массива настроек приложения:
-     * 
+     *
      * @return array - настройки приложения
      */
     public function getSettings()
     {
         if (file_exists(($this->_cacheFilePath = $this->modulePath . '/' . $this->cacheFileName . '.php'))) {
-            
             // Сливаем базовые настройки   - $this->_base
             // ---------------------------------------------------
             // с настройками из файла кеша - $this->cachedSettings
@@ -126,21 +124,20 @@ class ConfigManager extends CComponent
 
     /**
      * Получаем массив настроек из файла-дампа:
-     * 
+     *
      * @return array - скешированные настройки
      */
     public function cachedSettings()
     {
         try {
-            
             $cachedSettings = require $this->_cacheFilePath;
 
             if (is_array($cachedSettings) === false) {
                 $cachedSettings = array();
             }
-        
+
         } catch (Exception $e) {
-        
+
             $cachedSettings = array();
         }
 
@@ -149,7 +146,7 @@ class ConfigManager extends CComponent
 
     /**
      * Сброс дампа настроек в файл:
-     * 
+     *
      * @return mixed - bool(true) при успешно завершении
      *                 или (string) с описанием ошибки
      */
@@ -158,18 +155,17 @@ class ConfigManager extends CComponent
         // Если выключена опция кеширования настроек - не выполняем его:
         if (defined('\YII_DEBUG') && \YII_DEBUG === true) {
             return true;
-        }       
+        }
 
         if(!@file_put_contents($this->_cacheFilePath, '<?php return ' . var_export($this->_config, true) . ';')) {
             throw new CException(Yii::t('YupeModule.yupe', 'Error write cached modules setting in {file}...', array('{file}' => $this->_cacheFilePath)));            
         }    
-
         return true;
     }
 
     /**
      * Готовим настройки приложения:
-     * 
+     *
      * @return array - настройки приложения
      */
     public function prepareSettings()
@@ -180,7 +176,7 @@ class ConfigManager extends CComponent
         // Запускаем цикл обработки, шагая по конфигурационным файлам
         // сливая их с пользовательскими настройками модулей
         foreach (new GlobIterator($this->modulePath . '/*.php') as $item) {
-            
+
             // Если нет такого модуля, нет необходимости в обработке:
             if (is_dir($this->appModules . '/' . $item->getBaseName('.php')) == false) {
                 continue;
@@ -216,6 +212,7 @@ class ConfigManager extends CComponent
             if ($item->getBaseName('.php') == 'install') {
                 unset($this->_base['components']['urlManager']['rules']['/']);
                 unset($this->_base['modules']['install']);
+                continue;
             }
 
             // Просматриваем основные настройки для
@@ -229,6 +226,7 @@ class ConfigManager extends CComponent
                                 array($item->getBaseName('.php') => $moduleConfig['module'])
                             );
                         }
+
                     break;
                     
                     
@@ -261,9 +259,9 @@ class ConfigManager extends CComponent
     /**
      * Сливаем настройки, кешируем и отдаём
      * приложению:
-     * 
+     *
      * @param  array  $settings - входящие настройки
-     * 
+     *
      * @return array - настройки приложения
      */
     public function mergeSettings($settings = array())
@@ -274,33 +272,33 @@ class ConfigManager extends CComponent
             array(
                 // Preloaded components:
                 'preload'  => CMap::mergeArray(
-                    isset($this->_config['preload'])
-                        ? $this->_config['preload']
-                        : array(),
-                    isset($settings['preload'])
-                        ? $settings['preload']
-                        : array()
-                ),
+                        isset($this->_config['preload'])
+                            ? $this->_config['preload']
+                            : array(),
+                        isset($settings['preload'])
+                            ? $settings['preload']
+                            : array()
+                    ),
 
                 // Подключение основых путей
                 'import'  => CMap::mergeArray(
-                    isset($this->_config['import'])
-                        ? $this->_config['import']
-                        : array(),
-                    isset($settings['import'])
-                        ? $settings['import']
-                        : array()
-                ),
+                        isset($this->_config['import'])
+                            ? $this->_config['import']
+                            : array(),
+                        isset($settings['import'])
+                            ? $settings['import']
+                            : array()
+                    ),
 
                 // Модули:
                 'modules'  => CMap::mergeArray(
-                    isset($this->_config['modules'])
-                        ? $this->_config['modules']
-                        : array(),
-                    isset($settings['modules'])
-                        ? $settings['modules']
-                        : array()
-                ),
+                        isset($this->_config['modules'])
+                            ? $this->_config['modules']
+                            : array(),
+                        isset($settings['modules'])
+                            ? $settings['modules']
+                            : array()
+                    ),
 
                 // Компоненты:
                 'components'  => CMap::mergeArray(
@@ -364,6 +362,7 @@ class ConfigManager extends CComponent
 
     public function mergeRules(&$settings = array())
     {
+
     	// Если установлен компонент urlManager (т.е. не консоль)
     	if (isset($settings['components']['urlManager']))
     	{
@@ -399,7 +398,7 @@ class ConfigManager extends CComponent
     /**
      * Простая реализация проверки на наличие кеша,
      * в дальнейшем метод может стать больше и сложнее:
-     * 
+     *
      * @return boolean
      */
     public function isCached()
@@ -414,7 +413,7 @@ class ConfigManager extends CComponent
 
     /**
      * Сброс кеш-файла настроек:
-     * 
+     *
      * @return bool - говорящий о результате сброса
      */
     public function flushDump($returnErrors = false)
@@ -430,7 +429,7 @@ class ConfigManager extends CComponent
                 ), 1
             );
         }
-        
+
         return @unlink($cachedSettingsFile);
     }
 }

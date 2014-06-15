@@ -20,7 +20,7 @@ class HomepageModule extends yupe\components\WebModule
 
     const MODE_PAGE = 2;
 
-    public $mode;
+    public $mode = 1;
 
     public $limit;
 

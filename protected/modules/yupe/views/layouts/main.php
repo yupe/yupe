@@ -39,8 +39,7 @@
     </div>
 
     <footer>
-        &copy; <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amylabs
-        </a> <?php echo date('Y'); ?>
+        &copy; 2010 - <?php echo date('Y'); ?>
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>

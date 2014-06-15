@@ -65,7 +65,7 @@ echo <<<EOF
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
+            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
         )
     ); ?>
     <?php
@@ -73,7 +73,7 @@ echo <<<EOF
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
+            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
         )
     ); ?>\n
 EOF;
