@@ -108,7 +108,7 @@ class LangUrlManager extends CUrlManager
             // берём сорсовый
             try {
                 $this->_appLang = Yii::app()->getModule('yupe')->defaultLanguage
-                                ?: $this->_appLang = Yii::app()->sourceLanguage;;
+                                ?: $this->_appLang = Yii::app()->sourceLanguage;
             } catch (Exception $e) {
                 $this->_appLang = Yii::app()->sourceLanguage;
             }
