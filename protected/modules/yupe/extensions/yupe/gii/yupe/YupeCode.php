@@ -101,4 +101,27 @@ class YupeCode extendS CrudCode
             return $column;
         }
     }
+
+	public function getControllerFile()
+	{
+		$id = $this->getControllerID();
+
+		if (($pos = strrpos($id, '/')) !== false) {
+			$id[$pos + 1] = strtoupper($id[$pos + 1]);
+		} else {
+			$id[0] = strtoupper($id[0]);
+		}
+
+		return $this->getModulePath() . '/controllers/' . $id . 'Controller.php';
+	}
+
+	public function getModulePath()
+	{
+		return Yii::app()->basePath . '/modules/' . $this->mid;
+	}
+
+	public function getViewPath()
+	{
+		return $this->getModulePath() . '/views/' . $this->getControllerID();
+	}
 }
