@@ -10,6 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\helpers\Url;
 
 class RegistrationAction extends CAction
 {
@@ -46,7 +47,7 @@ class RegistrationAction extends CAction
                         new CModelEvent($this->controller, array("user" => $user))
                     );
 					
-					$this->controller->redirect($module->registrationSuccess);
+					$this->controller->redirect(Url::redirectUrl($module->registrationSuccess));
 				}
 
                 $module->onErrorRegistration(

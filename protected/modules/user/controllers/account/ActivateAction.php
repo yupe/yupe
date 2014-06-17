@@ -11,6 +11,8 @@
  *
  **/
 
+use yupe\helpers\Url;
+
 class ActivateAction extends CAction
 {
     public function run($token)
@@ -32,7 +34,7 @@ class ActivateAction extends CAction
             );
 
             // Выполняем переадресацию на соответствующую страницу:
-            $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->accountActivationSuccess));
+            $this->controller->redirect(Url::redirectUrl($module->accountActivationSuccess));
         }
 
         // Сообщаем об ошибке:
@@ -46,6 +48,6 @@ class ActivateAction extends CAction
         );
 
         // Переадресовываем на соответствующую ошибку:
-        $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->accountActivationFailure));
+        $this->controller->redirect(Url::redirectUrl($module->accountActivationFailure));
     }
 }

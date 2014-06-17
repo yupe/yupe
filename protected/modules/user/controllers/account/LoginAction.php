@@ -11,6 +11,8 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\helpers\Url;
+
 class LoginAction extends CAction
 {
     public function run()
@@ -65,7 +67,7 @@ class LoginAction extends CAction
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
-                $this->controller->redirect(Yii::app()->createAbsoluteUrl($redirect));
+                $this->controller->redirect(Url::redirectUrl($redirect));
 
             } else {
 
