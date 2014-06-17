@@ -188,7 +188,7 @@ $form = $this->beginWidget(
                 </div>
                 <div class="span2">
                     <br/><br/>
-                    <?php echo $form->checkBoxRow($model, 'comment_status', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
+                    <?php echo $form->dropDownListRow($model, 'comment_status', $model->getCommentStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
                 </div>
             </div>
         </div>
