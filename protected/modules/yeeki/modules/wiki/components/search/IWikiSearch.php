@@ -1,8 +1,0 @@
-<?php
-/**
- * IWikiSearch
- */
-interface IWikiSearch
-{
-
-}

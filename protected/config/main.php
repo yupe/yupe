@@ -111,7 +111,16 @@ return array(
             'class'  => 'application\modules\yupe\components\UploadManager',
         ),
         'themeManager'       => array(
+            'class'          => 'CThemeManager',
             'basePath'       => dirname(__DIR__) . '/../themes',
+        ),
+        'cache' => array(
+            'class' => 'CFileCache',
+            'behaviors' => array(
+                'clear' => array(
+                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
+                ),
+            ),
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
@@ -138,6 +147,7 @@ return array(
                 '/debug/<controller:\w+>/<action:\w+>'                            => 'debug/<controller>/<action>', // Для  YiiDebugPanel
             )
         ),
+
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
@@ -148,7 +158,7 @@ return array(
                 'httpOnly' => true,
             ),
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload'),
+            'noCsrfValidationRoutes' => array('backend/image/image/AjaxImageUpload','backend/AjaxFileUpload'),
             'enableCookieValidation' => true, // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ),
 
@@ -161,15 +171,7 @@ return array(
         'ajax' => array(
             'class' => 'yupe\components\AsyncResponse',
         ),
-        // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
-        'cache' => array(
-            'class' => 'CDummyCache',
-            'behaviors' => array(
-                'clear' => array(
-                    'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
-                ),
-            ),
-        ),
+
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
         'log' => array(
             'class'  => 'CLogRouter',
@@ -181,13 +183,6 @@ return array(
             ),
         ),
 
-        // Подключение компоненты подсветки кода Highlight.js (Подробнее: http://softwaremaniacs.org/soft/highlight/)
-        'highlightjs' => array(
-            'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
-            'remote'  => false,
-            'style'=>'github'
-        ),
-
         'errorHandler'=>array(
             // use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -197,3 +192,4 @@ return array(
         //подробнее http://yupe.ru/docs/yupe/userspace.config.html
     )
 );
+

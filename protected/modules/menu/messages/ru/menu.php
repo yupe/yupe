@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Use drag and drop to sort' => 'Используйте drag & drop для сортировки',
   'Answer' => 'Ответить',
   'Delete' => 'Удалить',
   'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
@@ -128,5 +129,6 @@ return array (
   'negation' => 'отрицание',
   'manage' => 'управление',
   'New item was added to menu!' => 'Новый пункт был добавлен в меню!',
-  'Menu was created!' => 'Меню было создано!'
+  'Menu was created!' => 'Меню было создано!',
+  'Select {field}' => 'Выберите {field}',
 );

@@ -69,7 +69,7 @@
                     'buttonType'  => 'submit',
                     'type'        => 'primary',
                     'icon'        => 'white search',
-                    'label'       => Yii::t('UserModule.user', 'Find user'),
+                    'label'       => Yii::t('UserModule.user', 'Find tokens'),
                 )
             ); ?>
 

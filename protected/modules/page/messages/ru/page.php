@@ -121,4 +121,5 @@ return array (
   'are required.' => 'обязательны.',
   'manage' => 'управление',
   'Removed' => 'Удален',
+  'Select {field}' => 'Выберите {field}',
 );

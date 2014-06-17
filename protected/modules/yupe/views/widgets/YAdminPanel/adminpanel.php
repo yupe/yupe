@@ -21,10 +21,10 @@ $this->widget(
         'fluid'       => true,
         'collapse'    => true,
         'brand'       => CHtml::image(
-            Yii::app()->baseUrl . "/web/images/logo.png", Yii::app()->name, array(
+            Yii::app()->getModule('yupe')->getLogo(), CHtml::encode(Yii::app()->name), array(
                 'width'  => '38',
                 'height' => '38',
-                'title'  => Yii::app()->name,
+                'title'  => CHtml::encode(Yii::app()->name),
             )
         ),
         'brandUrl'    => CHtml::normalizeUrl(array("/yupe/backend/index")),
@@ -106,21 +106,21 @@ $this->widget(
                         array(
                             'icon'        => 'home',
                             'label'       => Yii::t('YupeModule.yupe', 'Go home'),
-                            'visible'     => Yii::app()->controller instanceof yupe\components\controllers\BackController === true,
-                            'url'         => array('/' . Yii::app()->defaultController . '/index/'),
+                            'visible'     => Yii::app()->getController() instanceof yupe\components\controllers\BackController === true,
+                            'url'         => Yii::app()->createAbsoluteUrl('/')
                         ),
                         array(
                             'label'       => '
                                 <div style="float: left; line-height: 16px; text-align: center; margin-top: -10px;">
                                     <small style="font-size: 80%;">' . Yii::t('YupeModule.yupe', 'Administrator') . '</small><br />
-                                    <span class="label">' . Yii::app()->user->nick_name . '</span>
+                                    <span class="label">' . CHtml::encode(Yii::app()->getUser()->nick_name) . '</span>
                                 </div>',
                             'encodeLabel' => false,
                             'items'       => array(
                                 array(
                                     'icon'  => 'user',
                                     'label' => Yii::t('YupeModule.yupe', 'Profile'),
-                                    'url'   => CHtml::normalizeUrl((array('/user/userBackend/update', 'id' => Yii::app()->user->getId()))),
+                                    'url'   => CHtml::normalizeUrl((array('/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()))),
                                 ),
                                 array(
                                     'icon'  => 'off',

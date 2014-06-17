@@ -17,12 +17,14 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Number of login attempts' => 'Кол-во попыток авторизации',
     'Sent!' => 'Отправлено!',
     'Users per page' => 'Пользователей на страницу',
     '*unknown*' => '*неизвестно*',
     '*no*' => '*нет*',
     '0.5' => '0.5',
     'Email' => 'Email',
+    'Email/Login' => 'Имя пользователя или Email',
     'Email "{email}" was not found or user was blocked !' => 'Email "{email}" не найден или пользователь заблокирован !',
     'Email or password was typed wrong!' => 'Email или пароль введены неверно!',
     'From which email send a message' => 'Email от имени которого отправлять сообщение',
@@ -347,4 +349,5 @@ return array (
     'Email verification' => 'Подтверждение email',
     'User not found' => 'Пользователь не найден',
     'Send a letter to verify email' => 'Отправить письмо для проверки email',
+	'Select {field}' => 'Выберите {field}',
 );

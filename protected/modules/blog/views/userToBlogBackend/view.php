@@ -9,7 +9,6 @@
  *   @link     http://yupe.ru
  **/
 $this->breadcrumbs = array(
-    Yii::app()->getModule('blog')->getCategory() => array(),
     Yii::t('BlogModule.blog', 'Members') => array('/blog/userToBlogBackend/index'),
     $model->user->nick_name,
 );

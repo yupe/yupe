@@ -47,4 +47,23 @@ class FeedBackForm extends CFormModel
             'type'       => Yii::t('FeedbackModule.feedback', 'Type'),
         );
     }
+
+    /**
+     * Список возможных типов:
+     *
+     * @return array
+     */
+    public function getTypeList()
+    {
+        $types = Yii::app()->getModule('feedback')->types;
+
+        if ($types) {
+            $types[FeedBack::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'Default');
+        }
+        else{
+            $types = array(FeedBack::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default'));
+        }
+
+        return $types;
+    }
 }

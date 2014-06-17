@@ -83,4 +83,5 @@ return array (
   'create' => 'добавление',
   'are required' => 'обязательны.',
   'manage' => 'управление',
+  'Select {field}' => 'Выберите {field}',
 );

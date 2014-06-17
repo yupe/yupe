@@ -24,7 +24,6 @@
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
-    Yii::app()->clientScript->registerCssFile($docsAssets . '/css/main.css');
 
     if (($langs = $this->yupe->languageSelectorArray) != array()) {
         Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
@@ -38,10 +37,11 @@
         <?php
         $this->widget(
             'bootstrap.widgets.TbNavbar', array(
-                'htmlOptions' => array('class' => 'navbar'),
+                'htmlOptions' => array('class' => 'navbar navbar-fixed-top'),
                 'fluid'       => true,
+                'collapse'    => true,
                 'brand'       => CHtml::image(
-                                     Yii::app()->baseUrl.'/web/images/logo.png',
+                                     Yii::app()->getModule('yupe')->getLogo(),
                                      Yii::t('DocsModule.docs', 'Yupe! Documentation'),
                                      array(
                                         'width'  => '38',

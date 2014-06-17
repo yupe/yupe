@@ -58,7 +58,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 </br>
 
-<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Items Management'); ?></p>
+<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Items Management'); ?> <span class="label label-info"><?php echo Yii::t('MenuModule.menu','Use drag and drop to sort');?></span></p>
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'menu-items-grid',
@@ -108,19 +108,26 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/menu/menuitemBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/menu/menuitemBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('MenuModule.menu', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'source' => $model->getStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
             'filter' => $model->getStatusList()
+        ),
+        array(
+            'name'   => 'sort',
+            'type'   => 'raw',
+            'value'  => '$this->grid->getUpDownButtons($data)',
+            'filter' => false
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

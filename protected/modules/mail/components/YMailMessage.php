@@ -11,6 +11,7 @@
  **/
 
 Yii::import('application.modules.mail.MailModule');
+Yii::import('application.modules.mail.models.*');
 
 class YMailMessage extends CApplicationComponent
 {
@@ -112,7 +113,9 @@ class YMailMessage extends CApplicationComponent
     }
 
     /**
-     * sendTemplate:
+     * parseTemplate:
+     *
+     * Заменяет в шаблоне переменные не их значения
      *
      * @param \MailTemplate $template - модель шаблона
      * @param array $data     - данные

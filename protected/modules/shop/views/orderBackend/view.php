@@ -2,7 +2,7 @@
 /* @var $model Order */
 $this->breadcrumbs = array(
     Yii::t('ShopModule.order', 'Заказы') => array('/shop/orderBackend/index'),
-    $model->name,
+    $model->id,
 );
 
 $this->pageTitle = Yii::t('ShopModule.order', 'Заказы - просмотр');
@@ -11,7 +11,7 @@ $this->menu = array(
     array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.order', 'Управление заказами'), 'url' => array('/shop/orderBackend/index')),
     array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.order', 'Добавить заказ'), 'url' => array('/shop/orderBackend/create')),
     array('label' => Yii::t('ShopModule.order', 'Заказ') . ' «№' . $model->id . '»'),
-    array('icon' => 'pencil', 'label' => Yii::t('ShopModule.order', 'Редактирование заказ'), 'url' => array(
+    array('icon' => 'pencil', 'label' => Yii::t('ShopModule.order', 'Редактирование заказа'), 'url' => array(
         '/shop/orderBackend/update',
         'id' => $model->id
     )),

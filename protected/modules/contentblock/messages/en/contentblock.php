@@ -71,4 +71,5 @@ return array (
   'id' => '',
   'team@yupe.ru' => '',
   'yupe team' => '',
+  'Select {field}' => '',
 );

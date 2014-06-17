@@ -49,10 +49,12 @@ $this->widget('yupe\widgets\CustomGridView', array(
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        array(
-            'name' => 'id',
-            'htmlOptions' => array('style' => 'width:20px'),
-        ),
+		array(
+			'name'        => 'id',
+			'type'        => 'raw',
+			'value'       => 'Chtml::link($data->id, array("/mail/templateBackend/update", "id" => $data->id))',
+			'htmlOptions' => array('style' => 'width:20px'),
+		),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'name',
@@ -77,15 +79,16 @@ $this->widget('yupe\widgets\CustomGridView', array(
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/mail/templateBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/mail/templateBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('MailModule.mail', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('event_id')))),
+				'source' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'event_id',
             'type'   => 'raw',
             'value'  => '$data->event->name',
@@ -97,6 +100,7 @@ $this->widget('yupe\widgets\CustomGridView', array(
             'editable' => array(
                 'url' => $this->createUrl('/mail/templateBackend/inline'),
                 'mode' => 'inline',
+				'type' => 'text',
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
@@ -126,15 +130,16 @@ $this->widget('yupe\widgets\CustomGridView', array(
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
-            'editable' => array(
-                'url'  => $this->createUrl('/mail/templateBackend/inline'),
-                'mode' => 'popup',
-                'type' => 'select',
-                'source' => $model->getStatusList(),
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
+			'editable' => array(
+				'url'    => $this->createUrl('/mail/templateBackend/inline'),
+				'mode'   => 'popup',
+				'type'   => 'select',
+				'title'  => Yii::t('MailModule.mail', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'source' => $model->getStatusList(),
+				'params' => array(
+					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+				)
+			),
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',

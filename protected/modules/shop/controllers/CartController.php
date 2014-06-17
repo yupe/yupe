@@ -5,7 +5,8 @@ class CartController extends yupe\components\controllers\FrontController
     public function actionIndex()
     {
         $positions = Yii::app()->shoppingCart->positions;
-        $this->render('index', array('positions' => $positions));
+        $order     = new Order(Order::SCENARIO_USER);
+        $this->render('index', array('positions' => $positions, 'order' => $order));
     }
 
     public function actionAdd()

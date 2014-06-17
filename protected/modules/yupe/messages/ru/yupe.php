@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Logo'   => 'Логотип',
   'Delete' => 'Удалить',
   'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
   'Main settings admin panel' => 'Основные настройки панели управления',
@@ -144,6 +145,7 @@ return array (
   'Main module settings' => 'Основные настройки модуля',
   'Main settings' => 'Основные настройки',
   'Menu items order' => 'Порядок следования в меню',
+  'Cache time' => 'Время кеширования',
   'Message sent!' => 'Сообщение отправлено!',
   'Migration {class} applied for {s} seconds.' => 'Миграция {class} применена за {s} сек.',
   'Migration {class} downgrated for {s} seconds.' => 'Миграция {class} отменена за {s} сек.',

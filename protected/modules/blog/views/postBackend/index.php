@@ -107,22 +107,23 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',                
                 'name'  => 'publish_date',
-                'editable' => array(   
-                    'url'  => $this->createUrl('/blog/postBackend/inline'),
-                    'mode' => 'inline',
-                    'type' => 'datetime',
-                    'options' => array(
-                        'datetimepicker' => array(
-                           'format' => 'dd-mm-yyyy hh:ii'
-                        ),
-                        'datepicker' => array(
-                            'format' => 'dd-mm-yyyy hh:ii'
-                        ),
-                    ),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )                                 
-                )                           
+				'editable' => array(
+					'url'     => $this->createUrl('/blog/postBackend/inline'),
+					'mode'    => 'inline',
+					'type'    => 'datetime',
+					'options' => array(
+						'datetimepicker' => array(
+							'format'   => 'dd-mm-yyyy hh:ii',
+							'language' => Yii::app()->language,
+						),
+						'datepicker'     => array(
+							'format' => 'dd-mm-yyyy hh:ii',
+						),
+					),
+					'params'  => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				)
             ),
             array(
                 'name'   => 'category_id',
@@ -137,15 +138,16 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'  => $this->createUrl('/blog/postBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/postBackend/inline'),
+					'mode'   => 'popup',
+					'type'   => 'select',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+					'source' => $model->getStatusList(),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
                 'name'   => 'status',
                 'type'   => 'raw',
                 'value'  => '$data->getStatus()',
@@ -153,15 +155,16 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'  => $this->createUrl('/blog/postBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'source' => $model->getCommentStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+				'editable' => array(
+					'url'    => $this->createUrl('/blog/postBackend/inline'),
+					'mode'   => 'popup',
+					'type'   => 'select',
+					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('comment_status')))),
+					'source' => $model->getCommentStatusList(),
+					'params' => array(
+						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+					)
+				),
                 'name'  => 'comment_status',
                 'type'  => 'raw',
                 'value' => '$data->getCommentStatus()',

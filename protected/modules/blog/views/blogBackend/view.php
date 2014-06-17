@@ -57,6 +57,11 @@ $this->menu = array(
             'id',
             'name',
             array(
+                'name'  => 'icon',
+                'value' => CHtml::image($model->getImageUrl()),
+                'type'  => 'raw'
+            ),
+            array(
                 'name' => 'description',
                 'type' => 'raw'
             ),

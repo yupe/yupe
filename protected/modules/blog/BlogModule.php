@@ -205,6 +205,8 @@ class BlogModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(array(
+            'blog.listeners.*',
+            'blog.events.*',
             'blog.models.*',
             'blog.components.*',
             'vendor.yiiext.taggable-behavior.*',

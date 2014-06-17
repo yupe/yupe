@@ -8,7 +8,7 @@
 ## API ##
 API-документация по классам и компонентам Юпи! доступна здесь - [http://api.yupe.ru/](http://api.yupe.ru/)
 ## Немного о Юпи! ##
-Юпи! — простая и легкая CMS, написанная на [Yiiframework](http://www.yiiframework.com/) На Юпи! работает уже более 350 проектов.
+Юпи! — простая и быстрая CMS, написанная на [Yiiframework](http://www.yiiframework.com/) На Юпи! работает уже более 500 проектов.
 ## Лицензия ##
 Исходный код, макеты дизайна и вёрстка распространяются по лицензии [BSD-3-Clause](https://github.com/yupe/yupe/blob/master/LICENSE).
 

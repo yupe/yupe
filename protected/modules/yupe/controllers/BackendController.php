@@ -26,6 +26,18 @@ use yupe\models\Settings;
 
 class BackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'AjaxFileUpload' => array(
+                'class' => 'yupe\components\actions\YAjaxFileUploadAction',
+                'maxSize' => $this->module->maxSize,
+                'mimeTypes' => $this->module->mimeTypes,
+                'types' => $this->module->allowedExtensions
+            ),
+        );
+    }
+
     /**
      * Экшен главной страницы панели управления:
      *
@@ -256,7 +268,7 @@ class BackendController extends yupe\components\controllers\BackController
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
-        $settings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'));
+        $settings = Settings::fetchModuleSettings('yupe', array('theme', 'backendTheme'));
         $noThemeValue = Yii::t('YupeModule.yupe', 'Theme is don\'t use');
 
         $theme = isset($settings['theme']) && $settings['theme']->param_value != ''
@@ -286,41 +298,21 @@ class BackendController extends yupe\components\controllers\BackController
      * @return bool
      **/
     public function saveParamsSetting($moduleId, $params)
-    {
-        $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
+    {    	
+    	$paramValues = array();
 
-        foreach ($params as $p) {
-            $pval = Yii::app()->getRequest()->getPost($p);
-            // Если параметр уже был - обновим, иначе надо создать новый
-            if (isset($settings[$p])) {
-                // Если действительно изменили настройку
-                if ($settings[$p]->param_value != $pval) {
-                    $settings[$p]->param_value = $pval;
-                    // Добавляем для параметра его правила валидации
-                    $settings[$p]->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($p);
-                    if (!$settings[$p]->save()) {
-                        return false;
-                    }
-                }
-
-            } else {
-                $settings[$p] = new Settings;
-
-                $settings[$p]->setAttributes(
-                    array(
-                        'module_id' => $moduleId,
-                        'param_name' => $p,
-                        'param_value' => $pval,
-                    )
-                );
-
-                if (!$settings[$p]->save()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+    	// Перебираем все параметры модуля
+    	foreach ($params as $param_name) {
+    		$param_value = Yii::app()->getRequest()->getPost($param_name, null);
+    		// Если параметр есть в post-запросе добавляем его в массив
+    		if ($param_value !== null)
+    		{
+    			$paramValues[$param_name] = $param_value;    			
+    		}    		
+    	}    	
+    	
+    	// Запускаем сохранение параметров
+    	return Settings::saveModuleSettings($moduleId, $paramValues);
     }
 
     /**
@@ -522,7 +514,7 @@ class BackendController extends yupe\components\controllers\BackController
                 try {
                     Yii::app()->cache->flush();
                     $this->_cleanAssets();
-                    if(Yii::app()->configManager->isCached()) {
+                    if (Yii::app()->configManager->isCached()) {
                         Yii::app()->configManager->flushDump(true);
                     }
                     Yii::app()->ajax->success(

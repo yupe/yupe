@@ -1,6 +1,5 @@
 <?php
 $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.shop.views.assets'), false, -1, YII_DEBUG);
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shop.css');
 
 $this->breadcrumbs = array(
     Yii::t('ShopModule.order', 'Заказы') => array('/shop/orderBackend/index'),

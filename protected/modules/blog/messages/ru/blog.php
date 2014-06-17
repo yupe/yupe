@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Publish' => 'Опубликовать',
     'Posts categories' => 'Категории записей',
     'Blogs categories' => 'Категории блогов',
     'Users (last day / all)' => 'Пользователей (за сутки / всего)',
@@ -274,4 +275,5 @@ return array (
     'read also:' => 'читайте также:',
     'All posts' => 'Все записи',
     'All' => 'Все',
+	'Select {field}' => 'Выберите {field}',
 );

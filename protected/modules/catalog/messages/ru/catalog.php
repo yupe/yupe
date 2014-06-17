@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Name' => 'Название',
   'Goods categories' => 'Категории товаров',
   'Delete' => 'Удалить',
   'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
@@ -33,7 +34,7 @@ return array (
   'Alias' => 'Алиас',
   'Do you really want to remove product?' => 'Вы уверены, что хотите удалить товар?',
   'Article' => 'Артикул',
-  'File uploads directory (relative to Yii::app()->getModule("yupe")->uploadPath)' => 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)',
+  'File uploads directory (relative to {dir})' => 'Каталог для загрузки файлов (относительно каталога {dir})',
   'Category' => 'Категория',
   'Change settings' => 'Изменить настройки',
   'Content' => 'Контент',
@@ -76,7 +77,7 @@ return array (
   'Product list' => 'Список товаров',
   'Record was added!' => 'Запись добавлена!',
   'Record was removed!' => 'Запись удалена!',
-  'Record was updated!' => 'Записб изменена!',
+  'Record was updated!' => 'Запись изменена!',
   'Remove product' => 'Удалить товар',
   'Save product and close' => 'Сохранить товар и закрыть',
   'Save product and continue' => 'Сохранить товар и продолжить',
@@ -98,4 +99,5 @@ return array (
   'team@yupe.ru' => 'team@yupe.ru',
   'yupe team' => 'yupe team',
   'Constant link' => 'Постоянная ссылка',
+  'Select {field}' => 'Выберите {field}',
 );

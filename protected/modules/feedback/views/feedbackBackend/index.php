@@ -57,6 +57,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
     'yupe\widgets\CustomGridView', array(
         'id'           => 'feed-back-list',
         'dataProvider' => $model->search(),
+        'filter'  => $model,
         'columns' => array(
             array(
                 'name' => 'id',

@@ -35,10 +35,10 @@ div#page {
 
 #overall-wrap {
     min-height: 100%;
-    margin: 0 auto -141px;
+    margin: 0 auto -121px;
 }
 .navbar-fixed-top {
-    border-bottom: 5px solid #FF9600;
+    border-bottom: 1px solid #FF9600;
     min-width: 960px !important;
 }
 body > footer {
@@ -46,7 +46,7 @@ body > footer {
     text-align: center;
 
     height: 75px;
-    padding: 20px 0px 45px;
+    padding: 20px 0 25px;
 
     border-top: 1px solid #E5E5E5;
 

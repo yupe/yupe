@@ -32,12 +32,7 @@ class ActivateAction extends CAction
             );
 
             // Выполняем переадресацию на соответствующую страницу:
-            $this->controller->redirect(
-                array(
-                    $module->accountActivationSuccess
-                )
-            );
-
+            $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->accountActivationSuccess));
         }
 
         // Сообщаем об ошибке:
@@ -51,10 +46,6 @@ class ActivateAction extends CAction
         );
 
         // Переадресовываем на соответствующую ошибку:
-        $this->controller->redirect(
-            array(
-                $module->accountActivationFailure
-            )
-        );
+        $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->accountActivationFailure));
     }
 }

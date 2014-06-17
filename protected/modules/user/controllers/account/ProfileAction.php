@@ -27,7 +27,7 @@ class ProfileAction extends CAction
             Yii::app()->user->logout();
 
             $this->controller->redirect(
-                (array) '/user/account/login'
+                array('/user/account/login')
             );
         }
 

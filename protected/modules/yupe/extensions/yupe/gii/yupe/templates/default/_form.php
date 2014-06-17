@@ -21,6 +21,10 @@ echo <<<EOF
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
+ *
+ *   @var \$model {$this->modelClass}
+ *   @var \$form TbActiveForm
+ *   @var \$this {$this->controllerClass}
  **/
 \$form = \$this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(
@@ -65,7 +69,7 @@ echo <<<EOF
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
+            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
         )
     ); ?>
     <?php
@@ -73,7 +77,7 @@ echo <<<EOF
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
+            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
         )
     ); ?>\n
 EOF;

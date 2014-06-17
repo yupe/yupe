@@ -150,7 +150,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
         $model->unsetAttributes(); // clear any default values
         
         $model->setAttributes(
-            Yii::app()->getRequest()->getPost(
+            Yii::app()->getRequest()->getParam(
                 'UserToken', array()
             )
         );

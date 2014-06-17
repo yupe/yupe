@@ -48,7 +48,7 @@
             <li><?php echo Yii::t('default', 'Friends'); ?></li>
             <li><a href="http://allframeworks.ru" target="_blank"><?php echo Yii::t('default', 'allframeworks'); ?></a>
             </li>
-            <li><a href="http://amylabs.ru" target="_blank"><?php echo Yii::t('default', 'amyLabs'); ?></a></li>
+            <li><a href="http://amylabs.ru" target="_blank"><?php echo Yii::t('default', 'amylabs'); ?></a></li>
             <li><a href="http://yupe.ru/contacts?from=footer"
                    target="_blank"><?php echo Yii::t('default', 'Do you want to be our friend?'); ?></a></li>
             <li><a href="http://amylabs.ru/contact?from=yupe"
@@ -68,7 +68,7 @@
             </li>
             <li class="pull-right">
                 © 2010 - <?php echo date('Y'); ?> <?php echo CHtml::link(
-                    'amyLabs',
+                    'amylabs',
                     'http://amylabs.ru?from=yupe'
                 ); ?>
                 && <?php echo CHtml::link(Yii::t("default", "Yupe! team"), 'http://yupe.ru?from=yupe'); ?> <?php echo Yii::app()->getModule('yupe')->poweredBy(); ?>

@@ -77,18 +77,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('icon') ? 'error' : ''; ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('icon'); ?>">
-            <?php
-            echo CHtml::image(
-                !$model->isNewRecord && $model->image
-                    ? $model->getImageUrl()
-                    : '#',
-                $model->name, array(
-                    'class' => 'preview-image',
-                    'style' => !$model->isNewRecord && $model->image
-                            ? ''
-                            : 'display:none'
-                )
-            ); ?>
+            <?php echo CHtml::image($model->getImageUrl()); ?>
             <?php echo $form->labelEx($model, 'icon'); ?>
             <?php echo $form->fileField($model, 'icon', array('onchange' => 'readURL(this);')); ?>
         </div>

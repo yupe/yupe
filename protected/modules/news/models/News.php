@@ -93,6 +93,7 @@ class News extends yupe\models\YModel
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
+                'fileName' => array($this, 'generateFileName'),
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',

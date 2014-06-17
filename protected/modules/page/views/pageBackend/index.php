@@ -1,5 +1,11 @@
 <?php
-    $this->breadcrumbs = array(       
+
+/**
+ * @var $model Page
+ * @var $this PageBackendController
+ * @var $pages array
+ */
+$this->breadcrumbs = array(
         Yii::t('PageModule.page', 'Pages') => array('/page/pageBackend/index'),
         Yii::t('PageModule.page', 'List'),
     );
@@ -100,8 +106,8 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'class'  => 'bootstrap.widgets.TbEditableColumn',
             'editable' => array(
                 'url'  => $this->createUrl('/page/pageBackend/inline'),
-                'mode' => 'popup',
                 'type' => 'select',
+				'title'  => Yii::t('PageModule.page', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
                 'source' => $model->getStatusList(),
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

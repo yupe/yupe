@@ -40,7 +40,7 @@ class YAdminPanel extends YWidget
         if (Yii::app()->user->isSuperUser()) {
 
             $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
-            
+
             Yii::app()->clientScript->registerCssFile($mainAssets . '/css/frontpanel.css');
             Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
 

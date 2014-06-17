@@ -122,8 +122,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
     {
         if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile)
         {
+        	$this->removeFile();
             $this->saveFile();
-            $this->removeFile();
+            
         }
 
         return parent::beforeSave($event);

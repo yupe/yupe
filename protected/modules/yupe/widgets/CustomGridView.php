@@ -236,17 +236,10 @@ class CustomGridView extends \TbExtendedGridView
     */
     public function getUpDownButtons($data)
     {
-        $downUrlImage = CHtml::image(
-            Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/down.gif'),
-            Yii::t('YupeModule.yupe', 'Turn down'),
-            array('title' => Yii::t('YupeModule.yupe', 'Turn down'))
-        );
+        $downUrlImage = '<i class="icon-circle-arrow-down"></i>';
 
-        $upUrlImage = CHtml::image(
-            Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/up.gif'),
-            Yii::t('YupeModule.yupe', 'Turn up'),
-            array('title' => Yii::t('YupeModule.yupe', 'Turn up'))
-        );
+        $upUrlImage = '<i class="icon-circle-arrow-up"></i>';
+
         $urlUp = Yii::app()->controller->createUrl(
             "sort", array(
                 'model'     => $this->_modelName,
@@ -267,9 +260,7 @@ class CustomGridView extends \TbExtendedGridView
 
         $options = array('onclick' => 'ajaxSetSort(this, "' . $this->id . '"); return false;',);
 
-        return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' .
-                $data->{$this->sortField} . ' ' .
-                CHtml::link($downUrlImage, $urlDown, $options);
+        return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' . CHtml::link($downUrlImage, $urlDown, $options);
     }
 
     /**
@@ -279,37 +270,56 @@ class CustomGridView extends \TbExtendedGridView
      */
     protected function _updatePageSize()
     {
-        // ID текущей модели
-        $modelID = strtolower($this->_modelName);
+    
+        // имя текущей модели
+        $modelName = strtolower($this->_modelName);
+        
         // Делаем так, ибо при попытке править Yii::app()->session['modSettings'] - получаем ошибку
         $sessionSettings = Yii::app()->user->getState(\YWebUser::STATE_MOD_SETTINGS, null);
         $currentPageSize = $this->dataProvider->getPagination()->pageSize;
 
-        if (!isset($sessionSettings[$modelID])) {
-            $sessionSettings[$modelID] = array();
+        // Если переменная не найдена нужно проверить наличие данных в БД
+         if (!isset($sessionSettings[$modelName]['pageSize'])) {
+         	
+         	$sessionSettings[$modelName] = array();         
+        	$setting = Settings::model()->findAllByAttributes(array(
+                    'user_id' => Yii::app()->user->getId(),
+                    'module_id' => $modelName,
+                    'param_name' => 'pageSize',
+                    'type' => Settings::TYPE_USER,
+                )
+        	);
+        	
+        	// Если не найдена запись, создаем
+        	if ($setting === null)
+        	{
+        		$setting = new Settings;
+        		$setting->module_id = $modelName;
+        		$setting->param_name = 'pageSize';
+        		$setting->param_value = $currentPageSize;
+        		$setting->type = Settings::TYPE_USER;
+        		$setting->save();
         }
+        }
+        // Если информация найдена в сессии и значение отличается
+        elseif ($currentPageSize !== $sessionSettings[$modelName]['pageSize']) 
+         {
 
-        // Если для данного модуля не установлен pageSize - устанавливаем его
-        if (!isset($sessionSettings[$modelID]['pageSize'])) {
-            $newSets = new Settings;
-            $newSets->module_id = $modelID;
-            $newSets->param_name = 'pageSize';
-            $newSets->param_value = $currentPageSize;
-            $newSets->type = Settings::TYPE_USER;
-            $newSets->save();
-        } else {
-            $oldSets = Settings::model()->findByAttributes(
+         	// Обновим запись в базе
+            $setting = Settings::model()->findByAttributes(
                 array(
                     'user_id' => Yii::app()->user->getId(),
-                    'module_id' => $modelID,
+                    'module_id' => $modelName,
                     'param_name' => 'pageSize',
                     'type' => Settings::TYPE_USER,
                 )
             );
-            $oldSets->param_value = $currentPageSize;
-            $oldSets->update();
+            $setting->param_value = $currentPageSize;
+            $setting->update();
         }
-        $sessionSettings[$modelID]['pageSize'] = $currentPageSize;
+        
+        $sessionSettings[$modelName]['pageSize'] = $currentPageSize;       
+                        
         // Перезаписываем сессию
         Yii::app()->user->setState(\YWebUser::STATE_MOD_SETTINGS, $sessionSettings);
     }
