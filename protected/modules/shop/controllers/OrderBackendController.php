@@ -1,6 +1,6 @@
 <?php
 
-class PaymentBackendController extends yupe\components\controllers\BackController
+class OrderBackendController extends yupe\components\controllers\BackController
 {
 
     public function actionView($id)
@@ -11,20 +11,20 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
 
     public function actionCreate()
     {
-        $model = new Payment();
+        $model = new Order();
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Payment']))
+        if (isset($_POST['Order']))
         {
-            $model->attributes = $_POST['Payment'];
-            $model->setPaymentSystemSettings($_POST['PaymentSettings']);
+            $model->attributes = $_POST['Order'];
+            $model->setOrderProducts($_POST['OrderProduct']);
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('ShopModule.payment', 'Запись добавлена!')
+                    Yii::t('ShopModule.order', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -37,11 +37,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
                 }
             }
         }
-        $criteria         = new CDbCriteria;
-        $criteria->select = new CDbExpression('MAX(position) as position');
-        $max              = $model->find($criteria);
 
-        $model->position = $max->position + 1;
         $this->render('create', array('model' => $model));
     }
 
@@ -52,16 +48,16 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Payment']))
+        if (isset($_POST['Order']))
         {
-            $model->attributes = $_POST['Payment'];
-            $model->setPaymentSystemSettings($_POST['PaymentSettings']);
+            $model->attributes = $_POST['Order'];
+            $model->setOrderProducts($_POST['OrderProduct']);
 
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('ShopModule.payment', 'Запись обновлена!')
+                    Yii::t('ShopModule.order', 'Запись обновлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -72,6 +68,9 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
                 {
                     $this->redirect(array($_POST['submit-type']));
                 }
+            }
+            else{
+                //var_dump($model->errors); die();
             }
         }
         $this->render('update', array('model' => $model));
@@ -85,7 +84,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('ShopModule.payment', 'Запись удалена!')
+                Yii::t('ShopModule.order', 'Запись удалена!')
             );
 
             if (!isset($_GET['ajax']))
@@ -95,66 +94,50 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         }
         else
         {
-            throw new CHttpException(400, Yii::t('ShopModule.payment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('ShopModule.order', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
         }
     }
 
 
     public function actionIndex()
     {
-        $model = new Payment('search');
+        $model = new Order('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Payment']))
-            $model->attributes = $_GET['Payment'];
+        if (isset($_GET['Order']))
+            $model->attributes = $_GET['Order'];
         $this->render('index', array('model' => $model));
     }
 
-
     /**
      * @param $id
-     * @return Payment
+     * @return Order
      * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = Payment::model()->findByPk($id);
+        $model = Order::model()->findByPk($id);
         if ($model === null)
         {
-            throw new CHttpException(404, Yii::t('ShopModule.payment', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('ShopModule.order', 'Запрошенная страница не найдена.'));
         }
         return $model;
     }
 
 
-    protected function performAjaxValidation(Payment $model)
+    protected function performAjaxValidation(Order $model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'payment-form')
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'order-form')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
 
-    public function actionSortable()
+    public function actionProductRow()
     {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
+        $product             = new OrderProduct();
+        $product->product = Product::model()->findByPk($_GET['OrderProduct']['product_id']);
 
-        if (empty($sortOrder))
-        {
-            throw new CHttpException(404);
-        }
-
-        if (Payment::model()->sort($sortOrder))
-        {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
-    }
-
-    public function actionPaymentSystemSettings()
-    {
-        $payment = Payment::model()->findByPk(Yii::app()->request->getParam('payment_id'));
-        $this->renderPartial('_payment_system_settings', array('model' => $payment, 'paymentSystem' => Yii::app()->request->getParam('payment_system')));
+        $this->renderPartial('_product_row', array('model' => $product));
     }
 }

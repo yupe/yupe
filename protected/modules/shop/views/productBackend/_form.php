@@ -303,33 +303,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 return el.id == attributeId;
             }).pop();
             var tbody = $('#product-variants');
-            //$('#attributes-panel').load('/backend/shop/product/typeAttributesForm/' + typeId);
             $.get('/backend/shop/product/variantRow/' + attributeId, function(data){
                 tbody.append(data);
             });
-            return;
-            var text = "<tr>";
-            var randomKey = Math.random();
-            text += "<td>" + variantAttribute.title + "<input type='hidden' value='" + variantAttribute.id + "' name='ProductVariant[" + randomKey + "][attribute_id]'/>" + "</td>";
-            if (variantAttribute.options.length) {
-                var tmp = "<select name='ProductVariant[" + randomKey + "][option_id]'>";
-                $.each(variantAttribute.options, function (key, el) {
-                    console.log(el);
-                    tmp += "<option value='" + el.id + "'>" + el.value + "</option>";
-                });
-                tmp += "</select>";
-
-                text += "<td>" + tmp + "</td>";
-            }
-            else {
-                text += "<td><input type='text'></td>";
-            }
-            text += '<td><select name="ProductVariant[' + randomKey + '][type]"><option value="0">Сумма</option><option value="1">Процент</option></select></td>';
-            text += '<td><input type="text" name="ProductVariant[' + randomKey + '][amount]"/></td>';
-            text += '<td><input type="text" name="ProductVariant[' + randomKey + '][sku]"/></td>';
-            text += '<td><a href="#" class="btn btn-mini remove-variant">Удалить</a></td>';
-            text += "</tr>";
-            tbody.append(text);
         });
 
         $('#product-variants').on('click', '.remove-variant', function (e) {

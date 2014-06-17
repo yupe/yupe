@@ -1,0 +1,45 @@
+{
+    "name": "Робокасса",
+    "settings": [
+        {
+            "variable": "login",
+            "name": "Логин в робокассе"
+        },
+        {
+            "variable": "password1",
+            "name": "Пароль1"
+        },
+        {
+            "variable": "password2",
+            "name": "Пароль2"
+        },
+        {
+            "variable": "language",
+            "name": "Язык шлюза",
+            "options": [
+                {
+                    "name": "Русский",
+                    "value": "ru"
+                },
+                {
+                    "name": "Английский",
+                    "value": "en"
+                }
+            ]
+        },
+        {
+            "variable": "testmode",
+            "name": "Режим оплаты",
+            "options": [
+                {
+                    "name": "Тестовый режим",
+                    "value": "1"
+                },
+                {
+                    "name": "Рабочий режим",
+                    "value": "0"
+                }
+            ]
+        }
+    ]
+}

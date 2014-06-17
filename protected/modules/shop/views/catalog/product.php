@@ -7,9 +7,7 @@ $this->description = $product->meta_description;
 $this->keywords    = $product->meta_keywords;
 
 $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.shop.views.assets'), false, -1, YII_DEBUG);
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/style.css');
 Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.simpleGal.js');
-Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/shop.js');
 
 $this->breadcrumbs = array_merge(
     array('Каталог' => array('/shop/catalog/index')),
@@ -55,14 +53,14 @@ $this->breadcrumbs = array_merge(
                             <?php echo CHtml::hiddenField(Yii::app()->getRequest()->csrfTokenName, Yii::app()->getRequest()->csrfToken); ?>
                             <table>
                                 <?php
-                                $variantsGroup = array();
+                                $variantsGroups = array();
                                 $options       = array();
                                 foreach ((array)$product->variants as $variant)
                                 {
-                                    $variantsGroup[$variant->attribute->title][] = $variant;
+                                    $variantsGroups[$variant->attribute->title][] = $variant;
                                     $options[$variant->id]                       = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
                                 };?>
-                                <?php foreach ($variantsGroup as $title => $variantsGroup): ?>
+                                <?php foreach ($variantsGroups as $title => $variantsGroup): ?>
                                     <tr>
                                         <td>
                                             <?php echo $title; ?>

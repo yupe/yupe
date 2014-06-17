@@ -6,10 +6,17 @@ return array(
     ),
     'import' => array(),
     'component' => array(
-        'shoppingCart' =>
-            array(
-                'class' => 'application.modules.shop.extensions.shopping-cart.EShoppingCart',
+        'shoppingCart' => array(
+            'class' => 'application.modules.shop.extensions.shopping-cart.EShoppingCart',
+        ),
+        'money' => array(
+            'class' => 'application.modules.shop.components.Money',
+        ),
+        'request' => array(
+            'noCsrfValidationRoutes' => array(
+                'shop/payment/process',
             ),
+        ),
     ),
     'rules' => array(
         '/catalog' => 'shop/catalog/index',
@@ -19,5 +26,10 @@ return array(
         '/cart' => 'shop/cart/index',
         '/cart/<action:\w+>' => 'shop/cart/<action>',
         '/cart/<action:\w+>/<id:\w+>' => 'shop/cart/<action>',
+        '/order/<url:\w+>' => 'shop/order/view',
+        '/shop/order/<action:\w+>' => 'shop/order/<action>',
+        '/shop/account' => 'shop/user/index',
+        '/shop/account/<action:\w+>' => 'shop/user/<action>',
+        '/shop/payment/process/<id:\w+>' => 'shop/payment/process',
     ),
 );

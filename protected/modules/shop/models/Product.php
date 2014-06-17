@@ -479,13 +479,26 @@ class Product extends yupe\models\YModel implements IECartPosition
     }
 
     /**
-     * @return float price
+     * @param array $variantsIds
+     * @return float|mixed
      */
-    public function getPrice()
+    public function getPrice($variantsIds = array())
     {
         $basePrice = $this->getResultPrice();
         $newPrice  = $basePrice;
-        foreach ($this->selectedVariants as $variant)
+        $variants  = array();
+        $variantsIds = (array)$variantsIds;
+        if ($variantsIds)
+        {
+            $criteria = new CDbCriteria();
+            $criteria->addInCondition("id", $variantsIds);
+            $variants = ProductVariant::model()->findAll($criteria);
+        }
+        else
+        {
+            $variants = $this->selectedVariants;
+        }
+        foreach ($variants as $variant)
         {
             switch ($variant->type)
             {

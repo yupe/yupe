@@ -1,15 +1,16 @@
 /* товар */
-.col-item
-{
+.col-item {
     border: 1px solid #E1E1E1;
     border-radius: 5px;
     background: #FFF;
 }
+
 .col-item .photo {
-    height: 200px;      /* equals max image height */
+    height: 200px; /* equals max image height */
     width: 200px;
     text-align: center;
 }
+
 .col-item .photo:before {
     content: "";
     display: inline-block;
@@ -17,15 +18,13 @@
     vertical-align: middle;
 }
 
-.col-item .photo img
-{
+.col-item .photo img {
     vertical-align: middle;
     max-height: 200px;
     max-width: 200px;
 }
 
-.col-item .info
-{
+.col-item .info {
     padding: 10px;
     border-radius: 0 0 5px 5px;
     margin-top: 1px;
@@ -34,33 +33,29 @@
 .col-item:hover .info {
     background-color: #F5F5DC;
 }
-.col-item .price
-{
+
+.col-item .price {
     /*width: 50%;*/
     float: left;
     margin-top: 5px;
 }
 
-.col-item .price h5
-{
+.col-item .price h5 {
     line-height: 20px;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.price-text-color
-{
+.price-text-color {
     color: #219FD1;
 }
 
-.col-item .info .rating
-{
+.col-item .info .rating {
     color: #777;
 }
 
-.col-item .rating
-{
+.col-item .rating {
     /*width: 50%;*/
     float: left;
     font-size: 17px;
@@ -70,41 +65,35 @@
     height: 52px;
 }
 
-.col-item .separator
-{
+.col-item .separator {
     border-top: 1px solid #E1E1E1;
 }
 
-.clear-left
-{
+.clear-left {
     clear: left;
 }
 
-.col-item .separator p
-{
+.col-item .separator p {
     line-height: 20px;
     margin-bottom: 0;
     margin-top: 10px;
     text-align: center;
 }
 
-.col-item .separator p i
-{
+.col-item .separator p i {
     margin-right: 5px;
 }
-.col-item .btn-add
-{
+
+.col-item .btn-add {
     width: 50%;
     float: left;
 }
 
-.col-item .btn-add
-{
+.col-item .btn-add {
     border-right: 1px solid #E1E1E1;
 }
 
-.col-item .btn-details
-{
+.col-item .btn-details {
     /*width: 50%;*/
     float: left;
     padding-left: 10px;
@@ -118,6 +107,7 @@ a.asc:after {
     color: #000;
     padding-left: 4px;
 }
+
 a.desc:after {
     font-family: FontAwesome;
     content: "\f0de";
@@ -125,7 +115,7 @@ a.desc:after {
     padding-left: 4px;
 }
 
-li.active > a{
+li.active > a {
     text-decoration: underline;
     color: #000;
 }
@@ -143,6 +133,7 @@ span.title {
 .product-feature {
     margin-bottom: 30px;
 }
+
 .product-feature select {
     margin-bottom: 0;
 }
@@ -161,4 +152,47 @@ span.title {
 .image-preview > img {
     vertical-align: middle;
     display: inline-block;
+}
+
+.order-receiver td {
+    border: none;
+}
+
+.error input, .error select {
+    border-color: #a94442;
+}
+
+.success input, .success select {
+    border-color: #3c763d;
+}
+
+#payment-methods {
+    margin: 20px 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 20px 20px 0 20px;
+    list-style: none;
+}
+
+ul#payment-methods li {
+    margin-bottom: 20px;
+}
+
+ul#payment-methods li div.checkbox {
+    float: left;
+    padding: 0;
+}
+
+ul#payment-methods li div.checkbox input {
+    margin: 0;
+}
+
+ul#payment-methods li h3, ul#payment-methods li .description {
+    display: block;
+    margin-left: 25px;
+}
+
+ul#payment-methods li h3, ul#payment-methods li .description {
+    display: block;
+    margin-left: 25px;
 }

@@ -127,6 +127,7 @@ class ShopModule extends WebModule
                         ),
                     ),
                 )),
+            array('icon' => 'icon-gift', 'label' => Yii::t('ShopModule.order', 'Заказы'), 'url' => array('/shop/orderBackend/index')),
         );
     }
 
@@ -183,6 +184,22 @@ class ShopModule extends WebModule
             'shop.models.*',
             'shop.extensions.shopping-cart.*',
             'shop.widgets.ShoppingCartWidget',
+            'shop.components.payments.*',
         ));
+    }
+
+    public function beforeControllerAction($controller, $action)
+    {
+        $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.shop.views.assets'), false, -1, YII_DEBUG);
+        if (strpos($controller->id, 'Backend'))
+        {
+            Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shop.css');
+        }
+        else
+        {
+            Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shop-front.css');
+            Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/shop.js');
+        }
+        return parent::beforeControllerAction($controller, $action);
     }
 }

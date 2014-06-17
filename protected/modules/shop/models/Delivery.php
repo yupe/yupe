@@ -22,6 +22,7 @@ class Delivery extends yupe\models\YModel
     const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
+    /* сюда передаются id способов оплаты, доступные для этого способа доставки*/
     public $payment_methods = array();
 
     /**
@@ -60,7 +61,10 @@ class Delivery extends yupe\models\YModel
     {
         return array(
             'paymentRelation' => array(self::HAS_MANY, 'DeliveryPayment', 'delivery_id'),
-            'paymentMethods' => array(self::HAS_MANY, 'Payment', array('payment_id' => 'id'), 'through' => 'paymentRelation', 'order' => 'paymentMethods.position ASC'),
+            'paymentMethods' => array(self::HAS_MANY, 'Payment', array('payment_id' => 'id'), 'through' => 'paymentRelation',
+                'order' => 'paymentMethods.position ASC',
+                'condition' => 'paymentMethods.status = :status',
+                'params' => array(':status' => Payment::STATUS_ACTIVE)),
         );
     }
 
@@ -192,5 +196,14 @@ class Delivery extends yupe\models\YModel
     {
         $this->clearPaymentMethods();
         parent::afterDelete();
+    }
+
+    /**
+     * @param $total_price float - Сумма заказа
+     * @return float
+     */
+    public function getCost($total_price)
+    {
+        return $this->free_from < $total_price ? 0 : $this->price;
     }
 }

@@ -17,6 +17,8 @@ class Payment extends yupe\models\YModel
     const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
+    private $_paymentSettings = array();
+
     /**
      * @return string the associated database table name
      */
@@ -38,7 +40,7 @@ class Payment extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, module, position, status', 'required'),
+            array('name, position, status', 'required'),
             array('name', 'filter', 'filter' => 'trim'),
             array('currency_id', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 255),
@@ -48,7 +50,6 @@ class Payment extends yupe\models\YModel
             array('id, module, name, description, settings, currency_id, position, status', 'safe', 'on' => 'search'),
         );
     }
-
 
     public function scopes()
     {
@@ -138,8 +139,36 @@ class Payment extends yupe\models\YModel
         }
     }
 
+    public function beforeSave()
+    {
+        $this->settings = serialize($this->_paymentSettings);
+        return parent::beforeSave();
+    }
+
+    public function afterFind()
+    {
+        $this->_paymentSettings = unserialize($this->settings);
+        parent::afterFind();
+    }
+
     public function afterDelete()
     {
+        $this->clearDeliveryMethods();
+        parent::afterDelete();
+    }
+
+    public function clearDeliveryMethods()
+    {
         DeliveryPayment::model()->deleteAllByAttributes(array('payment_id' => $this->id));
+    }
+
+    public function setPaymentSystemSettings($settings)
+    {
+        $this->_paymentSettings = $settings;
+    }
+
+    public function getPaymentSystemSettings()
+    {
+        return $this->_paymentSettings;
     }
 }

@@ -227,4 +227,8 @@ $(document).ready(function () {
     refreshDeliveryTypes();
     checkFirstAvailableDeliveryType();
     updateFullCostWithShipping();
+
+    $('#start-payment').click(function(){
+        $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
+    });
 });

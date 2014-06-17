@@ -412,7 +412,7 @@ JS
                 var queryString = "";
                 var url = "'.$multiactionUrl.'";
                 $.map(values, function(itemInput) {
-                    queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + $(itemInput).val() ;
+                    queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + itemInput;
                 });                
                 $.ajax({
                     url: url,

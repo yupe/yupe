@@ -194,22 +194,28 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $this->renderPartial('_attribute_form', array('type' => $type));
     }
 
-    public function actionVariantRow($id){
-        $variant = new ProductVariant();
+    public function actionVariantRow($id)
+    {
+        $variant               = new ProductVariant();
         $variant->attribute_id = $id;
         $this->renderPartial('_variant_row', array('variant' => $variant));
     }
 
-    public function actionTypeAttributes($id){
+    public function actionTypeAttributes($id)
+    {
         $type_id = $id;
-        $type = Type::model()->findByPk($type_id);
-        if($type){
+        $type    = Type::model()->findByPk($type_id);
+        if ($type)
+        {
             $tmp = array();
-            foreach($type->typeAttributes as $attr){
-                if($attr->type == Attribute::TYPE_DROPDOWN){
+            foreach ($type->typeAttributes as $attr)
+            {
+                if ($attr->type == Attribute::TYPE_DROPDOWN)
+                {
                     $tmp[] = array_merge($attr->attributes, array('options' => $attr->options));
                 }
-                else if(in_array($attr->type, array(Attribute::TYPE_CHECKBOX, Attribute::TYPE_TEXT))){
+                else if (in_array($attr->type, array(Attribute::TYPE_CHECKBOX, Attribute::TYPE_TEXT)))
+                {
                     $tmp[] = array_merge($attr->attributes, array('options' => array()));
                 }
             }
@@ -217,6 +223,31 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 CJSON::encode($tmp)
             );
         }
+    }
 
+    public function actionAjaxSearch()
+    {
+        if (isset($_GET['q']))
+        {
+            $search = $_GET['q'];
+
+            $model = Product::model()->findAll(array(
+                'condition' => 'name LIKE :name',
+                'params' => array(':name' => '%' . str_replace(' ', '%', $search) . '%')
+            ));
+            $data  = array();
+            foreach ($model as $product)
+            {
+                $data[] = array(
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'thumb' => $product->mainImage->getImageUrl(50, 50),
+                );
+            }
+            Yii::app()->ajax->rawText(
+                CJSON::encode($data)
+            );
+        }
+        Yii::app()->end();
     }
 }

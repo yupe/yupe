@@ -6,11 +6,6 @@ $this->breadcrumbs = array('Каталог' => array('/shop/catalog/index'));
 $this->description = $category->meta_description;
 $this->keywords    = $category->meta_keywords;
 
-$mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.shop.views.assets'), false, -1, YII_DEBUG);
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/style.css');
-Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/shop.js');
-
-
 if ($category)
     $this->breadcrumbs = array_merge(
         $this->breadcrumbs,
