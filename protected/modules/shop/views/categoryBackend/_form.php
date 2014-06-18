@@ -1,8 +1,8 @@
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#category-form').liTranslit({
-            elName: '#Category_name',
-            elAlias: '#Category_alias'
+            elName: '#ShopCategory_name',
+            elAlias: '#ShopCategory_alias'
         });
     })
 </script>
@@ -27,7 +27,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 
 <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
-    <?php echo $form->dropDownListRow($model, 'parent_id', Category::model()->getFormattedList(), array('empty' => Yii::t('ShopModule.category', '--no--'), 'class' => 'span7', 'encode' => false)); ?>
+    <?php echo $form->dropDownListRow($model, 'parent_id', ShopCategory::model()->getFormattedList(), array('empty' => Yii::t('ShopModule.category', '--no--'), 'class' => 'span7', 'encode' => false)); ?>
 </div>
 <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
     <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 250)); ?>

@@ -31,7 +31,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
     <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 250)); ?>
 </div>
-<?php $categoriesList = (new Category())->getTabList(); ?>
+<?php $categoriesList = (new ShopCategory())->getTabList(); ?>
 <div class='row-fluid control-group <?php echo $model->hasErrors("main_category_id") ? "error" : ""; ?>'>
     <?php echo $form->dropDownListRow($model, 'main_category_id', $categoriesList, array('class' => 'span7', 'id' => 'main_category_id')); ?>
 </div>

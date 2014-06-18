@@ -26,7 +26,7 @@ class CatalogController extends yupe\components\controllers\FrontController
         $criteria = new CDbCriteria();
         if ($path)
         {
-            $cat = Category::model()->findByPath($path);
+            $cat = ShopCategory::model()->findByPath($path);
             if ($cat === null)
             {
                 throw new CHttpException(404, 'Not found');

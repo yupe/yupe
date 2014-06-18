@@ -32,12 +32,12 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new Category;
+        $model = new ShopCategory;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
+        if (($data = Yii::app()->getRequest()->getPost('ShopCategory')) !== null) {
 
             $model->setAttributes($data);
 
@@ -75,14 +75,14 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
-            $model->setAttributes(Yii::app()->getRequest()->getPost('Category'));
+        if (($data = Yii::app()->getRequest()->getPost('ShopCategory')) !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('ShopCategory'));
 
 			if ($model->save()) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('ShopModule.category', 'Category was changed!')
+                    Yii::t('ShopModule.category', 'ShopCategory was changed!')
                 );
 
                 $this->redirect(
@@ -152,11 +152,11 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionIndex()
     {
-        $model = new Category('search');
+        $model = new ShopCategory('search');
         $model->unsetAttributes();  // clear any default values
 
-        if (isset($_GET['Category'])) {
-            $model->attributes = $_GET['Category'];
+        if (isset($_GET['ShopCategory'])) {
+            $model->attributes = $_GET['ShopCategory'];
         }
 
         $this->render('index', array('model' => $model));
@@ -174,7 +174,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function loadModel($id)
     {
-        $model = Category::model()->findByPk($id);
+        $model = ShopCategory::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('ShopModule.category', 'Page was not found!'));
         return $model;
@@ -187,7 +187,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      *
      * @return void
      */
-    protected function performAjaxValidation(Category $model)
+    protected function performAjaxValidation(ShopCategory $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'category-form') {
             echo CActiveForm::validate($model);

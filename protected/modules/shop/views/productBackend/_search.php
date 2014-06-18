@@ -21,7 +21,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
         <div class="wide row-fluid control-group">
             <div class="span7">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('ShopModule.product', '--choose--'), 'class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(ShopCategory::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('ShopModule.product', '--choose--'), 'class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
             </div>
         </div>
         <div class="wide row-fluid control-group">

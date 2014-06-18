@@ -50,7 +50,7 @@ if ($category)
 
             <div class="category-tree">
                 <?php
-                $cat  = new Category();
+                $cat  = new ShopCategory();
                 $tree = $cat->getMenuList(5);
                 $this->widget('zii.widgets.CMenu', array(
                     'items' => $tree,

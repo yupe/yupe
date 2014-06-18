@@ -48,7 +48,7 @@ $this->menu = array(
             'name' => 'category',
             'type' => 'raw',
             'value' => '$data->mainCategory->name',
-            'filter' => CHtml::activeDropDownList($model, 'category', Category::model()->getFormattedList(), array('encode' => false, 'empty' => '')),
+            'filter' => CHtml::activeDropDownList($model, 'category', ShopCategory::model()->getFormattedList(), array('encode' => false, 'empty' => '')),
             'htmlOptions' => array('width' => '220px'),
         ),
         array(

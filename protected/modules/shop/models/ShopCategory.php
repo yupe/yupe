@@ -14,13 +14,13 @@
  * @property integer $status
  * @property integer $parent_id
  *
- * @property-read Category $parent
- * @property-read Category[] $children
+ * @property-read ShopCategory $parent
+ * @property-read ShopCategory[] $children
  *
- * @method Category published()
- * @method Category roots()
+ * @method ShopCategory published()
+ * @method ShopCategory roots()
  */
-class Category extends \yupe\models\YModel
+class ShopCategory extends \yupe\models\YModel
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
@@ -38,7 +38,7 @@ class Category extends \yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @return Category the static model class
+     * @return ShopCategory the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -112,8 +112,8 @@ class Category extends \yupe\models\YModel
     public function relations()
     {
         return array(
-            'parent'   => array(self::BELONGS_TO, 'Category', 'parent_id'),
-            'children' => array(self::HAS_MANY, 'Category', 'parent_id'),
+            'parent'   => array(self::BELONGS_TO, 'ShopCategory', 'parent_id'),
+            'children' => array(self::HAS_MANY, 'ShopCategory', 'parent_id'),
         );
     }
 
@@ -232,7 +232,7 @@ class Category extends \yupe\models\YModel
 
     public function getFormattedList($parent_id = null, $level = 0)
     {
-        $categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
+        $categories = ShopCategory::model()->findAllByAttributes(array('parent_id' => $parent_id));
 
         $list = array();
 

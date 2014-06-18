@@ -52,7 +52,7 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $data = Category::model()->getMenuList(10);
+        $data = ShopCategory::model()->getMenuList(10);
 
         echo CHtml::openTag('div', array(
             'id' => $this->id,

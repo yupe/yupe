@@ -76,7 +76,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->textFieldRow($model, 'discount', array('class' => '', 'size' => 60, 'maxlength' => 60, 'data-original-title' => $model->getAttributeLabel('discount'), 'data-content' => $model->getAttributeDescription('discount'))); ?>
         </div>
     </div>
-    <?php $categoriesList = (new Category())->getTabList(); ?>
+    <?php $categoriesList = (new ShopCategory())->getTabList(); ?>
     <div class='row-fluid control-group'>
         <label for="categories_main">Главная категория</label>
         <?php echo CHtml::dropDownList('categories[main]', $model->mainCategory->id, $categoriesList, array('class' => 'span7')); ?>

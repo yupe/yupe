@@ -107,8 +107,8 @@ class Product extends yupe\models\YModel implements IECartPosition
             'type' => array(self::BELONGS_TO, 'Type', 'type_id'),
             'producer' => array(self::BELONGS_TO, 'Producer', 'producer_id'),
             'categoryRelation' => array(self::HAS_MANY, 'ProductCategory', 'product_id'),
-            'categories' => array(self::HAS_MANY, 'Category', array('category_id' => 'id'), 'through' => 'categoryRelation'),
-            'mainCategory' => array(self::HAS_ONE, 'Category', array('category_id' => 'id'), 'through' => 'categoryRelation', 'condition' => 'categoryRelation.is_main = 1'),
+            'categories' => array(self::HAS_MANY, 'ShopCategory', array('category_id' => 'id'), 'through' => 'categoryRelation'),
+            'mainCategory' => array(self::HAS_ONE, 'ShopCategory', array('category_id' => 'id'), 'through' => 'categoryRelation', 'condition' => 'categoryRelation.is_main = 1'),
             'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
             'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
             'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
@@ -317,7 +317,7 @@ class Product extends yupe\models\YModel implements IECartPosition
      **/
     public function getCategoryLink()
     {
-        return $this->mainCategory instanceof Category
+        return $this->mainCategory instanceof ShopCategory
             ? CHtml::link($this->mainCategory->name, array("/shop/categoryBackend/view", "id" => $this->mainCategory->id))
             : '---';
     }

@@ -66,7 +66,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'parent_id',
             'value' => '$data->getParentName()',
-			'filter' => CHtml::activeDropDownList($model, 'parent_id', Category::model()->getFormattedList(), array('encode' => false, 'empty' => ''))
+			'filter' => CHtml::activeDropDownList($model, 'parent_id', ShopCategory::model()->getFormattedList(), array('encode' => false, 'empty' => ''))
         ),
         array(
             'name'  => 'image',
