@@ -12,6 +12,13 @@
  **/
 class AccountController extends yupe\components\controllers\FrontController
 {
+    public function filters()
+    {
+        return array(
+            array('yupe\filters\YFrontAccessControl + profile')
+        );
+    }
+
     public function actions()
     {
         return array(

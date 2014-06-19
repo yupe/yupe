@@ -14,10 +14,6 @@ class ProfileAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->user->isAuthenticated() === false) {
-            $this->controller->redirect(Yii::app()->user->loginUrl);
-        }        
-
         if (($user = Yii::app()->user->getProfile()) === null) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,

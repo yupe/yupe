@@ -5,11 +5,12 @@ use Yii;
 
 class Url {
 
-    public static function  redirectUrl($url)
+    public static function redirectUrl($url)
     {
         if(strpos($url,':')) {
             return $url;
         }
+
 
         return Yii::app()->createAbsoluteUrl($url);
     }

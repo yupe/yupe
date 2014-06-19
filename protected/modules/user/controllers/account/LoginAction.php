@@ -18,7 +18,7 @@ class LoginAction extends CAction
     public function run()
     {
         if (Yii::app()->user->isAuthenticated()) {
-            $this->controller->redirect(Yii::app()->getUser()->getReturnUrl());
+            $this->controller->redirect(Url::redirectUrl(Yii::app()->getUser()->getReturnUrl()));
         }
 
         /**

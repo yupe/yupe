@@ -24,6 +24,6 @@ class YFrontAccessControl extends CAccessControlFilter
 
         Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
 
-        Yii::app()->getRequest()->redirect('/user/account/login');
+        $filterChain->controller->redirect(array('/user/account/login'));
     }
 }
