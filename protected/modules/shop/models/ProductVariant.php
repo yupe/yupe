@@ -18,6 +18,7 @@ class ProductVariant extends \yupe\models\YModel
 {
     const TYPE_SUM = 0;
     const TYPE_PERCENT = 1;
+    const TYPE_BASE_PRICE = 2;
 
     public $amount = 0;
 
@@ -48,7 +49,7 @@ class ProductVariant extends \yupe\models\YModel
         return array(
             array('attribute_id, product_id, amount, type', 'required'),
             array('id, attribute_id, option_id, product_id, type', 'numerical', 'integerOnly' => true),
-            array('type', 'in', 'range' => array(self::TYPE_SUM, self::TYPE_PERCENT)),
+            array('type', 'in', 'range' => array(self::TYPE_SUM, self::TYPE_PERCENT, self::TYPE_BASE_PRICE)),
             array('amount', 'numerical'),
             array('sku', 'length', 'max' => 50),
             array('value', 'length', 'max' => 250),
@@ -109,8 +110,9 @@ class ProductVariant extends \yupe\models\YModel
     public function getTypeList()
     {
         return array(
-            self::TYPE_SUM => Yii::t('ShopModule.product', 'Сумма'),
-            self::TYPE_PERCENT => Yii::t('ShopModule.product', 'Процент'),
+            self::TYPE_SUM => Yii::t('ShopModule.product', 'Увеличение на сумму'),
+            self::TYPE_PERCENT => Yii::t('ShopModule.product', 'Увеличение на процент'),
+            self::TYPE_BASE_PRICE => Yii::t('ShopModule.product', 'Изменение базой цены'),
         );
     }
 
@@ -130,8 +132,20 @@ class ProductVariant extends \yupe\models\YModel
                 $value = $this->value;
                 break;
         }
-        if($includeCost){
-            $value .= ' (' . ($this->amount > 0 ? '+' : '-') . $this->amount . ($this->type == self::TYPE_PERCENT ? '%' : ' руб.') . ')';
+        if ($includeCost)
+        {
+            switch ($this->type)
+            {
+                case self::TYPE_SUM:
+                    $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . ' руб. к цене)';
+                    break;
+                case self::TYPE_PERCENT:
+                    $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . '% к цене)';
+                    break;
+                case self::TYPE_BASE_PRICE:
+                    $value .= ' (цена: ' . $this->amount . ' руб.)';
+                    break;
+            }
         }
         return $value;
     }

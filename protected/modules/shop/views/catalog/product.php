@@ -40,7 +40,7 @@ $this->breadcrumbs = array_merge(
                         <?php echo $product->in_stock ? "В наличии" : "Нет в наличии"; ?> <br/>
                         <?php echo $product->quantity; ?> items in stock
                         <hr/>
-                        <?php foreach ($product->type->typeAttributes as $attribute): ?>
+                        <?php foreach ((array)$product->type->typeAttributes as $attribute): ?>
                             <?php echo $attribute->title; ?>: <?php echo $attribute->renderValue($product->attr($attribute->name)); ?> <br/>
                         <?php endforeach; ?>
                         <hr>
