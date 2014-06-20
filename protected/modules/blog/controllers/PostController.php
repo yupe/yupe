@@ -97,6 +97,6 @@ class PostController extends yupe\components\controllers\FrontController
 
     public function actionCategorys()
     {   
-        $this->render('categorys', array('categorys' => Post::model()->getCategorys()));
+        $this->render('categorys', array('categorys' => Post::model()->getCategories()));
     }
 }

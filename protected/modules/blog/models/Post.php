@@ -538,7 +538,7 @@ class Post extends yupe\models\YModel implements ICommentable
         return $posts;
     }
 
-    public function getCategorys()
+    public function getCategories()
     {
         return Yii::app()->db->createCommand()
             ->select('cc.name, bp.category_id, count(bp.id) cnt, cc.alias, cc.description')
