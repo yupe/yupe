@@ -9,6 +9,7 @@
  * @property string $title
  *
  * @property-read Product $product
+ * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
  */
 class ProductImage extends \yupe\models\YModel
 {

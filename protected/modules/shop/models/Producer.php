@@ -16,6 +16,8 @@
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
+ *
+ * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
  */
 class Producer extends yupe\models\YModel
 {

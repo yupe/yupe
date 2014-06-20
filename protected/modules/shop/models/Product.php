@@ -1,4 +1,7 @@
 <?php
+Yii::import('zii.behaviors.CTimestampBehavior');
+Yii::import('application.modules.shop.components.behaviors.EEavBehavior');
+Yii::import('application.modules.shop.extensions.shopping-cart.*');
 
 /**
  * @property string $id
@@ -30,16 +33,13 @@
  * The followings are the available model relations:
  * @property Type $type
  * @property Producer $producer
- * @property Category $mainCategory
+ * @property ShopCategory $mainCategory
  * @property ProductImage $mainImage
  * @property ProductImage[] $images
- * @property ProductImage[] $imageNotMain
+ * @property ProductImage[] $imagesNotMain
  * @property ProductVariant[] $variants
  *
  */
-Yii::import('zii.behaviors.CTimestampBehavior');
-Yii::import('application.modules.shop.components.behaviors.EEavBehavior');
-Yii::import('application.modules.shop.extensions.shopping-cart.*');
 
 class Product extends yupe\models\YModel implements IECartPosition
 {
