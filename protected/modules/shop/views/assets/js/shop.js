@@ -17,9 +17,34 @@ $(document).ready(function () {
     }
 
     function updatePrice() {
-        var newPrice = basePrice;
+        var _basePrice = basePrice;
         var variants = [];
-        $.each($('select[name="ProductVariant[]"'), function (index, elem) {
+        var varElements = $('select[name="ProductVariant[]"');
+        /* выбираем вариант, меняющий базовую цену максимально*/
+        var hasBasePriceVariant = false;
+        $.each(varElements, function (index, elem) {
+            var varId = elem.value;
+            if (varId) {
+                var option = $(elem).find('option[value="' + varId + '"]');
+                var variant = {amount: option.data('amount'), type: option.data('type')};
+                switch (variant.type) {
+                    case 2: // base price
+                        // еще не было варианта
+                        if (!hasBasePriceVariant) {
+                            _basePrice = variant.amount;
+                            hasBasePriceVariant = true;
+                        }
+                        else {
+                            if (_basePrice < variant.amount) {
+                                _basePrice = variant.amount;
+                            }
+                        }
+                        break;
+                }
+            }
+        });
+        var newPrice = _basePrice;
+        $.each(varElements, function (index, elem) {
             var varId = elem.value;
             if (varId) {
                 var option = $(elem).find('option[value="' + varId + '"]');
@@ -30,7 +55,7 @@ $(document).ready(function () {
                         newPrice += variant.amount;
                         break;
                     case 1: // percent
-                        newPrice += basePrice * ( variant.amount / 100);
+                        newPrice += _basePrice * ( variant.amount / 100);
                         break;
                 }
             }
@@ -207,7 +232,7 @@ $(document).ready(function () {
     function getShippingCost() {
         var cartTotalCost = getCartTotalCost();
         var selectedDeliveryType = $('input[name="Order[delivery_id]"]:checked');
-        if(!selectedDeliveryType[0]){return 0;}
+        if (!selectedDeliveryType[0]) {return 0;}
         if (parseInt(selectedDeliveryType.data('separate-payment')) || parseFloat(selectedDeliveryType.data('free-from')) < cartTotalCost) {
             return 0;
         } else {
@@ -228,7 +253,7 @@ $(document).ready(function () {
     checkFirstAvailableDeliveryType();
     updateFullCostWithShipping();
 
-    $('#start-payment').click(function(){
+    $('#start-payment').click(function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
     });
 });

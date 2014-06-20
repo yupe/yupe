@@ -1,4 +1,7 @@
 <?php
+Yii::import('zii.behaviors.CTimestampBehavior');
+Yii::import('application.modules.shop.components.behaviors.EEavBehavior');
+Yii::import('application.modules.shop.extensions.shopping-cart.*');
 
 /**
  * @property string $id
@@ -30,16 +33,13 @@
  * The followings are the available model relations:
  * @property Type $type
  * @property Producer $producer
- * @property Category $mainCategory
+ * @property ShopCategory $mainCategory
  * @property ProductImage $mainImage
  * @property ProductImage[] $images
- * @property ProductImage[] $imageNotMain
+ * @property ProductImage[] $imagesNotMain
  * @property ProductVariant[] $variants
  *
  */
-Yii::import('zii.behaviors.CTimestampBehavior');
-Yii::import('application.modules.shop.components.behaviors.EEavBehavior');
-Yii::import('application.modules.shop.extensions.shopping-cart.*');
 
 class Product extends yupe\models\YModel implements IECartPosition
 {
@@ -112,7 +112,7 @@ class Product extends yupe\models\YModel implements IECartPosition
             'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
             'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
             'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
-            'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute', 'option'), 'order' => 'variants.id'),
+            'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute', 'option'), 'order' => 'variants.attribute_id, variants.id'),
         );
     }
 
@@ -484,9 +484,7 @@ class Product extends yupe\models\YModel implements IECartPosition
      */
     public function getPrice($variantsIds = array())
     {
-        $basePrice = $this->getResultPrice();
-        $newPrice  = $basePrice;
-        $variants  = array();
+        $variants    = array();
         $variantsIds = (array)$variantsIds;
         if ($variantsIds)
         {
@@ -498,6 +496,30 @@ class Product extends yupe\models\YModel implements IECartPosition
         {
             $variants = $this->selectedVariants;
         }
+        $basePrice = $this->getResultPrice();
+        /* выбираем вариант, который меняет базовую цену максимально */
+        /* @var $variants ProductVariant[] */
+
+        $hasBasePriceVariant = false;
+        foreach ($variants as $variant)
+        {
+            if ($variant->type == ProductVariant::TYPE_BASE_PRICE)
+            {
+                if (!$hasBasePriceVariant)
+                {
+                    $hasBasePriceVariant = true;
+                    $basePrice           = $variant->amount;
+                }
+                else
+                {
+                    if ($basePrice < $variant->amount)
+                    {
+                        $basePrice = $variant->amount;
+                    }
+                }
+            }
+        }
+        $newPrice  = $basePrice;
         foreach ($variants as $variant)
         {
             switch ($variant->type)

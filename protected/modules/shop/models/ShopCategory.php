@@ -19,6 +19,8 @@
  *
  * @method ShopCategory published()
  * @method ShopCategory roots()
+ * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
+ *
  */
 class ShopCategory extends \yupe\models\YModel
 {
