@@ -11,15 +11,15 @@
  * @since 0.1
  *
  */
-class m140115_083618_add_layout extends yupe\components\DbMigration
+class m140620_072543_add_view extends CDbMigration
 {
-	public function safeUp()
-	{
-		$this->addColumn('{{page_page}}','layout','varchar(250)');
-	}
+    public function safeUp()
+    {
+        $this->addColumn('{{page_page}}','view','varchar(250)');
+    }
 
-	public function safeDown()
-	{
-		$this->dropColumn('{{page_page}}','layout');
-	}	
+    public function safeDown()
+    {
+        $this->dropColumn('{{page_page}}','view');
+    }
 }
