@@ -1,6 +1,6 @@
 <?php
 
-use Symfony\Component\EventDispatcher\Event;
+use yupe\components\Event;
 
 class PostPublishEvent extends Event
 {

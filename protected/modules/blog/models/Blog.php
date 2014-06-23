@@ -475,6 +475,8 @@ class Blog extends yupe\models\YModel
 
         if ($member->save()) {
 
+            Yii::app()->eventManager->fire(BlogEvents::BLOG_JOIN, new BlogJoinLeaveEvent($this, $userId));
+
             Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
 
             return true;
@@ -486,6 +488,8 @@ class Blog extends yupe\models\YModel
     public function leave($userId)
     {
         Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
+
+        Yii::app()->eventManager->fire(BlogEvents::BLOG_LEAVE, new BlogJoinLeaveEvent($this, $userId));
 
         return UserToBlog::model()->updateAll(
             array(
