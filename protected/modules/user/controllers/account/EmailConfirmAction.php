@@ -27,10 +27,6 @@ class EmailConfirmAction extends CAction
                 )
             );
 
-            $module->onSuccessEmailConfirm(
-                new CModelEvent($this->controller, array('token' => $token))
-            );
-
         }else{
 
             Yii::app()->user->setFlash(
@@ -39,10 +35,6 @@ class EmailConfirmAction extends CAction
                     'UserModule.user',
                     'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail'
                 )
-            );
-
-            $module->onErrorEmailConfirm(
-                new CModelEvent($this->controller, array('token' => $token))
             );
         }
 

@@ -29,10 +29,6 @@ class ActivateAction extends CAction
                 Yii::t('UserModule.user', 'You activate account successfully. Now you can login!')
             );
 
-            $module->onSuccessActivate(
-                new CModelEvent($this->controller, array('token' => $token))
-            );
-
             // Выполняем переадресацию на соответствующую страницу:
             $this->controller->redirect(Url::redirectUrl($module->accountActivationSuccess));
         }
@@ -41,10 +37,6 @@ class ActivateAction extends CAction
         Yii::app()->user->setFlash(
             yupe\widgets\YFlashMessages::ERROR_MESSAGE,
             Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.')
-        );
-
-        $module->onErrorActivate(
-            new CModelEvent($this->controller, array('token' => $token))
         );
 
         // Переадресовываем на соответствующую ошибку:

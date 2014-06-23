@@ -915,21 +915,6 @@ abstract class WebModule extends CWebModule
         //Yii::log("Init module '{$this->id}'...", CLogger::LEVEL_TRACE);
 
         $this->getSettings();
-
-        $reflection  = new \ReflectionClass($this);
-        if (is_array($this->eventHandlers)) {
-            foreach ($this->eventHandlers as $handlerName => $connectedHandlers) {
-                if ($reflection->hasMethod($handlerName)) {
-                    if (is_array($connectedHandlers)) {
-                        foreach ($connectedHandlers as $handler) {
-                            $this->attachEventHandler($handlerName, $handler);
-                        }
-                    } else {
-                        $this->attachEventHandler($handlerName, $connectedHandlers);
-                    }
-                }
-            }
-        }
     }
 
     /**

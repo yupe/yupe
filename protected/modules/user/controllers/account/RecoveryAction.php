@@ -38,8 +38,6 @@ class RecoveryAction extends CAction
         // Новая форма восстановления пароля:
         $form = new RecoveryForm;
 
-        $module->onBeginRecovery(new CEvent($this->controller, array("recoveryForm" => $form)));
-
         if (($data = Yii::app()->getRequest()->getPost('RecoveryForm')) !== null) {
 
             $form->setAttributes($data);
@@ -56,20 +54,12 @@ class RecoveryAction extends CAction
                         )
                     );
 
-                    $module->onSuccessRecovery(
-                        new CEvent($this->controller, array("recoveryForm" => $form))
-                    );
-
                     $this->controller->redirect(array('/user/account/login'));
                 }
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Password recovery error.')
-                );
-
-                $module->onErrorRecovery(
-                    new CEvent($this->controller, array("recoveryForm" => $form))
                 );
 
                 $this->controller->redirect(array('/user/account/recovery'));

@@ -50,10 +50,6 @@ class LoginAction extends CAction
                     Yii::t('UserModule.user', 'You authorized successfully!')
                 );
 
-                $module->onSuccessLogin(
-                    new CModelEvent($this->controller, array('loginForm' => $form))
-                );
-
                 $redirect = Yii::app()->getUser()->getReturnUrl();
 
                 if (!$redirect) {
@@ -74,10 +70,6 @@ class LoginAction extends CAction
                 $form->addError('email', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), $badLoginCount + 1);
-
-                $module->onErrorLogin(
-                    new CModelEvent($this->controller, array('loginForm' => $form))
-                );
             }
         }
 
