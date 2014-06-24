@@ -4,7 +4,7 @@
     </head>
     <body>
 
-        <?php echo Yii::t('FeedbackModule.feedback', '{name}, Your message was created, number of message is {id}, thanks!', array('{name}' => $model->name,'{id}' => $model->id)); ?>
+        <?php echo Yii::t('FeedbackModule.feedback', '{name}, Your message was created, thanks!', array('{name}' => $model->name)); ?>
 
         <br/><br/>
         
