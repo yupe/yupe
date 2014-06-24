@@ -177,7 +177,7 @@ class CommentModule extends WebModule
     {
         parent::init();
 
-        $import = array();
+        $import = array('application.modules.comment.models.*');
 
         foreach(Yii::app()->getModules() as $module => $data) {
             $import[] = "application.modules.{$module}.models.*";
