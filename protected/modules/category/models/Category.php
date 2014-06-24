@@ -236,7 +236,11 @@ class Category extends yupe\models\YModel
 
 	public function getFormattedList($parent_id = null, $level = 0)
 	{
-		$categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
+        if(empty($parent_id)) {
+            $parent_id = null;
+        }
+
+        $categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
 
 		$list = array();
 
