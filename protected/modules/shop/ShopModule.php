@@ -12,7 +12,7 @@ class ShopModule extends WebModule
 
     public function getDependencies()
     {
-        return array();
+        return array('comment');
     }
 
     public function getUploadPath()

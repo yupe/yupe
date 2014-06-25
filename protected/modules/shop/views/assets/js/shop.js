@@ -13,7 +13,9 @@ $(document).ready(function () {
     var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
     function showNotify(element, result, message) {
-        element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+        if ($.isFunction($.fn.notify)) {
+            element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+        }
     }
 
     function updatePrice() {
