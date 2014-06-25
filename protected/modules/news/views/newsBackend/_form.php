@@ -168,6 +168,9 @@ $form = $this->beginWidget(
                 'model' => $model,
                 'attribute' => 'full_text',
                 'options' => $this->module->editorOptions,
+                'plugins'     => array(
+                    'fontcolor' => array('js' => array('fontcolor.js'))
+                ),
             )
         ); ?>
         <span class="help-block"><?php echo Yii::t(
@@ -187,6 +190,9 @@ $form = $this->beginWidget(
                 'model' => $model,
                 'attribute' => 'short_text',
                 'options' => $this->module->editorOptions,
+                'plugins'     => array(
+                    'fontcolor' => array('js' => array('fontcolor.js'))
+                ),
             )
         ); ?>
         <span class="help-block"><?php echo Yii::t(

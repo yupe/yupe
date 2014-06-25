@@ -3,7 +3,9 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
 ?>
 <div class="row-fluid">
     <div class="span12">
-        <h1>Заказ №<?php echo $model->id; ?> <small>[<?php echo $model->getStatusTitle();?>]</small></h1>
+        <h1>Заказ №<?php echo $model->id; ?>
+            <small>[<?php echo $model->getStatusTitle(); ?>]</small>
+        </h1>
         <table class="table">
             <tbody>
             <?php foreach ((array)$model->products as $position): ?>
@@ -22,7 +24,7 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
                                 <?php foreach ($position->variantsArray as $variant): ?>
                                     <h6><?php echo $variant['attribute_title']; ?>: <?php echo $variant['optionValue']; ?></h6>
                                 <?php endforeach; ?>
-                                <span>Статус: </span><span class="text-<?php echo $position->product->in_stock ? "success" : "warning"; ?>"><strong><?php echo $position->product-- > in_stock ? "В наличии" : "Нет в наличии"; ?></strong></span>
+                                <span>Статус: </span><span class="text-<?php echo $position->product->in_stock ? "success" : "warning"; ?>"><strong><?php echo $position->product->in_stock ? "В наличии" : "Нет в наличии"; ?></strong></span>
                             </div>
                         </div>
                     </td>
@@ -188,7 +190,7 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
                 <tr>
                     <td colspan="3">
                         <p class="text-right">
-                            <?php echo $model->getPaidStatus() . ' - ' . date('d.m.Y в H:i', strtotime($model->payment_date));?>
+                            <?php echo $model->getPaidStatus() . ' - ' . date('d.m.Y в H:i', strtotime($model->payment_date)); ?>
                         </p>
                     </td>
                 </tr>

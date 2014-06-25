@@ -78,6 +78,7 @@ class CartController extends yupe\components\controllers\FrontController
 
     public function actionCartWidget()
     {
-        $this->widget('application.modules.shop.widgets.ShoppingCartWidget', array('id' => 'shopping-cart-widget'));
+        $this->renderPartial('//shop/widgets/ShoppingCartWidget/main');
+        //$this->widget('application.modules.shop.widgets.ShoppingCartWidget', array('id' => 'shopping-cart-widget'));
     }
 }

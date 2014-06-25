@@ -231,8 +231,8 @@ class Order extends yupe\models\YModel
             if ($this->getScenario() == self::SCENARIO_USER)
             {
                 $this->user_id           = Yii::app()->user->id;
-                $this->delivery_price    = $this->delivery->getCost($this->total_price);
-                $this->separate_delivery = $this->delivery->separate_payment;
+                $this->delivery_price    = $this->delivery ? $this->delivery->getCost($this->total_price) : 0;
+                $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
         }
         $this->total_price += $this->separate_delivery ? 0 : $this->delivery_price;

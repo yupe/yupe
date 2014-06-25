@@ -136,7 +136,6 @@ return array (
   '-' => '—',
   'Add this message to FAQ?' => 'Добавить сообщение в FAQ?',
   'Remove this message from FAQ?' => 'Удалить сообщение из FAQ?',
-  'Do you really want to remove message?' => 'Вы уверены что хотите удалить данное сообщение?',
   'More...' => 'Подробнее...',
   'FAQ' => 'Вопросы и ответы',
   'Contacts' => 'Контакты',
@@ -148,7 +147,6 @@ return array (
   'We answer to you soon. Thanks.'=>'Мы ответим Вам в самое ближайшее время!',
   'Best regards, administration of "{site}"!'=>'С уважением, администрация сайта "{site}" !',
   'Our answer'=>'Наш ответ',
-  'You wrote'=>'Вы писали',
   'Answer for your message from {site}'=>'Ответ на ваше сообщение с сайта {site}',
   'New message from site'=>'Новое сообщение с сайта',
   'New message from site was received'=>'Получено новое обращение с сайта',
@@ -165,4 +163,5 @@ return array (
   'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'=>'Срочно <a href="http://yupe.ru/contacts?from=contact" target="_blank">напишите нам</a> об этом!',
   'We try to answer as fast as we can!'=>'Мы стараемся отвечать очень быстро :)',
   'Thanks for attention!'=>'Спасибо, за внимание!',
+  'Call back' => 'Обратный звонок',
 );

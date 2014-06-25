@@ -144,7 +144,6 @@ return array (
     'We answer to you soon. Thanks.'=>'',
     'Best regards, administration of "{site}"!'=>'',
     'Our answer'=>'',
-    'You wrote'=>'',
     'Answer for your message from {site}'=>'',
     'New message from site'=>'',
     'New message from site was received'=>'',
@@ -161,4 +160,5 @@ return array (
     'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'=>'',
     'We try to answer as fast as we can!'=>'',
     'Thanks for attention!'=>'',
+    'Call back'=>'',
 );

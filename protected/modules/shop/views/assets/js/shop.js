@@ -209,7 +209,6 @@ $(document).ready(function () {
 
     function refreshDeliveryTypes() {
         var cartTotalCost = getCartTotalCost();
-        console.log(cartTotalCost);
         $.each($('input[name="Order[delivery_id]"]'), function (index, el) {
             var elem = $(el);
             var availableFrom = elem.data('available-from');
@@ -255,5 +254,23 @@ $(document).ready(function () {
 
     $('#start-payment').click(function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
+    });
+
+    $('body').on('click', '.clear-cart', function (e) {
+        e.preventDefault();
+        var data = {};
+        data[yupeTokenName] = yupeToken;
+        $.ajax({
+            url: '/cart/clear',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 'success') {
+                    updateCartWidget();
+                }
+                showNotify(el, data.result, data.message);
+            }
+        });
     });
 });
