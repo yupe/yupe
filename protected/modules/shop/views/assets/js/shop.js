@@ -13,7 +13,10 @@ $(document).ready(function () {
     var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
     function showNotify(element, result, message) {
-        //element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+        /*if ($.isFunction($.fn.notify)) {
+         element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+         }*/
+        showMessage(result == 'error' ? 'Ошибка' : '', message);
     }
 
     function updatePrice() {
@@ -126,6 +129,22 @@ $(document).ready(function () {
 
     /*cart*/
 
+    function getCoupons() {
+        var coupons = [];
+        $.each($('.coupon-input'), function (index, elem) {
+            var $elem = $(elem);
+            coupons.push({
+                code: $elem.data('code'),
+                name: $elem.data('name'),
+                value: $elem.data('value'),
+                type: $elem.data('type'),
+                min_order_price: $elem.data('min-order-price'),
+                free_shipping: $elem.data('free-shipping')
+            })
+        });
+        return coupons;
+    }
+
     function updatePositionSumPrice(tr) {
         var count = parseInt(tr.find('.position-count').val());
         var price = parseFloat(tr.find('.position-price').text());
@@ -161,8 +180,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.cart-delete-product').click(function (e) {
-        e.preventDefault();
+    $('.cart-delete-product').click(function () {
         var el = $(this);
         var data = {};
         data[yupeTokenName] = yupeToken;
@@ -198,7 +216,22 @@ $(document).ready(function () {
         $.each($('.position-sum-price'), function (index, elem) {
             cost += parseFloat($(elem).text());
         });
-        return cost;
+        var delta = 0;
+        var coupons = getCoupons();
+        $.each(coupons, function (index, el) {
+            if (cost >= el.min_order_price) {
+                switch (el.type) {
+                    case 0: // руб
+                        delta += parseFloat(el.value);
+                        break;
+                    case 1: // %
+                        delta += (parseFloat(el.value) / 100) * cost;
+                        break;
+                }
+            }
+        });
+
+        return delta > cost ? 0 : cost - delta;
     }
 
     function updateCartTotalCost() {
@@ -210,11 +243,10 @@ $(document).ready(function () {
 
     function refreshDeliveryTypes() {
         var cartTotalCost = getCartTotalCost();
-        //console.log(cartTotalCost);
         $.each($('input[name="Order[delivery_id]"]'), function (index, el) {
             var elem = $(el);
             var availableFrom = elem.data('available-from');
-            if (availableFrom.length && parseFloat(availableFrom) > cartTotalCost) {
+            if (availableFrom.length && parseFloat(availableFrom) >= cartTotalCost) {
                 if (elem.prop('checked')) {
                     checkFirstAvailableDeliveryType();
                 }
@@ -232,9 +264,19 @@ $(document).ready(function () {
 
     function getShippingCost() {
         var cartTotalCost = getCartTotalCost();
+        var coupons = getCoupons();
+        var freeShipping = false;
+        $.each(coupons, function (index, el) {
+            if (el.free_shipping && cartTotalCost >= el.min_order_price) {
+                freeShipping = true;
+            }
+        });
+        if (freeShipping) {
+            return 0;
+        }
         var selectedDeliveryType = $('input[name="Order[delivery_id]"]:checked');
         if (!selectedDeliveryType[0]) {return 0;}
-        if (parseInt(selectedDeliveryType.data('separate-payment')) || parseFloat(selectedDeliveryType.data('free-from')) < cartTotalCost) {
+        if (parseInt(selectedDeliveryType.data('separate-payment')) || parseFloat(selectedDeliveryType.data('free-from')) <= cartTotalCost) {
             return 0;
         } else {
             return parseFloat(selectedDeliveryType.data('price'));
@@ -250,9 +292,17 @@ $(document).ready(function () {
         cartFullCostWithShippingElement.html(getShippingCost() + getCartTotalCost());
     }
 
-    refreshDeliveryTypes();
+    //refreshDeliveryTypes();
+    //checkFirstAvailableDeliveryType();
+    //updateFullCostWithShipping();
+    //updateCartTotalCost();
+
+    function updateAllCosts() {
+        updateCartTotalCost();
+    }
+
+    updateAllCosts();
     checkFirstAvailableDeliveryType();
-    updateFullCostWithShipping();
 
     $('#start-payment').click(function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
@@ -260,26 +310,66 @@ $(document).ready(function () {
 
     $('body').on('click', '.clear-cart', function (e) {
         e.preventDefault();
-        if (confirm('Удалить все товары?')) {
-            var data = {};
+        var data = {};
+        data[yupeTokenName] = yupeToken;
+        $.ajax({
+            url: '/cart/clear',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 'success') {
+                    updateCartWidget();
+                }
+            }
+        });
+    });
+
+    $('#add-coupon-code').click(function (e) {
+        e.preventDefault();
+        var code = $('#coupon-code').val();
+        var button = $(this);
+        if (code) {
+            var data = {'code': code};
             data[yupeTokenName] = yupeToken;
             $.ajax({
-                url: '/cart/clear',
+                url: '/cart/addCoupon',
                 type: 'post',
                 data: data,
                 dataType: 'json',
                 success: function (data) {
-                    if (window.location.pathname == '/cart') {
+                    if (data.result) {
                         window.location.reload();
                     }
-                    else {
-                        if (data.result == 'success') {
-                            updateCartWidget();
-                        }
-                        showNotify(el, data.result, data.message);
-                    }
+                    showNotify(button, data.result ? 'success' : 'error', data.data.join('; '));
                 }
             });
+            $('#coupon-code').val('');
+        }
+    });
+
+    $('.coupon .close').click(function (e) {
+        e.preventDefault();
+        var code = $(this).siblings('input[type="hidden"]').data('code');
+        var data = {'code': code};
+        data[yupeTokenName] = yupeToken;
+        $.ajax({
+            url: '/cart/removeCoupon',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                if (data.result) {
+                    updateAllCosts();
+                }
+            }
+        });
+    });
+
+    $('#coupon-code').keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('#add-coupon-code').click();
         }
     });
 });

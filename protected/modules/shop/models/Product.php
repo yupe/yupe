@@ -39,6 +39,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property ProductImage[] $images
  * @property ProductImage[] $imagesNotMain
  * @property ProductVariant[] $variants
+ * @property Comment[] $comments
  *
  */
 
@@ -116,7 +117,7 @@ class Product extends yupe\models\YModel implements IECartPosition, ICommentable
             'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute', 'option'), 'order' => 'variants.attribute_id, variants.id'),
             'comments' => array(self::HAS_MANY, 'Comment', 'model_id',
                 'on' => 'model = :model AND comments.status = :status', 'params' => array(
-                    ':model' => 'Product',
+                    ':model' => __CLASS__,
                     ':status' => Comment::STATUS_APPROVED
                 ),
                 'order' => 'comments.lft'
@@ -552,6 +553,4 @@ class Product extends yupe\models\YModel implements IECartPosition, ICommentable
     {
         return Yii::app()->createUrl('/shop/catalog/show', array('name' => $this->alias));
     }
-
-
 }

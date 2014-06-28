@@ -3,7 +3,9 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
 ?>
 <div class="row-fluid">
     <div class="span12">
-        <h1>Заказ №<?php echo $model->id; ?> <small>[<?php echo $model->getStatusTitle();?>]</small></h1>
+        <h1>Заказ №<?php echo $model->id; ?>
+            <small>[<?php echo $model->getStatusTitle(); ?>]</small>
+        </h1>
         <table class="table">
             <tbody>
             <?php foreach ((array)$model->products as $position): ?>
@@ -22,7 +24,7 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
                                 <?php foreach ($position->variantsArray as $variant): ?>
                                     <h6><?php echo $variant['attribute_title']; ?>: <?php echo $variant['optionValue']; ?></h6>
                                 <?php endforeach; ?>
-                                <span>Статус: </span><span class="text-<?php echo $position->product->in_stock ? "success" : "warning"; ?>"><strong><?php echo $position->product-- > in_stock ? "В наличии" : "Нет в наличии"; ?></strong></span>
+                                <span>Статус: </span><span class="text-<?php echo $position->product->in_stock ? "success" : "warning"; ?>"><strong><?php echo $position->product->in_stock ? "В наличии" : "Нет в наличии"; ?></strong></span>
                             </div>
                         </div>
                     </td>
@@ -44,19 +46,39 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
             <?php endforeach; ?>
             <tr>
                 <td colspan="2">
+                    <h4>Купоны</h4>
+                </td>
+                <td>
+                    <p class="text-right lead">
+                        <?php if ($model->coupon_code): ?>
+                            <?php foreach ($model->couponCodes as $code): ?>
+                                <span class="label alert alert-info coupon">
+                                <?php echo $code; ?>
+                            </span>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
                     <h4>Итого</h4>
                 </td>
                 <td>
                     <p class="text-right lead">
                         <strong>
-                            <small><?php echo (float)$model->total_price; ?> руб.</small>
+                            <small><?php echo (float)$model->total_price - ($model->separate_delivery ? 0 : $model->delivery_price); ?> руб.</small>
                         </strong>
                     </p>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <h4>Стоимость доставки</h4>
+                    <h4>Стоимость доставки
+                        <small>
+                            <?php echo($model->separate_delivery ? '(оплачивается отдельно)' : ''); ?>
+                        </small>
+                    </h4>
                 </td>
                 <td>
                     <p class="text-right lead">
@@ -72,7 +94,7 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
                 </td>
                 <td>
                     <p class="text-right lead">
-                        <strong><?php echo (float)($model->total_price + $model->delivery_price); ?></strong> руб.
+                        <strong><?php echo (float)($model->total_price); ?></strong> руб.
                     </p>
                 </td>
             </tr>
@@ -188,7 +210,7 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
                 <tr>
                     <td colspan="3">
                         <p class="text-right">
-                            <?php echo $model->getPaidStatus() . ' - ' . date('d.m.Y в H:i', strtotime($model->payment_date));?>
+                            <?php echo $model->getPaidStatus() . ' - ' . date('d.m.Y в H:i', strtotime($model->payment_date)); ?>
                         </p>
                     </td>
                 </tr>

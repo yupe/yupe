@@ -214,9 +214,10 @@ class FeedbackModule extends WebModule
                 1 => Yii::t('FeedbackModule.feedback', 'Error on site'),
                 2 => Yii::t('FeedbackModule.feedback', 'Collaboration Suggest'),
                 3 => Yii::t('FeedbackModule.feedback', 'Other...'),
-                4 => Yii::t('FeedbackModule.feedback', 'Обратный звонок'),
+                4 => Yii::t('FeedbackModule.feedback', 'Call back'),
             );
         }
+
         $this->setImport(array(
             'feedback.models.*',
             'feedback.components.*'

@@ -101,6 +101,7 @@ $this->breadcrumbs = array_merge(
                 <li class="active"><a href="#description" data-toggle="tab">Описание</a></li>
                 <li><a href="#data" data-toggle="tab">Данные</a></li>
                 <li><a href="#attributes" data-toggle="tab">Характеристики</a></li>
+                <li><a href="#comments-tab" data-toggle="tab">Комментарии</a></li>
             </ul>
 
             <div class="tab-content">
@@ -137,6 +138,27 @@ $this->breadcrumbs = array_merge(
                             <td><?php echo round($product->weight, 2); ?> кг</td>
                         </tr>
                     </table>
+                </div>
+                <div class="tab-pane" id="comments-tab">
+                    <?php
+                    $this->widget(
+                        'application.modules.comment.widgets.CommentsListWidget', array(
+                            'model' => $product,
+                            'modelId' => $product->id,
+                            'comments' => $product->comments
+                        )
+                    );
+                    ?>
+
+                    <?php
+                    $this->widget(
+                        'application.modules.comment.widgets.CommentFormWidget', array(
+                            'redirectTo' => $this->createUrl('/shop/catalog/show/', array('name' => $product->name)),
+                            'model' => $product,
+                            'modelId' => $product->id,
+                        )
+                    );
+                    ?>
                 </div>
             </div>
         </div>

@@ -34,7 +34,15 @@ class OrderController extends yupe\components\controllers\FrontController
                 Yii::app()->shoppingCart->clear();
                 $this->redirect(array('/shop/order/view', 'url' => $model->url));
             }
+            else
+            {
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    CHtml::errorSummary($model)
+                );
+            }
         }
+
         $this->redirect(array('/shop/cart/index'));
     }
 }

@@ -6,7 +6,22 @@ class CartController extends yupe\components\controllers\FrontController
     {
         $positions = Yii::app()->shoppingCart->positions;
         $order     = new Order(Order::SCENARIO_USER);
-        $this->render('index', array('positions' => $positions, 'order' => $order));
+        if (!Yii::app()->user->isGuest)
+        {
+            $user           = Yii::app()->user->getProfile();
+            $order->name    = $user->last_name . ' ' . $user->first_name;
+            $order->email   = $user->email;
+            //$order->phone   = $user->phone;
+            //$order->city    = $user->city;
+            $order->address = $user->location;
+        }
+        $couponCodes = Yii::app()->shoppingCart->couponManager->coupons;
+        $coupons     = array();
+        foreach ($couponCodes as $code)
+        {
+            $coupons[] = Coupon::model()->getCouponByCode($code);
+        }
+        $this->render('index', array('positions' => $positions, 'order' => $order, 'coupons' => $coupons));
     }
 
     public function actionAdd()
@@ -33,7 +48,7 @@ class CartController extends yupe\components\controllers\FrontController
                         }
                     }
                     $product->selectedVariants = $variants;
-                    Yii::app()->shoppingCart->put($product, $_POST['Product']['quantity'] ? : 1);
+                    Yii::app()->shoppingCart->put($product, $_POST['Product']['quantity'] ?: 1);
                     Yii::app()->ajax->rawText(
                         json_encode(array('result' => 'success', 'message' => 'Товар успешно добавлен в корзину'))
                     );
@@ -80,5 +95,44 @@ class CartController extends yupe\components\controllers\FrontController
     {
         $this->renderPartial('//shop/widgets/ShoppingCartWidget/main');
         //$this->widget('application.modules.shop.widgets.ShoppingCartWidget', array('id' => 'shopping-cart-widget'));
+    }
+
+    public function actionAddCoupon()
+    {
+        $code = strtoupper(Yii::app()->request->getParam('code'));;
+        $result = Yii::app()->shoppingCart->couponManager->add($code);
+        if (true === $result)
+        {
+            Yii::app()->ajax->success("Купон «{$code}» добавлен");
+        }
+        else
+        {
+            Yii::app()->ajax->failure($result);
+        }
+    }
+
+    public function actionRemoveCoupon()
+    {
+        $code = strtoupper(Yii::app()->request->getParam('code'));
+        if ($code)
+        {
+            Yii::app()->shoppingCart->couponManager->remove($code);
+            Yii::app()->ajax->success("Купон «{$code}» удален");
+        }
+        else
+        {
+            Yii::app()->ajax->failure('Купон не найден');
+        }
+    }
+
+    public function actionClearCoupons()
+    {
+        Yii::app()->shoppingCart->couponManager->clear();
+        Yii::app()->ajax->success("Купоны удалены");
+    }
+
+    public function actionCoupons()
+    {
+        Yii::app()->ajax->success(Yii::app()->shoppingCart->couponManager->coupons);
     }
 }

@@ -196,3 +196,22 @@ ul#payment-methods li h3, ul#payment-methods li .description {
     display: block;
     margin-left: 25px;
 }
+
+.notifyjs-wrapper {
+    font-size: 14px;
+}
+
+.coupons .alert .close {
+    float: none;
+    top: 0;
+    font-size: 14px;
+}
+
+.coupons .alert {
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+.coupon-row {
+    margin-top: 15px;
+}

@@ -17,6 +17,7 @@ return array(
         'application.modules.comment.models.*',
         'application.modules.blog.models.*',
         'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
+        'application.modules.shop.models.*',
     ),
     'component' => array(
         'commentManager' => array(
