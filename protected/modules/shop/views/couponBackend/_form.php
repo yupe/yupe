@@ -140,7 +140,7 @@
                 'dataProvider' => $order->search(),
                 'filter' => $order,
                 'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
-                'ajaxUrl' => Yii::app()->createUrl('/shop/orderBackend/index', array('Order[coupon_code]' => $model->code)),
+                'ajaxUrl' => Yii::app()->createUrl('/shop/orderBackend/index'),
                 'columns' => array(
                     array(
                         'name' => 'id',
@@ -175,6 +175,9 @@
                     ),
                     array(
                         'class' => 'bootstrap.widgets.TbButtonColumn',
+                        'viewButtonUrl' => 'Yii::app()->createUrl("shop/orderBackend/view",array("id"=>$data->primaryKey))',
+                        'updateButtonUrl' => 'Yii::app()->createUrl("shop/orderBackend/update",array("id"=>$data->primaryKey))',
+                        'deleteButtonUrl' => 'Yii::app()->createUrl("shop/orderBackend/delete",array("id"=>$data->primaryKey))',
                     ),
                 ),
             ));
