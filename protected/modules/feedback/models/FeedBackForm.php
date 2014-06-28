@@ -19,15 +19,18 @@ class FeedBackForm extends CFormModel
     public $theme;
     public $text;
     public $type;
+    public $city;
     public $verifyCode;
 
     public function rules()
     {
         $module = Yii::app()->getModule('feedback');
         return array(
-            array('name, email, theme, text', 'required'),
+            array('name, text', 'required'),
+            array('email', 'required', 'except' => 'callback'),
+            array('phone, city', 'required', 'on' => 'callback'),
             array('type', 'numerical', 'integerOnly' => true),
-            array('name, email, phone', 'length', 'max' => 150),
+            array('name, email, phone, city', 'length', 'max' => 150),
             array('theme', 'length', 'max' => 250),
             array('email', 'email'),
             array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
@@ -45,6 +48,7 @@ class FeedBackForm extends CFormModel
             'text'       => Yii::t('FeedbackModule.feedback', 'Text'),
             'verifyCode' => Yii::t('FeedbackModule.feedback', 'Check code'),
             'type'       => Yii::t('FeedbackModule.feedback', 'Type'),
+            'city' => 'Город',
         );
     }
 

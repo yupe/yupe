@@ -74,7 +74,7 @@ class Order extends yupe\models\YModel
         // will receive user inputs.
         return array(
             array('status', 'required'),
-            array('delivery_id, name, email', 'required', 'on' => self::SCENARIO_USER),
+            array('name, phone', 'required', 'on' => self::SCENARIO_USER),
             array('name, email, address, phone', 'filter', 'filter' => 'trim'),
             array('email', 'email'),
             array('delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true),
@@ -231,8 +231,8 @@ class Order extends yupe\models\YModel
             if ($this->getScenario() == self::SCENARIO_USER)
             {
                 $this->user_id           = Yii::app()->user->id;
-                $this->delivery_price    = $this->delivery->getCost($this->total_price);
-                $this->separate_delivery = $this->delivery->separate_payment;
+                $this->delivery_price    = $this->delivery ? $this->delivery->getCost($this->total_price) : 0;
+                $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
         }
         $this->total_price += $this->separate_delivery ? 0 : $this->delivery_price;

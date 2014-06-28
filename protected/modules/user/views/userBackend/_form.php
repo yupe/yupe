@@ -31,6 +31,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="row-fluid control-group <?php echo $model->hasErrors('middle_name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'middle_name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('middle_name'), 'data-content' => $model->getAttributeDescription('middle_name'))); ?>
     </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('city') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'city', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('city'), 'data-content' => $model->getAttributeDescription('city'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('phone') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'phone', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('phone'), 'data-content' => $model->getAttributeDescription('phone'))); ?>
+    </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('site') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'site', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('site'), 'data-content' => $model->getAttributeDescription('site'))); ?>
     </div>

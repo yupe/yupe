@@ -28,8 +28,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionIndex($type = null)
     {
-        $form = new FeedBackForm;
-
+        $form = new FeedBackForm($type == 4 ? 'callback': '');
         // если пользователь авторизован - подставить его данные
         if (Yii::app()->user->isAuthenticated()) {
             $form->email = Yii::app()->getUser()->getProFileField('email');
@@ -66,7 +65,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
                 if ($success) {
 
-                    if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+                    if (Yii::app()->getRequest()->getIsAjaxRequest() || Yii::app()->request->getParam('ajax')) {
                         Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
                     }
 
@@ -97,7 +96,22 @@ class ContactController extends yupe\components\controllers\FrontController
             }
         }
 
-        $this->render('index', array('model' => $form, 'module' => $module));
+        $view = 'index';
+        /* 4- обратный звонок*/
+        if($type == 4){
+            $view = 'callback';
+        }
+
+        if (Yii::app()->getRequest()->getIsAjaxRequest())
+        {
+            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+            $this->renderPartial($view, array('model' => $form, 'module' => $module), false, true);
+        }
+        else
+        {
+            $this->render($view, array('model' => $form, 'module' => $module));
+        }
     }
 
 

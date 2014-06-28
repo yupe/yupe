@@ -209,6 +209,14 @@ class FeedbackModule extends WebModule
     {
         parent::init();
 
+        if (!$this->types) {
+            $this->types = array(
+                1 => Yii::t('FeedbackModule.feedback', 'Error on site'),
+                2 => Yii::t('FeedbackModule.feedback', 'Collaboration Suggest'),
+                3 => Yii::t('FeedbackModule.feedback', 'Other...'),
+                4 => Yii::t('FeedbackModule.feedback', 'Обратный звонок'),
+            );
+        }
         $this->setImport(array(
             'feedback.models.*',
             'feedback.components.*'

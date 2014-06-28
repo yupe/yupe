@@ -56,9 +56,13 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'model',
             'value'  => '$data->getTargetTitleLink()',
-            'type'   => 'html'
+            'type'   => 'html',
+            'htmlOptions' => array('style' => 'width:200px'),
         ),
-        'model_id',
+        array(
+            'name' => 'model_id',
+            'htmlOptions' => array('style' => 'width:30px'),
+        ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
             'editable' => array(

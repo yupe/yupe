@@ -65,7 +65,7 @@ class FeedBack extends yupe\models\YModel
     public function rules()
     {
         return array(
-            array('name, email, theme, text', 'required'),
+            array('name, email, text', 'required'),
             array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('type, status, answer_user, is_faq, type, category_id', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array_keys($this->getIsFaqList())),

@@ -18,7 +18,7 @@ class RegistrationForm extends CFormModel
     public $password;
     public $cPassword;
     public $verifyCode;
-
+    public $phone;
     public $disableCaptcha = false;
 
     public function isCaptchaEnabled()
@@ -37,7 +37,7 @@ class RegistrationForm extends CFormModel
         $module = Yii::app()->getModule('user');
 
         return array(
-            array('nick_name, email', 'filter', 'filter' => 'trim'),
+            array('nick_name, email, phone', 'filter', 'filter' => 'trim'),
             array('nick_name, email', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password, cPassword', 'required'),
             array('nick_name, email', 'length', 'max' => 50),
@@ -61,6 +61,7 @@ class RegistrationForm extends CFormModel
             'password'   => Yii::t('UserModule.user', 'Password'),
             'cPassword'  => Yii::t('UserModule.user', 'Password confirmation'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
+            'phone' => Yii::t('UserModule.user', 'Телефон'),
         );
     }    
 

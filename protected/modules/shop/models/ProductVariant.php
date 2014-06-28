@@ -116,7 +116,7 @@ class ProductVariant extends \yupe\models\YModel
         );
     }
 
-    public function getOptionValue($includeCost = true)
+    public function getOptionValue($includeCost = false)
     {
         $value = "";
         switch ($this->attribute->type)

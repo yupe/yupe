@@ -231,12 +231,21 @@ class Comment extends yupe\models\YModel
      **/
     public function afterSave()
     {
+        parent::afterSave();
         if ($cache = Yii::app()->getCache()) {
             $cache->delete("Comment{$this->model}{$this->model_id}");
         }
-
-        return parent::afterSave();
     }
+
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        if ($cache = Yii::app()->getCache()) {
+            $cache->delete("Comment{$this->model}{$this->model_id}");
+        }
+    }
+
 
     /**
      * Получение списка статусов:
@@ -378,8 +387,21 @@ class Comment extends yupe\models\YModel
         return $level > 0 ? $level : 0;
     }
 
+    public function tempErrorHandler($errno, $errstr)
+    {
+
+    }
+
     public function getTarget(array $with = array())
     {
+
+        set_error_handler(array($this, 'tempErrorHandler'), error_reporting());
+        if (!class_exists($this->model))
+        {
+            return $this->model;
+        }
+        restore_error_handler();
+
         $model = CActiveRecord::model($this->model);
 
         if ($model instanceof ICommentable) {

@@ -64,6 +64,13 @@ class RegistrationAction extends CAction
             );
 		}
 
-        $this->controller->render('registration', array('model' => $form, 'module' => $module));
+        if (Yii::app()->getRequest()->getIsAjaxRequest())
+        {
+            $this->controller->renderPartial('registration', array('model' => $form, 'module' => $module));
+        }
+        else
+        {
+            $this->controller->render('registration', array('model' => $form, 'module' => $module));
+        }
     }
 }

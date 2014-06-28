@@ -19,6 +19,8 @@
  * @property string  $last_visit
  * @property boolean $email_confirm
  * @property string  $registration_date
+ * @property string  $city
+ * @property string  $phone
  *
  */
 class User extends yupe\models\YModel
@@ -70,7 +72,7 @@ class User extends yupe\models\YModel
 
         return array(
             array(
-                'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email',
+                'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email, city, phone',
                 'filter',
                 'filter' => 'trim'
             ),
@@ -85,6 +87,8 @@ class User extends yupe\models\YModel
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),
+            array('city', 'length', 'max' => 100),
+            array('phone', 'length', 'max' => 30),
             array('gender, status, access_level', 'numerical', 'integerOnly' => true),
             array(
                 'nick_name',
@@ -170,6 +174,8 @@ class User extends yupe\models\YModel
             'site' => Yii::t('UserModule.user', 'Site/blog'),
             'location' => Yii::t('UserModule.user', 'Location'),
             'about' => Yii::t('UserModule.user', 'About yourself'),
+            'city' => Yii::t('UserModule.user', 'Город, населенный пункт'),
+            'phone' => Yii::t('UserModule.user', 'Телефон'),
         );
     }
 

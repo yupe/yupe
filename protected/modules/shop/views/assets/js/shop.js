@@ -13,7 +13,7 @@ $(document).ready(function () {
     var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
     function showNotify(element, result, message) {
-        element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+        //element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
     }
 
     function updatePrice() {
@@ -161,7 +161,8 @@ $(document).ready(function () {
         }
     });
 
-    $('.cart-delete-product').click(function () {
+    $('.cart-delete-product').click(function (e) {
+        e.preventDefault();
         var el = $(this);
         var data = {};
         data[yupeTokenName] = yupeToken;
@@ -209,7 +210,7 @@ $(document).ready(function () {
 
     function refreshDeliveryTypes() {
         var cartTotalCost = getCartTotalCost();
-        console.log(cartTotalCost);
+        //console.log(cartTotalCost);
         $.each($('input[name="Order[delivery_id]"]'), function (index, el) {
             var elem = $(el);
             var availableFrom = elem.data('available-from');
@@ -255,5 +256,30 @@ $(document).ready(function () {
 
     $('#start-payment').click(function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
+    });
+
+    $('body').on('click', '.clear-cart', function (e) {
+        e.preventDefault();
+        if (confirm('Удалить все товары?')) {
+            var data = {};
+            data[yupeTokenName] = yupeToken;
+            $.ajax({
+                url: '/cart/clear',
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    if (window.location.pathname == '/cart') {
+                        window.location.reload();
+                    }
+                    else {
+                        if (data.result == 'success') {
+                            updateCartWidget();
+                        }
+                        showNotify(el, data.result, data.message);
+                    }
+                }
+            });
+        }
     });
 });

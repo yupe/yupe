@@ -15,7 +15,7 @@ class RobokassaPaymentSystem implements IPaymentSystem
 
         $inv_id = $order->id;
 
-        $inv_desc = "Оплата заказа №" . $order->id;
+        $inv_desc = "Оплата заказа №" . $order->id . ' в ' .Yii::app()->getModule('yupe')->siteName;
 
         $out_sum = Yii::app()->money->convert($order->total_price, $payment->currency_id);
         $in_curr = "PCR";

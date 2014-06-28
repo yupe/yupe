@@ -133,7 +133,9 @@ $form = $this->beginWidget(
                     'model'       => $model,
                     'attribute'   => 'body',
                     'options'     => $this->module->editorOptions,
-                    //'plugins'     => array('imagethumb' => array('js' => array('imagethumb.js'))),
+                    'plugins'     => array(
+                        'fontcolor' => array('js' => array('fontcolor.js'))
+                    ),
                 )
             ); ?>
         </div>

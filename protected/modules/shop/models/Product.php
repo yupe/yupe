@@ -2,6 +2,7 @@
 Yii::import('zii.behaviors.CTimestampBehavior');
 Yii::import('application.modules.shop.components.behaviors.EEavBehavior');
 Yii::import('application.modules.shop.extensions.shopping-cart.*');
+Yii::import('application.modules.comment.components.ICommentable');
 
 /**
  * @property string $id
@@ -41,7 +42,7 @@ Yii::import('application.modules.shop.extensions.shopping-cart.*');
  *
  */
 
-class Product extends yupe\models\YModel implements IECartPosition
+class Product extends yupe\models\YModel implements IECartPosition, ICommentable
 {
     const SPECIAL_NOT_ACTIVE = 0;
     const SPECIAL_ACTIVE = 1;
@@ -113,6 +114,13 @@ class Product extends yupe\models\YModel implements IECartPosition
             'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
             'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
             'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute', 'option'), 'order' => 'variants.attribute_id, variants.id'),
+            'comments' => array(self::HAS_MANY, 'Comment', 'model_id',
+                'on' => 'model = :model AND comments.status = :status', 'params' => array(
+                    ':model' => 'Product',
+                    ':status' => Comment::STATUS_APPROVED
+                ),
+                'order' => 'comments.lft'
+            ),
         );
     }
 
@@ -534,4 +542,16 @@ class Product extends yupe\models\YModel implements IECartPosition
         }
         return $newPrice;
     }
+
+    public function getTitle()
+    {
+        return $this->name;
+    }
+
+    public function getLink()
+    {
+        return Yii::app()->createUrl('/shop/catalog/show', array('name' => $this->alias));
+    }
+
+
 }

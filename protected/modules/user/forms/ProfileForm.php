@@ -27,13 +27,15 @@ class ProfileForm extends CFormModel
     public $avatar;
     public $site;
     public $location;
+    public $city;
+    public $phone;
 
     public function rules()
     {
         $module = Yii::app()->getModule('user');
 
         return array(
-            array('nick_name, email, first_name, last_name, middle_name, about', 'filter', 'filter' => 'trim'),
+            array('nick_name, email, first_name, last_name, middle_name, about, city, phone', 'filter', 'filter' => 'trim'),
             array('nick_name, email, first_name, last_name, middle_name, about', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email', 'required'),
             array('gender', 'numerical', 'min' => 0, 'max' => 3, 'integerOnly' => true),
@@ -41,7 +43,9 @@ class ProfileForm extends CFormModel
             array('birth_date', 'default', 'value' => null),
             array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
-            array('location', 'length', 'max' => 150),            
+            array('location', 'length', 'max' => 150),
+            array('city', 'length', 'max' => 100),
+            array('phone', 'length', 'max' => 30),
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user','Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols')),
             array('nick_name', 'checkNickName'),
@@ -71,7 +75,9 @@ class ProfileForm extends CFormModel
             'avatar'      => Yii::t('UserModule.user', 'Avatar'),
             'use_gravatar'=> Yii::t('UserModule.user', 'Gravatar'),
             'site'        => Yii::t('UserModule.user', 'Site'),
-            'location'    => Yii::t('UserModule.user', 'Location'),
+            'location'    => Yii::t('UserModule.user', 'Адрес'),
+            'city' => Yii::t('UserModule.user', 'Город, населенный пункт'),
+            'phone' => Yii::t('UserModule.user', 'Телефон'),
         );
     }
 

@@ -159,7 +159,7 @@ return array (
   'You can reply to this message from administration control panel, or you can answer for this message'=>'Ответить на это сообщения можно из панели управления сайтом или просто ответив на это письмо.',
   'Best regards, administration'=>'С уважением, администрация сайта',
   'Send message' => 'Отправить сообщение',
-  'Insert symbols you see on image'=>'Введите цифры указанные на картинке',
+  'Insert symbols you see on image'=>'Введите символы, указанные на картинке',
   'If you have any questions, proposals or want to report an error'=>'Если у Вас есть вопросы, предложения или вы хотите сообщите об ошибке.',
   'If you interesting with quality project which simple in support'=>'Если вы заинтересованы в создании качественного легкого в поддержке проекта.',
   'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'=>'Срочно <a href="http://yupe.ru/contacts?from=contact" target="_blank">напишите нам</a> об этом!',

@@ -9,7 +9,7 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
      */
     public $id;
 
-    public $view = 'application.modules.shop.views.widgets.ShoppingCartWidget';
+    public $layout = 'main';
 
     public function init()
     {
@@ -18,6 +18,6 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view, array('id' => $this->id));
+        $this->render($this->layout ? : 'application.modules.shop.views.widgets.ShoppingCartWidget', array('id' => $this->id));
     }
 }

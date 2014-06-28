@@ -79,6 +79,13 @@ class LoginAction extends CAction
             }
         }
 
-        $this->controller->render($this->id, array('model' => $form));
+        if (Yii::app()->getRequest()->getIsAjaxRequest())
+        {
+            $this->controller->renderPartial($this->id, array('model' => $form));
+        }
+        else
+        {
+            $this->controller->render($this->id, array('model' => $form));
+        }
     }
 }
