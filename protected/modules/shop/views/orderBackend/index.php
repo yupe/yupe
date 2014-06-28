@@ -51,6 +51,9 @@ $this->widget('yupe\widgets\CustomGridView', array(
             'name' => 'date'
         ),
         array(
+            'name' => 'coupon_code',
+        ),
+        array(
             'name' => 'status',
             'type' => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("fire", "road", "ok", "trash"))',
