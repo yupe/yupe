@@ -126,6 +126,14 @@ class ShopModule extends WebModule
                             array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.payment', 'Добавить способ'), 'url' => array('/shop/paymentBackend/create')),
                         ),
                     ),
+                    array('icon' => 'icon-tags',
+                        'label' => Yii::t('ShopModule.coupon', 'Купоны'),
+                        'url' => array('/shop/couponBackend/index'),
+                        'items' => array(
+                            array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.coupon', 'Список купонов'), 'url' => array('/shop/couponBackend/index')),
+                            array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.coupon', 'Добавить купон'), 'url' => array('/shop/couponBackend/create')),
+                        ),
+                    ),
                 )),
             array('icon' => 'icon-gift', 'label' => Yii::t('ShopModule.order', 'Заказы'), 'url' => array('/shop/orderBackend/index')),
         );

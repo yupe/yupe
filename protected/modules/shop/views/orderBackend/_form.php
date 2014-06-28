@@ -312,6 +312,32 @@ $form = $this->beginWidget(
                 <?php endif; ?>
             </div>
         </div>
+        <div class="span4 panel panel-default">
+            <div class="panel-heading">
+                <span class="panel-title">Купоны</span>
+            </div>
+            <div class="panel-body coupons">
+                <?php if ($model->coupon_code): ?>
+                    <?php foreach ($model->couponCodes as $code): ?>
+                        <?php $coupon = Coupon::model()->getCouponByCode($code); ?>
+                        <span class="label alert alert-<?php echo $coupon ? 'info' : 'error'; ?> coupon" title="<?php echo !$coupon ? 'При сохранении купон будет удален' : ''; ?>">
+                                <?php
+                                if ($coupon)
+                                {
+                                    echo CHtml::link($code, array('/shop/couponBackend/view', 'id' => $coupon->id), array('title' => $coupon->name));
+                                }
+                                else
+                                {
+                                    echo $code . ' [Удален]';
+                                }
+                                ?>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <?php echo CHtml::hiddenField("Order[couponCodes][{$coupon->code}]", $coupon->code); ?>
+                        </span>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
 

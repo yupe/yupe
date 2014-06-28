@@ -46,19 +46,39 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
             <?php endforeach; ?>
             <tr>
                 <td colspan="2">
+                    <h4>Купоны</h4>
+                </td>
+                <td>
+                    <p class="text-right lead">
+                        <?php if ($model->coupon_code): ?>
+                            <?php foreach ($model->couponCodes as $code): ?>
+                                <span class="label alert alert-info coupon">
+                                <?php echo $code; ?>
+                            </span>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
                     <h4>Итого</h4>
                 </td>
                 <td>
                     <p class="text-right lead">
                         <strong>
-                            <small><?php echo (float)$model->total_price; ?> руб.</small>
+                            <small><?php echo (float)$model->total_price - ($model->separate_delivery ? 0 : $model->delivery_price); ?> руб.</small>
                         </strong>
                     </p>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <h4>Стоимость доставки</h4>
+                    <h4>Стоимость доставки
+                        <small>
+                            <?php echo($model->separate_delivery ? '(оплачивается отдельно)' : ''); ?>
+                        </small>
+                    </h4>
                 </td>
                 <td>
                     <p class="text-right lead">
@@ -74,7 +94,7 @@ $this->pageTitle = Yii::t('ShopModule.order', 'Заказ №{n}', array($model-
                 </td>
                 <td>
                     <p class="text-right lead">
-                        <strong><?php echo (float)($model->total_price + $model->delivery_price); ?></strong> руб.
+                        <strong><?php echo (float)($model->total_price); ?></strong> руб.
                     </p>
                 </td>
             </tr>

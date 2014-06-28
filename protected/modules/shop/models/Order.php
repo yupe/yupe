@@ -47,10 +47,17 @@ class Order extends yupe\models\YModel
     const SCENARIO_USER = 'front';
     const SCENARIO_ADMIN = 'admin';
 
+    /**
+     * @var OrderProduct[]
+     */
     private $_orderProducts = array();
+
     private $hasProducts = false; // ставим в true, когда в сценарии front добавляем хотя бы один продукт
 
     protected $oldAttributes;
+
+    public $couponCodes = array();
+    private $productsChanged = false; // менялся ли список продуктов в заказе
 
     /**
      * @return string the associated database table name
@@ -79,11 +86,12 @@ class Order extends yupe\models\YModel
             array('email', 'email'),
             array('delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true),
             array('delivery_price, total_price, discount, coupon_discount', 'shop\components\validators\NumberValidator'),
-            array('coupon_code, name, address, phone, email', 'length', 'max' => 255),
+            array('name, address, phone, email', 'length', 'max' => 255),
             array('comment, note', 'length', 'max' => 1024),
             //array('payment_details', 'safe'),
             array('url', 'unique'),
             array('user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status, date, ip, url, modified', 'unsafe', 'on' => self::SCENARIO_USER),
+            array('couponCodes', 'safe'), // сюда отправляется массив купонок, которые потом разбираются в beforeSave()
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, delivery_id, delivery_price, payment_method_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, coupon_code, separate_delivery, status, date, user_id, name, address, phone, email, comment, ip, url, note, modified', 'safe', 'on' => 'search'),
         );
@@ -203,14 +211,15 @@ class Order extends yupe\models\YModel
     public function afterFind()
     {
         $this->oldAttributes = $this->attributes;
-        return parent::afterFind();
+        $this->couponCodes   = preg_split('/,/', $this->coupon_code);
+        parent::afterFind();
     }
 
     public function beforeValidate()
     {
         if ($this->getScenario() == self::SCENARIO_USER)
         {
-            if ($this->total_price < $this->delivery->available_from)
+            if ($this->getProductsCost() <= $this->delivery->available_from)
             {
                 $this->addError('delivery_id', Yii::t('ShopModule.order', 'Выбранный способ доставки недоступен'));
             }
@@ -222,8 +231,93 @@ class Order extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    public function getProductsCost()
+    {
+        $cost     = 0;
+        $products = $this->productsChanged ? $this->_orderProducts : $this->products;
+
+        foreach ($products as $op)
+        {
+            $cost += $op->price * $op->quantity;
+        }
+
+        return $cost;
+    }
+
+    public function getDeliveryCost()
+    {
+        $cost         = $this->delivery_price;
+        $validCoupons = $this->getValidCoupons($this->couponCodes);
+        foreach ($validCoupons as $coupon)
+        {
+            if ($coupon->free_shipping)
+            {
+                $cost = 0;
+            }
+        }
+        return $cost;
+    }
+
+    private $_validCoupons = null;
+
+    /**
+     * Фильтрует переданные коды купонов и возвращает объекты купонов
+     * @param $codes - массив кодов купонов
+     * @return Coupon[] - массив объектов-купонов
+     */
+    public function getValidCoupons($codes)
+    {
+        if ($this->_validCoupons !== null)
+        {
+            return $this->_validCoupons;
+        }
+        $productsTotalPrice = $this->getProductsCost();
+        $validCoupons       = array();
+
+        /* @var $coupon Coupon */
+        /* проверим купоны на валидность */
+        foreach ($codes as $code)
+        {
+            $coupon = Coupon::model()->getCouponByCode($code);
+
+            if ($coupon && $coupon->getIsAvailable($productsTotalPrice))
+            {
+                $validCoupons[] = $coupon;
+            }
+        }
+        return $validCoupons;
+    }
+
+    /**
+     * Получает скидку для переданных купонов
+     * @param $coupons Coupon[]
+     * @return float - скидка
+     */
+    public function getCouponDiscount($coupons)
+    {
+        $productsTotalPrice = $this->getProductsCost();
+        $delta              = 0.00; // суммарная скидка по купонам
+        /* посчитаем скидку */
+        foreach ($coupons as $coupon)
+        {
+            $validCouponCodes[] = $coupon->code;
+            switch ($coupon->type)
+            {
+                case Coupon::TYPE_SUM:
+                    $delta += $coupon->value;
+                    break;
+                case Coupon::TYPE_PERCENT:
+                    $delta += ($coupon->value / 100) * $productsTotalPrice;
+                    break;
+            }
+        }
+        return $delta;
+    }
+
     public function beforeSave()
     {
+        $productsCost = $this->getProductsCost();
+
         if ($this->isNewRecord)
         {
             $this->url = md5(uniqid(time(), true));
@@ -231,11 +325,30 @@ class Order extends yupe\models\YModel
             if ($this->getScenario() == self::SCENARIO_USER)
             {
                 $this->user_id           = Yii::app()->user->id;
-                $this->delivery_price    = $this->delivery ? $this->delivery->getCost($this->total_price) : 0;
+                $this->delivery_price    = $this->delivery ? $this->delivery->getCost($productsCost) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
         }
-        $this->total_price += $this->separate_delivery ? 0 : $this->delivery_price;
+
+        $coupons = $this->getValidCoupons($this->couponCodes);;
+        /* количество купонов уменьшаем только при создании записи*/
+        $validCouponCodes = array();
+        foreach ($coupons as $coupon)
+        {
+            $validCouponCodes[] = $coupon->code;
+            if ($this->isNewRecord)
+            {
+                $coupon->decreaseQuantity();
+            }
+        }
+        $this->coupon_code = join(',', $validCouponCodes);
+
+        $this->coupon_discount = $this->getCouponDiscount($coupons);
+        $this->delivery_price  = $this->getDeliveryCost();
+
+        /* итоговая цена получается из стоимости доставки (если доставка не оплачивается отдельно) + стоимость всех продуктов - скидка по купонам */
+        $this->total_price = ($this->separate_delivery ? 0 : $this->delivery_price) + $productsCost - $this->coupon_discount;
+
         if ($this->oldAttributes['paid'] == self::PAID_STATUS_NOT_PAID && $this->paid == self::PAID_STATUS_PAID)
         {
             $this->payment_date = new CDbExpression('now()');
@@ -289,73 +402,83 @@ class Order extends yupe\models\YModel
      */
     public function setOrderProducts($orderProducts)
     {
-
+        $this->productsChanged     = true;
+        $orderProductsObjectsArray = array();
         if (is_array($orderProducts))
         {
-            $total_price = 0;
             foreach ($orderProducts as $key => $op)
             {
-                /* для заказов с сайта необходимо пересчитать цену*/
+                $product = Product::model()->findByPk($op['product_id']);
+
+                if($product)
+                {
+                    $this->hasProducts = true;
+                }
+
+                /* @var $orderProduct OrderProduct */
+                $orderProduct = null;
+                if (isset($op['id']))
+                {
+                    $orderProduct = OrderProduct::model()->findByPk($op['id']);
+                }
+
+                if (!$orderProduct)
+                {
+                    $orderProduct               = new OrderProduct();
+                    $orderProduct->product_id   = $product->id;
+                    $orderProduct->product_name = $product->name;
+                    $orderProduct->sku          = $product->sku;
+                }
+
                 if ($this->getScenario() == self::SCENARIO_USER)
                 {
-                    $product = Product::model()->findByPk($op['product_id']);
-                    if ($product)
-                    {
-                        $price                        = $product->getPrice($op['variant_ids']);
-                        $orderProducts[$key]['price'] = $price;
-                        $total_price += $price * (int)$op['quantity'];
-                        $this->hasProducts = true;
-                    }
+                    $orderProduct->price = $product->getPrice($op['variant_ids']);
                 }
                 else
                 {
-                    $total_price += (float)str_replace(',', '.', $op['price']) * (int)$op['quantity'];
+                    $orderProduct->price = $op['price'];
                 }
+
+                $orderProduct->variant_ids = $op['variant_ids'];
+                $orderProduct->quantity = $op['quantity'];
+
+                $orderProductsObjectsArray[] = $orderProduct;
             }
-            $this->_orderProducts = $orderProducts;
-            $this->total_price    = $total_price;
-        }
-        else
-        {
-            $this->total_price = 0;
+            $this->_orderProducts = $orderProductsObjectsArray;
         }
     }
 
     /**
-     * Формат массивы такой же как и у setOrderProducts()
+     * Массив объектов OrderProduct
      * @param $products
      */
     private function updateOrderProducts($products)
     {
-        $orderProducts = array();
+        if (!$this->productsChanged)
+        {
+            return;
+        }
+
+        $validOrderProductIds = array();
+
         foreach ($products as $var)
         {
-            $orderProduct = null;
-            if (isset($var['id']))
+            /* @var $var OrderProduct */
+            if ($var->isNewRecord)
             {
-                $orderProduct = OrderProduct::model()->findByPk($var['id']);
+                $var->order_id = $this->id;
             }
-            // для только что добавленных продуктов запишем имя продукта в заказ, на случай удаления его из базы
-            if (!$orderProduct)
-            {
-                $orderProduct               = new OrderProduct();
-                $pd                         = Product::model()->findByPk($var['product_id']);
-                $orderProduct->product_name = $pd ? $pd->name : '*неизвестно*';
-                $orderProduct->sku          = $pd ? $pd->sku : '*неизвестно*';
-            }
-            $orderProduct->attributes = $var;
-            $orderProduct->order_id   = $this->id;
 
-            if ($orderProduct->save())
+            if ($var->save())
             {
-                $orderProducts[] = $orderProduct->id;
+                $validOrderProductIds[] = $var->id;
             }
         }
 
         $criteria = new CDbCriteria();
         $criteria->addCondition('order_id = :order_id');
         $criteria->params = array(':order_id' => $this->id);
-        $criteria->addNotInCondition('id', $orderProducts);
+        $criteria->addNotInCondition('id', $validOrderProductIds);
         OrderProduct::model()->deleteAll($criteria);
     }
 

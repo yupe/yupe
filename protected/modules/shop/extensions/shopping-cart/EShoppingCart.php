@@ -1,4 +1,6 @@
 <?php
+Yii::import('application.modules.shop.extensions.shopping-cart.CouponManager');
+
 /**
  * Shopping cart class
  *
@@ -16,8 +18,13 @@ class EShoppingCart extends CMap {
     public $refresh = true;
 
     public $discounts = array();
-	
+
 	public $cartId = __CLASS__;
+
+    /**
+     * @var CouponManager
+     */
+    private $couponManager;
 
     /**
      * Cart-wide discount sum
@@ -27,6 +34,12 @@ class EShoppingCart extends CMap {
 
     public function init(){
         $this->restoreFromSession();
+        $this->couponManager = new CouponManager();
+    }
+
+    public function getCouponManager()
+    {
+        return $this->couponManager;
     }
 
     /**
@@ -96,7 +109,7 @@ class EShoppingCart extends CMap {
             throw new InvalidArgumentException('invalid argument 1, product must implement CComponent interface');
 
         $key = $position->getId();
-		
+
 		$position->detachBehavior("CartPosition");
         $position->attachBehavior("CartPosition", new ECartPositionBehaviour());
         $position->setRefresh($this->refresh);
@@ -119,6 +132,7 @@ class EShoppingCart extends CMap {
      */
     protected function saveState() {
         Yii::app()->getUser()->setState($this->cartId, serialize($this->toArray()));
+        $this->couponManager->check();
     }
 
     /**
