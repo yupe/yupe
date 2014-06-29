@@ -90,6 +90,9 @@ return array(
             'responsiveCss'  => true,
             'fontAwesomeCss' => true,
         ),
+        'eventManager' => array(
+            'class'  => 'yupe\components\EventManager'
+        ),
         'configManager' => array(
             'class' => 'yupe\components\ConfigManager',
         ),
