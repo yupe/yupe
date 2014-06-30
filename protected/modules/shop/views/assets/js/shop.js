@@ -100,7 +100,7 @@ $(document).ready(function () {
                 if (data.result == 'success') {
                     updateCartWidget();
                 }
-                showNotify(button, data.result, data.message);
+                //showNotify(button, data.result, data.message);
             }
         }).always(function () {
             button.button('reset');
@@ -121,7 +121,7 @@ $(document).ready(function () {
                 if (data.result == 'success') {
                     updateCartWidget();
                 }
-                showNotify(el, data.result, data.message);
+                //showNotify(el, data.result, data.message);
             }
         });
     });
@@ -180,7 +180,8 @@ $(document).ready(function () {
         }
     });
 
-    $('.cart-delete-product').click(function () {
+    $('.cart-delete-product').click(function (e) {
+        e.preventDefault();
         var el = $(this);
         var data = {};
         data[yupeTokenName] = yupeToken;
@@ -371,5 +372,9 @@ $(document).ready(function () {
             e.preventDefault();
             $('#add-coupon-code').click();
         }
+    });
+
+    $('.order-form').submit(function() {
+        $(this).find("button[type='submit']").prop('disabled',true);
     });
 });
