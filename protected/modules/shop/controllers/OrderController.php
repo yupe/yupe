@@ -32,6 +32,8 @@ class OrderController extends yupe\components\controllers\FrontController
                     Yii::t('ShopModule.order', 'Заказ размещён!')
                 );
                 Yii::app()->shoppingCart->clear();
+                // отправка оповещений
+                $this->module->sendNotifyOrderCreated($model);
                 $this->redirect(array('/shop/order/view', 'url' => $model->url));
             }
             else

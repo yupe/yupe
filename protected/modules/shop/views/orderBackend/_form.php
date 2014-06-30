@@ -22,10 +22,13 @@ $form = $this->beginWidget(
     <div class="row-fluid">
         <div class="span8">
             <div class="row-fluid">
-                <div class="span4 control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('status')) ? 'error' : ''; ?>">
+                <div class="span5 control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('status')) ? 'error' : ''; ?>">
                     <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'span12')); ?>
+                    <label class="checkbox">
+                        <input class="" name="notify_user" value="1" type="checkbox">Оповестить покупателя о состоянии заказа
+                    </label>
                 </div>
-                <div class="span4 control-group  <?php echo $model->hasErrors('date') ? 'error' : ''; ?>">
+                <div class="span3 control-group  <?php echo $model->hasErrors('date') ? 'error' : ''; ?>">
                     <?php
                     echo $form->datepickerRow(
                         $model,

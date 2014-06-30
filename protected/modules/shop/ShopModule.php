@@ -4,11 +4,15 @@ use yupe\components\WebModule;
 
 class ShopModule extends WebModule
 {
+    const VERSION = '0.1';
+
     public $uploadPath = 'shop';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize = 0;
     public $maxSize;
     public $maxFiles = 1;
+    public $notifyEmailFrom = '';
+    public $notifyEmailsTo = '';
 
     public function getDependencies()
     {
@@ -44,14 +48,38 @@ class ShopModule extends WebModule
         return array(
             'uploadPath',
             'editor' => Yii::app()->getModule('yupe')->editors,
+            'notifyEmailFrom',
+            'notifyEmailsTo',
         );
     }
 
     public function getParamsLabels()
     {
         return array(
-            'uploadPath' => Yii::t('ShopModule.catalog', 'File uploads directory (relative to Yii::app()->getModule("yupe")->uploadPath)'),
-            'editor' => Yii::t('ShopModule.catalog', 'Visual editor'),
+            'uploadPath' => Yii::t('ShopModule.shop', 'Каталог для загрузок файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'editor' => Yii::t('ShopModule.shop', 'Визуальный редактор'),
+            'notifyEmailFrom' => Yii::t('ShopModule.shop', 'Email, от имени которого отправлять оповещения'),
+            'notifyEmailsTo' => Yii::t('ShopModule.shop', 'Получатели оповещений (через запятую)'),
+        );
+    }
+
+    public function getEditableParamsGroups()
+    {
+        return array(
+            '0.notify' => array(
+                'label' => Yii::t('ShopModule.shop', 'Оповещения'),
+                'items' => array(
+                    'notifyEmailFrom',
+                    'notifyEmailsTo',
+                ),
+            ),
+            '1.main' => array(
+                'label' => Yii::t('ShopModule.shop', 'Настройки визуальных редакторов'),
+                'items' => array(
+                    'uploadPath',
+                    'editor'
+                )
+            ),
         );
     }
 
@@ -146,7 +174,7 @@ class ShopModule extends WebModule
 
     public function getVersion()
     {
-        return '0.1';
+        return self::VERSION;
     }
 
     public function getCategory()
@@ -210,4 +238,62 @@ class ShopModule extends WebModule
         }
         return parent::beforeControllerAction($controller, $action);
     }
+
+    public function sendNotifyOrder($type, Order $order, $theme = "")
+    {
+        $emailsTo  = array();
+        $emailFrom = $this->notifyEmailFrom ?: Yii::app()->getModule('yupe')->email;
+        $emailBody = "";
+        switch ($type)
+        {
+            case "admin":
+                $theme     = $theme ?: Yii::t('ShopModule.shop', 'Новый заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName));
+                $emailsTo  = preg_split('/,/', $this->notifyEmailsTo);
+                $emailBody = Yii::app()->controller->renderPartial('/email/newOrderAdmin', array('order' => $order), true);
+                break;
+            case "user":
+                $theme     = $theme ?: Yii::t('ShopModule.shop', 'Заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName));
+                $emailsTo  = array($order->email);
+                $emailBody = Yii::app()->controller->renderPartial('/email/newOrderUser', array('order' => $order), true);
+                break;
+            default:
+                return;
+        }
+        foreach ($emailsTo as $email)
+        {
+            $email = trim($email);
+            if ($email)
+            {
+                Yii::app()->mail->send(
+                    $emailFrom,
+                    $email,
+                    $theme,
+                    $emailBody
+                );
+                Yii::app()->mail->reset();
+            }
+        }
+    }
+
+    public function sendNotifyOrderCreated(Order $order)
+    {
+        // оповещение пользователя
+        $this->sendNotifyOrder('user', $order);
+        // оповещение администраторов
+        $this->sendNotifyOrder('admin', $order);
+    }
+
+    public function sendNotifyOrderChanged(Order $order)
+    {
+        /* при изменении заказа, наверно, не стоит уведомлять администратора*/
+        $this->sendNotifyOrder('user', $order);
+    }
+
+    public function sendNotifyOrderPaid(Order $order)
+    {
+        $this->sendNotifyOrder('user', $order);
+        $this->sendNotifyOrder('admin', $order, Yii::t('ShopModule.shop', 'Заказ №{n} в магазине {site} оплачен', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)));
+    }
+
+
 }

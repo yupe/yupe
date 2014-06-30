@@ -25,8 +25,13 @@ $this->breadcrumbs = array('Корзина');
                         'validateOnSubmit' => true,
                         'validateOnChange' => true,
                         'validateOnType' => false,
+                        'beforeValidate' => 'js:function(form){$(form).find("button[type=\'submit\']").prop("disabled", true); return true;}',
+                        'afterValidate' => 'js:function(form, data, hasError){$(form).find("button[type=\'submit\']").prop("disabled", false); return !hasError;}',
                     ),
-                    'htmlOptions' => array('hideErrorMessage' => false)
+                    'htmlOptions' => array(
+                        'hideErrorMessage' => false,
+                        'class' => 'order-form',
+                    )
                 )
             );
             ?>
@@ -51,7 +56,7 @@ $this->breadcrumbs = array('Корзина');
                             <div class="media">
                                 <?php $productUrl = Yii::app()->createUrl('shop/catalog/show', array('name' => $position->alias)); ?>
                                 <a class="thumbnail pull-left" href="<?php echo $productUrl; ?>">
-                                    <img class="media-object" src="<?php echo $position->mainImage->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
+                                    <img class="media-object" src="<?php echo $position->mainImage ? $position->mainImage->getImageUrl(72, 72) : ''; ?>" style="width: 72px; height: 72px;">
                                 </a>
 
                                 <div class="media-body">

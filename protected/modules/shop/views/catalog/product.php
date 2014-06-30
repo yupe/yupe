@@ -1,7 +1,7 @@
 <?php
 /* @var $product Product */
 
-$this->pageTitle = $product ? ($product->meta_title ? : $product->name) : Yii::t('ShopModule.catalog', 'Product');
+$this->pageTitle = $product ? ($product->meta_title ?: $product->name) : Yii::t('ShopModule.catalog', 'Product');
 
 $this->description = $product->meta_description;
 $this->keywords    = $product->meta_keywords;
@@ -26,9 +26,9 @@ $this->breadcrumbs = array_merge(
                     <div class="span4">
                         <div class="thumbnails">
                             <div class="image-preview">
-                                <img src="<?php echo $product->mainImage->getImageUrl(); ?>" alt="Placeholder" class="" id="main-image">
+                                <img src="<?php echo $product->mainImage ? $product->mainImage->getImageUrl() : ''; ?>" alt="" class="" id="main-image">
                             </div>
-                            <?php foreach (array_merge(array($product->mainImage), $product->imagesNotMain) as $key => $image): ?>
+                            <?php foreach (array_filter(array_merge(array($product->mainImage), $product->imagesNotMain)) as $key => $image): ?>
                                 <a href="<?php echo $image->getImageUrl(); ?>">
                                     <img src="<?php echo $image->getImageUrl(50, 50); ?>" alt="Thumbnail">
                                 </a>
@@ -54,11 +54,11 @@ $this->breadcrumbs = array_merge(
                             <table>
                                 <?php
                                 $variantsGroups = array();
-                                $options       = array();
+                                $options        = array();
                                 foreach ((array)$product->variants as $variant)
                                 {
                                     $variantsGroups[$variant->attribute->title][] = $variant;
-                                    $options[$variant->id]                       = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
+                                    $options[$variant->id]                        = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
                                 };?>
                                 <?php foreach ($variantsGroups as $title => $variantsGroup): ?>
                                     <tr>
