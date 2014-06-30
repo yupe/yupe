@@ -58,13 +58,17 @@ class ProductImage extends \yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'name',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath . '/product',
+                'resize' => array(
+                    'maxWidth' => 900,
+                    'maxHeight' => 900,
+                )
             ),
             'imageThumb'  => array(
                 'class'         => 'yupe\components\behaviors\ImageThumbBehavior',

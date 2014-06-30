@@ -48,7 +48,7 @@ class FeedBackForm extends CFormModel
             'text'       => Yii::t('FeedbackModule.feedback', 'Text'),
             'verifyCode' => Yii::t('FeedbackModule.feedback', 'Check code'),
             'type'       => Yii::t('FeedbackModule.feedback', 'Type'),
-            'city' => 'Город',
+            'city'       => Yii::t('FeedbackModule.feedback', 'Город'),
         );
     }
 

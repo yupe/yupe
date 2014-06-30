@@ -96,21 +96,15 @@ class ContactController extends yupe\components\controllers\FrontController
             }
         }
 
-        $view = 'index';
-        /* 4- обратный звонок*/
-        if($type == 4){
-            $view = 'callback';
-        }
-
         if (Yii::app()->getRequest()->getIsAjaxRequest())
         {
             Yii::app()->clientScript->scriptMap['jquery.js'] = false;
             Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-            $this->renderPartial($view, array('model' => $form, 'module' => $module), false, true);
+            $this->renderPartial('index', array('model' => $form, 'module' => $module), false, true);
         }
         else
         {
-            $this->render($view, array('model' => $form, 'module' => $module));
+            $this->render('index', array('model' => $form, 'module' => $module));
         }
     }
 

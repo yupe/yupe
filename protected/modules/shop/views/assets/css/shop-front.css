@@ -141,8 +141,8 @@ span.title {
 /*product-info-images*/
 
 .image-preview {
-    width: 300px;
-    height: 300px;
+    max-width: 300px;
+    max-height: 300px;;
     text-align: center;
     vertical-align: middle;
     /* display: inline-block; */

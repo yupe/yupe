@@ -13,10 +13,9 @@ $(document).ready(function () {
     var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
     function showNotify(element, result, message) {
-        /*if ($.isFunction($.fn.notify)) {
-         element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
-         }*/
-        showMessage(result == 'error' ? 'Ошибка' : '', message);
+        if ($.isFunction($.fn.notify)) {
+            element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+        }
     }
 
     function updatePrice() {
@@ -100,7 +99,7 @@ $(document).ready(function () {
                 if (data.result == 'success') {
                     updateCartWidget();
                 }
-                //showNotify(button, data.result, data.message);
+                showNotify(button, data.result, data.message);
             }
         }).always(function () {
             button.button('reset');
@@ -121,7 +120,7 @@ $(document).ready(function () {
                 if (data.result == 'success') {
                     updateCartWidget();
                 }
-                //showNotify(el, data.result, data.message);
+                showNotify(el, data.result, data.message);
             }
         });
     });
@@ -374,7 +373,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.order-form').submit(function() {
-        $(this).find("button[type='submit']").prop('disabled',true);
+    $('.order-form').submit(function () {
+        $(this).find("button[type='submit']").prop('disabled', true);
     });
 });
