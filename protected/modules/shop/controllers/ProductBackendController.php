@@ -241,7 +241,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 $data[] = array(
                     'id' => $product->id,
                     'name' => $product->name,
-                    'thumb' => $product->mainImage->getImageUrl(50, 50),
+                    'thumb' => $product->mainImage ? $product->mainImage->getImageUrl(50, 50) : '',
                 );
             }
             Yii::app()->ajax->rawText(

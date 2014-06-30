@@ -55,6 +55,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             if ($model->save())
             {
+                if (Yii::app()->request->getParam('notify_user', false))
+                {
+                    $this->module->sendNotifyOrderChanged($model);
+                }
+
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ShopModule.order', 'Запись обновлена!')
@@ -68,9 +73,6 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 {
                     $this->redirect(array($_POST['submit-type']));
                 }
-            }
-            else{
-                //var_dump($model->errors); die();
             }
         }
         $this->render('update', array('model' => $model));
@@ -135,7 +137,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
     public function actionProductRow()
     {
-        $product             = new OrderProduct();
+        $product          = new OrderProduct();
         $product->product = Product::model()->findByPk($_GET['OrderProduct']['product_id']);
 
         $this->renderPartial('_product_row', array('model' => $product));

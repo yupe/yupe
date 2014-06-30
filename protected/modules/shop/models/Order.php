@@ -410,7 +410,7 @@ class Order extends yupe\models\YModel
             {
                 $product = Product::model()->findByPk($op['product_id']);
 
-                if($product)
+                if ($product)
                 {
                     $this->hasProducts = true;
                 }
@@ -440,7 +440,7 @@ class Order extends yupe\models\YModel
                 }
 
                 $orderProduct->variant_ids = $op['variant_ids'];
-                $orderProduct->quantity = $op['quantity'];
+                $orderProduct->quantity    = $op['quantity'];
 
                 $orderProductsObjectsArray[] = $orderProduct;
             }
@@ -493,6 +493,7 @@ class Order extends yupe\models\YModel
      */
     public function close()
     {
+        Yii::app()->getModule('shop')->sendNotifyOrderPaid($this);
         return true;
     }
 }

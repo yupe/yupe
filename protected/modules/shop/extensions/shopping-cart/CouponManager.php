@@ -67,7 +67,7 @@ class CouponManager extends CComponent
 
     public function clear()
     {
-        Yii::app()->user->setState($this->couponStateKey, array());
+        $this->coupons = array();
         $this->saveState();
     }
 
