@@ -90,6 +90,18 @@ $this->breadcrumbs = array(
             <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Sedov Nikolay');?></th>
+            <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Kucherov Anton');?></th>
+            <td><?php echo CHtml::link('idexter.ru','http://idexter.ru/');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Timashov Maxim');?></th>
+            <td>apexwire@gmail.com</td>
+        </tr>
+        <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Tischenko Alexander');?></th>
             <td><?php echo CHtml::link('twitter.com/archaron','https://twitter.com/archaron');?></td>
         </tr>
@@ -106,21 +118,9 @@ $this->breadcrumbs = array(
             <td><?php echo CHtml::link('akulikov.org.ua','http://akulikov.org.ua?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Timashov Maxim');?></th>
-            <td>apexwire@gmail.com</td>
-        </tr>
-        <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Cherepanov Anton');?></th>
             <td><?php echo CHtml::link('twitter.com/davetoxa','https://twitter.com/davetoxa');?></td>
         </tr>
-        <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Sedov Nikolay');?></th>
-            <td><?php echo CHtml::link('amylabs.ru','http://amylabs.ru?from=yupe_help');?></td>
-        </tr>
-         <tr class="odd">
-             <th><?php echo Yii::t('YupeModule.yupe','Kucherov Anton');?></th>
-             <td><?php echo CHtml::link('idexter.ru','http://idexter.ru/');?></td>
-         </tr>
     </tbody>
 </table>
 

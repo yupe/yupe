@@ -14,7 +14,16 @@ class EventManager extends CApplicationComponent
      */
     protected $dispatcher;
 
+    /**
+     * @var array
+     */
     public $events = array();
+
+    /**
+     * @var array
+     */
+    public $subscribers = array();
+
 
     public function init()
     {
@@ -26,9 +35,21 @@ class EventManager extends CApplicationComponent
             }
         }
 
+        foreach($this->subscribers as $event => $subscribers) {
+            foreach($subscribers as $subscriber) {
+                $this->dispatcher->addSubscriber($subscriber);
+            }
+        }
+
         parent::init();
     }
 
+    /**
+     * @param $eventName
+     * @param Event $event
+     *
+     * Вызвать событие
+     */
     public function fire($eventName, Event $event)
     {
         $this->dispatcher->dispatch($eventName, $event);

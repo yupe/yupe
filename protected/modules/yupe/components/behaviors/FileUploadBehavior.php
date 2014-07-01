@@ -12,55 +12,70 @@ use CValidator;
 use CUploadedFile;
 use Yii;
 
+/**
+ * Class FileUploadBehavior
+ * @package yupe\components\behaviors
+ */
 class FileUploadBehavior extends CActiveRecordBehavior
 {
-    /*
+    /**
      * Атрибут модели для хранения изображения
+     * @var string
      */
     public $attributeName = 'file';
 
-    /*
+
+    /**
      * Атрибут для замены имени поля file если необходимо
+     * @var string
      */
     public $fileInstanceName = '';
 
-    /*
+    /**
      * Загружаемое изображение
+     * @var
      */
     public $image;
 
-    /*
+    /**
      * Минимальный размер загружаемого изображения
+     * @var int
      */
     public $minSize = 0;
 
-    /*
+    /**
      * Максимальный размер загружаемого изображения
+     * @var int
      */
     public $maxSize = 5368709120;
 
-    /*
+    /**
      * Допустимые типы изображений
+     * @var string
      */
     public $types = 'jpg,jpeg,png,gif';
 
-    /*
+    /**
      * Список сценариев в которых будет использовано поведение
+     * @var array
      */
     public $scenarios = array('insert', 'update');
 
-    /*
+    /**
      * Список сценариев в которых изображение обязательно, 'insert, update'
+     * @var
      */
     public $requiredOn;
 
-    /*
+    /**
      * Callback для генерации имени загружаемого файла
+     * @var
      */
     public $fileName;
 
-    /*
+    /**
      * Директория для загрузки изображений
+     * @var
      */
     public $uploadPath;
 
@@ -74,6 +89,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     private $_oldFile;
 
+    /**
+     * @param \CComponent $owner
+     */
     public function attach($owner)
     {
         parent::attach($owner);
@@ -97,6 +115,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
         }
     }
 
+    /**
+     * @param \CEvent $event
+     */
     public function afterFind($event)
     {
         $this->_oldFile = Yii::app()->uploadManager->getFilePath($this->owner{$this->attributeName}, $this->getUploadPath());
@@ -104,6 +125,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
         return parent::beforeFind($event);
     }
 
+    /**
+     * @param \CModelEvent $event
+     */
     public function beforeValidate($event)
     {
         if (empty($this->fileInstanceName)) {
@@ -117,17 +141,22 @@ class FileUploadBehavior extends CActiveRecordBehavior
         }
     }
 
+    /**
+     * @param \CModelEvent $event
+     */
     public function beforeSave($event)
     {
         if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile) {      	
         	$this->removeFile();
             $this->saveFile();
-            
         }
 
         return parent::beforeSave($event);
     }
 
+    /**
+     * @param \CEvent $event
+     */
     public function beforeDelete($event)
     {
         $this->removeFile();
@@ -135,6 +164,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
         return parent::beforeDelete($event);
     }
 
+    /**
+     *
+     */
     public function removeFile()
     {
         if (@is_file($this->_oldFile)) {
@@ -145,11 +177,17 @@ class FileUploadBehavior extends CActiveRecordBehavior
     /*
      * Проверяет допустимо ли использовать поведение в текущем сценарии
      */
+    /**
+     * @return bool
+     */
     public function checkScenario()
     {
         return in_array($this->owner->scenario, $this->scenarios);
     }
 
+    /**
+     *
+     */
     public function saveFile()
     {
         $fileName = $this->getFileName() . '.' . $this->_newFile->getExtensionName();
@@ -157,6 +195,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
         $this->owner->{$this->attributeName} = $fileName;
     }
 
+    /**
+     * @param $name
+     */
     public function addFileInstanceName($name)
     {
         $this->fileInstanceName = $name;
@@ -165,6 +206,10 @@ class FileUploadBehavior extends CActiveRecordBehavior
     /*
      * Получить имя файла
      * Свойство может быть задано как callback
+     */
+    /**
+     *
+     * @return mixed|string
      */
     public function getFileName()
     {

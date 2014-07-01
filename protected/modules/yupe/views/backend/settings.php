@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'System') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Yupe!') => array('settings'),
     Yii::t('YupeModule.yupe', 'Modules'),
 );
 ?>

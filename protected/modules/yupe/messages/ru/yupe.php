@@ -293,7 +293,7 @@ return array (
   'dependent' => 'зависимые',
   'enabled' => 'включен',
   'disabled|disabled' => 'выключен|выключено',
-  'feedback form' => 'Форма обратной свази',
+  'feedback form' => 'обратной связи',
   'http://yupe.ru' => 'http://yupe.ru',
   'memory: {memory}' => 'память: {memory}',
   'module|module|modules' => 'модуль|модуля|модулей',

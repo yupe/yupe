@@ -16,12 +16,25 @@ namespace yupe\components\actions;
 
 use CCaptchaAction;
 
+/**
+ * Class YCaptchaAction
+ * @package yupe\components\actions
+ */
 class YCaptchaAction extends CCaptchaAction
 {
-
+    /**
+     * @var int|mixed
+     */
     public $minLength = 3;
+    /**
+     * @var int|mixed
+     */
     public $maxLength = 6;
 
+    /**
+     * @param \CController $controller
+     * @param string $id
+     */
     public function __construct($controller,$id)
     {
         parent::__construct($controller,$id);
