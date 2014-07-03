@@ -26,7 +26,7 @@ class RbacModule extends WebModule
     {
         return array(
             array('label' => Yii::t('RbacModule.rbac', 'Roles')),
-            array('icon' => 'user', 'label' => Yii::t('RbacModule.rbac', 'Assign roles'), 'url' => array('/rbac/rbacBackend/userList')),
+            array('icon' => 'user', 'label' => Yii::t('RbacModule.rbac', 'Assign roles'), 'url' => array('/rbac/rbacBackend/assign')),
             array('icon' => 'align-left', 'label' => Yii::t('RbacModule.rbac', 'Manage operations'), 'url' => array('/rbac/rbacBackend/index')),
             array('label' => Yii::t('RbacModule.rbac', 'RBAC')),
             array('icon' => 'magnet', 'label' => Yii::t('RbacModule.rbac', 'Import RBAC'), 'url' => array('/rbac/rbacBackend/import'))
@@ -86,41 +86,13 @@ class RbacModule extends WebModule
                 'description' => 'Управление ролями пользователей',
                 'type' => 1,
                 'items' => array(
-                    array(
-                        'name' => 'Rbac.RbacBackend.Assign',
-                        'description' => 'Назначение ролей',
-                        'type' => 0,
-                    ),
-                    array(
-                        'name' => 'Rbac.RbacBackend.Create',
-                        'description' => 'Создание ролей',
-                        'type' => 0,
-                    ),
-                    array(
-                        'name' => 'Rbac.RbacBackend.Delete',
-                        'description' => 'Удаление ролей',
-                        'type' => 0,
-                    ),
-                    array(
-                        'name' => 'Rbac.RbacBackend.Import',
-                        'description' => 'Импорт правил из модулей',
-                        'type' => 0,
-                    ),
-                    array(
-                        'name' => 'Rbac.RbacBackend.Index',
-                        'description' => 'Просмотр списка ролей',
-                        'type' => 0,
-                    ),
-                    array(
-                        'name' => 'Rbac.RbacBackend.Update',
-                        'description' => 'Редактирование ролей',
-                        'type' => 0,
-                    ),
-                    array(
-                        'name' => 'Rbac.RbacBackend.View',
-                        'description' => 'Просмотр ролей',
-                        'type' => 0,
-                    ),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Assign', 'description' => 'Назначение ролей',),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Create', 'description' => 'Создание ролей',),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Delete', 'description' => 'Удаление ролей',),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Import', 'description' => 'Импорт правил из модулей',),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Index', 'description' => 'Просмотр списка ролей',),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Update', 'description' => 'Редактирование ролей',),
+                    array('type' => 0, 'name' => 'Rbac.RbacBackend.View', 'description' => 'Просмотр ролей',),
                 )
             )
         );

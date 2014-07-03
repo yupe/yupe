@@ -983,7 +983,7 @@ abstract class WebModule extends CWebModule
 			$this->editorOptions
 		);
 
-        if (stripos($controller->id, 'Backend') !== false )
+        if ($controller instanceof \yupe\components\controllers\BackController)
         {
             Yii::app()->errorHandler->errorAction = 'yupe/backend/error';
         }
