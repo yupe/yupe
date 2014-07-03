@@ -5,45 +5,16 @@ class RbacBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow',
-                'roles' => array('admin'),
-            ),
-            array('allow',
-                'actions' => array('assign'),
-                'roles' => array('Rbac.RbacBackend.Assign'),
-            ),
-            array('allow',
-                'actions' => array('create'),
-                'roles' => array('Rbac.RbacBackend.Create'),
-            ),
-            array('allow',
-                'actions' => array('delete'),
-                'roles' => array('Rbac.RbacBackend.Delete'),
-            ),
-            array('allow',
-                'actions' => array('import'),
-                'roles' => array('Rbac.RbacBackend.Import'),
-            ),
-            array('allow',
-                'actions' => array('index'),
-                'roles' => array('Rbac.RbacBackend.Index'),
-            ),
-            array('allow',
-                'actions' => array('inlineEdit'),
-                'roles' => array('Rbac.RbacBackend.Update'),
-            ),
-            array('allow',
-                'actions' => array('update'),
-                'roles' => array('Rbac.RbacBackend.Update'),
-            ),
-            array('allow',
-                'actions' => array('userList'),
-                'roles' => array('Rbac.RbacBackend.Assign'),
-            ),
-            array('allow',
-                'actions' => array('view'),
-                'roles' => array('Rbac.RbacBackend.View'),
-            ),
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('assign'), 'roles' => array('Rbac.RbacBackend.Assign'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Rbac.RbacBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Rbac.RbacBackend.Delete'),),
+            array('allow', 'actions' => array('import'), 'roles' => array('Rbac.RbacBackend.Import'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Rbac.RbacBackend.Index'),),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Rbac.RbacBackend.Update'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Rbac.RbacBackend.Update'),),
+            array('allow', 'actions' => array('userList'), 'roles' => array('Rbac.RbacBackend.Assign'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Rbac.RbacBackend.View'),),
             array('deny',),
         );
     }
@@ -64,8 +35,13 @@ class RbacBackendController extends yupe\components\controllers\BackController
         $this->render('view', array('model' => $this->loadModel($id),));
     }
 
-    public function actionAssign($id)
+    public function actionAssign($id = null)
     {
+        if ($id == null)
+        {
+            $this->redirect(array('userList'));
+        }
+
         $user = User::model()->findByPk((int)$id);
 
         if (!$user)
@@ -115,6 +91,9 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 $transaction->commit();
 
                 Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, 'Данные обновлены!');
+
+                /*сброс кэша меню*/
+                Yii::app()->cache->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->language);
 
                 $this->redirect(array('assign', 'id' => $user->id));
             } catch (Exception $e)

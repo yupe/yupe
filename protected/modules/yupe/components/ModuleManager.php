@@ -37,6 +37,45 @@ class ModuleManager extends \CApplicationComponent
         parent::init();
     }
 
+    /**
+     * @param $route - строка в формате user/userBackend/create
+     * @return string - строка в формате User.UserBackend.Create
+     */
+    private function getRoleByRoute($route)
+    {
+        $route      = trim($route, '/');
+        $routeArray = preg_split('/\//', $route, -1, PREG_SPLIT_NO_EMPTY);
+        $routeArray = array_map(
+            function ($x)
+            {
+                return ucfirst($x);
+            }, $routeArray);
+        return join('.', $routeArray);
+    }
+
+    private function changeVisibility(&$menu)
+    {
+        if (!Yii::app()->hasModule('rbac'))
+        {
+            return;
+        }
+        foreach ($menu as $key => $item)
+        {
+            $visible = true;
+            if (isset($item['url']) && is_array($item['url']))
+            {
+                $route                 = $item['url'][0];
+                $role                  = $this->getRoleByRoute($route);
+                $menu[$key]['visible'] = Yii::app()->user->checkAccess('admin') || Yii::app()->user->checkAccess($role);
+                $visible               = $menu[$key]['visible'];
+            }
+            if (isset($item['items']) && is_array($item['items']) && $visible)
+            {
+                $this->changeVisibility($menu[$key]['items']);
+            }
+        }
+    }
+
     public function getExtendedMenu()
     {
         $menuItems = array();
@@ -52,6 +91,7 @@ class ModuleManager extends \CApplicationComponent
                     if ($module instanceof WebModule)
                     {
                         $tmp = $module->getExtendedNavigation();
+                        $this->changeVisibility($tmp);
                         if($tmp){
                             $menuItems = array_merge($menuItems, $tmp);
                         }
@@ -147,7 +187,7 @@ class ModuleManager extends \CApplicationComponent
                     // Шаблон категорий
                     $modulesNavigation[$keyCategory] = array(
                         'label' => $keyCategory,
-                        'url' => '#',
+                        //'url' => '#',
                         'items' => array(),
                         'submenuOptions' => array("id"=>"mainmenu_".$uniqueMenuId)
                     );
@@ -210,7 +250,7 @@ class ModuleManager extends \CApplicationComponent
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
                     }
                 }
-           
+
                 // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
@@ -268,6 +308,7 @@ class ModuleManager extends \CApplicationComponent
             $modules += $this->getModulesDisabled($modules);
         }
 
+        $this->changeVisibility($modulesNavigation);
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules' => $modules,
             'yiiModules' => $yiiModules,

@@ -78,7 +78,7 @@ class YAdminPanel extends YWidget
 
             $cached = Yii::app()->cache->get(
                 'YAdminPanel::' . Yii::app()->user->getId() . (
-                    Yii::app()->controller instanceof yupe\components\controllers\BackController
+                    Yii::app()->controller instanceof \yupe\components\controllers\BackController
                     ? 'backend'
                     : 'frontend'
                 ) . '::' . Yii::app()->language
@@ -88,7 +88,7 @@ class YAdminPanel extends YWidget
                 $cached = $this->render($this->view, array(), true);
                 Yii::app()->cache->set(
                     'YAdminPanel::' . Yii::app()->user->getId() . (
-                        Yii::app()->controller instanceof yupe\components\controllers\BackController
+                        Yii::app()->controller instanceof \yupe\components\controllers\BackController
                         ? 'backend'
                         : 'frontend'
                     ) . '::' . Yii::app()->language, $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules')
