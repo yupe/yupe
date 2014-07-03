@@ -983,6 +983,11 @@ abstract class WebModule extends CWebModule
 			$this->editorOptions
 		);
 
+        if (stripos($controller->id, 'Backend') !== false )
+        {
+            Yii::app()->errorHandler->errorAction = 'yupe/backend/error';
+        }
+
 		return true;
     }
 
@@ -1031,6 +1036,36 @@ abstract class WebModule extends CWebModule
     }
 
     public function getExtendedNavigation(){
+        return array();
+    }
+
+    /**
+     * Формат:
+     * Имя правила обязательно начинать с "Модуль." - начало имени используется для определения принадлежности правила модулю
+     * <pre>
+     * array(
+     *  array(
+     *  'name' => 'Shop.Order.Management',
+     *  'description' => 'Управление заказами',
+     *  'type' => 1,
+     *  'bizrule' => '',
+     *  'items' => array(
+     *      array(
+     *          'name' => 'Shop.OrderBackend.Create',
+     *          'description' => 'Создание заказа',
+     *          'type' => 0,
+     *          'bizrule' => '',
+     *      ),
+     *   ),
+     *  )
+     * )
+     *
+     * </pre>
+     *
+     * @return array
+     */
+    public function getAuthItems()
+    {
         return array();
     }
 }

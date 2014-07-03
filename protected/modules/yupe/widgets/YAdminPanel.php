@@ -37,7 +37,7 @@ class YAdminPanel extends YWidget
      **/
     public function run()
     {
-        if (Yii::app()->user->isSuperUser()) {
+        //if (Yii::app()->user->isSuperUser()) {
 
             $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
 
@@ -96,6 +96,6 @@ class YAdminPanel extends YWidget
             }
 
             echo $cached;
-        }
+        //}
     }
 }
