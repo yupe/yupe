@@ -10,6 +10,8 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\helpers\Url;
+
 class LogOutAction extends CAction
 {
     public function run()
@@ -18,8 +20,6 @@ class LogOutAction extends CAction
 
         $module =  Yii::app()->getModule('user');
 
-        $module->onLogout(new CEvent($this->controller, array("user" => Yii::app()->getUser())));
-
-        $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->logoutSuccess));
+        $this->controller->redirect(Url::redirectUrl($module->logoutSuccess));
     }
 }

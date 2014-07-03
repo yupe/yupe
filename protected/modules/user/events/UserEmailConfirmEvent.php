@@ -1,33 +1,32 @@
 <?php
-
 use yupe\components\Event;
 
-class PostPublishEvent extends Event
+class UserEmailConfirmEvent extends Event
 {
-    protected $post;
+    protected $token;
 
     protected $user;
 
-    public function __construct(Post $post, IWebUser $user)
+    public function __construct($token, User $user = null)
     {
-        $this->post = $post;
-        $this->user = $user;
+        $this->token = $token;
+        $this->user  = $user;
     }
 
     /**
-     * @param mixed $post
+     * @param mixed $token
      */
-    public function setPost($post)
+    public function setToken($token)
     {
-        $this->post = $post;
+        $this->token = $token;
     }
 
     /**
      * @return mixed
      */
-    public function getPost()
+    public function getToken()
     {
-        return $this->post;
+        return $this->token;
     }
 
     /**

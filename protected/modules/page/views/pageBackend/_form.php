@@ -64,39 +64,9 @@ $form = $this->beginWidget(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php if (count($languages) > 1) : ?>
-        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('PageModule.page', '--choose--'))); ?>
-        <?php if (!$model->isNewRecord) : ?>
-            <?php foreach ($languages as $k => $v) : ?>
-                <?php if ($k !== $model->lang) : ?>
-                    <?php if (empty($langModels[$k])) : ?>
-                        <a href="<?php echo $this->createUrl('/page/pageBackend/create', array('id' => $model->id, 'lang'  => $k)); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Add translation for {lang}', array('{lang}' => $v)); ?>"></i></a>
-                    <?php else : ?>
-                        <a href="<?php echo $this->createUrl('/page/pageBackend/update', array('id' => $langModels[$k])); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Edit translation for {lang} language', array('{lang}' => $v)); ?>"></i></a>
-                    <?php endif;?>
-                <?php endif;?>
-            <?php endforeach;?>
-        <?php endif;?>
-    <?php else : ?>
-        <?php echo $form->hiddenField($model,'lang');?>
-    <?php endif;?>
 
-    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
-        <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('PageModule.page', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'), 'encode' => false)); ?>
-        </div>
-        <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
-        </div>
-    </div>
-    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('order')) ? 'error' : ''; ?>">
-        <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
-        </div>
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'order', array('size' => 10, 'maxlength' => 10, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('order'), 'data-content' => $model->getAttributeDescription('order'))); ?>
-        </div>
-    </div>
+
+
 
     <?php if(Yii::app()->hasModule('menu')):?>
         <?php echo CHtml::label(Yii::t('PageModule.page','Menu'),'menu_id');?>
@@ -107,10 +77,6 @@ $form = $this->beginWidget(
             <?php echo CHtml::dropDownList('parent_id',$menuParentId,array('0' => Yii::t('PageModule.page','Root')),array('disabled' => true,'empty' => Yii::t('PageModule.page','-choose-')));?>
         </div>
     <?php endif?>
-
-     <div class="row-fluid control-group <?php echo $model->hasErrors('layout') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'layout', Yii::app()->getModule('yupe')->getLayoutsList() , array('empty' => '-----','maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('layout'), 'data-content' => $model->getAttributeDescription('layout'))); ?>
-    </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('title_short') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'title_short', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('title_short'), 'data-content' => $model->getAttributeDescription('title_short'))); ?>
@@ -140,6 +106,61 @@ $form = $this->beginWidget(
             ); ?>
         </div>
     </div>
+
+
+    <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"page_options")));?>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseTwo">
+                <?php echo Yii::t('PageModule.page', 'More options');?>
+            </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <?php if (count($languages) > 1) : ?>
+                    <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('PageModule.page', '--choose--'))); ?>
+                    <?php if (!$model->isNewRecord) : ?>
+                        <?php foreach ($languages as $k => $v) : ?>
+                            <?php if ($k !== $model->lang) : ?>
+                                <?php if (empty($langModels[$k])) : ?>
+                                    <a href="<?php echo $this->createUrl('/page/pageBackend/create', array('id' => $model->id, 'lang'  => $k)); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Add translation for {lang}', array('{lang}' => $v)); ?>"></i></a>
+                                <?php else : ?>
+                                    <a href="<?php echo $this->createUrl('/page/pageBackend/update', array('id' => $langModels[$k])); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Edit translation for {lang} language', array('{lang}' => $v)); ?>"></i></a>
+                                <?php endif;?>
+                            <?php endif;?>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                <?php else : ?>
+                    <?php echo $form->hiddenField($model,'lang');?>
+                <?php endif;?>
+                <div class="wide row-fluid control-group <?php echo $model->hasErrors('layout') ? 'error' : ''; ?>">
+                    <div class="span4">
+                        <?php echo $form->dropDownListRow($model, 'layout', Yii::app()->getModule('yupe')->getLayoutsList() , array('empty' => '-----','maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('layout'), 'data-content' => $model->getAttributeDescription('layout'))); ?>
+                    </div>
+                    <div class="span4">
+                        <?php echo $form->textFieldRow($model, 'view', array('maxlength' => 10, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('view'), 'data-content' => $model->getAttributeDescription('view')));?>
+                    </div>
+                </div>
+                <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
+                    <div class="span4">
+                        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('empty' => Yii::t('PageModule.page', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'), 'encode' => false)); ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
+                    </div>
+                </div>
+                <div class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('order')) ? 'error' : ''; ?>">
+                    <div class="span4">
+                        <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $form->textFieldRow($model, 'order', array('size' => 10, 'maxlength' => 10, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('order'), 'data-content' => $model->getAttributeDescription('order'))); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php $this->endWidget();?>
 
     <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"page_seodata")));?>
     <div class="accordion-group">

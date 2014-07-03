@@ -33,6 +33,7 @@
  * @property integer $change_user_id
  * @property integer $order
  * @property string  $layout
+ * @property string  $view
  */
 class Page extends yupe\models\YModel
 {
@@ -80,7 +81,7 @@ class Page extends yupe\models\YModel
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('title, title_short, slug, keywords, description, layout', 'length', 'max' => 150),
+            array('title, title_short, slug, keywords, description, layout, view', 'length', 'max' => 150),
             array('slug', 'yupe\components\validators\YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
@@ -142,7 +143,8 @@ class Page extends yupe\models\YModel
             'user_id' => Yii::t('PageModule.page', 'Created by'),
             'change_user_id' => Yii::t('PageModule.page', 'Changed by'),
             'order' => Yii::t('PageModule.page', 'Sorting'),
-            'layout' => Yii::t('PageModule.page', 'Layout')
+            'layout' => Yii::t('PageModule.page', 'Layout'),
+            'view' => Yii::t('PageModule.page', 'View')
         );
     }
 
@@ -187,7 +189,8 @@ class Page extends yupe\models\YModel
             'user_id' => Yii::t('PageModule.page', 'Page creator'),
             'change_user_id' => Yii::t('PageModule.page', 'Page editor'),
             'order' => Yii::t('PageModule.page', 'Page priority in widgets and menu.'),
-            'layout' => Yii::t('PageModule.page', 'Page layout')
+            'layout' => Yii::t('PageModule.page', 'Page layout'),
+            'view' => Yii::t('PageModule.page', 'Page view')
         );
     }
 
@@ -344,5 +347,10 @@ class Page extends yupe\models\YModel
     public function getPermaLink()
     {
         return Yii::app()->createAbsoluteUrl('/page/page/show/', array('slug' => $this->slug));
+    }
+
+    public function isProtected()
+    {
+        return $this->is_protected == self::PROTECTED_YES;
     }
 }

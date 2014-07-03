@@ -162,8 +162,6 @@ class LanguageBehavior extends CBehavior
         );
 
         // Если не передан язык не нативный:
-        
-        
         if ($langIsset === false && $lm->getAppLang() !== $this->getLang()) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(

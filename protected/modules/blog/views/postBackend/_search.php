@@ -59,8 +59,7 @@ $form = $this->beginWidget(
                 <?php echo $form->textFieldRow($model, 'link', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
             </div>
             <div class="span3">
-                <br /><br />
-                <?php echo $form->checkBoxRow($model, 'comment_status', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
+                <?php echo $form->dropDownListRow($model, 'comment_status', $model->getCommentStatusList(),  array('empty' => '---','class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
             </div>
         </div>
         <div class="wide row-fluid control-group">

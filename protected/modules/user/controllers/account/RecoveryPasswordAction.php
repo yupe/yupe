@@ -28,8 +28,6 @@ class RecoveryPasswordAction extends CAction
 
         $module = Yii::app()->getModule('user');
 
-        $module->onBeginPasswordRecovery(new CEvent($this->controller, array("token" => $token)));
-
         // Если запрещено восстановление - печалька ;)
         if ($module->recoveryDisabled) {
             throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
@@ -45,10 +43,6 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
-                $module->onSuccessAutoPasswordRecovery(
-                    new CEvent($this->controller, array("token" => $token))
-                );
-
                 $this->controller->redirect(array('/user/account/login'));
 
             } else {
@@ -56,10 +50,6 @@ class RecoveryPasswordAction extends CAction
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error when changing password!')
-                );
-
-                $module->onErrorAutoPasswordRecovery(
-                    new CEvent($this->controller, array("token" => $token))
                 );
 
                 $this->controller->redirect(array('/user/account/recovery'));
@@ -82,17 +72,7 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'Password recover successfully')
                 );
 
-                $module->onSuccessPasswordRecovery(
-                    new CModelEvent($this->controller, array("changePasswordForm" => $changePasswordForm))
-                );
-
                 $this->controller->redirect(array('/user/account/login'));
-
-            }else{
-
-                $module->onErrorPasswordRecovery(
-                    new CModelEvent($this->controller, array("changePasswordForm" => $changePasswordForm))
-                );
             }
         }
 

@@ -11,7 +11,7 @@ $(document).ready(function($) {
             'blogId' : parseInt($(this).attr('href'))
         };
         data[yupeTokenName] = yupeToken;
-        $.post(baseUrl + '/blog/join/', data, function(response){
+        $.post($(this).data('url'), data, function(response){
             if(response.result) {
                 $button.hide();
                 $('#notifications').notify({ message: { text: response.data } }).show();
@@ -28,7 +28,7 @@ $(document).ready(function($) {
             'blogId' : parseInt($(this).attr('href'))
         };
         data[yupeTokenName] = yupeToken;
-        $.post(baseUrl + '/blog/leave/', data, function(response){
+        $.post($(this).data('url'), data, function(response){
             if(response.result) {
                 $button.hide();
                 $('#notifications').notify({ message: { text: response.data } }).show();

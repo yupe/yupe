@@ -1,33 +1,33 @@
 <?php
-
 use yupe\components\Event;
 
-class PostPublishEvent extends Event
+class UserPasswordRecoveryEvent extends Event
 {
-    protected $post;
+    protected $email;
 
     protected $user;
 
-    public function __construct(Post $post, IWebUser $user)
+    public function __construct($email, User $user = null)
     {
-        $this->post = $post;
+        $this->email = $email;
+
         $this->user = $user;
     }
 
     /**
-     * @param mixed $post
+     * @param mixed $email
      */
-    public function setPost($post)
+    public function setEmail($email)
     {
-        $this->post = $post;
+        $this->email = $email;
     }
 
     /**
      * @return mixed
      */
-    public function getPost()
+    public function getEmail()
     {
-        return $this->post;
+        return $this->email;
     }
 
     /**

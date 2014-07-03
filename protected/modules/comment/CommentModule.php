@@ -21,7 +21,6 @@ class CommentModule extends WebModule
     public $autoApprove          = true;
     public $notify               = true;
     public $email;
-    public $import               = array();
     public $showCaptcha = 1;
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
@@ -178,7 +177,11 @@ class CommentModule extends WebModule
     {
         parent::init();
 
-        $import = count($this->import) ? array_merge(array('comment.models.*'), $this->import) : array('comment.models.*');
+        $import = array('application.modules.comment.models.*');
+
+        foreach(Yii::app()->getModules() as $module => $data) {
+            $import[] = "application.modules.{$module}.models.*";
+        }
 
         $this->setImport($import);
 

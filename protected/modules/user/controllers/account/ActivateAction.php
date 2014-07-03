@@ -11,6 +11,8 @@
  *
  **/
 
+use yupe\helpers\Url;
+
 class ActivateAction extends CAction
 {
     public function run($token)
@@ -27,12 +29,8 @@ class ActivateAction extends CAction
                 Yii::t('UserModule.user', 'You activate account successfully. Now you can login!')
             );
 
-            $module->onSuccessActivate(
-                new CModelEvent($this->controller, array('token' => $token))
-            );
-
             // Выполняем переадресацию на соответствующую страницу:
-            $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->accountActivationSuccess));
+            $this->controller->redirect(Url::redirectUrl($module->accountActivationSuccess));
         }
 
         // Сообщаем об ошибке:
@@ -41,11 +39,7 @@ class ActivateAction extends CAction
             Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.')
         );
 
-        $module->onErrorActivate(
-            new CModelEvent($this->controller, array('token' => $token))
-        );
-
         // Переадресовываем на соответствующую ошибку:
-        $this->controller->redirect(Yii::app()->createAbsoluteUrl($module->accountActivationFailure));
+        $this->controller->redirect(Url::redirectUrl($module->accountActivationFailure));
     }
 }

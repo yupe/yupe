@@ -144,6 +144,7 @@ return array (
   'Do you have your own opinions for this question?' => 'У Вас есть свое мнение по этому вопросу !? Поделитесь им!',
   'Feedback on {site} !'=>'Обратная связь на сайте {site} !',
   '{name}, Your message was created, number of message is {id}, thanks!'=>'{name}, Ваше сообщение получено, ему присвоен номер {id}, спасибо!',
+  '{name}, Your message was created, thanks!'=>'{name}, Ваше сообщение получено, спасибо!',
   'We answer to you soon. Thanks.'=>'Мы ответим Вам в самое ближайшее время!',
   'Best regards, administration of "{site}"!'=>'С уважением, администрация сайта "{site}" !',
   'Our answer'=>'Наш ответ',

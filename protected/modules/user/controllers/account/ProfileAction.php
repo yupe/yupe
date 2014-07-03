@@ -14,11 +14,8 @@ class ProfileAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->user->isAuthenticated() === false) {
-            $this->controller->redirect(Yii::app()->user->loginUrl);
-        }        
-
         if (($user = Yii::app()->user->getProfile()) === null) {
+
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('UserModule.user', 'User not found.')
@@ -43,10 +40,6 @@ class ProfileAction extends CAction
         $form->password = $form->cPassword = null;
 
         $module = Yii::app()->getModule('user');
-
-        // Открываем ивент:
-        $event = new CModelEvent($this->controller, array("profileForm" => $form));
-        $module->onBeginProfile($event);
 
         // Если у нас есть данные из POST - получаем их:
         if (($data = Yii::app()->getRequest()->getPost('ProfileForm')) !== null) {
@@ -145,16 +138,9 @@ class ProfileAction extends CAction
                             }
                         }
 
-                        $module->onSuccessEditProfile(
-                            new CModelEvent($this->controller, array("profileForm" => $form))
-                        );
                         $this->controller->redirect(array('/user/account/profile'));
                     
                     } else {
-
-                        $module->onErrorEditProfile(
-                            new CModelEvent($this->controller, array("profileForm" => $form))
-                        );
 
                         Yii::log(
                             Yii::t('UserModule.user', 'Error when save profile! #{id}', array('{id}' => $user->id)),

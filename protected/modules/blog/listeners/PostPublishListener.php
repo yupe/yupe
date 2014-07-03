@@ -1,5 +1,5 @@
 <?php
-use Symfony\Component\EventDispatcher\Event;
+use yupe\components\Event;
 
 class PostPublishListener
 {

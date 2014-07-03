@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Page view' => 'Представление (view)',
+  'View' => 'Представление (view)',
+  'More options' => 'Дополнительные параметры',
   'Pages categories' => 'Категории Страниц',
   'Delete' => 'Удалить',
   'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',

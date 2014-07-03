@@ -10,6 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\helpers\Url;
 
 class RegistrationAction extends CAction
 {
@@ -26,8 +27,6 @@ class RegistrationAction extends CAction
         }
 
         $form = new RegistrationForm;
-        $event = new CModelEvent($this->controller, array("registrationForm" => $form));
-        $module->onBeginRegistration($event);
 
         if (($data = Yii::app()->getRequest()->getPost('RegistrationForm')) !== null) {
             
@@ -41,27 +40,15 @@ class RegistrationAction extends CAction
 						yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
 						Yii::t('UserModule.user', 'Account was created! Check your email!')
 					);
-
-                    $module->onSuccessRegistration(
-                        new CModelEvent($this->controller, array("user" => $user))
-                    );
 					
-					$this->controller->redirect($module->registrationSuccess);
+					$this->controller->redirect(Url::redirectUrl($module->registrationSuccess));
 				}
-
-                $module->onErrorRegistration(
-                    new CModelEvent($this->controller, array("registrationForm" => $form))
-                );
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error creating account!')
                 );
 			}
-
-            $module->onErrorRegistration(
-                new CModelEvent($this->controller, array("registrationForm" => $form))
-            );
 		}
 
         if (Yii::app()->getRequest()->getIsAjaxRequest())

@@ -34,7 +34,7 @@ class DbFeedbackSender implements IFeedbackSender
 
             if ($this->module->sendConfirmation) {
 
-                return $this->sendConfirmation($form);
+                return $this->sendConfirmation($form, $feedback);
             }
 
             return true;
@@ -43,13 +43,13 @@ class DbFeedbackSender implements IFeedbackSender
         return false;
     }
 
-    public function sendConfirmation(FeedBackForm $feedback)
+    public function sendConfirmation(FeedBackForm $form, FeedBack $feedBack = null)
     {
-        $emailBody = Yii::app()->controller->renderPartial('feedbackConfirmationEmail', array('model' => $feedback), true);
+        $emailBody = Yii::app()->controller->renderPartial('feedbackConfirmationEmail', array('model' => $feedBack), true);
 
         $result = $this->mail->send(
             $this->module->notifyEmailFrom,
-            $feedback->email,
+            $form->email,
             Yii::t('FeedbackModule.feedback', 'Your proposition on site "{site}" was received', array('{site}' => Yii::app()->name)),
             $emailBody
         );

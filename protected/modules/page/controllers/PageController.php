@@ -38,7 +38,7 @@ class PageController extends yupe\components\controllers\FrontController
                 array(
                     ':slug' => $slug,
                     ':lang' => Yii::app()->language,
-                    ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
+                    ':deflang' => $this->yupe->defaultLanguage,
                 )
             );
 
@@ -47,7 +47,7 @@ class PageController extends yupe\components\controllers\FrontController
         }
 
         // проверим что пользователь может просматривать эту страницу
-        if ($page->is_protected == Page::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
+        if ($page->isProtected() && !Yii::app()->user->isAuthenticated()) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
@@ -58,7 +58,9 @@ class PageController extends yupe\components\controllers\FrontController
 
         $this->currentPage = $page;
 
-        $this->render('page', array('page' => $page));
+        $view = $page->view ? $page->view : 'page';
+
+        $this->render($view, array('page' => $page));
     }
 
     /**

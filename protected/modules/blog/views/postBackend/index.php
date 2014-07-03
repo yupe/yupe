@@ -160,7 +160,7 @@ $this->renderPartial('_search', array('model' => $model));
 					'mode'   => 'popup',
 					'type'   => 'select',
 					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('comment_status')))),
-					'source' => $model->getCommentStatusList(),
+					'source' => array_merge(array('' => '---'),$model->getCommentStatusList()),
 					'params' => array(
 						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
 					)
@@ -168,7 +168,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'name'  => 'comment_status',
                 'type'  => 'raw',
                 'value' => '$data->getCommentStatus()',
-                'filter' => $model->getCommentStatusList()
+                'filter' => array_merge(array('' => '---'),$model->getCommentStatusList())
             ),
             array(
                 'header' => Yii::t('BlogModule.blog','Tags'),

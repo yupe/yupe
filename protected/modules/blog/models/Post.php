@@ -538,7 +538,7 @@ class Post extends yupe\models\YModel implements ICommentable
         return $posts;
     }
 
-    public function getCategorys()
+    public function getCategories()
     {
         return Yii::app()->db->createCommand()
             ->select('cc.name, bp.category_id, count(bp.id) cnt, cc.alias, cc.description')
@@ -633,7 +633,7 @@ class Post extends yupe\models\YModel implements ICommentable
             $this->status = self::STATUS_PUBLISHED;
             $this->publish_date = date('d-m-Y h:i');
             if($this->save()) {
-                Yii::app()->eventManager->fire(PostEvents::POST_PUBLISH, new PostPublishEvent($this, Yii::app()->getUser()));
+                Yii::app()->eventManager->fire(BlogEvents::POST_PUBLISH, new PostPublishEvent($this, Yii::app()->getUser()));
             }
             $transaction->commit();
             return true;
