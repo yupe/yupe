@@ -2,6 +2,20 @@
 
 class PaymentBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.PaymentBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.PaymentBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.PaymentBackend.Update'),),
+            array('allow', 'actions' => array('paymentSystemSettings'), 'roles' => array('Shop.PaymentBackend.Create', 'Shop.PaymentBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.PaymentBackend.Index'),),
+            array('allow', 'actions' => array('sortable'), 'roles' => array('Shop.PaymentBackend.Update'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.PaymentBackend.View'),),
+            array('deny',),
+        );
+    }
 
     public function actionView($id)
     {

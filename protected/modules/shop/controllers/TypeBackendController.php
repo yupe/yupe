@@ -2,6 +2,18 @@
 
 class TypeBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.TypeBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.TypeBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.TypeBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.TypeBackend.Index'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.TypeBackend.View'),),
+            array('deny',),
+        );
+    }
 
     public function actionView($id)
     {

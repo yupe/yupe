@@ -1,17 +1,20 @@
 <?php
-/**
- * CategoryBackendController контроллер для управления категориями в панели управления
- *
- * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
- * @package   yupe.modules.category.controllers
- * @version   0.6
- *
- */
 
 class CategoryBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.CategoryBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.CategoryBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.CategoryBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.CategoryBackend.Index'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.CategoryBackend.View'),),
+            array('deny',),
+        );
+    }
+
     /**
      * Отображает категорию по указанному идентификатору
      *

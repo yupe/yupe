@@ -2,6 +2,19 @@
 
 class OrderBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.OrderBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.OrderBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.OrderBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.OrderBackend.Index'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.OrderBackend.View'),),
+            array('allow', 'actions' => array('productRow'), 'roles' => array('Shop.OrderBackend.Create', 'Shop.OrderBackend.Update'),),
+            array('deny',),
+        );
+    }
 
     public function actionView($id)
     {

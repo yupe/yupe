@@ -2,6 +2,18 @@
 
 class CouponBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.CouponBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.CouponBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.CouponBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.CouponBackend.Index'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.CouponBackend.View'),),
+            array('deny',),
+        );
+    }
 
     public function actionView($id)
     {

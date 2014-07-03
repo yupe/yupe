@@ -2,6 +2,19 @@
 
 class DeliveryBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.DeliveryBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.DeliveryBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.DeliveryBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.DeliveryBackend.Index'),),
+            array('allow', 'actions' => array('sortable'), 'roles' => array('Shop.DeliveryBackend.Update'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.DeliveryBackend.View'),),
+            array('deny',),
+        );
+    }
 
     public function actionView($id)
     {

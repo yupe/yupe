@@ -2,6 +2,19 @@
 
 class AttributeBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.AttributeBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.AttributeBackend.Delete'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.AttributeBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.AttributeBackend.Index'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.AttributeBackend.View'),),
+            array('deny',),
+        );
+    }
+
     /**
      * Отображает атрибут по указанному идентификатору
      *

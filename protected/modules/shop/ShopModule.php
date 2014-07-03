@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class ShopModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public $uploadPath = 'shop';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -295,5 +295,103 @@ class ShopModule extends WebModule
         $this->sendNotifyOrder('admin', $order, Yii::t('ShopModule.shop', 'Заказ №{n} в магазине {site} оплачен', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)));
     }
 
-
+    public function getAuthItems()
+    {
+        return array(
+            array('type' => 2, 'name' => 'Shop.Manager', 'description' => 'Управляющий магазином',
+                'items' => array(
+                    array('type' => 1, 'name' => 'Shop.OrderBackend.Management', 'description' => 'Управление заказами',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.OrderBackend.Index', 'description' => 'Просмотр списка заказов',),
+                            array('type' => 0, 'name' => 'Shop.OrderBackend.Create', 'description' => 'Создание заказа',),
+                            array('type' => 0, 'name' => 'Shop.OrderBackend.Update', 'description' => 'Редактирование заказа',),
+                            array('type' => 0, 'name' => 'Shop.OrderBackend.View', 'description' => 'Просмотр заказа',),
+                            array('type' => 0, 'name' => 'Shop.OrderBackend.Delete', 'description' => 'Удаление заказа',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.AttributeBackend.Management', 'description' => 'Управление атрибутами товаров',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Index', 'description' => 'Просмотр списка атрибутов',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Create', 'description' => 'Создание атрибута',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Update', 'description' => 'Редактирование атрибута',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.View', 'description' => 'Просмотр атрибута',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Delete', 'description' => 'Удаление атрибута',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.CategoryBackend.Management', 'description' => 'Управление категориями товаров',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.CategoryBackend.Index', 'description' => 'Просмотр списка категорий',),
+                            array('type' => 0, 'name' => 'Shop.CategoryBackend.Create', 'description' => 'Создание категории',),
+                            array('type' => 0, 'name' => 'Shop.CategoryBackend.Update', 'description' => 'Редактирование категории',),
+                            array('type' => 0, 'name' => 'Shop.CategoryBackend.View', 'description' => 'Просмотр категории',),
+                            array('type' => 0, 'name' => 'Shop.CategoryBackend.Delete', 'description' => 'Удаление категории',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.CouponBackend.Management', 'description' => 'Управление купонами',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.CouponBackend.Index', 'description' => 'Просмотр списка купонов',),
+                            array('type' => 0, 'name' => 'Shop.CouponBackend.Create', 'description' => 'Создание купона',),
+                            array('type' => 0, 'name' => 'Shop.CouponBackend.Update', 'description' => 'Редактирование купона',),
+                            array('type' => 0, 'name' => 'Shop.CouponBackend.View', 'description' => 'Просмотр купона',),
+                            array('type' => 0, 'name' => 'Shop.CouponBackend.Delete', 'description' => 'Удаление купона',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.AttributeBackend.Management', 'description' => 'Управление атрибутами товаров',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Index', 'description' => 'Просмотр списка атрибутов',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Create', 'description' => 'Создание атрибута',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Update', 'description' => 'Редактирование атрибута',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.View', 'description' => 'Просмотр атрибута',),
+                            array('type' => 0, 'name' => 'Shop.AttributeBackend.Delete', 'description' => 'Удаление атрибута',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.DeliveryBackend.Management', 'description' => 'Управление способами доставки',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.DeliveryBackend.Index', 'description' => 'Просмотр списка способов доставки',),
+                            array('type' => 0, 'name' => 'Shop.DeliveryBackend.Create', 'description' => 'Создание способа доставки',),
+                            array('type' => 0, 'name' => 'Shop.DeliveryBackend.Update', 'description' => 'Редактирование способа доставки',),
+                            array('type' => 0, 'name' => 'Shop.DeliveryBackend.View', 'description' => 'Просмотр способа доставки',),
+                            array('type' => 0, 'name' => 'Shop.DeliveryBackend.Delete', 'description' => 'Удаление способа доставки',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.PaymentBackend.Management', 'description' => 'Управление способами оплаты',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.PaymentBackend.Index', 'description' => 'Просмотр списка способов оплаты',),
+                            array('type' => 0, 'name' => 'Shop.PaymentBackend.Create', 'description' => 'Создание способа оплаты',),
+                            array('type' => 0, 'name' => 'Shop.PaymentBackend.Update', 'description' => 'Редактирование способа оплаты',),
+                            array('type' => 0, 'name' => 'Shop.PaymentBackend.View', 'description' => 'Просмотр способа оплаты',),
+                            array('type' => 0, 'name' => 'Shop.PaymentBackend.Delete', 'description' => 'Удаление способа оплаты',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.ProducerBackend.Management', 'description' => 'Управление производителями',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.ProducerBackend.Index', 'description' => 'Просмотр списка производителей',),
+                            array('type' => 0, 'name' => 'Shop.ProducerBackend.Create', 'description' => 'Создание производителя',),
+                            array('type' => 0, 'name' => 'Shop.ProducerBackend.Update', 'description' => 'Редактирование производителя',),
+                            array('type' => 0, 'name' => 'Shop.ProducerBackend.View', 'description' => 'Просмотр производителя',),
+                            array('type' => 0, 'name' => 'Shop.ProducerBackend.Delete', 'description' => 'Удаление производителя',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.ProductBackend.Management', 'description' => 'Управление товарами',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.ProductBackend.Index', 'description' => 'Просмотр списка товаров',),
+                            array('type' => 0, 'name' => 'Shop.ProductBackend.Create', 'description' => 'Создание товара',),
+                            array('type' => 0, 'name' => 'Shop.ProductBackend.Update', 'description' => 'Редактирование товара',),
+                            array('type' => 0, 'name' => 'Shop.ProductBackend.View', 'description' => 'Просмотр товара',),
+                            array('type' => 0, 'name' => 'Shop.ProductBackend.Delete', 'description' => 'Удаление товара',),
+                        ),
+                    ),
+                    array('type' => 1, 'name' => 'Shop.TypeBackend.Management', 'description' => 'Управление типами товаров',
+                        'items' => array(
+                            array('type' => 0, 'name' => 'Shop.TypeBackend.Index', 'description' => 'Просмотр списка типов',),
+                            array('type' => 0, 'name' => 'Shop.TypeBackend.Create', 'description' => 'Создание типа',),
+                            array('type' => 0, 'name' => 'Shop.TypeBackend.Update', 'description' => 'Редактирование типа',),
+                            array('type' => 0, 'name' => 'Shop.TypeBackend.View', 'description' => 'Просмотр типа',),
+                            array('type' => 0, 'name' => 'Shop.TypeBackend.Delete', 'description' => 'Удаление типа',),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
 }

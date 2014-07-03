@@ -2,9 +2,27 @@
 
 class ProductBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('ajaxSearch'), 'roles' => array('Shop.ProductBackend.Index'),),
+            array('allow', 'actions' => array('create'), 'roles' => array('Shop.ProductBackend.Create'),),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Shop.ProductBackend.Delete'),),
+            array('allow', 'actions' => array('deleteImage'), 'roles' => array('Shop.ProductBackend.Update'),),
+            array('allow', 'actions' => array('update'), 'roles' => array('Shop.ProductBackend.Update'),),
+            array('allow', 'actions' => array('index'), 'roles' => array('Shop.ProductBackend.Index'),),
+            array('allow', 'actions' => array('view'), 'roles' => array('Shop.ProductBackend.View'),),
+            array('allow', 'actions' => array('typeAttributes'), 'roles' => array('Shop.ProductBackend.Create', 'Shop.ProductBackend.Update'),),
+            array('allow', 'actions' => array('typeAttributesForm'), 'roles' => array('Shop.ProductBackend.Create', 'Shop.ProductBackend.Update'),),
+            array('allow', 'actions' => array('variantRow'), 'roles' => array('Shop.ProductBackend.Create', 'Shop.ProductBackend.Update'),),
+            array('deny',),
+        );
+    }
+
     /**
      * Отображает товар по указанному идентификатору
-     * @param integer $id Идинтификатор товар для отображения
+     * @param integer $id Идентификатор товар для отображения
      */
     public function actionView($id)
     {
