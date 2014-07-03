@@ -53,11 +53,11 @@ class ModuleManager extends \CApplicationComponent
         return join('.', $routeArray);
     }
 
-    private function changeVisibility(&$menu)
+    public function filterMenuVisibilityByUserRoles($menu)
     {
         if (!Yii::app()->hasModule('rbac'))
         {
-            return;
+            return $menu;
         }
         foreach ($menu as $key => $item)
         {
@@ -71,9 +71,10 @@ class ModuleManager extends \CApplicationComponent
             }
             if (isset($item['items']) && is_array($item['items']) && $visible)
             {
-                $this->changeVisibility($menu[$key]['items']);
+                $menu[$key]['items'] = $this->filterMenuVisibilityByUserRoles($menu[$key]['items']);
             }
         }
+        return $menu;
     }
 
     public function getExtendedMenu()
@@ -91,7 +92,7 @@ class ModuleManager extends \CApplicationComponent
                     if ($module instanceof WebModule)
                     {
                         $tmp = $module->getExtendedNavigation();
-                        $this->changeVisibility($tmp);
+                        $tmp = $this->filterMenuVisibilityByUserRoles($tmp);
                         if($tmp){
                             $menuItems = array_merge($menuItems, $tmp);
                         }
@@ -308,7 +309,7 @@ class ModuleManager extends \CApplicationComponent
             $modules += $this->getModulesDisabled($modules);
         }
 
-        $this->changeVisibility($modulesNavigation);
+        $modulesNavigation = $this->filterMenuVisibilityByUserRoles($modulesNavigation);
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules' => $modules,
             'yiiModules' => $yiiModules,
