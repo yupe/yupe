@@ -16,8 +16,15 @@ namespace yupe\components;
 use CHttpRequest;
 use Yii;
 
+/**
+ * Class HttpRequest
+ * @package yupe\components
+ */
 class HttpRequest extends CHttpRequest
 {
+    /**
+     * @var array
+     */
     public $noCsrfValidationRoutes = array();
 
     protected function normalizeRequest()
@@ -35,6 +42,10 @@ class HttpRequest extends CHttpRequest
         }
     }
 
+    /**
+     * @param null $urlIfNull
+     * @return null
+     */
     public function urlReferer($urlIfNull = null)
     {
         return isset($_SERVER['HTTP_REFERER'])

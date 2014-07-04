@@ -20,8 +20,14 @@ use CHttpException;
 
 class Controller extends \CController
 {
+    /**
+     * @var
+     */
     public $yupe;
 
+    /**
+     * @var
+     */
     public $layout;
 
     /**

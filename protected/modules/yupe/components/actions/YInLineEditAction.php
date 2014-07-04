@@ -6,12 +6,25 @@ use CHttpException;
 use CActiveRecord;
 use Yii;
 
+/**
+ * Class YInLineEditAction
+ * @package yupe\components\actions
+ */
 class YInLineEditAction extends CAction
 {
+    /**
+     * @var
+     */
     public $model;
 
+    /**
+     * @var
+     */
     public $validAttributes;
 
+    /**
+     * @throws \CHttpException
+     */
     public function init()
     {
         parent::init();
@@ -21,6 +34,9 @@ class YInLineEditAction extends CAction
         }
     }
 
+    /**
+     * @throws \CHttpException
+     */
     public function run()
     {
         if (!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {

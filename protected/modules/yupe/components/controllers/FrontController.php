@@ -14,10 +14,20 @@ namespace yupe\components\controllers;
 
 use Yii;
 
+/**
+ * Class FrontController
+ * @package yupe\components\controllers
+ */
 class FrontController extends Controller
 {
+    /**
+     * @var
+     */
     private $_assetsUrl;
 
+    /**
+     * @return mixed
+     */
     public function getAssetsUrl()
     {
         if (null === $this->_assetsUrl) {

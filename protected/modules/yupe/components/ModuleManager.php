@@ -27,9 +27,21 @@ class ModuleManager extends \CApplicationComponent
 {
     const CORE_MODULE = 'yupe';
 
+    /**
+     * @var
+     */
     public $otherCategoryName;
+    /**
+     * @var
+     */
     public $category;
+    /**
+     * @var
+     */
     public $categoryIcon;
+    /**
+     * @var
+     */
     public $categorySort;
 
     public function init()
