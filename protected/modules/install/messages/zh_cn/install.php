@@ -50,7 +50,7 @@ return array (
     'Modules folder' => 'Modules 模块文件夹',
     'ModulesBack folder' => 'ModulesBack 模块备份文件夹',
     'Multibyte String Functions' => '',
-    'Need PHP version 5.3 and above.' => '需要PHP 5.3 以上版本',
+    'Need PHP version 5.4 and above.' => '需要PHP 5.4 以上版本',
     'PCRE extension' => 'PCRE 扩展',
     'PDO MSSQL extension (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)' => '',
     'PDO MSSQL extension (pdo_dblib)' => '',

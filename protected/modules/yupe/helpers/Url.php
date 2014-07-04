@@ -7,7 +7,7 @@ class Url {
 
 	public static function redirectUrl($url)
 	{
-		if (strpos($url, ':') || strpos($url, Yii::app()->baseUrl) !== false) {
+		if (strpos($url, ':') || strpos(Yii::app()->baseUrl, $url) !== false) {
 			return $url;
 		}
 

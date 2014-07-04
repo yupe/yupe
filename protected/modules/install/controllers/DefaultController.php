@@ -311,9 +311,9 @@ class DefaultController extends yupe\components\controllers\BackController
             array(
                 Yii::t('InstallModule.install', 'РНР version'),
                 true,
-                version_compare(PHP_VERSION, "5.3.3", ">="),
+                version_compare(PHP_VERSION, "5.4", ">="),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
-                Yii::t('InstallModule.install', 'Need PHP version 5.3.3 and above.'),
+                Yii::t('InstallModule.install', 'Need PHP version 5.4 and above.'),
             ),
             array(
                 Yii::t('InstallModule.install', 'Расширение json'),

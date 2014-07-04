@@ -54,7 +54,7 @@ return array (
   'Modules folder' => 'Каталог Modules',
   'ModulesBack folder' => 'Каталог ModulesBack',
   'Multibyte String Functions' => 'Функции для работы с мультибайтовыми строками',
-  'Need PHP version 5.3 and above.' => 'Необходима весрия PHP 5.3 и выше',
+  'Need PHP version 5.4 and above.' => 'Необходима весрия PHP 5.4 и выше',
   'PCRE extension' => 'Расширение PCRE',
   'PDO MSSQL extension (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)' => 'Расширение PDO MSSQL(<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)',
   'PDO MSSQL extension (pdo_dblib)' => 'Расширение PDO MSSQL(pdo_dblib)',

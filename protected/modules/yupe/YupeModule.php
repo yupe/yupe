@@ -19,7 +19,7 @@ use yupe\components\WebModule;
 
 class YupeModule extends WebModule
 {
-    const VERSION = '0.7-beta.4';
+    const VERSION = '0.8';
 
     public $enableAssets;
     public $cache;
