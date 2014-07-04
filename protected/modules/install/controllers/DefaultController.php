@@ -893,7 +893,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $files = glob(Yii::app()->moduleManager->getModulesConfig() . "*.php");
                 foreach ($files as $file) {
                     $name = pathinfo($file, PATHINFO_FILENAME);
-                    if ($name == 'yupe') {
+                    if ($name == 'yupe' || $name == 'install') {
                         continue;
                     }
 
@@ -1208,7 +1208,7 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionFinish()
     {
         try {
-            Yii::app()->getModule('install')->getActivate();
+            Yii::app()->getModule('install')->getDeActivate();
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
