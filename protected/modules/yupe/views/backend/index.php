@@ -11,7 +11,7 @@
         <?php if (is_array($messages)): ?>
             <?php foreach ($messages as $key => $value): ?>
                 <?php if (!is_array($value)) continue; ?>
-                <div class="accordion" id="accordion<?php echo $module->getId(); ?>">
+                <div class="accordion module-errors-accordion" id="accordion<?php echo $module->getId(); ?>">
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <a  class="accordion-toggle"
