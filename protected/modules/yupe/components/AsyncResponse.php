@@ -30,16 +30,34 @@ use Yii;
 
 class AsyncResponse extends CApplicationComponent
 {
+    /**
+     * @var bool
+     */
     public $success         = true;
+    /**
+     * @var bool
+     */
     public $failure         = false;
+    /**
+     * @var string
+     */
     public $resultParamName = 'result';
+    /**
+     * @var string
+     */
     public $dataParamName   = 'data';
 
+    /**
+     * @return bool
+     */
     public function init()
     {
         return true;
     }
 
+    /**
+     * @param null $data
+     */
     public function success($data = null)
     {
         ContentType::setHeader(ContentType::TYPE_JSON);
@@ -52,6 +70,9 @@ class AsyncResponse extends CApplicationComponent
         Yii::app()->end();
     }
 
+    /**
+     * @param null $data
+     */
     public function failure($data = null)
     {
         ContentType::setHeader(ContentType::TYPE_JSON);
@@ -64,6 +85,9 @@ class AsyncResponse extends CApplicationComponent
         Yii::app()->end();
     }
 
+    /**
+     * @param $data
+     */
     public function raw($data)
     {
         ContentType::setHeader(ContentType::TYPE_JSON);
@@ -72,6 +96,9 @@ class AsyncResponse extends CApplicationComponent
         Yii::app()->end();
     }
 
+    /**
+     * @param $data
+     */
     public function rawText($data)
     {
         echo $data;
