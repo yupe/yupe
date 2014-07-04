@@ -10,7 +10,7 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
             'title' => Yii::app()->name,
         )
     ),
-    'brandUrl' => array('/' . Yii::app()->defaultController . '/index/'),
+    'brandUrl' => array('/'),
     'items' => array(
         array(
             'class' => 'bootstrap.widgets.TbMenu',
