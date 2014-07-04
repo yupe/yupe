@@ -13,27 +13,33 @@
 $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
 Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?>
 <div class="shortcuts">
-<?php
-if (count($this->shortcuts) > 0) {
-    foreach ($this->shortcuts as $name => $shortcut) {
-        if (isset($shortcut['items'])) {
-            foreach ($shortcut['items'] as $module => $item) {
-                if(!isset($item['icon'], $item['url'])) {
-                    continue;
+    <?php
+    if (count($this->shortcuts) > 0) {
+        foreach ($this->shortcuts as $name => $shortcut) {
+            if (isset($shortcut['items'])) {
+                foreach ($shortcut['items'] as $module => $item) {
+                    if(!isset($item['icon'], $item['url'])) {
+                        continue;
+                    }
+                    echo CHtml::link(
+                        '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $module) . "</div>",
+                        $item['url'],
+                        $this->getHtmlOptions($item)
+                    );
                 }
+            } else {
                 echo CHtml::link(
-                    '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $module) . "</div>",
+                    '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $name) . "</div>",
                     $item['url'],
                     $this->getHtmlOptions($item)
                 );
             }
-        } else {
-            echo CHtml::link(
-                '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $name) . "</div>",
-                $item['url'],
-                $this->getHtmlOptions($item)
-            );
         }
-    }
-} ?>
+    } ?>
+    <a class="shortcut" href="<?php echo Yii::app()->createUrl('/yupe/backend/settings');?>">
+        <div class="cn">
+            <i class="shortcut-icon fa fa-plus"></i>
+            <span class="shortcut-label"><?php echo Yii::t('YupeModule.yupe','Add new module ?');?></span>
+        </div>
+    </a>
 </div>
