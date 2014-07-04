@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Name' => 'Название',
+  'Just great guys =)' => 'Просто отличные ребята =)',
+  'General sponsor'  => 'Генеральный спонсор',
+  'Add new module ?' => 'Новый модуль?',
   'Logo'   => 'Логотип',
   'Delete' => 'Удалить',
   'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
@@ -290,7 +294,7 @@ return array (
   'Yupe! Generator!' => 'Юпи! Генератор!',
   'Yupe! developers team' => 'Команда разработчиков Юпи!',
   'accept any kind of business and any proposals =)' => 'принимаем всякого рода коммерческие и любые предложения =)',
-  'dependent' => 'зависимые',
+  'dependent' => 'Зависимые',
   'enabled' => 'включен',
   'disabled|disabled' => 'выключен|выключено',
   'feedback form' => 'обратной связи',

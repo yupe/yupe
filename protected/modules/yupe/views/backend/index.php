@@ -60,7 +60,8 @@
 <?php endforeach;?>
 
 
-<legend><?php echo Yii::t('YupeModule.yupe', 'Fast access to modules'); ?></legend>
+<legend><?php echo Yii::t('YupeModule.yupe', 'Fast access to modules'); ?> </legend>
+
 <?php
 $this->widget(
     'yupe\widgets\YShortCuts', array(

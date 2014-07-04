@@ -252,7 +252,7 @@ class ModuleManager extends \CApplicationComponent
 
         // Подгрузка отключенных модулей
         if ($disableModule) {
-            $modules += $this->getModulesDisabled($modules);
+            $modules += (array)$this->getModulesDisabled($modules);
         }
 
         return ($navigationOnly === true) ? $modulesNavigation : array(

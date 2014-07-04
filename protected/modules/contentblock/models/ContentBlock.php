@@ -102,14 +102,14 @@ class ContentBlock extends yupe\models\YModel
     public function getTypes()
     {
         return array(
-            self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Full text'),
+            self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Simple text'),
             self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
         );
     }
 
     public function getType()
     {
-        $data = $this->types;
+        $data = $this->getTypes();
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*unknown type*');
     }
 

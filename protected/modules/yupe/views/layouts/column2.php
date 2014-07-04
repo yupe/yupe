@@ -8,7 +8,7 @@
                          'links'    => $this->breadcrumbs,
                 ));
             ?><!-- breadcrumbs -->
-            <?php $this->widget('yupe\widgets\YFlashMessages');?>
+            <?php $this->widget('bootstrap.widgets.TbAlert');?>
             <div id="content">
                 <?php echo $content; ?>
             </div>

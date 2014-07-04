@@ -51,9 +51,6 @@ return array(
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
-        'install' => array(
-            'class' => 'application.modules.install.InstallModule',
-        ),
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
             'cache'        => true,
@@ -137,7 +134,7 @@ return array(
             'useStrictParsing' => true,
             'rules'            => array(
                 // общие правила
-                '/'                                                               => 'install/default/index',
+                '/'                                                               => '/site/index',
                 // для корректной работы устновщика
                 '/install/default/<action:\w+>'                                   => '/install/default/<action>',
                 '/backend'                                                        => 'yupe/backend/index',

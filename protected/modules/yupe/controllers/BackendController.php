@@ -45,7 +45,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionIndex()
     {
-        $this->render('index', Yii::app()->moduleManager->getModules(false, true));
+        $this->render('index', Yii::app()->moduleManager->getModules(false, false));
     }
 
     /**

@@ -17,7 +17,6 @@ class m131017_064101_fix_menu_test_data extends yupe\components\DbMigration
     // Пары значений:
     // старое -> новое
     protected $replaces = array(
-        '/'             => '/site/index',
         '/contacts'     => '/feedback/contact/index',
         '/login'        => '/user/account/login',
         '/logout'       => '/user/account/logout',

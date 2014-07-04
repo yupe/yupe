@@ -206,15 +206,6 @@ class ConfigManager extends CComponent
                 $settings['enableAssets'] = true;
             }
 
-            // Если существует конф.файл модуля установщика,
-            // значит необходимо исключить данный модуль
-            // из базовых настроек:
-            if ($item->getBaseName('.php') == 'install') {
-                unset($this->_base['components']['urlManager']['rules']['/']);
-                unset($this->_base['modules']['install']);
-                continue;
-            }
-
             // Просматриваем основные настройки для
             // слияния:
             foreach ($this->configCategories as $category) {
@@ -339,8 +330,8 @@ class ConfigManager extends CComponent
         if(isset($this->_config['components']['urlManager']['rules'])) {
             // Фикс для настроек маршрутизации:
             $this->_config['components']['urlManager']['rules'] = CMap::mergeArray(
-                $settings['rules'],
-                $this->_config['components']['urlManager']['rules']
+				$this->_config['components']['urlManager']['rules'],
+                $settings['rules']
             );
         }
 
