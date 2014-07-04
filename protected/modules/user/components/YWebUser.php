@@ -198,22 +198,4 @@ class YWebUser extends CWebUser
 
         parent::afterLogin($fromCookie);
     }
-
-    public function getReturnUrl($defaultUrl=null)
-    {
-        if(!$this->hasState('__returnUrl')) {
-            return null;
-        }
-
-        if($defaultUrl===null)
-        {
-            $defaultReturnUrl=Yii::app()->getUrlManager()->showScriptName ? Yii::app()->getRequest()->getScriptUrl() : Yii::app()->getRequest()->getBaseUrl().'/';
-        }
-        else
-        {
-            $defaultReturnUrl=CHtml::normalizeUrl($defaultUrl);
-        }
-
-        return $this->getState('__returnUrl',$defaultReturnUrl);
-    }
 }
