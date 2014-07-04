@@ -159,7 +159,7 @@ class ConfigManager extends CComponent
 
         if(!@file_put_contents($this->_cacheFilePath, '<?php return ' . var_export($this->_config, true) . ';')) {
             throw new CException(Yii::t('YupeModule.yupe', 'Error write cached modules setting in {file}...', array('{file}' => $this->_cacheFilePath)));            
-        }    
+        }
         return true;
     }
 
@@ -170,7 +170,7 @@ class ConfigManager extends CComponent
      */
     public function prepareSettings()
     {
-    	
+
         $settings = array();
 
         // Запускаем цикл обработки, шагая по конфигурационным файлам
@@ -228,7 +228,7 @@ class ConfigManager extends CComponent
                         }
 
                     break;
-                    
+
                     
                     case 'commandMap':
                     	// commandMap заполняем только для консоли
@@ -266,7 +266,7 @@ class ConfigManager extends CComponent
      */
     public function mergeSettings($settings = array())
     {
-    	
+
         $this->_config = CMap::mergeArray(
             $this->_base,
             array(
@@ -326,8 +326,8 @@ class ConfigManager extends CComponent
         {
         	unset($this->_config['commandMap']);
         }
-        
-        
+
+
         if(!array_key_exists('rules',$settings)) {
             $settings['rules'] = array();
         }
