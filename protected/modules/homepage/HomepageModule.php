@@ -26,6 +26,14 @@ class HomepageModule extends yupe\components\WebModule
 
     public $target;
 
+    public function getDependencies()
+    {
+        return array(
+            'blog',
+            'page'
+        );
+    }
+
     public function getModes()
     {
         $modes = array();
@@ -121,7 +129,6 @@ class HomepageModule extends yupe\components\WebModule
         );
     }
 
-
     public function getParamsLabels()
     {
         return array(
@@ -134,5 +141,10 @@ class HomepageModule extends yupe\components\WebModule
     public function init()
     {
         parent::init();
+    }
+
+    public function getIsInstallDefault()
+    {
+        return true;
     }
 }
