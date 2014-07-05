@@ -31,7 +31,7 @@ footer {
     line-height: 18px;
     color: #9D9D9D;
     font-size: 12px;
-    background: #F3F8F8;
+    background: #f8f8f8;
 }
 
 #footer-guard {
@@ -48,7 +48,7 @@ div#page {
 }
 
 .navbar-brand {
-    padding-top: 7px;
+    padding: 7px 15px 15px 15px;
 }
 
 .nav-list > li {
@@ -70,7 +70,7 @@ div#page {
     margin: 0 -15px;
 }
 
-.nav-header, .nav-header a {
+.nav-header, li.nav-header a {
     display: block;
     padding: 3px 15px;
     font-size: 11px;
@@ -80,7 +80,7 @@ div#page {
     text-transform: uppercase;
 }
 
-.nav-header a {
+li.nav-header a {
     pointer-events: none;
     cursor: default;
     margin: 0 -15px;

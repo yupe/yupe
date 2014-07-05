@@ -28,6 +28,6 @@
     }
 ?>
 
-<p class="alert alert-error">
+<p class="alert alert-danger">
     <?php echo $msg;?>
 </p>

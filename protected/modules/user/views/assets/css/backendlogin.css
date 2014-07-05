@@ -3,7 +3,7 @@ body {
 }
 
 .wrapper {
-    padding-top: 10%;
+
 }
 
 .wrapper .login-form {
@@ -30,8 +30,7 @@ body.admin-panel #footer-guard {
 
 body.admin-panel > footer {
 	position: fixed;
-    height: 30px;
+    height: 43px;
     bottom: 0;
     width: 100%;
-    left: 0;
 }

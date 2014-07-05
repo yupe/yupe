@@ -5,19 +5,19 @@
     article: http://ogp.me/ns/article#">
     <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
     <meta charset="<?php echo Yii::app()->charset; ?>"/>
-    <meta name="keywords" content="<?php echo CHtml::encode($this->keywords);?>"/>
+    <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
     <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
     <meta property="og:description" content="<?php echo $this->description; ?>"/>
     <?php
-        $mainAssets = Yii::app()->AssetManager->publish(
-            Yii::app()->theme->basePath . "/web/"
-        );
+    $mainAssets = Yii::app()->AssetManager->publish(
+        Yii::app()->theme->basePath . "/web/"
+    );
 
-        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');        
-        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
-        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
+    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
@@ -30,7 +30,9 @@
 </head>
 
 <body>
-<?php $this->widget('application.modules.menu.widgets.MenuWidget', array('name' => 'top-menu')); ?>
+<?php if (Yii::app()->hasModule('menu')): { ?>
+    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array('name' => 'top-menu')); ?>
+<?php } endif; ?>
 <!-- container -->
 <div class='container'>
     <!-- flashMessages -->
@@ -44,51 +46,66 @@
     );?>
     <div class="row">
         <!-- content -->
-        <section class="span9 content">
+        <section class="col-sm-9 content">
             <?php echo $content; ?>
         </section>
         <!-- content end-->
 
         <!-- sidebar -->
-        <aside class="span3 sidebar">
+        <aside class="col-sm-3 sidebar">
 
             <div class="widget blogs-widget">
-                <?php $this->widget('yupe\widgets\RandomDataWidget', array(
-                    'data' => array(
-                        CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/amyLabs.jpg','amylabs - разработка на Юпи! и Yii !'),'http://amylabs.ru?from=yupe-rb', array('title' => 'amylabs - разработка на Юпи! и Yii !','target' => '_blank')),
-                        CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/yupe-logo.jpg','Юпи! - cms на Yii !'),'http://yupe.ru?from=yupe-rb', array('title' => 'Юпи! - cms на Yii !','target' => '_blank')),
-                     )
-                )); ?>
-            </div>
-
-            <?php if (Yii::app()->user->isAuthenticated()): ?>
-                <div class="widget last-login-users-widget">
-                    <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
-                </div>
-            <?php endif; ?>         
-
-            <div class="widget stream-widget">
-                <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
-            </div>
-
-            <div class="widget last-posts-widget">
-                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
-            </div>
-
-            <div class="widget blogs-widget">
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
-            </div>
-
-            <div class="widget tags-cloud-widget">
                 <?php $this->widget(
-                    'application.modules.blog.widgets.TagCloudWidget',
-                    array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
+                    'yupe\widgets\RandomDataWidget',
+                    array(
+                        'data' => array(
+                            CHtml::link(
+                                CHtml::image(Yii::app()->baseUrl . '/web/images/amyLabs.jpg', 'amylabs - разработка на Юпи! и Yii !', array('style' => 'width: 100%')),
+                                'http://amylabs.ru?from=yupe-rb',
+                                array('title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank')
+                            ),
+                            CHtml::link(
+                                CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.jpg', 'Юпи! - cms на Yii !', array('style' => 'width: 100%')),
+                                'http://yupe.ru?from=yupe-rb',
+                                array('title' => 'Юпи! - cms на Yii !', 'target' => '_blank')
+                            ),
+                        )
+                    )
                 ); ?>
             </div>
 
-            <div class="widget last-questions-widget">
-                <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
-            </div>            
+            <?php if (Yii::app()->user->isAuthenticated()): { ?>
+                <div class="widget last-login-users-widget">
+                    <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
+                </div>
+            <?php } endif; ?>
+
+            <?php if (Yii::app()->hasModule('blog')): { ?>
+                <div class="widget stream-widget">
+                    <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
+                </div>
+
+                <div class="widget last-posts-widget">
+                    <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+                </div>
+
+                <div class="widget blogs-widget">
+                    <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+                </div>
+
+                <div class="widget tags-cloud-widget">
+                    <?php $this->widget(
+                        'application.modules.blog.widgets.TagCloudWidget',
+                        array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
+                    ); ?>
+                </div>
+            <?php } endif; ?>
+
+            <?php if (Yii::app()->hasModule('blog')): { ?>
+                <div class="widget last-questions-widget">
+                    <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+                </div>
+            <?php } endif; ?>
 
         </aside>
         <!-- sidebar end -->
@@ -99,9 +116,11 @@
 </div>
 <div class='notifications top-right' id="notifications"></div>
 <!-- container end -->
-<?php $this->widget(
-    "application.modules.contentblock.widgets.ContentBlockWidget",
-    array("code" => "STAT", "silent" => true)
-); ?>
+<?php if (Yii::app()->hasModule('contentblock')): { ?>
+    <?php $this->widget(
+        "application.modules.contentblock.widgets.ContentBlockWidget",
+        array("code" => "STAT", "silent" => true)
+    ); ?>
+<?php } endif; ?>
 </body>
 </html>

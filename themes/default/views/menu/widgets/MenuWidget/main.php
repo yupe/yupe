@@ -14,10 +14,12 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
     'items' => array(
         array(
             'class' => 'bootstrap.widgets.TbMenu',
+            'type'  => 'navbar',
             'items' => $this->params['items'],
         ),
         array(
             'class' => 'bootstrap.widgets.TbMenu',
+            'type'  => 'navbar',
             'items' => $this->controller->yupe->getLanguageSelectorArray(),
             'htmlOptions' => array(
                 'class' => 'pull-right',
