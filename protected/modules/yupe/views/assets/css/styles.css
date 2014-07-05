@@ -13,7 +13,7 @@ body {
 }
 div#page {
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
 #page [class*='icon-'] {
@@ -35,7 +35,7 @@ div#page {
 
 #overall-wrap {
     min-height: 100%;
-    margin: 0 auto -121px;
+    margin: 0 auto -93px;
 }
 .navbar-fixed-top {
     border-bottom: 1px solid #FF9600;
@@ -46,7 +46,7 @@ footer {
     text-align: center;
 
     height: 75px;
-    padding: 20px 0 25px;
+    padding: 12px 0 15px;
 
     border-top: 1px solid #E5E5E5;
 
@@ -157,4 +157,8 @@ pre .label{
 
 .table .button-column {
 	white-space: nowrap;
+}
+
+.module-errors-accordion .alert {
+	margin-bottom: 0;
 }
