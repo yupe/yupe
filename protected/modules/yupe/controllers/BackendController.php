@@ -165,7 +165,7 @@ class BackendController extends yupe\components\controllers\BackController
                         $editableParams[$key],
                         array(
                             'empty' => Yii::t('YupeModule.yupe', '--choose--'),
-                            'class' => 'span10'
+                            'class' => 'form-control'
                         )
                     );
             } else {
@@ -181,7 +181,7 @@ class BackendController extends yupe\components\controllers\BackController
                             $value,
                             array(
                                 'maxlength' => 300,
-                                'class' => 'span10'
+                                'class' => 'form-control'
                             )
                         );
                 } else {

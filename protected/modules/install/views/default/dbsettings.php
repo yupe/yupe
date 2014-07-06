@@ -2,114 +2,243 @@
 /**
  * Отображение для dbsettings:
  *
- *   @category YupeView
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category YupeView
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
-        'id'                     => 'dbsettings-form',
-        'enableAjaxValidation'   => false,
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'id' => 'dbsettings-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'inlineErrors'           => true,
+        'type' => 'vertical',
     )
 );
 
 Yii::app()->clientScript->registerScriptFile(
     Yii::app()->assetManager->publish(
         Yii::getPathOfAlias('application.modules.install.views.assets') . '/js/dbinstall.js'
-    ), CClientScript::POS_END
+    ),
+    CClientScript::POS_END
 );
 
 Yii::app()->clientScript->registerScript(
-    'dbtypes', '
+    'dbtypes',
+    '
     var dbTypes = ' . json_encode($data['model']->dbTypeNames) . ';
     var defaultAttr = {
         "mysql": ' . json_encode($data['model']->attributes) . '
     };
-    ', CClientScript::POS_BEGIN
+    ',
+    CClientScript::POS_BEGIN
 );
 
 Yii::app()->clientScript->registerScript(
-    'fieldset', "
+    'fieldset',
+    "
     $('document').ready(function () {
         $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });", CClientScript::POS_READY
+    });",
+    CClientScript::POS_READY
 );
 ?>
 
-    <?php $this->widget('install.widgets.GetHelpWidget');?>
+<?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
-    <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'You can create DB with phpmyadmin help, or with some other sql tools.'); ?></p>
-        <p><b><?php echo Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.');?></p></b>
+<div class="alert alert-info">
+    <p><?php echo Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'You can create DB with phpmyadmin help, or with some other sql tools.'); ?></p>
+    <p><b><?php echo Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.'); ?></p></b>
+</div>
+
+<?php if (!$data['result']) : { ?>
+    <div class="alert alert-danger">
+        <b><?php echo Yii::t('InstallModule.install', 'File {file} not exists or not accessible for write!', array('{file}' => $data['file'])); ?></b>
     </div>
+<?php } endif; ?>
 
-    <?php if (!$data['result']) : ?>
-        <div class="alert alert-block alert-error">
-            <b><?php echo Yii::t('InstallModule.install', 'File {file} not exists or not accessible for write!', array('{file}' => $data['file'])); ?></b>
-        </div>
-    <?php endif; ?>
+<?php echo $form->errorSummary($data['model']); ?>
 
-    <?php echo $form->errorSummary($data['model']); ?>
-
-    <div class="alert alert-block alert-info">
-        <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'This option is experiment. Only MySQL works stable.'); ?></p>
+<div class="alert alert-info">
+    <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'This option is experiment. Only MySQL works stable.'); ?></p>
+</div>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $data['model'],
+            'dbType',
+            array(
+                'widgetOptions' => array(
+                    'data' => $data['model']->getDbTypeNames(),
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('dbType'),
+                        'data-content' => $data['model']->getAttributeDescription('dbType')
+                    )
+                )
+            )
+        ); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('dbType') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($data['model'], 'dbType', $data['model']->getDbTypeNames(), array('class' => 'popover-help span7', 'data-original-title' => $data['model']->getAttributeLabel('dbType'), 'data-content' => $data['model']->getAttributeDescription('dbType'))); ?>
+</div>
+
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'host',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('host'),
+                        'data-content' => $data['model']->getAttributeDescription('host'),
+                        'autocomplete' => 'off',
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('host') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'host', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('host'), 'data-content' => $data['model']->getAttributeDescription('host'), 'autocomplete' => 'off')); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'port',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('port'),
+                        'data-content' => $data['model']->getAttributeDescription('port'),
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('port') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'port', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('port'), 'data-content' => $data['model']->getAttributeDescription('port'))); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'dbName',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('dbName'),
+                        'data-content' => $data['model']->getAttributeDescription('dbName'),
+                        'autocomplete' => 'off',
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbName') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'dbName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbName'), 'data-content' => $data['model']->getAttributeDescription('dbName'), 'autocomplete' => 'off')); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->checkBoxGroup($data['model'], 'createDb'); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('createDb') ? 'error' : ''; ?>">
-        <?php echo $form->checkBoxRow($data['model'], 'createDb'); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'tablePrefix',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('tablePrefix'),
+                        'data-content' => $data['model']->getAttributeDescription('tablePrefix'),
+                        'autocomplete' => 'off',
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('tablePrefix') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'tablePrefix', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('tablePrefix'), 'data-content' => $data['model']->getAttributeDescription('tablePrefix'))); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'dbUser',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('dbUser'),
+                        'data-content' => $data['model']->getAttributeDescription('dbUser'),
+                        'autocomplete' => 'off',
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbUser') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'dbUser', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbUser'), 'data-content' => $data['model']->getAttributeDescription('dbUser'), 'autocomplete' => 'off')); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->passwordFieldGroup(
+            $data['model'],
+            'dbPassword',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('dbPassword'),
+                        'data-content' => $data['model']->getAttributeDescription('dbPassword'),
+                        'autocomplete' => 'off',
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('dbPassword') ? 'error' : ''; ?>">
-        <?php echo $form->passwordFieldRow($data['model'], 'dbPassword', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbPassword'), 'data-content' => $data['model']->getAttributeDescription('dbPassword'), 'autocomplete' => 'off')); ?>
+<div class="row mysql-enable">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'socket',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('socket'),
+                        'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)',
+                        'autocomplete' => 'off',
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid mysql-enable postgresql-enable control-group <?php echo $data['model']->hasErrors('socket') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'socket', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('socket'), 'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
-    </div>
-
-
+<br/>
 
 <?php $this->widget(
-    'bootstrap.widgets.TbButton', array(
+    'bootstrap.widgets.TbButton',
+    array(
         'label' => Yii::t('InstallModule.install', '< Back'),
-        'url'   => array('/install/default/requirements'),
+        'buttonType' => 'link',
+        'url' => array('/install/default/requirements'),
     )
 ); ?>
 &nbsp;
 <?php $this->widget(
-    'bootstrap.widgets.TbButton', array(
+    'bootstrap.widgets.TbButton',
+    array(
         'buttonType' => 'submit',
-        'type'       => 'primary',
-        'label'      => Yii::t('InstallModule.install', 'Check connection and continue >'),
+        'context' => 'primary',
+        'label' => Yii::t('InstallModule.install', 'Check connection and continue >'),
     )
 ); ?>
 

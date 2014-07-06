@@ -32,20 +32,6 @@ class YShortCuts extends YWidget
     }
 
     /**
-     * Возвращаем иконки:
-     *
-     * @param string $icon - icon attribute
-     *
-     * @return string icons
-     **/
-    public function getIcons($icon)
-    {
-        return ($icons = explode(' ', $icon)) && count($icons) > 0
-            ? 'fa-'.implode(' fa-', explode(' ', $icon))
-            : '';
-    }
-
-    /**
      * Получаем htmlOptions:
      *
      * @param array $shortcut - массив эллемента
@@ -78,7 +64,7 @@ class YShortCuts extends YWidget
      **/
     public function getLabel($shortcut)
     {
-        return CHtml::tag('i', array('class' => "shortcut-icon fa " . $this->getIcons($shortcut['icon'])), '')
+        return CHtml::tag('i', array('class' => "shortcut-icon " . $shortcut['icon']), '')
              . CHtml::tag('span', array('class' => 'shortcut-label'), $shortcut['label']);
     }
 
@@ -97,7 +83,7 @@ class YShortCuts extends YWidget
                     && count($this->updates[$name]) > 0
                 )
             ? ''
-            : "<span class='label label-info'><i class='fa fa-spin fa-repeat'></i>&nbsp;"
+            : "<span class='label label-info'><i class='glyphicon glyphicon-refresh'></i>&nbsp;"
              . count($this->updates[$name])
              . "</span>";
     }
