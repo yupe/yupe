@@ -1,20 +1,26 @@
 <?php
-    $this->breadcrumbs = array(       
-        Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
-        Yii::t('UserModule.user', 'Create'),
-    );
+$this->breadcrumbs = array(
+    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
+    Yii::t('UserModule.user', 'Create'),
+);
 
-    $this->pageTitle = Yii::t('UserModule.user', 'Users - create');
+$this->pageTitle = Yii::t('UserModule.user', 'Users - create');
 
-    $this->menu = array(
-        array('label' => Yii::t('UserModule.user', 'Users'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
-        )),
-        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
-        )),
-    );
+$this->menu = array(
+    array(
+        'label' => Yii::t('UserModule.user', 'Users'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
+        )
+    ),
+    array(
+        'label' => Yii::t('UserModule.user', 'Tokens'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+        )
+    ),
+);
 ?>
 
 <div class="page-header">

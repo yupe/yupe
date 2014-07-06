@@ -178,12 +178,20 @@ class UserBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
             // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
-
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('UserModule.user', 'Record was removed!')
-            );
+            if($this->loadModel($id)->delete())
+            {
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('UserModule.user', 'Record was removed!')
+                );
+            }
+            else
+            {
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('UserModule.user', 'You can\'t make this changes!')
+                );
+            }
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(

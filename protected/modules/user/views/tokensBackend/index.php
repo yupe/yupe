@@ -143,7 +143,7 @@ SCRIPT;
                     ),
                 ),
                 'htmlOptions' => array(
-                    'style'   => 'width: 90px; text-align: right;'
+                    'style'   => 'width: 90px; text-align: right; white-space: nowrap;'
                 )
             ),
         ),
