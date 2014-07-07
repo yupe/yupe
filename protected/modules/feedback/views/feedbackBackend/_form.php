@@ -18,7 +18,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status')) ? 'error' : ''; ?>">
         <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'type', Yii::app()->getModule('feedback')->types, array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
+            <?php echo $form->dropDownListRow($model, 'type', Yii::app()->getModule('feedback')->getTypes(), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
         </div>
         <div class="span3">
             <?php echo $form->dropDownListRow($model,'category_id',Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help span12', 'data-original-title' => $model->getAttributeLabel('category_id'), 'encode' => false, 'data-content' => $model->getAttributeDescription('category_id'))); ?>
