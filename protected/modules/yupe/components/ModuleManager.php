@@ -286,7 +286,7 @@ class ModuleManager extends \CApplicationComponent
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
 
-                    if(Yii::app()->configManager->isCacheFile($item->getBaseName())) {
+                    if(Yii::app()->configManager->isCacheFile($item->getBaseName('.php'))) {
                         continue;
                     }
 
