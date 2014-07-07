@@ -578,41 +578,4 @@ class BackendController extends yupe\components\controllers\BackController
                 break;
         }
     }
-
-    /**
-     * Сообщить об ошибке
-     *
-     * @return void
-     **/
-    public function actionReportBug()
-    {
-        $form = new yupe\models\BugForm;
-
-        if (Yii::app()->getRequest()->getIsPostRequest() && ($bugData = Yii::app()->getRequest()->getPost('BugForm'))) {
-            $form->setAttributes($bugData);
-            if ($form->validate()) {
-                if ($form->module === BugForm::OTHER_MODULE) {
-                    $form->module = Yii::t('YupeModule.yupe', 'Other moudle');
-                }
-                Yii::app()->mail->send(
-                    Yii::app()->user->email,
-                    $form->sendTo,
-                    "[Bug in {$form->module}] " . $form->subject,
-                    $form->message
-                );
-                Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'Message sent!')
-                );
-                $this->redirect('/yupe/backend/reportBug');
-            }
-        }
-
-        $this->render(
-            'reportBug',
-            array(
-                'model' => $form
-            )
-        );
-    }
 }
