@@ -17,18 +17,49 @@ use CAction;
 use yupe\models\UploadForm;
 use CUploadedFile;
 
+/**
+ * Class YAjaxFileUploadAction
+ * @package yupe\components\actions
+ */
 class YAjaxFileUploadAction extends CAction
 {
+    /**
+     * @var null
+     */
     protected $fileLink = null;
+    /**
+     * @var null
+     */
     protected $fileName = null;
+    /**
+     * @var null
+     */
     protected $uploadedFile = null;
 
+    /**
+     * @var
+     */
     protected $uploadPath;
+    /**
+     * @var
+     */
     protected $rename;
+    /**
+     * @var
+     */
     protected $webPath;
 
+    /**
+     * @var
+     */
     public $maxSize;
+    /**
+     * @var
+     */
     public $mimeTypes;
+    /**
+     * @var
+     */
     public $types;
 
     /**
@@ -79,6 +110,9 @@ class YAjaxFileUploadAction extends CAction
         Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
     }
 
+    /**
+     * @return bool
+     */
     protected function uploadFile()
     {
         if (!$this->uploadedFile) {

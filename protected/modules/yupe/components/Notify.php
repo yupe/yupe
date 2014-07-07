@@ -7,8 +7,14 @@ use User;
 
 class Notify extends CApplicationComponent
 {
+    /**
+     * @var
+     */
     public $mail;
 
+    /**
+     *
+     */
     public function init()
     {
         $mailer = Yii::createComponent($this->mail);
@@ -17,19 +23,29 @@ class Notify extends CApplicationComponent
         parent::init();
     }
 
+    /**
+     * @param Mail $mail
+     */
     public function setMail(Mail $mail)
     {
         $this->mail = $mail;
     }
 
+    /**
+     * @param User $user
+     * @param $theme
+     * @param $view
+     * @param $data
+     * @return mixed
+     */
     public function send(User $user, $theme, $view, $data)
     {
-        $data['user'] = $user; // Хочу в шаблоне письма использовать имя пользователя или хотя бы nick_name 
+        $data['user'] = $user;
         return $this->mail->send(
             Yii::app()->getModule('user')->notifyEmailFrom,
             $user->email,
             $theme,
-            Yii::app()->controller->renderPartial($view, $data, true)
+            Yii::app()->getController()->renderPartial($view, $data, true)
         );
     }
 }

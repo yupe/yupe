@@ -21,13 +21,26 @@ use CDbCriteria;
 use Exception;
 use CLogger;
 
+/**
+ * Class BackController
+ * @package yupe\components\controllers
+ */
 class BackController extends Controller
 {
+    /**
+     *
+     */
     const BULK_DELETE = 'delete';
 
     // Прятать sidebar или нет:
+    /**
+     * @var bool
+     */
     public $hideSidebar = false;
 
+    /**
+     * @return array
+     */
     public function filters()
     {
         return array(
@@ -35,6 +48,9 @@ class BackController extends Controller
         );
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -53,6 +69,10 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * @param \CAction $action
+     * @return bool
+     */
     protected function beforeAction($action)
     {
         /**
@@ -75,6 +95,9 @@ class BackController extends Controller
         return parent::beforeAction($action);
     }
 
+    /**
+     * @throws \CHttpException
+     */
     public function actionMultiaction()
     {
         if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
@@ -126,6 +149,9 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * @throws \CHttpException
+     */
     public function actionActivate()
     {
         $status = (int)Yii::app()->getRequest()->getQuery('status');
@@ -151,6 +177,9 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * @throws \CHttpException
+     */
     public function actionSort()
     {
         $id = (int)Yii::app()->getRequest()->getQuery('id');

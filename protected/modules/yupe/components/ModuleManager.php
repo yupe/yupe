@@ -27,9 +27,21 @@ class ModuleManager extends \CApplicationComponent
 {
     const CORE_MODULE = 'yupe';
 
+    /**
+     * @var
+     */
     public $otherCategoryName;
+    /**
+     * @var
+     */
     public $category;
+    /**
+     * @var
+     */
     public $categoryIcon;
+    /**
+     * @var
+     */
     public $categorySort;
 
     public function init()
@@ -266,6 +278,7 @@ class ModuleManager extends \CApplicationComponent
         }
 
         try {
+
             if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
@@ -273,13 +286,20 @@ class ModuleManager extends \CApplicationComponent
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
 
+                    if(Yii::app()->configManager->isCacheFile($item->getBaseName())) {
+                        continue;
+                    }
+
                     if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false && $cacheFile != $item->getBaseName('.php')) {
+
                         Yii::app()->cache->flush();
 
                         unlink($modConfigs . '/' . $item->getBaseName());
 
                         throw new Exception(
-                            Yii::t('YupeModule.yupe', 'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted.')
+                            Yii::t('YupeModule.yupe', 'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted. Module is {module}...', array(
+                                    'module' => $item->getBaseName()
+                                ))
                         );
                     }
                 }

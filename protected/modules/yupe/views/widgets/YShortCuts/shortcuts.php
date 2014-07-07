@@ -38,8 +38,8 @@ Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?
     } ?>
     <a class="shortcut" href="<?php echo Yii::app()->createUrl('/yupe/backend/settings');?>">
         <div class="cn">
-            <i class="shortcut-icon fa fa-plus"></i>
-            <span class="shortcut-label"><?php echo Yii::t('YupeModule.yupe','Add new module ?');?></span>
+            <i class="shortcut-icon fa fa-th"></i>
+            <span class="shortcut-label"><?php echo Yii::t('YupeModule.yupe','Modules');?></span>
         </div>
     </a>
 </div>

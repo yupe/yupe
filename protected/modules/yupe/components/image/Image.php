@@ -5,7 +5,7 @@ use Imagine\Image\ImageInterface;
 use Yii;
 use CHttpException;
 use yupe\helpers\YFile;
-use application\modules\yupe\components\UploadManager;
+use yupe\components\UploadManager;
 
 class Image extends \CApplicationComponent
 {

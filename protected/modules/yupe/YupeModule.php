@@ -623,6 +623,9 @@ class YupeModule extends WebModule
         $items = array();
         $endItem = count($menu) - 1;
         foreach ($menu as $key => $item) {
+			if ($key === '') {
+				continue;
+			}
             if (isset($item['items']) && is_array($item['items'])) {
                 $subItems = $item['items'];
                 unset($item['items'], $item['icon'], $item['url']);
