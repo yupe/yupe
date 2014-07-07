@@ -423,4 +423,14 @@ class ConfigManager extends CComponent
 
         return @unlink($cachedSettingsFile);
     }
+
+    /**
+     * @param $fileName
+     * @return boolean
+     * @since 0.7
+     */
+    public function isCacheFile($fileName)
+    {
+        return in_array($fileName, array('cached_settings_web', 'cached_settings_console'));
+    }
 }

@@ -218,4 +218,10 @@ class FeedbackModule extends WebModule
             $this->emails = Yii::app()->getModule('yupe')->email;
         }
     }
+
+    public function getTypes()
+    {
+        return is_array($this->types) ? $this->types : array();
+    }
+
 }

@@ -89,7 +89,7 @@ $this->widget(
                                 array(
                                     'icon'  => 'icon-warning-sign',
                                     'label' => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                    'url'   => CHtml::normalizeUrl(array('/yupe/backend/reportBug/')),
+                                    'url'   => 'http://yupe.ru/contacts?from=panel',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
