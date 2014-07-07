@@ -58,6 +58,8 @@ class Post extends yupe\models\YModel implements ICommentable
     const ACCESS_PUBLIC  = 1;
     const ACCESS_PRIVATE = 2;
 
+    public $tagsItems;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className

@@ -17,7 +17,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             'inline' => array(
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Post',
-                'validAttributes' => array('title', 'slug', 'publish_date', 'status', 'comment_status')
+                'validAttributes' => array('title', 'slug', 'publish_date', 'status', 'comment_status', 'blog_id', 'category_id')
             )
         );
     }

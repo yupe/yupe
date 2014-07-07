@@ -77,10 +77,20 @@ $this->renderPartial('_search', array('model' => $model));
                 )
             ),
             array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'    => $this->createUrl('/blog/postBackend/inline'),
+                    'mode'   => 'popup',
+                    'type'   => 'select',
+                    'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('blog_id')))),
+                    'source' => CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
                 'name'   => 'blog_id',
                 'type'   => 'raw',
-                'value'  => 'CHtml::link($data->blog->name, array("/blog/blogBackend/view", "id" => $data->blog->id))',
-                'filter' => CHtml::listData(Blog::model()->findAll(),'id','name')
+                'filter' => CHtml::listData(Blog::model()->findAll(), 'id', 'name')
             ),
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',                
@@ -126,8 +136,19 @@ $this->renderPartial('_search', array('model' => $model));
 				)
             ),
             array(
+                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'    => $this->createUrl('/blog/postBackend/inline'),
+                    'mode'   => 'popup',
+                    'type'   => 'select',
+                    'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
+                    'source' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
                 'name'   => 'category_id',
-                'value'  => 'empty($data->category) ? "---" : $data->category->name',
+                'type'   => 'raw',
                 'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory)
             ),
             array(
