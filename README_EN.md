@@ -31,9 +31,9 @@ You can use simple and inexpensive small hosting and Yupe will be working:
 
 Requirements and Dependencies
 ------------------------
-* PHP >= 5.3.3
-* Yiiframework >= 1.1.14
-* YiiBooster >= 2.x
+* PHP >= 5.4
+* Yiiframework >= 1.1.15
+* YiiBooster >= 3.x
 * Nested Set Behavior
 * Imperavi Redactor Widget
 * Yii2-debug
