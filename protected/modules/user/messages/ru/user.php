@@ -159,7 +159,7 @@ return array (
     'Password is not coincide' => 'Пароли не совпадают.',
     'Password' => 'Пароль',
     'Password was changed' => 'Пароль изменен!',
-//    'туц' => 'Пароль успешно изменен!',
+    'Password was changed successfully' => 'Пароль успешно изменен!',
     'Control panel' => 'Перейти на главную панели управления',
     'Redirecting' => 'Перенаправления',
     'Activation mail was sent to user with #{id}!' => 'Письмо с активацией отправлено пользователю #{id}!',
