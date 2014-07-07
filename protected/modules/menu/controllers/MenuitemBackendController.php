@@ -65,7 +65,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             throw new CHttpException(404);
         }
 
-        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) !== null) {
+        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) == null) {
             throw new CHttpException(404);
         }
 
