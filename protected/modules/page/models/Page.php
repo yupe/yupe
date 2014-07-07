@@ -37,12 +37,10 @@
  */
 class Page extends yupe\models\YModel
 {
-
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
     const STATUS_MODERATION = 2;
 
-    // В PostgreSQL используется явное указание типов:
     const PROTECTED_NO = false;
     const PROTECTED_YES = true;
 

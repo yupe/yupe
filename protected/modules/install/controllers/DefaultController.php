@@ -386,16 +386,6 @@ class DefaultController extends yupe\components\controllers\BackController
                 Yii::t('InstallModule.install', 'Required for MySQL DB.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'PDO PostgreSQL extension'),
-                false,
-                extension_loaded('pdo_pgsql'),
-                Yii::t(
-                    'InstallModule.install',
-                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
-                ),
-                Yii::t('InstallModule.install', 'Required for PostgreSQL DB.')
-            ),
-            array(
                 Yii::t('InstallModule.install', 'PDO Oracle extension'),
                 false,
                 extension_loaded('pdo_oci'),

@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerScript(
     <?php echo $form->errorSummary($data['model']); ?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'This option is experiment. Only MySQL and PostgreSQL works stable.'); ?></p>
+        <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'This option is experiment. Only MySQL works stable.'); ?></p>
     </div>
     <div class="row-fluid control-group <?php echo $data['model']->hasErrors('dbType') ? 'error' : ''; ?>">
         <?php echo $form->dropDownListRow($data['model'], 'dbType', $data['model']->getDbTypeNames(), array('class' => 'popover-help span7', 'data-original-title' => $data['model']->getAttributeLabel('dbType'), 'data-content' => $data['model']->getAttributeDescription('dbType'))); ?>

@@ -38,7 +38,7 @@ Requirements and Dependencies
 * Nested Set Behavior
 * Imperavi Redactor Widget
 * Yii2-debug
-* MySQL/PostgreSQL
+* MySQL 5.x
 * Apaсhe/Nginx
 * Composer
 

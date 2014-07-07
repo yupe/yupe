@@ -190,13 +190,11 @@ class InstallForm extends yupe\models\YFormModel
     {
         /** Определяем доступные базы данных:
          *
-         * Варианты СУБД:
+         * Варианты СУБД
          *
-         * self::DB_MYSQL      => 'MySQL',
-         * self::DB_POSTGRESQL => 'PostgreSQL',
-         * self::DB_MSSQL      => 'MSSQL',
-         * self::DB_ORACLE     => 'Oracle',
-         **/
+         * self::DB_MYSQL => 'MySQL',
+         *
+         */
 
         $dbTypes = array();
         /**
@@ -206,10 +204,7 @@ class InstallForm extends yupe\models\YFormModel
         if (extension_loaded('pdo_mysql')) {
             $dbTypes[self::DB_MYSQL] = 'MySQL';
         }
-        if (extension_loaded('pdo_pgsql')) {
-            $dbTypes[self::DB_POSTGRESQL] = 'PostgreSQL';
-        }
-        
+
         return $dbTypes;
     }
 
@@ -236,19 +231,4 @@ class InstallForm extends yupe\models\YFormModel
         return User::model()->admin()->find()->getAttribute('email');
     }
 
-    /**
-     * Дефолтные настройки для PostgreSQL
-     *
-     * @return array default postgresql settings
-     **/
-    public function getPostgresqlDefaults()
-    {
-        $settings = $this->attributes;
-        return array_merge(
-            $settings, array(
-                'dbType' => self::DB_POSTGRESQL,
-                'port' => '5432',
-            )
-        );
-    }
 }

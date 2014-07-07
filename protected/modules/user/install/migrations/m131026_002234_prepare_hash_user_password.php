@@ -7,9 +7,6 @@
  * http://stackoverflow.com/questions/4236912/how-to-create-calculated-field-in-mysql
  * мы генерируем случайную строку, которая запретит вход по старым паролям
  *
- * В данном случае PostgreSQL жжёт и даёт действительно свободу воли,
- * используйте его, если хотите действительно чистых и полноценных
- * транзакций
  *
  * @category YupeMigration
  * @package  yupe.modules.user.install.migrations
