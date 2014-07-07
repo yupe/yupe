@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Record was updated!' => 'Запись изменена!',
   'Use drag and drop to sort' => 'Используйте drag & drop для сортировки',
   'Answer' => 'Ответить',
   'Delete' => 'Удалить',

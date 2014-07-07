@@ -345,4 +345,23 @@ class MenuItem extends yupe\models\YModel
             return false;
         }
     }
+
+    public function deleteWithChild()
+    {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try
+        {
+            $this->deleteAll('parent_id = :id', array(':id' => $this->id));
+            $this->delete();
+            $transaction->commit();
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            return false;
+        }
+
+    }
 }

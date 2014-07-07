@@ -152,7 +152,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('MenuModule.menu', 'Record was created!')
+                    Yii::t('MenuModule.menu', 'Record was updated!')
                 );
 
                 $this->redirect(
@@ -181,7 +181,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+            $this->loadModel($id)->deleteWithChild();
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
