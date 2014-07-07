@@ -355,6 +355,7 @@ class MenuItem extends yupe\models\YModel
             $this->deleteAll('parent_id = :id', array(':id' => $this->id));
             $this->delete();
             $transaction->commit();
+            return true;
         }
         catch(Exception $e)
         {
