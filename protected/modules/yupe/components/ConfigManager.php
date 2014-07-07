@@ -431,6 +431,6 @@ class ConfigManager extends CComponent
      */
     public function isCacheFile($fileName)
     {
-        return in_array($fileName, array('web_cached_settings', 'console_cached_settings'));
+        return in_array($fileName, array('cached_settings_web', 'cached_settings_console'));
     }
 }
