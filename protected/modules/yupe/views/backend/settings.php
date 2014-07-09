@@ -16,6 +16,10 @@ $this->breadcrumbs = array(
             $yupeCount = count($modules);
             $enableCount = 0;
             foreach ($modules as $module) {
+                if('install' === $module->id) {
+                    $enableCount--;
+                    $yupeCount--;
+                }
                 if ($module instanceof yupe\components\WebModule && ($module->getIsActive() || $module->getIsNoDisable())){
                     $enableCount++;
                 }
