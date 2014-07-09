@@ -26,6 +26,16 @@ use yupe\models\Settings;
 
 class BackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('admin'),),
+            array('allow', 'actions' => array('index'),),
+            array('allow', 'actions' => array('error'),),
+            array('deny',),
+        );
+    }
+
     public function actions()
     {
         return array(
@@ -614,5 +624,24 @@ class BackendController extends yupe\components\controllers\BackController
                 'model' => $form
             )
         );
+    }
+
+    public function actionError()
+    {
+        $error = \Yii::app()->errorHandler->error;
+
+        if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg'])))
+        {
+            $this->redirect(array('index'));
+        }
+
+        if (!\Yii::app()->getRequest()->getIsAjaxRequest())
+        {
+
+            $this->render('error', array(
+                    'error' => $error
+                )
+            );
+        }
     }
 }
