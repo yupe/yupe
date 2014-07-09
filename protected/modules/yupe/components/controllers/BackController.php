@@ -43,8 +43,23 @@ class BackController extends Controller
      */
     public function filters()
     {
+        $filters = array(array('yupe\filters\YBackAccessControl'));
+        if (Yii::app()->hasModule('rbac'))
+        {
+            $filters[] = 'accessControl';
+        }
+        return $filters;
+    }
+
+    /**
+     * По умолчанию для роли admin разрешены все действия.
+     * @return array
+     */
+    public function accessRules()
+    {
         return array(
-            array('yupe\filters\YBackAccessControl'),
+            array('allow', 'roles' => array('admin'),),
+            array('deny',),
         );
     }
 
