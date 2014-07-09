@@ -48,7 +48,6 @@ return array(
 
     'rules'     => array(
         '/login'                 => 'user/account/login',
-        '/backend/login'         => 'user/account/backendlogin',
         '/logout'                => 'user/account/logout',
         '/registration'          => 'user/account/registration',
         '/recovery'              => 'user/account/recovery',
