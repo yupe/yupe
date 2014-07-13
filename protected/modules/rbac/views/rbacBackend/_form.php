@@ -39,6 +39,11 @@
             event.preventDefault();
             $('.item:visible').attr('checked', true);
         });
+
+        $('#uncheck-all').click(function (event) {
+            event.preventDefault();
+            $('.item:visible').attr('checked', false);
+        });
     });
 </script>
 
@@ -67,7 +72,7 @@
 
 
 <div class="row-fluid">
-    <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('empty' => '----', 'class' => 'span5')); ?>
+    <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('empty' => '---', 'class' => 'span5')); ?>
 </div>
 
 <div class="row-fluid">
@@ -77,12 +82,15 @@
 <div id="operations-list" style="display:none;">
     <p><b>Операции:</b></p>
     <?php echo CHtml::textField('search', '', array('class' => 'span5', 'placeholder' => 'Фильтр')); ?>
-    <div><?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Выбрать все'), '#', array('id' => 'check-all')); ?></div>
+    <p>
+        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Выбрать все'), '#', array('id' => 'check-all')); ?>
+        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Очистить все'), '#', array('id' => 'uncheck-all')); ?>
+    </p>
     <?php foreach ($operations as $k => $v): ?>
         <div class="row-fluid operation">
             <div class="span7">
                 <label class="checkbox">
-                    <?php echo CHtml::checkBox('operations[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
+                    <?php echo CHtml::checkBox('ChildAuthItems[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
                     <?php echo $v;?>
                 </label>
             </div>
@@ -96,7 +104,7 @@
         <div class="row-fluid operation">
             <div class="span7">
                 <label class="checkbox">
-                    <?php echo CHtml::checkBox('tasks[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
+                    <?php echo CHtml::checkBox('ChildAuthItems[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
                     <?php echo $v;?>
                 </label>
             </div>
@@ -110,7 +118,7 @@
         <div class="row-fluid operation">
             <div class="span7">
                 <label class="checkbox">
-                    <?php echo CHtml::checkBox('roles[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
+                    <?php echo CHtml::checkBox('ChildAuthItems[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
                     <?php echo $v;?>
                 </label>
             </div>

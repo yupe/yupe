@@ -37,44 +37,24 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     public function actionAssign($id = null)
     {
-        if ($id == null)
-        {
+        $user = User::model()->findByPk((int)$id);
+        if (!$user) {
             $this->redirect(array('userList'));
         }
 
-        $user = User::model()->findByPk((int)$id);
+        if (Yii::app()->request->isPostRequest) {
+            /* получение названий ролей, которые есть в базе */
+            $existingRoles = Yii::app()->db->createCommand('SELECT name FROM {{user_user_auth_item}}')->queryColumn();
 
-        if (!$user)
-        {
-            throw new CHttpException(404);
-        }
-
-        $items     = AuthItem::model()->findAll(array('order' => 'type DESC, description ASC'));
-        $itemsData = CHtml::listData(AuthItemChild::model()->findAll(), 'child', 'parent');
-
-        if (Yii::app()->request->isPostRequest)
-        {
-            $itemsArray  = CHtml::listData($items, 'name', 'description');
             $transaction = Yii::app()->db->beginTransaction();
 
-            try
-            {
-                AuthAssignment::model()->deleteAll(
-                    'userid = :userid',
-                    array(
-                        ':userid' => (int)$user->id
-                    )
-                );
-
-                foreach ((array)$_POST['AuthItem'] as $op)
-                {
-                    if (!isset($itemsArray[$op]))
-                    {
-                        continue;
-                    }
-
+            try {
+                AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int)$user->id));
+                // убираем дубликаты и несуществующие роли
+                $roles = array_intersect(array_unique((array)$_POST['AuthItem']), $existingRoles);
+                //print_r($roles); die();
+                foreach ($roles as $op) {
                     $model = new AuthAssignment();
-
                     $model->setAttributes(
                         array(
                             'userid' => $user->id,
@@ -82,8 +62,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                         )
                     );
 
-                    if (!$model->save())
-                    {
+                    if (!$model->save()) {
                         throw new CDbException('При сохранении произошла ошибка!');
                     }
                 }
@@ -96,68 +75,14 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 Yii::app()->cache->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->language);
 
                 $this->redirect(array('assign', 'id' => $user->id));
-            } catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, $e->getMessage());
-
                 $transaction->rollback();
             }
         }
 
-        $tree = array();
-        /* @var $items AuthItem[] */
-        foreach ($items as $item)
-        {
-            $itemTemplate = array(
-                'text' => CHtml::label(
-                    CHtml::checkBox(
-                        'AuthItem[]',
-                        Yii::app()->authManager->checkAccess($item->name, $user->id),
-                        array('name' => 'operations', 'class' => 'root', 'value' => $item->name,)
-                    ) .
-                    $item->description . " ({$item->getType()})", null, array('class' => 'checkbox')
-                )
-            );
-
-            if ((int)$item->type === AuthItem::TYPE_ROLE && !isset($tree[$item->name]))
-            {
-                $tree[$item->name] = $itemTemplate;
-            }
-
-            if ((int)$item->type === AuthItem::TYPE_TASK)
-            {
-                if (isset($itemsData[$item->name]) && $itemsData[$item->name])
-                {
-                    $tree[$itemsData[$item->name]]['children'][$item->name] = $itemTemplate;
-                }
-                else
-                {
-                    $tree[$item->name] = $itemTemplate;
-                }
-            }
-
-            if ((int)$item->type === AuthItem::TYPE_OPERATION)
-            {
-                if (isset($itemsData[$item->name]) && $itemsData[$item->name])
-                {
-                    $parent = $itemsData[$item->name];
-
-                    if (isset($itemsData[$parent]) && $itemsData[$parent])
-                    {
-                        $tree[$itemsData[$parent]]['children'][$itemsData[$item->name]]['children'][$item->name] = $itemTemplate;
-                    }
-                    else
-                    {
-                        $tree[$itemsData[$item->name]]['children'][$item->name] = $itemTemplate;
-                    }
-                }
-                else
-                {
-                    $tree[$item->name] = $itemTemplate;
-                }
-            }
-        }
-
+        $rbacTree = new RbacTree($user);
+        $tree = $rbacTree->getTreeRoles();
         $this->render('assign', array('tree' => $tree, 'model' => $user));
     }
 
@@ -165,220 +90,123 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         $model = new AuthItem();
 
-        $operationsList = $tasksList = $rolesList = array();
-
-        $items = AuthItem::model()->findAll();
-        foreach ($items as $item)
-        {
-            switch ($item->type)
-            {
-                case AuthItem::TYPE_OPERATION:
-                    $operationsList[$item->name] = $item->description . " ({$item->name})";
-                    break;
-                case AuthItem::TYPE_TASK:
-                    $tasksList[$item->name] = $item->description . " ({$item->name})";
-                    break;
-                case AuthItem::TYPE_ROLE:
-                    $rolesList[$item->name] = $item->description . " ({$item->name})";
-                    break;
-            }
-        }
-
-        if (Yii::app()->request->isPostRequest && isset($_POST['AuthItem']))
-        {
+        if (Yii::app()->request->isPostRequest && isset($_POST['AuthItem'])) {
             $transaction = Yii::app()->db->beginTransaction();
-            try
-            {
+            try {
                 $model->attributes = Yii::app()->request->getPost('AuthItem');
-                if ($model->save())
-                {
-                    $children = array();
-                    if ($model->type == AuthItem::TYPE_TASK)
-                    {
-                        $children = Yii::app()->request->getPost('operations', array());
-                    }
-                    else if ($model->type == AuthItem::TYPE_TASK)
-                    {
-                        $children = array_merge(
-                            Yii::app()->request->getPost('operations', array()),
-                            Yii::app()->request->getPost('tasks', array())
-                        );
-                    }
-                    elseif ($model->type == AuthItem::TYPE_ROLE)
-                    {
-                        $children = array_merge(
-                            Yii::app()->request->getPost('operations', array()),
-                            Yii::app()->request->getPost('tasks', array()),
-                            Yii::app()->request->getPost('roles', array())
-                        );
-                    }
+                if ($model->save()) {
+                    $this->updateAuthItemChildren($model);
 
-                    if (!empty($children))
-                    {
-                        foreach ($children as $name)
-                        {
-                            if ($name == $model->name)
-                            {
-                                continue;
-                            }
-
-                            $child = new AuthItemChild;
-                            $child->setAttributes(
-                                array(
-                                    'parent' => $model->name,
-                                    'child' => $name
-                                )
-                            );
-
-                            if (!$child->save())
-                            {
-                                throw new CDbException('Ошибка при сохранении связанных объектов!');
-                            }
-                        }
-                    }
                     $transaction->commit();
 
                     Yii::app()->user->setFlash('success', 'Действие добавлено!');
                     $this->redirect(array('view', 'id' => $model->name));
                 }
-            } catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 Yii::app()->user->setFlash('error', $e->getMessage());
                 $transaction->rollback();
             }
         }
 
+        $rbacTree = new RbacTree();
         $this->render(
             'create',
             array(
                 'model' => $model,
-                'operations' => $operationsList,
-                'tasks' => $tasksList,
-                'roles' => $rolesList,
+                'operations' => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
+                'tasks' => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
+                'roles' => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
             )
         );
     }
 
+    private function updateAuthItemChildren(AuthItem $item)
+    {
+        $criteria = new CDbCriteria();
+        // для операций доступны только операции, для задач - операции и задачи, для ролей - роли, задачи и операции
+        $criteria->addInCondition('type', array_slice(array(AuthItem::TYPE_OPERATION, AuthItem::TYPE_TASK, AuthItem::TYPE_ROLE), 0, $item->type + 1));
+        // не может наследовать себя
+        $criteria->addNotInCondition('name', array($item->name));
+
+        $availableChildren = AuthItem::model()->findAll($criteria);
+        // названия ролей, которые могут бы потомками
+        $availableChildrenName = array_keys(CHtml::listData($availableChildren, 'name', 'description'));
+        // уберем те, которые не могут быть потомками
+        $children = array_intersect(Yii::app()->request->getPost('ChildAuthItems', array()), $availableChildrenName);
+
+        AuthItemChild::model()->deleteAll('parent = :parent', array(':parent' => $item->name));
+
+        foreach ($children as $name) {
+            $child = new AuthItemChild();
+            $child->setAttributes(
+                array(
+                    'parent' => $item->name,
+                    'child' => $name
+                )
+            );
+
+            if (!$child->save()) {
+                throw new CException('Ошибка при сохранении связанных объектов!');
+            }
+        }
+    }
+
+
     public function actionUpdate($id)
     {
         /* @var $model AuthItem */
-        $model = AuthItem::model()->with('parents.parentItem')->findByPk($id);
+        $model = AuthItem::model()->findByPk($id);
 
-        $operationsList = $tasksList = $rolesList = $checkedList = array();
-
-        $items = AuthItem::model()->findAll();
-        foreach ($items as $item)
-        {
-            if ($item->name == $id)
-            {
-                continue;
-            }
-            switch ($item->type)
-            {
-                case AuthItem::TYPE_OPERATION:
-                    $operationsList[$item->name] = $item->description . " ({$item->name})";
-                    break;
-                case AuthItem::TYPE_TASK:
-                    $tasksList[$item->name] = $item->description . " ({$item->name})";
-                    break;
-                case AuthItem::TYPE_ROLE:
-                    $rolesList[$item->name] = $item->description . " ({$item->name})";
-                    break;
-            }
+        $checkedList = array();
+        foreach ($model->children as $item) {
+            $checkedList[$item->childItem->name] = true;
         }
 
-        foreach ($model->children as $item)
-        {
-            $checkedList[$item->childItem->name] = $item->childItem->description . " ({$item->childItem->name})";
-        }
-
-        if (Yii::app()->request->isPostRequest && isset($_POST['AuthItem']))
-        {
+        if (Yii::app()->request->isPostRequest && isset($_POST['AuthItem'])) {
             $transaction = Yii::app()->db->beginTransaction();
-            try
-            {
+            try {
                 $model->attributes = $_POST['AuthItem'];
-                if ($model->save())
-                {
-                    $items = array();
-                    /* роли могут включать в себя роли, задачи, операции, задачи - задачи и операции, операции - операции*/
-                    switch ($model->type)
-                    {
-                        case AuthItem::TYPE_ROLE:
-                            $items = array_merge($items, Yii::app()->request->getPost('roles', array()));
-                        case AuthItem::TYPE_TASK:
-                            $items = array_merge($items, Yii::app()->request->getPost('tasks', array()));
-                        case AuthItem::TYPE_OPERATION:
-                            $items = array_merge($items, Yii::app()->request->getPost('operations', array()));
-                            break;
-                    }
-
-                    AuthItemChild::model()->deleteAll(
-                        'parent = :parent',
-                        array(
-                            ':parent' => $model->name
-                        )
-                    );
-
-                    foreach ($items as $name)
-                    {
-                        $child = new AuthItemChild;
-                        $child->setAttributes(
-                            array(
-                                'parent' => $model->name,
-                                'child' => $name
-                            )
-                        );
-
-                        if (!$child->save())
-                        {
-                            throw new CException('Ошибка при сохранении связанных объектов!');
-                        }
-                    }
+                if ($model->save()) {
+                    $this->updateAuthItemChildren($model);
 
                     $transaction->commit();
 
                     Yii::app()->user->setFlash('success', 'Действие изменено!');
                     $this->redirect(array('update', 'id' => $model->name));
                 }
-            } catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 Yii::app()->user->setFlash('error', $e->getMessage());
                 $transaction->rollback();
             }
         }
 
+        $rbacTree = new RbacTree();
         $this->render(
             'update',
             array(
                 'model' => $model,
-                'operations' => $operationsList,
-                'tasks' => $tasksList,
-                'roles' => $rolesList,
+                'operations' => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
+                'tasks' => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
+                'roles' => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
                 'checkedList' => $checkedList,
+
             )
         );
     }
 
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
-            try
-            {
+        if (Yii::app()->request->isPostRequest) {
+            try {
                 $this->loadModel($id)->delete();
-            } catch (CDbException $e)
-            {
+            } catch (CDbException $e) {
                 throw new CHttpException(500, 'Невозможно удалить запись!');
             }
 
-            if (!isset($_GET['ajax']))
-            {
+            if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
             }
-        }
-        else
-        {
+        } else {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
         }
     }
@@ -387,8 +215,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         $model = new AuthItem('search');
         $model->unsetAttributes();
-        if (isset($_GET['AuthItem']))
-        {
+        if (isset($_GET['AuthItem'])) {
             $model->attributes = $_GET['AuthItem'];
         }
 
@@ -412,8 +239,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
     private function getRulesList($rules, $parent = null)
     {
         $items = array();
-        foreach ($rules as $rule)
-        {
+        foreach ($rules as $rule) {
             $items[] = array(
                 'name' => $rule['name'],
                 'description' => $rule['description'],
@@ -421,8 +247,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 'bizrule' => isset($rule['bizrule']) ? $rule['bizrule'] : null,
                 'parent' => $parent ? $parent['name'] : '',
             );
-            if (isset($rule['items']) && is_array($rule['items']))
-            {
+            if (isset($rule['items']) && is_array($rule['items'])) {
                 $items = array_merge($items, $this->getRulesList($rule['items'], $rule));
             }
         }
@@ -432,10 +257,8 @@ class RbacBackendController extends yupe\components\controllers\BackController
     private function getRulesParentsAndChildren($rulesList)
     {
         $items = array();
-        foreach ($rulesList as $rule)
-        {
-            if ($rule['parent'])
-            {
+        foreach ($rulesList as $rule) {
+            if ($rule['parent']) {
                 $items[] = array(
                     'parent' => $rule['parent'],
                     'child' => $rule['name'],
@@ -448,71 +271,60 @@ class RbacBackendController extends yupe\components\controllers\BackController
     public function actionImport()
     {
         $modulesList = array();
-        $modules     = array();
-        foreach (Yii::app()->getModules() as $key => $value)
-        {
-            $key    = strtolower($key);
+        $modules = array();
+        foreach (Yii::app()->getModules() as $key => $value) {
+            $key = strtolower($key);
             $module = Yii::app()->getModule($key);
-            if (($module !== null))
-            {
-                if ($module instanceof \yupe\components\WebModule)
-                {
-                    $modulesList[$key] = $module->getName() . " <span class='muted'>[{$key}]</span>";
-                    $modules[$key]     = $module;
-                }
+            if ($module instanceof \yupe\components\WebModule) {
+                $modulesList[$key] = $module->getName() . " <span class='muted'>[{$key}]</span>";
+                $modules[$key] = $module;
             }
         }
-        if (Yii::app()->request->isPostRequest)
-        {
-            foreach ((array)$_POST['modules'] as $moduleName)
-            {
-                if (isset($modules[$moduleName]))
-                {
-                    /* @var $module \yupe\components\WebModule */
-                    $module = $modules[$moduleName];
-                    $rules  = $module->getAuthItems();
+        if (Yii::app()->request->isPostRequest) {
+            $importModules = array_intersect(Yii::app()->request->getPost('modules', array()), array_keys($modules));
+            foreach ($importModules as $moduleName) {
+                /* @var $module \yupe\components\WebModule */
+                $module = $modules[$moduleName];
+                $rules = $module->getAuthItems();
 
-                    // 1 - получить все элементы из дерева
-                    $items           = $this->getRulesList($rules);
-                    $parentsChildren = $this->getRulesParentsAndChildren($items);
+                // 1 - получить все элементы из дерева
+                $items = $this->getRulesList($rules);
+                $parentsChildren = $this->getRulesParentsAndChildren($items);
 
-                    // обновляем
-                    foreach ($items as $item)
-                    {
-                        $model = AuthItem::model()->findByPk($item['name']);
-                        if (!$model)
-                        {
-                            $model = new AuthItem();
-                        }
-                        $model->attributes = $item;
-                        $model->save();
+                // обновляем
+                foreach ($items as $item) {
+                    $model = AuthItem::model()->findByPk($item['name']);
+                    if (!$model) {
+                        $model = new AuthItem();
                     }
+                    $model->attributes = $item;
+                    $model->save();
+                }
 
-                    // удаляем удаленные из модуля
-                    // оставшиеся
-                    $availableItems = array_map(function ($x)
-                    {
+                // удаляем удаленные из модуля
+                // оставшиеся
+                $availableItems = array_map(
+                    function ($x) {
                         return $x['name'];
-                    }, $items);
+                    },
+                    $items
+                );
 
-                    /* удаляем правила */
-                    $criteria = new CDbCriteria();
-                    $criteria->addCondition('name like :rule');
-                    $criteria->params = array(':rule' => ucfirst($moduleName) . '.%');
-                    $criteria->addNotInCondition('name', $availableItems);
+                /* удаляем правила */
+                $criteria = new CDbCriteria();
+                $criteria->addCondition('name like :rule');
+                $criteria->params = array(':rule' => ucfirst($moduleName) . '.%');
+                $criteria->addNotInCondition('name', $availableItems);
 
-                    AuthItem::model()->deleteAll($criteria);
+                AuthItem::model()->deleteAll($criteria);
 
-                    /* создаем связи */
-                    foreach ($parentsChildren as $pair)
-                    {
-                        $model = AuthItemChild::model()->findByPk(array('parent' => $pair['parent'], 'child' => $pair['child']));
-                        if (!$model)
-                        {
-                            $model             = new AuthItemChild();
-                            $model->attributes = $pair;
-                            $model->save();
-                        }
+                /* создаем связи */
+                foreach ($parentsChildren as $pair) {
+                    $model = AuthItemChild::model()->findByPk(array('parent' => $pair['parent'], 'child' => $pair['child']));
+                    if (!$model) {
+                        $model = new AuthItemChild();
+                        $model->attributes = $pair;
+                        $model->save();
                     }
                 }
             }
@@ -533,8 +345,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
     public function loadModel($id)
     {
         $model = AuthItem::model()->findByPk($id);
-        if ($model === null)
-        {
+        if ($model === null) {
             throw new CHttpException(404, 'The requested page does not exist.');
         }
         return $model;
@@ -546,8 +357,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'auth-item-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'auth-item-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
