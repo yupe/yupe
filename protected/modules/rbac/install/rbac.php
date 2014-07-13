@@ -12,6 +12,6 @@
         ),
     ),
     'rules' => array(
-        '/backend/rbac/<controller:\w+>/<action:\w+>/<id:\w+._->' => 'rbac/<controller>Backend/<action>',
+        '/backend/rbac/<controller:\w+>/<action:\w+>/<id:[\w._-]+>' => 'rbac/<controller>Backend/<action>',
     ),
 );

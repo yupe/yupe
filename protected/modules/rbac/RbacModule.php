@@ -19,7 +19,7 @@ class RbacModule extends WebModule
 
     public function getAdminPageLink()
     {
-        return '/rbac/rbacBackend/index';
+        return '/rbac/rbacBackend/assign';
     }
 
     public function getNavigation()
@@ -50,12 +50,12 @@ class RbacModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('RbacModule.rbac', 'amylabs team / Dark_Cs');
+        return Yii::t('RbacModule.rbac', 'amylabs team');
     }
 
     public function getAuthorEmail()
     {
-        return 'hello@amylabs.ru / darkcs2@gmail.com';
+        return 'hello@amylabs.ru';
     }
 
     public function getUrl()
