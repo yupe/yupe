@@ -1,4 +1,19 @@
 <div class="row-fluid">
+    <div class="span2">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton', array(
+                'buttonType' => 'link',
+                'type' => 'success',
+                'size' => 'mini',
+                'url' => array('/blog/postBackend/create'),
+                'label' => Yii::t('BlogModule.blog', 'New post')
+            )
+        ); ?>
+    </div>
+</div>
+
+<div class="row-fluid">
 
     <div class="span8">
 
