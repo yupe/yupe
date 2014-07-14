@@ -51,8 +51,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             try {
                 AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int)$user->id));
                 // убираем дубликаты и несуществующие роли
-                $roles = array_intersect(array_unique((array)$_POST['AuthItem']), $existingRoles);
-                //print_r($roles); die();
+                $roles = array_intersect(array_unique((array)Yii::app()->request->getPost('AuthItem')), $existingRoles);
                 foreach ($roles as $op) {
                     $model = new AuthAssignment();
                     $model->setAttributes(

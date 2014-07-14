@@ -7,9 +7,9 @@
 class RbacTree
 {
     /**
-     * @var array - правила, сгруппированыые по типам, формат array(2 => array(), 1 => array(), 0 => array())
+     * @var array - правила, сгруппированыые по типам, формат array(2 => array(AuthItem1, AuthItem2), 1 => array(), 0 => array())
      */
-    private $itemsGroupedByTypes = array();
+    private $itemsGroupedByTypes = array(AuthItem::TYPE_OPERATION => array(), AuthItem::TYPE_TASK => array(), AuthItem::TYPE_ROLE => array());
     /**
      * @var array - список правил в формате name => AuthItem object
      */
@@ -44,7 +44,7 @@ class RbacTree
     {
         $userAssign = CHtml::listData(AuthAssignment::model()->findAllByAttributes(array('userid' => $this->user->id)), 'itemname', 'userid');
         $authItems = AuthItem::model()->findAll(array('order' => 'type DESC, description ASC'));
-        foreach ($authItems as $item) {
+        foreach ((array)$authItems as $item) {
             $this->itemsGroupedByTypes[$item->type][$item->name] = $item;
             $this->itemsList[$item->name] = $item;
             // если проверять каждый элемент, то генерируется огромное количество запросов, но получается правильное дерево с отмеченными дочерними элементами
@@ -52,7 +52,7 @@ class RbacTree
             $this->permissionList[$item->name] = isset($userAssign[$item->name]); //Yii::app()->authManager->checkAccess($item->name, $this->user->id);
         }
         $authItemsChild = AuthItemChild::model()->findAll();
-        foreach ($authItemsChild as $item) {
+        foreach ((array)$authItemsChild as $item) {
             $this->hierarchy[$item->parent][] = $item->child;
             $this->wereChildren[] = $item->child;
         }
