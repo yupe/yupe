@@ -75,7 +75,7 @@ return array (
   'SOAP extension' => 'Расширение SOAP',
   'SPL extension' => 'Расширение SPL',
   'Security and Safe Mode' => 'Безопасность и безопасный режим',
-  'Site settings saved successfully!' => 'Насройки сайта успешно сохранены!',
+  'Site settings saved successfully!' => 'Настройки сайта успешно сохранены!',
   'The Alternative PHP Cache (APC) is a free and open opcode cache for PHP. Its goal is to provide a free, open, and robust framework for caching and optimizing PHP intermediate code. {b}Optional{/b}.' => 'APC - свободный opcode кешер для PHP. Необходим для кеширования и оптимизации выполнения PHP кода {b}Не обязателен{/b}',
   'The administrator has successfully created!' => 'Администратор успешно создан!',
   'The module {name} is disabled!' => 'Модуль {name} отключен!',
