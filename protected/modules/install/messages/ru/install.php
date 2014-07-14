@@ -35,7 +35,7 @@ return array (
   'Configuration option safe_mode' => 'Опци конфигурации safe_mode',
   'Could not obtain information about the location. Please check whether the correct value in the variable {path_info} (or {php_self} and {script_name}).' => 'Не удалось получить информацию о директории. Проверьте правильность значений переменных {path_info} (или {php_self} и {script_name})',
   'Couldn\'t connect to DB with these params!' => 'Не удалось подключится к базе данных используя текущие параметры!',
-  'Couldn\'t connect to DB!' => 'Не удлось подключится к базе данных!',
+  'Couldn\'t connect to DB!' => 'Не удалось подключится к базе данных!',
   'Ctype extension' => 'Расширение Ctype',
   'DOM extension' => 'Расширение DOM',
   'Email' => 'Email',
