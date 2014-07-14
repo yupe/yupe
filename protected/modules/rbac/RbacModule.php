@@ -4,6 +4,8 @@ use yupe\components\WebModule;
 
 class RbacModule extends WebModule
 {
+    const VERSION = '0.1.1';
+
     public function init()
     {
         $this->setImport(
@@ -65,12 +67,12 @@ class RbacModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('RbacModule.rbac', '0.1.1');
+        return self::VERSION;
     }
 
     public function getIcon()
     {
-        return 'user';
+        return 'ok';
     }
 
     public function getDependencies()
@@ -83,16 +85,16 @@ class RbacModule extends WebModule
         return array(
             array(
                 'name' => 'Rbac.RbacManager',
-                'description' => 'Управление ролями пользователей',
-                'type' => 1,
+                'description' => Yii::t('RbacModule.rbac', 'Manage roles'),
+                'type' => AuthItem::TYPE_OPERATION,
                 'items' => array(
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Assign', 'description' => 'Назначение ролей',),
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Create', 'description' => 'Создание ролей',),
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Delete', 'description' => 'Удаление ролей',),
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Import', 'description' => 'Импорт правил из модулей',),
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Index', 'description' => 'Просмотр списка ролей',),
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.Update', 'description' => 'Редактирование ролей',),
-                    array('type' => 0, 'name' => 'Rbac.RbacBackend.View', 'description' => 'Просмотр ролей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.Assign', 'description' => 'Назначение ролей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.Create', 'description' => 'Создание ролей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.Delete', 'description' => 'Удаление ролей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.Import', 'description' => 'Импорт правил из модулей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.Index', 'description' => 'Просмотр списка ролей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.Update', 'description' => 'Редактирование ролей',),
+                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Rbac.RbacBackend.View', 'description' => 'Просмотр ролей',),
                 )
             )
         );

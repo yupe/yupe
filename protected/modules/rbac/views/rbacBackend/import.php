@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-    'Действия' => array('index'),
-    'Импорт',
+    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+    Yii::t('RbacModule.rbac', 'Import'),
 );
 
 $this->menu = array(
@@ -16,7 +16,7 @@ $this->menu = array(
 
 ?>
 
-<h3>Импорт правил RBAC</h3>
+<h3><?php echo Yii::t('RbacModule.rbac','Rules import');?></h3>
 
 <?php $form = $this->beginWidget(
     'CActiveForm',
@@ -30,10 +30,11 @@ $this->menu = array(
 ); ?>
 
 <div class="row-fluid">
-    <?php echo CHtml::checkBoxList('modules[]', null, $modules, array(
-        'template' => '<label class="checkbox">{input}{label}</label>',
-        'separator' => '',
-    ));?>
+    <?php foreach($modules as $moduleId => $moduleName):?>
+    <label class="checkbox">
+        <?php echo CHtml::checkBox('modules[]',false, array('value' => $moduleId));?><?php echo $moduleName;?> <span class='muted'>[<?php echo $moduleId;?>]</span>
+    </label>
+    <?php endforeach;?>
 </div>
 
 <br/>
@@ -43,7 +44,7 @@ $this->widget(
     'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type' => 'primary',
-        'label' => Yii::t('RbacModule.rbac', 'Импортировать'),
+        'label' => Yii::t('RbacModule.rbac', 'Import'),
     )
 );
 ?>

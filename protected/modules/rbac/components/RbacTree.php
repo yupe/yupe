@@ -137,6 +137,7 @@ class RbacTree
     private function getTreeForUnusedElements($type)
     {
         $tree = array();
+
         // цикл идет по элементам определенной роли, которые не были упомянуты в качестве потомков
         foreach (array_diff(array_keys((array)$this->itemsGroupedByTypes[$type]), $this->wereChildren) as $name) {
             $tree[] = $this->getTextNode($name);

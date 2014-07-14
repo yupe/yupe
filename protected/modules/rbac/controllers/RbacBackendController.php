@@ -276,7 +276,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
             if ($module instanceof \yupe\components\WebModule) {
-                $modulesList[$key] = $module->getName() . " <span class='muted'>[{$key}]</span>";
+                $modulesList[$key] = $module->getName();
                 $modules[$key] = $module;
             }
         }

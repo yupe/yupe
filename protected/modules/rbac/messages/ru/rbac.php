@@ -14,5 +14,8 @@ return array(
     'Select {field}' => 'Выберите {field}',
     'Enter {field}' => 'Введите {field}',
     'Import RBAC' => 'Импортировать правила',
-    'Admin' => 'Администратор',
+    'Admin'  => 'Администратор',
+    'Import' => 'Импортировать',
+    'Rules import' => 'Импорт правил',
+    'Actions' => 'Действия'
 );
