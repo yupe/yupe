@@ -120,6 +120,10 @@ class BlogController extends yupe\components\controllers\FrontController
         Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occured when you were leaving the blog!'));
     }
 
+    /**
+     * @param $slug
+     * @throws CHttpException
+     */
     public function actionMembers($slug)
     {
         $blog = Blog::model()->getBySlug($slug);
