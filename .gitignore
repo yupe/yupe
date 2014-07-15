@@ -17,6 +17,7 @@ protected/config/db.php
 /tests/tests/_log/
 *.*~
 *.yml
+!.teatro.yml
 !*.dist.yml
 /.vagrant/
 Vagrantfile
