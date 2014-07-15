@@ -116,7 +116,7 @@ $form = $this->beginWidget(
                 'buttonType' => 'submit',
                 'type' => 'primary',
                 'icon' => 'white search',
-                'label' => Yii::t('UserModule.user', 'Find user'),
+                'label' => Yii::t('RbacModule.rbac', 'Find user'),
             )
         ); ?>
 
@@ -125,7 +125,7 @@ $form = $this->beginWidget(
                 'buttonType' => 'reset',
                 'type' => 'danger',
                 'icon' => 'white remove',
-                'label' => Yii::t('UserModule.user', 'Reset'),
+                'label' => Yii::t('RbacModule.rbac', 'Reset'),
             )
         ); ?>
     </div>

@@ -59,9 +59,9 @@
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('RbacModule.rbac', 'Поля отмеченные'); ?>
+    <?php echo Yii::t('RbacModule.rbac', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('RbacModule.rbac', 'Обязательны.'); ?>
+    <?php echo Yii::t('RbacModule.rbac', 'are required.'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -81,10 +81,10 @@
 
 <div id="operations-list" style="display:none;">
     <p><b>Операции:</b></p>
-    <?php echo CHtml::textField('search', '', array('class' => 'span5', 'placeholder' => 'Фильтр')); ?>
+    <?php echo CHtml::textField('search', '', array('class' => 'span5', 'placeholder' => Yii::t('RbacModule.rbac','Filter'))); ?>
     <p>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Выбрать все'), '#', array('id' => 'check-all')); ?>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Очистить все'), '#', array('id' => 'uncheck-all')); ?>
+        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', array('id' => 'check-all')); ?>
+        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', array('id' => 'uncheck-all')); ?>
     </p>
     <?php foreach ($operations as $k => $v): ?>
         <div class="row-fluid operation">
@@ -139,7 +139,7 @@ $this->widget(
     'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Сохранить'),
+        'label' => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Save'),
     )
 );
 ?>

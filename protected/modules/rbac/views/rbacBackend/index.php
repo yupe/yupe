@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-    'Действия' => array('index'),
-    'Управление',
+    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+    Yii::t('RbacModule.rbac', 'Manage'),
 );
 
 $this->menu = array(
@@ -16,7 +16,7 @@ $this->menu = array(
 
 ?>
 
-<h3>Управление действиями</h3>
+<h3><?php echo Yii::t('RbacModule.rbac', 'Manage items');?></h3>
 
 <?php $this->widget(
     'bootstrap.widgets.TbExtendedGridView',

@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-    'Действия' => array('index'),
-    'Добавление',
+    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+    Yii::t('RbacModule.rbac', 'Addition'),
 );
 
 $this->menu = array(
@@ -13,6 +13,6 @@ $this->menu = array(
 );
 ?>
 
-    <h3>Добавление действия</h3>
+<h3><?php echo Yii::t('RbacModule.rbac','Adding item');?></h3>
 
 <?php echo $this->renderPartial('_form', array('model' => $model, 'operations' => $operations, 'tasks' => $tasks, 'roles' => $roles)); ?>

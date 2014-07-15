@@ -17,7 +17,7 @@
         'bootstrap.widgets.TbButton',
         array(
             'type' => 'primary',
-            'label' => Yii::t('RbacModule.rbac', 'Искать'),
+            'label' => Yii::t('RbacModule.rbac', 'Search'),
         )
     ); ?>
 </div>

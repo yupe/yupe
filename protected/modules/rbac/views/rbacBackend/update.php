@@ -1,8 +1,8 @@
 <?php
 $this->breadcrumbs = array(
-    'Действия' => array('index'),
+    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
     $model->name => array('view', 'id' => $model->name),
-    'Редактирование',
+    Yii::t('RbacModule.rbac', 'Edit'),
 );
 
 $this->menu = array(
@@ -16,7 +16,7 @@ $this->menu = array(
 ?>
 
     <h3>
-        Редактирование действия "<?php echo $model->description; ?>"
+        <?php echo Yii::t('RbacModule.rbac', 'Edit item');?> "<?php echo $model->description; ?>"
         <small>(<?php echo $model->getType() . ' ' . $model->name; ?>)</small>
     </h3>
 

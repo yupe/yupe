@@ -19,12 +19,12 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Действия' => array('index'),
-    'Назначение прав',
+    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+    Yii::t('RbacModule.rbac', 'Rights assignment'),
 );
 ?>
 
-<h3>Назначение прав пользователю "<?php echo $model->getFullName(); ?>"</h3>
+<h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment');?> "<?php echo $model->getFullName(); ?>"</h3>
 
 <?php
 $form = $this->beginWidget(
@@ -46,7 +46,7 @@ $form = $this->beginWidget(
         array(
             'buttonType' => 'submit',
             'type' => 'primary',
-            'label' => 'Сохранить',
+            'label' => Yii::t('RbacModule.rbac', 'Save'),
         )
     );
     ?>

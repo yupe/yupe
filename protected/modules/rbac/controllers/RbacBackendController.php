@@ -62,13 +62,19 @@ class RbacBackendController extends yupe\components\controllers\BackController
                     );
 
                     if (!$model->save()) {
-                        throw new CDbException('При сохранении произошла ошибка!');
+                        throw new CDbException(Yii::t(
+                            'RbacModule.rbac',
+                            'There is an error occurred when saving data!'
+                        ));
                     }
                 }
 
                 $transaction->commit();
 
-                Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, 'Данные обновлены!');
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('RbacModule.rbac', 'Data was updated!')
+                );
 
                 /*сброс кэша меню*/
                 Yii::app()->cache->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->language);
@@ -98,7 +104,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash('success', 'Действие добавлено!');
+                    Yii::app()->user->setFlash(
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t('RbacModule.rbac', 'The item is added!')
+                    );
                     $this->redirect(array('view', 'id' => $model->name));
                 }
             } catch (Exception $e) {
@@ -123,7 +132,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         $criteria = new CDbCriteria();
         // для операций доступны только операции, для задач - операции и задачи, для ролей - роли, задачи и операции
-        $criteria->addInCondition('type', array_slice(array(AuthItem::TYPE_OPERATION, AuthItem::TYPE_TASK, AuthItem::TYPE_ROLE), 0, $item->type + 1));
+        $criteria->addInCondition(
+            'type',
+            array_slice(array(AuthItem::TYPE_OPERATION, AuthItem::TYPE_TASK, AuthItem::TYPE_ROLE), 0, $item->type + 1)
+        );
         // не может наследовать себя
         $criteria->addNotInCondition('name', array($item->name));
 
@@ -145,7 +157,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             );
 
             if (!$child->save()) {
-                throw new CException('Ошибка при сохранении связанных объектов!');
+                throw new CDbException(Yii::t('RbacModule.rbac', 'There is an error occurred when saving data!'));
             }
         }
     }
@@ -170,7 +182,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash('success', 'Действие изменено!');
+                    Yii::app()->user->setFlash(
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t('RbacModule.rbac', 'The item is changed!')
+                    );
                     $this->redirect(array('update', 'id' => $model->name));
                 }
             } catch (Exception $e) {
@@ -195,18 +210,17 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
-            try {
-                $this->loadModel($id)->delete();
-            } catch (CDbException $e) {
-                throw new CHttpException(500, 'Невозможно удалить запись!');
-            }
-
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-            }
-        } else {
+        if (!Yii::app()->request->isPostRequest) {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        }
+        try {
+            $this->loadModel($id)->delete();
+        } catch (CDbException $e) {
+            throw new CHttpException(Yii::t('RbacModule.rbac', 'There is an error occurred when deleting data!'));
+        }
+
+        if (!isset($_GET['ajax'])) {
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
     }
 
@@ -250,6 +264,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 $items = array_merge($items, $this->getRulesList($rule['items'], $rule));
             }
         }
+
         return $items;
     }
 
@@ -264,6 +279,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 );
             }
         }
+
         return $items;
     }
 
@@ -319,7 +335,9 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
                 /* создаем связи */
                 foreach ($parentsChildren as $pair) {
-                    $model = AuthItemChild::model()->findByPk(array('parent' => $pair['parent'], 'child' => $pair['child']));
+                    $model = AuthItemChild::model()->findByPk(
+                        array('parent' => $pair['parent'], 'child' => $pair['child'])
+                    );
                     if (!$model) {
                         $model = new AuthItemChild();
                         $model->attributes = $pair;
@@ -328,7 +346,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 }
             }
 
-            Yii::app()->user->setFlash('success', 'Правила импортированы!');
+            Yii::app()->user->setFlash(
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                Yii::t('RbacModule.rbac', 'Items successfully imported!')
+            );
             $this->redirect(array('import'));
         }
         $this->render('import', array('modules' => $modulesList));
@@ -345,8 +366,9 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         $model = AuthItem::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, Yii::t('RbacModule.rbac', 'was not found'));
         }
+
         return $model;
     }
 
