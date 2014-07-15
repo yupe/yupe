@@ -26,10 +26,6 @@ class YBackAccessControl extends CAccessControlFilter
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->user->isSuperUser() || Yii::app()->hasModule('rbac')) {
-            return true;
-        }
-
         Yii::app()->user->loginUrl = array('/user/account/backendlogin');
 
         if (Yii::app()->user->isGuest) {
@@ -38,9 +34,13 @@ class YBackAccessControl extends CAccessControlFilter
             }
             Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
             $filterChain->controller->redirect(array('/user/account/backendlogin'));
-        } else {
-            // если пользователь авторизован, но не администратор, перекинем его на страницу для разлогиневшегося пользователя
-            $filterChain->controller->redirect(Yii::app()->createAbsoluteUrl(Yii::app()->getModule('user')->logoutSuccess));
         }
+
+        if (Yii::app()->user->isSuperUser() || Yii::app()->hasModule('rbac')) {
+            return true;
+        }
+
+        // если пользователь авторизован, но не администратор, перекинем его на страницу для разлогиневшегося пользователя
+        $filterChain->controller->redirect(Yii::app()->createAbsoluteUrl(Yii::app()->getModule('user')->logoutSuccess));
     }
 }
