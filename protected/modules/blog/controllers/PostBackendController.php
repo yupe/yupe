@@ -11,6 +11,20 @@
  */
 class PostBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Blog.PostBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.PostBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Blog.PostBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.PostBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Blog.PostBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Blog.PostBackend.View')),
+            array('deny')
+        );
+    }
+
     public function actions()
     {
         return array(

@@ -61,7 +61,7 @@ return array (
     'Latest posts' => 'Последние записи',
     'Posts list with tag "{tag}"'=> 'Записи с меткой "{tag}"',
     'Posts list' => 'Записи',
-    'Discuss' => 'Обсуждают', 
+    'Discuss' => 'Обсуждают',
     'archive'       => 'Архив',
     'Posts archive' => 'Архив записей',
     '*unknown*' => '*неизвестно*',
@@ -276,4 +276,24 @@ return array (
     'All posts' => 'Все записи',
     'All' => 'Все',
 	'Select {field}' => 'Выберите {field}',
+
+    'Manage blogs'  => 'Управление блогами',
+
+    'Creating blog' => 'Создание блога',
+    'Removing blog' => 'Удаление блога',
+    'List of blogs' => 'Просмотр списка блогов',
+    'Editing blog'  => 'Редактирование блога',
+    'Viewing blogs' => 'Просмотр блога',
+
+    'Creating post' => 'Создание поста',
+    'Removing post' => 'Удаление поста',
+    'List of posts' => 'Просмотр списка постов',
+    'Editing post'  => 'Редактирование поста',
+    'Viewing post'  => 'Просмотр поста',
+
+    'Creating member' => 'Создание участника',
+    'Removing member' => 'Удаление участника',
+    'List of members' => 'Просмотр списка участников',
+    'Editing member'  => 'Редактирование участника',
+    'Viewing member'  => 'Просмотр участника'
 );

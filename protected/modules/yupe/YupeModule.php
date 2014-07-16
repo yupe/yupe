@@ -343,7 +343,7 @@ class YupeModule extends WebModule
     {
         $langs = array();
         foreach (explode(',', $this->availableLanguages) as $lang) {
-            $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
+            $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName($lang);
         }
         return $langs;
     }
@@ -715,9 +715,9 @@ class YupeModule extends WebModule
             $text = Yii::t('YupeModule.yupe', 'Powered by Yupe!');
         }
         return CHtml::link(
-            CHtml::image(Yii::app()->baseUrl . "/web/images/yupe_{$color}.png", $text),
+            CHtml::image(Yii::app()->getBaseUrl() . "/web/images/yupe_{$color}.png", $text),
             'http://yupe.ru?from=pb',
-            array('title' => $text, 'alt' => $text)
+            array('title' => CHtml::encode($text), 'alt' => CHtml::encode($text))
         );
     }
 
@@ -737,7 +737,7 @@ class YupeModule extends WebModule
     {
        $data = array();
 
-       foreach (new GlobIterator(Yii::app()->theme->basePath.DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR .'layouts' . DIRECTORY_SEPARATOR .'*.php') as $item) {           
+       foreach (new GlobIterator(Yii::app()->getTheme()->basePath.DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR .'layouts' . DIRECTORY_SEPARATOR .'*.php') as $item) {
             $name = $item->getBaseName('.php');
             $data[$name] = $name;
        }

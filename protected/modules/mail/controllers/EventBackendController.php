@@ -11,6 +11,20 @@
  **/
 class EventBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Mail.EventBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Mail.EventBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Mail.EventBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Mail.EventBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Mail.EventBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Mail.EventBackend.View')),
+            array('deny')
+        );
+    }
+    
     public function actions()
     {
         return array(

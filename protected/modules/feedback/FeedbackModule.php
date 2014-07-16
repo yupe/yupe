@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class FeedbackModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $backEnd = array('DbFeedbackSender', 'EmailFeedbackSender');
     public $emails;
@@ -222,6 +222,54 @@ class FeedbackModule extends WebModule
     public function getTypes()
     {
         return is_array($this->types) ? $this->types : array();
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Feedback.FeedbackManager',
+                'description' => Yii::t('FeedbackModule.feedback', 'Manage feedback'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.Create',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Creating feedback')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.Delete',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Removing feedback')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.Index',
+                        'description' => Yii::t('FeedbackModule.feedback', 'List of feedback')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.Update',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Editing feedback')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.Inline',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Editing feedback')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.View',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Viewing feedback')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Feedback.FeedbackBackend.Answer',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Answer feedback')
+                    ),
+                )
+            )
+        );
     }
 
 }

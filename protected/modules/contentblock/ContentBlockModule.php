@@ -12,7 +12,7 @@
  */
 class ContentBlockModule extends yupe\components\WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public function getCategory()
     {
@@ -90,4 +90,47 @@ class ContentBlockModule extends yupe\components\WebModule
 	{
 		return true;
 	}
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'ContentBlock.ContentBlockManager',
+                'description' => Yii::t('ContentBlockModule.contentblock', 'Manage blocks'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Create',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Creating block')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Delete',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Removing block')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Index',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'List of blocks')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Update',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Inline',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.View',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Viewing blocks')
+                    ),
+                )
+            )
+        );
+    }
 }

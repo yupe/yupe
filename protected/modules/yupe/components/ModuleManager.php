@@ -445,7 +445,7 @@ class ModuleManager extends \CApplicationComponent
     /**
      * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
      *
-     * @param boo $module - Имя модуля
+     * @param bool $module - Имя модуля
      *
      * @since 0.5
      * @return string путь к папке или файлу с конфигурацией модуля(-ей)

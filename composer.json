@@ -13,6 +13,22 @@
             "role": "Developer"
         },
         {
+            "name": "Nickolay Sedov",
+            "email": "yamikspark@gmail.com",
+            "homepage": "http://amylabs.ru",
+            "role": "Developer"
+        },
+        {
+            "name": "Anton Kucherov",
+            "homepage": "http://idexter.ru/",
+            "role": "Developer"
+        },
+        {
+            "name": "Alexey Elizarov",
+            "homepage": "http://amylabs.ru",
+            "role": "Designer"
+        },
+        {
             "name": "Maxim Timashov",
             "email": "apexwire@gmail.com",
             "role": "Developer"
@@ -21,12 +37,6 @@
             "name" : "Alexander Tischenko",
             "email" : "tsm@archaron.ru",
             "homepage":"http://archaron.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Nickolay Sedov",
-            "email": "yamikspark@gmail.com",
-            "homepage": "http://amylabs.ru",
             "role": "Developer"
         },
         {
@@ -44,16 +54,6 @@
             "name": "Anton Cherepanov",
             "homepage": "https://twitter.com/davetoxa",
             "role": "Developer"
-        },
-        {
-            "name": "Anton Kucherov",
-            "homepage": "http://idexter.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexey Elizarov",
-            "homepage": "http://amylabs.ru",
-            "role": "Designer"
         }
     ],
     "support": {

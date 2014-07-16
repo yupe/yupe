@@ -18,10 +18,6 @@
  */
 return array (
     'Search' => 'Поиск',
-    '0.2' => '0.2',
-    'WebAction webstudio' => 'WebAction webstudio',
-    'http://webaction.su' => 'http://webaction.su',
-    'info@webaction.su' => 'info@webaction.su',
     'For index creation, please click button below.' => 'Для создания или обновления индекса нажмите кнопку ниже.',
     'Index is updating... Wait please...' => 'Индекс обновляется... Подождите...',
     'Index updated successfully!' => 'Индекс успешно обновлен!',
@@ -45,4 +41,7 @@ return array (
     'Update config file or module, Module index not found for model "{model}"!' => 'Обновите конфигурационный файл модуля или настройки индексации, индекс "module" не найден в настройках для модели {model}',
     'Module "{module}" not installed!' => 'Модуль "{module}" не установлен!',
     'This module require "Iconv" extension!' => 'Данный модуль требует наличия "Iconv" расширения!',
+    'Index' => 'Индексация',
+    'Manage search index' => 'Управление поисковым индексом',
+    'Reindex site' => 'Переиндексация сайта'
 );

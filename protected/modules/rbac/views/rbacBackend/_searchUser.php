@@ -1,6 +1,7 @@
 <?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
+    'bootstrap.widgets.TbActiveForm',
+    array(
         'method' => 'get',
         'type' => 'vertical',
         'htmlOptions' => array('class' => 'well'),
@@ -9,7 +10,9 @@ $form = $this->beginWidget(
     <div class="row-fluid">
         <div class="span6">
             <?php echo $form->textFieldRow(
-                $model, 'nick_name', array(
+                $model,
+                'nick_name',
+                array(
                     'size' => 60,
                     'maxlength' => 150,
                     'class' => 'input-block-level'
@@ -18,7 +21,9 @@ $form = $this->beginWidget(
         </div>
         <div class="span6">
             <?php echo $form->textFieldRow(
-                $model, 'email', array(
+                $model,
+                'email',
+                array(
                     'size' => 60,
                     'maxlength' => 150,
                     'class' => 'input-block-level'
@@ -30,7 +35,9 @@ $form = $this->beginWidget(
     <div class="row-fluid">
         <div class="span6">
             <?php echo $form->textFieldRow(
-                $model, 'first_name', array(
+                $model,
+                'first_name',
+                array(
                     'size' => 60,
                     'maxlength' => 150,
                     'class' => 'input-block-level'
@@ -39,7 +46,9 @@ $form = $this->beginWidget(
         </div>
         <div class="span6">
             <?php echo $form->textFieldRow(
-                $model, 'last_name', array(
+                $model,
+                'last_name',
+                array(
                     'size' => 60,
                     'maxlength' => 150,
                     'class' => 'input-block-level'
@@ -50,7 +59,10 @@ $form = $this->beginWidget(
 
     <div class="row-fluid">
         <div class="span3">
-            <?php echo $form->datepickerRow($model, 'registration_date', array(
+            <?php echo $form->datepickerRow(
+                $model,
+                'registration_date',
+                array(
                     'options' => array(
                         'format' => 'dd-mm-yyyy',
                         'weekStart' => 1,
@@ -62,11 +74,15 @@ $form = $this->beginWidget(
                 ),
                 array(
                     'prepend' => '<i class="icon-calendar"></i>',
-                ));
+                )
+            );
             ?>
         </div>
         <div class="span3">
-            <?php echo $form->datepickerRow($model, 'last_visit', array(
+            <?php echo $form->datepickerRow(
+                $model,
+                'last_visit',
+                array(
                     'options' => array(
                         'format' => 'dd-mm-yyyy',
                         'weekStart' => 1,
@@ -78,12 +94,16 @@ $form = $this->beginWidget(
                 ),
                 array(
                     'prepend' => '<i class="icon-calendar"></i>',
-                ));
+                )
+            );
             ?>
         </div>
         <div class="span3">
             <?php echo $form->dropDownListRow(
-                $model, 'gender', $model->getGendersList(), array(
+                $model,
+                'gender',
+                $model->getGendersList(),
+                array(
                     'empty' => '---',
                     'class' => 'input-block-level',
                 )
@@ -94,7 +114,10 @@ $form = $this->beginWidget(
     <div class="row-fluid">
         <div class="span6">
             <?php echo $form->dropDownListRow(
-                $model, 'status', $model->getStatusList(), array(
+                $model,
+                'status',
+                $model->getStatusList(),
+                array(
                     'empty' => '---',
                     'class' => 'input-block-level',
                 )
@@ -102,7 +125,10 @@ $form = $this->beginWidget(
         </div>
         <div class="span6">
             <?php echo $form->dropDownListRow(
-                $model, 'access_level', $model->getAccessLevelsList(), array(
+                $model,
+                'access_level',
+                $model->getAccessLevelsList(),
+                array(
                     'empty' => '---',
                     'class' => 'input-block-level',
                 )
@@ -112,7 +138,8 @@ $form = $this->beginWidget(
 
     <div class="form-actions">
         <?php $this->widget(
-            'bootstrap.widgets.TbButton', array(
+            'bootstrap.widgets.TbButton',
+            array(
                 'buttonType' => 'submit',
                 'type' => 'primary',
                 'icon' => 'white search',
@@ -121,7 +148,8 @@ $form = $this->beginWidget(
         ); ?>
 
         <?php $this->widget(
-            'bootstrap.widgets.TbButton', array(
+            'bootstrap.widgets.TbButton',
+            array(
                 'buttonType' => 'reset',
                 'type' => 'danger',
                 'icon' => 'white remove',

@@ -11,6 +11,20 @@
  */
 class DictionaryDataBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Dictionary.DictionaryDataBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Dictionary.DictionaryDataBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Dictionary.DictionaryDataBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Dictionary.DictionaryDataBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Dictionary.DictionaryDataBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Dictionary.DictionaryDataBackend.View')),
+            array('deny')
+        );
+    }
+
     public function actions()
     {
         return array(

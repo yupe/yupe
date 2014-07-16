@@ -10,10 +10,9 @@
  * @since 0.1
  *
  */
-
-
 class ZendSearchModule extends yupe\components\WebModule
 {
+    const VERSION = '0.8';
 
     public $indexFiles = 'runtime.search';
 
@@ -26,7 +25,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     /**
      * массив групп параметров модуля, для группировки параметров на странице настроек
-     * 
+     *
      * @return array
      */
     public function getEditableParamsGroups()
@@ -47,7 +46,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getVersion()
     {
-        return Yii::t('ZendSearchModule.zendsearch', '0.2');
+        return self::VERSION;
     }
 
     public function getEditableParams()
@@ -79,17 +78,17 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getAuthor()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'WebAction webstudio');
+        return Yii::t('ZendSearchModule.zendsearch', 'amylabs');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'info@webaction.su');
+        return Yii::t('ZendSearchModule.zendsearch', 'hello@amylabs.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'http://webaction.su');
+        return Yii::t('ZendSearchModule.zendsearch', 'http://amylabs.ru');
     }
 
     public function getIcon()
@@ -104,24 +103,43 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function init()
     {
-        // this method is called when the module is being created
-        // you may place code here to customize the module or the application
-        // import the module-level models and components
-        $this->setImport(array(
-            'application.modules.zendsearch.models.*',
-            'application.modules.zendsearch.components.*',
-            'application.modules.zendsearch.components.widgets.*',
-        ));
+        parent::init();
+
+        $this->setImport(
+            array(
+                'application.modules.zendsearch.models.*',
+                'application.modules.zendsearch.components.*',
+                'application.modules.zendsearch.components.widgets.*',
+            )
+        );
     }
 
-    public function beforeControllerAction($controller, $action)
+    public function getNavigation()
     {
-        if (parent::beforeControllerAction($controller, $action)) {
-            // this method is called before any module controller action is performed
-            // you may place customized code here
-            return true;
-        } else
-            return false;
+        return array(
+            array(
+                'icon' => 'list-alt',
+                'label' => Yii::t('ZendSearchModule.zendsearch', 'Index'),
+                'url' => array('/zendsearch/manageBackend/index')
+            )
+        );
     }
 
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'ZendSearch.ZendSearchManager',
+                'description' => Yii::t('ZendSearchModule.zendsearch', 'Manage search index'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Zendsearch.ManageBackend.Create',
+                        'description' => Yii::t('ZendSearchModule.zendsearch', 'Reindex site')
+                    ),
+                )
+            )
+        );
+    }
 }

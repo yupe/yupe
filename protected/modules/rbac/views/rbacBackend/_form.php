@@ -72,16 +72,25 @@
 
 
 <div class="row-fluid">
-    <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('empty' => '---', 'class' => 'span5')); ?>
+    <?php echo $form->dropDownListRow(
+        $model,
+        'type',
+        $model->getTypeList(),
+        array('empty' => '---', 'class' => 'span5')
+    ); ?>
 </div>
 
 <div class="row-fluid">
-    <?php echo $form->textFieldRow($model, 'description', array('class' => 'span8')); ?>
+    <?php echo $form->textFieldRow($model, 'description', array('class' => 'span5')); ?>
 </div>
 
 <div id="operations-list" style="display:none;">
-    <p><b>Операции:</b></p>
-    <?php echo CHtml::textField('search', '', array('class' => 'span5', 'placeholder' => Yii::t('RbacModule.rbac','Filter'))); ?>
+    <p><b><?php echo Yii::t('RbacModule.rbac', 'Operations')?>:</b></p>
+    <?php echo CHtml::textField(
+        'search',
+        '',
+        array('class' => 'span5', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter'))
+    ); ?>
     <p>
         <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', array('id' => 'check-all')); ?>
         <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', array('id' => 'uncheck-all')); ?>
@@ -90,8 +99,12 @@
         <div class="row-fluid operation">
             <div class="span7">
                 <label class="checkbox">
-                    <?php echo CHtml::checkBox('ChildAuthItems[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
-                    <?php echo $v;?>
+                    <?php echo CHtml::checkBox(
+                        'ChildAuthItems[]',
+                        isset($checkedList[$k]),
+                        array('class' => 'item', 'value' => $k, 'id' => $k)
+                    ); ?>
+                    <?php echo $v; ?>
                 </label>
             </div>
         </div>
@@ -104,8 +117,12 @@
         <div class="row-fluid operation">
             <div class="span7">
                 <label class="checkbox">
-                    <?php echo CHtml::checkBox('ChildAuthItems[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
-                    <?php echo $v;?>
+                    <?php echo CHtml::checkBox(
+                        'ChildAuthItems[]',
+                        isset($checkedList[$k]),
+                        array('class' => 'item', 'value' => $k, 'id' => $k)
+                    ); ?>
+                    <?php echo $v; ?>
                 </label>
             </div>
         </div>
@@ -118,8 +135,12 @@
         <div class="row-fluid operation">
             <div class="span7">
                 <label class="checkbox">
-                    <?php echo CHtml::checkBox('ChildAuthItems[]', isset($checkedList[$k]), array('class' => 'item', 'value' => $k, 'id' => $k)); ?>
-                    <?php echo $v;?>
+                    <?php echo CHtml::checkBox(
+                        'ChildAuthItems[]',
+                        isset($checkedList[$k]),
+                        array('class' => 'item', 'value' => $k, 'id' => $k)
+                    ); ?>
+                    <?php echo $v; ?>
                 </label>
             </div>
         </div>
@@ -136,7 +157,8 @@
 
 <?php
 $this->widget(
-    'bootstrap.widgets.TbButton', array(
+    'bootstrap.widgets.TbButton',
+    array(
         'buttonType' => 'submit',
         'type' => 'primary',
         'label' => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Save'),

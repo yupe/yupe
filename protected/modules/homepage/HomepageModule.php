@@ -14,7 +14,7 @@ Yii::import('application.modules.blog.models.Post');
 
 class HomepageModule extends yupe\components\WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     const MODE_POSTS = 1;
 

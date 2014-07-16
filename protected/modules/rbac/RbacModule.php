@@ -98,7 +98,7 @@ class RbacModule extends WebModule
             array(
                 'name' => 'Rbac.RbacManager',
                 'description' => Yii::t('RbacModule.rbac', 'Manage roles'),
-                'type' => AuthItem::TYPE_OPERATION,
+                'type' => AuthItem::TYPE_TASK,
                 'items' => array(
                     array(
                         'type' => AuthItem::TYPE_OPERATION,

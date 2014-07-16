@@ -11,6 +11,20 @@
  */
 class CatalogBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Catalog.CatalogBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Catalog.CatalogBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Catalog.CatalogBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Catalog.CatalogBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Catalog.CatalogBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Catalog.CatalogBackend.View')),
+            array('deny')
+        );
+    }
+    
     public function actions()
     {
         return array(

@@ -11,6 +11,23 @@
  **/
 class GalleryBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Gallery.GalleryBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Gallery.GalleryBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Gallery.GalleryBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Gallery.GalleryBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Gallery.GalleryBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Gallery.GalleryBackend.View')),
+            array('allow', 'actions' => array('images'), 'roles' => array('Gallery.GalleryBackend.Images')),
+            array('allow', 'actions' => array('deleteImage'), 'roles' => array('Gallery.GalleryBackend.DeleteImage')),
+            array('allow', 'actions' => array('addimages'), 'roles' => array('Gallery.GalleryBackend.Addimages')),
+            array('deny')
+        );
+    }
+    
     public function actions()
     {
         return array(
@@ -359,6 +376,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     public function loadModel($id)
     {
         if (($model = Gallery::model()->findByPk($id)) === null) {
+
             throw new CHttpException(
                 404,
                 Yii::t('GalleryModule.gallery', 'Requested page was not found.')
@@ -366,20 +384,5 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         }
 
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     * 
-     * @param CModel модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Gallery $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'gallery-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

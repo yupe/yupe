@@ -5,21 +5,39 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('RbacModule.rbac', 'Roles'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('RbacModule.rbac', 'Manage roles'), 'url' => array('/rbac/rbacBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('RbacModule.rbac', 'Create role'), 'url' => array('/rbac/rbacBackend/create')),
-    )),
-    array('label' => Yii::t('RbacModule.rbac', 'Users'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('RbacModule.rbac', 'Users'), 'url' => array('/rbac/rbacBackend/userList')),
-    )),
+    array(
+        'label' => Yii::t('RbacModule.rbac', 'Roles'),
+        'items' => array(
+            array(
+                'icon' => 'list-alt',
+                'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
+                'url' => array('/rbac/rbacBackend/index')
+            ),
+            array(
+                'icon' => 'plus-sign',
+                'label' => Yii::t('RbacModule.rbac', 'Create role'),
+                'url' => array('/rbac/rbacBackend/create')
+            ),
+        )
+    ),
+    array(
+        'label' => Yii::t('RbacModule.rbac', 'Users'),
+        'items' => array(
+            array(
+                'icon' => 'list-alt',
+                'label' => Yii::t('RbacModule.rbac', 'Users'),
+                'url' => array('/rbac/rbacBackend/userList')
+            ),
+        )
+    ),
 );
 
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'Manage items');?></h3>
+<h3><?php echo Yii::t('RbacModule.rbac', 'Manage items'); ?></h3>
 
 <?php $this->widget(
-    'bootstrap.widgets.TbExtendedGridView',
+    'yupe\widgets\CustomGridView',
     array(
         'id' => 'auth-item-grid',
         'dataProvider' => $model->search(),
@@ -37,7 +55,11 @@ $this->menu = array(
                 'editable' => array(
                     'type' => 'text',
                     'url' => array('/rbac/rbacBackend/inlineEdit'),
-                    'title' => Yii::t('RbacModule.rbac', 'Enter {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+                    'title' => Yii::t(
+                            'RbacModule.rbac',
+                            'Enter {field}',
+                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                        ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
@@ -52,7 +74,11 @@ $this->menu = array(
                     'url' => $this->createUrl('/rbac/rbacBackend/inlineEdit'),
                     'mode' => 'popup',
                     'type' => 'select',
-                    'title' => Yii::t('RbacModule.rbac', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('type')))),
+                    'title' => Yii::t(
+                            'RbacModule.rbac',
+                            'Select {field}',
+                            array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
+                        ),
                     'source' => AuthItem::model()->getTypeList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

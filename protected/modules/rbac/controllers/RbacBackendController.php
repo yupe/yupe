@@ -5,17 +5,17 @@ class RbacBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('assign'), 'roles' => array('Rbac.RbacBackend.Assign'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Rbac.RbacBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Rbac.RbacBackend.Delete'),),
-            array('allow', 'actions' => array('import'), 'roles' => array('Rbac.RbacBackend.Import'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Rbac.RbacBackend.Index'),),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Rbac.RbacBackend.Update'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Rbac.RbacBackend.Update'),),
-            array('allow', 'actions' => array('userList'), 'roles' => array('Rbac.RbacBackend.Assign'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Rbac.RbacBackend.View'),),
-            array('deny',),
+            array('allow', 'roles' => array('admin')),
+            array('allow', 'actions' => array('assign'), 'roles' => array('Rbac.RbacBackend.Assign')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Rbac.RbacBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Rbac.RbacBackend.Delete')),
+            array('allow', 'actions' => array('import'), 'roles' => array('Rbac.RbacBackend.Import')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Rbac.RbacBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Rbac.RbacBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Rbac.RbacBackend.Update')),
+            array('allow', 'actions' => array('userList'), 'roles' => array('Rbac.RbacBackend.Assign')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Rbac.RbacBackend.View')),
+            array('deny',)
         );
     }
 

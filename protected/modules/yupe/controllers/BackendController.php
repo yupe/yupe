@@ -29,9 +29,9 @@ class BackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('index'),),
-            array('allow', 'actions' => array('error'),),
+            array('allow', 'roles' => array('admin')),
+            array('allow', 'actions' => array('index')),
+            array('allow', 'actions' => array('error')),
             array('deny',),
         );
     }

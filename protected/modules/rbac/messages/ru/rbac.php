@@ -14,7 +14,7 @@ return array(
     'Select {field}' => 'Выберите {field}',
     'Enter {field}' => 'Введите {field}',
     'Import RBAC' => 'Импортировать правила',
-    'Admin'  => 'Администратор',
+    'Admin' => 'Администратор',
     'Import' => 'Импортировать',
     'Rules import' => 'Импорт правил',
     'Actions' => 'Действия',
@@ -48,5 +48,11 @@ return array(
     'Manage' => 'Управление',
     'Manage items' => 'Управление действиями',
     'Edit' => 'Редактирование',
-    'Edit item' => 'Редактирование действия'
+    'Edit item' => 'Редактирование действия',
+    'User list' => 'Список пользователей',
+    'management' => 'управление',
+    'Find users' => 'Поиск пользователей',
+    'Permissions' => 'Права',
+    'View action' => 'Просмотр действия',
+    'Operations'  => 'Операции'
 );

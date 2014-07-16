@@ -166,4 +166,11 @@ return array (
   'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'=>'Срочно <a href="http://yupe.ru/contacts?from=contact" target="_blank">напишите нам</a> об этом!',
   'We try to answer as fast as we can!'=>'Мы стараемся отвечать очень быстро :)',
   'Thanks for attention!'=>'Спасибо, за внимание!',
+    'Manage feedback' => 'Управление обратной связью',
+    'Creating feedback' => 'Создание сообщения обратной связи',
+    'Removing feedback' => 'Удаление сообщений обратной связи',
+    'List of feedback' => 'Просмотр списка сообщений обратной связи',
+    'Editing feedback' => 'Редактирование сообщений обратной связи',
+    'Viewing feedback' => 'Просмотр сообщения обратной связи',
+    'Answer feedback' => 'Ответ на сообщения обратной связи'
 );

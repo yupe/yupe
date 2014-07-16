@@ -13,7 +13,7 @@
 
 class QueueModule extends yupe\components\WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $workerNamesMap;
 
@@ -83,6 +83,49 @@ class QueueModule extends yupe\components\WebModule
             array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
             array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Clean queue'), 'url' => array('/queue/queueBackend/clear')),
+        );
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Queue.QueueManager',
+                'description' => Yii::t('QueueModule.queue', 'Manage queue'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Queue.QueueBackend.Create',
+                        'description' => Yii::t('QueueModule.queue', 'Creating queue')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Queue.QueueBackend.Delete',
+                        'description' => Yii::t('QueueModule.queue', 'Removing queue')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Queue.QueueBackend.Index',
+                        'description' => Yii::t('QueueModule.queue', 'List of queue')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Queue.QueueBackend.Update',
+                        'description' => Yii::t('QueueModule.queue', 'Editing queue')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Queue.QueueBackend.Inline',
+                        'description' => Yii::t('QueueModule.queue', 'Editing queue')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Queue.QueueBackend.View',
+                        'description' => Yii::t('QueueModule.queue', 'Viewing queue')
+                    ),
+                )
+            )
         );
     }
 }

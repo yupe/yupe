@@ -14,6 +14,20 @@ Yii::import('application.modules.menu.models.*');
  
 class PageBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Page.PageBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Page.PageBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Page.PageBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Page.PageBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Page.PageBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Page.PageBackend.View')),
+            array('deny')
+        );
+    }
+
     public function actions()
     {
         return array(

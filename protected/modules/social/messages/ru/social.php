@@ -8,5 +8,9 @@ return array(
     'Service' => 'Сервис',
     'Uuid' => 'Uuid',
     'User name' => 'Имя пользователя',
-    'Email' => 'Email'
+    'Email' => 'Email',
+    'Manage social accounts'  => 'Управление социальными аккаунтами',
+    'Removing social account' => 'Удаление социального аккаунта',
+    'List of social accounts' => 'Просмотр списка социальных аккаунтов',
+    'Viewing social account'  => 'Просмотр социального акканута'
 );

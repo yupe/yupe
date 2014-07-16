@@ -12,6 +12,20 @@
  */
 class MenuitemBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuitemBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuitemBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuitemBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Menu.MenuitemBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Menu.MenuitemBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Menu.MenuitemBackend.View')),
+            array('deny')
+        );
+    }
+
     public function actions()
     {
         return array(

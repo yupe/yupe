@@ -13,6 +13,21 @@
  **/
 class UserBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('User.UserBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('User.UserBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('User.UserBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.UserBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('User.UserBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('User.UserBackend.View')),
+            array('allow', 'actions' => array('view'), 'roles' => array('User.UserBackend.Changepassword')),
+            array('deny')
+        );
+    }
+    
     public function actions()
     {
         return array(

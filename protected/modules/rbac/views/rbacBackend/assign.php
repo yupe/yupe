@@ -13,7 +13,9 @@
         });
 
         // для того, чтобы дерево было развернуто только до второго уровня, как сделать это нормально не ясно
-        setTimeout(function () {$('ul.treeview > li > div.hitarea').click();}, 200);
+        setTimeout(function () {
+            $('ul.treeview > li > div.hitarea').click();
+        }, 200);
     });
 </script>
 
@@ -24,7 +26,7 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment');?> "<?php echo $model->getFullName(); ?>"</h3>
+<h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?php echo $model->getFullName(); ?>"</h3>
 
 <?php
 $form = $this->beginWidget(

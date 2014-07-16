@@ -100,4 +100,12 @@ return array (
   'yupe team' => 'yupe team',
   'Constant link' => 'Постоянная ссылка',
   'Select {field}' => 'Выберите {field}',
+
+  'Manage catalog' => 'Управление товарами',
+
+  'Creating good' => 'Создание товара',
+  'Removing good' => 'Удаление товара',
+  'List of goods' => 'Просмотр списка товаров',
+  'Editing goods' => 'Редактирование товара',
+  'Viewing goods' => 'Просмотр товара'
 );

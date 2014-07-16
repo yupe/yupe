@@ -350,4 +350,17 @@ return array (
     'User not found' => 'Пользователь не найден',
     'Send a letter to verify email' => 'Отправить письмо для проверки email',
 	'Select {field}' => 'Выберите {field}',
+    'Manage users' => 'Управление пользователями',
+    'Creating user' => 'Создание пользователя',
+    'Removing user' => 'Удаление пользователя',
+    'List of users' => 'Просмотр списка пользователей',
+    'Editing users' => 'Редактирование пользователя',
+    'Viewing users' => 'Просмотр пользователя',
+    'Change password' => 'Смена пароля',
+
+    'Creating user token' => 'Создание токена пользователя',
+    'Removing user token' => 'Удаление токена пользователя',
+    'List of user tokens' => 'Просмотр токена списка пользователей',
+    'Editing user tokens' => 'Редактирование токена пользователя',
+    'Viewing user tokens' => 'Просмотр токена пользователя'
 );

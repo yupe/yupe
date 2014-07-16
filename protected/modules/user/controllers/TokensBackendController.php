@@ -14,6 +14,19 @@
 
 class TokensBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('User.TokenBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('User.TokenBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('User.TokenBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokenBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('User.TokenBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('User.TokenBackend.View')),
+            array('deny')
+        );
+    }
 	/**
 	 * UserToken используем что-бы не дёргать каждый раз
 	 * базу данных:

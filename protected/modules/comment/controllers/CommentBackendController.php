@@ -11,6 +11,20 @@
  */
 class CommentBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Comment.CommentBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Comment.CommentBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Comment.CommentBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Comment.CommentBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Comment.CommentBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Comment.CommentBackend.View')),
+            array('deny')
+        );
+    }
+
     public function actionInline()
     {
         if (!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {

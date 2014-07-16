@@ -16,7 +16,7 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $accountActivationSuccess = '/user/account/login';
     public $accountActivationFailure = '/user/account/registration';
@@ -365,5 +365,85 @@ class UserModule extends WebModule
         );
 
         parent::init();
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'User.UserManager',
+                'description' => Yii::t('UserModule.user', 'Manage users'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    //users
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.Create',
+                        'description' => Yii::t('UserModule.user', 'Creating user')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.Delete',
+                        'description' => Yii::t('UserModule.user', 'Removing user')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.Index',
+                        'description' => Yii::t('UserModule.user', 'List of users')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.Update',
+                        'description' => Yii::t('UserModule.user', 'Editing users')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.Inline',
+                        'description' => Yii::t('UserModule.user', 'Editing users')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.View',
+                        'description' => Yii::t('UserModule.user', 'Viewing users')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.UserBackend.Changepassword',
+                        'description' => Yii::t('UserModule.user', 'Change password')
+                    ),
+                    //tokens
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.TokenBackend.Create',
+                        'description' => Yii::t('UserModule.user', 'Creating user token')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.TokenBackend.Delete',
+                        'description' => Yii::t('UserModule.user', 'Removing user token')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.TokenBackend.Index',
+                        'description' => Yii::t('UserModule.user', 'List of user tokens')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.TokenBackend.Update',
+                        'description' => Yii::t('UserModule.user', 'Editing user tokens')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.TokenBackend.Inline',
+                        'description' => Yii::t('UserModule.user', 'Editing user tokens')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'User.TokenBackend.View',
+                        'description' => Yii::t('UserModule.user', 'Viewing user tokens')
+                    ),
+                )
+            )
+        );
     }
 }

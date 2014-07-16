@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CatalogModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $uploadPath        = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -148,5 +148,48 @@ class CatalogModule extends WebModule
             'catalog.models.*',
             'catalog.components.*',
         ));
-    }  
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Catalog.CatalogManager',
+                'description' => Yii::t('CatalogModule.catalog', 'Manage catalog'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Catalog.CatalogBackend.Create',
+                        'description' => Yii::t('CatalogModule.catalog', 'Creating good')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Catalog.CatalogBackend.Delete',
+                        'description' => Yii::t('CatalogModule.catalog', 'Removing good')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Catalog.CatalogBackend.Index',
+                        'description' => Yii::t('CatalogModule.catalog', 'List of goods')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Catalog.CatalogBackend.Update',
+                        'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Catalog.CatalogBackend.Inline',
+                        'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Catalog.CatalogBackend.View',
+                        'description' => Yii::t('CatalogModule.catalog', 'Viewing goods')
+                    ),
+                )
+            )
+        );
+    }
 }

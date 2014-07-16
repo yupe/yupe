@@ -30,5 +30,6 @@ return array (
   'Records' => 'Записи',
   'Pages' => 'Страницы',
   'read...' => 'читать...',
-  'Structure' => 'Структура'
+  'Structure' => 'Структура',
+  'Manage home page' => 'Настройка домашней страницы'
 );

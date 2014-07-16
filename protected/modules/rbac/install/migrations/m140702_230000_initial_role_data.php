@@ -7,18 +7,17 @@ class m140702_230000_initial_role_data extends yupe\components\DbMigration
     public function safeUp()
     {
         /* Всем администраторам назначается роль admin */
-        $adminRole              = new AuthItem();
-        $adminRole->name        = 'admin';
+        $adminRole = new AuthItem();
+        $adminRole->name = 'admin';
         $adminRole->description = Yii::t('RbacModule.rbac', 'Admin');
-        $adminRole->type        = AuthItem::TYPE_ROLE;
+        $adminRole->type = AuthItem::TYPE_ROLE;
         $adminRole->save();
 
         $admins = User::model()->findAllByAttributes(array('access_level' => User::ACCESS_LEVEL_ADMIN));
-        foreach ($admins as $admin)
-        {
-            $assign           = new AuthAssignment();
+        foreach ($admins as $admin) {
+            $assign = new AuthAssignment();
             $assign->itemname = $adminRole->name;
-            $assign->userid   = $admin->id;
+            $assign->userid = $admin->id;
             $assign->save();
         }
     }

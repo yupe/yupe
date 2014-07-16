@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class SocialModule extends WebModule
 {
-    const VERSION = '0.3';
+    const VERSION = '0.8';
 
     public $controllerNamespace = '\application\modules\social\controllers';
 
@@ -84,5 +84,33 @@ class SocialModule extends WebModule
     public function init()
     {
         parent::init();
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Social.SocialManager',
+                'description' => Yii::t('SocialModule.social', 'Manage social accounts'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Social.SocialBackend.Delete',
+                        'description' => Yii::t('SocialModule.social', 'Removing social account')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Social.SocialBackend.Index',
+                        'description' => Yii::t('SocialModule.social', 'List of social accounts')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Social.SocialBackend.View',
+                        'description' => Yii::t('SocialModule.social', 'Viewing social account')
+                    ),
+                )
+            )
+        );
     }
 }

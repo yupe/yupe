@@ -117,4 +117,11 @@ Comment text:  {comment}' =>   'На вашем сайте добавлен ко
   'WRITE COMMENT'=>' НАПИСАТЬ КОММЕНТАРИЙ',
   'From user' => 'От имени',
   'Insert symbols you see on picture'=>'Введите цифры указанные на картинке',
+
+   'Manage comments'  => 'Управление комментариями',
+   'Creating comment' => 'Создание комментария',
+   'Removing comment' => 'Удаление комментария',
+   'List of comments' => 'Просмотр списка комментариев',
+   'Editing comments' => 'Редактирование комментариев',
+   'Viewing comments' => 'Просмотр комментариев'
 );

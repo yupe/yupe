@@ -14,6 +14,15 @@
 class ManageBackendController extends yupe\components\controllers\BackController
 {
 
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Zendsearch.ManageBackend.Create')),
+            array('deny')
+        );
+    }
+
     /**
      * Инициализируемся, подключаем ZendLucene:
      *

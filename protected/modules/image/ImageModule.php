@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class ImageModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $uploadPath = 'image';
     public $documentRoot;
@@ -248,5 +248,48 @@ class ImageModule extends WebModule
     public function allowedExtensions()
     {
         return explode(',', $this->allowedExtensions);
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Image.ImageManager',
+                'description' => Yii::t('ImageModule.image', 'Manage images'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Create',
+                        'description' => Yii::t('ImageModule.image', 'Creating image')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Delete',
+                        'description' => Yii::t('ImageModule.image', 'Removing image')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Index',
+                        'description' => Yii::t('ImageModule.image', 'List of images')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Update',
+                        'description' => Yii::t('ImageModule.image', 'Editing images')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Inline',
+                        'description' => Yii::t('ImageModule.image', 'Editing images')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.View',
+                        'description' => Yii::t('ImageModule.image', 'Viewing images')
+                    ),
+                )
+            )
+        );
     }
 }

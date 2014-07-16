@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class NewsModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $uploadPath        = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -194,5 +194,48 @@ class NewsModule extends WebModule
         $this->setImport(array(
             'news.models.*'            
         ));
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'News.NewsManager',
+                'description' => Yii::t('NewsModule.news', 'Manage news'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Create',
+                        'description' => Yii::t('NewsModule.news', 'Creating news')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Delete',
+                        'description' => Yii::t('NewsModule.news', 'Removing news')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Index',
+                        'description' => Yii::t('NewsModule.news', 'List of news')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Update',
+                        'description' => Yii::t('NewsModule.news', 'Editing news')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Inline',
+                        'description' => Yii::t('NewsModule.news', 'Editing news')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.View',
+                        'description' => Yii::t('NewsModule.news', 'Viewing news')
+                    ),
+                )
+            )
+        );
     }
 }

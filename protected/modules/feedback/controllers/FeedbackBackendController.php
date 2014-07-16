@@ -12,6 +12,21 @@
 
 class FeedbackBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Feedback.FeedbackBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Feedback.FeedbackBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Feedback.FeedbackBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Feedback.FeedbackBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Feedback.FeedbackBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Feedback.FeedbackBackend.View')),
+            array('allow', 'actions' => array('answer'), 'roles' => array('Feedback.FeedbackBackend.Answer')),
+            array('deny')
+        );
+    }
+    
     public function actions()
     {
         return array(

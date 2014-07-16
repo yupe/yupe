@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $defaultCommentStatus;
     public $autoApprove          = true;
@@ -190,5 +190,48 @@ class CommentModule extends WebModule
         }
 
         $this->defaultCommentStatus = Comment::STATUS_NEED_CHECK;
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Comment.CommentManager',
+                'description' => Yii::t('CommentModule.comment', 'Manage comments'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Create',
+                        'description' => Yii::t('CommentModule.comment', 'Creating comment')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Delete',
+                        'description' => Yii::t('CommentModule.comment', 'Removing comment')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Index',
+                        'description' => Yii::t('CommentModule.comment', 'List of comments')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Update',
+                        'description' => Yii::t('CommentModule.comment', 'Editing comments')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Inline',
+                        'description' => Yii::t('CommentModule.comment', 'Editing comments')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.View',
+                        'description' => Yii::t('CommentModule.comment', 'Viewing comments')
+                    ),
+                )
+            )
+        );
     }
 }

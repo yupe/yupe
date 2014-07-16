@@ -9,7 +9,11 @@ class RbacTree
     /**
      * @var array - правила, сгруппированыые по типам, формат array(2 => array(AuthItem1, AuthItem2), 1 => array(), 0 => array())
      */
-    private $itemsGroupedByTypes = array(AuthItem::TYPE_OPERATION => array(), AuthItem::TYPE_TASK => array(), AuthItem::TYPE_ROLE => array());
+    private $itemsGroupedByTypes = array(
+        AuthItem::TYPE_OPERATION => array(),
+        AuthItem::TYPE_TASK => array(),
+        AuthItem::TYPE_ROLE => array()
+    );
     /**
      * @var array - список правил в формате name => AuthItem object
      */
@@ -33,7 +37,7 @@ class RbacTree
 
     public function __construct($user = null)
     {
-        $this->user = $user ?: Yii::app()->user;
+        $this->user = $user ? : Yii::app()->user;
         $this->getData();
     }
 
@@ -42,7 +46,11 @@ class RbacTree
      */
     private function getData()
     {
-        $userAssign = CHtml::listData(AuthAssignment::model()->findAllByAttributes(array('userid' => $this->user->id)), 'itemname', 'userid');
+        $userAssign = CHtml::listData(
+            AuthAssignment::model()->findAllByAttributes(array('userid' => $this->user->id)),
+            'itemname',
+            'userid'
+        );
         $authItems = AuthItem::model()->findAll(array('order' => 'type DESC, description ASC'));
         foreach ((array)$authItems as $item) {
             $this->itemsGroupedByTypes[$item->type][$item->name] = $item;
@@ -70,6 +78,7 @@ class RbacTree
         foreach ($this->itemsGroupedByTypes[$type] as $name => $item) {
             $tree[] = $this->getTextNode($name);
         }
+
         return $tree;
     }
 
@@ -81,6 +90,7 @@ class RbacTree
     private function getTextNode($itemName)
     {
         $children = $this->getTextItemChildren($itemName);
+
         return array(
             'text' => $this->getTextItem($this->itemsList[$itemName]),
             'children' => $children,
@@ -102,6 +112,7 @@ class RbacTree
                 }
             }
         }
+
         return $res;
     }
 
@@ -142,6 +153,7 @@ class RbacTree
         foreach (array_diff(array_keys((array)$this->itemsGroupedByTypes[$type]), $this->wereChildren) as $name) {
             $tree[] = $this->getTextNode($name);
         }
+
         return $tree;
     }
 
@@ -178,6 +190,7 @@ class RbacTree
         foreach ($this->itemsGroupedByTypes[$type] as $name => $item) {
             $res[$name] = $this->getItemDescription($item);
         }
+
         return $res;
     }
 }

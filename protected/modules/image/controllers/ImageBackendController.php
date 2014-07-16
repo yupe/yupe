@@ -12,6 +12,19 @@
  **/
 class ImageBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Image.ImageBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Image.ImageBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Image.ImageBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Image.ImageBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Image.ImageBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Image.ImageBackend.View')),
+            array('deny')
+        );
+    }
 
     public function actions()
     {

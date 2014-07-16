@@ -17,6 +17,17 @@ use yupe\widgets\YFlashMessages;
 
 class SocialBackendController extends BackController
 {
+
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Social.Socialbackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Social.Socialbackend.Index')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Social.Socialbackend.View')),
+            array('deny')
+        );
+    }
     /**
      * Отображает аккаунт по указанному идентификатору
      *
