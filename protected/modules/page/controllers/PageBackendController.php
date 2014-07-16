@@ -354,19 +354,4 @@ class PageBackendController extends yupe\components\controllers\BackController
 
         return $this->_model;
     }
-
-    /**
-     * Performs the AJAX validation.
-     * 
-     * @param Page $model, the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Page $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'page-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }

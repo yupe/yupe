@@ -75,9 +75,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Comment;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
 
             $model->setAttributes($data);
@@ -129,9 +126,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         $model = $this->loadModel($id);
         
         Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
-        
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
             
             $model->setAttributes($data);
@@ -205,17 +200,5 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         if ($model === null)
             throw new CHttpException(404, Yii::t('CommentModule.comment', 'Requested page was not found!'));
         return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation(Comment $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'comment-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

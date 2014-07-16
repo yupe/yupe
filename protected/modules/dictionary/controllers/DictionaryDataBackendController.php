@@ -63,8 +63,6 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
             $model->group_id = $gid;
         }
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
             
             $model->setAttributes($data);
@@ -98,9 +96,6 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
             
@@ -207,20 +202,5 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
         }
 
         return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * 
-     * @param CModel the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(DictionaryData $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'dictionary-data-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

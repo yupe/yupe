@@ -345,19 +345,4 @@ class UserBackendController extends yupe\components\controllers\BackController
 
         Yii::app()->ajax->failure();
     }
-
-    /**
-     * Performs the AJAX validation.
-     *
-     * @param User the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(User $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'user-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }

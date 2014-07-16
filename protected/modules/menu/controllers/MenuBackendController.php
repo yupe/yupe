@@ -75,8 +75,6 @@ class MenuBackendController extends yupe\components\controllers\BackController
     {
         $model = new Menu;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (($data = Yii::app()->getRequest()->getPost('Menu')) !== null) {
 
             $model->setAttributes($data);
@@ -105,9 +103,6 @@ class MenuBackendController extends yupe\components\controllers\BackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Menu')) !== null) {
 
@@ -199,20 +194,5 @@ class MenuBackendController extends yupe\components\controllers\BackController
             );
         }
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     * 
-     * @param Menu $model - модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Menu $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'menu-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

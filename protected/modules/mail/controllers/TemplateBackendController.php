@@ -56,8 +56,6 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     {
         $model = new MailTemplate;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (Yii::app()->getRequest()->getParam('eid'))
             $model->event_id = (int) Yii::app()->getRequest()->getParam('eid');
 
@@ -91,9 +89,6 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('MailTemplate')) !== null) {
             
@@ -196,20 +191,5 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
         }
 
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param class $model - CModel модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(MailTemplate $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'mail-template-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

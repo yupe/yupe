@@ -95,9 +95,6 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (isset($_POST['UserToBlog']))
         {
             $model->attributes = $_POST['UserToBlog'];
@@ -174,18 +171,5 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         }
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     * @param CModel модель, которую необходимо валидировать
-     */
-    protected function performAjaxValidation(UserToBlog $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-to-blog-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

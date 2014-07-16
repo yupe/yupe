@@ -182,19 +182,4 @@ class PostBackendController extends yupe\components\controllers\BackController
             );
         $this->render('index', array('model' => $model));
     }
-
-    /**
-     * Производит AJAX-валидацию
-     * 
-     * @param CModel $model - модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Post $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'post-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }

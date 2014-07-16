@@ -45,9 +45,6 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     {
         $model = new Category;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
 
             $model->setAttributes($data);
@@ -125,9 +122,6 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     {
         // Указан ID новости страницы, редактируем только ее
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getPost('Category'));
@@ -244,18 +238,4 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         return $model;
     }
 
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param CModel модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Category $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'category-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }

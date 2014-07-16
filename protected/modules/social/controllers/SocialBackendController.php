@@ -97,19 +97,4 @@ class SocialBackendController extends BackController
             throw new CHttpException(404, Yii::t('social', 'Запрошенная страница не найдена.'));
         return $model;
     }
-
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param CModel модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(SocialUser $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'social-user-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }

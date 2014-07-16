@@ -70,9 +70,6 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     {
         $model = new ContentBlock;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('ContentBlock')) !== null) {
             $model->setAttributes($data);
 
@@ -103,9 +100,6 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('ContentBlock')) !== null) {
             $model->setAttributes($data);
@@ -191,20 +185,5 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         if ($model === null)
             throw new CHttpException(404, Yii::t('ContentBlockModule.contentblock', 'Page was not found!'));
         return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * 
-     * @param ContentBlock $model the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(ContentBlock $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'content-block-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

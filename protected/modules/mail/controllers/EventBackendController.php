@@ -57,9 +57,6 @@ class EventBackendController extends yupe\components\controllers\BackController
     {
         $model = new MailEvent;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('MailEvent')) !== null) {
             $model->setAttributes($data);
 
@@ -90,8 +87,6 @@ class EventBackendController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (($data = Yii::app()->getRequest()->getPost('MailEvent')) !== null) {
             $model->setAttributes($data);
 
@@ -183,20 +178,5 @@ class EventBackendController extends yupe\components\controllers\BackController
             );
         }
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param class $model - CModel модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(MailEvent $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'mail-event-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

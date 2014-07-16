@@ -335,19 +335,4 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
         return $this->_model;
     }
-
-    /**
-     * Performs the AJAX validation.
-     * 
-     * @param FeedBack $model - the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(FeedBack $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'feed-back-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }

@@ -48,8 +48,6 @@ class QueueBackendController extends yupe\components\controllers\BackController
     {
         $model = new Queue;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (($data = Yii::app()->getRequest()->getPost('Queue')) !== null) {
             
             $model->setAttributes($data);
@@ -82,9 +80,6 @@ class QueueBackendController extends yupe\components\controllers\BackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Queue')) !== null) {
             
@@ -204,20 +199,5 @@ class QueueBackendController extends yupe\components\controllers\BackController
         }
         
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param Queue модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Queue $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'queue-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

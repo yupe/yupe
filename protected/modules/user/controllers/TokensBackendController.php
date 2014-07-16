@@ -59,9 +59,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
 	{
 		$model = new UserToken;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if (($data = Yii::app()->getRequest()->getPost('UserToken')) !== null) {
             
             $model->setAttributes($data);
@@ -219,22 +216,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
         }
 
         return $this->_model;
-	}
-
-	/**
-     * Performs the AJAX validation.
-     * 
-     * @param User the model to be validated
-     *
-     * @return void
-     */
-	protected function performAjaxValidation($model)
-	{
-
-		if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getParam('ajax') === 'user-tokens-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
 	}
 
     /**

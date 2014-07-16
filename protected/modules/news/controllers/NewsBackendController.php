@@ -57,9 +57,6 @@ class NewsBackendController extends yupe\components\controllers\BackController
     {
         $model = new News;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('News')) !== null) {
             
             $model->setAttributes($data);
@@ -255,20 +252,5 @@ class NewsBackendController extends yupe\components\controllers\BackController
         }
         
         return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * 
-     * @param CModel the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(News $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'news-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

@@ -49,8 +49,6 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Gallery;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
             
             $model->setAttributes($data);
@@ -83,8 +81,6 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
         if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
             
             $model->setAttributes($data);

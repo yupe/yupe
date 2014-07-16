@@ -59,9 +59,6 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
     {
         $model = new DictionaryGroup;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('DictionaryGroup')) !== null) {
 
             $model->setAttributes($data);
@@ -96,9 +93,6 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryGroup')) !== null) {
 
@@ -198,23 +192,5 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
         }
 
         return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     *
-     * @param CModel the model to be validated
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(DictionaryGroup $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
-                'ajax'
-            ) === 'dictionary-group-form'
-        ) {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

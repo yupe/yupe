@@ -52,9 +52,6 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Good;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (isset($_POST['Good']))
         {
             $model->attributes = $_POST['Good'];
@@ -83,9 +80,6 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (isset($_POST['Good']))
         {
@@ -157,16 +151,4 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
         return $model;
     }
 
-    /**
-     * Производит AJAX-валидацию
-     * @param CModel модель, которую необходимо валидировать
-     */
-    protected function performAjaxValidation(Good $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'good-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
 }
