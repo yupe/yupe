@@ -130,4 +130,10 @@ $this->widget(
             ),
         ),
     )
-);
+);?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.navbar').find('a[href="'+ window.location.pathname +'"]').parents('.dropdown').addClass('active');
+    });
+</script>

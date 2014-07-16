@@ -279,31 +279,6 @@ class ModuleManager extends \CApplicationComponent
             }
         }
 
-        if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index'
-            && Yii::app()->controller instanceof YBackendController
-        ) {
-            // Устанавливаем активную категорию
-            $thisCategory = Yii::app()->controller->module->category
-                ? Yii::app()->controller->module->category
-                : $this->otherCategoryName;
-            $thisCategory = & $modulesNavigation[$thisCategory];
-            $thisCategory['active'] = true;
-
-            // Устанавливаем активный модуль
-            $thisModule = (
-                (Yii::app(
-                    )->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != self::CORE_MODULE) ||
-                Yii::app()->controller->action->id == 'settings'
-            ) ? 'settings' : Yii::app()->controller->module->getId();
-            $thisModule = & $thisCategory['items'][$thisModule];
-            if (!empty($thisModule)) {
-                $thisModule['active'] = true;
-            }
-
-            unset($thisModule);
-            unset($thisCategory);
-        }
-
         // Подгрузка отключенных модулей
         if ($disableModule) {
             $modules += (array)$this->getModulesDisabled($modules);
