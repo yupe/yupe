@@ -37,7 +37,7 @@
 class MenuItem extends yupe\models\YModel
 {
     const STATUS_DISABLED = 0;
-    const STATUS_ACTIVE   = 1;
+    const STATUS_ACTIVE = 1;
 
     /**
      * Returns the static model of the specified AR class.
@@ -85,7 +85,7 @@ class MenuItem extends yupe\models\YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'menu'   => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+            'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
             'parent' => array(self::BELONGS_TO, 'MenuItem', 'parent_id')
         );
     }
@@ -96,22 +96,22 @@ class MenuItem extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id'               => Yii::t('MenuModule.menu', 'Id'),
-            'parent_id'        => Yii::t('MenuModule.menu', 'Parent'),
-            'menu_id'          => Yii::t('MenuModule.menu', 'Menu'),
-            'title'            => Yii::t('MenuModule.menu', 'Title'),
-            'href'             => Yii::t('MenuModule.menu', 'Address'),
-            'title_attr'       => Yii::t('MenuModule.menu', 'Attribute title'),
-            'class'            => Yii::t('MenuModule.menu', 'Attribute class'),
-            'rel'              => Yii::t('MenuModule.menu', 'Attribute rel'),
-            'target'           => Yii::t('MenuModule.menu', 'Attribute target'),
-            'before_link'      => Yii::t('MenuModule.menu', 'Text before link'),
-            'after_link'       => Yii::t('MenuModule.menu', 'Text after link'),
-            'condition_name'   => Yii::t('MenuModule.menu', 'Condition'),
+            'id' => Yii::t('MenuModule.menu', 'Id'),
+            'parent_id' => Yii::t('MenuModule.menu', 'Parent'),
+            'menu_id' => Yii::t('MenuModule.menu', 'Menu'),
+            'title' => Yii::t('MenuModule.menu', 'Title'),
+            'href' => Yii::t('MenuModule.menu', 'Address'),
+            'title_attr' => Yii::t('MenuModule.menu', 'Attribute title'),
+            'class' => Yii::t('MenuModule.menu', 'Attribute class'),
+            'rel' => Yii::t('MenuModule.menu', 'Attribute rel'),
+            'target' => Yii::t('MenuModule.menu', 'Attribute target'),
+            'before_link' => Yii::t('MenuModule.menu', 'Text before link'),
+            'after_link' => Yii::t('MenuModule.menu', 'Text after link'),
+            'condition_name' => Yii::t('MenuModule.menu', 'Condition'),
             'condition_denial' => Yii::t('MenuModule.menu', 'False condition'),
-            'sort'             => Yii::t('MenuModule.menu', 'Sorting'),
-            'status'           => Yii::t('MenuModule.menu', 'Status'),
-            'regular_link'     => Yii::t('MenuModule.menu', 'Regular link'),
+            'sort' => Yii::t('MenuModule.menu', 'Sorting'),
+            'status' => Yii::t('MenuModule.menu', 'Status'),
+            'regular_link' => Yii::t('MenuModule.menu', 'Regular link'),
         );
     }
 
@@ -121,22 +121,22 @@ class MenuItem extends yupe\models\YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'               => Yii::t('MenuModule.menu', 'Menu item Id'),
-            'parent_id'        => Yii::t('MenuModule.menu', 'Item parent. Check root if it is in root menu'),
-            'menu_id'          => Yii::t('MenuModule.menu', 'For which one this item is attitude'),
-            'title'            => Yii::t('MenuModule.menu', 'Item title'),
-            'href'             => Yii::t('MenuModule.menu', 'Page address'),
-            'class'            => Yii::t('MenuModule.menu', 'Add necessary classes to &lt;li&gt; tag'),
-            'title_attr'       => Yii::t('MenuModule.menu', 'Add notice to link'),
-            'rel'              => Yii::t('MenuModule.menu', 'Using for xfr'),
-            'target'           => Yii::t('MenuModule.menu', 'Using for open new page in new window or frame'),
-            'before_link'      => Yii::t('MenuModule.menu', 'Text before link'),
-            'after_link'       => Yii::t('MenuModule.menu', 'Text after link'),
-            'condition_name'   => Yii::t('MenuModule.menu', 'Select condition for menu item visibility'),
+            'id' => Yii::t('MenuModule.menu', 'Menu item Id'),
+            'parent_id' => Yii::t('MenuModule.menu', 'Item parent. Check root if it is in root menu'),
+            'menu_id' => Yii::t('MenuModule.menu', 'For which one this item is attitude'),
+            'title' => Yii::t('MenuModule.menu', 'Item title'),
+            'href' => Yii::t('MenuModule.menu', 'Page address'),
+            'class' => Yii::t('MenuModule.menu', 'Add necessary classes to &lt;li&gt; tag'),
+            'title_attr' => Yii::t('MenuModule.menu', 'Add notice to link'),
+            'rel' => Yii::t('MenuModule.menu', 'Using for xfr'),
+            'target' => Yii::t('MenuModule.menu', 'Using for open new page in new window or frame'),
+            'before_link' => Yii::t('MenuModule.menu', 'Text before link'),
+            'after_link' => Yii::t('MenuModule.menu', 'Text after link'),
+            'condition_name' => Yii::t('MenuModule.menu', 'Select condition for menu item visibility'),
             'condition_denial' => Yii::t('MenuModule.menu', 'Condition use in conjuction or negation'),
-            'sort'             => Yii::t('MenuModule.menu', 'Item order number in menu'),
-            'status'           => Yii::t('MenuModule.menu', 'Choose menu item status: <br /><br /><span class="label label-success">activ</span> &ndash; Item and it descendants will be visible.<br /><br /><span class="label label-warning">not active</span> &ndash; Item and it descendants will be hidden.'),
-            'regular_link'     => Yii::t('MenuModule.menu', 'Don\'t handle address to router'),
+            'sort' => Yii::t('MenuModule.menu', 'Item order number in menu'),
+            'status' => Yii::t('MenuModule.menu', 'Choose menu item status: <br /><br /><span class="label label-success">activ</span> &ndash; Item and it descendants will be visible.<br /><br /><span class="label label-warning">not active</span> &ndash; Item and it descendants will be hidden.'),
+            'regular_link' => Yii::t('MenuModule.menu', 'Don\'t handle address to router'),
         );
     }
 
@@ -159,7 +159,7 @@ class MenuItem extends yupe\models\YModel
 
         if ($this->condition_name != '0') {
             $criteria->compare('t.condition_name', $this->condition_name, true);
-            
+
             if ($this->condition_name != '') {
                 $criteria->compare('t.condition_denial', $this->condition_denial);
             }
@@ -169,12 +169,12 @@ class MenuItem extends yupe\models\YModel
 
         $criteria->compare('t.sort', $this->sort);
         $criteria->compare('t.status', $this->status);
-        $criteria->with = array('menu','parent');
+        $criteria->with = array('menu', 'parent');
 
         return new CActiveDataProvider(
             get_class($this), array(
                 'criteria' => $criteria,
-                'sort'     => array('defaultOrder' => 't.sort')
+                'sort' => array('defaultOrder' => 't.sort')
             )
         );
     }
@@ -214,7 +214,7 @@ class MenuItem extends yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'active'),
+            self::STATUS_ACTIVE => Yii::t('MenuModule.menu', 'active'),
             self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'not active'),
         );
     }
@@ -238,12 +238,12 @@ class MenuItem extends yupe\models\YModel
     public function getParentTreeIterator($parent_id = 0, $level = 1)
     {
         $results = $this->findAll(array(
-            'order'     => 'sort',
+            'order' => 'sort',
             'condition' => 'parent_id = :parent_id AND id <> :id AND menu_id = :menu_id',
-            'params'    => array(
-                'parent_id' => (int) $parent_id,
-                'id'        => (int) $this->id,
-                'menu_id'   => (int) $this->menu_id,
+            'params' => array(
+                'parent_id' => (int)$parent_id,
+                'id' => (int)$this->id,
+                'menu_id' => (int)$this->menu_id,
             ),
         ));
 
@@ -251,8 +251,7 @@ class MenuItem extends yupe\models\YModel
         if (empty($results))
             return $items;
 
-        foreach ($results as $result)
-        {
+        foreach ($results as $result) {
             $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
             $items += array($result->id => str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . $result->title) + $childItems;
         }
@@ -268,13 +267,11 @@ class MenuItem extends yupe\models\YModel
     {
         $conditions = array();
 
-        foreach (Yii::app()->modules as $key => $value)
-        {
+        foreach (Yii::app()->modules as $key => $value) {
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
-            if (($module !== NULL) && ($module instanceof yupe\components\WebModule) && isset($module->conditions))
-            {
+            if (($module !== NULL) && ($module instanceof yupe\components\WebModule) && isset($module->conditions)) {
                 $conditionsList = array();
                 foreach ($module->conditions as $keyList => $valueList)
                     $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
@@ -304,7 +301,7 @@ class MenuItem extends yupe\models\YModel
     {
         return array(
             self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'no'),
-            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'yes'),
+            self::STATUS_ACTIVE => Yii::t('MenuModule.menu', 'yes'),
         );
     }
 
@@ -318,8 +315,7 @@ class MenuItem extends yupe\models\YModel
     {
         $transaction = Yii::app()->db->beginTransaction();
 
-        try
-        {
+        try {
 
             foreach ($items as $id => $priority) {
 
@@ -338,9 +334,7 @@ class MenuItem extends yupe\models\YModel
 
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
