@@ -18,7 +18,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             'inline' => array(
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'FeedBack',
-                'validAttributes' => array('name', 'email', 'theme', 'type', 'status')
+                'validAttributes' => array('name', 'email', 'theme', 'type', 'status', 'is_faq')
             )
         );
     }
