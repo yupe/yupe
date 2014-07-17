@@ -9,7 +9,7 @@ class MainFrontendCest
     {
         $I->amGoingTo('test main modules on frontend');
         $I->amOnPage('/ru/');
-        $I->see('Поздравляем!','h1');
+        $I->see('Первая публичная запись в опубликованном блоге');
 
         //blogs
         $I->amOnPage(\BlogPage::BLOGS_URL);
@@ -65,12 +65,15 @@ class MainFrontendCest
 
 
         $I->amOnPage('/en/');
-        $I->see('Congratulations!','h1');
+        $I->see('Discuss','h3');
+        $I->see('Latest posts','h3');
+        $I->see('Blogs','h3');
+        $I->see('Tags cloud','h3');
+
         $I->amOnPage('/ru/');
-        $I->see('Поздравляем!','h1');
-        $I->amOnPage('/en/');
-        $I->see('Congratulations!','h1');
-        $I->amOnPage('/ru/');
-        $I->see('Поздравляем!','h1');
+        $I->see('Обсуждают','h3');
+        $I->see('Последние записи','h3');
+        $I->see('Блоги','h3');
+        $I->see('Теги','h3');
     }
 }
