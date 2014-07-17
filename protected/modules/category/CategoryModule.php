@@ -136,4 +136,47 @@ class CategoryModule extends WebModule
     {
         return '/category/categoryBackend/index';
     }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name' => 'Category.CategoryManager',
+                'description' => Yii::t('CategoryModule.category', 'Manage category'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => array(
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Category.CategoryBackend.Create',
+                        'description' => Yii::t('CategoryModule.category', 'Creating category')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Category.CategoryBackend.Delete',
+                        'description' => Yii::t('CategoryModule.category', 'Removing category')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Category.CategoryBackend.Index',
+                        'description' => Yii::t('CategoryModule.category', 'List of categories')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Category.CategoryBackend.Update',
+                        'description' => Yii::t('CategoryModule.category', 'Editing categories')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Category.CategoryBackend.Inline',
+                        'description' => Yii::t('CategoryModule.category', 'Editing categories')
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Category.CategoryBackend.View',
+                        'description' => Yii::t('CategoryModule.category', 'Viewing categories')
+                    ),
+                )
+            )
+        );
+    }
 }

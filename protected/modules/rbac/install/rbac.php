@@ -10,6 +10,7 @@
             'itemChildTable' => '{{user_user_auth_item_child}}',
             'itemTable' => '{{user_user_auth_item}}',
         ),
+        ''
     ),
     'rules' => array(
         '/backend/rbac/<controller:\w+>/<action:\w+>/<id:[\w._-]+>' => 'rbac/<controller>Backend/<action>',
