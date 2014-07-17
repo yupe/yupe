@@ -12,6 +12,7 @@
  **/
 
 namespace yupe\widgets;
+
 use Yii;
 use CHtml;
 use CClientScript;
@@ -23,8 +24,8 @@ class YAdminPanel extends YWidget
 
     public function init()
     {
-        if (!isset($this->controller->yupe->bootstrap)) {
-            $this->controller->yupe->getComponent('bootstrap');
+        if (!isset($this->getController()->yupe->bootstrap)) {
+            $this->getController()->yupe->getComponent('bootstrap');
         }
 
         parent::init();
@@ -37,54 +38,54 @@ class YAdminPanel extends YWidget
      **/
     public function run()
     {
-        $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
+        $mainAssets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
 
-        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/frontpanel.css');
-        Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
+        Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/frontpanel.css');
+        Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
 
-        Yii::app()->clientScript->registerScript(
+        Yii::app()->getClientScript()->registerScript(
             'yupeToken', 'var actionToken = ' . json_encode(
                 array(
-                    'token'      => Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken,
-                    'url'        => Yii::app()->createAbsoluteUrl('yupe/backend/modulestatus'),
-                    'message'    => Yii::t('YupeModule.yupe', 'Wait please, your request in process...'),
-                    'error'      => Yii::t('YupeModule.yupe', 'During the processing of your request an unknown error occurred =('),
+                    'token' => Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken,
+                    'url' => Yii::app()->createAbsoluteUrl('yupe/backend/modulestatus'),
+                    'message' => Yii::t('YupeModule.yupe', 'Wait please, your request in process...'),
+                    'error' => Yii::t('YupeModule.yupe', 'During the processing of your request an unknown error occurred =('),
                     'loadingimg' => CHtml::image(
-                        $mainAssets . '/img/progressbar.gif', '', array(
-                            'style' => 'width: 100%; height: 20px;',
-                        )
+                            $mainAssets . '/img/progressbar.gif', '', array(
+                                'style' => 'width: 100%; height: 20px;',
+                            )
+                        ),
+                    'buttons' => array(
+                        'yes' => Yii::t('YupeModule.yupe', 'Ok'),
+                        'no' => Yii::t('YupeModule.yupe', 'Cancel'),
                     ),
-                    'buttons'    => array(
-                        'yes'    => Yii::t('YupeModule.yupe', 'Ok'),
-                        'no'     => Yii::t('YupeModule.yupe', 'Cancel'),
-                    ),
-                    'messages'   => array(
-                        'confirm_update'           => Yii::t('YupeModule.yupe', 'Do you really want to update configuration file?'),
-                        'confirm_deactivate'       => Yii::t('YupeModule.yupe', 'Do you really want to disable module?'),
-                        'confirm_activate'         => Yii::t('YupeModule.yupe', 'Do you really want to enable module?'),
-                        'confirm_uninstall'        => Yii::t('YupeModule.yupe', 'Do you really want to delete module?') . '<br />' . Yii::t('YupeModule.yupe', 'All module parameters will be deleted'),
-                        'confirm_install'          => Yii::t('YupeModule.yupe', 'Do you really want to install module?') . '<br />' . Yii::t('YupeModule.yupe', 'New module parameters will be added'),
-                        'confirm_cacheFlush'       => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
-                        'confirm_cacheAll'         => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
-                        'confirm_assetsFlush'      => Yii::t('YupeModule.yupe', 'Do you really want to clean assets?'),
+                    'messages' => array(
+                        'confirm_update' => Yii::t('YupeModule.yupe', 'Do you really want to update configuration file?'),
+                        'confirm_deactivate' => Yii::t('YupeModule.yupe', 'Do you really want to disable module?'),
+                        'confirm_activate' => Yii::t('YupeModule.yupe', 'Do you really want to enable module?'),
+                        'confirm_uninstall' => Yii::t('YupeModule.yupe', 'Do you really want to delete module?') . '<br />' . Yii::t('YupeModule.yupe', 'All module parameters will be deleted'),
+                        'confirm_install' => Yii::t('YupeModule.yupe', 'Do you really want to install module?') . '<br />' . Yii::t('YupeModule.yupe', 'New module parameters will be added'),
+                        'confirm_cacheFlush' => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
+                        'confirm_cacheAll' => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
+                        'confirm_assetsFlush' => Yii::t('YupeModule.yupe', 'Do you really want to clean assets?'),
                         'confirm_cacheAssetsFlush' => Yii::t('YupeModule.yupe', 'Do you really want to clean cache and assets?') . '<br />' . Yii::t('YupeModule.yupe', 'This process can take much time!'),
-                        'unknown'                  => Yii::t('YupeModule.yupe', 'Unknown action was selected!'),
+                        'unknown' => Yii::t('YupeModule.yupe', 'Unknown action was selected!'),
                     )
                 )
             ), CClientScript::POS_BEGIN
         );
 
-        $cacheKey = 'YAdminPanel::' . Yii::app()->user->getId() . (
-            Yii::app()->controller instanceof \yupe\components\controllers\BackController
+        $cacheKey = 'YAdminPanel::' . Yii::app()->getUser()->getId() . (
+            Yii::app()->getController() instanceof \yupe\components\controllers\BackController
                 ? 'backend'
                 : 'frontend'
-            ) . '::' . Yii::app()->language;
+            ) . '::' . Yii::app()->getLanguage();
 
-        $cached = Yii::app()->cache->get($cacheKey);
+        $cached = Yii::app()->getCache()->get($cacheKey);
 
         if ($cached === false) {
             $cached = $this->render($this->view, array(), true);
-            Yii::app()->cache->set($cacheKey, $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules'));
+            Yii::app()->getCache()->set($cacheKey, $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules'));
         }
 
         echo $cached;

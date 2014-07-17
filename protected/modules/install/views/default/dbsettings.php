@@ -28,8 +28,7 @@ Yii::app()->clientScript->registerScript(
     'dbtypes', '
     var dbTypes = ' . json_encode($data['model']->dbTypeNames) . ';
     var defaultAttr = {
-        "mysql": ' . json_encode($data['model']->attributes) . ',
-        "postgresql": ' . json_encode($data['model']->postgresqlDefaults) . '
+        "mysql": ' . json_encode($data['model']->attributes) . '
     };
     ', CClientScript::POS_BEGIN
 );
