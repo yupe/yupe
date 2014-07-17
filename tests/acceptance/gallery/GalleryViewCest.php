@@ -23,7 +23,7 @@ class GalleryViewCest
 
         $I->seeInCurrentUrl(\GalleryPage::getImageUrl(1));
         $I->see('2013-10-22 22.33.28.jpg');
-        $I->see('Комментарии пока нет, станьте первым!');
+        $I->see('Станьте первым!');
         $I->see('08 ноября 2013 г., 01:21');
     }
 }
