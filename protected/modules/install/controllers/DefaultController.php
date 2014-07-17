@@ -385,55 +385,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 ),
                 Yii::t('InstallModule.install', 'Required for MySQL DB.'),
             ),
-            array(
-                Yii::t('InstallModule.install', 'PDO Oracle extension'),
-                false,
-                extension_loaded('pdo_oci'),
-                Yii::t(
-                    'InstallModule.install',
-                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
-                ),
-                Yii::t('InstallModule.install', 'Required for Oracle DB.')
-            ),
-            array(
-                Yii::t('InstallModule.install', 'PDO MSSQL extension (pdo_mssql)'),
-                false,
-                extension_loaded('pdo_mssql'),
-                Yii::t(
-                    'InstallModule.install',
-                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
-                ),
-                Yii::t('InstallModule.install', 'Required to work with MSSQL database on MS Windows.')
-            ),
-            array(
-                Yii::t('InstallModule.install', 'PDO MSSQL extension (pdo_dblib)'),
-                false,
-                extension_loaded('pdo_dblib'),
-                Yii::t(
-                    'InstallModule.install',
-                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
-                ),
-                Yii::t(
-                    'InstallModule.install',
-                    'Required to work with MSSQL database when work from GNU/Linux or Unix'
-                )
-            ),
-            array(
-                Yii::t(
-                    'InstallModule.install',
-                    'PDO MSSQL extension (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)'
-                ),
-                false,
-                extension_loaded('pdo_sqlsrv'),
-                Yii::t(
-                    'InstallModule.install',
-                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
-                ),
-                Yii::t(
-                    'InstallModule.install',
-                    'Required to work with MSSQL database using Microsoft\'s driver'
-                )
-            ),
+
             array(
                 Yii::t('InstallModule.install', 'Memcache extension'),
                 false,
@@ -468,14 +420,6 @@ class DefaultController extends yupe\components\controllers\BackController
                 extension_loaded("mcrypt"),
                 '<a href="http://www.yiiframework.com/doc/api/CSecurityManager">CSecurityManager</a>',
                 Yii::t('InstallModule.install', 'Required for encryption and decryption methods.'),
-            ),
-            array(
-                Yii::t('InstallModule.install', 'SOAP extension'),
-                false,
-                extension_loaded("soap"),
-                '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>,
-                 <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
-                Yii::t('InstallModule.install', '<b>Optional</b>.'),
             ),
             array(
                 Yii::t('InstallModule.install', 'mbstring extension'),
