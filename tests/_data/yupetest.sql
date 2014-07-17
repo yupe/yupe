@@ -579,7 +579,9 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
 (29, 'contentblock', 'm000000_000000_contentblock_base', 1386585484),
 (30, 'page', 'm000000_000000_page_base', 1386585487),
 (31, 'page', 'm130115_155600_columns_rename', 1386585487),
-(32, 'mail', 'm000000_000000_mail_base', 1386585489);
+(32, 'page', 'm140115_083618_add_layout', 1386585487),
+(33, 'page', 'm140620_072543_add_view', 1386585487),
+(34, 'mail', 'm000000_000000_mail_base', 1386585489);
 
 
 -- --------------------------------------------------------
