@@ -118,6 +118,11 @@ CREATE TABLE IF NOT EXISTS `yupe_blog_post_to_tag` (
   KEY `ix_yupe_blog_post_to_tag_tag_id` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_blog_post_to_tag` (`post_id`, `tag_id`) VALUES
+  (1,	1),
+  (1,	2),
+  (1,	3);
+
 -- --------------------------------------------------------
 
 --
@@ -130,6 +135,11 @@ CREATE TABLE IF NOT EXISTS `yupe_blog_tag` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_blog_tag_tag_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `yupe_blog_tag` (`id`, `name`) VALUES
+  (1,	'тег'),
+  (2,	'тег2'),
+  (3,	'тег3');
 
 -- --------------------------------------------------------
 

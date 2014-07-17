@@ -21,19 +21,16 @@ class BlogCest
         $I->see('Участников нет =(');
 
         $I->seeLink('Первая публичная запись в опубликованном блоге');
-        /*
-         * @TODO WTF ? Не понятно кто выпилил из тестовой базы теги? Пришлось закомментить, иначе тест не проходит. (DexterHD)
-         *
         $tags = array('тег','тег2','тег3');
         foreach($tags as $tag) {
             $I->seeLink($tag);
-        }*/
+        }
 
         $I->dontSeeLink('Черновик в опубликованном блоге');
 
         $I->amGoingTo('test blog page with deleted blog');
         $I->expectTo('see http exception');
         $I->amOnPage(\BlogPage::getBlogRoute(\BlogPage::DELETED_BLOG_SLUG));
-        $I->see('Страница которую Вы запросили не найдена.');
+        $I->see('Страница которую вы запросили не найдена.');
     }
 }
