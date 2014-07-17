@@ -643,6 +643,8 @@ CREATE TABLE IF NOT EXISTS `yupe_page_page` (
   `status` int(11) NOT NULL,
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
   `order` int(11) NOT NULL DEFAULT '0',
+  `view` varchar(250) DEFAULT NULL,
+  `layout` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_page_page_slug_lang` (`slug`,`lang`),
   KEY `ix_yupe_page_page_status` (`status`),

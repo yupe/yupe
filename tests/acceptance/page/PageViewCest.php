@@ -14,7 +14,7 @@ class PageViewCest
 
         $I->wantToTest('unpublished page...');
         $I->amOnPage('/pages/skrytaja-stranica');
-        $I->see('Страница которую Вы запросили не найдена.');
+        $I->see('Страница которую вы запросили не найдена.');
 
         $I->wantToTest('protected page...');
         $I->amOnPage('/pages/zaschischennaja-stranica');
@@ -30,7 +30,7 @@ class PageViewCest
 
         $I->wantToTest('page preview...');
         $I->amOnPage('/pages/skrytaja-stranica');
-        $I->see('Страница которую Вы запросили не найдена.');
+        $I->see('Страница которую вы запросили не найдена.');
         $I->amOnPage('/pages/skrytaja-stranica?preview=1');
         $I->seeInTitle('Скрытая страница');
         $I->see('Скрытая страница','h3');
