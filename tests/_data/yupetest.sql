@@ -195,8 +195,9 @@ CREATE TABLE IF NOT EXISTS `yupe_catalog_good` (
 -- Table structure for table `yupe_category_category`
 --
 
-CREATE TABLE IF NOT EXISTS `yupe_category_category` (
+CREATE TABLE `yupe_category_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
   `alias` varchar(150) NOT NULL,
   `lang` char(2) DEFAULT NULL,
   `name` varchar(250) NOT NULL,
@@ -204,18 +205,12 @@ CREATE TABLE IF NOT EXISTS `yupe_category_category` (
   `short_description` text,
   `description` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  `level` int(11) DEFAULT '0',
-  `root` int(11) DEFAULT '0',
-  `lft` int(11) DEFAULT '0',
-  `rgt` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_category_category_alias_lang` (`alias`,`lang`),
+  KEY `ix_yupe_category_category_parent_id` (`parent_id`),
   KEY `ix_yupe_category_category_status` (`status`),
-  KEY `ix_yupe_category_category_level` (`level`),
-  KEY `ix_yupe_category_category_root` (`root`),
-  KEY `ix_yupe_category_category_lft` (`lft`),
-  KEY `ix_yupe_category_category_rgt` (`rgt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  CONSTRAINT `fk_yupe_category_category_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- --------------------------------------------------------
 
 --
