@@ -13,16 +13,17 @@ class CommentCest
         $I->am('admin');
         $I->amGoingTo('test comments antispam...');
         $I->amOnPage("/blogs/public-blog");
-        $I->see("Оставить комментарий","h3");
+        $I->click('Первая публичная запись в опубликованном блоге');
 
+        $I->see("Первая публичная запись в опубликованном блоге","h4");
         $I->fillField('Comment[text]', "Antispam Test");
         $I->click("Добавить комментарий");
-        $I->wait(1000);
+        $I->wait(3000);
         $I->see("Спасибо, Ваша запись добавлена!",\CommonPage::SUCCESS_CSS_CLASS);
 
         $I->fillField('Comment[text]', "Antispam Test");
         $I->click("Добавить комментарий");
-        $I->wait(1000);
+        $I->wait(3000);
         $I->see("Защита от спама",\CommonPage::ERROR_CSS_CLASS);
 
         $I->wait(15000);
