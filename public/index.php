@@ -30,8 +30,7 @@ require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 $base = require dirname(__FILE__) . '/../protected/config/main.php';
 
 $confManager = new yupe\components\ConfigManager();
-$config = $confManager->merge($base);
 
 require dirname(__FILE__).'/../vendor/autoload.php';
 
-Yii::createWebApplication($config)->run();
+Yii::createWebApplication($confManager->merge($base))->run();

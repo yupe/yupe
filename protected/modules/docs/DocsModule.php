@@ -11,7 +11,7 @@
  */
 class DocsModule extends yupe\components\WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $categorySort    = 9999;
     public $docFolder       = 'application.modules.docs.guide';

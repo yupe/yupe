@@ -12,6 +12,20 @@
 
 class CategoryBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles'   => array('admin')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Category.CategoryBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Category.CategoryBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Category.CategoryBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Category.CategoryBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Category.CategoryBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Category.CategoryBackend.View')),
+            array('deny')
+        );
+    }
+
     public function actions()
     {
         return array(

@@ -1,7 +1,7 @@
 <?php
 /**
  * Базовый класс для всех контроллеров панели управления
- * 
+ *
  * @category YupeComponents
  * @package  yupe.modules.yupe.components.controllers
  * @author   YupeTeam <team@yupe.ru>
@@ -14,6 +14,8 @@
 namespace yupe\components\controllers;
 
 use Yii;
+use yupe\events\YupeBeforeBackendControllerActionEvent;
+use yupe\events\YupeEvents;
 use yupe\widgets\YFlashMessages;
 use CHttpException;
 use CActiveRecord;
@@ -44,10 +46,10 @@ class BackController extends Controller
     public function filters()
     {
         $filters = array(array('yupe\filters\YBackAccessControl'));
-        if (Yii::app()->hasModule('rbac'))
-        {
+        if (Yii::app()->hasModule('rbac')) {
             $filters[] = 'accessControl';
         }
+
         return $filters;
     }
 
@@ -96,7 +98,9 @@ class BackController extends Controller
          */
         if ($this->module->getId() !== 'install'
             && ($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
-            && ($updates = Yii::app()->migrator->checkForUpdates(array($this->module->getId() => $this->module))) !== null
+            && ($updates = Yii::app()->migrator->checkForUpdates(
+                array($this->module->getId() => $this->module)
+            )) !== null
             && count($updates) > 0
         ) {
             Yii::app()->user->setFlash(
@@ -106,6 +110,8 @@ class BackController extends Controller
 
             $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->getId()));
         }
+
+        Yii::app()->eventManager->fire(YupeEvents::BEFORE_BACKEND_CONTROLLER_ACTION, new YupeBeforeBackendControllerActionEvent($this, Yii::app()->getUser()));
 
         return parent::beforeAction($action);
     }
@@ -136,25 +142,27 @@ class BackController extends Controller
 
         try {
             switch ($action) {
-            case self::BULK_DELETE:
-                $class = CActiveRecord::model($model);
-                $criteria = new CDbCriteria;
-                $items = array_filter($items, 'intval');
-                $criteria->addInCondition('id', $items);
-                $count = $class->deleteAll($criteria);
-                $transaction->commit();
-                Yii::app()->ajax->success(
-                    Yii::t(
-                        'YupeModule.yupe', 'Removed {count} records!', array(
-                            '{count}' => $count
+                case self::BULK_DELETE:
+                    $class = CActiveRecord::model($model);
+                    $criteria = new CDbCriteria;
+                    $items = array_filter($items, 'intval');
+                    $criteria->addInCondition('id', $items);
+                    $count = $class->deleteAll($criteria);
+                    $transaction->commit();
+                    Yii::app()->ajax->success(
+                        Yii::t(
+                            'YupeModule.yupe',
+                            'Removed {count} records!',
+                            array(
+                                '{count}' => $count
+                            )
                         )
-                    )
-                );
-                break;
+                    );
+                    break;
 
-            default:
-                throw new CHttpException(404);
-                break;
+                default:
+                    throw new CHttpException(404);
+                    break;
             }
 
         } catch (Exception $e) {
