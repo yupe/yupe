@@ -68,10 +68,9 @@ return array(
 
     //comment this behaviors if multilingual unnecessary
     'behaviors' => array(
-        'onBeginRequest' => array(
-            'class' => 'yupe\components\urlManager\LanguageBehavior'
-         ),
+        array('class' => 'yupe\components\urlManager\LanguageBehavior'),
     ),
+
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(

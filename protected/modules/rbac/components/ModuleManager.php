@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class ModuleManager
+ */
 class ModuleManager extends \yupe\components\ModuleManager
 {
 
@@ -55,9 +58,18 @@ class ModuleManager extends \yupe\components\ModuleManager
         return $menu;
     }
 
+    /**
+     * @param bool $navigationOnly
+     * @param bool $disableModule
+     * @return array|mixed
+     */
     public function getModules($navigationOnly = false, $disableModule = false)
     {
         $modules = parent::getModules($navigationOnly, $disableModule);
+
+        if (true === $navigationOnly) {
+            return $this->filterMenuVisibilityByUserRoles($modules);
+        }
 
         $modules['modulesNavigation'] = $this->filterMenuVisibilityByUserRoles($modules['modulesNavigation']);
 
