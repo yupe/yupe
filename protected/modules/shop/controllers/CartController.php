@@ -19,7 +19,7 @@ class CartController extends yupe\components\controllers\FrontController
     public function actionAdd($id)
     {
         Yii::import('catalog.models.Good');
-        if ( !Good::model()->published()->exists('id = :id', array(':id' => $id))) {
+        if (!Good::model()->published()->exists('id = :id', array(':id' => $id))) {
             throw new CHttpException(406, 'Такой продукт не существует');
         }
 
@@ -36,7 +36,7 @@ class CartController extends yupe\components\controllers\FrontController
         $cartGood->cart_id = $cart->id;
         $cartGood->catalog_good_id = $id;
         // сообщить пользователю о результате
-        if($cartGood->save()){
+        if ($cartGood->save()) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('ShopModule.shop', 'Product added to your cart successfully. Now you can order it!')
@@ -46,7 +46,29 @@ class CartController extends yupe\components\controllers\FrontController
         $this->redirect(Yii::app()->request->urlReferrer);
     }
 
-    public function actionIndex() {
+    /**
+     * Удаляем товар из корзины и возвращаемся откуда пришли
+     * @param int $id
+     * @throws CHttpException Если пытаемся удалить товар, которого нет в корзине
+     */
+    public function actionDelete($id)
+    {
+        if (!ShopCartGood::model()->exists('id = :id', array(':id' => $id))) {
+            throw new CHttpException(406, 'Такого продукта нет в вашей корзине');
+        }
+        $cartGood = ShopCartGood::model()->findByPk($id);
+        if (!empty($cartGood)) {
+            $cartGood->delete();
+            Yii::app()->user->setFlash(
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                'Товар удален из вашей корзины'
+            );
+        }
+        $this->redirect(Yii::app()->request->urlReferrer);
+    }
+
+    public function actionIndex()
+    {
         // создать корзину если ее нет
         $cart = ShopCart::model()->findByAttributes(array('session_id' => Yii::app()->session->sessionID));
         if (empty($cart)) {
@@ -56,23 +78,23 @@ class CartController extends yupe\components\controllers\FrontController
         }
 
         $dataProvider = new CActiveDataProvider('ShopCartGood', array(
-            'criteria'=>array(
-                'condition'=>'cart_id=:cart_id',
+            'criteria' => array(
+                'condition' => 'cart_id=:cart_id',
                 'params' => array(
                     ':cart_id' => $cart->id
                 )
             ),
-            'countCriteria'=>array(
-                'condition'=>'cart_id=:cart_id',
+            'countCriteria' => array(
+                'condition' => 'cart_id=:cart_id',
                 'params' => array(
                     ':cart_id' => $cart->id
                 )
             ),
-            'pagination'=>array(
-                'pageSize'=>20,
+            'pagination' => array(
+                'pageSize' => 20,
             ),
         ));
-        $this->render('index', array('dataProvider' => $dataProvider, 'cart' => $cart ));
+        $this->render('index', array('dataProvider' => $dataProvider, 'cart' => $cart));
     }
 
     public function actionMultiaction()
