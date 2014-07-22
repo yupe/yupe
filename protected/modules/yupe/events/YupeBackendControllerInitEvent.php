@@ -7,7 +7,7 @@ use yupe\components\Event;
  * Class YupeBeforeBackendControllerActionEvent
  * @package yupe\events
  */
-class YupeBeforeBackendControllerActionEvent extends Event
+class YupeBackendControllerInitEvent extends Event
 {
     /**
      * @var

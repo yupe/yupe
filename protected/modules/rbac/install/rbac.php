@@ -24,8 +24,8 @@ return array(
             'class' => 'yupe\components\EventManager',
             'events'=> array(
                 // before backend controllers
-                'yupe.before.backend.controller.action' => array(
-                    array('AccessControlListener', 'onBeforeBackendControllerAction')
+                'yupe.backend.controller.init' => array(
+                    array('AccessControlListener', 'onBackendControllerInit')
                 )
             )
         )

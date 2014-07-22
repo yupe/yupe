@@ -17,40 +17,142 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class YupeModule
+ */
 class YupeModule extends WebModule
 {
+    /**
+     *
+     */
     const VERSION = '0.8';
 
+    /**
+     * @var
+     */
     public $enableAssets;
+    /**
+     * @var
+     */
     public $cache;
 
+    /**
+     * @var
+     */
     public $siteDescription;
+    /**
+     * @var
+     */
     public $siteName;
+    /**
+     * @var
+     */
     public $siteKeyWords;
 
+    /**
+     * @var string
+     */
     public $backendLayout = 'column2';
+    /**
+     * @var
+     */
     public $backendTheme;
+    /**
+     * @var string
+     */
     public $emptyLayout = 'empty';
+    /**
+     * @var
+     */
     public $theme;
 
+    /**
+     * @var int
+     */
     public $coreCacheTime = 3600;
+    /**
+     * @var string
+     */
     public $coreModuleId = 'yupe';
+    /**
+     * @var string
+     */
     public $editorsDir = 'application.modules.yupe.widgets.editors';
+    /**
+     * @var string
+     */
     public $uploadPath = 'uploads';
+    /**
+     * @var
+     */
     public $email;
 
+    /**
+     * @var string
+     */
     public $availableLanguages = 'ru,en,zh_cn';
+    /**
+     * @var string
+     */
     public $defaultLanguage = 'ru';
+    /**
+     * @var string
+     */
     public $defaultBackendLanguage = 'ru';
 
+    /**
+     * @var int
+     */
     public $adminMenuOrder = -1;
 
+    /**
+     * @var string
+     */
     public $profileModel = 'User';
 
+    /**
+     * @var
+     */
     public $allowedIp;
+    /**
+     * @var int
+     */
     public $hidePanelUrls = 0;
 
+    /**
+     * @var string
+     */
     public $logo = 'web/images/logo.png';
+
+    /**
+     * @var array
+     * @since 0.8
+     *
+     * Массив фильтров для контроллеров панели управления
+     */
+    protected $backEndFilters = array(array('yupe\filters\YBackAccessControl'));
+
+    /**
+     * @return array
+     * @since 0.8
+     *
+     * Вернет массив фильтров для контроллеров панели управления
+     */
+    public function getBackendFilters()
+    {
+        return $this->backEndFilters;
+    }
+
+    /**
+     * @param $filter
+     * @since 0.8
+     *
+     * Добавить новый фильтр для контроллеров панели управления
+     */
+    public function addBackendFilter($filter)
+    {
+        $this->backEndFilters[] = $filter;
+    }
 
     /**
      * Возвращаем версию:
@@ -62,6 +164,9 @@ class YupeModule extends WebModule
         return self::VERSION;
     }
 
+    /**
+     * @return array
+     */
     public function getAllowedIp()
     {
         if(strpos($this->allowedIp, ',')) {
@@ -733,6 +838,9 @@ class YupeModule extends WebModule
         return array('user');
     }
 
+    /**
+     * @return array
+     */
     public function getLayoutsList()
     {
        $data = array();

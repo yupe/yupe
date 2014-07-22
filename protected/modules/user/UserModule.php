@@ -414,11 +414,6 @@ class UserModule extends WebModule
                     //tokens
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'User.TokenBackend.Create',
-                        'description' => Yii::t('UserModule.user', 'Creating user token')
-                    ),
-                    array(
-                        'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'User.TokenBackend.Delete',
                         'description' => Yii::t('UserModule.user', 'Removing user token')
                     ),

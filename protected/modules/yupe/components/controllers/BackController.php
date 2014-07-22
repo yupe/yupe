@@ -14,7 +14,7 @@
 namespace yupe\components\controllers;
 
 use Yii;
-use yupe\events\YupeBeforeBackendControllerActionEvent;
+use yupe\events\YupeBackendControllerInitEvent;
 use yupe\events\YupeEvents;
 use yupe\widgets\YFlashMessages;
 use CHttpException;
@@ -45,12 +45,7 @@ class BackController extends Controller
      */
     public function filters()
     {
-        $filters = array(array('yupe\filters\YBackAccessControl'));
-        if (Yii::app()->hasModule('rbac')) {
-            $filters[] = 'accessControl';
-        }
-
-        return $filters;
+        return Yii::app()->getModule('yupe')->getBackendFilters();
     }
 
     /**
@@ -60,8 +55,8 @@ class BackController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', 'roles' => array('admin'),),
-            array('deny',),
+            array('allow', 'roles' => array('admin')),
+            array('deny')
         );
     }
 
@@ -71,10 +66,16 @@ class BackController extends Controller
     public function init()
     {
         parent::init();
+
         $this->yupe->getComponent('bootstrap');
         $this->layout = $this->yupe->getBackendLayoutAlias();
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
+
+        Yii::app()->eventManager->fire(
+            YupeEvents::BACKEND_CONTROLLER_INIT,
+            new YupeBackendControllerInitEvent($this, Yii::app()->getUser())
+        );
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
             Yii::app()->theme = "backend_" . $backendTheme;
@@ -110,8 +111,6 @@ class BackController extends Controller
 
             $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->getId()));
         }
-
-        Yii::app()->eventManager->fire(YupeEvents::BEFORE_BACKEND_CONTROLLER_ACTION, new YupeBeforeBackendControllerActionEvent($this, Yii::app()->getUser()));
 
         return parent::beforeAction($action);
     }
