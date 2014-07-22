@@ -142,7 +142,7 @@ class CategoryModule extends WebModule
         return array(
             array(
                 'name' => 'Category.CategoryManager',
-                'description' => Yii::t('CategoryModule.category', 'Manage category'),
+                'description' => Yii::t('CategoryModule.category', 'Manage categories'),
                 'type' => AuthItem::TYPE_TASK,
                 'items' => array(
                     array(

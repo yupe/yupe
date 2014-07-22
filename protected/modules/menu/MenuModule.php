@@ -132,32 +132,32 @@ class MenuModule extends yupe\components\WebModule
                     //menu items
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Menu.MenuItemBackend.Create',
+                        'name' => 'Menu.MenuitemBackend.Create',
                         'description' => Yii::t('MenuModule.menu', 'Creating menu item')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Menu.MenuItemBackend.Delete',
+                        'name' => 'Menu.MenuitemBackend.Delete',
                         'description' => Yii::t('MenuModule.menu', 'Removing menu item')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Menu.MenuItemBackend.Index',
+                        'name' => 'Menu.MenuitemBackend.Index',
                         'description' => Yii::t('MenuModule.menu', 'List of menu items')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Menu.MenuItemBackend.Update',
+                        'name' => 'Menu.MenuitemBackend.Update',
                         'description' => Yii::t('MenuModule.menu', 'Editing menu items')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Menu.MenuItemBackend.Inline',
+                        'name' => 'Menu.MenuitemBackend.Inline',
                         'description' => Yii::t('MenuModule.menu', 'Editing menu')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Menu.MenuItemBackend.View',
+                        'name' => 'Menu.MenuitemBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu items')
                     ),
                 )

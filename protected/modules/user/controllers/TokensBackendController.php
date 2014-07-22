@@ -18,12 +18,11 @@ class TokensBackendController extends yupe\components\controllers\BackController
     {
         return array(
             array('allow', 'roles'   => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('User.TokenBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('User.TokenBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('User.TokenBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokenBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('User.TokenBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('User.TokenBackend.View')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('User.TokensBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('User.TokensBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokensBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('User.TokensBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('User.TokensBackend.View')),
             array('deny')
         );
     }

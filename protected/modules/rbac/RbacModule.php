@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class RbacModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.3';
 
     public function init()
     {

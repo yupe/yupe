@@ -102,7 +102,7 @@ return array(
     'Menu items order' => 'Порядок следования в меню',
     'Template' => 'Шаблон',
     'Select {field}' => 'Выберите {field}',
-    'Manage mail events and templates' => '',
+    'Manage mail events and templates' => 'Управление почтовыми событиями и шаблонами',
     'Creating mail event' => 'Создание почтового события',
     'Removing mail event' => 'Удаление почтового события',
     'List of mail events' => 'Просмотр списка почтовых событий',

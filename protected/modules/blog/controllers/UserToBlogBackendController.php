@@ -16,12 +16,12 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
     {
         return array(
             array('allow', 'roles'   => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Blog.UserToBlog.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.UserToBlog.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Blog.UserToBlog.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.UserToBlog.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Blog.UserToBlog.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Blog.UserToBlog.View')),
+            array('allow', 'actions' => array('create'), 'roles' => array('Blog.UserToBlogBackend.Create')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.UserToBlogBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Blog.UserToBlogBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.UserToBlogBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Blog.UserToBlogBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('Blog.UserToBlogBackend.View')),
             array('deny')
         );
     }

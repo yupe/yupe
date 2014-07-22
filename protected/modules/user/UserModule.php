@@ -414,27 +414,27 @@ class UserModule extends WebModule
                     //tokens
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'User.TokenBackend.Delete',
+                        'name' => 'User.TokensBackend.Delete',
                         'description' => Yii::t('UserModule.user', 'Removing user token')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'User.TokenBackend.Index',
+                        'name' => 'User.TokensBackend.Index',
                         'description' => Yii::t('UserModule.user', 'List of user tokens')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'User.TokenBackend.Update',
+                        'name' => 'User.TokensBackend.Update',
                         'description' => Yii::t('UserModule.user', 'Editing user tokens')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'User.TokenBackend.Inline',
+                        'name' => 'User.TokensBackend.Inline',
                         'description' => Yii::t('UserModule.user', 'Editing user tokens')
                     ),
                     array(
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'User.TokenBackend.View',
+                        'name' => 'User.TokensBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing user tokens')
                     ),
                 )
