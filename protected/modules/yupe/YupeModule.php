@@ -478,10 +478,10 @@ class YupeModule extends WebModule
                     'class' => 'flushAction',
                     'method' => 'cacheAll',
                 ),
-                'icon' => 'trash',
+                'icon' => 'icon-trash',
                 'items' => array(
                     array(
-                        'icon' => 'trash',
+                        'icon' => 'icon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean settings cache'),
                         'url' => array('/yupe/backend/flushDumpSettings'),
                         'linkOptions' => array(
@@ -490,7 +490,7 @@ class YupeModule extends WebModule
                         )
                     ),
                     array(
-                        'icon' => 'trash',
+                        'icon' => 'icon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean cache'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 1),
                         'linkOptions' => array(
@@ -499,7 +499,7 @@ class YupeModule extends WebModule
                         )
                     ),
                     array(
-                        'icon' => 'trash',
+                        'icon' => 'icon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean assets'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 2),
                         'linkOptions' => array(
@@ -508,7 +508,7 @@ class YupeModule extends WebModule
                         )
                     ),
                     array(
-                        'icon' => 'trash',
+                        'icon' => 'icon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean cache and assets'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 3),
                         'linkOptions' => array(
@@ -519,17 +519,17 @@ class YupeModule extends WebModule
                 )
             ),
             array(
-                'icon'  => "th",
+                'icon'  => "icon-th",
                 'label' => Yii::t('YupeModule.yupe', 'Modules'),
                 'url'   => array('/yupe/backend/settings'),
             ),
             array(
-                'icon'  => 'picture',
+                'icon'  => 'icon-picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
                 'url'   => array('/yupe/backend/themesettings'),
             ),
             array(
-                'icon'  => 'wrench',
+                'icon'  => 'icon-wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
                 'url'   => array(
                     '/yupe/backend/modulesettings',
@@ -537,7 +537,7 @@ class YupeModule extends WebModule
                 ),
             ),
             array(
-                'icon'  => "question-sign",
+                'icon'  => "icon-question-sign",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                 'url'   => array('/yupe/backend/help'),
             )
@@ -611,7 +611,7 @@ class YupeModule extends WebModule
      **/
     public function getIcon()
     {
-        return "cog";
+        return "fa fa-fw fa-cog";
     }
 
     /**

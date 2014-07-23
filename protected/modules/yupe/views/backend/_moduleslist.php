@@ -74,7 +74,7 @@ function moduleRow($module, &$updates, &$modules)
 {
 ?>
     <tr class="<?php echo ($module->getIsActive()) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
-        <td><?php echo $module->icon ? "<i class='icon-" . $module->getIcon() . "'>&nbsp;</i> " : ""; ?></td>
+        <td><?php echo $module->icon ? "<i class='" . $module->getIcon() . "'>&nbsp;</i> " : ""; ?></td>
         <td>
             <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->getCategory()); ?></small><br />
             <?php if ($module->getIsActive() || $module->getIsNoDisable()): ?>

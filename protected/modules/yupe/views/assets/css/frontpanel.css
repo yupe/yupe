@@ -18,6 +18,7 @@
 
 .navbar .nav > li > a {
     padding: 10px 8px;
+    color: #000000;
 }
 
 .navbar .brand img {
@@ -41,3 +42,6 @@
     width: 40px;
 }
 
+.nav-list .fa {
+    color: #000;
+}

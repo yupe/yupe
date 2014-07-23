@@ -59,7 +59,7 @@ class QueueModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return 'tasks';
+        return 'fa fa-fw fa-tasks';
     }
 
     public function getAdminPageLink()
@@ -80,9 +80,9 @@ class QueueModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
-            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Clean queue'), 'url' => array('/queue/queueBackend/clear')),
+            array('icon' => 'icon-list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
+            array('icon' => 'icon-plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
+            array('icon' => 'icon-trash', 'label' => Yii::t('QueueModule.queue', 'Clean queue'), 'url' => array('/queue/queueBackend/clear')),
         );
     }
 
