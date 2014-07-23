@@ -54,7 +54,9 @@
     <?php endif; ?>
 
     <?php if ($module->getIsActive()): ?>
-        <?php echo $module->getPanelWidget(); ?>
+        <?php foreach ($module->getPanelWidgets() as $widget => $params): ?>
+            <?php $this->widget($widget, $params);?>
+        <?php endforeach;?>
     <?php endif;?>
 
 <?php endforeach;?>
