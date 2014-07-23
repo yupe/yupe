@@ -66,9 +66,10 @@ return array(
         ),*/
     ),
 
-    //comment this behaviors if multilingual unnecessary
     'behaviors' => array(
-        array('class' => 'yupe\components\urlManager\LanguageBehavior'),
+        'onBeginRequest' => array(
+            'class' => 'yupe\components\urlManager\LanguageBehavior'
+         )
     ),
 
     'params' => require dirname(__FILE__) . '/params.php',

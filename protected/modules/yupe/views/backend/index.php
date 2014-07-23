@@ -2,6 +2,14 @@
     <h1><?php echo Yii::t('YupeModule.yupe', 'Control panel "{app}"', array('{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)))); ?><br/></h1>
 </div>
 
+
+<?php $box = $this->beginWidget(
+    'bootstrap.widgets.TbBox',
+    array(
+        'title' => Yii::t('YupeModule.yupe', 'Notify'),
+        'headerIcon' => 'icon-exclamation-sign'
+    )
+);?>
 <?php foreach ($modules as $module): ?>
     <?php  if ($module instanceof yupe\components\WebModule === false):?>
         <?php continue; ?>
@@ -48,13 +56,19 @@
     <?php endif; ?>
 <?php endforeach; ?>
 
+<?php $this->endWidget(); ?>
+
+
+
 <?php foreach ($modules as $module): ?>
     <?php  if ($module instanceof yupe\components\WebModule === false):?>
         <?php continue; ?>
     <?php endif; ?>
 
     <?php if ($module->getIsActive()): ?>
-        <?php echo $module->getPanelWidget(); ?>
+        <?php foreach ($module->getPanelWidgets() as $widget => $params): ?>
+            <?php $this->widget($widget, $params);?>
+        <?php endforeach;?>
     <?php endif;?>
 
 <?php endforeach;?>

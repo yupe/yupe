@@ -42,7 +42,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $this->redirect(array('userList'));
         }
 
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->isPostRequest) {
             /* получение названий ролей, которые есть в базе */
             $existingRoles = Yii::app()->db->createCommand('SELECT name FROM {{user_user_auth_item}}')->queryColumn();
 
@@ -51,7 +51,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             try {
                 AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int)$user->id));
                 // убираем дубликаты и несуществующие роли
-                $roles = array_intersect(array_unique((array)Yii::app()->request->getPost('AuthItem')), $existingRoles);
+                $roles = array_intersect(array_unique((array)Yii::app()->getRequest()->getPost('AuthItem')), $existingRoles);
                 foreach ($roles as $op) {
                     $model = new AuthAssignment();
                     $model->setAttributes(
@@ -71,17 +71,17 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
                 $transaction->commit();
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('RbacModule.rbac', 'Data was updated!')
                 );
 
                 /*сброс кэша меню*/
-                Yii::app()->cache->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->language);
+                Yii::app()->cache->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->getLanguage());
 
                 $this->redirect(array('assign', 'id' => $user->id));
             } catch (Exception $e) {
-                Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, $e->getMessage());
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, $e->getMessage());
                 $transaction->rollback();
             }
         }
@@ -95,23 +95,23 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         $model = new AuthItem();
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['AuthItem'])) {
+        if (Yii::app()->getRequest()->isPostRequest && isset($_POST['AuthItem'])) {
             $transaction = Yii::app()->db->beginTransaction();
             try {
-                $model->attributes = Yii::app()->request->getPost('AuthItem');
+                $model->attributes = Yii::app()->getRequest()->getPost('AuthItem');
                 if ($model->save()) {
                     $this->updateAuthItemChildren($model);
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('RbacModule.rbac', 'The item is added!')
                     );
                     $this->redirect(array('view', 'id' => $model->name));
                 }
             } catch (Exception $e) {
-                Yii::app()->user->setFlash('error', $e->getMessage());
+                Yii::app()->getUser()->setFlash('error', $e->getMessage());
                 $transaction->rollback();
             }
         }
@@ -143,7 +143,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
         // названия ролей, которые могут бы потомками
         $availableChildrenName = array_keys(CHtml::listData($availableChildren, 'name', 'description'));
         // уберем те, которые не могут быть потомками
-        $children = array_intersect(Yii::app()->request->getPost('ChildAuthItems', array()), $availableChildrenName);
+        $children = array_intersect(Yii::app()->getRequest()->getPost('ChildAuthItems', array()), $availableChildrenName);
 
         AuthItemChild::model()->deleteAll('parent = :parent', array(':parent' => $item->name));
 
@@ -173,7 +173,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $checkedList[$item->childItem->name] = true;
         }
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['AuthItem'])) {
+        if (Yii::app()->getRequest()->isPostRequest && isset($_POST['AuthItem'])) {
             $transaction = Yii::app()->db->beginTransaction();
             try {
                 $model->attributes = $_POST['AuthItem'];
@@ -182,14 +182,14 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('RbacModule.rbac', 'The item is changed!')
                     );
                     $this->redirect(array('update', 'id' => $model->name));
                 }
             } catch (Exception $e) {
-                Yii::app()->user->setFlash('error', $e->getMessage());
+                Yii::app()->getUser()->setFlash('error', $e->getMessage());
                 $transaction->rollback();
             }
         }
@@ -210,7 +210,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     public function actionDelete($id)
     {
-        if (!Yii::app()->request->isPostRequest) {
+        if (!Yii::app()->getRequest()->isPostRequest) {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
         }
         try {
@@ -295,8 +295,8 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 $modules[$key] = $module;
             }
         }
-        if (Yii::app()->request->isPostRequest) {
-            $importModules = array_intersect(Yii::app()->request->getPost('modules', array()), array_keys($modules));
+        if (Yii::app()->getRequest()->isPostRequest) {
+            $importModules = array_intersect(Yii::app()->getRequest()->getPost('modules', array()), array_keys($modules));
             foreach ($importModules as $moduleName) {
                 /* @var $module \yupe\components\WebModule */
                 $module = $modules[$moduleName];
@@ -346,7 +346,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 }
             }
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('RbacModule.rbac', 'Items successfully imported!')
             );

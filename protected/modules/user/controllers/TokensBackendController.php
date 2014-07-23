@@ -18,12 +18,11 @@ class TokensBackendController extends yupe\components\controllers\BackController
     {
         return array(
             array('allow', 'roles'   => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('User.TokenBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('User.TokenBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('User.TokenBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokenBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('User.TokenBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('User.TokenBackend.View')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('User.TokensBackend.Delete')),
+            array('allow', 'actions' => array('index'), 'roles' => array('User.TokensBackend.Index')),
+            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokensBackend.Update')),
+            array('allow', 'actions' => array('update'), 'roles' => array('User.TokensBackend.Update')),
+            array('allow', 'actions' => array('view'), 'roles' => array('User.TokensBackend.View')),
             array('deny')
         );
     }
@@ -47,39 +46,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
 		$this->render('view', array('model' => $this->loadModel($id)));
 	}
 
-	/**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     *
-     * @return void
-     */
-    //*
-    // Оставляю на всякий случай, если кто-то докопается:
-	public function actionCreate()
-	{
-		$model = new UserToken;
-
-		if (($data = Yii::app()->getRequest()->getPost('UserToken')) !== null) {
-            
-            $model->setAttributes($data);
-
-            if ($model->save()) {
-
-                Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('UserModule.user', 'New record was created!')
-                );
-
-                $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
-                    )
-                );
-            }
-        }
-        $this->render('create', array('model' => $model));
-    }
-    //*/
 
 	/**
      * Updates a particular model.

@@ -42,6 +42,7 @@ $this->menu = array(
         'id' => 'auth-item-grid',
         'dataProvider' => $model->search(),
         'filter' => $model,
+        'bulkActions' => array(false),
         'columns' => array(
             array(
                 'name' => 'name',

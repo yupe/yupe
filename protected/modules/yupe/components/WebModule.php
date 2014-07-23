@@ -28,12 +28,28 @@ use Category;
 
 use yupe\models\Settings;
 
+/**
+ * Class WebModule
+ * @package yupe\components
+ */
 abstract class WebModule extends CWebModule
 {
+    /**
+     *
+     */
     const CHECK_ERROR = 'error';
+    /**
+     *
+     */
     const CHECK_NOTICE = 'notice';
 
+    /**
+     *
+     */
     const CHOICE_YES = 1;
+    /**
+     *
+     */
     const CHOICE_NO = 0;
 
     /**
@@ -65,28 +81,6 @@ abstract class WebModule extends CWebModule
      * @var array опции редактора
      */
     public $editorOptions = array();
-
-    /**
-     * @var array  Массив для задания обработчиков событий модуля при инициализации.
-     *
-     * @example
-     *
-     * $this->eventHandlers = array("onSomeEvent" => "someEventHandler");
-     *
-     * $this->eventHandlers = array( "onSomeEvent" => array(
-     *                               "someEventHandler",
-     *                               array(new EventClass,"eventHandlerMethod")
-     *                              ));
-     *
-     * $this->eventHandlers = array("onFirstEvent" => array("someEventHandler","someEventHandler2"),
-     *                              "onSecondEvent" => array(
-     *                                 array(new EventClassOne,"eventHandlerMethodOne"),
-     *                                 array(new EventClassTwo,"eventHandlerMethodTwo") )
-     *                             );
-     *
-     */
-
-    public $eventHandlers = array();
 
     /**
      * @var bool | string
@@ -122,6 +116,38 @@ abstract class WebModule extends CWebModule
 
     public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar';
 
+    /**
+     * @var array
+     * @since 0.8
+     *
+     * Содержит массив виджетов для отображения на главной странице панели управления
+     * Виджеты отображаются в порядке их перечисления
+     */
+    protected $panelWidgets = array();
+
+    /**
+     * @param array $widgets
+     * @since 0.8
+     */
+    public function setPanelWidgets(array $widgets)
+    {
+        $this->panelWidgets = $widgets;
+    }
+
+    /**
+     * @return array
+     * @since 0.8
+     *
+     */
+    public function getPanelWidgets()
+    {
+        return $this->panelWidgets;
+    }
+
+    /**
+     * @return bool|string
+     * @since 0.7
+     */
     public function getProfileModel()
     {
         return $this->profileModel;
@@ -241,17 +267,6 @@ abstract class WebModule extends CWebModule
         return true;
     }
 
-
-    /**
-     * Каждый модуль может выводить свои виджеты (например, со стаистикой) на главную страницу панели управления
-     *
-     * @return string или false
-     *
-     */
-    public function getPanelWidget()
-    {
-        return false;
-    }
 
     /**
      * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления

@@ -360,7 +360,7 @@ return array (
 
     'Creating user token' => 'Создание токена пользователя',
     'Removing user token' => 'Удаление токена пользователя',
-    'List of user tokens' => 'Просмотр токена списка пользователей',
+    'List of user tokens' => 'Просмотр списка токенов пользователей',
     'Editing user tokens' => 'Редактирование токена пользователя',
     'Viewing user tokens' => 'Просмотр токена пользователя'
 );

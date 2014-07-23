@@ -26,9 +26,9 @@ class YBackAccessControl extends CAccessControlFilter
             throw new CHttpException(404);
         }
 
-        Yii::app()->user->loginUrl = array('/user/account/backendlogin');
+        Yii::app()->getUser()->loginUrl = array('/user/account/backendlogin');
 
-        if (Yii::app()->user->isGuest) {
+        if (Yii::app()->getUser()->isGuest) {
             if ($filterChain->controller->yupe->hidePanelUrls == WebModule::CHOICE_YES) {
                 throw new CHttpException(404);
             }
@@ -36,7 +36,7 @@ class YBackAccessControl extends CAccessControlFilter
             $filterChain->controller->redirect(array('/user/account/backendlogin'));
         }
 
-        if (Yii::app()->user->isSuperUser() || Yii::app()->hasModule('rbac')) {
+        if (Yii::app()->getUser()->isSuperUser()) {
             return true;
         }
 

@@ -62,37 +62,6 @@ class BlogModule extends yupe\components\WebModule
         return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE]) ) ? $messages : true;
     }
 
-    public function getPanelWidget()
-    {
-        $cacheTime = Yii::app()->controller->yupe->coreCacheTime;
-
-        $dataProvider = new CActiveDataProvider('Post', array(
-            'sort' => array(
-                'defaultOrder' => 'id DESC',
-            ),
-            'pagination'=>array(
-                'pageSize'=>3,
-            ),
-        ));
-
-        Yii::app()->controller->widget(
-            'bootstrap.widgets.TbBox',
-            array(
-                'title' => Yii::t('BlogModule.blog', 'Blogs'),
-                'headerIcon' => 'icon-pencil',
-                'content' =>  Yii::app()->controller->renderPartial('application.modules.blog.views.blogBackend.blog-panel', array(
-                            'postsCount'    => Post::model()->cache($cacheTime)->count('create_date >= :time', array(':time' => time() - 24 * 60 * 60)),
-                            'commentCount'  => Comment::model()->cache($cacheTime)->count('creation_date >= (CURDATE() - INTERVAL 1 DAY)'),
-                            'allPostsCnt'   => Post::model()->cache($cacheTime)->count(),
-                            'allCommentCnt' => Comment::model()->cache($cacheTime)->count(),
-                            'usersCount'  => User::model()->cache($cacheTime)->count('registration_date >= (CURDATE() - INTERVAL 1 DAY)'),
-                            'allUsersCnt' => User::model()->cache($cacheTime)->count(),
-                            'dataProvider' => $dataProvider
-                        ), true)
-            )
-        );
-    }
-
     public function getCategory()
     {
         return Yii::t('BlogModule.blog', 'Content');

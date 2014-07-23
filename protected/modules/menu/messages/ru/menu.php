@@ -138,10 +138,10 @@ return array(
     'List of menu' => 'Просмотр списка меню',
     'Editing menu' => 'Редактирование меню',
     'Viewing menu' => 'Просмотр меню',
+
     'Creating menu item' => 'Создание пунктов меню',
     'Removing menu item' => 'Удаление пунктов меню',
-    'List of menu item' => 'Просмотр списка пунктов меню',
-    'Editing menu item' => 'Редактирование пунктов меню',
-    'Viewing menu item' => 'Просмотр пунктов меню'
-
+    'List of menu items' => 'Просмотр списка пунктов меню',
+    'Editing menu items' => 'Редактирование пунктов меню',
+    'Viewing menu items' => 'Просмотр пунктов меню'
 );

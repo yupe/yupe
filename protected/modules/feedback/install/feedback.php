@@ -14,6 +14,11 @@ return array(
         'class'           => 'application.modules.feedback.FeedbackModule',
         'notifyEmailFrom' => 'test@test.ru',
         'emails'          => 'test_1@test.ru, test_2@test.ru',
+        'panelWidgets' => array(
+            'application.modules.feedback.widgets.PanelFeedbackStatWidget' => array(
+                'limit' => 10
+            )
+        )
     ),
     'import'    => array(
         'application.modules.yupe.YupeModule'

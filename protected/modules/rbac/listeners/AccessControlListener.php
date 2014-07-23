@@ -4,9 +4,8 @@ use yupe\components\Event;
 
 class AccessControlListener
 {
-    public static function onBeforeBackendControllerAction(Event $event)
+    public static function onBackendControllerInit(Event $event)
     {
-       $filter = new CAccessControlFilter;
-       $filter->setRules($event->getController()->accessRules());
+        Yii::app()->getModule('yupe')->addbackendFilter('accessControl');
     }
 } 
