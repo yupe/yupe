@@ -93,7 +93,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "search";
+        return "fa fa-fw fa-search";
     }
 
     public function getAdminPageLink()
@@ -118,7 +118,7 @@ class ZendSearchModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'icon-list-alt',
                 'label' => Yii::t('ZendSearchModule.zendsearch', 'Index'),
                 'url' => array('/zendsearch/manageBackend/index')
             )

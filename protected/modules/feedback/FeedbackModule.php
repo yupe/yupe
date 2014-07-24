@@ -149,8 +149,8 @@ class FeedbackModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages list'), 'url' => array('/feedback/feedbackBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message'), 'url' => array('/feedback/feedbackBackend/create')),
+            array('icon' => 'icon-list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages list'), 'url' => array('/feedback/feedbackBackend/index')),
+            array('icon' => 'icon-plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message'), 'url' => array('/feedback/feedbackBackend/create')),
             array('icon' => 'icon-folder-open', 'label' => Yii::t('FeedbackModule.feedback', 'Messages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
@@ -192,7 +192,7 @@ class FeedbackModule extends WebModule
 
     public function getIcon()
     {
-        return 'envelope';
+        return 'fa fa-fw fa-envelope';
     }
 
     /**

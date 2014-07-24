@@ -51,7 +51,7 @@ class ContentBlockModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "th-large";
+        return "fa fa-fw fa-th-large";
     }
 
     public function init()
@@ -74,12 +74,12 @@ class ContentBlockModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'icon-list-alt',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'),
                 'url' => array('/contentblock/contentBlockBackend/index')
             ),
             array(
-                'icon' => 'plus-sign',
+                'icon' => 'icon-plus-sign',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'),
                 'url' => array('/contentblock/contentBlockBackend/create')
             ),

@@ -305,7 +305,7 @@ class InstallModule extends WebModule
      **/
     public function getIcon()
     {
-        return "download-alt";
+        return "fa fa-fw fa-download-alt";
     }
 
     /**
