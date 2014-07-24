@@ -64,10 +64,10 @@ class ModuleManager extends \CApplicationComponent
         $this->otherCategoryName = Yii::t('YupeModule.yupe', 'Other');
 
         $this->categoryIcon = array(
-            Yii::t('YupeModule.yupe', 'Services') => 'briefcase',
-            Yii::t('YupeModule.yupe', 'Yupe!')    => 'cog',
-            Yii::t('YupeModule.yupe', 'Content')  => 'file',
-            $this->otherCategoryName => 'cog',
+            Yii::t('YupeModule.yupe', 'Services') => 'fa fa-fw fa-briefcase',
+            Yii::t('YupeModule.yupe', 'Yupe!')    => 'fa fa-fw fa-cog',
+            Yii::t('YupeModule.yupe', 'Content')  => 'fa fa-fw fa-file',
+            $this->otherCategoryName => 'fa fa-fw fa-cog',
         );
 
         $this->categorySort = array(

@@ -28,7 +28,7 @@
                                 href="#collapse<?php echo $module->getId(); ?>"
                                 >
                                 <?php echo Yii::t('YupeModule.yupe', 'Module {icon} "{module}", messages: {count}', array(
-                                        '{icon}'   => $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : "",
+                                        '{icon}'   => $module->icon ? "<i class='" . $module->icon . "'>&nbsp;</i> " : "",
                                         '{module}' => $module->getName(),
                                         '{count}'  => '<small class="label label-warning">' . count($value) . '</small>',
                                     )); ?>

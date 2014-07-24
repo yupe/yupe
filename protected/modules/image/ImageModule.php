@@ -55,7 +55,7 @@ class ImageModule extends WebModule
 
     public function getIcon()
     {
-        return "picture-o";
+        return "fa fa-fw fa-picture-o";
     }
 
     public function getParamsLabels()
@@ -222,12 +222,12 @@ class ImageModule extends WebModule
     {
         return array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'icon-list-alt',
                 'label' => Yii::t('ImageModule.image', 'Images list'),
                 'url' => array('/image/imageBackend/index')
             ),
             array(
-                'icon' => 'plus-sign',
+                'icon' => 'icon-plus-sign',
                 'label' => Yii::t('ImageModule.image', 'Add image'),
                 'url' => array('/image/imageBackend/create')
             ),

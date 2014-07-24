@@ -107,7 +107,7 @@ class MailModule extends yupe\components\WebModule
      **/
     public function getIcon()
     {
-        return 'envelope';
+        return 'fa fa-fw fa-envelope';
     }
 
     /**
@@ -129,11 +129,11 @@ class MailModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('MailModule.mail', 'Mail events')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'), 'url'=>array('/mail/eventBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventBackend/create')),
+            array('icon' => 'icon-list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'), 'url' => array('/mail/eventBackend/index')),
+            array('icon' => 'icon-plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventBackend/create')),
             array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-            array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'), 'url'=>array('/mail/templateBackend/index')),
-            array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateBackend/create')),
+            array('icon' => 'icon-list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'), 'url' => array('/mail/templateBackend/index')),
+            array('icon' => 'icon-plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateBackend/create')),
         );
     }
 

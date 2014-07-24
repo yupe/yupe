@@ -106,7 +106,7 @@ class CategoryModule extends WebModule
 
     public function getIcon()
     {
-        return 'folder-open';
+        return 'fa fa-fw fa-folder-open';
     }
 
     public function isMultiLang()
@@ -127,8 +127,8 @@ class CategoryModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Categories list'), 'url' => array('/category/categoryBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
+            array('icon' => 'icon-list-alt', 'label' => Yii::t('CategoryModule.category', 'Categories list'), 'url' => array('/category/categoryBackend/index')),
+            array('icon' => 'icon-plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
         );
     }
 
