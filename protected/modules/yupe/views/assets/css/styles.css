@@ -178,3 +178,7 @@ table [class*='icon-'] {
     cursor: move;
     background: #fff;
 }
+
+.glyphicon {
+    padding-right: 2px;
+}

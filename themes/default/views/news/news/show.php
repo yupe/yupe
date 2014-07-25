@@ -20,12 +20,12 @@ $this->breadcrumbs = array(
 
 <div class="post">
     <div class="row">
-        <div class="span8">
+        <div class="col-sm-12">
             <h4><strong><?php echo CHtml::encode($news->title);?></strong></h4>
         </div>
     </div>
     <div class="row">
-        <div class="span8">
+        <div class="col-sm-12">
             <?php if($news->image):?>
                 <?php echo CHtml::image($news->getImageUrl(), $news->title);?>
             <?php endif;?>

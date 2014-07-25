@@ -118,7 +118,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             $model->category_id = $news->category_id;
             $model->title       = $news->title;
         } else {
-            $model->date = date('d.m.Y');
+            $model->date = date('d-m-Y');
             $model->lang = Yii::app()->language;
         }
 
