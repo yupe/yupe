@@ -20,6 +20,8 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
     public $from;
 
+    public $sender = 'mail';
+
     public function getLogCategory()
     {
         return 'mail';
@@ -63,16 +65,16 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
             $from = $this->from ? $this->from : $data['from'];
 
-            if (Yii::app()->mail->send($from, $data['to'], $data['theme'], $data['body']))
+            if (Yii::app()->getComponent($this->sender)->send($from, $data['to'], $data['theme'], $data['body']))
             {
                 $model->complete();
 
                 $this->log("Success send mail");
 
                 continue;
-            }else{
-                $this->log('Error sending email', CLogger::LEVEL_ERROR);
             }
+
+            $this->log('Error sending email', CLogger::LEVEL_ERROR);
         }
     }
 }
