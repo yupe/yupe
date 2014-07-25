@@ -14,6 +14,9 @@ use yupe\components\WebModule;
 
 class InstallModule extends WebModule
 {
+	/** @var array Значения по умолчанию для установки. Будут переданы в InstallForm. Настройки описываются в конфиге main.php. */
+	public $defaultAttributes = array();
+
     /**
      * Проверка инсталятора:
      *
