@@ -9,7 +9,6 @@ use application\modules\social\models\SocialUser;
 use Yii;
 use EAuthException;
 use CHttpException;
-use CModelEvent;
 use User;
 use RegistrationForm;
 use CLogger;
@@ -116,11 +115,8 @@ class UserController extends FrontController
         }
 
         $form = new RegistrationForm;
+
         $form->disableCaptcha = true;
-
-        $event = new CModelEvent($form);
-
-        $module->onBeginRegistration($event);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['RegistrationForm'])) {
 
