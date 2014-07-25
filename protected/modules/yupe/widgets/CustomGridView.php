@@ -240,9 +240,9 @@ class CustomGridView extends \TbExtendedGridView
      */
     public function getUpDownButtons($data)
     {
-        $downUrlImage = '<i class="icon-circle-arrow-down"></i>';
+        $downUrlImage = '<i class="glyphicon glyphicon-circle-arrow-down"></i>';
 
-        $upUrlImage = '<i class="icon-circle-arrow-up"></i>';
+        $upUrlImage = '<i class="glyphicon glyphicon-circle-arrow-up"></i>';
 
         $urlUp = Yii::app()->controller->createUrl(
             "sort",

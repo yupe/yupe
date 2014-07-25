@@ -173,3 +173,8 @@ table [class*='icon-'] {
 .datepicker {
     z-index: 100 !important;
 }
+
+.ui-sortable tr {
+    cursor: move;
+    background: #fff;
+}

@@ -1,5 +1,5 @@
 <script type='text/javascript'>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#menu-form').liTranslit({
             elName: '#Menu_name',
             elAlias: '#Menu_code'
@@ -20,52 +20,111 @@
  *
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
-        'id'                     => 'menu-form',
-        'enableAjaxValidation'   => false,
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'id' => 'menu-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-        'inlineErrors'           => true,
+        'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
-    <div class="alert alert-info">
-        <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
-        <span class="required">*</span>
-        <?php echo Yii::t('MenuModule.menu', 'are required.'); ?>
-    </div>
+<div class="alert alert-info">
+    <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
+    <span class="required">*</span>
+    <?php echo Yii::t('MenuModule.menu', 'are required.'); ?>
+</div>
 
-    <?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model); ?>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>">
-        <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $model,
+            'name',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('name'),
+                        'data-content' => $model->getAttributeDescription('name'),
+                    ),
+                ),
+            )
+        ); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>">
-        <?php echo $form->textFieldRow($model, 'code', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('code'), 'data-content' => $model->getAttributeDescription('code'))); ?>
+</div>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $model,
+            'code',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('code'),
+                        'data-content' => $model->getAttributeDescription('code'),
+                    ),
+                ),
+            )
+        ); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>">
-        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
-            <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
-        </div>
-     </div>
-     <div class="row-fluid control-group <?php echo $model->hasErrors('status') ? 'error' : '' ?>">
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
-     </div>
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton', array(
-            'buttonType' => 'submit',
-            'type'       => 'primary',
-            'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t('MenuModule.menu', 'Save menu and continue'),
-        )
-    ); ?>
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton', array(
-            'buttonType'  => 'submit',
-            'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-            'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t('MenuModule.menu', 'Save menu and close'),
-        )
-    ); ?>
+</div>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textAreaGroup(
+            $model,
+            'description',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('description'),
+                        'data-content' => $model->getAttributeDescription('description'),
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'status',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getStatusList(),
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('status'),
+                        'data-content' => $model->getAttributeDescription('status'),
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+</div>
+
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton',
+    array(
+        'buttonType' => 'submit',
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t('MenuModule.menu', 'Save menu and continue'),
+    )
+); ?>
+
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton',
+    array(
+        'buttonType' => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label' => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t('MenuModule.menu', 'Save menu and close'),
+    )
+); ?>
 
 <?php $this->endWidget(); ?>
