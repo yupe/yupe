@@ -68,7 +68,7 @@ $this->menu = array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTelField($model, 'name', array('class' => 'form-control')),
+                'filter' => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
             ),
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -80,7 +80,7 @@ $this->menu = array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTelField($model, 'alias', array('class' => 'form-control')),
+                'filter' => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
             ),
             array(
                 'name' => 'parent_id',
