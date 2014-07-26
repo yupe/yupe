@@ -76,7 +76,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'buttonType' => 'submit',
     'context' => 'primary',
     'encodeLabel' => false,
-    'label' => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('PageModule.page', 'Find pages'),
+    'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('PageModule.page', 'Find pages'),
 )); ?>
 
 <?php $this->endWidget(); ?>

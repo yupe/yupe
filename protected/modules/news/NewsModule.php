@@ -178,7 +178,7 @@ class NewsModule extends WebModule
         return array(
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('NewsModule.news', 'News list'), 'url' => array('/news/newsBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
-            array('icon' => 'glyphicon glyphicon-icon-folder-open', 'label' => Yii::t('NewsModule.news', 'News categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('NewsModule.news', 'News categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
 

@@ -61,11 +61,11 @@ $this->menu = array(
         )
     ),
 ); ?>
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('MenuModule.menu', 'Edit menu'); ?><br/>
-            <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('MenuModule.menu', 'Edit menu'); ?><br/>
+        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+    </h1>
+</div>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

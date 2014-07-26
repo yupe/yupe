@@ -34,11 +34,11 @@ $this->menu = array(
     ),
 );
 ?>
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('MenuModule.menu', 'Menu'); ?>
-            <small><?php echo Yii::t('MenuModule.menu', 'create'); ?></small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('MenuModule.menu', 'Menu'); ?>
+        <small><?php echo Yii::t('MenuModule.menu', 'create'); ?></small>
+    </h1>
+</div>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

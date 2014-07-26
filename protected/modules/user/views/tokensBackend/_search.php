@@ -6,7 +6,6 @@
     </a>
 </p>
 
-
 <div id="search-toggle" class="collapse out search-form">
     <?php Yii::app()->clientScript->registerScript(
         'search',
@@ -103,7 +102,7 @@
             array(
                 'buttonType' => 'submit',
                 'context' => 'primary',
-                'icon' => 'white search',
+                'icon' => 'glyphicon glyphicon-search',
                 'label' => Yii::t('UserModule.user', 'Find tokens'),
             )
         ); ?>
@@ -113,7 +112,7 @@
             array(
                 'buttonType' => 'reset',
                 'context' => 'danger',
-                'icon' => 'white remove',
+                'icon' => 'glyphicon glyphicon-remove',
                 'label' => Yii::t('UserModule.user', 'Reset'),
             )
         ); ?>

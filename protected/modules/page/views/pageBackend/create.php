@@ -11,11 +11,11 @@ $this->menu = array(
     array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PageModule.page', 'Add page'), 'url' => array('/page/pageBackend/create')),
 );
 ?>
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('PageModule.page', 'Pages'); ?>
-            <small><?php echo Yii::t('PageModule.page', 'create'); ?></small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('PageModule.page', 'Pages'); ?>
+        <small><?php echo Yii::t('PageModule.page', 'create'); ?></small>
+    </h1>
+</div>
 
 <?php echo $this->renderPartial('_form', array('menuId' => $menuId, 'menuParentId' => $menuParentId, 'model' => $model, 'pages' => $pages, 'languages' => $languages)); ?>

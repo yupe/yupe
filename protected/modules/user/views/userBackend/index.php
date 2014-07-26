@@ -29,26 +29,26 @@ $this->menu = array(
 );
 ?>
 
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('UserModule.user', 'Users'); ?>
-            <small><?php echo Yii::t('UserModule.user', 'management'); ?></small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('UserModule.user', 'Users'); ?>
+        <small><?php echo Yii::t('UserModule.user', 'management'); ?></small>
+    </h1>
+</div>
 
-    <p>
-        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-            <i class="glyphicon glyphicon-search">&nbsp;</i>
-            <?php echo Yii::t('UserModule.user', 'Find users'); ?>
-            <span class="caret">&nbsp;</span>
-        </a>
-    </p>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo Yii::t('UserModule.user', 'Find users'); ?>
+        <span class="caret">&nbsp;</span>
+    </a>
+</p>
 
-    <div id="search-toggle" class="collapse out search-form">
-        <?php
-        Yii::app()->clientScript->registerScript(
-            'search',
-            "
+<div id="search-toggle" class="collapse out search-form">
+    <?php
+    Yii::app()->clientScript->registerScript(
+        'search',
+        "
     $('.search-form form').submit(function() {
         event.preventDefault();
 
@@ -68,12 +68,12 @@ $this->menu = array(
             });
     });
 "
-        );
-        $this->renderPartial('_search', array('model' => $model));
-        ?>
-    </div>
+    );
+    $this->renderPartial('_search', array('model' => $model));
+    ?>
+</div>
 
-    <p><?php echo Yii::t('UserModule.user', 'This section represents account management!'); ?></p>
+<p><?php echo Yii::t('UserModule.user', 'This section represents account management!'); ?></p>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',

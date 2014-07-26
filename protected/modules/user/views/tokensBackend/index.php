@@ -1,21 +1,27 @@
 <?php
-    $this->breadcrumbs = array(        
-        Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
-        Yii::t('UserModule.user', 'Tokens') => array('/user/tokensBackend/index'),
-        Yii::t('UserModule.user', 'Token management'),
-    );
+$this->breadcrumbs = array(
+    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
+    Yii::t('UserModule.user', 'Tokens') => array('/user/tokensBackend/index'),
+    Yii::t('UserModule.user', 'Token management'),
+);
 
-    $this->pageTitle = Yii::t('UserModule.user', 'Token management');
+$this->pageTitle = Yii::t('UserModule.user', 'Token management');
 
-    $this->menu = array(
-        array('label' => Yii::t('UserModule.user', 'Users'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
-        )),
-        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
-        )),
-    );
+$this->menu = array(
+    array(
+        'label' => Yii::t('UserModule.user', 'Users'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
+        )
+    ),
+    array(
+        'label' => Yii::t('UserModule.user', 'Tokens'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+        )
+    ),
+);
 ?>
 <div class="page-header">
     <h1>
@@ -37,7 +43,7 @@ $data = json_encode(
 $confirmMessage = CJavaScript::encode(
     Yii::t('UserModule.user', 'Are you sure you want to compromise this token?')
 );
-$compromiseJS   = <<<SCRIPT
+$compromiseJS = <<<SCRIPT
     function() {
         event.preventDefault();
 
@@ -53,31 +59,33 @@ SCRIPT;
 ?>
 
 <?php $this->widget(
-    'yupe\widgets\CustomGridView', array(
-        'id'            => 'user-tokens-grid',
+    'yupe\widgets\CustomGridView',
+    array(
+        'id' => 'user-tokens-grid',
         'dataProvider' => $model->search(),
-        'filter'       => $model,
-        'columns'      => array(
+        'filter' => $model,
+        'columns' => array(
             array(
-                'name'        => 'id',
+                'name' => 'id',
                 'value' => 'CHtml::link($data->id, array("/user/tokensBackend/update", "id" => $data->id))',
-                'type'  => 'html',
+                'type' => 'html',
                 'htmlOptions' => array(
-                    'style'   => 'width: 40px; text-align: center'
+                    'style' => 'width: 40px; text-align: center'
                 )
             ),
             array(
-                'name'        => 'user_id',
-                'value'       => '$data->getFullName()',
-                'filter'      => $model->getUserList()
+                'name' => 'user_id',
+                'value' => '$data->getFullName()',
+                'filter' => $model->getUserList()
             ),
             array(
-                'name'        => 'status',
-                'value'       => '$data->getStatus()',
-                'filter'      => $model->getStatusList(),
+                'name' => 'status',
+                'value' => '$data->getStatus()',
+                'filter' => $model->getStatusList(),
                 'htmlOptions' => array(
-                    'style'  => implode(
-                        ' ', array(
+                    'style' => implode(
+                        ' ',
+                        array(
                             'white-space: nowrap;',
                             'max-width: 100px;',
                             'text-overflow: ellipsis;',
@@ -87,12 +95,13 @@ SCRIPT;
                 ),
             ),
             array(
-                'name'        => 'type',
-                'value'       => '$data->getType()',
-                'filter'      => $model->getTypeList(),
+                'name' => 'type',
+                'value' => '$data->getType()',
+                'filter' => $model->getTypeList(),
                 'htmlOptions' => array(
-                    'style'  => implode(
-                        ' ', array(
+                    'style' => implode(
+                        ' ',
+                        array(
                             'white-space: nowrap;',
                             'max-width: 150px;',
                             'text-overflow: ellipsis;',
@@ -102,11 +111,12 @@ SCRIPT;
                 ),
             ),
             array(
-                'name'        => 'token',
-                'value'       => '$data->token',
+                'name' => 'token',
+                'value' => '$data->token',
                 'htmlOptions' => array(
-                    'style'  => implode(
-                        ' ', array(
+                    'style' => implode(
+                        ' ',
+                        array(
                             'white-space: nowrap;',
                             'max-width: 150px;',
                             'text-overflow: ellipsis;',
@@ -116,34 +126,34 @@ SCRIPT;
                 ),
             ),
             array(
-                'name'        => 'created',
-                'value'       => '$data->beautifyDate($data->created)',
+                'name' => 'created',
+                'value' => '$data->beautifyDate($data->created)',
                 'htmlOptions' => array(
-                    'style'   => 'width: 120px;'
+                    'style' => 'width: 120px;'
                 )
             ),
             array(
-                'name'        => 'updated',
-                'value'       => '$data->beautifyDate($data->updated)',
+                'name' => 'updated',
+                'value' => '$data->beautifyDate($data->updated)',
                 'htmlOptions' => array(
-                    'style'   => 'width: 120px;'
+                    'style' => 'width: 120px;'
                 )
             ),
             array(
-                'header'   => Yii::t('UserModule.user', 'Management'),
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'header' => Yii::t('UserModule.user', 'Management'),
+                'class' => 'bootstrap.widgets.TbButtonColumn',
                 'template' => "{fail} &emsp; {view} {update} {delete}",
-                'buttons'  => array(
+                'buttons' => array(
                     'fail' => array(
-                        'icon'        => 'remove',
-                        'label'       => Yii::t('UserModule.user', 'Compromise'),
-                        'click'       => $compromiseJS,
-                        'visible'     => '$data->getIsCompromised() === false',
-                        'url'         => 'array("/user/tokensBackend/compromise", "id" => $data->id)',
+                        'icon' => 'glyphicon glyphicon-remove',
+                        'label' => Yii::t('UserModule.user', 'Compromise'),
+                        'click' => $compromiseJS,
+                        'visible' => '$data->getIsCompromised() === false',
+                        'url' => 'array("/user/tokensBackend/compromise", "id" => $data->id)',
                     ),
                 ),
                 'htmlOptions' => array(
-                    'style'   => 'width: 90px; text-align: right; white-space: nowrap;'
+                    'style' => 'width: 90px; text-align: right; white-space: nowrap;'
                 )
             ),
         ),

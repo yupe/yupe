@@ -62,7 +62,7 @@ $form = $this->beginWidget(
         'context' => 'primary',
         'encodeLabel' => false,
         'buttonType' => 'submit',
-        'label' => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CategoryModule.category', 'Find category'),
+        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('CategoryModule.category', 'Find category'),
     )
 ); ?>
 

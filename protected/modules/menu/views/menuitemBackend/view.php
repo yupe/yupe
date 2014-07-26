@@ -45,12 +45,12 @@ $this->menu = array(
     ),
 );
 ?>
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('MenuModule.menu', 'Show menu item'); ?><br/>
-            <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('MenuModule.menu', 'Show menu item'); ?><br/>
+        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+    </h1>
+</div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',

@@ -11,26 +11,26 @@ $this->menu = array(
     array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
 );
 ?>
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('CategoryModule.category', 'Categories'); ?>
-            <small><?php echo Yii::t('CategoryModule.category', 'manage'); ?></small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('CategoryModule.category', 'Categories'); ?>
+        <small><?php echo Yii::t('CategoryModule.category', 'manage'); ?></small>
+    </h1>
+</div>
 
-    <p>
-        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-            <i class="glyphicon glyphicon-search">&nbsp;</i>
-            <?php echo Yii::t('CategoryModule.category', 'Find category'); ?>
-            <span class="caret">&nbsp;</span>
-        </a>
-    </p>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo Yii::t('CategoryModule.category', 'Find category'); ?>
+        <span class="caret">&nbsp;</span>
+    </a>
+</p>
 
-    <div id="search-toggle" class="collapse out search-form">
-        <?php
-        Yii::app()->clientScript->registerScript(
-            'search',
-            "
+<div id="search-toggle" class="collapse out search-form">
+    <?php
+    Yii::app()->clientScript->registerScript(
+        'search',
+        "
     $('.search-form form').submit(function() {
         $.fn.yiiGridView.update('category-grid', {
             data: $(this).serialize()
@@ -38,12 +38,12 @@ $this->menu = array(
         return false;
     });
 "
-        );
-        $this->renderPartial('_search', array('model' => $model));
-        ?>
-    </div>
+    );
+    $this->renderPartial('_search', array('model' => $model));
+    ?>
+</div>
 
-    <p><?php echo Yii::t('CategoryModule.category', 'This section describes category management'); ?></p>
+<p><?php echo Yii::t('CategoryModule.category', 'This section describes category management'); ?></p>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',

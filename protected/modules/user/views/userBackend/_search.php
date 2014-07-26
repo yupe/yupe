@@ -115,7 +115,7 @@ $form = $this->beginWidget(
         array(
             'buttonType' => 'submit',
             'context' => 'primary',
-            'icon' => 'white search',
+            'icon' => 'glyphicon glyphicon-search',
             'label' => Yii::t('UserModule.user', 'Find user'),
         )
     ); ?>
@@ -125,7 +125,7 @@ $form = $this->beginWidget(
         array(
             'buttonType' => 'reset',
             'context' => 'danger',
-            'icon' => 'white remove',
+            'icon' => 'glyphicon glyphicon-remove',
             'label' => Yii::t('UserModule.user', 'Reset'),
         )
     ); ?>

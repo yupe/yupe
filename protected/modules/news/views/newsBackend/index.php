@@ -17,26 +17,26 @@ $this->menu = array(
     array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
 );
 ?>
-    <div class="page-header">
-        <h1>
-            <?php echo Yii::t('NewsModule.news', 'News'); ?>
-            <small><?php echo Yii::t('NewsModule.news', 'management'); ?></small>
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('NewsModule.news', 'News'); ?>
+        <small><?php echo Yii::t('NewsModule.news', 'management'); ?></small>
+    </h1>
+</div>
 
-    <p>
-        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-            <i class="glyphicon glyphicon-search">&nbsp;</i>
-            <?php echo Yii::t('NewsModule.news', 'Find news'); ?>
-            <span class="caret">&nbsp;</span>
-        </a>
-    </p>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo Yii::t('NewsModule.news', 'Find news'); ?>
+        <span class="caret">&nbsp;</span>
+    </a>
+</p>
 
-    <div id="search-toggle" class="collapse out search-form">
-        <?php
-        Yii::app()->clientScript->registerScript(
-            'search',
-            "
+<div id="search-toggle" class="collapse out search-form">
+    <?php
+    Yii::app()->clientScript->registerScript(
+        'search',
+        "
     $('.search-form form').submit(function() {
         $.fn.yiiGridView.update('news-grid', {
             data: $(this).serialize()
@@ -44,12 +44,12 @@ $this->menu = array(
         return false;
     });
 "
-        );
-        $this->renderPartial('_search', array('model' => $model));
-        ?>
-    </div>
+    );
+    $this->renderPartial('_search', array('model' => $model));
+    ?>
+</div>
 
-    <p><?php echo Yii::t('NewsModule.news', 'This section describes News Management'); ?></p>
+<p><?php echo Yii::t('NewsModule.news', 'This section describes News Management'); ?></p>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
@@ -92,7 +92,12 @@ $this->menu = array(
             array(
                 'name' => 'category_id',
                 'value' => '$data->getCategoryName()',
-                'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory), array('class' => 'form-control', 'encode' => false, 'empty' => ''))
+                'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory),
+                    array('class' => 'form-control', 'encode' => false, 'empty' => '')
+                )
             ),
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
