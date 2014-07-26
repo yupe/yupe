@@ -134,9 +134,9 @@ class DocsModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/docs/docsBackend/index')),
-            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs/show/index')),
-            array('icon' => 'icon-globe', 'label' => Yii::t('DocsModule.docs', 'Online docs'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/docs/docsBackend/index')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs/show/index')),
+            array('icon' => 'glyphicon glyphicon-globe', 'label' => Yii::t('DocsModule.docs', 'Online docs'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
         );
     }
 
@@ -187,7 +187,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getIcon()
     {
-        return "book";
+        return "glyphicon glyphicon-book";
     }
 
     /**
@@ -259,86 +259,86 @@ class DocsModule extends yupe\components\WebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Documentation'),
                 'url'   => array('/docs/show/index', 'file' => 'index'),
-                'icon'  => 'home',
+                'icon'  => 'glyphicon glyphicon-home',
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'About Yupe!'),
-                'icon'  => 'info-sign',
+                'icon'  => 'glyphicon glyphicon-info-sign',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Install'),
                         'url'   => array('/docs/show/index', 'file' => 'install', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Abilities'),
                         'url'   => array('/docs/show/index', 'file' => 'capability', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Help project'),
                         'url'   => array('/docs/show/index', 'file' => 'assistance.project', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Team'),
                         'url'   => array('/docs/show/index', 'file' => 'team', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                 ),
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'For developers'),
-                'icon'  => 'th-large',
+                'icon'  => 'glyphicon glyphicon-th-large',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs','Creating module'),
                         'url'   => array('/docs/show/index', 'file' => 'module.create'),
-                        'icon'  => 'file'
+                        'icon'  => 'glyphicon glyphicon-file'
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Set testing environment'),
                         'url'   => array('/docs/show/index', 'file' => 'testing'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Writing docs'),
                         'url'   => array('/docs/show/index', 'file' => 'doc.files'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Problems of CWebUser and Gii module'),
                         'url'   => array('/docs/show/index', 'file' => 'cwebuser.issues'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Optimal APC settings'),
                         'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Memcached configuration'),
                         'url'   => array('/docs/show/index', 'file' => 'memcached'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Using userspace settings'),
                         'url'   => array('/docs/show/index', 'file' => 'userspace.config', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'ConfigManager component'),
                         'url'   => array('/docs/show/index', 'file' => 'config.manager', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'IDE/Editors'),
-                        'icon'  => 'th-large',
+                        'icon'  => 'glyphicon glyphicon-th-large',
                         'items' => array(
                             array(
                                 'label' => Yii::t('DocsModule.docs', 'Working in eclipse'),
                                 'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
-                                'icon'  => 'file',
+                                'icon'  => 'glyphicon glyphicon-file',
                             ),
                         )
                     )
@@ -346,22 +346,22 @@ class DocsModule extends yupe\components\WebModule
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'Components'),
-                'icon'  => 'th-large',
+                'icon'  => 'glyphicon glyphicon-th-large',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),                 
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Migrator'),
                         'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                         'items' =>array(
                              array(
                                 'label' => Yii::t('DocsModule.docs', 'Methods description'),
                                 'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
-                                'icon'  => 'file'
+                                'icon'  => 'glyphicon glyphicon-file'
                              ),
                         ),
                     ),
@@ -369,17 +369,17 @@ class DocsModule extends yupe\components\WebModule
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'Modules'),
-                'icon'  => 'th-large',
+                'icon'  => 'glyphicon glyphicon-th-large',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Blogs'),
                         'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'blog' ),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Comment'),
                         'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'comment' ),
-                        'icon'  => 'file',
+                        'icon'  => 'glyphicon glyphicon-file',
                         'items' => array(
                             array(
                                 'label' => Yii::t('DocsModule.docs', 'NestedSets'),
@@ -390,7 +390,7 @@ class DocsModule extends yupe\components\WebModule
                     array(
                         'label' => Yii::t('DocsModule.docs', 'ZendSearch'),
                         'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'zendsearch' ),
-                        'icon'  => 'search',
+                        'icon'  => 'glyphicon glyphicon-search',
                     ),
                 )
             ),
@@ -576,7 +576,7 @@ class DocsModule extends yupe\components\WebModule
                 $items, array(
                     'label' => $title,
                     'url'   => array('/docs/docsBackend/show', 'file' => $key),
-                    'icon'  => 'file',
+                    'icon'  => 'glyphicon glyphicon-file',
                 )
             );
         }

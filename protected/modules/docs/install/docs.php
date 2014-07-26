@@ -22,17 +22,5 @@ return array(
     ),
     'module' => array(
         'class'           => 'application.modules.docs.DocsModule',
-        'preload'         => array('bootstrap'),
-        'components'      => array(
-            'bootstrap'   => array(
-                'class'          => 'vendor.clevertech.yii-booster.src.components.Bootstrap',
-                'coreCss'        => true,
-                'responsiveCss'  => true,
-                'yiiCss'         => true,
-                'jqueryCss'      => true,
-                'enableJS'       => true,
-                'fontAwesomeCss' => true,
-            ),
-        ),
     ),
 );
