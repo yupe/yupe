@@ -10,59 +10,74 @@ $form = $this->beginWidget(
 ); ?>
 
 
-<fieldset class="inline">
-    <div class="row-fluid control-group">
-        <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => Yii::t('CommentModule.comment', '--choose--'),)); ?>
-        </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'model', array('size' => 60, 'maxlength' => 150)); ?>
-        </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'model_id', array('size' => 60, 'maxlength' => 150)); ?>
-        </div>
-    </div>
-
-    <div class="row-fluid control-group">
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-        </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'email', array('size' => 60, 'maxlength' => 150)); ?>
-        </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'url', array('size' => 60, 'maxlength' => 150)); ?>
-        </div>
-
-    </div>
-
-    <div class="row-fluid control-group">
-
-        <div class="span3">
-            <?php echo $form->datepickerRow($model, 'creation_date', array(
-                    'options' => array(
-                        'format' => 'dd-mm-yyyy',
-                        'weekStart' => 1,
-                        'autoclose' => true,
-                    ),
-                ),
+<fieldset>
+    <div class="row">
+        <div class="col-sm-3">
+            <?php echo $form->dropDownListGroup(
+                $model,
+                'status',
                 array(
-                    'prepend' => '<i class="icon-calendar"></i>',
-                ));
+                    'widgetOptions' => array(
+                        'data' => $model->getStatusList(),
+                        'htmlOptions' => array(
+                            'empty' => Yii::t('CommentModule.comment', '--choose--'),
+                        ),
+                    ),
+                )
+            ); ?>
+        </div>
+
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'model'); ?>
+        </div>
+
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'model_id'); ?>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'name'); ?>
+        </div>
+
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'email'); ?>
+        </div>
+
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'url'); ?>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-3">
+            <?php echo $form->datePickerGroup(
+                $model,
+                'creation_date',
+                array(
+                    'widgetOptions' => array(
+                        'options' => array(
+                            'format' => 'yyyy-mm-dd',
+                            'weekStart' => 1,
+                            'autoclose' => true,
+                        ),
+                    ),
+                    'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                )
+            );
             ?>
         </div>
 
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'text', array('size' => 60, 'maxlength' => 150)); ?>
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'text'); ?>
         </div>
 
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'ip', array('size' => 20, 'maxlength' => 20)); ?>
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'ip'); ?>
         </div>
 
     </div>
@@ -72,10 +87,10 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'type' => 'primary',
+        'context' => 'primary',
         'encodeLabel' => false,
         'buttonType' => 'submit',
-        'label' => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CommentModule.comment', 'Find comments'),
+        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('CommentModule.comment', 'Find comments'),
     )
 ); ?>
 

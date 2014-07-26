@@ -1,15 +1,15 @@
 <?php
-    $this->breadcrumbs = array(       
-        Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
-        Yii::t('CommentModule.comment', 'Create'),
-    );
+$this->breadcrumbs = array(
+    Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
+    Yii::t('CommentModule.comment', 'Create'),
+);
 
-    $this->pageTitle = Yii::t('CommentModule.comment', 'Comment - create');
+$this->pageTitle = Yii::t('CommentModule.comment', 'Comment - create');
 
-    $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url' => array('/comment/commentBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
-    );
+$this->menu = array(
+    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url' => array('/comment/commentBackend/index')),
+    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
+);
 ?>
 <div class="page-header">
     <h1>
