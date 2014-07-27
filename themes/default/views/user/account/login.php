@@ -18,17 +18,17 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 
 <?php echo $form->errorSummary($model); ?>
 
-    <div class='row'>
-        <div class="col-xs-4">
-            <?php echo $form->textFieldGroup($model, 'email'); ?>
-        </div>
+<div class='row'>
+    <div class="col-xs-4">
+        <?php echo $form->textFieldGroup($model, 'email'); ?>
     </div>
+</div>
 
-    <div class='row'>
-        <div class="col-xs-4">
-            <?php echo $form->passwordFieldGroup($model, 'password'); ?>
-        </div>
+<div class='row'>
+    <div class="col-xs-4">
+        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
     </div>
+</div>
 
 <?php if ($this->getModule()->sessionLifeTime > 0): { ?>
     <div class='row'>
@@ -62,33 +62,33 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 <?php } endif; ?>
 
 
-    <div class="row">
-        <div class="col-xs-12">
-            <?php
-            $this->widget(
-                'bootstrap.widgets.TbButton',
-                array(
-                    'buttonType' => 'submit',
-                    'context' => 'primary',
-                    'icon' => 'glyphicon glyphicon-signin',
-                    'label' => Yii::t('UserModule.user', 'Sign in'),
-                )
-            ); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton',
+            array(
+                'buttonType' => 'submit',
+                'context' => 'primary',
+                'icon' => 'glyphicon glyphicon-signin',
+                'label' => Yii::t('UserModule.user', 'Sign in'),
+            )
+        ); ?>
 
-            <?php
-            $this->widget(
-                'bootstrap.widgets.TbButton',
-                array(
-                    'buttonType' => 'link',
-                    'context' => 'link',
-                    'label' => Yii::t('UserModule.user', 'Sign up'),
-                    'url' => Yii::app()->createUrl('/user/account/registration'),
-                )
-            ); ?>
-        </div>
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton',
+            array(
+                'buttonType' => 'link',
+                'context' => 'link',
+                'label' => Yii::t('UserModule.user', 'Sign up'),
+                'url' => Yii::app()->createUrl('/user/account/registration'),
+            )
+        ); ?>
     </div>
+</div>
 
-    <hr/>
+<hr/>
 
 <?php if (Yii::app()->hasModule('social')): { ?>
     <div class="row">
@@ -105,10 +105,10 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
         </div>
     </div>
 <?php } endif; ?>
-    <div class="row">
-        <div class="col-xs-12">
-            <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
-        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
     </div>
+</div>
 
 <?php $this->endWidget(); ?>
