@@ -55,7 +55,7 @@ class ImageModule extends WebModule
 
     public function getIcon()
     {
-        return "picture-o";
+        return "glyphicon glyphicon-picture";
     }
 
     public function getParamsLabels()
@@ -222,16 +222,16 @@ class ImageModule extends WebModule
     {
         return array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('ImageModule.image', 'Images list'),
                 'url' => array('/image/imageBackend/index')
             ),
             array(
-                'icon' => 'plus-sign',
+                'icon' => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('ImageModule.image', 'Add image'),
                 'url' => array('/image/imageBackend/create')
             ),
-            array('icon' => 'icon-folder-open', 'label' => Yii::t('ImageModule.image', 'Images categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('ImageModule.image', 'Images categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
 
