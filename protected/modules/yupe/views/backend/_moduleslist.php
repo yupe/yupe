@@ -142,7 +142,7 @@ function moduleRow($module, &$updates, &$modules)
 
               ?>
         </td>
-        <td>
+        <td class="button-column">
             <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
                 <?php echo CHtml::link('<i class="glyphicon glyphicon-wrench" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Settings') . '">&nbsp;</i>', array(
                     '/yupe/backend/modulesettings/',
