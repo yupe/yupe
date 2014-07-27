@@ -26,7 +26,7 @@ $this->pageTitle = $model->name; ?>
         $model->user->nick_name,
         array('/user/people/userInfo', 'username' => $model->user->nick_name)
     ); ?>
-    <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
+    <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
         'dd MMMM yyyy г., hh:mm',
         $model->creation_date
     ); ?>
@@ -44,7 +44,7 @@ $this->pageTitle = $model->name; ?>
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
     array(
-        'redirectTo' => $this->createUrl('/gallery/gallery/foto/', array('id' => $model->id)),
+        'redirectTo' => $this->createUrl('/gallery/gallery/image/', array('id' => $model->id)),
         'model' => $model,
         'modelId' => $model->id
     )

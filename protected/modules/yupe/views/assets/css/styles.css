@@ -140,7 +140,7 @@ table .button-column {
     white-space: nowrap;
 }
 
-table [class*='icon-'] {
+.button-column a {
     color: #333;
     padding-left: 3px;
     text-decoration: none;
@@ -181,4 +181,8 @@ table [class*='icon-'] {
 
 .glyphicon {
     padding-right: 2px;
+}
+
+.nav-tabs {
+    margin-bottom: 10px;
 }
