@@ -52,7 +52,7 @@ return CMap::mergeArray(
                 'languageInPath' => true,
                 'langParam'      => 'language',
                 'urlFormat'      => 'path',
-                'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
+                'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
                 'cacheID'        => 'cache',
                 'useStrictParsing' => true,
                 'rules'            => array(

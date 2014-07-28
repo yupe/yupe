@@ -19,7 +19,7 @@ if(!ini_get('mbstring.internal_encoding')) {
     @ini_set("mbstring.internal_encoding", 'UTF-8');
     mb_internal_encoding('UTF-8');
 }
-
+define('YII_APP_TYPE', 'web');
 // Комментируем перед выпуском в продакшен:
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);

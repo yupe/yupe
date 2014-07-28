@@ -29,7 +29,6 @@ class FeedBackCest
         $I->fillField(\FeedBackPage::$emailField,'test@yupe.ru');
         $I->click(\FeedBackPage::$buttonLabel);
         $I->see('Ваше сообщение отправлено! Спасибо!', \CommonPage::SUCCESS_CSS_CLASS);
-        $I->seeInCurrentUrl('faq');
         $I->seeInDatabase('yupe_feedback_feedback', array(
             'name'   => 'test_name',
             'email'  => 'test@yupe.ru',
@@ -41,7 +40,7 @@ class FeedBackCest
 
         $I->amGoingTo('check that new message is hide from public access');
         $I->amOnPage(\FeedBackPage::routeFaq(1));
-        $I->see('Страница которую Вы запросили не найдена.');
+        $I->see('Страница которую вы запросили не найдена.');
 
         $I->amOnPage(\FeedBackPage::FAQ_URL);
         $I->see('Вопросы и ответы','h1');

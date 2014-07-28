@@ -118,6 +118,11 @@ CREATE TABLE IF NOT EXISTS `yupe_blog_post_to_tag` (
   KEY `ix_yupe_blog_post_to_tag_tag_id` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_blog_post_to_tag` (`post_id`, `tag_id`) VALUES
+  (1,	1),
+  (1,	2),
+  (1,	3);
+
 -- --------------------------------------------------------
 
 --
@@ -130,6 +135,11 @@ CREATE TABLE IF NOT EXISTS `yupe_blog_tag` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_blog_tag_tag_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `yupe_blog_tag` (`id`, `name`) VALUES
+  (1,	'тег'),
+  (2,	'тег2'),
+  (3,	'тег3');
 
 -- --------------------------------------------------------
 
@@ -195,8 +205,9 @@ CREATE TABLE IF NOT EXISTS `yupe_catalog_good` (
 -- Table structure for table `yupe_category_category`
 --
 
-CREATE TABLE IF NOT EXISTS `yupe_category_category` (
+CREATE TABLE `yupe_category_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
   `alias` varchar(150) NOT NULL,
   `lang` char(2) DEFAULT NULL,
   `name` varchar(250) NOT NULL,
@@ -204,18 +215,12 @@ CREATE TABLE IF NOT EXISTS `yupe_category_category` (
   `short_description` text,
   `description` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  `level` int(11) DEFAULT '0',
-  `root` int(11) DEFAULT '0',
-  `lft` int(11) DEFAULT '0',
-  `rgt` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_category_category_alias_lang` (`alias`,`lang`),
+  KEY `ix_yupe_category_category_parent_id` (`parent_id`),
   KEY `ix_yupe_category_category_status` (`status`),
-  KEY `ix_yupe_category_category_level` (`level`),
-  KEY `ix_yupe_category_category_root` (`root`),
-  KEY `ix_yupe_category_category_lft` (`lft`),
-  KEY `ix_yupe_category_category_rgt` (`rgt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  CONSTRAINT `fk_yupe_category_category_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- --------------------------------------------------------
 
 --
@@ -574,7 +579,9 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
 (29, 'contentblock', 'm000000_000000_contentblock_base', 1386585484),
 (30, 'page', 'm000000_000000_page_base', 1386585487),
 (31, 'page', 'm130115_155600_columns_rename', 1386585487),
-(32, 'mail', 'm000000_000000_mail_base', 1386585489);
+(32, 'page', 'm140115_083618_add_layout', 1386585487),
+(33, 'page', 'm140620_072543_add_view', 1386585487),
+(34, 'mail', 'm000000_000000_mail_base', 1386585489);
 
 
 -- --------------------------------------------------------
@@ -638,6 +645,8 @@ CREATE TABLE IF NOT EXISTS `yupe_page_page` (
   `status` int(11) NOT NULL,
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
   `order` int(11) NOT NULL DEFAULT '0',
+  `view` varchar(250) DEFAULT NULL,
+  `layout` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_page_page_slug_lang` (`slug`,`lang`),
   KEY `ix_yupe_page_page_status` (`status`),

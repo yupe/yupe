@@ -96,7 +96,7 @@ class MainBackendCest
         $I->see('Настройки темы успешно сохранены!',\CommonPage::SUCCESS_CSS_CLASS);
 
         $I->amGoingTo('change module settings');
-        $I->amOnPage('/backend/modulesettings/yupe');
+        $I->amOnPage('/backend/modulesettings?module=yupe');
         $I->fillField('siteDescription','Changed site description!');
         $I->click('Сохранить настройки модуля "Юпи!"');
         $I->see('Настройки модуля "Юпи!" сохранены!',\CommonPage::SUCCESS_CSS_CLASS);
@@ -104,7 +104,7 @@ class MainBackendCest
 
         $I->amGoingTo('test modules page');
         $I->amOnPage('/backend/settings');
-        $I->see('Настройки модулей','h1');
+        $I->see('Модули','h1');
         $I->see('20');
         $I->see('21');
         $I->see('1');

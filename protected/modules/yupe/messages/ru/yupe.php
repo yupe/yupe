@@ -114,7 +114,7 @@ return array (
   'Error!' => 'Ошибка!',
   'Error. Modules which depends from this module is disabled. First please enable this modules.' => 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!',
   'Error. You have enabled modules which depends for this module. Disable it first!' => 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!',
-  'Exit' => 'Выход',
+  'Exit' => 'Выйти',
   'Fast access to modules' => 'Быстрый доступ к модулям',
   'Feedback at <a href="mailto:team@yupe.ru">team@yupe.ru</a> or {link}' => 'Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a> или через форму {link}',
   'File' => 'Файл',
