@@ -83,7 +83,7 @@ class Migrator extends \CApplicationComponent
      * Проверяем на незавершённые миграции:
      *
      * @param string $module - required module
-     * @param string $class  - migration class
+     * @param bool $class  - migration class
      *
      * @return bool is updated to migration
      **/
@@ -98,7 +98,7 @@ class Migrator extends \CApplicationComponent
             )->createCommand()
             ->selectDistinct('version, apply_time')
             ->from($db->tablePrefix . $this->migrationTable)
-            ->order('version DESC')
+            ->order('id DESC')
             ->where(
                 'module = :module',
                 array(
@@ -393,7 +393,7 @@ class Migrator extends \CApplicationComponent
                 )->createCommand()
                 ->select('version, apply_time')
                 ->from($db->tablePrefix . $this->migrationTable)
-                ->order('version DESC')
+                ->order('id DESC')
                 ->where('module = :module', array(':module' => $module))
                 ->limit($limit)
                 ->queryAll();

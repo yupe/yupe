@@ -382,7 +382,7 @@ class ModuleManager extends \CApplicationComponent
     /**
      * Получаем путь к папке или файлу с резервной конфигурацией модуля(-ей)
      *
-     * @param string $module Имя модуля
+     * @param bool $module Имя модуля
      *
      * @since 0.5
      * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
@@ -397,7 +397,7 @@ class ModuleManager extends \CApplicationComponent
     /**
      * Получаем путь к папке c дефолтной конфигурацией модуля
      *
-     * @param string $module Имя модуля
+     * @param bool $module Имя модуля
      *
      * @since 0.5
      * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
