@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за подтверждение email пользователя
  *
@@ -14,8 +15,6 @@ class EmailConfirmAction extends CAction
 {
     public function run($token)
     {
-        $module = Yii::app()->getModule('user');
-
         // пытаемся подтвердить почту
         if (Yii::app()->userManager->verifyEmail($token)) {
 
@@ -27,7 +26,7 @@ class EmailConfirmAction extends CAction
                 )
             );
 
-        }else{
+        } else {
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
@@ -39,9 +38,9 @@ class EmailConfirmAction extends CAction
         }
 
         $this->controller->redirect(
-                Yii::app()->user->isAuthenticated()
-                ? array('/user/account/login')
-                : array('/user/account/profile')
+            Yii::app()->user->isAuthenticated()
+                ? array('/user/account/profile')
+                : array('/user/account/login')
         );
     }
 }
