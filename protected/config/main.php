@@ -75,6 +75,27 @@ return array(
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
+        'viewRenderer' => array(
+            'class' => 'vendor.yiiext.twig-renderer.ETwigViewRenderer',
+            'twigPathAlias' => 'vendor.twig.twig.lib.Twig',
+            // All parameters below are optional, change them to your needs
+            'fileExtension' => '.twig',
+            'options' => array(
+                'autoescape' => true,
+            ),
+            'globals' => array(
+                'html' => 'CHtml'
+            ),
+            'filters' => array(
+                'jencode' => 'CJSON::encode',
+            ),
+            // Change template syntax to Smarty-like (not recommended)
+            'lexerOptions' => array(
+                'tag_comment'  => array('{*', '*}'),
+                'tag_block'    => array('{', '}'),
+                'tag_variable' => array('{$', '}')
+            ),
+        ),
         'debug' => array(
             'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
             'internalUrls' => false,
