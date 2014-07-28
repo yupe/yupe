@@ -127,6 +127,9 @@ class ProfileAction extends CAction
                         // Если включена верификация при смене почты:
                         if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
 
+                            // Вернуть старый email на время проверки
+                            $user->email = $oldEmail;
+
                             if(Yii::app()->userManager->changeUserEmail($user, $form->email)) {
                                 Yii::app()->user->setFlash(
                                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

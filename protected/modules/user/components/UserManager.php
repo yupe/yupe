@@ -246,6 +246,7 @@ class UserManager extends CApplicationComponent
         $transaction = Yii::app()->db->beginTransaction();
 
         try {
+
             $user->email_confirm = User::EMAIL_CONFIRM_NO;
             $user->email = $email;
             if ($user->save()) {
