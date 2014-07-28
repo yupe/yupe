@@ -1,29 +1,42 @@
 <?php
-    $this->breadcrumbs = array(        
-        Yii::t('QueueModule.queue', 'Tasks') => array('/queue/queueBackend/index'),
-        $model->id,
-    );
+$this->breadcrumbs = array(
+    Yii::t('QueueModule.queue', 'Tasks') => array('/queue/queueBackend/index'),
+    $model->id,
+);
 
-    $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - show');
+$this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - show');
 
-    $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
-        array('label' => Yii::t('QueueModule.queue', 'Task') . ' «' . $model->id . '»'),
-        array('icon' => 'pencil', 'label' => Yii::t('QueueModule.queue', 'Edit task.'), 'url' => array(
+$this->menu = array(
+    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
+    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
+    array('label' => Yii::t('QueueModule.queue', 'Task') . ' «' . $model->id . '»'),
+    array(
+        'icon' => 'glyphicon glyphicon-pencil',
+        'label' => Yii::t('QueueModule.queue', 'Edit task.'),
+        'url' => array(
             '/queue/queueBackend/update',
             'id' => $model->id
-        )),
-        array('icon' => 'eye-open', 'label' => Yii::t('QueueModule.queue', 'Show task'), 'url' => array(
+        )
+    ),
+    array(
+        'icon' => 'glyphicon glyphicon-eye-open',
+        'label' => Yii::t('QueueModule.queue', 'Show task'),
+        'url' => array(
             '/queue/queueBackend/view',
             'id' => $model->id
-        )),
-        array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue','Remove task'), 'url' => '#', 'linkOptions'=> array(
+        )
+    ),
+    array(
+        'icon' => 'glyphicon glyphicon-trash',
+        'label' => Yii::t('QueueModule.queue', 'Remove task'),
+        'url' => '#',
+        'linkOptions' => array(
             'submit' => array('/queue/queueBackend/delete', 'id' => $model->id),
             'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
-            'confirm'=> Yii::t('QueueModule.queue', 'Do you really want to delete?'),
-        )),
-    );
+            'confirm' => Yii::t('QueueModule.queue', 'Do you really want to delete?'),
+        )
+    ),
+);
 ?>
 <div class="page-header">
     <h1>
@@ -32,26 +45,29 @@
     </h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data'      => $model,
-    'attributes'=> array(
-        'id',
-        array(
-            'name'  => 'worker',
-            'value' => $model->getWorkerName()
+<?php $this->widget(
+    'bootstrap.widgets.TbDetailView',
+    array(
+        'data' => $model,
+        'attributes' => array(
+            'id',
+            array(
+                'name' => 'worker',
+                'value' => $model->getWorkerName()
+            ),
+            'create_time',
+            'task',
+            'start_time',
+            'complete_time',
+            array(
+                'name' => 'priority',
+                'value' => $model->getPriority()
+            ),
+            array(
+                'name' => 'status',
+                'value' => $model->getStatus()
+            ),
+            'notice',
         ),
-        'create_time',
-        'task',
-        'start_time',
-        'complete_time',
-        array(
-            'name'  => 'priority',
-            'value' => $model->getPriority()
-        ),
-        array(
-            'name'  => 'status',
-            'value' => $model->getStatus()
-        ),
-        'notice',
-    ),
-)); ?>
+    )
+); ?>
