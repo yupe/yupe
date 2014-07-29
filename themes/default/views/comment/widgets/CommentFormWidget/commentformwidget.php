@@ -63,7 +63,7 @@
                                 'width' => '150',
                             ),
                             'buttonOptions' => array(
-                                'class' => 'btn btn-primary',
+                                'class' => 'btn btn-info',
                             ),
                             'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
                             'captchaAction' => '/comment/comment/captcha'

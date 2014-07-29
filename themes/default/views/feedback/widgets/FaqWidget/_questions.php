@@ -1,4 +1,4 @@
-<ul class="unstyled">
+<ul class="list-unstyled">
     <?php $cnt = count($models); $i = 0; ?>
     <?php foreach ($models as $model): ?>
         <li>

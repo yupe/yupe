@@ -101,7 +101,7 @@
                 </div>
             <?php } endif; ?>
 
-            <?php if (Yii::app()->hasModule('blog')): { ?>
+            <?php if (Yii::app()->hasModule('feedback')): { ?>
                 <div class="widget last-questions-widget">
                     <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
                 </div>

@@ -50,6 +50,7 @@
                         </td>
                         <td>
                             <span class="badge alert-danger"><?php echo $needAnswerCount; ?></span>
+
                         </td>
                     </tr>
                 </tbody>
