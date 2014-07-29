@@ -306,16 +306,7 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
     </div>
 </div>
 <div class="modal-footer">
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'label' => Yii::t('InstallModule.install', 'Cancel'),
-            'buttonType' => 'link',
-            'url' => '#',
-            'htmlOptions' => array('data-dismiss' => 'modal'),
-        )
-    ); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Cancel'), '#', array('class' => 'btn btn-default', 'data-dismiss' => 'modal')); ?>
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
@@ -334,15 +325,7 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
 
 <br/>
 
-<?php
-$this->widget(
-    'bootstrap.widgets.TbButton',
-    array(
-        'buttonType' => 'link',
-        'label' => Yii::t('InstallModule.install', '< Back'),
-        'url' => array('/install/default/dbsettings'),
-    )
-); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/dbsettings'), array('class' => 'btn btn-default')); ?>
 
 <?php
 $this->widget(

@@ -118,95 +118,60 @@ $this->widget(
     });
 </script>
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
-    <div class="modal-header">
-        <h4>
-            <?php echo Yii::t('InstallModule.install', 'Installation completed'); ?>
-        </h4>
-    </div>
-    <div id="modules-modal-list" class="modal-body row">
-        <?php echo Yii::t('InstallModule.install', 'Congratulations, modules which you checked installed successfully!'); ?>
-    </div>
-    <div class="modal-footer">
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbButton',
-            array(
-                'label' => Yii::t('InstallModule.install', 'Look journal'),
-                'url' => '#',
-                'htmlOptions' => array(
-                    'data-dismiss' => 'modal',
-                ),
-            )
-        ); ?>
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbButton',
-            array(
-                'context' => 'primary',
-                'buttonType' => 'link',
-                'htmlOptions' => array(
-                    'class' => 'nextButton',
-                ),
-                'label' => Yii::t('InstallModule.install', 'Continue >'),
-                'url' => array('/install/default/createuser')
-            )
-        ); ?>
-    </div>
-<?php $this->endWidget(); ?>
-
-<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-fail')); ?>
-    <div class="modal-header">
-        <h4>
-            <?php echo Yii::t('InstallModule.install', 'Ошибка!'); ?>
-        </h4>
-    </div>
-    <div id="modules-modal-list" class="modal-body row">
-        <?php echo Yii::t('InstallModule.install', 'There is an error occured when installing modules. You can watch errors in backlog journal.'); ?>
-    </div>
-    <div class="modal-footer">
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbButton',
-            array(
-                'label' => Yii::t('InstallModule.install', 'Look journal'),
-                'url' => '#',
-                'htmlOptions' => array(
-                    'data-dismiss' => 'modal',
-                ),
-            )
-        );
-        /**
-         * @tutorial Здесь не должно быть кнопок продолжить и прочее.
-         *           Это модальное окно об ошибке при установке.
-         **/
-        ?>
-    </div>
-<?php $this->endWidget(); ?>
-
-<div class='buttons' style='display: none'>
-    <?php $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'buttonType' => 'link',
-            'htmlOptions' => array(
-                'class' => 'prevButton',
-            ),
-            'label' => Yii::t('InstallModule.install', '< Back'),
-            'url' => array('/install/default/modulesinstall'),
-        )
-    ); ?>
-
+<div class="modal-header">
+    <h4>
+        <?php echo Yii::t('InstallModule.install', 'Installation completed'); ?>
+    </h4>
+</div>
+<div id="modules-modal-list" class="modal-body row">
+    <?php echo Yii::t('InstallModule.install', 'Congratulations, modules which you checked installed successfully!'); ?>
+</div>
+<div class="modal-footer">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'context' => 'primary',
-            'buttonType' => 'link',
+            'label' => Yii::t('InstallModule.install', 'Look journal'),
+            'url' => '#',
             'htmlOptions' => array(
-                'class' => 'nextButton',
+                'data-dismiss' => 'modal',
             ),
-            'label' => Yii::t('InstallModule.install', 'Continue >'),
-            'url' => array('/install/default/createuser')
         )
     ); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Continue >'), array('/install/default/createuser'), array('class' => 'btn btn-primary nextButton')); ?>
+</div>
+<?php $this->endWidget(); ?>
+
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-fail')); ?>
+<div class="modal-header">
+    <h4>
+        <?php echo Yii::t('InstallModule.install', 'Ошибка!'); ?>
+    </h4>
+</div>
+<div id="modules-modal-list" class="modal-body row">
+    <?php echo Yii::t('InstallModule.install', 'There is an error occured when installing modules. You can watch errors in backlog journal.'); ?>
+</div>
+<div class="modal-footer">
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'label' => Yii::t('InstallModule.install', 'Look journal'),
+            'url' => '#',
+            'htmlOptions' => array(
+                'data-dismiss' => 'modal',
+            ),
+        )
+    );
+    /**
+     * @tutorial Здесь не должно быть кнопок продолжить и прочее.
+     *           Это модальное окно об ошибке при установке.
+     **/
+    ?>
+</div>
+<?php $this->endWidget(); ?>
+
+<div class='buttons' style='display: none'>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/modulesinstall'), array('class' => 'btn btn-default')); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Continue >'), array('/install/default/createuser'), array('class' => 'btn btn-primary nextButton')); ?>
 </div>

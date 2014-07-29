@@ -48,35 +48,12 @@
 
 <br/>
 
-<?php $this->widget(
-    'bootstrap.widgets.TbButton',
-    array(
-        'buttonType' => 'link',
-        'label' => Yii::t('InstallModule.install', '< Back'),
-        'url' => array('/install/default/index'),
-    )
-); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/index'), array('class' => 'btn btn-primary')); ?>
 
 <?php
 if ($data['result'] !== false) {
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'context' => 'primary',
-            'buttonType' => 'link',
-            'label' => Yii::t('InstallModule.install', 'Continue >'),
-            'url' => array('/install/default/requirements'),
-        )
-    );
+    echo CHtml::link(Yii::t('InstallModule.install', 'Continue >'), array('/install/default/requirements'), array('class' => 'btn btn-primary'));
 } else {
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'context' => 'primary',
-            'buttonType' => 'link',
-            'label' => Yii::t('InstallModule.install', 'Refresh'),
-            'url' => array('/install/default/environment')
-        )
-    );
+    echo CHtml::link(Yii::t('InstallModule.install', 'Refresh'), array('/install/default/environment'), array('class' => 'btn btn-primary'));
 }
 ?>

@@ -152,15 +152,7 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?php
-$this->widget(
-    'bootstrap.widgets.TbButton',
-    array(
-        'buttonType' => 'link',
-        'label' => Yii::t('InstallModule.install', '< Back'),
-        'url' => array('/install/default/createuser'),
-    )
-); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/createuser'), array('class' => 'btn btn-default')); ?>
 
 <?php
 $this->widget(
