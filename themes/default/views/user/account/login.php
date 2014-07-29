@@ -64,7 +64,6 @@
         array(
             'buttonType' => 'submit',
             'type' => 'primary',
-            'icon' => 'signin',
             'label' => Yii::t('UserModule.user', 'Sign in'),
         )
     ); ?>

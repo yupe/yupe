@@ -12,20 +12,19 @@
 class_name: WebGuy
 modules:
     enabled:
-        - Selenium2
+        - WebDriver
         - WebHelper
-        - WebDebug
         - DbHelper
     config:
-        Selenium2:
+        WebDriver:
             host: '127.0.0.1'
             url: 'http://yupe.local/index-test.php'
             browser: firefox
             delay: 100
         DbHelper:
-             dsn: 'mysql:host=127.0.0.1;dbname=yupe_test'
-             user: 'root'
-             password: 'root'
+             dsn: 'mysql:host=127.0.0.1;dbname=<db.name>'
+             user: '<db.user>'
+             password: '<db.pass>'
              dump: 'tests/_data/yupetest.sql'
-             populate: true
-             cleanup: false
+             populate: false
+             cleanup: true

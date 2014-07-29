@@ -104,7 +104,7 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "1.8.*"
+        "codeception/codeception": "2.*"
     },
     "minimum-stability": "stable"
 }
