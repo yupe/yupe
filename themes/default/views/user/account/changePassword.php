@@ -35,7 +35,6 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
                 array(
                     'buttonType' => 'submit',
                     'type' => 'primary',
-                    'icon' => 'signin',
                     'label' => Yii::t('UserModule.user', 'Change password'),
                 )
             ); ?>

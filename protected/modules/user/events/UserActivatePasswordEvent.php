@@ -26,7 +26,7 @@ class UserActivatePasswordEvent extends Event
      * @param $password
      * @param $user
      */
-    function __construct($token, $password = null, User $user)
+    function __construct($token, $password = null, User $user = null)
     {
         $this->token = $token;
         $this->password = $password;

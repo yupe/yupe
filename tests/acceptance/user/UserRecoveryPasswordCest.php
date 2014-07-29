@@ -35,12 +35,21 @@ class UserRecoveryPasswordCest
 
         $I->wantToTest('Failure password recovery');
         $I->amOnPage(RecoveryPage::getRecoveryRoute(time()));
-        $I->see('Ошибка при смене пароля!', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Ошибка 404!');
 
         $I->seeInDatabase('yupe_user_tokens', array('user_id' => 1,'type' => 2,'status' => 0));
         $key = $I->grabFromDatabase('yupe_user_tokens','token',  array('user_id' => 1,'type' => 2,'status' => 0));
         $I->amOnPage(RecoveryPage::getRecoveryRoute($key));
+
+        $I->see('Восстановление пароля');
+        $I->see('Смена пароля', '.btn');
+
+        $I->fillField('ChangePasswordForm[password]', '11111111');
+        $I->fillField('ChangePasswordForm[cPassword]', '11111111');
+        $I->click('Смена пароля','.btn');
+
+        $I->seeInCurrentUrl(LoginPage::$URL);
+        //$I->see('Успешное восстановение пароля!', \CommonPage::SUCCESS_CSS_CLASS);
         $I->dontSeeInDatabase('yupe_user_tokens', array('user_id' => 1,'type' => 2,'status' => 0));
-        $I->see('Новый пароль отправлен Вам на email!',\CommonPage::SUCCESS_CSS_CLASS);
     }
 }

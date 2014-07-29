@@ -23,9 +23,9 @@ modules:
             browser: firefox
             delay: 100
         DbHelper:
-             dsn: 'mysql:host=127.0.0.1;dbname=<db.name>'
-             user: '<db.user>'
-             password: '<db.pass>'
+             dsn: 'mysql:host=127.0.0.1;dbname=yupe_test'
+             user: 'root'
+             password: 'root'
              dump: 'tests/_data/yupetest.sql'
-             populate: false
-             cleanup: true
+             populate: true
+             cleanup: false

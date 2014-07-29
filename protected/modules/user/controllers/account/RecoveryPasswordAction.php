@@ -28,12 +28,19 @@ class RecoveryPasswordAction extends CAction
 
         $module = Yii::app()->getModule('user');
 
-        // Если запрещено восстановление - печалька ;)
+        // Если запрещено восстановление
         if ($module->recoveryDisabled) {
             throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
         }
 
-        // Если включено автоматическое восстановление пароля:
+        //Проверка токена
+        $tokenModel = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
+
+        if(null === $tokenModel) {
+            throw new CHttpException(404);
+        }
+
+        // Если включено автоматическое восстановление пароля
         if ((int)$module->autoRecoveryPassword === WebModule::CHOICE_YES) {
 
             if (Yii::app()->userManager->activatePassword($token)) {
