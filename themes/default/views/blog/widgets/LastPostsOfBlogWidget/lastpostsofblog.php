@@ -20,7 +20,7 @@
 
                 <div class="posts-list-block-meta">
                     <span>
-                        <i class="icon-user"></i>
+                        <i class="glyphicon glyphicon-user"></i>
                         
                         <?php $this->widget(
                             'application.modules.user.widgets.UserPopupInfoWidget', array(
@@ -30,7 +30,7 @@
                     </span>
 
                     <span>
-                        <i class="icon-pencil"></i>
+                        <i class="glyphicon glyphicon-pencil"></i>
 
                         <?php echo CHtml::link(
                             CHtml::encode($post->blog->name), array(
@@ -41,7 +41,7 @@
                     </span>
 
                     <span>
-                        <i class="icon-calendar"></i>
+                        <i class="glyphicon glyphicon-calendar"></i>
 
                         <?php echo Yii::app()->getDateFormatter()->formatDateTime(
                             $post->publish_date, "long", "short"
@@ -56,7 +56,7 @@
                 <div class="posts-list-block-tags">
                     <div>
                         <span class="posts-list-block-tags-block">
-                            <i class="icon-tags"></i>
+                            <i class="glyphicon glyphicon-tags"></i>
                             
                             <?php echo Yii::t('BlogModule.blog','Tags'); ?>:
 
@@ -68,7 +68,7 @@
                         </span>
 
                         <span class="posts-list-block-tags-comments">
-                            <i class="fa fa-comments"></i>
+                            <i class="glyphicon glyphicon-comment"></i>
 
                             <?php echo CHtml::link(
                                 $post->getCommentCount(),

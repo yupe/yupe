@@ -90,7 +90,7 @@ class Post extends yupe\models\YModel implements ICommentable
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, category_id', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type', 'length', 'max' => 11),
             array('lang', 'length', 'max' => 2),
-            array('publish_date', 'length', 'max' => 16),
+            array('publish_date', 'length', 'max' => 20),
             array('slug', 'length', 'max' => 150),
             array('image', 'length', 'max' => 300),
             array('create_user_ip', 'length', 'max' => 20),
@@ -223,9 +223,9 @@ class Post extends yupe\models\YModel implements ICommentable
         return array(
             'id' => Yii::t('BlogModule.blog', 'Post id.'),
             'blog_id' => Yii::t('BlogModule.blog', 'Choose a blog you want to add the record to'),
-            'slug' => Yii::t('BlogModule.blog', 'URL-friendly name of the blog.<br /><br /> For example: <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> It you don\'t know what is it you can leave this field empty.'),
+            'slug' => Yii::t('BlogModule.blog', 'URL-friendly name of the blog.<br /><br /> For example: <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label label-default">my-na-more</span>/</pre> It you don\'t know what is it you can leave this field empty.'),
             'publish_date' => Yii::t('BlogModule.blog', 'Publish date'),
-            'title' => Yii::t('BlogModule.blog', 'Post title, for example:<br /><span class="label">Our seaside vacation.</span>'),
+            'title' => Yii::t('BlogModule.blog', 'Post title, for example:<br /><span class="label label-default">Our seaside vacation.</span>'),
             'quote' => Yii::t('BlogModule.blog', 'Please enter announcement text. A couple of sentences is enough. The text will be used, for example, at the main page or in the posts list.'),
             'content' => Yii::t('BlogModule.blog', 'Full text of the post which is displayed when you click on &laquo;More&raquo; link'),
             'link' => Yii::t('BlogModule.blog', 'Source link of the post. Source website or an article which you have used to write the post.'),
@@ -234,7 +234,7 @@ class Post extends yupe\models\YModel implements ICommentable
             'access_type' => Yii::t('BlogModule.blog', 'Post access<br /><br /><span class="label label-success">public</span> &ndash; Everyone can read this post<br /><br /><span class="label label-warning">private</span> &ndash; only you can read this post'),
             'keywords' => Yii::t('BlogModule.blog', 'SEO keywords separated by comma. For example, if your post is about your seaside vacation keyword would be: <pre>sea, travel, sun, etc.</pre>'),
             'description' => Yii::t('BlogModule.blog', 'Short post description. Should not be more than one or two sentences. Should reflect the main points of the post. For example: <pre>The story of how we were almost eaten by sharks.</pre>This text is often used in search engine <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>.'),
-            'tags' => Yii::t('BlogModule.blog', 'Keywords for post categorization, for example:<br /><span class="label">sea</span>'),
+            'tags' => Yii::t('BlogModule.blog', 'Keywords for post categorization, for example:<br /><span class="label label-default">sea</span>'),
         );
     }
 

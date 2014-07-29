@@ -32,7 +32,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             'inline' => array(
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'UserToBlog',
-                'validAttributes' => array('status', 'role')
+                'validAttributes' => array('status', 'role', 'note')
             )
         );
     }

@@ -224,7 +224,7 @@ class Blog extends yupe\models\YModel
             'id' => Yii::t('BlogModule.blog', 'Post id.'),
             'name' => Yii::t(
                     'BlogModule.blog',
-                    'Please enter a title of the blog. For example: <span class="label">My travel notes</span>.'
+                    'Please enter a title of the blog. For example: <span class="label label-default">My travel notes</span>.'
                 ),
             'description' => Yii::t(
                     'BlogModule.blog',
@@ -233,7 +233,7 @@ class Blog extends yupe\models\YModel
             'icon' => Yii::t('BlogModule.blog', 'Please choose an icon for the blog.'),
             'slug' => Yii::t(
                     'BlogModule.blog',
-                    'Please enter an URL-friendly name for the blog.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'
+                    'Please enter an URL-friendly name for the blog.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label label-default">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'
                 ),
             'type' => Yii::t(
                     'BlogModule.blog',
@@ -241,7 +241,7 @@ class Blog extends yupe\models\YModel
                 ),
             'status' => Yii::t(
                     'BlogModule.blog',
-                    'Please choose a status of the blog:<br /><br /><span class="label label-success">active</span> &ndash; The blog will be visible and it will be possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will be visible but it would not be possible to create new records<br /><br /><span class="label label-important">removed</span> &ndash; The blog will be invisible'
+                    'Please choose a status of the blog:<br /><br /><span class="label label-success">active</span> &ndash; The blog will be visible and it will be possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will be visible but it would not be possible to create new records<br /><br /><span class="label label-danger">removed</span> &ndash; The blog will be invisible'
                 ),
         );
     }
