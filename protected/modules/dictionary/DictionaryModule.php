@@ -55,7 +55,7 @@ class DictionaryModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-book";
+        return "glyphicon glyphicon-book";
     }
 
     public function getVersion()
@@ -72,11 +72,11 @@ class DictionaryModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries')),
-            array('icon' => 'icon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries list'), 'url' => array('/dictionary/dictionaryBackend/index')),
-            array('icon' => 'icon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create dictionary'), 'url' => array('/dictionary/dictionaryBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries list'), 'url' => array('/dictionary/dictionaryBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create dictionary'), 'url' => array('/dictionary/dictionaryBackend/create')),
             array('label' => Yii::t('DictionaryModule.dictionary', 'Items')),
-            array('icon' => 'icon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
-            array('icon' => 'icon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
         );
     }
 

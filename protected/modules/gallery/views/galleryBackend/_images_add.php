@@ -14,8 +14,8 @@ $mainAssets = Yii::app()->assetManager->publish(
 Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/fileupload.locale.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile($mainAssets . '/css/fileupload.css');
 Yii::app()->clientScript->registerCss(
-    'drugndrop-content',
-    '.drugndrop:after { content: "' . Yii::t('GalleryModule.gallery', 'Move images here') .'"}'
+    'dragndrop-content',
+    '.dragndrop:after { content: "' . Yii::t('GalleryModule.gallery', 'Move images here') .'"}'
 );
 $this->widget(
     'bootstrap.widgets.TbFileUpload', array(

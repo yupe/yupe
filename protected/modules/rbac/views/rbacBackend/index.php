@@ -9,12 +9,12 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
                 'url' => array('/rbac/rbacBackend/index')
             ),
             array(
-                'icon' => 'plus-sign',
+                'icon' => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('RbacModule.rbac', 'Create role'),
                 'url' => array('/rbac/rbacBackend/create')
             ),
@@ -24,7 +24,7 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Users'),
         'items' => array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Users'),
                 'url' => array('/rbac/rbacBackend/userList')
             ),
@@ -57,18 +57,19 @@ $this->menu = array(
                     'type' => 'text',
                     'url' => array('/rbac/rbacBackend/inlineEdit'),
                     'title' => Yii::t(
-                            'RbacModule.rbac',
-                            'Enter {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
-                        ),
+                        'RbacModule.rbac',
+                        'Enter {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                    ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
+                'filter' => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
                 'name' => 'type',
-                'filter' => AuthItem::model()->getTypeList(),
+                'filter' => CHtml::activeDropDownList($model, 'type', AuthItem::model()->getTypeList(), array('class' => 'form-control', 'empty' => '')),
                 'value' => '$data->getType()',
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
@@ -76,10 +77,10 @@ $this->menu = array(
                     'mode' => 'popup',
                     'type' => 'select',
                     'title' => Yii::t(
-                            'RbacModule.rbac',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
-                        ),
+                        'RbacModule.rbac',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
+                    ),
                     'source' => AuthItem::model()->getTypeList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

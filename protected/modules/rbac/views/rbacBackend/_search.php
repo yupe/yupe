@@ -6,20 +6,33 @@
     )
 ); ?>
 
-<?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 64)); ?>
+<div class="row">
+    <div class="col-sm-6">
+        <?php echo $form->textFieldGroup($model, 'name'); ?>
+    </div>
+</div>
 
-<?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'span5')); ?>
+<div class="row">
+    <div class="col-sm-6">
+        <?php echo $form->dropDownListGroup($model, 'type'); ?>
+    </div>
+</div>
 
-<?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<div class="row">
+    <div class="col-sm-6">
+        <?php echo $form->textAreaGroup($model, 'description'); ?>
+    </div>
+</div>
 
 <div class="form-actions">
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'type' => 'primary',
+            'context' => 'primary',
             'label' => Yii::t('RbacModule.rbac', 'Search'),
         )
     ); ?>
 </div>
 
 <?php $this->endWidget(); ?>
+

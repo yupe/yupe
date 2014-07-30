@@ -33,7 +33,7 @@ $(document).ready(function() {
         var $submit = $form.find('input[type=submit]');
         var $container = $('#comments');
         $.post($form.attr('action'), $form.serialize(), function(response){
-            var type = response.result ? 'success' : 'error';
+            var type = response.result ? 'success' : 'danger';
             $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();
             if(response.data.commentContent) {                
                 if (response.data.comment.parent_id > 0){

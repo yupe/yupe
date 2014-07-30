@@ -1,7 +1,7 @@
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#post-write').liTranslit({
-            elName:  '#Post_title',
+            elName: '#Post_title',
             elAlias: '#Post_slug'
         });
     })
@@ -17,52 +17,75 @@
  * @link     http://yupe.ru
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
+    'bootstrap.widgets.TbActiveForm',
+    array(
         'id' => 'post-write',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
         'type' => 'vertical',
         'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-        'inlineErrors' => true,
     )
 );
 
 ?>
 
 <div class="alert alert-info">
-    Вы можете писать только  в блоги, подписчиком которых являетесь...
+    Вы можете писать только в блоги, подписчиком которых являетесь...
 </div>
 
-<?php echo $form->errorSummary($model);?>
+<?php echo $form->errorSummary($model); ?>
 
-<div class="row-fluid control-group">
-    <div class="span2 pull-left">
-        <?php echo $form->labelEx($model, 'blog_id'); ?>
-        <?php
-            $this->widget(
-                'bootstrap.widgets.TbSelect2', array(
-                    'asDropDownList' => true,
-                    'model' => $model,
-                    'attribute' => 'blog_id',
-                    'data' => CHtml::listData($blogs, 'id', 'name'),
-                    'options' => array(
-                        'placeholder' => 'blog'
-                    )
+<div class="row">
+    <div class="col-sm-2">
+        <?php echo $form->select2Group(
+            $model,
+            'blog_id',
+            array(
+                'widgetOptions' => array(
+                    'data' => CHtml::listData(Blog::model()->getList(), 'id', 'name'),
                 )
-            );
-        ?>
+            )
+        );?>
     </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
-    <?php echo $form->textFieldRow($model, 'title', array('class' => 'span12 popover-help', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
+<div class="row">
+    <div class="col-sm-12">
+        <?php echo $form->textFieldGroup(
+            $model,
+            'title',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('title'),
+                        'data-content' => $model->getAttributeDescription('title')
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
-    <?php echo $form->textFieldRow($model, 'slug', array('class' => 'span12 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
+<div class="row">
+    <div class="col-sm-12">
+        <?php echo $form->textFieldGroup(
+            $model,
+            'slug',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('slug'),
+                        'data-content' => $model->getAttributeDescription('slug')
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
+<div class="row">
     <script type="text/javascript">
         $(document).ready(function () {
             $("#tags").val('<?php echo join(',',$model->getTags());?>');
@@ -70,67 +93,79 @@ $form = $this->beginWidget(
     </script>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
-    <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
+<div class='row'>
+    <div class="col-sm-7">
         <?php
-            echo CHtml::image(
-                !$model->isNewRecord && $model->image
-                    ? $model->getImageUrl()
-                    : '#',
-                $model->title, array(
-                    'class' => 'preview-image',
-                    'style' => !$model->isNewRecord && $model->image
-                            ? ''
-                            : 'display:none'
-                )
-            );
-        ?>
-        <?php echo $form->labelEx($model, 'image'); ?>
-        <?php echo $form->fileField($model, 'image', array('onchange' => 'readURL(this);')); ?>
-    </div>
-    <div class="span5">
-        <?php echo $form->error($model, 'image'); ?>
+        echo CHtml::image(
+            !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+            $model->title,
+            array(
+                'class' => 'preview-image',
+                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+            )
+        ); ?>
+        <?php echo $form->fileFieldGroup($model, 'image', array('widgetOptions' => array('htmlOptions' => array('onchange' => 'readURL(this);', 'style' => 'background-color: inherit;')))); ?>
     </div>
 </div>
 
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
-    <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
+<div class="row">
+    <div class="col-sm-12 form-group popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
          data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
         <?php echo $form->labelEx($model, 'content'); ?>
         <?php
-            $this->widget(
-                $this->module->editor, array(
-                    'model' => $model,
-                    'attribute' => 'content',
-                    'options' => $this->module->editorOptions,
-                )
-            );
-        ?>
+        $this->widget(
+            $this->module->editor,
+            array(
+                'model' => $model,
+                'attribute' => 'content',
+                'options' => $this->module->editorOptions,
+            )
+        ); ?>
     </div>
 </div>
 
-<div class="popover-help row-fluid control-group" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>'
-     data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
-    <?php echo $form->labelEx($model, 'tags'); ?>
-    <?php
-        $this->widget(
-            'bootstrap.widgets.TbSelect2', array(
-                'asDropDownList' => false,
-                'name' => 'tags',
-                'options' => array(
-                    'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                    'placeholder' => Yii::t('BlogModule.blog', 'tags'),
-                    'width' => '100%',
-                    'tokenSeparators' => array(',', ' ')
+<div class="row">
+    <div class="col-sm-5">
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'tags', array('control-label')); ?>
+            <?php
+            $this->widget(
+                'booster.widgets.TbSelect2',
+                array(
+                    'asDropDownList' => false,
+                    'name' => 'tags',
+                    'options' => array(
+                        'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+                        'placeholder' => Yii::t('BlogModule.blog', 'tags'),
+                        'tokenSeparators' => array(',', ' ')
+                    ),
+                    'htmlOptions' => array(
+                        'class' => 'form-control popover-help',
+                        'data-original-title' => $model->getAttributeLabel('tags'),
+                        'data-content' => $model->getAttributeDescription('tags')
+                    ),
                 )
-            )
-        );
-    ?>
+            ); ?>
+        </div>
+    </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
-    <?php echo $form->textFieldRow($model, 'link', array('class' => 'span12 popover-help', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
+<div class="row">
+    <div class="col-sm-12">
+        <?php echo $form->textFieldGroup(
+            $model,
+            'link',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('link'),
+                        'data-content' => $model->getAttributeDescription('link')
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
 </div>
 
 <div class="alert alert-info">
@@ -141,6 +176,6 @@ $form = $this->beginWidget(
 
 <button name="publish" class="btn btn-primary" id="publish-post" type="submit">Опубликовать</button>
 
-<button name="draft" class="btn" id="draft-post" type="submit">Сохранить черновик</button>
+<button name="draft" class="btn btn-default" id="draft-post" type="submit">Сохранить черновик</button>
 
 <?php $this->endWidget(); ?>

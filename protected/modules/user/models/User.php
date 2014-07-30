@@ -266,7 +266,7 @@ class User extends yupe\models\YModel
     /**
      * Метод выполняемый перед сохранением:
      *
-     * @return void
+     * @return bool
      */
     public function beforeSave()
     {
@@ -278,7 +278,7 @@ class User extends yupe\models\YModel
             // администратора:
             if (
                 $this->admin()->count() == 1
-                && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
+                && (int)$this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
                 && ((int)$this->access_level === self::ACCESS_LEVEL_USER || (int)$this->status !== self::STATUS_ACTIVE)
             ) {
                 $this->addError(
@@ -302,11 +302,11 @@ class User extends yupe\models\YModel
     /**
      * Метод перед удалением:
      *
-     * @return void
+     * @return bool
      */
     public function beforeDelete()
     {
-        if (User::model()->admin()->count() === 1 && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN) {
+        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN) {
             $this->addError(
                 'access_level',
                 Yii::t('UserModule.user', 'You can\'t make this changes!')
@@ -507,7 +507,7 @@ class User extends yupe\models\YModel
     /**
      * Удаление старого аватара:
      *
-     * @return void
+     * @return bool
      */
     protected function removeOldAvatar()
     {

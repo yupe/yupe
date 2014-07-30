@@ -157,14 +157,14 @@ class CommentModule extends WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-comment";
+        return "glyphicon glyphicon-comment";
     }
     
     public function getNavigation()
     {
         return array(
-            array('icon' => 'icon-list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url'=>array('/comment/commentBackend/index')),
-            array('icon' => 'icon-plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url'=>array('/comment/commentBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
         );
     }
 

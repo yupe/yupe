@@ -104,7 +104,7 @@ return array(
         // используется лишь после установки Юпи:
         'db'        => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : array(),
         'bootstrap' => array(
-            'class' => 'bootstrap.components.Bootstrap',
+            'class' => 'bootstrap.components.Booster',
             'responsiveCss'  => true,
             'fontAwesomeCss' => true,
         ),
@@ -176,7 +176,6 @@ return array(
         'request' => array(
             'class'                  => 'yupe\components\HttpRequest',
             'enableCsrfValidation'   => true,
-            'enableCookieValidation' => true,
             'csrfCookie' => array(
                 'httpOnly' => true,
             ),

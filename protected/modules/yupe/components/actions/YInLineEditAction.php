@@ -45,7 +45,7 @@ class YInLineEditAction extends CAction
 
         $name = Yii::app()->request->getPost('name');
         $value = Yii::app()->request->getPost('value');
-        $pk = (int)Yii::app()->request->getPost('pk');
+        $pk = Yii::app()->request->getPost('pk');
 
         if (!isset($name, $value, $pk)) {
             throw new CHttpException(404);

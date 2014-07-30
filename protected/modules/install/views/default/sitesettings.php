@@ -1,79 +1,167 @@
 <?php
 /**
  * Отображение для sitesettings:
- * 
- *   @category YupeView
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ *
+ * @category YupeView
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
-        'id'                     => 'sitesettings-form',
-        'enableAjaxValidation'   => false,
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'id' => 'sitesettings-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'inlineErrors'           => true,
+        'type' => 'vertical',
     )
 );
 
 Yii::app()->clientScript->registerScript(
-    'fieldset', "
-    $('document').ready(function () {
+    'fieldset',
+    "$('document').ready(function () {
         $('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });"
 ); ?>
 
-    <?php $this->widget('install.widgets.GetHelpWidget');?>
+<?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
-    <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'More about SEO {link}', array('{link}' => CHtml::link(Yii::t('InstallModule.install', 'here'), 'http://help.yandex.ru/webmaster/?id=1108938', array('target' => '_blank')))); ?></p>
+<div class="alert alert-info">
+    <p><?php echo Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'More about SEO {link}',
+            array('{link}' => CHtml::link(Yii::t('InstallModule.install', 'here'), 'http://help.yandex.ru/webmaster/?id=1108938', array('target' => '_blank')))
+        ); ?></p>
+</div>
+
+<?php echo $form->errorSummary($data['model']); ?>
+
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $data['model'],
+            'theme',
+            array(
+                'widgetOptions' => array(
+                    'data' => $data['themes'],
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('theme'),
+                        'data-content' => $data['model']->getAttributeDescription('theme'),
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <?php echo $form->errorSummary($data['model']); ?>  
-
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('theme') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($data['model'], 'theme', $data['themes'], array('class' => 'popover-help span7', 'data-original-title' => $data['model']->getAttributeLabel('theme'), 'data-content' => $data['model']->getAttributeDescription('theme'))); ?>
-    </div> 
-
-    <?php if(!empty($data['backendThemes'])) : ?>
-        <div class="row-fluid control-group <?php echo $data['model']->hasErrors('backendTheme') ? 'error' : ''; ?>">
-            <?php echo $form->dropDownListRow($data['model'], 'backendTheme', $data['backendThemes'], array('class' => 'popover-help span7', 'data-original-title' => $data['model']->getAttributeLabel('backendTheme'), 'data-content' => $data['model']->getAttributeDescription('backendTheme'))); ?>
-        </div> 
-    <?php endif; ?>
-
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('siteName') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'siteName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('siteName'), 'data-content' => $data['model']->getAttributeDescription('siteName'))); ?>
+<?php if (!empty($data['backendThemes'])) : { ?>
+    <div class="row">
+        <div class="col-sm-7">
+            <?php echo $form->dropDownListGroup(
+                $data['model'],
+                'backendTheme',
+                array(
+                    'widgetOptions' => array(
+                        'data' => $data['backendThemes'],
+                        'htmlOptions' => array(
+                            'class' => 'popover-help',
+                            'data-original-title' => $data['model']->getAttributeLabel('backendTheme'),
+                            'data-content' => $data['model']->getAttributeDescription('backendTheme'),
+                        )
+                    )
+                )
+            ); ?>
+        </div>
     </div>
+<?php } endif; ?>
 
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('siteDescription') ? 'error' : ''; ?>">
-        <?php echo $form->textAreaRow($data['model'], 'siteDescription', array('class' => 'span7 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $data['model']->getAttributeLabel('siteDescription'), 'data-content' => $data['model']->getAttributeDescription('siteDescription'))); ?>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'siteName',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('siteName'),
+                        'data-content' => $data['model']->getAttributeDescription('siteName'),
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('siteKeyWords') ? 'error' : ''; ?>">
-        <?php echo $form->textAreaRow($data['model'], 'siteKeyWords', array('class' => 'span7 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $data['model']->getAttributeLabel('siteKeyWords'), 'data-content' => $data['model']->getAttributeDescription('siteKeyWords'))); ?>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textAreaGroup(
+            $data['model'],
+            'siteDescription',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('siteDescription'),
+                        'data-content' => $data['model']->getAttributeDescription('siteDescription'),
+                        'rows' => 6,
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('siteEmail') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'siteEmail', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('siteEmail'), 'data-content' => $data['model']->getAttributeDescription('siteEmail'))); ?>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textAreaGroup(
+            $data['model'],
+            'siteKeyWords',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('siteKeyWords'),
+                        'data-content' => $data['model']->getAttributeDescription('siteKeyWords'),
+                        'rows' => 6,
+                    )
+                )
+            )
+        ); ?>
     </div>
+</div>
 
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton', array(
-            'label' => Yii::t('InstallModule.install', '< Back'),
-            'url'   => array('/install/default/createuser'),
-        )
-    ); ?>
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton', array(
-            'buttonType' => 'submit',
-            'type'       => 'primary',
-            'label'      => Yii::t('InstallModule.install', 'Continue >'),
-        )
-    ); ?>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $data['model'],
+            'siteEmail',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $data['model']->getAttributeLabel('siteEmail'),
+                        'data-content' => $data['model']->getAttributeDescription('siteEmail'),
+                    )
+                )
+            )
+        ); ?>
+    </div>
+</div>
+
+<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/createuser'), array('class' => 'btn btn-default')); ?>
+
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton',
+    array(
+        'buttonType' => 'submit',
+        'context' => 'primary',
+        'label' => Yii::t('InstallModule.install', 'Continue >'),
+    )
+); ?>
 
 <?php $this->endWidget(); ?>

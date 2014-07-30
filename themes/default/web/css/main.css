@@ -15,7 +15,7 @@ body {
      * and these styles are not required to integrate the pricing table
      * into your application */
     padding-bottom: 50px;
-    background-image: url('../images/background.png');
+    /*background-image: url('../images/background.png');*/
 }
 
 /*
@@ -59,7 +59,7 @@ body {
     padding: 11.5px 0;
     border: 1px solid #ddd;
     border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #e2e2e;
+    border-bottom: 1px solid #e2e2e2;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -291,7 +291,7 @@ span.label a {
 }
 
 /* custom navbar */
-.navbar .brand {
+.navbar-brand {
     padding: 7px 7px 7px 0;
     margin: 0;
 }
@@ -301,11 +301,11 @@ span.label a {
 }
 
 .navbar .nav {
-    margin: 6px 10px 0 0;
+    /*margin: 6px 10px 0 0;*/
 }
 
 .navbar .nav > li > a {
-    margin: 0 2px;
+    /*margin: 0 2px;*/
 }
 
 .navbar .nav > li > a:hover {

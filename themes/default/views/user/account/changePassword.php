@@ -10,34 +10,44 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
     array(
         'id' => 'login-form',
         'type' => 'vertical',
-        'inlineErrors' => true,
         'htmlOptions' => array(
             'class' => 'well',
         )
     )
 ); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <?php echo $form->errorSummary($model); ?>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-            <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span6', 'required' => true)); ?>
-        </div>
+    </div>
+</div>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-            <?php echo $form->passwordFieldRow($model, 'cPassword', array('class' => 'span6', 'required' => true)); ?>
-        </div>
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+    </div>
+</div>
 
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->passwordFieldGroup($model, 'cPassword'); ?>
+    </div>
+</div>
 
-        <div class="row-fluid  control-group">
-            <?php
-            $this->widget(
-                'bootstrap.widgets.TbButton',
-                array(
-                    'buttonType' => 'submit',
-                    'type' => 'primary',
-                    'label' => Yii::t('UserModule.user', 'Change password'),
-                )
-            ); ?>
-        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton',
+            array(
+                'buttonType' => 'submit',
+                'context' => 'primary',
+                'icon' => 'glyphicon glyphicon-signin',
+                'label' => Yii::t('UserModule.user', 'Change password'),
+            )
+        ); ?>
+    </div>
+</div>
 
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>

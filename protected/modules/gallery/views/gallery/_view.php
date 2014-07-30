@@ -24,15 +24,15 @@
 
         <?php echo $data->description; ?>
 
-        <div class="well well-small">
+        <div class="well well-sm">
             <?php if ($data->imagesCount): ?>
-                <ul class="inline">
+                <ul class="list-inline">
                     <li>
                         <?php echo Yii::t('GalleryModule.gallery', 'Images summary'); ?> <span
-                            class="badge badge-info"><?php echo $data->imagesCount; ?></span>
+                            class="badge alert-info"><?php echo $data->imagesCount; ?></span>
                     </li>
                     <li>
-                        <i class="icon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
+                        <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
                             'dd MMMM yyyy г., hh:mm',
                             $data->lastUpdated
                         ); ?>

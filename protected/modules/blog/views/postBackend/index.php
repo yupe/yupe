@@ -1,14 +1,14 @@
 <?php
 /**
  * Отображение для postBackend/index:
- * 
- *   @category YupeView
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ *
+ * @category YupeView
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(   
+$this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Posts') => array('/blog/postBackend/index'),
     Yii::t('BlogModule.blog', 'Administration'),
 );
@@ -16,18 +16,27 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('BlogModule.blog', 'Posts - administration');
 
 $this->menu = array(
-    array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage blogs'), 'url' => array('/blog/blogBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a blog'), 'url' => array('/blog/blogBackend/create')),
-    )),
-    array('label' => Yii::t('BlogModule.blog', 'Posts'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage posts'), 'url' => array('/blog/postBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a post'), 'url' => array('/blog/postBackend/create')),
-    )),
-    array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage members'), 'url' => array('/blog/userToBlogBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a member'), 'url' => array('/blog/userToBlogBackend/create')),
-    )),
+    array(
+        'label' => Yii::t('BlogModule.blog', 'Blogs'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage blogs'), 'url' => array('/blog/blogBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a blog'), 'url' => array('/blog/blogBackend/create')),
+        )
+    ),
+    array(
+        'label' => Yii::t('BlogModule.blog', 'Posts'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage posts'), 'url' => array('/blog/postBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a post'), 'url' => array('/blog/postBackend/create')),
+        )
+    ),
+    array(
+        'label' => Yii::t('BlogModule.blog', 'Members'),
+        'items' => array(
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage members'), 'url' => array('/blog/userToBlogBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a member'), 'url' => array('/blog/userToBlogBackend/create')),
+        )
+    ),
 );
 ?>
 <div class="page-header">
@@ -37,168 +46,188 @@ $this->menu = array(
     </h1>
 </div>
 
-<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-    <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('BlogModule.blog', 'Find posts'), '#', array('class' => 'search-button')); ?>
-    <span class="caret">&nbsp;</span>
-</button>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo Yii::t('BlogModule.blog', 'Find posts'); ?>
+        <span class="caret">&nbsp;</span>
+    </a>
+</p>
 
 <div id="search-toggle" class="collapse out search-form">
-<?php
-Yii::app()->clientScript->registerScript(
-    'search', "
+    <?php
+    Yii::app()->clientScript->registerScript(
+        'search',
+        "
     $('.search-form form').submit(function() {
         $.fn.yiiGridView.update('post-grid', {
             data: $(this).serialize()
         });
         return false;
     });"
-);
-$this->renderPartial('_search', array('model' => $model));
-?>
+    );
+    $this->renderPartial('_search', array('model' => $model));
+    ?>
 </div>
 
-<br/>
-
-<p><?php echo Yii::t('BlogModule.blog', 'In this category located post administration functions'); ?></p>
+<p>
+    <?php echo Yii::t('BlogModule.blog', 'In this category located post administration functions'); ?>
+</p>
 
 <?php $this->widget(
-    'yupe\widgets\CustomGridView', array(
-        'id'           => 'post-grid',
+    'yupe\widgets\CustomGridView',
+    array(
+        'id' => 'post-grid',
         'dataProvider' => $model->search(),
-        'filter'       => $model,
-        'columns' => array( 
+        'filter' => $model,
+        'columns' => array(
             array(
-                'name'  => 'id',
+                'name' => 'id',
                 'value' => 'CHtml::link($data->id, array("/blog/postBackend/update","id" => $data->id))',
-                'type'  => 'html',
+                'type' => 'html',
                 'htmlOptions' => array(
                     'style' => 'width:10px;'
                 )
             ),
             array(
-                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
-                    'url'    => $this->createUrl('/blog/postBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('blog_id')))),
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'title' => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('blog_id')))),
                     'source' => CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'name'   => 'blog_id',
-                'type'   => 'raw',
-                'filter' => CHtml::listData(Blog::model()->findAll(), 'id', 'name')
+                'name' => 'blog_id',
+                'type' => 'raw',
+                'filter' => CHtml::activeDropDownList($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('class' => 'form-control', 'empty' => '')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',                
-                'name'  => 'title',               
-                'editable' => array(   
-                    'url' => $this->createUrl('/blog/postBackend/inline'),                 
-                    'mode' => 'inline',
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )                    
-                )                
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',                
-                'name'  => 'slug',
-                'editable' => array(   
-                    'url'  => $this->createUrl('/blog/postBackend/inline'),
-                    'mode' => 'inline',
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )                                 
-                )                           
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',                
-                'name'  => 'publish_date',
-				'editable' => array(
-					'url'     => $this->createUrl('/blog/postBackend/inline'),
-					'mode'    => 'inline',
-					'type'    => 'datetime',
-					'options' => array(
-						'datetimepicker' => array(
-							'format'   => 'dd-mm-yyyy hh:ii',
-							'language' => Yii::app()->language,
-						),
-						'datepicker'     => array(
-							'format' => 'dd-mm-yyyy hh:ii',
-						),
-					),
-					'params'  => array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-					)
-				)
-            ),
-            array(
-                'class'  => 'bootstrap.widgets.TbEditableColumn',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'title',
                 'editable' => array(
-                    'url'    => $this->createUrl('/blog/postBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'filter' => CHtml::activeTextField($model, 'title', array('class' => 'form-control')),
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'slug',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'filter' => CHtml::activeTextField($model, 'slug', array('class' => 'form-control')),
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'publish_date',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    //'mode' => 'inline',
+                    'type' => 'datetime',
+                    'options' => array(
+                        'datetimepicker' => array(
+                            'format' => 'dd-mm-yyyy hh:ii',
+                            'language' => Yii::app()->language,
+                        ),
+                        'datepicker' => array(
+                            'format' => 'dd-mm-yyyy',
+                        ),
+
+                    ),
+                    'viewformat' => 'dd-mm-yyyy hh:ii',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'value' => '$data->publish_date',
+                'filter' => CHtml::activeTextField($model, 'publish_date', array('class' => 'form-control')),
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'title' => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
                     'source' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'name'   => 'category_id',
-                'type'   => 'raw',
-                'filter' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory)
+                'name' => 'category_id',
+                'type' => 'raw',
+                'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
-                'name'   => 'create_user_id',
-                'type'   => 'raw',
-                'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id))',
-                'filter' => CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(),'id','nick_name')
+                'name' => 'create_user_id',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id))',
+                'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'create_user_id',
+                    CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(), 'id', 'nick_name'),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
-                'class'  => 'bootstrap.widgets.TbEditableColumn',
-				'editable' => array(
-					'url'    => $this->createUrl('/blog/postBackend/inline'),
-					'mode'   => 'popup',
-					'type'   => 'select',
-					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
-					'source' => $model->getStatusList(),
-					'params' => array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-					)
-				),
-                'name'   => 'status',
-                'type'   => 'raw',
-                'value'  => '$data->getStatus()',
-                'filter' => $model->getStatusList()
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'title' => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+                    'source' => $model->getStatusList(),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name' => 'status',
+                'type' => 'raw',
+                'value' => '$data->getStatus()',
+                'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
             ),
             array(
-                'class'  => 'bootstrap.widgets.TbEditableColumn',
-				'editable' => array(
-					'url'    => $this->createUrl('/blog/postBackend/inline'),
-					'mode'   => 'popup',
-					'type'   => 'select',
-					'title'  => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('comment_status')))),
-					'source' => array_merge(array('' => '---'),$model->getCommentStatusList()),
-					'params' => array(
-						Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-					)
-				),
-                'name'  => 'comment_status',
-                'type'  => 'raw',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url' => $this->createUrl('/blog/postBackend/inline'),
+                    'mode' => 'popup',
+                    'type' => 'select',
+                    'title' => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('comment_status')))),
+                    'source' => array_merge(array('' => '---'), $model->getCommentStatusList()),
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'name' => 'comment_status',
+                'type' => 'raw',
                 'value' => '$data->getCommentStatus()',
-                'filter' => array_merge(array('' => '---'),$model->getCommentStatusList())
+                'filter' => CHtml::activeDropDownList($model, 'comment_status', $model->getCommentStatusList(), array('class' => 'form-control', 'empty' => '')),
             ),
             array(
-                'header' => Yii::t('BlogModule.blog','Tags'),
-                'value'  => 'implode(", ", $data->getTags())'
+                'header' => Yii::t('BlogModule.blog', 'Tags'),
+                'value' => 'implode(", ", $data->getTags())'
             ),
             array(
-                'header' => "<i class=\"icon-comment\"></i>",
+                'header' => "<i class=\"glyphicon glyphicon-comment\"></i>",
                 'value' => 'CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id))',
-                'type'  => 'raw',
+                'type' => 'raw',
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

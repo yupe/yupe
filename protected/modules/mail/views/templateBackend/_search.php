@@ -8,65 +8,67 @@ $form = $this->beginWidget(
     )
 );
 ?>
-<fieldset class="inline">
-
-    <div class="row-fluid control-group">
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'name', array('maxlength' => 300)); ?>
+<fieldset>
+    <div class="row">
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'name'); ?>
         </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'code', array('maxlength' => 100)); ?>
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'code'); ?>
         </div>
-
-        <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'event_id',CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'), array('empty' => '---','maxlength' => 10)); ?>
+        <div class="col-sm-3">
+            <?php echo $form->dropDownListGroup(
+                $model,
+                'event_id',
+                array(
+                    'widgetOptions' => array(
+                        'data' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
+                        'htmlOptions' => array('empty' => '---'),
+                    ),
+                )
+            ); ?>
         </div>
-
     </div>
-
-    <div class="row-fluid control-group">
-
-        <div class="span3">
-           <?php echo $form->textFieldRow($model, 'description'); ?>
+    <div class="row">
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'description'); ?>
         </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'from', array('maxlength' => 300)); ?>
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'from'); ?>
         </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'to', array('maxlength' => 300)); ?>
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'to'); ?>
         </div>
-
     </div>
-
-    <div class="row-fluid control-group">
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'theme'); ?>
+    <div class="row">
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'theme'); ?>
         </div>
-
-        <div class="span3">
-            <?php echo $form->textFieldRow($model, 'body'); ?>
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup($model, 'body'); ?>
         </div>
-
-        <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '---')); ?>
+        <div class="col-sm-3">
+            <?php echo $form->dropDownListGroup(
+                $model,
+                'status',
+                array(
+                    'widgetOptions' => array(
+                        'data' => $model->getStatusList(),
+                        'htmlOptions' => array('empty' => '---'),
+                    ),
+                )
+            ); ?>
         </div>
-
     </div>
-
     <div class="form-actions">
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'type' => 'primary',
+                'context' => 'primary',
                 'encodeLabel' => false,
-                'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('MailModule.mail', 'Find')
+                'label' => '<i class="glyphicon glyphicon-search"></i> ' . Yii::t('MailModule.mail', 'Find')
             )
         );
         ?>

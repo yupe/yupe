@@ -106,16 +106,16 @@ class BlogModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('BlogModule.blog', 'Blogs')),
-            array('icon' => 'icon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Blog list'), 'url' => array('/blog/blogBackend/index')),
-            array('icon' => 'icon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogBackend/create')),
-            array('icon' => 'icon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Blogs categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Blog list'), 'url' => array('/blog/blogBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogBackend/create')),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Blogs categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
             array('label' => Yii::t('BlogModule.blog', 'Posts')),
-            array('icon' => 'icon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Post list'), 'url' => array('/blog/postBackend/index')),
-            array('icon' => 'icon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postBackend/create')),
-            array('icon' => 'icon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Posts categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Post list'), 'url' => array('/blog/postBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postBackend/create')),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Posts categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
             array('label' => Yii::t('BlogModule.blog', 'Members')),
-            array('icon' => 'icon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Member list'), 'url' => array('/blog/userToBlogBackend/index')),
-            array('icon' => 'icon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Member list'), 'url' => array('/blog/userToBlogBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogBackend/create')),
         );
     }
 
@@ -156,7 +156,7 @@ class BlogModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-pencil";
+        return "glyphicon glyphicon-pencil";
     }
 
     /**

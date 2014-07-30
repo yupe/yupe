@@ -1,5 +1,5 @@
 <section class="row">
-    <div class="span3">
+    <div class="col-sm-3">
         <ul class="unstyled">
             <li><?php echo Yii::t('default', 'Links'); ?></li>
             <li><a href="https://twitter.com/yupecms" target="_blank"><?php echo Yii::t('default', 'Twitter'); ?></a>
@@ -14,7 +14,7 @@
             <li><a href="http://yupe.ru/" target="_blank"><?php echo Yii::t('default', 'Our site'); ?></a></li>
         </ul>
     </div>
-    <div class="span3">
+    <div class="col-sm-3">
         <ul class="unstyled">
             <li><?php echo Yii::t('default', 'Support'); ?></li>
             <li><a href="http://yupe.ru/docs/index.html"
@@ -26,7 +26,7 @@
                    target="_blank"><?php echo Yii::t('default', 'Contacts'); ?></a></li>
         </ul>
     </div>
-    <div class="span3">
+    <div class="col-sm-3">
         <ul class="unstyled">
             <li><?php echo Yii::t('default', 'Yupe!'); ?></li>
             <li><a href="http://yupe.ru/pages/about/"
@@ -43,7 +43,7 @@
                    target="_blank"><?php echo Yii::t('default', 'How to help us'); ?></a></li>
         </ul>
     </div>
-    <div class="span3">
+    <div class="col-sm-3">
         <ul class="unstyled">
             <li><?php echo Yii::t('default', 'Friends'); ?></li>
             <li><a href="http://allframeworks.ru" target="_blank"><?php echo Yii::t('default', 'allframeworks'); ?></a>
@@ -58,7 +58,7 @@
 </section>
 <hr>
 <footer class="row">
-    <div class="span12">
+    <div class="col-sm-12">
         <ul class="inline copyright">
             <li>
                 <?php echo CHtml::link(

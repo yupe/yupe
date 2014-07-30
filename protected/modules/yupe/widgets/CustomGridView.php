@@ -26,7 +26,7 @@ class CustomGridView extends \TbExtendedGridView
     /**
      *  model name variable
      * @access private
-     * @see CustomGridView()
+     * @see  CustomGridView()
      * @uses init, returnBootstrapStatusHtml, getUpDownButtons, _updatePageSize
      * @var string
      */
@@ -88,6 +88,7 @@ class CustomGridView extends \TbExtendedGridView
 
     public $ajaxUrl;
 
+    public $selectableRows = 2;
 
     /**
      * Widget initialization
@@ -108,15 +109,19 @@ class CustomGridView extends \TbExtendedGridView
                 array(
                     'id' => 'delete-post',
                     'buttonType' => 'button',
-                    'type' => 'danger',
+                    'context' => 'danger',
                     'size' => 'small',
                     'label' => Yii::t('YupeModule.yupe', 'Delete'),
-                    'click' => 'js:function(values){ if(!confirm("' . Yii::t('YupeModule.yupe', 'Do you really want to delete selected elements?') . '")) return false; multiaction("delete", values); }',
+                    'click' => 'js:function(values){ if(!confirm("' . Yii::t(
+                            'YupeModule.yupe',
+                            'Do you really want to delete selected elements?'
+                        ) . '")) return false; multiaction("delete", values); }',
                 ),
             ),
             'checkBoxColumnConfig' => array(
                 'name' => 'id'
-            )) : $this->bulkActions;
+            )
+        ) : $this->bulkActions;
 
         $this->type = empty($this->type) ? 'striped condensed' : $this->type;
 
@@ -192,7 +197,7 @@ class CustomGridView extends \TbExtendedGridView
 
         $text = method_exists($data, $funcStatus) ? $data->$funcStatus() : '';
         $iconStatus = isset($icons[$data->$statusField]) ? $icons[$data->$statusField] : 'question-sign';
-        $icon = '<i class="icon icon-' . $iconStatus . '" title="' . $text . '"></i>';
+        $icon = '<i class="glyphicon glyphicon-' . $iconStatus . '" title="' . $text . '"></i>';
 
         if (method_exists($data, $funcStatusList)) {
             $statusList = $data->$funcStatusList();
@@ -210,7 +215,8 @@ class CustomGridView extends \TbExtendedGridView
             }
 
             $url = Yii::app()->controller->createUrl(
-                "activate", array(
+                "activate",
+                array(
                     'model' => $this->_modelName,
                     'id' => $data->id,
                     'status' => $status,
@@ -234,12 +240,13 @@ class CustomGridView extends \TbExtendedGridView
      */
     public function getUpDownButtons($data)
     {
-        $downUrlImage = '<i class="icon-circle-arrow-down"></i>';
+        $downUrlImage = '<i class="glyphicon glyphicon-circle-arrow-down"></i>';
 
-        $upUrlImage = '<i class="icon-circle-arrow-up"></i>';
+        $upUrlImage = '<i class="glyphicon glyphicon-circle-arrow-up"></i>';
 
         $urlUp = Yii::app()->controller->createUrl(
-            "sort", array(
+            "sort",
+            array(
                 'model' => $this->_modelName,
                 'id' => $data->id,
                 'sortField' => $this->sortField,
@@ -248,7 +255,8 @@ class CustomGridView extends \TbExtendedGridView
         );
 
         $urlDown = Yii::app()->controller->createUrl(
-            "sort", array(
+            "sort",
+            array(
                 'model' => $this->_modelName,
                 'id' => $data->id,
                 'sortField' => $this->sortField,
@@ -280,7 +288,8 @@ class CustomGridView extends \TbExtendedGridView
         if (!isset($sessionSettings[$modelName]['pageSize'])) {
 
             $sessionSettings[$modelName] = array();
-            $setting = Settings::model()->findAllByAttributes(array(
+            $setting = Settings::model()->findAllByAttributes(
+                array(
                     'user_id' => Yii::app()->user->getId(),
                     'module_id' => $modelName,
                     'param_name' => 'pageSize',
@@ -318,7 +327,7 @@ class CustomGridView extends \TbExtendedGridView
                 $setting->param_value = $currentPageSize;
                 $setting->type = Settings::TYPE_USER;
                 $setting->save();
-            }else{
+            } else {
                 $setting->param_value = $currentPageSize;
                 $setting->update();
             }
@@ -346,7 +355,7 @@ class CustomGridView extends \TbExtendedGridView
         $currentPageSize = $this->dataProvider->getPagination()->pageSize;
 
         /* Перебор переключателей: */
-        foreach ($this->pageSizes as $pageSize)
+        foreach ($this->pageSizes as $pageSize) {
             $buttons[] = array(
                 'label' => $pageSize,
                 'active' => $pageSize == $currentPageSize,
@@ -356,6 +365,7 @@ class CustomGridView extends \TbExtendedGridView
                 ),
                 'url' => '#',
             );
+        }
         /* Установка позиции headline'а: */
         $headlinePosition = '';
         if (in_array($this->headlinePosition, array('left', 'right'))) {
@@ -367,9 +377,9 @@ class CustomGridView extends \TbExtendedGridView
 
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(
-            'bootstrap.widgets.TbButtonGroup', array(
+            'bootstrap.widgets.TbButtonGroup',
+            array(
                 'size' => 'small',
-                'type' => 'action',
                 'toggle' => 'radio',
                 'buttons' => $buttons,
             )
@@ -401,7 +411,8 @@ class CustomGridView extends \TbExtendedGridView
     });
 })();
 JS
-            , CClientScript::POS_READY
+            ,
+            CClientScript::POS_READY
         );
     }
 
@@ -428,7 +439,7 @@ JS
                 var queryString = "";
                 var url = "' . $multiactionUrl . '";
                 $.map(values, function(itemInput) {
-                    queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + $(itemInput).val() ;
+                    queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + itemInput;
                 });                
                 $.ajax({
                     url: url,
@@ -444,7 +455,8 @@ JS
                     },
                     error: function(data){alert("' . Yii::t('YupeModule.yupe', 'Error!') . '")}
                 });
-            }', CClientScript::POS_BEGIN
+            }',
+            CClientScript::POS_BEGIN
         );
     }
 }

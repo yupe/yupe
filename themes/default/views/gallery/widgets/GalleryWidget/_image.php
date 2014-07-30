@@ -1,4 +1,4 @@
-<li class="gallery-thumbnail span3">
+<li class="gallery-thumbnail col-sm-3">
     <div class="thumbnail">
         <?php echo CHtml::image(
             $data->image->getUrl(90, 90),
@@ -13,9 +13,7 @@
                 Yii::t('GalleryModule.gallery', 'More...'),
                 array('/gallery/gallery/image/', 'id' => $data->image->id),
                 array('class' => 'btn btn-success btn-block')
-            ); ?></a>
+            ); ?>
         </div>
     </div>
 </li>
-
-

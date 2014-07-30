@@ -9,7 +9,6 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
     array(
         'id' => 'registration-form',
         'type' => 'vertical',
-        'inlineErrors' => true,
         'htmlOptions' => array(
             'class' => 'well',
         )
@@ -18,24 +17,24 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-    <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
-    <span class="help-block">
-        <?php echo Yii::t('UserModule.user', 'Enter an email you have used during signup'); ?>
-    </span>
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->textFieldGroup($model, 'email', array('hint' => Yii::t('UserModule.user', 'Enter an email you have used during signup'))); ?>
+    </div>
 </div>
 
-<div class="row-fluid  control-group">
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'buttonType' => 'submit',
-            'type' => 'primary',
-            'label' => Yii::t('UserModule.user', 'Recover password'),
-        )
-    ); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton',
+            array(
+                'buttonType' => 'submit',
+                'context' => 'primary',
+                'label' => Yii::t('UserModule.user', 'Recover password'),
+            )
+        ); ?>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
-<!-- form -->

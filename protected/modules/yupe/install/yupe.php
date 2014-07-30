@@ -38,7 +38,7 @@ return array(
     'module' => array(
         'components' => array(
             'bootstrap' => array(
-                'class'          => 'vendor.clevertech.yii-booster.src.components.Bootstrap',
+                'class'          => 'vendor.clevertech.yii-booster.src.components.Booster',
                 'coreCss'        => true,
                 'responsiveCss'  => true,
                 'yiiCss'         => true,

@@ -83,7 +83,7 @@ class YShortCuts extends YWidget
                     && count($this->updates[$name]) > 0
                 )
             ? ''
-            : "<span class='label label-info'><i class='fa fa-spin fa-repeat'></i>&nbsp;"
+            : "<span class='label label-info'><i class='glyphicon glyphicon-refresh'></i>&nbsp;"
              . count($this->updates[$name])
              . "</span>";
     }

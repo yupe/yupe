@@ -478,10 +478,10 @@ class YupeModule extends WebModule
                     'class' => 'flushAction',
                     'method' => 'cacheAll',
                 ),
-                'icon' => 'icon-trash',
+                'icon' => 'glyphicon glyphicon-trash',
                 'items' => array(
                     array(
-                        'icon' => 'icon-trash',
+                        'icon' => 'glyphicon glyphicon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean settings cache'),
                         'url' => array('/yupe/backend/flushDumpSettings'),
                         'linkOptions' => array(
@@ -490,7 +490,7 @@ class YupeModule extends WebModule
                         )
                     ),
                     array(
-                        'icon' => 'icon-trash',
+                        'icon' => 'glyphicon glyphicon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean cache'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 1),
                         'linkOptions' => array(
@@ -499,7 +499,7 @@ class YupeModule extends WebModule
                         )
                     ),
                     array(
-                        'icon' => 'icon-trash',
+                        'icon' => 'glyphicon glyphicon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean assets'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 2),
                         'linkOptions' => array(
@@ -508,7 +508,7 @@ class YupeModule extends WebModule
                         )
                     ),
                     array(
-                        'icon' => 'icon-trash',
+                        'icon' => 'glyphicon glyphicon-trash',
                         'label' => Yii::t('YupeModule.yupe', 'Clean cache and assets'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 3),
                         'linkOptions' => array(
@@ -519,17 +519,17 @@ class YupeModule extends WebModule
                 )
             ),
             array(
-                'icon'  => "icon-th",
+                'icon'  => "glyphicon glyphicon-th",
                 'label' => Yii::t('YupeModule.yupe', 'Modules'),
                 'url'   => array('/yupe/backend/settings'),
             ),
             array(
-                'icon'  => 'icon-picture',
+                'icon'  => 'glyphicon glyphicon-picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
                 'url'   => array('/yupe/backend/themesettings'),
             ),
             array(
-                'icon'  => 'icon-wrench',
+                'icon'  => 'glyphicon glyphicon-wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
                 'url'   => array(
                     '/yupe/backend/modulesettings',
@@ -537,7 +537,7 @@ class YupeModule extends WebModule
                 ),
             ),
             array(
-                'icon'  => "icon-question-sign",
+                'icon'  => "glyphicon glyphicon-question-sign",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                 'url'   => array('/yupe/backend/help'),
             )
@@ -611,7 +611,7 @@ class YupeModule extends WebModule
      **/
     public function getIcon()
     {
-        return "fa fa-fw fa-cog";
+        return "glyphicon glyphicon-cog";
     }
 
     /**
@@ -721,12 +721,13 @@ class YupeModule extends WebModule
      * @param array $menu - список пунктов
      *
      * @since 0.5
-     * @return array приобразованный список пунктов
+     * @return array преобразованный список пунктов
      */
     public function getSubMenu($menu)
     {
         $items = array();
-        $endItem = count($menu) - 1;
+        end($menu);
+        $endItemKey = key($menu);
         foreach ($menu as $key => $item) {
 			if ($key === '') {
 				continue;
@@ -736,7 +737,7 @@ class YupeModule extends WebModule
                 unset($item['items'], $item['icon'], $item['url']);
                 $items[] = $item;
                 $items = array_merge($items, $subItems);
-                if ($key != $endItem) {
+                if ($key != $endItemKey) {
                     $items[] = "---";
                 }
             } else {

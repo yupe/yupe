@@ -3,7 +3,7 @@
     <?php
     // @TODO: В случае, если это не бутстраповская иконка - выводить бекграундом
     if ($module->icon)
-        echo '<i class="' . $module->icon. '"><!-- icon --></i>';
+        echo '<i class="' . $module->icon. '"></i>';
     ?>
     <span class="label label-info" title="<?php echo Yii::t('YupeModule.yupe', 'version'); ?>"><?php echo $module->version; ?></span>
     <?php echo $module->name; ?>

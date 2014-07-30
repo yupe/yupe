@@ -9,12 +9,12 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
                 'url' => array('/rbac/rbacBackend/index')
             ),
             array(
-                'icon' => 'plus-sign',
+                'icon' => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('RbacModule.rbac', 'Create role'),
                 'url' => array('/rbac/rbacBackend/create')
             ),
@@ -24,7 +24,7 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Users'),
         'items' => array(
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Users'),
                 'url' => array('/rbac/rbacBackend/userList')
             ),
@@ -47,13 +47,17 @@ $this->menu = array(
     )
 ); ?>
 
-<div class="row-fluid">
-    <?php foreach ($modules as $moduleId => $moduleName): ?>
-        <label class="checkbox">
-            <?php echo CHtml::checkBox('modules[]', false, array('value' => $moduleId)); ?><?php echo $moduleName; ?>
-            <span class='muted'>[<?php echo $moduleId; ?>]</span>
-        </label>
-    <?php endforeach; ?>
+<div class="row">
+    <div class="col-sm-12">
+        <?php foreach ($modules as $moduleId => $moduleName): { ?>
+            <div class="checkbox">
+                <label>
+                    <?php echo CHtml::checkBox('modules[]', false, array('value' => $moduleId)); ?><?php echo $moduleName; ?>
+                    <span class='text-muted'>[<?php echo $moduleId; ?>]</span>
+                </label>
+            </div>
+        <?php } endforeach; ?>
+    </div>
 </div>
 
 <br/>
@@ -63,7 +67,7 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => Yii::t('RbacModule.rbac', 'Import'),
     )
 );

@@ -22,7 +22,7 @@ $this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Find (Zend) - manage')
 $this->widget('bootstrap.widgets.TbButton', array(
     'buttonType' => 'ajaxButton',
     'id' => 'create-search',
-    'type' => 'primary',
+    'context' => 'primary',
     'label' => Yii::t('ZendSearchModule.zendsearch', 'Update find index'),
     'loadingText' => Yii::t('ZendSearchModule.zendsearch','Index is updating... Wait please...'),
     'size' => 'large',

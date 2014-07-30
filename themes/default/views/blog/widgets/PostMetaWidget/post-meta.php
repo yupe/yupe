@@ -1,7 +1,7 @@
 <div class="posts-list-block-tags">
     <div>
         <span class="posts-list-block-tags-block">
-            <i class="icon-tags"></i>
+            <i class="glyphicon glyphicon-tags"></i>
 
             <?php echo Yii::t('BlogModule.blog', 'Tags'); ?>:
 
@@ -13,7 +13,7 @@
         </span>
 
         <span>
-            <i class="icon-user"></i>
+            <i class="glyphicon glyphicon-user"></i>
             <?php $this->widget(
                 'application.modules.user.widgets.UserPopupInfoWidget',
                 array(
@@ -23,7 +23,7 @@
         </span>
 
         <span class="posts-list-block-tags-comments">
-            <i class="fa fa-comments"></i>
+            <i class="glyphicon glyphicon-comment"></i>
 
             <?php echo CHtml::link(
                 $post->getCommentCount(),

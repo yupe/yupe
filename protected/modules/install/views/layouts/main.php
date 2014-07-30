@@ -19,28 +19,13 @@
         <?php echo CHtml::encode(Yii::app()->name) . ' ' . CHtml::encode($this->pageTitle); ?>
     </title>
     <?php
-    // bootstrap v2.3.2 css
-    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/web/install/css/bootstrap.min.css');
-    // стили из админки
-    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/web/css/styles.css');
-    // стили инсталятора
-    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/web/install/css/install.css');
-    // bootstrap v2.3.2 js
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/web/install/js/bootstrap.min.js', CClientScript::POS_END);
-    // jquery v1.8.3
+    Yii::app()->clientScript->registerCoreScript('jquery');
+    $yupeAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
+    $installAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.install.views.assets'));
+    Yii::app()->clientScript->registerCssFile($yupeAssets . '/css/styles.css');
+    Yii::app()->clientScript->registerCssFile($yupeAssets . '/css/flags.css');
+    Yii::app()->clientScript->registerCssFile($installAssets . '/css/install.css');
     ?>
-
-    <?php if (!$this->yupe->enableAssets):?>
-        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/web/install/js/jquery.min.js');?>
-        <?php $mainAssets = Yii::app()->baseUrl . '/web/'; ?>
-    <?php else: ?>
-        <?php Yii::app()->clientScript->registerCoreScript('jquery');?>
-        <?php $mainAssets = Yii::app()->assetManager->publish(
-            Yii::getPathOfAlias('application.modules.yupe.views.assets')
-        );?>
-    <?php endif;?>
-
-    <?php Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');?>
 </head>
 <body>
 <div id="overall-wrap">
@@ -49,7 +34,6 @@
     $this->widget(
         'bootstrap.widgets.TbNavbar',
         array(
-            'htmlOptions' => array('class' => 'navbar'),
             'fluid' => true,
             'brand' => CHtml::image(
                 Yii::app()->baseUrl . "/web/images/logo.png",
@@ -65,69 +49,72 @@
                 CHtml::tag('span', array('id' => 'stepName'), CHtml::encode($this->stepName)),
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
+                    'type' => 'navbar',
                     'htmlOptions' => array('class' => 'pull-right'),
-                    'items' => array_merge(array(
+                    'items' => array_merge(
                         array(
-                            'icon'  => 'question-sign',
-                            'label' => Yii::t('YupeModule.yupe', 'Help'),
-                            'url'   => 'http://yupe.ru/docs/index.html?from=install',
-                            'items' => array(
-                                array(
-                                    'icon'  => 'icon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Official site'),
-                                    'url'   => 'http://yupe.ru?from=install',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'icon-book',
-                                    'label' => Yii::t('YupeModule.yupe', 'Official docs'),
-                                    'url'   => 'http://yupe.ru/docs/index.html?from=install',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'icon-th-large',
-                                    'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                    'url'   => 'https://github.com/yupe/yupe-ext',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'icon-comment',
-                                    'label' => Yii::t('YupeModule.yupe', 'Forum'),
-                                    'url'   => 'http://yupe.ru/talk/?from=install',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'icon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Community on github'),
-                                    'url'   => 'https://github.com/yupe/yupe',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'icon-thumbs-up',
-                                    'label' => Yii::t('YupeModule.yupe', 'Order development and/or support'),
-                                    'url'   => 'http://amylabs.ru/contact?from=install',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'icon-warning-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'Report bug'),
-                                    'url'   => 'http://yupe.ru/contacts?from=install',
-                                    'linkOptions' => array('target' => '_blank'),
-                                ),
-                                array(
-                                    'icon'  => 'exclamation-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                    'url'   => 'http://yupe.ru/pages/about?from=install',
-                                    'linkOptions' => array('target' => '_blank'),
+                            array(
+                                'icon' => 'glyphicon glyphicon-question-sign',
+                                'label' => Yii::t('YupeModule.yupe', 'Help'),
+                                'url' => 'http://yupe.ru/docs/index.html?from=install',
+                                'items' => array(
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-globe',
+                                        'label' => Yii::t('YupeModule.yupe', 'Official site'),
+                                        'url' => 'http://yupe.ru?from=install',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-book',
+                                        'label' => Yii::t('YupeModule.yupe', 'Official docs'),
+                                        'url' => 'http://yupe.ru/docs/index.html?from=install',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-th-large',
+                                        'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
+                                        'url' => 'https://github.com/yupe/yupe-ext',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-comment',
+                                        'label' => Yii::t('YupeModule.yupe', 'Forum'),
+                                        'url' => 'http://yupe.ru/talk/?from=install',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-globe',
+                                        'label' => Yii::t('YupeModule.yupe', 'Community on github'),
+                                        'url' => 'https://github.com/yupe/yupe',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-thumbs-up',
+                                        'label' => Yii::t('YupeModule.yupe', 'Order development and/or support'),
+                                        'url' => 'http://amylabs.ru/contact?from=install',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-warning-sign',
+                                        'label' => Yii::t('YupeModule.yupe', 'Report bug'),
+                                        'url' => 'http://yupe.ru/contacts?from=install',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon' => 'glyphicon glyphicon-exclamation-sign',
+                                        'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
+                                        'url' => 'http://yupe.ru/pages/about?from=install',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
                                 ),
                             ),
+                            array(
+                                'label' => $this->yupe->getVersion(),
+                                'icon' => 'glyphicon glyphicon-thumbs-up',
+                                'url' => 'http://yupe.ru/?from=install'
+                            ),
                         ),
-                        array(
-                            'label' => $this->yupe->getVersion(),
-                            'icon' => 'icon-thumbs-up',
-                            'url' => 'http://yupe.ru/?from=install'
-                        ),
-                      ), $this->yupe->getLanguageSelectorArray()
+                        $this->yupe->getLanguageSelectorArray()
                     ),
                 ),
             ),
@@ -135,13 +122,14 @@
     );
     ?>
 
-    <div class='row-fluid installContentWrapper'>
-        <?php if (count($this->breadcrumbs))
+    <div class='installContentWrapper'>
+        <?php if (count($this->breadcrumbs)) {
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+        }
         ?>
         <!-- breadcrumbs -->
         <?php //$this->widget('yupe\widgets\YFlashMessages'); ?>
-        <div class="installContent">
+        <div class="installContent row">
             <?php echo $content; ?>
         </div>
         <!-- content -->
@@ -149,7 +137,7 @@
 </div>
 <footer>
     Copyright &copy; 2010-<?php echo date('Y'); ?>
-    <?php echo $this->yupe->poweredBy();?>
+    <?php echo $this->yupe->poweredBy(); ?>
     <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
     <br/>
     <a href="http://amylabs.ru/?from=install" target="_blank">

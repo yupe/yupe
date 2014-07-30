@@ -17,7 +17,6 @@ $form = $this->beginWidget(
         'enableClientValidation' => true,
         'type' => 'vertical',
         'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-        'inlineErrors' => true,
     )
 ); ?>
 <div class="alert alert-info">
@@ -28,26 +27,40 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row-fluid control-group">
+<div class="row">
 
-    <div class='span3'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'span7')); ?>
+    <div class='col-sm-3'>
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'status',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getStatusList(),
+                ),
+            )
+        ); ?>
     </div>
 
 
-    <div class="span3">
+    <div class="col-sm-4">
 
-        <?php if (count($languages) > 1): ?>
-            <?php echo $form->dropDownListRow(
+        <?php if (count($languages) > 1): { ?>
+            <?php echo $form->dropDownListGroup(
                 $model,
                 'lang',
-                $languages,
-                array('class' => 'popover-help', 'empty' => Yii::t('CategoryModule.category', '--choose--'))
+                array(
+                    'widgetOptions' => array(
+                        'data' => $languages,
+                        'htmlOptions' => array(
+                            'empty' => Yii::t('CategoryModule.category', '--choose--'),
+                        ),
+                    ),
+                )
             ); ?>
-            <?php if (!$model->isNewRecord): ?>
-                <?php foreach ($languages as $k => $v): ?>
-                    <?php if ($k !== $model->lang): ?>
-                        <?php if (empty($langModels[$k])): ?>
+            <?php if (!$model->isNewRecord): { ?>
+                <?php foreach ($languages as $k => $v): { ?>
+                    <?php if ($k !== $model->lang): { ?>
+                        <?php if (empty($langModels[$k])): { ?>
                             <a href="<?php echo $this->createUrl(
                                 '/category/categoryBackend/create',
                                 array('id' => $model->id, 'lang' => $k)
@@ -56,7 +69,7 @@ $form = $this->beginWidget(
                                     'Add translate in to {lang}',
                                     array('{lang}' => $v)
                                 ) ?>"></i></a>
-                        <?php else: ?>
+                        <?php } else: { ?>
                             <a href="<?php echo $this->createUrl(
                                 '/category/categoryBackend/update',
                                 array('id' => $langModels[$k])
@@ -65,96 +78,116 @@ $form = $this->beginWidget(
                                     'Change translation in to {lang}',
                                     array('{lang}' => $v)
                                 ) ?>"></i></a>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        <?php else: ?>
+                        <?php } endif; ?>
+                    <?php } endif; ?>
+                <?php } endforeach; ?>
+            <?php } endif; ?>
+        <?php } else: { ?>
             <?php echo $form->hiddenField($model, 'lang'); ?>
-        <?php endif; ?>
+        <?php } endif; ?>
 
     </div>
 
 </div>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
-    <?php echo $form->dropDownListRow(
-        $model,
-        'parent_id',
-        Category::model()->getFormattedList(),
-        array('empty' => Yii::t('CategoryModule.category', '--no--'), 'class' => 'span7', 'encode' => false)
-    ); ?>
+<div class='row'>
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'parent_id',
+            array(
+                'widgetOptions' => array(
+                    'data' => Category::model()->getFormattedList(),
+                    'htmlOptions' => array(
+                        'empty' => Yii::t('CategoryModule.category', '--no--'),
+                        'encode' => false,
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
 </div>
-<div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
-    <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 250)); ?>
+<div class='row'>
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'name'); ?>
+    </div>
 </div>
-<div class='control-group <?php echo $model->hasErrors("alias") ? "error" : ""; ?>'>
-    <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span7', 'maxlength' => 150)); ?>
+<div class='row'>
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'alias'); ?>
+    </div>
 </div>
-<div class='row-fluid control-group <?php echo $model->hasErrors("image") ? "error" : ""; ?>'>
-    <?php
-    echo CHtml::image(
-        !$model->isNewRecord && $model->image
-            ? $model->getImageSrc()
-            : '#',
-        $model->name,
-        array(
-            'class' => 'preview-image',
-            'style' => !$model->isNewRecord && $model->image
-                    ? ''
-                    : 'display:none'
-        )
-    ); ?>
-    <?php echo $form->labelEx($model, 'image'); ?>
-    <?php echo $form->fileField($model, 'image', array('onchange' => 'readURL(this);')); ?>
-</div>
-
-<div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
-    <?php echo $form->labelEx($model, 'description'); ?>
-    <?php $this->widget(
-        $this->module->editor,
-        array(
-            'model' => $model,
-            'attribute' => 'description',
-            'options' => $this->module->editorOptions,
-        )
-    ); ?>
-    <br/><?php echo $form->error($model, 'description'); ?>
+<div class='row'>
+    <div class="col-sm-7">
+        <?php
+        echo CHtml::image(
+            !$model->isNewRecord && $model->image ? $model->getImageSrc() : '#',
+            $model->name,
+            array(
+                'class' => 'preview-image',
+                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+            )
+        ); ?>
+        <?php echo $form->fileFieldGroup($model, 'image', array('widgetOptions' => array('htmlOptions' => array('onchange' => 'readURL(this);', 'style' => 'background-color: inherit;')))); ?>
+    </div>
 </div>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors("short_description") ? "error" : ""; ?>'>
-    <?php echo $form->labelEx($model, 'short_description'); ?>
-    <?php $this->widget(
-        $this->module->editor,
-        array(
-            'model' => $model,
-            'attribute' => 'short_description',
-            'options' => $this->module->editorOptions,
-        )
-    ); ?>
-    <br/><?php echo $form->error($model, 'short_description'); ?>
+<div class='row'>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'description'); ?>
+            <?php $this->widget(
+                $this->module->editor,
+                array(
+                    'model' => $model,
+                    'attribute' => 'description',
+                    'options' => $this->module->editorOptions,
+                )
+            ); ?>
+            <?php echo $form->error($model, 'description', array('class' => 'help-block error')); ?>
+        </div>
+    </div>
+</div>
+
+<div class='row'>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'short_description'); ?>
+            <?php $this->widget(
+                $this->module->editor,
+                array(
+                    'model' => $model,
+                    'attribute' => 'short_description',
+                    'options' => $this->module->editorOptions,
+                )
+            ); ?>
+            <br/>
+            <?php echo $form->error($model, 'short_description', array('class' => 'help-block error')); ?>
+        </div>
+    </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and continue') : Yii::t(
-                'CategoryModule.category',
-                'Save category and continue'
-            ),
+            'CategoryModule.category',
+            'Save category and continue'
+        ),
     )
 ); ?>
+
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
         'label' => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t(
-                'CategoryModule.category',
-                'Save category and close'
-            ),
+            'CategoryModule.category',
+            'Save category and close'
+        ),
     )
 ); ?>
 

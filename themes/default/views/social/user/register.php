@@ -19,23 +19,27 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors('nick_name') ? 'error' : ''; ?>'>
-    <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'span6', 'required' => true)); ?>
+<div class='row'>
+    <div class="col-sm-6">
+        <?php echo $form->textFieldRow($model, 'nick_name'); ?>
+    </div>
 </div>
 
-<?php if (!isset($authData['email'])): ?>
-    <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-        <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
+<?php if (!isset($authData['email'])): { ?>
+    <div class='row'>
+        <div class="col-sm-6">
+            <?php echo $form->textFieldRow($model, 'email'); ?>
+        </div>
     </div>
-<?php endif; ?>
+<?php } endif; ?>
 
-<div class="row-fluid  control-group">
+<div class="row">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'type' => 'primary',
+            'context' => 'primary',
             'label' => Yii::t('UserModule.user', 'Sign up'),
         )
     ); ?>

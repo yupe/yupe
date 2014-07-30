@@ -1,70 +1,61 @@
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbBox',
+    'bootstrap.widgets.TbPanel',
     array(
         'title' => Yii::t('FeedbackModule.feedback', 'Feedback'),
-        'headerIcon' => 'icon-envelope'
+        'headerIcon' => 'glyphicon glyphicon-envelope'
     )
 );?>
-
-    <div class="row-fluid">
-
-        <div class="span8">
-
-            <?php $this->widget(
-                'bootstrap.widgets.TbExtendedGridView',
-                array(
-                    'id' => 'feedback-grid',
-                    'type' => 'striped condensed',
-                    'dataProvider' => $dataProvider,
-                    'template' => '{items}',
-                    'htmlOptions' => array(
-                        'class' => false
+<div class="row">
+    <div class="col-sm-8">
+        <?php $this->widget(
+            'bootstrap.widgets.TbExtendedGridView',
+            array(
+                'id' => 'feedback-grid',
+                'type' => 'striped condensed',
+                'dataProvider' => $dataProvider,
+                'template' => '{items}',
+                'htmlOptions' => array(
+                    'class' => false
+                ),
+                'columns' => array(
+                    array(
+                        'name' => 'theme',
+                        'value' => 'CHtml::link($data->theme, array("/feedback/feedbackBackend/update","id" => $data->id))',
+                        'type' => 'html'
                     ),
-                    'columns' => array(
-                        array(
-                            'name' => 'theme',
-                            'value' => 'CHtml::link($data->theme, array("/feedback/feedbackBackend/update","id" => $data->id))',
-                            'type' => 'html'
-                        ),
-                        array(
-                            'name' => 'status',
-                            'value' => '$data->getStatus()',
-                        ),
+                    array(
+                        'name' => 'status',
+                        'value' => '$data->getStatus()',
                     ),
-                )
-            ); ?>
-
-        </div>
-
-        <div class="span4">
-            <div class="row-fluid">
-
-                <div class="span6">
-                    <div>
-                        <?php echo Yii::t('FeedbackModule.feedback', 'Feedback (last day / all)'); ?>:
-                    </div>
-                    <br/>
-
-                    <div>
-                        <?php echo Yii::t('FeedbackModule.feedback', 'Need answer'); ?>:
-                    </div>
-                </div>
-
-                <div class="span6 pull-right">
-                    <div>
-                        <span class="badge badge-success"><?php echo $feedbackCount; ?></span>
-                        <span class="badge badge-info"><?php echo $allFeedbackCount; ?></span>
-                    </div>
-                    <br/>
-
-                    <div>
-                        <span class="badge badge-important"><?php echo $needAnswerCount; ?></span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+                ),
+            )
+        ); ?>
     </div>
+    <div class="col-sm-4">
+        <div class="row">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <?php echo Yii::t('FeedbackModule.feedback', 'Feedback (last day / all)'); ?>:
+                        </td>
+                        <td>
+                            <span class="badge alert-success"><?php echo $feedbackCount; ?></span>
+                            <span class="badge alert-info"><?php echo $allFeedbackCount; ?></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo Yii::t('FeedbackModule.feedback', 'Need answer'); ?>:
+                        </td>
+                        <td>
+                            <span class="badge alert-danger"><?php echo $needAnswerCount; ?></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 <?php $this->endWidget(); ?>

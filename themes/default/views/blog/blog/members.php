@@ -1,7 +1,7 @@
 <?php
-$this->pageTitle   = Yii::t('UserModule.user', 'Users');
+$this->pageTitle = Yii::t('UserModule.user', 'Users');
 $this->description = Yii::t('BlogModule.blog', 'Members of "{blog}" blog', array('{blog}' => CHtml::encode($blog->name)));
-$this->keywords    = Yii::t('BlogModule.blog', 'Members');
+$this->keywords = Yii::t('BlogModule.blog', 'Members');
 $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index'),
     CHtml::encode($blog->name) => array('/blog/blog/show', 'slug' => CHtml::encode($blog->slug)),
@@ -9,7 +9,7 @@ $this->breadcrumbs = array(
 );
 ?>
 
-    <h1><?php echo Yii::t('BlogModule.blog', 'Members of "{blog}" blog', array('{blog}' => CHtml::encode($blog->name))); ?></h1>
+<h1><?php echo Yii::t('BlogModule.blog', 'Members of "{blog}" blog', array('{blog}' => CHtml::encode($blog->name))); ?></h1>
 
 <?php
 $form = $this->beginWidget(
@@ -43,18 +43,18 @@ $this->widget(
                 'value' => 'CHtml::link($data->user->nick_name, array("/user/people/userInfo","username" => $data->user->nick_name))'
             ),
             array(
-                'name'   => 'location',
-                'header' => Yii::t('BlogModule.blog','location')
+                'name' => 'location',
+                'header' => Yii::t('BlogModule.blog', 'location')
             ),
             array(
-                'header' => Yii::t('BlogModule.blog','Last visit'),
+                'header' => Yii::t('BlogModule.blog', 'Last visit'),
                 'name' => 'last_visit',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->last_visit, "long", false)'
             ),
             array(
-                'header' => Yii::t('BlogModule.blog','Joined'),
-                'name'   => 'registration_date',
-                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->registration_date, "long", false)'
+                'header' => Yii::t('BlogModule.blog', 'Joined'),
+                'name' => 'registration_date',
+                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->registration_date, "long", false)'
             )
         )
     )

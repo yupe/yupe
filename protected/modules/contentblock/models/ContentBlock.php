@@ -19,7 +19,7 @@
  * @property integer $type
  * @property string $content
  * @property string $description
- * @protected string $code
+ * @property string $code
  */
 class ContentBlock extends yupe\models\YModel
 {
@@ -93,8 +93,8 @@ class ContentBlock extends yupe\models\YModel
         $criteria->compare('name', $this->name, true);
         $criteria->compare('code', $this->code, true);
         $criteria->compare('type', $this->type);
-        $criteria->compare('content', $this->content);
-        $criteria->compare('description', $this->description);
+        $criteria->compare('content', $this->content, true);
+        $criteria->compare('description', $this->description, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }

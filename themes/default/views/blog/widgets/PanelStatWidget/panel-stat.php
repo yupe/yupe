@@ -1,85 +1,67 @@
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbBox',
+    'bootstrap.widgets.TbPanel',
     array(
         'title' => Yii::t('BlogModule.blog', 'Blogs'),
-        'headerIcon' => 'icon-pencil'
+        'headerIcon' => 'glyphicon glyphicon-pencil'
     )
 );?>
-    <div class="row-fluid">
-        <div class="span2">
-            <?php
-            $this->widget(
-                'bootstrap.widgets.TbButton',
-                array(
-                    'buttonType' => 'link',
-                    'type' => 'success',
-                    'size' => 'mini',
-                    'url' => array('/blog/postBackend/create'),
-                    'label' => Yii::t('BlogModule.blog', 'New post')
-                )
-            ); ?>
+<div class="row">
+    <div class="col-sm-2">
+        <?php echo CHtml::link(Yii::t('BlogModule.blog', 'New post'), array('/blog/postBackend/create'), array('class' => 'btn btn-success btn-sm')); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <?php $this->widget(
+            'bootstrap.widgets.TbExtendedGridView',
+            array(
+                'id' => 'post-grid',
+                'type' => 'striped condensed',
+                'dataProvider' => $dataProvider,
+                'template' => '{items}',
+                'htmlOptions' => array(
+                    'class' => false
+                ),
+                'columns' => array(
+                    array(
+                        'name' => 'title',
+                        'value' => 'CHtml::link($data->title, array("/blog/postBackend/update","id" => $data->id))',
+                        'type' => 'html'
+                    ),
+                    array(
+                        'name' => 'status',
+                        'value' => '$data->getStatus()',
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+    <div class="col-sm-4">
+        <div class="row">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <?php echo Yii::t('BlogModule.blog', 'Posts (last day / all)'); ?>:
+
+                        </td>
+                        <td>
+                            <span class="badge alert-success"><?php echo $postsCount; ?></span>
+                            <span class="badge alert-info"><?php echo $allPostsCnt; ?></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo Yii::t('BlogModule.blog', 'Comments (last day / all)'); ?>:
+                        </td>
+                        <td>
+                            <span class="badge alert-success"><?php echo $commentCount; ?></span>
+                            <span class="badge alert-info"><?php echo $allCommentCnt; ?></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <div class="row-fluid">
-
-        <div class="span8">
-
-            <?php $this->widget(
-                'bootstrap.widgets.TbExtendedGridView',
-                array(
-                    'id' => 'post-grid',
-                    'type' => 'striped condensed',
-                    'dataProvider' => $dataProvider,
-                    'template' => '{items}',
-                    'htmlOptions' => array(
-                        'class' => false
-                    ),
-                    'columns' => array(
-                        array(
-                            'name' => 'title',
-                            'value' => 'CHtml::link($data->title, array("/blog/postBackend/update","id" => $data->id))',
-                            'type' => 'html'
-                        ),
-                        array(
-                            'name' => 'status',
-                            'value' => '$data->getStatus()',
-                        ),
-                    ),
-                )
-            ); ?>
-
-        </div>
-
-        <div class="span4">
-            <div class="row-fluid">
-
-                <div class="span6">
-                    <div>
-                        <?php echo Yii::t('BlogModule.blog', 'Posts (last day / all)'); ?>:
-                    </div>
-                    <br/>
-
-                    <div>
-                        <?php echo Yii::t('BlogModule.blog', 'Comments (last day / all)'); ?>:
-                    </div>
-                </div>
-
-                <div class="span6 pull-right">
-                    <div>
-                        <span class="badge badge-success"><?php echo $postsCount; ?></span>
-                        <span class="badge badge-info"><?php echo $allPostsCnt; ?></span>
-                    </div>
-                    <br/>
-
-                    <div>
-                        <span class="badge badge-success"><?php echo $commentCount; ?></span>
-                        <span class="badge badge-info"><?php echo $allCommentCnt; ?></span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
+</div>
 <?php $this->endWidget(); ?>

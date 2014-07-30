@@ -1,17 +1,20 @@
-<div class="bootstrap-widget">
-   <div class="yupe-widget-header">
-      <i class="icon-pencil"></i><h3><?php echo Yii::t('BlogModule.blog', 'Discuss');?></h3>
-   </div>
-   <div class="yupe-widget-content" id="disquss-widget">
-    <ul class="unstyled">
+<?php
+$this->beginWidget(
+    'bootstrap.widgets.TbPanel',
+    array(
+        'title' => Yii::t('BlogModule.blog', 'Discuss'),
+        'headerIcon' => 'glyphicon glyphicon-pencil',
+    )
+);
+?>
+<ul class="list-unstyled">
     <?php foreach ($data as $model): ?>
         <li>
             <?php echo CHtml::link(CHtml::encode($model['title']), array('/blog/post/show/', 'slug' => CHtml::encode($model['slug']))); ?>
-            <i class="fa icon-comment"></i>
-            <?php echo $model['commentsCount']; ?>                         
-        </li>       
+            <i class="glyphicon glyphicon-comment"></i>
+            <?php echo $model['commentsCount']; ?>
+        </li>
         <hr>
     <?php endforeach; ?>
-    </ul>
-   </div>
-</div>
+</ul>
+<?php $this->endWidget(); ?>

@@ -37,7 +37,7 @@ class RbacTree
 
     public function __construct($user = null)
     {
-        $this->user = $user ? : Yii::app()->user;
+        $this->user = $user ?: Yii::app()->user;
         $this->getData();
     }
 
@@ -123,20 +123,23 @@ class RbacTree
      */
     private function getTextItem($item)
     {
-        return CHtml::label(
-            CHtml::checkBox(
-                'AuthItem[]',
-                $this->permissionList[$item['name']],
-                array('class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-' . uniqid())
-            ) . $this->getItemDescription($item),
-            null,
-            array('class' => 'checkbox')
+        return Chtml::tag(
+            'div',
+            array('class' => 'checkbox'),
+            CHtml::label(
+                CHtml::checkBox(
+                    'AuthItem[]',
+                    $this->permissionList[$item['name']],
+                    array('class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-' . uniqid())
+                ) . $this->getItemDescription($item),
+                null
+            )
         );
     }
 
     private function getItemDescription($item)
     {
-        return $item->description . " ({$item->getType()} <span class='muted'>{$item->name}</span>)";
+        return $item->description . " ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
     }
 
     /**

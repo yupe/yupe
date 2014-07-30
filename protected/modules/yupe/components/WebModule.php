@@ -37,11 +37,11 @@ abstract class WebModule extends CWebModule
     /**
      *
      */
-    const CHECK_ERROR = 'error';
+    const CHECK_ERROR = 'danger';
     /**
      *
      */
-    const CHECK_NOTICE = 'notice';
+    const CHECK_NOTICE = 'warning';
 
     /**
      *

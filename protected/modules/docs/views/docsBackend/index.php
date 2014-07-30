@@ -20,36 +20,33 @@ Yii::app()->clientScript->registerCssFile(
     )
 );
 
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
     Yii::t('DocsModule.docs', 'Documentation')
 );
 
 $fileList = $this->module->fileList(str_replace('{module}', '*', Yii::getPathOfAlias($this->module->moduleDocFolder)) . DIRECTORY_SEPARATOR . Yii::app()->language);
 Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Module for project documentation'));
 
-$this->widget(
-    'bootstrap.widgets.TbAlert', array(
-        'block'  =>true,
-        'alerts' =>array(
-            'info' => array('block' => true),
-        ),
-    )
-); ?>
+$this->widget('bootstrap.widgets.TbAlert');
+?>
 
-<div class="accordion" id="accordion2">
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"docs_existingfiles"))); ?>
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-            <?php echo Yii::t('DocsModule.docs', 'Existing files') . ' (' . count($fileList) . ')'; ?>
-            </a>
+<?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    <?php echo Yii::t('DocsModule.docs', 'Existing files') . ' (' . count($fileList) . ')'; ?>
+                </a>
+            </h4>
         </div>
-        <div id="collapseOne" class="accordion-body collapse in">
-            <div class="accordion-inner">
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
                 <ol>
                     <?php
                     array_walk(
-                        $fileList, function ($item, $key) {
+                        $fileList,
+                        function ($item, $key) {
                             echo CHtml::tag('li', array(), $item);
                         }
                     ); ?>
@@ -57,5 +54,5 @@ $this->widget(
             </div>
         </div>
     </div>
-<?php $this->endWidget(); ?>
 </div>
+<?php $this->endWidget(); ?>

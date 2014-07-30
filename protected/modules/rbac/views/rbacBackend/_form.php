@@ -66,92 +66,111 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row-fluid">
-    <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 64)); ?>
+<div class="row">
+    <div class="col-sm-5">
+        <?php echo $form->textFieldGroup($model, 'name'); ?>
+    </div>
 </div>
 
-
-<div class="row-fluid">
-    <?php echo $form->dropDownListRow(
-        $model,
-        'type',
-        $model->getTypeList(),
-        array('empty' => '---', 'class' => 'span5')
-    ); ?>
+<div class="row">
+    <div class="col-sm-5">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'type',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getTypeList(),
+                    'htmlOptions' => array('empty' => '---'),
+                ),
+            )
+        ); ?>
+    </div>
 </div>
 
-<div class="row-fluid">
-    <?php echo $form->textFieldRow($model, 'description', array('class' => 'span5')); ?>
+<div class="row">
+    <div class="col-sm-5">
+        <?php echo $form->textFieldGroup($model, 'description'); ?>
+    </div>
 </div>
 
 <div id="operations-list" style="display:none;">
-    <p><b><?php echo Yii::t('RbacModule.rbac', 'Operations')?>:</b></p>
-    <?php echo CHtml::textField(
-        'search',
-        '',
-        array('class' => 'span5', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter'))
-    ); ?>
+    <p><b><?php echo Yii::t('RbacModule.rbac', 'Operations') ?>:</b></p>
+    <div class="row">
+        <div class="col-sm-5">
+            <?php echo CHtml::textField('search', '', array('class' => 'form-control', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter'))); ?>
+        </div>
+    </div>
     <p>
         <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', array('id' => 'check-all')); ?>
         <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', array('id' => 'uncheck-all')); ?>
     </p>
-    <?php foreach ($operations as $k => $v): ?>
-        <div class="row-fluid operation">
-            <div class="span7">
-                <label class="checkbox">
-                    <?php echo CHtml::checkBox(
-                        'ChildAuthItems[]',
-                        isset($checkedList[$k]),
-                        array('class' => 'item', 'value' => $k, 'id' => $k)
-                    ); ?>
-                    <?php echo $v; ?>
-                </label>
+    <?php foreach ($operations as $k => $v): { ?>
+        <div class="row operation">
+            <div class="col-sm-7">
+                <div class="checkbox">
+                    <label>
+                        <?php echo CHtml::checkBox(
+                            'ChildAuthItems[]',
+                            isset($checkedList[$k]),
+                            array('class' => 'item', 'value' => $k, 'id' => $k)
+                        ); ?>
+                        <?php echo $v; ?>
+                    </label>
+                </div>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php } endforeach; ?>
 </div>
 
 <div id="tasks-list" style="display:none;">
     <p><b>Задачи:</b></p>
-    <?php foreach ($tasks as $k => $v): ?>
-        <div class="row-fluid operation">
-            <div class="span7">
-                <label class="checkbox">
-                    <?php echo CHtml::checkBox(
-                        'ChildAuthItems[]',
-                        isset($checkedList[$k]),
-                        array('class' => 'item', 'value' => $k, 'id' => $k)
-                    ); ?>
-                    <?php echo $v; ?>
-                </label>
+    <?php foreach ($tasks as $k => $v): { ?>
+        <div class="row operation">
+            <div class="col-sm-7">
+                <div class="checkbox">
+                    <label>
+                        <?php echo CHtml::checkBox(
+                            'ChildAuthItems[]',
+                            isset($checkedList[$k]),
+                            array('class' => 'item', 'value' => $k, 'id' => $k)
+                        ); ?>
+                        <?php echo $v; ?>
+                    </label>
+                </div>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php } endforeach; ?>
 </div>
 
 <div id="roles-list" style="display:none;">
     <p><b>Роли:</b></p>
-    <?php foreach ($roles as $k => $v): ?>
-        <div class="row-fluid operation">
-            <div class="span7">
-                <label class="checkbox">
-                    <?php echo CHtml::checkBox(
-                        'ChildAuthItems[]',
-                        isset($checkedList[$k]),
-                        array('class' => 'item', 'value' => $k, 'id' => $k)
-                    ); ?>
-                    <?php echo $v; ?>
-                </label>
+    <?php foreach ($roles as $k => $v): { ?>
+        <div class="row operation">
+            <div class="col-sm-7">
+                <div class="checkbox">
+                    <label>
+                        <?php echo CHtml::checkBox(
+                            'ChildAuthItems[]',
+                            isset($checkedList[$k]),
+                            array('class' => 'item', 'value' => $k, 'id' => $k)
+                        ); ?>
+                        <?php echo $v; ?>
+                    </label>
+                </div>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php } endforeach; ?>
 </div>
 
 <br/>
 
-<?php echo $form->textFieldRow($model, 'bizrule', array('class' => 'span8')); ?>
+<div class="row">
+    <div class="col-sm-5">
+        <?php echo $form->textFieldGroup($model, 'bizrule'); ?>
+    </div>
+</div>
 
-<?php //echo $form->textAreaRow($model, 'data', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php //echo $form->textAreaGroup($model, 'data'); ?>
 
 <br/>
 
@@ -160,7 +179,7 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Save'),
     )
 );
