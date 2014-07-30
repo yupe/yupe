@@ -36,7 +36,6 @@ return array (
   ' time: {qtime}' => ' время: {qtime}',
   '( You always can find another modules on {link} or {order_link} )' => '( дополнительные модули всегда можно поискать на {link} или {order_link} )',
   '--choose--' => '--выберите--',
-  '0.5.4' => '0.5.4',
   'About Yupe!' => 'О Юпи!',
   'About module' => 'Информация о модул',
   'Active' => 'Активные',

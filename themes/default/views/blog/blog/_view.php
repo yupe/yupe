@@ -8,8 +8,6 @@
     </div>
     <div class="col-sm-7 blog-info">
 
-        <?php $this->widget('application.modules.blog.widgets.JoinBlogWidget', array('user' => Yii::app()->user, 'blog' => $data)); ?>
-
         <h2><?php echo CHtml::link(
                 CHtml::encode($data->name),
                 array('/blog/blog/show/', 'slug' => CHtml::encode($data->slug))
@@ -35,6 +33,10 @@
                 array('/blog/blog/members', 'slug' => CHtml::encode($data->slug))
             ); ?> </span>
         <span> <i class="glyphicon glyphicon-book"></i> <?php echo strip_tags($data->description); ?> </span>
+    </div>
+
+    <div class="col-sm-3">
+        <?php $this->widget('application.modules.blog.widgets.JoinBlogWidget', array('user' => Yii::app()->user, 'blog' => $data)); ?>
     </div>
 </div>
 <hr/>

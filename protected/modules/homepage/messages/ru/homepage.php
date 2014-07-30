@@ -19,7 +19,7 @@
 return array (
   'Please activate "Blogs" or/and "Pages" module' => 'Активируйте модуль "блоги" и/или "страницы"',
   'Andrey Opeykin' => 'Андрей Опейкин',
-  'Home page' => 'Домашняя страница',
+  'Home page' => 'Главная',
   'Pages count' => 'Кол-во записей (только для постов)',
   'Main page management module' => 'Модуль для управления главной страницей',
   'Posts' => 'Посты',

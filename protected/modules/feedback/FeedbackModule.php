@@ -192,7 +192,7 @@ class FeedbackModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-envelope';
+        return 'glyphicon glyphicon-bullhorn';
     }
 
     /**

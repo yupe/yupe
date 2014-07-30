@@ -110,7 +110,7 @@ return array(
     'Messages - view' => 'Сообщения   - просмотр',
     'Messages - edit' => 'Сообщения   - редактирование',
     'Messages - manage' => 'Сообщения   - управление',
-    'Feedback' => 'Сообщения с сайта',
+    'Feedback' => 'Обратная связь',
     'Save message and close' => 'Сохранить   сообщение и закрыть',
     'Save message and continue' => 'Сохранить   сообщение и продолжить',
     'Messages list' => 'Список сообщений',

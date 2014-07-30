@@ -19,13 +19,13 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 <?php echo $form->errorSummary($model); ?>
 
 <div class='row'>
-    <div class="col-xs-4">
+    <div class="col-xs-6">
         <?php echo $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-xs-4">
+    <div class="col-xs-6">
         <?php echo $form->passwordFieldGroup($model, 'password'); ?>
     </div>
 </div>

@@ -81,7 +81,7 @@ class CategoryModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('CategoryModule.category', 'Categories/Sections');
+        return Yii::t('CategoryModule.category', 'Categories');
     }
 
     public function getDescription()

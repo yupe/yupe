@@ -18,7 +18,7 @@ $form = $this->beginWidget(
 ?>
 
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-12">
         <div class="input-group">
             <?php echo $form->textField($users, 'nick_name', array('class' => 'form-control', 'placeholder' => 'поиск по нику',)); ?>
             <span class="input-group-btn">

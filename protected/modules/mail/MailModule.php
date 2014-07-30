@@ -57,7 +57,7 @@ class MailModule extends yupe\components\WebModule
      **/
     public function getName()
     {
-        return Yii::t('MailModule.mail', 'Mail messages');
+        return Yii::t('MailModule.mail', 'Mail');
     }
 
     /**

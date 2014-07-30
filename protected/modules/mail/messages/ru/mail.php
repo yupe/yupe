@@ -59,6 +59,7 @@ return array(
     'Find mail templates' => 'Поиск почтовых шаблонов',
     'Fields, with' => 'Поля, отмеченные',
     'Mail events' => 'Почтовые события',
+    'Mail' => 'Почта',
     'Mail messages' => 'Почтовые сообщения',
     'Mail templates' => 'Почтовые шаблоны',
     'View mail event' => 'Просмотр почтового события',

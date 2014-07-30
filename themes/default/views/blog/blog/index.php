@@ -17,7 +17,7 @@ $form = $this->beginWidget(
 ?>
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <div class="input-group">
             <?php echo $form->textField($blogs, 'name', array('placeholder' => Yii::t('BlogModule.blog', 'Search by blog name'), 'class' => 'form-control')); ?>
             <span class="input-group-btn">
