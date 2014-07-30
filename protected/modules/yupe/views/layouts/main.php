@@ -35,15 +35,13 @@
         <?php
         $this->widget('yupe\widgets\YAdminPanel'); ?>
         <div class="container-fluid" id="page"><?php echo $content; ?></div>
-        <div id="footer-guard"><!-- --></div>
+        <div id="footer-guard"></div>
     </div>
 
     <footer>
         &copy; 2010 - <?php echo date('Y'); ?>
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
-        <br/>
-
         <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>
     </footer>
 </body>

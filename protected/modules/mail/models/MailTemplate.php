@@ -71,6 +71,7 @@ class MailTemplate extends yupe\models\YModel
             array('name, from, to', 'length', 'max' => 300),
             array('code', 'length', 'max' => 100),
             array('code', 'unique'),
+            array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, event_id, name, description, from, to, theme, body, status', 'safe', 'on' => 'search'),
@@ -128,8 +129,8 @@ class MailTemplate extends yupe\models\YModel
         $criteria->compare('event_id', $this->event_id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('from', $this->from, true);
-        $criteria->compare('to', $this->to, true);
+        $criteria->compare('`from`', $this->from, true);
+        $criteria->compare('`to`', $this->to, true);
         $criteria->compare('theme', $this->theme, true);
         $criteria->compare('body', $this->body, true);
         $criteria->compare('status', $this->status);
@@ -140,7 +141,7 @@ class MailTemplate extends yupe\models\YModel
     /**
      * Получаем массив статусов:
      *
-     * @return miced status
+     * @return array status
      **/
     public function getStatusList()
     {

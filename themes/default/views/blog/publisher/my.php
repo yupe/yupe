@@ -36,7 +36,7 @@
                 'value'  => 'implode(", ", $data->getTags())'
             ),
             array(
-                'header' => "<i class=\"icon-comment\"></i>",
+                'header' => "<i class=\"glyphicon glyphicon-comment\"></i>",
                 'value' => 'CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id))',
                 'type'  => 'raw',
             ),

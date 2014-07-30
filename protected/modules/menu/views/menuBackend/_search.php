@@ -11,41 +11,54 @@
  *
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
-        'action'      => Yii::app()->createUrl($this->route),
-        'method'      => 'get',
-        'type'        => 'vertical',
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+        'type' => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
 
-    <fieldset class="inline">
-        <div class="wide row-fluid control-group">
-            <div class="span3">
-                <?php echo $form->textFieldRow($model, 'name'); ?>
-            </div>
-            <div class="span3">
-                <?php echo $form->textFieldRow($model, 'code'); ?>
-            </div>
+<fieldset>
+    <div class="row">
+        <div class="col-sm-3 col-xs-6">
+            <?php echo $form->textFieldGroup($model, 'name'); ?>
         </div>
-        <div class="wide row-fluid control-group">
-            <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => '----')); ?>
-            </div>
-            <div class="span3">
-                <?php echo $form->textFieldRow($model, 'description'); ?>
-            </div>
+        <div class="col-sm-3 col-xs-6">
+            <?php echo $form->textFieldGroup($model, 'code'); ?>
         </div>
-    </fieldset>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-xs-6">
+            <?php echo $form->dropDownListGroup(
+                $model,
+                'status',
+                array(
+                    'widgetOptions' => array(
+                        'data' => $model->getStatusList(),
+                        'htmlOptions' => array(
+                            'empty' => '---',
+                        ),
+                    ),
+                )
+            ); ?>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <?php echo $form->textFieldGroup($model, 'description'); ?>
+        </div>
+    </div>
+</fieldset>
 
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton', array(
-            'type'        => 'primary',
-            'encodeLabel' => false,
-            'buttonType'  => 'submit',
-            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Find menu'),
-        )
-    ); ?>
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton',
+    array(
+        'context' => 'primary',
+        'encodeLabel' => false,
+        'buttonType' => 'submit',
+        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Find menu'),
+    )
+); ?>
 
 <?php $this->endWidget(); ?>

@@ -89,9 +89,9 @@ class CatalogModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Product list'), 'url' => array('/catalog/catalogBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
-            array('icon' => 'icon-folder-open', 'label' => Yii::t('CatalogModule.catalog', 'Goods categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Product list'), 'url' => array('/catalog/catalogBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('CatalogModule.catalog', 'Goods categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
 
@@ -137,7 +137,7 @@ class CatalogModule extends WebModule
 
     public function getIcon()
     {
-        return 'shopping-cart';
+        return 'glyphicon glyphicon-shopping-cart';
     }
 
     public function init()

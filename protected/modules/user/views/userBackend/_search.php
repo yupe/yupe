@@ -1,134 +1,134 @@
 <?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
-        'action'      => Yii::app()->createUrl($this->route),
-        'method'      => 'get',
-        'type'        => 'vertical',
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+        'type' => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
-    <div class="row-fluid">
-        <div class="span6">
-            <?php echo $form->textFieldRow(
-                $model, 'nick_name', array(
-                    'size'      => 60,
-                    'maxlength' => 150,
-                    'class'     => 'span12'
-                )
-            ); ?>
-        </div>
-        <div class="span6">
-            <?php echo $form->textFieldRow(
-                $model, 'email', array(
-                    'size'      => 60,
-                    'maxlength' => 150,
-                    'class'     => 'span12'
-                )
-            ); ?>
-        </div>
+<div class="row">
+    <div class="col-sm-6">
+        <?php echo $form->textFieldGroup($model, 'nick_name'); ?>
     </div>
-    
-    <div class="row-fluid">
-        <div class="span6">
-            <?php echo $form->textFieldRow(
-                $model, 'first_name', array(
-                    'size'      => 60,
-                    'maxlength' => 150,
-                    'class'     => 'span12'
-                )
-            ); ?>
-        </div>
-        <div class="span6">
-            <?php echo $form->textFieldRow(
-                $model, 'last_name', array(
-                    'size'      => 60,
-                    'maxlength' => 150,
-                    'class'     => 'span12'
-                )
-            ); ?>
-        </div>
+    <div class="col-sm-6">
+        <?php echo $form->textFieldGroup($model, 'email'); ?>
     </div>
+</div>
 
-    <div class="row-fluid">
-        <div class="span3">
-            <?php echo $form->datepickerRow($model, 'registration_date', array(
+<div class="row">
+    <div class="col-sm-6">
+        <?php echo $form->textFieldGroup($model, 'first_name'); ?>
+    </div>
+    <div class="col-sm-6">
+        <?php echo $form->textFieldGroup($model, 'last_name'); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <?php echo $form->datePickerGroup(
+            $model,
+            'registration_date',
+            array(
+                'widgetOptions' => array(
                     'options' => array(
                         'format' => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ),
-                    'htmlOptions' => array(
-                        'class' => 'span12'
+                ),
+                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+            )
+        );
+        ?>
+    </div>
+
+    <div class="col-sm-3">
+        <?php echo $form->datepickerGroup(
+            $model,
+            'last_visit',
+            array(
+                'widgetOptions' => array(
+                    'options' => array(
+                        'format' => 'dd-mm-yyyy',
+                        'weekStart' => 1,
+                        'autoclose' => true,
                     ),
                 ),
-                array(
-                    'prepend' => '<i class="icon-calendar"></i>',
-                ));
-            ?>
-        </div>
-        <div class="span3">
-        <?php echo $form->datepickerRow($model, 'last_visit', array(
-                'options' => array(
-                    'format' => 'dd-mm-yyyy',
-                    'weekStart' => 1,
-                    'autoclose' => true,
-                ),
-                'htmlOptions' => array(
-                    'class' => 'span12'
-                ),
-            ),
-            array(
-                'prepend' => '<i class="icon-calendar"></i>',
-            ));
+                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+            )
+        );
         ?>
-        </div>
-        <div class="span3">
-            <?php echo $form->dropDownListRow(
-                $model, 'gender', $model->getGendersList(), array(
-                    'empty' => '---',
-                    'class' => 'span12',
-                )
-            ); ?>
-        </div>
     </div>
-
-    <div class="row-fluid">
-        <div class="span6">
-            <?php echo $form->dropDownListRow(
-                $model, 'status', $model->getStatusList(), array(
-                    'empty' => '---',
-                    'class' => 'span12',
-                )
-            ); ?>
-        </div>
-        <div class="span6">
-            <?php echo $form->dropDownListRow(
-                $model, 'access_level', $model->getAccessLevelsList(), array(
-                    'empty' => '---',
-                    'class' => 'span12',
-                )
-            ); ?>
-        </div>
-    </div>
-
-    <div class="form-actions">
-        <?php $this->widget(
-            'bootstrap.widgets.TbButton', array(
-                'buttonType'  => 'submit',
-                'type'        => 'primary',
-                'icon'        => 'white search',
-                'label'       => Yii::t('UserModule.user', 'Find user'),
-            )
-        ); ?>
-
-        <?php $this->widget(
-            'bootstrap.widgets.TbButton', array(
-                'buttonType'  => 'reset',
-                'type'        => 'danger',
-                'icon'        => 'white remove',
-                'label'       => Yii::t('UserModule.user', 'Reset'),
+    <div class="col-sm-3">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'gender',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getGendersList(),
+                    'htmlOptions' => array(
+                        'empty' => '---',
+                    ),
+                ),
             )
         ); ?>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'status',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getStatusList(),
+                    'htmlOptions' => array(
+                        'empty' => '---',
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+    <div class="col-sm-6">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'access_level',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getAccessLevelsList(),
+                    'htmlOptions' => array(
+                        'empty' => '---',
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+</div>
+
+<div class="form-actions">
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'submit',
+            'context' => 'primary',
+            'icon' => 'glyphicon glyphicon-search',
+            'label' => Yii::t('UserModule.user', 'Find user'),
+        )
+    ); ?>
+
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'reset',
+            'context' => 'danger',
+            'icon' => 'glyphicon glyphicon-remove',
+            'label' => Yii::t('UserModule.user', 'Reset'),
+        )
+    ); ?>
+</div>
 
 <?php $this->endWidget(); ?>

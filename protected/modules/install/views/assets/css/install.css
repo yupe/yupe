@@ -1,5 +1,5 @@
 /*.navbar-inner .container-fluid {*/
-    /*color: #999999;*/
+/*color: #999999;*/
 /*}*/
 
 #stepName {
@@ -9,6 +9,7 @@
     margin-top: 12px;
     margin-left: 5px;
 }
+
 .installContentWrapper {
     padding-top: 60px;
     padding-bottom: 90px;
@@ -27,12 +28,9 @@
     color: #000;
 }
 
-.installContent .installMenu .current {
+.installContent .installMenu .current, .installContent .installMenu .current a {
     color: #fff;
-}
-
-.installContent .installMenu .current a {
-    color: #fff;
+    background-color: #0088cc;
 }
 
 .installContent .installMenu .current:hover {
@@ -49,19 +47,23 @@
     position: relative;
 }
 
-.installContent .installMenu .current {
-    background-color: #0088cc;
-    margin-right: -15px;
-    margin-left: -15px;
-    padding: 3px 15px;
-}
-
 .installContent .installMenu .disabled i {
     top: -1px;
     position: relative;
 }
 
-#modules-modal-list.row {
-    margin-left: 0px;
+.installMenu .nav-list > li > a {
+    padding: 5px 15px;
 }
 
+#modules-modal-list.row {
+    margin-left: 0;
+}
+
+.navbar .navbar-brand {
+    padding-top: 7px;
+}
+
+li.nav-header, li.nav-header a {
+    padding: 5px 15px;
+}

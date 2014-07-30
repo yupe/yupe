@@ -61,7 +61,7 @@ class MenuModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "list";
+        return "glyphicon glyphicon-list";
     }
 
     public function getAdminPageLink()
@@ -73,11 +73,11 @@ class MenuModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('MenuModule.menu', 'Menu')),
-            array('icon' => 'list-alt','label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
-            array('icon' => 'plus-sign','label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt','label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign','label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
             array('label' => Yii::t('MenuModule.menu', 'Menu items')),
-            array('icon' => 'list-alt','label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
-            array('icon' => 'plus-sign','label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt','label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign','label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
         );
     }
 

@@ -40,7 +40,6 @@ class YAdminPanel extends YWidget
     {
         $mainAssets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
 
-        Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/frontpanel.css');
         Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
 
         Yii::app()->getClientScript()->registerScript(

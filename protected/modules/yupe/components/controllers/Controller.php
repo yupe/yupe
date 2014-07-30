@@ -144,7 +144,7 @@ class Controller extends \CController
 
             echo CHtml::tag(
                 'p', array(
-                    'class' => 'alert alert-error'
+                    'class' => 'alert alert-danger'
                 ), $e->getCode()
                     ? $e->getMessage()
                     : Yii::t(

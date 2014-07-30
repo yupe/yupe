@@ -10,8 +10,8 @@
  **/
 $this->beginContent("docs.views.layouts.docs");
 ?>
-  <div class="row-fluid">
-    <div class="span9">
+  <div class="row">
+    <div class="col-sm-9">
         <!-- breadcrumbs -->
         <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs, 'homeLink' => false)); ?>
         <!-- /breadcrumbs -->
@@ -36,7 +36,7 @@ $this->beginContent("docs.views.layouts.docs");
         <!-- content -->
         <div id="footer-guard"><!-- --></div>
     </div>
-    <div class="span3">
+    <div class="col-sm-3">
         <div class="well">
             <?php
             $this->widget(
@@ -47,7 +47,7 @@ $this->beginContent("docs.views.layouts.docs");
             ); ?>
         </div>
         <div class="well" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
-        <div class="alert alert-notice">
+        <div class="alert alert-warning">
             <strong><?php echo Yii::app()->name;?></strong> разрабатывается <a href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной поддержке <?php echo CHtml::link('amyLabs','http://amylabs.ru', array('target' => '_blank'));?>!
             <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact')?></strong> при возникновении проблем!
         </div>

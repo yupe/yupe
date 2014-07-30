@@ -16,7 +16,6 @@ $form = $this->beginWidget(
         'enableClientValidation' => true,
         'type' => 'vertical',
         'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-        'inlineErrors' => true,
     )
 ); ?>
 <div class="alert alert-info">
@@ -27,51 +26,56 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row-fluid control-group">
+<div class="row">
 
-    <div class="span2 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
-        <?php
-        echo $form->datepickerRow(
+    <div class="col-sm-3">
+        <?php echo $form->datePickerGroup(
             $model,
             'date',
             array(
-                'options' => array(
-                    'format' => 'dd-mm-yyyy',
-                    'weekStart' => 1,
-                    'autoclose' => true,
+                'widgetOptions' => array(
+                    'options' => array(
+                        'format' => 'dd-mm-yyyy',
+                        'weekStart' => 1,
+                        'autoclose' => true,
+                    ),
                 ),
-                'htmlOptions' => array(
-                    'class' => 'span11'
-                ),
-            ),
+                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+            )
+        );
+        ?>
+    </div>
+
+    <div class="col-sm-2">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'status',
             array(
-                'prepend' => '<i class="icon-calendar"></i>',
+                'widgetOptions' => array(
+                    'data' => $model->getStatusList(),
+                ),
             )
         ); ?>
     </div>
 
-    <div class="span2 <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow(
-            $model,
-            'status',
-            $model->getStatusList(),
-            array('class' => 'span7 popover-help')
-        ); ?>
-    </div>
-
-    <div class="span2">
-        <?php if (count($languages) > 1): ?>
-            <?php echo $form->dropDownListRow(
+    <div class="col-sm-2">
+        <?php if (count($languages) > 1): { ?>
+            <?php echo $form->dropDownListGroup(
                 $model,
                 'lang',
-                $languages,
-                array('class' => 'popover-help', 'empty' => Yii::t('NewsModule.news', '--choose--'))
+                array(
+                    'widgetOptions' => array(
+                        'data' => $languages,
+                        'htmlOptions' => array(
+                            'empty' => Yii::t('NewsModule.news', '-no matter-'),
+                        ),
+                    ),
+                )
             ); ?>
-            <?php if (!$model->isNewRecord): ?>
-                <?php foreach ($languages as $k => $v): ?>
-                    <?php if ($k !== $model->lang): ?>
-                        <?php if (empty($langModels[$k])): ?>
+            <?php if (!$model->isNewRecord): { ?>
+                <?php foreach ($languages as $k => $v): { ?>
+                    <?php if ($k !== $model->lang): { ?>
+                        <?php if (empty($langModels[$k])): { ?>
                             <a href="<?php echo $this->createUrl(
                                 '/news/newsBackend/create',
                                 array('id' => $model->id, 'lang' => $k)
@@ -80,7 +84,7 @@ $form = $this->beginWidget(
                                     'Add translation for {lang} language',
                                     array('{lang}' => $v)
                                 ) ?>"></i></a>
-                        <?php else: ?>
+                        <?php } else: { ?>
                             <a href="<?php echo $this->createUrl(
                                 '/news/newsBackend/update',
                                 array('id' => $langModels[$k])
@@ -89,78 +93,64 @@ $form = $this->beginWidget(
                                     'Edit translation in to {lang} language',
                                     array('{lang}' => $v)
                                 ) ?>"></i></a>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        <?php else: ?>
+                        <?php } endif; ?>
+                    <?php } endif; ?>
+                <?php } endforeach; ?>
+            <?php } endif; ?>
+        <?php } else: { ?>
             <?php echo $form->hiddenField($model, 'lang'); ?>
-        <?php endif; ?>
+        <?php } endif; ?>
     </div>
 
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-    <?php echo $form->dropDownListRow(
-        $model,
-        'category_id',
-        Category::model()->getFormattedList((int)Yii::app()->getModule('news')->mainCategory),
-        array('class' => 'span7 popover-help', 'empty' => Yii::t('NewsModule.news', '--choose--'), 'encode' => false)
-    ); ?>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
-    <?php echo $form->textFieldRow(
-        $model,
-        'title',
-        array(
-            'size' => 60,
-            'maxlength' => 150,
-            'class' => 'span7 popover-help',
-            'data-original-title' => $model->getAttributeLabel('title'),
-            'data-content' => $model->getAttributeDescription('title')
-        )
-    ); ?>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : ''; ?>">
-    <?php echo $form->textFieldRow(
-        $model,
-        'alias',
-        array(
-            'size' => 60,
-            'maxlength' => 150,
-            'class' => 'span7 popover-help',
-            'data-original-title' => $model->getAttributeLabel('alias'),
-            'data-content' => $model->getAttributeDescription('alias')
-        )
-    ); ?>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
-    <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
-        <?php
-        echo CHtml::image(
-            !$model->isNewRecord && $model->image
-                ? $model->getImageUrl()
-                : '#',
-            $model->title, array(
-                'class' => 'preview-image',
-                'style' => !$model->isNewRecord && $model->image
-                        ? ''
-                        : 'display:none'
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'category_id',
+            array(
+                'widgetOptions' => array(
+                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('news')->mainCategory),
+                    'htmlOptions' => array(
+                        'empty' => Yii::t('NewsModule.news', '--choose--'),
+                        'encode' => false
+                    ),
+                ),
             )
         ); ?>
-        <?php echo $form->labelEx($model, 'image'); ?>
-        <?php echo $form->fileField($model, 'image', array('onchange' => 'readURL(this);')); ?>
-    </div>
-    <div class="span5">
-        <?php echo $form->error($model, 'image'); ?>
     </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('full_text') ? 'error' : ''; ?>">
-    <div class="span12">
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'title'); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'alias'); ?>
+    </div>
+</div>
+
+<div class='row'>
+    <div class="col-sm-7">
+        <?php
+        echo CHtml::image(
+            !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+            $model->title,
+            array(
+                'class' => 'preview-image',
+                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+            )
+        ); ?>
+        <?php echo $form->fileFieldGroup($model, 'image', array('widgetOptions' => array('htmlOptions' => array('onchange' => 'readURL(this);', 'style' => 'background-color: inherit;')))); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 <?php echo $model->hasErrors('full_text') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'full_text'); ?>
         <?php $this->widget(
             $this->module->editor,
@@ -170,16 +160,18 @@ $form = $this->beginWidget(
                 'options' => $this->module->editorOptions,
             )
         ); ?>
-        <span class="help-block"><?php echo Yii::t(
+        <span class="help-block">
+            <?php echo Yii::t(
                 'NewsModule.news',
                 'Full text news which will be shown on news article page'
-            ); ?></span>
+            ); ?>
+        </span>
         <?php echo $form->error($model, 'full_text'); ?>
     </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('short_text') ? 'error' : ''; ?>">
-    <div class="span12">
+<div class="row">
+    <div class="col-sm-12">
         <?php echo $form->labelEx($model, 'short_text'); ?>
         <?php $this->widget(
             $this->module->editor,
@@ -189,66 +181,50 @@ $form = $this->beginWidget(
                 'options' => $this->module->editorOptions,
             )
         ); ?>
-        <span class="help-block"><?php echo Yii::t(
+        <span class="help-block">
+            <?php echo Yii::t(
                 'NewsModule.news',
                 'News anounce text. Usually this is the main idea of the article.'
-            ); ?></span>
+            ); ?>
+        </span>
         <?php echo $form->error($model, 'short_text'); ?>
     </div>
 </div>
 
-<div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
-    <?php echo $form->textFieldRow(
-        $model,
-        'link',
-        array(
-            'size' => 60,
-            'maxlength' => 150,
-            'class' => 'span7 popover-help',
-            'data-original-title' => $model->getAttributeLabel('link'),
-            'data-content' => $model->getAttributeDescription('link')
-        )
-    ); ?>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : ''; ?>">
-    <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
-</div>
-
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse',array('htmlOptions'=>array("id"=>"news_seodata"))); ?>
-<div class="accordion-group">
-    <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-            <?php echo Yii::t('NewsModule.news', 'Data for SEO'); ?>
-        </a>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'link'); ?>
     </div>
-    <div id="collapseOne" class="accordion-body collapse">
-        <div class="accordion-inner">
-            <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
-                <?php echo $form->textFieldRow(
-                    $model,
-                    'keywords',
-                    array(
-                        'size' => 60,
-                        'maxlength' => 150,
-                        'class' => 'span7 popover-help',
-                        'data-original-title' => $model->getAttributeLabel('keywords'),
-                        'data-content' => $model->getAttributeDescription('keywords')
-                    )
-                ); ?>
+</div>
+
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->checkBoxGroup($model, 'is_protected', $model->getProtectedStatusList()); ?>
+    </div>
+</div>
+
+<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+<div class="panel-group" id="extended-options">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
+                    <?php echo Yii::t('NewsModule.news', 'Data for SEO'); ?>
+                </a>
             </div>
-            <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-                <?php echo $form->textAreaRow(
-                    $model,
-                    'description',
-                    array(
-                        'rows' => 3,
-                        'cols' => 98,
-                        'class' => 'span7 popover-help',
-                        'data-original-title' => $model->getAttributeLabel('description'),
-                        'data-content' => $model->getAttributeDescription('description')
-                    )
-                ); ?>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <?php echo $form->textFieldGroup($model, 'keywords'); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <?php echo $form->textAreaGroup($model, 'description'); ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -261,11 +237,8 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'type' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and continue') : Yii::t(
-                'NewsModule.news',
-                'Save news article and continue'
-            ),
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and continue') : Yii::t('NewsModule.news', 'Save news article and continue'),
     )
 ); ?>
 
@@ -274,10 +247,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and close') : Yii::t(
-                'NewsModule.news',
-                'Save news article and close'
-            ),
+        'label' => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and close') : Yii::t('NewsModule.news', 'Save news article and close'),
     )
 ); ?>
 

@@ -2,20 +2,19 @@
 
 <div id='comment-form-wrap' class='comment-form-wrap'>
 
-<div id='comment-result' class='alert' style='display:none'></div>
+    <div id='comment-result' class='alert alert-info' style='display:none'></div>
 
-<?php $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
-    array(
-        'action' => Yii::app()->createUrl('/comment/add/'),
-        'id' => 'comment-form',
-        'type' => 'vertical',
-        'inlineErrors' => true,
-        'htmlOptions' => array(
-            'class' => 'well',
+    <?php $form = $this->beginWidget(
+        'bootstrap.widgets.TbActiveForm',
+        array(
+            'action' => Yii::app()->createUrl('/comment/add/'),
+            'id' => 'comment-form',
+            'type' => 'vertical',
+            'htmlOptions' => array(
+                'class' => 'well',
+            )
         )
-    )
-); ?>
+    ); ?>
 
 
     <?php echo $form->errorSummary($model); ?>
@@ -25,52 +24,78 @@
     <?php echo $form->hiddenField($model, 'parent_id'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
 
-    <?php if (!Yii::app()->user->isAuthenticated()) : ?>
-        <div class='row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>'>
-            <?php echo $form->textFieldRow($model, 'name', array('class' => 'span6', 'required' => true)); ?>
+    <?php if (!Yii::app()->user->isAuthenticated()) : { ?>
+        <div class='row'>
+            <div class="col-sm-6">
+                <?php echo $form->textFieldGroup($model, 'name'); ?>
+            </div>
         </div>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-            <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
+        <div class='row'>
+            <div class="col-sm-6">
+                <?php echo $form->textFieldGroup($model, 'email'); ?>
+            </div>
         </div>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors('url') ? 'error' : ''; ?>'>
-            <?php echo $form->textFieldRow($model, 'url', array('class' => 'span6')); ?>
-        </div>   
-    <?php endif; ?>
+        <div class='row'>
+            <div class="col-sm-6">
+                <?php echo $form->textFieldGroup($model, 'url'); ?>
+            </div>
+        </div>
+    <?php } endif; ?>
 
-    <div class='row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>'>
-        <?php echo $form->textAreaRow($model, 'text', array('class' => 'span12', 'required' => true,'rows' => 3, 'cols' => 50)); ?>
+    <div class='row'>
+        <div class="col-sm-12">
+            <?php echo $form->textAreaGroup($model, 'text'); ?>
+        </div>
     </div>
 
-    <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
-        <?php if(CCaptcha::checkRequirements()) : ?>
-                <?php echo $form->labelEx($model, 'verifyCode'); ?>
-
-                <?php 
-                   $this->widget(
-                    'CCaptcha',
-                    array(
-                        'showRefreshButton' => true,
-                        'imageOptions' => array(
-                            'width' => '150',
-                        ),
-                        'buttonOptions' => array(
-                            'class' => 'btn',
-                        ),
-                        'buttonLabel' => '<i class="icon-repeat"></i>',
-                        'captchaAction' => '/comment/comment/captcha'
-                    )
-                );
-                ?>
-
-                <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
-                    <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => Yii::t('CommentModule.comment', 'Insert symbols you see on picture'),'class' => 'span6', 'required' => true)); ?>
+    <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): { ?>
+        <?php if (CCaptcha::checkRequirements()) : { ?>
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <?php
+                    $this->widget(
+                        'CCaptcha',
+                        array(
+                            'showRefreshButton' => true,
+                            'imageOptions' => array(
+                                'width' => '150',
+                            ),
+                            'buttonOptions' => array(
+                                'class' => 'btn btn-info',
+                            ),
+                            'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
+                            'captchaAction' => '/comment/comment/captcha'
+                        )
+                    );
+                    ?>
                 </div>
-        <?php endif; ?>
-    <?php endif; ?>
-    <div class="row-fluid  control-group">
-        <button class="btn btn-primary" id="add-comment" type="submit" name="add-comment"><i class="fa fa-comment"></i> <?php echo Yii::t('CommentModule.comment', 'Create comment');?></button>
+            </div>
+            <div class='row'>
+                <div class="col-sm-5">
+                    <?php echo $form->textFieldGroup(
+                        $model,
+                        'verifyCode',
+                        array(
+                            'widgetOptions' => array(
+                                'htmlOptions' => array(
+                                    'placeholder' => Yii::t('CommentModule.comment', 'Insert symbols you see on picture')
+                                ),
+                            ),
+                        )
+                    ); ?>
+                </div>
+            </div>
+        <?php } endif; ?>
+    <?php } endif; ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" id="add-comment" type="submit" name="add-comment"><i class="glyphicon glyphicon-comment"></i> <?php echo Yii::t(
+                    'CommentModule.comment',
+                    'Create comment'
+                ); ?></button>
+        </div>
     </div>
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 </div>

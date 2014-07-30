@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?
         foreach ($this->shortcuts as $name => $shortcut) {
             if (isset($shortcut['items'])) {
                 foreach ($shortcut['items'] as $module => $item) {
-                    if(!isset($item['icon'], $item['url'])) {
+                    if (!isset($item['icon'], $item['url'])) {
                         continue;
                     }
                     echo CHtml::link(
@@ -36,10 +36,10 @@ Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?
             }
         }
     } ?>
-    <a class="shortcut" href="<?php echo Yii::app()->createUrl('/yupe/backend/settings');?>">
+    <a class="shortcut" href="<?php echo Yii::app()->createUrl('/yupe/backend/settings'); ?>">
         <div class="cn">
-            <i class="shortcut-icon fa fa-th"></i>
-            <span class="shortcut-label"><?php echo Yii::t('YupeModule.yupe','Modules');?></span>
+            <i class="shortcut-icon glyphicon glyphicon-th"></i>
+            <span class="shortcut-label"><?php echo Yii::t('YupeModule.yupe', 'Modules'); ?></span>
         </div>
     </a>
 </div>

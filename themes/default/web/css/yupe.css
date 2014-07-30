@@ -668,3 +668,7 @@ a.reply {
 	right: 15px;
 	top: 10px;
 }
+
+.auth-services {
+    padding: 0;
+}

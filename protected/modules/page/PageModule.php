@@ -82,7 +82,7 @@ class PageModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "file";
+        return "glyphicon glyphicon-file";
     }
 
     public function init()
@@ -113,9 +113,9 @@ class PageModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/pageBackend/create')),
-            array('icon' => 'icon-folder-open', 'label' => Yii::t('PageModule.page', 'Pages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/pageBackend/create')),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('PageModule.page', 'Pages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
 

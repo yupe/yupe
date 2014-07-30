@@ -13,16 +13,16 @@
         Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
         CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)),
         CHtml::encode($post->title),
-    ); 
+    );
 ?>
 
 <div class="post">
-    <div class="row">        
-        <div class="span8">       
+    <div class="row">
+        <div class="col-sm-8">
             <h4><strong><?php echo CHtml::encode($post->title);?></strong></h4>
-             <div class="posts-list-block-meta">           
+             <div class="posts-list-block-meta">
                 <span>
-                    <i class="icon-pencil"></i>
+                    <i class="glyphicon glyphicon-pencil"></i>
                     <?php echo CHtml::link(
                         CHtml::encode($post->blog->name), array(
                             '/blog/blog/show/',
@@ -31,7 +31,7 @@
                     ); ?>
                 </span>
                 <span>
-                    <i class="icon-calendar"></i>
+                    <i class="glyphicon glyphicon-calendar"></i>
                     <?php echo Yii::app()->getDateFormatter()->formatDateTime(
                         $post->publish_date, "long", "short"
                     ); ?>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="span8">
+        <div class="col-sm-8">
             <p>
                 <?php if($post->image):?>
                     <?php echo CHtml::image($post->getImageUrl());?>
@@ -53,8 +53,8 @@
 
     <?php if($post->link):?>
         <div>
-            <i class='icon-globe'></i> <?php echo CHtml::link($post->link, $post->link, array('target' => '_blank','rel' => 'nofollow'));?>
-        </div>    
+            <i class='glyphicon glyphicon-globe'></i> <?php echo CHtml::link($post->link, $post->link, array('target' => '_blank','rel' => 'nofollow'));?>
+        </div>
     <?php endif;?>
 
     <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $post));?>
@@ -69,7 +69,7 @@
 
 <hr/>
 
-<div class="comments-section">   
+<div class="comments-section">
 
     <?php
         $this->widget(
@@ -78,7 +78,7 @@
                 'modelId'  => $post->id,
                 'comments' => $post->comments
             )
-        ); 
+        );
     ?>
 
      <?php

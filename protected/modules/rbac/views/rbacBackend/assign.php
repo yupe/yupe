@@ -39,7 +39,11 @@ $form = $this->beginWidget(
 
 ?>
 
-<?php $this->widget('CTreeView', array('data' => $tree, 'collapsed' => true)); ?>
+<?php Yii::app()->getClientScript()->registerCss('checkbox-margin', ".checkbox {margin: 0;}"); ?>
+
+<div class="form-group">
+    <?php $this->widget('CTreeView', array('data' => $tree, 'collapsed' => true, 'animated' => 'normal')); ?>
+</div>
 
 <div class="form-actions">
     <?php
@@ -47,7 +51,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'type' => 'primary',
+            'context' => 'primary',
             'label' => Yii::t('RbacModule.rbac', 'Save'),
         )
     );

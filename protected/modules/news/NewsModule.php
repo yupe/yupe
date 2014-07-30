@@ -165,7 +165,7 @@ class NewsModule extends WebModule
 
     public function getIcon()
     {
-        return "leaf";
+        return "glyphicon glyphicon-leaf";
     }
 
     public function getAdminPageLink()
@@ -176,9 +176,9 @@ class NewsModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'News list'), 'url' => array('/news/newsBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
-            array('icon' => 'icon-folder-open', 'label' => Yii::t('NewsModule.news', 'News categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('NewsModule.news', 'News list'), 'url' => array('/news/newsBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('NewsModule.news', 'News categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
         );
     }
 

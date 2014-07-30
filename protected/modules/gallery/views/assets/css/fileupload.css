@@ -1,4 +1,4 @@
-.drugndrop:after {
+.dragndrop:after {
     display: block;
     text-align: center;
     position: relative;
@@ -6,4 +6,5 @@
     font-size: 18pt;
     color: #E2E2E2;
     border: 2px dashed;
+    margin-bottom: 5px;
 }

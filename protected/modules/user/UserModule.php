@@ -270,18 +270,18 @@ class UserModule extends WebModule
         return array(
             array('label' => Yii::t('UserModule.user', 'Users')),
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
                 'url' => array('/user/userBackend/index')
             ),
             array(
-                'icon' => 'plus-sign',
+                'icon' => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('UserModule.user', 'Create user'),
                 'url' => array('/user/userBackend/create')
             ),
             array('label' => Yii::t('UserModule.user', 'Tokens')),
             array(
-                'icon' => 'list-alt',
+                'icon' => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
                 'url' => array('/user/tokensBackend/index')
             ),
@@ -335,7 +335,7 @@ class UserModule extends WebModule
 
     public function getIcon()
     {
-        return 'user';
+        return 'glyphicon glyphicon-user';
     }
 
     public function getConditions()

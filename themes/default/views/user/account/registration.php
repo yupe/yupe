@@ -10,7 +10,6 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
     array(
         'id' => 'registration-form',
         'type' => 'vertical',
-        'inlineErrors' => true,
         'htmlOptions' => array(
             'class' => 'well',
         )
@@ -19,67 +18,84 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class='row-fluid control-group <?php echo $model->hasErrors('nick_name') ? 'error' : ''; ?>'>
-    <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'span6', 'required' => true)); ?>
-</div>
-
-<div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-    <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
-</div>
-
-<div class='row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>'>
-    <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span6', 'required' => true)); ?>
-</div>
-
-<div class='row-fluid control-group <?php echo $model->hasErrors('cPassword') ? 'error' : ''; ?>'>
-    <?php echo $form->passwordFieldRow($model, 'cPassword', array('class' => 'span6', 'required' => true)); ?>
-</div>
-
-<?php if ($module->showCaptcha && CCaptcha::checkRequirements()): ?>
-    <?php $this->widget(
-        'CCaptcha',
-        array(
-            'showRefreshButton' => true,
-            'imageOptions' => array(
-                'width' => '150',
-            ),
-            'buttonOptions' => array(
-                'class' => 'btn',
-            ),
-            'buttonLabel' => '<i class="icon-repeat"></i>',
-        )
-    ); ?>
-
-    <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
-        <?php echo $form->textFieldRow($model, 'verifyCode', array('class' => 'span3', 'required' => true)); ?>
-        <span class="help-block">
-            <?php echo Yii::t('UserModule.user', 'Please enter the text from the image'); ?>
-        </span>
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->textFieldGroup($model, 'nick_name'); ?>
     </div>
-<?php endif; ?>
+</div>
 
-<div class="row-fluid control-group">
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'buttonType' => 'submit',
-            'type' => 'primary',
-            'label' => Yii::t('UserModule.user', 'Sign up'),
-        )
-    ); ?>
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->textFieldGroup($model, 'email'); ?>
+    </div>
+</div>
+
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+    </div>
+</div>
+
+<div class='row'>
+    <div class="col-xs-6">
+        <?php echo $form->passwordFieldGroup($model, 'cPassword'); ?>
+    </div>
+</div>
+
+<?php if ($module->showCaptcha && CCaptcha::checkRequirements()): { ?>
+    <div class="row">
+        <div class="col-xs-4">
+            <?php echo $form->textFieldGroup($model, 'verifyCode', array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))); ?>
+        </div>
+        <div class="col-xs-4">
+            <?php $this->widget(
+                'CCaptcha',
+                array(
+                    'showRefreshButton' => true,
+                    'imageOptions' => array(
+                        'width' => '150',
+                    ),
+                    'buttonOptions' => array(
+                        'class' => 'btn btn-default',
+                    ),
+                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
+                )
+            ); ?>
+        </div>
+    </div>
+<?php } endif; ?>
+
+<div class="row">
+    <div class="col-xs-12">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton',
+            array(
+                'buttonType' => 'submit',
+                'context' => 'primary',
+                'label' => Yii::t('UserModule.user', 'Sign up'),
+            )
+        ); ?>
+    </div>
 </div>
 
 <hr/>
 
-<?php if(Yii::app()->hasModule('social')):?>
-<div class="row-fluid control-group">
-    <?php $this->widget('vendor.nodge.yii-eauth.EAuthWidget', array(
-        'action' => '/social/login',
-        'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github', 'yandex'),
-    )); ?>
-</div>
-<?php endif;?>
+<?php if (Yii::app()->hasModule('social')): { ?>
+    <div class="row">
+        <div class="col-xs-12">
+            <?php
+            $this->widget(
+                'vendor.nodge.yii-eauth.EAuthWidget',
+                array(
+                    'action' => '/social/login',
+                    'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github'),
+                )
+            );
+            ?>
+        </div>
+    </div>
+<?php } endif; ?>
 
 <?php $this->endWidget(); ?>
 <!-- form -->

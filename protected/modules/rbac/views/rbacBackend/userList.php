@@ -8,30 +8,32 @@ $this->menu = array(
     array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
-            array('icon' => 'user', 'label' => Yii::t('RbacModule.rbac', 'User list'), 'url' => array('userList')),
+            array('icon' => 'glyphicon glyphicon-user', 'label' => Yii::t('RbacModule.rbac', 'User list'), 'url' => array('userList')),
         )
     ),
 );
 
 ?>
-    <div class="page-header">
-        <h3>
-            <?php echo Yii::t('RbacModule.rbac', 'Users'); ?>
-            <small><?php echo Yii::t('RbacModule.rbac', 'management'); ?></small>
-        </h3>
-    </div>
+<div class="page-header">
+    <h3>
+        <?php echo Yii::t('RbacModule.rbac', 'Users'); ?>
+        <small><?php echo Yii::t('RbacModule.rbac', 'management'); ?></small>
+    </h3>
+</div>
 
-    <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="icon-search">&nbsp;</i>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Find users'), '#', array('class' => 'search-button')); ?>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo Yii::t('RbacModule.rbac', 'Find users'); ?>
         <span class="caret">&nbsp;</span>
-    </button>
+    </a>
+</p>
 
-    <div id="search-toggle" class="collapse out search-form">
-        <?php
-        Yii::app()->clientScript->registerScript(
-            'search',
-            "
+<div id="search-toggle" class="collapse out search-form">
+    <?php
+    Yii::app()->clientScript->registerScript(
+        'search',
+        "
                $('.search-form form').submit(function() {
                    event.preventDefault();
 
@@ -51,10 +53,9 @@ $this->menu = array(
                        });
                });
            "
-        );
-        $this->renderPartial('_searchUser', array('model' => $model));
-        ?>
-    </div>
+    );
+    $this->renderPartial('_searchUser', array('model' => $model)); ?>
+</div>
 
 <?php
 Yii::import('bootstrap.widgets.TbExtendedGridView');
@@ -85,12 +86,12 @@ $this->widget(
             array(
                 'filter' => false,
                 'value' => function ($data) {
-                        echo CHtml::link(
-                            Yii::t('RbacModule.rbac', 'Permissions'),
-                            array('/rbac/rbacBackend/assign', 'id' => $data->id),
-                            array('class' => 'btn btn-small')
-                        );
-                    }
+                    echo CHtml::link(
+                        Yii::t('RbacModule.rbac', 'Permissions'),
+                        array('/rbac/rbacBackend/assign', 'id' => $data->id),
+                        array('class' => 'btn btn-default btn-small')
+                    );
+                }
             ),
         ),
     )

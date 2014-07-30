@@ -15,7 +15,8 @@ return array(
 	'module'  => array(
 		'class' => 'application.modules.install.InstallModule',
 	),
-	'rules'   => array(
+    'preload' => array('bootstrap'),
+    'rules'   => array(
 		// правила контроллера site
 		'/' => '/install/default/index'
 	),

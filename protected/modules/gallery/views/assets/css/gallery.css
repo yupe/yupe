@@ -1,10 +1,20 @@
 .image-changes {
-    right: 0;
-    top: 2px;
-    text-align: right;
 
 }
 
 .image:not(.img-polaroid) .image-changes {
     position: absolute;
+}
+
+ul.gallery-thumbnails {
+    list-style-type: none;
+    padding: 0;
+}
+
+.gallery-thumbnail {
+    margin-bottom: 25px;
+}
+
+.gallery-thumbnail a {
+    color: #000000;
 }

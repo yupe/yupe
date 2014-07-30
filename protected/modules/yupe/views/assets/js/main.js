@@ -22,11 +22,12 @@ jQuery(document).ready(function($){
     /**
      * Ajax-управление статусами модулей:
      **/
-    $(document).on('click', '.changeStatus', function() {
+    $(document).on('click', '.changeStatus', function(e) {
+        e.preventDefault();
         if ((link = this) === undefined || (method = $(this).attr('method')) === undefined || (message = actionToken.messages['confirm_' + method]) === undefined)
             bootbox.confirm(actionToken.messages['unknown']);
         else {
-            bootbox.confirm(message, actionToken.buttons['no'], actionToken.buttons['yes'], function(result) {
+            bootbox.confirm(message, function(result) {
                 if (result) {
                     sendModuleStatus($(link).attr('module'), $(link).attr('status'));
                 }
@@ -37,11 +38,12 @@ jQuery(document).ready(function($){
     /**
      * Ajax-управление сбросом кеша и ресурсов (assets):
      **/
-    $(document).on('click', '.flushAction', function() {
+    $(document).on('click', '.flushAction', function(e) {
+        e.preventDefault();
         if ((link = this) === undefined || (method = $(this).attr('method')) === undefined || (message = actionToken.messages['confirm_' + method]) === undefined)
             bootbox.confirm(actionToken.messages['unknown']);
         else {
-            bootbox.confirm(message, actionToken.buttons['no'], actionToken.buttons['yes'], function(result) {
+            bootbox.confirm(message, function(result) {
                 if (result) {
                     sendFlush(link);
                 }
@@ -98,13 +100,14 @@ function ajaxSetSort(elem, id) {
 }
 
 function sendFlush(link) {
-    dataArray = [
+    var dataArray = [
         actionToken.token,
         'method=' + $(link).attr('method')
     ];
 
-    myDialog = bootbox.alert(actionToken.message);
-    $(myDialog).find('div.modal-footer a.btn').hide();
+    var myDialog = bootbox.alert(actionToken.message);
+
+    $(myDialog).find('div.modal-footer .btn').hide();
     $(myDialog).find('div.modal-footer').append(actionToken.loadingimg);
     /**
      * Запрет на закрытие бокса:
@@ -122,7 +125,7 @@ function sendFlush(link) {
             $(myDialog).find('.modal-body').html(
                  data.data ? data.data : actionToken.error
             );
-            $(myDialog).find('div.modal-footer a.btn').show();
+            $(myDialog).find('div.modal-footer .btn').show();
             $(myDialog).find('div.modal-footer img').hide();
         },
         success: function(data) {
@@ -133,10 +136,10 @@ function sendFlush(link) {
                     typeof data.data == 'undefined' ? actionToken.error : data.data
                 );
             }
-            $(myDialog).find('div.modal-footer a.btn').show();
+            $(myDialog).find('div.modal-footer .btn').show();
             $(myDialog).find('div.modal-footer img').hide();
             // При клике на кнопку - перегружаем страницу:
-            $(myDialog).find('div.modal-footer a.btn').click(function() {
+            $(myDialog).find('div.modal-footer .btn').click(function() {
                 location.reload();
             });
         }
@@ -144,14 +147,14 @@ function sendFlush(link) {
 }
 
 function sendModuleStatus(name, status) {
-    dataArray = [
+    var dataArray = [
         actionToken.token,
         'module=' + name,
         'status=' + status
     ];
 
-    myDialog = bootbox.alert(actionToken.message);
-    $(myDialog).find('div.modal-footer a.btn').hide();
+    var myDialog = bootbox.alert(actionToken.message);
+    $(myDialog).find('div.modal-footer .btn').hide();
     $(myDialog).find('div.modal-footer').append(actionToken.loadingimg);
     /**
      * Запрет на закрытие бокса:
@@ -188,10 +191,10 @@ function sendModuleStatus(name, status) {
                     typeof data.data == 'undefined' ? actionToken.error : data.data
                 );
             }
-            $(myDialog).find('div.modal-footer a.btn').show();
+            $(myDialog).find('div.modal-footer .btn').show();
             $(myDialog).find('div.modal-footer img').hide();
             // При клике на кнопку - перегружаем страницу:
-            $(myDialog).find('div.modal-footer a.btn').click(function() {
+            $(myDialog).find('div.modal-footer .btn').click(function() {
                 location.reload();
             });
         }

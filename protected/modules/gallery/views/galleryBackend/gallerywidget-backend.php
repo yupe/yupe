@@ -15,7 +15,10 @@ $this->widget(
         'config' => array(// тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
         ),
     )
-); ?>
+);
+$mainAssets = Yii::app()->assetManager->publish(    Yii::getPathOfAlias('gallery.views.assets'));
+Yii::app()->clientScript->registerCssFile($mainAssets . '/css/gallery.css');
+?>
 
 
 <?php $this->widget(
@@ -24,7 +27,7 @@ $this->widget(
         'dataProvider' => $dataProvider,
         'itemView' => '_image',
         'template' => "{items}\n{pager}",
-        'itemsCssClass' => 'gallery-thumbnails thumbnails',
-        'itemsTagName' => 'ul'
+        'itemsCssClass' => 'row gallery-thumbnails thumbnails',
+        'itemsTagName' => 'div'
     )
 ); ?>
