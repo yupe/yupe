@@ -33,8 +33,8 @@ echo <<<EOF
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - управление');
 
     \$this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
+        array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}Backend/index')),
+        array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}Backend/create')),
     );
 ?>
 EOF;
@@ -47,11 +47,13 @@ EOF;
     </h1>
 </div>
 
-<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-    <i class="icon-search">&nbsp;</i>
-    <?php echo "<?php echo CHtml::link(Yii::t('{$this->mid}', 'Поиск {$this->mrod}'), '#', array('class' => 'search-button')); ?>\n"; ?>
-    <span class="caret">&nbsp;</span>
-</button>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo "<?php echo Yii::t('{$this->mid}', 'Поиск {$this->mrod}');?>\n"; ?>
+        <span class="caret">&nbsp;</span>
+    </a>
+</p>
 
 <div id="search-toggle" class="collapse out search-form">
 <?php echo <<<EOF

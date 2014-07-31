@@ -27,44 +27,50 @@ class YupeCode extendS CrudCode
 
     public function rules()
     {
-        return array_merge(parent::rules(), array(
-            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter' => 'trim'),
-            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'required'),
-        ));
+        return array_merge(
+            parent::rules(),
+            array(
+                array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter' => 'trim'),
+                array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'required'),
+            )
+        );
     }
 
-    public function generateActiveRow($modelClass, $column)
+    public function generateActiveGroup($modelClass, $column)
     {
-        if ($column->type === 'boolean')
-            return "\$form->checkBoxRow(\$model, '{$column->name}', array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
-        else if (stripos($column->dbType, 'text') !== false)
-            return "\$form->textAreaRow(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
-		elseif ($column->dbType == 'date')
-			return "\$form->datePickerRow(\$model, '{$column->name}', array('options' => array('autoclose' => true)), array('class' => 'span5'))";
-		elseif ($column->dbType == 'datetime')
-			return "\$form->dateTimePickerRow(\$model, '{$column->name}', array('options' => array('autoclose' => true)), array('class' => 'span5'))";
-        else if ($column->isForeignKey)
-        {
-            $relations = CActiveRecord::model($modelClass)->relations();
-            foreach ($relations as $key => $relation)
-                if ($relation[0] == 'CBelongsToRelation' && $relation[2] == $column->name)
-                {
-                    $relationModel = CActiveRecord::model($relation[1]);
-                    $suggestedName = $this->suggestName($relationModel->tableSchema->columns)->name;
-                    return "\$form->dropDownListRow(\$model, '{$relation[2]}', CHtml::listData($relation[1]::model()->findAll(), 'id', '{$suggestedName}'))";
-                }
-        } 
-        else
-        {
-            if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name))
-                $inputField = 'passwordFieldRow';
-            else
-                $inputField = 'textFieldRow';
+        if ($column->type === 'boolean') {
+            return "\$form->checkBoxGroup(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+        } else {
+            if (stripos($column->dbType, 'text') !== false) {
+                return "\$form->textAreaGroup(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+            } elseif ($column->dbType == 'date') {
+                return "\$form->datePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"glyphicon glyphicon-calendar\"></i>'))";
+            } elseif ($column->dbType == 'datetime') {
+                return "\$form->dateTimePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"glyphicon glyphicon-calendar\"></i>'))";
+            } else {
+                if ($column->isForeignKey) {
+                    $relations = CActiveRecord::model($modelClass)->relations();
+                    foreach ($relations as $key => $relation) {
+                        if ($relation[0] == 'CBelongsToRelation' && $relation[2] == $column->name) {
+                            $relationModel = CActiveRecord::model($relation[1]);
+                            $suggestedName = $this->suggestName($relationModel->tableSchema->columns)->name;
+                            return "\$form->dropDownListGroup(\$model, '{$relation[2]}', array('widgetOptions' => array('data' => CHtml::listData($relation[1]::model()->findAll(), 'id', '{$suggestedName}'))))";
+                        }
+                    }
+                } else {
+                    if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
+                        $inputField = 'passwordFieldGroup';
+                    } else {
+                        $inputField = 'textFieldGroup';
+                    }
 
-            if ($column->type !== 'string' || $column->size === null)
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
-            else
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => {$column->size}, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
+                    if ($column->type !== 'string' || $column->size === null) {
+                        return "\$form->{$inputField}(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+                    } else {
+                        return "\$form->{$inputField}(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+                    }
+                }
+            }
         }
     }
 
@@ -78,54 +84,52 @@ class YupeCode extendS CrudCode
     public function suggestName($columns)
     {
         $j = 0;
-        foreach ($columns as $column)
-        {
+        foreach ($columns as $column) {
             if (!$column->isForeignKey &&
                 !$column->isPrimaryKey &&
                 $column->type != 'INT' &&
                 $column->type != 'INTEGER' &&
                 $column->type != 'BOOLEAN' &&
                 substr_count(strtolower($column->name), 'name') > 0
-            )
-            {
+            ) {
                 $num = $j;
                 break;
             }
             $j++;
         }
 
-        for ($i = 0; $i < $j; $i++)
+        for ($i = 0; $i < $j; $i++) {
             next($columns);
+        }
 
-        if (is_object(current($columns)))
+        if (is_object(current($columns))) {
             return current($columns);
-        else
-        {
+        } else {
             $column = reset($columns);
             return $column;
         }
     }
 
-	public function getControllerFile()
-	{
-		$id = $this->getControllerID();
+    public function getControllerFile()
+    {
+        $id = $this->getControllerID();
 
-		if (($pos = strrpos($id, '/')) !== false) {
-			$id[$pos + 1] = strtoupper($id[$pos + 1]);
-		} else {
-			$id[0] = strtoupper($id[0]);
-		}
+        if (($pos = strrpos($id, '/')) !== false) {
+            $id[$pos + 1] = strtoupper($id[$pos + 1]);
+        } else {
+            $id[0] = strtoupper($id[0]);
+        }
 
-		return $this->getModulePath() . '/controllers/' . $id . 'Controller.php';
-	}
+        return $this->getModulePath() . '/controllers/' . $id . 'Controller.php';
+    }
 
-	public function getModulePath()
-	{
-		return Yii::app()->basePath . '/modules/' . $this->mid;
-	}
+    public function getModulePath()
+    {
+        return Yii::app()->basePath . '/modules/' . $this->mid;
+    }
 
-	public function getViewPath()
-	{
-		return $this->getModulePath() . '/views/' . $this->getControllerID();
-	}
+    public function getViewPath()
+    {
+        return $this->getModulePath() . '/views/' . $this->getControllerID();
+    }
 }
