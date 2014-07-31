@@ -49,6 +49,7 @@ echo <<<EOF
         array('icon' => 'trash', 'label' => Yii::t('{$this->mid}', 'Удалить {$this->vin}'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/{$this->mid}/{$this->controller}/delete', 'id' => \$model->{$this->tableSchema->primaryKey}),
             'confirm' => Yii::t('{$this->mid}', 'Вы уверены, что хотите удалить {$this->vin}?'),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
         )),
     );
 ?>

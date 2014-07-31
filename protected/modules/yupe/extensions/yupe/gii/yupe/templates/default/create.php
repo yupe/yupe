@@ -34,8 +34,8 @@ echo <<<EOF
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - добавление');
 
     \$this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
+        array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
+        array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
     );
 ?>
 EOF;
