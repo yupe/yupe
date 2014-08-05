@@ -81,7 +81,7 @@ class BackendController extends yupe\components\controllers\BackController
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
-        if (Yii::app()->configManager->isCached()) {
+        if (!Yii::app()->configManager->isCached()) {
             Yii::app()->ajax->failure(
                 Yii::t('YupeModule.yupe', 'There is no cached settings')
             );
@@ -94,7 +94,7 @@ class BackendController extends yupe\components\controllers\BackController
 
         try {
 
-            $result = Yii::app()->configManager->flushDump(true);
+            $result = Yii::app()->configManager->flushDump();
 
         } catch (Exception $e) {
             Yii::app()->ajax->failure(
@@ -525,7 +525,7 @@ class BackendController extends yupe\components\controllers\BackController
                     Yii::app()->cache->flush();
                     $this->_cleanAssets();
                     if (Yii::app()->configManager->isCached()) {
-                        Yii::app()->configManager->flushDump(true);
+                        Yii::app()->configManager->flushDump();
                     }
                     Yii::app()->ajax->success(
                         Yii::t('YupeModule.yupe', 'Cache cleaned successfully!')

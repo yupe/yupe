@@ -1,5 +1,3 @@
-<?php if(defined('YII_DEBUG') && YII_DEBUG):?>
-
 <?php
         echo '<div class="stat" id="stat">';
         if(Yii::app()->db->enableParamLogging == true || Yii::app()->db->enableProfiling == true){
@@ -11,5 +9,3 @@
         echo Yii::t('YupeModule.yupe',' run in: {time}',array('{time}' => $time));
         echo"</div>";
 ?>
-
-<?php endif;?>

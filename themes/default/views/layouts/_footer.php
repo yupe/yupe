@@ -73,6 +73,9 @@
                 ); ?>
                 && <?php echo CHtml::link(Yii::t("default", "Yupe! team"), 'http://yupe.ru?from=yupe'); ?> <?php echo Yii::app()->getModule('yupe')->poweredBy(); ?>
             </li>
+            <li>
+                <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>
+            </li>
         </ul>
     </div>
 </footer>

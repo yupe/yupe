@@ -22,25 +22,64 @@ use Exception;
 use CComponent;
 use CException;
 
+/**
+ * Class ConfigManager
+ * @package yupe\components
+ */
 class ConfigManager extends CComponent
 {
     // Настройки:
-    private $_config          = array();
+    /**
+     * @var array
+     */
+    private $_config = array();
     // Базовые настройки:
-    private $_base             = array();
+    /**
+     * @var array
+     */
+    private $_base = array();
     // Файл кеша:
-    private $_cacheFilePath       = null;
+    /**
+     * @var null
+     */
+    private $_cacheFilePath = null;
     // Основной путь, к приложению:
-    public $basePath          = null;
+    /**
+     * @var null
+     */
+    public $basePath = null;
     // Путь к настройкам модулей
-    public $modulePath        = null;
+    /**
+     * @var null
+     */
+    public $modulePath = null;
     // Путь к пользовательским настройкам модулей
-    public $userspacePath     = null;
+    /**
+     * @var null
+     */
+    public $userspacePath = null;
     // Расположение модулей:
-    public $appModules        = null;
+    /**
+     * @var null
+     */
+    public $appModules = null;
     // Категории для слияния
-    public $configCategories  = array();
+    /**
+     * @var array
+     */
+    public $configCategories = array(
+        'import',
+        'rules',
+        'component',
+        'preload',
+        'modules',
+        'cache',
+        'commandMap',
+    );
     // Кеш-файл настроек:
+    /**
+     * @var string
+     */
     public $cacheFileName = 'cached_settings';
 
     /**
@@ -50,47 +89,43 @@ class ConfigManager extends CComponent
      */
     public function init()
     {
-        // Выходим на несколько каталогов выше:
-        $this->basePath      = Yii::getPathOfAlias('application');
-        $this->modulePath    = $this->basePath . '/config/modules';
-        $this->userspacePath = $this->basePath . '/config/userspace';
-        $this->appModules    = $this->basePath . '/modules';
+        $this->initPath();
 
         $this->_base = empty($this->_base)
             ? require_once $this->basePath . '/config/main.php'
             : $this->_base;
+    }
 
-        $this->_cacheFilePath = $this->modulePath . '/' . $this->cacheFileName . '.php';
+    /**
+     * @since 0.8
+     */
+    public function initPath()
+    {
+        $this->basePath = Yii::getPathOfAlias('application');
+        $this->modulePath = $this->basePath . '/config/modules';
+        $this->userspacePath = $this->basePath . '/config/userspace';
+        $this->appModules = $this->basePath . '/modules';
+
+        // Задаем название файла кеша для настроек
+        $this->cacheFileName .= '_' . YII_APP_TYPE;
+        $this->_cacheFilePath = $this->basePath . '/config/' . $this->cacheFileName . '.php';
     }
 
     /**
      * Инициализируем компонент, настраиваем
      * пути и принемаем необходимыей параметры:
      *
-     * @param  array  $base      - базовые настройки
+     * @param  array $base - базовые настройки
      *
      * @return array - получаем настройки приложения
      */
-    public function merge($base = array())
+    public function merge(array $base = array())
     {
         $this->_base = $base;
         // Настройки путей:
-        $this->basePath      = Yii::getPathOfAlias('application');
-        $this->modulePath    = $this->basePath . '/config/modules';
-        $this->userspacePath = $this->basePath . '/config/userspace';
-        $this->appModules    = $this->basePath . '/modules';
+        $this->initPath();
 
-        // Задаем название файла кеша для настроек
-        $this->cacheFileName.='_'.YII_APP_TYPE;
-        $this->_cacheFilePath = $this->modulePath . '/' . $this->cacheFileName . '.php';
-        
-        // Категории настроек для слития:
-        $this->configCategories = $this->configCategories ?: array(
-            'import', 'rules', 'component', 'preload',
-            'modules', 'cache', 'commandMap',
-        );
-
-        return $this->getSettings();
+        return $this->getSettings($base);
     }
 
     /**
@@ -101,25 +136,13 @@ class ConfigManager extends CComponent
      */
     public function getSettings()
     {
-        if (file_exists(($this->_cacheFilePath = $this->modulePath . '/' . $this->cacheFileName . '.php'))) {
-            // Сливаем базовые настройки   - $this->_base
-            // ---------------------------------------------------
-            // с настройками из файла кеша - $this->cachedSettings
-            // ---------------------------------------------------
-            // и наконец, с пользовательскими настройками
-            unset($this->_base['components']['urlManager']['rules']);
-            unset($this->_base['modules']['install']);
-            $settings =  CMap::mergeArray(    // первый мердж (базовые настройки и кеш)
-                $this->_base,
-                $this->cachedSettings()
-            );
+        if ($this->isCached()) {
+            $settings = $this->cachedSettings();
         } else {
             $settings = $this->prepareSettings();
         }
-        // Выполняем post-merging:
-        $this->mergeRules($settings);
 
-        return $settings;
+        return $this->mergeRules($settings);
     }
 
     /**
@@ -144,11 +167,10 @@ class ConfigManager extends CComponent
         return $cachedSettings;
     }
 
+
     /**
-     * Сброс дампа настроек в файл:
-     *
-     * @return mixed - bool(true) при успешно завершении
-     *                 или (string) с описанием ошибки
+     * @return bool
+     * @throws \CException
      */
     public function dumpSettings()
     {
@@ -157,9 +179,14 @@ class ConfigManager extends CComponent
             return true;
         }
 
-        if(!@file_put_contents($this->_cacheFilePath, '<?php return ' . var_export($this->_config, true) . ';')) {
-            throw new CException(Yii::t('YupeModule.yupe', 'Error write cached modules setting in {file}...', array('{file}' => $this->_cacheFilePath)));            
+        if (!@file_put_contents($this->_cacheFilePath, '<?php return ' . var_export($this->_config, true) . ';')) {
+            throw new CException(Yii::t(
+                'YupeModule.yupe',
+                'Error write cached modules setting in {file}...',
+                array('{file}' => $this->_cacheFilePath)
+            ));
         }
+
         return true;
     }
 
@@ -189,20 +216,14 @@ class ConfigManager extends CComponent
             // При наличии файла, сливаем с основным:
             if ($userspace->isFile()) {
                 $moduleConfig = CMap::mergeArray(
-                    $moduleConfig, require $userspace->getRealPath()
+                    $moduleConfig,
+                    require $userspace->getRealPath()
                 );
             }
 
-            // Если конф.файл для модуля Юпи, то нам необходимо
-            // проверить, включён ли DEBUG режим и если включён
-            // то необходимо отключить кеширование (в нём нет
-            // необходимости при разработке)
             // А также включаем assets'ы (они были отключены на
             // этапе установки системы):
             if ($item->getBaseName('.php') == ModuleManager::CORE_MODULE) {
-                if (!YII_DEBUG) {
-                    $this->_base['components']['cache'] = array();
-                }
                 $settings['enableAssets'] = true;
             }
 
@@ -212,20 +233,21 @@ class ConfigManager extends CComponent
                 switch ($category) {
                     case 'modules':
                         if (!empty($moduleConfig['module'])) {
-                            $settings['modules']     = CMap::mergeArray(
+                            $settings['modules'] = CMap::mergeArray(
                                 isset($settings['modules']) ? $settings['modules'] : array(),
                                 array($item->getBaseName('.php') => $moduleConfig['module'])
                             );
                         }
 
-                    break;
+                        break;
 
-                    
+
                     case 'commandMap':
-                    	// commandMap заполняем только для консоли
-                    	if (YII_APP_TYPE !== 'console')
-                    		continue;                    
-                    default:                   	
+                        // commandMap заполняем только для консоли
+                        if (YII_APP_TYPE !== 'console') {
+                            continue;
+                        }
+                    default:
                         // Стандартное слитие:
                         if (!empty($moduleConfig[$category])) {
                             $settings[$category] = CMap::mergeArray(
@@ -233,17 +255,14 @@ class ConfigManager extends CComponent
                                 $moduleConfig[$category]
                             );
                         }
-                    break;
+                        break;
                 }
-
             }
-        }        
-        
-        if (empty($settings)) {
-            unset($this->_config['components']['db']);
         }
 
-        return $this->mergeSettings($settings);
+        //смерджим файл /protected/config/project.php
+
+        return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath.'/config/project.php'));
     }
 
 
@@ -251,7 +270,7 @@ class ConfigManager extends CComponent
      * Сливаем настройки, кешируем и отдаём
      * приложению:
      *
-     * @param  array  $settings - входящие настройки
+     * @param  array $settings - входящие настройки
      *
      * @return array - настройки приложения
      */
@@ -262,7 +281,7 @@ class ConfigManager extends CComponent
             $this->_base,
             array(
                 // Preloaded components:
-                'preload'  => CMap::mergeArray(
+                'preload' => CMap::mergeArray(
                         isset($this->_config['preload'])
                             ? $this->_config['preload']
                             : array(),
@@ -270,9 +289,8 @@ class ConfigManager extends CComponent
                             ? $settings['preload']
                             : array()
                     ),
-
                 // Подключение основых путей
-                'import'  => CMap::mergeArray(
+                'import' => CMap::mergeArray(
                         isset($this->_config['import'])
                             ? $this->_config['import']
                             : array(),
@@ -280,9 +298,8 @@ class ConfigManager extends CComponent
                             ? $settings['import']
                             : array()
                     ),
-
                 // Модули:
-                'modules'  => CMap::mergeArray(
+                'modules' => CMap::mergeArray(
                         isset($this->_config['modules'])
                             ? $this->_config['modules']
                             : array(),
@@ -290,52 +307,50 @@ class ConfigManager extends CComponent
                             ? $settings['modules']
                             : array()
                     ),
-
                 // Компоненты:
-                'components'  => CMap::mergeArray(
-                    isset($this->_config['components'])
-                        ? $this->_config['components']
-                        : array(),
-                    isset($settings['component'])
-                        ? $settings['component']
-                        : array()
-                ),
-            	// Консольные команды:
-            	'commandMap'  => CMap::mergeArray(
-            			isset($this->_config['commandMap'])
-            			? $this->_config['commandMap']
-            			: array(),
-            			isset($settings['commandMap'])
-            			? $settings['commandMap']
-            			: array()
-            	),
+                'components' => CMap::mergeArray(
+                        isset($this->_config['components'])
+                            ? $this->_config['components']
+                            : array(),
+                        isset($settings['component'])
+                            ? $settings['component']
+                            : array()
+                    ),
+                // Консольные команды:
+                'commandMap' => CMap::mergeArray(
+                        isset($this->_config['commandMap'])
+                            ? $this->_config['commandMap']
+                            : array(),
+                        isset($settings['commandMap'])
+                            ? $settings['commandMap']
+                            : array()
+                    ),
             )
         );
 
 
-        if (YII_APP_TYPE == 'web')
-        {
-        	unset($this->_config['commandMap']);
+        if (YII_APP_TYPE == 'web') {
+            unset($this->_config['commandMap']);
         }
 
 
-        if(!array_key_exists('rules',$settings)) {
+        if (!array_key_exists('rules', $settings)) {
             $settings['rules'] = array();
         }
 
-        if(!array_key_exists('cache',$settings)) {
+        if (!array_key_exists('cache', $settings)) {
             $settings['cache'] = array();
         }
 
-        if(isset($this->_config['components']['urlManager']['rules'])) {
+        if (isset($this->_config['components']['urlManager']['rules'])) {
             // Фикс для настроек маршрутизации:
             $this->_config['components']['urlManager']['rules'] = CMap::mergeArray(
-				$this->_config['components']['urlManager']['rules'],
+                $this->_config['components']['urlManager']['rules'],
                 $settings['rules']
             );
         }
 
-        if(isset($this->_config['components']['cache'])) {
+        if (isset($this->_config['components']['cache'])) {
             // Слитие настроек для компонента кеширования:
             $this->_config['components']['cache'] = CMap::mergeArray(
                 $this->_config['components']['cache'],
@@ -351,39 +366,36 @@ class ConfigManager extends CComponent
         return $this->_config;
     }
 
-    public function mergeRules(&$settings = array())
+    /**
+     * @param array $settings
+     */
+    public function mergeRules($settings = array())
     {
+        // Если установлен компонент urlManager (т.е. не консоль)
+        if (isset($settings['components']['urlManager'])) {
+            // Забираем настройки адресации и удаляем элемент:
+            $rules = $settings['rules'];
 
-    	// Если установлен компонент urlManager (т.е. не консоль)
-    	if (isset($settings['components']['urlManager']))
-    	{
-	        // Забираем настройки адресации и удаляем элемент:
-	        $rules = $settings['rules'];
-	
-	        unset($settings['rules']);
-	
-	        // Обходим массив Url'ов и убераем схожести:
-	        foreach ($settings['components']['urlManager']['rules'] as $key => $value) {
-	            // Обнуляем поиск:
-	            $search = null;
-	            
-	            $search = array_search($value, $rules);
-	
-	            if (!empty($search) || isset($rules[$key])) {
-	                unset($settings['components']['urlManager']['rules'][$key]);
-	            }
-	
-	            if ($value === false) {
-	                unset($settings['components']['urlManager']['rules'][$key]);
-	            }
-	        }
-	
-	        // Добавляем новые адреса:
-	        $settings['components']['urlManager']['rules'] = CMap::mergeArray(
-	            $rules,
-	            $settings['components']['urlManager']['rules']
-	        );
-    	}
+            unset($settings['rules']);
+
+            // Обходим массив Url'ов и убераем схожести:
+            foreach ($settings['components']['urlManager']['rules'] as $key => $value) {
+
+                 $search = array_search($value, $rules);
+
+                if (!empty($search) || isset($rules[$key]) || false === $value) {
+                    unset($settings['components']['urlManager']['rules'][$key]);
+                }
+            }
+
+            // Добавляем новые адреса:
+            $settings['components']['urlManager']['rules'] = CMap::mergeArray(
+                $rules,
+                $settings['components']['urlManager']['rules']
+            );
+        }
+
+        return $settings;
     }
 
     /**
@@ -394,43 +406,29 @@ class ConfigManager extends CComponent
      */
     public function isCached()
     {
-        $cachedSettingsFile = Yii::getPathOfAlias('application.config.modules')
-                            . '/'
-                            . $this->cacheFileName
-                            . '.php';
-
-        return file_exists($cachedSettingsFile) === false;
+        return file_exists($this->_cacheFilePath);
     }
 
     /**
      * Сброс кеш-файла настроек:
      *
-     * @return bool - говорящий о результате сброса
+     *
+     *
      */
-    public function flushDump($returnErrors = false)
+    public function flushDump()
     {
-        $cachedSettingsFile = Yii::getPathOfAlias('application.config.modules') . '/' . $this->cacheFileName . '.php';
-        
-        if ($returnErrors === true && file_exists($cachedSettingsFile) === false) {
+        if (false === file_exists($this->_cacheFilePath)) {
             throw new Exception(
                 Yii::t(
-                    "YupeModule.yupe", "can't unlink file - {file}", array(
-                        '{file}' => $cachedSettingsFile
+                    "YupeModule.yupe",
+                    "can't unlink file - {file}",
+                    array(
+                        '{file}' => $this->_cacheFilePath
                     )
-                ), 1
+                )
             );
         }
 
-        return @unlink($cachedSettingsFile);
-    }
-
-    /**
-     * @param $fileName
-     * @return boolean
-     * @since 0.7
-     */
-    public function isCacheFile($fileName)
-    {
-        return in_array($fileName, array('cached_settings_web', 'cached_settings_console'));
+        return @unlink($this->_cacheFilePath);
     }
 }
