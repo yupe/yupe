@@ -13,22 +13,6 @@
 
 <p><?php echo Yii::t('InstallModule.install', 'Your site is ready to work!'); ?></p>
 
-<div class="alert alert-warning">
-
-    <p><?php echo Yii::t('InstallModule.install', 'You can donate us some money if you like our project.'); ?></p>
-
-    <b><?php echo Yii::t('InstallModule.install', 'Help us!'); ?></b><br/><br/>
-
-    Я.Деньги <b>41001846363811</b><br/><br/>
-
-    <b><?php echo Yii::t('InstallModule.install', 'Thank you!'); ?></b><br/><br/>
-
-    <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?uid=41001846363811&amp;default-sum=100&amp;targets=%d0%a0%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5&amp;target-visibility=on&amp;project-name=%d0%ae%d0%bf%d0%b8!+-+%d0%bc%d0%b8%d0%bd%d0%b8+cms+%d0%bd%d0%b0+yii&amp;project-site=http%3a%2f%2fyupe.ru&amp;button-text=01&amp;comment=on&amp;hint=&amp;fio=on" width="450" height="191"></iframe>
-
-</div>
-
-<br/><br/>
-
 <?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/site/index')); ?>
 
 <?php echo Yii::t('InstallModule.install', 'or'); ?>

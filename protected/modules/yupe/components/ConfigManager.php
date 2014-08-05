@@ -417,18 +417,6 @@ class ConfigManager extends CComponent
      */
     public function flushDump()
     {
-        if (false === file_exists($this->_cacheFilePath)) {
-            throw new Exception(
-                Yii::t(
-                    "YupeModule.yupe",
-                    "can't unlink file - {file}",
-                    array(
-                        '{file}' => $this->_cacheFilePath
-                    )
-                )
-            );
-        }
-
         return @unlink($this->_cacheFilePath);
     }
 }

@@ -74,13 +74,13 @@
                 ); ?>
             </div>
 
-            <?php if (Yii::app()->user->isAuthenticated()): { ?>
+            <?php if (Yii::app()->user->isAuthenticated()): ?>
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
                 </div>
-            <?php } endif; ?>
+            <?php  endif; ?>
 
-            <?php if (Yii::app()->hasModule('blog')): { ?>
+            <?php if (Yii::app()->hasModule('blog')): ?>
                 <div class="widget stream-widget">
                     <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
                 </div>
@@ -99,13 +99,13 @@
                         array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
                     ); ?>
                 </div>
-            <?php } endif; ?>
+            <?php endif; ?>
 
-            <?php if (Yii::app()->hasModule('feedback')): { ?>
+            <?php if (Yii::app()->hasModule('feedback')): ?>
                 <div class="widget last-questions-widget">
                     <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
                 </div>
-            <?php } endif; ?>
+            <?php endif; ?>
 
         </aside>
         <!-- sidebar end -->
