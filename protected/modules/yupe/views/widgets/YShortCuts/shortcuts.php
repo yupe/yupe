@@ -14,7 +14,7 @@ $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application
 Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?>
 <div class="shortcuts">
     <?php
-    if (count($this->shortcuts) > 0) {
+    if (!empty($this->shortcuts)) {
         foreach ($this->shortcuts as $name => $shortcut) {
             if (isset($shortcut['items'])) {
                 foreach ($shortcut['items'] as $module => $item) {
