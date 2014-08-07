@@ -1,5 +1,5 @@
 <?php
-namespace application\modules\yupe\components;
+namespace yupe\components;
 
 use Yii;
 use CUploadedFile;

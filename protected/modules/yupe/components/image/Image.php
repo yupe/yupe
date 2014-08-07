@@ -1,5 +1,5 @@
 <?php
-namespace application\modules\yupe\components\image;
+namespace yupe\components\image;
 
 use Imagine\Image\ImageInterface;
 use Yii;

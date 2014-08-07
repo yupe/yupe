@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace application\modules\yupe\components\image;
+namespace yupe\components\image;
 
 use Yii;
 use Imagine\Image\Box;

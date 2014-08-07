@@ -11,8 +11,6 @@
  *
  **/
 
-namespace application\modules\comment\components;
-
 use CModelEvent;
 
 class NewCommentEvent extends CModelEvent

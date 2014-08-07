@@ -13,8 +13,6 @@
  * @link     http://yupe.ru
  *
  **/
-namespace app\modules\docs\components;
-
 class DocManager extends CApplicationComponent
 {
 

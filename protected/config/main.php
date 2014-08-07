@@ -126,10 +126,10 @@ return array(
             'class' => 'yupe\components\DAO',
         ),
         'image' => array(
-            'class'  => 'application\modules\yupe\components\image\Image',
+            'class'  => 'yupe\components\image\Image',
         ),
         'uploadManager' => array(
-            'class'  => 'application\modules\yupe\components\UploadManager',
+            'class'  => 'yupe\components\UploadManager',
         ),
         'themeManager'       => array(
             'class'          => 'CThemeManager',

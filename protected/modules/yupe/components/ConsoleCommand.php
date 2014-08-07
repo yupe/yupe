@@ -1,6 +1,6 @@
 <?php
 
-namespace application\modules\yupe\components;
+namespace yupe\components;
 
 use CConsoleCommand;
 use CLogger;

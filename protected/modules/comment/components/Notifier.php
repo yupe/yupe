@@ -11,11 +11,7 @@
  *
  **/
 
-namespace application\modules\comment\components;
-
-
 use Yii;
-use CHtmlPurifier;
 use CApplicationComponent;
 
 class Notifier extends CApplicationComponent

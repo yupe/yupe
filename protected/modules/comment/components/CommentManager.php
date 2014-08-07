@@ -1,6 +1,6 @@
 <?php
 
-use application\modules\comment\components\NewCommentEvent;
+use NewCommentEvent;
 
 class CommentManager extends CApplicationComponent
 {
