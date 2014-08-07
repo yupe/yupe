@@ -492,7 +492,7 @@ class Migrator extends \CApplicationComponent
      *
      * @return mixed new migrations
      */
-    public function checkForUpdates($modules)
+    public function checkForUpdates(array $modules)
     {
         $updates = array();
 

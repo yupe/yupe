@@ -460,7 +460,7 @@ class YupeModule extends WebModule
      **/
     public function getAdminPageLink()
     {
-        return array('/yupe/backend/modulesettings', 'module' => 'yupe');
+        return '/yupe/backend/settings';
     }
 
     /**

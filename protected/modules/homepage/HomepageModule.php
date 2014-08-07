@@ -105,10 +105,7 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return array(
-            '/yupe/backend/modulesettings',
-            'module' => $this->getId()
-        );
+        return '/yupe/backend/modulesettings';
     }
 
     public function getEditableParams()

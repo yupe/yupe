@@ -1,45 +1,16 @@
-<?php
-/**
- * Файл отображения для YShortCuts/shortcuts:
- *
- * @category YupeViews
- * @package  yupe
- * @author   AKulikov <tuxuls@gmail.com>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.3
- * @link     http://yupe.ru
- *
- **/
-$mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
-Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?>
 <div class="shortcuts">
-    <?php
-    if (!empty($this->shortcuts)) {
-        foreach ($this->shortcuts as $name => $shortcut) {
-            if (isset($shortcut['items'])) {
-                foreach ($shortcut['items'] as $module => $item) {
-                    if (!isset($item['icon'], $item['url'])) {
-                        continue;
-                    }
-                    echo CHtml::link(
-                        '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $module) . "</div>",
-                        $item['url'],
-                        $this->getHtmlOptions($item)
-                    );
-                }
-            } else {
-                echo CHtml::link(
-                    '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $name) . "</div>",
-                    $item['url'],
-                    $this->getHtmlOptions($item)
-                );
-            }
-        }
-    } ?>
-    <a class="shortcut" href="<?php echo Yii::app()->createUrl('/yupe/backend/settings'); ?>">
-        <div class="cn">
-            <i class="shortcut-icon glyphicon glyphicon-th"></i>
-            <span class="shortcut-label"><?php echo Yii::t('YupeModule.yupe', 'Modules'); ?></span>
-        </div>
-    </a>
+    <?php foreach($modules as $module):?>
+        <a class="shortcut" href="<?php echo Yii::app()->createAbsoluteUrl($module->getAdminPageLink());?>">
+            <div class="cn">
+                <i class="shortcut-icon <?php echo $module->getIcon();?>"></i>
+                <span class="shortcut-label"><?php echo $module->getName();?></span>
+                <?php if($module->isConfigNeedUpdate()):?>
+                    <span class='label label-warning'  data-toggle="tooltip" data-placement="top" title="<?php echo Yii::t('YupeModule.yupe','Available new configuration');?>"><i class='glyphicon glyphicon-refresh pull-left'></i></span>
+                <?php endif;?>
+                <?php if(!empty($updates[$module->getId()])):?>
+                    <span class='label label-danger'  data-toggle="tooltip" data-placement="top" title="<?php echo Yii::t('YupeModule.yupe','Apply new migrations');?>"><i class='glyphicon glyphicon-refresh'></i><?php echo count($updates[$module->getId()]);?></span>
+                <?php endif;?>
+            </div>
+        </a>
+    <?php endforeach;?>
 </div>

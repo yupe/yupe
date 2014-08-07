@@ -332,5 +332,7 @@ return array (
   'Letter sent!' => 'Письмо отправлено',
   'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted. Module is {module}...' => 'Произошла ошибка при получении модулей из кеша. Кажется, что каталог модуля был удален. Модуль "{module}"...',
   'There is no cached settings' => 'Файл кеша-настроек не найден',
-  'Notify' => 'Уведомления'
+  'Notify' => 'Уведомления',
+  'Apply new migrations' => 'Примените новые миграции',
+  'Available new configuration' => 'Доступен новый файл конфигурации'
 );

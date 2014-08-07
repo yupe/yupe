@@ -8,7 +8,7 @@ class m140702_230000_initial_role_data extends yupe\components\DbMigration
     {
         /* Всем администраторам назначается роль admin */
         $adminRole = new AuthItem();
-        $adminRole->name = 'admin';
+        $adminRole->name = AuthItem::ROLE_ADMIN;
         $adminRole->description = Yii::t('RbacModule.rbac', 'Admin');
         $adminRole->type = AuthItem::TYPE_ROLE;
         $adminRole->save();
@@ -24,6 +24,6 @@ class m140702_230000_initial_role_data extends yupe\components\DbMigration
 
     public function safeDown()
     {
-        AuthItem::model()->deleteByPk('admin');
+        AuthItem::model()->deleteByPk(AuthItem::ROLE_ADMIN);
     }
 }

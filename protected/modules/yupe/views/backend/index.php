@@ -93,9 +93,7 @@
 $this->widget(
     'yupe\widgets\YShortCuts',
     array(
-        'shortcuts' => $modulesNavigation,
-        'modules' => $modules,
-        'updates' => Yii::app()->migrator->checkForUpdates($modules),
+        'modules' => $modules
     )
 ); ?>
 <?php $this->menu = $modulesNavigation; ?>

@@ -5,7 +5,6 @@
  */
 class ModuleManager extends \yupe\components\ModuleManager
 {
-
     /**
      * Функция преобразует роут в предполагаемое название правила.
      * Поэтому для правильной автоматической фильтрации стоит придерживаться правила в именовании
@@ -36,7 +35,7 @@ class ModuleManager extends \yupe\components\ModuleManager
      * @param $menu array - Меню
      * @return array - Меню с проставленным атрибутом visible
      */
-    public function filterMenuVisibilityByUserRoles($menu)
+    public function filterMenuVisibilityByUserRoles(array $menu)
     {
         foreach ($menu as $key => $item) {
             $visible = true;
@@ -44,7 +43,7 @@ class ModuleManager extends \yupe\components\ModuleManager
                 $route = $item['url'][0];
                 $role = $this->getRoleByRoute($route);
                 if (!isset($menu[$key]['visible'])) {
-                    $menu[$key]['visible'] = Yii::app()->user->checkAccess('admin') || Yii::app()->user->checkAccess(
+                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app()->getUser()->checkAccess(
                             $role
                         );
                 }
@@ -56,6 +55,40 @@ class ModuleManager extends \yupe\components\ModuleManager
         }
 
         return $menu;
+    }
+
+    public function checkModuleRights(CWebModule $module)
+    {
+        $items = $module->getAuthItems();
+
+        if(empty($items) || Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)) {
+            return true;
+        }
+
+        foreach($items as $task) {
+            if(Yii::app()->getUser()->checkAccess($task['name'])){
+                return true;
+            }
+
+            foreach($task['items'] as $item) {
+                if(Yii::app()->getUser()->checkAccess($item['name'])){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function filterModulesListByUserRoles(array $modules)
+    {
+        foreach($modules as $id => $module) {
+            if(!$this->checkModuleRights($module)) {
+                unset($modules[$id]);
+            }
+        }
+
+        return $modules;
     }
 
     /**
@@ -72,6 +105,7 @@ class ModuleManager extends \yupe\components\ModuleManager
         }
 
         $modules['modulesNavigation'] = $this->filterMenuVisibilityByUserRoles($modules['modulesNavigation']);
+        $modules['modules'] = $this->filterModulesListByUserRoles($modules['modules']);
 
         return $modules;
     }

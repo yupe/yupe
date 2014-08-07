@@ -5,7 +5,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles' => array('admin')),
+            array('allow', 'roles' => array(AuthItem::ROLE_ADMIN)),
             array('allow', 'actions' => array('assign'), 'roles' => array('Rbac.RbacBackend.Assign')),
             array('allow', 'actions' => array('create'), 'roles' => array('Rbac.RbacBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Rbac.RbacBackend.Delete')),

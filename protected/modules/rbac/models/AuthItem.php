@@ -20,6 +20,8 @@ class AuthItem extends CActiveRecord
 
     const TYPE_ROLE = 2;
 
+    const ROLE_ADMIN = 'admin';
+
     public function getTypeList()
     {
         return array(
