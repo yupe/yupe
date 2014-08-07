@@ -144,6 +144,16 @@ class YupeModule extends WebModule
     }
 
     /**
+     * @since 0.8
+     *
+     * Устанавливает массив фильтров для контроллеров панели управления
+     */
+    public function setBackendFilters($filters)
+    {
+        $this->backEndFilters = $filters;
+    }
+
+    /**
      * @param $filter
      * @since 0.8
      *
