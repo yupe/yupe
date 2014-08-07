@@ -31,7 +31,7 @@ class YWebUser extends CWebUser
 
     public $attempt = 5;
 
-    public $rbacSessionNameSpace = 'yupe::user::rbac';
+    public $rbacCacheNameSpace = 'yupe::user::rbac';
 
     /**
      * Метод который проверяет, авторизирован ли пользователь:
@@ -208,16 +208,16 @@ class YWebUser extends CWebUser
             return (bool)Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);
         }
 
-        $access = Yii::app()->session[$this->rbacSessionNameSpace];
+        $access = Yii::app()->getCache()->get($this->rbacCacheNameSpace.$this->getId());
 
-        if (!isset(Yii::app()->session[$this->rbacSessionNameSpace][$operation])) {
+        if (!isset($access[$operation])) {
             $access[$operation] = (bool)Yii::app()->getAuthManager()->checkAccess($operation, $this->getId(), $params);
 
-            Yii::app()->session[$this->rbacSessionNameSpace] = $access;
+            Yii::app()->getCache()->set($this->rbacCacheNameSpace.$this->getId(), $access);
 
             return (bool)$access[$operation];
         }
 
-        return Yii::app()->session[$this->rbacSessionNameSpace][$operation];
+        return $access[$operation];
     }
 }

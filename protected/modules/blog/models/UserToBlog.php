@@ -230,7 +230,6 @@ class UserToBlog extends yupe\models\YModel
     public function activate()
     {
         $this->status = self::STATUS_ACTIVE;
-
         return $this;
     }
 

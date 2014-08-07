@@ -155,7 +155,7 @@ $this->menu = array(
             ),
             array(
                 'name' => 'update_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "short", "short")',
+                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "medium", "short")',
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

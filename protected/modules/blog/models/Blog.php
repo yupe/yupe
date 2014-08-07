@@ -450,6 +450,10 @@ class Blog extends yupe\models\YModel
 
     public function join($userId)
     {
+        if($this->isPrivate()) {
+            return false;
+        }
+
         if ($this->userIn((int)$userId)) {
             return true;
         }
@@ -487,6 +491,10 @@ class Blog extends yupe\models\YModel
 
     public function leave($userId)
     {
+        if($this->isPrivate()) {
+            return false;
+        }
+
         Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
 
         Yii::app()->eventManager->fire(BlogEvents::BLOG_LEAVE, new BlogJoinLeaveEvent($this, $userId));
@@ -545,9 +553,9 @@ class Blog extends yupe\models\YModel
 
     public function getListForUser($user)
     {
-        return $this->with('userToBlog')->published()->public()->findAll(
+        return $this->with('userToBlog')->published()->findAll(
             array(
-                'condition' => 'userToBlog.user_id = :userId AND userToBlog.status = :status',
+                'condition' => '(userToBlog.user_id = :userId AND userToBlog.status = :status)',
                 'params' => array(
                     ':status' => UserToBlog::STATUS_ACTIVE,
                     ':userId' => (int)$user
@@ -559,11 +567,17 @@ class Blog extends yupe\models\YModel
 
     public function get($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
-        return $this->with($with)->published()->public()->findByPk((int)$id);
+        return $this->with($with)->published()->findByPk((int)$id);
     }
 
     public function getBySlug($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
-        return $this->with($with)->getByUrl($id)->published()->public()->find();
+        return $this->with($with)->getByUrl($id)->published()->find();
     }
+
+    public function isPrivate()
+    {
+        return $this->type == self::TYPE_PRIVATE;
+    }
+
 }

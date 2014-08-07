@@ -38,13 +38,6 @@ $this->breadcrumbs = array(
         </b></p>
 </div>
 
-<div class="alert alert-warning">
-    <p><?php echo Yii::t('YupeModule.yupe', 'Donate us!'); ?></p>
-    <p><?php echo Yii::t('YupeModule.yupe', 'Я.Money on'); ?> <b>41001846363811</b></p>
-</div>
-
-<br/>
-
 <p><b><?php echo Yii::t('YupeModule.yupe', 'Interesting resources:'); ?></b></p>
 
 <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Read Yii documentation', array('target' => '_blank')), 'http://yiiframework.com/doc/guide/index'); ?>

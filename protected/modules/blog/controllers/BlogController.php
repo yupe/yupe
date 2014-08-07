@@ -21,7 +21,6 @@ class BlogController extends yupe\components\controllers\FrontController
         $blogs = new Blog('search');
         $blogs->unsetAttributes();
         $blogs->status = Blog::STATUS_ACTIVE;
-        $blogs->type = (int)Yii::app()->request->getQuery('type', Blog::TYPE_PUBLIC);
 
         if(isset($_GET['Blog']['name'])) {
             $blogs->name = CHtml::encode($_GET['Blog']['name']);
@@ -85,7 +84,7 @@ class BlogController extends yupe\components\controllers\FrontController
             Yii::app()->ajax->failure(Yii::t('BlogModule.blog','You are blocking in this blog!'));
         }
 
-        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occured when you were joining the blog!'));
+        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occurred when you were joining the blog!'));
     }
 
     /**
@@ -117,7 +116,7 @@ class BlogController extends yupe\components\controllers\FrontController
              Yii::app()->ajax->success(Yii::t('BlogModule.blog','You left the blog!'));
         }
 
-        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occured when you were leaving the blog!'));
+        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occurred when you were leaving the blog!'));
     }
 
     /**

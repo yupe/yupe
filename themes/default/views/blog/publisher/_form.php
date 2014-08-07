@@ -42,7 +42,7 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(Blog::model()->getList(), 'id', 'name'),
+                    'data' => CHtml::listData(Blog::model()->getListForUser(Yii::app()->getUser()->getId()), 'id', 'name'),
                 )
             )
         );?>
@@ -125,7 +125,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-12">
         <div class="form-group">
             <?php echo $form->labelEx($model, 'tags', array('control-label')); ?>
             <?php
