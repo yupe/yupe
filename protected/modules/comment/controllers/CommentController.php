@@ -72,7 +72,7 @@ class CommentController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->commentManager->isSpam(Yii::app()->user)) {
+        if (Yii::app()->commentManager->isSpam(Yii::app()->getUser())) {
 
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
@@ -118,9 +118,9 @@ class CommentController extends yupe\components\controllers\FrontController
         {
             if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
 
-                $commentContent = $comment->status == Comment::STATUS_APPROVED ? $this->_renderComment($comment) : '';
-
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+
+                    $commentContent = $comment->isApproved() ? $this->_renderComment($comment) : '';
 
                     Yii::app()->ajax->success(
                         array(

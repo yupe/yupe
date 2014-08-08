@@ -7,7 +7,7 @@
 <?php
 	$this->breadcrumbs = array(
 	    Yii::t('BlogModule.blog', 'Posts') => array('/blog/post/index/'),
-	    Yii::t('BlogModule.blog', 'Categorys') => array('/blog/post/categorys/'),   
+	    Yii::t('BlogModule.blog', 'Categories') => array('/blog/post/categories/'),
 	    CHtml::encode($target->name),
 	);
 ?>
@@ -16,6 +16,6 @@
 
 <?php $this->widget('bootstrap.widgets.TbListView', array(
         'dataProvider' => $posts->search(),
-        'itemView'     => '_view',
+        'itemView'     => '_post',
         'template'     => "{items}\n{pager}",
 )); ?>

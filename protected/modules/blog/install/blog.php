@@ -36,7 +36,7 @@ return array(
         '/post/update'      => 'blog/publisher/update',
         '/posts'            => 'blog/post/index',
         '/posts/archive'    => 'blog/archive/index',
-        '/posts/categorys'  => 'blog/post/categorys',        
+        '/posts/categories' => 'blog/post/categories',
         '/posts/<slug>/'    => 'blog/post/blog',
         '/posts/category/<alias>'  => 'blog/post/category'
     ),

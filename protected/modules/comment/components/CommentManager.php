@@ -1,7 +1,5 @@
 <?php
 
-use NewCommentEvent;
-
 class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user)
@@ -17,6 +15,8 @@ class CommentManager extends CApplicationComponent
         }
 
         $transaction = Yii::app()->db->beginTransaction();
+
+        Yii::app()->eventManager->fire(CommentEvents::BEFORE_ADD_COMMENT, new CommentEvent($comment, Yii::app()->getUser(), $module));
 
         try {
 
@@ -44,14 +44,10 @@ class CommentManager extends CApplicationComponent
 
             if($comment->appendTo($root)){
 
-                //events
-                $event = new NewCommentEvent;
-                $event->comment = $comment;
-                $event->module  = $module;
-
-                $this->onNewComment($event);
-
                 $transaction->commit();
+
+                Yii::app()->eventManager->fire(CommentEvents::ADD_SUCCESS, new CommentEvent($comment, Yii::app()->getUser(), $module));
+
                 // сбросить кэш
                 Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
 
@@ -65,9 +61,9 @@ class CommentManager extends CApplicationComponent
 
         }catch (Exception $e) {
 
-            Yii::log($e->__toString(), CLogger::LEVEL_ERROR, 'comment');
-
             $transaction->rollback();
+
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR, 'comment');
 
             return false;
         }
@@ -76,10 +72,5 @@ class CommentManager extends CApplicationComponent
     public function isSpam($user)
     {
        return Yii::app()->cache->get('Comment::Comment::spam::'.$user->getId());
-    }
-
-    public function onNewComment($event)
-    {
-        $this->raiseEvent('onNewComment', $event);
     }
 } 

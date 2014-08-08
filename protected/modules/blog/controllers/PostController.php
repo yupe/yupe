@@ -67,23 +67,6 @@ class PostController extends yupe\components\controllers\FrontController
         $this->render('blog-post',array('target' => $blog,'posts' => $blog->getPosts()));
     }
 
-    public function actionView($id)
-    {
-        $id = (int)$id;
-
-        if(!$id) {
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));        
-        } 
-
-        $post = Post::model()->get($id);
-
-        if(null === $post) {
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));   
-        }
-
-        $this->redirect(array('/blog/post/show', 'slug' => $post->slug), true, 301);
-    }
-
     public function actionCategory($alias)
     {
         $category = Category::model()->getByAlias($alias);
@@ -95,8 +78,8 @@ class PostController extends yupe\components\controllers\FrontController
         $this->render('category-post',array('target' => $category,'posts' => Post::model()->getForCategory($category->id)));
     }
 
-    public function actionCategorys()
-    {   
-        $this->render('categorys', array('categorys' => Post::model()->getCategories()));
+    public function actionCategories()
+    {
+        $this->render('categories', array('categories' => Post::model()->getCategories()));
     }
 }

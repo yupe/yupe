@@ -419,4 +419,9 @@ class Comment extends yupe\models\YModel
 
         return $target;
     }
+
+    public function isApproved()
+    {
+        return $this->status == self::STATUS_APPROVED;
+    }
 }
