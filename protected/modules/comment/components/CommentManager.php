@@ -46,7 +46,7 @@ class CommentManager extends CApplicationComponent
 
                 $transaction->commit();
 
-                Yii::app()->eventManager->fire(CommentEvents::ADD_SUCCESS, new CommentEvent($comment, Yii::app()->getUser(), $module));
+                Yii::app()->eventManager->fire(CommentEvents::SUCCESS_ADD_COMMENT, new CommentEvent($comment, Yii::app()->getUser(), $module));
 
                 // сбросить кэш
                 Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
