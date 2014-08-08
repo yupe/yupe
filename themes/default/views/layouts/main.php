@@ -8,7 +8,7 @@
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
     <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
-    <meta property="og:description" content="<?php echo $this->description; ?>"/>
+    <meta property="og:description" content="<?php echo $this->description; ?>"/>]
     <?php
     $mainAssets = Yii::app()->AssetManager->publish(
         Yii::app()->theme->basePath . "/web/"
@@ -18,6 +18,7 @@
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/comments.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
