@@ -17,7 +17,7 @@ class CommentsListWidget extends yupe\widgets\YWidget
 {
     public $model;
     public $modelId;
-    public $label;   
+    public $label;
     public $comments;
     public $status;
     public $view = 'commentslistwidget';
@@ -29,10 +29,6 @@ class CommentsListWidget extends yupe\widgets\YWidget
      **/
     public function init()
     {
-        Yii::app()->clientScript->registerScriptFile(
-            Yii::app()->assetManager->publish(Yii::app()->theme->basePath . '/web/js/comments.js')
-        );
-
         if ((empty($this->model) && empty($this->modelId)) && empty($this->comments)) {
             throw new CException(
                 Yii::t(
@@ -63,11 +59,11 @@ class CommentsListWidget extends yupe\widgets\YWidget
      * @return void
      **/
     public function run()
-    {       
+    {
         $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
 
         if (empty($comments)) {
-            if (empty($this->comments)) {                 
+            if (empty($this->comments)) {
                 $this->comments = Comment::model()->findAll(
                     array(
                         'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
@@ -75,14 +71,14 @@ class CommentsListWidget extends yupe\widgets\YWidget
                             ':model' => $this->model,
                             ':modelId' => $this->modelId,
                             ':status' => $this->status,
-                        ),                         
+                        ),
                         'order' => 't.lft',
                     )
-                );                    
+                );
             }
             //unset($this->comments[0]); // remove "root" node
-            foreach($this->comments as $k=>$v) {
-                if($v->id == $v->root){
+            foreach ($this->comments as $k => $v) {
+                if ($v->id == $v->root) {
                     unset($this->comments[$k]);
                 }
             }
@@ -90,6 +86,6 @@ class CommentsListWidget extends yupe\widgets\YWidget
             Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
         }
 
-        $this->render($this->view, array('comments' => $comments));        
+        $this->render($this->view, array('comments' => $comments));
     }
 }

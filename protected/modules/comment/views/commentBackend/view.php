@@ -51,7 +51,11 @@ $this->menu = array(
         'data' => $model,
         'attributes' => array(
             'id',
-            'model',
+            array(
+                'name'  => 'model',
+                'value' => $model->getTargetTitleLink(),
+                'type'  => 'raw'
+            ),
             'model_id',
             array(
                 'name' => 'creation_date',

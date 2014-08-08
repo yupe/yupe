@@ -20,9 +20,6 @@ class CommentFormWidget extends yupe\widgets\YWidget
 
     public function init()
     {
-        Yii::app()->clientScript->registerScriptFile(
-            Yii::app()->assetManager->publish(Yii::app()->theme->basePath . '/web/js/comments.js')
-        );
         $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
         $this->modelId = (int) $this->modelId;
 

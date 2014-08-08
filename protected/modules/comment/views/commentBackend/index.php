@@ -65,6 +65,11 @@ $this->menu = array(
             ),
             'model_id',
             array(
+                'name' => 'text',
+                'value' => 'yupe\helpers\YText::characterLimiter($data->text, 150)',
+                'type' => 'html'
+            ),
+            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
                     'url' => $this->createUrl('/comment/commentBackend/inline'),
@@ -79,11 +84,6 @@ $this->menu = array(
                 'type' => 'raw',
                 'value' => '$data->getStatus()',
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
-            ),
-            array(
-                'name' => 'text',
-                'value' => 'yupe\helpers\YText::characterLimiter($data->text, 150)',
-                'type' => 'html'
             ),
             array(
                 'name' => 'creation_date',

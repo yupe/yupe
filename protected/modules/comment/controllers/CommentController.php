@@ -112,7 +112,7 @@ class CommentController extends yupe\components\controllers\FrontController
             );
         }
 
-        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->returnUrl);
+        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
 
         try
         {
