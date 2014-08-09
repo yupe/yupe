@@ -50,7 +50,7 @@
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
                     'type' => 'navbar',
-                    'htmlOptions' => array('class' => 'pull-right'),
+                    'htmlOptions' => array('class' => 'navbar-right'),
                     'items' => array_merge(
                         array(
                             array(

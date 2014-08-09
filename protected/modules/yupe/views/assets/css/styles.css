@@ -112,7 +112,7 @@ body {
 }
 
 .navbar-fixed-top {
-    border-bottom: 1px solid #FF9600;
+    border-bottom: 2px solid #FF9600;
     min-width: 960px !important;
 }
 
@@ -135,10 +135,6 @@ footer {
 div#page {
     padding-top: 60px;
     padding-bottom: 50px;
-}
-
-.navbar-fixed-top {
-    border-bottom: 2px solid #FF9600;
 }
 
 .navbar-brand {

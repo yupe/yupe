@@ -36,7 +36,7 @@ $this->widget(
             ),
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
-                'htmlOptions' => array('class' => 'pull-right'),
+                'htmlOptions' => array('class' => 'navbar-right'),
                 'type' => 'navbar',
                 'encodeLabel' => false,
                 'items' => array_merge(
