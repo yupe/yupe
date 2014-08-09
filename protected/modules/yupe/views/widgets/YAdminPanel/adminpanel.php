@@ -10,6 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
+$yupeAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
 
 $this->widget(
     'bootstrap.widgets.TbNavbar',
@@ -19,7 +20,7 @@ $this->widget(
         'collapse' => true,
         'fixed' => 'top',
         'brand' => CHtml::image(
-            Yii::app()->getModule('yupe')->getLogo(),
+            $yupeAssets . '/img/logo.png',
             CHtml::encode(Yii::app()->name),
             array(
                 'width' => '38',

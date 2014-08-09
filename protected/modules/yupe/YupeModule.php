@@ -831,7 +831,7 @@ class YupeModule extends WebModule
             $text = Yii::t('YupeModule.yupe', 'Powered by Yupe!');
         }
         return CHtml::link(
-            CHtml::image(Yii::app()->getBaseUrl() . "/web/images/yupe_{$color}.png", $text),
+            CHtml::image(Yii::app()->getTheme()->getAssetsUrl() . "/images/yupe_{$color}.png", $text),
             'http://yupe.ru?from=pb',
             array('title' => CHtml::encode($text), 'alt' => CHtml::encode($text))
         );
