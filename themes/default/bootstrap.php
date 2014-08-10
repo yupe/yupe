@@ -9,13 +9,8 @@ if (Yii::app()->hasComponent('bootstrap')) {
 // Get clientScript component
 $clientScript = Yii::app()->getClientScript();
 
-// Get assetManager component
-$assetManager = Yii::app()->getAssetManager();
-
-// Publish theme assets, note that we keep assets in web folder
-$assetPath = $assetManager->publish(
-    Yii::app()->theme->basePath . '/web'
-);
+// папка с ресурсами темы (по умолчанию web) будет опубликована и возвращен публичный url для неё
+$assetPath = Yii::app()->getTheme()->getAssetsUrl();
 
 // Styles
 $styles = array(

@@ -8,9 +8,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-$url = Yii::app()->getAssetManager()->getPublishedUrl(
-    Yii::app()->theme->basePath . '/web/'
-);
+$url = Yii::app()->getTheme()->getAssetsUrl();
 
 Yii::app()->getClientScript()->registerScriptFile($url . '/js/masonry.min.js', CClientScript::POS_END);
 Yii::app()->getClientScript()->registerScriptFile($url . '/js/imagesloaded.min.js', CClientScript::POS_END);

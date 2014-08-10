@@ -2,7 +2,7 @@
 $this->widget('bootstrap.widgets.TbNavbar', array(
     'collapse' => true,
     'brand' => CHtml::image(
-        Yii::app()->baseUrl . '/web/images/logo.png',
+        Yii::app()->getTheme()->getAssetsUrl() . '/images/logo.png',
         Yii::app()->name,
         array(
             'width' => '38',

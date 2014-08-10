@@ -29,7 +29,7 @@ $this->breadcrumbs = array(
 
                 <?php echo CHtml::link(
                     CHtml::image(
-                        Yii::app()->baseUrl . "/web/images/rss.png",
+                        Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png",
                         Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
                         array(
                             'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
