@@ -122,7 +122,7 @@ class YupeModule extends WebModule
     /**
      * @var string
      */
-    public $logo = 'web/images/logo.png';
+    public $logo = 'images/logo.png';
 
     /**
      * @var array
@@ -191,7 +191,7 @@ class YupeModule extends WebModule
      */
     public function getLogo()
     {
-		return Yii::app()->getBaseUrl() . '/' . $this->logo;
+		return Yii::app()->getTheme()->getAssetsUrl() . '/' . $this->logo;
     }
 
     /**
@@ -821,9 +821,9 @@ class YupeModule extends WebModule
      * Генерация анкора PoweredBy
      *
      * @param string $color - цвет
-     * @param string $text  - текс
+     * @param string $text  - текст
      *
-     * @return анкор poweredBy
+     * @return string poweredBy
      */
     public function poweredBy($color = 'yellow', $text = '')
     {
@@ -831,7 +831,7 @@ class YupeModule extends WebModule
             $text = Yii::t('YupeModule.yupe', 'Powered by Yupe!');
         }
         return CHtml::link(
-            CHtml::image(Yii::app()->getTheme()->getAssetsUrl() . "/images/yupe_{$color}.png", $text),
+            CHtml::image(Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets')) . "/img/yupe_{$color}.png", $text),
             'http://yupe.ru?from=pb',
             array('title' => CHtml::encode($text), 'alt' => CHtml::encode($text))
         );
