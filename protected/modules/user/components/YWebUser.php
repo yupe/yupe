@@ -29,9 +29,15 @@ class YWebUser extends CWebUser
 
     public $allowAutoLogin = true;
 
-    public $attempt = 5;
+    public $attempt = 10;
 
+    /**
+     * @var string
+     * @since 0.8
+     */
     public $rbacCacheNameSpace = 'yupe::user::rbac';
+
+    public $authToken = 'at';
 
     /**
      * Метод который проверяет, авторизирован ли пользователь:
@@ -185,17 +191,57 @@ class YWebUser extends CWebUser
 
         if (true === $fromCookie) {
 
+            $transaction = Yii::app()->getDb()->beginTransaction();
+
             $user = User::model()->active()->findByPk((int)$this->getId());
 
-            if (null === $user) {
+            try
+            {
+                if (null === $user) {
 
-                $this->logout();
+                    $this->logout();
 
-                return false;
+                    return false;
+                }
+
+                //проверить токен авторизации
+                $token = $this->getState($this->authToken);
+
+                if(empty($token)) {
+
+                    $this->logout();
+
+                    return false;
+                }
+
+                $model = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_COOKIE_AUTH);
+
+                if(null === $model) {
+
+                    $this->logout();
+
+                    return false;
+                }
+
+                //перегенерировать токен авторизации
+                $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
+                    $this->getProfile()
+                );
+
+                $this->setState($this->authToken, $token->token);
+                $this->setState(self::STATE_ACCESS_LEVEL, $user->access_level);
+                $this->setState(self::STATE_NICK_NAME, $user->nick_name);
+
+                //дата входа
+                $user->last_visit = new CDbExpression('NOW()');
+                $user->update(array('last_visit'));
+
+                $transaction->commit();
             }
-
-            $this->setState(self::STATE_ACCESS_LEVEL, $user->access_level);
-            $this->setState(self::STATE_NICK_NAME, $user->nick_name);
+            catch(Exception $e)
+            {
+                $transaction->rollback();
+            }
         }
 
         parent::afterLogin($fromCookie);
@@ -219,5 +265,19 @@ class YWebUser extends CWebUser
         }
 
         return $access[$operation];
+    }
+
+    public function login($identity, $duration = 0)
+    {
+        if($duration) {
+            //создать токен
+            $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
+                $this->getProfile()
+            );
+
+            $identity->setState($this->authToken, $token->token);
+        }
+
+        return parent::login($identity, $duration);
     }
 }

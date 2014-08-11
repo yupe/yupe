@@ -49,6 +49,7 @@ class UserIdentity extends CUserIdentity
         Yii::app()->getUser()->setState(YWebUser::STATE_ACCESS_LEVEL, $user->access_level);
         Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $user->nick_name);
 
+
         // для админа в сессию запишем еще несколько значений
         if ((int)$user->access_level === User::ACCESS_LEVEL_ADMIN) {
             /* Получаем настройки по всем модулям для данного пользователя: */

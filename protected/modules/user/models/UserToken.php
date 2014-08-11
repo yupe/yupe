@@ -21,10 +21,12 @@ class UserToken extends yupe\models\YModel
      * activate        - активация аккаунта
      * change_password - запрос на смену/восстановление пароля
      * email_verify    - подтверждение почты
+     * cookie_auth     - авторизация через куки
      */
     const TYPE_ACTIVATE        = 1;
     const TYPE_CHANGE_PASSWORD = 2;
     const TYPE_EMAIL_VERIFY    = 3;
+    const TYPE_COOKIE_AUTH     = 4;
 
     /**
      * Статусы токенов:
@@ -190,6 +192,7 @@ class UserToken extends yupe\models\YModel
             self::TYPE_ACTIVATE        => Yii::t('UserModule.user', 'User activate'),
             self::TYPE_CHANGE_PASSWORD => Yii::t('UserModule.user', 'Change/reset password'),
             self::TYPE_EMAIL_VERIFY    => Yii::t('UserModule.user', 'Email verification'),
+            self::TYPE_COOKIE_AUTH     => Yii::t('UserModule.user', 'Cookie auth'),
         );
     }
 
@@ -256,7 +259,7 @@ class UserToken extends yupe\models\YModel
     public function beforeValidate()
     {
         if(!$this->ip) {
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
         
         return parent::beforeValidate();
