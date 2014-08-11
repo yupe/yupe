@@ -14,7 +14,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="<?php echo Yii::app()->baseUrl; ?>/favicon.ico">
     <title>
         <?php echo CHtml::encode(Yii::app()->name) . ' ' . CHtml::encode($this->pageTitle); ?>
     </title>
@@ -26,6 +25,7 @@
     Yii::app()->clientScript->registerCssFile($yupeAssets . '/css/flags.css');
     Yii::app()->clientScript->registerCssFile($installAssets . '/css/install.css');
     ?>
+    <link rel="shortcut icon" href="<?php echo $yupeAssets. '/img/favicon.ico'; ?>">
 </head>
 <body>
 <div id="overall-wrap">
@@ -36,7 +36,7 @@
         array(
             'fluid' => true,
             'brand' => CHtml::image(
-                Yii::app()->baseUrl . "/web/images/logo.png",
+                $yupeAssets . "/img/logo.png",
                 $brandTitle,
                 array(
                     'width' => '38',
@@ -50,7 +50,7 @@
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
                     'type' => 'navbar',
-                    'htmlOptions' => array('class' => 'pull-right'),
+                    'htmlOptions' => array('class' => 'navbar-right'),
                     'items' => array_merge(
                         array(
                             array(

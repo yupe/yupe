@@ -134,6 +134,7 @@ return array(
         'themeManager'       => array(
             'class'          => 'CThemeManager',
             'basePath'       => dirname(__DIR__) . '/../themes',
+            'themeClass'     => 'yupe\components\Theme',
         ),
         'cache' => array(
             'class' => 'CFileCache',

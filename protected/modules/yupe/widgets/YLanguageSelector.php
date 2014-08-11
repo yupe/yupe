@@ -33,7 +33,7 @@ class YLanguageSelector extends YWidget
         }
 
         if ($this->enableFlag) {
-            Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/web/css/flags.css');
+            Yii::app()->clientScript->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/flags.css');
         }
 
         $this->render(

@@ -10,9 +10,7 @@
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
     <meta property="og:description" content="<?php echo $this->description; ?>"/>
     <?php
-    $mainAssets = Yii::app()->AssetManager->publish(
-        Yii::app()->theme->basePath . "/web/"
-    );
+    $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
@@ -61,12 +59,12 @@
                     array(
                         'data' => array(
                             CHtml::link(
-                                CHtml::image(Yii::app()->baseUrl . '/web/images/amyLabs.jpg', 'amylabs - разработка на Юпи! и Yii !', array('style' => 'width: 100%')),
+                                CHtml::image($mainAssets . '/images/amyLabs.jpg', 'amylabs - разработка на Юпи! и Yii !', array('style' => 'width: 100%')),
                                 'http://amylabs.ru?from=yupe-rb',
                                 array('title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank')
                             ),
                             CHtml::link(
-                                CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.jpg', 'Юпи! - cms на Yii !', array('style' => 'width: 100%')),
+                                CHtml::image($mainAssets . '/images/yupe-logo.jpg', 'Юпи! - cms на Yii !', array('style' => 'width: 100%')),
                                 'http://yupe.ru?from=yupe-rb',
                                 array('title' => 'Юпи! - cms на Yii !', 'target' => '_blank')
                             ),

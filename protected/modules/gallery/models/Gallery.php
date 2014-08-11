@@ -170,9 +170,7 @@ class Gallery extends yupe\models\YModel
     {
         return $this->imagesCount > 0
             ? $this->images[0]->getUrl($width, $height)
-            : Yii::app()->assetManager->publish(
-                Yii::app()->theme->basePath . '/web/images/thumbnail.png'
-            );
+            : Yii::app()->getTheme()->getAssetsUrl() . '/images/thumbnail.png';
     }
 
     /**

@@ -10,9 +10,7 @@
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
     <meta property="og:description" content="<?php echo $this->description; ?>"/>
     <?php
-    $mainAssets = Yii::app()->AssetManager->publish(
-        Yii::app()->theme->basePath . "/web/"
-    );
+    $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');

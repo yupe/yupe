@@ -528,8 +528,7 @@ class Blog extends yupe\models\YModel
             $icon = Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
                 Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon;
         } else {
-            $iconPath = Yii::app()->theme->basePath . '/web/images/blog-default.jpg';
-            $icon = Yii::app()->getAssetManager()->publish($iconPath);
+            $icon = Yii::app()->getTheme()->getAssetsUrl() . '/images/blog-default.jpg';
         }
 
         return $icon;

@@ -15,7 +15,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
-        <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl; ?>/web/images/favicon.png"/>
         <?php
         $docsAssets = Yii::app()->assetManager->publish(
             Yii::getPathOfAlias('application.modules.docs.views.assets')

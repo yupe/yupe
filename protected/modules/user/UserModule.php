@@ -38,7 +38,8 @@ class UserModule extends WebModule
     public $documentRoot;
     public $avatarsDir = 'avatars';
     public $avatarMaxSize = 10000;
-    public $defaultAvatar = '/web/images/avatar.png';
+    private $defaultAvatar;
+    public $defaultAvatarPath = 'images/avatar.png';
     public $avatarExtensions = array('jpg', 'png', 'gif');
     public $usersPerPage = 20;
     public $badLoginCount = 3;
@@ -150,7 +151,7 @@ class UserModule extends WebModule
             'documentRoot' => Yii::t('UserModule.user', 'Server root'),
             'avatarsDir' => Yii::t('UserModule.user', 'Directory for avatar uploading'),
             'avatarMaxSize' => Yii::t('UserModule.user', 'Maximum avatar size'),
-            'defaultAvatar' => Yii::t('UserModule.user', 'Empty avatar'),
+            'defaultAvatarPath' => Yii::t('UserModule.user', 'Empty avatar'),
             'loginAdminSuccess' => Yii::t('UserModule.user', 'Page after admin authorization'),
             'registrationSuccess' => Yii::t('UserModule.user', 'Page after success register'),
             'sessionLifeTime' => Yii::t(
@@ -172,7 +173,7 @@ class UserModule extends WebModule
             'registrationActivateMailEvent',
             'registrationMailEvent',
             'avatarMaxSize',
-            'defaultAvatar',
+            'defaultAvatarPath',
             'avatarsDir',
             'showCaptcha' => $this->getChoice(),
             'minCaptchaLength',
@@ -211,7 +212,7 @@ class UserModule extends WebModule
                 'items' => array(
                     'avatarsDir',
                     'avatarMaxSize',
-                    'defaultAvatar'
+                    'defaultAvatarPath'
                 )
             ),
             'security' => array(
@@ -440,5 +441,17 @@ class UserModule extends WebModule
                 )
             )
         );
+    }
+
+    /**
+     * Возвращает аватар по умолчанию из текущей темы (web/images/avatar.png)
+     * @return string
+     */
+    public function getDefaultAvatar()
+    {
+        if (null === $this->defaultAvatar) {
+            $this->defaultAvatar = Yii::app()->getTheme()->getAssetsUrl() . '/' . $this->defaultAvatarPath;
+        }
+        return $this->defaultAvatar;
     }
 }
