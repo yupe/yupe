@@ -8,7 +8,7 @@
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
     <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
-    <meta property="og:description" content="<?php echo $this->description; ?>"/>]
+    <meta property="og:description" content="<?php echo $this->description; ?>"/>
     <?php
     $mainAssets = Yii::app()->AssetManager->publish(
         Yii::app()->theme->basePath . "/web/"
