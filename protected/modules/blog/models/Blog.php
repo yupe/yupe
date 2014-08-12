@@ -579,4 +579,9 @@ class Blog extends yupe\models\YModel
         return $this->type == self::TYPE_PRIVATE;
     }
 
+    public function isOwner($userId)
+    {
+        return $this->create_user_id == $userId;
+    }
+
 }

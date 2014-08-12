@@ -28,7 +28,7 @@ class PublisherController extends yupe\components\controllers\FrontController
 
             $data = Yii::app()->getRequest()->getPost('Post');
 
-            $data['user_id'] = Yii::app()->user->getId();
+            $data['user_id'] = Yii::app()->getUser()->getId();
 
             if ($post->createPublicPost($data, Yii::app()->getRequest()->getPost('tags'))) {
 
@@ -36,11 +36,11 @@ class PublisherController extends yupe\components\controllers\FrontController
 
                 $redirect = array('/blog/publisher/my');
 
-                if ($post->status === Post::STATUS_DRAFT) {
+                if ($post->isDraft()) {
                     $message = Yii::t('BlogModule.blog',  'Post saved!');
                 }
 
-                if ($post->status === Post::STATUS_PUBLISHED) {
+                if ($post->isPublished()) {
 
                     $message = Yii::t('BlogModule.blog', 'Post published!');
 
