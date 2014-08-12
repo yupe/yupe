@@ -80,6 +80,7 @@ class ModuleManager extends \CApplicationComponent
         );
 
         $modules = $yiiModules = $order = array();
+        $modulesExtendedNavigation = array();
 
         if (count(Yii::app()->getModules())) {
             /**
@@ -96,6 +97,8 @@ class ModuleManager extends \CApplicationComponent
                             : $module->getCategory();
                         $modules[$key] = $module;
                         $order[$category][$key] = $module->adminMenuOrder;
+                        $moduleExNav = (array)$module->getExtendedNavigation();
+                        $modulesExtendedNavigation = array_merge($modulesExtendedNavigation, $moduleExNav);
                     } else {
                         $yiiModules[$key] = $module;
                     }
@@ -233,6 +236,7 @@ class ModuleManager extends \CApplicationComponent
             $modules += (array)$this->getModulesDisabled($modules);
         }
 
+        $modulesNavigation = array_merge($modulesNavigation, $modulesExtendedNavigation);
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules' => $modules,
             'yiiModules' => $yiiModules,
