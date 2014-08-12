@@ -77,10 +77,14 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 );
 
                 /*сброс кэша меню*/
-                Yii::app()->cache->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->getLanguage());
+                Yii::app()->getCache()->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->getLanguage());
+
+                /*сброс кеша прав*/
+                Yii::app()->getCache()->delete(Yii::app()->getUser()->rbacCacheNameSpace.$id);
 
                 $this->redirect(array('assign', 'id' => $user->id));
             } catch (Exception $e) {
+
                 Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, $e->getMessage());
                 $transaction->rollback();
             }
