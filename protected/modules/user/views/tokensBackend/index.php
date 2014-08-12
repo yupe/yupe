@@ -126,15 +126,25 @@ SCRIPT;
                 ),
             ),
             array(
-                'name' => 'created',
-                'value' => '$data->beautifyDate($data->created)',
+                'name'   => 'created',
+                'value'  => '$data->beautifyDate($data->created)',
+                'filter' => false,
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )
             ),
             array(
                 'name' => 'updated',
+                'filter' => false,
                 'value' => '$data->beautifyDate($data->updated)',
+                'htmlOptions' => array(
+                    'style' => 'width: 120px;'
+                )
+            ),
+            array(
+                'name' => 'expire',
+                'filter' => false,
+                'value' => '$data->beautifyDate($data->expire)',
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )

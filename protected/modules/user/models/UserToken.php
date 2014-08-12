@@ -12,6 +12,7 @@
  * @property string $created
  * @property string $updated
  * @property string $ip
+ * @property string $expire
  */
 class UserToken extends yupe\models\YModel
 {
@@ -62,7 +63,7 @@ class UserToken extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, type, ip, token', 'required'),
+            array('user_id, type, ip, token, expire', 'required'),
             array('user_id, type, status', 'numerical', 'integerOnly'=>true),
             array('token, ip', 'length', 'max' => 255),
             array('updated', 'safe'),
@@ -98,6 +99,7 @@ class UserToken extends yupe\models\YModel
             'created' => Yii::t('UserModule.user', 'Created'),
             'updated' => Yii::t('UserModule.user', 'Updated'),
             'ip'      => Yii::t('UserModule.user', 'Ip'),
+            'expire'  => Yii::t('UserModule.user', 'Expire')
         );
     }
 
@@ -142,6 +144,7 @@ class UserToken extends yupe\models\YModel
         }
 
         $criteria->compare('t.ip', $this->ip, true);
+        $criteria->compare('t.expire', $this->expire, true);
 
         return new CActiveDataProvider(
             $this, array(
@@ -205,9 +208,8 @@ class UserToken extends yupe\models\YModel
      */
     public static function getDateList($dateField = 'created')
     {
-        $sql = Yii::app()->getDb()->getSchema() instanceof CMysqlSchema
-                ? 'left(' . $dateField . ', 10)'
-                : 'to_char(' . $dateField . ', \'YYYY-MM-DD\')';
+        $sql =  'left(' . $dateField . ', 10)';
+
 
         // Список дат, обрезаем до формата YYYY-MM-DD и кешируем запрос:
         $dateList = self::model()->cache(
@@ -305,7 +307,7 @@ class UserToken extends yupe\models\YModel
      */
     public static function beautifyDate($dateField, $format = 'yyyy-MM-dd HH:mm')
     {
-        return Yii::app()->dateFormatter->format($format, $dateField);
+        return Yii::app()->getDateFormatter()->format($format, $dateField);
     }
 
     /**
