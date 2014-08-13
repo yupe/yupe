@@ -331,7 +331,7 @@ class YWebUser extends CWebUser
         if ($duration) {
             //создать токен
             $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                $this->getProfile()
+                $this->getProfile(), $duration
             );
 
             $identity->setState($this->authToken, $token->token);
