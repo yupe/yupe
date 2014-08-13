@@ -1,21 +1,16 @@
 <?php $box = $this->beginWidget(
     'bootstrap.widgets.TbPanel',
     array(
-        'title' => Yii::t('BlogModule.blog', 'Blogs'),
-        'headerIcon' => 'glyphicon glyphicon-pencil'
+        'title' => Yii::t('UserModule.user', 'Users'),
+        'headerIcon' => 'glyphicon glyphicon-user'
     )
 );?>
-<div class="row">
-    <div class="col-sm-2">
-        <?php echo CHtml::link(Yii::t('BlogModule.blog', 'New post'), array('/blog/postBackend/create'), array('class' => 'btn btn-success btn-sm')); ?>
-    </div>
-</div>
 <div class="row">
     <div class="col-sm-8">
         <?php $this->widget(
             'bootstrap.widgets.TbExtendedGridView',
             array(
-                'id' => 'post-grid',
+                'id' => 'user-grid',
                 'type' => 'striped condensed',
                 'dataProvider' => $dataProvider,
                 'template' => '{items}',
@@ -24,8 +19,8 @@
                 ),
                 'columns' => array(
                     array(
-                        'name' => 'title',
-                        'value' => 'CHtml::link($data->title, array("/blog/postBackend/update","id" => $data->id))',
+                        'name' => 'nick_name',
+                        'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/update","id" => $data->id))',
                         'type' => 'html'
                     ),
                     array(
@@ -42,20 +37,20 @@
                 <tbody>
                     <tr>
                         <td>
-                            <?php echo Yii::t('BlogModule.blog', 'Posts (last day / all)'); ?>:
+                            <?php echo Yii::t('UserModule.user', 'Users (last day / all)'); ?>:
 
                         </td>
                         <td>
-                            <span class="badge alert-success"><?php echo $postsCount; ?></span>
-                            <span class="badge alert-info"><?php echo $allPostsCnt; ?></span>
+                            <span class="badge alert-success"><?php echo $usersCount; ?></span>
+                            <span class="badge alert-info"><?php echo $allUsersCnt; ?></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <?php echo Yii::t('BlogModule.blog', 'Moderation'); ?>:
+                            <?php echo Yii::t('UserModule.user', 'Not active'); ?>:
                         </td>
                         <td>
-                            <span class="badge alert-danger"><?php echo $moderationCnt; ?></span>
+                            <span class="badge alert-danger"><?php echo $registeredCnt; ?></span>
                         </td>
                     </tr>
                 </tbody>

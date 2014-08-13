@@ -308,21 +308,20 @@ class BackendController extends yupe\components\controllers\BackController
      * @return bool
      **/
     public function saveParamsSetting($moduleId, $params)
-    {    	
-    	$paramValues = array();
+    {
+        $paramValues = array();
 
-    	// Перебираем все параметры модуля
-    	foreach ($params as $param_name) {
-    		$param_value = Yii::app()->getRequest()->getPost($param_name, null);
-    		// Если параметр есть в post-запросе добавляем его в массив
-    		if ($param_value !== null)
-    		{
-    			$paramValues[$param_name] = $param_value;    			
-    		}    		
-    	}    	
-    	
-    	// Запускаем сохранение параметров
-    	return Settings::saveModuleSettings($moduleId, $paramValues);
+        // Перебираем все параметры модуля
+        foreach ($params as $param_name) {
+            $param_value = Yii::app()->getRequest()->getPost($param_name, null);
+            // Если параметр есть в post-запросе добавляем его в массив
+            if ($param_value !== null) {
+                $paramValues[$param_name] = $param_value;
+            }
+        }
+
+        // Запускаем сохранение параметров
+        return Settings::saveModuleSettings($moduleId, $paramValues);
     }
 
     /**
@@ -365,8 +364,7 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->urlReferrer !== null ? Yii::app()->getRequest(
-                )->urlReferrer : array("/yupe/backend")
+                Yii::app()->getRequest()->urlReferrer !== null ? Yii::app()->getRequest()->urlReferrer : array("/yupe/backend")
             );
         }
     }
@@ -391,9 +389,6 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionModulestatus()
     {
-        /**
-         * Если это не POST-запрос - посылаем лесом:
-         **/
         if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
@@ -407,10 +402,11 @@ class BackendController extends yupe\components\controllers\BackController
             && (($module = Yii::app()->getModule($name)) === null || $module->canActivate())
         ) {
             $module = Yii::app()->moduleManager->getCreateModule($name);
-        } /**
+        }
+        /**
          * Если статус неизвестен - ошибка:
          **/
-        elseif (!isset($status) || !in_array($status, array(0, 1))) {
+        elseif (!isset($status) || !in_array($status, array(0, 1, 2))) {
             Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Status for handler is no set!'));
         }
 
@@ -593,13 +589,11 @@ class BackendController extends yupe\components\controllers\BackController
     {
         $error = Yii::app()->errorHandler->error;
 
-        if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg'])))
-        {
+        if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
             $this->redirect(array('index'));
         }
 
-        if (!Yii::app()->getRequest()->getIsAjaxRequest())
-        {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
             $this->render('error', array('error' => $error));
         }
     }

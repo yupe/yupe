@@ -332,6 +332,12 @@ class User extends yupe\models\YModel
                     ':user_status' => self::STATUS_ACTIVE
                 ),
             ),
+            'registered' => array(
+                'condition' => 't.status = :user_status',
+                'params' => array(
+                    ':user_status' => self::STATUS_NOT_ACTIVE
+                ),
+            ),
             'blocked' => array(
                 'condition' => 'status = :blocked_status',
                 'params' => array(':blocked_status' => self::STATUS_BLOCK),

@@ -335,5 +335,5 @@ return array (
   'There is no cached settings' => 'Файл кеша-настроек не найден',
   'Notify' => 'Уведомления',
   'Apply new migrations' => 'Примените новые миграции',
-  'Available new configuration' => 'Доступен новый файл конфигурации'
+  'Apply new configuration' => 'Обновить конфигурационный файл модуля'
 );

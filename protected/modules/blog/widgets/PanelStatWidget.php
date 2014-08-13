@@ -17,9 +17,8 @@ class PanelStatWidget extends \yupe\widgets\YWidget
 
         $this->render('panel-stat', array(
                 'postsCount'    => Post::model()->cache($cacheTime)->count('create_date >= :time', array(':time' => time() - 24 * 60 * 60)),
-                'commentCount'  => Comment::model()->cache($cacheTime)->count('creation_date >= (CURDATE() - INTERVAL 1 DAY)'),
                 'allPostsCnt'   => Post::model()->cache($cacheTime)->count(),
-                'allCommentCnt' => Comment::model()->cache($cacheTime)->count(),
+                'moderationCnt' => Post::model()->cache($cacheTime)->moderated()->count(),
                 'dataProvider' => $dataProvider
             ));
     }

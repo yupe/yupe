@@ -12,6 +12,11 @@
 return array(
     'module'   => array(
         'class' => 'application.modules.comment.CommentModule',
+        'panelWidgets' => array(
+            'application.modules.comment.widgets.PanelCommentStatWidget' => array(
+                'limit' => 10
+            )
+        ),
     ),
     'import'    => array(      
         'application.modules.comment.models.*',

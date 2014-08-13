@@ -174,6 +174,10 @@ class Post extends yupe\models\YModel implements ICommentable
                 'condition' => 't.access_type = :access_type',
                 'params' => array(':access_type' => self::ACCESS_PUBLIC),
             ),
+            'moderated' => array(
+                'condition' => 't.status = :status',
+                'params' => array(':status' => self::STATUS_MODERATED)
+            ),
             'recent' => array(
                 'order' => 'publish_date DESC'
             )
