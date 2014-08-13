@@ -112,7 +112,7 @@ class CatalogModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('CatalogModule.catalog', 'Product catalog');
+        return Yii::t('CatalogModule.catalog', 'Catalog');
     }
 
     public function getDescription()

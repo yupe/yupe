@@ -37,7 +37,7 @@ return array(
     'Content block' => 'Блок контента',
     'Content block "{code}" was not found !' => 'Контент блок "{code}" не найден !',
     'Content block was changed!' => 'Контент блок изменен!',
-    'Content blocks' => 'Блоки контента',
+    'Blocks' => 'Блоки',
     'Content blocks - add' => 'Блоки контента - создание',
     'Content blocks - admin' => 'Блоки контента - управление',
     'Content blocks - edit' => 'Блоки контента - редактирование',

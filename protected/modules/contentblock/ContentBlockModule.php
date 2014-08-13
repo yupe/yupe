@@ -21,7 +21,7 @@ class ContentBlockModule extends yupe\components\WebModule
 
     public function getName()
     {
-        return Yii::t('ContentBlockModule.contentblock', 'Content blocks');
+        return Yii::t('ContentBlockModule.contentblock', 'Blocks');
     }
 
     public function getDescription()

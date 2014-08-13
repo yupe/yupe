@@ -73,7 +73,7 @@ return array (
   'Products - view' => 'Товары - просмотр',
   'Product admin' => 'Управление товарами',
   'Products administration' => 'Управление товарами',
-  'Product catalog' => 'Каталог товаров',
+  'Catalog' => 'Каталог',
   'Product list' => 'Список товаров',
   'Record was added!' => 'Запись добавлена!',
   'Record was removed!' => 'Запись удалена!',
