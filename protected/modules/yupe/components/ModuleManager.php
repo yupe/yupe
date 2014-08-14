@@ -21,6 +21,8 @@ use GlobIterator;
 use TagsCache;
 use Yii;
 use yupe\widgets\YFlashMessages;
+use yupe\components\WebModule;
+use yupe\helpers\YFile;
 
 
 class ModuleManager extends \CApplicationComponent
@@ -264,7 +266,10 @@ class ModuleManager extends \CApplicationComponent
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
 
-                    if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false && $cacheFile != $item->getBaseName('.php')) {
+                    if (is_dir(
+                            $modPath . '/' . $item->getBaseName('.php')
+                        ) == false && $cacheFile != $item->getBaseName('.php')
+                    ) {
 
                         Yii::app()->cache->flush();
 
@@ -361,6 +366,7 @@ class ModuleManager extends \CApplicationComponent
                 $module = Yii::createComponent($className, $name, null, false);
             }
         }
+
         return $module;
     }
 
@@ -430,5 +436,29 @@ class ModuleManager extends \CApplicationComponent
         $files = glob($modulePath . DIRECTORY_SEPARATOR . '*Module.php');
 
         return empty($files) ? false : true;
+    }
+
+    /**
+     * Обновить конфигурационный файл модуля
+     *
+     * @param WebModule $module
+     * @return bool
+     * @since 0.8
+     */
+    public function updateModuleConfig(WebModule $module)
+    {
+        if(!$module->isConfigNeedUpdate()) {
+            return true;
+        }
+
+        $newConfig = $this->getModulesConfigDefault($module->getId());
+
+        $currentConfig = $this->getModulesConfig($module->getId());
+
+        if(YFile::rmFile($currentConfig) && YFile::cpFile($newConfig, $currentConfig)) {
+            return true;
+        }
+
+        return false;
     }
 } 

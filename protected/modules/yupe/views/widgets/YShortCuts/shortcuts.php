@@ -20,8 +20,22 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('.config-update').on('click',function(event){
+            var $this = $(this);
             event.preventDefault();
-            alert('Not implemented!');
+            $.post('<?php echo Yii::app()->createUrl('/yupe/moduleBackend/configUpdate/')?>',{
+                '<?php echo Yii::app()->getRequest()->csrfTokenName;?>' : '<?php echo Yii::app()->getRequest()->csrfToken;?>',
+                'module' : $(this).data('module')
+            },function(response){
+
+                if(response.result) {
+                    $this.fadeOut();
+                    $('#notifications').notify({
+                        message: { text: '<?php echo Yii::t('YupeModule.yupe','Successful');?>' },
+                        type : 'success'
+                    }).show();
+                }
+
+            },'json');
         });
     });
 </script>

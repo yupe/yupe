@@ -109,7 +109,7 @@ $this->widget(
                         ),
                         array(
                             'icon'  => 'glyphicon glyphicon-user',
-                            'label' => '<span class="label label-info">'.CHtml::encode(Yii::app()->getUser()->nick_name).'</span>',
+                            'label' => '<span class="label label-info">'.CHtml::encode(Yii::app()->getUser()->getProfileField('fullName')).'</span>',
                             'items' => array(
                                 array(
                                     'icon' => 'glyphicon glyphicon-cog',

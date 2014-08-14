@@ -364,7 +364,7 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->urlReferrer !== null ? Yii::app()->getRequest()->urlReferrer : array("/yupe/backend")
+                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : array("/yupe/backend")
             );
         }
     }
@@ -455,7 +455,7 @@ class BackendController extends yupe\components\controllers\BackController
                         $message = Yii::t('YupeModule.yupe', 'Unknown action was checked!');
                         break;
                 }
-                if (in_array($status, array(0, 1))) {
+                if (in_array($status, array(0, 1, 2))) {
                     Yii::app()->cache->clear($name);
                 }
             } catch (Exception $e) {

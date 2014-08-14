@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Successful' => 'Выполнено успешно!',
   'Yupe!' => 'Юпи!',
   'Name' => 'Название',
   'Just great guys =)' => 'Просто отличные ребята =)',

@@ -14,7 +14,7 @@ return array(
         'class' => 'application.modules.comment.CommentModule',
         'panelWidgets' => array(
             'application.modules.comment.widgets.PanelCommentStatWidget' => array(
-                'limit' => 10
+                'limit' => 5
             )
         ),
     ),

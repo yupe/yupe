@@ -20,7 +20,7 @@
                 'columns' => array(
                     array(
                         'name' => 'text',
-                        'value' => 'CHtml::link($data->text, array("/comment/commentBackend/update","id" => $data->id))',
+                        'value' => 'CHtml::link(yupe\helpers\YText::characterLimiter($data->text, 100), array("/comment/commentBackend/update","id" => $data->id))',
                         'type' => 'html'
                     ),
                     array(

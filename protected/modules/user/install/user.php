@@ -4,7 +4,7 @@ return array(
         'class'            => 'application.modules.user.UserModule',
         'panelWidgets' => array(
             'application.modules.user.widgets.PanelUserStatWidget' => array(
-                'limit' => 10
+                'limit' => 5
             )
         ),
         'documentRoot'     => $_SERVER['DOCUMENT_ROOT'],
