@@ -89,12 +89,6 @@ return array(
             'filters' => array(
                 'jencode' => 'CJSON::encode',
             ),
-            // Change template syntax to Smarty-like (not recommended)
-            'lexerOptions' => array(
-                'tag_comment'  => array('{*', '*}'),
-                'tag_block'    => array('{', '}'),
-                'tag_variable' => array('{$', '}')
-            ),
         ),
         'debug' => array(
             'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
