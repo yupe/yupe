@@ -90,6 +90,8 @@ class CustomGridView extends \TbExtendedGridView
 
     public $selectableRows = 2;
 
+    private $uniqueId = "";
+
     /**
      * Widget initialization
      *
@@ -98,6 +100,7 @@ class CustomGridView extends \TbExtendedGridView
     public function init()
     {
         $this->_modelName = $this->dataProvider->modelClass;
+        $this->uniqueId = $this->_modelName;
         $this->headlinePosition = empty($this->headlinePosition) ? self::HP_RIGHT : $this->headlinePosition;
         $this->initPageSizes();
         $this->ajaxUrl = empty($this->ajaxUrl)
@@ -107,7 +110,7 @@ class CustomGridView extends \TbExtendedGridView
         $this->bulkActions = empty($this->bulkActions) ? array(
             'actionButtons' => array(
                 array(
-                    'id' => 'delete-post',
+                    'id' => 'delete-post-' . $this->uniqueId,
                     'buttonType' => 'button',
                     'context' => 'danger',
                     'size' => 'small',
@@ -115,7 +118,7 @@ class CustomGridView extends \TbExtendedGridView
                     'click' => 'js:function(values){ if(!confirm("' . Yii::t(
                             'YupeModule.yupe',
                             'Do you really want to delete selected elements?'
-                        ) . '")) return false; multiaction("delete", values); }',
+                        ) . '")) return false; multiaction' . $this->uniqueId . '("delete", values); }',
                 ),
             ),
             'checkBoxColumnConfig' => array(
@@ -136,7 +139,11 @@ class CustomGridView extends \TbExtendedGridView
             ) . ');
         }';
 
+        // временный костыль для https://github.com/clevertech/YiiBooster/blob/master/src/widgets/TbExtendedGridView.php#L229
+        // selectionChanged затирается зачем-то
+        $t = $this->selectionChanged;
         parent::init();
+        $this->selectionChanged = $t;
     }
 
     /**
@@ -435,7 +442,7 @@ JS
         /* Скрипт для мультиекшена: */
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'ExMultiaction',
-            'var multiaction = function(action, values) {
+            'var multiaction' . $this->uniqueId . ' = function(action, values) {
                 var queryString = "";
                 var url = "' . $multiactionUrl . '";
                 $.map(values, function(itemInput) {
