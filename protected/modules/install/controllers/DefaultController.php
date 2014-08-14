@@ -298,7 +298,7 @@ class DefaultController extends yupe\components\controllers\BackController
      **/
     private function _checkYupeActivate()
     {
-        return $this->yupe->getActivate(true, true);
+        return $this->yupe->getActivate(true);
     }
 
     /**

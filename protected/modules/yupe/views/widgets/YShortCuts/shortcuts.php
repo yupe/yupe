@@ -22,7 +22,7 @@
         $('.config-update').on('click',function(event){
             var $this = $(this);
             event.preventDefault();
-            $.post('<?php echo Yii::app()->createUrl('/yupe/moduleBackend/configUpdate/')?>',{
+            $.post('<?php echo Yii::app()->createUrl('/yupe/modulesBackend/configUpdate/')?>',{
                 '<?php echo Yii::app()->getRequest()->csrfTokenName;?>' : '<?php echo Yii::app()->getRequest()->csrfToken;?>',
                 'module' : $(this).data('module')
             },function(response){

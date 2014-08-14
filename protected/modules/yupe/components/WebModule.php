@@ -415,7 +415,7 @@ abstract class WebModule extends CWebModule
      */
     public function getModulesNoDisable()
     {
-        $modulesNoDisable = Yii::app()->cache->get('YupeModulesNoDisable');
+        $modulesNoDisable = Yii::app()->getCache()->get('YupeModulesNoDisable');
         if ($modulesNoDisable === false) {
             $modules = Yii::app()->moduleManager->getModules(false, true);
             $modulesNoDisable = array();
@@ -426,7 +426,7 @@ abstract class WebModule extends CWebModule
                 }
             }
 
-            Yii::app()->cache->set(
+            Yii::app()->getCache()->set(
                 'YupeModulesNoDisable',
                 $modulesNoDisable,
                 Yii::app()->getModule('yupe')->coreCacheTime,
@@ -446,7 +446,7 @@ abstract class WebModule extends CWebModule
      */
     public function getDependenciesAll()
     {
-        $modulesDependent = Yii::app()->cache->get('YupeModulesDependenciesAll');
+        $modulesDependent = Yii::app()->getCache()->get('YupeModulesDependenciesAll');
         if ($modulesDependent === false) {
             $modules = Yii::app()->moduleManager->getModules(false, true);
             $modulesDependent = array();
@@ -457,7 +457,7 @@ abstract class WebModule extends CWebModule
                     $modulesDependent[$module->getId()] = $dep;
                 }
             }
-            Yii::app()->cache->set(
+            Yii::app()->getCache()->set(
                 'YupeModulesDependenciesAll',
                 $modulesDependent,
                 0,
@@ -489,7 +489,7 @@ abstract class WebModule extends CWebModule
      */
     public function getDependents()
     {
-        $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
+        $modulesDependent = Yii::app()->getCache()->get('YupeModulesDependent');
         if ($modulesDependent === false) {
             $modules = $this->getDependenciesAll();
             foreach ($modules as $id => $dependencies) {
@@ -497,7 +497,7 @@ abstract class WebModule extends CWebModule
                     $modulesDependent[$dependency][] = $id;
                 }
             }
-            Yii::app()->cache->set(
+            Yii::app()->getCache()->set(
                 'YupeModulesDependent',
                 $modulesDependent,
                 0,
@@ -558,10 +558,11 @@ abstract class WebModule extends CWebModule
      */
     public function getIsInstalled()
     {
-        $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
+        $modulesInstalled = Yii::app()->getCache()->get('YupeModulesInstalled');
 
         if ($modulesInstalled === false) {
-            $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
+
+            $modulesInstalled = Yii::app()->migrator->getModulesWithDBInstalled();
 
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
@@ -578,7 +579,7 @@ abstract class WebModule extends CWebModule
                 new TagsCache('installedModules', 'disabledModules', 'yupe', $this->getId())
             );
 
-            Yii::app()->cache->set(
+            Yii::app()->getCache()->set(
                 'YupeModulesInstalled',
                 $modulesInstalled,
                 Yii::app()->getModule('yupe')->coreCacheTime,
@@ -590,7 +591,8 @@ abstract class WebModule extends CWebModule
             return false;
         }
 
-        $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->getId());
+        $upd = Yii::app()->getCache()->get('YupeModuleUpdates_' . $this->getId());
+
         if ($upd === false) {
             $upd = Yii::app()->migrator->checkForUpdates(array($this->getId() => $this));
 
@@ -609,7 +611,7 @@ abstract class WebModule extends CWebModule
                 )
             );
 
-            Yii::app()->cache->set(
+            Yii::app()->getCache()->set(
                 'YupeModuleUpdates_' . $this->getId(),
                 $upd,
                 Yii::app()->getModule('yupe')->coreCacheTime,
@@ -627,20 +629,21 @@ abstract class WebModule extends CWebModule
      * @param boolean $updateConfig - обновить ли файл конфигурации
      *
      * @throws CException
-     * @return bool статус выключения модуля
+     * @return bool статус включения модуля
      *
      * @since 0.5
      */
-    public function getActivate($noDependent = false, $updateConfig = false)
+    public function getActivate($noDependent = false)
     {
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
 
-        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
 
-        if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
+        if (is_file($fileConfig) && $this->id != ModuleManager::INSTALL_MODULE && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already enabled!'), 304);
         } else {
+
             // Проверка модулей от которых зависит данный
             if (!$noDependent) {
                 $dependencies = $this->getDependencies();
@@ -658,9 +661,7 @@ abstract class WebModule extends CWebModule
                 }
             }
 
-            // Если требуется обновление файла, выполняем unlink и копирование
-            // иначе только через copy:
-            if (($updateConfig && Yii::app()->moduleManager->updateModuleConfig($this) ) ) {
+            if (Yii::app()->moduleManager->updateModuleConfig($this)) {
                 return true;
             } else {
                 throw new CException(
@@ -676,28 +677,27 @@ abstract class WebModule extends CWebModule
     /**
      * Метод выключает модуль - удаляет файл конфигурации модуля
      *
-     * @param boolean $noDependen - не проверять на зависимости от других модулей
+     * @param boolean $noDependent - не проверять на зависимости от других модулей
      *
      * @throws CException
      * @return bool статус включения модуля
      *
      * @since 0.5
      */
-    public function getDeActivate($noDependen = false)
+    public function getDeActivate($noDependent = false)
     {
-        $yupe = Yii::app()->getModule('yupe');
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->id);
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->id);
         $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($this->id);
 
-        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));
         } else {
             // Проверка зависимых модулей
-            if (!$noDependen) {
+            if (!$noDependent) {
                 $dependent = $this->getDependent();
                 if (!empty($dependent) && is_array($dependent)) {
                     foreach ($dependent as $dependen) {
@@ -746,7 +746,7 @@ abstract class WebModule extends CWebModule
      */
     public function getInstall()
     {
-        return ($this->id == 'yupe' || $status = $this->getActivate()) ? $this->installDB() : $status;
+        return ($this->id == ModuleManager::CORE_MODULE || $status = $this->getActivate()) ? $this->installDB() : $status;
     }
 
     /**
@@ -785,7 +785,7 @@ abstract class WebModule extends CWebModule
             )
         );
 
-        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
 
         if ($this->getDependencies() !== array()) {
@@ -845,7 +845,7 @@ abstract class WebModule extends CWebModule
 
         if (!empty($history)) {
 
-            Yii::app()->cache->clear(
+            Yii::app()->getCache()->clear(
                 'installedModules',
                 $this->getId(),
                 'yupe',
@@ -959,7 +959,7 @@ abstract class WebModule extends CWebModule
     public function getSettings($needReset = false)
     {
         if ($needReset) {
-            Yii::app()->cache->clear($this->getId());
+            Yii::app()->getCache()->clear($this->getId());
         }
 
         try {
