@@ -120,6 +120,10 @@ $this->menu = array(
                 'filter' => false
             ),
             array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Gallery::STATUS_DRAFT => yupe\helpers\Html::DEF, Gallery::STATUS_PUBLIC => yupe\helpers\Html::SUCCESS])',
+                'type'  => 'raw'
+            ),
+            array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
                 'template' => '{images}{update}{delete}',
                 'buttons' => array(

@@ -18,7 +18,7 @@
 
 <div class="post">
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
             <h4><strong><?php echo CHtml::encode($post->title);?></strong></h4>
              <div class="posts-list-block-meta">
                 <span>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
             <p>
                 <?php if($post->image):?>
                     <?php echo CHtml::image($post->getImageUrl());?>

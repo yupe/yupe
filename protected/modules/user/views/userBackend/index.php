@@ -160,6 +160,10 @@ $this->menu = array(
                 'filter' => false
             ),
             array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [User::STATUS_BLOCK => yupe\helpers\Html::DANGER, User::STATUS_NOT_ACTIVE => yupe\helpers\Html::WARNING, User::STATUS_ACTIVE => yupe\helpers\Html::SUCCESS])',
+                'type'  => 'raw'
+            ),
+            array(
                 'header' => Yii::t('UserModule.user', 'Management'),
                 'class' => 'bootstrap.widgets.TbButtonColumn',
                 'template' => '{view}{update}{password}{sendactivation}{delete}',

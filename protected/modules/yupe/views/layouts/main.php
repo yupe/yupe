@@ -24,8 +24,8 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    if (($langs = $this->yupe->languageSelectorArray) != array())
-        Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
+    if (($langs = $this->yupe->getLanguageSelectorArray()) != array())
+        Yii::app()->getClientScript()->registerCssFile($mainAssets. '/css/flags.css');
     ?>
     <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
 
@@ -43,7 +43,7 @@
     <div class='notifications top-right' id="notifications"></div>
 
     <footer>
-        &copy; 2010 - <?php echo date('Y'); ?>
+        &copy; 2012 - <?php echo date('Y'); ?>
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>

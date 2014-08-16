@@ -32,7 +32,7 @@
                 CHtml::encode($data->membersCount),
                 array('/blog/blog/members', 'slug' => CHtml::encode($data->slug))
             ); ?> </span>
-        <span> <i class="glyphicon glyphicon-book"></i> <?php echo strip_tags($data->description); ?> </span>
+        <span> <?php echo strip_tags($data->description); ?> </span>
     </div>
 
     <div class="col-sm-3">

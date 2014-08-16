@@ -65,7 +65,7 @@
 <div class="row">
     <div class="col-lg-12">
         <ul class="nav nav-pills nav-stacked">
-            <li>© 2010 - <?php echo date('Y');?></li>
+            <li>© 2012 - <?php echo date('Y');?></li>
         </ul>
     </div>
 </div>

@@ -154,27 +154,7 @@ $this->menu = array(
                 'value' => '$data->publish_date',
                 'filter' => CHtml::activeTextField($model, 'publish_date', array('class' => 'form-control')),
             ),
-            array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url' => $this->createUrl('/blog/postBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'title' => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
-                    'source' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name' => 'category_id',
-                'type' => 'raw',
-                'filter' => CHtml::activeDropDownList(
-                    $model,
-                    'category_id',
-                    Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
-                    array('class' => 'form-control', 'empty' => '')
-                ),
-            ),
+
             array(
                 'name' => 'create_user_id',
                 'type' => 'raw',
@@ -228,6 +208,10 @@ $this->menu = array(
                 'header' => "<i class=\"glyphicon glyphicon-comment\"></i>",
                 'value' => 'CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id))',
                 'type' => 'raw',
+            ),
+            array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Post::STATUS_DRAFT => "default", Post::STATUS_PUBLISHED => "success", Post::STATUS_SHEDULED => "info", Post::STATUS_MODERATED => "warning"])',
+                'type'  => 'raw'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

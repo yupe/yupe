@@ -123,6 +123,10 @@ $this->menu = array(
                 'type' => 'html'
             ),
             array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [News::STATUS_DRAFT => yupe\helpers\Html::DEF, News::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, News::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
+                'type'  => 'raw'
+            ),
+            array(
                 'class' => 'bootstrap.widgets.TbButtonColumn'
             ),
         ),

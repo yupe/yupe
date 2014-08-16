@@ -1,7 +1,7 @@
 <?php Yii::import('application.modules.blog.BlogModule'); ?>
 
 <?php if(count($posts)):?>
-    <div class="alert alert-notice">
+    <div class=" alert alert-warning">
         <h4><?php echo Yii::t('BlogModule.blog', 'It will be interesting');?>:</h4>
         <div>
             <ul class="list-unstyled">

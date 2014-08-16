@@ -42,7 +42,7 @@
 class Blog extends yupe\models\YModel
 {
     const STATUS_BLOCKED = 0;
-    const STATUS_ACTIVE = 1;
+    const STATUS_ACTIVE  = 1;
     const STATUS_DELETED = 2;
 
     const TYPE_PUBLIC = 1;

@@ -53,7 +53,7 @@
                                                 'YupeModule.yupe',
                                                 'Module "{module} ({id})"',
                                                 array(
-                                                    '{module}' => $module->name,
+                                                    '{module}' => $module->getName(),
                                                     '{id}' => $module->getId(),
                                                 )
                                             ); ?>

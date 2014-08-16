@@ -130,9 +130,8 @@ $this->menu = array(
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
             ),
             array(
-                'header' => Yii::t('PageModule.page', 'Public URL'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Page::STATUS_DRAFT => yupe\helpers\Html::DEF, Page::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, Page::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
+                'type'  => 'raw'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
