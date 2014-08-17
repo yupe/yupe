@@ -14,7 +14,8 @@ $(document).ready(function () {
 
     function showNotify(element, result, message) {
         if ($.isFunction($.fn.notify)) {
-            element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+            //element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
+            $("#notifications").notify({message: {text: message}, 'type': result}).show();
         }
     }
 
@@ -292,7 +293,7 @@ $(document).ready(function () {
         cartFullCostWithShippingElement.html(getShippingCost() + getCartTotalCost());
     }
 
-    //refreshDeliveryTypes();
+    refreshDeliveryTypes();
     //checkFirstAvailableDeliveryType();
     //updateFullCostWithShipping();
     //updateCartTotalCost();
@@ -301,8 +302,8 @@ $(document).ready(function () {
         updateCartTotalCost();
     }
 
-    updateAllCosts();
     checkFirstAvailableDeliveryType();
+    updateAllCosts();
 
     $('#start-payment').click(function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
@@ -341,7 +342,7 @@ $(document).ready(function () {
                     if (data.result) {
                         window.location.reload();
                     }
-                    showNotify(button, data.result ? 'success' : 'error', data.data.join('; '));
+                    showNotify(button, data.result ? 'success' : 'danger', data.data.join('; '));
                 }
             });
             $('#coupon-code').val('');
@@ -359,6 +360,7 @@ $(document).ready(function () {
             data: data,
             dataType: 'json',
             success: function (data) {
+                showNotify(this, data.result ? 'success' : 'danger', data.data);
                 if (data.result) {
                     updateAllCosts();
                 }

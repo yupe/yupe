@@ -4,10 +4,12 @@ return array(
     'module' => array(
         'class' => 'application.modules.store.StoreModule',
     ),
-    'import' => array(),
+    'import' => array(
+        'application.modules.store.models.*',
+    ),
     'component' => array(
         'money' => array(
-            'class' => 'application.modules.shop.components.Money',
+            'class' => 'application.modules.store.components.Money',
         ),
     ),
     'rules' => array(

@@ -82,7 +82,7 @@ $this->breadcrumbs = array_merge(
                         <?php echo $product->short_description; ?>
                         <hr>
                         <h4><?php echo Yii::t("StoreModule.catalog", "Варианты"); ?></h4>
-                        <form action="<?php echo Yii::app()->createUrl('store/cart/add'); ?>" method="post">
+                        <form action="<?php echo Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
                             <input type="hidden" name="Product[id]" value="<?php echo $product->id; ?>"/>
                             <?php echo CHtml::hiddenField(Yii::app()->getRequest()->csrfTokenName, Yii::app()->getRequest()->csrfToken); ?>
                             <table class="table table-condensed">
@@ -109,7 +109,7 @@ $this->breadcrumbs = array_merge(
                                     </tr>
                                 <?php } endforeach; ?>
                             </table>
-                            <h5>
+                            <div>
                                 <input type="hidden" id="base-price" value="<?php echo round($product->getResultPrice(), 2); ?>"/>
                                 <p>
                                     <?php echo Yii::t("StoreModule.catalog", "Цена"); ?>: <?php echo round($product->getBasePrice(), 2); ?> <?php echo Yii::t("StoreModule.catalog", "руб."); ?>
@@ -125,7 +125,7 @@ $this->breadcrumbs = array_merge(
                                     <?php echo Yii::t("StoreModule.catalog", "Итоговая цена"); ?>: <span id="result-price"><?php echo round($product->getResultPrice(), 2); ?></span>
                                     <?php echo Yii::t("StoreModule.catalog", "руб."); ?>
                                 </p>
-                            </h5>
+                            </div>
 
                             <?php if (Yii::app()->hasModule('order')): ?>
                                 <div class="row">
@@ -142,7 +142,7 @@ $this->breadcrumbs = array_merge(
                                     </div>
                                     <div class="col-sm-6">
                                         <button class="btn btn-success pull-left" id="add-product-to-cart" data-loading-text="Добавляем">
-                                            <?php echo Yii::t("OrderModule.cart", "Добавить в корзину"); ?>
+                                            <?php echo Yii::t("StoreModule.cart", "Добавить в корзину"); ?>
                                         </button>
                                     </div>
                                 </div>
