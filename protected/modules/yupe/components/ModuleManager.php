@@ -131,8 +131,6 @@ class ModuleManager extends \CApplicationComponent
                 $uniqueMenuId = 0;
                 // Обходим категории модулей
                 foreach ($order as $keyCategory => $valueCategory) {
-                    // Настройки модуля, если таковые имеются:
-                    $modSettings = array();
                     $settings['items'] = array();
 
                     // Шаблон категорий
@@ -153,6 +151,7 @@ class ModuleManager extends \CApplicationComponent
 
                     // Обходим модули
                     foreach ($valueCategory as $key => $value) {
+                        $modSettings = array();
                         // Собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                         if ($modules[$key]->editableParams && $key != self::CORE_MODULE) {
                             $modSettings = array(
