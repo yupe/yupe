@@ -52,6 +52,11 @@
 
         <!-- sidebar -->
         <aside class="col-sm-3 sidebar">
+            <?php if (Yii::app()->hasModule('cart')): ?>
+                <div class="widget shopping-cart-widget" id="shopping-cart-widget">
+                    <?php $this->widget('application.modules.cart.widgets.ShoppingCartWidget'); ?>
+                </div>
+            <?php endif; ?>
 
             <div class="widget blogs-widget">
                 <?php $this->widget(
