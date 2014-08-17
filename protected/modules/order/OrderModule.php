@@ -13,7 +13,7 @@ class OrderModule extends WebModule
 
     public function getDependencies()
     {
-        return array('store', 'payment', 'delivery');
+        return array('store', 'payment', 'delivery', 'mail');
     }
 
     public function getEditableParams()

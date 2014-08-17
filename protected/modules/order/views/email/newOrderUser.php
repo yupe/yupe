@@ -10,7 +10,7 @@ $order->refresh();
 
         <?php $subject = Yii::t('OrderModule.order', 'Заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)); ?>
         <h1 style="font-weight:normal;">
-            <?php echo CHtml::link("Ваш заказ №{$order->id}", Yii::app()->createAbsoluteUrl('/store/order/view', array('url' => $order->url))); ?>
+            <?php echo CHtml::link("Ваш заказ №{$order->id}", Yii::app()->createAbsoluteUrl('/order/order/view', array('url' => $order->url))); ?>
             на сумму <?php echo Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->total_price)); ?>
             <?php if ($order->paid): ?>
                 оплачен,
@@ -108,7 +108,7 @@ $order->refresh();
         <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
 
             <?php foreach ($order->products as $orderProduct): ?>
-                <?php $productUrl = Yii::app()->createAbsoluteUrl('/shop/catalog/show', array('name' => $orderProduct->product->alias)); ?>
+                <?php $productUrl = Yii::app()->createAbsoluteUrl('/store/catalog/show', array('name' => $orderProduct->product->alias)); ?>
                 <tr>
                     <td align="center" style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
                         <?php if ($orderProduct->product): ?>
@@ -171,7 +171,7 @@ $order->refresh();
 
         <br>
         Вы всегда можете проверить состояние заказа по ссылке:<br>
-        <?php echo CHtml::link(Yii::app()->createAbsoluteUrl('/store/order/view', array('url' => $order->url)), Yii::app()->createAbsoluteUrl('/store/order/view', array('url' => $order->url))); ?>
+        <?php echo CHtml::link(Yii::app()->createAbsoluteUrl('/order/order/view', array('url' => $order->url)), Yii::app()->createAbsoluteUrl('/order/order/view', array('url' => $order->url))); ?>
         <br>
 
     </body>

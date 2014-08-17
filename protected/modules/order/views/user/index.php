@@ -6,9 +6,9 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Личный кабинет');
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th class="col-sm-3">Дата</th>
-            <th class="col-sm-7">Номер</th>
-            <th class="col-sm-2">Статус</th>
+            <th class="col-sm-3"><?php echo Yii::t("OrderModule.order", "Дата");?></th>
+            <th class="col-sm-7"><?php echo Yii::t("OrderModule.order", "Номер");?></th>
+            <th class="col-sm-2"><?php echo Yii::t("OrderModule.order", "Статус");?></th>
         </tr>
     </thead>
     <tbody>

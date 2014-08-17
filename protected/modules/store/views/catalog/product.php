@@ -11,7 +11,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.simp
 
 $this->breadcrumbs = array_merge(
     array(Yii::t("StoreModule.catalog", 'Каталог') => array('/store/catalog/index')),
-    $product->mainCategory->getBreadcrumbs(true),
+    $product->mainCategory ? $product->mainCategory->getBreadcrumbs(true): array(),
     array($product->name)
 );
 ?>
@@ -47,7 +47,7 @@ $this->breadcrumbs = array_merge(
                             <?php
                             // группировка атрибутов по группам
                             $attributeGroups = array();
-                            foreach ($product->type->typeAttributes as $attribute) {
+                            foreach ((array)$product->type->typeAttributes as $attribute) {
                                 if ($attribute->group) {
                                     $attributeGroups[$attribute->group->name][] = $attribute;
                                 } else {
