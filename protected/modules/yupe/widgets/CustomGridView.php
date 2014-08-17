@@ -102,7 +102,7 @@ class CustomGridView extends \TbExtendedGridView
         echo '<tr><td colspan="' . count($this->columns) . '">';
         $this->bulk->renderButtons();
         if($this->actionsButtons) {
-            echo CHtml::link(Yii::t('YupeModule.yupe','Add'),['/'.$this->controller->module->getId().'/'.strtolower($this->_modelName).'Backend/create'],['class' => 'btn btn-success pull-right btn-sm']);
+            echo CHtml::link(Yii::t('YupeModule.yupe','Add'),['/'.$this->controller->module->getId().'/'.lcfirst($this->_modelName).'Backend/create'],['class' => 'btn btn-success pull-right btn-sm']);
         }
         echo '</td></tr>';
     }
