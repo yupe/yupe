@@ -59,12 +59,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/news/newsBackend/update", "id" => $data->id))',
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'title',
                 'editable' => array(

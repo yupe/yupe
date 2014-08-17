@@ -82,13 +82,65 @@ class CustomGridView extends \TbExtendedGridView
      * @uses renderHeadline
      * @var string
      **/
-    public $headlinePosition;
+    public $headlinePosition = self::HP_RIGHT;
 
-    public $template = "{headline}\n{summary}\n{items}\n{pager}\n{extendedSummary}\n{multiaction}";
+    public $template = "{pager}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 20px;'>{headline}</div>";
 
     public $ajaxUrl;
 
     public $selectableRows = 2;
+
+    public $pagerCssClass = 'pull-left';
+
+    public $actionsButtons = true;
+
+
+    public function renderBulkActions()
+    {
+        \Booster::getBooster()->registerAssetJs('jquery.saveselection.gridview.js');
+        $this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.afterUpdateGrid('".$this->id."');";
+        echo '<tr><td colspan="' . count($this->columns) . '">';
+        $this->bulk->renderButtons();
+        if($this->actionsButtons) {
+            echo CHtml::link(Yii::t('YupeModule.yupe','Add'),['/'.$this->controller->module->getId().'/'.strtolower($this->_modelName).'Backend/create'],['class' => 'btn btn-success pull-right btn-sm']);
+        }
+        echo '</td></tr>';
+    }
+
+    public function renderTableFooter()
+    {
+        $this->bulk = null;
+        parent::renderTableFooter();
+    }
+
+    public function renderTableHeader()
+    {
+        if(!$this->hideHeader)
+        {
+            echo "<thead>\n";
+
+            $this->renderBulkActions();
+
+            if($this->filterPosition===self::FILTER_POS_HEADER)
+                $this->renderFilter();
+
+            echo "<tr>\n";
+            foreach($this->columns as $column)
+                $column->renderHeaderCell();
+            echo "</tr>\n";
+
+            if($this->filterPosition===self::FILTER_POS_BODY)
+                $this->renderFilter();
+
+            echo "</thead>\n";
+        }
+        elseif($this->filter!==null && ($this->filterPosition===self::FILTER_POS_HEADER || $this->filterPosition===self::FILTER_POS_BODY))
+        {
+            echo "<thead>\n";
+            $this->renderFilter();
+            echo "</thead>\n";
+        }
+    }
 
     /**
      * Widget initialization
@@ -101,13 +153,15 @@ class CustomGridView extends \TbExtendedGridView
         $this->headlinePosition = empty($this->headlinePosition) ? self::HP_RIGHT : $this->headlinePosition;
         $this->initPageSizes();
         $this->ajaxUrl = empty($this->ajaxUrl)
-            ? (array)Yii::app()->controller->action->id
+            ? (array)Yii::app()->getController()->getAction()->getId()
             : $this->ajaxUrl;
 
         $this->bulkActions = empty($this->bulkActions) ? array(
+            'class' => 'booster.widgets.TbBulkActions',
+            'align' => 'right',
             'actionButtons' => array(
                 array(
-                    'id' => 'delete-post',
+                    'id' => 'delete-'.strtolower($this->_modelName),
                     'buttonType' => 'button',
                     'context' => 'danger',
                     'size' => 'small',
@@ -127,15 +181,6 @@ class CustomGridView extends \TbExtendedGridView
 
         $this->bulkActionAlign = 'left';
 
-        // live hack before yii 1.1.15 release:
-        strtolower($this->ajaxType) != 'post' || $this->beforeAjaxUpdate = 'function(id, options) {
-            options.data = $.extend(options.data, ' . json_encode(
-                array(
-                    Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
-                )
-            ) . ');
-        }';
-
         parent::init();
     }
 
@@ -147,7 +192,7 @@ class CustomGridView extends \TbExtendedGridView
      */
     protected function initPageSizes()
     {
-        $modSettings = Yii::app()->user->getState(\YWebUser::STATE_MOD_SETTINGS, null);
+        $modSettings = Yii::app()->getUser()->getState(\YWebUser::STATE_MOD_SETTINGS, null);
         $pagination = $this->dataProvider->getPagination();
         if (
             !$this->enablePagination
@@ -174,64 +219,6 @@ class CustomGridView extends \TbExtendedGridView
     }
 
     /**
-     *   Generates HTML-code for BootStrap-icons switch activity, depending on the current state of the model
-     *   Генерирует HTML-код для BootStrap-иконки переключателя активности в зависимости от текущего состояния модели
-     *
-     * By default, the state values:
-     * 0 - Draft (deactivated)
-     * 1 - Posted on (activated)
-     * 2 - In Moderation
-     *
-     * @param class $data - a model instance for which generated display the switch
-     * @param string $statusField -
-     * @param string $method -
-     * @param array $icons - an array of names icons statuses
-     *
-     * @return string HTML-code for BootStrap-switch icon
-     *
-     */
-    public function returnBootstrapStatusHtml($data, $statusField = 'status', $method = 'Status', $icons = array('lock', 'ok-sign', 'time'))
-    {
-        $funcStatus = 'get' . $method;
-        $funcStatusList = 'get' . $method . 'List';
-
-        $text = method_exists($data, $funcStatus) ? $data->$funcStatus() : '';
-        $iconStatus = isset($icons[$data->$statusField]) ? $icons[$data->$statusField] : 'question-sign';
-        $icon = '<i class="glyphicon glyphicon-' . $iconStatus . '" title="' . $text . '"></i>';
-
-        if (method_exists($data, $funcStatusList)) {
-            $statusList = $data->$funcStatusList();
-
-            reset($statusList);
-            $status = key($statusList);
-            while (list($key,) = each($statusList)) {
-                if ($key == $data->$statusField) {
-                    $keyNext = key($statusList);
-                    if (is_numeric($keyNext)) {
-                        $status = $keyNext;
-                        break;
-                    }
-                }
-            }
-
-            $url = Yii::app()->controller->createUrl(
-                "activate",
-                array(
-                    'model' => $this->_modelName,
-                    'id' => $data->id,
-                    'status' => $status,
-                    'statusField' => $statusField,
-                )
-            );
-            $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
-
-            return CHtml::link($icon, $url, $options);
-        }
-
-        return $icon;
-    }
-
-    /**
      *   Function for rendering Up/Down buttons:
      *
      * @param class $data - incomming model instance
@@ -244,7 +231,7 @@ class CustomGridView extends \TbExtendedGridView
 
         $upUrlImage = '<i class="glyphicon glyphicon-circle-arrow-up"></i>';
 
-        $urlUp = Yii::app()->controller->createUrl(
+        $urlUp = Yii::app()->getController()->createUrl(
             "sort",
             array(
                 'model' => $this->_modelName,
@@ -254,7 +241,7 @@ class CustomGridView extends \TbExtendedGridView
             )
         );
 
-        $urlDown = Yii::app()->controller->createUrl(
+        $urlDown = Yii::app()->getController()->createUrl(
             "sort",
             array(
                 'model' => $this->_modelName,
@@ -281,7 +268,7 @@ class CustomGridView extends \TbExtendedGridView
         $modelName = strtolower($this->_modelName);
 
         // Делаем так, ибо при попытке править Yii::app()->session['modSettings'] - получаем ошибку
-        $sessionSettings = Yii::app()->user->getState(\YWebUser::STATE_MOD_SETTINGS, null);
+        $sessionSettings = Yii::app()->getUser()->getState(\YWebUser::STATE_MOD_SETTINGS, null);
         $currentPageSize = $this->dataProvider->getPagination()->pageSize;
 
         // Если переменная не найдена нужно проверить наличие данных в БД
@@ -290,7 +277,7 @@ class CustomGridView extends \TbExtendedGridView
             $sessionSettings[$modelName] = array();
             $setting = Settings::model()->findAllByAttributes(
                 array(
-                    'user_id' => Yii::app()->user->getId(),
+                    'user_id' => Yii::app()->getUser()->getId(),
                     'module_id' => $modelName,
                     'param_name' => 'pageSize',
                     'type' => Settings::TYPE_USER,
@@ -298,7 +285,7 @@ class CustomGridView extends \TbExtendedGridView
             );
 
             // Если не найдена запись, создаем
-            if ($setting === null) {
+            if (null === $setting) {
                 $setting = new Settings;
                 $setting->module_id = $modelName;
                 $setting->param_name = 'pageSize';
@@ -312,7 +299,7 @@ class CustomGridView extends \TbExtendedGridView
             // Обновим запись в базе
             $setting = Settings::model()->findByAttributes(
                 array(
-                    'user_id' => Yii::app()->user->getId(),
+                    'user_id' => Yii::app()->getUser()->getId(),
                     'module_id' => $modelName,
                     'param_name' => 'pageSize',
                     'type' => Settings::TYPE_USER
@@ -320,7 +307,7 @@ class CustomGridView extends \TbExtendedGridView
             );
 
             // Если не найдена запись, создаем
-            if ($setting === null) {
+            if (null === $setting) {
                 $setting = new Settings;
                 $setting->module_id = $modelName;
                 $setting->param_name = 'pageSize';
@@ -329,14 +316,14 @@ class CustomGridView extends \TbExtendedGridView
                 $setting->save();
             } else {
                 $setting->param_value = $currentPageSize;
-                $setting->update();
+                $setting->update(['param_value']);
             }
         }
 
         $sessionSettings[$modelName]['pageSize'] = $currentPageSize;
 
         // Перезаписываем сессию
-        Yii::app()->user->setState(\YWebUser::STATE_MOD_SETTINGS, $sessionSettings);
+        Yii::app()->getUser()->setState(\YWebUser::STATE_MOD_SETTINGS, $sessionSettings);
     }
 
     /**
@@ -346,12 +333,12 @@ class CustomGridView extends \TbExtendedGridView
      */
     public function renderHeadline()
     {
-        if (!$this->_pageSizesEnabled) {
+        if (!$this->_pageSizesEnabled || $this->dataProvider->itemCount < 5) {
             return;
         }
-        /** @var $cs CClientScript */
-        $cs = Yii::app()->getClientScript();
-        $buttons = array();
+
+        $buttons = [];
+
         $currentPageSize = $this->dataProvider->getPagination()->pageSize;
 
         /* Перебор переключателей: */
@@ -366,34 +353,26 @@ class CustomGridView extends \TbExtendedGridView
                 'url' => '#',
             );
         }
-        /* Установка позиции headline'а: */
-        $headlinePosition = '';
-        if (in_array($this->headlinePosition, array('left', 'right'))) {
-            $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
-        }
-        echo '<div class="headline" ' . $headlinePosition . ' >';
-        /* Текстовка: */
-        echo Yii::t('YupeModule.yupe', 'Sort by:') . '<br />';
+
+        echo Yii::t('YupeModule.yupe','Display on');
 
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(
             'bootstrap.widgets.TbButtonGroup',
             array(
                 'size' => 'small',
-                'toggle' => 'radio',
-                'buttons' => $buttons,
+                'buttons' => $buttons
             )
         );
-        echo '</div>';
-        echo '<br />';
+
         /* Скрипт передачи PageSize: */
         $csrfTokenName = Yii::app()->getRequest()->csrfTokenName;
-        $csrfToken = Yii::app()->getRequest()->csrfToken;
+        $csrfToken = Yii::app()->getRequest()->getCsrfToken();
         $csrf = Yii::app()->getRequest()->enableCsrfValidation === false
         || strtolower($this->ajaxType) != 'post'
             ? ""
             : ", '$csrfTokenName':'{$csrfToken}'";
-        $cs->registerScript(
+        Yii::app()->getClientScript()->registerScript(
             __CLASS__ . '#' . $this->id . 'ExHeadline',
             <<<JS
             (function(){
@@ -428,16 +407,11 @@ JS
      */
     public function renderMultiaction()
     {
-        $cscript = Yii::app()->getClientScript();
-
-        $multiactionUrl = Yii::app()->controller->createUrl('multiaction');
-
-        /* Скрипт для мультиекшена: */
-        $cscript->registerScript(
+        Yii::app()->getClientScript()->registerScript(
             __CLASS__ . '#' . $this->id . 'ExMultiaction',
             'var multiaction = function(action, values) {
                 var queryString = "";
-                var url = "' . $multiactionUrl . '";
+                var url = "' . Yii::app()->getController()->createUrl('multiaction') . '";
                 $.map(values, function(itemInput) {
                     queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + itemInput;
                 });                
@@ -445,7 +419,7 @@ JS
                     url: url,
                     type: "POST",
                     dataType: "json",
-                    data: "' . Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken . '&model=' . $this->_modelName . '&do=" + action + "&" + queryString,
+                    data: "' . Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->getCsrfToken() . '&model=' . $this->_modelName . '&do=" + action + "&" + queryString,
                     success: function(data) {
                         if (data.result) {                            
                             $.fn.yiiGridView.update("' . $this->id . '");

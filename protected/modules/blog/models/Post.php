@@ -58,6 +58,9 @@ class Post extends yupe\models\YModel implements ICommentable
     const ACCESS_PUBLIC = 1;
     const ACCESS_PRIVATE = 2;
 
+    const COMMENT_YES = 1;
+    const COMMENT_NO  = 0;
+
     public $tagsItems;
 
     /**
@@ -249,7 +252,7 @@ class Post extends yupe\models\YModel implements ICommentable
         );
     }
 
-   
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -436,8 +439,8 @@ class Post extends yupe\models\YModel implements ICommentable
     public function getCommentStatusList()
     {
         return array(
-            self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Forbidden'),
-            self::ACCESS_PUBLIC => Yii::t('BlogModule.blog', 'Allowed'),
+            self::COMMENT_NO  => Yii::t('BlogModule.blog', 'Forbidden'),
+            self::COMMENT_YES => Yii::t('BlogModule.blog', 'Allowed'),
         );
     }
 

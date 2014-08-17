@@ -39,20 +39,18 @@ $this->menu = array(
     ),
 );
 ?>
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('BlogModule.blog', 'Posts'); ?>
-        <small><?php echo Yii::t('BlogModule.blog', 'administration'); ?></small>
-    </h1>
-</div>
 
-<p>
-    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
-        <?php echo Yii::t('BlogModule.blog', 'Find posts'); ?>
-        <span class="caret">&nbsp;</span>
-    </a>
-</p>
+<?php
+$this->beginWidget(
+    'booster.widgets.TbPanel', ['title' => Yii::t('BlogModule.blog', 'Posts'), 'headerIcon' => $this->module->getIcon()]
+);
+?>
+
+<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="glyphicon glyphicon-search">&nbsp;</i>
+    <?php echo Yii::t('BlogModule.blog', 'Find posts'); ?>
+    <span class="caret">&nbsp;</span>
+</a>
 
 <div id="search-toggle" class="collapse out search-form">
     <?php
@@ -70,10 +68,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p>
-    <?php echo Yii::t('BlogModule.blog', 'In this category located post administration functions'); ?>
-</p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -81,14 +75,6 @@ $this->menu = array(
         'dataProvider' => $model->search(),
         'filter' => $model,
         'columns' => array(
-            array(
-                'name' => 'id',
-                'value' => 'CHtml::link($data->id, array("/blog/postBackend/update","id" => $data->id))',
-                'type' => 'html',
-                'htmlOptions' => array(
-                    'style' => 'width:10px;'
-                )
-            ),
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
@@ -219,3 +205,5 @@ $this->menu = array(
         ),
     )
 ); ?>
+
+<?php $this->endWidget(); ?>

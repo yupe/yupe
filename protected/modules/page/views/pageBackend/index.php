@@ -60,11 +60,6 @@ $this->menu = array(
         'sortField' => 'order',
         'columns' => array(
             array(
-                'name' => 'id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/page/pageBackend/update", "id" => $data->id))',
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'title',
                 'editable' => array(

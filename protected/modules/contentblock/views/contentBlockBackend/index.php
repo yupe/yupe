@@ -53,12 +53,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
-                'value' => 'CHtml::link($data->id, array("/contentblock/contentBlockBackend/update", "id" => $data->id))',
-                'type' => 'raw'
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'name',
                 'editable' => array(

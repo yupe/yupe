@@ -39,13 +39,13 @@ class YInLineEditAction extends CAction
      */
     public function run()
     {
-        if (!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
             throw new CHttpException(404);
         }
 
-        $name = Yii::app()->request->getPost('name');
-        $value = Yii::app()->request->getPost('value');
-        $pk = Yii::app()->request->getPost('pk');
+        $name = Yii::app()->getRequest()->getPost('name');
+        $value = Yii::app()->getRequest()->getPost('value');
+        $pk = Yii::app()->getRequest()->getPost('pk');
 
         if (!isset($name, $value, $pk)) {
             throw new CHttpException(404);

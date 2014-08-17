@@ -67,17 +67,9 @@ $this->widget(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'value' => 'CHtml::link($data->id, array("/user/userBackend/view", "id" => $data->id))',
-                'type' => 'html',
-                'htmlOptions' => array(
-                    'style' => 'width: 40px; text-align: center'
-                )
-            ),
-            array(
                 'name' => 'nick_name',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->nick_name, array("/user/userBackend/view", "id" => $data->id))',
+                'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/view", "id" => $data->id))',
             ),
             array(
                 'name' => 'email',
@@ -87,7 +79,7 @@ $this->widget(
                 'filter' => false,
                 'value' => function ($data) {
                     echo CHtml::link(
-                        Yii::t('RbacModule.rbac', 'Permissions'),
+                        Yii::t('RbacModule.rbac', 'Roles'),
                         array('/rbac/rbacBackend/assign', 'id' => $data->id),
                         array('class' => 'btn btn-default btn-small')
                     );

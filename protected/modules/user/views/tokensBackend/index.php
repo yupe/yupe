@@ -66,14 +66,6 @@ SCRIPT;
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'value' => 'CHtml::link($data->id, array("/user/tokensBackend/update", "id" => $data->id))',
-                'type' => 'html',
-                'htmlOptions' => array(
-                    'style' => 'width: 40px; text-align: center'
-                )
-            ),
-            array(
                 'name' => 'user_id',
                 'value' => '$data->getFullName()',
                 'filter' => $model->getUserList()
