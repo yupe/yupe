@@ -1,6 +1,7 @@
 <?php
-/* @var $model Product */
-if (isset($model)) {
+/* @var $model Product - передается при рендере из формы редактирования товара */
+/* @var $type Type - передается при генерации формы через ajax */
+if (isset($model) && $model->type) {
     $type = $model->type;
 }
 ?>
