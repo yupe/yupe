@@ -53,7 +53,7 @@ class ProductImage extends \yupe\models\YModel
 
     public function behaviors()
     {
-        $module = Yii::app()->getModule('shop');
+        $module = Yii::app()->getModule('store');
 
         return array(
             'imageUpload' => array(
