@@ -80,6 +80,7 @@ class ModuleManager extends \CApplicationComponent
         );
 
         $modules = $yiiModules = $order = array();
+        $modulesExtendedNavigation = array();
 
         if (count(Yii::app()->getModules())) {
             /**
@@ -96,6 +97,8 @@ class ModuleManager extends \CApplicationComponent
                             : $module->getCategory();
                         $modules[$key] = $module;
                         $order[$category][$key] = $module->adminMenuOrder;
+                        $moduleExNav = (array)$module->getExtendedNavigation();
+                        $modulesExtendedNavigation = array_merge($modulesExtendedNavigation, $moduleExNav);
                     } else {
                         $yiiModules[$key] = $module;
                     }
@@ -128,8 +131,6 @@ class ModuleManager extends \CApplicationComponent
                 $uniqueMenuId = 0;
                 // Обходим категории модулей
                 foreach ($order as $keyCategory => $valueCategory) {
-                    // Настройки модуля, если таковые имеются:
-                    $modSettings = array();
                     $settings['items'] = array();
 
                     // Шаблон категорий
@@ -150,6 +151,7 @@ class ModuleManager extends \CApplicationComponent
 
                     // Обходим модули
                     foreach ($valueCategory as $key => $value) {
+                        $modSettings = array();
                         // Собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                         if ($modules[$key]->editableParams && $key != self::CORE_MODULE) {
                             $modSettings = array(
@@ -233,6 +235,7 @@ class ModuleManager extends \CApplicationComponent
             $modules += (array)$this->getModulesDisabled($modules);
         }
 
+        $modulesNavigation = array_merge($modulesNavigation, $modulesExtendedNavigation);
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules' => $modules,
             'yiiModules' => $yiiModules,
