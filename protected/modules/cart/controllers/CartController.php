@@ -30,7 +30,7 @@ class CartController extends yupe\components\controllers\FrontController
             if (isset($_POST['Product']['id'])) {
                 $product = CartProduct::model()->findByPk($_POST['Product']['id']);
                 if ($product) {
-                    $variantsId = $_POST['ProductVariant'];
+                    $variantsId = isset($_POST['ProductVariant']) ? $_POST['ProductVariant'] : array();
                     $variants = array();
                     foreach ((array)$variantsId as $var) {
                         if (!$var) {
@@ -42,7 +42,7 @@ class CartController extends yupe\components\controllers\FrontController
                         }
                     }
                     $product->selectedVariants = $variants;
-                    Yii::app()->shoppingCart->put($product, $_POST['Product']['quantity'] ?: 1);
+                    Yii::app()->shoppingCart->put($product, isset($_POST['Product']['quantity']) ? $_POST['Product']['quantity'] : 1);
                     Yii::app()->ajax->rawText(
                         json_encode(array('result' => 'success', 'message' => Yii::t("CartModule.cart", 'Товар успешно добавлен в корзину')))
                     );

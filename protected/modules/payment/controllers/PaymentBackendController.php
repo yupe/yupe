@@ -151,6 +151,12 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
     public function actionPaymentSystemSettings()
     {
         $payment = Payment::model()->findByPk(Yii::app()->request->getParam('payment_id'));
-        $this->renderPartial('_payment_system_settings', array('model' => $payment, 'paymentSystem' => Yii::app()->request->getParam('payment_system')));
+        $this->renderPartial(
+            '_payment_system_settings',
+            array(
+                'paymentSystem' => Yii::app()->request->getParam('payment_system'),
+                'paymentSettings' => $payment ? $payment->getPaymentSystemSettings() : array(),
+            )
+        );
     }
 }

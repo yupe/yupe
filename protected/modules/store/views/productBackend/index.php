@@ -68,7 +68,7 @@ $this->menu = array(
             array(
                 'name' => 'is_special',
                 'type' => 'raw',
-                'value' => 'is_special',
+                //'value' => 'is_special',
                 'filter' => Yii::app()->getModule('store')->getChoice()
             ),
             array(

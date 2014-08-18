@@ -29,15 +29,16 @@ class PaymentSystem extends CComponent
             $variable = $param['variable'];
             $settings .= CHtml::openTag('div', array('class' => 'form-group'));
             $settings .= CHtml::label($param['name'], 'Payment_settings_' . $variable, array('class' => 'control-label'));
+            $value = isset($paymentSettings[$variable]) ? $paymentSettings[$variable] : null;
             if (isset($param['options'])) {
                 $settings .= CHtml::dropDownList(
                     'PaymentSettings[' . $variable . ']',
-                    $paymentSettings[$variable],
+                    $value,
                     CHtml::listData($param['options'], 'value', 'name'),
                     array('class' => 'form-control')
                 );
             } else {
-                $settings .= CHtml::textField('PaymentSettings[' . $variable . ']', $paymentSettings[$variable], array('class' => 'form-control'));
+                $settings .= CHtml::textField('PaymentSettings[' . $variable . ']', $value, array('class' => 'form-control'));
             }
             $settings .= CHtml::closeTag('div');
         }
