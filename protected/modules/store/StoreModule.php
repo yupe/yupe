@@ -148,7 +148,7 @@ class StoreModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('StoreModule.store', 'Интернет-магазин');
+        return Yii::t('StoreModule.store', 'Магазин');
     }
 
     public function getDescription()

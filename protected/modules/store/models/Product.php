@@ -56,6 +56,7 @@ class Product extends yupe\models\YModel implements ICommentable
     public $category;
     public $selectedVariants = array();
     private $_variants = array();
+    private $_eavAttributes = null;
 
     /**
      * Returns the static model of the specified AR class.
@@ -378,8 +379,6 @@ class Product extends yupe\models\YModel implements ICommentable
         return $list;
     }
 
-    private $_eavAttributes = null;
-
     public function setTypeAttributes($attributes)
     {
         $this->_eavAttributes = $attributes;
@@ -529,5 +528,10 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getLink()
     {
         return Yii::app()->createUrl('/store/catalog/show', array('name' => $this->alias));
+    }
+
+    public function getMainCategoryId()
+    {
+        return is_object($this->mainCategory) ? $this->mainCategory->id : null;
     }
 }

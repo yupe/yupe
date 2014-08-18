@@ -82,9 +82,9 @@ class CustomGridView extends \TbExtendedGridView
      * @uses renderHeadline
      * @var string
      **/
-    public $headlinePosition;
+    public $headlinePosition = self::HP_RIGHT;
 
-    public $template = "{headline}\n{summary}\n{items}\n{pager}\n{extendedSummary}\n{multiaction}";
+    public $template = "{pager}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 20px;'>{headline}</div>";
 
     public $ajaxUrl;
 
@@ -142,8 +142,6 @@ class CustomGridView extends \TbExtendedGridView
         }
     }
 
-    private $uniqueId = "";
-
     /**
      * Widget initialization
      *
@@ -152,7 +150,6 @@ class CustomGridView extends \TbExtendedGridView
     public function init()
     {
         $this->_modelName = $this->dataProvider->modelClass;
-        $this->uniqueId = $this->_modelName;
         $this->headlinePosition = empty($this->headlinePosition) ? self::HP_RIGHT : $this->headlinePosition;
         $this->initPageSizes();
         $this->ajaxUrl = empty($this->ajaxUrl)
@@ -164,7 +161,7 @@ class CustomGridView extends \TbExtendedGridView
             'align' => 'right',
             'actionButtons' => array(
                 array(
-                    'id' => 'delete-post-' . $this->uniqueId,
+                    'id' => 'delete-'.strtolower($this->_modelName),
                     'buttonType' => 'button',
                     'context' => 'danger',
                     'size' => 'small',
@@ -172,7 +169,7 @@ class CustomGridView extends \TbExtendedGridView
                     'click' => 'js:function(values){ if(!confirm("' . Yii::t(
                             'YupeModule.yupe',
                             'Do you really want to delete selected elements?'
-                        ) . '")) return false; multiaction' . $this->uniqueId . '("delete", values); }',
+                        ) . '")) return false; multiaction("delete", values); }',
                 ),
             ),
             'checkBoxColumnConfig' => array(
@@ -184,20 +181,7 @@ class CustomGridView extends \TbExtendedGridView
 
         $this->bulkActionAlign = 'left';
 
-        // live hack before yii 1.1.15 release:
-        strtolower($this->ajaxType) != 'post' || $this->beforeAjaxUpdate = 'function(id, options) {
-            options.data = $.extend(options.data, ' . json_encode(
-                array(
-                    Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
-                )
-            ) . ');
-        }';
-
-        // временный костыль для https://github.com/clevertech/YiiBooster/blob/master/src/widgets/TbExtendedGridView.php#L229
-        // selectionChanged затирается зачем-то
-        $t = $this->selectionChanged;
         parent::init();
-        $this->selectionChanged = $t;
     }
 
     /**
@@ -369,14 +353,6 @@ class CustomGridView extends \TbExtendedGridView
                 'url' => '#',
             );
         }
-        /* Установка позиции headline'а: */
-        $headlinePosition = '';
-        if (in_array($this->headlinePosition, array('left', 'right'))) {
-            $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
-        }
-        echo '<div class="headline" ' . $headlinePosition . ' >';
-        /* Текстовка: */
-        echo Yii::t('YupeModule.yupe', 'Sort by:') . '<br />';
 
         echo Yii::t('YupeModule.yupe','Display on');
 

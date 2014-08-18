@@ -76,7 +76,7 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", Товары); ?></span>
+                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", 'Товары'); ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">

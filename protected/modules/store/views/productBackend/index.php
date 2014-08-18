@@ -68,13 +68,12 @@ $this->menu = array(
             array(
                 'name' => 'is_special',
                 'type' => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "star"))',
+                'value' => 'is_special',
                 'filter' => Yii::app()->getModule('store')->getChoice()
             ),
             array(
                 'name' => 'status',
                 'type' => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("time", "ok-sign", "minus-sign"))',
                 'filter' => $model->getStatusList()
             ),
             array(

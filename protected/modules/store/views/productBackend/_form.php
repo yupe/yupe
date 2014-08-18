@@ -117,7 +117,7 @@ $form = $this->beginWidget(
                 <div class="form-group">
                     <?php echo CHtml::label(Yii::t("StoreModule.product", "Главная категория"), 'categories_main', array('class' => 'control-label')); ?>
                     <?php $categoriesList = (new StoreCategory())->getTabList(); ?>
-                    <?php echo CHtml::dropDownList('categories[main]', $model->mainCategory->id, $categoriesList, array('class' => 'form-control')); ?>
+                    <?php echo CHtml::dropDownList('categories[main]', $model->getMainCategoryId(), $categoriesList, array('class' => 'form-control')); ?>
                 </div>
             </div>
         </div>

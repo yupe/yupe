@@ -43,7 +43,6 @@ $this->widget(
             array(
                 'name' => 'status',
                 'type' => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("time", "ok-sign", "minus-sign"))',
                 'filter' => $model->getStatusList()
             ),
             'module',

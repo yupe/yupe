@@ -56,7 +56,6 @@ $this->menu = array(
             array(
                 'name' => 'status',
                 'type' => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
                 'filter' => $model->getStatusList()
             ),
             array(

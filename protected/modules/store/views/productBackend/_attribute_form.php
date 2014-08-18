@@ -4,9 +4,10 @@ if (isset($model)) {
     $type = $model->type;
 }
 ?>
+
 <div class="row">
     <div class="col-sm-12">
-        <?php if (is_array($type->typeAttributes)): { ?>
+        <?php if ( is_array($type->typeAttributes)): { ?>
             <?php
             $attributeGroups = array();
             foreach ($type->typeAttributes as $attribute) {

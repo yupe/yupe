@@ -18,4 +18,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'languages' => $languages)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

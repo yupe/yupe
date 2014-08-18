@@ -123,7 +123,7 @@ $form = $this->beginWidget(
             array(
                 'model' => $model,
                 'attribute' => 'description',
-                'options' => Yii::app()->hasModule('store')->editorOptions,
+                'options' => Yii::app()->getModule('store')->editorOptions,
             )
         ); ?>
         <p class="help-block"></p>

@@ -47,4 +47,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'languages' => $languages, 'langModels' => $langModels)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
