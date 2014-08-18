@@ -640,8 +640,8 @@ abstract class WebModule extends CWebModule
         Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
 
-        if (is_file($fileConfig) && $this->id != ModuleManager::INSTALL_MODULE && $updateConfig === false) {
-            throw new CException(Yii::t('YupeModule.yupe', 'Module already enabled!'), 304);
+        if (is_file($fileConfig) && $this->id != ModuleManager::INSTALL_MODULE) {
+            return true;
         } else {
 
             // Проверка модулей от которых зависит данный
@@ -650,12 +650,23 @@ abstract class WebModule extends CWebModule
                 if (!empty($dependencies) && is_array($dependencies)) {
                     foreach ($dependencies as $dependency) {
                         if (Yii::app()->getModule($dependency) == null) {
-                            throw new CException(
-                                Yii::t(
-                                    'YupeModule.yupe',
-                                    'Error. Modules which depends from this module is disabled. First please enable this modules.'
-                                )
-                            );
+                            //установить все зависимости @since 0.8
+                            $module = Yii::app()->moduleManager->getCreateModule($dependency);
+
+                            if(null === $module) {
+                                throw new CException(
+                                    Yii::t(
+                                        'YupeModule.yupe',
+                                        'Error. Modules which depends from this module is disabled. First please enable this modules.'
+                                    )
+                                );
+                            }
+
+                            if($module->getIsInstalled())  {
+                                $this->getActivate();
+                            }else{
+                                $module->getInstall();
+                            }
                         }
                     }
                 }
@@ -774,7 +785,7 @@ abstract class WebModule extends CWebModule
      *
      * @since 0.5
      */
-    public function installDB(&$installed = array())
+    public function installDB($installed = array())
     {
         $log = array();
         Yii::log(
@@ -801,14 +812,27 @@ abstract class WebModule extends CWebModule
                     )
                 );
 
-                if (($m = Yii::app()->getModule($dep)) == null) {
-                    throw new CException(
-                        Yii::t(
-                            'YupeModule.yupe',
-                            "Module {dm} required for install was not found",
-                            array('{dm}' => $dep)
-                        )
-                    );
+                if (($m = Yii::app()->getModule($dep)) === null) {
+                    //установить зависимости @since 0.8
+
+                    $module = Yii::app()->moduleManager->getCreateModule($dep);
+
+                    if(null === $module) {
+                            throw new CException(
+                                Yii::t(
+                                    'YupeModule.yupe',
+                                    "Module {dm} required for install was not found",
+                                    array('{dm}' => $dep)
+                                )
+                            );
+                    }
+
+                    if($module->getIsInstalled())  {
+                        $this->getActivate();
+                    }else{
+                        $module->getInstall();
+                    }
+
                 } else {
                     $i = $m->installDB($installed);
                     if (!isset($installed[$dep]) && !$i) {

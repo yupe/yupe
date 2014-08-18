@@ -161,7 +161,7 @@ return array (
   'Module "{module}" was not found!' => 'Модуль "{module}" не найден!',
   'Module Settings' => 'Настройки модулей',
   'Module already disabled!' => 'Модуль уже отключен!',
-  'Module already enabled!' => 'Модуль уже включен!',
+  'Module "{module}" already enabled!' => 'Модуль "{module}" уже включен!',
   'Module disabled successfully!' => 'Модуль успешно отключен!',
   'Module doesn\'t installed!' => 'Модуль еще не установлен!',
   'Module enabled successfully!' => 'Модуль успешно включен!',
