@@ -23,6 +23,7 @@ class CatalogController extends yupe\components\controllers\FrontController
     public function actionCategory($path = null)
     {
         $criteria = new CDbCriteria();
+        $cat = null;
         if ($path) {
             $cat = StoreCategory::model()->findByPath($path);
             if ($cat === null) {

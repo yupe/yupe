@@ -71,7 +71,7 @@ $id = $model->id;
                         <div class="col-sm-7">
                             <?php echo CHtml::dropDownList(
                                 'OrderProduct[' . $id . '][variant_ids][]',
-                                $variantGroupsSelected[$title],
+                                isset($variantGroupsSelected[$title]) ? $variantGroupsSelected[$title] : null,
                                 CHtml::listData($variantGroup, 'id', 'optionValue'),
                                 array('empty' => '', 'options' => $options, 'class' => 'form-control product-variant')
                             ); ?>

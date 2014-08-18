@@ -67,8 +67,8 @@ $form = $this->beginWidget(
                 <?php $this->renderPartial(
                     '_payment_system_settings',
                     array(
-                        'model' => $model,
-                        'paymentManager' => $paymentManager,
+                        'paymentSystem' => $model->module,
+                        'paymentSettings' => $model->getPaymentSystemSettings(),
                     )
                 ); ?>
             </div>

@@ -3,8 +3,8 @@
 
 $this->pageTitle = $category ? ($category->meta_title ?: $category->name) : Yii::t('StoreModule.catalog', 'Products');
 $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => array('/store/catalog/index'));
-$this->description = $category->meta_description;
-$this->keywords = $category->meta_keywords;
+$this->description = $category ? $category->meta_description : "";
+$this->keywords = $category ? $category->meta_keywords : "";
 
 if ($category) {
     $this->breadcrumbs = array_merge(
@@ -30,7 +30,7 @@ if ($category) {
                     'zii.widgets.jui.CJuiAutoComplete',
                     array(
                         'name' => 'q',
-                        'value' => $_GET['q'],
+                        'value' => Yii::app()->getRequest()->getParam('q'),
                         'source' => $this->createUrl('/store/catalog/autocomplete'),
                         // additional javascript options for the autocomplete plugin
                         'options' => array(
@@ -52,7 +52,9 @@ if ($category) {
 </div>
 <div class="row">
     <div class="col-sm-3">
-        <h3><span><?php echo Yii::t("StoreModule.catalog", "Категории"); ?></span></h3>
+        <h3>
+            <span><?php echo Yii::t("StoreModule.catalog", "Категории"); ?></span>
+        </h3>
         <div class="category-tree">
             <?php
             $cat = new StoreCategory();

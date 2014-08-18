@@ -4,11 +4,14 @@
 if (isset($model) && $model->type) {
     $type = $model->type;
 }
+if (!isset($type)) {
+    return;
+}
 ?>
 
 <div class="row">
     <div class="col-sm-12">
-        <?php if ( is_array($type->typeAttributes)): { ?>
+        <?php if (is_array($type->typeAttributes)): { ?>
             <?php
             $attributeGroups = array();
             foreach ($type->typeAttributes as $attribute) {
@@ -23,7 +26,7 @@ if (isset($model) && $model->type) {
                 <fieldset>
                     <legend><?php echo $groupName; ?></legend>
                     <?php foreach ($items as $attribute): { ?>
-                        <?php $hasError = $model ? $model->hasErrors('eav.' . $attribute->name) : false; ?>
+                        <?php $hasError = isset($model) ? $model->hasErrors('eav.' . $attribute->name) : false; ?>
                         <div class="row form-group">
                             <div class="col-sm-2">
                                 <label for="Attribute_<?= $attribute->name ?>" class="<?php echo $hasError ? "has-error" : ""; ?>">
@@ -37,7 +40,7 @@ if (isset($model) && $model->type) {
                                 </label>
                             </div>
                             <div class="col-sm-2 <?php echo $hasError ? "has-error" : ""; ?>">
-                                <?php echo $attribute->renderField($model ? $model->attr($attribute->name) : null); ?>
+                                <?php echo $attribute->renderField(isset($model) ? $model->attr($attribute->name) : null); ?>
                             </div>
                         </div>
                     <?php } endforeach; ?>

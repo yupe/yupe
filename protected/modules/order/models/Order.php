@@ -404,7 +404,7 @@ class Order extends yupe\models\YModel
         if (is_array($orderProducts)) {
             foreach ($orderProducts as $key => $op) {
                 $product = Product::model()->findByPk($op['product_id']);
-
+                $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : null;
                 if ($product) {
                     $this->hasProducts = true;
                 }
@@ -423,12 +423,12 @@ class Order extends yupe\models\YModel
                 }
 
                 if ($this->getScenario() == self::SCENARIO_USER) {
-                    $orderProduct->price = $product->getPrice($op['variant_ids']);
+                    $orderProduct->price = $product->getPrice($variantIds);
                 } else {
                     $orderProduct->price = $op['price'];
                 }
 
-                $orderProduct->variant_ids = $op['variant_ids'];
+                $orderProduct->variant_ids = $variantIds;
                 $orderProduct->quantity = $op['quantity'];
 
                 $orderProductsObjectsArray[] = $orderProduct;
