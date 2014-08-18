@@ -104,7 +104,8 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "2.*"
+        "codeception/codeception": "2.*",
+        "malyshev/yii-debug-toolbar" : "dev-master"
     },
     "minimum-stability": "stable"
 }

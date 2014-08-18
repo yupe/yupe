@@ -20,7 +20,7 @@ class UserLoginCest
         $I->wantTo('Check form with wrong data...');
         $I->fillField(LoginPage::$emailField, 'test@test.ru');
         $I->fillField(LoginPage::$passwordField, 'testpass');
-        $I->click(\CommonPage::LOGIN_LABEL, \CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->click(\CommonPage::LOGIN_LABEL, 'login-btn');
         $I->see('Email или пароль введены неверно!', \CommonPage::ERROR_CSS_CLASS);
 
         $I = new WebGuy\UserSteps($scenario);

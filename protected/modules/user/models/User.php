@@ -23,24 +23,66 @@
  */
 class User extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const GENDER_THING = 0;
+    /**
+     *
+     */
     const GENDER_MALE = 1;
+    /**
+     *
+     */
     const GENDER_FEMALE = 2;
 
+    /**
+     *
+     */
     const STATUS_BLOCK = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 2;
 
+    /**
+     *
+     */
     const EMAIL_CONFIRM_NO = 0;
+    /**
+     *
+     */
     const EMAIL_CONFIRM_YES = 1;
 
+    /**
+     *
+     */
     const ACCESS_LEVEL_USER = 0;
+    /**
+     *
+     */
     const ACCESS_LEVEL_ADMIN = 1;
 
+    /**
+     * @var
+     */
     private $_oldAccess_level;
+    /**
+     * @var
+     */
     private $_oldStatus;
+    /**
+     * @var bool
+     */
     public $use_gravatar = false;
 
+    /**
+     * @var
+     */
     public $pageSize;
 
     /**
@@ -408,6 +450,9 @@ class User extends yupe\models\YModel
             : Yii::t('UserModule.user', 'status is not set');
     }
 
+    /**
+     * @return array
+     */
     public function getEmailConfirmStatusList()
     {
         return array(
@@ -416,6 +461,9 @@ class User extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return string
+     */
     public function getEmailConfirmStatus()
     {
         $data = $this->getEmailConfirmStatusList();
@@ -476,7 +524,9 @@ class User extends yupe\models\YModel
 
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size."&d=".urlencode(Yii::app()->createAbsoluteUrl('/')."/".$userModule->defaultAvatar);
+            return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
+                Yii::app()->createAbsoluteUrl('/') . $userModule->defaultAvatar
+            );
         }
 
         $avatar = $this->avatar;
@@ -565,6 +615,9 @@ class User extends yupe\models\YModel
         $this->avatar = $filename;
     }
 
+    /**
+     * @return bool
+     */
     public function isActive()
     {
         return (int)$this->status === self::STATUS_ACTIVE;
