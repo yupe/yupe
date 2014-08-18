@@ -132,7 +132,7 @@ $form = $this->beginWidget(
                             'selectedCategories' => $model->getCategoriesIdList(),
                             'id' => 'category-tree'
                         )
-                    );        ?>
+                    ); ?>
                 </div>
             </div>
         </div>
@@ -376,15 +376,17 @@ $form = $this->beginWidget(
 
         function updateVariantTypeAttributes() {
             var typeId = $('#product-type').val();
-            $.getJSON('/backend/store/product/typeAttributes/' + typeId, function (data) {
-                typeAttributes = data;
-                var select = $('#variants-type-attributes');
-                $.each(data, function (key, value) {
-                    select.append($("<option></option>")
-                        .attr("value", value.id)
-                        .text(value.title));
+            if (typeId) {
+                $.getJSON('/backend/store/product/typeAttributes/' + typeId, function (data) {
+                    typeAttributes = data;
+                    var select = $('#variants-type-attributes');
+                    $.each(data, function (key, value) {
+                        select.append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.title));
+                    });
                 });
-            });
+            }
         }
 
         updateVariantTypeAttributes();
