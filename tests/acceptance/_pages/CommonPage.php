@@ -1,11 +1,11 @@
 <?php
 class CommonPage
 {
-    const SUCCESS_CSS_CLASS = '.alert-success';
+    const SUCCESS_CSS_CLASS = '';
 
-    const ERROR_CSS_CLASS = '.alert-error';
+    const ERROR_CSS_CLASS = '';
 
-    const BTN_PRIMARY_CSS_CLASS = '.btn-primary';
+    const BTN_PRIMARY_CSS_CLASS = '.btn';
 
     const LOGIN_LABEL = 'Войти';
 

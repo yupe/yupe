@@ -72,6 +72,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
                 'context' => 'primary',
                 'icon' => 'glyphicon glyphicon-signin',
                 'label' => Yii::t('UserModule.user', 'Sign in'),
+                'htmlOptions' => array('id' => 'login-btn', 'name' => 'login-btn')
             )
         ); ?>
 

@@ -21,7 +21,7 @@ return CMap::mergeArray(
         ),
         'components'    => array(
             'bootstrap' => array(
-                'class' => 'bootstrap.components.Bootstrap',
+                'class' => 'bootstrap.components.Booster',
                 'responsiveCss'  => true,
                 'fontAwesomeCss' => true,
             ),
