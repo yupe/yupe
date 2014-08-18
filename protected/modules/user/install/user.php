@@ -2,6 +2,11 @@
 return array(
     'module'    => array(
         'class'            => 'application.modules.user.UserModule',
+        'panelWidgets' => array(
+            'application.modules.user.widgets.PanelUserStatWidget' => array(
+                'limit' => 5
+            )
+        ),
         'documentRoot'     => $_SERVER['DOCUMENT_ROOT'],
         'avatarsDir'       => 'avatars',
         'avatarExtensions' => array( 'jpg', 'png', 'gif' ),

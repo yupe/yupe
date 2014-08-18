@@ -13,7 +13,7 @@ $this->menu = array(
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Content blocks'); ?>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'Blocks'); ?>
         <small><?php echo Yii::t('ContentBlockModule.contentblock', 'administration'); ?></small>
     </h1>
 </div>
@@ -53,19 +53,13 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
-                'value' => 'CHtml::link($data->id, array("/contentblock/contentBlockBackend/update", "id" => $data->id))',
-                'type' => 'raw'
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'name',
                 'editable' => array(
                     'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'mode' => 'inline',
                     'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     )
                 ),
                 'filter' => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
@@ -78,7 +72,7 @@ $this->menu = array(
                     'title' => Yii::t('ContentBlockModule.contentblock', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('type')))),
                     'source' => $model->getTypes(),
                     'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     )
                 ),
                 'name' => 'type',
@@ -93,7 +87,7 @@ $this->menu = array(
                     'url' => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'mode' => 'inline',
                     'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     )
                 ),
                 'filter' => CHtml::activeTextField($model, 'code', array('class' => 'form-control')),
@@ -106,7 +100,7 @@ $this->menu = array(
                     'title' => Yii::t('ContentBlockModule.contentblock', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
                     'emptytext' => Yii::t('ContentBlockModule.contentblock', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
                     'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     )
                 ),
                 'filter' => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),

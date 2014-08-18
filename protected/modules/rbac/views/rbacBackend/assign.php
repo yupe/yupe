@@ -22,6 +22,7 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+    Yii::t('RbacModule.rbac', 'User list') => array('userList'),
     Yii::t('RbacModule.rbac', 'Rights assignment'),
 );
 ?>

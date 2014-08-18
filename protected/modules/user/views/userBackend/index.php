@@ -83,14 +83,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'value' => 'CHtml::link($data->id, array("/user/userBackend/update", "id" => $data->id))',
-                'type' => 'html',
-                'htmlOptions' => array(
-                    'style' => 'width: 40px; text-align: center'
-                )
-            ),
-            array(
                 'name' => 'nick_name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->nick_name, array("/user/userBackend/update", "id" => $data->id))',
@@ -158,6 +150,10 @@ $this->menu = array(
             array(
                 'name' => 'last_visit',
                 'filter' => false
+            ),
+            array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [User::STATUS_BLOCK => yupe\helpers\Html::DANGER, User::STATUS_NOT_ACTIVE => yupe\helpers\Html::WARNING, User::STATUS_ACTIVE => yupe\helpers\Html::SUCCESS])',
+                'type'  => 'raw'
             ),
             array(
                 'header' => Yii::t('UserModule.user', 'Management'),

@@ -46,7 +46,7 @@ class YAdminPanel extends YWidget
             'yupeToken', 'var actionToken = ' . json_encode(
                 array(
                     'token' => Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken,
-                    'url' => Yii::app()->createAbsoluteUrl('yupe/backend/modulestatus'),
+                    'url' => Yii::app()->createAbsoluteUrl('yupe/modulesBackend/moduleStatus'),
                     'message' => Yii::t('YupeModule.yupe', 'Wait please, your request in process...'),
                     'error' => Yii::t('YupeModule.yupe', 'During the processing of your request an unknown error occurred =('),
                     'loadingimg' => CHtml::image(

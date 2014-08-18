@@ -16,14 +16,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
-    $mainAssets = Yii::app()->assetManager->publish(
+    $mainAssets = Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
-    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    if (($langs = $this->yupe->languageSelectorArray) != array())
-        Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/styles.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/bootstrap-notify.css');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
+    if (($langs = $this->yupe->getLanguageSelectorArray()) != array())
+        Yii::app()->getClientScript()->registerCssFile($mainAssets. '/css/flags.css');
     ?>
     <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
 
@@ -38,8 +40,10 @@
         <div id="footer-guard"></div>
     </div>
 
+    <div class='notifications top-right' id="notifications"></div>
+
     <footer>
-        &copy; 2010 - <?php echo date('Y'); ?>
+        &copy; 2012 - <?php echo date('Y'); ?>
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>

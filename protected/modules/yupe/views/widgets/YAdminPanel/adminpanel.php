@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-$yupeAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
+$yupeAssets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
 
 $this->widget(
     'bootstrap.widgets.TbNavbar',
@@ -105,19 +105,14 @@ $this->widget(
                         array(
                             'icon' => 'glyphicon glyphicon-home',
                             'label' => Yii::t('YupeModule.yupe', 'Go home'),
-                            'visible' => Yii::app()->getController() instanceof yupe\components\controllers\BackController === true,
                             'url' => Yii::app()->createAbsoluteUrl('/')
                         ),
                         array(
-                            'label' => ' &nbsp;
-                                <div style="float: left; line-height: 16px; text-align: center; margin-top: -10px;">
-                                    <small style="font-size: 80%; display: block; margin-bottom: 5px;">' . Yii::t('YupeModule.yupe', 'Administrator') . '</small>
-                                    <span class="label label-info">' . CHtml::encode(Yii::app()->getUser()->nick_name) . '</span>
-                                </div>',
-                            'encodeLabel' => false,
+                            'icon'  => 'glyphicon glyphicon-user',
+                            'label' => '<span class="label label-info">'.CHtml::encode(Yii::app()->getUser()->getProfileField('fullName')).'</span>',
                             'items' => array(
                                 array(
-                                    'icon' => 'glyphicon glyphicon-user',
+                                    'icon' => 'glyphicon glyphicon-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Profile'),
                                     'url' => CHtml::normalizeUrl((array('/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()))),
                                 ),

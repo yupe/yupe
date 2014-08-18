@@ -64,7 +64,6 @@ $this->widget(
         'filter' => $model,
         'bulkActions' => array(false),
         'columns' => array(
-            'id',
             array(
                 'name' => 'user_id',
                 'value' => '$data->user->getFullName()',

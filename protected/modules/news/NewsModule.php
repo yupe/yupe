@@ -165,7 +165,7 @@ class NewsModule extends WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-leaf";
+        return "glyphicon glyphicon-bullhorn";
     }
 
     public function getAdminPageLink()

@@ -102,7 +102,7 @@ function moduleRow($module, &$updates, &$modules)
             <?php
                 $tabs = array();
 
-                if ($module->getId() != 'yupe' && count($module->getDependencies()))
+                if ($module->getId() != \yupe\components\ModuleManager::CORE_MODULE && count($module->getDependencies()))
                 {
                     $deps = $module->getDependencies();
                     $tabs[] = array(
@@ -111,7 +111,7 @@ function moduleRow($module, &$updates, &$modules)
                         'count'   => count($deps),
                     );
                 }
-                if( $module->getId() == 'yupe')
+                if( $module->getId() == \yupe\components\ModuleManager::CORE_MODULE)
                     $tabs[] = array(
                         'label'   => "<small>" . Yii::t('YupeModule.yupe', 'Dependent') . "</small>",
                         'content' => Yii::t('YupeModule.yupe', 'All modules'),
@@ -150,7 +150,7 @@ function moduleRow($module, &$updates, &$modules)
                 )); ?>
             <?php endif; ?>
             <?php
-                $url = array('/yupe/backend/modulechange/', 'name' => $module->getId());
+                $url = array('/yupe/modulesBackend/moduleStatus/', 'name' => $module->getId());
                 $htmlOptions = array(
                     'class'  => 'changeStatus',
                     'module' => $module->getId(),

@@ -21,11 +21,15 @@ use GlobIterator;
 use TagsCache;
 use Yii;
 use yupe\widgets\YFlashMessages;
+use yupe\components\WebModule;
+use yupe\helpers\YFile;
 
 
 class ModuleManager extends \CApplicationComponent
 {
     const CORE_MODULE = 'yupe';
+
+    const INSTALL_MODULE = 'install';
 
     /**
      * @var
@@ -105,7 +109,7 @@ class ModuleManager extends \CApplicationComponent
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->getLanguage());
+            $modulesNavigation = Yii::app()->getCache()->get('YupeModulesNavigation-' . Yii::app()->getLanguage());
 
             if ($modulesNavigation === false) {
 
@@ -221,7 +225,7 @@ class ModuleManager extends \CApplicationComponent
                     )
                 );
 
-                Yii::app()->cache->set(
+                Yii::app()->getCache()->set(
                     'YupeModulesNavigation-' . Yii::app()->language,
                     $modulesNavigation,
                     0,
@@ -254,22 +258,25 @@ class ModuleManager extends \CApplicationComponent
      */
     public function getModulesDisabled($enableModule = array())
     {
-        if (($imports = Yii::app()->cache->get('pathForImports')) !== false) {
+        if (($imports = Yii::app()->getCache()->get('pathForImports')) !== false) {
             Yii::app()->getModule('yupe')->setImport($imports);
         }
 
         try {
 
-            if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
+            if ($imports === false || ($modules = @Yii::app()->getCache()->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
                 $cacheFile = Yii::app()->configManager->cacheFileName;
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
 
-                    if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false && $cacheFile != $item->getBaseName('.php')) {
+                    if (is_dir(
+                            $modPath . '/' . $item->getBaseName('.php')
+                        ) == false && $cacheFile != $item->getBaseName('.php')
+                    ) {
 
-                        Yii::app()->cache->flush();
+                        Yii::app()->getCache()->flush();
 
                         unlink($modConfigs . '/' . $item->getBaseName());
 
@@ -298,7 +305,7 @@ class ModuleManager extends \CApplicationComponent
                         }
                         if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
                             $modules[$dir] = $this->getCreateModule($dir);
-                            $imports[] = Yii::app()->cache->get('tmpImports');
+                            $imports[] = Yii::app()->getCache()->get('tmpImports');
                         }
                     }
                     closedir($handler);
@@ -318,12 +325,12 @@ class ModuleManager extends \CApplicationComponent
                     )
                 );
 
-                Yii::app()->cache->set('modulesDisabled', $modules, 0, $chain);
-                Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
+                Yii::app()->getCache()->set('modulesDisabled', $modules, 0, $chain);
+                Yii::app()->getCache()->set('pathForImports', $imports, 0, $chain);
             }
         } catch (Exception $e) {
 
-            Yii::app()->cache->flush();
+            Yii::app()->getCache()->flush();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
@@ -359,11 +366,12 @@ class ModuleManager extends \CApplicationComponent
             $files = glob($path . '/' . $name . '/' . '*Module.php');
             if (count($files) == 1) {
                 $className = pathinfo($files[0], PATHINFO_FILENAME);
-                Yii::app()->cache->set('tmpImports', 'application.modules.' . $name . '.' . $className);
+                Yii::app()->getCache()->set('tmpImports', 'application.modules.' . $name . '.' . $className);
                 Yii::import('application.modules.' . $name . '.' . $className);
                 $module = Yii::createComponent($className, $name, null, false);
             }
         }
+
         return $module;
     }
 
@@ -377,7 +385,7 @@ class ModuleManager extends \CApplicationComponent
      */
     public function getModulesConfig($module = false)
     {
-        return Yii::app()->basePath . '/config/modules/' . ($module ? $module . '.php' : '');
+        return Yii::app()->getBasePath(). '/config/modules/' . ($module ? $module . '.php' : '');
     }
 
     /**
@@ -389,9 +397,9 @@ class ModuleManager extends \CApplicationComponent
      * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
      */
 
-    public function getModulesConfigBack($module = false)
+    public function getModulesConfigBack($module = '')
     {
-        return Yii::app()->basePath . '/config/modulesBack/' . ($module ? $module . '.php' : '');
+        return Yii::app()->getBasePath(). '/config/modulesBack/' . empty($module) ? $module : $module . '.php';
     }
 
     /**
@@ -402,11 +410,10 @@ class ModuleManager extends \CApplicationComponent
      * @since 0.5
      * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
      */
-    public function getModulesConfigDefault($module = false)
+    public function getModulesConfigDefault($module = '')
     {
-        return ($module
-            ? Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php'
-            : Yii::getPathOfAlias('application.modules'));
+        return empty($module) ? Yii::getPathOfAlias('application.modules') :
+             Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
     }
 
     /**
@@ -433,5 +440,25 @@ class ModuleManager extends \CApplicationComponent
         $files = glob($modulePath . DIRECTORY_SEPARATOR . '*Module.php');
 
         return empty($files) ? false : true;
+    }
+
+    /**
+     * Обновить конфигурационный файл модуля
+     *
+     * @param WebModule $module
+     * @return bool
+     * @since 0.8
+     */
+    public function updateModuleConfig(WebModule $module)
+    {
+        $newConfig = $this->getModulesConfigDefault($module->getId());
+
+        $currentConfig = $this->getModulesConfig($module->getId());
+
+        if((!file_exists($currentConfig) || YFile::rmFile($currentConfig)) && YFile::cpFile($newConfig, $currentConfig)) {
+            return true;
+        }
+
+        return false;
     }
 } 

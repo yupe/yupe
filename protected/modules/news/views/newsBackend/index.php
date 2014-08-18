@@ -59,12 +59,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/news/newsBackend/update", "id" => $data->id))',
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'title',
                 'editable' => array(
@@ -121,6 +115,10 @@ $this->menu = array(
                 'value' => '$data->getFlag()',
                 'filter' => $this->yupe->getLanguagesList(),
                 'type' => 'html'
+            ),
+            array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [News::STATUS_DRAFT => yupe\helpers\Html::DEF, News::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, News::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
+                'type'  => 'raw'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn'

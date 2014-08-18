@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+    'Users (last day / all)' => 'Пользователей (за сутки /  всего)',
+    'Not active' => 'Не прошли активацию',
+    'Expire' => 'Истекает',
+    'Cookie auth' => 'Токен авторизации',
     'Number of login attempts' => 'Кол-во попыток авторизации',
     'Sent!' => 'Отправлено!',
     'Users per page' => 'Пользователей на страницу',

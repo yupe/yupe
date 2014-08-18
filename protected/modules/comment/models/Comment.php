@@ -162,6 +162,9 @@ class Comment extends yupe\models\YModel
             'authored' => array(
                 'condition' => 't.user_id is not null',
             ),
+            'all' => array(
+                'condition' => 'level <> 1'
+            )
         );
     }
 
@@ -380,6 +383,10 @@ class Comment extends yupe\models\YModel
 
     public function getTarget(array $with = array())
     {
+        if(!class_exists($this->model)) {
+            return $this->model;
+        }
+
         $model = CActiveRecord::model($this->model);
 
         if ($model instanceof ICommentable) {

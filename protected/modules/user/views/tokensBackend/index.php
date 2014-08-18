@@ -66,33 +66,9 @@ SCRIPT;
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'value' => 'CHtml::link($data->id, array("/user/tokensBackend/update", "id" => $data->id))',
-                'type' => 'html',
-                'htmlOptions' => array(
-                    'style' => 'width: 40px; text-align: center'
-                )
-            ),
-            array(
                 'name' => 'user_id',
                 'value' => '$data->getFullName()',
                 'filter' => $model->getUserList()
-            ),
-            array(
-                'name' => 'status',
-                'value' => '$data->getStatus()',
-                'filter' => $model->getStatusList(),
-                'htmlOptions' => array(
-                    'style' => implode(
-                        ' ',
-                        array(
-                            'white-space: nowrap;',
-                            'max-width: 100px;',
-                            'text-overflow: ellipsis;',
-                            'overflow: hidden;',
-                        )
-                    ),
-                ),
             ),
             array(
                 'name' => 'type',
@@ -126,18 +102,45 @@ SCRIPT;
                 ),
             ),
             array(
-                'name' => 'created',
-                'value' => '$data->beautifyDate($data->created)',
+                'name'   => 'created',
+                'value'  => '$data->beautifyDate($data->created)',
+                'filter' => false,
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )
             ),
             array(
                 'name' => 'updated',
+                'filter' => false,
                 'value' => '$data->beautifyDate($data->updated)',
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )
+            ),
+            array(
+                'name' => 'expire',
+                'filter' => false,
+                'value' => '$data->beautifyDate($data->expire)',
+                'htmlOptions' => array(
+                    'style' => 'width: 120px;'
+                )
+            ),
+            array(
+                'name' => 'status',
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [UserToken::STATUS_NEW => yupe\helpers\Html::SUCCESS, UserToken::STATUS_ACTIVATE => yupe\helpers\Html::INFO, UserToken::STATUS_FAIL => yupe\helpers\Html::DANGER])',
+                'type'  => 'raw',
+                'filter' => $model->getStatusList(),
+                'htmlOptions' => array(
+                    'style' => implode(
+                        ' ',
+                        array(
+                            'white-space: nowrap;',
+                            'max-width: 100px;',
+                            'text-overflow: ellipsis;',
+                            'overflow: hidden;',
+                        )
+                    ),
+                ),
             ),
             array(
                 'header' => Yii::t('UserModule.user', 'Management'),

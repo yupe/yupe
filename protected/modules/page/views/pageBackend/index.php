@@ -60,11 +60,6 @@ $this->menu = array(
         'sortField' => 'order',
         'columns' => array(
             array(
-                'name' => 'id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/page/pageBackend/update", "id" => $data->id))',
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'title',
                 'editable' => array(
@@ -130,9 +125,8 @@ $this->menu = array(
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
             ),
             array(
-                'header' => Yii::t('PageModule.page', 'Public URL'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Page::STATUS_DRAFT => yupe\helpers\Html::DEF, Page::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, Page::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
+                'type'  => 'raw'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

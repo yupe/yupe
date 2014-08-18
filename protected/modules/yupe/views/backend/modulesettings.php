@@ -7,8 +7,8 @@ $this->breadcrumbs = array(
 ?>
 
     <h1>
-        <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo $module->name; ?>"
-        <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo $module->version; ?></small>
+        <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($module->name); ?>"
+        <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($module->version); ?></small>
     </h1>
 
     <br/>
@@ -35,7 +35,7 @@ $this->breadcrumbs = array(
                 'YupeModule.yupe',
                 'Save "{{name}}" module settings',
                 array(
-                    '{{name}}' => $module->name
+                    '{{name}}' => CHtml::encode($module->name)
                 )
             ),
             array(

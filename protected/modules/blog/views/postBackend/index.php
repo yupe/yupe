@@ -39,20 +39,18 @@ $this->menu = array(
     ),
 );
 ?>
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('BlogModule.blog', 'Posts'); ?>
-        <small><?php echo Yii::t('BlogModule.blog', 'administration'); ?></small>
-    </h1>
-</div>
 
-<p>
-    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
-        <?php echo Yii::t('BlogModule.blog', 'Find posts'); ?>
-        <span class="caret">&nbsp;</span>
-    </a>
-</p>
+<?php
+$this->beginWidget(
+    'booster.widgets.TbPanel', ['title' => Yii::t('BlogModule.blog', 'Posts'), 'headerIcon' => $this->module->getIcon()]
+);
+?>
+
+<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="glyphicon glyphicon-search">&nbsp;</i>
+    <?php echo Yii::t('BlogModule.blog', 'Find posts'); ?>
+    <span class="caret">&nbsp;</span>
+</a>
 
 <div id="search-toggle" class="collapse out search-form">
     <?php
@@ -70,10 +68,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p>
-    <?php echo Yii::t('BlogModule.blog', 'In this category located post administration functions'); ?>
-</p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -81,14 +75,6 @@ $this->menu = array(
         'dataProvider' => $model->search(),
         'filter' => $model,
         'columns' => array(
-            array(
-                'name' => 'id',
-                'value' => 'CHtml::link($data->id, array("/blog/postBackend/update","id" => $data->id))',
-                'type' => 'html',
-                'htmlOptions' => array(
-                    'style' => 'width:10px;'
-                )
-            ),
             array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
@@ -154,27 +140,7 @@ $this->menu = array(
                 'value' => '$data->publish_date',
                 'filter' => CHtml::activeTextField($model, 'publish_date', array('class' => 'form-control')),
             ),
-            array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url' => $this->createUrl('/blog/postBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'title' => Yii::t('BlogModule.blog', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
-                    'source' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name' => 'category_id',
-                'type' => 'raw',
-                'filter' => CHtml::activeDropDownList(
-                    $model,
-                    'category_id',
-                    Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainPostCategory),
-                    array('class' => 'form-control', 'empty' => '')
-                ),
-            ),
+
             array(
                 'name' => 'create_user_id',
                 'type' => 'raw',
@@ -230,8 +196,14 @@ $this->menu = array(
                 'type' => 'raw',
             ),
             array(
+                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Post::STATUS_DRAFT => "default", Post::STATUS_PUBLISHED => "success", Post::STATUS_SHEDULED => "info", Post::STATUS_MODERATED => "warning"])',
+                'type'  => 'raw'
+            ),
+            array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
         ),
     )
 ); ?>
+
+<?php $this->endWidget(); ?>

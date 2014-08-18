@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Comments (last day / all)' => 'Комментарии (за сутки / всего)',
+  'Moderation' => 'На модерации',
   '--choose--' => '--выберите--',
   'Please, {login} or {register} for commenting!' => 'Пожалуйста, {login} или {register} для комментирования!',
   'login' => 'авторизуйтесь',

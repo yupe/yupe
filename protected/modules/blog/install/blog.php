@@ -14,7 +14,7 @@ return array(
         'class' => 'application.modules.blog.BlogModule',
         'panelWidgets' => array(
             'application.modules.blog.widgets.PanelStatWidget' => array(
-                'limit' => 10
+                'limit' => 5
             )
         )
     ),

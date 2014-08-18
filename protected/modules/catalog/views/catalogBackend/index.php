@@ -58,12 +58,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/catalog/catalogBackend/update", "id" => $data->id))'
-            ),
-            array(
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'name',
                 'editable' => array(
@@ -136,7 +130,7 @@ $this->menu = array(
             array(
                 'name' => 'is_special',
                 'type' => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "star"))',
+                'value' => 'is_special',
                 'filter' => Yii::app()->getModule('catalog')->getChoice()
             ),
             array(

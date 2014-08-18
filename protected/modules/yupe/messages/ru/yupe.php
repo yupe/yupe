@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Display on' => 'Выводить по',
+  'Add' => 'Добавить',
+  'Successful' => 'Выполнено успешно!',
+  'Yupe!' => 'Юпи!',
   'Name' => 'Название',
   'Just great guys =)' => 'Просто отличные ребята =)',
   'General sponsor'  => 'Генеральный спонсор',
@@ -318,7 +322,7 @@ return array (
   '{m}: Can\'t downgrade migration - {migrationName}' => '{m}: Откат миграции {migrationName} неудалось провести.',
   '{m}: Migration was downgrade - {migrationName}' => '{m}: Произошёл откат миграции - {migrationName}',
   'News list' => 'Лента новостей сайта',
-  'Site title' => 'Название моего сайта',
+  'Site title' => 'Название сайта',
   'Я.Money on' => 'Я.Money на',
   'Order development and/or support' => 'Заказать разработку/поддержку',
   'Blogs' => 'Блоги',
@@ -334,5 +338,5 @@ return array (
   'There is no cached settings' => 'Файл кеша-настроек не найден',
   'Notify' => 'Уведомления',
   'Apply new migrations' => 'Примените новые миграции',
-  'Available new configuration' => 'Доступен новый файл конфигурации'
+  'Apply new configuration' => 'Обновить конфигурационный файл модуля'
 );

@@ -13,31 +13,61 @@
  **/
 class YWebUser extends CWebUser
 {
+    /**
+     *
+     */
     const STATE_ACCESS_LEVEL = 'access_level';
 
+    /**
+     *
+     */
     const STATE_NICK_NAME = 'nick_name';
 
+    /**
+     *
+     */
     const STATE_MOD_SETTINGS = 'modSettings';
 
+    /**
+     *
+     */
     const STATE_ADM_CHECK_ATTEMPT = 'adm_check_attempt';
 
-    private $_profiles = array();
+    /**
+     * @var array
+     */
+    protected $_profiles = array();
 
+    /**
+     * @var int
+     */
     public $authTimeout = 62400;
 
+    /**
+     * @var bool
+     */
     public $autoRenewCookie = true;
 
+    /**
+     * @var bool
+     */
     public $allowAutoLogin = true;
 
+    /**
+     * @var int
+     */
     public $attempt = 10;
+
+    /**
+     * @var string
+     */
+    public $authToken = 'at';
 
     /**
      * @var string
      * @since 0.8
      */
-    public $rbacCacheNameSpace = 'yupe::user::rbac';
-
-    public $authToken = 'at';
+    public $rbacCacheNameSpace = 'yupe::user::rbac::';
 
     /**
      * Метод который проверяет, авторизирован ли пользователь:
@@ -88,7 +118,7 @@ class YWebUser extends CWebUser
      * Метод возвращающий профайл пользователя:
      *s
      * @param string $moduleName - идентификатор модуля
-     * @throw CException
+     * @throws CException
      * @return User|null - Модель пользователя в случае успеха, иначе null
      */
     public function getProfile($moduleName = 'yupe')
@@ -111,7 +141,7 @@ class YWebUser extends CWebUser
 
         $model = $module->getProfileModel();
 
-        if(false === $model) {
+        if (false === $model) {
             throw new CException(Yii::t(
                 'YupeModule.yupe',
                 'Module "{module}" has no profile model!',
@@ -126,6 +156,11 @@ class YWebUser extends CWebUser
         return $this->_profiles[$moduleName];
     }
 
+    /**
+     * @param $field
+     * @param string $module
+     * @return array|mixed|null
+     */
     public function getProfileField($field, $module = 'yupe')
     {
         if (Yii::app()->getUser()->hasState($field)) {
@@ -145,6 +180,10 @@ class YWebUser extends CWebUser
         return $value;
     }
 
+    /**
+     * @param int $size
+     * @return mixed
+     */
     public function getAvatar($size = 64)
     {
         $size = (int)$size;
@@ -189,43 +228,22 @@ class YWebUser extends CWebUser
     {
         Yii::app()->cache->clear('loggedIn' . $this->getId());
 
-        if (true === $fromCookie) {
+        if ($fromCookie) {
 
             $transaction = Yii::app()->getDb()->beginTransaction();
 
-            $user = User::model()->active()->findByPk((int)$this->getId());
+            try {
 
-            try
-            {
-                if (null === $user) {
+                $user = User::model()->active()->findByPk($this->getId());
 
+                if(null === $user) {
                     $this->logout();
-
-                    return false;
-                }
-
-                //проверить токен авторизации
-                $token = $this->getState($this->authToken);
-
-                if(empty($token)) {
-
-                    $this->logout();
-
-                    return false;
-                }
-
-                $model = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_COOKIE_AUTH);
-
-                if(null === $model) {
-
-                    $this->logout();
-
                     return false;
                 }
 
                 //перегенерировать токен авторизации
                 $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                    $this->getProfile()
+                    $user
                 );
 
                 $this->setState($this->authToken, $token->token);
@@ -237,9 +255,8 @@ class YWebUser extends CWebUser
                 $user->update(array('last_visit'));
 
                 $transaction->commit();
-            }
-            catch(Exception $e)
-            {
+
+            } catch (Exception $e) {
                 $transaction->rollback();
             }
         }
@@ -247,19 +264,55 @@ class YWebUser extends CWebUser
         parent::afterLogin($fromCookie);
     }
 
+    /**
+     * @param mixed $id
+     * @param array $states
+     * @param bool $fromCookie
+     * @return bool
+     */
+    public function beforeLogin($id, $states, $fromCookie)
+    {
+        if (!$fromCookie) {
+            return parent::beforeLogin($id, $states, $fromCookie);
+        }
 
+        //проверить токен авторизации
+        $token = $states[$this->authToken];
+
+        if (empty($token)) {
+
+            return false;
+        }
+
+        $model = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_COOKIE_AUTH);
+
+        if (null === $model) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * @param string $operation
+     * @param null $userId
+     * @param array $params
+     * @return bool
+     */
     public function checkAccess($operation, $userId = null, $params = array())
     {
         if ($userId !== null) {
             return (bool)Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);
         }
 
-        $access = Yii::app()->getCache()->get($this->rbacCacheNameSpace.$this->getId());
+        $access = Yii::app()->getCache()->get($this->rbacCacheNameSpace . $this->getId());
 
         if (!isset($access[$operation])) {
             $access[$operation] = (bool)Yii::app()->getAuthManager()->checkAccess($operation, $this->getId(), $params);
 
-            Yii::app()->getCache()->set($this->rbacCacheNameSpace.$this->getId(), $access);
+            Yii::app()->getCache()->set($this->rbacCacheNameSpace . $this->getId(), $access);
 
             return (bool)$access[$operation];
         }
@@ -267,12 +320,18 @@ class YWebUser extends CWebUser
         return $access[$operation];
     }
 
+
+    /**
+     * @param IUserIdentity $identity
+     * @param int $duration
+     * @return bool
+     */
     public function login($identity, $duration = 0)
     {
-        if($duration) {
+        if ($duration) {
             //создать токен
             $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                $this->getProfile()
+                $this->getProfile(), $duration
             );
 
             $identity->setState($this->authToken, $token->token);

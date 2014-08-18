@@ -308,21 +308,20 @@ class BackendController extends yupe\components\controllers\BackController
      * @return bool
      **/
     public function saveParamsSetting($moduleId, $params)
-    {    	
-    	$paramValues = array();
+    {
+        $paramValues = array();
 
-    	// Перебираем все параметры модуля
-    	foreach ($params as $param_name) {
-    		$param_value = Yii::app()->getRequest()->getPost($param_name, null);
-    		// Если параметр есть в post-запросе добавляем его в массив
-    		if ($param_value !== null)
-    		{
-    			$paramValues[$param_name] = $param_value;    			
-    		}    		
-    	}    	
-    	
-    	// Запускаем сохранение параметров
-    	return Settings::saveModuleSettings($moduleId, $paramValues);
+        // Перебираем все параметры модуля
+        foreach ($params as $param_name) {
+            $param_value = Yii::app()->getRequest()->getPost($param_name, null);
+            // Если параметр есть в post-запросе добавляем его в массив
+            if ($param_value !== null) {
+                $paramValues[$param_name] = $param_value;
+            }
+        }
+
+        // Запускаем сохранение параметров
+        return Settings::saveModuleSettings($moduleId, $paramValues);
     }
 
     /**
@@ -365,8 +364,7 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->urlReferrer !== null ? Yii::app()->getRequest(
-                )->urlReferrer : array("/yupe/backend")
+                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : array("/yupe/backend")
             );
         }
     }
@@ -382,104 +380,6 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render('help');
     }
 
-    /**
-     * Действие для управления модулями:
-     *
-     * @throws CHttpException
-     *
-     * @return string json-data
-     **/
-    public function actionModulestatus()
-    {
-        /**
-         * Если это не POST-запрос - посылаем лесом:
-         **/
-        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
-        }
-
-        /**
-         * Получаем название модуля и проверяем,
-         * возможно модуль необходимо подгрузить
-         **/
-        if (($name = Yii::app()->getRequest()->getPost('module'))
-            && ($status = Yii::app()->getRequest()->getPost('status')) !== null
-            && (($module = Yii::app()->getModule($name)) === null || $module->canActivate())
-        ) {
-            $module = Yii::app()->moduleManager->getCreateModule($name);
-        } /**
-         * Если статус неизвестен - ошибка:
-         **/
-        elseif (!isset($status) || !in_array($status, array(0, 1))) {
-            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Status for handler is no set!'));
-        }
-
-        /**
-         * Если всё в порядке - выполняем нужное действие:
-         **/
-        if (isset($module) && !empty($module)) {
-            $result = false;
-            try {
-                switch ($status) {
-                    case 0:
-                        if ($module->getIsActive()) {
-                            $module->getDeActivate();
-                            $message = Yii::t('YupeModule.yupe', 'Module disabled successfully!');
-                        } else {
-                            $module->getUnInstall();
-                            $message = Yii::t('YupeModule.yupe', 'Module uninstalled successfully!');
-                        }
-                        $result = true;
-                        break;
-
-                    case 1:
-                        if ($module->getIsInstalled()) {
-                            $module->getActivate();
-                            $message = Yii::t('YupeModule.yupe', 'Module enabled successfully!');
-                        } else {
-                            $module->getInstall();
-                            $message = Yii::t('YupeModule.yupe', 'Module installed successfully!');
-                        }
-                        $result = true;
-                        break;
-                    case 2:
-                        $message = ($result = $module->getActivate(false, true)) === true
-                            ? Yii::t('YupeModule.yupe', 'Settings file "{n}" updated successfully!', $name)
-                            : Yii::t(
-                                'YupeModule.yupe',
-                                'There is en error when trying to update "{n}" file module!',
-                                $name
-                            );
-                        Yii::app()->user->setFlash(
-                            $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                            $message
-                        );
-                        break;
-                    default:
-                        $message = Yii::t('YupeModule.yupe', 'Unknown action was checked!');
-                        break;
-                }
-                if (in_array($status, array(0, 1))) {
-                    Yii::app()->cache->clear($name);
-                }
-            } catch (Exception $e) {
-                $message = $e->getMessage();
-            }
-
-            /**
-             * Возвращаем ответ:
-             **/
-            $result === true
-                ? Yii::app()->ajax->success($message)
-                : Yii::app()->ajax->failure($message);
-
-        } else {
-            /**
-             * Иначе возвращаем ошибку:
-             **/
-            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Module was not found or it\'s enabling finished'));
-        }
-    }
 
     /**
      * Метод очистки ресурсов (assets)
@@ -593,13 +493,11 @@ class BackendController extends yupe\components\controllers\BackController
     {
         $error = Yii::app()->errorHandler->error;
 
-        if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg'])))
-        {
+        if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
             $this->redirect(array('index'));
         }
 
-        if (!Yii::app()->getRequest()->getIsAjaxRequest())
-        {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
             $this->render('error', array('error' => $error));
         }
     }

@@ -58,6 +58,9 @@ class Post extends yupe\models\YModel implements ICommentable
     const ACCESS_PUBLIC = 1;
     const ACCESS_PRIVATE = 2;
 
+    const COMMENT_YES = 1;
+    const COMMENT_NO  = 0;
+
     public $tagsItems;
 
     /**
@@ -174,6 +177,10 @@ class Post extends yupe\models\YModel implements ICommentable
                 'condition' => 't.access_type = :access_type',
                 'params' => array(':access_type' => self::ACCESS_PUBLIC),
             ),
+            'moderated' => array(
+                'condition' => 't.status = :status',
+                'params' => array(':status' => self::STATUS_MODERATED)
+            ),
             'recent' => array(
                 'order' => 'publish_date DESC'
             )
@@ -245,61 +252,6 @@ class Post extends yupe\models\YModel implements ICommentable
         );
     }
 
-    /**
-     * @return array customized attribute descriptions (name=>description)
-     */
-    public function attributeDescriptions()
-    {
-        return array(
-            'id' => Yii::t('BlogModule.blog', 'Post id.'),
-            'blog_id' => Yii::t('BlogModule.blog', 'Choose a blog you want to add the record to'),
-            'slug' => Yii::t(
-                    'BlogModule.blog',
-                    'URL-friendly name of the blog.<br /><br /> For example: <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label label-default">my-na-more</span>/</pre> It you don\'t know what is it you can leave this field empty.'
-                ),
-            'publish_date' => Yii::t('BlogModule.blog', 'Publish date'),
-            'title' => Yii::t(
-                    'BlogModule.blog',
-                    'Post title, for example:<br /><span class="label label-default">Our seaside vacation.</span>'
-                ),
-            'quote' => Yii::t(
-                    'BlogModule.blog',
-                    'Please enter announcement text. A couple of sentences is enough. The text will be used, for example, at the main page or in the posts list.'
-                ),
-            'content' => Yii::t(
-                    'BlogModule.blog',
-                    'Full text of the post which is displayed when you click on &laquo;More&raquo; link'
-                ),
-            'link' => Yii::t(
-                    'BlogModule.blog',
-                    'Source link of the post. Source website or an article which you have used to write the post.'
-                ),
-            'status' => Yii::t(
-                    'BlogModule.blog',
-                    'Post status:<br /><br /><span class="label label-success">published</span> &ndash;Visible for everyone.<br /><br /><span class="label label-warning">draft</span> &ndash; Visible for admins.<br /><br /><span class="label label-info">scheduled</span> &ndash; Will be published at a publish date.'
-                ),
-            'comment_status' => Yii::t(
-                    'BlogModule.blog',
-                    'If checked &ndash; Users are able to leave comments on the post'
-                ),
-            'access_type' => Yii::t(
-                    'BlogModule.blog',
-                    'Post access<br /><br /><span class="label label-success">public</span> &ndash; Everyone can read this post<br /><br /><span class="label label-warning">private</span> &ndash; only you can read this post'
-                ),
-            'keywords' => Yii::t(
-                    'BlogModule.blog',
-                    'SEO keywords separated by comma. For example, if your post is about your seaside vacation keyword would be: <pre>sea, travel, sun, etc.</pre>'
-                ),
-            'description' => Yii::t(
-                    'BlogModule.blog',
-                    'Short post description. Should not be more than one or two sentences. Should reflect the main points of the post. For example: <pre>The story of how we were almost eaten by sharks.</pre>This text is often used in search engine <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>.'
-                ),
-            'tags' => Yii::t(
-                    'BlogModule.blog',
-                    'Keywords for post categorization, for example:<br /><span class="label label-default">sea</span>'
-                ),
-        );
-    }
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
@@ -487,8 +439,8 @@ class Post extends yupe\models\YModel implements ICommentable
     public function getCommentStatusList()
     {
         return array(
-            self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Forbidden'),
-            self::ACCESS_PUBLIC => Yii::t('BlogModule.blog', 'Allowed'),
+            self::COMMENT_NO  => Yii::t('BlogModule.blog', 'Forbidden'),
+            self::COMMENT_YES => Yii::t('BlogModule.blog', 'Allowed'),
         );
     }
 
@@ -754,4 +706,5 @@ class Post extends yupe\models\YModel implements ICommentable
             return true;
         }
     }
+
 }

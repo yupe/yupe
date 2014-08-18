@@ -187,7 +187,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getIcon()
     {
-        return "glyphicon glyphicon-book";
+        return "glyphicon glyphicon-heart";
     }
 
     /**

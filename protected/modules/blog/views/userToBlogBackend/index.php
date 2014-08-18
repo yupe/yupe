@@ -82,14 +82,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/blog/userToBlogBackend/update", "id" => $data->id))',
-                'htmlOptions' => array(
-                    'style' => 'width:10px;'
-                )
-            ),
-            array(
                 'name' => 'user_id',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
