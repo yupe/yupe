@@ -67,6 +67,7 @@ class StoreCategory extends \yupe\models\YModel
         );
     }
 
+
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
@@ -112,6 +113,7 @@ class StoreCategory extends \yupe\models\YModel
         return array(
             'parent' => array(self::BELONGS_TO, 'StoreCategory', 'parent_id'),
             'children' => array(self::HAS_MANY, 'StoreCategory', 'parent_id'),
+            'productCount' => [self::STAT, 'ProductCategory', 'category_id']
         );
     }
 

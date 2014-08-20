@@ -18,8 +18,6 @@ $this->menu = array(
     </h1>
 </div>
 
-<p><?php echo Yii::t('StoreModule.category', 'This section describes category management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -29,9 +27,10 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/store/categoryBackend/update", "id" => $data->id))',
+                'name'   => 'image',
+                'type'   => 'raw',
+                'value'  => '$data->image ? CHtml::image($data->getImageUrl(50, 50, true), $data->name, array("width"  => 50, "height" => 50, "class" => "img-thumbnail")) : ""',
+                'filter' => false
             ),
             array(
                 'name' => 'name',
@@ -49,17 +48,17 @@ $this->menu = array(
                 'filter' => CHtml::activeDropDownList($model, 'parent_id', StoreCategory::model()->getFormattedList(), array('encode' => false, 'empty' => '', 'class' => 'form-control'))
             ),
             array(
-                'name' => 'image',
-                'type' => 'raw',
-                'value' => '$data->image ? CHtml::image($data->getImageUrl(50, 50, true), $data->name, array("width"  => 50, "height" => 50, "class" => "img-thumbnail")) : ""',
-            ),
-            array(
                 'name' => 'status',
                 'type' => 'raw',
-                'filter' => $model->getStatusList()
+                'filter' => $model->getStatusList(),
+                'value'  => '$data->getStatus()'
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'header' => Yii::t('StoreModule.category', 'Products'),
+                'value' => '$data->productCount'
+            ),
+            array(
+                'class'  => 'bootstrap.widgets.TbButtonColumn',
             ),
         ),
     )

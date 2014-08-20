@@ -18,8 +18,6 @@ $this->menu = array(
     </h1>
 </div>
 
-<p><?php echo Yii::t('StoreModule.product', 'This section describes products manager'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -29,10 +27,6 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('width' => '50px'),
-            ),
-            array(
                 'type' => 'raw',
                 'value' => '$data->mainImage ? CHtml::image($data->mainImage->getImageUrl(40, 40, true), "", array("class" => "img-thumbnail")) : ""',
             ),
@@ -41,11 +35,6 @@ $this->menu = array(
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/store/productBackend/update", "id" => $data->id))',
             ),
-            /*array(
-                'name' => 'alias',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->alias, array("/store/productBackend/update", "id" => $data->id))',
-            ),*/
             array(
                 'name' => 'category',
                 'type' => 'raw',
@@ -66,32 +55,10 @@ $this->menu = array(
             ),
             'sku',
             array(
-                'name' => 'is_special',
-                'type' => 'raw',
-                //'value' => 'is_special',
-                'filter' => Yii::app()->getModule('store')->getChoice()
-            ),
-            array(
                 'name' => 'status',
                 'type' => 'raw',
-                'filter' => $model->getStatusList()
-            ),
-            array(
-                'name' => 'type_id',
-                'type' => 'raw',
-                'value' => '$data->type->name',
-                'filter' => Type::model()->getFormattedList(),
-            ),
-            /*array(
-                'name'   => 'user_id',
-                'type'   => 'raw',
-                'value'  => 'CHtml::link($data->user->getFullName(), array("/user/catalogBackend/view", "id" => $data->user->id))',
-                'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
-            ),*/
-            array(
-                'name' => 'create_time',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
-                'htmlOptions' => array('width' => '90px'),
+                'filter' => $model->getStatusList(),
+                'value'  => '$data->getStatusTitle()'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

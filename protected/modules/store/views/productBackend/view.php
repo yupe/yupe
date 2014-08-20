@@ -54,17 +54,27 @@ $this->menu = array(
             'id',
             array(
                 'name' => 'type_id',
-                'value' => $model->type->name,
+                'value' => function($model) {
+                        return is_null($model->type) ? '---' : $model->type->name;
+                    },
             ),
             array(
                 'name' => 'producer_id',
-                'value' => $model->producer->name,
+                'value' => function($model) {
+                        return is_null($model->producer) ? '---' : $model->producer->name;
+                    },
             ),
             'name',
             'price',
             'sku',
-            'short_description',
-            'description',
+            array(
+                'name' => 'short_description',
+                'type' => 'raw'
+            ),
+            array(
+                'name' => 'description',
+                'type' => 'raw'
+            ),
             'alias',
             'data',
             array(

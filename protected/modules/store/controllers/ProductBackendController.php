@@ -37,19 +37,16 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Product();
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Product'])) {
-            $model->attributes = $_POST['Product'];
-            $model->setTypeAttributes($_POST['Attribute']);
-            $model->setProductVariants($_POST['ProductVariant']);
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Product'));
+            $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
+            $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
                 $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
 
                 $this->updateProductImages($model);
 
-                Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was added!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was added!'));
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
@@ -71,17 +68,14 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Product'])) {
-            $model->attributes = $_POST['Product'];
-            $model->setTypeAttributes($_POST['Attribute']);
-            $model->setProductVariants($_POST['ProductVariant']);
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Product'));
+            $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
+            $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
                 $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
                 $this->updateProductImages($model);
-                Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was updated!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was updated!'));
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
@@ -125,7 +119,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
     public function actionDeleteImage($id)
     {
-        if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
             ProductImage::model()->findByPk($id)->delete();
         }
     }
@@ -142,7 +136,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('StoreModule.product', 'Record was removed!')
             );
