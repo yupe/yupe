@@ -179,7 +179,7 @@ class YupeModule extends WebModule
      */
     public function getAllowedIp()
     {
-        if(strpos($this->allowedIp, ',')) {
+        if (strpos($this->allowedIp, ',')) {
             return explode(',', trim($this->allowedIp));
         }
 
@@ -191,7 +191,7 @@ class YupeModule extends WebModule
      */
     public function getLogo()
     {
-		return Yii::app()->getTheme()->getAssetsUrl() . '/' . $this->logo;
+        return Yii::app()->getTheme()->getAssetsUrl() . '/' . $this->logo;
     }
 
     /**
@@ -330,7 +330,11 @@ class YupeModule extends WebModule
             'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
             'allowedIp' => Yii::t('YupeModule.yupe', 'Allowed IP'),
             'hidePanelUrls' => Yii::t('YupeModule.yupe', 'Hide panel urls'),
-            'logo' => Yii::t('YupeModule.yupe', 'Logo')
+            'logo' => Yii::t('YupeModule.yupe', 'Logo'),
+            'allowedExtensions' => Yii::t('YupeModule.yupe', 'Allowed extensions (separated by comma)'),
+            'mimeTypes' => Yii::t('YupeModule.yupe', 'Mime types'),
+            'maxSize' => Yii::t('YupeModule.yupe', 'Maximum size (in bytes)'),
+
         );
     }
 
@@ -356,7 +360,10 @@ class YupeModule extends WebModule
             'defaultBackendLanguage' => $this->getLanguagesList(),
             'allowedIp',
             'hidePanelUrls' => $this->getChoice(),
-            'logo'
+            'logo',
+            'allowedExtensions',
+            'mimeTypes',
+            'maxSize',
         );
     }
 
@@ -386,7 +393,6 @@ class YupeModule extends WebModule
                     'siteKeyWords'
                 )
             ),
-
             'theme' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Themes'),
                 'items' => array(
@@ -394,7 +400,6 @@ class YupeModule extends WebModule
                     'backendTheme'
                 )
             ),
-
             'language' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Language settings'),
                 'items' => array(
@@ -406,14 +411,15 @@ class YupeModule extends WebModule
             'editors' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
                 'items' => array(
-                    'uploadPath',
                     'editor',
+                    'uploadPath',
+                    'allowedExtensions',
+                    'mimeTypes',
+                    'maxSize',
                 )
             ),
         );
     }
-
-
 
 
     /**
@@ -424,7 +430,13 @@ class YupeModule extends WebModule
     public function rules()
     {
         return array(
-            array('availableLanguages','filter','filter'=>function($str){ return preg_replace('/\s+/','',$str); }),
+            array(
+                'availableLanguages',
+                'filter',
+                'filter' => function ($str) {
+                    return preg_replace('/\s+/', '', $str);
+                }
+            ),
         );
     }
 
@@ -529,27 +541,27 @@ class YupeModule extends WebModule
                 )
             ),
             array(
-                'icon'  => "glyphicon glyphicon-th",
+                'icon' => "glyphicon glyphicon-th",
                 'label' => Yii::t('YupeModule.yupe', 'Modules'),
-                'url'   => array('/yupe/backend/settings'),
+                'url' => array('/yupe/backend/settings'),
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-picture',
+                'icon' => 'glyphicon glyphicon-picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
-                'url'   => array('/yupe/backend/themesettings'),
+                'url' => array('/yupe/backend/themesettings'),
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-wrench',
+                'icon' => 'glyphicon glyphicon-wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
-                'url'   => array(
+                'url' => array(
                     '/yupe/backend/modulesettings',
                     'module' => 'yupe',
                 ),
             ),
             array(
-                'icon'  => "glyphicon glyphicon-question-sign",
+                'icon' => "glyphicon glyphicon-question-sign",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                'url'   => array('/yupe/backend/help'),
+                'url' => array('/yupe/backend/help'),
             )
         );
     }
@@ -627,7 +639,7 @@ class YupeModule extends WebModule
     /**
      * Инициализация модуля:
      *
-     * @return nothing
+     * @return void
      **/
     public function init()
     {
@@ -666,7 +678,7 @@ class YupeModule extends WebModule
      */
     public function getEditors()
     {
-        if(($widgets = Yii::app()->cache->get('Yupe::editors')) === false) {
+        if (($widgets = Yii::app()->cache->get('Yupe::editors')) === false) {
             $path = Yii::getPathOfAlias($this->editorsDir);
             $widgets = array();
             if ($path && $handler = opendir($path)) {
@@ -682,7 +694,7 @@ class YupeModule extends WebModule
                 }
                 closedir($handler);
             }
-            Yii::app()->cache->set('Yupe::editors',$widgets);
+            Yii::app()->cache->set('Yupe::editors', $widgets);
         }
         return $widgets;
     }
@@ -739,9 +751,9 @@ class YupeModule extends WebModule
         end($menu);
         $endItemKey = key($menu);
         foreach ($menu as $key => $item) {
-			if ($key === '') {
-				continue;
-			}
+            if ($key === '') {
+                continue;
+            }
             if (isset($item['items']) && is_array($item['items'])) {
                 $subItems = $item['items'];
                 unset($item['items'], $item['icon'], $item['url']);
@@ -782,7 +794,7 @@ class YupeModule extends WebModule
             return array();
         }
 
-        if(!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
+        if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
             Yii::log('For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager', CLogger::LEVEL_WARNING);
             return array();
         }
@@ -821,7 +833,7 @@ class YupeModule extends WebModule
      * Генерация анкора PoweredBy
      *
      * @param string $color - цвет
-     * @param string $text  - текст
+     * @param string $text - текст
      *
      * @return string poweredBy
      */
@@ -854,13 +866,13 @@ class YupeModule extends WebModule
      */
     public function getLayoutsList()
     {
-       $data = array();
+        $data = array();
 
-       foreach (new GlobIterator(Yii::app()->getTheme()->basePath.DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR .'layouts' . DIRECTORY_SEPARATOR .'*.php') as $item) {
+        foreach (new GlobIterator(Yii::app()->getTheme()->basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . '*.php') as $item) {
             $name = $item->getBaseName('.php');
             $data[$name] = $name;
-       }
-       
-       return $data;
+        }
+
+        return $data;
     }
 }

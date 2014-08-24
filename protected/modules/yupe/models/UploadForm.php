@@ -1,22 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aopeykin
- * Date: 14.04.14
- * Time: 11:41
- */
-
 namespace yupe\models;
 
 use CFormModel;
 
 class UploadForm extends CFormModel
 {
-    public  $file;
+    public $file;
 
-    public  $maxSize;
-    public  $mimeTypes;
-    public  $types;
+    public $maxSize;
+    public $mimeTypes;
+    public $types;
 
     public function rules()
     {
