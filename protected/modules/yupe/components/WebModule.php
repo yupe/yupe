@@ -653,7 +653,7 @@ abstract class WebModule extends CWebModule
                             //установить все зависимости @since 0.8
                             $module = Yii::app()->moduleManager->getCreateModule($dependency);
 
-                            if(null === $module) {
+                            if (null === $module) {
                                 throw new CException(
                                     Yii::t(
                                         'YupeModule.yupe',
@@ -662,9 +662,9 @@ abstract class WebModule extends CWebModule
                                 );
                             }
 
-                            if($module->getIsInstalled())  {
+                            if ($module->getIsInstalled()) {
                                 $this->getActivate();
-                            }else{
+                            } else {
                                 $module->getInstall();
                             }
                         }
@@ -817,19 +817,19 @@ abstract class WebModule extends CWebModule
 
                     $module = Yii::app()->moduleManager->getCreateModule($dep);
 
-                    if(null === $module) {
-                            throw new CException(
-                                Yii::t(
-                                    'YupeModule.yupe',
-                                    "Module {dm} required for install was not found",
-                                    array('{dm}' => $dep)
-                                )
-                            );
+                    if (null === $module) {
+                        throw new CException(
+                            Yii::t(
+                                'YupeModule.yupe',
+                                "Module {dm} required for install was not found",
+                                array('{dm}' => $dep)
+                            )
+                        );
                     }
 
-                    if($module->getIsInstalled())  {
+                    if ($module->getIsInstalled()) {
                         $this->getActivate();
-                    }else{
+                    } else {
                         $module->getInstall();
                     }
 
@@ -1033,6 +1033,13 @@ abstract class WebModule extends CWebModule
                 'imageUpload' => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
                 'fileUpload' => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
                 'imageGetJson' => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
+                'fileUploadErrorCallback' => 'js:function (data) {
+    $(\'#notifications\').notify({
+        message: {text: data.error},
+        type: \'danger\',
+        fadeOut: {delay: 5000}
+    }).show();
+}'
             ),
             $this->editorOptions
         );

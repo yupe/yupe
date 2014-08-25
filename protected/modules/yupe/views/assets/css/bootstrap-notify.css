@@ -1,31 +1,31 @@
 .notifications {
-  position: fixed;
-  z-index: 9999;
+    position: fixed;
+    z-index: 9999;
 }
 
-/* Positioning */ 
+/* Positioning */
 .notifications.top-right {
-  right: 10px;
-  top: 25px;
+    right: 0;
+    top: 50px;
 }
 
 .notifications.top-left {
-  left: 10px;
-  top: 25px;
+    left: 0;
+    top: 50px;
 }
 
 .notifications.bottom-left {
-  left: 10px;
-  bottom: 25px;
+    left: 0;
+    bottom: 0;
 }
 
 .notifications.bottom-right {
-  right: 10px;
-  bottom: 25px;
+    right: 0;
+    bottom: 0;
 }
 
 /* Notification Element */
 .notifications > div {
-  position: relative;
-  margin: 5px 0px;
+    position: relative;
+    margin: 5px;
 }
