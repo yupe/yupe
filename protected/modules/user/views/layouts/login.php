@@ -41,7 +41,7 @@
             'collapse' => true,
             'fixed' => 'top',
             'brand' => CHtml::image(
-                Yii::app()->getModule('yupe')->getLogo(), CHtml::encode(Yii::app()->name), array(
+                $mainAssets . '/img/logo.png', CHtml::encode(Yii::app()->name), array(
                     'width' => '38',
                     'height' => '38',
                     'title' => CHtml::encode(Yii::app()->name),
@@ -51,7 +51,7 @@
             'items' => array(
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
-                    'htmlOptions' => array('class' => 'pull-right'),
+                    'htmlOptions' => array('class' => 'navbar-right'),
                     'type' => 'navbar',
                     'encodeLabel' => false,
                     'items' => array_merge(
@@ -106,13 +106,8 @@
                                     array(
                                         'icon' => 'glyphicon glyphicon-warning-sign',
                                         'label' => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                        'url' => CHtml::normalizeUrl(array('/yupe/backend/reportBug/')),
+                                        'url' => 'http://yupe.ru/contacts?from=panel',
                                         'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
-                                        'icon' => 'glyphicon glyphicon-exclamation-sign',
-                                        'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                        'url' => array('/yupe/backend/help'),
                                     ),
                                 )
                             ),
