@@ -24,8 +24,8 @@
 class ContentBlock extends yupe\models\YModel
 {
     const SIMPLE_TEXT = 1;
-    const HTML_TEXT   = 3;
-
+    const HTML_TEXT = 3;
+    const RAW_TEXT = 4;
     /**
      * Returns the static model of the specified AR class.
      * @param string $className
@@ -59,7 +59,11 @@ class ContentBlock extends yupe\models\YModel
             array('name', 'length', 'max' => 250),
             array('code', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
-            array('code', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
+            array(
+                'code',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')
+            ),
             array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
@@ -71,11 +75,11 @@ class ContentBlock extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => Yii::t('ContentBlockModule.contentblock', 'id'),
-            'name'        => Yii::t('ContentBlockModule.contentblock', 'Title'),
-            'code'        => Yii::t('ContentBlockModule.contentblock', 'Code'),
-            'type'        => Yii::t('ContentBlockModule.contentblock', 'Type'),
-            'content'     => Yii::t('ContentBlockModule.contentblock', 'Content'),
+            'id' => Yii::t('ContentBlockModule.contentblock', 'id'),
+            'name' => Yii::t('ContentBlockModule.contentblock', 'Title'),
+            'code' => Yii::t('ContentBlockModule.contentblock', 'Code'),
+            'type' => Yii::t('ContentBlockModule.contentblock', 'Type'),
+            'content' => Yii::t('ContentBlockModule.contentblock', 'Content'),
             'description' => Yii::t('ContentBlockModule.contentblock', 'Description'),
         );
     }
@@ -103,7 +107,8 @@ class ContentBlock extends yupe\models\YModel
     {
         return array(
             self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Simple text'),
-            self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
+            self::HTML_TEXT => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
+            self::RAW_TEXT => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
         );
     }
 
@@ -114,17 +119,11 @@ class ContentBlock extends yupe\models\YModel
     }
 
 	protected function beforeSave()
-	{
-		if (parent::beforeSave()) {
-			Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
-
-			if ($this->type == self::SIMPLE_TEXT) {
-				$this->content = strip_tags($this->content);
-			}
-
-			return true;
-		}
-
-		return false;
-	}
+    {
+        if (parent::beforeSave()) {
+            Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+            return true;
+        }
+        return false;
+    }
 }
