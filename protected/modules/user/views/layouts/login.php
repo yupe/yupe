@@ -41,7 +41,7 @@
             'collapse' => true,
             'fixed' => 'top',
             'brand' => CHtml::image(
-                Yii::app()->getModule('yupe')->getLogo(), CHtml::encode(Yii::app()->name), array(
+                $mainAssets . '/img/logo.png', CHtml::encode(Yii::app()->name), array(
                     'width' => '38',
                     'height' => '38',
                     'title' => CHtml::encode(Yii::app()->name),
@@ -51,7 +51,7 @@
             'items' => array(
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
-                    'htmlOptions' => array('class' => 'pull-right'),
+                    'htmlOptions' => array('class' => 'navbar-right'),
                     'type' => 'navbar',
                     'encodeLabel' => false,
                     'items' => array_merge(
@@ -119,7 +119,6 @@
                             array(
                                 'icon' => 'glyphicon glyphicon-home',
                                 'label' => Yii::t('YupeModule.yupe', 'Go home'),
-                                'visible' => Yii::app()->getController() instanceof yupe\components\controllers\BackController === true,
                                 'url' => Yii::app()->createAbsoluteUrl('/')
                             ),
                         ), $this->yupe->getLanguageSelectorArray()
