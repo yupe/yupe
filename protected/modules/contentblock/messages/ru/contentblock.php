@@ -38,6 +38,7 @@ return array(
     'Content block "{code}" was not found !' => 'Контент блок "{code}" не найден !',
     'Content block was changed!' => 'Контент блок изменен!',
     'Blocks' => 'Блоки',
+    'Content blocks' => 'Блоки контента',
     'Content blocks - add' => 'Блоки контента - создание',
     'Content blocks - admin' => 'Блоки контента - управление',
     'Content blocks - edit' => 'Блоки контента - редактирование',
@@ -75,10 +76,11 @@ return array(
     'team@yupe.ru' => 'team@yupe.ru',
     'yupe team' => 'yupe team',
     'Select {field}' => 'Выберите {field}',
-    'Manage blocks'  => 'Управление блоками',
+    'Manage blocks' => 'Управление блоками',
     'Creating block' => 'Создание блока',
     'Removing block' => 'Удаление блока',
     'List of blocks' => 'Просмотр списка блоков',
     'Editing blocks' => 'Редактирование блока',
-    'Viewing blocks' => 'Просмотр блоков'
+    'Viewing blocks' => 'Просмотр блоков',
+    'Raw text' => 'Необработанный текст',
 );
