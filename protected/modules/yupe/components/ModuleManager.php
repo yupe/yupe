@@ -21,15 +21,12 @@ use GlobIterator;
 use TagsCache;
 use Yii;
 use yupe\widgets\YFlashMessages;
-use yupe\components\WebModule;
 use yupe\helpers\YFile;
 
 
 class ModuleManager extends \CApplicationComponent
 {
     const CORE_MODULE = 'yupe';
-
-    const INSTALL_MODULE = 'install';
 
     /**
      * @var
@@ -53,12 +50,11 @@ class ModuleManager extends \CApplicationComponent
         parent::init();
     }
 
-
     /**
      * Возвращаем список модулей:
      *
      * @param bool $navigationOnly - только навигация
-     * @param bool $disableModule - отключённые модули
+     * @param bool $disableModule  - отключённые модули
      *
      * @return mixed
      **/
@@ -67,10 +63,10 @@ class ModuleManager extends \CApplicationComponent
         $this->otherCategoryName = Yii::t('YupeModule.yupe', 'Other');
 
         $this->categoryIcon = array(
-            Yii::t('YupeModule.yupe', 'Services') => 'glyphicon glyphicon-briefcase',
-            Yii::t('YupeModule.yupe', 'Yupe!') => 'glyphicon glyphicon-cog',
-            Yii::t('YupeModule.yupe', 'Content') => 'glyphicon glyphicon-file',
-            $this->otherCategoryName => 'glyphicon glyphicon-cog',
+            Yii::t('YupeModule.yupe', 'Services') => 'briefcase',
+            Yii::t('YupeModule.yupe', 'Yupe!')    => 'cog',
+            Yii::t('YupeModule.yupe', 'Content')  => 'file',
+            $this->otherCategoryName => 'cog',
         );
 
         $this->categorySort = array(
@@ -106,7 +102,7 @@ class ModuleManager extends \CApplicationComponent
                 }
             }
 
-            $modulesNavigation = Yii::app()->getCache()->get('YupeModulesNavigation-' . Yii::app()->getLanguage());
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->getLanguage());
 
             if ($modulesNavigation === false) {
 
@@ -139,9 +135,9 @@ class ModuleManager extends \CApplicationComponent
                     // Шаблон категорий
                     $modulesNavigation[$keyCategory] = array(
                         'label' => $keyCategory,
-                        //'url' => '#',
+                        'url' => '#',
                         'items' => array(),
-                        'submenuOptions' => array("id" => "mainmenu_" . $uniqueMenuId)
+                        'submenuOptions' => array("id"=>"mainmenu_".$uniqueMenuId)
                     );
                     $uniqueMenuId++;
 
@@ -159,9 +155,9 @@ class ModuleManager extends \CApplicationComponent
                             $modSettings = array(
                                 '---',
                                 array(
-                                    'icon' => 'glyphicon glyphicon-cog',
+                                    'icon'  => 'cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Module settings'),
-                                    'url' => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
+                                    'url'   => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
                                 ),
                             );
                         }
@@ -181,7 +177,7 @@ class ModuleManager extends \CApplicationComponent
                             'icon' => $modules[$key]->icon,
                             'label' => $modules[$key]->name,
                             'url' => $modules[$key]->adminPageLinkNormalize,
-                            'submenuOptions' => array("id" => "submenu_" . $key),
+                            'submenuOptions'=>array("id"=>"submenu_".$key),
                             'items' => array(),
                         );
 
@@ -195,18 +191,16 @@ class ModuleManager extends \CApplicationComponent
 
                         if ($key !== self::CORE_MODULE) {
                             $data['items'] = array_merge(
-                                $data['items'],
-                                $key == self::CORE_MODULE ? array() : $modSettings
+                                $data['items'], $key == self::CORE_MODULE ? array() : $modSettings
                             );
                         }
 
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
                     }
                 }
-
+           
                 // Заполняем категорию Юпи!
-                // $this->category всегда пустая?
-                //$modulesNavigation[$this->category]['items']['settings'] = $settings;
+                $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
                 // Цепочка зависимостей:
                 $chain = new CChainedCacheDependency();
@@ -223,13 +217,38 @@ class ModuleManager extends \CApplicationComponent
                     )
                 );
 
-                Yii::app()->getCache()->set(
+                Yii::app()->cache->set(
                     'YupeModulesNavigation-' . Yii::app()->language,
                     $modulesNavigation,
                     0,
                     $chain
                 );
             }
+        }
+
+        if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index'
+            && Yii::app()->controller instanceof YBackendController
+        ) {
+            // Устанавливаем активную категорию
+            $thisCategory = Yii::app()->controller->module->category
+                ? Yii::app()->controller->module->category
+                : $this->otherCategoryName;
+            $thisCategory = & $modulesNavigation[$thisCategory];
+            $thisCategory['active'] = true;
+
+            // Устанавливаем активный модуль
+            $thisModule = (
+                (Yii::app(
+                    )->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != self::CORE_MODULE) ||
+                Yii::app()->controller->action->id == 'settings'
+            ) ? 'settings' : Yii::app()->controller->module->getId();
+            $thisModule = & $thisCategory['items'][$thisModule];
+            if (!empty($thisModule)) {
+                $thisModule['active'] = true;
+            }
+
+            unset($thisModule);
+            unset($thisCategory);
         }
 
         // Подгрузка отключенных модулей
@@ -255,36 +274,33 @@ class ModuleManager extends \CApplicationComponent
      */
     public function getModulesDisabled($enableModule = array())
     {
-        if (($imports = Yii::app()->getCache()->get('pathForImports')) !== false) {
+        if (($imports = Yii::app()->cache->get('pathForImports')) !== false){
             Yii::app()->getModule('yupe')->setImport($imports);
         }
 
         try {
 
-            if ($imports === false || ($modules = @Yii::app()->getCache()->get('modulesDisabled')) == false) {
+            if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
                 $cacheFile = Yii::app()->configManager->cacheFileName;
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
 
-                    if (is_dir(
-                            $modPath . '/' . $item->getBaseName('.php')
-                        ) == false && $cacheFile != $item->getBaseName('.php')
-                    ) {
+                    if(Yii::app()->configManager->isCacheFile($item->getBaseName('.php'))) {
+                        continue;
+                    }
 
-                        Yii::app()->getCache()->flush();
+                    if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false && $cacheFile != $item->getBaseName('.php')) {
+
+                        Yii::app()->cache->flush();
 
                         unlink($modConfigs . '/' . $item->getBaseName());
 
                         throw new Exception(
-                            Yii::t(
-                                'YupeModule.yupe',
-                                'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted. Module is {module}...',
-                                array(
+                            Yii::t('YupeModule.yupe', 'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted. Module is {module}...', array(
                                     'module' => $item->getBaseName()
-                                )
-                            )
+                                ))
                         );
                     }
                 }
@@ -297,12 +313,12 @@ class ModuleManager extends \CApplicationComponent
 
                 if ($handler = opendir($path)) {
                     while (($dir = readdir($handler))) {
-                        if (!$this->isValidModule($dir)) {
+                        if(!$this->isValidModule($dir)) {
                             continue;
                         }
                         if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
                             $modules[$dir] = $this->getCreateModule($dir);
-                            $imports[] = Yii::app()->getCache()->get('tmpImports');
+                            $imports[] = Yii::app()->cache->get('tmpImports');
                         }
                     }
                     closedir($handler);
@@ -322,12 +338,12 @@ class ModuleManager extends \CApplicationComponent
                     )
                 );
 
-                Yii::app()->getCache()->set('modulesDisabled', $modules, 0, $chain);
-                Yii::app()->getCache()->set('pathForImports', $imports, 0, $chain);
+                Yii::app()->cache->set('modulesDisabled', $modules, 0, $chain);
+                Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
             }
         } catch (Exception $e) {
 
-            Yii::app()->getCache()->flush();
+            Yii::app()->cache->flush();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
@@ -341,6 +357,7 @@ class ModuleManager extends \CApplicationComponent
 
         return $modules;
     }
+
 
 
     /**
@@ -363,27 +380,28 @@ class ModuleManager extends \CApplicationComponent
             $files = glob($path . '/' . $name . '/' . '*Module.php');
             if (count($files) == 1) {
                 $className = pathinfo($files[0], PATHINFO_FILENAME);
-                Yii::app()->getCache()->set('tmpImports', 'application.modules.' . $name . '.' . $className);
+                Yii::app()->cache->set('tmpImports', 'application.modules.' . $name . '.' . $className);
                 Yii::import('application.modules.' . $name . '.' . $className);
                 $module = Yii::createComponent($className, $name, null, false);
             }
         }
-
         return $module;
     }
 
     /**
      * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
      *
-     * @param bool $module - Имя модуля
+     * @param boo $module - Имя модуля
      *
      * @since 0.5
      * @return string путь к папке или файлу с конфигурацией модуля(-ей)
      */
     public function getModulesConfig($module = false)
     {
-        return Yii::app()->getBasePath(). '/config/modules/' . ($module ? $module . '.php' : '');
+        return Yii::app()->basePath . '/config/modules/' . ($module ? $module . '.php' : '');
     }
+
+
 
     /**
      * Получаем путь к папке или файлу с резервной конфигурацией модуля(-ей)
@@ -394,10 +412,11 @@ class ModuleManager extends \CApplicationComponent
      * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
      */
 
-    public function getModulesConfigBack($module = '')
+    public function getModulesConfigBack($module = false)
     {
-        return Yii::app()->getBasePath(). '/config/modulesBack/' . empty($module) ? $module : $module . '.php';
+        return Yii::app()->basePath . '/config/modulesBack/' . ($module ? $module . '.php' : '');
     }
+
 
     /**
      * Получаем путь к папке c дефолтной конфигурацией модуля
@@ -407,10 +426,11 @@ class ModuleManager extends \CApplicationComponent
      * @since 0.5
      * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
      */
-    public function getModulesConfigDefault($module = '')
+    public function getModulesConfigDefault($module = false)
     {
-        return empty($module) ? Yii::getPathOfAlias('application.modules') :
-             Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
+        return ($module
+            ? Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php'
+            : Yii::getPathOfAlias('application.modules'));
     }
 
     /**
@@ -422,15 +442,16 @@ class ModuleManager extends \CApplicationComponent
      *
      * @return boolean true - модуль валиде false - нет
      */
+
     public function isValidModule($module)
     {
-        if (!$module) {
+        if(!$module) {
             return false;
         }
 
-        $modulePath = Yii::app()->moduleManager->getModulesConfigDefault() . DIRECTORY_SEPARATOR . $module;
+        $modulePath = Yii::app()->moduleManager->getModulesConfigDefault().DIRECTORY_SEPARATOR.$module;
 
-        if (!is_dir($modulePath)) {
+        if(!is_dir($modulePath)) {
             return false;
         }
 

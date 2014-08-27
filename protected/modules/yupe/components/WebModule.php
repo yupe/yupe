@@ -28,28 +28,12 @@ use Category;
 
 use yupe\models\Settings;
 
-/**
- * Class WebModule
- * @package yupe\components
- */
 abstract class WebModule extends CWebModule
 {
-    /**
-     *
-     */
-    const CHECK_ERROR = 'danger';
-    /**
-     *
-     */
-    const CHECK_NOTICE = 'warning';
+    const CHECK_ERROR = 'error';
+    const CHECK_NOTICE = 'notice';
 
-    /**
-     *
-     */
     const CHOICE_YES = 1;
-    /**
-     *
-     */
     const CHOICE_NO = 0;
 
     /**
@@ -81,6 +65,28 @@ abstract class WebModule extends CWebModule
      * @var array опции редактора
      */
     public $editorOptions = array();
+
+    /**
+     * @var array  Массив для задания обработчиков событий модуля при инициализации.
+     *
+     * @example
+     *
+     * $this->eventHandlers = array("onSomeEvent" => "someEventHandler");
+     *
+     * $this->eventHandlers = array( "onSomeEvent" => array(
+     *                               "someEventHandler",
+     *                               array(new EventClass,"eventHandlerMethod")
+     *                              ));
+     *
+     * $this->eventHandlers = array("onFirstEvent" => array("someEventHandler","someEventHandler2"),
+     *                              "onSecondEvent" => array(
+     *                                 array(new EventClassOne,"eventHandlerMethodOne"),
+     *                                 array(new EventClassTwo,"eventHandlerMethodTwo") )
+     *                             );
+     *
+     */
+
+    public $eventHandlers = array();
 
     /**
      * @var bool | string
@@ -116,38 +122,6 @@ abstract class WebModule extends CWebModule
 
     public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar';
 
-    /**
-     * @var array
-     * @since 0.8
-     *
-     * Содержит массив виджетов для отображения на главной странице панели управления
-     * Виджеты отображаются в порядке их перечисления
-     */
-    protected $panelWidgets = array();
-
-    /**
-     * @param array $widgets
-     * @since 0.8
-     */
-    public function setPanelWidgets(array $widgets)
-    {
-        $this->panelWidgets = $widgets;
-    }
-
-    /**
-     * @return array
-     * @since 0.8
-     *
-     */
-    public function getPanelWidgets()
-    {
-        return $this->panelWidgets;
-    }
-
-    /**
-     * @return bool|string
-     * @since 0.7
-     */
     public function getProfileModel()
     {
         return $this->profileModel;
@@ -269,6 +243,17 @@ abstract class WebModule extends CWebModule
 
 
     /**
+     * Каждый модуль может выводить свои виджеты (например, со стаистикой) на главную страницу панели управления
+     *
+     * @return string или false
+     *
+     */
+    public function getPanelWidget()
+    {
+        return false;
+    }
+
+    /**
      * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления
      *
      * @return string
@@ -286,9 +271,9 @@ abstract class WebModule extends CWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
-            'coreCacheTime' => Yii::t('YupeModule.yupe', 'Cache time')
-        );
+			'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
+			'coreCacheTime' => Yii::t('YupeModule.yupe', 'Cache time')
+		);
 
     }
 
@@ -331,14 +316,15 @@ abstract class WebModule extends CWebModule
     {
 
         $rulesFromParam = new CList;
-        foreach ($this->rules() as $rule) {
-            $params = preg_split('/[\s,]+/', $rule[0], -1, PREG_SPLIT_NO_EMPTY);
-            if (in_array($param, $params)) {
+        foreach($this->rules() as $rule)
+        {
+            $params=preg_split('/[\s,]+/',$rule[0],-1,PREG_SPLIT_NO_EMPTY);
+            if(in_array($param,$params))
+            {
                 $rule[0] = 'param_value';
                 $rulesFromParam->add($rule);
             }
         }
-
         return $rulesFromParam->toArray();
     }
 
@@ -370,7 +356,6 @@ abstract class WebModule extends CWebModule
         foreach ($this->getEditableParams() as $key => $value) {
             $keyParams[] = is_int($key) ? $value : $key;
         }
-
         return $keyParams;
     }
 
@@ -415,7 +400,7 @@ abstract class WebModule extends CWebModule
      */
     public function getModulesNoDisable()
     {
-        $modulesNoDisable = Yii::app()->getCache()->get('YupeModulesNoDisable');
+        $modulesNoDisable = Yii::app()->cache->get('YupeModulesNoDisable');
         if ($modulesNoDisable === false) {
             $modules = Yii::app()->moduleManager->getModules(false, true);
             $modulesNoDisable = array();
@@ -426,14 +411,13 @@ abstract class WebModule extends CWebModule
                 }
             }
 
-            Yii::app()->getCache()->set(
+            Yii::app()->cache->set(
                 'YupeModulesNoDisable',
                 $modulesNoDisable,
                 Yii::app()->getModule('yupe')->coreCacheTime,
                 new TagsCache('yupe', 'installedModules')
             );
         }
-
         return $modulesNoDisable;
     }
 
@@ -446,7 +430,7 @@ abstract class WebModule extends CWebModule
      */
     public function getDependenciesAll()
     {
-        $modulesDependent = Yii::app()->getCache()->get('YupeModulesDependenciesAll');
+        $modulesDependent = Yii::app()->cache->get('YupeModulesDependenciesAll');
         if ($modulesDependent === false) {
             $modules = Yii::app()->moduleManager->getModules(false, true);
             $modulesDependent = array();
@@ -457,14 +441,13 @@ abstract class WebModule extends CWebModule
                     $modulesDependent[$module->getId()] = $dep;
                 }
             }
-            Yii::app()->getCache()->set(
+            Yii::app()->cache->set(
                 'YupeModulesDependenciesAll',
                 $modulesDependent,
                 0,
                 new TagsCache('installedModules', 'yupe')
             );
         }
-
         return $modulesDependent;
     }
 
@@ -489,7 +472,7 @@ abstract class WebModule extends CWebModule
      */
     public function getDependents()
     {
-        $modulesDependent = Yii::app()->getCache()->get('YupeModulesDependent');
+        $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
         if ($modulesDependent === false) {
             $modules = $this->getDependenciesAll();
             foreach ($modules as $id => $dependencies) {
@@ -497,14 +480,13 @@ abstract class WebModule extends CWebModule
                     $modulesDependent[$dependency][] = $id;
                 }
             }
-            Yii::app()->getCache()->set(
+            Yii::app()->cache->set(
                 'YupeModulesDependent',
                 $modulesDependent,
                 0,
                 new TagsCache('yupe', 'installedModules')
             );
         }
-
         return $modulesDependent;
     }
 
@@ -518,7 +500,6 @@ abstract class WebModule extends CWebModule
     public function getDependent()
     {
         $modulesDependent = $this->getDependents();
-
         return isset($modulesDependent[$this->id]) ? $modulesDependent[$this->id] : array();
     }
 
@@ -547,7 +528,6 @@ abstract class WebModule extends CWebModule
         if ($this->getId() == 'install') {
             $status = ($status == false) ? true : false;
         }
-
         return $status;
     }
 
@@ -558,11 +538,10 @@ abstract class WebModule extends CWebModule
      */
     public function getIsInstalled()
     {
-        $modulesInstalled = Yii::app()->getCache()->get('YupeModulesInstalled');
+        $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
 
         if ($modulesInstalled === false) {
-
-            $modulesInstalled = Yii::app()->migrator->getModulesWithDBInstalled();
+            $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
 
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
@@ -579,7 +558,7 @@ abstract class WebModule extends CWebModule
                 new TagsCache('installedModules', 'disabledModules', 'yupe', $this->getId())
             );
 
-            Yii::app()->getCache()->set(
+            Yii::app()->cache->set(
                 'YupeModulesInstalled',
                 $modulesInstalled,
                 Yii::app()->getModule('yupe')->coreCacheTime,
@@ -591,8 +570,7 @@ abstract class WebModule extends CWebModule
             return false;
         }
 
-        $upd = Yii::app()->getCache()->get('YupeModuleUpdates_' . $this->getId());
-
+        $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->getId());
         if ($upd === false) {
             $upd = Yii::app()->migrator->checkForUpdates(array($this->getId() => $this));
 
@@ -611,25 +589,24 @@ abstract class WebModule extends CWebModule
                 )
             );
 
-            Yii::app()->getCache()->set(
+            Yii::app()->cache->set(
                 'YupeModuleUpdates_' . $this->getId(),
                 $upd,
                 Yii::app()->getModule('yupe')->coreCacheTime,
                 $chain
             );
         }
-
         return in_array($this->getId(), $modulesInstalled) || count($upd);
     }
 
     /**
      * Метод включает модуль - копирует файл с конфигурацией
      *
-     * @param boolean $noDependent - не проверять на зависимости от других модулей
+     * @param boolean $noDependen - не проверять на зависимости от других модулей
      * @param boolean $updateConfig - обновить ли файл конфигурации
      *
      * @throws CException
-     * @return bool статус включения модуля
+     * @return bool статус выключения модуля
      *
      * @since 0.5
      */
@@ -650,7 +627,7 @@ abstract class WebModule extends CWebModule
                 if (!empty($dependencies) && is_array($dependencies)) {
                     foreach ($dependencies as $dependency) {
                         if (Yii::app()->getModule($dependency) == null) {
-                            //установить все зависимости @since 0.8
+
                             $module = Yii::app()->moduleManager->getCreateModule($dependency);
 
                             if (null === $module) {
@@ -688,27 +665,28 @@ abstract class WebModule extends CWebModule
     /**
      * Метод выключает модуль - удаляет файл конфигурации модуля
      *
-     * @param boolean $noDependent - не проверять на зависимости от других модулей
+     * @param boolean $noDependen - не проверять на зависимости от других модулей
      *
      * @throws CException
      * @return bool статус включения модуля
      *
      * @since 0.5
      */
-    public function getDeActivate($noDependent = false)
+    public function getDeActivate($noDependen = false)
     {
+        $yupe = Yii::app()->getModule('yupe');
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->id);
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->id);
         $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($this->id);
 
-        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
         Yii::app()->configManager->flushDump();
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));
         } else {
             // Проверка зависимых модулей
-            if (!$noDependent) {
+            if (!$noDependen) {
                 $dependent = $this->getDependent();
                 if (!empty($dependent) && is_array($dependent)) {
                     foreach ($dependent as $dependen) {
@@ -744,7 +722,6 @@ abstract class WebModule extends CWebModule
                 return true;
             }
         }
-
         return false;
     }
 
@@ -757,7 +734,7 @@ abstract class WebModule extends CWebModule
      */
     public function getInstall()
     {
-        return ($this->id == ModuleManager::CORE_MODULE || $status = $this->getActivate()) ? $this->installDB() : $status;
+        return ($this->id == 'yupe' || $status = $this->getActivate()) ? $this->installDB() : $status;
     }
 
     /**
@@ -771,7 +748,6 @@ abstract class WebModule extends CWebModule
         if ($this->getIsActive()) {
             throw new CException(Yii::t('YupeModule.yupe', 'Disable module first!'));
         }
-
         return $this->uninstallDB();
     }
 
@@ -813,7 +789,6 @@ abstract class WebModule extends CWebModule
                 );
 
                 if (($m = Yii::app()->getModule($dep)) === null) {
-                    //установить зависимости @since 0.8
 
                     $module = Yii::app()->moduleManager->getCreateModule($dep);
 
@@ -847,7 +822,8 @@ abstract class WebModule extends CWebModule
         return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true)) ? $log : false;
     }
 
-    /**
+
+        /**
      * Метод удаляющий БД модуля
      *
      * @throws CException
@@ -869,14 +845,7 @@ abstract class WebModule extends CWebModule
 
         if (!empty($history)) {
 
-            Yii::app()->getCache()->clear(
-                'installedModules',
-                $this->getId(),
-                'yupe',
-                'getModulesDisabled',
-                'modulesDisabled',
-                $this->getId()
-            );
+            Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
             Yii::app()->configManager->flushDump();
 
             $message = '';
@@ -884,32 +853,29 @@ abstract class WebModule extends CWebModule
             foreach ($history as $migrationName => $migrationTimeUp) {
 
                 // удалить настройки модуля из таблички Settings
-                Settings::model()->deleteAll(
-                    'module_id = :module_id',
-                    array(
-                        ':module_id' => $this->getId()
-                    )
-                );
+                Settings::model()->deleteAll('module_id = :module_id',array(
+                    ':module_id' => $this->getId()
+                ));
 
                 if ($migrationTimeUp > 0) {
                     if (Yii::app()->migrator->migrateDown($this->getId(), $migrationName)) {
                         $message .= Yii::t(
-                                'YupeModule.yupe',
-                                '{m}: Migration was downgrade - {migrationName}',
-                                array(
-                                    '{m}' => $this->getId(),
-                                    '{migrationName}' => $migrationName,
-                                )
-                            ) . '<br />';
+                            'YupeModule.yupe',
+                            '{m}: Migration was downgrade - {migrationName}',
+                            array(
+                                '{m}' => $this->getId(),
+                                '{migrationName}' => $migrationName,
+                            )
+                        ) . '<br />';
                     } else {
                         $message .= Yii::t(
-                                'YupeModule.yupe',
-                                '{m}: Can\'t downgrade migration - {migrationName}',
-                                array(
-                                    '{m}' => $this->getId(),
-                                    '{migrationName}' => $migrationName,
-                                )
-                            ) . '<br />';
+                            'YupeModule.yupe',
+                            '{m}: Can\'t downgrade migration - {migrationName}',
+                            array(
+                                '{m}' => $this->getId(),
+                                '{migrationName}' => $migrationName,
+                            )
+                        ) . '<br />';
                     }
                 }
             }
@@ -935,7 +901,7 @@ abstract class WebModule extends CWebModule
     {
         return array(
             self::CHOICE_YES => Yii::t('YupeModule.yupe', 'yes'),
-            self::CHOICE_NO => Yii::t('YupeModule.yupe', 'no'),
+            self::CHOICE_NO  => Yii::t('YupeModule.yupe', 'no'),
         );
     }
 
@@ -982,11 +948,12 @@ abstract class WebModule extends CWebModule
      */
     public function getSettings($needReset = false)
     {
-        if ($needReset) {
-            Yii::app()->getCache()->clear($this->getId());
+        if($needReset) {
+            Yii::app()->cache->clear($this->getId());
         }
 
-        try {
+        try
+        {
             $settingsRows = Yii::app()->db
                 ->cache($this->coreCacheTime, new \TagsCache($this->getId(), 'settings'))
                 ->createCommand(
@@ -1000,7 +967,7 @@ abstract class WebModule extends CWebModule
                 ->bindValue(':type', Settings::TYPE_CORE)
                 ->queryAll();
 
-            if (!empty($settingsRows)) {
+            if(!empty($settingsRows)) {
 
                 foreach ($settingsRows as $sRow) {
                     if (property_exists($this, $sRow['param_name'])) {
@@ -1020,7 +987,7 @@ abstract class WebModule extends CWebModule
      * Временное решение
      *
      * @param Controller $controller - инстанс контроллера
-     * @param Action $action - инстанс экшена
+     * @param Action     $action     - инстанс экшена
      *
      * @todo пока не придумали куда перенести инициализацию editorOptions
      *
@@ -1028,27 +995,17 @@ abstract class WebModule extends CWebModule
      **/
     public function beforeControllerAction($controller, $action)
     {
-        $this->editorOptions = \CMap::mergeArray(
-            array(
-                'imageUpload' => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
-                'fileUpload' => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
-                'imageGetJson' => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
-                'fileUploadErrorCallback' => 'js:function (data) {
-    $(\'#notifications\').notify({
-        message: {text: data.error},
-        type: \'danger\',
-        fadeOut: {delay: 5000}
-    }).show();
-}'
-            ),
-            $this->editorOptions
-        );
+		$this->editorOptions = \CMap::mergeArray(
+			array(
+				'imageUpload' => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
+				'fileUpload'  => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
+				'imageGetJson'=> Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
+			),
 
-        if ($controller instanceof \yupe\components\controllers\BackController) {
-            Yii::app()->errorHandler->errorAction = 'yupe/backend/error';
-        }
+			$this->editorOptions
+		);
 
-        return true;
+		return true;
     }
 
     /**
@@ -1068,8 +1025,8 @@ abstract class WebModule extends CWebModule
      **/
     public function isNeedUninstall()
     {
-        return !(Yii::app()->migrator->checkForUpdates((array)$this->getId()))
-        && count(Yii::app()->migrator->getMigrationHistory($this->getId(), -1)) < 1;
+        return !(Yii::app()->migrator->checkForUpdates((array) $this->getId()))
+                && count(Yii::app()->migrator->getMigrationHistory($this->getId(), -1)) < 1;
     }
 
     /**
@@ -1088,41 +1045,10 @@ abstract class WebModule extends CWebModule
 
         $installedFile = Yii::getPathOfAlias('application.config.modules.' . $this->getId()) . '.php';
 
-        if (!file_exists($sourceFile) || !file_exists($installedFile)) {
+        if(!file_exists($sourceFile) || !file_exists($installedFile)) {
             return false;
         }
 
         return md5_file($sourceFile) !== md5_file($installedFile);
-    }
-
-    /**
-     * Формат:
-     * Имя правила обязательно начинать с "Модуль." - начало имени используется для определения принадлежности правила модулю
-     * <pre>
-     * array(
-     *  array(
-     *  'name' => 'Shop.Order.Management',
-     *  'description' => 'Управление заказами',
-     *  'type' => 1,
-     *  'bizrule' => '',
-     *  'items' => array(
-     *      array(
-     *          'name' => 'Shop.OrderBackend.Create',
-     *          'description' => 'Создание заказа',
-     *          'type' => 0,
-     *          'bizrule' => '',
-     *      ),
-     *   ),
-     *  )
-     * )
-     *
-     * </pre>
-     *
-     * @since 0.8
-     * @return array
-     */
-    public function getAuthItems()
-    {
-        return array();
     }
 }
