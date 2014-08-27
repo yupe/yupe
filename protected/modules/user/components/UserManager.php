@@ -148,17 +148,6 @@ class UserManager extends CApplicationComponent
 
                 Yii::app()->eventManager->fire(UserEvents::SUCCESS_PASSWORD_RECOVERY, new UserPasswordRecoveryEvent($email, $user));
 
-                /*//@TODO Отправка почты при восставновлении пароля
-                $data = array(
-                    '{from}' => Yii::app()->getModule('user')->notifyEmailFrom,
-                    '{to}' => $user->email,
-                    '{user}' => CHtml::encode($user->nick_name),
-                    '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName),
-                    '{link}' => Yii::app()->createAbsoluteUrl('/user/account/restore', array('token' => $token->token)),
-                );
-
-                Yii::app()->mailMessage->sendTemplate('password-recovery', $data);*/
-
                 Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Password recovery!'), '//user/email/passwordRecoveryEmail', array(
                     'token' => $token
                 ));
