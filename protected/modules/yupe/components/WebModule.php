@@ -1141,4 +1141,21 @@ abstract class WebModule extends CWebModule
     {
         return array();
     }
+
+    /**
+     * Возвращает ссылку на опубликованную папку ресурсов
+     * @uses $assetsPath
+     * @return string|null
+     * @throws \CException
+     */
+    public function getAssetsUrl()
+    {
+        if (!$this->assetsPath) {
+            return null;
+        }
+        if (null === $this->_assetsUrl) {
+            $this->_assetsUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias($this->assetsPath));
+        }
+        return $this->_assetsUrl;
+    }
 }
