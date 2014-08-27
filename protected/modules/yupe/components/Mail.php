@@ -126,6 +126,8 @@ class Mail extends CApplicationComponent
      **/
     public function send($from, $to, $theme, $body, $isText = false)
     {
+        $this->_mailer->clearAllRecipients();
+
         $this->setFrom($from);
         $this->addAddress($to);
         $this->setSubject($theme);
