@@ -23,7 +23,7 @@ class StoreCategory extends \yupe\models\YModel
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
-    const STATUS_MODERATION = 2;
+
 
     private $_url;
 
@@ -207,8 +207,7 @@ class StoreCategory extends \yupe\models\YModel
     {
         return array(
             self::STATUS_DRAFT => Yii::t('StoreModule.category', 'Draft'),
-            self::STATUS_PUBLISHED => Yii::t('StoreModule.category', 'Published'),
-            self::STATUS_MODERATION => Yii::t('StoreModule.category', 'On moderation'),
+            self::STATUS_PUBLISHED => Yii::t('StoreModule.category', 'Published')
         );
     }
 
@@ -269,7 +268,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->request->baseUrl . '/catalog/' . $this->getPath() . Yii::app()->urlManager->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl . '/catalog/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
         }
         return $this->_url;
     }
