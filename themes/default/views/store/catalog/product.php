@@ -47,7 +47,7 @@ $this->breadcrumbs = array_merge(
                             <?php
                             // группировка атрибутов по группам
                             $attributeGroups = array();
-                            foreach ((array)$product->type->typeAttributes as $attribute) {
+                            foreach ($product->getTypeAttributes() as $attribute) {
                                 if ($attribute->group) {
                                     $attributeGroups[$attribute->group->name][] = $attribute;
                                 } else {
@@ -173,7 +173,7 @@ $this->breadcrumbs = array_merge(
                 <table>
                     <tr>
                         <td><b><?php echo Yii::t("StoreModule.catalog", "Производитель"); ?>:</b></td>
-                        <td><?php echo $product->producer->name; ?></td>
+                        <td><?php echo $product->getProducerName(); ?></td>
                     </tr>
                     <tr>
                         <td><b><?php echo Yii::t("StoreModule.catalog", "Артикул"); ?>:</b></td>

@@ -27,7 +27,6 @@ $this->widget(
         'dataProvider' => $model->search(),
         'filter' => $model,
         'columns' => array(
-            'id',
             array(
                 'name' => 'image',
                 'type' => 'raw',
@@ -50,12 +49,6 @@ $this->widget(
                 'type' => 'raw',
                 'filter' => $model->getStatusList()
             ),
-            //'order',
-            /*
-            'image',
-            'short_description',
-            'description',
-            */
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

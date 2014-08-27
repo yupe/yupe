@@ -297,7 +297,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getStatusTitle()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.product', '*unknown*');
     }
 
@@ -311,7 +311,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getSpecial()
     {
-        $data = $this->specialList;
+        $data = $this->getSpecialList();
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('StoreModule.product', '*unknown*');
     }
 
@@ -533,5 +533,23 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getMainCategoryId()
     {
         return is_object($this->mainCategory) ? $this->mainCategory->id : null;
+    }
+
+    public function getTypeAttributes()
+    {
+        if(empty($this->type)) {
+            return [];
+        }
+
+        return (array)$this->type->typeAttributes;
+    }
+
+    public function getProducerName()
+    {
+        if(empty($this->producer)) {
+            return null;
+        }
+
+        return $this->producer->name;
     }
 }

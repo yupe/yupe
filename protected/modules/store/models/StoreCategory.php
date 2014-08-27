@@ -62,7 +62,7 @@ class StoreCategory extends \yupe\models\YModel
             array('alias', 'length', 'max' => 150),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.category', 'Запрещенные символы в поле {attribute}')),
             array('alias', 'unique'),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
     }
@@ -96,9 +96,11 @@ class StoreCategory extends \yupe\models\YModel
                 'parentAttribute' => 'parent_id',
                 'parentRelation' => 'parent',
                 'defaultCriteria' => array(
+                    'condition' => 'status = :status',
+                    'params' => [':status' => self::STATUS_PUBLISHED],
                     'order' => 't.name ASC'
                 ),
-                'useCache' => false,
+                'useCache' => true,
             ),
         );
     }

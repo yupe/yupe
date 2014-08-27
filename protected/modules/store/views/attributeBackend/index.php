@@ -113,11 +113,6 @@ $this->menu = array(
                 'filter' => $model,
                 'columns' => array(
                     array(
-                        'name' => 'id',
-                        'type' => 'raw',
-                        'value' => 'CHtml::link($data->id, array("/store/attributeBackend/update", "id" => $data->id))',
-                    ),
-                    array(
                         'name' => 'group_id',
                         'value' => '$data->getGroupTitle()',
                         'filter' => CHtml::activeDropDownList($model, 'group_id', AttributeGroup::model()->getFormattedList(), array('empty' => '', 'class' => 'form-control')),

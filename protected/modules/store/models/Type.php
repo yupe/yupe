@@ -52,6 +52,7 @@ class Type extends \yupe\models\YModel
         return array(
             'attributeRelation' => array(self::HAS_MANY, 'TypeAttribute', 'type_id'),
             'typeAttributes' => array(self::HAS_MANY, 'Attribute', array('attribute_id' => 'id'), 'through' => 'attributeRelation', 'with' => 'group', 'order' => 'group.position ASC'),
+            'category' => array(self::BELONGS_TO, 'StoreCategory', 'main_category_id')
         );
     }
 
@@ -63,7 +64,7 @@ class Type extends \yupe\models\YModel
         return array(
             'id' => Yii::t('StoreModule.product', 'Id'),
             'name' => Yii::t('StoreModule.product', 'Название'),
-            'main_category_id' => Yii::t('StoreModule.product', 'Главная категория'),
+            'main_category_id' => Yii::t('StoreModule.product', 'Категория'),
             'categories' => Yii::t('StoreModule.product', 'Дополнительные категории'),
         );
     }

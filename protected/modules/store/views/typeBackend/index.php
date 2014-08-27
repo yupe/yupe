@@ -27,15 +27,16 @@ $this->menu = array(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/store/typeBackend/update", "id" => $data->id))',
-                'htmlOptions' => array('style' => 'width: 80px;'),
-            ),
-            array(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/store/typeBackend/update", "id" => $data->id))',
+            ),
+            array(
+                'name'  => 'main_category_id',
+                'value' => function($data) {
+                        return $data->category ? $data->category->name : '---';
+                    },
+                'filter' => false
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

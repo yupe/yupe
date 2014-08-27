@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class StoreModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public $uploadPath = 'store';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -81,21 +81,21 @@ class StoreModule extends WebModule
                 'label' => Yii::t('StoreModule.store', 'Каталог'),
                 'items' => array(
                     array(
+                        'icon' => 'glyphicon glyphicon-shopping-cart',
+                        'label' => Yii::t('StoreModule.store', 'Товары'),
+                        'url' => array('/store/productBackend/index'),
+                        'items' => array(
+                            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Список товаров'), 'url' => array('/store/productBackend/index')),
+                            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Добавить товар'), 'url' => array('/store/productBackend/create')),
+                        ),
+                    ),
+                    array(
                         'icon' => 'glyphicon glyphicon-folder-open',
                         'label' => Yii::t('StoreModule.storegory', 'Категории'),
                         'url' => array('/store/categoryBackend/index'),
                         'items' => array(
                             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.storegory', 'Список категорий'), 'url' => array('/store/categoryBackend/index')),
                             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.storegory', 'Добавить категорию'), 'url' => array('/store/categoryBackend/create')),
-                        ),
-                    ),
-                    array(
-                        'icon' => 'glyphicon glyphicon-edit',
-                        'label' => Yii::t('StoreModule.storeibute', 'Атрибуты'),
-                        'url' => array('/store/attributeBackend/index'),
-                        'items' => array(
-                            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.storeibute', 'Список атрибутов'), 'url' => array('/store/attributeBackend/index')),
-                            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.storeibute', 'Добавить атрибут'), 'url' => array('/store/attributeBackend/create')),
                         ),
                     ),
                     array(
@@ -108,21 +108,21 @@ class StoreModule extends WebModule
                         ),
                     ),
                     array(
+                        'icon' => 'glyphicon glyphicon-edit',
+                        'label' => Yii::t('StoreModule.storeibute', 'Атрибуты'),
+                        'url' => array('/store/attributeBackend/index'),
+                        'items' => array(
+                            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.storeibute', 'Список атрибутов'), 'url' => array('/store/attributeBackend/index')),
+                            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.storeibute', 'Добавить атрибут'), 'url' => array('/store/attributeBackend/create')),
+                        ),
+                    ),
+                    array(
                         'icon' => 'glyphicon glyphicon-plane',
                         'label' => Yii::t('StoreModule.store', 'Производители'),
                         'url' => array('/store/producerBackend/index'),
                         'items' => array(
                             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Список производителей'), 'url' => array('/store/producerBackend/index')),
                             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Добавить производителя'), 'url' => array('/store/producerBackend/create')),
-                        ),
-                    ),
-                    array(
-                        'icon' => 'glyphicon glyphicon-shopping-cart',
-                        'label' => Yii::t('StoreModule.store', 'Товары'),
-                        'url' => array('/store/productBackend/index'),
-                        'items' => array(
-                            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Список товаров'), 'url' => array('/store/productBackend/index')),
-                            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Добавить товар'), 'url' => array('/store/productBackend/create')),
                         ),
                     ),
                 ),
@@ -132,7 +132,6 @@ class StoreModule extends WebModule
 
     public function getAdminPageLink()
     {
-        //return '/store/orderBackend/index';
         return '/store/productBackend/index';
     }
 
