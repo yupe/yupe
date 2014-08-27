@@ -46,16 +46,19 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     {
         $model                 = $this->loadModel($id);
         
-        $code                  = "<?php \$this->widget(\"application.modules.contentblock.widgets.ContentBlockWidget\", array(\"code\" => \"{$model->code}\")); ?>";
+        $code                  = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockWidget\",\n\tarray(\"code\" => \"{$model->code}\"));\n?>";
+        $codeCategory          = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockGroupWidget\",\n\tarray(\"category\" => \"{$model->getCategoryAlias()}\"));\n?>";
         
         $highlighter           = new CTextHighlighter;
         $highlighter->language = 'PHP';
-        $example               = $highlighter->highlight($code); 
+        $example               = $highlighter->highlight($code);
+        $exampleCategory       = $highlighter->highlight($codeCategory);
 
         $this->render(
             'view', array(
                 'model'   => $model,
                 'example' => $example,
+                'exampleCategory' => $exampleCategory
             )
         );
     }
@@ -181,7 +184,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
      */
     public function loadModel($id)
     {
-        $model = ContentBlock::model()->findByPk((int) $id);
+        $model = ContentBlock::model()->with('category')->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('ContentBlockModule.contentblock', 'Page was not found!'));
         return $model;

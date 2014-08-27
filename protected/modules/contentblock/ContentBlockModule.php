@@ -14,6 +14,13 @@ class ContentBlockModule extends yupe\components\WebModule
 {
     const VERSION = '0.8';
 
+    public function getDependencies()
+    {
+        return array(
+            'category',
+        );
+    }
+
     public function getCategory()
     {
         return Yii::t('ContentBlockModule.contentblock', 'Content');

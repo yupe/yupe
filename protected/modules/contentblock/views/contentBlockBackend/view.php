@@ -54,6 +54,10 @@ $this->menu = array(
             'name',
             'code',
             array(
+                'name'  => 'category_id',
+                'value' => $model->getCategoryName()
+            ),
+            array(
                 'name' => 'type',
                 'value' => $model->getType(),
             ),
@@ -68,4 +72,10 @@ $this->menu = array(
     <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
     <br/><br/>
     <?php echo $example; ?>
+</div>
+<div>
+    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
+    <br /><br />
+    <?php echo $exampleCategory; ?>
+    <?php echo Yii::t('ContentBlockModule.contentblock', 'ContentBlockGroupWidget Desc'); ?>
 </div>

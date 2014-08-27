@@ -21,7 +21,7 @@ $this->menu = array(
     ),
     array(
         'icon' => 'glyphicon glyphicon-eye-open',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'View Content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'View content block'),
         'url' => array(
             '/contentblock/contentBlockBackend/view',
             'id' => $model->id
@@ -29,7 +29,7 @@ $this->menu = array(
     ),
     array(
         'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Remove Content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Remove content block'),
         'url' => '#',
         'linkOptions' => array(
             'submit' => array('/contentblock/contentBlockBackend/delete', 'id' => $model->id),
