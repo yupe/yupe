@@ -21,6 +21,7 @@ use GlobIterator;
 use TagsCache;
 use Yii;
 use yupe\widgets\YFlashMessages;
+use yupe\helpers\YFile;
 
 
 class ModuleManager extends \CApplicationComponent
@@ -457,5 +458,25 @@ class ModuleManager extends \CApplicationComponent
         $files = glob($modulePath . DIRECTORY_SEPARATOR . '*Module.php');
 
         return empty($files) ? false : true;
+    }
+
+    /**
+     * Обновить конфигурационный файл модуля
+     *
+     * @param WebModule $module
+     * @return bool
+     * @since 0.8
+     */
+    public function updateModuleConfig(WebModule $module)
+    {
+        $newConfig = $this->getModulesConfigDefault($module->getId());
+
+        $currentConfig = $this->getModulesConfig($module->getId());
+
+        if((!file_exists($currentConfig) || YFile::rmFile($currentConfig)) && YFile::cpFile($newConfig, $currentConfig)) {
+            return true;
+        }
+
+        return false;
     }
 } 
