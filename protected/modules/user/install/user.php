@@ -48,6 +48,24 @@ return array(
             'mail' => array(
                 'class' => 'yupe\components\Mail'
             )
+        ),
+
+        'eventManager' => array(
+            'class' => 'yupe\components\EventManager',
+            'events'=> array(
+                'user.success.registration' => array(
+                    array('UserManagerListener', 'onUserRegistration')
+                ),
+                'user.success.password.recovery' => array(
+                    array('UserManagerListener', 'onPasswordRecovery')
+                ),
+                'user.success.activate.password' => array(
+                    array('UserManagerListener', 'onSuccessActivatePassword')
+                ),
+                'user.success.email.confirm' => array(
+                    array('UserManagerListener', 'onSuccessEmailConfirm')
+                )
+            )
         )
     ),
 

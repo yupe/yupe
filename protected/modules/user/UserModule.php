@@ -319,6 +319,7 @@ class UserModule extends WebModule
             array(
                 'user.models.*',
                 'user.events.*',
+                'user.listeners.*',
                 'user.components.*',
                 'user.widgets.AvatarWidget',
                 'yupe.YupeModule'
