@@ -14,7 +14,7 @@ class CommentRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int)Yii::app()->getModule('news')->rssCount)) {
+        if (!($limit = (int)Yii::app()->getModule('comment')->rssCount)) {
             throw new CHttpException(404);
         }
 

@@ -7,6 +7,11 @@ use yupe\components\Event;
 class UserActivatePasswordEvent extends Event
 {
     /**
+     * @var bool
+     */
+    protected $notify;
+
+    /**
      * @var
      */
     protected $token;
@@ -26,11 +31,44 @@ class UserActivatePasswordEvent extends Event
      * @param $password
      * @param $user
      */
-    function __construct($token, $password = null, User $user = null)
+    function __construct($token, $password = null, User $user = null, $notify = true)
     {
         $this->token = $token;
         $this->password = $password;
         $this->user = $user;
+        $this->notify = $notify;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param boolean $notify
+     */
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNotify()
+    {
+        return $this->notify;
     }
 
     /**

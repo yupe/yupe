@@ -37,17 +37,12 @@ class UserManager extends CApplicationComponent
             $user->hash = $this->hasher->hashPassword($form->password);
             if ($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_REGISTRATION, new UserRegistrationEvent($form, $user));
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_REGISTRATION, new UserRegistrationEvent($form, $user, $token));
 
                 Yii::log(
                     Yii::t('UserModule.user', 'Account {nick_name} was created', array('{nick_name}' => $user->nick_name)),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
-
-                //@TODO Отправка почты при создании пользователя
-                Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Registration on {site}', array('{site}' => Yii::app()->getModule('yupe')->siteName)), '//user/email/needAccountActivationEmail', array(
-                    'token' => $token
-                ));
 
                 $transaction->commit();
 
@@ -98,7 +93,7 @@ class UserManager extends CApplicationComponent
             $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
 
             if ($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
-                // Записываем информацию о событии в лог-файл:
+
                 Yii::log(
                     Yii::t(
                         'UserModule.user', 'Account with activate_key = {activate_key} was activated!', array(
@@ -146,22 +141,7 @@ class UserManager extends CApplicationComponent
         try {
             if (($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_PASSWORD_RECOVERY, new UserPasswordRecoveryEvent($email, $user));
-
-                /*//@TODO Отправка почты при восставновлении пароля
-                $data = array(
-                    '{from}' => Yii::app()->getModule('user')->notifyEmailFrom,
-                    '{to}' => $user->email,
-                    '{user}' => CHtml::encode($user->nick_name),
-                    '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName),
-                    '{link}' => Yii::app()->createAbsoluteUrl('/user/account/restore', array('token' => $token->token)),
-                );
-
-                Yii::app()->mailMessage->sendTemplate('password-recovery', $data);*/
-
-                Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Password recovery!'), '//user/email/passwordRecoveryEmail', array(
-                    'token' => $token
-                ));
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_PASSWORD_RECOVERY, new UserPasswordRecoveryEvent($email, $user, $token));
 
                 $transaction->commit();
 
@@ -209,14 +189,7 @@ class UserManager extends CApplicationComponent
 
             if ($this->changeUserPassword($userModel, $password) && $this->tokenStorage->activate($tokenModel)) {
 
-                if (true === $notify) {
-                    //@TODO Отправка почты при смене пароля пользователя
-                    Yii::app()->notify->send($userModel, Yii::t('UserModule.user', 'Your password was changed successfully!'), '//user/email/passwordRecoverySuccessEmail', array(
-                        'password' => $password
-                    ));
-                }
-
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_PASSWORD, new UserActivatePasswordEvent($token, $password, $userModel));
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_PASSWORD, new UserActivatePasswordEvent($token, $password, $userModel, $notify));
 
                 $transaction->commit();
 
@@ -255,10 +228,7 @@ class UserManager extends CApplicationComponent
                     throw new CException(Yii::t('UserModule.user', 'Error change Email!'));
                 }
 
-                //@TODO Отправка почты при смене почты пользователя
-                Yii::app()->notify->send($user, Yii::t('UserModule.user', 'Email verification'), '//user/email/needEmailActivationEmail', array(
-                    'token' => $token
-                ));
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_EMAIL_CONFIRM, new UserEmailConfirmEvent($user, $token));
 
                 $transaction->commit();
                 return true;

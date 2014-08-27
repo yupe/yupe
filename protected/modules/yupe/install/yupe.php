@@ -11,14 +11,14 @@
  **/
 
 return array(
-    'import' =>array(
+    'import' => array(
         'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
         'application.modules.yupe.extensions.tagcache.*',
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
     ),
-    'preload'   => array('log'),
+    'preload' => array('log'),
     'component' => array(
         // Массив компонентов, которые требует данный модуль
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
@@ -38,13 +38,14 @@ return array(
     'module' => array(
         'components' => array(
             'bootstrap' => array(
-                'class'          => 'vendor.clevertech.yii-booster.src.components.Booster',
-                'coreCss'        => true,
-                'responsiveCss'  => true,
-                'yiiCss'         => true,
-                'jqueryCss'      => true,
-                'enableJS'       => true,
+                'class' => 'vendor.clevertech.yii-booster.src.components.Booster',
+                'coreCss' => true,
+                'responsiveCss' => true,
+                'yiiCss' => true,
+                'jqueryCss' => true,
+                'enableJS' => true,
                 'fontAwesomeCss' => true,
+                'enableNotifierJS' => false,
             ),
         ),
     )

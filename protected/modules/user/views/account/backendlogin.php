@@ -14,11 +14,8 @@
 $this->layout = 'login';
 $this->yupe->getComponent('bootstrap');
 $this->pageTitle = Yii::t('UserModule.user', 'Authorization');
-/**
- * Добавляем нужный CSS:
- */
-Yii::app()->clientScript->registerCssFile(
-    Yii::app()->assetManager->publish(
+Yii::app()->getClientScript()->registerCssFile(
+    Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.user.views.assets') . '/css/backendlogin.css'
     )
 ); ?>

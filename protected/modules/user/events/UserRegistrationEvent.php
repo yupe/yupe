@@ -7,6 +7,27 @@ use yupe\components\Event;
 class UserRegistrationEvent extends Event
 {
     /**
+     * @var
+     */
+    protected $token;
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
      * @var RegistrationForm
      */
     protected $form;
@@ -20,10 +41,11 @@ class UserRegistrationEvent extends Event
      * @param RegistrationForm $form
      * @param User $user
      */
-    function __construct(RegistrationForm $form, User $user)
+    function __construct(RegistrationForm $form, User $user, UserToken $token = null)
     {
-        $this->form = $form;
-        $this->user = $user;
+        $this->form  = $form;
+        $this->user  = $user;
+        $this->token = $token;
     }
 
     /**

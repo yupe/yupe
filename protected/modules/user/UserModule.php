@@ -38,18 +38,11 @@ class UserModule extends WebModule
     public $documentRoot;
     public $avatarsDir = 'avatars';
     public $avatarMaxSize = 10000;
-    private $defaultAvatar;
+    public $defaultAvatar;
     public $defaultAvatarPath = 'images/avatar.png';
     public $avatarExtensions = array('jpg', 'png', 'gif');
     public $usersPerPage = 20;
     public $badLoginCount = 3;
-
-    public $registrationActivateMailEvent;
-    public $registrationMailEvent;
-    public $passwordAutoRecoveryMailEvent;
-    public $passwordRecoveryMailEvent;
-    public $passwordSuccessRecoveryMailEvent;
-    public $userAccountActivationMailEvent;
 
     public static $logCategory = 'application.modules.user';
     public $profiles = array();
@@ -119,21 +112,6 @@ class UserModule extends WebModule
     public function getParamsLabels()
     {
         return array(
-            'userAccountActivationMailEvent' => Yii::t(
-                    'UserModule.user',
-                    'Mail event when user was activated successfully'
-                ),
-            'passwordSuccessRecoveryMailEvent' => Yii::t(
-                    'UserModule.user',
-                    'Mail event when password was recovered successfully'
-                ),
-            'passwordAutoRecoveryMailEvent' => Yii::t('UserModule.user', 'Mail event for automatic password recovery'),
-            'passwordRecoveryMailEvent' => Yii::t('UserModule.user', 'Mail event for password recovery'),
-            'registrationActivateMailEvent' => Yii::t('UserModule.user', 'Mail event when new user was registered'),
-            'registrationMailEvent' => Yii::t(
-                    'UserModule.user',
-                    'Mail event when new user was registered without activation'
-                ),
             'adminMenuOrder' => Yii::t('UserModule.user', 'Menu items order'),
             'accountActivationSuccess' => Yii::t('UserModule.user', 'Page after account activation'),
             'accountActivationFailure' => Yii::t('UserModule.user', 'Page after activation error'),
@@ -166,12 +144,6 @@ class UserModule extends WebModule
     public function getEditableParams()
     {
         return array(
-            'userAccountActivationMailEvent',
-            'passwordRecoveryMailEvent',
-            'passwordSuccessRecoveryMailEvent',
-            'passwordAutoRecoveryMailEvent',
-            'registrationActivateMailEvent',
-            'registrationMailEvent',
             'avatarMaxSize',
             'defaultAvatarPath',
             'avatarsDir',
@@ -233,18 +205,6 @@ class UserModule extends WebModule
                     'showCaptcha',
                     'minCaptchaLength',
                     'maxCaptchaLength'
-                )
-            ),
-            'mail' => array(
-                'label' => Yii::t('UserModule.user', 'Mail notices'),
-                'items' => array(
-                    'notifyEmailFrom',
-                    'userAccountActivationMailEvent',
-                    'passwordRecoveryMailEvent',
-                    'passwordSuccessRecoveryMailEvent',
-                    'passwordAutoRecoveryMailEvent',
-                    'registrationActivateMailEvent',
-                    'registrationMailEvent',
                 )
             ),
             'redirects' => array(
@@ -359,6 +319,7 @@ class UserModule extends WebModule
             array(
                 'user.models.*',
                 'user.events.*',
+                'user.listeners.*',
                 'user.components.*',
                 'user.widgets.AvatarWidget',
                 'yupe.YupeModule'
@@ -445,6 +406,7 @@ class UserModule extends WebModule
 
     /**
      * Возвращает аватар по умолчанию из текущей темы (web/images/avatar.png)
+     * @since 0.8
      * @return string
      */
     public function getDefaultAvatar()

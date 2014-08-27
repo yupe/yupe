@@ -534,6 +534,7 @@ abstract class WebModule extends CWebModule
     public function getDependent()
     {
         $modulesDependent = $this->getDependents();
+
         return isset($modulesDependent[$this->id]) ? $modulesDependent[$this->id] : array();
     }
 
@@ -668,7 +669,7 @@ abstract class WebModule extends CWebModule
                             //установить все зависимости @since 0.8
                             $module = Yii::app()->moduleManager->getCreateModule($dependency);
 
-                            if(null === $module) {
+                            if (null === $module) {
                                 throw new CException(
                                     Yii::t(
                                         'YupeModule.yupe',
@@ -677,9 +678,9 @@ abstract class WebModule extends CWebModule
                                 );
                             }
 
-                            if($module->getIsInstalled())  {
+                            if ($module->getIsInstalled()) {
                                 $this->getActivate();
-                            }else{
+                            } else {
                                 $module->getInstall();
                             }
                         }
@@ -832,19 +833,19 @@ abstract class WebModule extends CWebModule
 
                     $module = Yii::app()->moduleManager->getCreateModule($dep);
 
-                    if(null === $module) {
-                            throw new CException(
-                                Yii::t(
-                                    'YupeModule.yupe',
-                                    "Module {dm} required for install was not found",
-                                    array('{dm}' => $dep)
-                                )
-                            );
+                    if (null === $module) {
+                        throw new CException(
+                            Yii::t(
+                                'YupeModule.yupe',
+                                "Module {dm} required for install was not found",
+                                array('{dm}' => $dep)
+                            )
+                        );
                     }
 
-                    if($module->getIsInstalled())  {
+                    if ($module->getIsInstalled()) {
                         $this->getActivate();
-                    }else{
+                    } else {
                         $module->getInstall();
                     }
 
@@ -998,7 +999,7 @@ abstract class WebModule extends CWebModule
     public function getSettings($needReset = false)
     {
         if ($needReset) {
-            Yii::app()->cache->clear($this->getId());
+            Yii::app()->getCache()->clear($this->getId());
         }
 
         try {
@@ -1048,6 +1049,13 @@ abstract class WebModule extends CWebModule
                 'imageUpload' => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
                 'fileUpload' => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
                 'imageGetJson' => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
+                'fileUploadErrorCallback' => 'js:function (data) {
+    $(\'#notifications\').notify({
+        message: {text: data.error},
+        type: \'danger\',
+        fadeOut: {delay: 5000}
+    }).show();
+}'
             ),
             $this->editorOptions
         );
@@ -1132,22 +1140,5 @@ abstract class WebModule extends CWebModule
     public function getAuthItems()
     {
         return array();
-    }
-
-    /**
-     * Возвращает ссылку на опубликованную папку ресурсов
-     * @uses $assetsPath
-     * @return string|null
-     * @throws \CException
-     */
-    public function getAssetsUrl()
-    {
-        if (!$this->assetsPath) {
-            return null;
-        }
-        if (null === $this->_assetsUrl) {
-            $this->_assetsUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias($this->assetsPath));
-        }
-        return $this->_assetsUrl;
     }
 }

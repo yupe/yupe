@@ -10,22 +10,22 @@
  **/
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo Yii::app()->language; ?>">
+<html lang="<?php echo Yii::app()->getLanguage(); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php
-        $docsAssets = Yii::app()->assetManager->publish(
+        $docsAssets = Yii::app()->getAssetManager()->publish(
             Yii::getPathOfAlias('application.modules.docs.views.assets')
         );
-        $mainAssets = Yii::app()->assetManager->publish(
+        $mainAssets = Yii::app()->getAssetManager()->publish(
             Yii::getPathOfAlias('application.modules.yupe.views.assets')
         );
-        Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
+        Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/styles.css');
 
-        if (($langs = $this->yupe->languageSelectorArray) != array()) {
-            Yii::app()->clientScript->registerCssFile($mainAssets . '/css/flags.css');
+        if (($langs = $this->yupe->getLanguageSelectorArray()) != array()) {
+            Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
         }
 
         ?>
@@ -75,7 +75,7 @@
                                         'url' => 'http://yupe.ru/?from=doc-navbar'
                                     ),
                                 ),
-                                $this->yupe->languageSelectorArray
+                                $this->yupe->getLanguageSelectorArray()
                             ),
                         ),
                     ),
@@ -90,7 +90,7 @@
             <!-- /content -->
         </div>
         <footer>
-            Copyright &copy; 2010-<?php echo date('Y'); ?>
+            Copyright &copy; 2012-<?php echo date('Y'); ?>
             <?php echo $this->yupe->poweredBy(); ?>
             <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
             <br/>

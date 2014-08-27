@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-use application\modules\yupe\components\ConsoleCommand;
+use yupe\components\ConsoleCommand;
 
 class YQueueMailSenderCommand extends ConsoleCommand
 {

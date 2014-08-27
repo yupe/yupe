@@ -10,20 +10,20 @@
  **/
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= Yii::app()->getLanguage();?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
-    $mainAssets = Yii::app()->assetManager->publish(
+    $mainAssets = Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
-    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    if (($langs = $this->yupe->languageSelectorArray) != array())
-        Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/styles.css');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
+    if (($langs = $this->yupe->getLanguageSelectorArray()) != array())
+        Yii::app()->getClientScript()->registerCssFile($mainAssets. '/css/flags.css');
     ?>
     <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
 
@@ -100,19 +100,19 @@
                                     array(
                                         'icon' => 'glyphicon glyphicon-thumbs-up',
                                         'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                        'url' => 'http://amylabs.ru/contact?from=help-support',
+                                        'url' => 'http://yupe.ru/service?from=help-support',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
                                         'icon' => 'glyphicon glyphicon-warning-sign',
                                         'label' => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                        'url' => CHtml::normalizeUrl(array('/yupe/backend/reportBug/')),
+                                        'url' => 'http://yupe.ru/contacts?from=help-support',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
                                         'icon' => 'glyphicon glyphicon-exclamation-sign',
                                         'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                        'url' => array('/yupe/backend/help'),
+                                        'url' => 'http://yupe.ru/about?from=help-support',
                                     ),
                                 )
                             ),
@@ -136,7 +136,7 @@
 </div>
 
 <footer>
-    &copy; 2010 - <?php echo date('Y'); ?>
+    &copy; 2012 - <?php echo date('Y'); ?>
     <?php echo $this->yupe->poweredBy();?>
 </footer>
 </body>

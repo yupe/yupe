@@ -3,15 +3,49 @@ use yupe\components\Event;
 
 class UserPasswordRecoveryEvent extends Event
 {
+    /**
+     * @var
+     */
     protected $email;
 
+    /**
+     * @var User
+     */
     protected $user;
 
-    public function __construct($email, User $user = null)
+    /**
+     * @var UserToken
+     */
+    protected $token;
+
+    /**
+     * @param $email
+     * @param User $user
+     * @param UserToken $token
+     */
+    public function __construct($email, User $user = null, UserToken $token = null)
     {
         $this->email = $email;
 
         $this->user = $user;
+
+        $this->token = $token;
+    }
+
+    /**
+     * @param \UserToken $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return \UserToken
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**
