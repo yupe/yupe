@@ -38,7 +38,6 @@ class UserModule extends WebModule
     public $documentRoot;
     public $avatarsDir = 'avatars';
     public $avatarMaxSize = 10000;
-    public $defaultAvatar;
     public $defaultAvatarPath = 'images/avatar.png';
     public $avatarExtensions = array('jpg', 'png', 'gif');
     public $usersPerPage = 20;
@@ -46,6 +45,8 @@ class UserModule extends WebModule
 
     public static $logCategory = 'application.modules.user';
     public $profiles = array();
+
+    private $defaultAvatar;
 
     public function getUploadPath()
     {
