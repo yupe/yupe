@@ -48,16 +48,20 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'content'); ?>
-        <?php $this->widget(
-            $this->yupe->editor,
-            array(
-                'model' => $model,
-                'attribute' => 'content',
-                'options' => $this->module->editorOptions,
-            )
-        ); ?>
-        <?php echo $form->error($model, 'content'); ?>
+        <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT): ?>
+            <?php echo $form->labelEx($model, 'content'); ?>
+            <?php $this->widget(
+                $this->yupe->editor,
+                array(
+                    'model' => $model,
+                    'attribute' => 'content',
+                    'options' => $this->module->editorOptions,
+                )
+            ); ?>
+            <?php echo $form->error($model, 'content'); ?>
+        <?php else: ?>
+            <?php echo $form->textAreaGroup($model, 'content', array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))); ?>
+        <?php endif; ?>
     </div>
 </div>
 <div class="row">
