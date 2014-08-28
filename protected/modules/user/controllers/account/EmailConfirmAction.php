@@ -18,7 +18,7 @@ class EmailConfirmAction extends CAction
         // пытаемся подтвердить почту
         if (Yii::app()->userManager->verifyEmail($token)) {
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'UserModule.user',
@@ -28,7 +28,7 @@ class EmailConfirmAction extends CAction
 
         } else {
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t(
                     'UserModule.user',
@@ -37,8 +37,8 @@ class EmailConfirmAction extends CAction
             );
         }
 
-        $this->controller->redirect(
-            Yii::app()->user->isAuthenticated()
+        $this->getController()->redirect(
+            Yii::app()->getUser()->isAuthenticated()
                 ? array('/user/account/profile')
                 : array('/user/account/login')
         );

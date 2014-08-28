@@ -187,7 +187,7 @@ class Queue extends yupe\models\YModel
                 ':status' => Queue::STATUS_NEW
             ),
             'limit' => (int)$limit,
-            'order' => 'priority, id desc'
+            'order' => 'priority, id asc'
         ));
     }
 

@@ -20,7 +20,7 @@ class RecoveryAction extends CAction
         // Незачем выполнять последующие действия
         // для авторизованного пользователя:
         if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->controller->redirect(
+            $this->getController()->redirect(
                 Yii::app()->getUser()->getReturnUrl()
             );
         }
@@ -54,18 +54,18 @@ class RecoveryAction extends CAction
                         )
                     );
 
-                    $this->controller->redirect(array('/user/account/login'));
+                    $this->getController()->redirect(array('/user/account/login'));
                 }
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Password recovery error.')
                 );
 
-                $this->controller->redirect(array('/user/account/recovery'));
+                $this->getController()->redirect(array('/user/account/recovery'));
             }
         }
 
-        $this->controller->render('recovery', array('model' => $form));
+        $this->getController()->render('recovery', array('model' => $form));
     }
 }

@@ -17,6 +17,10 @@ class ActivateAction extends CAction
 {
     public function run($token)
     {
+        if (Yii::app()->getUser()->isAuthenticated()) {
+            $this->getController()->redirect(Url::redirectUrl(Yii::app()->getUser()->getReturnUrl()));
+        }
+
         $module = Yii::app()->getModule('user');
 
         // Пытаемся найти пользователя по токену,
@@ -24,22 +28,22 @@ class ActivateAction extends CAction
         if (Yii::app()->userManager->activateUser($token)) {
 
             // Сообщаем пользователю:
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'You activate account successfully. Now you can login!')
             );
 
             // Выполняем переадресацию на соответствующую страницу:
-            $this->controller->redirect(Url::redirectUrl($module->accountActivationSuccess));
+            $this->getController()->redirect(Url::redirectUrl($module->accountActivationSuccess));
         }
 
         // Сообщаем об ошибке:
-        Yii::app()->user->setFlash(
+        Yii::app()->getUser()->setFlash(
             yupe\widgets\YFlashMessages::ERROR_MESSAGE,
             Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.')
         );
 
         // Переадресовываем на соответствующую ошибку:
-        $this->controller->redirect(Url::redirectUrl($module->accountActivationFailure));
+        $this->getController()->redirect(Url::redirectUrl($module->accountActivationFailure));
     }
 }

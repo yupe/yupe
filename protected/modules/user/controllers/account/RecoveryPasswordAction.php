@@ -23,7 +23,7 @@ class RecoveryPasswordAction extends CAction
     public function run($token)
     {
         if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->controller->redirect( Yii::app()->getUser()->getReturnUrl());
+            $this->getController()->redirect( Yii::app()->getUser()->getReturnUrl());
         }
 
         $module = Yii::app()->getModule('user');
@@ -45,16 +45,16 @@ class RecoveryPasswordAction extends CAction
 
             if (Yii::app()->userManager->activatePassword($token)) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
-                $this->controller->redirect(array('/user/account/login'));
+                $this->getController()->redirect(array('/user/account/login'));
 
             } else {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error when changing password!')
                 );
@@ -79,11 +79,10 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('UserModule.user', 'Password recover successfully')
                 );
 
-                $this->controller->redirect(array('/user/account/login'));
+                $this->getController()->redirect(array('/user/account/login'));
             }
         }
 
-        // Отрисовываем форму:
-        $this->controller->render('changePassword', array('model' => $changePasswordForm));
+        $this->getController()->render('changePassword', array('model' => $changePasswordForm));
     }
 }
