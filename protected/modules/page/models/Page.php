@@ -157,31 +157,31 @@ class Page extends yupe\models\YModel
             'creation_date'  => Yii::t('PageModule.page', 'Created at'),
             'change_date'    => Yii::t('PageModule.page', 'Updated at'),
             'title'          => Yii::t(
-                    'PageModule.page',
-                    'Full page title which will be displayed in page header.<br/><br />For example:<pre>Contact information and road map.</pre>'
-                ),
+                'PageModule.page',
+                'Full page title which will be displayed in page header.<br/><br />For example:<pre>Contact information and road map.</pre>'
+            ),
             'title_short'    => Yii::t(
-                    'PageModule.page',
-                    'Short page title which wil be displayed in widgets and menus<br/><br />For example:<pre>Contacts</pre>'
-                ),
+                'PageModule.page',
+                'Short page title which wil be displayed in widgets and menus<br/><br />For example:<pre>Contacts</pre>'
+            ),
             'slug'           => Yii::t(
-                    'PageModule.page',
-                    'Short page title for URL generation<br /><br /> For example: <pre>http://site.ru/page/<span class=\'label\'>contacts</span>/</pre> You can leave it empty for automatic generation.'
-                ),
+                'PageModule.page',
+                'Short page title for URL generation<br /><br /> For example: <pre>http://site.ru/page/<span class=\'label\'>contacts</span>/</pre> You can leave it empty for automatic generation.'
+            ),
             'lang'           => Yii::t('PageModule.page', 'Page language'),
             'body'           => Yii::t('PageModule.page', 'Page text'),
             'keywords'       => Yii::t(
-                    'PageModule.page',
-                    'Keywords for SEO optimization. Insert a few words which have sense in article context. For example: <pre>address, road map, contacts.</pre>'
-                ),
+                'PageModule.page',
+                'Keywords for SEO optimization. Insert a few words which have sense in article context. For example: <pre>address, road map, contacts.</pre>'
+            ),
             'description'    => Yii::t(
-                    'PageModule.page',
-                    'Short page description. About one or two sentences. Usually this is the main idea. For example: <pre>Contact information about my company</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'
-                ),
+                'PageModule.page',
+                'Short page description. About one or two sentences. Usually this is the main idea. For example: <pre>Contact information about my company</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'
+            ),
             'status'         => Yii::t(
-                    'PageModule.page',
-                    '<span class=\'label label-success\'>Published</span> &ndash; Page is visible for all users by default.<br /><br /><span class=\'label label-default\'>Draft</span> &ndash; Page will be invisible for users.<br /><br /><span class=\'label label-info\'>On moderation</span> &ndash; Page is not checked and it will be invisible for users.'
-                ),
+                'PageModule.page',
+                '<span class=\'label label-success\'>Published</span> &ndash; Page is visible for all users by default.<br /><br /><span class=\'label label-default\'>Draft</span> &ndash; Page will be invisible for users.<br /><br /><span class=\'label label-info\'>On moderation</span> &ndash; Page is not checked and it will be invisible for users.'
+            ),
             'is_protected'   => Yii::t('PageModule.page', 'Access: * Only for authorized members'),
             'user_id'        => Yii::t('PageModule.page', 'Page creator'),
             'change_user_id' => Yii::t('PageModule.page', 'Page editor'),
@@ -266,10 +266,12 @@ class Page extends yupe\models\YModel
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('layout', $this->layout);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 't.order DESC, t.creation_date DESC'),
-        ));
+        return new CActiveDataProvider(
+            get_class($this), array(
+                'criteria' => $criteria,
+                'sort'     => array('defaultOrder' => 't.order DESC, t.creation_date DESC'),
+            )
+        );
     }
 
     public function getStatusList()
@@ -341,13 +343,17 @@ class Page extends yupe\models\YModel
         return ($this->parentPage === null) ? '---' : $this->parentPage->title;
     }
 
-    public function getPermaLink()
-    {
-        return Yii::app()->createAbsoluteUrl('/page/page/show/', array('slug' => $this->slug));
-    }
-
     public function isProtected()
     {
         return $this->is_protected == self::PROTECTED_YES;
+    }
+
+    /**
+     * @param bool $absolute
+     * @return string
+     */
+    public function getUrl($absolute = false)
+    {
+        return $absolute ? Yii::app()->createAbsoluteUrl('/page/page/show/', array('slug' => $this->slug)) : Yii::app()->createUrl('/page/page/show/', array('slug' => $this->slug));
     }
 }

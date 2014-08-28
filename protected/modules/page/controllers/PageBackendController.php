@@ -67,32 +67,25 @@ class PageBackendController extends yupe\components\controllers\BackController
     public function actionCreate()
     {
         $model = new Page();
-
         $menuId = null;
         $menuParentId = 0;
 
         if (($data = Yii::app()->getRequest()->getPost('Page')) !== null) {
-
             $model->setAttributes($data);
-
             $transaction = Yii::app()->db->beginTransaction();
-
             try {
-
                 if ($model->save()) {
-
                     // если активен модуль "Меню" - сохраним в меню
                     if (Yii::app()->hasModule('menu')) {
-
                         $menuId = (int)Yii::app()->getRequest()->getPost('menu_id');
                         $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
-
-                        $menu = Menu::model()->active()->findByPk($menuId);
+                        $menu = Menu::model()->findByPk($menuId);
                         if ($menu) {
                             if (!$menu->addItem(
                                 $model->title,
-                                serialize(array('/page/page/show', 'slug' => $model->slug)),
-                                $parentId
+                                $model->getUrl(),
+                                $parentId,
+                                true
                             )
                             ) {
                                 throw new CDbException(
@@ -212,13 +205,14 @@ class PageBackendController extends yupe\components\controllers\BackController
 
                     $menuId = (int)Yii::app()->getRequest()->getPost('menu_id');
                     $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
-                    $menu = Menu::model()->active()->findByPk($menuId);
+                    $menu = Menu::model()->findByPk($menuId);
                     if ($menu) {
                         if (!$menu->changeItem(
                             $oldTitle,
                             $model->title,
-                            serialize(array('/page/page/show', 'slug' => $model->slug)),
-                            $parentId
+                            $model->getUrl(),
+                            $parentId,
+                            true
                         )
                         ) {
                             throw new CDbException(

@@ -1,4 +1,5 @@
 <?php
+Yii::import('application.modules.menu.components.YMenu');
 $this->widget(
     'bootstrap.widgets.TbNavbar',
     array(
@@ -15,7 +16,7 @@ $this->widget(
         'brandUrl' => '/',
         'items'    => array(
             array(
-                'class' => 'bootstrap.widgets.TbMenu',
+                'class' => 'YMenu',
                 'type'  => 'navbar',
                 'items' => $this->params['items'],
             ),
