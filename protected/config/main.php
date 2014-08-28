@@ -26,15 +26,15 @@ Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 
 return array(
     'basePath'            => dirname(__FILE__) . '/..',
-    'defaultController'   => 'site',
     // контроллер по умолчанию
-    'name'                => 'Yupe!',
+    'defaultController'   => 'site',
     // название приложения
-    'language'            => 'ru',
+    'name'                => 'Yupe!',
     // язык по умолчанию
+    'language'            => 'ru',
     'sourceLanguage'      => 'en',
-    'theme'               => 'default',
     // тема оформления по умолчанию
+    'theme'               => 'default',
     'charset'             => 'UTF-8',
     'controllerNamespace' => 'application\controllers',
     'preload'             => defined('YII_DEBUG')
