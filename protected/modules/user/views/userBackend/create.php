@@ -10,14 +10,26 @@ $this->menu = array(
     array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Manage users'),
+                'url'   => array('/user/userBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('UserModule.user', 'Create user'),
+                'url'   => array('/user/userBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Token list'),
+                'url'   => array('/user/tokensBackend/index')
+            ),
         )
     ),
 );

@@ -48,7 +48,7 @@ class YFile extends CFileHelper
 
     /**
      * @param $path
-     * @param  int  $rights
+     * @param  int $rights
      * @param  bool $recursive
      * @return bool
      */

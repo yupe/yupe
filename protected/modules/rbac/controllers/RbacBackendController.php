@@ -23,8 +23,8 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         return array(
             'inlineEdit' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'AuthItem',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'AuthItem',
                 'validAttributes' => array('description', 'type'),
             )
         );
@@ -37,7 +37,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     public function actionAssign($id = null)
     {
-        $user = User::model()->findByPk((int) $id);
+        $user = User::model()->findByPk((int)$id);
         if (!$user) {
             $this->redirect(array('userList'));
         }
@@ -49,14 +49,17 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int) $user->id));
+                AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int)$user->id));
                 // убираем дубликаты и несуществующие роли
-                $roles = array_intersect(array_unique((array) Yii::app()->getRequest()->getPost('AuthItem')), $existingRoles);
+                $roles = array_intersect(
+                    array_unique((array)Yii::app()->getRequest()->getPost('AuthItem')),
+                    $existingRoles
+                );
                 foreach ($roles as $op) {
                     $model = new AuthAssignment();
                     $model->setAttributes(
                         array(
-                            'userid' => $user->id,
+                            'userid'   => $user->id,
                             'itemname' => $op
                         )
                     );
@@ -80,7 +83,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 Yii::app()->getCache()->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->getLanguage());
 
                 /*сброс кеша прав*/
-                Yii::app()->getCache()->delete(Yii::app()->getUser()->rbacCacheNameSpace.$id);
+                Yii::app()->getCache()->delete(Yii::app()->getUser()->rbacCacheNameSpace . $id);
 
                 $this->redirect(array('assign', 'id' => $user->id));
             } catch (Exception $e) {
@@ -124,10 +127,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
         $this->render(
             'create',
             array(
-                'model' => $model,
+                'model'      => $model,
                 'operations' => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
-                'tasks' => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
-                'roles' => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
+                'tasks'      => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
+                'roles'      => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
             )
         );
     }
@@ -147,7 +150,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
         // названия ролей, которые могут бы потомками
         $availableChildrenName = array_keys(CHtml::listData($availableChildren, 'name', 'description'));
         // уберем те, которые не могут быть потомками
-        $children = array_intersect(Yii::app()->getRequest()->getPost('ChildAuthItems', array()), $availableChildrenName);
+        $children = array_intersect(
+            Yii::app()->getRequest()->getPost('ChildAuthItems', array()),
+            $availableChildrenName
+        );
 
         AuthItemChild::model()->deleteAll('parent = :parent', array(':parent' => $item->name));
 
@@ -156,7 +162,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $child->setAttributes(
                 array(
                     'parent' => $item->name,
-                    'child' => $name
+                    'child'  => $name
                 )
             );
 
@@ -201,10 +207,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
         $this->render(
             'update',
             array(
-                'model' => $model,
-                'operations' => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
-                'tasks' => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
-                'roles' => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
+                'model'       => $model,
+                'operations'  => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
+                'tasks'       => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
+                'roles'       => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
                 'checkedList' => $checkedList,
 
             )
@@ -249,7 +255,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
     /**
      * Разворачивает дерево до списка
      * @param $rules - Дерево правил
-     * @param  null  $parent
+     * @param  null $parent
      * @return array - Список правил
      */
     private function getRulesList($rules, $parent = null)
@@ -257,11 +263,11 @@ class RbacBackendController extends yupe\components\controllers\BackController
         $items = array();
         foreach ($rules as $rule) {
             $items[] = array(
-                'name' => $rule['name'],
+                'name'        => $rule['name'],
                 'description' => $rule['description'],
-                'type' => $rule['type'],
-                'bizrule' => isset($rule['bizrule']) ? $rule['bizrule'] : null,
-                'parent' => $parent ? $parent['name'] : '',
+                'type'        => $rule['type'],
+                'bizrule'     => isset($rule['bizrule']) ? $rule['bizrule'] : null,
+                'parent'      => $parent ? $parent['name'] : '',
             );
             if (isset($rule['items']) && is_array($rule['items'])) {
                 $items = array_merge($items, $this->getRulesList($rule['items'], $rule));
@@ -278,7 +284,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             if ($rule['parent']) {
                 $items[] = array(
                     'parent' => $rule['parent'],
-                    'child' => $rule['name'],
+                    'child'  => $rule['name'],
                 );
             }
         }
@@ -299,7 +305,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
             }
         }
         if (Yii::app()->getRequest()->isPostRequest) {
-            $importModules = array_intersect(Yii::app()->getRequest()->getPost('modules', array()), array_keys($modules));
+            $importModules = array_intersect(
+                Yii::app()->getRequest()->getPost('modules', array()),
+                array_keys($modules)
+            );
             foreach ($importModules as $moduleName) {
                 /* @var $module \yupe\components\WebModule */
                 $module = $modules[$moduleName];

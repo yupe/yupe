@@ -13,7 +13,7 @@ $newUpdates = array();
 if (isset($updates[$module->getId()]) && ($updates = $updates[$module->getId()])) {
     foreach ($updates as $u) {
         $newUpdates[] = array(
-            'id' => count($newUpdates) + 1,
+            'id'       => count($newUpdates) + 1,
             'fileName' => $u,
         );
     }
@@ -27,15 +27,15 @@ if (isset($updates[$module->getId()]) && ($updates = $updates[$module->getId()])
             $this->widget(
                 'bootstrap.widgets.TbGridView',
                 array(
-                    'template' => '{items}{pager}',
+                    'template'     => '{items}{pager}',
                     'dataProvider' => $gridDataProvider,
-                    'columns' => array(
+                    'columns'      => array(
                         array(
-                            'name' => 'id',
+                            'name'   => 'id',
                             'header' => 'ID',
                         ),
                         array(
-                            'name' => 'fileName',
+                            'name'   => 'fileName',
                             'header' => Yii::t('YupeModule.yupe', 'File'),
                         ),
                     ),
@@ -45,8 +45,8 @@ if (isset($updates[$module->getId()]) && ($updates = $updates[$module->getId()])
             $form = $this->beginWidget(
                 'bootstrap.widgets.TbActiveForm',
                 array(
-                    'id' => 'moduleUpdateForm',
-                    'type' => 'vertical',
+                    'id'     => 'moduleUpdateForm',
+                    'type'   => 'vertical',
                     'action' => '#',
                 )
             );
@@ -54,7 +54,7 @@ if (isset($updates[$module->getId()]) && ($updates = $updates[$module->getId()])
                 'bootstrap.widgets.TbButton',
                 array(
                     'buttonType' => 'submit',
-                    'label' => Yii::t('YupeModule.yupe', 'Refresh'),
+                    'label'      => Yii::t('YupeModule.yupe', 'Refresh'),
                 )
             );
             $this->endWidget();

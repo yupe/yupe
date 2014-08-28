@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ContentBlock install migration
  * Класс миграций для модуля ContentBlock:
@@ -14,14 +15,17 @@ class m000000_000000_contentblock_base extends yupe\components\DbMigration
 
     public function safeUp()
     {
-        $this->createTable('{{contentblock_content_block}}', array(
-                'id' => 'pk',
-                'name' => 'varchar(250) NOT NULL',
-                'code' => 'varchar(100) NOT NULL',
-                'type' => "integer NOT NULL DEFAULT '1'",
-                'content' => "text NOT NULL",
+        $this->createTable(
+            '{{contentblock_content_block}}',
+            array(
+                'id'          => 'pk',
+                'name'        => 'varchar(250) NOT NULL',
+                'code'        => 'varchar(100) NOT NULL',
+                'type'        => "integer NOT NULL DEFAULT '1'",
+                'content'     => "text NOT NULL",
                 'description' => "varchar(255) DEFAULT NULL"
-            ), $this->getOptions()
+            ),
+            $this->getOptions()
         );
 
         $this->createIndex("ux_{{contentblock_content_block}}_code", '{{contentblock_content_block}}', "code", true);

@@ -2,11 +2,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'menu-item-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'menu-item-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -28,22 +28,25 @@ $form = $this->beginWidget(
             'menu_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
+                    'data'        => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('menu_id'),
-                        'data-content' => $model->getAttributeDescription('menu_id'),
-                        'empty' => Yii::t('MenuModule.menu', '--choose menu--'),
-                        'ajax' => array(
-                            'type' => 'POST',
-                            'url' => $this->createUrl('/menu/menuitemBackend/dynamicparent', (!$model->isNewRecord ? array('id' => $model->id) : array())),
-                            'update' => $parent_id,
+                        'data-content'        => $model->getAttributeDescription('menu_id'),
+                        'empty'               => Yii::t('MenuModule.menu', '--choose menu--'),
+                        'ajax'                => array(
+                            'type'       => 'POST',
+                            'url'        => $this->createUrl(
+                                    '/menu/menuitemBackend/dynamicparent',
+                                    (!$model->isNewRecord ? array('id' => $model->id) : array())
+                                ),
+                            'update'     => $parent_id,
                             'beforeSend' => "function () {
                             $('" . $parent_id . "').attr('disabled', true);
                             if ($('" . $menu_id . " option:selected').val() == '')
                                 return false;
                         }",
-                            'complete' => "function () {
+                            'complete'   => "function () {
                             $('" . $parent_id . "').attr('disabled', false);
                         }",
                         ),
@@ -58,13 +61,13 @@ $form = $this->beginWidget(
             'parent_id',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getParentTree(),
+                    'data'        => $model->getParentTree(),
                     'htmlOptions' => array(
-                        'disabled' => ($model->menu_id) ? false : true,
-                        'encode' => false,
-                        'class' => 'popover-help',
+                        'disabled'            => ($model->menu_id) ? false : true,
+                        'encode'              => false,
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('parent_id'),
-                        'data-content' => $model->getAttributeDescription('parent_id'),
+                        'data-content'        => $model->getAttributeDescription('parent_id'),
                     ),
                 ),
             )
@@ -80,9 +83,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('title'),
-                        'data-content' => $model->getAttributeDescription('title'),
+                        'data-content'        => $model->getAttributeDescription('title'),
                     ),
                 ),
             )
@@ -98,9 +101,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('regular_link'),
-                        'data-content' => $model->getAttributeDescription('regular_link'),
+                        'data-content'        => $model->getAttributeDescription('regular_link'),
                     ),
                 ),
             )
@@ -116,9 +119,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('href'),
-                        'data-content' => $model->getAttributeDescription('href'),
+                        'data-content'        => $model->getAttributeDescription('href'),
                     ),
                 ),
             )
@@ -139,11 +142,11 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content' => $model->getAttributeDescription('status'),
+                        'data-content'        => $model->getAttributeDescription('status'),
                     ),
                 ),
             )
@@ -170,11 +173,11 @@ $form = $this->beginWidget(
                             'title_attr',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getStatusList(),
+                                    'data'        => $model->getStatusList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('title_attr'),
-                                        'data-content' => $model->getAttributeDescription('title_attr'),
+                                        'data-content'        => $model->getAttributeDescription('title_attr'),
                                     ),
                                 ),
                             )
@@ -189,11 +192,11 @@ $form = $this->beginWidget(
                             'class',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getStatusList(),
+                                    'data'        => $model->getStatusList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('class'),
-                                        'data-content' => $model->getAttributeDescription('class'),
+                                        'data-content'        => $model->getAttributeDescription('class'),
                                     ),
                                 ),
                             )
@@ -207,11 +210,11 @@ $form = $this->beginWidget(
                             'before_link',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getStatusList(),
+                                    'data'        => $model->getStatusList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('before_link'),
-                                        'data-content' => $model->getAttributeDescription('before_link'),
+                                        'data-content'        => $model->getAttributeDescription('before_link'),
                                     ),
                                 ),
                             )
@@ -223,11 +226,11 @@ $form = $this->beginWidget(
                             'after_link',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getStatusList(),
+                                    'data'        => $model->getStatusList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('after_link'),
-                                        'data-content' => $model->getAttributeDescription('after_link'),
+                                        'data-content'        => $model->getAttributeDescription('after_link'),
                                     ),
                                 ),
                             )
@@ -241,11 +244,11 @@ $form = $this->beginWidget(
                             'target',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getStatusList(),
+                                    'data'        => $model->getStatusList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('target'),
-                                        'data-content' => $model->getAttributeDescription('target'),
+                                        'data-content'        => $model->getAttributeDescription('target'),
                                     ),
                                 ),
                             )
@@ -257,11 +260,11 @@ $form = $this->beginWidget(
                             'rel',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getStatusList(),
+                                    'data'        => $model->getStatusList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('rel'),
-                                        'data-content' => $model->getAttributeDescription('rel'),
+                                        'data-content'        => $model->getAttributeDescription('rel'),
                                     ),
                                 ),
                             )
@@ -275,12 +278,12 @@ $form = $this->beginWidget(
                             'condition_name',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getConditionList(),
+                                    'data'        => $model->getConditionList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('condition_name'),
-                                        'data-content' => $model->getAttributeDescription('condition_name'),
-                                        'empty' => '',
+                                        'data-content'        => $model->getAttributeDescription('condition_name'),
+                                        'empty'               => '',
                                     ),
                                 ),
                             )
@@ -292,11 +295,11 @@ $form = $this->beginWidget(
                             'condition_denial',
                             array(
                                 'widgetOptions' => array(
-                                    'data' => $model->getConditionDenialList(),
+                                    'data'        => $model->getConditionDenialList(),
                                     'htmlOptions' => array(
-                                        'class' => 'popover-help',
+                                        'class'               => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('condition_denial'),
-                                        'data-content' => $model->getAttributeDescription('condition_denial'),
+                                        'data-content'        => $model->getAttributeDescription('condition_denial'),
                                     ),
                                 ),
                             )
@@ -313,17 +316,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and continue') : Yii::t('MenuModule.menu', 'Save menu item and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and continue') : Yii::t(
+                'MenuModule.menu',
+                'Save menu item and continue'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and close') : Yii::t('MenuModule.menu', 'Save menu item and close'),
+        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and close') : Yii::t(
+                'MenuModule.menu',
+                'Save menu item and close'
+            ),
     )
 ); ?>
 

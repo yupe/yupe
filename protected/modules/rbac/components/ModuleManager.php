@@ -42,9 +42,10 @@ class ModuleManager extends \yupe\components\ModuleManager
                 $route = $item['url'][0];
                 $role = $this->getRoleByRoute($route);
                 if (!isset($menu[$key]['visible'])) {
-                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app()->getUser()->checkAccess(
-                            $role
-                        );
+                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app(
+                        )->getUser()->checkAccess(
+                                $role
+                            );
                 }
                 $visible = $menu[$key]['visible'];
             }
@@ -91,8 +92,8 @@ class ModuleManager extends \yupe\components\ModuleManager
     }
 
     /**
-     * @param  bool        $navigationOnly
-     * @param  bool        $disableModule
+     * @param  bool $navigationOnly
+     * @param  bool $disableModule
      * @return array|mixed
      */
     public function getModules($navigationOnly = false, $disableModule = false)

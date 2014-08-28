@@ -1,4 +1,5 @@
 <?php
+
 class TagCloudWidget extends yupe\widgets\YWidget
 {
     public $count = 50;
@@ -8,10 +9,14 @@ class TagCloudWidget extends yupe\widgets\YWidget
     {
         if (!@class_exists($this->model)) {
             echo CHtml::tag(
-                'p', array(
+                'p',
+                array(
                     'class' => 'alert alert-error'
-                ), Yii::t(
-                    'YupeModule.yupe', 'Widget {widget}: Model "{model}" was not found!', array(
+                ),
+                Yii::t(
+                    'YupeModule.yupe',
+                    'Widget {widget}: Model "{model}" was not found!',
+                    array(
                         '{model}'  => $this->model,
                         '{widget}' => get_class($this),
                     )

@@ -22,7 +22,11 @@
 
                 <div class="row">
                     <div class="col-sm-2">
-                        <?php echo CHtml::link(Yii::t('BlogModule.blog', 'New post'), array('/blog/postBackend/create'), array('class' => 'btn btn-success btn-sm')); ?>
+                        <?php echo CHtml::link(
+                            Yii::t('BlogModule.blog', 'New post'),
+                            array('/blog/postBackend/create'),
+                            array('class' => 'btn btn-success btn-sm')
+                        ); ?>
                     </div>
                 </div>
 
@@ -31,21 +35,21 @@
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
                             array(
-                                'id' => 'post-grid',
-                                'type' => 'striped condensed',
+                                'id'           => 'post-grid',
+                                'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
-                                'template' => '{items}',
-                                'htmlOptions' => array(
+                                'template'     => '{items}',
+                                'htmlOptions'  => array(
                                     'class' => false
                                 ),
-                                'columns' => array(
+                                'columns'      => array(
                                     array(
-                                        'name' => 'title',
+                                        'name'  => 'title',
                                         'value' => 'CHtml::link($data->title, array("/blog/postBackend/update","id" => $data->id))',
-                                        'type' => 'html'
+                                        'type'  => 'html'
                                     ),
                                     array(
-                                        'name' => 'status',
+                                        'name'  => 'status',
                                         'value' => '$data->getStatus()',
                                     ),
                                 ),

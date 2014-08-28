@@ -20,7 +20,7 @@ use Codeception\Module\YiiHelper;
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
  * @method void haveFriend($name)
-*/
+ */
 class CodeGuy extends \Codeception\Actor
 {
 
@@ -36,7 +36,7 @@ class CodeGuy extends \Codeception\Actor
      * ```
      *
      * @param $table
-     * @param  array   $data
+     * @param  array $data
      * @return integer $id
      * @see \Codeception\Module\Db::haveInDatabase()
      */
@@ -74,6 +74,7 @@ class CodeGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInDatabase', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -132,8 +133,11 @@ class CodeGuy extends \Codeception\Actor
      */
     public function cantSeeInDatabase($table, $criteria = null)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -213,7 +217,9 @@ class CodeGuy extends \Codeception\Actor
      */
     public function setDbConnectionOptionsFromYiiConfig($dbConfigFile)
     {
-        return $this->scenario->runStep(new \Codeception\Step\Action('setDbConnectionOptionsFromYiiConfig', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\Action('setDbConnectionOptionsFromYiiConfig', func_get_args())
+        );
     }
 
     /**

@@ -11,6 +11,7 @@
  *
  **/
 namespace yupe\widgets;
+
 use Yii;
 
 class YLanguageSelector extends YWidget
@@ -28,7 +29,10 @@ class YLanguageSelector extends YWidget
         }
 
         if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
-            Yii::log('For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager', CLogger::LEVEL_WARNING);
+            Yii::log(
+                'For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager',
+                CLogger::LEVEL_WARNING
+            );
 
             return false;
         }
@@ -40,12 +44,12 @@ class YLanguageSelector extends YWidget
         $this->render(
             $this->view,
             array(
-                'langs' => $langs,
+                'langs'           => $langs,
                 'currentLanguage' => Yii::app()->language,
-                'cleanUrl' => Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url),
-                'homeUrl' => Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(
-                    Yii::app()->homeUrl
-                ) - 1] != "/" ? '/' : ''),
+                'cleanUrl'        => Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url),
+                'homeUrl'         => Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(
+                        Yii::app()->homeUrl
+                    ) - 1] != "/" ? '/' : ''),
             )
         );
     }

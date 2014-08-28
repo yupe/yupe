@@ -1,6 +1,6 @@
 <?php
 
-class EmailFeedbackSender extends  DbFeedbackSender implements IFeedbackSender
+class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
 {
     public function send(FeedBackForm $form)
     {
@@ -19,12 +19,20 @@ class EmailFeedbackSender extends  DbFeedbackSender implements IFeedbackSender
 
     public function sendConfirmation(FeedBackForm $form, FeedBack $feedBack = null)
     {
-        $emailBody = Yii::app()->controller->renderPartial('feedbackConfirmationEmailEmpty', array('model' => $form), true);
+        $emailBody = Yii::app()->controller->renderPartial(
+            'feedbackConfirmationEmailEmpty',
+            array('model' => $form),
+            true
+        );
 
         $result = $this->mail->send(
             $this->module->notifyEmailFrom,
             $form->email,
-            Yii::t('FeedbackModule.feedback', 'Your proposition on site "{site}" was received', array('{site}' => Yii::app()->name)),
+            Yii::t(
+                'FeedbackModule.feedback',
+                'Your proposition on site "{site}" was received',
+                array('{site}' => Yii::app()->name)
+            ),
             $emailBody
         );
 

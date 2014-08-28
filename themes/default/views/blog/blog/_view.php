@@ -36,7 +36,10 @@
     </div>
 
     <div class="col-sm-3">
-        <?php $this->widget('application.modules.blog.widgets.JoinBlogWidget', array('user' => Yii::app()->user, 'blog' => $data)); ?>
+        <?php $this->widget(
+            'application.modules.blog.widgets.JoinBlogWidget',
+            array('user' => Yii::app()->user, 'blog' => $data)
+        ); ?>
     </div>
 </div>
 <hr/>

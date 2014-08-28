@@ -25,7 +25,7 @@ Yii::app()->getClientScript()->registerCssFile(
         $form = $this->beginWidget(
             'bootstrap.widgets.TbActiveForm',
             array(
-                'id' => 'horizontalForm',
+                'id'          => 'horizontalForm',
                 'htmlOptions' => array('class' => 'well')
             )
         ); ?>
@@ -52,7 +52,11 @@ Yii::app()->getClientScript()->registerCssFile(
                         <?php if (CCaptcha::checkRequirements('gd')): { ?>
                             <div>
                                 <?php $this->widget('CCaptcha', array('showRefreshButton' => true)); ?>
-                                <?php echo $form->textFieldGroup($model, 'verifyCode', array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))); ?>
+                                <?php echo $form->textFieldGroup(
+                                    $model,
+                                    'verifyCode',
+                                    array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))
+                                ); ?>
 
                             </div>
                         <?php } endif; ?>
@@ -63,7 +67,10 @@ Yii::app()->getClientScript()->registerCssFile(
             <?php if (!$this->getModule()->recoveryDisabled): { ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot password?'), array('/user/account/recovery')); ?>
+                        <?php echo CHtml::link(
+                            Yii::t('UserModule.user', 'Forgot password?'),
+                            array('/user/account/recovery')
+                        ); ?>
                     </div>
                 </div>
             <?php } endif; ?>
@@ -73,9 +80,9 @@ Yii::app()->getClientScript()->registerCssFile(
             $this->widget(
                 'bootstrap.widgets.TbButton',
                 array(
-                    'buttonType' => 'submit',
-                    'context' => 'primary',
-                    'label' => Yii::t('UserModule.user', 'Login'),
+                    'buttonType'  => 'submit',
+                    'context'     => 'primary',
+                    'label'       => Yii::t('UserModule.user', 'Login'),
                     'htmlOptions' => array(
                         'class' => 'btn-block'
                     ),

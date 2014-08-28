@@ -7,8 +7,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'registration-form',
-        'type' => 'vertical',
+        'id'          => 'registration-form',
+        'type'        => 'vertical',
         'htmlOptions' => array(
             'class' => 'well',
         )
@@ -19,7 +19,11 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'email', array('hint' => Yii::t('UserModule.user', 'Enter an email you have used during signup'))); ?>
+        <?php echo $form->textFieldGroup(
+            $model,
+            'email',
+            array('hint' => Yii::t('UserModule.user', 'Enter an email you have used during signup'))
+        ); ?>
     </div>
 </div>
 
@@ -30,8 +34,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'context' => 'primary',
-                'label' => Yii::t('UserModule.user', 'Recover password'),
+                'context'    => 'primary',
+                'label'      => Yii::t('UserModule.user', 'Recover password'),
             )
         ); ?>
     </div>

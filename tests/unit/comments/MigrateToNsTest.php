@@ -3,9 +3,9 @@ namespace comments;
 
 class MigrateToNsTest extends \Codeception\TestCase\Test
 {
-   /**
-    * @var \CodeGuy
-    */
+    /**
+     * @var \CodeGuy
+     */
     protected $codeGuy;
     /**
      * @var \MigrateToNestedSetsCommand
@@ -15,9 +15,9 @@ class MigrateToNsTest extends \Codeception\TestCase\Test
     protected function _before()
     {
         $this->codeGuy->createConsoleYiiApp();
-        require_once MOCKED_DIR.'Migrator.php';
-        $this->codeGuy->setDbConnectionOptionsFromYiiConfig(APPLICATION_DIR.'config/db-test.php');
-        $this->codeGuy->setDbDumpOptions(array('dump'=>'tests/_data/convert_to_ns.sql','populate'=>true));
+        require_once MOCKED_DIR . 'Migrator.php';
+        $this->codeGuy->setDbConnectionOptionsFromYiiConfig(APPLICATION_DIR . 'config/db-test.php');
+        $this->codeGuy->setDbDumpOptions(array('dump' => 'tests/_data/convert_to_ns.sql', 'populate' => true));
 
         $this->command = new \MigrateToNestedSetsCommand('migratetonestedsets', null);
         $this->command->init();

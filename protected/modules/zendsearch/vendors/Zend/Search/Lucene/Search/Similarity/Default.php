@@ -36,7 +36,7 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as '1/sqrt(numTerms)'.
      *
-     * @param  string  $fieldName
+     * @param  string $fieldName
      * @param  integer $numTerms
      * @return float
      */
@@ -91,7 +91,7 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
      */
     public function idfFreq($docFreq, $numDocs)
     {
-        return log($numDocs / (float) ($docFreq + 1)) + 1.0;
+        return log($numDocs / (float)($docFreq + 1)) + 1.0;
     }
 
     /**
@@ -103,6 +103,6 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
      */
     public function coord($overlap, $maxOverlap)
     {
-        return $overlap / (float) $maxOverlap;
+        return $overlap / (float)$maxOverlap;
     }
 }

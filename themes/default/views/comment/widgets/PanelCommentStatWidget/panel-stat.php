@@ -8,7 +8,10 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-comment"></i> <?php echo Yii::t('CommentModule.comment', 'Comments'); ?>
+                    <i class="glyphicon glyphicon-comment"></i> <?php echo Yii::t(
+                        'CommentModule.comment',
+                        'Comments'
+                    ); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $commentsCount; ?></span>
                 <span class="badge alert-info"><?php echo $allCommentsCnt; ?></span>
@@ -26,21 +29,21 @@
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
                             array(
-                                'id' => 'post-grid',
-                                'type' => 'striped condensed',
+                                'id'           => 'post-grid',
+                                'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
-                                'template' => '{items}',
-                                'htmlOptions' => array(
+                                'template'     => '{items}',
+                                'htmlOptions'  => array(
                                     'class' => false
                                 ),
-                                'columns' => array(
+                                'columns'      => array(
                                     array(
-                                        'name' => 'text',
+                                        'name'  => 'text',
                                         'value' => 'CHtml::link(yupe\helpers\YText::characterLimiter($data->text, 100), array("/comment/commentBackend/update","id" => $data->id))',
-                                        'type' => 'html'
+                                        'type'  => 'html'
                                     ),
                                     array(
-                                        'name' => 'status',
+                                        'name'  => 'status',
                                         'value' => '$data->getStatus()',
                                     ),
                                 ),

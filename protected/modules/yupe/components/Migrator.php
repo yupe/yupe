@@ -85,7 +85,7 @@ class Migrator extends \CApplicationComponent
      * Проверяем на незавершённые миграции:
      *
      * @param string $module - required module
-     * @param bool   $class  - migration class
+     * @param bool $class - migration class
      *
      * @return bool is updated to migration
      **/
@@ -96,8 +96,9 @@ class Migrator extends \CApplicationComponent
         $db = $this->getDbConnection();
 
         $data = $db->cache(
-                3600, new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
-            )->createCommand()
+            3600,
+            new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
+        )->createCommand()
             ->selectDistinct('version, apply_time')
             ->from($db->tablePrefix . $this->migrationTable)
             ->order('id DESC')
@@ -110,27 +111,27 @@ class Migrator extends \CApplicationComponent
             ->queryAll();
 
         if (($data !== array()) || ((strpos($class, '_base') !== false) && ($data[] = array(
-            'version' => $class,
-            'apply_time' => 0
-        )))
+                    'version'    => $class,
+                    'apply_time' => 0
+                )))
         ) {
             foreach ($data as $migration) {
                 if ($migration['apply_time'] == 0) {
                     try {
                         echo Yii::t(
-                            'YupeModule.yupe',
-                            'Downgrade {migration} for {module}.',
-                            array(
-                                '{module}' => $module,
-                                '{migration}' => $migration['version'],
-                            )
-                        ) . '<br />';
+                                'YupeModule.yupe',
+                                'Downgrade {migration} for {module}.',
+                                array(
+                                    '{module}'    => $module,
+                                    '{migration}' => $migration['version'],
+                                )
+                            ) . '<br />';
                         Yii::log(
                             Yii::t(
                                 'YupeModule.yupe',
                                 'Downgrade {migration} for {module}.',
                                 array(
-                                    '{module}' => $module,
+                                    '{module}'    => $module,
                                     '{migration}' => $migration['version'],
                                 )
                             )
@@ -149,19 +150,19 @@ class Migrator extends \CApplicationComponent
                                     'YupeModule.yupe',
                                     'Can\'t downgrade migrations {migration} for {module}.',
                                     array(
-                                        '{module}' => $module,
+                                        '{module}'    => $module,
                                         '{migration}' => $migration['version'],
                                     )
                                 )
                             );
                             echo Yii::t(
-                                'YupeModule.yupe',
-                                'Can\'t downgrade migrations {migration} for {module}.',
-                                array(
-                                    '{module}' => $module,
-                                    '{migration}' => $migration['version'],
-                                )
-                            ) . '<br />';
+                                    'YupeModule.yupe',
+                                    'Can\'t downgrade migrations {migration} for {module}.',
+                                    array(
+                                        '{module}'    => $module,
+                                        '{migration}' => $migration['version'],
+                                    )
+                                ) . '<br />';
 
                             return false;
                         }
@@ -194,10 +195,10 @@ class Migrator extends \CApplicationComponent
                 )
             );
             echo Yii::t(
-                'YupeModule.yupe',
-                'No need to downgrade migrations for {module}',
-                array('{module}' => $module)
-            ) . '<br />';
+                    'YupeModule.yupe',
+                    'No need to downgrade migrations for {module}',
+                    array('{module}' => $module)
+                ) . '<br />';
         }
 
         return true;
@@ -207,7 +208,7 @@ class Migrator extends \CApplicationComponent
      * Обновляем миграцию:
      *
      * @param string $module - required module
-     * @param string $class  - name of migration class
+     * @param string $class - name of migration class
      *
      * @return bool is updated to migration
      **/
@@ -228,8 +229,8 @@ class Migrator extends \CApplicationComponent
         $db->createCommand()->insert(
             $db->tablePrefix . $this->migrationTable,
             array(
-                'version' => $class,
-                'module' => $module,
+                'version'    => $class,
+                'module'     => $module,
                 'apply_time' => 0,
             )
         );
@@ -278,7 +279,7 @@ class Migrator extends \CApplicationComponent
      * Даунгрейд миграции:
      *
      * @param string $module - required module
-     * @param string $class  - name of migration class
+     * @param string $class - name of migration class
      *
      * @return bool is downgraded from migration
      **/
@@ -342,7 +343,7 @@ class Migrator extends \CApplicationComponent
      * Check each modules for new migrations
      *
      * @param string $module - required module
-     * @param string $class  - class of migration
+     * @param string $class - class of migration
      *
      * @return mixed version and apply time
      */
@@ -379,8 +380,8 @@ class Migrator extends \CApplicationComponent
     /**
      * Check each modules for new migrations
      *
-     * @param string  $module - required module
-     * @param integer $limit  - limit of array
+     * @param string $module - required module
+     * @param integer $limit - limit of array
      *
      * @return mixed version and apply time
      */
@@ -395,8 +396,9 @@ class Migrator extends \CApplicationComponent
             Yii::app()->cache->clear('getMigrationHistory');
 
             $data = $db->cache(
-                    3600, new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
-                )->createCommand()
+                3600,
+                new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
+            )->createCommand()
                 ->select('version, apply_time')
                 ->from($db->tablePrefix . $this->migrationTable)
                 ->order('id DESC')
@@ -406,7 +408,12 @@ class Migrator extends \CApplicationComponent
 
             $allData[$module] = $data;
 
-            Yii::app()->cache->set('getMigrationHistory', $allData, 3600, new TagsCache('yupe', 'installedModules', 'getModulesDisabled', 'getMigrationHistory', $module));
+            Yii::app()->cache->set(
+                'getMigrationHistory',
+                $allData,
+                3600,
+                new TagsCache('yupe', 'installedModules', 'getModulesDisabled', 'getMigrationHistory', $module)
+            );
 
         } else {
             $data = $allData[$module];
@@ -434,9 +441,9 @@ class Migrator extends \CApplicationComponent
         $db->createCommand()->createTable(
             $db->tablePrefix . $this->migrationTable,
             array(
-                'id' => 'pk',
-                'module' => 'string NOT NULL',
-                'version' => 'string NOT NULL',
+                'id'         => 'pk',
+                'module'     => 'string NOT NULL',
+                'version'    => 'string NOT NULL',
                 'apply_time' => 'integer',
             ),
             $options
@@ -469,8 +476,8 @@ class Migrator extends \CApplicationComponent
         $migrations = array();
 
         if (($migrationsPath = Yii::getPathOfAlias("application.modules." . $module . ".install.migrations")) && is_dir(
-            $migrationsPath
-        )
+                $migrationsPath
+            )
         ) {
             $handle = opendir($migrationsPath);
             while (($file = readdir($handle)) !== false) {
@@ -479,8 +486,8 @@ class Migrator extends \CApplicationComponent
                 }
                 $path = $migrationsPath . '/' . $file;
                 if (preg_match('/^(m(\d{6}_\d{6})_.*?)\.php$/', $file, $matches) && is_file(
-                    $path
-                ) && !isset($applied[$matches[2]])
+                        $path
+                    ) && !isset($applied[$matches[2]])
                 ) {
                     $migrations[] = $matches[1];
                 }
@@ -522,8 +529,9 @@ class Migrator extends \CApplicationComponent
         $db = $this->getDbConnection();
         $modules = array();
         $m = $db->cache(
-                3600, new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
-            )->createCommand()
+            3600,
+            new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
+        )->createCommand()
             ->select('module')
             ->from($db->tablePrefix . $this->migrationTable)
             ->order('module DESC')

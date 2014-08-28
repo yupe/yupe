@@ -1,4 +1,5 @@
 <?php
+
 /**
  * m130115_155600_columns_rename install migration
  * Класс миграций для модуля Page:

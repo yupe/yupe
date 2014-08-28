@@ -39,10 +39,10 @@
 class Good extends yupe\models\YModel
 {
     const SPECIAL_NOT_ACTIVE = 0;
-    const SPECIAL_ACTIVE     = 1;
+    const SPECIAL_ACTIVE = 1;
 
-    const STATUS_ZERO       = 0;
-    const STATUS_ACTIVE     = 1;
+    const STATUS_ZERO = 0;
+    const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 2;
 
     /**
@@ -70,19 +70,35 @@ class Good extends yupe\models\YModel
     {
         return array(
             array('category_id, name, description, alias', 'required', 'except' => 'search'),
-            array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array(
+                'name, description, short_description, image, alias, price, article, data, status, is_special',
+                'filter',
+                'filter' => 'trim'
+            ),
+            array(
+                'name, alias, price, article, data, status, is_special',
+                'filter',
+                'filter' => array($obj = new CHtmlPurifier(), 'purify')
+            ),
             array('status, category_id, is_special, user_id', 'numerical', 'integerOnly' => true),
             array('status, category_id, is_special, user_id', 'length', 'max' => 11),
             array('price', 'numerical'),
             array('name, image', 'length', 'max' => 250),
             array('article', 'length', 'max' => 100),
             array('alias', 'length', 'max' => 150),
-            array('status','in','range' => array_keys($this->statusList)),
-            array('is_special','in','range' => array(0, 1)),
-            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('is_special', 'in', 'range' => array(0, 1)),
+            array(
+                'alias',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')
+            ),
             array('alias', 'unique'),
-            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on' => 'search'),
+            array(
+                'id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -185,7 +201,7 @@ class Good extends yupe\models\YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('update_time', $this->update_time, true);
-        $criteria->compare('user_id', $this->user_id,true);
+        $criteria->compare('user_id', $this->user_id, true);
         $criteria->compare('change_user_id', $this->change_user_id, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
@@ -203,15 +219,15 @@ class Good extends yupe\models\YModel
                 'createAttribute'   => 'create_time',
                 'updateAttribute'   => 'update_time',
             ),
-            'imageUpload' => array(
-                'class'         =>'yupe\components\behaviors\FileUploadBehavior',
-                'scenarios'     => array('insert','update'),
+            'imageUpload'        => array(
+                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName' => array($this, 'generateFileName'),
+                'fileName'      => array($this, 'generateFileName'),
             ),
         );
     }
@@ -238,7 +254,7 @@ class Good extends yupe\models\YModel
 
     public function getPermaLink()
     {
-        return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', array( 'name' => $this->alias ));
+        return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', array('name' => $this->alias));
     }
 
     public function getStatusList()
@@ -269,7 +285,10 @@ class Good extends yupe\models\YModel
     {
         $data = $this->getSpecialList();
 
-        return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('CatalogModule.catalog', '*unknown*');
+        return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t(
+            'CatalogModule.catalog',
+            '*unknown*'
+        );
     }
 
     public function getImageUrl($width = 75, $height = 75)
@@ -279,7 +298,11 @@ class Good extends yupe\models\YModel
             $module = Yii::app()->getModule('catalog');
 
             return Yii::app()->image->makeThumbnail(
-                $this->image, $module->uploadPath, $width, $height, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+                $this->image,
+                $module->uploadPath,
+                $width,
+                $height,
+                \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
             );
         }
 

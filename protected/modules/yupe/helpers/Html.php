@@ -13,7 +13,7 @@ class Html
 
     const WARNING = 'warning';
 
-    const DANGER  = 'danger';
+    const DANGER = 'danger';
 
     protected static function render($class, $text, $strip = true)
     {

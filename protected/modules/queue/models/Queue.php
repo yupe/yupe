@@ -92,15 +92,15 @@ class Queue extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('QueueModule.queue', 'ID'),
-            'worker' => Yii::t('QueueModule.queue', 'Handler'),
-            'create_time' => Yii::t('QueueModule.queue', 'Created at'),
-            'task' => Yii::t('QueueModule.queue', 'Task.'),
-            'start_time' => Yii::t('QueueModule.queue', 'Start'),
+            'id'            => Yii::t('QueueModule.queue', 'ID'),
+            'worker'        => Yii::t('QueueModule.queue', 'Handler'),
+            'create_time'   => Yii::t('QueueModule.queue', 'Created at'),
+            'task'          => Yii::t('QueueModule.queue', 'Task.'),
+            'start_time'    => Yii::t('QueueModule.queue', 'Start'),
             'complete_time' => Yii::t('QueueModule.queue', 'Completing'),
-            'status' => Yii::t('QueueModule.queue', 'Status'),
-            'notice' => Yii::t('QueueModule.queue', 'Notice'),
-            'priority' => Yii::t('QueueModule.queue', 'Priority'),
+            'status'        => Yii::t('QueueModule.queue', 'Status'),
+            'notice'        => Yii::t('QueueModule.queue', 'Notice'),
+            'priority'      => Yii::t('QueueModule.queue', 'Priority'),
         );
     }
 
@@ -134,7 +134,7 @@ class Queue extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array(
+            'sort'     => array(
                 'defaultOrder' => 'id DESC'
             )
         ));
@@ -143,9 +143,9 @@ class Queue extends yupe\models\YModel
     public function getPriorityList()
     {
         return array(
-            self::PRIORITY_LOW => Yii::t('QueueModule.queue', 'Low'),
+            self::PRIORITY_LOW    => Yii::t('QueueModule.queue', 'Low'),
             self::PRIORITY_NORMAL => Yii::t('QueueModule.queue', 'Normal'),
-            self::PRIORITY_HIGH => Yii::t('QueueModule.queue', 'High'),
+            self::PRIORITY_HIGH   => Yii::t('QueueModule.queue', 'High'),
         );
     }
 
@@ -159,10 +159,10 @@ class Queue extends yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_NEW => Yii::t('QueueModule.queue', 'New'),
+            self::STATUS_NEW       => Yii::t('QueueModule.queue', 'New'),
             self::STATUS_COMPLETED => Yii::t('QueueModule.queue', 'Completed'),
-            self::STATUS_PROGRESS => Yii::t('QueueModule.queue', 'Working'),
-            self::STATUS_ERROR => Yii::t('QueueModule.queue', 'Error'),
+            self::STATUS_PROGRESS  => Yii::t('QueueModule.queue', 'Working'),
+            self::STATUS_ERROR     => Yii::t('QueueModule.queue', 'Error'),
         );
     }
 
@@ -182,26 +182,28 @@ class Queue extends yupe\models\YModel
 
     public function getTasksForWorker($worker, $limit = 10)
     {
-        return $this->findAll(array(
-            'condition' => 'worker = :worker AND status = :status',
-            'params' => array(
-                ':worker' => (int) $worker,
-                ':status' => Queue::STATUS_NEW
-            ),
-            'limit' => (int) $limit,
-            'order' => 'priority, id desc'
-        ));
+        return $this->findAll(
+            array(
+                'condition' => 'worker = :worker AND status = :status',
+                'params'    => array(
+                    ':worker' => (int)$worker,
+                    ':status' => Queue::STATUS_NEW
+                ),
+                'limit'     => (int)$limit,
+                'order'     => 'priority, id desc'
+            )
+        );
     }
 
     public function decodeJson()
     {
-        return (array) json_decode($this->task);
+        return (array)json_decode($this->task);
     }
 
     public function completeWithError($notice, $status = self::STATUS_ERROR)
     {
         $this->notice = $notice;
-        $this->status = (int) $status;
+        $this->status = (int)$status;
         $this->complete_time = new CDbExpression('NOW()');
 
         return $this->save();

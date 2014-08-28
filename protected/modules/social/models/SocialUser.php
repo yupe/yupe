@@ -61,12 +61,12 @@ class SocialUser extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'user_id' => Yii::t('SocialModule.social', 'User'),
+            'id'       => 'ID',
+            'user_id'  => Yii::t('SocialModule.social', 'User'),
             'provider' => Yii::t('SocialModule.social', 'Service'),
-            'uid' => Yii::t('SocialModule.social', 'Uuid'),
+            'uid'      => Yii::t('SocialModule.social', 'Uuid'),
             'username' => Yii::t('SocialModule.social', 'User name'),
-            'email' => Yii::t('SocialModule.social', 'Email')
+            'email'    => Yii::t('SocialModule.social', 'Email')
         );
     }
 

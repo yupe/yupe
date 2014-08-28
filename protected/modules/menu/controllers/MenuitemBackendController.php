@@ -15,7 +15,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuitemBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuitemBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuitemBackend.Index')),
@@ -30,8 +30,8 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'MenuItem',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'MenuItem',
                 'validAttributes' => array('title', 'href', 'status', 'menu_id', 'sort')
             )
         );
@@ -72,8 +72,8 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         $items = MenuItem::model()->public()->findAll(
             array(
                 'condition' => 'menu_id = :menu_id',
-                'order' => 'title DESC',
-                'params' => array(
+                'order'     => 'title DESC',
+                'params'    => array(
                     ':menu_id' => $menuId
                 )
             )
@@ -124,7 +124,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
+                    (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('create')
                     )
@@ -166,7 +166,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
+                    (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('update', 'id' => $model->id)
                     )
@@ -200,7 +200,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(

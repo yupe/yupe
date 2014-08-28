@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'module' => array(
-        'class' => 'application.modules.zendsearch.ZendSearchModule',
+    'module'    => array(
+        'class'        => 'application.modules.zendsearch.ZendSearchModule',
         // Указание здесь layout'a портит отображение на фронтенде:
         //'layout' => '//layouts/column2',
         'searchModels' => array(
@@ -24,11 +24,11 @@ return array(
             ),
         ),
     ),
-    'import' => array(
+    'import'    => array(
         'application.modules.zendsearch.models.*',
     ),
     'component' => array(),
-    'rules' => array(
+    'rules'     => array(
         '/search' => 'zendsearch/search/search',
     ),
 );

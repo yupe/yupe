@@ -1,13 +1,14 @@
 <?php
 namespace application\modules\social\controllers;
+
 /**
  * Класс SocialBackendController:
  *
- *   @category Yupe yupe\components\controllers\BackController
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category Yupe yupe\components\controllers\BackController
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
 use yupe\components\controllers\BackController;
 use application\modules\social\models\SocialUser;
@@ -21,13 +22,14 @@ class SocialBackendController extends BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Social.Socialbackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Social.Socialbackend.Index')),
             array('allow', 'actions' => array('view'), 'roles' => array('Social.Socialbackend.View')),
             array('deny')
         );
     }
+
     /**
      * Отображает аккаунт по указанному идентификатору
      *
@@ -60,10 +62,15 @@ class SocialBackendController extends BackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
+            if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        } else
-            throw new CHttpException(400, Yii::t('social', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            }
+        } else {
+            throw new CHttpException(400, Yii::t(
+                'social',
+                'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'
+            ));
+        }
     }
 
     /**
@@ -75,8 +82,9 @@ class SocialBackendController extends BackController
     {
         $model = new SocialUser('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['application_modules_social_models_SocialUser']))
+        if (isset($_GET['application_modules_social_models_SocialUser'])) {
             $model->attributes = $_GET['application_modules_social_models_SocialUser'];
+        }
         $this->render('index', array('model' => $model));
     }
 
@@ -91,8 +99,9 @@ class SocialBackendController extends BackController
     public function loadModel($id)
     {
         $model = SocialUser::model()->findByPk($id);
-        if ($model === null)
+        if ($model === null) {
             throw new CHttpException(404, Yii::t('social', 'Запрошенная страница не найдена.'));
+        }
 
         return $model;
     }

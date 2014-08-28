@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User install migration
  * Класс миграций для модуля User:
@@ -64,7 +65,7 @@ class m000000_000000_user_base extends yupe\components\DbMigration
                 'id'            => 'pk',
                 'user_id'       => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-                'code'          =>  'char(32) NOT NULL',
+                'code'          => 'char(32) NOT NULL',
             ),
             $this->getOptions()
         );

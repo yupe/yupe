@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ImperaviRedactorWidget class file.
  *
@@ -18,35 +19,35 @@
 class ImperaviRedactorWidget extends CInputWidget
 {
     /**
-	 * Assets package ID.
-	 */
+     * Assets package ID.
+     */
     const PACKAGE_ID = 'imperavi-redactor';
 
     /**
-	 * @var array {@link http://imperavi.com/redactor/docs/ redactor options}.
-	 */
+     * @var array {@link http://imperavi.com/redactor/docs/ redactor options}.
+     */
     public $options = array();
 
     /**
-	 * @var string|null Selector pointing to textarea to initialize redactor for.
-	 * Defaults to null meaning that textarea does not exist yet and will be
-	 * rendered by this widget.
-	 */
+     * @var string|null Selector pointing to textarea to initialize redactor for.
+     * Defaults to null meaning that textarea does not exist yet and will be
+     * rendered by this widget.
+     */
     public $selector;
 
     /**
-	 * @var array
-	 */
+     * @var array
+     */
     public $package = array();
 
     /**
-	 * @var array
-	 */
+     * @var array
+     */
     private $_plugins = array();
 
     /**
-	 * Init widget.
-	 */
+     * Init widget.
+     */
     public function init()
     {
         parent::init();
@@ -67,23 +68,26 @@ class ImperaviRedactorWidget extends CInputWidget
     }
 
     /**
-	 * Register CSS and Script.
-	 */
+     * Register CSS and Script.
+     */
     protected function registerClientScript()
     {
         // Prepare script package.
-        $this->package = array_merge(array(
+        $this->package = array_merge(
+            array(
                 'baseUrl' => $this->getAssetsUrl(),
-                'js' => array(
+                'js'      => array(
                     YII_DEBUG ? 'redactor.js' : 'redactor.min.js',
                 ),
-                'css' => array(
+                'css'     => array(
                     'redactor.css',
                 ),
                 'depends' => array(
                     'jquery',
                 ),
-            ), $this->package);
+            ),
+            $this->package
+        );
 
         // Append language file to script package.
         if (isset($this->options['lang']) && $this->options['lang'] !== 'en') {
@@ -128,26 +132,26 @@ class ImperaviRedactorWidget extends CInputWidget
     }
 
     /**
-	 * Get the assets path.
-	 * @return string
-	 */
+     * Get the assets path.
+     * @return string
+     */
     public function getAssetsPath()
     {
-        return  dirname(__FILE__) . '/assets';
+        return dirname(__FILE__) . '/assets';
     }
 
     /**
-	 * Publish assets and return url.
-	 * @return string
-	 */
+     * Publish assets and return url.
+     * @return string
+     */
     public function getAssetsUrl()
     {
         return Yii::app()->getAssetManager()->publish($this->getAssetsPath());
     }
 
     /**
-	 * @param array $plugins
-	 */
+     * @param array $plugins
+     */
     public function setPlugins(array $plugins)
     {
         foreach ($plugins as $id => $plugin) {
@@ -160,8 +164,8 @@ class ImperaviRedactorWidget extends CInputWidget
     }
 
     /**
-	 * @return array
-	 */
+     * @return array
+     */
     public function getPlugins()
     {
         return $this->_plugins;

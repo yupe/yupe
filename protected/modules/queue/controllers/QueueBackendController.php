@@ -1,4 +1,5 @@
 <?php
+
 /**
  * QueueBackendController контроллер для управления очередью через панель управления
  *
@@ -15,7 +16,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Queue.QueueBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Queue.QueueBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Queue.QueueBackend.Index')),
@@ -35,7 +36,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model'=> $this->loadModel($id)));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -60,14 +61,15 @@ class QueueBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
         }
 
-        $this->render('create', array('model'=> $model));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -93,13 +95,14 @@ class QueueBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
         }
-        $this->render('update', array('model'=> $model));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -126,7 +129,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -149,11 +152,12 @@ class QueueBackendController extends yupe\components\controllers\BackController
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'Queue', array()
+                'Queue',
+                array()
             )
         );
 
-        $this->render('index', array('model'=> $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -172,8 +176,8 @@ class QueueBackendController extends yupe\components\controllers\BackController
 
         $this->redirect(
             ($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null
-            ? $referrer
-            : array("/yupe/backend/index")
+                ? $referrer
+                : array("/yupe/backend/index")
         );
     }
 

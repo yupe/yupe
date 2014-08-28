@@ -113,12 +113,15 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
      * Zend_Search_Lucene_Search_Query_Wildcard constructor.
      *
      * @param  Zend_Search_Lucene_Index_Term $term
-     * @param  float                         $minimumSimilarity
-     * @param  integer                       $prefixLength
+     * @param  float $minimumSimilarity
+     * @param  integer $prefixLength
      * @throws Zend_Search_Lucene_Exception
      */
-    public function __construct(Zend_Search_Lucene_Index_Term $term, $minimumSimilarity = self::DEFAULT_MIN_SIMILARITY, $prefixLength = null)
-    {
+    public function __construct(
+        Zend_Search_Lucene_Index_Term $term,
+        $minimumSimilarity = self::DEFAULT_MIN_SIMILARITY,
+        $prefixLength = null
+    ) {
         if ($minimumSimilarity < 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('minimumSimilarity cannot be less than 0');
@@ -167,7 +170,10 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
      */
     private function _calculateMaxDistance($prefixLength, $termLength, $length)
     {
-        $this->_maxDistances[$length] = (int) ((1 - $this->_minimumSimilarity) * (min($termLength, $length) + $prefixLength));
+        $this->_maxDistances[$length] = (int)((1 - $this->_minimumSimilarity) * (min(
+                    $termLength,
+                    $length
+                ) + $prefixLength));
 
         return $this->_maxDistances[$length];
     }
@@ -175,7 +181,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      * @throws Zend_Search_Lucene_Exception
      */
@@ -239,7 +245,10 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
                         //without looking at it.
                         $similarity = 0;
                     } else {
-                        $similarity = 1 - levenshtein($termRest, $target) / ($prefixUtf8Length + min($termRestLength, strlen($target)));
+                        $similarity = 1 - levenshtein($termRest, $target) / ($prefixUtf8Length + min(
+                                    $termRestLength,
+                                    strlen($target)
+                                ));
                     }
 
                     if ($similarity > $this->_minimumSimilarity) {
@@ -308,9 +317,15 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
             require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
             $rewrittenQuery = new Zend_Search_Lucene_Search_Query_Boolean();
 
-            array_multisort($this->_scores, SORT_DESC, SORT_NUMERIC,
-                $this->_termKeys, SORT_ASC, SORT_STRING,
-                $this->_matches);
+            array_multisort(
+                $this->_scores,
+                SORT_DESC,
+                SORT_NUMERIC,
+                $this->_termKeys,
+                SORT_ASC,
+                SORT_STRING,
+                $this->_matches
+            );
 
             $termCount = 0;
             require_once 'Zend/Search/Lucene/Search/Query/Term.php';
@@ -333,7 +348,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
     /**
      * Optimize query in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function optimize(Zend_Search_Lucene_Interface $index)
@@ -361,7 +376,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
     /**
      * Constructs an appropriate Weight implementation for this query.
      *
-     * @param  Zend_Search_Lucene_Interface     $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @return Zend_Search_Lucene_Search_Weight
      * @throws Zend_Search_Lucene_Exception
      */
@@ -375,7 +390,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
      * Execute query in context of index reader
      * It also initializes necessary internal structures
      *
-     * @param  Zend_Search_Lucene_Interface             $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @throws Zend_Search_Lucene_Exception
      */
@@ -402,7 +417,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
     /**
      * Score specified document
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      * @throws Zend_Search_Lucene_Exception
@@ -464,7 +479,10 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
                     //without looking at it.
                     $similarity = 0;
                 } else {
-                    $similarity = 1 - levenshtein($termRest, $target) / ($prefixUtf8Length + min($termRestLength, strlen($target)));
+                    $similarity = 1 - levenshtein($termRest, $target) / ($prefixUtf8Length + min(
+                                $termRestLength,
+                                strlen($target)
+                            ));
                 }
 
                 if ($similarity > $this->_minimumSimilarity) {

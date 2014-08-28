@@ -2,11 +2,11 @@
 /**
  * Отображение для layouts/main:
  *
- *   @category YupeLayout
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category YupeLayout
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
 ?>
 <!DOCTYPE html>
@@ -24,29 +24,30 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    if (($langs = $this->yupe->getLanguageSelectorArray()) != array())
-        Yii::app()->getClientScript()->registerCssFile($mainAssets. '/css/flags.css');
+    if (($langs = $this->yupe->getLanguageSelectorArray()) != array()) {
+        Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
+    }
     ?>
     <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
 
 </head>
 
 <body>
-    <div id="overall-wrap">
-        <!-- mainmenu -->
-        <?php
-        $this->widget('yupe\widgets\YAdminPanel'); ?>
-        <div class="container-fluid" id="page"><?php echo $content; ?></div>
-        <div id="footer-guard"></div>
-    </div>
+<div id="overall-wrap">
+    <!-- mainmenu -->
+    <?php
+    $this->widget('yupe\widgets\YAdminPanel'); ?>
+    <div class="container-fluid" id="page"><?php echo $content; ?></div>
+    <div id="footer-guard"></div>
+</div>
 
-    <div class='notifications top-right' id="notifications"></div>
+<div class='notifications top-right' id="notifications"></div>
 
-    <footer>
-        &copy; 2012 - <?php echo date('Y'); ?>
-        <?php echo $this->yupe->poweredBy();?>
-        <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
-        <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>
-    </footer>
+<footer>
+    &copy; 2012 - <?php echo date('Y'); ?>
+    <?php echo $this->yupe->poweredBy(); ?>
+    <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
+    <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>
+</footer>
 </body>
 </html>

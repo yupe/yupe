@@ -72,7 +72,7 @@ class Zend_Search_Lucene_Index_Term
     /**
      * Get term prefix
      *
-     * @param  string  $str
+     * @param  string $str
      * @param  integer $length
      * @return string
      */

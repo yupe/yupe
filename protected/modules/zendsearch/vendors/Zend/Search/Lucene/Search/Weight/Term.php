@@ -71,14 +71,15 @@ class Zend_Search_Lucene_Search_Weight_Term extends Zend_Search_Lucene_Search_We
      * Zend_Search_Lucene_Search_Weight_Term constructor
      * reader - index reader
      *
-     * @param Zend_Search_Lucene_Index_Term   $term
+     * @param Zend_Search_Lucene_Index_Term $term
      * @param Zend_Search_Lucene_Search_Query $query
-     * @param Zend_Search_Lucene_Interface    $reader
+     * @param Zend_Search_Lucene_Interface $reader
      */
-    public function __construct(Zend_Search_Lucene_Index_Term $term,
-                                Zend_Search_Lucene_Search_Query $query,
-                                Zend_Search_Lucene_Interface $reader)
-    {
+    public function __construct(
+        Zend_Search_Lucene_Index_Term $term,
+        Zend_Search_Lucene_Search_Query $query,
+        Zend_Search_Lucene_Interface $reader
+    ) {
         $this->_term = $term;
         $this->_query = $query;
         $this->_reader = $reader;

@@ -1,4 +1,5 @@
 <?php
+
 class BlogPage
 {
     const BLOGS_URL = '/blogs';
@@ -9,6 +10,6 @@ class BlogPage
 
     public static function getBlogRoute($blog)
     {
-        return self::BLOGS_URL.'/'.$blog;
+        return self::BLOGS_URL . '/' . $blog;
     }
 }

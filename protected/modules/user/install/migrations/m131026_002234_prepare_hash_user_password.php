@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Prepare hash field for replace password/salt fields
  * Класс миграций для модуля User:
@@ -14,7 +15,6 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
 class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigration
 {
     public function safeUp()
@@ -24,12 +24,12 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
             'hash',
             'string not null default '
             . (
-                Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
-                    ? 'md5(random()::text)'
-                    // Делаем невозможность входа
-                    // по старому паролю
-                    // (генерируется случайная строка):
-                    : '"' . md5(uniqid()) . microtime() . '"'
+            Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
+                ? 'md5(random()::text)'
+                // Делаем невозможность входа
+                // по старому паролю
+                // (генерируется случайная строка):
+                : '"' . md5(uniqid()) . microtime() . '"'
             )
         );
 
@@ -44,9 +44,9 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
             'password',
             'char(32) NOT NULL DEFAULT '
             . (
-                Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
-                    ? 'md5(random()::text)'
-                    : '"' . md5(uniqid()) . microtime() . '"'
+            Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
+                ? 'md5(random()::text)'
+                : '"' . md5(uniqid()) . microtime() . '"'
             )
         );
 
@@ -55,9 +55,9 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
             'salt',
             'char(32) NOT NULL DEFAULT '
             . (
-                Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
-                    ? 'md5(random()::text)'
-                    : '"' . md5(uniqid()) . microtime() . '"'
+            Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
+                ? 'md5(random()::text)'
+                : '"' . md5(uniqid()) . microtime() . '"'
             )
         );
 

@@ -90,13 +90,13 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
                 );
 
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORE) as $child) {
-                    $coreProperties[$child->getName()] = (string) $child;
+                    $coreProperties[$child->getName()] = (string)$child;
                 }
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) as $child) {
-                    $coreProperties[$child->getName()] = (string) $child;
+                    $coreProperties[$child->getName()] = (string)$child;
                 }
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORETERMS) as $child) {
-                    $coreProperties[$child->getName()] = (string) $child;
+                    $coreProperties[$child->getName()] = (string)$child;
                 }
             }
         }
@@ -116,7 +116,9 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
         $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
         $absolutes = array();
         foreach ($parts as $part) {
-            if ('.' == $part) continue;
+            if ('.' == $part) {
+                continue;
+            }
             if ('..' == $part) {
                 array_pop($absolutes);
             } else {

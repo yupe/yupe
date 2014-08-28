@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Install Form Model
  * Класс формы установки:
@@ -15,23 +16,23 @@ class InstallForm extends yupe\models\YFormModel
     /**
      * Типы баз данных:
      **/
-    const DB_MYSQL      = 1;
+    const DB_MYSQL = 1;
     const DB_POSTGRESQL = 2;
-    const DB_MSSQL      = 3;
-    const DB_ORACLE     = 4;
+    const DB_MSSQL = 3;
+    const DB_ORACLE = 4;
 
     /**
      * Параметры для настройки БД:
      **/
-    public $host        = '127.0.0.1';
-    public $port        = '3306';
-    public $socket      = '';
+    public $host = '127.0.0.1';
+    public $port = '3306';
+    public $socket = '';
     public $dbName;
     public $createDb;
     public $dbUser;
     public $dbPassword;
     public $tablePrefix = 'yupe_';
-    public $dbType      = self::DB_MYSQL;
+    public $dbType = self::DB_MYSQL;
 
     /**
      * Для создания пользователя:
@@ -44,20 +45,23 @@ class InstallForm extends yupe\models\YFormModel
     /**
      * Для начальной настройки сайта:
      **/
-    public $siteName        = 'Юпи!';
+    public $siteName = 'Юпи!';
     public $siteDescription = 'Юпи! - самый быстрый способ создать сайт на Yii';
-    public $siteKeyWords    = 'Юпи!, yupe, yii, cms, цмс';
+    public $siteKeyWords = 'Юпи!, yupe, yii, cms, цмс';
     public $siteEmail;
-    public $theme           = 'default';
-    public $backendTheme    = '';
+    public $theme = 'default';
+    public $backendTheme = '';
 
     public $email;
 
     public function init()
     {
-        $this->siteName = Yii::t('InstallModule.install','Yupe!');
-        $this->siteKeyWords = Yii::t('InstallModule.install','Yupe!, yupe, cms, yii');
-        $this->siteDescription = Yii::t('InstallModule.install','Yupe! - the fastest way to create a site build on top of Yiiframework!');
+        $this->siteName = Yii::t('InstallModule.install', 'Yupe!');
+        $this->siteKeyWords = Yii::t('InstallModule.install', 'Yupe!, yupe, cms, yii');
+        $this->siteDescription = Yii::t(
+            'InstallModule.install',
+            'Yupe! - the fastest way to create a site build on top of Yiiframework!'
+        );
         parent::init();
     }
 
@@ -77,7 +81,6 @@ class InstallForm extends yupe\models\YFormModel
             array('port, dbType', 'numerical', 'integerOnly' => true),
             array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
             array('socket, createDb, tablePrefix', 'safe'),
-
             /**
              * Для начальной настройки сайта:
              **/
@@ -85,14 +88,18 @@ class InstallForm extends yupe\models\YFormModel
             array('siteName', 'length', 'max' => 30),
             array('siteDescription, siteKeyWords, theme, backendTheme', 'length', 'max' => 180),
             array('siteEmail', 'email'),
-
             /**
              * Для настройки администратора:
              **/
             array('userName, userPassword, cPassword, userEmail', 'required', 'on' => 'createUser'),
             array('userPassword, cPassword', 'length', 'min' => 8),
             array('userName', 'length', 'min' => 4),
-            array('cPassword', 'compare', 'compareAttribute' => 'userPassword', 'message' => Yii::t('InstallModule.install', 'Passwords are not consistent')),
+            array(
+                'cPassword',
+                'compare',
+                'compareAttribute' => 'userPassword',
+                'message'          => Yii::t('InstallModule.install', 'Passwords are not consistent')
+            ),
             array('userEmail', 'email'),
         );
     }
@@ -117,7 +124,6 @@ class InstallForm extends yupe\models\YFormModel
             'dbUser'          => Yii::t('InstallModule.install', 'User'),
             'dbPassword'      => Yii::t('InstallModule.install', 'Password'),
             'tablePrefix'     => Yii::t('InstallModule.install', 'Tables prefix'),
-
             /**
              * Для начальной настройки сайта:
              **/
@@ -127,7 +133,6 @@ class InstallForm extends yupe\models\YFormModel
             'siteEmail'       => Yii::t('InstallModule.install', 'Administrator e-mail'),
             'theme'           => Yii::t('InstallModule.install', 'Default frontend theme'),
             'backendTheme'    => Yii::t('InstallModule.install', 'Default backend (Admin CP) theme'),
-
             /**
              * Для настройки администратора:
              **/
@@ -158,7 +163,6 @@ class InstallForm extends yupe\models\YFormModel
             'dbUser'          => Yii::t('InstallModule.install', 'User for access to selected DB'),
             'dbPassword'      => Yii::t('InstallModule.install', 'DB access password'),
             'tablePrefix'     => Yii::t('InstallModule.install', 'Table prefix, "yupe_" by defaults'),
-
             /**
              * Для начальной настройки сайта:
              **/
@@ -168,12 +172,14 @@ class InstallForm extends yupe\models\YFormModel
             'siteEmail'       => Yii::t('InstallModule.install', 'Using for administration delivery'),
             'theme'           => Yii::t('InstallModule.install', 'Describe appearance of your Site'),
             'backendTheme'    => Yii::t('InstallModule.install', 'Describe appearance of your Control Panel'),
-
             /**
              * Для настройки администратора:
              **/
             'userName'        => Yii::t('InstallModule.install', 'Admin login'),
-            'userEmail'       => Yii::t('InstallModule.install', 'Site administrator e-mail. Uses for admin cp authorization.'),
+            'userEmail'       => Yii::t(
+                    'InstallModule.install',
+                    'Site administrator e-mail. Uses for admin cp authorization.'
+                ),
             'userPassword'    => Yii::t('InstallModule.install', 'Admin password'),
             'cPassword'       => Yii::t('InstallModule.install', 'Admin password confirm'),
         );

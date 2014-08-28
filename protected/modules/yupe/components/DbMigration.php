@@ -56,12 +56,13 @@ class DbMigration extends CDbMigration
         $schema = $this->getDbConnection()->schema;
 
         if ($schema->getTable($table) !== null) {
-            $foreignKeys = (array) $this->getTableForeignKeys($table);
+            $foreignKeys = (array)$this->getTableForeignKeys($table);
 
             // Получаем форейнкеи от которых зависит таблица:
             foreach ($schema->getTable($table)->foreignKeys as $foreignKey) {
                 $foreignKeys = array_merge(
-                    (array) $foreignKeys, (array) $this->getTableForeignKeys($foreignKey[0])
+                    (array)$foreignKeys,
+                    (array)$this->getTableForeignKeys($foreignKey[0])
                 );
             }
 
@@ -86,12 +87,13 @@ class DbMigration extends CDbMigration
      **/
     public function getTableForeignKeys($tableName)
     {
-        $schema      = $this->dbConnection->schema;
-        $command     = Yii::app()->db->createCommand();
+        $schema = $this->dbConnection->schema;
+        $command = Yii::app()->db->createCommand();
         $foreignKeys = array();
 
-        if (!($schema instanceof CPgsqlSchema) && !($schema instanceof CMysqlSchema))
+        if (!($schema instanceof CPgsqlSchema) && !($schema instanceof CMysqlSchema)) {
             return array();
+        }
 
         // Получаем форейн-кеи для заданной таблицы,
         // для этого выполняем запрос вида:
@@ -122,7 +124,8 @@ class DbMigration extends CDbMigration
             $command->select('CONSTRAINT_NAME AS name');
             $command->from('information_schema.TABLE_CONSTRAINTS');
             $command->where(
-                "CONSTRAINT_TYPE = :consType AND TABLE_SCHEMA = :dbName AND TABLE_NAME = :tableName", array(
+                "CONSTRAINT_TYPE = :consType AND TABLE_SCHEMA = :dbName AND TABLE_NAME = :tableName",
+                array(
                     ':consType'  => 'FOREIGN KEY',
                     ':dbName'    => $dbName,
                     ':tableName' => $this->normTable($tableName),
@@ -131,7 +134,7 @@ class DbMigration extends CDbMigration
             );
         }
 
-        foreach ((array) $command->queryAll() as $fkey) {
+        foreach ((array)$command->queryAll() as $fkey) {
             $foreignKeys[$this->normTable($tableName)][] = $fkey['name'];
         }
 

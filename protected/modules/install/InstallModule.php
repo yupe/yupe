@@ -23,11 +23,15 @@ class InstallModule extends WebModule
     {
         $messages = array();
 
-        if ($this->getIsActive())
+        if ($this->getIsActive()) {
             $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
-                'message' => Yii::t('InstallModule.install', 'You have "Insatll" module active! After install it need to be disabled!')
+                'message' => Yii::t(
+                        'InstallModule.install',
+                        'You have "Insatll" module active! After install it need to be disabled!'
+                    )
             );
+        }
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
@@ -61,10 +65,11 @@ class InstallModule extends WebModule
             'sitesettings'   => Yii::t('InstallModule.install', 'Step 7 of 8: Project settings'),
             'finish'         => Yii::t('InstallModule.install', 'Step 8 of 8: Finish'),
         );
-        if (isset($installSteps[$stepName]))
+        if (isset($installSteps[$stepName])) {
             return $installSteps[$stepName];
-        else
+        } else {
             return $installSteps;
+        }
     }
 
     /**
@@ -76,12 +81,14 @@ class InstallModule extends WebModule
      */
     public function isStepFinished($actionId = false)
     {
-        if (!isset(Yii::app()->session['InstallForm']))
+        if (!isset(Yii::app()->session['InstallForm'])) {
             Yii::app()->session['InstallForm'] = array();
+        }
         $session = Yii::app()->session['InstallForm'];
 
-        if ((isset($session[$actionId . 'Finished'])) && ($session[$actionId . 'Finished'] === true))
+        if ((isset($session[$actionId . 'Finished'])) && ($session[$actionId . 'Finished'] === true)) {
             return true;
+        }
         return false;
     }
 
@@ -132,14 +139,16 @@ class InstallModule extends WebModule
      */
     public function getPrevStep($actionID = false)
     {
-        if (!$actionID)
+        if (!$actionID) {
             $actionID = Yii::app()->controller->action->id;
+        }
 
         $prevSteps = $this->prevSteps();
-        if (isset($prevSteps[$actionID]))
+        if (isset($prevSteps[$actionID])) {
             return $prevSteps[$actionID];
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -151,14 +160,16 @@ class InstallModule extends WebModule
      */
     public function getNextStep($actionID = false)
     {
-        if (!$actionID)
+        if (!$actionID) {
             $actionID = Yii::app()->controller->action->id;
+        }
 
         $nextSteps = $this->prevSteps();
-        if (isset($nextSteps[$actionID]))
+        if (isset($nextSteps[$actionID])) {
             return $nextSteps[$actionID];
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -171,30 +182,32 @@ class InstallModule extends WebModule
         $installSteps = $this->getInstallSteps();
         $installMenu = array();
         $startUrl = '/' . Yii::app()->controller->module->getId() . '/' . Yii::app()->controller->id . '/';
-        foreach ($installSteps as $key => $value)
+        foreach ($installSteps as $key => $value) {
             $installMenu[] = array_merge(
                 array(
-                    'label' => $value,
-                    'icon' => (
+                    'label'       => $value,
+                    'icon'        => (
                         Yii::app()->controller->action->id == $key
                             ? 'arrow-right'
                             : (
-                                $this->isStepFinished($key)
-                                ? 'ok'
-                                : 'remove'
-                            )
-                    ),
-                    'itemOptions' => array( 'class' => (Yii::app()->controller->action->id == $key) ? 'current' : '' )
-                ), (
-                    $this->isStepFinished($key) !== true
+                        $this->isStepFinished($key)
+                            ? 'ok'
+                            : 'remove'
+                        )
+                        ),
+                    'itemOptions' => array('class' => (Yii::app()->controller->action->id == $key) ? 'current' : '')
+                ),
+                (
+                $this->isStepFinished($key) !== true
                     ? array(
-                        'disabled' => true,
-                    )
+                    'disabled' => true,
+                )
                     : array(
-                        'url'   => Yii::app()->createUrl($startUrl . $key),
-                    )
+                    'url' => Yii::app()->createUrl($startUrl . $key),
+                )
                 )
             );
+        }
 
         return $installMenu;
     }

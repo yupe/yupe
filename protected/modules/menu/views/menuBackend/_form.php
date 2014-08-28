@@ -22,10 +22,10 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'menu-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'menu-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well'),
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -44,9 +44,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
-                        'data-content' => $model->getAttributeDescription('name'),
+                        'data-content'        => $model->getAttributeDescription('name'),
                     ),
                 ),
             )
@@ -61,9 +61,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('code'),
-                        'data-content' => $model->getAttributeDescription('code'),
+                        'data-content'        => $model->getAttributeDescription('code'),
                     ),
                 ),
             )
@@ -78,9 +78,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('description'),
-                        'data-content' => $model->getAttributeDescription('description'),
+                        'data-content'        => $model->getAttributeDescription('description'),
                     ),
                 ),
             )
@@ -95,11 +95,11 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content' => $model->getAttributeDescription('status'),
+                        'data-content'        => $model->getAttributeDescription('status'),
                     ),
                 ),
             )
@@ -112,8 +112,11 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t('MenuModule.menu', 'Save menu and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
+                'MenuModule.menu',
+                'Save menu and continue'
+            ),
     )
 ); ?>
 
@@ -121,9 +124,12 @@ $this->widget(
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t('MenuModule.menu', 'Save menu and close'),
+        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
+                'MenuModule.menu',
+                'Save menu and close'
+            ),
     )
 ); ?>
 

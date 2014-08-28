@@ -58,7 +58,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
      * Zend_Search_Lucene_Search_Query_Term constructor
      *
      * @param Zend_Search_Lucene_Index_Term $term
-     * @param boolean                       $sign
+     * @param boolean $sign
      */
     public function __construct(Zend_Search_Lucene_Index_Term $term)
     {
@@ -68,7 +68,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
@@ -94,7 +94,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     /**
      * Optimize query in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function optimize(Zend_Search_Lucene_Interface $index)
@@ -112,7 +112,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     /**
      * Constructs an appropriate Weight implementation for this query.
      *
-     * @param  Zend_Search_Lucene_Interface     $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @return Zend_Search_Lucene_Search_Weight
      */
     public function createWeight(Zend_Search_Lucene_Interface $reader)
@@ -127,7 +127,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
      * Execute query in context of index reader
      * It also initializes necessary internal structures
      *
-     * @param Zend_Search_Lucene_Interface             $reader
+     * @param Zend_Search_Lucene_Interface $reader
      * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      */
     public function execute(Zend_Search_Lucene_Interface $reader, $docsFilter = null)
@@ -154,7 +154,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     /**
      * Score specified document
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      */

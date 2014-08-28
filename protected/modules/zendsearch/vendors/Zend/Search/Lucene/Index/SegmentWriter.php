@@ -142,7 +142,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
      * Object constructor.
      *
      * @param Zend_Search_Lucene_Storage_Directory $directory
-     * @param string                               $name
+     * @param string $name
      */
     public function __construct(Zend_Search_Lucene_Storage_Directory $directory, $name)
     {
@@ -280,11 +280,12 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         // Write header
         $nrmFile->writeBytes('NRM');
         // Write format specifier
-        $nrmFile->writeByte((int) 0xFF);
+        $nrmFile->writeByte((int)0xFF);
 
         foreach ($this->_fields as $field) {
             $fnmFile->writeString($field->name);
-            $fnmFile->writeByte(($field->isIndexed ? 0x01 : 0x00) |
+            $fnmFile->writeByte(
+                ($field->isIndexed ? 0x01 : 0x00) |
                 ($field->storeTermVector ? 0x02 : 0x00)
 // not supported yet            0x04 /* term positions are stored with the term vectors */ |
 // not supported yet            0x08 /* term offsets are stored with the term vectors */   |
@@ -381,14 +382,14 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
     public function initializeDictionaryFiles()
     {
         $this->_tisFile = $this->_directory->createFile($this->_name . '.tis');
-        $this->_tisFile->writeInt((int) 0xFFFFFFFD);
+        $this->_tisFile->writeInt((int)0xFFFFFFFD);
         $this->_tisFile->writeLong(0 /* dummy data for terms count */);
         $this->_tisFile->writeInt(self::$indexInterval);
         $this->_tisFile->writeInt(self::$skipInterval);
         $this->_tisFile->writeInt(self::$maxSkipLevels);
 
         $this->_tiiFile = $this->_directory->createFile($this->_name . '.tii');
-        $this->_tiiFile->writeInt((int) 0xFFFFFFFD);
+        $this->_tiiFile->writeInt((int)0xFFFFFFFD);
         $this->_tiiFile->writeLong(0 /* dummy data for terms count */);
         $this->_tiiFile->writeInt(self::$indexInterval);
         $this->_tiiFile->writeInt(self::$skipInterval);
@@ -397,8 +398,8 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         /** Dump dictionary header */
         $this->_tiiFile->writeVInt(0); // preffix length
         $this->_tiiFile->writeString(''); // suffix
-        $this->_tiiFile->writeInt((int) 0xFFFFFFFF); // field number
-        $this->_tiiFile->writeByte((int) 0x0F);
+        $this->_tiiFile->writeInt((int)0xFFFFFFFF); // field number
+        $this->_tiiFile->writeByte((int)0x0F);
         $this->_tiiFile->writeVInt(0); // DocFreq
         $this->_tiiFile->writeVInt(0); // FreqDelta
         $this->_tiiFile->writeVInt(0); // ProxDelta
@@ -427,7 +428,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
      * Term positions is an array( docId => array(pos1, pos2, pos3, ...), ... )
      *
      * @param Zend_Search_Lucene_Index_Term $termEntry
-     * @param array                         $termDocs
+     * @param array $termDocs
      */
     public function addTerm($termEntry, $termDocs)
     {
@@ -470,7 +471,13 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         $this->_dumpTermDictEntry($this->_tisFile, $this->_prevTerm, $term, $this->_prevTermInfo, $termInfo);
 
         if (($this->_termCount + 1) % self::$indexInterval == 0) {
-            $this->_dumpTermDictEntry($this->_tiiFile, $this->_prevIndexTerm, $term, $this->_prevIndexTermInfo, $termInfo);
+            $this->_dumpTermDictEntry(
+                $this->_tiiFile,
+                $this->_prevIndexTerm,
+                $term,
+                $this->_prevIndexTermInfo,
+                $termInfo
+            );
 
             $indexPosition = $this->_tisFile->tell();
             $this->_tiiFile->writeVInt($indexPosition - $this->_lastIndexPosition);
@@ -490,23 +497,28 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
 
         $this->_tiiFile->seek(4);
         // + 1 is used to count an additional special index entry (empty term at the start of the list)
-        $this->_tiiFile->writeLong(($this->_termCount - $this->_termCount % self::$indexInterval) / self::$indexInterval + 1);
+        $this->_tiiFile->writeLong(
+            ($this->_termCount - $this->_termCount % self::$indexInterval) / self::$indexInterval + 1
+        );
     }
 
     /**
      * Dump Term Dictionary segment file entry.
      * Used to write entry to .tis or .tii files
      *
-     * @param Zend_Search_Lucene_Storage_File   $dicFile
-     * @param Zend_Search_Lucene_Index_Term     $prevTerm
-     * @param Zend_Search_Lucene_Index_Term     $term
+     * @param Zend_Search_Lucene_Storage_File $dicFile
+     * @param Zend_Search_Lucene_Index_Term $prevTerm
+     * @param Zend_Search_Lucene_Index_Term $term
      * @param Zend_Search_Lucene_Index_TermInfo $prevTermInfo
      * @param Zend_Search_Lucene_Index_TermInfo $termInfo
      */
-    protected function _dumpTermDictEntry(Zend_Search_Lucene_Storage_File $dicFile,
-                                          &$prevTerm, Zend_Search_Lucene_Index_Term $term,
-                                          &$prevTermInfo, Zend_Search_Lucene_Index_TermInfo $termInfo)
-    {
+    protected function _dumpTermDictEntry(
+        Zend_Search_Lucene_Storage_File $dicFile,
+        &$prevTerm,
+        Zend_Search_Lucene_Index_Term $term,
+        &$prevTermInfo,
+        Zend_Search_Lucene_Index_TermInfo $termInfo
+    ) {
         if (isset($prevTerm) && $prevTerm->field == $term->field) {
             $matchedBytes = 0;
             $maxBytes = min(strlen($prevTerm->text), strlen($term->text));

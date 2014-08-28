@@ -79,9 +79,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
     /**
      * Class constructor.  Create a new preprocessing object for prase query.
      *
-     * @param string $phrase         Phrase to search.
+     * @param string $phrase Phrase to search.
      * @param string $phraseEncoding Phrase encoding.
-     * @param string $fieldName      Field name.
+     * @param string $fieldName Field name.
      */
     public function __construct($phrase, $phraseEncoding, $fieldName)
     {
@@ -113,7 +113,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)

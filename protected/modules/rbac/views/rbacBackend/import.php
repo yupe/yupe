@@ -9,14 +9,14 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
-                'url' => array('/rbac/rbacBackend/index')
+                'url'   => array('/rbac/rbacBackend/index')
             ),
             array(
-                'icon' => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('RbacModule.rbac', 'Create role'),
-                'url' => array('/rbac/rbacBackend/create')
+                'url'   => array('/rbac/rbacBackend/create')
             ),
         )
     ),
@@ -24,9 +24,9 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Users'),
         'items' => array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Users'),
-                'url' => array('/rbac/rbacBackend/userList')
+                'url'   => array('/rbac/rbacBackend/userList')
             ),
         )
     ),
@@ -39,9 +39,9 @@ $this->menu = array(
 <?php $form = $this->beginWidget(
     'CActiveForm',
     array(
-        'id' => 'import-form',
+        'id'                   => 'import-form',
         'enableAjaxValidation' => false,
-        'htmlOptions' => array(
+        'htmlOptions'          => array(
             'class' => 'well',
         ),
     )
@@ -52,7 +52,11 @@ $this->menu = array(
         <?php foreach ($modules as $moduleId => $moduleName): { ?>
             <div class="checkbox">
                 <label>
-                    <?php echo CHtml::checkBox('modules[]', false, array('value' => $moduleId)); ?><?php echo $moduleName; ?>
+                    <?php echo CHtml::checkBox(
+                        'modules[]',
+                        false,
+                        array('value' => $moduleId)
+                    ); ?><?php echo $moduleName; ?>
                     <span class='text-muted'>[<?php echo $moduleId; ?>]</span>
                 </label>
             </div>
@@ -67,8 +71,8 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => Yii::t('RbacModule.rbac', 'Import'),
+        'context'    => 'primary',
+        'label'      => Yii::t('RbacModule.rbac', 'Import'),
     )
 );
 ?>

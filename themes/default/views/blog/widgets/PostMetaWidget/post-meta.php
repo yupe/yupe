@@ -5,7 +5,7 @@
 
             <?php echo Yii::t('BlogModule.blog', 'Tags'); ?>:
 
-            <?php foreach ((array) $post->getTags() as $tag): ?>
+            <?php foreach ((array)$post->getTags() as $tag): ?>
                 <span>
                     <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))); ?>
                 </span>
@@ -30,7 +30,7 @@
                 array(
                     '/blog/post/show/',
                     'slug' => CHtml::encode($post->slug),
-                    '#' => 'comments'
+                    '#'    => 'comments'
                 )
             );?>
         </span>

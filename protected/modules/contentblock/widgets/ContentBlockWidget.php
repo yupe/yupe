@@ -28,7 +28,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
             );
         }
 
-        $this->silent = (bool) $this->silent;
+        $this->silent = (bool)$this->silent;
     }
 
     public function run()

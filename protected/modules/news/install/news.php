@@ -9,7 +9,7 @@
  * @link     http://yupe.ru
  **/
 return array(
-    'module'   => array(
+    'module'    => array(
         'class' => 'application.modules.news.NewsModule',
     ),
     'import'    => array(),

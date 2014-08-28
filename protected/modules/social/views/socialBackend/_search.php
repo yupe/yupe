@@ -11,9 +11,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 );
@@ -27,7 +27,7 @@ $form = $this->beginWidget(
                 'user_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => CHtml::listData(User::model()->findAll(), 'id', 'fullName'),
+                        'data'        => CHtml::listData(User::model()->findAll(), 'id', 'fullName'),
                         'htmlOptions' => array('empty' => '---')
                     ),
                 )
@@ -46,10 +46,13 @@ $form = $this->beginWidget(
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('SocialModule.social', 'Искать аккаунт'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+                'SocialModule.social',
+                'Искать аккаунт'
+            ),
     )
 ); ?>
 

@@ -17,8 +17,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - manage');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/galleryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
+        'url'   => array('/gallery/galleryBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
+        'url'   => array('/gallery/galleryBackend/create')
+    ),
 );
 ?>
 <div class="page-header">
@@ -58,66 +66,79 @@ $this->menu = array(
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'gallery-grid',
+        'id'           => 'gallery-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'columns'      => array(
             array(
                 'header' => '',
-                'value' => 'CHtml::image($data->previewImage(), $data->name, array("width" => 75))',
-                'type' => 'html'
+                'value'  => 'CHtml::image($data->previewImage(), $data->name, array("width" => 75))',
+                'type'   => 'html'
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'name',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'name',
                 'editable' => array(
-                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'description',
-                'value' => 'trim(strip_tags($data->description))',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'description',
+                'value'    => 'trim(strip_tags($data->description))',
                 'editable' => array(
-                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'type' => 'textarea',
-                    'title' => Yii::t('GalleryModule.gallery', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+                    'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'type'   => 'textarea',
+                    'title'  => Yii::t(
+                            'GalleryModule.gallery',
+                            'Select {field}',
+                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                        ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
-                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'type' => 'select',
-                    'title' => Yii::t('GalleryModule.gallery', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+                    'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'type'   => 'select',
+                    'title'  => Yii::t(
+                            'GalleryModule.gallery',
+                            'Select {field}',
+                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
+                        ),
                     'source' => $model->getStatusList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'name' => 'status',
-                'type' => 'raw',
-                'value' => '$data->getStatus()',
-                'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
+                'name'     => 'status',
+                'type'     => 'raw',
+                'value'    => '$data->getStatus()',
+                'filter'   => CHtml::activeDropDownList(
+                        $model,
+                        'status',
+                        $model->getStatusList(),
+                        array('class' => 'form-control', 'empty' => '')
+                    ),
             ),
             array(
-                'name' => 'owner',
+                'name'   => 'owner',
                 'filter' => $model->getUsersList(),
-                'value' => '$data->ownerName',
+                'value'  => '$data->ownerName',
             ),
             array(
-                'name' => 'imagesCount',
-                'value' => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
-                'type' => 'raw',
+                'name'   => 'imagesCount',
+                'value'  => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
+                'type'   => 'raw',
                 'filter' => false
             ),
             array(
@@ -125,13 +146,13 @@ $this->menu = array(
                 'type'  => 'raw'
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'bootstrap.widgets.TbButtonColumn',
                 'template' => '{images}{update}{delete}',
-                'buttons' => array(
+                'buttons'  => array(
                     'images' => array(
-                        'icon' => 'picture',
+                        'icon'  => 'picture',
                         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
-                        'url' => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
+                        'url'   => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
                     ),
                 ),
             ),

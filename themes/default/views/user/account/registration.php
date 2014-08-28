@@ -8,8 +8,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'registration-form',
-        'type' => 'vertical',
+        'id'          => 'registration-form',
+        'type'        => 'vertical',
         'htmlOptions' => array(
             'class' => 'well',
         )
@@ -45,20 +45,24 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 <?php if ($module->showCaptcha && CCaptcha::checkRequirements()): { ?>
     <div class="row">
         <div class="col-xs-4">
-            <?php echo $form->textFieldGroup($model, 'verifyCode', array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))); ?>
+            <?php echo $form->textFieldGroup(
+                $model,
+                'verifyCode',
+                array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))
+            ); ?>
         </div>
         <div class="col-xs-4">
             <?php $this->widget(
                 'CCaptcha',
                 array(
                     'showRefreshButton' => true,
-                    'imageOptions' => array(
+                    'imageOptions'      => array(
                         'width' => '150',
                     ),
-                    'buttonOptions' => array(
+                    'buttonOptions'     => array(
                         'class' => 'btn btn-default',
                     ),
-                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
+                    'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
                 )
             ); ?>
         </div>
@@ -72,8 +76,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'context' => 'primary',
-                'label' => Yii::t('UserModule.user', 'Sign up'),
+                'context'    => 'primary',
+                'label'      => Yii::t('UserModule.user', 'Sign up'),
             )
         ); ?>
     </div>
@@ -88,7 +92,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
             $this->widget(
                 'vendor.nodge.yii-eauth.EAuthWidget',
                 array(
-                    'action' => '/social/login',
+                    'action'             => '/social/login',
                     'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github'),
                 )
             );

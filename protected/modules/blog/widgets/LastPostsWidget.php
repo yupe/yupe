@@ -29,8 +29,10 @@ class LastPostsWidget extends yupe\widgets\YWidget
             $criteria = CMap::mergeArray($criteria, $this->criteria);
         }
 
-        $posts = Post::model()->published()->with('createUser','commentsCount', 'blog')->public()->cache($this->cacheTime)->findAll($criteria);
+        $posts = Post::model()->published()->with('createUser', 'commentsCount', 'blog')->public()->cache(
+            $this->cacheTime
+        )->findAll($criteria);
 
-        $this->render($this->view, array('models' =>$posts));
+        $this->render($this->view, array('models' => $posts));
     }
 }

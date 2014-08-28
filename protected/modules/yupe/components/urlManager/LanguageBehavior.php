@@ -19,9 +19,9 @@ use CHttpCookie;
 
 class LanguageBehavior extends CBehavior
 {
-    public $lang          = false;
+    public $lang = false;
 
-    private $_lang        = false;
+    private $_lang = false;
     private $_defaultLang = false;
 
     /**
@@ -50,11 +50,11 @@ class LanguageBehavior extends CBehavior
         // А вдруг запрещена запись в runtime-каталог:
         try {
             $lang = Yii::app()->getModule('yupe')->cache
-                    && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
-                    && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
+            && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
+            && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
                 ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
                 : (
-                    $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
+                $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
                     ? Yii::app()->locale->getLanguageID($this->lang)
                     : false
                 );
@@ -82,7 +82,7 @@ class LanguageBehavior extends CBehavior
                 $this->_defaultLang = $this->getCookieLang();
 
                 $this->_defaultLang = $this->_defaultLang
-                                    ?: $lm->getAppLang();
+                    ? : $lm->getAppLang();
 
             } catch (CException $e) {
                 $this->_defaultLang = $lm->getAppLang();
@@ -108,8 +108,8 @@ class LanguageBehavior extends CBehavior
 
         if ($this->_lang === false) {
             $this->_lang = isset($_GET[$lm->langParam])
-                        ? $_GET[$lm->langParam]
-                        : $this->getDefaultLang();
+                ? $_GET[$lm->langParam]
+                : $this->getDefaultLang();
         }
 
         // $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
@@ -140,10 +140,10 @@ class LanguageBehavior extends CBehavior
         // Получаем homeUrl с добавлением "/"
         // если он не указа в конце Yii::app()->homeUrl
         $home = Yii::app()->homeUrl
-                . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/"
-                    ? '/'
-                    : ''
-                );
+            . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/"
+                ? '/'
+                : ''
+            );
 
         // Получаем текущий url:
         $path = Yii::app()->getRequest()->getPathInfo();
@@ -153,7 +153,11 @@ class LanguageBehavior extends CBehavior
 
         // Add support to lang zh_cn;
         $langIsset = (
-            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr($path, strlen($this->getLang()), 1) == '/'
+            isset($_GET[$lm->langParam]) || $path == $this->getLang() || substr(
+                $path,
+                strlen($this->getLang()),
+                1
+            ) == '/'
         );
 
         $this->setLanguage(
@@ -164,25 +168,27 @@ class LanguageBehavior extends CBehavior
         if ($langIsset === false && $lm->getAppLang() !== $this->getLang()) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(
-                    $lm->getCleanUrl(Yii::app()->getRequest()->url), $this->getLang()
+                    $lm->getCleanUrl(Yii::app()->getRequest()->url),
+                    $this->getLang()
                 )
             );
         }
 
         // Если переданый язык - является source-языком
         $this->lang = $lm->getAppLang() === $this->getLang()
-                    ? false
-                    : $this->getLang();
+            ? false
+            : $this->getLang();
 
         if ($this->lang === false && $langIsset !== false) {
             // Редирект на URL без указания языка
             Yii::app()->getRequest()->redirect(
                 $home . $lm->getCleanUrl(Yii::app()->getRequest()->url)
             );
-        } elseif ($langIsset === true && $this->lang !== current(explode('/',$path))) {
+        } elseif ($langIsset === true && $this->lang !== current(explode('/', $path))) {
             Yii::app()->getRequest()->redirect(
                 $home . $lm->replaceLangUrl(
-                    $lm->getCleanUrl(Yii::app()->getRequest()->url), $this->lang
+                    $lm->getCleanUrl(Yii::app()->getRequest()->url),
+                    $this->lang
                 )
             );
         }
@@ -203,7 +209,8 @@ class LanguageBehavior extends CBehavior
         try {
             if (Yii::app()->getModule('yupe')->cache) {
                 Yii::app()->getRequest()->cookies->add(
-                    Yii::app()->urlManager->langParam, new CHttpCookie(
+                    Yii::app()->urlManager->langParam,
+                    new CHttpCookie(
                         Yii::app()->urlManager->langParam,
                         $language, array(
                             'expire'   => time() + (60 * 60 * 24 * 365),

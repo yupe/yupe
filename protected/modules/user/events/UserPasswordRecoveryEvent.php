@@ -20,7 +20,7 @@ class UserPasswordRecoveryEvent extends Event
 
     /**
      * @param $email
-     * @param User      $user
+     * @param User $user
      * @param UserToken $token
      */
     public function __construct($email, User $user = null, UserToken $token = null)

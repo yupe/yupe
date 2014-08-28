@@ -62,7 +62,8 @@ class GalleryController extends yupe\components\controllers\FrontController
         }
 
         $this->render(
-            'show', array(
+            'show',
+            array(
                 'image' => $image,
                 'model' => $gallery,
             )
@@ -71,7 +72,7 @@ class GalleryController extends yupe\components\controllers\FrontController
 
     public function actionImage($id)
     {
-        $model = Image::model()->findByPk((int) $id);
+        $model = Image::model()->findByPk((int)$id);
 
         if (!$model) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
@@ -94,8 +95,10 @@ class GalleryController extends yupe\components\controllers\FrontController
         }
 
         $message = Yii::t(
-            'GalleryModule.gallery', 'Image #{id} {result} deleted', array(
-                '{id}' => $id,
+            'GalleryModule.gallery',
+            'Image #{id} {result} deleted',
+            array(
+                '{id}'     => $id,
                 '{result}' => ($result = $image->delete())
                         ? Yii::t('GalleryModule.gallery', 'успешно')
                         : Yii::t('GalleryModule.gallery', 'не')
@@ -142,18 +145,21 @@ class GalleryController extends yupe\components\controllers\FrontController
             if ($image->validate() && $image->save()) {
 
                 $message = Yii::t(
-                    'GalleryModule.gallery', 'Image #{id} edited', array(
+                    'GalleryModule.gallery',
+                    'Image #{id} edited',
+                    array(
                         '{id}' => $id,
                     )
                 );
 
-                if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
+                if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->success(
                         array(
                             'message' => $message,
-                            'type' => 'saved',
+                            'type'    => 'saved',
                         )
                     );
+                }
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -166,12 +172,13 @@ class GalleryController extends yupe\components\controllers\FrontController
             }
         }
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
             Yii::app()->ajax->success(
                 array(
                     'form' => $this->renderPartial('_form', array('model' => $image), true)
                 )
             );
+        }
         $this->render('edit-image', array('model' => $image));
     }
 }

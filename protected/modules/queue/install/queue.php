@@ -1,7 +1,7 @@
 <?php
 return array(
-    'module'   => array(
-        'class' => 'application.modules.queue.QueueModule',
+    'module'    => array(
+        'class'          => 'application.modules.queue.QueueModule',
         'workerNamesMap' => array(
             1 => 'Mail sending',
             2 => 'Image resizing',
@@ -13,8 +13,8 @@ return array(
     ),
     'component' => array(
         'queue' => array(
-            'class'          => 'application.modules.queue.components.YDbQueue',
-            'connectionId'   => 'db'
+            'class'        => 'application.modules.queue.components.YDbQueue',
+            'connectionId' => 'db'
         ),
     ),
     'rules'     => array(),

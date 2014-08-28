@@ -193,7 +193,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     /**
      * Create index
      *
-     * @param  mixed                        $directory
+     * @param  mixed $directory
      * @return Zend_Search_Lucene_Interface
      */
     public static function create($directory)
@@ -207,7 +207,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     /**
      * Open index
      *
-     * @param  mixed                        $directory
+     * @param  mixed $directory
      * @return Zend_Search_Lucene_Interface
      */
     public static function open($directory)
@@ -255,7 +255,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                 $genFile = $directory->getFileObject('segments.gen', false);
 
                 $format = $genFile->readInt();
-                if ($format != (int) 0xFFFFFFFE) {
+                if ($format != (int)0xFFFFFFFE) {
                     throw new Zend_Search_Lucene_Exception('Wrong segments.gen file format');
                 }
 
@@ -337,7 +337,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * Set index format version.
      * Index is converted to this format at the nearest upfdate time
      *
-     * @param  int                          $formatVersion
+     * @param  int $formatVersion
      * @throws Zend_Search_Lucene_Exception
      */
     public function setFormatVersion($formatVersion)
@@ -364,7 +364,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         $format = $segmentsFile->readInt();
 
-        if ($format != (int) 0xFFFFFFFF) {
+        if ($format != (int)0xFFFFFFFF) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong segments file format');
         }
@@ -406,9 +406,9 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         $format = $segmentsFile->readInt();
 
-        if ($format == (int) 0xFFFFFFFC) {
+        if ($format == (int)0xFFFFFFFC) {
             $this->_formatVersion = self::FORMAT_2_3;
-        } elseif ($format == (int) 0xFFFFFFFD) {
+        } elseif ($format == (int)0xFFFFFFFD) {
             $this->_formatVersion = self::FORMAT_2_1;
         } else {
             require_once 'Zend/Search/Lucene/Exception.php';
@@ -436,13 +436,15 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             if ($this->_formatVersion == self::FORMAT_2_3) {
                 $docStoreOffset = $segmentsFile->readInt();
 
-                if ($docStoreOffset != (int) 0xFFFFFFFF) {
+                if ($docStoreOffset != (int)0xFFFFFFFF) {
                     $docStoreSegment = $segmentsFile->readString();
                     $docStoreIsCompoundFile = $segmentsFile->readByte();
 
-                    $docStoreOptions = array('offset' => $docStoreOffset,
-                        'segment' => $docStoreSegment,
-                        'isCompound' => ($docStoreIsCompoundFile == 1));
+                    $docStoreOptions = array(
+                        'offset'     => $docStoreOffset,
+                        'segment'    => $docStoreSegment,
+                        'isCompound' => ($docStoreIsCompoundFile == 1)
+                    );
                 } else {
                     $docStoreOptions = null;
                 }
@@ -454,7 +456,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             $numField = $segmentsFile->readInt();
 
             $normGens = array();
-            if ($numField != (int) 0xFFFFFFFF) {
+            if ($numField != (int)0xFFFFFFFF) {
                 for ($count1 = 0; $count1 < $numField; $count1++) {
                     $normGens[] = $segmentsFile->readLong();
                 }
@@ -692,7 +694,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     /**
      * Checks, that document is deleted
      *
-     * @param  integer                      $id
+     * @param  integer $id
      * @return boolean
      * @throws Zend_Search_Lucene_Exception Exception is thrown if $id is out of the range
      */
@@ -970,9 +972,15 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         if (func_num_args() == 1) {
             // sort by scores
-            array_multisort($scores, SORT_DESC, SORT_NUMERIC,
-                $ids, SORT_ASC, SORT_NUMERIC,
-                $hits);
+            array_multisort(
+                $scores,
+                SORT_DESC,
+                SORT_NUMERIC,
+                $ids,
+                SORT_ASC,
+                SORT_NUMERIC,
+                $hits
+            );
         } else {
             // sort by given field names
 
@@ -1169,7 +1177,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     /**
      * Returns IDs of all documents containing term.
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
@@ -1203,7 +1211,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * It performs the same operation as termDocs, but return result as
      * Zend_Search_Lucene_Index_DocsFilter object
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return Zend_Search_Lucene_Index_DocsFilter
      */
@@ -1235,7 +1243,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * Returns an array of all term freqs.
      * Result array structure: array(docId => freq, ...)
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return integer
      */
@@ -1256,7 +1264,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * Returns an array of all term positions in the documents.
      * Result array structure: array(docId => array(pos1, pos2, ...), ...)
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
@@ -1309,7 +1317,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * Returns a normalization factor for "field, document" pair.
      *
      * @param  integer $id
-     * @param  string  $fieldName
+     * @param  string $fieldName
      * @return float
      */
     public function norm($id, $fieldName)
@@ -1545,7 +1553,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     }
 
     /*************************************************************************
-    @todo UNIMPLEMENTED
+     * @todo UNIMPLEMENTED
      *************************************************************************/
     /**
      * Undeletes all documents currently marked as deleted in this index.

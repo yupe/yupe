@@ -33,7 +33,7 @@
  */
 class DictionaryData extends yupe\models\YModel
 {
-    const STATUS_ACTIVE  = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_DELETED = 0;
 
     /**
@@ -70,7 +70,11 @@ class DictionaryData extends yupe\models\YModel
             array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, group_id, code, name, description, creation_date, update_date, create_user_id, update_user_id, status', 'safe', 'on' => 'search'),
+            array(
+                'id, group_id, code, name, description, creation_date, update_date, create_user_id, update_user_id, status',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -126,7 +130,7 @@ class DictionaryData extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('update_date', $this->update_date, true);
-        $criteria->compare('create_user_id', $this->create_user_id ,true);
+        $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('status', $this->status);
 
@@ -136,11 +140,11 @@ class DictionaryData extends yupe\models\YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date    = new CDbExpression('NOW()');
+        $this->update_date = new CDbExpression('NOW()');
 
         if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
-            $this->creation_date  = $this->update_date;
+            $this->creation_date = $this->update_date;
         }
 
         return parent::beforeSave();

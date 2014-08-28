@@ -59,12 +59,20 @@
                     array(
                         'data' => array(
                             CHtml::link(
-                                CHtml::image($mainAssets . '/images/amyLabs.jpg', 'amylabs - разработка на Юпи! и Yii !', array('style' => 'width: 100%')),
+                                CHtml::image(
+                                    $mainAssets . '/images/amyLabs.jpg',
+                                    'amylabs - разработка на Юпи! и Yii !',
+                                    array('style' => 'width: 100%')
+                                ),
                                 'http://amylabs.ru?from=yupe-rb',
                                 array('title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank')
                             ),
                             CHtml::link(
-                                CHtml::image($mainAssets . '/images/yupe-logo.jpg', 'Юпи! - cms на Yii !', array('style' => 'width: 100%')),
+                                CHtml::image(
+                                    $mainAssets . '/images/yupe-logo.jpg',
+                                    'Юпи! - cms на Yii !',
+                                    array('style' => 'width: 100%')
+                                ),
                                 'http://yupe.ru?from=yupe-rb',
                                 array('title' => 'Юпи! - cms на Yii !', 'target' => '_blank')
                             ),
@@ -77,7 +85,7 @@
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
                 </div>
-            <?php  endif; ?>
+            <?php endif; ?>
 
             <?php if (Yii::app()->hasModule('blog')): ?>
                 <div class="widget stream-widget">
@@ -85,11 +93,17 @@
                 </div>
 
                 <div class="widget last-posts-widget">
-                    <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+                    <?php $this->widget(
+                        'application.modules.blog.widgets.LastPostsWidget',
+                        array('cacheTime' => $this->yupe->coreCacheTime)
+                    ); ?>
                 </div>
 
                 <div class="widget blogs-widget">
-                    <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+                    <?php $this->widget(
+                        'application.modules.blog.widgets.BlogsWidget',
+                        array('cacheTime' => $this->yupe->coreCacheTime)
+                    ); ?>
                 </div>
 
                 <div class="widget tags-cloud-widget">
@@ -102,7 +116,10 @@
 
             <?php if (Yii::app()->hasModule('feedback')): ?>
                 <div class="widget last-questions-widget">
-                    <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
+                    <?php $this->widget(
+                        'application.modules.feedback.widgets.FaqWidget',
+                        array('cacheTime' => $this->yupe->coreCacheTime)
+                    ); ?>
                 </div>
             <?php endif; ?>
 

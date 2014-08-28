@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ContentBlockBackendController контроллер для управления блоками контента в панели управления
  *
@@ -14,11 +15,15 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('ContentBlock.ContentblockBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('ContentBlock.ContentblockBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('ContentBlock.ContentblockBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('ContentBlock.ContentblockBackend.Update')),
+            array(
+                'allow',
+                'actions' => array('inlineEdit'),
+                'roles'   => array('ContentBlock.ContentblockBackend.Update')
+            ),
             array('allow', 'actions' => array('update'), 'roles' => array('ContentBlock.ContentblockBackend.Update')),
             array('allow', 'actions' => array('view'), 'roles' => array('ContentBlock.ContentblockBackend.View')),
             array('deny')
@@ -29,12 +34,13 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'ContentBlock',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'ContentBlock',
                 'validAttributes' => array('name', 'code', 'type', 'description')
             )
         );
     }
+
     /**
      * Displays a particular model.
      *
@@ -44,16 +50,17 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
      */
     public function actionView($id)
     {
-        $model                 = $this->loadModel($id);
+        $model = $this->loadModel($id);
 
-        $code                  = "<?php \$this->widget(\"application.modules.contentblock.widgets.ContentBlockWidget\", array(\"code\" => \"{$model->code}\")); ?>";
+        $code = "<?php \$this->widget(\"application.modules.contentblock.widgets.ContentBlockWidget\", array(\"code\" => \"{$model->code}\")); ?>";
 
-        $highlighter           = new CTextHighlighter();
+        $highlighter = new CTextHighlighter();
         $highlighter->language = 'PHP';
-        $example               = $highlighter->highlight($code);
+        $example = $highlighter->highlight($code);
 
         $this->render(
-            'view', array(
+            'view',
+            array(
                 'model'   => $model,
                 'example' => $example,
             )
@@ -80,8 +87,9 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -113,8 +121,9 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 Yii::app()->cache->delete("ContentBlock{$model->code}");
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -141,7 +150,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
 
         } else {
@@ -162,7 +171,8 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'ContentBlock', array()
+                'ContentBlock',
+                array()
             )
         );
 
@@ -181,9 +191,10 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
      */
     public function loadModel($id)
     {
-        $model = ContentBlock::model()->findByPk((int) $id);
-        if ($model === null)
+        $model = ContentBlock::model()->findByPk((int)$id);
+        if ($model === null) {
             throw new CHttpException(404, Yii::t('ContentBlockModule.contentblock', 'Page was not found!'));
+        }
 
         return $model;
     }

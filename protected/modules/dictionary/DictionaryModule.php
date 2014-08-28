@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DictionaryModule основной класс модуля dictionary
  *
@@ -9,7 +10,6 @@
  * @since 0.1
  *
  */
-
 class DictionaryModule extends yupe\components\WebModule
 {
     const VERSION = '0.8';
@@ -72,11 +72,27 @@ class DictionaryModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries')),
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries list'), 'url' => array('/dictionary/dictionaryBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create dictionary'), 'url' => array('/dictionary/dictionaryBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries list'),
+                'url'   => array('/dictionary/dictionaryBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Create dictionary'),
+                'url'   => array('/dictionary/dictionaryBackend/create')
+            ),
             array('label' => Yii::t('DictionaryModule.dictionary', 'Items')),
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Items list'),
+                'url'   => array('/dictionary/dictionaryDataBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Create item'),
+                'url'   => array('/dictionary/dictionaryDataBackend/create')
+            ),
         );
     }
 
@@ -84,80 +100,82 @@ class DictionaryModule extends yupe\components\WebModule
     {
         parent::init();
 
-        $this->setImport(array(
-            'dictionary.models.*',
-            'dictionary.components.*',
-        ));
+        $this->setImport(
+            array(
+                'dictionary.models.*',
+                'dictionary.components.*',
+            )
+        );
     }
 
     public function getAuthItems()
     {
         return array(
             array(
-                'name' => 'Dictionary.DictionaryManager',
+                'name'        => 'Dictionary.DictionaryManager',
                 'description' => Yii::t('DictionaryModule.dictionary', 'Manage dictionary'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     //dictionary
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.Create',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Creating dictionary')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.Delete',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Removing dictionary')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.Index',
                         'description' => Yii::t('DictionaryModule.dictionary', 'List of dictionary')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.Update',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Editing dictionary')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.Inline',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Editing dictionary')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.View',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Viewing dictionary')
                     ),
                     //data
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryDataBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.Create',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Creating dictionary data')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryDataBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.Delete',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Removing dictionary data')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryDataBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.Index',
                         'description' => Yii::t('DictionaryModule.dictionary', 'List of dictionary data')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryDataBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.Update',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Editing dictionary data')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryDataBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.Inline',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Editing dictionary data')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Dictionary.DictionaryDataBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.View',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Viewing dictionary data')
                     ),
                 )

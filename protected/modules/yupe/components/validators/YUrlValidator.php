@@ -19,9 +19,9 @@ class YUrlValidator extends CUrlValidator
     public $pattern = '/^{schemes}:\/\/(([A-ZА-Я0-9][A-ZА-Я0-9_-]*)(\.[A-ZА-Я0-9][A-ZА-Я0-9_-]*)+)/iu';
     public $clientPattern = '/^{schemes}:\/\/(([A-ZА-Я0-9][A-ZА-Я0-9_-]*)(\.[A-ZА-Я0-9][A-ZА-Я0-9_-]*)+)/i';
 
-    public function clientValidateAttribute($object,$attribute)
+    public function clientValidateAttribute($object, $attribute)
     {
         $this->pattern = $this->clientPattern;
-        parent::clientValidateAttribute($object,$attribute);
+        parent::clientValidateAttribute($object, $attribute);
     }
 }

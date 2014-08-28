@@ -27,7 +27,7 @@ class ImageToGallery extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.
-     * @param  string         $className
+     * @param  string $className
      * @return ImageToGallery the static model class
      */
     public static function model($className = __CLASS__)

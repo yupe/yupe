@@ -1,4 +1,5 @@
 <?php
+
 /**
  * m000000_000000_page_base install migration
  * Класс миграций для модуля Page:
@@ -11,7 +12,6 @@
  * @since 1.0
  *
  */
-
 class m000000_000000_page_base extends yupe\components\DbMigration
 {
     /**
@@ -24,23 +24,23 @@ class m000000_000000_page_base extends yupe\components\DbMigration
         $this->createTable(
             '{{page_page}}',
             array(
-                'id' => 'pk',
-                'category_id' => 'integer DEFAULT NULL',
-                'lang' => 'char(2) DEFAULT NULL',
-                'parent_id' => 'integer DEFAULT NULL',
-                'creation_date' => 'datetime NOT NULL',
-                'change_date' => 'datetime NOT NULL',
-                'user_id' => 'integer  DEFAULT NULL',
+                'id'             => 'pk',
+                'category_id'    => 'integer DEFAULT NULL',
+                'lang'           => 'char(2) DEFAULT NULL',
+                'parent_id'      => 'integer DEFAULT NULL',
+                'creation_date'  => 'datetime NOT NULL',
+                'change_date'    => 'datetime NOT NULL',
+                'user_id'        => 'integer  DEFAULT NULL',
                 'change_user_id' => 'integer DEFAULT NULL',
-                'name' => 'varchar(150) NOT NULL',
-                'title' => 'varchar(250) NOT NULL',
-                'slug' => 'varchar(150) NOT NULL',
-                'body' => 'text NOT NULL',
-                'keywords' => 'varchar(250) NOT NULL',
-                'description' => 'varchar(250) NOT NULL',
-                'status' => 'integer NOT NULL',
-                'is_protected' => "boolean NOT NULL DEFAULT '0'",
-                'menu_order' => "integer NOT NULL DEFAULT '0'",
+                'name'           => 'varchar(150) NOT NULL',
+                'title'          => 'varchar(250) NOT NULL',
+                'slug'           => 'varchar(150) NOT NULL',
+                'body'           => 'text NOT NULL',
+                'keywords'       => 'varchar(250) NOT NULL',
+                'description'    => 'varchar(250) NOT NULL',
+                'status'         => 'integer NOT NULL',
+                'is_protected'   => "boolean NOT NULL DEFAULT '0'",
+                'menu_order'     => "integer NOT NULL DEFAULT '0'",
             ),
             $this->getOptions()
         );
@@ -54,9 +54,33 @@ class m000000_000000_page_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{page_page}}_category_id", '{{page_page}}', "category_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{page_page}}_category_id", '{{page_page}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{page_page}}_user_id", '{{page_page}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{page_page}}_change_user_id", '{{page_page}}', 'change_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey(
+            "fk_{{page_page}}_category_id",
+            '{{page_page}}',
+            'category_id',
+            '{{category_category}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            "fk_{{page_page}}_user_id",
+            '{{page_page}}',
+            'user_id',
+            '{{user_user}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            "fk_{{page_page}}_change_user_id",
+            '{{page_page}}',
+            'change_user_id',
+            '{{user_user}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
     }
 
     /**

@@ -46,7 +46,7 @@ abstract class Zend_Search_Lucene_Search_QueryEntry
     /**
      * Transform entry to a subquery
      *
-     * @param  string                          $encoding
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Search_Query
      */
     abstract public function getQuery($encoding);

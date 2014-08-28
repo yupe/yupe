@@ -48,7 +48,7 @@ class CommentController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class' => 'yupe\components\actions\YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             ),
@@ -106,8 +106,8 @@ class CommentController extends yupe\components\controllers\FrontController
                 $params,
                 array(
                     'user_id' => Yii::app()->getUser()->getId(),
-                    'name' => Yii::app()->getUser()->getState('nick_name'),
-                    'email' => Yii::app()->getUser()->getProfileField('email'),
+                    'name'    => Yii::app()->getUser()->getState('nick_name'),
+                    'email'   => Yii::app()->getUser()->getProfileField('email'),
                 )
             );
         }
@@ -123,8 +123,8 @@ class CommentController extends yupe\components\controllers\FrontController
 
                     Yii::app()->ajax->success(
                         array(
-                            'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
-                            'comment' => array(
+                            'message'        => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
+                            'comment'        => array(
                                 'parent_id' => $comment->parent_id
                             ),
                             'commentContent' => $commentContent

@@ -13,6 +13,7 @@
  *
  */
 namespace yupe\widgets;
+
 use ReflectionClass;
 use CWidget;
 use Yii;
@@ -31,7 +32,7 @@ abstract class YWidget extends CWidget
      *
      *  limit - кол-во записей для вывода
      *
-    */
+     */
 
     public $limit = 5;
 
@@ -39,7 +40,7 @@ abstract class YWidget extends CWidget
      *  view - название шаблона (view) который используется для отрисовки виджета
      *
      *
-    */
+     */
     public $view;
 
     public function init()
@@ -57,8 +58,8 @@ abstract class YWidget extends CWidget
             if (isset($string[1])) {
                 $string = explode(\DIRECTORY_SEPARATOR, $string[1], 2);
                 $themeView = Yii::app()->themeManager->basePath . '/' .
-                             Yii::app()->theme->name . '/' . 'views' . '/' .
-                             $string[0] . '/' . 'widgets' . '/' . $obj->getShortName();
+                    Yii::app()->theme->name . '/' . 'views' . '/' .
+                    $string[0] . '/' . 'widgets' . '/' . $obj->getShortName();
             }
         }
 

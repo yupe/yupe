@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tagging cache behavior class:
  *
@@ -24,14 +25,16 @@ class TaggingCacheBehavior extends CBehavior
      */
     public function clear($tags)
     {
-        foreach ((array) $tags as $tag) {
+        foreach ((array)$tags as $tag) {
             $this->owner->set(self::PREFIX . $tag, microtime(true));
         }
 
         Yii::log(
             Yii::t(
-                'YupeModule.yupe', 'Invalidated tags: {tags}', array(
-                    '{tags}' => implode(', ', (array) $tags)
+                'YupeModule.yupe',
+                'Invalidated tags: {tags}',
+                array(
+                    '{tags}' => implode(', ', (array)$tags)
                 )
             )
         );

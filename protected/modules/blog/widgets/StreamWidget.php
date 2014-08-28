@@ -1,4 +1,5 @@
 <?php
+
 class StreamWidget extends yupe\widgets\YWidget
 {
     public $view = 'stream';

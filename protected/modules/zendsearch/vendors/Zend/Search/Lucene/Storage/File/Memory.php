@@ -135,7 +135,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      * Writes $length number of bytes (all, if $length===null) to the end
      * of the file.
      *
-     * @param string  $data
+     * @param string $data
      * @param integer $length
      */
     protected function _fwrite($data, $length = null)
@@ -222,7 +222,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      * Writes num bytes of data (all, if $num===null) to the end
      * of the string.
      *
-     * @param string  $data
+     * @param string $data
      * @param integer $num
      */
     public function writeBytes($data, $num = null)
@@ -308,7 +308,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
     /**
      * Writes long integer to the end of file
      *
-     * @param  integer                      $value
+     * @param  integer $value
      * @throws Zend_Search_Lucene_Exception
      */
     public function writeLong($value)
@@ -349,9 +349,9 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         $wordHigh = $this->readInt();
         $wordLow = $this->readInt();
 
-        if ($wordHigh & (int) 0x80000000) {
+        if ($wordHigh & (int)0x80000000) {
             // It's a negative value since the highest bit is set
-            if ($wordHigh == (int) 0xFFFFFFFF && ($wordLow & (int) 0x80000000)) {
+            if ($wordHigh == (int)0xFFFFFFFF && ($wordLow & (int)0x80000000)) {
                 return $wordLow;
             } else {
                 require_once 'Zend/Search/Lucene/Exception.php';
@@ -363,7 +363,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
         if ($wordLow < 0) {
             // Value is large than 0x7FFF FFFF. Represent low word as float.
             $wordLow &= 0x7FFFFFFF;
-            $wordLow += (float) 0x80000000;
+            $wordLow += (float)0x80000000;
         }
 
         if ($wordHigh == 0) {
@@ -371,28 +371,28 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
             return $wordLow;
         }
 
-        return $wordHigh * (float) 0x100000000 /* 0x00000001 00000000 */ + $wordLow;
+        return $wordHigh * (float)0x100000000 /* 0x00000001 00000000 */ + $wordLow;
     }
 
     /**
      * Writes long integer to the end of file (32-bit platforms implementation)
      *
-     * @param  integer|float                $value
+     * @param  integer|float $value
      * @throws Zend_Search_Lucene_Exception
      */
     public function writeLong32Bit($value)
     {
-        if ($value < (int) 0x80000000) {
+        if ($value < (int)0x80000000) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
         }
 
         if ($value < 0) {
-            $wordHigh = (int) 0xFFFFFFFF;
-            $wordLow = (int) $value;
+            $wordHigh = (int)0xFFFFFFFF;
+            $wordLow = (int)$value;
         } else {
-            $wordHigh = (int) ($value / (float) 0x100000000 /* 0x00000001 00000000 */);
-            $wordLow = $value - $wordHigh * (float) 0x100000000 /* 0x00000001 00000000 */
+            $wordHigh = (int)($value / (float)0x100000000 /* 0x00000001 00000000 */);
+            $wordLow = $value - $wordHigh * (float)0x100000000 /* 0x00000001 00000000 */
             ;
 
             if ($wordLow > 0x7FFFFFFF) {
@@ -508,7 +508,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
     /**
      * Writes a string to the end of file.
      *
-     * @param  string                       $str
+     * @param  string $str
      * @throws Zend_Search_Lucene_Exception
      */
     public function writeString($str)

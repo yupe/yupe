@@ -1,4 +1,5 @@
 <?php
+
 class UserBlogsWidget extends yupe\widgets\YWidget
 {
     public $view = 'userblogs';
@@ -8,7 +9,7 @@ class UserBlogsWidget extends yupe\widgets\YWidget
     public function init()
     {
         if (!$this->userId) {
-            throw new CException(Yii::t('BlogModule.blog','UserBlogsWidget.userId is not defined =('));
+            throw new CException(Yii::t('BlogModule.blog', 'UserBlogsWidget.userId is not defined =('));
         }
 
         parent::init();

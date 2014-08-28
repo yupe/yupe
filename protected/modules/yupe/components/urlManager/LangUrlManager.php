@@ -25,8 +25,8 @@ class LangUrlManager extends CUrlManager
 {
     public $languages;
     public $langs;
-    public $langParam         = 'language';
-    public $languageInPath    = true;
+    public $langParam = 'language';
+    public $languageInPath = true;
     public $preferredLanguage = false;
 
     private $_appLang = false;
@@ -65,15 +65,16 @@ class LangUrlManager extends CUrlManager
 
         foreach ($this->rules as $rule => $p) {
             $rule = ($rule[0] == '/'
-                ? '/<' . $this->langParam . ':(' . $langs. ')>'
-                : '<' . $this->langParam . ':(' . $langs . ')>/'
-            ) . $rule;
+                    ? '/<' . $this->langParam . ':(' . $langs . ')>'
+                    : '<' . $this->langParam . ':(' . $langs . ')>/'
+                ) . $rule;
             $newRules[$rule] = $p;
         }
 
         // Добавляем новые правила:
         $this->rules = array_merge(
-            $newRules, $this->rules
+            $newRules,
+            $this->rules
         );
 
         try {
@@ -107,7 +108,7 @@ class LangUrlManager extends CUrlManager
             // берём сорсовый
             try {
                 $this->_appLang = Yii::app()->getModule('yupe')->defaultLanguage
-                                ?: $this->_appLang = Yii::app()->sourceLanguage;
+                    ? : $this->_appLang = Yii::app()->sourceLanguage;
             } catch (Exception $e) {
                 $this->_appLang = Yii::app()->sourceLanguage;
             }
@@ -137,8 +138,8 @@ class LangUrlManager extends CUrlManager
      * Здесь немного поправлена логика для работы
      * с подмножеством языков:
      *
-     * @param string $route     - маршрут к обработке
-     * @param array  $params    - список GET параметров
+     * @param string $route - маршрут к обработке
+     * @param array $params - список GET параметров
      * @param string $ampersand - маркер отделения пар имя-значение в URL.
      *                          По умолчанию '&'.
      *
@@ -173,7 +174,7 @@ class LangUrlManager extends CUrlManager
     /**
      * Выполняет очистку адреса от языка
      *
-     * @param string $url   - URL к очистке
+     * @param string $url - URL к очистке
      * @param string $param - параметры
      *
      * @return string обработанную строку адреса
@@ -187,15 +188,19 @@ class LangUrlManager extends CUrlManager
 
         // Убираем homeUrl из адреса:
         $url = preg_replace(
-            "#^(" . Yii::app()->getRequest()->scriptUrl . "|" . Yii::app()->getRequest()->baseUrl . ")#", '', $url
+            "#^(" . Yii::app()->getRequest()->scriptUrl . "|" . Yii::app()->getRequest()->baseUrl . ")#",
+            '',
+            $url
         );
 
         // Убираем из пути адреса языковой параметр
         if ($url != '' && $url != '/') {
-            if ($url[0] == '/')
+            if ($url[0] == '/') {
                 $url = substr($url, 1);
-            if ($url[strlen($url) - 1] != '/')
+            }
+            if ($url[strlen($url) - 1] != '/') {
                 $url .= '/';
+            }
             $url = preg_replace("#^(" . implode("|", $this->languages) . ")/#", '', $url);
         }
         // Убираем косую черту в конце пути для единоообразия
@@ -221,7 +226,7 @@ class LangUrlManager extends CUrlManager
      * При принудительном изменении языка, определяет как добавлять язык
      * первый парамметр url должен быть очищен от языкового парамметра с помощью getCleanUrl.
      *
-     * @param string $url  - Url для обработки
+     * @param string $url - Url для обработки
      * @param string $lang - язык, по умолчанию - false
      *
      * @return string обработанную строку адреса
@@ -230,9 +235,9 @@ class LangUrlManager extends CUrlManager
     {
         return $lang !== false
             ? (
-                $this->languageInPath
-                    ? $lang . ($url != '' ? '/' . $url : '')
-                    : $url . (strstr($url, '?') ? '&' : '?') . $this->langParam . '=' . $lang
+            $this->languageInPath
+                ? $lang . ($url != '' ? '/' . $url : '')
+                : $url . (strstr($url, '?') ? '&' : '?') . $this->langParam . '=' . $lang
             )
             : $url;
     }

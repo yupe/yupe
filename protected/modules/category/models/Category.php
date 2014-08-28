@@ -36,25 +36,25 @@ class Category extends yupe\models\YModel
     const STATUS_MODERATION = 2;
 
     /**
-	 * @return string the associated database table name
-	 */
+     * @return string the associated database table name
+     */
     public function tableName()
     {
         return '{{category_category}}';
     }
 
     /**
-	 * Returns the static model of the specified AR class.
-	 * @return Category the static model class
-	 */
+     * Returns the static model of the specified AR class.
+     * @return Category the static model class
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
     /**
-	 * @return array validation rules for model attributes.
-	 */
+     * @return array validation rules for model attributes.
+     */
     public function rules()
     {
         // NOTE: you should only define rules for those attributes that
@@ -71,7 +71,11 @@ class Category extends yupe\models\YModel
             array('name, image', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2),
-            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')),
+            array(
+                'alias',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')
+            ),
             array('alias', 'yupe\components\validators\YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
@@ -84,11 +88,11 @@ class Category extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class'             => 'yupe\components\behaviors\FileUploadBehavior',
-                'scenarios'         => array('insert', 'update'),
-                'attributeName'     => 'image',
-                'uploadPath'        => $module->uploadPath,
-                'fileName' => array($this, 'generateFileName'),
+                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'scenarios'     => array('insert', 'update'),
+                'attributeName' => 'image',
+                'uploadPath'    => $module->uploadPath,
+                'fileName'      => array($this, 'generateFileName'),
             ),
         );
     }
@@ -133,8 +137,8 @@ class Category extends yupe\models\YModel
     }
 
     /**
-	 * @return array customized attribute labels (name=>label)
-	 */
+     * @return array customized attribute labels (name=>label)
+     */
     public function attributeLabels()
     {
         return array(
@@ -151,8 +155,8 @@ class Category extends yupe\models\YModel
     }
 
     /**
-	 * @return array customized attribute descriptions (name=>description)
-	 */
+     * @return array customized attribute descriptions (name=>description)
+     */
     public function attributeDescriptions()
     {
         return array(
@@ -169,9 +173,9 @@ class Category extends yupe\models\YModel
     }
 
     /**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
     public function search()
     {
         // Warning: Please modify the following code to remove attributes that
@@ -221,15 +225,18 @@ class Category extends yupe\models\YModel
     {
         $out = array();
 
-        $parent = $parent === null ? (int) $this->id : (int) $parent;
+        $parent = $parent === null ? (int)$this->id : (int)$parent;
 
-        $models = self::findAll('parent_id = :id', array(
-            ':id' => $parent
-        ));
+        $models = self::findAll(
+            'parent_id = :id',
+            array(
+                ':id' => $parent
+            )
+        );
 
         foreach ($models as $model) {
             $out[] = $model;
-            $out   = CMap::mergeArray($out, $model->getDescendants((int) $model->id));
+            $out = CMap::mergeArray($out, $model->getDescendants((int)$model->id));
         }
 
         return $out;
@@ -286,6 +293,6 @@ class Category extends yupe\models\YModel
 
     public function getById($id)
     {
-        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findByPk((int) $id);
+        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findByPk((int)$id);
     }
 }

@@ -14,7 +14,7 @@ class CommentRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int) Yii::app()->getModule('comment')->rssCount)) {
+        if (!($limit = (int)Yii::app()->getModule('comment')->rssCount)) {
             throw new CHttpException(404);
         }
 
@@ -29,7 +29,7 @@ class CommentRssController extends yupe\components\controllers\RssController
         $this->description = $yupe->siteDescription;
 
         $model = Yii::app()->getRequest()->getQuery('model');
-        $modelId = (int) Yii::app()->getRequest()->getQuery('modelId');
+        $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
 
         if (empty($model) || empty($modelId)) {
             throw new CHttpException(404);
@@ -40,7 +40,7 @@ class CommentRssController extends yupe\components\controllers\RssController
             ->addCondition('t.id<>t.root');
 
         $criteria->params = array(
-            ':model' => $model,
+            ':model'   => $model,
             ':modelId' => $modelId,
         );
 
@@ -51,19 +51,19 @@ class CommentRssController extends yupe\components\controllers\RssController
     {
         return array(
             'feed' => array(
-                'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $this->data,
-                'title' => $this->title,
+                'class'       => 'yupe\components\actions\YFeedAction',
+                'data'        => $this->data,
+                'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields' => array(
-                    'author_object' => false,
+                'itemFields'  => array(
+                    'author_object'   => false,
                     'author_nickname' => false,
-                    'content' => 'text',
-                    'datetime' => 'creation_date',
-                    'link' => false,
-                    'linkParams' => array('title' => 'alias'),
-                    'title' => false,
-                    'updated' => 'creation_date',
+                    'content'         => 'text',
+                    'datetime'        => 'creation_date',
+                    'link'            => false,
+                    'linkParams'      => array('title' => 'alias'),
+                    'title'           => false,
+                    'updated'         => 'creation_date',
                 ),
             ),
         );

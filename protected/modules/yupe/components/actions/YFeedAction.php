@@ -141,10 +141,14 @@ class YFeedAction extends CAction
                  * Устанавливаем автора для $item
                  */
                 if (!empty($this->itemFields['author_object'])) {
-                    $item->addTag('author', $feedItem->{$this->itemFields['author_object']}->{$this->itemFields['author_nickname']});
+                    $item->addTag(
+                        'author',
+                        $feedItem->{$this->itemFields['author_object']}->{$this->itemFields['author_nickname']}
+                    );
                 } elseif (empty($this->itemFields['author_object'])
                     && !empty($this->itemFields['author_nickname'])
-                    && property_exists($feedItem, $this->itemFields['author_nickname'])) {
+                    && property_exists($feedItem, $this->itemFields['author_nickname'])
+                ) {
                     $item->addTag('author', $feedItem->{$this->itemFields['author_nickname']});
                 }
 
@@ -153,10 +157,13 @@ class YFeedAction extends CAction
                  */
                 if (!empty($this->itemFields['datetime'])) {
                     if (is_numeric($feedItem->{$this->itemFields['datetime']})) {
-                        $feedItem->{$this->itemFields['datetime']} = date('d-m-Y',$feedItem->{$this->itemFields['datetime']});
+                        $feedItem->{$this->itemFields['datetime']} = date(
+                            'd-m-Y',
+                            $feedItem->{$this->itemFields['datetime']}
+                        );
                     }
                     $tag = new DateTime($feedItem->{$this->itemFields['datetime']});
-                    $item->addTag('published',$tag->format(DateTime::ATOM));
+                    $item->addTag('published', $tag->format(DateTime::ATOM));
                 }
 
                 /**

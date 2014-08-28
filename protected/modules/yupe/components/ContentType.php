@@ -18,16 +18,16 @@ class ContentType
     /**
      * Константы типов:
      **/
-    const TYPE_HTML      = 1;
-    const TYPE_TEXT      = 2;
-    const TYPE_JSON      = 3;
-    const TYPE_JS        = 4;
-    const TYPE_XML       = 5;
-    const TYPE_RSS       = 6;
-    const TYPE_ATOM      = 7;
-    const TYPE_ARCH_ZIP  = 8;
-    const TYPE_ARCH_RAR  = 9;
-    const TYPE_ARCH_TAR  = 10;
+    const TYPE_HTML = 1;
+    const TYPE_TEXT = 2;
+    const TYPE_JSON = 3;
+    const TYPE_JS = 4;
+    const TYPE_XML = 5;
+    const TYPE_RSS = 6;
+    const TYPE_ATOM = 7;
+    const TYPE_ARCH_ZIP = 8;
+    const TYPE_ARCH_RAR = 9;
+    const TYPE_ARCH_TAR = 10;
     const TYPE_ARCH_GZIP = 11;
 
     /**

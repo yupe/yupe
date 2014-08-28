@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NewsBackendController контроллер для работы с новостями в панели управления
  *
@@ -14,7 +15,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('News.NewsBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('News.NewsBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('News.NewsBackend.Index')),
@@ -29,12 +30,13 @@ class NewsBackendController extends yupe\components\controllers\BackController
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'News',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'News',
                 'validAttributes' => array('title', 'alias', 'date', 'status')
             )
         );
     }
+
     /**
      * Displays a particular model.
      *
@@ -69,8 +71,9 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -79,7 +82,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $languages = $this->yupe->getLanguagesList();
 
         //если добавляем перевод
-        $id = (int) Yii::app()->getRequest()->getQuery('id');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
         $lang = Yii::app()->getRequest()->getQuery('lang');
 
         if (!empty($id) && !empty($lang)) {
@@ -94,7 +97,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 $this->redirect(array('/news/newsBackend/create'));
             }
 
-            if (!array_key_exists($lang,$languages)) {
+            if (!array_key_exists($lang, $languages)) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('NewsModule.news', 'Language was not found!')
@@ -106,17 +109,19 @@ class NewsBackendController extends yupe\components\controllers\BackController
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
-                    'NewsModule.news', 'You inserting translation for {lang} language', array(
+                    'NewsModule.news',
+                    'You inserting translation for {lang} language',
+                    array(
                         '{lang}' => $languages[$lang]
                     )
                 )
             );
 
-            $model->lang        = $lang;
-            $model->alias       = $news->alias;
-            $model->date        = $news->date;
+            $model->lang = $lang;
+            $model->alias = $news->alias;
+            $model->date = $news->date;
             $model->category_id = $news->category_id;
-            $model->title       = $news->title;
+            $model->title = $news->title;
         } else {
             $model->date = date('d-m-Y');
             $model->lang = Yii::app()->language;
@@ -129,8 +134,8 @@ class NewsBackendController extends yupe\components\controllers\BackController
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
-     * @param null    $alias
-     * @param integer $id    the ID of the model to be updated
+     * @param null $alias
+     * @param integer $id the ID of the model to be updated
      *
      * @throws CHttpException
      *
@@ -153,9 +158,10 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
                 $this->redirect(
                     Yii::app()->getRequest()->getIsPostRequest()
-                        ? (array) Yii::app()->getRequest()->getPost(
-                            'submit-type', array('update', 'id' => $model->id)
-                        )
+                        ? (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
+                    )
                         : array('view', 'id' => $model->id)
                 );
             }
@@ -163,14 +169,16 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
         // найти по alias страницы на других языках
         $langModels = News::model()->findAll(
-            'alias = :alias AND id != :id', array(
+            'alias = :alias AND id != :id',
+            array(
                 ':alias' => $model->alias,
-                ':id' => $model->id
+                ':id'    => $model->id
             )
         );
 
         $this->render(
-            'update',array(
+            'update',
+            array(
                 'langModels' => CHtml::listData($langModels, 'lang', 'id'),
                 'model'      => $model,
                 'languages'  => $this->yupe->getLanguagesList()
@@ -182,8 +190,8 @@ class NewsBackendController extends yupe\components\controllers\BackController
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @param null    $alias
-     * @param integer $id    the ID of the model to be deleted
+     * @param null $alias
+     * @param integer $id the ID of the model to be deleted
      *
      * @throws CHttpException
      *
@@ -202,7 +210,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -225,7 +233,8 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'News', array()
+                'News',
+                array()
             )
         );
 

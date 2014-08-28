@@ -18,8 +18,8 @@ class UploadManager extends \CApplicationComponent
 
     /**
      * @param  CUploadedFile $fileInstance
-     * @param  string        $uploadPath   - file path
-     * @param  string        $fileName     - file name
+     * @param  string $uploadPath - file path
+     * @param  string $fileName - file name
      * @return bool
      *
      * Сохранение загруженного файла
@@ -58,7 +58,9 @@ class UploadManager extends \CApplicationComponent
     public function getBasePath()
     {
         if ($this->_basePath === null) {
-            $this->setBasePath(Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath);
+            $this->setBasePath(
+                Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath
+            );
         }
 
         return $this->_basePath;
@@ -78,7 +80,9 @@ class UploadManager extends \CApplicationComponent
     public function getBaseUrl()
     {
         if ($this->_baseUrl === null) {
-            $this->setBaseUrl(Yii::app()->getRequest()->getBaseUrl(true) . '/' . Yii::app()->getModule('yupe')->uploadPath);
+            $this->setBaseUrl(
+                Yii::app()->getRequest()->getBaseUrl(true) . '/' . Yii::app()->getModule('yupe')->uploadPath
+            );
         }
 
         return $this->_baseUrl;

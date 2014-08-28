@@ -32,7 +32,7 @@ class Notify extends CApplicationComponent
     }
 
     /**
-     * @param  User  $user
+     * @param  User $user
      * @param $theme
      * @param $view
      * @param $data

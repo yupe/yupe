@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - creating');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('QueueModule.queue', 'Task creation'), 'url' => array('/queue/queueBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('QueueModule.queue', 'Task list'),
+        'url'   => array('/queue/queueBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('QueueModule.queue', 'Task creation'),
+        'url'   => array('/queue/queueBackend/create')
+    ),
 );
 ?>
 <div class="page-header">

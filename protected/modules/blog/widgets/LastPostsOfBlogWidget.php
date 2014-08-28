@@ -24,16 +24,25 @@ class LastPostsOfBlogWidget extends yupe\widgets\YWidget
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition('blog_id = :blog_id');
-        $criteria->limit  = (int) $this->limit;
+        $criteria->limit = (int)$this->limit;
         $criteria->params = array(
-            ':blog_id' => (int) $this->blogId
+            ':blog_id' => (int)$this->blogId
         );
 
         if ($this->postId) {
             $criteria->addCondition('t.id != :post_id');
-            $criteria->params[':post_id'] = (int) $this->postId;
+            $criteria->params[':post_id'] = (int)$this->postId;
         }
 
-        $this->render($this->view, array('posts' => Post::model()->public()->published()->sortByPubDate('DESC')->with('commentsCount','createUser','blog')->findAll($criteria)));
+        $this->render(
+            $this->view,
+            array(
+                'posts' => Post::model()->public()->published()->sortByPubDate('DESC')->with(
+                        'commentsCount',
+                        'createUser',
+                        'blog'
+                    )->findAll($criteria)
+            )
+        );
     }
 }

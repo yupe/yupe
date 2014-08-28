@@ -171,7 +171,7 @@ abstract class Zend_Search_Lucene_FSM
      * Set FSM state.
      * No any action is invoked
      *
-     * @param  integer|string        $state
+     * @param  integer|string $state
      * @throws Zend_Search_Exception
      */
     public function setState($state)
@@ -238,9 +238,9 @@ abstract class Zend_Search_Lucene_FSM
     /**
      * Add symbol to the input alphabet
      *
-     * @param  integer|string                    $sourceState
-     * @param  integer|string                    $input
-     * @param  integer|string                    $targetState
+     * @param  integer|string $sourceState
+     * @param  integer|string $input
+     * @param  integer|string $targetState
      * @param  Zend_Search_Lucene_FSMAction|null $inputAction
      * @throws Zend_Search_Exception
      */
@@ -279,7 +279,7 @@ abstract class Zend_Search_Lucene_FSM
      * Several entry actions are allowed.
      * Action execution order is defined by addEntryAction() calls
      *
-     * @param integer|string               $state
+     * @param integer|string $state
      * @param Zend_Search_Lucene_FSMAction $action
      */
     public function addEntryAction($state, Zend_Search_Lucene_FSMAction $action)
@@ -301,7 +301,7 @@ abstract class Zend_Search_Lucene_FSM
      * Several exit actions are allowed.
      * Action execution order is defined by addEntryAction() calls
      *
-     * @param integer|string               $state
+     * @param integer|string $state
      * @param Zend_Search_Lucene_FSMAction $action
      */
     public function addExitAction($state, Zend_Search_Lucene_FSMAction $action)
@@ -323,8 +323,8 @@ abstract class Zend_Search_Lucene_FSM
      * Several input actions are allowed.
      * Action execution order is defined by addInputAction() calls
      *
-     * @param integer|string               $state
-     * @param integer|string               $input
+     * @param integer|string $state
+     * @param integer|string $input
      * @param Zend_Search_Lucene_FSMAction $action
      */
     public function addInputAction($state, $inputSymbol, Zend_Search_Lucene_FSMAction $action)
@@ -353,8 +353,8 @@ abstract class Zend_Search_Lucene_FSM
      * Several transition actions are allowed.
      * Action execution order is defined by addTransitionAction() calls
      *
-     * @param integer|string               $sourceState
-     * @param integer|string               $targetState
+     * @param integer|string $sourceState
+     * @param integer|string $targetState
      * @param Zend_Search_Lucene_FSMAction $action
      */
     public function addTransitionAction($sourceState, $targetState, Zend_Search_Lucene_FSMAction $action)
@@ -381,7 +381,7 @@ abstract class Zend_Search_Lucene_FSM
     /**
      * Process an input
      *
-     * @param  mixed                 $input
+     * @param  mixed $input
      * @throws Zend_Search_Exception
      */
     public function process($input)

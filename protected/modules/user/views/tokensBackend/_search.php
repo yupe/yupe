@@ -26,9 +26,9 @@
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
         array(
-            'action' => Yii::app()->createUrl($this->route),
-            'method' => 'POST',
-            'type' => 'vertical',
+            'action'      => Yii::app()->createUrl($this->route),
+            'method'      => 'POST',
+            'type'        => 'vertical',
             'htmlOptions' => array('class' => 'well'),
         )
     ); ?>
@@ -39,7 +39,7 @@
                 'user_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getUserList(),
+                        'data'        => $model->getUserList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -54,7 +54,7 @@
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -71,7 +71,7 @@
                 'type',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getTypeList(),
+                        'data'        => $model->getTypeList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -86,7 +86,7 @@
                 'created',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getDateList(),
+                        'data'        => $model->getDateList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -101,9 +101,9 @@
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'context' => 'primary',
-                'icon' => 'glyphicon glyphicon-search',
-                'label' => Yii::t('UserModule.user', 'Find tokens'),
+                'context'    => 'primary',
+                'icon'       => 'glyphicon glyphicon-search',
+                'label'      => Yii::t('UserModule.user', 'Find tokens'),
             )
         ); ?>
 
@@ -111,9 +111,9 @@
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'reset',
-                'context' => 'danger',
-                'icon' => 'glyphicon glyphicon-remove',
-                'label' => Yii::t('UserModule.user', 'Reset'),
+                'context'    => 'danger',
+                'icon'       => 'glyphicon glyphicon-remove',
+                'label'      => Yii::t('UserModule.user', 'Reset'),
             )
         ); ?>
     </div>

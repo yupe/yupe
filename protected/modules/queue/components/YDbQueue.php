@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YDbQueue копмпонент для хранения очереди заданий в базе данных
  *
@@ -26,14 +27,19 @@ class YDbQueue extends YQueue
 
     public function getDbConnection()
     {
-        if ($this->_db !== null)
+        if ($this->_db !== null) {
             return $this->_db;
-        elseif (($id = $this->connectionId) !== null) {
-            if (($this->_db = Yii::app()->getComponent($id)) instanceof CDbConnection)
+        } elseif (($id = $this->connectionId) !== null) {
+            if (($this->_db = Yii::app()->getComponent($id)) instanceof CDbConnection) {
                 return $this->_db;
+            }
         }
 
-        throw new CException(Yii::t('QueueModule.queue', 'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.', array('{id}' => $id)));
+        throw new CException(Yii::t(
+            'QueueModule.queue',
+            'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.',
+            array('{id}' => $id)
+        ));
     }
 
     public function setDbConnection($value)
@@ -43,11 +49,14 @@ class YDbQueue extends YQueue
 
     public function add($worker, array $data)
     {
-        if (($data = json_encode($data)) === false)
+        if (($data = json_encode($data)) === false) {
             throw new CException(Yii::t('QueueModule.queue', 'Error json_encode !'));
+        }
         try {
-            $command = $this->getDbConnection()->createCommand("INSERT INTO {$this->queueTableName} (worker, task, create_time) VALUES (:worker,:task, NOW())");
-            $command->bindValue(':worker', (int) $worker, PDO::PARAM_INT);
+            $command = $this->getDbConnection()->createCommand(
+                "INSERT INTO {$this->queueTableName} (worker, task, create_time) VALUES (:worker,:task, NOW())"
+            );
+            $command->bindValue(':worker', (int)$worker, PDO::PARAM_INT);
             $command->bindValue(':task', $data, PDO::PARAM_STR);
 
             return $command->execute();
@@ -60,9 +69,10 @@ class YDbQueue extends YQueue
     {
         $sql = "DELETE FROM {$this->queueTableName}";
 
-        $worker = (int) $worker;
-        if ($worker)
+        $worker = (int)$worker;
+        if ($worker) {
             $sql .= " WHERE worker = '$worker'";
+        }
 
         $this->getDbConnection()->createCommand($sql)->execute();
 

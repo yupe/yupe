@@ -77,10 +77,10 @@ class Zend_Search_Lucene_Analysis_Token
     /**
      * Object constructor
      *
-     * @param string  $text
+     * @param string $text
      * @param integer $start
      * @param integer $end
-     * @param string  $type
+     * @param string $type
      */
     public function __construct($text, $start, $end)
     {

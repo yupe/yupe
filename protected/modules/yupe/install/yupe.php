@@ -11,20 +11,20 @@
  **/
 
 return array(
-    'import' => array(
+    'import'    => array(
         'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
         'application.modules.yupe.extensions.tagcache.*',
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
     ),
-    'preload' => array('log'),
+    'preload'   => array('log'),
     'component' => array(
         // Массив компонентов, которые требует данный модуль
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
         'cache' => array(
-            'class' => 'CFileCache',
+            'class'     => 'CFileCache',
             'behaviors' => array(
                 'clear' => array(
                     'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
@@ -32,19 +32,19 @@ return array(
             ),
         ),
     ),
-    'rules' => array(
+    'rules'     => array(
         '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
     ),
-    'module' => array(
+    'module'    => array(
         'components' => array(
             'bootstrap' => array(
-                'class' => 'vendor.clevertech.yii-booster.src.components.Booster',
-                'coreCss' => true,
-                'responsiveCss' => true,
-                'yiiCss' => true,
-                'jqueryCss' => true,
-                'enableJS' => true,
-                'fontAwesomeCss' => true,
+                'class'            => 'vendor.clevertech.yii-booster.src.components.Booster',
+                'coreCss'          => true,
+                'responsiveCss'    => true,
+                'yiiCss'           => true,
+                'jqueryCss'        => true,
+                'enableJS'         => true,
+                'fontAwesomeCss'   => true,
                 'enableNotifierJS' => false,
             ),
         ),

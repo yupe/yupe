@@ -1,6 +1,7 @@
 <?php
 
 namespace yupe\widgets;
+
 use CException;
 
 class RandomDataWidget extends YWidget

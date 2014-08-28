@@ -18,7 +18,7 @@
  * The followings are the available model relations:
  * @property MailEvent $event
  *
-  * MailTemplate model class
+ * MailTemplate model class
  * Класс модели MailTemplate
  *
  * @category YupeModel
@@ -29,7 +29,7 @@
  **/
 class MailTemplate extends yupe\models\YModel
 {
-    const STATUS_ACTIVE     = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
     /**

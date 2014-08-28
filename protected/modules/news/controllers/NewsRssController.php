@@ -14,7 +14,7 @@ class NewsRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int) $this->module->rssCount)) {
+        if (!($limit = (int)$this->module->rssCount)) {
             throw new CHttpException(404);
         }
 
@@ -26,7 +26,7 @@ class NewsRssController extends yupe\components\controllers\RssController
         $this->title = $this->yupe->siteName;
         $this->description = $this->yupe->siteDescription;
 
-        $categoryId = (int) Yii::app()->getRequest()->getQuery('category');
+        $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
         if (!empty($categoryId)) {
             $category = Category::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($categoryId);
@@ -48,19 +48,19 @@ class NewsRssController extends yupe\components\controllers\RssController
     {
         return array(
             'feed' => array(
-                'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $this->data,
-                'title' => $this->title,
+                'class'       => 'yupe\components\actions\YFeedAction',
+                'data'        => $this->data,
+                'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields' => array(
-                    'author_object' => 'user',
+                'itemFields'  => array(
+                    'author_object'   => 'user',
                     'author_nickname' => 'nick_name',
-                    'content' => 'short_text',
-                    'datetime' => 'date',
-                    'link' => '/news/news/show',
-                    'linkParams' => array('title' => 'alias'),
-                    'title' => 'title',
-                    'updated' => 'change_date',
+                    'content'         => 'short_text',
+                    'datetime'        => 'date',
+                    'link'            => '/news/news/show',
+                    'linkParams'      => array('title' => 'alias'),
+                    'title'           => 'title',
+                    'updated'         => 'change_date',
                 ),
             ),
         );

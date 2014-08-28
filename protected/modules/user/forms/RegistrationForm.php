@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Форма регистрации
  *
@@ -42,12 +43,30 @@ class RegistrationForm extends CFormModel
             array('nick_name, email, password, cPassword', 'required'),
             array('nick_name, email', 'length', 'max' => 50),
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
-            array('nick_name', 'match','pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols')),
+            array(
+                'nick_name',
+                'match',
+                'pattern' => '/^[A-Za-z0-9]{2,50}$/',
+                'message' => Yii::t(
+                        'UserModule.user',
+                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                    )
+            ),
             array('nick_name', 'checkNickName'),
-            array('cPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('UserModule.user', 'Password is not coincide')),
+            array(
+                'cPassword',
+                'compare',
+                'compareAttribute' => 'password',
+                'message'          => Yii::t('UserModule.user', 'Password is not coincide')
+            ),
             array('email', 'email'),
             array('email', 'checkEmail'),
-            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$this->isCaptchaEnabled(), 'message' => Yii::t('UserModule.user', 'Check code incorrect')),
+            array(
+                'verifyCode',
+                'yupe\components\validators\YRequiredValidator',
+                'allowEmpty' => !$this->isCaptchaEnabled(),
+                'message'    => Yii::t('UserModule.user', 'Check code incorrect')
+            ),
             array('verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()),
             array('verifyCode', 'emptyOnInvalid')
         );
@@ -64,7 +83,7 @@ class RegistrationForm extends CFormModel
         );
     }
 
-    public function checkNickName($attribute,$params)
+    public function checkNickName($attribute, $params)
     {
         $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->$attribute));
 
@@ -73,7 +92,7 @@ class RegistrationForm extends CFormModel
         }
     }
 
-    public function checkEmail($attribute,$params)
+    public function checkEmail($attribute, $params)
     {
         $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
 

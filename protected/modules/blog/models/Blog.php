@@ -42,7 +42,7 @@
 class Blog extends yupe\models\YModel
 {
     const STATUS_BLOCKED = 0;
-    const STATUS_ACTIVE  = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_DELETED = 2;
 
     const TYPE_PUBLIC = 1;
@@ -120,39 +120,39 @@ class Blog extends yupe\models\YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'posts' => array(
+            'createUser'   => array(self::BELONGS_TO, 'User', 'create_user_id'),
+            'updateUser'   => array(self::BELONGS_TO, 'User', 'update_user_id'),
+            'posts'        => array(
                 self::HAS_MANY,
                 'Post',
                 'blog_id',
                 'condition' => 't.status = :status',
-                'params' => array(':status' => Post::STATUS_PUBLISHED)
+                'params'    => array(':status' => Post::STATUS_PUBLISHED)
             ),
-            'userToBlog' => array(
+            'userToBlog'   => array(
                 self::HAS_MANY,
                 'UserToBlog',
                 'blog_id',
-                'joinType' => 'left join',
+                'joinType'  => 'left join',
                 'condition' => 'userToBlog.status = :status',
-                'params' => array(':status' => UserToBlog::STATUS_ACTIVE)
+                'params'    => array(':status' => UserToBlog::STATUS_ACTIVE)
             ),
-            'members' => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
-            'postsCount' => array(
+            'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
+            'postsCount'   => array(
                 self::STAT,
                 'Post',
                 'blog_id',
                 'condition' => 't.status = :status',
-                'params' => array(':status' => Post::STATUS_PUBLISHED)
+                'params'    => array(':status' => Post::STATUS_PUBLISHED)
             ),
             'membersCount' => array(
                 self::STAT,
                 'UserToBlog',
                 'blog_id',
                 'condition' => 'status = :status',
-                'params' => array(':status' => UserToBlog::STATUS_ACTIVE)
+                'params'    => array(':status' => UserToBlog::STATUS_ACTIVE)
             ),
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id')
+            'category'     => array(self::BELONGS_TO, 'Category', 'category_id')
         );
     }
 
@@ -161,11 +161,11 @@ class Blog extends yupe\models\YModel
         return array(
             'published' => array(
                 'condition' => 't.status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
+                'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
-            'public' => array(
+            'public'    => array(
                 'condition' => 'type = :type',
-                'params' => array(':type' => self::TYPE_PUBLIC),
+                'params'    => array(':type' => self::TYPE_PUBLIC),
             ),
         );
     }
@@ -182,7 +182,7 @@ class Blog extends yupe\models\YModel
         $this->getDbCriteria()->mergeWith(
             array(
                 'condition' => $this->getTableAlias() . '.slug = :slug',
-                'params' => array(
+                'params'    => array(
                     ':slug' => $url,
                 ),
             )
@@ -197,20 +197,20 @@ class Blog extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('BlogModule.blog', 'id'),
-            'name' => Yii::t('BlogModule.blog', 'Title'),
-            'description' => Yii::t('BlogModule.blog', 'Description'),
-            'icon' => Yii::t('BlogModule.blog', 'Icon'),
-            'slug' => Yii::t('BlogModule.blog', 'URL'),
-            'type' => Yii::t('BlogModule.blog', 'Type'),
-            'status' => Yii::t('BlogModule.blog', 'Status'),
+            'id'             => Yii::t('BlogModule.blog', 'id'),
+            'name'           => Yii::t('BlogModule.blog', 'Title'),
+            'description'    => Yii::t('BlogModule.blog', 'Description'),
+            'icon'           => Yii::t('BlogModule.blog', 'Icon'),
+            'slug'           => Yii::t('BlogModule.blog', 'URL'),
+            'type'           => Yii::t('BlogModule.blog', 'Type'),
+            'status'         => Yii::t('BlogModule.blog', 'Status'),
             'create_user_id' => Yii::t('BlogModule.blog', 'Created'),
             'update_user_id' => Yii::t('BlogModule.blog', 'Updated'),
-            'create_date' => Yii::t('BlogModule.blog', 'Created at'),
-            'update_date' => Yii::t('BlogModule.blog', 'Updated at'),
-            'category_id' => Yii::t('BlogModule.blog', 'Category'),
-            'member_status' => Yii::t('BlogModule.blog', 'User status'),
-            'post_status' => Yii::t('BlogModule.blog', 'Post status'),
+            'create_date'    => Yii::t('BlogModule.blog', 'Created at'),
+            'update_date'    => Yii::t('BlogModule.blog', 'Updated at'),
+            'category_id'    => Yii::t('BlogModule.blog', 'Category'),
+            'member_status'  => Yii::t('BlogModule.blog', 'User status'),
+            'post_status'    => Yii::t('BlogModule.blog', 'Post status'),
         );
     }
 
@@ -220,8 +220,8 @@ class Blog extends yupe\models\YModel
     public function attributeDescriptions()
     {
         return array(
-            'id' => Yii::t('BlogModule.blog', 'Post id.'),
-            'name' => Yii::t(
+            'id'          => Yii::t('BlogModule.blog', 'Post id.'),
+            'name'        => Yii::t(
                     'BlogModule.blog',
                     'Please enter a title of the blog. For example: <span class="label label-default">My travel notes</span>.'
                 ),
@@ -229,16 +229,16 @@ class Blog extends yupe\models\YModel
                     'BlogModule.blog',
                     'Please enter a short description of the blog. For example:<br /><br /> <pre>Notes on my travel there and back again. Illustrated.</pre>'
                 ),
-            'icon' => Yii::t('BlogModule.blog', 'Please choose an icon for the blog.'),
-            'slug' => Yii::t(
+            'icon'        => Yii::t('BlogModule.blog', 'Please choose an icon for the blog.'),
+            'slug'        => Yii::t(
                     'BlogModule.blog',
                     'Please enter an URL-friendly name for the blog.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label label-default">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'
                 ),
-            'type' => Yii::t(
+            'type'        => Yii::t(
                     'BlogModule.blog',
                     'Please choose a type of the blog:<br /><br /><span class="label label-success">public</span> &ndash; anyone can create posts<br /><br /><span class="label label-info">private</span> &ndash; only you can create posts'
                 ),
-            'status' => Yii::t(
+            'status'      => Yii::t(
                     'BlogModule.blog',
                     'Please choose a status of the blog:<br /><br /><span class="label label-success">active</span> &ndash; The blog will be visible and it will be possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will be visible but it would not be possible to create new records<br /><br /><span class="label label-danger">removed</span> &ndash; The blog will be invisible'
                 ),
@@ -280,23 +280,23 @@ class Blog extends yupe\models\YModel
         );
 
         $sort->attributes = array(
-            'postsCount' => array(
-                'asc' => 'postsCount ASC',
-                'desc' => 'postsCount DESC',
+            'postsCount'   => array(
+                'asc'   => 'postsCount ASC',
+                'desc'  => 'postsCount DESC',
                 'label' => Yii::t('BlogModule.blog', 'Posts count')
             ),
             'membersCount' => array(
-                'asc' => 'membersCount ASC',
-                'desc' => 'membersCount DESC',
+                'asc'   => 'membersCount ASC',
+                'desc'  => 'membersCount DESC',
                 'label' => Yii::t('BlogModule.blog', 'Members count')
             ),
             '*', // add all of the other columns as sortable
         );
 
         return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
+            'criteria'   => $criteria,
             'pagination' => array('pageSize' => 10),
-            'sort' => $sort
+            'sort'       => $sort
         ));
     }
 
@@ -305,21 +305,21 @@ class Blog extends yupe\models\YModel
         $module = Yii::app()->getModule('blog');
 
         return array(
-            'imageUpload' => array(
-                'class' => 'yupe\components\behaviors\FileUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+            'imageUpload'        => array(
+                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'icon',
-                'minSize' => $module->minSize,
-                'maxSize' => $module->maxSize,
-                'types' => $module->allowedExtensions,
-                'uploadPath' => $module->uploadPath,
-                'fileName' => array($this, 'generateFileName'),
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module->uploadPath,
+                'fileName'      => array($this, 'generateFileName'),
             ),
             'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+                'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute' => 'create_date',
-                'updateAttribute' => 'update_date',
+                'createAttribute'   => 'create_date',
+                'updateAttribute'   => 'update_date',
             ),
         );
     }
@@ -354,7 +354,7 @@ class Blog extends yupe\models\YModel
         Comment::model()->deleteAll(
             'model = :model AND model_id = :model_id',
             array(
-                ':model' => 'Blog',
+                ':model'    => 'Blog',
                 ':model_id' => $this->id
             )
         );
@@ -366,7 +366,7 @@ class Blog extends yupe\models\YModel
     {
         return array(
             self::STATUS_BLOCKED => Yii::t('BlogModule.blog', 'Blocked'),
-            self::STATUS_ACTIVE => Yii::t('BlogModule.blog', 'Active'),
+            self::STATUS_ACTIVE  => Yii::t('BlogModule.blog', 'Active'),
             self::STATUS_DELETED => Yii::t('BlogModule.blog', 'Removed'),
         );
     }
@@ -381,7 +381,7 @@ class Blog extends yupe\models\YModel
     public function getTypeList()
     {
         return array(
-            self::TYPE_PUBLIC => Yii::t('BlogModule.blog', 'Public'),
+            self::TYPE_PUBLIC  => Yii::t('BlogModule.blog', 'Public'),
             self::TYPE_PRIVATE => Yii::t('BlogModule.blog', 'Private'),
         );
     }
@@ -401,8 +401,8 @@ class Blog extends yupe\models\YModel
 
             $result = Yii::app()->db->createCommand(
                 'SELECT blog_id, status FROM {{blog_user_to_blog}} WHERE user_id = :userId'
-            )->bindValue(':userId', (int) $userId)
-            ->queryAll();
+            )->bindValue(':userId', (int)$userId)
+                ->queryAll();
 
             $blogs = array();
 
@@ -414,14 +414,14 @@ class Blog extends yupe\models\YModel
         }
 
         if (false !== $status) {
-            if (isset($blogs[$this->id]) && (int) $blogs[$this->id] === (int) $status) {
+            if (isset($blogs[$this->id]) && (int)$blogs[$this->id] === (int)$status) {
                 return true;
             }
 
             return false;
         }
 
-        return isset($blogs[$this->id]) ? (int) $blogs[$this->id] : false;
+        return isset($blogs[$this->id]) ? (int)$blogs[$this->id] : false;
     }
 
     public function getUserMembership($userId)
@@ -429,7 +429,7 @@ class Blog extends yupe\models\YModel
         return UserToBlog::model()->find(
             'user_id = :userId AND blog_id = :blogId',
             array(
-                ':userId' => (int) $userId,
+                ':userId' => (int)$userId,
                 ':blogId' => $this->id
             )
         );
@@ -442,8 +442,8 @@ class Blog extends yupe\models\YModel
                 FROM {{blog_user_to_blog}}
                  WHERE user_id = :userId AND blog_id = :blogId AND status = :status'
         )
-            ->bindValue(':userId', (int) $userId)
-            ->bindValue(':status', (int) $status)
+            ->bindValue(':userId', (int)$userId)
+            ->bindValue(':status', (int)$status)
             ->bindValue(':blogId', $this->id)
             ->queryScalar();
     }
@@ -454,7 +454,7 @@ class Blog extends yupe\models\YModel
             return false;
         }
 
-        if ($this->userIn((int) $userId)) {
+        if ($this->userIn((int)$userId)) {
             return true;
         }
 
@@ -465,8 +465,8 @@ class Blog extends yupe\models\YModel
 
             $member = new UserToBlog();
             $member->blog_id = $this->id;
-            $member->user_id = (int) $userId;
-            $member->status = (int) $this->member_status;
+            $member->user_id = (int)$userId;
+            $member->status = (int)$this->member_status;
 
         } else {
 
@@ -501,12 +501,12 @@ class Blog extends yupe\models\YModel
 
         return UserToBlog::model()->updateAll(
             array(
-                'status' => UserToBlog::STATUS_DELETED,
+                'status'      => UserToBlog::STATUS_DELETED,
                 'update_date' => new CDbExpression('NOW()')
             ),
             'user_id = :userId AND blog_id = :blogId',
             array(
-                ':userId' => (int) $userId,
+                ':userId' => (int)$userId,
                 ':blogId' => $this->id
             )
         );
@@ -555,18 +555,18 @@ class Blog extends yupe\models\YModel
         return $this->with('userToBlog')->published()->findAll(
             array(
                 'condition' => '(userToBlog.user_id = :userId AND userToBlog.status = :status)',
-                'params' => array(
+                'params'    => array(
                     ':status' => UserToBlog::STATUS_ACTIVE,
-                    ':userId' => (int) $user
+                    ':userId' => (int)$user
                 ),
-                'order' => 'name ASC'
+                'order'     => 'name ASC'
             )
         );
     }
 
     public function get($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
-        return $this->with($with)->published()->findByPk((int) $id);
+        return $this->with($with)->published()->findByPk((int)$id);
     }
 
     public function getBySlug($id, array $with = array('posts', 'membersCount', 'createUser'))

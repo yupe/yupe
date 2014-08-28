@@ -4,7 +4,7 @@
  *
  * @package  yupe.modules.yupe.models
  *
-*/
+ */
 
 /**
  * This is the model class for table "Settings".
@@ -66,15 +66,22 @@ class Settings extends YModel
      */
     public function rules()
     {
-        return CMap::mergeArray(array(
-            array('module_id, param_name', 'required'),
-            array('module_id, param_name', 'length', 'max' => 100),
-            array('param_value', 'length', 'max' => 255),
-            array('user_id', 'numerical', 'integerOnly' => true),
-            //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-            //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-            array('id, module_id, param_name, param_value, creation_date, change_date, user_id', 'safe', 'on' => 'search'),
-        ),$this->rulesFromModule);
+        return CMap::mergeArray(
+            array(
+                array('module_id, param_name', 'required'),
+                array('module_id, param_name', 'length', 'max' => 100),
+                array('param_value', 'length', 'max' => 255),
+                array('user_id', 'numerical', 'integerOnly' => true),
+                //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
+                //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
+                array(
+                    'id, module_id, param_name, param_value, creation_date, change_date, user_id',
+                    'safe',
+                    'on' => 'search'
+                ),
+            ),
+            $this->rulesFromModule
+        );
     }
 
     public function beforeSave()
@@ -88,8 +95,9 @@ class Settings extends YModel
         // Пользователя можно получить только для веб-приложения
         if (YII_APP_TYPE == 'web') {
             $this->user_id = Yii::app()->user->getId();
-        } else
+        } else {
             $this->user_id = null;
+        }
 
         return parent::beforeSave();
     }
@@ -148,7 +156,7 @@ class Settings extends YModel
      * Получает настройки модуля из базы данных (системные)
      *
      * @param  string $module_id Идентификатор модуля
-     * @param  mixed  $params    Список параметров, которые требуется прочитать
+     * @param  mixed $params Список параметров, которые требуется прочитать
      * @return array  Экземпляры класса Settings, соответствующие запрошенным параметрам
      */
     public static function fetchModuleSettings($moduleId, array $params = null)
@@ -167,7 +175,9 @@ class Settings extends YModel
 
             $dependency = new TagsCache($moduleId, 'yupe');
 
-            $q = Settings::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime, $dependency)->findAll($criteria);
+            $q = Settings::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime, $dependency)->findAll(
+                $criteria
+            );
 
             if (count($q)) {
                 foreach ($q as $s) {
@@ -186,22 +196,24 @@ class Settings extends YModel
     /**
      * Сохраняет настройки модуля
      * @param string $module_id Идентификатор модуля
-     * @param mixed  $params    Массив параметров и значений которые следует сохранить (param_name => param_value)
+     * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
      *
      */
     public static function saveModuleSettings($moduleId, $paramValues)
     {
-        foreach ($paramValues as $name=>$value) {
+        foreach ($paramValues as $name => $value) {
             // Получаем настройку
-            $setting = Settings::model()->find('module_id = :module_id and param_name = :param_name', array(':module_id'=>$moduleId, ':param_name'=>$name));
+            $setting = Settings::model()->find(
+                'module_id = :module_id and param_name = :param_name',
+                array(':module_id' => $moduleId, ':param_name' => $name)
+            );
 
             // Если новая запись
             if ($setting == null) {
                 $setting = new Settings();
                 $setting->module_id = $moduleId;
                 $setting->param_name = $name;
-            }
-            // Если значение не изменилось то не сохраняем
+            } // Если значение не изменилось то не сохраняем
             elseif ($setting->param_value == $value) {
                 continue;
             }
@@ -224,10 +236,10 @@ class Settings extends YModel
     /**
      *  Получает настройки модуля/модулей из базы данных (пользователельские)
      *
-     *  @param string $userId  - Идентификатор пользователя
-     *  @param mixed  $modulesId - Список идентификаторов модулей
+     * @param string $userId - Идентификатор пользователя
+     * @param mixed $modulesId - Список идентификаторов модулей
      *
-     *  @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      **/
     public function fetchUserModuleSettings($userId, $modulesId = array())
     {

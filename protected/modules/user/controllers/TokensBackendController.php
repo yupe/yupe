@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Контроллер, отвечающий за работу с токенами пользователей в панели управления
  * токены на восстановление пароля, активации пользователя
@@ -11,13 +12,12 @@
  * @link     http://yupe.ru
  *
  **/
-
 class TokensBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('delete'), 'roles' => array('User.TokensBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('User.TokensBackend.Index')),
             array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokensBackend.Update')),
@@ -26,12 +26,13 @@ class TokensBackendController extends yupe\components\controllers\BackController
             array('deny')
         );
     }
+
     /**
-	 * UserToken используем что-бы не дёргать каждый раз
-	 * базу данных:
-	 *
-	 * @var UserToken $model - модель токенов
-	 */
+     * UserToken используем что-бы не дёргать каждый раз
+     * базу данных:
+     *
+     * @var UserToken $model - модель токенов
+     */
     private $_model = null;
 
     /**
@@ -70,8 +71,9 @@ class TokensBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -103,7 +105,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -126,7 +128,8 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'UserToken', array()
+                'UserToken',
+                array()
             )
         );
 
@@ -144,7 +147,10 @@ class TokensBackendController extends yupe\components\controllers\BackController
      */
     public function actionCompromise($id)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getQuery('ajax') === 'user-tokens-grid') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getQuery(
+                'ajax'
+            ) === 'user-tokens-grid'
+        ) {
 
             $this->loadModel($id)->compromise();
 

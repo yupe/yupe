@@ -80,7 +80,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Utility function to recursive directory creation
      *
-     * @param  string  $dir
+     * @param  string $dir
      * @param  integer $mode
      * @param  boolean $recursive
      * @return boolean
@@ -105,7 +105,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      * Object constructor
      * Checks if $path is a directory or tries to create it.
      *
-     * @param  string                       $path
+     * @param  string $path
      * @throws Zend_Search_Lucene_Exception
      */
     public function __construct($path)
@@ -150,7 +150,9 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
 
         $dirContent = opendir($this->_dirPath);
         while (($file = readdir($dirContent)) !== false) {
-            if (($file == '..') || ($file == '.')) continue;
+            if (($file == '..') || ($file == '.')) {
+                continue;
+            }
 
             if (!is_dir($this->_dirPath . '/' . $file)) {
                 $result[] = $file;
@@ -164,7 +166,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Creates a new, empty file in the directory with the given $filename.
      *
-     * @param  string                          $filename
+     * @param  string $filename
      * @return Zend_Search_Lucene_Storage_File
      * @throws Zend_Search_Lucene_Exception
      */
@@ -187,7 +189,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Removes an existing $filename in the directory.
      *
-     * @param  string                       $filename
+     * @param  string $filename
      * @return void
      * @throws Zend_Search_Lucene_Exception
      */
@@ -228,7 +230,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Returns true if a file with the given $filename exists.
      *
-     * @param  string  $filename
+     * @param  string $filename
      * @return boolean
      */
     public function fileExists($filename)
@@ -240,7 +242,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Returns the length of a $filename in the directory.
      *
-     * @param  string  $filename
+     * @param  string $filename
      * @return integer
      */
     public function fileLength($filename)
@@ -255,7 +257,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Returns the UNIX timestamp $filename was last modified.
      *
-     * @param  string  $filename
+     * @param  string $filename
      * @return integer
      */
     public function fileModified($filename)
@@ -266,8 +268,8 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     /**
      * Renames an existing file in the directory.
      *
-     * @param  string                       $from
-     * @param  string                       $to
+     * @param  string $from
+     * @param  string $to
      * @return void
      * @throws Zend_Search_Lucene_Exception
      */
@@ -326,8 +328,8 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      * Shared handler are good for short atomic requests.
      * Non-shared handlers are useful for stream file reading (especial for compound files).
      *
-     * @param  string                          $filename
-     * @param  boolean                         $shareHandler
+     * @param  string $filename
+     * @param  boolean $shareHandler
      * @return Zend_Search_Lucene_Storage_File
      */
     public function getFileObject($filename, $shareHandler = true)

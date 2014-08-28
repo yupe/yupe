@@ -75,17 +75,29 @@ class YAjaxFileUploadAction extends CAction
     public function run()
     {
         if (empty($_FILES['file']['name'])) {
-            Yii::app()->ajax->rawText(json_encode(array('error' => Yii::t('YupeModule.yupe', 'There is an error when downloading!'))));
+            Yii::app()->ajax->rawText(
+                json_encode(array('error' => Yii::t('YupeModule.yupe', 'There is an error when downloading!')))
+            );
         }
 
         // по умолчанию не переименовываем файл
-        $this->rename = (bool) Yii::app()->getRequest()->getQuery('rename', false);
+        $this->rename = (bool)Yii::app()->getRequest()->getQuery('rename', false);
         $this->webPath = '/' . $this->getController()->yupe->uploadPath . '/files/' . date('Y/m/d') . '/';
         $this->uploadPath = Yii::getPathOfAlias('webroot') . $this->webPath;
 
         if (!is_dir($this->uploadPath)) {
             if (!@mkdir($this->uploadPath, 0755, true)) {
-                Yii::app()->ajax->rawText(json_encode(array('error' => Yii::t('YupeModule.yupe', 'Can\'t create catalog "{dir}" for files!', array('{dir}' => $this->uploadPath)))));
+                Yii::app()->ajax->rawText(
+                    json_encode(
+                        array(
+                            'error' => Yii::t(
+                                    'YupeModule.yupe',
+                                    'Can\'t create catalog "{dir}" for files!',
+                                    array('{dir}' => $this->uploadPath)
+                                )
+                        )
+                    )
+                );
             }
         }
 
@@ -94,9 +106,9 @@ class YAjaxFileUploadAction extends CAction
         $this->uploadedFile = CUploadedFile::getInstanceByName('file');
 
         $form = new UploadForm();
-        $form->maxSize = $this->maxSize ?: null;
-        $form->mimeTypes = $this->mimeTypes ?: null;
-        $form->types = $this->types ?: null;
+        $form->maxSize = $this->maxSize ? : null;
+        $form->mimeTypes = $this->mimeTypes ? : null;
+        $form->types = $this->types ? : null;
         $form->file = $this->uploadedFile;
 
         if ($form->validate() && $this->uploadFile() && ($this->fileLink !== null && $this->fileName !== null)) {
@@ -120,10 +132,14 @@ class YAjaxFileUploadAction extends CAction
         // если не включено переименование, то все равно имя переводится в транслит, чтобы не было проблем
         $newFileName = $this->rename ?
             md5(time() . uniqid() . $this->uploadedFile->name) . '.' . $this->uploadedFile->extensionName :
-            YText::translit(basename($this->uploadedFile->name, $this->uploadedFile->extensionName)) . '.' . $this->uploadedFile->extensionName;
+            YText::translit(
+                basename($this->uploadedFile->name, $this->uploadedFile->extensionName)
+            ) . '.' . $this->uploadedFile->extensionName;
 
         if (!$this->uploadedFile->saveAs($this->uploadPath . $newFileName)) {
-            Yii::app()->ajax->rawText(json_encode(array('error' => Yii::t('YupeModule.yupe', 'There is an error when downloading!'))));
+            Yii::app()->ajax->rawText(
+                json_encode(array('error' => Yii::t('YupeModule.yupe', 'There is an error when downloading!')))
+            );
         }
 
         $this->fileLink = Yii::app()->getBaseUrl() . $this->webPath . $newFileName;

@@ -165,7 +165,9 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
      */
     public function __construct()
     {
-        parent::__construct(array(self::ST_COMMON_QUERY_ELEMENT,
+        parent::__construct(
+            array(
+                self::ST_COMMON_QUERY_ELEMENT,
                 self::ST_CLOSEDINT_RQ_START,
                 self::ST_CLOSEDINT_RQ_FIRST_TERM,
                 self::ST_CLOSEDINT_RQ_TO_TERM,
@@ -177,37 +179,136 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
                 self::ST_OPENEDINT_RQ_LAST_TERM,
                 self::ST_OPENEDINT_RQ_END
             ),
-            Zend_Search_Lucene_Search_QueryToken::getTypes());
+            Zend_Search_Lucene_Search_QueryToken::getTypes()
+        );
 
         $this->addRules(
-            array(array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_WORD, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_PHRASE, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_FIELD, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_REQUIRED, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_PROHIBITED, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_FUZZY_PROX_MARK, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_BOOSTING_MARK, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_RANGE_INCL_START, self::ST_CLOSEDINT_RQ_START),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_RANGE_EXCL_START, self::ST_OPENEDINT_RQ_START),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_START, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_END, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_AND_LEXEME, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_OR_LEXEME, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_NOT_LEXEME, self::ST_COMMON_QUERY_ELEMENT),
-                array(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_NUMBER, self::ST_COMMON_QUERY_ELEMENT)
-            ));
+            array(
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_WORD,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_PHRASE,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_FIELD,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_REQUIRED,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_PROHIBITED,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_FUZZY_PROX_MARK,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_BOOSTING_MARK,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_RANGE_INCL_START,
+                    self::ST_CLOSEDINT_RQ_START
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_RANGE_EXCL_START,
+                    self::ST_OPENEDINT_RQ_START
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_START,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_END,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_AND_LEXEME,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_OR_LEXEME,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_NOT_LEXEME,
+                    self::ST_COMMON_QUERY_ELEMENT
+                ),
+                array(
+                    self::ST_COMMON_QUERY_ELEMENT,
+                    Zend_Search_Lucene_Search_QueryToken::TT_NUMBER,
+                    self::ST_COMMON_QUERY_ELEMENT
+                )
+            )
+        );
         $this->addRules(
-            array(array(self::ST_CLOSEDINT_RQ_START, Zend_Search_Lucene_Search_QueryToken::TT_WORD, self::ST_CLOSEDINT_RQ_FIRST_TERM),
-                array(self::ST_CLOSEDINT_RQ_FIRST_TERM, Zend_Search_Lucene_Search_QueryToken::TT_TO_LEXEME, self::ST_CLOSEDINT_RQ_TO_TERM),
-                array(self::ST_CLOSEDINT_RQ_TO_TERM, Zend_Search_Lucene_Search_QueryToken::TT_WORD, self::ST_CLOSEDINT_RQ_LAST_TERM),
-                array(self::ST_CLOSEDINT_RQ_LAST_TERM, Zend_Search_Lucene_Search_QueryToken::TT_RANGE_INCL_END, self::ST_COMMON_QUERY_ELEMENT)
-            ));
+            array(
+                array(
+                    self::ST_CLOSEDINT_RQ_START,
+                    Zend_Search_Lucene_Search_QueryToken::TT_WORD,
+                    self::ST_CLOSEDINT_RQ_FIRST_TERM
+                ),
+                array(
+                    self::ST_CLOSEDINT_RQ_FIRST_TERM,
+                    Zend_Search_Lucene_Search_QueryToken::TT_TO_LEXEME,
+                    self::ST_CLOSEDINT_RQ_TO_TERM
+                ),
+                array(
+                    self::ST_CLOSEDINT_RQ_TO_TERM,
+                    Zend_Search_Lucene_Search_QueryToken::TT_WORD,
+                    self::ST_CLOSEDINT_RQ_LAST_TERM
+                ),
+                array(
+                    self::ST_CLOSEDINT_RQ_LAST_TERM,
+                    Zend_Search_Lucene_Search_QueryToken::TT_RANGE_INCL_END,
+                    self::ST_COMMON_QUERY_ELEMENT
+                )
+            )
+        );
         $this->addRules(
-            array(array(self::ST_OPENEDINT_RQ_START, Zend_Search_Lucene_Search_QueryToken::TT_WORD, self::ST_OPENEDINT_RQ_FIRST_TERM),
-                array(self::ST_OPENEDINT_RQ_FIRST_TERM, Zend_Search_Lucene_Search_QueryToken::TT_TO_LEXEME, self::ST_OPENEDINT_RQ_TO_TERM),
-                array(self::ST_OPENEDINT_RQ_TO_TERM, Zend_Search_Lucene_Search_QueryToken::TT_WORD, self::ST_OPENEDINT_RQ_LAST_TERM),
-                array(self::ST_OPENEDINT_RQ_LAST_TERM, Zend_Search_Lucene_Search_QueryToken::TT_RANGE_EXCL_END, self::ST_COMMON_QUERY_ELEMENT)
-            ));
+            array(
+                array(
+                    self::ST_OPENEDINT_RQ_START,
+                    Zend_Search_Lucene_Search_QueryToken::TT_WORD,
+                    self::ST_OPENEDINT_RQ_FIRST_TERM
+                ),
+                array(
+                    self::ST_OPENEDINT_RQ_FIRST_TERM,
+                    Zend_Search_Lucene_Search_QueryToken::TT_TO_LEXEME,
+                    self::ST_OPENEDINT_RQ_TO_TERM
+                ),
+                array(
+                    self::ST_OPENEDINT_RQ_TO_TERM,
+                    Zend_Search_Lucene_Search_QueryToken::TT_WORD,
+                    self::ST_OPENEDINT_RQ_LAST_TERM
+                ),
+                array(
+                    self::ST_OPENEDINT_RQ_LAST_TERM,
+                    Zend_Search_Lucene_Search_QueryToken::TT_RANGE_EXCL_END,
+                    self::ST_COMMON_QUERY_ELEMENT
+                )
+            )
+        );
 
         $addTermEntryAction = new Zend_Search_Lucene_FSMAction($this, 'addTermEntry');
         $addPhraseEntryAction = new Zend_Search_Lucene_FSMAction($this, 'addPhraseEntry');
@@ -223,18 +324,66 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
         $closedRQFirstTermAction = new Zend_Search_Lucene_FSMAction($this, 'closedRQFirstTerm');
         $closedRQLastTermAction = new Zend_Search_Lucene_FSMAction($this, 'closedRQLastTerm');
 
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_WORD, $addTermEntryAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_PHRASE, $addPhraseEntryAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_FIELD, $setFieldAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_REQUIRED, $setSignAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_PROHIBITED, $setSignAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_FUZZY_PROX_MARK, $setFuzzyProxAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_NUMBER, $processModifierParameterAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_START, $subqueryStartAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_END, $subqueryEndAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_AND_LEXEME, $logicalOperatorAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_OR_LEXEME, $logicalOperatorAction);
-        $this->addInputAction(self::ST_COMMON_QUERY_ELEMENT, Zend_Search_Lucene_Search_QueryToken::TT_NOT_LEXEME, $logicalOperatorAction);
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_WORD,
+            $addTermEntryAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_PHRASE,
+            $addPhraseEntryAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_FIELD,
+            $setFieldAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_REQUIRED,
+            $setSignAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_PROHIBITED,
+            $setSignAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_FUZZY_PROX_MARK,
+            $setFuzzyProxAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_NUMBER,
+            $processModifierParameterAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_START,
+            $subqueryStartAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_SUBQUERY_END,
+            $subqueryEndAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_AND_LEXEME,
+            $logicalOperatorAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_OR_LEXEME,
+            $logicalOperatorAction
+        );
+        $this->addInputAction(
+            self::ST_COMMON_QUERY_ELEMENT,
+            Zend_Search_Lucene_Search_QueryToken::TT_NOT_LEXEME,
+            $logicalOperatorAction
+        );
 
         $this->addEntryAction(self::ST_OPENEDINT_RQ_FIRST_TERM, $openedRQFirstTermAction);
         $this->addEntryAction(self::ST_OPENEDINT_RQ_LAST_TERM, $openedRQLastTermAction);
@@ -338,8 +487,8 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
     /**
      * Parses a query string
      *
-     * @param  string                                         $strQuery
-     * @param  string                                         $encoding
+     * @param  string $strQuery
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Search_Query
      * @throws Zend_Search_Lucene_Search_QueryParserException
      */
@@ -390,7 +539,10 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
             return self::$_instance->_context->getQuery();
         } catch (Zend_Search_Lucene_Search_QueryParserException $e) {
             if (self::$_instance->_suppressQueryParsingExceptions) {
-                $queryTokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($strQuery, self::$_instance->_encoding);
+                $queryTokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize(
+                    $strQuery,
+                    self::$_instance->_encoding
+                );
 
                 require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
                 $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
@@ -433,7 +585,8 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
     public function addPhraseEntry()
     {
         require_once 'Zend/Search/Lucene/Search/QueryEntry/Phrase.php';
-        $entry = new Zend_Search_Lucene_Search_QueryEntry_Phrase($this->_currentToken->text, $this->_context->getField());
+        $entry = new Zend_Search_Lucene_Search_QueryEntry_Phrase($this->_currentToken->text, $this->_context->getField(
+        ));
         $this->_context->addEntry($entry);
     }
 
@@ -497,7 +650,8 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
         require_once 'Zend/Search/Lucene/Search/QueryParserContext.php';
 
         $this->_contextStack[] = $this->_context;
-        $this->_context = new Zend_Search_Lucene_Search_QueryParserContext($this->_encoding, $this->_context->getField());
+        $this->_context = new Zend_Search_Lucene_Search_QueryParserContext($this->_encoding, $this->_context->getField(
+        ));
     }
 
     /**
@@ -551,7 +705,10 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
             $from = null;
         }
 
-        $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_currentToken->text, $this->_encoding);
+        $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize(
+            $this->_currentToken->text,
+            $this->_encoding
+        );
         if (count($tokens) > 1) {
             require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('Range query boundary terms must be non-multiple word terms');
@@ -600,7 +757,10 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
             $from = null;
         }
 
-        $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_currentToken->text, $this->_encoding);
+        $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize(
+            $this->_currentToken->text,
+            $this->_encoding
+        );
         if (count($tokens) > 1) {
             require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('Range query boundary terms must be non-multiple word terms');

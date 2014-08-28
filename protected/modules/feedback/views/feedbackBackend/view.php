@@ -9,40 +9,54 @@
     $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - view');
 
     $this->menu = array(
-        array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/feedbackBackend/index')),
-        array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message '), 'url' => array('/feedback/feedbackBackend/create')),
-        array('label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
         array(
-            'icon' => 'glyphicon glyphicon-pencil',
+            'icon'  => 'glyphicon glyphicon-list-alt',
+            'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
+            'url'   => array('/feedback/feedbackBackend/index')
+        ),
+        array(
+            'icon'  => 'glyphicon glyphicon-plus-sign',
+            'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
+            'url'   => array('/feedback/feedbackBackend/create')
+        ),
+        array(
+            'label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr(
+                    $model->theme,
+                    0,
+                    32
+                ) . '»'
+        ),
+        array(
+            'icon'  => 'glyphicon glyphicon-pencil',
             'label' => Yii::t('FeedbackModule.feedback', 'Edit message '),
-            'url' => array(
+            'url'   => array(
                 '/feedback/feedbackBackend/update',
                 'id' => $model->id
             )
         ),
         array(
-            'icon' => 'glyphicon glyphicon-eye-open',
+            'icon'  => 'glyphicon glyphicon-eye-open',
             'label' => Yii::t('FeedbackModule.feedback', 'View message'),
-            'url' => array(
+            'url'   => array(
                 '/feedback/feedbackBackend/view',
                 'id' => $model->id
             )
         ),
         array(
-            'icon' => 'glyphicon glyphicon-envelope',
+            'icon'  => 'glyphicon glyphicon-envelope',
             'label' => Yii::t('FeedbackModule.feedback', 'Reply for message'),
-            'url' => array(
+            'url'   => array(
                 '/feedback/feedbackBackend/answer',
                 'id' => $model->id
             )
         ),
         array(
-            'icon' => 'glyphicon glyphicon-trash',
-            'label' => Yii::t('FeedbackModule.feedback', 'Remove message '),
-            'url' => '#',
+            'icon'        => 'glyphicon glyphicon-trash',
+            'label'       => Yii::t('FeedbackModule.feedback', 'Remove message '),
+            'url'         => '#',
             'linkOptions' => array(
-                'submit' => array('/feedback/feedbackBackend/delete', 'id' => $model->id),
-                'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                'submit'  => array('/feedback/feedbackBackend/delete', 'id' => $model->id),
+                'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 'confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
             )
         ),
@@ -61,15 +75,15 @@
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             array(
-                'name' => 'creation_date',
+                'name'  => 'creation_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"),
             ),
             array(
-                'name' => 'change_date',
+                'name'  => 'change_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->change_date, "short", "short"),
             ),
             'name',
@@ -81,15 +95,15 @@
                 'type' => 'raw'
             ),
             array(
-                'name' => 'type',
+                'name'  => 'type',
                 'value' => $model->getType(),
             ),
             array(
-                'name' => 'category_id',
+                'name'  => 'category_id',
                 'value' => $model->getCategory(),
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
             array(
@@ -97,17 +111,18 @@
                 'type' => 'raw'
             ),
             array(
-                'name' => 'answer_user',
-                'value' => ($model->getAnsweredUser() instanceof User ? $model->getAnsweredUser()->getFullName() : $model->getAnsweredUser()),
+                'name'  => 'answer_user',
+                'value' => ($model->getAnsweredUser() instanceof User ? $model->getAnsweredUser()->getFullName(
+                    ) : $model->getAnsweredUser()),
             ),
             array(
-                'name' => 'answer_date',
+                'name'  => 'answer_date',
                 'value' => ($model->answer_date != "0000-00-00 00:00:00")
-                    ? Yii::app()->dateFormatter->formatDateTime($model->answer_date, 'short')
-                    : "—",
+                        ? Yii::app()->dateFormatter->formatDateTime($model->answer_date, 'short')
+                        : "—",
             ),
             array(
-                'name' => 'is_faq',
+                'name'  => 'is_faq',
                 'value' => $model->getIsFaq(),
             ),
             'ip',
@@ -119,12 +134,12 @@
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'context' => 'primary',
+            'context'     => 'primary',
             'encodeLabel' => false,
-            'buttonType' => 'submit',
-            'label' => Yii::t('FeedbackModule.feedback', 'Ok'),
+            'buttonType'  => 'submit',
+            'label'       => Yii::t('FeedbackModule.feedback', 'Ok'),
             'htmlOptions' => array(
-                'class' => 'btn-block',
+                'class'       => 'btn-block',
                 'data-toggle' => 'modal',
                 'data-target' => '.modal',
             ),

@@ -98,7 +98,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
     /**
      * Context object constructor
      *
-     * @param string      $encoding
+     * @param string $encoding
      * @param string|null $defaultField
      */
     public function __construct($encoding, $defaultField = null)
@@ -130,7 +130,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
     /**
      * Set sign for next entry
      *
-     * @param  integer                      $sign
+     * @param  integer $sign
      * @throws Zend_Search_Lucene_Exception
      */
     public function setNextEntrySign($sign)
@@ -250,7 +250,8 @@ class Zend_Search_Lucene_Search_QueryParserContext
         $query = new Zend_Search_Lucene_Search_Query_Boolean();
 
         require_once 'Zend/Search/Lucene/Search/QueryParser.php';
-        if (Zend_Search_Lucene_Search_QueryParser::getDefaultOperator() == Zend_Search_Lucene_Search_QueryParser::B_AND) {
+        if (Zend_Search_Lucene_Search_QueryParser::getDefaultOperator() == Zend_Search_Lucene_Search_QueryParser::B_AND
+        ) {
             $defaultSign = true; // required
         } else {
             // Zend_Search_Lucene_Search_QueryParser::B_OR
@@ -295,15 +296,21 @@ class Zend_Search_Lucene_Search_QueryParserContext
                 } else {
                     switch ($entry) {
                         case Zend_Search_Lucene_Search_QueryToken::TT_AND_LEXEME:
-                            $expressionRecognizer->processOperator(Zend_Search_Lucene_Search_BooleanExpressionRecognizer::IN_AND_OPERATOR);
+                            $expressionRecognizer->processOperator(
+                                Zend_Search_Lucene_Search_BooleanExpressionRecognizer::IN_AND_OPERATOR
+                            );
                             break;
 
                         case Zend_Search_Lucene_Search_QueryToken::TT_OR_LEXEME:
-                            $expressionRecognizer->processOperator(Zend_Search_Lucene_Search_BooleanExpressionRecognizer::IN_OR_OPERATOR);
+                            $expressionRecognizer->processOperator(
+                                Zend_Search_Lucene_Search_BooleanExpressionRecognizer::IN_OR_OPERATOR
+                            );
                             break;
 
                         case Zend_Search_Lucene_Search_QueryToken::TT_NOT_LEXEME:
-                            $expressionRecognizer->processOperator(Zend_Search_Lucene_Search_BooleanExpressionRecognizer::IN_NOT_OPERATOR);
+                            $expressionRecognizer->processOperator(
+                                Zend_Search_Lucene_Search_BooleanExpressionRecognizer::IN_NOT_OPERATOR
+                            );
                             break;
 
                         default:

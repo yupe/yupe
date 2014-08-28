@@ -77,7 +77,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
      * it differs from addSubquery() behavior, but should never be used
      *
      * @param  array $subqueries Array of Zend_Search_Search_Query objects
-     * @param  array $signs      Array of signs.  Sign is boolean|null.
+     * @param  array $signs Array of signs.  Sign is boolean|null.
      * @return void
      */
     public function __construct($subqueries = null, $signs = null)
@@ -107,7 +107,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
      *     NULL  - subquery is neither prohibited, nor required
      *
      * @param  Zend_Search_Lucene_Search_Query $subquery
-     * @param  boolean|null                    $sign
+     * @param  boolean|null $sign
      * @return void
      */
     public function addSubquery(Zend_Search_Lucene_Search_Query $subquery, $sign = null)
@@ -128,7 +128,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     /**
      * Re-write queries into primitive queries
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
@@ -137,8 +137,10 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
         $query->setBoost($this->getBoost());
 
         foreach ($this->_subqueries as $subqueryId => $subquery) {
-            $query->addSubquery($subquery->rewrite($index),
-                ($this->_signs === null) ? true : $this->_signs[$subqueryId]);
+            $query->addSubquery(
+                $subquery->rewrite($index),
+                ($this->_signs === null) ? true : $this->_signs[$subqueryId]
+            );
         }
 
         return $query;
@@ -147,7 +149,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     /**
      * Optimize query in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function optimize(Zend_Search_Lucene_Interface $index)
@@ -460,7 +462,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     /**
      * Constructs an appropriate Weight implementation for this query.
      *
-     * @param  Zend_Search_Lucene_Interface     $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @return Zend_Search_Lucene_Search_Weight
      */
     public function createWeight(Zend_Search_Lucene_Interface $reader)
@@ -492,9 +494,15 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
             $resVectorsIds[] = $subqueryId;
         }
         // sort resvectors in order of subquery cardinality increasing
-        array_multisort($resVectorsSizes, SORT_ASC, SORT_NUMERIC,
-            $resVectorsIds, SORT_ASC, SORT_NUMERIC,
-            $resVectors);
+        array_multisort(
+            $resVectorsSizes,
+            SORT_ASC,
+            SORT_NUMERIC,
+            $resVectorsIds,
+            SORT_ASC,
+            SORT_NUMERIC,
+            $resVectors
+        );
 
         foreach ($resVectors as $nextResVector) {
             if ($this->_resVector === null) {
@@ -555,9 +563,15 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
         }
 
         // sort resvectors in order of subquery cardinality increasing
-        array_multisort($requiredVectorsSizes, SORT_ASC, SORT_NUMERIC,
-            $requiredVectorsIds, SORT_ASC, SORT_NUMERIC,
-            $requiredVectors);
+        array_multisort(
+            $requiredVectorsSizes,
+            SORT_ASC,
+            SORT_NUMERIC,
+            $requiredVectorsIds,
+            SORT_ASC,
+            SORT_NUMERIC,
+            $requiredVectors
+        );
 
         $required = null;
         foreach ($requiredVectors as $nextResVector) {
@@ -596,15 +610,17 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     /**
      * Score calculator for conjunction queries (all subqueries are required)
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      */
     public function _conjunctionScore($docId, Zend_Search_Lucene_Interface $reader)
     {
         if ($this->_coord === null) {
-            $this->_coord = $reader->getSimilarity()->coord(count($this->_subqueries),
-                count($this->_subqueries));
+            $this->_coord = $reader->getSimilarity()->coord(
+                count($this->_subqueries),
+                count($this->_subqueries)
+            );
         }
 
         $score = 0;
@@ -625,7 +641,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     /**
      * Score calculator for non conjunction queries (not all subqueries are required)
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      */
@@ -674,7 +690,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
      * Execute query in context of index reader
      * It also initializes necessary internal structures
      *
-     * @param Zend_Search_Lucene_Interface             $reader
+     * @param Zend_Search_Lucene_Interface $reader
      * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      */
     public function execute(Zend_Search_Lucene_Interface $reader, $docsFilter = null)
@@ -719,7 +735,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     /**
      * Score specified document
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      */

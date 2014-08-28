@@ -48,7 +48,9 @@ class SiteController extends Controller
 
         if (!\Yii::app()->getRequest()->getIsAjaxRequest()) {
 
-            $this->render('error', array(
+            $this->render(
+                'error',
+                array(
                     'error' => $error
                 )
             );
@@ -61,10 +63,10 @@ class SiteController extends Controller
 
             'criteria' => new \CDbCriteria(array(
                     'condition' => 't.status = :status',
-                    'params' => array(':status' => \Post::STATUS_PUBLISHED),
-                    'limit' => self::POST_PER_PAGE,
-                    'order' => 't.id DESC',
-                    'with' => array('createUser', 'blog', 'commentsCount'),
+                    'params'    => array(':status' => \Post::STATUS_PUBLISHED),
+                    'limit'     => self::POST_PER_PAGE,
+                    'order'     => 't.id DESC',
+                    'with'      => array('createUser', 'blog', 'commentsCount'),
                 )),
         ));
 

@@ -10,15 +10,31 @@ $this->menu = array(
     array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'), 'url' => array('/dictionary/dictionaryBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'), 'url' => array('/dictionary/dictionaryBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'),
+                'url'   => array('/dictionary/dictionaryBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'),
+                'url'   => array('/dictionary/dictionaryBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Items'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Items list'),
+                'url'   => array('/dictionary/dictionaryDataBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Create item'),
+                'url'   => array('/dictionary/dictionaryDataBackend/create')
+            ),
         )
     ),
 );
@@ -62,56 +78,56 @@ $this->menu = array(
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'dictionary-group-grid',
+        'id'           => 'dictionary-group-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'columns'      => array(
             array(
-                'name' => 'id',
+                'name'        => 'id',
                 'htmlOptions' => array('style' => 'width:20px'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/dictionary/dictionaryBackend/update", "id" => $data->id))'
+                'type'        => 'raw',
+                'value'       => 'CHtml::link($data->id, array("/dictionary/dictionaryBackend/update", "id" => $data->id))'
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'name',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'name',
                 'editable' => array(
-                    'url' => $this->createUrl('/dictionary/dictionaryBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/dictionary/dictionaryBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'code',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'code',
                 'editable' => array(
-                    'url' => $this->createUrl('/dictionary/dictionaryBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/dictionary/dictionaryBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'code', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'code', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'description',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'description',
                 'editable' => array(
-                    'url' => $this->createUrl('/dictionary/dictionaryBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/dictionary/dictionaryBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
                 'header' => Yii::t('DictionaryModule.dictionary', 'Records'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryDataBackend/index", "group_id" => $data->id))',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryDataBackend/index", "group_id" => $data->id))',
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

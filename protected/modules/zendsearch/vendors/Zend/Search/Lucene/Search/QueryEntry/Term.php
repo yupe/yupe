@@ -93,7 +93,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
     /**
      * Transform entry to a subquery
      *
-     * @param  string                                         $encoding
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Search_Query
      * @throws Zend_Search_Lucene_Search_QueryParserException
      */

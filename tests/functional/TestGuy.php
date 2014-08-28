@@ -20,7 +20,7 @@ use Codeception\Module\PhpBrowser;
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
  * @method void haveFriend($name)
-*/
+ */
 class TestGuy extends \Codeception\Actor
 {
 
@@ -140,6 +140,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInThisFile', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -183,8 +184,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function canSeeFileContentsEqual($text)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeFileContentsEqual', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeFileContentsEqual', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -226,8 +230,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeInThisFile($text)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInThisFile', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeInThisFile', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -280,6 +287,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeFileFound', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -313,8 +321,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeFileFound($filename, $path = null)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeFileFound', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeFileFound', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -533,6 +544,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('see', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -583,6 +595,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSee', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -632,6 +645,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeLink', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -679,6 +693,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLink', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -724,6 +739,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInCurrentUrl', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -763,8 +779,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeInCurrentUrl($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -803,8 +822,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function canSeeCurrentUrlEquals($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -845,8 +867,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeCurrentUrlEquals($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -886,8 +911,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function canSeeCurrentUrlMatches($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -926,8 +954,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeCurrentUrlMatches($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -994,8 +1025,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function canSeeCheckboxIsChecked($checkbox)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1041,8 +1075,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeCheckboxIsChecked($checkbox)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1094,6 +1131,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInField', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1149,6 +1187,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInField', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1525,6 +1564,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCookie', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1555,6 +1595,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCookie', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1613,6 +1654,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeElement', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1666,6 +1708,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElement', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1711,8 +1754,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function canSeeOptionIsSelected($select, $optionText)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1755,8 +1801,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function cantSeeOptionIsSelected($select, $optionText)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1790,6 +1839,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seePageNotFound', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1814,8 +1864,11 @@ class TestGuy extends \Codeception\Actor
      */
     public function canSeeResponseCodeIs($code)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeResponseCodeIs', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeResponseCodeIs', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1852,6 +1905,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInTitle', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1888,6 +1942,7 @@ class TestGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInTitle', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *

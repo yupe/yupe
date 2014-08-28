@@ -156,8 +156,8 @@ abstract class Zend_Search_Lucene_PriorityQueue
      *
      * Returns true, if $el1 is less than $el2; else otherwise
      *
-     * @param  mixed   $el1
-     * @param  mixed   $el2
+     * @param  mixed $el1
+     * @param  mixed $el2
      * @return boolean
      */
     abstract protected function _less($el1, $el2);

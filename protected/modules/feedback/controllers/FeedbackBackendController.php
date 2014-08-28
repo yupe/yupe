@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FeedbackBackendController контроллер для работы с сообщениями обратной связи в панели управления
  *
@@ -9,13 +10,12 @@
  * @link     http://yupe.ru
  *
  **/
-
 class FeedbackBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Feedback.FeedbackBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Feedback.FeedbackBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Feedback.FeedbackBackend.Index')),
@@ -31,8 +31,8 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'FeedBack',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'FeedBack',
                 'validAttributes' => array('name', 'email', 'theme', 'type', 'status', 'is_faq')
             )
         );
@@ -55,10 +55,13 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             return Yii::app()->ajax->success(
                 array(
                     'html' => $this->renderPartial(
-                        'view', array(
-                            'model' => $this->loadModel($id)
-                        ), true, false
-                    )
+                            'view',
+                            array(
+                                'model' => $this->loadModel($id)
+                            ),
+                            true,
+                            false
+                        )
                 )
             );
         }
@@ -77,7 +80,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         $model = new FeedBack();
 
         $model->email = Yii::app()->user->getProfileField('email');
-        $model->name  = Yii::app()->user->getProfileField('fullName');
+        $model->name = Yii::app()->user->getProfileField('fullName');
 
         if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
 
@@ -95,8 +98,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -133,8 +137,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -176,7 +181,10 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 return Yii::app()->ajax->failure(
                     array(
-                        'message' => Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
+                        'message' => Yii::t(
+                                'FeedbackModule.feedback',
+                                'Attention! Reply for this message already sent!'
+                            )
                     )
                 );
             }
@@ -184,11 +192,14 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             return Yii::app()->ajax->success(
                 array(
                     'html' => $this->renderPartial(
-                        '_ajax_answer', array(
-                            'model'      => $model,
-                            'answerForm' => $form
-                        ), true, false
-                    )
+                            '_ajax_answer',
+                            array(
+                                'model'      => $model,
+                                'answerForm' => $form
+                            ),
+                            true,
+                            false
+                        )
                 )
             );
         }
@@ -208,25 +219,30 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     /**
      * Сохраняем данные в СУБД, при наявности POST-запросаЖ
      *
-     * @param AnswerForm $form  - форма ответа
-     * @param FeedBack   $model - модель
+     * @param AnswerForm $form - форма ответа
+     * @param FeedBack $model - модель
      *
      * @return mixed
      */
     public function saveAnswer(AnswerForm $form, FeedBack $model)
     {
-        if (Yii::app()->getRequest()->getIsPostRequest() && ($data = Yii::app()->getRequest()->getPost('AnswerForm')) !== null) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && ($data = Yii::app()->getRequest()->getPost(
+                'AnswerForm'
+            )) !== null
+        ) {
             $form->setAttributes($data);
 
             if ($form->validate()) {
 
-                $model->setAttributes(array(
-                    'answer'      => $form->answer,
-                    'is_faq'      => $form->is_faq,
-                    'answer_user' => Yii::app()->user->getId(),
-                    'answer_date' => new CDbExpression('NOW()'),
-                    'status'      => FeedBack::STATUS_ANSWER_SENDED,
-                 ));
+                $model->setAttributes(
+                    array(
+                        'answer'      => $form->answer,
+                        'is_faq'      => $form->is_faq,
+                        'answer_user' => Yii::app()->user->getId(),
+                        'answer_date' => new CDbExpression('NOW()'),
+                        'status'      => FeedBack::STATUS_ANSWER_SENDED,
+                    )
+                );
 
                 if ($model->save()) {
                     //отправка ответа
@@ -280,7 +296,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -322,7 +338,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         if ($this->_model === null) {
 
-            $id = $id ?: Yii::app()->getRequest()->getParam('id');
+            $id = $id ? : Yii::app()->getRequest()->getParam('id');
 
             if (($this->_model = FeedBack::model()->findByPk($id)) === null) {
                 throw new CHttpException(

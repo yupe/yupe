@@ -5,13 +5,14 @@ FAR Style (c) MajestiC <majestic2k@gmail.com>
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background: #000080;
+    display: block;
+    padding: 0.5em;
+    background: #000080;
 }
 
 pre code,
 pre .subst {
-  color: #0FF;
+    color: #0FF;
 }
 
 pre .string,
@@ -33,7 +34,7 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .clojure .title {
-  color: #FF0;
+    color: #FF0;
 }
 
 pre .keyword,
@@ -52,7 +53,7 @@ pre .envvar,
 pre .bash .variable,
 pre .tex .special,
 pre .clojure .built_in {
-  color: #FFF;
+    color: #FFF;
 }
 
 pre .comment,
@@ -63,7 +64,7 @@ pre .template_comment,
 pre .deletion,
 pre .apache .sqbracket,
 pre .tex .formula {
-  color: #888;
+    color: #888;
 }
 
 pre .number,
@@ -73,7 +74,7 @@ pre .literal,
 pre .smalltalk .symbol,
 pre .smalltalk .char,
 pre .clojure .attribute {
-  color: #0F0;
+    color: #0F0;
 }
 
 pre .python .decorator,
@@ -88,7 +89,7 @@ pre .chunk,
 pre .shebang,
 pre .nginx .built_in,
 pre .prompt {
-  color: #008080;
+    color: #008080;
 }
 
 pre .keyword,
@@ -107,5 +108,5 @@ pre .tex .command,
 pre .tex .special,
 pre .request,
 pre .status {
-  font-weight: bold;
+    font-weight: bold;
 }

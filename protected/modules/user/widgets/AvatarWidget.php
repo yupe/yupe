@@ -1,7 +1,9 @@
 <?php
+
 /*
  * Виджет для вывода аватарки
  */
+
 class AvatarWidget extends CWidget
 {
     public $width = '100px';
@@ -59,13 +61,13 @@ class AvatarWidget extends CWidget
 
         Yii::app()->clientScript->registerCssFile(
             Yii::app()->assetManager->publish(
-                Yii::getPathOfAlias('user.assets.css').'/image-wrapper.css'
+                Yii::getPathOfAlias('user.assets.css') . '/image-wrapper.css'
             )
         );
 
         $htmlOptions = array(
             'class' => 'img-wrapper-tocenter',
-            'style' => 'width: ' . $this->width . '; height: ' . $this->height . '; background-color: '. $this->backgroundColor .';',
+            'style' => 'width: ' . $this->width . '; height: ' . $this->height . '; background-color: ' . $this->backgroundColor . ';',
         );
 
         if (isset($this->htmlOptions['class'])) {
@@ -80,9 +82,14 @@ class AvatarWidget extends CWidget
             $htmlOptions['style'] .= ' ' . $style;
         }
 
-        if(is_array($this->htmlOptions) && count($this->htmlOptions) > 0)
+        if (is_array($this->htmlOptions) && count($this->htmlOptions) > 0) {
             $htmlOptions = array_merge($htmlOptions, $this->htmlOptions);
+        }
 
-        echo CHtml::tag('div', $htmlOptions, CHtml::image($this->imageSrc . ( $this->noCache ? '?' . microtime(true) : ''),  $this->imageAlt));
+        echo CHtml::tag(
+            'div',
+            $htmlOptions,
+            CHtml::image($this->imageSrc . ($this->noCache ? '?' . microtime(true) : ''), $this->imageAlt)
+        );
     }
 }

@@ -16,20 +16,20 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array (
-  'Please activate "Blogs" or/and "Pages" module' => 'Активируйте модуль "блоги" и/или "страницы"',
-  'Andrey Opeykin' => 'Андрей Опейкин',
-  'Home page' => 'Главная',
-  'Pages count' => 'Кол-во записей (только для постов)',
-  'Main page management module' => 'Модуль для управления главной страницей',
-  'Posts' => 'Посты',
-  'Page' => 'Страница',
-  'Page or post' => 'Страница или пост',
-  'Whats will be displayed' => 'Что отображать',
-  'Yupe!' => 'Юпи!',
-  'Records' => 'Записи',
-  'Pages' => 'Страницы',
-  'read...' => 'читать...',
-  'Structure' => 'Структура',
-  'Manage home page' => 'Настройка домашней страницы'
+return array(
+    'Please activate "Blogs" or/and "Pages" module' => 'Активируйте модуль "блоги" и/или "страницы"',
+    'Andrey Opeykin'                                => 'Андрей Опейкин',
+    'Home page'                                     => 'Главная',
+    'Pages count'                                   => 'Кол-во записей (только для постов)',
+    'Main page management module'                   => 'Модуль для управления главной страницей',
+    'Posts'                                         => 'Посты',
+    'Page'                                          => 'Страница',
+    'Page or post'                                  => 'Страница или пост',
+    'Whats will be displayed'                       => 'Что отображать',
+    'Yupe!'                                         => 'Юпи!',
+    'Records'                                       => 'Записи',
+    'Pages'                                         => 'Страницы',
+    'read...'                                       => 'читать...',
+    'Structure'                                     => 'Структура',
+    'Manage home page'                              => 'Настройка домашней страницы'
 );

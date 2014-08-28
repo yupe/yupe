@@ -11,11 +11,14 @@ class Twitter extends TwitterOAuthService
     public function authenticate()
     {
         if (parent::authenticate()) {
-            $this->setState(self::AUTH_DATA_KEY, array(
-                'uid' => $this->getId(),
-                'service' => $this->getServiceName(),
-                'type' => $this->getServiceType(),
-            ));
+            $this->setState(
+                self::AUTH_DATA_KEY,
+                array(
+                    'uid'     => $this->getId(),
+                    'service' => $this->getServiceName(),
+                    'type'    => $this->getServiceType(),
+                )
+            );
 
             return true;
         }

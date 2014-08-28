@@ -96,7 +96,9 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
 
     public function __construct()
     {
-        parent::__construct(array(self::ST_WHITE_SPACE,
+        parent::__construct(
+            array(
+                self::ST_WHITE_SPACE,
                 self::ST_SYNT_LEXEME,
                 self::ST_LEXEME,
                 self::ST_QUOTED_LEXEME,
@@ -105,8 +107,10 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
                 self::ST_LEXEME_MODIFIER,
                 self::ST_NUMBER,
                 self::ST_MANTISSA,
-                self::ST_ERROR),
-            array(self::IN_WHITE_SPACE,
+                self::ST_ERROR
+            ),
+            array(
+                self::IN_WHITE_SPACE,
                 self::IN_SYNT_CHAR,
                 self::IN_MUTABLE_CHAR,
                 self::IN_LEXEME_MODIFIER,
@@ -114,128 +118,142 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
                 self::IN_QUOTE,
                 self::IN_DECIMAL_POINT,
                 self::IN_ASCII_DIGIT,
-                self::IN_CHAR));
+                self::IN_CHAR
+            )
+        );
 
         $lexemeModifierErrorAction = new Zend_Search_Lucene_FSMAction($this, 'lexModifierErrException');
         $quoteWithinLexemeErrorAction = new Zend_Search_Lucene_FSMAction($this, 'quoteWithinLexemeErrException');
         $wrongNumberErrorAction = new Zend_Search_Lucene_FSMAction($this, 'wrongNumberErrException');
 
-        $this->addRules(array(array(self::ST_WHITE_SPACE, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
-            array(self::ST_WHITE_SPACE, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_WHITE_SPACE, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_WHITE_SPACE, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
-            array(self::ST_WHITE_SPACE, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_CHAR),
-            array(self::ST_WHITE_SPACE, self::IN_QUOTE, self::ST_QUOTED_LEXEME),
-            array(self::ST_WHITE_SPACE, self::IN_DECIMAL_POINT, self::ST_LEXEME),
-            array(self::ST_WHITE_SPACE, self::IN_ASCII_DIGIT, self::ST_LEXEME),
-            array(self::ST_WHITE_SPACE, self::IN_CHAR, self::ST_LEXEME)
-        ));
-        $this->addRules(array(array(self::ST_SYNT_LEXEME, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
-            array(self::ST_SYNT_LEXEME, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_SYNT_LEXEME, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_SYNT_LEXEME, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
-            array(self::ST_SYNT_LEXEME, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_CHAR),
-            array(self::ST_SYNT_LEXEME, self::IN_QUOTE, self::ST_QUOTED_LEXEME),
-            array(self::ST_SYNT_LEXEME, self::IN_DECIMAL_POINT, self::ST_LEXEME),
-            array(self::ST_SYNT_LEXEME, self::IN_ASCII_DIGIT, self::ST_LEXEME),
-            array(self::ST_SYNT_LEXEME, self::IN_CHAR, self::ST_LEXEME)
-        ));
-        $this->addRules(array(array(self::ST_LEXEME, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
-            array(self::ST_LEXEME, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_LEXEME, self::IN_MUTABLE_CHAR, self::ST_LEXEME),
-            array(self::ST_LEXEME, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
-            array(self::ST_LEXEME, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_CHAR),
-
-            // IN_QUOTE     not allowed
-            array(self::ST_LEXEME, self::IN_QUOTE, self::ST_ERROR, $quoteWithinLexemeErrorAction),
-
-            array(self::ST_LEXEME, self::IN_DECIMAL_POINT, self::ST_LEXEME),
-            array(self::ST_LEXEME, self::IN_ASCII_DIGIT, self::ST_LEXEME),
-            array(self::ST_LEXEME, self::IN_CHAR, self::ST_LEXEME)
-        ));
-        $this->addRules(array(array(self::ST_QUOTED_LEXEME, self::IN_WHITE_SPACE, self::ST_QUOTED_LEXEME),
-            array(self::ST_QUOTED_LEXEME, self::IN_SYNT_CHAR, self::ST_QUOTED_LEXEME),
-            array(self::ST_QUOTED_LEXEME, self::IN_MUTABLE_CHAR, self::ST_QUOTED_LEXEME),
-            array(self::ST_QUOTED_LEXEME, self::IN_LEXEME_MODIFIER, self::ST_QUOTED_LEXEME),
-            array(self::ST_QUOTED_LEXEME, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_QCHAR),
-            array(self::ST_QUOTED_LEXEME, self::IN_QUOTE, self::ST_WHITE_SPACE),
-            array(self::ST_QUOTED_LEXEME, self::IN_DECIMAL_POINT, self::ST_QUOTED_LEXEME),
-            array(self::ST_QUOTED_LEXEME, self::IN_ASCII_DIGIT, self::ST_QUOTED_LEXEME),
-            array(self::ST_QUOTED_LEXEME, self::IN_CHAR, self::ST_QUOTED_LEXEME)
-        ));
-        $this->addRules(array(array(self::ST_ESCAPED_CHAR, self::IN_WHITE_SPACE, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_SYNT_CHAR, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_MUTABLE_CHAR, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_LEXEME_MODIFIER, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_ESCAPE_CHAR, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_QUOTE, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_DECIMAL_POINT, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_ASCII_DIGIT, self::ST_LEXEME),
-            array(self::ST_ESCAPED_CHAR, self::IN_CHAR, self::ST_LEXEME)
-        ));
-        $this->addRules(array(array(self::ST_ESCAPED_QCHAR, self::IN_WHITE_SPACE, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_SYNT_CHAR, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_MUTABLE_CHAR, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_LEXEME_MODIFIER, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_ESCAPE_CHAR, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_QUOTE, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_DECIMAL_POINT, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_ASCII_DIGIT, self::ST_QUOTED_LEXEME),
-            array(self::ST_ESCAPED_QCHAR, self::IN_CHAR, self::ST_QUOTED_LEXEME)
-        ));
-        $this->addRules(array(array(self::ST_LEXEME_MODIFIER, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
-            array(self::ST_LEXEME_MODIFIER, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_LEXEME_MODIFIER, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_LEXEME_MODIFIER, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
-
-            // IN_ESCAPE_CHAR       not allowed
-            array(self::ST_LEXEME_MODIFIER, self::IN_ESCAPE_CHAR, self::ST_ERROR, $lexemeModifierErrorAction),
-
-            // IN_QUOTE             not allowed
-            array(self::ST_LEXEME_MODIFIER, self::IN_QUOTE, self::ST_ERROR, $lexemeModifierErrorAction),
-
-            array(self::ST_LEXEME_MODIFIER, self::IN_DECIMAL_POINT, self::ST_MANTISSA),
-            array(self::ST_LEXEME_MODIFIER, self::IN_ASCII_DIGIT, self::ST_NUMBER),
-
-            // IN_CHAR              not allowed
-            array(self::ST_LEXEME_MODIFIER, self::IN_CHAR, self::ST_ERROR, $lexemeModifierErrorAction),
-        ));
-        $this->addRules(array(array(self::ST_NUMBER, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
-            array(self::ST_NUMBER, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_NUMBER, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_NUMBER, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
-
-            // IN_ESCAPE_CHAR       not allowed
-            array(self::ST_NUMBER, self::IN_ESCAPE_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
-
-            // IN_QUOTE             not allowed
-            array(self::ST_NUMBER, self::IN_QUOTE, self::ST_ERROR, $wrongNumberErrorAction),
-
-            array(self::ST_NUMBER, self::IN_DECIMAL_POINT, self::ST_MANTISSA),
-            array(self::ST_NUMBER, self::IN_ASCII_DIGIT, self::ST_NUMBER),
-
-            // IN_CHAR              not allowed
-            array(self::ST_NUMBER, self::IN_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
-        ));
-        $this->addRules(array(array(self::ST_MANTISSA, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
-            array(self::ST_MANTISSA, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_MANTISSA, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
-            array(self::ST_MANTISSA, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
-
-            // IN_ESCAPE_CHAR       not allowed
-            array(self::ST_MANTISSA, self::IN_ESCAPE_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
-
-            // IN_QUOTE             not allowed
-            array(self::ST_MANTISSA, self::IN_QUOTE, self::ST_ERROR, $wrongNumberErrorAction),
-
-            // IN_DECIMAL_POINT     not allowed
-            array(self::ST_MANTISSA, self::IN_DECIMAL_POINT, self::ST_ERROR, $wrongNumberErrorAction),
-
-            array(self::ST_MANTISSA, self::IN_ASCII_DIGIT, self::ST_MANTISSA),
-
-            // IN_CHAR              not allowed
-            array(self::ST_MANTISSA, self::IN_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
-        ));
+        $this->addRules(
+            array(
+                array(self::ST_WHITE_SPACE, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
+                array(self::ST_WHITE_SPACE, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_WHITE_SPACE, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_WHITE_SPACE, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
+                array(self::ST_WHITE_SPACE, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_CHAR),
+                array(self::ST_WHITE_SPACE, self::IN_QUOTE, self::ST_QUOTED_LEXEME),
+                array(self::ST_WHITE_SPACE, self::IN_DECIMAL_POINT, self::ST_LEXEME),
+                array(self::ST_WHITE_SPACE, self::IN_ASCII_DIGIT, self::ST_LEXEME),
+                array(self::ST_WHITE_SPACE, self::IN_CHAR, self::ST_LEXEME)
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_SYNT_LEXEME, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
+                array(self::ST_SYNT_LEXEME, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_SYNT_LEXEME, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_SYNT_LEXEME, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
+                array(self::ST_SYNT_LEXEME, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_CHAR),
+                array(self::ST_SYNT_LEXEME, self::IN_QUOTE, self::ST_QUOTED_LEXEME),
+                array(self::ST_SYNT_LEXEME, self::IN_DECIMAL_POINT, self::ST_LEXEME),
+                array(self::ST_SYNT_LEXEME, self::IN_ASCII_DIGIT, self::ST_LEXEME),
+                array(self::ST_SYNT_LEXEME, self::IN_CHAR, self::ST_LEXEME)
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_LEXEME, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
+                array(self::ST_LEXEME, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_LEXEME, self::IN_MUTABLE_CHAR, self::ST_LEXEME),
+                array(self::ST_LEXEME, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
+                array(self::ST_LEXEME, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_CHAR),
+                // IN_QUOTE     not allowed
+                array(self::ST_LEXEME, self::IN_QUOTE, self::ST_ERROR, $quoteWithinLexemeErrorAction),
+                array(self::ST_LEXEME, self::IN_DECIMAL_POINT, self::ST_LEXEME),
+                array(self::ST_LEXEME, self::IN_ASCII_DIGIT, self::ST_LEXEME),
+                array(self::ST_LEXEME, self::IN_CHAR, self::ST_LEXEME)
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_QUOTED_LEXEME, self::IN_WHITE_SPACE, self::ST_QUOTED_LEXEME),
+                array(self::ST_QUOTED_LEXEME, self::IN_SYNT_CHAR, self::ST_QUOTED_LEXEME),
+                array(self::ST_QUOTED_LEXEME, self::IN_MUTABLE_CHAR, self::ST_QUOTED_LEXEME),
+                array(self::ST_QUOTED_LEXEME, self::IN_LEXEME_MODIFIER, self::ST_QUOTED_LEXEME),
+                array(self::ST_QUOTED_LEXEME, self::IN_ESCAPE_CHAR, self::ST_ESCAPED_QCHAR),
+                array(self::ST_QUOTED_LEXEME, self::IN_QUOTE, self::ST_WHITE_SPACE),
+                array(self::ST_QUOTED_LEXEME, self::IN_DECIMAL_POINT, self::ST_QUOTED_LEXEME),
+                array(self::ST_QUOTED_LEXEME, self::IN_ASCII_DIGIT, self::ST_QUOTED_LEXEME),
+                array(self::ST_QUOTED_LEXEME, self::IN_CHAR, self::ST_QUOTED_LEXEME)
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_ESCAPED_CHAR, self::IN_WHITE_SPACE, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_SYNT_CHAR, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_MUTABLE_CHAR, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_LEXEME_MODIFIER, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_ESCAPE_CHAR, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_QUOTE, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_DECIMAL_POINT, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_ASCII_DIGIT, self::ST_LEXEME),
+                array(self::ST_ESCAPED_CHAR, self::IN_CHAR, self::ST_LEXEME)
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_ESCAPED_QCHAR, self::IN_WHITE_SPACE, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_SYNT_CHAR, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_MUTABLE_CHAR, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_LEXEME_MODIFIER, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_ESCAPE_CHAR, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_QUOTE, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_DECIMAL_POINT, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_ASCII_DIGIT, self::ST_QUOTED_LEXEME),
+                array(self::ST_ESCAPED_QCHAR, self::IN_CHAR, self::ST_QUOTED_LEXEME)
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_LEXEME_MODIFIER, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
+                array(self::ST_LEXEME_MODIFIER, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_LEXEME_MODIFIER, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_LEXEME_MODIFIER, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
+                // IN_ESCAPE_CHAR       not allowed
+                array(self::ST_LEXEME_MODIFIER, self::IN_ESCAPE_CHAR, self::ST_ERROR, $lexemeModifierErrorAction),
+                // IN_QUOTE             not allowed
+                array(self::ST_LEXEME_MODIFIER, self::IN_QUOTE, self::ST_ERROR, $lexemeModifierErrorAction),
+                array(self::ST_LEXEME_MODIFIER, self::IN_DECIMAL_POINT, self::ST_MANTISSA),
+                array(self::ST_LEXEME_MODIFIER, self::IN_ASCII_DIGIT, self::ST_NUMBER),
+                // IN_CHAR              not allowed
+                array(self::ST_LEXEME_MODIFIER, self::IN_CHAR, self::ST_ERROR, $lexemeModifierErrorAction),
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_NUMBER, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
+                array(self::ST_NUMBER, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_NUMBER, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_NUMBER, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
+                // IN_ESCAPE_CHAR       not allowed
+                array(self::ST_NUMBER, self::IN_ESCAPE_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
+                // IN_QUOTE             not allowed
+                array(self::ST_NUMBER, self::IN_QUOTE, self::ST_ERROR, $wrongNumberErrorAction),
+                array(self::ST_NUMBER, self::IN_DECIMAL_POINT, self::ST_MANTISSA),
+                array(self::ST_NUMBER, self::IN_ASCII_DIGIT, self::ST_NUMBER),
+                // IN_CHAR              not allowed
+                array(self::ST_NUMBER, self::IN_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
+            )
+        );
+        $this->addRules(
+            array(
+                array(self::ST_MANTISSA, self::IN_WHITE_SPACE, self::ST_WHITE_SPACE),
+                array(self::ST_MANTISSA, self::IN_SYNT_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_MANTISSA, self::IN_MUTABLE_CHAR, self::ST_SYNT_LEXEME),
+                array(self::ST_MANTISSA, self::IN_LEXEME_MODIFIER, self::ST_LEXEME_MODIFIER),
+                // IN_ESCAPE_CHAR       not allowed
+                array(self::ST_MANTISSA, self::IN_ESCAPE_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
+                // IN_QUOTE             not allowed
+                array(self::ST_MANTISSA, self::IN_QUOTE, self::ST_ERROR, $wrongNumberErrorAction),
+                // IN_DECIMAL_POINT     not allowed
+                array(self::ST_MANTISSA, self::IN_DECIMAL_POINT, self::ST_ERROR, $wrongNumberErrorAction),
+                array(self::ST_MANTISSA, self::IN_ASCII_DIGIT, self::ST_MANTISSA),
+                // IN_CHAR              not allowed
+                array(self::ST_MANTISSA, self::IN_CHAR, self::ST_ERROR, $wrongNumberErrorAction),
+            )
+        );
 
         /** Actions */
         $syntaxLexemeAction = new Zend_Search_Lucene_FSMAction($this, 'addQuerySyntaxLexeme');
@@ -290,7 +308,7 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
     /**
      * Translate input char to an input symbol of state machine
      *
-     * @param  string  $char
+     * @param  string $char
      * @return integer
      */
     private function _translateInput($char)
@@ -319,8 +337,8 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
     /**
      * This method is used to tokenize query string into lexemes
      *
-     * @param  string                                         $inputString
-     * @param  string                                         $encoding
+     * @param  string $inputString
+     * @param  string $encoding
      * @return array
      * @throws Zend_Search_Lucene_Search_QueryParserException
      */
@@ -386,7 +404,8 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
                 $this->_queryString[$this->_queryStringPosition] != $lexeme
             ) {
                 require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-                throw new Zend_Search_Lucene_Search_QueryParserException('Two chars lexeme expected. ' . $this->_positionMsg());
+                throw new Zend_Search_Lucene_Search_QueryParserException('Two chars lexeme expected. ' . $this->_positionMsg(
+                    ));
             }
 
             // duplicate character
@@ -403,7 +422,8 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
             $token = array_pop($this->_lexemes);
             if ($token === null || $token->type != Zend_Search_Lucene_Search_QueryToken::TT_WORD) {
                 require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-                throw new Zend_Search_Lucene_Search_QueryParserException('Field mark \':\' must follow field name. ' . $this->_positionMsg());
+                throw new Zend_Search_Lucene_Search_QueryParserException('Field mark \':\' must follow field name. ' . $this->_positionMsg(
+                    ));
             }
 
             $token->type = Zend_Search_Lucene_Search_QueryToken::TT_FIELD;
@@ -485,13 +505,15 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
     public function lexModifierErrException()
     {
         require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-        throw new Zend_Search_Lucene_Search_QueryParserException('Lexeme modifier character can be followed only by number, white space or query syntax element. ' . $this->_positionMsg());
+        throw new Zend_Search_Lucene_Search_QueryParserException('Lexeme modifier character can be followed only by number, white space or query syntax element. ' . $this->_positionMsg(
+            ));
     }
 
     public function quoteWithinLexemeErrException()
     {
         require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-        throw new Zend_Search_Lucene_Search_QueryParserException('Quote within lexeme must be escaped by \'\\\' char. ' . $this->_positionMsg());
+        throw new Zend_Search_Lucene_Search_QueryParserException('Quote within lexeme must be escaped by \'\\\' char. ' . $this->_positionMsg(
+            ));
     }
 
     public function wrongNumberErrException()

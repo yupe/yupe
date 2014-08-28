@@ -4,27 +4,27 @@
 var listCell = {};
 
 // Настраиваем инициализатор:
-listCell.init = function(){
+listCell.init = function () {
     // Запоминаем текущий объект,
     // так как он не доступен внутри
     // других методов:
-    var self       = this,
+    var self = this,
     // Объект нашего listView:
-        parent     = undefined,
+        parent = undefined,
     // Объект loader:
-        loader     = undefined,
+        loader = undefined,
     // Текущий элемент:
         curentItem = undefined;
 
     // Объявляем нужные обработчики:
-    self.prepare = function() {
+    self.prepare = function () {
         // Обработчик для кнопок управления записями:
-        $(document).on('click', '.list-cell [data-action]', function() {
+        $(document).on('click', '.list-cell [data-action]', function () {
             listCell.buttons($(this));
         });
 
         // Обработчик submit-а формы:
-        $(document).on('submit', '.ajax-form', function() {
+        $(document).on('submit', '.ajax-form', function () {
             // Запоминаем объект формы:
             var form = $(this);
 
@@ -33,7 +33,7 @@ listCell.init = function(){
 
             // Обрабатываем Ajax-запрос:
             $.post(form.attr('action'), form.serialize())
-                .done(function(response) {
+                .done(function (response) {
                     form.closest('.modal').modal('hide');
                     self.update();
 
@@ -44,28 +44,28 @@ listCell.init = function(){
                         bootbox.alert(response.data.message);
                     }
                 })
-                .fail(function() {
+                .fail(function () {
                     // Выполняем при ошибке.
                 })
-                .always(function() {
+                .always(function () {
                     // Всегда выполняется.
                 });
         });
 
-        $(document).on("hide", '.modal', function() {
+        $(document).on("hide", '.modal', function () {
             var modal = $(this);
-            setTimeout(function() {
+            setTimeout(function () {
                 modal.remove();
             }, 500);
-            
+
         });
     };
 
     // Обработчики action'ов:
-    self.buttons = function(item) {
+    self.buttons = function (item) {
         var callback,
             confirm = undefined;
-        
+
         // Получаем родителя:
         self.parent = item.closest('.list-view');
 
@@ -78,19 +78,28 @@ listCell.init = function(){
         console.log(item.data('action'), item);
 
         // Определяем callback:
-        switch(item.data('action')) {
-            case 'toggle-faq': callback = self.toggleFaq; break;
-            case 'delete': callback = self.delete; break;
-            case 'answer': callback = self.answer; break;
-            case 'show': callback = self.show; break;
+        switch (item.data('action')) {
+            case 'toggle-faq':
+                callback = self.toggleFaq;
+                break;
+            case 'delete':
+                callback = self.delete;
+                break;
+            case 'answer':
+                callback = self.answer;
+                break;
+            case 'show':
+                callback = self.show;
+                break;
 
             // Если действие нам неизвестно:
-            default: return null;
+            default:
+                return null;
         }
 
         // Если необходимо спрашиваем подтверждение:
         if ((confirm = item.data('confirm')) !== undefined) {
-            bootbox.confirm(confirm, function(result) {
+            bootbox.confirm(confirm, function (result) {
                 // При положительном результате - запускаем callback:
                 if (result) return callback(item);
             })
@@ -100,12 +109,12 @@ listCell.init = function(){
     };
 
     // Обновляем listView:
-    self.update = function(){
+    self.update = function () {
         $.fn.yiiListView.update(self.parent.attr('id'));
     }
 
     // Основной Ajax-обработчик:
-    self.postWithUpdate = function(item) {
+    self.postWithUpdate = function (item) {
         // Показываем процесс выполнения:
         self.loader.show();
 
@@ -117,16 +126,16 @@ listCell.init = function(){
             data: item.data('params'),
             async: item.data('return') == undefined,
             type: 'POST'
-        }).done(function(data){
+        }).done(function (data) {
             self.update();
 
             // Если необходимо, возвращаем данные:
             if (item.data('return')) {
                 response = data;
             }
-        }).fail(function(){
+        }).fail(function () {
             bootbox.alert(self.parent.data('failMessage'));
-        }).always(function(){
+        }).always(function () {
             self.loader.hide();
         });
 
@@ -137,9 +146,9 @@ listCell.init = function(){
     }
 
     // Просмотр сообщения:
-    self.show = function(item) {
+    self.show = function (item) {
         var response = self.postWithUpdate(item),
-            modal    = $('<div class="modal hide fade"></div>');
+            modal = $('<div class="modal hide fade"></div>');
 
         if (response.result) {
             modal.append('<div class="modal-header"><h4>' + item.data('title') + '</h4></div>');
@@ -151,15 +160,15 @@ listCell.init = function(){
     };
 
     // Метод отрисовки формы ответа:
-    self.answerForm = function(response, item) {
+    self.answerForm = function (response, item) {
         var modal = $('<div class="modal hide fade"></div>');
 
         if (response.result) {
             modal.append('<div class="modal-header"><h4>' + item.data('title') + '</h4></div>');
             modal.append('<div class="modal-body">' + response.data.html + '</div>');
             modal.modal('show').css({width: '600px'});
-            
-            setTimeout(function(){
+
+            setTimeout(function () {
                 $('.answer-text').redactor();
             }, 300);
         } else {
@@ -168,19 +177,19 @@ listCell.init = function(){
     }
 
     // Метож для ответа пользователю:
-    self.answer = function(item) {
+    self.answer = function (item) {
         var response = self.postWithUpdate(item);
 
-        self.answerForm(response, item);        
+        self.answerForm(response, item);
     };
 
     // Метод удаления записи:
-    self.delete = function(item) {
+    self.delete = function (item) {
         return self.postWithUpdate(item);
     };
 
     // выполняем toggle-faq (добавляем/удаляем сообщение в FAQ):
-    self.toggleFaq = function(item) {
+    self.toggleFaq = function (item) {
         return self.postWithUpdate(item);
     };
 
@@ -189,7 +198,7 @@ listCell.init = function(){
 };
 
 // Инициализация:
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
 
     // Инициализируем наш объект:
     listCell.init();

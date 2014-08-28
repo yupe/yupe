@@ -29,7 +29,7 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
     public function actionIndex($limit = 5)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
 
         $this->log("Try process {$limit} mail tasks...");
 

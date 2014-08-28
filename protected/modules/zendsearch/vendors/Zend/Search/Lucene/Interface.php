@@ -73,7 +73,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * Set index format version.
      * Index is converted to this format at the nearest upfdate time
      *
-     * @param  int                          $formatVersion
+     * @param  int $formatVersion
      * @throws Zend_Search_Lucene_Exception
      */
     public function setFormatVersion($formatVersion);
@@ -111,7 +111,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
     /**
      * Checks, that document is deleted
      *
-     * @param  integer                      $id
+     * @param  integer $id
      * @return boolean
      * @throws Zend_Search_Lucene_Exception Exception is thrown if $id is out of the range
      */
@@ -250,7 +250,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * of Zend_Search_Lucene_Search_QueryHit objects.
      * Input is a string or Zend_Search_Lucene_Search_Query.
      *
-     * @param  mixed                        $query
+     * @param  mixed $query
      * @return array                        Zend_Search_Lucene_Search_QueryHit
      * @throws Zend_Search_Lucene_Exception
      */
@@ -286,7 +286,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
     /**
      * Returns IDs of all the documents containing term.
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
@@ -298,7 +298,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * It performs the same operation as termDocs, but return result as
      * Zend_Search_Lucene_Index_DocsFilter object
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return Zend_Search_Lucene_Index_DocsFilter
      */
@@ -308,7 +308,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * Returns an array of all term freqs.
      * Return array structure: array( docId => freq, ...)
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return integer
      */
@@ -318,7 +318,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * Returns an array of all term positions in the documents.
      * Return array structure: array( docId => array( pos1, pos2, ...), ...)
      *
-     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
@@ -343,7 +343,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      * Returns a normalization factor for "field, document" pair.
      *
      * @param  integer $id
-     * @param  string  $fieldName
+     * @param  string $fieldName
      * @return float
      */
     public function norm($id, $fieldName);

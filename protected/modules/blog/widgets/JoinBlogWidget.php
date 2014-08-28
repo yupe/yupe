@@ -10,7 +10,7 @@ class JoinBlogWidget extends \yupe\widgets\YWidget
 
     public function init()
     {
-        if (!$this->blog|| !$this->user) {
+        if (!$this->blog || !$this->user) {
             throw new CException(Yii::t('BlogModule.blog', 'Set "blogId" and "user" !'));
         }
 

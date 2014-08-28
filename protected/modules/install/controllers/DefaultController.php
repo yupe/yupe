@@ -211,7 +211,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'You should copy {from file} to {to file} and give it permission to write',
                     array(
                         '{from file}' => $app . $dp . 'config' . $dp . 'db.back.php',
-                        '{to file}' => $app . $dp . 'config' . $dp . 'db.php'
+                        '{to file}'   => $app . $dp . 'config' . $dp . 'db.php'
                     )
                 ),
             ),
@@ -255,7 +255,7 @@ class DefaultController extends yupe\components\controllers\BackController
             array(
                 'data' => array(
                     'requirements' => $requirements,
-                    'result' => $result,
+                    'result'       => $result,
                 )
             )
         );
@@ -394,7 +394,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'To use memcached, set the value of the property {useMemcachedLink} equal {code_true}.',
                     array(
                         '{useMemcachedLink}' => '<a href="http://www.yiiframework.com/doc/api/CMemCache#useMemcached-detail">CMemCache::useMemcached</a>',
-                        '{code_true}' => '<code>true</code>',
+                        '{code_true}'        => '<code>true</code>',
                     )
                 ) : '',
             ),
@@ -407,7 +407,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'InstallModule.install',
                     'The Alternative PHP Cache (APC) is a free and open opcode cache for PHP. Its goal is to provide a free, open, and robust framework for caching and optimizing PHP intermediate code. {b}Optional{/b}.',
                     array(
-                        '{b}' => '<b>',
+                        '{b}'  => '<b>',
                         '{/b}' => '</b>',
                     )
                 ),
@@ -480,7 +480,7 @@ class DefaultController extends yupe\components\controllers\BackController
             array(
                 'data' => array(
                     'requirements' => $requirements,
-                    'result' => $result,
+                    'result'       => $result,
                 )
             )
         );
@@ -531,8 +531,8 @@ class DefaultController extends yupe\components\controllers\BackController
                 'InstallModule.install',
                 'Could not obtain information about the location. Please check whether the correct value in the variable {path_info} (or {php_self} and {script_name}).',
                 array(
-                    '{path_info}' => '$_SERVER["PATH_INFO"]',
-                    '{php_self}' => '$_SERVER["PHP_SELF"]',
+                    '{path_info}'   => '$_SERVER["PATH_INFO"]',
+                    '{php_self}'    => '$_SERVER["PHP_SELF"]',
                     '{script_name}' => '$_SERVER["SCRIPT_NAME"]',
                 )
             );
@@ -596,7 +596,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $this->session['InstallForm'] = array_merge(
                     $this->session['InstallForm'],
                     array(
-                        'dbSettings' => $form->attributes,
+                        'dbSettings'     => $form->attributes,
                         'dbSettingsStep' => false,
                         'dbSettingsFile' => true,
                     )
@@ -670,16 +670,16 @@ class DefaultController extends yupe\components\controllers\BackController
 
                         Yii::app()->setComponent('db', $connection);
                         $dbParams = array(
-                            'class' => 'CDbConnection',
-                            'connectionString' => $connectionString,
-                            'username' => $form->dbUser,
-                            'password' => $form->dbPassword,
-                            'emulatePrepare' => true,
-                            'charset' => 'utf8',
-                            'enableParamLogging' => "{debug}",
-                            'enableProfiling' => "{debug}",
+                            'class'                 => 'CDbConnection',
+                            'connectionString'      => $connectionString,
+                            'username'              => $form->dbUser,
+                            'password'              => $form->dbPassword,
+                            'emulatePrepare'        => true,
+                            'charset'               => 'utf8',
+                            'enableParamLogging'    => "{debug}",
+                            'enableProfiling'       => "{debug}",
                             'schemaCachingDuration' => 108000,
-                            'tablePrefix' => $form->tablePrefix,
+                            'tablePrefix'           => $form->tablePrefix,
                         );
 
                         $dbConfString = "<?php\n return "
@@ -704,7 +704,7 @@ class DefaultController extends yupe\components\controllers\BackController
                                 $this->session['InstallForm'] = array_merge(
                                     $this->session['InstallForm'],
                                     array(
-                                        'dbSettings' => $form->attributes,
+                                        'dbSettings'     => $form->attributes,
                                         'dbSettingsStep' => true,
                                         'dbSettingsFile' => true,
                                     )
@@ -750,9 +750,9 @@ class DefaultController extends yupe\components\controllers\BackController
             '_view',
             array(
                 'data' => array(
-                    'model' => $form,
+                    'model'  => $form,
                     'result' => $result,
-                    'file' => $dbConfFile,
+                    'file'   => $dbConfFile,
                 )
             )
         );
@@ -775,7 +775,7 @@ class DefaultController extends yupe\components\controllers\BackController
             $this->session['InstallForm'] = array_merge(
                 $this->session['InstallForm'],
                 array(
-                    'moduleToInstall' => $_POST,
+                    'moduleToInstall'    => $_POST,
                     'modulesInstallStep' => true,
                 )
             );
@@ -789,7 +789,7 @@ class DefaultController extends yupe\components\controllers\BackController
             $this->session['InstallForm'] = array_merge(
                 $this->session['InstallForm'],
                 array(
-                    'moduleToInstall' => $_POST,
+                    'moduleToInstall'    => $_POST,
                     'modulesInstallStep' => false,
                 )
             );
@@ -816,7 +816,7 @@ class DefaultController extends yupe\components\controllers\BackController
                                     'Module "{module}" depends on the module "{dep}", which is not activated.',
                                     array(
                                         '{module}' => $m->name,
-                                        '{dep}' => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
+                                        '{dep}'    => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
                                     )
                                 )
                             );
@@ -880,8 +880,8 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Запись в "веб-лог" на странице:
      *
-     * @param class  $module   - клас модуля
-     * @param string $msg      - сообщение
+     * @param class $module - клас модуля
+     * @param string $msg - сообщение
      * @param string $category - тип сообщения
      *
      * @return void вывод html
@@ -890,7 +890,7 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $color = array(
             'warning' => 'FF9600',
-            'error' => 'FF0000',
+            'error'   => 'FF0000',
         );
 
         $msg = CHtml::tag("b", array(), $module->name . ": ") . $msg;
@@ -954,7 +954,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $this->session['InstallForm'] = array_merge(
                     $this->session['InstallForm'],
                     array(
-                        'createUser' => $model->attributes,
+                        'createUser'     => $model->attributes,
                         'createUserStep' => false,
                     )
                 );
@@ -978,16 +978,16 @@ class DefaultController extends yupe\components\controllers\BackController
 
                 $user->setAttributes(
                     array(
-                        'nick_name' => $model->userName,
-                        'email' => $model->userEmail,
-                        'gender' => User::GENDER_THING,
-                        'access_level' => User::ACCESS_LEVEL_ADMIN,
-                        'status' => User::STATUS_ACTIVE,
+                        'nick_name'     => $model->userName,
+                        'email'         => $model->userEmail,
+                        'gender'        => User::GENDER_THING,
+                        'access_level'  => User::ACCESS_LEVEL_ADMIN,
+                        'status'        => User::STATUS_ACTIVE,
                         'email_confirm' => User::EMAIL_CONFIRM_YES,
-                        'hash' => Yii::app()->userManager->hasher->hashPassword(
+                        'hash'          => Yii::app()->userManager->hasher->hashPassword(
                                 $model->userPassword
                             ),
-                        'birth_date' => null
+                        'birth_date'    => null
                     )
                 );
 
@@ -1016,7 +1016,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $this->session['InstallForm'] = array_merge(
                         $this->session['InstallForm'],
                         array(
-                            'createUser' => $model->attributes,
+                            'createUser'     => $model->attributes,
                             'createUserStep' => true,
                         )
                     );
@@ -1054,7 +1054,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $this->session['InstallForm'] = array_merge(
                     $this->session['InstallForm'],
                     array(
-                        'siteSettings' => $model->attributes,
+                        'siteSettings'     => $model->attributes,
                         'siteSettingsStep' => false,
                     )
                 );
@@ -1088,10 +1088,10 @@ class DefaultController extends yupe\components\controllers\BackController
 
                         $settings->setAttributes(
                             array(
-                                'module_id' => 'yupe',
-                                'param_name' => $param,
+                                'module_id'   => 'yupe',
+                                'param_name'  => $param,
                                 'param_value' => $model->$param,
-                                'user_id' => $user[0]->id,
+                                'user_id'     => $user[0]->id,
                             )
                         );
 
@@ -1121,7 +1121,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $this->session['InstallForm'] = array_merge(
                         $this->session['InstallForm'],
                         array(
-                            'siteSettings' => $model->attributes,
+                            'siteSettings'     => $model->attributes,
                             'siteSettingsStep' => true,
                         )
                     );
@@ -1147,8 +1147,8 @@ class DefaultController extends yupe\components\controllers\BackController
             '_view',
             array(
                 'data' => array(
-                    'model' => $model,
-                    'themes' => $this->yupe->getThemes(),
+                    'model'         => $model,
+                    'themes'        => $this->yupe->getThemes(),
                     'backendThemes' => $this->yupe->getThemes(true)
                 )
             )

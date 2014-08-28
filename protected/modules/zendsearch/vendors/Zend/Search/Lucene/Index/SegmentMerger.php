@@ -75,7 +75,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
      * and $name as a name of new segment
      *
      * @param Zend_Search_Lucene_Storage_Directory $directory
-     * @param string                               $name
+     * @param string $name
      */
     public function __construct($directory, $name)
     {
@@ -112,8 +112,8 @@ class Zend_Search_Lucene_Index_SegmentMerger
         if (count($this->_segmentInfos) < 1) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong number of segments to be merged ('
-            . count($this->_segmentInfos)
-            . ').');
+                . count($this->_segmentInfos)
+                . ').');
         }
 
         $this->_mergeFields();
@@ -223,7 +223,10 @@ class Zend_Search_Lucene_Index_SegmentMerger
 
         $segmentStartId = 0;
         foreach ($this->_segmentInfos as $segName => $segmentInfo) {
-            $segmentStartId = $segmentInfo->resetTermsStream($segmentStartId, Zend_Search_Lucene_Index_SegmentInfo::SM_MERGE_INFO);
+            $segmentStartId = $segmentInfo->resetTermsStream(
+                $segmentStartId,
+                Zend_Search_Lucene_Index_SegmentInfo::SM_MERGE_INFO
+            );
 
             // Skip "empty" segments
             if ($segmentInfo->currentTerm() !== null) {

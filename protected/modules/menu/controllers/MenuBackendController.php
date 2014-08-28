@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MenuBackendController контроллер для управления меню в панели управления
  *
@@ -14,7 +15,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuBackend.Index')),
@@ -29,8 +30,8 @@ class MenuBackendController extends yupe\components\controllers\BackController
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'Menu',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Menu',
                 'validAttributes' => array('name', 'code', 'status', 'description')
             )
         );
@@ -61,10 +62,13 @@ class MenuBackendController extends yupe\components\controllers\BackController
         $highlighter->language = 'PHP';
         $example = $highlighter->highlight($code);
 
-        $this->render('view', array(
-            'model'   => $model,
-            'example' => $example,
-        ));
+        $this->render(
+            'view',
+            array(
+                'model'   => $model,
+                'example' => $example,
+            )
+        );
     }
 
     /**
@@ -86,8 +90,9 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -116,8 +121,9 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -145,7 +151,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -164,11 +170,12 @@ class MenuBackendController extends yupe\components\controllers\BackController
     {
         $model = new Menu('search');
 
-        $model->unsetAttributes();  // clear any default values
+        $model->unsetAttributes(); // clear any default values
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'Menu', array()
+                'Menu',
+                array()
             )
         );
 

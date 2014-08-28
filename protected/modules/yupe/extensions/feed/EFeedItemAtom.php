@@ -16,96 +16,104 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /**
  * EFeedItemAtom is an element of an ATOM Feed
  *
- * @author		Antonio Ramirez <ramirez.cobos@gmail.com>
- * @package   	rss
- * @uses 		CUrlValidator
- * @throws 		CException
+ * @author        Antonio Ramirez <ramirez.cobos@gmail.com>
+ * @package    rss
+ * @uses        CUrlValidator
+ * @throws        CException
  */
 class EFeedItemAtom extends EFeedItemAbstract
 {
     /**
-	 * (non-PHPdoc)
-	 * @see EFeedItemAbstract::setDescription()
-	 */
+     * (non-PHPdoc)
+     * @see EFeedItemAbstract::setDescription()
+     */
     public function setDescription($description)
     {
-        $this->addTag('summary', $description );
+        $this->addTag('summary', $description);
     }
+
     /**
-	 * (non-PHPdoc)
-	 * @see EFeedItemAbstract::setDate()
-	 */
+     * (non-PHPdoc)
+     * @see EFeedItemAbstract::setDate()
+     */
     public function setDate($date)
     {
-        if(!is_numeric($date))
+        if (!is_numeric($date)) {
             $date = strtotime($date);
-        $date = date(DATE_ATOM,$date);
+        }
+        $date = date(DATE_ATOM, $date);
 
         $this->addTag('updated', $date);
     }
+
     /**
-	 *
-	 * Property getter date
-	 */
+     *
+     * Property getter date
+     */
     public function getDate()
     {
         return $this->tags->itemAt('updated');
     }
+
     /**
-	 * (non-PHPdoc)
-	 * @see EFeedItemAbstract::setLink()
-	 */
+     * (non-PHPdoc)
+     * @see EFeedItemAbstract::setLink()
+     */
     public function setLink($link)
     {
         $validator = new CUrlValidator();
-        if(!$validator->validateValue($link))
-            throw new CException( Yii::t('EFeed', $link. ' does not seem to be a valid URL') );
+        if (!$validator->validateValue($link)) {
+            throw new CException(Yii::t('EFeed', $link . ' does not seem to be a valid URL'));
+        }
 
-        $this->addTag('link','',array('href'=>$link));
-        $this->addTag('id', EFeed::uuid($link,'urn:uuid:'));
+        $this->addTag('link', '', array('href' => $link));
+        $this->addTag('id', EFeed::uuid($link, 'urn:uuid:'));
     }
+
     /**
-	 * (non-PHPdoc)
-	 * @see EFeedItemAbstract::getNode()
-	 */
+     * (non-PHPdoc)
+     * @see EFeedItemAbstract::getNode()
+     */
     public function getNode()
     {
-        $node = CHtml::openTag('entry').PHP_EOL;
+        $node = CHtml::openTag('entry') . PHP_EOL;
 
         foreach ($this->tags as $tag) {
             $node .= $this->getElement($tag);
         }
 
-        $node .= CHtml::closeTag('entry').PHP_EOL;
+        $node .= CHtml::closeTag('entry') . PHP_EOL;
 
         return $node;
     }
+
     /**
-	 *
-	 * @return a well formatted XML element
-	 * @param EFeedTag $tag
-	 */
+     *
+     * @return a well formatted XML element
+     * @param EFeedTag $tag
+     */
     private function getElement(EFeedTag $tag)
     {
         $element = '';
 
-        if (in_array($tag->name,$this->CDATAEncoded)) {
-            $tag->attributes['type']="html";
-            $element .= CHtml::openTag($tag->name,$tag->attributes);
-            $element .= '<![CDATA["'.PHP_EOL;
+        if (in_array($tag->name, $this->CDATAEncoded)) {
+            $tag->attributes['type'] = "html";
+            $element .= CHtml::openTag($tag->name, $tag->attributes);
+            $element .= '<![CDATA["' . PHP_EOL;
 
         } else {
-            $element .= CHtml::openTag($tag->name,$tag->attributes);
+            $element .= CHtml::openTag($tag->name, $tag->attributes);
         }
 
         if (is_array($tag->content)) {
             foreach ($tag->content as $tag => $content) {
                 $tmpTag = new EFeedTag($tag, $content);
 
-                $element .= $this->getElement( $tmpTag );
+                $element .= $this->getElement($tmpTag);
             }
         } else {
             $element .= (in_array($tag->name, $this->CDATAEncoded)) ? $tag->content : CHtml::encode($tag->content);
@@ -113,7 +121,7 @@ class EFeedItemAtom extends EFeedItemAbstract
 
         $element .= (in_array($tag->name, $this->CDATAEncoded)) ? "]]>" : "";
 
-        $element .= CHtml::closeTag($tag->name).PHP_EOL;
+        $element .= CHtml::closeTag($tag->name) . PHP_EOL;
 
         return $element;
     }

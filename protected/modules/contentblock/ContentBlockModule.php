@@ -74,14 +74,14 @@ class ContentBlockModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'),
-                'url' => array('/contentblock/contentBlockBackend/index')
+                'url'   => array('/contentblock/contentBlockBackend/index')
             ),
             array(
-                'icon' => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'),
-                'url' => array('/contentblock/contentBlockBackend/create')
+                'url'   => array('/contentblock/contentBlockBackend/create')
             ),
         );
     }
@@ -95,38 +95,38 @@ class ContentBlockModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'name' => 'ContentBlock.ContentBlockManager',
+                'name'        => 'ContentBlock.ContentBlockManager',
                 'description' => Yii::t('ContentBlockModule.contentblock', 'Manage blocks'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'ContentBlock.ContentblockBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.Create',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Creating block')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'ContentBlock.ContentblockBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.Delete',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Removing block')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'ContentBlock.ContentblockBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.Index',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'List of blocks')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'ContentBlock.ContentblockBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.Update',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'ContentBlock.ContentblockBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.Inline',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'ContentBlock.ContentblockBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.View',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Viewing blocks')
                     ),
                 )

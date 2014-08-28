@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - create');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/galleryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
+        'url'   => array('/gallery/galleryBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
+        'url'   => array('/gallery/galleryBackend/create')
+    ),
 );
 ?>
 <div class="page-header">

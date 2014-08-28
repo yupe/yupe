@@ -215,7 +215,8 @@ class ConfigManager extends CComponent
             if ($userspace->isFile()) {
                 $moduleConfig = CMap::mergeArray(
                     $moduleConfig,
-                    require $userspace->getRealPath());
+                    require $userspace->getRealPath()
+                );
             }
 
             // А также включаем assets'ы (они были отключены на
@@ -257,7 +258,7 @@ class ConfigManager extends CComponent
         }
 
         //смерджим файл /protected/config/project.php
-        return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath.'/config/project.php'));
+        return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath . '/config/project.php'));
     }
 
     /**
@@ -275,7 +276,7 @@ class ConfigManager extends CComponent
             $this->_base,
             array(
                 // Preloaded components:
-                'preload' => CMap::mergeArray(
+                'preload'    => CMap::mergeArray(
                         isset($this->_config['preload'])
                             ? $this->_config['preload']
                             : array(),
@@ -284,7 +285,7 @@ class ConfigManager extends CComponent
                             : array()
                     ),
                 // Подключение основых путей
-                'import' => CMap::mergeArray(
+                'import'     => CMap::mergeArray(
                         isset($this->_config['import'])
                             ? $this->_config['import']
                             : array(),
@@ -293,7 +294,7 @@ class ConfigManager extends CComponent
                             : array()
                     ),
                 // Модули:
-                'modules' => CMap::mergeArray(
+                'modules'    => CMap::mergeArray(
                         isset($this->_config['modules'])
                             ? $this->_config['modules']
                             : array(),
@@ -373,7 +374,7 @@ class ConfigManager extends CComponent
             // Обходим массив Url'ов и убераем схожести:
             foreach ($settings['components']['urlManager']['rules'] as $key => $value) {
 
-                 $search = array_search($value, $rules);
+                $search = array_search($value, $rules);
 
                 if (!empty($search) || isset($rules[$key]) || false === $value) {
                     unset($settings['components']['urlManager']['rules'][$key]);

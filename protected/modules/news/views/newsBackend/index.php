@@ -13,8 +13,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('NewsModule.news', 'News - management');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('NewsModule.news', 'News management'), 'url' => array('/news/newsBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('NewsModule.news', 'News management'),
+        'url'   => array('/news/newsBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('NewsModule.news', 'Create article'),
+        'url'   => array('/news/newsBackend/create')
+    ),
 );
 ?>
 <div class="page-header">
@@ -55,67 +63,76 @@ $this->menu = array(
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'news-grid',
+        'id'           => 'news-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'columns'      => array(
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'title',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'title',
                 'editable' => array(
-                    'url' => $this->createUrl('/news/newsBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/news/newsBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'title', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'title', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'alias',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'alias',
                 'editable' => array(
-                    'url' => $this->createUrl('/news/newsBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/news/newsBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
             ),
             'date',
             array(
-                'name' => 'category_id',
-                'value' => '$data->getCategoryName()',
+                'name'   => 'category_id',
+                'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
-                    $model,
-                    'category_id',
-                    Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory),
-                    array('class' => 'form-control', 'encode' => false, 'empty' => '')
-                )
+                        $model,
+                        'category_id',
+                        Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory),
+                        array('class' => 'form-control', 'encode' => false, 'empty' => '')
+                    )
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
-                    'url' => $this->createUrl('/news/newsBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'title' => Yii::t('NewsModule.news', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+                    'url'    => $this->createUrl('/news/newsBackend/inline'),
+                    'mode'   => 'popup',
+                    'type'   => 'select',
+                    'title'  => Yii::t(
+                            'NewsModule.news',
+                            'Select {field}',
+                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
+                        ),
                     'source' => $model->getStatusList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'name' => 'status',
-                'type' => 'raw',
-                'value' => '$data->getStatus()',
-                'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
+                'name'     => 'status',
+                'type'     => 'raw',
+                'value'    => '$data->getStatus()',
+                'filter'   => CHtml::activeDropDownList(
+                        $model,
+                        'status',
+                        $model->getStatusList(),
+                        array('class' => 'form-control', 'empty' => '')
+                    ),
             ),
             array(
-                'name' => 'lang',
-                'value' => '$data->getFlag()',
+                'name'   => 'lang',
+                'value'  => '$data->getFlag()',
                 'filter' => $this->yupe->getLanguagesList(),
-                'type' => 'html'
+                'type'   => 'html'
             ),
             array(
                 'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [News::STATUS_DRAFT => yupe\helpers\Html::DEF, News::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, News::STATUS_MODERATION => yupe\helpers\Html::WARNING])',

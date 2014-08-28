@@ -20,7 +20,7 @@ use Codeception\Module\DbHelper;
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
  * @method void haveFriend($name)
-*/
+ */
 class WebGuy extends \Codeception\Actor
 {
 
@@ -109,6 +109,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCookie', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -139,6 +140,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCookie', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -250,6 +252,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('see', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -300,6 +303,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSee', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -343,6 +347,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInPageSource', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -372,8 +377,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeInPageSource($text)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInPageSource', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeInPageSource', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -452,6 +460,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeLink', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -499,6 +508,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLink', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -544,6 +554,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInCurrentUrl', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -585,8 +596,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function canSeeCurrentUrlEquals($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -626,8 +640,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function canSeeCurrentUrlMatches($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -665,8 +682,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeInCurrentUrl($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -705,8 +725,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeCurrentUrlEquals($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -746,8 +769,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeCurrentUrlMatches($uri)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -814,8 +840,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function canSeeCheckboxIsChecked($checkbox)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -861,8 +890,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeCheckboxIsChecked($checkbox)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -914,6 +946,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInField', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -969,6 +1002,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInField', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1236,6 +1270,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeElement', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1277,6 +1312,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElement', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1317,6 +1353,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeElementInDOM', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1347,8 +1384,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeElementInDOM($selector, $attributes = null)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElementInDOM', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeElementInDOM', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1382,8 +1422,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function canSeeOptionIsSelected($selector, $optionText)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1426,8 +1469,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeOptionIsSelected($selector, $optionText)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1471,6 +1517,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInTitle', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1507,6 +1554,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInTitle', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1559,6 +1607,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInPopup', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -1679,8 +1728,8 @@ class WebGuy extends \Codeception\Actor
      * ```
      *
      * @param $element
-     * @param  \Closure                               $callback
-     * @param  int                                    $timeout  seconds
+     * @param  \Closure $callback
+     * @param  int $timeout seconds
      * @throws \Codeception\Exception\ElementNotFound
      * @see \Codeception\Module\WebDriver::waitForElementChange()
      */
@@ -1703,7 +1752,7 @@ class WebGuy extends \Codeception\Actor
      * ```
      *
      * @param $element
-     * @param  int        $timeout seconds
+     * @param  int $timeout seconds
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForElement()
      */
@@ -1726,7 +1775,7 @@ class WebGuy extends \Codeception\Actor
      * ```
      *
      * @param $element
-     * @param  int        $timeout seconds
+     * @param  int $timeout seconds
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForElementVisible()
      */
@@ -1748,7 +1797,7 @@ class WebGuy extends \Codeception\Actor
      * ```
      *
      * @param $element
-     * @param  int        $timeout seconds
+     * @param  int $timeout seconds
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForElementNotVisible()
      */
@@ -1771,9 +1820,9 @@ class WebGuy extends \Codeception\Actor
      * ?>
      * ```
      *
-     * @param  string     $text
-     * @param  int        $timeout  seconds
-     * @param  null       $selector
+     * @param  string $text
+     * @param  int $timeout seconds
+     * @param  null $selector
      * @throws \Exception
      * @internal param string $element
      * @see \Codeception\Module\WebDriver::waitForText()
@@ -1788,7 +1837,7 @@ class WebGuy extends \Codeception\Actor
      *
      * Explicit wait.
      *
-     * @param  int                                $timeout secs
+     * @param  int $timeout secs
      * @throws \Codeception\Exception\TestRuntime
      * @see \Codeception\Module\WebDriver::wait()
      */
@@ -1905,7 +1954,7 @@ class WebGuy extends \Codeception\Actor
      * ```
      *
      * @param string $script
-     * @param int    $timeout seconds
+     * @param int $timeout seconds
      * @see \Codeception\Module\WebDriver::waitForJS()
      */
     public function waitForJS($script, $timeout = null)
@@ -1974,8 +2023,8 @@ class WebGuy extends \Codeception\Actor
      * https://code.google.com/p/selenium/wiki/JsonWireProtocol#/session/:sessionId/moveto
      *
      * @param string $cssOrXPath css or xpath of the web element
-     * @param int    $offsetX
-     * @param int    $offsetY
+     * @param int $offsetX
+     * @param int $offsetY
      *
      * @throws \Codeception\Exception\ElementNotFound
      * @return null
@@ -2071,8 +2120,8 @@ class WebGuy extends \Codeception\Actor
      * ?>
      * ```
      *
-     * @param  string                                 $field
-     * @param  string                                 $value
+     * @param  string $field
+     * @param  string $value
      * @throws \Codeception\Exception\ElementNotFound
      * @see \Codeception\Module\WebDriver::appendField()
      */
@@ -2106,7 +2155,7 @@ class WebGuy extends \Codeception\Actor
      * ```
      *
      * @param $table
-     * @param  array   $data
+     * @param  array $data
      * @return integer $id
      * @see \Codeception\Module\Db::haveInDatabase()
      */
@@ -2144,6 +2193,7 @@ class WebGuy extends \Codeception\Actor
     {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInDatabase', func_get_args()));
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -2202,8 +2252,11 @@ class WebGuy extends \Codeception\Actor
      */
     public function cantSeeInDatabase($table, $criteria = null)
     {
-        return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args()));
+        return $this->scenario->runStep(
+            new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args())
+        );
     }
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *

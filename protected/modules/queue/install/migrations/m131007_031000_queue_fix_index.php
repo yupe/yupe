@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Queue fix index migration
  * Класс миграций для модуля Queue

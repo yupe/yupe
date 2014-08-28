@@ -42,7 +42,7 @@ class CommentsListWidget extends yupe\widgets\YWidget
         }
 
         $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
-        $this->modelId = (int) $this->modelId;
+        $this->modelId = (int)$this->modelId;
 
         if (empty($this->label)) {
             $this->label = Yii::t('CommentModule.comment', 'Comments');
@@ -67,12 +67,12 @@ class CommentsListWidget extends yupe\widgets\YWidget
                 $this->comments = Comment::model()->findAll(
                     array(
                         'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
-                        'params' => array(
-                            ':model' => $this->model,
+                        'params'    => array(
+                            ':model'   => $this->model,
                             ':modelId' => $this->modelId,
-                            ':status' => $this->status,
+                            ':status'  => $this->status,
                         ),
-                        'order' => 't.lft',
+                        'order'     => 't.lft',
                     )
                 );
             }

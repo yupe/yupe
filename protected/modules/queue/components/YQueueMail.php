@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YQueueMail компонент для отправки почты через очередь
  *
@@ -13,7 +14,7 @@
  */
 class YQueueMail extends yupe\components\Mail
 {
-    public $queueComponent    = 'queue';
+    public $queueComponent = 'queue';
     public $queueMailWorkerId = 1;
     private $_queue;
 
@@ -31,16 +32,22 @@ class YQueueMail extends yupe\components\Mail
                 return $this->_queue;
             }
         }
-        throw new Exception(Yii::t('QueueModule.queue', 'YQuemail.queueComponent contains bad identifier of queue component!'));
+        throw new Exception(Yii::t(
+            'QueueModule.queue',
+            'YQuemail.queueComponent contains bad identifier of queue component!'
+        ));
     }
 
     public function send($from, $to, $theme, $body, $isText = false)
     {
-        return $this->getQueueComponent()->add($this->queueMailWorkerId, array(
-            'from'  => $from,
-            'to'    => $to,
-            'theme' => $theme,
-            'body'  => $body,
-        ));
+        return $this->getQueueComponent()->add(
+            $this->queueMailWorkerId,
+            array(
+                'from'  => $from,
+                'to'    => $to,
+                'theme' => $theme,
+                'body'  => $body,
+            )
+        );
     }
 }

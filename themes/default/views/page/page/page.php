@@ -1,15 +1,15 @@
-<?php if($page->layout):?>
-    <?php $this->layout = "//layouts/{$page->layout}";?>
-<?php endif;?>
+<?php if ($page->layout): ?>
+    <?php $this->layout = "//layouts/{$page->layout}"; ?>
+<?php endif; ?>
 
 <?php
 /* @var $page Page */
 /* @var $this PageController */
 
-$this->pageTitle   = $page->title;
+$this->pageTitle = $page->title;
 $this->breadcrumbs = $this->getBreadCrumbs();
-$this->description = $page->description ?: $this->description;
-$this->keywords    = $page->keywords ?: $this->keywords
+$this->description = $page->description ? : $this->description;
+$this->keywords = $page->keywords ? : $this->keywords
 ?>
 
 

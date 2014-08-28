@@ -61,12 +61,12 @@ class ImageModule extends WebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory' => Yii::t('ImageModule.image', 'Main images category'),
-            'uploadPath' => Yii::t('ImageModule.image', 'Directory for uploading images'),
+            'mainCategory'      => Yii::t('ImageModule.image', 'Main images category'),
+            'uploadPath'        => Yii::t('ImageModule.image', 'Directory for uploading images'),
             'allowedExtensions' => Yii::t('ImageModule.image', 'Allowed extensions (separated by comma)'),
-            'minSize' => Yii::t('ImageModule.image', 'Minimum size (in bytes)'),
-            'maxSize' => Yii::t('ImageModule.image', 'Maximum size (in bytes)'),
-            'mimeTypes' => Yii::t('ImageModule.image', 'Mime types')
+            'minSize'           => Yii::t('ImageModule.image', 'Minimum size (in bytes)'),
+            'maxSize'           => Yii::t('ImageModule.image', 'Maximum size (in bytes)'),
+            'mimeTypes'         => Yii::t('ImageModule.image', 'Mime types')
         );
     }
 
@@ -107,7 +107,7 @@ class ImageModule extends WebModule
 
         if (!$uploadPath) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'ImageModule.image',
                         'Please, choose catalog for images! {link}',
@@ -126,12 +126,12 @@ class ImageModule extends WebModule
 
         if (!is_dir($uploadPath) || !is_writable($uploadPath)) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'ImageModule.image',
                         'Directory "{dir}" is not accessible for writing ot not exists! {link}',
                         array(
-                            '{dir}' => $uploadPath,
+                            '{dir}'  => $uploadPath,
                             '{link}' => CHtml::link(
                                     Yii::t('ImageModule.image', 'Change module settings'),
                                     array(
@@ -146,7 +146,7 @@ class ImageModule extends WebModule
 
         if (!$this->maxSize || $this->maxSize <= 0) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'ImageModule.image',
                         'Set maximum images size {link}',
@@ -222,16 +222,20 @@ class ImageModule extends WebModule
     {
         return array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('ImageModule.image', 'Images list'),
-                'url' => array('/image/imageBackend/index')
+                'url'   => array('/image/imageBackend/index')
             ),
             array(
-                'icon' => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('ImageModule.image', 'Add image'),
-                'url' => array('/image/imageBackend/create')
+                'url'   => array('/image/imageBackend/create')
             ),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('ImageModule.image', 'Images categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
+            array(
+                'icon'  => 'glyphicon glyphicon-folder-open',
+                'label' => Yii::t('ImageModule.image', 'Images categories'),
+                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
+            ),
         );
     }
 
@@ -254,38 +258,38 @@ class ImageModule extends WebModule
     {
         return array(
             array(
-                'name' => 'Image.ImageManager',
+                'name'        => 'Image.ImageManager',
                 'description' => Yii::t('ImageModule.image', 'Manage images'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Image.ImageBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.Create',
                         'description' => Yii::t('ImageModule.image', 'Creating image')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Image.ImageBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.Delete',
                         'description' => Yii::t('ImageModule.image', 'Removing image')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Image.ImageBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.Index',
                         'description' => Yii::t('ImageModule.image', 'List of images')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Image.ImageBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.Update',
                         'description' => Yii::t('ImageModule.image', 'Editing images')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Image.ImageBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.Inline',
                         'description' => Yii::t('ImageModule.image', 'Editing images')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Image.ImageBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.View',
                         'description' => Yii::t('ImageModule.image', 'Viewing images')
                     ),
                 )

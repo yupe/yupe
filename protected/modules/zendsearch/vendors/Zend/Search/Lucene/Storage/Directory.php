@@ -47,7 +47,7 @@ abstract class Zend_Search_Lucene_Storage_Directory
     /**
      * Creates a new, empty file in the directory with the given $filename.
      *
-     * @param  string                          $filename
+     * @param  string $filename
      * @return Zend_Search_Lucene_Storage_File
      */
     abstract public function createFile($filename);
@@ -73,7 +73,7 @@ abstract class Zend_Search_Lucene_Storage_Directory
     /**
      * Returns true if a file with the given $filename exists.
      *
-     * @param  string  $filename
+     * @param  string $filename
      * @return boolean
      */
     abstract public function fileExists($filename);
@@ -81,7 +81,7 @@ abstract class Zend_Search_Lucene_Storage_Directory
     /**
      * Returns the length of a $filename in the directory.
      *
-     * @param  string  $filename
+     * @param  string $filename
      * @return integer
      */
     abstract public function fileLength($filename);
@@ -89,7 +89,7 @@ abstract class Zend_Search_Lucene_Storage_Directory
     /**
      * Returns the UNIX timestamp $filename was last modified.
      *
-     * @param  string  $filename
+     * @param  string $filename
      * @return integer
      */
     abstract public function fileModified($filename);
@@ -119,8 +119,8 @@ abstract class Zend_Search_Lucene_Storage_Directory
      * Shared handler are good for short atomic requests.
      * Non-shared handlers are useful for stream file reading (especial for compound files).
      *
-     * @param  string                          $filename
-     * @param  boolean                         $shareHandler
+     * @param  string $filename
+     * @param  boolean $shareHandler
      * @return Zend_Search_Lucene_Storage_File
      */
     abstract public function getFileObject($filename, $shareHandler = true);

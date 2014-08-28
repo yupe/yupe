@@ -21,7 +21,7 @@ class UserController extends FrontController
     {
         return array(
             'captcha' => array(
-                'class' => 'yupe\components\actions\YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
@@ -138,8 +138,8 @@ class UserController extends FrontController
 
             $form->setAttributes(
                 array(
-                    'password' => $password,
-                    'cPassword' => $password,
+                    'password'   => $password,
+                    'cPassword'  => $password,
                     'verifyCode' => null
                 )
             );

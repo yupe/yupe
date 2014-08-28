@@ -3,15 +3,16 @@
 <div class="posts">
 
     <p class="posts-header">
-        <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog','Last blog posts'); ?></span>
+        <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog', 'Last blog posts'); ?></span>
     </p>
 
     <div class="posts-list">
-        <?php foreach($posts as $post):?>
+        <?php foreach ($posts as $post): ?>
             <div class="posts-list-block">
                 <div class="posts-list-block-header">
                     <?php echo CHtml::link(
-                        CHtml::encode($post->title), array(
+                        CHtml::encode($post->title),
+                        array(
                             '/blog/post/show/',
                             'slug' => CHtml::encode($post->slug)
                         )
@@ -23,7 +24,8 @@
                         <i class="glyphicon glyphicon-user"></i>
 
                         <?php $this->widget(
-                            'application.modules.user.widgets.UserPopupInfoWidget', array(
+                            'application.modules.user.widgets.UserPopupInfoWidget',
+                            array(
                                 'model' => $post->createUser
                             )
                         ); ?>
@@ -33,7 +35,8 @@
                         <i class="glyphicon glyphicon-pencil"></i>
 
                         <?php echo CHtml::link(
-                            CHtml::encode($post->blog->name), array(
+                            CHtml::encode($post->blog->name),
+                            array(
                                 '/blog/blog/show/',
                                 'slug' => CHtml::encode($post->blog->slug)
                             )
@@ -44,7 +47,9 @@
                         <i class="glyphicon glyphicon-calendar"></i>
 
                         <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-                            $post->publish_date, "long", "short"
+                            $post->publish_date,
+                            "long",
+                            "short"
                         ); ?>
                     </span>
                 </div>
@@ -58,13 +63,16 @@
                         <span class="posts-list-block-tags-block">
                             <i class="glyphicon glyphicon-tags"></i>
 
-                            <?php echo Yii::t('BlogModule.blog','Tags'); ?>:
+                            <?php echo Yii::t('BlogModule.blog', 'Tags'); ?>:
 
-                            <?php foreach ((array) $post->getTags() as $tag):?>
+                            <?php foreach ((array)$post->getTags() as $tag): ?>
                                 <span>
-                                    <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag)));?>
+                                    <?php echo CHtml::link(
+                                        CHtml::encode($tag),
+                                        array('/posts/', 'tag' => CHtml::encode($tag))
+                                    ); ?>
                                 </span>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </span>
 
                         <span class="posts-list-block-tags-comments">
@@ -75,7 +83,7 @@
                                 array(
                                     '/blog/post/show/',
                                     'slug' => CHtml::encode($post->slug),
-                                    '#' => 'comments'
+                                    '#'    => 'comments'
                                 )
                             );?>
                         </span>

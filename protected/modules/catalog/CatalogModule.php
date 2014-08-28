@@ -16,11 +16,11 @@ class CatalogModule extends WebModule
 {
     const VERSION = '0.8';
 
-    public $uploadPath        = 'catalog';
+    public $uploadPath = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
-    public $minSize           = 0;
-    public $maxSize           = 5242880;
-    public $maxFiles          = 1;
+    public $minSize = 0;
+    public $maxSize = 5242880;
+    public $maxFiles = 1;
 
     public function getDependencies()
     {
@@ -36,17 +36,25 @@ class CatalogModule extends WebModule
 
         $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
-        if (!is_writable($uploadPath))
-            $messages[WebModule::CHECK_ERROR][] =  array(
+        if (!is_writable($uploadPath)) {
+            $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
-                'message' => Yii::t('CatalogModule.catalog', 'Directory "{dir}" is not writeable! {link}', array(
-                    '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('CatalogModule.catalog', 'Change settings'), array(
-                        '/yupe/backend/modulesettings/',
-                        'module' => 'catalog',
-                    )),
-                )),
+                'message' => Yii::t(
+                        'CatalogModule.catalog',
+                        'Directory "{dir}" is not writeable! {link}',
+                        array(
+                            '{dir}'  => $uploadPath,
+                            '{link}' => CHtml::link(
+                                    Yii::t('CatalogModule.catalog', 'Change settings'),
+                                    array(
+                                        '/yupe/backend/modulesettings/',
+                                        'module' => 'catalog',
+                                    )
+                                ),
+                        )
+                    ),
             );
+        }
 
         return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
@@ -63,7 +71,7 @@ class CatalogModule extends WebModule
     public function getEditableParams()
     {
         return array(
-            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
+            'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'uploadPath',
             'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->editors,
@@ -78,7 +86,11 @@ class CatalogModule extends WebModule
         return array(
             'mainCategory'      => Yii::t('CatalogModule.catalog', 'Main category of products'),
             'adminMenuOrder'    => Yii::t('CatalogModule.catalog', 'Menu items order'),
-            'uploadPath'        => Yii::t('CatalogModule.catalog', 'File uploads directory (relative to {dir})', array('{dir}' => Yii::app()->getModule("yupe")->uploadPath)),
+            'uploadPath'        => Yii::t(
+                    'CatalogModule.catalog',
+                    'File uploads directory (relative to {dir})',
+                    array('{dir}' => Yii::app()->getModule("yupe")->uploadPath)
+                ),
             'editor'            => Yii::t('CatalogModule.catalog', 'Visual editor'),
             'allowedExtensions' => Yii::t('CatalogModule.catalog', 'Accepted extensions (separated by comma)'),
             'minSize'           => Yii::t('CatalogModule.catalog', 'Minimum size (in bytes)'),
@@ -89,9 +101,21 @@ class CatalogModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Product list'), 'url' => array('/catalog/catalogBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('CatalogModule.catalog', 'Goods categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('CatalogModule.catalog', 'Product list'),
+                'url'   => array('/catalog/catalogBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
+                'url'   => array('/catalog/catalogBackend/create')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-folder-open',
+                'label' => Yii::t('CatalogModule.catalog', 'Goods categories'),
+                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
+            ),
         );
     }
 
@@ -144,48 +168,50 @@ class CatalogModule extends WebModule
     {
         parent::init();
 
-        $this->setImport(array(
-            'catalog.models.*',
-            'catalog.components.*',
-        ));
+        $this->setImport(
+            array(
+                'catalog.models.*',
+                'catalog.components.*',
+            )
+        );
     }
 
     public function getAuthItems()
     {
         return array(
             array(
-                'name' => 'Catalog.CatalogManager',
+                'name'        => 'Catalog.CatalogManager',
                 'description' => Yii::t('CatalogModule.catalog', 'Manage catalog'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Catalog.CatalogBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Catalog.CatalogBackend.Create',
                         'description' => Yii::t('CatalogModule.catalog', 'Creating good')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Catalog.CatalogBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Catalog.CatalogBackend.Delete',
                         'description' => Yii::t('CatalogModule.catalog', 'Removing good')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Catalog.CatalogBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Catalog.CatalogBackend.Index',
                         'description' => Yii::t('CatalogModule.catalog', 'List of goods')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Catalog.CatalogBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Catalog.CatalogBackend.Update',
                         'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Catalog.CatalogBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Catalog.CatalogBackend.Inline',
                         'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Catalog.CatalogBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Catalog.CatalogBackend.View',
                         'description' => Yii::t('CatalogModule.catalog', 'Viewing goods')
                     ),
                 )

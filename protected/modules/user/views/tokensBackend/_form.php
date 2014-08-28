@@ -2,11 +2,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'user-tokens-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'user-tokens-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 
@@ -25,7 +25,7 @@ $form = $this->beginWidget(
             'user_id',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getUserList(),
+                    'data'        => $model->getUserList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -40,7 +40,7 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -57,7 +57,7 @@ $form = $this->beginWidget(
             'type',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getTypeList(),
+                    'data'        => $model->getTypeList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -79,13 +79,13 @@ $form = $this->beginWidget(
             <?php $this->widget(
                 'bootstrap.widgets.TbDateTimePicker',
                 array(
-                    'model' => $model,
-                    'attribute' => 'created',
+                    'model'       => $model,
+                    'attribute'   => 'created',
                     'htmlOptions' => array(
                         'class' => 'span11',
                         'value' => !empty($model->created)
-                            ? $model->beautifyDate($model->created, 'yyyy-MM-dd HH:mm')
-                            : date('Y-m-d H:i')
+                                ? $model->beautifyDate($model->created, 'yyyy-MM-dd HH:mm')
+                                : date('Y-m-d H:i')
                     ),
                 )
             ); ?>
@@ -99,13 +99,13 @@ $form = $this->beginWidget(
             <?php $this->widget(
                 'bootstrap.widgets.TbDateTimePicker',
                 array(
-                    'model' => $model,
-                    'attribute' => 'updated',
+                    'model'       => $model,
+                    'attribute'   => 'updated',
                     'htmlOptions' => array(
                         'class' => 'span11',
                         'value' => !empty($model->updated)
-                            ? $model->beautifyDate($model->updated, 'yyyy-MM-dd HH:mm')
-                            : date('Y-m-d H:i')
+                                ? $model->beautifyDate($model->updated, 'yyyy-MM-dd HH:mm')
+                                : date('Y-m-d H:i')
                     ),
                 )
             ); ?>
@@ -119,16 +119,22 @@ $form = $this->beginWidget(
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'context' => 'primary',
-                'label' => $model->isNewRecord ? Yii::t('UserModule.user', 'Create token and continue') : Yii::t('UserModule.user', 'Save token and continue'),
+                'context'    => 'primary',
+                'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Create token and continue') : Yii::t(
+                        'UserModule.user',
+                        'Save token and continue'
+                    ),
             )
         ); ?>
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
             array(
-                'buttonType' => 'submit',
+                'buttonType'  => 'submit',
                 'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-                'label' => $model->isNewRecord ? Yii::t('UserModule.user', 'Create token and close') : Yii::t('UserModule.user', 'Save token and close'),
+                'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Create token and close') : Yii::t(
+                        'UserModule.user',
+                        'Save token and close'
+                    ),
             )
         ); ?>
     </div>

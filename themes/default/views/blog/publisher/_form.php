@@ -19,11 +19,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'post-write',
-        'enableAjaxValidation' => false,
+        'id'                     => 'post-write',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
     )
 );
 
@@ -42,7 +42,11 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(Blog::model()->getListForUser(Yii::app()->getUser()->getId()), 'id', 'name'),
+                    'data' => CHtml::listData(
+                            Blog::model()->getListForUser(Yii::app()->getUser()->getId()),
+                            'id',
+                            'name'
+                        ),
                 )
             )
         );?>
@@ -57,9 +61,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('title'),
-                        'data-content' => $model->getAttributeDescription('title')
+                        'data-content'        => $model->getAttributeDescription('title')
                     ),
                 ),
             )
@@ -75,9 +79,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
-                        'data-content' => $model->getAttributeDescription('slug')
+                        'data-content'        => $model->getAttributeDescription('slug')
                     ),
                 ),
             )
@@ -104,21 +108,33 @@ $form = $this->beginWidget(
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             )
         ); ?>
-        <?php echo $form->fileFieldGroup($model, 'image', array('widgetOptions' => array('htmlOptions' => array('onchange' => 'readURL(this);', 'style' => 'background-color: inherit;')))); ?>
+        <?php echo $form->fileFieldGroup(
+            $model,
+            'image',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'onchange' => 'readURL(this);',
+                        'style'    => 'background-color: inherit;'
+                    )
+                )
+            )
+        ); ?>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-sm-12 form-group popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
+    <div class="col-sm-12 form-group popover-help"
+         data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
          data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
         <?php echo $form->labelEx($model, 'content'); ?>
         <?php
         $this->widget(
             $this->module->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'content',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
@@ -133,16 +149,16 @@ $form = $this->beginWidget(
                 'booster.widgets.TbSelect2',
                 array(
                     'asDropDownList' => false,
-                    'name' => 'tags',
-                    'options' => array(
-                        'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                        'placeholder' => Yii::t('BlogModule.blog', 'tags'),
+                    'name'           => 'tags',
+                    'options'        => array(
+                        'tags'            => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+                        'placeholder'     => Yii::t('BlogModule.blog', 'tags'),
                         'tokenSeparators' => array(',', ' ')
                     ),
-                    'htmlOptions' => array(
-                        'class' => 'form-control popover-help',
+                    'htmlOptions'    => array(
+                        'class'               => 'form-control popover-help',
                         'data-original-title' => $model->getAttributeLabel('tags'),
-                        'data-content' => $model->getAttributeDescription('tags')
+                        'data-content'        => $model->getAttributeDescription('tags')
                     ),
                 )
             ); ?>
@@ -158,9 +174,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('link'),
-                        'data-content' => $model->getAttributeDescription('link')
+                        'data-content'        => $model->getAttributeDescription('link')
                     ),
                 ),
             )

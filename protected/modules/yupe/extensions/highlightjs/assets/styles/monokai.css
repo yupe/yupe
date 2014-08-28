@@ -3,8 +3,9 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background: #272822;
+    display: block;
+    padding: 0.5em;
+    background: #272822;
 }
 
 pre .tag,
@@ -18,19 +19,19 @@ pre .lisp .title,
 pre .clojure .built_in,
 pre .nginx .title,
 pre .tex .special {
-  color: #F92672;
+    color: #F92672;
 }
 
 pre code {
-  color: #DDD;
+    color: #DDD;
 }
 
 pre code .constant {
-	color: #66D9EF;
+    color: #66D9EF;
 }
 
 pre .class .title {
-	color: white;
+    color: white;
 }
 
 pre .attribute,
@@ -38,7 +39,7 @@ pre .symbol,
 pre .symbol .string,
 pre .value,
 pre .regexp {
-	color: #BF79DB;
+    color: #BF79DB;
 }
 
 pre .tag .value,
@@ -66,7 +67,7 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .prompt {
-  color: #A6E22E;
+    color: #A6E22E;
 }
 
 pre .comment,
@@ -79,7 +80,7 @@ pre .deletion,
 pre .shebang,
 pre .apache .sqbracket,
 pre .tex .formula {
-  color: #75715E;
+    color: #75715E;
 }
 
 pre .keyword,
@@ -100,7 +101,7 @@ pre .apache .tag,
 pre .tex .special,
 pre .request,
 pre .status {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 pre .coffeescript .javascript,
@@ -110,5 +111,5 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-  opacity: 0.5;
+    opacity: 0.5;
 }

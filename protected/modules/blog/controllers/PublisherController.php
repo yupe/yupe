@@ -13,7 +13,7 @@ class PublisherController extends yupe\components\controllers\FrontController
     {
         $post = new Post();
 
-        if (($postId = (int) Yii::app()->getRequest()->getQuery('id'))) {
+        if (($postId = (int)Yii::app()->getRequest()->getQuery('id'))) {
 
             $post = Post::model()->findUserPost($postId, Yii::app()->getUser()->getId());
 
@@ -37,7 +37,7 @@ class PublisherController extends yupe\components\controllers\FrontController
                 $redirect = array('/blog/publisher/my');
 
                 if ($post->isDraft()) {
-                    $message = Yii::t('BlogModule.blog',  'Post saved!');
+                    $message = Yii::t('BlogModule.blog', 'Post saved!');
                 }
 
                 if ($post->isPublished()) {

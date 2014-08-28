@@ -66,7 +66,7 @@ class Zend_Search_Lucene_Document
     /**
      * Add a field object to this document.
      *
-     * @param  Zend_Search_Lucene_Field    $field
+     * @param  Zend_Search_Lucene_Field $field
      * @return Zend_Search_Lucene_Document
      */
     public function addField(Zend_Search_Lucene_Field $field)
@@ -89,7 +89,7 @@ class Zend_Search_Lucene_Document
     /**
      * Returns Zend_Search_Lucene_Field object for a named field in this document.
      *
-     * @param  string                   $fieldName
+     * @param  string $fieldName
      * @return Zend_Search_Lucene_Field
      */
     public function getField($fieldName)

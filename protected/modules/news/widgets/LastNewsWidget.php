@@ -23,7 +23,7 @@ class LastNewsWidget extends yupe\widgets\YWidget
     public function run()
     {
         $criteria = new CDbCriteria();
-        $criteria->limit = (int) $this->limit;
+        $criteria->limit = (int)$this->limit;
         $criteria->order = 'date DESC';
 
         if ($this->categories) {

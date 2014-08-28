@@ -16,18 +16,18 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array (
-    'Please activate "Blogs" or/and "Pages" module'=>'',
-    'Andrey Opeykin'=>'',
-    'Home page'=>'',
-    'Pages count'=>'',
-    'Main page management module'=>'',
-    'Posts'=>'',
-    'Page'=>'',
-    'Page or post'=>'',
-    'Whats will be displayed'=>'',
-    'Yupe!'=>'',
-    'Records' => '',
-    'Pages'=>'',
-    'read...' => '',
+return array(
+    'Please activate "Blogs" or/and "Pages" module' => '',
+    'Andrey Opeykin'                                => '',
+    'Home page'                                     => '',
+    'Pages count'                                   => '',
+    'Main page management module'                   => '',
+    'Posts'                                         => '',
+    'Page'                                          => '',
+    'Page or post'                                  => '',
+    'Whats will be displayed'                       => '',
+    'Yupe!'                                         => '',
+    'Records'                                       => '',
+    'Pages'                                         => '',
+    'read...'                                       => '',
 );

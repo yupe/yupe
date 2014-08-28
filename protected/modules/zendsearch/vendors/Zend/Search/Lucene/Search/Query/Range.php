@@ -78,7 +78,7 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
      *
      * @param  Zend_Search_Lucene_Index_Term|null $lowerTerm
      * @param  Zend_Search_Lucene_Index_Term|null $upperTerm
-     * @param  boolean                            $inclusive
+     * @param  boolean $inclusive
      * @throws Zend_Search_Lucene_Exception
      */
     public function __construct($lowerTerm, $upperTerm, $inclusive)
@@ -141,7 +141,7 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
@@ -237,7 +237,7 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
     /**
      * Optimize query in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function optimize(Zend_Search_Lucene_Interface $index)
@@ -265,7 +265,7 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
     /**
      * Constructs an appropriate Weight implementation for this query.
      *
-     * @param  Zend_Search_Lucene_Interface     $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @return Zend_Search_Lucene_Search_Weight
      * @throws Zend_Search_Lucene_Exception
      */
@@ -279,7 +279,7 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
      * Execute query in context of index reader
      * It also initializes necessary internal structures
      *
-     * @param  Zend_Search_Lucene_Interface             $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @throws Zend_Search_Lucene_Exception
      */
@@ -306,7 +306,7 @@ class Zend_Search_Lucene_Search_Query_Range extends Zend_Search_Lucene_Search_Qu
     /**
      * Score specified document
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      * @throws Zend_Search_Lucene_Exception

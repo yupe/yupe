@@ -8,7 +8,11 @@ $this->menu = array(
     array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-user', 'label' => Yii::t('RbacModule.rbac', 'User list'), 'url' => array('userList')),
+            array(
+                'icon'  => 'glyphicon glyphicon-user',
+                'label' => Yii::t('RbacModule.rbac', 'User list'),
+                'url'   => array('userList')
+            ),
         )
     ),
 );
@@ -62,28 +66,28 @@ Yii::import('bootstrap.widgets.TbExtendedGridView');
 $this->widget(
     'TbExtendedGridView',
     array(
-        'id' => 'user-grid',
+        'id'           => 'user-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'columns'      => array(
             array(
-                'name' => 'nick_name',
-                'type' => 'raw',
+                'name'  => 'nick_name',
+                'type'  => 'raw',
                 'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/view", "id" => $data->id))',
             ),
             array(
-                'name' => 'email',
+                'name'  => 'email',
                 'value' => '$data->email',
             ),
             array(
                 'filter' => false,
-                'value' => function ($data) {
-                    echo CHtml::link(
-                        Yii::t('RbacModule.rbac', 'Roles'),
-                        array('/rbac/rbacBackend/assign', 'id' => $data->id),
-                        array('class' => 'btn btn-default btn-small')
-                    );
-                }
+                'value'  => function ($data) {
+                        echo CHtml::link(
+                            Yii::t('RbacModule.rbac', 'Roles'),
+                            array('/rbac/rbacBackend/assign', 'id' => $data->id),
+                            array('class' => 'btn btn-default btn-small')
+                        );
+                    }
             ),
         ),
     )

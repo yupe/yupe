@@ -60,8 +60,8 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
     /**
      * Class constructor.  Create a new preprocessing object for prase query.
      *
-     * @param string $word      Non-tokenized word (query parser lexeme) to search.
-     * @param string $encoding  Word encoding.
+     * @param string $word Non-tokenized word (query parser lexeme) to search.
+     * @param string $encoding Word encoding.
      * @param string $fieldName Field name.
      */
     public function __construct($word, $encoding, $fieldName)
@@ -74,7 +74,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
@@ -170,7 +170,10 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
                 }
 
                 // Check if each subputtern is a single word in terms of current analyzer
-                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($subPattern[0], $subPatternsEncoding);
+                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize(
+                    $subPattern[0],
+                    $subPatternsEncoding
+                );
                 if (count($tokens) > 1) {
                     require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
                     throw new Zend_Search_Lucene_Search_QueryParserException('Wildcard search is supported only for non-multiple word terms');
@@ -275,7 +278,10 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
                 }
 
                 // Check if each subputtern is a single word in terms of current analyzer
-                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($subPattern[0], $subPatternsEncoding);
+                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize(
+                    $subPattern[0],
+                    $subPatternsEncoding
+                );
                 if (count($tokens) > 1) {
                     // Do nothing (nothing is highlighted)
                     return;

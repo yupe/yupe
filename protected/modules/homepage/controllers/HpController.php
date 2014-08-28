@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HpController контроллер публичной части модуля homepage
  *
@@ -9,7 +10,6 @@
  * @link     http://yupe.ru
  *
  **/
-
 class HpController extends yupe\components\controllers\FrontController
 {
     /**
@@ -36,15 +36,15 @@ class HpController extends yupe\components\controllers\FrontController
 
             $dataProvider = new CActiveDataProvider(
                 'Post', array(
-                    'criteria'          => new CDbCriteria(
-                        array(
-                            'condition' => 't.status = :status',
-                            'params'    => array(':status' => Post::STATUS_PUBLISHED),
-                            'limit'     => $module->limit,
-                            'order'     => 't.id DESC',
-                            'with'      => array('createUser', 'blog','commentsCount'),
-                        )
-                    ),
+                    'criteria' => new CDbCriteria(
+                            array(
+                                'condition' => 't.status = :status',
+                                'params'    => array(':status' => Post::STATUS_PUBLISHED),
+                                'limit'     => $module->limit,
+                                'order'     => 't.id DESC',
+                                'with'      => array('createUser', 'blog', 'commentsCount'),
+                            )
+                        ),
                 )
             );
 

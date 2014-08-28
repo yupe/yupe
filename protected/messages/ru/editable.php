@@ -16,13 +16,13 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array (
-  'Enter' => 'Введите',
-  'Error while saving record!' => 'Ошибка при сохранении записи',
-  'Model {class} does not have attribute "{attr}"' => 'Модель {class} не имеет аттрибута "{attr}"',
-  'Model {class} not found by primary key "{pk}"' => 'Модель {class} имеющая первичный ключ "{pk}" не найдена ',
-  'Model {class} rules do not allow to update attribute "{attr}"' => 'Правила модели {class} не позволяют изменять данный аттрибут "{attr}"',
-  'Property "attribute" should be defined.' => 'Свойство "attribute" должно быть определено',
-  'Property "primaryKey" should be defined.' => 'Свойство "primaryKey" должно быть определено',
-  'You should provide modelClass in constructor of EditableSaver.' => 'Вы должны объявить modelClass в конструкторе EditableSaver.',
+return array(
+    'Enter'                                                          => 'Введите',
+    'Error while saving record!'                                     => 'Ошибка при сохранении записи',
+    'Model {class} does not have attribute "{attr}"'                 => 'Модель {class} не имеет аттрибута "{attr}"',
+    'Model {class} not found by primary key "{pk}"'                  => 'Модель {class} имеющая первичный ключ "{pk}" не найдена ',
+    'Model {class} rules do not allow to update attribute "{attr}"'  => 'Правила модели {class} не позволяют изменять данный аттрибут "{attr}"',
+    'Property "attribute" should be defined.'                        => 'Свойство "attribute" должно быть определено',
+    'Property "primaryKey" should be defined.'                       => 'Свойство "primaryKey" должно быть определено',
+    'You should provide modelClass in constructor of EditableSaver.' => 'Вы должны объявить modelClass в конструкторе EditableSaver.',
 );

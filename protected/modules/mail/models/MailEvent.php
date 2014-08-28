@@ -104,10 +104,11 @@ class MailEvent extends yupe\models\YModel
      **/
     public function getShortDescription()
     {
-        if (strlen($this->description) <= 100)
+        if (strlen($this->description) <= 100) {
             return $this->description;
-        else
+        } else {
             return substr($this->description, 0, 100) . " ...";
+        }
     }
 
     /**

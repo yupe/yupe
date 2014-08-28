@@ -33,7 +33,6 @@ require_once 'Zend/Search/Lucene/Analysis/TokenFilter/LowerCaseUtf8.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive extends Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8
 {
     public function __construct()

@@ -10,15 +10,31 @@ $this->menu = array(
     array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'), 'url' => array('/dictionary/dictionaryBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'), 'url' => array('/dictionary/dictionaryBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'),
+                'url'   => array('/dictionary/dictionaryBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'),
+                'url'   => array('/dictionary/dictionaryBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Items'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Items list'),
+                'url'   => array('/dictionary/dictionaryDataBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Create item'),
+                'url'   => array('/dictionary/dictionaryDataBackend/create')
+            ),
         )
     ),
 );

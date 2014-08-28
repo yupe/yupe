@@ -11,11 +11,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'image-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'image-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -45,7 +45,7 @@ $form = $this->beginWidget(
                 'galleryId',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->galleryList(),
+                        'data'        => $model->galleryList(),
                         'htmlOptions' => array('empty' => Yii::t('ImageModule.image', '--choose--')),
                     ),
                 )
@@ -72,7 +72,7 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList(),
+                    'data'        => Category::model()->getFormattedList(),
                     'htmlOptions' => array('empty' => Yii::t('ImageModule.image', '--choose--'), 'encode' => false),
                 ),
             )
@@ -120,8 +120,11 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and close') : Yii::t('ImageModule.image', 'Save image and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and close') : Yii::t(
+                'ImageModule.image',
+                'Save image and continue'
+            ),
     )
 ); ?>
 
@@ -129,9 +132,12 @@ $this->widget(
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and save') : Yii::t('ImageModule.image', 'Save mage and close'),
+        'label'       => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and save') : Yii::t(
+                'ImageModule.image',
+                'Save mage and close'
+            ),
     )
 ); ?>
 

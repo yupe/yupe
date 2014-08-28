@@ -7,11 +7,12 @@ class m000000_000000_social_profile extends yupe\components\DbMigration
         $this->createTable(
             '{{social_user}}',
             array(
-                'id' => 'pk',
-                'user_id' => 'integer NOT NULL',
+                'id'       => 'pk',
+                'user_id'  => 'integer NOT NULL',
                 'provider' => 'varchar(250) NOT NULL',
-                'uid' => 'varchar(250) NOT NULL',
-            ), $this->getOptions()
+                'uid'      => 'varchar(250) NOT NULL',
+            ),
+            $this->getOptions()
         );
 
         //ix
@@ -19,7 +20,15 @@ class m000000_000000_social_profile extends yupe\components\DbMigration
         $this->createIndex("ux_{{social_user}}_uid", '{{social_user}}', "uid", true);
 
         //fk
-        $this->addForeignKey("fk_{{social_user}}_user_id", '{{social_user}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey(
+            "fk_{{social_user}}_user_id",
+            '{{social_user}}',
+            'user_id',
+            '{{user_user}}',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
     }
 
     public function safeDown()

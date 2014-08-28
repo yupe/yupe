@@ -119,7 +119,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      * @throws Zend_Search_Lucene_Exception
      */
@@ -136,7 +136,11 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
 
         $prefix = self::_getPrefix($this->_pattern->text);
         $prefixLength = strlen($prefix);
-        $matchExpression = '/^' . str_replace(array('\\?', '\\*'), array('.', '.*'), preg_quote($this->_pattern->text, '/')) . '$/';
+        $matchExpression = '/^' . str_replace(
+                array('\\?', '\\*'),
+                array('.', '.*'),
+                preg_quote($this->_pattern->text, '/')
+            ) . '$/';
 
         if ($prefixLength < self::$_minPrefixLength) {
             require_once 'Zend/Search/Lucene/Exception.php';
@@ -215,7 +219,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     /**
      * Optimize query in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function optimize(Zend_Search_Lucene_Interface $index)
@@ -253,7 +257,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     /**
      * Constructs an appropriate Weight implementation for this query.
      *
-     * @param  Zend_Search_Lucene_Interface     $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @return Zend_Search_Lucene_Search_Weight
      * @throws Zend_Search_Lucene_Exception
      */
@@ -267,7 +271,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
      * Execute query in context of index reader
      * It also initializes necessary internal structures
      *
-     * @param  Zend_Search_Lucene_Interface             $reader
+     * @param  Zend_Search_Lucene_Interface $reader
      * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @throws Zend_Search_Lucene_Exception
      */
@@ -294,7 +298,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     /**
      * Score specified document
      *
-     * @param  integer                      $docId
+     * @param  integer $docId
      * @param  Zend_Search_Lucene_Interface $reader
      * @return float
      * @throws Zend_Search_Lucene_Exception
@@ -314,7 +318,11 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
     {
         $words = array();
 
-        $matchExpression = '/^' . str_replace(array('\\?', '\\*'), array('.', '.*'), preg_quote($this->_pattern->text, '/')) . '$/';
+        $matchExpression = '/^' . str_replace(
+                array('\\?', '\\*'),
+                array('.', '.*'),
+                preg_quote($this->_pattern->text, '/')
+            ) . '$/';
         if (@preg_match('/\pL/u', 'a') == 1) {
             // PCRE unicode support is turned on
             // add Unicode modifier to the match expression

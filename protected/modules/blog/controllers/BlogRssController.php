@@ -14,7 +14,7 @@ class BlogRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int) $this->module->rssCount)) {
+        if (!($limit = (int)$this->module->rssCount)) {
             throw new CHttpException(404);
         }
 
@@ -28,7 +28,7 @@ class BlogRssController extends yupe\components\controllers\RssController
         $this->title = $yupe->siteName;
         $this->description = $yupe->siteDescription;
 
-        $blogId = (int) Yii::app()->getRequest()->getQuery('blog');
+        $blogId = (int)Yii::app()->getRequest()->getQuery('blog');
 
         if (!empty($blogId)) {
             $blog = Blog::model()->cache($yupe->coreCacheTime)->published()->findByPk($blogId);
@@ -41,7 +41,7 @@ class BlogRssController extends yupe\components\controllers\RssController
             $criteria->params[':blog_id'] = $blogId;
         }
 
-        $categoryId = (int) Yii::app()->getRequest()->getQuery('category');
+        $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
         if (!empty($categoryId)) {
             $category = Category::model()->cache($yupe->coreCacheTime)->published()->findByPk($categoryId);
@@ -68,19 +68,19 @@ class BlogRssController extends yupe\components\controllers\RssController
     {
         return array(
             'feed' => array(
-                'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $this->data,
-                'title' => $this->title,
+                'class'       => 'yupe\components\actions\YFeedAction',
+                'data'        => $this->data,
+                'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields' => array(
-                    'author_object' => 'createUser',
+                'itemFields'  => array(
+                    'author_object'   => 'createUser',
                     'author_nickname' => 'nick_name',
-                    'content' => 'content',
-                    'datetime' => 'create_date',
-                    'link' => '/blog/post/show',
-                    'linkParams' => array('slug' => 'slug'),
-                    'title' => 'title',
-                    'updated' => 'update_date',
+                    'content'         => 'content',
+                    'datetime'        => 'create_date',
+                    'link'            => '/blog/post/show',
+                    'linkParams'      => array('slug' => 'slug'),
+                    'title'           => 'title',
+                    'updated'         => 'update_date',
                 ),
             ),
         );

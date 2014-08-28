@@ -176,8 +176,8 @@ class BackController extends Controller
      */
     public function actionActivate()
     {
-        $status = (int) Yii::app()->getRequest()->getQuery('status');
-        $id = (int) Yii::app()->getRequest()->getQuery('id');
+        $status = (int)Yii::app()->getRequest()->getQuery('status');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
         $modelClass = Yii::app()->getRequest()->getQuery('model');
         $statusField = Yii::app()->getRequest()->getQuery('statusField');
 
@@ -204,7 +204,7 @@ class BackController extends Controller
      */
     public function actionSort()
     {
-        $id = (int) Yii::app()->getRequest()->getQuery('id');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
         $direction = Yii::app()->getRequest()->getQuery('direction');
         $modelClass = Yii::app()->getRequest()->getQuery('model');
         $sortField = Yii::app()->getRequest()->getQuery('sortField');

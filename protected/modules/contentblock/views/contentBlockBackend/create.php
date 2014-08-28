@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - add');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'), 'url' => array('/contentblock/contentBlockBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'), 'url' => array('/contentblock/contentBlockBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
+        'url'   => array('/contentblock/contentBlockBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
+        'url'   => array('/contentblock/contentBlockBackend/create')
+    ),
 );
 ?>
 <div class="page-header">

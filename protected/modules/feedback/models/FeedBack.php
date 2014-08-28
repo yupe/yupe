@@ -31,19 +31,19 @@
 class FeedBack extends yupe\models\YModel
 {
 
-    const STATUS_NEW           = 0;
-    const STATUS_PROCESS       = 1;
-    const STATUS_FINISHED      = 2;
+    const STATUS_NEW = 0;
+    const STATUS_PROCESS = 1;
+    const STATUS_FINISHED = 2;
     const STATUS_ANSWER_SENDED = 3;
 
     const TYPE_DEFAULT = 0;
 
     const IS_FAQ_NO = 0;
-    const IS_FAQ    = 1;
+    const IS_FAQ = 1;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param  string   $className
+     * @param  string $className
      * @return FeedBack the static model class
      */
     public static function model($className = __CLASS__)
@@ -77,7 +77,11 @@ class FeedBack extends yupe\models\YModel
             array('answer_date', 'length', 'max' => 100),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
-            array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
+            array(
+                'id, creation_date, change_date, name, email, theme, text, type, status, ip',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -154,7 +158,7 @@ class FeedBack extends yupe\models\YModel
 
         if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
-            $this->ip            = Yii::app()->getRequest()->userHostAddress;
+            $this->ip = Yii::app()->getRequest()->userHostAddress;
 
             if (!$this->type) {
                 $this->type = self::TYPE_DEFAULT;
@@ -175,7 +179,7 @@ class FeedBack extends yupe\models\YModel
             'new'      => array(
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_NEW),
-             ),
+            ),
             'answered' => array(
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_ANSWER_SENDED),
@@ -194,7 +198,10 @@ class FeedBack extends yupe\models\YModel
      */
     public function getAnsweredUser()
     {
-        return $this->answer_user ? User::model()->findByPk($this->answer_user) : Yii::t('FeedbackModule.feedback', '-');
+        return $this->answer_user ? User::model()->findByPk($this->answer_user) : Yii::t(
+            'FeedbackModule.feedback',
+            '-'
+        );
     }
 
     /**
@@ -221,7 +228,10 @@ class FeedBack extends yupe\models\YModel
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('FeedbackModule.feedback', 'Unknown status message');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t(
+            'FeedbackModule.feedback',
+            'Unknown status message'
+        );
     }
 
     /**
@@ -251,7 +261,10 @@ class FeedBack extends yupe\models\YModel
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('FeedbackModule.feedback', 'Unknown message type');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t(
+            'FeedbackModule.feedback',
+            'Unknown message type'
+        );
     }
 
     /**
@@ -275,16 +288,16 @@ class FeedBack extends yupe\models\YModel
     public function getStatusClass()
     {
         return $this->status
-                ? (
-                    ($this->status == self::STATUS_NEW)
-                    ? 'warning'
-                    : (
-                        ($this->status== self::STATUS_ANSWER_SENDED)
-                        ?  'success'
-                        : 'default'
-                    )
-                )
-                : 'info';
+            ? (
+            ($this->status == self::STATUS_NEW)
+                ? 'warning'
+                : (
+            ($this->status == self::STATUS_ANSWER_SENDED)
+                ? 'success'
+                : 'default'
+            )
+            )
+            : 'info';
     }
 
     /**
@@ -327,7 +340,7 @@ class FeedBack extends yupe\models\YModel
     public function relations()
     {
         return array(
-            'category' => array(self::BELONGS_TO,'Category','category_id'),
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
         );
     }
 

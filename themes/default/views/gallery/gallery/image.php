@@ -12,7 +12,7 @@
 $this->pageTitle = $model->name; ?>
 <?php $this->breadcrumbs = array(
     Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/gallery/list'),
-    $model->gallery->name => array('/gallery/gallery/show', 'id' => $model->gallery->id),
+    $model->gallery->name                        => array('/gallery/gallery/show', 'id' => $model->gallery->id),
     $model->name
 );
 ?>
@@ -45,7 +45,7 @@ $this->pageTitle = $model->name; ?>
     'application.modules.comment.widgets.CommentFormWidget',
     array(
         'redirectTo' => $this->createUrl('/gallery/gallery/image/', array('id' => $model->id)),
-        'model' => $model,
-        'modelId' => $model->id
+        'model'      => $model,
+        'modelId'    => $model->id
     )
 ); ?>

@@ -26,7 +26,7 @@ class UserIdentity extends CUserIdentity
         $user = User::model()->active()->find(
             array(
                 'condition' => 'email = :username OR nick_name = :username',
-                'params' => array(
+                'params'    => array(
                     ':username' => $this->username
                 )
             )
@@ -52,7 +52,7 @@ class UserIdentity extends CUserIdentity
         Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $user->nick_name);
 
         // для админа в сессию запишем еще несколько значений
-        if ((int) $user->access_level === User::ACCESS_LEVEL_ADMIN) {
+        if ((int)$user->access_level === User::ACCESS_LEVEL_ADMIN) {
             /* Получаем настройки по всем модулям для данного пользователя: */
             $settings = Settings::model()->fetchUserModuleSettings($user->id);
             $sessionSettings = array();

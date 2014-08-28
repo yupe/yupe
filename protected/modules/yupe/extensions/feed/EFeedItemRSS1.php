@@ -16,47 +16,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /**
  * EFeedItemRSS1 is an element of an RSS 1.0 Feed
  *
- * @author		Antonio Ramirez <ramirez.cobos@gmail.com>
- * @package   	rss
- * @uses 		CUrlValidator
- * @throws 		CException
+ * @author        Antonio Ramirez <ramirez.cobos@gmail.com>
+ * @package    rss
+ * @uses        CUrlValidator
+ * @throws        CException
  */
 class EFeedItemRSS1 extends EFeedItemAbstract
 {
     /**
-	 * (non-PHPdoc)
-	 * @see EFeedItemAbstract::setDate()
-	 */
+     * (non-PHPdoc)
+     * @see EFeedItemAbstract::setDate()
+     */
     public function setDate($date)
     {
-        if(!is_numeric($date)) $date = strtotime( $date );
+        if (!is_numeric($date)) {
+            $date = strtotime($date);
+        }
 
-        $date  = date("Y-m-d", $date);
+        $date = date("Y-m-d", $date);
 
-        $this->addTag( 'dc:date', $date );
+        $this->addTag('dc:date', $date);
     }
+
     /**
-	 *
-	 * Property getter date
-	 * @return date element | null
-	 */
+     *
+     * Property getter date
+     * @return date element | null
+     */
     public function getDate()
     {
         return $this->tags->itemAt('dc:date');
     }
+
     /**
-	 * (non-PHPdoc)
-	 * @see EFeedItemAbstract::getNode()
-	 */
+     * (non-PHPdoc)
+     * @see EFeedItemAbstract::getNode()
+     */
     public function getNode()
     {
-        if( null === $this->link || null === $this->link->content)
-            throw new CException( Yii::t('EFeed', 'Link Element is not set and it is required for RSS 1.0 to be used as about attribute of item') );
+        if (null === $this->link || null === $this->link->content) {
+            throw new CException(Yii::t(
+                'EFeed',
+                'Link Element is not set and it is required for RSS 1.0 to be used as about attribute of item'
+            ));
+        }
 
-        $node = CHtml::openTag('item', array('rdf:about'=>$this->link->content)).PHP_EOL;
+        $node = CHtml::openTag('item', array('rdf:about' => $this->link->content)) . PHP_EOL;
 
         foreach ($this->tags as $tag) {
             $node .= $this->getElement($tag);
@@ -64,25 +73,28 @@ class EFeedItemRSS1 extends EFeedItemAbstract
 
         $node .= CHtml::closeTag('item');
 
-        return $node.PHP_EOL;
+        return $node . PHP_EOL;
     }
+
     /**
-	 *
-	 * @returns well formatted xml element
-	 * @param EFeedTag $tag
-	 */
+     *
+     * @returns well formatted xml element
+     * @param EFeedTag $tag
+     */
     private function getElement(EFeedTag $tag)
     {
         $element = '';
 
-        if(is_array($tag->content)) $tag->attributes['rdf:parseType']="Resource";
+        if (is_array($tag->content)) {
+            $tag->attributes['rdf:parseType'] = "Resource";
+        }
 
-        if (in_array($tag->name,$this->CDATAEncoded)) {
-            $element .= CHtml::openTag($tag->name,$tag->attributes);
+        if (in_array($tag->name, $this->CDATAEncoded)) {
+            $element .= CHtml::openTag($tag->name, $tag->attributes);
             $element .= '<![CDATA[';
 
         } else {
-            $element .= CHtml::openTag($tag->name,$tag->attributes);
+            $element .= CHtml::openTag($tag->name, $tag->attributes);
         }
         $element .= PHP_EOL;
 
@@ -90,15 +102,15 @@ class EFeedItemRSS1 extends EFeedItemAbstract
             foreach ($tag->content as $tag => $content) {
                 $tmpTag = new EFeedTag($tag, $content);
 
-                $element .= $this->getElement( $tmpTag );
+                $element .= $this->getElement($tmpTag);
             }
         } else {
             $element .= (in_array($tag->name, $this->CDATAEncoded)) ? $tag->content : CHtml::encode($tag->content);
         }
 
-        $element .= (in_array($tag->name, $this->CDATAEncoded)) ? PHP_EOL.']]>' : "";
+        $element .= (in_array($tag->name, $this->CDATAEncoded)) ? PHP_EOL . ']]>' : "";
 
-        $element .= CHtml::closeTag($tag->name).PHP_EOL;
+        $element .= CHtml::closeTag($tag->name) . PHP_EOL;
 
         return $element;
     }

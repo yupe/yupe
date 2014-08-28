@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TagsCache dependency class:
  *
@@ -53,7 +54,7 @@ class TagsCache implements ICacheDependency
         $values = Yii::app()->cache->mget($tags);
 
         foreach ($values as $value) {
-            if ((float) $value > $this->timestamp) {
+            if ((float)$value > $this->timestamp) {
                 return true;
             }
         }

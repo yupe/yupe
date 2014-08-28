@@ -36,8 +36,14 @@ class Zend_Search_Lucene_Index_FieldInfo
     public $normsOmitted;
     public $payloadsStored;
 
-    public function __construct($name, $isIndexed, $number, $storeTermVector, $normsOmitted = false, $payloadsStored = false)
-    {
+    public function __construct(
+        $name,
+        $isIndexed,
+        $number,
+        $storeTermVector,
+        $normsOmitted = false,
+        $payloadsStored = false
+    ) {
         $this->name = $name;
         $this->isIndexed = $isIndexed;
         $this->number = $number;

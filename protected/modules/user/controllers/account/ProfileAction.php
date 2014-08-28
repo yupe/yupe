@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за редактирование профиля пользователя
  *
@@ -75,7 +76,7 @@ class ProfileAction extends CAction
                     }
 
                     // Если у нас есть дополнительные профили - проверим их
-                    foreach ((array) $this->controller->module->profiles as $p) {
+                    foreach ((array)$this->controller->module->profiles as $p) {
                         $p->validate() || $form->addErrors($p->getErrors());
                     }
 
@@ -87,7 +88,7 @@ class ProfileAction extends CAction
                                 'UserModule.user',
                                 'Profile for #{id}-{nick_name} was changed',
                                 array(
-                                    '{id}' => $user->id,
+                                    '{id}'        => $user->id,
                                     '{nick_name}' => $user->nick_name,
                                 )
                             ),
@@ -164,7 +165,8 @@ class ProfileAction extends CAction
         }
 
         $this->controller->render(
-            'profile', array(
+            'profile',
+            array(
                 'model'  => $form,
                 'module' => $module,
                 'user'   => $user

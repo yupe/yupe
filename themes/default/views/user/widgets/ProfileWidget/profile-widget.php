@@ -10,7 +10,11 @@
         <div class="row">
             <div class="col-xs-12">
                 <?php echo CHtml::link(
-                    $this->widget('application.modules.user.widgets.AvatarWidget', array('user' => $user, 'noCache' => true), true),
+                    $this->widget(
+                        'application.modules.user.widgets.AvatarWidget',
+                        array('user' => $user, 'noCache' => true),
+                        true
+                    ),
                     array('/user/people/userInfo/', 'username' => $user->nick_name),
                     array('title' => Yii::t('UserModule.user', 'User profile'))
                 ); ?>
@@ -24,11 +28,11 @@
                         <?php $this->widget(
                             'bootstrap.widgets.TbButton',
                             array(
-                                'label' => Yii::t('UserModule.user', 'Edit profile'),
-                                'icon' => 'glyphicon glyphicon-pencil',
+                                'label'      => Yii::t('UserModule.user', 'Edit profile'),
+                                'icon'       => 'glyphicon glyphicon-pencil',
                                 'buttonType' => 'link',
-                                'context' => 'link',
-                                'url' => array('/user/account/profile/'),
+                                'context'    => 'link',
+                                'url'        => array('/user/account/profile/'),
                             )
                         ); ?>
                     </li>

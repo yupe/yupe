@@ -68,9 +68,9 @@ class DAO extends \CComponent
     protected function getCriteria()
     {
         return $this->_criteria
-                ?: (
-                    $this->_criteria = new \CDbCriteria()
-                );
+            ? : (
+            $this->_criteria = new \CDbCriteria()
+            );
     }
 
     /**
@@ -82,11 +82,11 @@ class DAO extends \CComponent
     protected function getCommand()
     {
         return $this->_command
-                ?: (
-                    $this->_command = Yii::app()
-                                    ->getDb()
-                                    ->createCommand()
-                );
+            ? : (
+            $this->_command = Yii::app()
+                ->getDb()
+                ->createCommand()
+            );
     }
 
     /**
@@ -98,11 +98,11 @@ class DAO extends \CComponent
     protected function getSchema()
     {
         return $this->_schema
-                ?: (
-                    $this->_schema = Yii::app()
-                                    ->getDb()
-                                    ->getSchema()
-                );
+            ? : (
+            $this->_schema = Yii::app()
+                ->getDb()
+                ->getSchema()
+            );
     }
 
     /**
@@ -154,14 +154,14 @@ class DAO extends \CComponent
      * Указываем пост-условия для запроса:
      *
      * @param mixed $conditions - the conditions that should be put in the WHERE part.
-     * @param array $params     - the parameters (name=>value) to be bound to the query
+     * @param array $params - the parameters (name=>value) to be bound to the query
      *
      * @return [type] [description]
      */
     public function where($conditions, array $params = array())
     {
         $this->_conditions = $conditions;
-        $this->_params    = $params;
+        $this->_params = $params;
 
         return $this;
     }
@@ -169,18 +169,18 @@ class DAO extends \CComponent
     /**
      * Выполняем обновление записей:
      *
-     * @param  array   $columns - является массивом пар имя-значение,
+     * @param  array $columns - является массивом пар имя-значение,
      *                          задающим значения обновляемых полей
      * @return integer - number of rows affected by the execution.
      */
     public function update(array $columns = array())
     {
         return $this->getCommand()
-                    ->update(
-                        $this->_tableName,
-                        $columns,
-                        $this->_conditions,
-                        $this->_params
-                    );
+            ->update(
+                $this->_tableName,
+                $columns,
+                $this->_conditions,
+                $this->_params
+            );
     }
 }

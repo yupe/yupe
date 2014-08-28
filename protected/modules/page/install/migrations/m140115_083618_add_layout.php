@@ -1,4 +1,5 @@
 <?php
+
 /**
  * m130115_155600_columns_rename install migration
  * Класс миграций для модуля Page:
@@ -15,11 +16,11 @@ class m140115_083618_add_layout extends yupe\components\DbMigration
 {
     public function safeUp()
     {
-        $this->addColumn('{{page_page}}','layout','varchar(250)');
+        $this->addColumn('{{page_page}}', 'layout', 'varchar(250)');
     }
 
     public function safeDown()
     {
-        $this->dropColumn('{{page_page}}','layout');
+        $this->dropColumn('{{page_page}}', 'layout');
     }
 }

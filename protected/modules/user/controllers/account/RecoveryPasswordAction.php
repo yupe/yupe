@@ -17,13 +17,13 @@ class RecoveryPasswordAction extends CAction
 {
     /**
      * Стартуем экшен сброса пароля
-     * @param  string         $token - токен-сброса пароля
+     * @param  string $token - токен-сброса пароля
      * @throws CHttpException
      */
     public function run($token)
     {
         if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->controller->redirect( Yii::app()->getUser()->getReturnUrl());
+            $this->controller->redirect(Yii::app()->getUser()->getReturnUrl());
         }
 
         $module = Yii::app()->getModule('user');
@@ -41,7 +41,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         // Если включено автоматическое восстановление пароля
-        if ((int) $module->autoRecoveryPassword === WebModule::CHOICE_YES) {
+        if ((int)$module->autoRecoveryPassword === WebModule::CHOICE_YES) {
 
             if (Yii::app()->userManager->activatePassword($token)) {
 
@@ -72,7 +72,11 @@ class RecoveryPasswordAction extends CAction
             $changePasswordForm->setAttributes($data);
 
             // Проводим валидацию формы:
-            if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword($token, $changePasswordForm->password)) {
+            if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword(
+                    $token,
+                    $changePasswordForm->password
+                )
+            ) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

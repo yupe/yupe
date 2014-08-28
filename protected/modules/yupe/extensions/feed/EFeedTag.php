@@ -28,30 +28,31 @@
 class EFeedTag
 {
     /**
-	 * Tag name
-	 * @var string name
-	 */
+     * Tag name
+     * @var string name
+     */
     public $name;
     /**
-	 *
-	 * Tag content
-	 * @var string content
-	 */
+     *
+     * Tag content
+     * @var string content
+     */
     public $content;
     /**
-	 *
-	 * Tag attributes array
-	 * @var array attributes
-	 */
+     *
+     * Tag attributes array
+     * @var array attributes
+     */
     public $attributes = array();
+
     /**
-	 *
-	 * EFeedTag constructor
-	 * @param string $name
-	 * @param string $content
-	 * @param array $attributes
-	 */
-    public function __construct($name, $content, $attributes = array() )
+     *
+     * EFeedTag constructor
+     * @param string $name
+     * @param string $content
+     * @param array $attributes
+     */
+    public function __construct($name, $content, $attributes = array())
     {
         $this->name = $name;
         $this->content = $content;

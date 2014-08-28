@@ -14,7 +14,7 @@ class AuthItemChild extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
-     * @param  string        $className active record class name.
+     * @param  string $className active record class name.
      * @return AuthItemChild the static model class
      */
     public static function model($className = __CLASS__)
@@ -55,7 +55,7 @@ class AuthItemChild extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'parentItem' => array(self::BELONGS_TO, 'AuthItem', 'parent'),
-            'childItem' => array(self::BELONGS_TO, 'AuthItem', 'child'),
+            'childItem'  => array(self::BELONGS_TO, 'AuthItem', 'child'),
         );
     }
 
@@ -66,7 +66,7 @@ class AuthItemChild extends CActiveRecord
     {
         return array(
             'parent' => 'Parent',
-            'child' => 'Child',
+            'child'  => 'Child',
         );
     }
 

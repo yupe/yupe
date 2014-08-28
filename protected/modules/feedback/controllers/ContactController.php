@@ -19,7 +19,7 @@ class ContactController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class' => 'yupe\components\actions\YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             )
@@ -37,7 +37,7 @@ class ContactController extends yupe\components\controllers\FrontController
         }
 
         // проверить не передан ли тип и присвоить его аттрибуту модели
-        $form->type = empty($type) ? FeedBack::TYPE_DEFAULT : (int) $type;
+        $form->type = empty($type) ? FeedBack::TYPE_DEFAULT : (int)$type;
 
         $module = Yii::app()->getModule('feedback');
 
@@ -107,12 +107,12 @@ class ContactController extends yupe\components\controllers\FrontController
         $dataProvider = new CActiveDataProvider('FeedBack', array(
             'criteria' => array(
                 'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
-                'params' => array(
-                    ':is_faq' => FeedBack::IS_FAQ,
-                    ':sended' => FeedBack::STATUS_ANSWER_SENDED,
+                'params'    => array(
+                    ':is_faq'   => FeedBack::IS_FAQ,
+                    ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
                     ':finished' => FeedBack::STATUS_FINISHED,
                 ),
-                'order' => 'id DESC',
+                'order'     => 'id DESC',
             )
         ));
 
@@ -121,7 +121,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionFaqView($id)
     {
-        $id = (int) $id;
+        $id = (int)$id;
 
         if (!$id) {
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));

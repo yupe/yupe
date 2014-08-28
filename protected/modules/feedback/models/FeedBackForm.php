@@ -10,7 +10,6 @@
  * @link     http://yupe.ru
  *
  **/
-
 class FeedBackForm extends CFormModel
 {
     public $name;
@@ -31,8 +30,16 @@ class FeedBackForm extends CFormModel
             array('name, email, phone', 'length', 'max' => 150),
             array('theme', 'length', 'max' => 250),
             array('email', 'email'),
-            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
+            array(
+                'verifyCode',
+                'yupe\components\validators\YRequiredValidator',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+            ),
+            array(
+                'verifyCode',
+                'captcha',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+            ),
         );
     }
 

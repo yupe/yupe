@@ -17,4 +17,4 @@ $this->beginWidget(
     </div>
 <?php endforeach; ?>
 
-<?php $this->endWidget();?>
+<?php $this->endWidget(); ?>

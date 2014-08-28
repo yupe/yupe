@@ -61,7 +61,8 @@ class Zend_Search_Lucene_Search_QueryToken
      */
     public static function getTypes()
     {
-        return array(self::TT_WORD,
+        return array(
+            self::TT_WORD,
             self::TT_PHRASE,
             self::TT_FIELD,
             self::TT_FIELD_INDICATOR,
@@ -117,7 +118,7 @@ class Zend_Search_Lucene_Search_QueryToken
      * IndexReader constructor needs token type and token text as a parameters.
      *
      * @param integer $tokenCategory
-     * @param string  $tokText
+     * @param string $tokText
      * @param integer $position
      */
     public function __construct($tokenCategory, $tokenText, $position)

@@ -71,10 +71,10 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
     /**
      * Class constructor.  Create a new preprocessing object for prase query.
      *
-     * @param string $word              Non-tokenized word (query parser lexeme) to search.
-     * @param string $encoding          Word encoding.
-     * @param string $fieldName         Field name.
-     * @param float  $minimumSimilarity minimum similarity
+     * @param string $word Non-tokenized word (query parser lexeme) to search.
+     * @param string $encoding Word encoding.
+     * @param string $fieldName Field name.
+     * @param float $minimumSimilarity minimum similarity
      */
     public function __construct($word, $encoding, $fieldName, $minimumSimilarity)
     {
@@ -87,7 +87,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
     /**
      * Re-write query into primitive queries in the context of specified index
      *
-     * @param  Zend_Search_Lucene_Interface    $index
+     * @param  Zend_Search_Lucene_Interface $index
      * @return Zend_Search_Lucene_Search_Query
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)

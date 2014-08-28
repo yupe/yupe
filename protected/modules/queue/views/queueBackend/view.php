@@ -7,32 +7,40 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - show');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('QueueModule.queue', 'Task list'),
+        'url'   => array('/queue/queueBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('QueueModule.queue', 'Create task'),
+        'url'   => array('/queue/queueBackend/create')
+    ),
     array('label' => Yii::t('QueueModule.queue', 'Task') . ' «' . $model->id . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon'  => 'glyphicon glyphicon-pencil',
         'label' => Yii::t('QueueModule.queue', 'Edit task.'),
-        'url' => array(
+        'url'   => array(
             '/queue/queueBackend/update',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'glyphicon glyphicon-eye-open',
         'label' => Yii::t('QueueModule.queue', 'Show task'),
-        'url' => array(
+        'url'   => array(
             '/queue/queueBackend/view',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('QueueModule.queue', 'Remove task'),
-        'url' => '#',
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('QueueModule.queue', 'Remove task'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/queue/queueBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'submit'  => array('/queue/queueBackend/delete', 'id' => $model->id),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('QueueModule.queue', 'Do you really want to delete?'),
         )
     ),
@@ -48,11 +56,11 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             array(
-                'name' => 'worker',
+                'name'  => 'worker',
                 'value' => $model->getWorkerName()
             ),
             'create_time',
@@ -60,11 +68,11 @@ $this->menu = array(
             'start_time',
             'complete_time',
             array(
-                'name' => 'priority',
+                'name'  => 'priority',
                 'value' => $model->getPriority()
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus()
             ),
             'notice',

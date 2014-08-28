@@ -40,10 +40,10 @@ class BackendController extends yupe\components\controllers\BackController
     {
         return array(
             'AjaxFileUpload' => array(
-                'class' => 'yupe\components\actions\YAjaxFileUploadAction',
-                'maxSize' => $this->module->maxSize,
+                'class'     => 'yupe\components\actions\YAjaxFileUploadAction',
+                'maxSize'   => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types' => $this->module->allowedExtensions
+                'types'     => $this->module->allowedExtensions
             ),
         );
     }
@@ -102,7 +102,7 @@ class BackendController extends yupe\components\controllers\BackController
                     'YupeModule.yupe',
                     'There is an error: {error}',
                     array(
-                        '{error}' => implode('<br />', (array) $e->getMessage())
+                        '{error}' => implode('<br />', (array)$e->getMessage())
                     )
                 )
             );
@@ -181,7 +181,7 @@ class BackendController extends yupe\components\controllers\BackController
                             $value,
                             array(
                                 'maxlength' => 300,
-                                'class' => 'form-control'
+                                'class'     => 'form-control'
                             )
                         );
                 } else {
@@ -203,8 +203,8 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render(
             'modulesettings',
             array(
-                'module' => $module,
-                'elements' => $elements,
+                'module'             => $module,
+                'elements'           => $elements,
                 'moduleParamsLabels' => $moduleParamsLabels,
             )
         );
@@ -291,10 +291,10 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render(
             'themesettings',
             array(
-                'themes' => $this->yupe->getThemes(),
-                'theme' => $theme,
+                'themes'        => $this->yupe->getThemes(),
+                'theme'         => $theme,
                 'backendThemes' => $this->yupe->getThemes(true),
-                'backendTheme' => $backendTheme,
+                'backendTheme'  => $backendTheme,
             )
         );
     }
@@ -303,7 +303,7 @@ class BackendController extends yupe\components\controllers\BackController
      * Метода сохранения настроек модуля:
      *
      * @param string $moduleId - идетификтор метода
-     * @param array  $params   - массив настроек
+     * @param array $params - массив настроек
      *
      * @return bool
      **/
@@ -364,7 +364,8 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : array("/yupe/backend")
+                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer(
+                ) : array("/yupe/backend")
             );
         }
     }

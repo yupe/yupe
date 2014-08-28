@@ -16,7 +16,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('User.UserBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('User.UserBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('User.UserBackend.Index')),
@@ -32,8 +32,8 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'User',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'User',
                 'validAttributes' => array('access_level', 'status', 'email_confirm')
             )
         );
@@ -117,7 +117,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
+                    (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('create')
                     )
@@ -152,7 +152,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
+                    (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('update', 'id' => $model->id)
                     )
@@ -192,7 +192,7 @@ class UserBackendController extends yupe\components\controllers\BackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(

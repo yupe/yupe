@@ -24,10 +24,10 @@ class UserToken extends yupe\models\YModel
      * email_verify    - подтверждение почты
      * cookie_auth     - авторизация через куки
      */
-    const TYPE_ACTIVATE        = 1;
+    const TYPE_ACTIVATE = 1;
     const TYPE_CHANGE_PASSWORD = 2;
-    const TYPE_EMAIL_VERIFY    = 3;
-    const TYPE_COOKIE_AUTH     = 4;
+    const TYPE_EMAIL_VERIFY = 3;
+    const TYPE_COOKIE_AUTH = 4;
 
     /**
      * Статусы токенов:
@@ -36,9 +36,9 @@ class UserToken extends yupe\models\YModel
      * activate - использован
      * fail     - истёк/компроментирован
      */
-    const STATUS_NEW      = 0;
+    const STATUS_NEW = 0;
     const STATUS_ACTIVATE = 1;
-    const STATUS_FAIL     = 2;
+    const STATUS_FAIL = 2;
 
     /**
      * Старый статус
@@ -64,12 +64,12 @@ class UserToken extends yupe\models\YModel
         // will receive user inputs.
         return array(
             array('user_id, type, ip, token, expire', 'required'),
-            array('user_id, type, status', 'numerical', 'integerOnly'=>true),
+            array('user_id, type, status', 'numerical', 'integerOnly' => true),
             array('token, ip', 'length', 'max' => 255),
             array('updated', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, token, type, status, created, updated, ip', 'safe', 'on'=>'search'),
+            array('id, user_id, token, type, status, created, updated, ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -149,7 +149,7 @@ class UserToken extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, array(
                 'criteria' => $criteria,
-                'sort' => array(
+                'sort'     => array(
                     'defaultOrder' => 't.id DESC',
                 )
             )
@@ -164,7 +164,9 @@ class UserToken extends yupe\models\YModel
     public static function getUserList()
     {
         return CHtml::listData(
-            User::model()->findAll(), 'id', function ($data) {
+            User::model()->findAll(),
+            'id',
+            function ($data) {
                 return $data->getFullName();
             }
         );
@@ -178,7 +180,7 @@ class UserToken extends yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_NEW     => Yii::t('UserModule.user', 'New'),
+            self::STATUS_NEW      => Yii::t('UserModule.user', 'New'),
             self::STATUS_ACTIVATE => Yii::t('UserModule.user', 'Activated'),
             self::STATUS_FAIL     => Yii::t('UserModule.user', 'Compromised by'),
         );
@@ -208,18 +210,19 @@ class UserToken extends yupe\models\YModel
      */
     public static function getDateList($dateField = 'created')
     {
-        $sql =  'left(' . $dateField . ', 10)';
+        $sql = 'left(' . $dateField . ', 10)';
 
         // Список дат, обрезаем до формата YYYY-MM-DD и кешируем запрос:
         $dateList = self::model()->cache(
-            3600, new TagsCache('user-tokens-dateList', 'dateList-' . $dateField)
+            3600,
+            new TagsCache('user-tokens-dateList', 'dateList-' . $dateField)
         )->findAll(
-            array(
-                'select' => $sql . ' as ' . $dateField,
-                'group' => $dateField,
-                'order' => $dateField . ' DESC'
-            )
-        );
+                array(
+                    'select' => $sql . ' as ' . $dateField,
+                    'group'  => $dateField,
+                    'order'  => $dateField . ' DESC'
+                )
+            );
 
         return CHtml::listData($dateList, $dateField, $dateField);
     }
@@ -234,8 +237,8 @@ class UserToken extends yupe\models\YModel
         $typeList = $this->getTypeList();
 
         return isset($typeList[$this->type])
-                ? $typeList[$this->type]
-                : $this->type;
+            ? $typeList[$this->type]
+            : $this->type;
     }
 
     /**
@@ -247,14 +250,14 @@ class UserToken extends yupe\models\YModel
     {
         $statusList = $this->getStatusList();
 
-        $status = (int) $this->status;
+        $status = (int)$this->status;
 
         return isset($statusList[$status]) ? $statusList[$status] : $status;
     }
 
     public function getIsCompromised()
     {
-        return (int) $this->status === self::STATUS_FAIL;
+        return (int)$this->status === self::STATUS_FAIL;
     }
 
     public function beforeValidate()
@@ -292,15 +295,15 @@ class UserToken extends yupe\models\YModel
     public function getFullName()
     {
         return $this->user instanceof User
-                ? $this->user->getFullName()
-                : $this->user_id;
+            ? $this->user->getFullName()
+            : $this->user_id;
     }
 
     /**
      * Форматирование даты:
      *
      * @param string $dateField - дата
-     * @param string $format    - формат
+     * @param string $format - формат
      *
      * @return string
      */
@@ -312,10 +315,10 @@ class UserToken extends yupe\models\YModel
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
-     * @param  string    $className active record class name.
+     * @param  string $className active record class name.
      * @return UserToken the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }

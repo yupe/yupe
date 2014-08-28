@@ -16,7 +16,7 @@ use Yii;
 
 class YSLugValidator extends CValidator
 {
-    public function validateAttribute($object,$attribute)
+    public function validateAttribute($object, $attribute)
     {
         $value = $object->$attribute;
 

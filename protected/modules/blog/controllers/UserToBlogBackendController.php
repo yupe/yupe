@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UserToBlogBackendController контроллер для управления участниками блога
  *
@@ -9,13 +10,12 @@
  * @since 0.1
  *
  */
-
 class UserToBlogBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Blog.UserToBlogBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Blog.UserToBlogBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Blog.UserToBlogBackend.Index')),
@@ -30,12 +30,13 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'UserToBlog',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'UserToBlog',
                 'validAttributes' => array('status', 'role', 'note')
             )
         );
     }
+
     /**
      * Отображает участника по указанному идентификатору
      * @param integer $id Идинтификатор участника для отображения
@@ -64,8 +65,9 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                     );
 
                     $this->redirect(
-                        (array) Yii::app()->getRequest()->getPost(
-                            'submit-type', array('create')
+                        (array)Yii::app()->getRequest()->getPost(
+                            'submit-type',
+                            array('create')
                         )
                     );
                 }
@@ -130,7 +132,10 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
             }
         } else {
-            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this!'));
+            throw new CHttpException(400, Yii::t(
+                'BlogModule.blog',
+                'Wrong request. Please don\'t repeate requests like this!'
+            ));
         }
     }
 

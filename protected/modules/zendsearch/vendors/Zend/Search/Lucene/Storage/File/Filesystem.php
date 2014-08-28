@@ -179,7 +179,7 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
      * Writes $length number of bytes (all, if $length===null) to the end
      * of the file.
      *
-     * @param string  $data
+     * @param string $data
      * @param integer $length
      */
     protected function _fwrite($data, $length = null)
