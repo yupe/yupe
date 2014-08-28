@@ -77,7 +77,7 @@ class BackController extends Controller
             new YupeBackendControllerInitEvent($this, Yii::app()->getUser())
         );
 
-        if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
+        if ($backendTheme && is_dir(Yii::getPathOfAlias("themes.backend_" . $backendTheme))) {
             Yii::app()->theme = "backend_" . $backendTheme;
         } else {
             Yii::app()->theme = $this->yupe->theme;

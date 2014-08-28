@@ -656,7 +656,7 @@ class YupeModule extends WebModule
     public function getBackendLayoutAlias($layoutName = '')
     {
         if ($this->backendTheme) {
-            return 'webroot.themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
+            return 'themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
         } else {
             return 'application.modules.yupe.views.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
         }
