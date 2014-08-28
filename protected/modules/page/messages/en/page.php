@@ -117,5 +117,5 @@ return array (
     'are required.' => '',
     'manage' => '',
     'Removed' => '',
-	'Select {field}' => '',
+    'Select {field}' => '',
 );

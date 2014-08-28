@@ -44,4 +44,4 @@ class EmailFeedbackSender extends  DbFeedbackSender implements IFeedbackSender
 
         return $result;
     }
-} 
+}

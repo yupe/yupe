@@ -24,7 +24,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
@@ -57,9 +57,9 @@ class MenuBackendController extends yupe\components\controllers\BackController
                     )
                 ); ?>";
 
-        $highlighter = new CTextHighlighter;
+        $highlighter = new CTextHighlighter();
         $highlighter->language = 'PHP';
-        $example = $highlighter->highlight($code); 
+        $example = $highlighter->highlight($code);
 
         $this->render('view', array(
             'model'   => $model,
@@ -73,7 +73,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new Menu;
+        $model = new Menu();
 
         if (($data = Yii::app()->getRequest()->getPost('Menu')) !== null) {
 
@@ -128,9 +128,9 @@ class MenuBackendController extends yupe\components\controllers\BackController
     /**
      * Удаляет модель меню из базы.
      * Если удаление прошло успешно - возвращется в index
-     * 
+     *
      * @param integer $id идентификатор меню, который нужно удалить
-     * 
+     *
      */
     public function actionDelete($id)
     {
@@ -153,7 +153,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 Yii::t('MenuModule.menu', 'Bad request. Please don\'t try similar requests anymore!')
             );
         }
-    }   
+    }
 
     /**
      * Управление блогами.
@@ -163,22 +163,22 @@ class MenuBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new Menu('search');
-        
+
         $model->unsetAttributes();  // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Menu', array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * 
+     *
      * @param integer идентификатор нужной модели
      *
      * @return Menu $model
@@ -193,6 +193,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 Yii::t('MenuModule.menu', 'Page was not found!')
             );
         }
+
         return $model;
     }
 }

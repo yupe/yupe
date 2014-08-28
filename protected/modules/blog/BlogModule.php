@@ -39,7 +39,7 @@ class BlogModule extends yupe\components\WebModule
         // count moderated users
         $membersCnt = UserToBlog::model()->count('status = :status', array(':status' => UserToBlog::STATUS_CONFIRMATION));
 
-        if($membersCnt) {
+        if ($membersCnt) {
             $messages[WebModule::CHECK_NOTICE][] = array(
                 'type' => WebModule::CHECK_NOTICE,
                 'message' => Yii::t('BlogModule.blog', '{count} new members of blog wait for confirmation!', array(
@@ -50,7 +50,7 @@ class BlogModule extends yupe\components\WebModule
 
         $postsCount = Post::model()->count('status = :status', array(':status' => Post::STATUS_MODERATED));
 
-        if($postsCount) {
+        if ($postsCount) {
             $messages[WebModule::CHECK_NOTICE][] = array(
                 'type' => WebModule::CHECK_NOTICE,
                 'message' => Yii::t('BlogModule.blog', '{count} new posts wait for moderation!', array(
@@ -95,7 +95,7 @@ class BlogModule extends yupe\components\WebModule
             'maxSize',
             'rssCount'
         );
-    }   
+    }
 
     public function getCategoryListForPost()
     {
@@ -108,18 +108,18 @@ class BlogModule extends yupe\components\WebModule
             array('label' => Yii::t('BlogModule.blog', 'Blogs')),
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Blog list'), 'url' => array('/blog/blogBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogBackend/create')),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Blogs categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Blogs categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
             array('label' => Yii::t('BlogModule.blog', 'Posts')),
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Post list'), 'url' => array('/blog/postBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postBackend/create')),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Posts categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('BlogModule.blog', 'Posts categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
             array('label' => Yii::t('BlogModule.blog', 'Members')),
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Member list'), 'url' => array('/blog/userToBlogBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogBackend/create')),
         );
     }
 
-    public  function getVersion()
+    public function getVersion()
     {
         return Yii::t('BlogModule.blog', self::VERSION);
     }
@@ -167,8 +167,8 @@ class BlogModule extends yupe\components\WebModule
     public function getIsInstallDefault()
     {
         return true;
-    }	
-	
+    }
+
     public function init()
     {
         parent::init();

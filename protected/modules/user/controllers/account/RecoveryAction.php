@@ -36,7 +36,7 @@ class RecoveryAction extends CAction
         }
 
         // Новая форма восстановления пароля:
-        $form = new RecoveryForm;
+        $form = new RecoveryForm();
 
         if (($data = Yii::app()->getRequest()->getPost('RecoveryForm')) !== null) {
 

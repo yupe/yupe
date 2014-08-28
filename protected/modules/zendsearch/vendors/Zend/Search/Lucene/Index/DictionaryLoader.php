@@ -44,7 +44,7 @@ class Zend_Search_Lucene_Index_DictionaryLoader
      *
      * See Zend_Search_Lucene_Index_SegmintInfo class for details
      *
-     * @param string $data
+     * @param  string                       $data
      * @return array
      * @throws Zend_Search_Lucene_Exception
      */
@@ -57,8 +57,8 @@ class Zend_Search_Lucene_Index_DictionaryLoader
         // $tiVersion = $tiiFile->readInt();
         $tiVersion = ord($data[0]) << 24 | ord($data[1]) << 16 | ord($data[2]) << 8 | ord($data[3]);
         $pos += 4;
-        if ($tiVersion != (int)0xFFFFFFFE /* pre-2.1 format */ &&
-            $tiVersion != (int)0xFFFFFFFD /* 2.1+ format    */
+        if ($tiVersion != (int) 0xFFFFFFFE /* pre-2.1 format */ &&
+            $tiVersion != (int) 0xFFFFFFFD /* 2.1+ format    */
         ) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong TermInfoIndexFile file format');
@@ -103,7 +103,7 @@ class Zend_Search_Lucene_Index_DictionaryLoader
             throw new Zend_Search_Lucene_Exception('Wrong number of terms in a term dictionary index');
         }
 
-        if ($tiVersion == (int)0xFFFFFFFD /* 2.1+ format */) {
+        if ($tiVersion == (int) 0xFFFFFFFD /* 2.1+ format */) {
             /* Skip MaxSkipLevels value */
             $pos += 4;
         }
@@ -244,7 +244,6 @@ class Zend_Search_Lucene_Index_DictionaryLoader
             }
             $indexPointer += $vint;
 
-
             // $this->_termDictionary[] =  new Zend_Search_Lucene_Index_Term($termValue, $termFieldNum);
             $termDictionary[] = array($termFieldNum, $termValue);
 
@@ -256,7 +255,7 @@ class Zend_Search_Lucene_Index_DictionaryLoader
         }
 
         // Check special index entry mark
-        if ($termDictionary[0][0] != (int)0xFFFFFFFF) {
+        if ($termDictionary[0][0] != (int) 0xFFFFFFFF) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong TermInfoIndexFile file format');
         }
@@ -269,4 +268,3 @@ class Zend_Search_Lucene_Index_DictionaryLoader
         return array($termDictionary, $termInfos);
     }
 }
-

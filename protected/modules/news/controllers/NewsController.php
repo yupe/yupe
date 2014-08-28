@@ -24,8 +24,7 @@ class NewsController extends yupe\components\controllers\FrontController
         }
 
         // проверим что пользователь может просматривать эту новость
-        if ($news->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
-        {
+        if ($news->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
@@ -49,7 +48,7 @@ class NewsController extends yupe\components\controllers\FrontController
                 'with'      => array('user'),
         ));
 
-        if(!Yii::app()->user->isAuthenticated()) {
+        if (!Yii::app()->user->isAuthenticated()) {
             $dbCriteria->mergeWith(array(
                 'condition' => 'is_protected = :is_protected',
                 'params' => array(
@@ -57,14 +56,14 @@ class NewsController extends yupe\components\controllers\FrontController
                 )
             ));
         }
-        
-        if($this->isMultilang()){
+
+        if ($this->isMultilang()) {
             $dbCriteria->mergeWith(array(
                 'condition' => 't.lang = :lang',
                 'params'    => array(':lang' => Yii::app()->language),
-            ));            
+            ));
         }
-        
+
         $dataProvider = new CActiveDataProvider('News', array( 'criteria' => $dbCriteria ));
         $this->render('index', array('dataProvider' => $dataProvider));
     }

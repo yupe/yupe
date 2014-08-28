@@ -14,11 +14,11 @@ class CommentRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int)Yii::app()->getModule('comment')->rssCount)) {
+        if (!($limit = (int) Yii::app()->getModule('comment')->rssCount)) {
             throw new CHttpException(404);
         }
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->order = 't.creation_date DESC';
         $criteria->params = array();
         $criteria->limit = $limit;
@@ -29,7 +29,7 @@ class CommentRssController extends yupe\components\controllers\RssController
         $this->description = $yupe->siteDescription;
 
         $model = Yii::app()->getRequest()->getQuery('model');
-        $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
+        $modelId = (int) Yii::app()->getRequest()->getQuery('modelId');
 
         if (empty($model) || empty($modelId)) {
             throw new CHttpException(404);

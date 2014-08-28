@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
- 
+
 class PostCategoryWidget extends yupe\widgets\YWidget
 {
     public $view = 'post-category';
@@ -23,7 +23,6 @@ class PostCategoryWidget extends yupe\widgets\YWidget
             ->join('{{category_category}} c','p.category_id = c.id')
             ->order('postCnt DESC')
             ->group('c.id')->queryAll();
-
 
         $this->render($this->view,array('data' => $data));
     }

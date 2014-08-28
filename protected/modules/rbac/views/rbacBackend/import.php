@@ -74,4 +74,3 @@ $this->widget(
 ?>
 
 <?php $this->endWidget(); ?>
-

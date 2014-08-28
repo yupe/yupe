@@ -88,9 +88,10 @@ class TestEnvCommand extends CConsoleCommand
     private function createConfigFile($dir, $fileName, $distFileName)
     {
         $config = $dir."/".$fileName;
-        if(!file_exists($config)) {
+        if (!file_exists($config)) {
             return copy($dir.'/'.$distFileName,$config);
         }
+
         return false;
     }
 
@@ -126,13 +127,15 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function replaceDbOptionsInConfig($file)
     {
-        if(file_exists($file)) {
+        if (file_exists($file)) {
             $fileContents = file_get_contents($file,FILE_TEXT);
             $fileContents = preg_replace('/<db\.name>/is',$this->dbOptions['dbname'],$fileContents);
             $fileContents = preg_replace('/<db\.user>/is',$this->dbOptions['dbuser'],$fileContents);
             $fileContents = preg_replace('/<db\.pass>/is',$this->dbOptions['dbpass'],$fileContents);
+
             return (bool) file_put_contents($file,$fileContents,FILE_TEXT);
         }
+
         return false;
     }
 
@@ -143,9 +146,10 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function removeConfigFile($file)
     {
-        if(file_exists($file)) {
+        if (file_exists($file)) {
             return unlink($file);
         }
+
         return true;
     }
 }

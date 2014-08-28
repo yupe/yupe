@@ -3,8 +3,8 @@
 namespace application\modules\social\components\services;
 use \VKontakteOAuthService;
 
-class VKontakte extends VKontakteOAuthService {
-
+class VKontakte extends VKontakteOAuthService
+{
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
@@ -15,8 +15,10 @@ class VKontakte extends VKontakteOAuthService {
                 'service' => $this->getServiceName(),
                 'type' => $this->getServiceType(),
             ));
+
             return true;
         }
+
         return false;
     }
 

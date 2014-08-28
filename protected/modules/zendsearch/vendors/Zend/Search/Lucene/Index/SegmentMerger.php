@@ -23,7 +23,6 @@
 /** Zend_Search_Lucene_Index_SegmentInfo */
 require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -69,7 +68,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
      */
     private $_fieldsMap = array();
 
-
     /**
      * Object constructor.
      *
@@ -77,7 +75,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
      * and $name as a name of new segment
      *
      * @param Zend_Search_Lucene_Storage_Directory $directory
-     * @param string $name
+     * @param string                               $name
      */
     public function __construct($directory, $name)
     {
@@ -85,7 +83,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
         require_once 'Zend/Search/Lucene/Index/SegmentWriter/StreamWriter.php';
         $this->_writer = new Zend_Search_Lucene_Index_SegmentWriter_StreamWriter($directory, $name);
     }
-
 
     /**
      * Add segmnet to a collection of segments to be merged
@@ -96,7 +93,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
     {
         $this->_segmentInfos[$segmentInfo->getName()] = $segmentInfo;
     }
-
 
     /**
      * Do merge.
@@ -129,7 +125,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
 
         return $this->_writer->close();
     }
-
 
     /**
      * Merge fields information
@@ -215,7 +210,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
             }
         }
     }
-
 
     /**
      * Merge fields information

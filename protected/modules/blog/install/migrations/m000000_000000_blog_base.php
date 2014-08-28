@@ -58,7 +58,6 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{blog_blog}}_update_user", '{{blog_blog}}', 'update_user_id', '{{user_user}}', 'id', 'NO ACTION', 'NO ACTION');
         $this->addForeignKey("fk_{{blog_blog}}_category_id", '{{blog_blog}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
 
-
         // post
         $this->createTable(
             '{{blog_post}}',
@@ -98,7 +97,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{blog_post}}_slug", '{{blog_post}}', "slug", false);
         $this->createIndex("ix_{{blog_post}}_publish_date", '{{blog_post}}', "publish_date", false);
 
-        //fks 
+        //fks
         $this->addForeignKey("fk_{{blog_post}}_blog", '{{blog_post}}', 'blog_id', '{{blog_blog}}', 'id', 'CASCADE', 'NO ACTION');
         $this->addForeignKey("fk_{{blog_post}}_create_user", '{{blog_post}}', 'create_user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
         $this->addForeignKey("fk_{{blog_post}}_update_user", '{{blog_post}}', 'update_user_id', '{{user_user}}', 'id', 'NO ACTION', 'NO ACTION');
@@ -178,7 +177,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
             $this->getOptions()
         );
 
-        //ix  
+        //ix
         $this->createIndex("ix_{{blog_post_to_tag}}_post_id", '{{blog_post_to_tag}}', "post_id", false);
         $this->createIndex("ix_{{blog_post_to_tag}}_tag_id", '{{blog_post_to_tag}}', "tag_id", false);
 

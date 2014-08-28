@@ -215,7 +215,6 @@ class User extends yupe\models\YModel
         );
     }
 
-
     /**
      * Проверка верификации почты:
      *
@@ -225,7 +224,6 @@ class User extends yupe\models\YModel
     {
         return $this->email_confirm;
     }
-
 
     /**
      * Строковое значение верификации почты пользователя:
@@ -246,7 +244,7 @@ class User extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.change_date', $this->change_date, true);
@@ -269,7 +267,7 @@ class User extends yupe\models\YModel
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => (int)$this->pageSize,
+                'pageSize' => (int) $this->pageSize,
             ),
             'sort' => array(
                 'defaultOrder' => 'id DESC',
@@ -300,7 +298,7 @@ class User extends yupe\models\YModel
      */
     public function beforeValidate()
     {
-        $this->gender = $this->gender ? : self::GENDER_THING;
+        $this->gender = $this->gender ?: self::GENDER_THING;
 
         return parent::beforeValidate();
     }
@@ -320,8 +318,8 @@ class User extends yupe\models\YModel
             // администратора:
             if (
                 $this->admin()->count() == 1
-                && (int)$this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
-                && ((int)$this->access_level === self::ACCESS_LEVEL_USER || (int)$this->status !== self::STATUS_ACTIVE)
+                && (int) $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
+                && ((int) $this->access_level === self::ACCESS_LEVEL_USER || (int) $this->status !== self::STATUS_ACTIVE)
             ) {
                 $this->addError(
                     'access_level',
@@ -339,7 +337,6 @@ class User extends yupe\models\YModel
 
         return parent::beforeSave();
     }
-
 
     /**
      * Метод перед удалением:
@@ -503,7 +500,6 @@ class User extends yupe\models\YModel
             : $data[self::GENDER_THING];
     }
 
-
     /**
      * Получить url аватарки пользователя:
      * -----------------------------------
@@ -518,7 +514,7 @@ class User extends yupe\models\YModel
      */
     public function getAvatar($size = 64)
     {
-        $size = (int)$size;
+        $size = (int) $size;
 
         $userModule = Yii::app()->getModule('user');
 
@@ -548,7 +544,7 @@ class User extends yupe\models\YModel
     /**
      * Получаем полное имя пользователя:
      *
-     * @param  string $separator - разделитель
+     * @param string $separator - разделитель
      *
      * @return string
      */
@@ -558,7 +554,6 @@ class User extends yupe\models\YModel
             ? $this->last_name . $separator . $this->first_name . ($this->middle_name ? ($separator . $this->middle_name) : "")
             : $this->nick_name;
     }
-
 
     /**
      * Удаление старого аватара:
@@ -620,6 +615,6 @@ class User extends yupe\models\YModel
      */
     public function isActive()
     {
-        return (int)$this->status === self::STATUS_ACTIVE;
+        return (int) $this->status === self::STATUS_ACTIVE;
     }
 }

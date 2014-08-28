@@ -56,23 +56,25 @@ $this->widget(
     );
 
     echo "var total=" . count($modules) . ";\n var modules = {\n";
-    foreach ($modules as $m)
-        {echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";}
+    foreach ($modules as $m) {echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";}
     echo "\n};";
     ?>
 
-    function log(msg) {
+    function log(msg)
+    {
         $("#log-content").append(msg.replace("\n", "<br/>"));
     }
 
     var ic = 1;
-    function setModuleProgress(installed, message) {
+    function setModuleProgress(installed, message)
+    {
         $('div.bar').css('width', (total ? (installed * 100 / total) : 100) + "%");
         $('#msg').html(message);
         $('small#modstate').text(installed + " / " + total);
     }
 
-    function installNext() {
+    function installNext()
+    {
         var ic = 0;
         $.each(modules, function (i, m) {
             ic++;

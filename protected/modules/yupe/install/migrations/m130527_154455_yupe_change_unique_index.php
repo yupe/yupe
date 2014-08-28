@@ -20,11 +20,11 @@ class m130527_154455_yupe_change_unique_index extends yupe\components\DbMigratio
     {
         //Delete old unique index:
         $this->dropIndex("ux_{{yupe_settings}}_module_id_param_name", '{{yupe_settings}}');
-        
+
         // Create new unique index:
         $this->createIndex("ux_{{yupe_settings}}_module_id_param_name_user_id", '{{yupe_settings}}', "module_id,param_name,user_id", true);
     }
- 
+
     /**
      * Функция удаления таблицы:
      *
@@ -34,7 +34,7 @@ class m130527_154455_yupe_change_unique_index extends yupe\components\DbMigratio
     {
         //Delete old unique index:
         $this->dropIndex("ux_{{yupe_settings}}_module_id_param_name_user_id", '{{yupe_settings}}');
-        
+
         // Create new unique index:
         $this->createIndex("ux_{{yupe_settings}}_module_id_param_name", '{{yupe_settings}}', "module_id,param_name", true);
     }

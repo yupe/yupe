@@ -57,7 +57,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new Category;
+        $model = new Category();
 
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
 
@@ -84,10 +84,10 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         $id        = (int) Yii::app()->getRequest()->getQuery('id');
         $lang      = Yii::app()->getRequest()->getQuery('lang');
 
-        if(!empty($id) && !empty($lang)) {
+        if (!empty($id) && !empty($lang)) {
             $category = Category::model()->findByPk($id);
 
-            if(null === $category) {
+            if (null === $category) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('CategoryModule.category', 'Targeting category was not found!')
@@ -95,7 +95,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(array('create'));
             }
 
-            if(!array_key_exists($lang, $languages)) {
+            if (!array_key_exists($lang, $languages)) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('CategoryModule.category', 'Language was not found!')
@@ -117,7 +117,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             $model->alias     = $category->alias;
             $model->parent_id = $category->parent_id;
             $model->name      = $category->name;
-        }else{
+        } else {
             $model->lang = Yii::app()->language;
         }
 
@@ -140,7 +140,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getPost('Category'));
 
-			if ($model->save()) {
+            if ($model->save()) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -203,7 +203,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                         (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
                     );
                 }
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $transaction->rollback();
 
                 Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
@@ -249,6 +249,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         $model = Category::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('CategoryModule.category', 'Page was not found!'));
+
         return $model;
     }
 

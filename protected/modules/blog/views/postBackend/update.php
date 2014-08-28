@@ -1,14 +1,14 @@
 <?php
 /**
  * Отображение для postBackend/update:
- * 
+ *
  *   @category YupeView
  *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(   
+$this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Posts') => array('/blog/postBackend/index'),
     $model->title => array('/blog/postBackend/view', 'id' => $model->id),
     Yii::t('BlogModule.blog', 'Edit'),

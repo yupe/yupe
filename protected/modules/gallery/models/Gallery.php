@@ -12,7 +12,6 @@
  *
  */
 
-
 /**
  * This is the model class for table "Gallery".
  *
@@ -31,7 +30,7 @@ class Gallery extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string  $className
      * @return Gallery the static model class
      */
     public static function model($className = __CLASS__)
@@ -88,7 +87,7 @@ class Gallery extends yupe\models\YModel
     public function beforeValidate()
     {
         // Проверяем наличие установленного хозяина галереи
-        if (isset($this->owner) && empty($this->owner)){
+        if (isset($this->owner) && empty($this->owner)) {
             $this->owner = Yii::app()->user->getId();
         }
 
@@ -119,7 +118,7 @@ class Gallery extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
@@ -143,12 +142,13 @@ class Gallery extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('GalleryModule.gallery', '*неизвестно*');
     }
 
     public function addImage(Image $image)
     {
-        $im2g = new ImageToGallery;
+        $im2g = new ImageToGallery();
 
         $im2g->setAttributes(array(
             'image_id'  => $image->id,
@@ -163,7 +163,7 @@ class Gallery extends yupe\models\YModel
      *
      * @param int $width  - ширина
      * @param int $height - высота
-     * 
+     *
      * @return string image Url
      **/
     public function previewImage($width = 190, $height = 190)

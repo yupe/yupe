@@ -26,11 +26,11 @@ $this->menu = array(
 Yii::app()->clientScript->registerScript(
     'search',
     "
-    $('.search-button').click(function(){
+    $('.search-button').click(function () {
     	$('.search-form').toggle();
     	return false;
     });
-    $('.search-form').submit(function(){
+    $('.search-form').submit(function () {
     	$.fn.yiiGridView.update('mail-event-grid', {
     		data: $(this).serialize()
     	});
@@ -58,10 +58,11 @@ Yii::app()->clientScript->registerScript(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form').submit(function(){       
+    $('.search-form').submit(function () {
         $.fn.yiiGridView.update('mail-event-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });"
     );

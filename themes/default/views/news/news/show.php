@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для ./themes/default/views/news/news/news.php:
- * 
+ *
  *   @category YupeView
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>

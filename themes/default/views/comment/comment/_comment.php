@@ -2,14 +2,14 @@
     <div class="comments-item-main" id="comment-<?php echo $comment->id;?>"  level="<?php echo $level; ?>">
         <div class="comments-item-avatar">
             <a href="<?php echo $comment->getAuthorUrl()?>"><?php echo $comment->getAuthorAvatar();?></a>
-        </div>     
+        </div>
         <div class="comments-item-top">
             <div class="comments-item-author">
                 <?php echo $comment->getAuthorLink();?>
             </div>
             <div class="comments-item-date">
                 <time datetime="<?php echo str_replace(' ', '_', $comment->creation_date); ?>"><?php echo Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?></time>
-            </div>                        
+            </div>
         </div>
         <div class="comments-item-message">
             <?php echo trim($comment->getText()) ;?>

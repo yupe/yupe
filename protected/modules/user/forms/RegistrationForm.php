@@ -25,7 +25,7 @@ class RegistrationForm extends CFormModel
     {
         $module = Yii::app()->getModule('user');
 
-        if(!$module->showCaptcha || !CCaptcha::checkRequirements() || $this->disableCaptcha) {
+        if (!$module->showCaptcha || !CCaptcha::checkRequirements() || $this->disableCaptcha) {
             return false;
         }
 
@@ -49,7 +49,7 @@ class RegistrationForm extends CFormModel
             array('email', 'checkEmail'),
             array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$this->isCaptchaEnabled(), 'message' => Yii::t('UserModule.user', 'Check code incorrect')),
             array('verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()),
-            array('verifyCode', 'emptyOnInvalid')            
+            array('verifyCode', 'emptyOnInvalid')
         );
     }
 
@@ -62,7 +62,7 @@ class RegistrationForm extends CFormModel
             'cPassword'  => Yii::t('UserModule.user', 'Password confirmation'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         );
-    }    
+    }
 
     public function checkNickName($attribute,$params)
     {
@@ -76,7 +76,7 @@ class RegistrationForm extends CFormModel
     public function checkEmail($attribute,$params)
     {
         $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
-        
+
         if ($model) {
             $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));
         }

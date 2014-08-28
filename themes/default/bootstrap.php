@@ -31,7 +31,6 @@ foreach ($scripts as $script => $position) {
     $clientScript->registerScriptFile($assetPath . '/js/' . $script, $position);
 }
 
-
 $clientScript->registerScript('baseUrl', "var baseUrl = '" . Yii::app()->getBaseUrl() . "'", CClientScript::POS_HEAD);
 
 // Favicon

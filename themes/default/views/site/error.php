@@ -18,7 +18,7 @@
                             'alt'   => Yii::t('default','go to home page'),
                         )
                     ),
-                        
+
                 )
             );
             break;

@@ -33,9 +33,8 @@ class PagesWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        if ($this->visible)
-        {
-            $criteria = new CDbCriteria;
+        if ($this->visible) {
+            $criteria = new CDbCriteria();
             $criteria->order = $this->order;
             $criteria->addCondition("status = {$this->pageStatus}");
 

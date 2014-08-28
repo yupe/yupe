@@ -11,15 +11,15 @@ class Hasher extends CApplicationComponent
     {
         return CPasswordHelper::hashPassword($password);
     }
-    
+
     public function checkPassword($password, $hash)
     {
         return CPasswordHelper::verifyPassword($password, $hash);
     }
-    
+
     public function generateRandomToken($length = 32)
     {
-        return Yii::app()->getSecurityManager()->generateRandomString((int)$length);
+        return Yii::app()->getSecurityManager()->generateRandomString((int) $length);
     }
 
     public function generateRandomPassword($length = 8)

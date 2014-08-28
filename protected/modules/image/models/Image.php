@@ -160,7 +160,7 @@ class Image extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.name', $this->name, true);
@@ -232,7 +232,7 @@ class Image extends yupe\models\YModel
     /**
      * Получаем URL к файлу:
      *
-     * @param int $width - параметр ширины для изображения
+     * @param int $width  - параметр ширины для изображения
      * @param int $height - параметр высоты для изображения
      *
      * @return string URL к файлу
@@ -254,7 +254,7 @@ class Image extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('image');
 
-		return Yii::app()->uploadManager->getFileUrl($this->file, $module->uploadPath);
+        return Yii::app()->uploadManager->getFileUrl($this->file, $module->uploadPath);
     }
 
     /**

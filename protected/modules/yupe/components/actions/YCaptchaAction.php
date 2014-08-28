@@ -33,7 +33,7 @@ class YCaptchaAction extends CCaptchaAction
 
     /**
      * @param \CController $controller
-     * @param string $id
+     * @param string       $id
      */
     public function __construct($controller,$id)
     {
@@ -41,10 +41,10 @@ class YCaptchaAction extends CCaptchaAction
 
         $module = $controller->getModule();
 
-        if(property_exists($module,"minCaptchaLength")) {
+        if (property_exists($module,"minCaptchaLength")) {
             $this->minLength = $module->minCaptchaLength;
         }
-        if(property_exists($module,"maxCaptchaLength")) {
+        if (property_exists($module,"maxCaptchaLength")) {
             $this->maxLength = $module->maxCaptchaLength;
         }
     }

@@ -62,10 +62,9 @@ class Controller extends \CController
      */
     public function setPageTitle($title,$savePrev=false,$separator='|')
     {
-        if($savePrev) {
+        if ($savePrev) {
             $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
-        }
-        else {
+        } else {
             $this->pageTitle = CHtml::encode($title);
         }
     }
@@ -99,7 +98,7 @@ class Controller extends \CController
      * @param bool   $captureOutput - требуется ли "захват" вывода виджета
      *
      * @return mixed Инстанс виджета в случае, когда $captureOutput является ложным,
-     * или вывод виджета, когда $captureOutput - истина
+     *               или вывод виджета, когда $captureOutput - истина
      **/
     public function widget($className, $properties = array(), $captureOutput = false)
     {
@@ -112,7 +111,7 @@ class Controller extends \CController
                     && !Yii::app()->hasModule($modulePath[2]);
 
             if (Yii::getPathOfAlias($className) == false || $isModule) {
-                
+
                 $modulePath = explode('.', $className);
 
                 if ($isModule) {
@@ -139,7 +138,7 @@ class Controller extends \CController
             }
 
             $widget = parent::widget($className, $properties, $captureOutput);
-        
+
         } catch (CException $e) {
 
             echo CHtml::tag(
@@ -172,6 +171,7 @@ class Controller extends \CController
     public function processOutput($output)
     {
         ContentType::setHeader($this->headerTypeId);
+
         return parent::processOutput($output);
     }
 
@@ -180,7 +180,7 @@ class Controller extends \CController
      *
      * @param string  $message - сообщение
      * @param integer $error   - код ошибки
-     * 
+     *
      * @return void
      */
     protected function badRequest($message = null, $error = 400)

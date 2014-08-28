@@ -10,7 +10,6 @@
  *
  */
 
-
 /**
  * This is the model class for table "dictionary_group".
  *
@@ -33,7 +32,7 @@ class DictionaryGroup extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string          $className
      * @return DictionaryGroup the static model class
      */
     public static function model($className = __CLASS__)
@@ -110,7 +109,7 @@ class DictionaryGroup extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('code', $this->code, true);
@@ -129,8 +128,7 @@ class DictionaryGroup extends yupe\models\YModel
         $this->update_user_id = Yii::app()->user->getId();
         $this->update_date    = new CDbExpression('NOW()');
 
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
             $this->creation_date  = $this->update_date;
         }

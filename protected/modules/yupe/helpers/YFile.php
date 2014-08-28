@@ -12,7 +12,6 @@
  *
  */
 
-
 namespace yupe\helpers;
 
 use CFileHelper;
@@ -47,26 +46,26 @@ class YFile extends CFileHelper
         }
     }
 
-
     /**
      * @param $path
-     * @param int $rights
-     * @param bool $recursive
+     * @param  int  $rights
+     * @param  bool $recursive
      * @return bool
      */
     public static function checkPath($path, $rights = 0777, $recursive = true)
     {
         if (!is_dir($path)) { // проверка на существование директории
+
             return mkdir($path, $rights, $recursive); // возвращаем результат создания директории
         } else {
             if (!is_writable($path)) { // проверка директории на доступность записи
+
                 return false;
             }
         }
 
         return true; // папка существует и доступна для записи
     }
-
 
     /**
      * Рекрусивное удаление директорий.

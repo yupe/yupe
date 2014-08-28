@@ -24,7 +24,6 @@ Yii::app()->clientScript->registerScript(
     CClientScript::POS_READY
 );
 
-
 ?>
 
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
@@ -208,38 +207,40 @@ $js = <<<EOF
             arrayRevert    = {$jsArrayRevert},
             arrayNoDisable = {$jsArrayNoDisable};
 
-        function checkedCount() {
+        function checkedCount()
+        {
             $('.checked-count').text($('#module-list').find("input:checked").length);
         }
         checkedCount();
 
-        $.each(arrayRevert, function(i, val) {
-            if ($.inArray(i, arrayNoDisable) == -1)
-            {
-                $.each(val, function(iRevert, valRevert) {
+        $.each(arrayRevert, function (i, val) {
+            if ($.inArray(i, arrayNoDisable) == -1) {
+                $.each(val, function (iRevert, valRevert) {
                     if ($('#module_' + valRevert).attr('checked')) {
                         $('#module_' + i).attr('checked', true).attr('onclick', "this.checked=true");
                         $('#module_' + i).parent().siblings('.check-label').find('.dependents').show();
+
                         return false;
                     }
                 });
             }
         });
 
-        $(document).on('change', '#module_{$keyDependencies}', function() {
+        $(document).on('change', '#module_{$keyDependencies}', function () {
             checkedCount();
             var id = $(this).attr('id').replace('module_', '');
             if ($(this).attr('checked')) {
-                $.each(array[id], function(i, val) {
+                $.each(array[id], function (i, val) {
                     $('#module_' + val).attr('checked', true).attr('onclick', "this.checked=true");
                 });
             } else {
-                $.each(array[id], function(i, val) {
+                $.each(array[id], function (i, val) {
                     if ($.inArray(val, arrayNoDisable) == -1) {
                         var all = false;
-                        $.each(arrayRevert[val], function(iRevert, valRevert) {
+                        $.each(arrayRevert[val], function (iRevert, valRevert) {
                             if ($('#module_' + valRevert).attr('checked')) {
                                 all = true;
+
                                 return false;
                             }
                         });
@@ -250,7 +251,7 @@ $js = <<<EOF
             }
         });
 
-        $(document).on('click', '#recom-check, #all-check, #basic-check', function() {
+        $(document).on('click', '#recom-check, #all-check, #basic-check', function () {
             $("{$modulesSelection['all']}").prop('checked', false);
             switch ($(this).attr('id')) {
                 case 'recom-check':
@@ -268,16 +269,16 @@ $js = <<<EOF
             }
             checkedCount();
         });
-        $(document).on('show.bs.modal', '#modules-modal', function() {
-            $('#modules-modal-list').find("i").each(function() {
+        $(document).on('show.bs.modal', '#modules-modal', function () {
+            $('#modules-modal-list').find("i").each(function () {
                 $(this).removeClass("glyphicon glyphicon-ok").addClass("glyphicon glyphicon-minus");
             });
-            $('#module-list').find("input:checked").each(function() {
+            $('#module-list').find("input:checked").each(function () {
                 var id = $(this).attr('id').replace('module_', 'modal_');
                 $('#' + id + ' i').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-ok");
             });
         });
-        $(document).on('click', '#modal-confirm', function() {
+        $(document).on('click', '#modal-confirm', function () {
             $('#modulesinstall-form').submit();
         });
 EOF;

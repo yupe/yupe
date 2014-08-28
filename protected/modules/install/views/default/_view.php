@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для _view:
- * 
+ *
  *   @category YupeView
  *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
@@ -12,4 +12,4 @@ $this->renderPartial(
     Yii::app()->controller->action->id, array(
         'data' => isset($data) ? $data : array(),
     )
-);?>
+);

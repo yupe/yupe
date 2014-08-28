@@ -2,8 +2,8 @@
 namespace application\modules\social\components\services;
 use \GoogleOpenIDService;
 
-class Google extends GoogleOpenIDService {
-
+class Google extends GoogleOpenIDService
+{
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
@@ -15,8 +15,10 @@ class Google extends GoogleOpenIDService {
                 'service' => $this->getServiceName(),
                 'type' => $this->getServiceType(),
             ));
+
             return true;
         }
+
         return false;
     }
 

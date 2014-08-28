@@ -9,7 +9,7 @@ class UserCommentsWidget extends yupe\widgets\YWidget
 
     public function init()
     {
-        if(!$this->userId) {
+        if (!$this->userId) {
             throw new CException('Error "UserCommentsWidget::userId" is not set!');
         }
 
@@ -21,11 +21,11 @@ class UserCommentsWidget extends yupe\widgets\YWidget
         $comments = Comment::model()->findAll(array(
             'condition' => 'user_id = :user AND t.status = :status AND t.id != t.root',
             'params' => array(
-                ':user' => (int)$this->userId,
+                ':user' => (int) $this->userId,
                 ':status' => Comment::STATUS_APPROVED
             ),
             'order' => 't.id DESC',
-            'limit' => (int)$this->limit
+            'limit' => (int) $this->limit
         ));
 
         $this->render($this->view, array('comments' => $comments, 'label' => $this->label));

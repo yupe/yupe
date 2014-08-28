@@ -39,7 +39,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Категория модуля:
-     * 
+     *
      * @return string category
      */
     public function getCategory()
@@ -49,7 +49,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Лейблы для редактируемых параметров:
-     * 
+     *
      * @return array edit params labels
      */
     public function getParamsLabels()
@@ -67,7 +67,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Редактируемые параметры:
-     * 
+     *
      * @return array editable params
      */
     public function getEditableParams()
@@ -88,7 +88,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Массив групп параметров:
-     * 
+     *
      *  @return array массив групп параметров модуля, для группировки параметров на странице настроек
      */
     public function getEditableParamsGroups()
@@ -123,7 +123,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Название модуля:
-     * 
+     *
      * @return string module name
      */
     public function getName()
@@ -142,7 +142,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Описание модуля:
-     * 
+     *
      * @return string module description
      */
     public function getDescription()
@@ -152,7 +152,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Автор модуля:
-     * 
+     *
      * @return string module author
      */
     public function getAuthor()
@@ -162,7 +162,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * E-mail адрес автора модуля:
-     * 
+     *
      * @return string module author email
      */
     public function getAuthorEmail()
@@ -172,7 +172,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Домашняя страница модуля:
-     * 
+     *
      * @return string module homepage
      */
     public function getUrl()
@@ -182,7 +182,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Иконка модуля:
-     * 
+     *
      * @return string module icon
      */
     public function getIcon()
@@ -192,7 +192,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Версия модуля:
-     * 
+     *
      * @return string module version
      */
     public function getVersion()
@@ -217,7 +217,7 @@ class DocsModule extends yupe\components\WebModule
          * Берём из кеша список файлов, иначе получаем его снова:
          */
         if (($files = Yii::app()->cache->get('files_' . $curDocFolder)) === false) {
-            
+
             /**
              * Получаем список файлов для построения
              * бокового или верхнего меню:
@@ -228,7 +228,7 @@ class DocsModule extends yupe\components\WebModule
                 . '*.'
                 . '{'
                 . $this->fileExtMD
-                . $this->fileExtHTML 
+                . $this->fileExtHTML
                 . '}', GLOB_BRACE
             );
 
@@ -237,7 +237,7 @@ class DocsModule extends yupe\components\WebModule
              * на любые изменения в каталоге:
              */
             $chain = new CChainedCacheDependency();
-            
+
             foreach (glob($curDocFolder, GLOB_ONLYDIR) as $item) {
                 $chain->dependencies->add(new CDirectoryCacheDependency($item));
             }
@@ -352,7 +352,7 @@ class DocsModule extends yupe\components\WebModule
                         'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'glyphicon glyphicon-file',
-                    ),                 
+                    ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Migrator'),
                         'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
@@ -407,7 +407,6 @@ class DocsModule extends yupe\components\WebModule
         return $this->getTopMenu();
     }
 
-
     /**
      * Получение меню статей:
      *
@@ -443,7 +442,7 @@ class DocsModule extends yupe\components\WebModule
          * или рендерим:
          */
         if (($content = Yii::app()->cache->get('docs_content_' . $fileName)) === false || empty($content)) {
-            $md = new CMarkdown;
+            $md = new CMarkdown();
             $content = $md->transform(file_get_contents($fileName));
             Yii::app()->cache->set('docs_content_' . $fileName, $content, 0, new CFileCacheDependency($fileName));
         }
@@ -474,8 +473,7 @@ class DocsModule extends yupe\components\WebModule
          */
         if (preg_match("/<h1[^>]*>(.*?)<\\/h1>/si", $content, $match)) {
             return $match[1];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -538,12 +536,12 @@ class DocsModule extends yupe\components\WebModule
 
         if (!empty($moduleDocFolder)) {
             $docFolder = $moduleDocFolder;
-        }
-        else {
+        } else {
             $docFolder = $this->docFolder;
         }
 
         $path = Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file;
+
         return !file_exists($path)
                   && $this->notFoundOn == 0
                     ? Yii::getPathOfAlias($docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
@@ -580,6 +578,7 @@ class DocsModule extends yupe\components\WebModule
                 )
             );
         }
+
         return $items;
     }
 

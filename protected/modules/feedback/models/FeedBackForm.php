@@ -24,6 +24,7 @@ class FeedBackForm extends CFormModel
     public function rules()
     {
         $module = Yii::app()->getModule('feedback');
+
         return array(
             array('name, email, theme, text', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
@@ -59,8 +60,7 @@ class FeedBackForm extends CFormModel
 
         if ($types) {
             $types[FeedBack::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'Default');
-        }
-        else{
+        } else {
             $types = array(FeedBack::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default'));
         }
 

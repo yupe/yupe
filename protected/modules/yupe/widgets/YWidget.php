@@ -48,19 +48,20 @@ abstract class YWidget extends CWidget
     }
 
     public function getViewPath($checkTheme = false)
-    {         
+    {
         $themeView = null;
-        if (Yii::app()->theme !== null) {            
-            $class = get_class($this);                                       
+        if (Yii::app()->theme !== null) {
+            $class = get_class($this);
             $obj = new ReflectionClass($class);
-            $string = explode(Yii::app()->modulePath . \DIRECTORY_SEPARATOR, $obj->getFileName(), 2);           
-            if (isset($string[1])) {                
+            $string = explode(Yii::app()->modulePath . \DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
+            if (isset($string[1])) {
                 $string = explode(\DIRECTORY_SEPARATOR, $string[1], 2);
                 $themeView = Yii::app()->themeManager->basePath . '/' .
                              Yii::app()->theme->name . '/' . 'views' . '/' .
                              $string[0] . '/' . 'widgets' . '/' . $obj->getShortName();
-            }            
+            }
         }
+
         return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
     }
 }

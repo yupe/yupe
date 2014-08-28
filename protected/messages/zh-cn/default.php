@@ -11,7 +11,7 @@
 */
 
 return array(
-	'Home' => '主页',
+    'Home' => '主页',
     'Links'=>'链接',
     'Twitter'=>'',
     'Vk.com'=>'',

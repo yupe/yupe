@@ -81,7 +81,7 @@ class Zend_Search_Lucene_Search_Highlighter_Default implements Zend_Search_Lucen
     /**
      * Highlight specified words
      *
-     * @param string|array $words  Words to highlight. They could be organized using the array or string.
+     * @param string|array $words Words to highlight. They could be organized using the array or string.
      */
     public function highlight($words)
     {

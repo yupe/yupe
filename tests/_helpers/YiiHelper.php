@@ -1,13 +1,12 @@
 <?php
 namespace Codeception\Module;
-use Codeception\Util\Driver;
-// here you can define custom functions for CodeGuy 
+// here you can define custom functions for CodeGuy
 
 class YiiHelper extends \Codeception\Module
 {
     public function createConsoleYiiApp()
     {
-		require dirname(__FILE__).'/../../vendor/autoload.php';
+        require dirname(__FILE__).'/../../vendor/autoload.php';
         $config = require dirname(__FILE__).'/../../protected/config/console-test.php';
         \Yii::$enableIncludePath = false;
         if(!\Yii::app()) \Yii::createConsoleApplication($config);
@@ -21,8 +20,8 @@ class YiiHelper extends \Codeception\Module
     {
         $dbConfig = include $dbConfigFile;
         $mapKeys = array('connectionString'=>'dsn','username'=>'user','password'=>'password');
-        foreach($mapKeys as $k=>$v) {
-            if(array_key_exists($k,$dbConfig)) {
+        foreach ($mapKeys as $k=>$v) {
+            if (array_key_exists($k,$dbConfig)) {
                 $dbConfig[$v] = $dbConfig[$k];
                 unset($dbConfig[$k]);
             }
@@ -53,9 +52,10 @@ class YiiHelper extends \Codeception\Module
 
     protected function _filterOptions(array $options,array $optionsList)
     {
-        foreach($options as $k=>$v) {
+        foreach ($options as $k=>$v) {
             if(in_array($k,$optionsList) && !empty($v)) $summary[$k] = $v;
         }
+
         return $summary;
     }
 }

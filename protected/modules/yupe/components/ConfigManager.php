@@ -92,8 +92,7 @@ class ConfigManager extends CComponent
         $this->initPath();
 
         $this->_base = empty($this->_base)
-            ? require_once $this->basePath . '/config/main.php'
-            : $this->_base;
+            ? require_once $this->basePath . '/config/main.php' : $this->_base;
     }
 
     /**
@@ -115,7 +114,7 @@ class ConfigManager extends CComponent
      * Инициализируем компонент, настраиваем
      * пути и принемаем необходимыей параметры:
      *
-     * @param  array $base - базовые настройки
+     * @param array $base - базовые настройки
      *
      * @return array - получаем настройки приложения
      */
@@ -167,7 +166,6 @@ class ConfigManager extends CComponent
         return $cachedSettings;
     }
 
-
     /**
      * @return bool
      * @throws \CException
@@ -217,8 +215,7 @@ class ConfigManager extends CComponent
             if ($userspace->isFile()) {
                 $moduleConfig = CMap::mergeArray(
                     $moduleConfig,
-                    require $userspace->getRealPath()
-                );
+                    require $userspace->getRealPath());
             }
 
             // А также включаем assets'ы (они были отключены на
@@ -241,7 +238,6 @@ class ConfigManager extends CComponent
 
                         break;
 
-
                     case 'commandMap':
                         // commandMap заполняем только для консоли
                         if (YII_APP_TYPE !== 'console') {
@@ -261,16 +257,14 @@ class ConfigManager extends CComponent
         }
 
         //смерджим файл /protected/config/project.php
-
         return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath.'/config/project.php'));
     }
-
 
     /**
      * Сливаем настройки, кешируем и отдаём
      * приложению:
      *
-     * @param  array $settings - входящие настройки
+     * @param array $settings - входящие настройки
      *
      * @return array - настройки приложения
      */
@@ -328,11 +322,9 @@ class ConfigManager extends CComponent
             )
         );
 
-
         if (YII_APP_TYPE == 'web') {
             unset($this->_config['commandMap']);
         }
-
 
         if (!array_key_exists('rules', $settings)) {
             $settings['rules'] = array();

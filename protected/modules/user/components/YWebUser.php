@@ -90,7 +90,7 @@ class YWebUser extends CWebUser
             return false;
         }
 
-        $attempt = (int)Yii::app()->getUser()->getState(self::STATE_ADM_CHECK_ATTEMPT, 0);
+        $attempt = (int) Yii::app()->getUser()->getState(self::STATE_ADM_CHECK_ATTEMPT, 0);
 
         if ($attempt >= $this->attempt) {
 
@@ -111,15 +111,15 @@ class YWebUser extends CWebUser
 
         Yii::app()->getUser()->setState(self::STATE_ADM_CHECK_ATTEMPT, ++$attempt);
 
-        return (int)Yii::app()->getUser()->getState(self::STATE_ACCESS_LEVEL) === User::ACCESS_LEVEL_ADMIN;
+        return (int) Yii::app()->getUser()->getState(self::STATE_ACCESS_LEVEL) === User::ACCESS_LEVEL_ADMIN;
     }
 
     /**
      * Метод возвращающий профайл пользователя:
      *s
-     * @param string $moduleName - идентификатор модуля
+     * @param  string     $moduleName - идентификатор модуля
      * @throws CException
-     * @return User|null - Модель пользователя в случае успеха, иначе null
+     * @return User|null  - Модель пользователя в случае успеха, иначе null
      */
     public function getProfile($moduleName = 'yupe')
     {
@@ -158,7 +158,7 @@ class YWebUser extends CWebUser
 
     /**
      * @param $field
-     * @param string $module
+     * @param  string           $module
      * @return array|mixed|null
      */
     public function getProfileField($field, $module = 'yupe')
@@ -181,12 +181,12 @@ class YWebUser extends CWebUser
     }
 
     /**
-     * @param int $size
+     * @param  int   $size
      * @return mixed
      */
     public function getAvatar($size = 64)
     {
-        $size = (int)$size;
+        $size = (int) $size;
 
         $avatars = Yii::app()->getUser()->getState('avatars');
 
@@ -236,8 +236,9 @@ class YWebUser extends CWebUser
 
                 $user = User::model()->active()->findByPk($this->getId());
 
-                if(null === $user) {
+                if (null === $user) {
                     $this->logout();
+
                     return false;
                 }
 
@@ -265,9 +266,9 @@ class YWebUser extends CWebUser
     }
 
     /**
-     * @param mixed $id
-     * @param array $states
-     * @param bool $fromCookie
+     * @param  mixed $id
+     * @param  array $states
+     * @param  bool  $fromCookie
      * @return bool
      */
     public function beforeLogin($id, $states, $fromCookie)
@@ -280,50 +281,46 @@ class YWebUser extends CWebUser
         $token = $states[$this->authToken];
 
         if (empty($token)) {
-
             return false;
         }
 
         $model = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_COOKIE_AUTH);
 
         if (null === $model) {
-
             return false;
         }
 
         return true;
     }
 
-
     /**
-     * @param string $operation
-     * @param null $userId
-     * @param array $params
+     * @param  string $operation
+     * @param  null   $userId
+     * @param  array  $params
      * @return bool
      */
     public function checkAccess($operation, $userId = null, $params = array())
     {
         if ($userId !== null) {
-            return (bool)Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);
+            return (bool) Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);
         }
 
         $access = Yii::app()->getCache()->get($this->rbacCacheNameSpace . $this->getId());
 
         if (!isset($access[$operation])) {
-            $access[$operation] = (bool)Yii::app()->getAuthManager()->checkAccess($operation, $this->getId(), $params);
+            $access[$operation] = (bool) Yii::app()->getAuthManager()->checkAccess($operation, $this->getId(), $params);
 
             Yii::app()->getCache()->set($this->rbacCacheNameSpace . $this->getId(), $access);
 
-            return (bool)$access[$operation];
+            return (bool) $access[$operation];
         }
 
         return $access[$operation];
     }
 
-
     /**
-     * @param IUserIdentity $identity
-     * @param int $duration
+     * @param  IUserIdentity $identity
+     * @param  int           $duration
      * @return bool
      */
     public function login($identity, $duration = 0)

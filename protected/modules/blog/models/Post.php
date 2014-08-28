@@ -65,8 +65,8 @@ class Post extends yupe\models\YModel implements ICommentable
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
-     * @return Post the static model class
+     * @param  string $className
+     * @return Post   the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -252,7 +252,6 @@ class Post extends yupe\models\YModel implements ICommentable
         );
     }
 
-
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -262,7 +261,7 @@ class Post extends yupe\models\YModel implements ICommentable
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id, true);
         $criteria->compare('blog_id', $this->blog_id);
@@ -295,7 +294,7 @@ class Post extends yupe\models\YModel implements ICommentable
 
     public function allPosts()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->addCondition('t.status = :status');
         $criteria->addCondition('t.access_type = :access_type');
         $criteria->params = array(
@@ -459,9 +458,9 @@ class Post extends yupe\models\YModel implements ICommentable
     public function getQuote($limit = 500)
     {
         return $this->quote
-            ? : yupe\helpers\YText::characterLimiter(
+            ?: yupe\helpers\YText::characterLimiter(
                 $this->content,
-                (int)$limit
+                (int) $limit
             );
     }
 
@@ -476,7 +475,7 @@ class Post extends yupe\models\YModel implements ICommentable
             if ($blogId) {
                 $criteria->condition = 'blog_id = :blog_id';
                 $criteria->params = array(
-                    ':blog_id' => (int)$blogId
+                    ':blog_id' => (int) $blogId
                 );
             }
 
@@ -495,7 +494,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 );
             }
 
-            Yii::app()->cache->set("Blog::Post::archive::{$blogId}", $data, (int)$cache);
+            Yii::app()->cache->set("Blog::Post::archive::{$blogId}", $data, (int) $cache);
         }
 
         return $data;
@@ -521,10 +520,10 @@ class Post extends yupe\models\YModel implements ICommentable
                 ->group('c.model, c.model_id, p.title, p.slug')
                 ->order('comment_date DESC')
                 ->having('count(c.id) > 0')
-                ->limit((int)$limit)
+                ->limit((int) $limit)
                 ->queryAll();
 
-            Yii::app()->cache->set('Blog::Post::Stream', $data, (int)$cacheTime);
+            Yii::app()->cache->set('Blog::Post::Stream', $data, (int) $cacheTime);
         }
 
         return $data;
@@ -557,7 +556,7 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         $posts = new Post('search');
         $posts->unsetAttributes();
-        $posts->blog_id = (int)$blogId;
+        $posts->blog_id = (int) $blogId;
         $posts->status = Post::STATUS_PUBLISHED;
         $posts->access_type = Post::ACCESS_PUBLIC;
 
@@ -568,7 +567,7 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         $posts = new Post('search');
         $posts->unsetAttributes();
-        $posts->category_id = (int)$categoryId;
+        $posts->category_id = (int) $categoryId;
         $posts->status = Post::STATUS_PUBLISHED;
         $posts->access_type = Post::ACCESS_PUBLIC;
 
@@ -601,7 +600,7 @@ class Post extends yupe\models\YModel implements ICommentable
             return false;
         }
 
-        $blog = Blog::model()->get((int)$post['blog_id'], array());
+        $blog = Blog::model()->get((int) $post['blog_id'], array());
 
         if (null === $blog) {
             $this->addError('blog_id', Yii::t('BlogModule.blog', "You can't write in this blog!"));
@@ -633,7 +632,7 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         $posts = new Post('search');
         $posts->unsetAttributes();
-        $posts->create_user_id = (int)$user;
+        $posts->create_user_id = (int) $user;
 
         return $posts;
     }
@@ -643,8 +642,8 @@ class Post extends yupe\models\YModel implements ICommentable
         return $this->deleteAll(
             'create_user_id = :userId AND id = :id AND status != :status',
             array(
-                ':userId' => (int)$userId,
-                ':id' => (int)$postId,
+                ':userId' => (int) $userId,
+                ':id' => (int) $postId,
                 ':status' => self::STATUS_PUBLISHED
             )
         );
@@ -655,8 +654,8 @@ class Post extends yupe\models\YModel implements ICommentable
         return $this->find(
             'id = :id AND create_user_id = :userId AND status != :status',
             array(
-                ':userId' => (int)$userId,
-                ':id' => (int)$postId,
+                ':userId' => (int) $userId,
+                ':id' => (int) $postId,
                 ':status' => self::STATUS_PUBLISHED
             )
         );
@@ -681,7 +680,6 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         return $this->status == self::STATUS_DRAFT;
     }
-
 
     public function publish()
     {

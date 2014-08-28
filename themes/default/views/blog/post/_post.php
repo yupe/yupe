@@ -7,29 +7,29 @@
 	        <span>
 	            <i class="glyphicon glyphicon-user"></i>
 	            <?php $this->widget(
-	                'application.modules.user.widgets.UserPopupInfoWidget', array(
-	                    'model' => $data->createUser
-	                )
-	            ); ?>
+                    'application.modules.user.widgets.UserPopupInfoWidget', array(
+                        'model' => $data->createUser
+                    )
+                ); ?>
 	        </span>
 
 	        <span>
 	            <i class="glyphicon glyphicon-pencil"></i>
 
 	            <?php echo CHtml::link(
-	                CHtml::encode($data->blog->name), array(
-	                    '/blog/blog/show/',
-	                    'slug' => CHtml::encode($data->blog->slug)
-	                )
-	            ); ?>
+                    CHtml::encode($data->blog->name), array(
+                        '/blog/blog/show/',
+                        'slug' => CHtml::encode($data->blog->slug)
+                    )
+                ); ?>
 	        </span>
 
 	        <span>
 	            <i class="glyphicon glyphicon-calendar"></i>
 
 	            <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-	                $data->publish_date, "long", "short"
-	            ); ?>
+                    $data->publish_date, "long", "short"
+                ); ?>
 	        </span>
 	</div>
 
@@ -41,7 +41,7 @@
 	    <div>
 	        <span class="posts-list-block-tags-block">
 	            <i class="glyphicon glyphicon-tags"></i>
-	            
+
 	            <?php echo Yii::t('BlogModule.blog','Tags'); ?>:
 
 	            <?php foreach ((array) $data->getTags() as $tag):?>
@@ -55,14 +55,14 @@
 	            <i class="glyphicon glyphicon-comment"></i>
 
 	            <?php echo CHtml::link(
-	                $data->getCommentCount(),
-	                array(
-	                    '/blog/post/show/',
-	                    'slug' => CHtml::encode($data->slug),
-	                    '#' => 'comments'
-	                )
-	            );?>
+                    $data->getCommentCount(),
+                    array(
+                        '/blog/post/show/',
+                        'slug' => CHtml::encode($data->slug),
+                        '#' => 'comments'
+                    )
+                );?>
 	        </span>
 	    </div>
 	</div>
-</div>	
+</div>

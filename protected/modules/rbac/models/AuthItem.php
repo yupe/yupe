@@ -40,7 +40,7 @@ class AuthItem extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
+     * @param  string   $className active record class name.
      * @return AuthItem the static model class
      */
     public static function model($className = __CLASS__)
@@ -111,7 +111,7 @@ class AuthItem extends CActiveRecord
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->compare('name', $this->name, true);
         $criteria->compare('type', $this->type);
         $criteria->compare('description', $this->description, true);

@@ -30,7 +30,7 @@ class UserManager extends CApplicationComponent
         $transaction = Yii::app()->db->beginTransaction();
 
         try {
-            $user = new User;
+            $user = new User();
             $data = $form->getAttributes();
             unset($data['cPassword'], $data['verifyCode']);
             $user->setAttributes($data);
@@ -207,6 +207,7 @@ class UserManager extends CApplicationComponent
     public function changeUserPassword(User $user, $password)
     {
         $user->hash = $this->hasher->hashPassword($password);
+
         return $user->save();
     }
 
@@ -231,12 +232,14 @@ class UserManager extends CApplicationComponent
                 Yii::app()->eventManager->fire(UserEvents::SUCCESS_EMAIL_CONFIRM, new UserEmailConfirmEvent($user, $token));
 
                 $transaction->commit();
+
                 return true;
             }
 
             throw new CException(Yii::t('UserModule.user', 'Error change Email!'));
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }

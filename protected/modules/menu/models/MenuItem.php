@@ -41,7 +41,7 @@ class MenuItem extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
+     * @param  string   $className active record class name.
      * @return MenuItem the static model class
      */
     public static function model($className = __CLASS__)
@@ -149,7 +149,7 @@ class MenuItem extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id, true);
         $criteria->compare('t.parent_id', $this->parent_id, true);
@@ -178,7 +178,6 @@ class MenuItem extends yupe\models\YModel
             )
         );
     }
-
 
     public function scopes()
     {
@@ -222,6 +221,7 @@ class MenuItem extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->statusList;
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*unknown*');
     }
 
@@ -241,9 +241,9 @@ class MenuItem extends yupe\models\YModel
             'order' => 'sort',
             'condition' => 'parent_id = :parent_id AND id <> :id AND menu_id = :menu_id',
             'params' => array(
-                'parent_id' => (int)$parent_id,
-                'id' => (int)$this->id,
-                'menu_id' => (int)$this->menu_id,
+                'parent_id' => (int) $parent_id,
+                'id' => (int) $this->id,
+                'menu_id' => (int) $this->menu_id,
             ),
         ));
 
@@ -255,6 +255,7 @@ class MenuItem extends yupe\models\YModel
             $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
             $items += array($result->id => str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . $result->title) + $childItems;
         }
+
         return $items;
     }
 
@@ -278,12 +279,14 @@ class MenuItem extends yupe\models\YModel
                 $conditions = array_merge($conditions, $conditionsList);
             }
         }
+
         return $conditions;
     }
 
     public function getConditionName()
     {
         $data = array('' => Yii::t('MenuModule.menu', 'Condition is not set')) + $this->getConditionList();
+
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('MenuModule.menu', '*неизвестно*');
     }
 
@@ -308,6 +311,7 @@ class MenuItem extends yupe\models\YModel
     public function getConditionDenial()
     {
         $data = $this->getConditionDenialList();
+
         return isset($data[$this->condition_denial]) ? Yii::t('MenuModule.menu', 'negation') . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*unknown*');
     }
 
@@ -325,7 +329,7 @@ class MenuItem extends yupe\models\YModel
                     continue;
                 }
 
-                $model->sort = (int)$priority;
+                $model->sort = (int) $priority;
 
                 if (!$model->update('sort')) {
                     throw new CDbException('Error sort menu items!');
@@ -333,9 +337,11 @@ class MenuItem extends yupe\models\YModel
             }
 
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -344,17 +350,16 @@ class MenuItem extends yupe\models\YModel
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        try
-        {
+        try {
             $this->deleteAll('parent_id = :id', array(':id' => $this->id));
             $this->delete();
             $transaction->commit();
+
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+
             return false;
         }
 

@@ -26,10 +26,8 @@ class YQueueMail extends yupe\components\Mail
     {
         if ($this->_queue !== null) {
             return $this->_queue;
-        }
-        else if (($id = $this->queueComponent) !== null)
-        {
-            if (($this->_queue = Yii::app()->getComponent($id)) instanceof YQueue){
+        } elseif (($id = $this->queueComponent) !== null) {
+            if (($this->_queue = Yii::app()->getComponent($id)) instanceof YQueue) {
                 return $this->_queue;
             }
         }

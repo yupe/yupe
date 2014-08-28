@@ -39,9 +39,9 @@ class UserRegistrationEvent extends Event
 
     /**
      * @param RegistrationForm $form
-     * @param User $user
+     * @param User             $user
      */
-    function __construct(RegistrationForm $form, User $user, UserToken $token = null)
+    public function __construct(RegistrationForm $form, User $user, UserToken $token = null)
     {
         $this->form  = $form;
         $this->user  = $user;
@@ -79,4 +79,4 @@ class UserRegistrationEvent extends Event
     {
         return $this->user;
     }
-} 
+}

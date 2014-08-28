@@ -28,8 +28,7 @@ class YDbQueue extends YQueue
     {
         if ($this->_db !== null)
             return $this->_db;
-        else if (($id = $this->connectionId) !== null)
-        {
+        elseif (($id = $this->connectionId) !== null) {
             if (($this->_db = Yii::app()->getComponent($id)) instanceof CDbConnection)
                 return $this->_db;
         }
@@ -46,15 +45,13 @@ class YDbQueue extends YQueue
     {
         if (($data = json_encode($data)) === false)
             throw new CException(Yii::t('QueueModule.queue', 'Error json_encode !'));
-        try
-        {
+        try {
             $command = $this->getDbConnection()->createCommand("INSERT INTO {$this->queueTableName} (worker, task, create_time) VALUES (:worker,:task, NOW())");
             $command->bindValue(':worker', (int) $worker, PDO::PARAM_INT);
             $command->bindValue(':task', $data, PDO::PARAM_STR);
+
             return $command->execute();
-        }
-        catch (Exceprion $e)
-        {
+        } catch (Exceprion $e) {
             return false;
         }
     }
@@ -68,6 +65,7 @@ class YDbQueue extends YQueue
             $sql .= " WHERE worker = '$worker'";
 
         $this->getDbConnection()->createCommand($sql)->execute();
+
         return true;
     }
 }

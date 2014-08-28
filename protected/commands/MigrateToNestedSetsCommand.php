@@ -35,18 +35,17 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        if(!$this->converterLocked())
-        {
-            if($this->NsMigrationExists($this->migrator)) {
+        if (!$this->converterLocked()) {
+            if ($this->NsMigrationExists($this->migrator)) {
                 echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
-            }else{
+            } else {
                 $this->migrationUp();
             }
             $this->createRootElementsForOldComments();
             $this->buildNestedSetsTree();
 
             $this->lockConverter();
-        }else{
+        } else {
             echo "Converter is LOCKED.\n";
             echo "1. Use './yiic migratetonestedsets unlock' to unlock converter and migrateDown.\n";
             echo "2. Restore you 'yupe_comments_comments' dump;\n";
@@ -56,9 +55,8 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
 
     public function actionUnlock()
     {
-        if(file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME))
-        {
-            if($this->NsMigrationExists($this->migrator)) {
+        if (file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME)) {
+            if ($this->NsMigrationExists($this->migrator)) {
                 $this->migrator->migrateDown('comment', self::NS_MIGRATION_NAME);
             }
 
@@ -68,15 +66,16 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
 
     /**
      * Check, if NestedSets Migration exists in DB.
-     * @param Migrator $migrator
+     * @param  Migrator $migrator
      * @return bool
      */
     public function NsMigrationExists(Migrator $migrator)
     {
         $history = $migrator->getMigrationHistory('comment');
-        if(array_key_exists(self::NS_MIGRATION_NAME,$history)) {
+        if (array_key_exists(self::NS_MIGRATION_NAME,$history)) {
             return true;
         }
+
         return false;
     }
 
@@ -87,12 +86,13 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
     public function migrationUp()
     {
         echo "Prepare for migrating to '".self::NS_MIGRATION_NAME."'...\n";
-        if($this->migrator->updateToLatest('comment'))
-        {
+        if ($this->migrator->updateToLatest('comment')) {
             echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+
             return true;
-        }else{
+        } else {
             echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
+
             return false;
         }
     }
@@ -110,11 +110,9 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
             ->queryAll();
 
         // Создаем по одному корню для каждой сущности у которой есть комментарии
-        if(!empty($oldRoots))
-        {
+        if (!empty($oldRoots)) {
             echo "Selecting models which contains comments -> [OK]\n";
-            foreach($oldRoots as &$root)
-            {
+            foreach ($oldRoots as &$root) {
                 $insert = array(
                     "model"=>$root["model"],
                     "model_id"=>$root["model_id"],
@@ -129,7 +127,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
                 );
                 $db->createCommand()->insert("{{comment_comment}}",$insert);
             }
-        }else{
+        } else {
             echo "Selecting models which contains comments -> [NO COMMENTS]\n";
             echo "Converted succesfully.\n";
             Yii::app()->end();
@@ -156,8 +154,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
             ->queryAll();
 
         // Помещаем старые коренные комментарии внутрь корней
-        foreach($roots as &$root)
-        {
+        foreach ($roots as &$root) {
             $db->createCommand()->update('{{comment_comment}}',
                 array('parent_id'=>$rootParents[$root["model"].$root["model_id"]]),"id='{$root["id"]}'");
         }
@@ -188,23 +185,20 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         $db->createCommand()->truncateTable("{{comment_comment}}");
 
         // Добавляем в таблицу коренные элементы
-        foreach($roots as &$root)
-        {
+        foreach ($roots as &$root) {
             $comment = new \Comment();
             $comment->setAttributes($root,false);
             $comment->saveNode(false);
         }
 
         // Добавляем в таблицу все остальные элементы
-        foreach($others as &$other)
-        {
+        foreach ($others as &$other) {
             $rootNode=\Comment::model()->findByPk($other["parent_id"]);
-            if($rootNode != null)
-            {
+            if ($rootNode != null) {
                 $comment = new \Comment();
                 $comment->setAttributes($other,false);
                 $comment->appendTo($rootNode,false);
-            }else{
+            } else {
                 echo 'Bad comment which parent was deleted: '.$other["id"]."\n";
             }
         }
@@ -219,6 +213,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
     public function converterLocked()
     {
         if(file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME))
+
             return true;
         return false;
     }

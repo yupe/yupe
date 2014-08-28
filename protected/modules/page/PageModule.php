@@ -31,7 +31,7 @@ class PageModule extends yupe\components\WebModule
         );
     }
 
-    public function  getVersion()
+    public function getVersion()
     {
         return self::VERSION;
     }
@@ -90,7 +90,7 @@ class PageModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(array(
-              'application.modules.page.models.*',              
+              'application.modules.page.models.*',
               'application.modules.page.components.widgets.*',
         ));
 
@@ -103,7 +103,7 @@ class PageModule extends yupe\components\WebModule
     public function isMultiLang()
     {
         return true;
-    }   
+    }
 
     public function getAdminPageLink()
     {
@@ -115,7 +115,7 @@ class PageModule extends yupe\components\WebModule
         return array(
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/pageBackend/create')),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('PageModule.page', 'Pages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('PageModule.page', 'Pages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
         );
     }
 

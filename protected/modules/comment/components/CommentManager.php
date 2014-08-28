@@ -4,11 +4,11 @@ class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user)
     {
-        $comment = new Comment;
+        $comment = new Comment();
 
         $comment->setAttributes($params);
 
-        $comment->status = (int)$module->defaultCommentStatus;
+        $comment->status = (int) $module->defaultCommentStatus;
 
         if ($module->autoApprove && $user->isAuthenticated()) {
             $comment->status = Comment::STATUS_APPROVED;
@@ -25,7 +25,7 @@ class CommentManager extends CApplicationComponent
 
             $root = null;
 
-            $parentId = (int)$comment->parent_id;
+            $parentId = (int) $comment->parent_id;
 
             // Если указан parent_id просто добавляем новый комментарий.
             if ($parentId) {
@@ -60,7 +60,7 @@ class CommentManager extends CApplicationComponent
                 Yii::app()->cache->set(
                     'Comment::Comment::spam::' . $user->getId(),
                     time(),
-                    (int)$module->antiSpamInterval
+                    (int) $module->antiSpamInterval
                 );
 
                 return $comment;
@@ -87,4 +87,4 @@ class CommentManager extends CApplicationComponent
     {
         return Yii::app()->cache->get('Comment::Comment::spam::' . $user->getId());
     }
-} 
+}

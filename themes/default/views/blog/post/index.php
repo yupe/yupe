@@ -24,18 +24,17 @@
     </h1>
 
     <br/>
-    
+
     <?php $this->widget(
-		'bootstrap.widgets.TbListView', array(
-			'id' => 'posts-list',
-		    'dataProvider'  => $model->allPosts(),
-		    'itemView'      => '_post',
-		    'template'      => "{items}\n{pager}",
-		    'ajaxUpdate'    => false,		   
-		    'htmlOptions'   => array(
-		    	'class' => 'posts-list'
-		    )
-		)
+        'bootstrap.widgets.TbListView', array(
+            'id' => 'posts-list',
+            'dataProvider'  => $model->allPosts(),
+            'itemView'      => '_post',
+            'template'      => "{items}\n{pager}",
+            'ajaxUpdate'    => false,
+            'htmlOptions'   => array(
+                'class' => 'posts-list'
+            )
+        )
     ); ?>
 </div>
-

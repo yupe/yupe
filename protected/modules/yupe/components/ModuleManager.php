@@ -15,15 +15,12 @@ namespace yupe\components;
 
 use CChainedCacheDependency;
 use CDirectoryCacheDependency;
-use CHtml;
 use Exception;
 use GlobIterator;
 use TagsCache;
 use Yii;
 use yupe\widgets\YFlashMessages;
-use yupe\components\WebModule;
 use yupe\helpers\YFile;
-
 
 class ModuleManager extends \CApplicationComponent
 {
@@ -53,12 +50,11 @@ class ModuleManager extends \CApplicationComponent
         parent::init();
     }
 
-
     /**
      * Возвращаем список модулей:
      *
      * @param bool $navigationOnly - только навигация
-     * @param bool $disableModule - отключённые модули
+     * @param bool $disableModule  - отключённые модули
      *
      * @return mixed
      **/
@@ -234,7 +230,7 @@ class ModuleManager extends \CApplicationComponent
 
         // Подгрузка отключенных модулей
         if ($disableModule) {
-            $modules += (array)$this->getModulesDisabled($modules);
+            $modules += (array) $this->getModulesDisabled($modules);
         }
 
         return ($navigationOnly === true) ? $modulesNavigation : array(
@@ -342,7 +338,6 @@ class ModuleManager extends \CApplicationComponent
         return $modules;
     }
 
-
     /**
      * Подгружает модуль
      *
@@ -442,7 +437,7 @@ class ModuleManager extends \CApplicationComponent
     /**
      * Обновить конфигурационный файл модуля
      *
-     * @param WebModule $module
+     * @param  WebModule $module
      * @return bool
      * @since 0.8
      */
@@ -452,10 +447,10 @@ class ModuleManager extends \CApplicationComponent
 
         $currentConfig = $this->getModulesConfig($module->getId());
 
-        if((!file_exists($currentConfig) || YFile::rmFile($currentConfig)) && YFile::cpFile($newConfig, $currentConfig)) {
+        if ((!file_exists($currentConfig) || YFile::rmFile($currentConfig)) && YFile::cpFile($newConfig, $currentConfig)) {
             return true;
         }
 
         return false;
     }
-} 
+}

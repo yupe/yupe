@@ -49,7 +49,6 @@ class UserRegistrationCest
         $I->fillField(\RegistrationPage::$emailField, $testEMail);
         $I->click(\RegistrationPage::$buttonLabel, '.btn-primary');
 
-
         $I->see('Учетная запись создана! Проверьте Вашу почту!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInCurrentUrl('login');
         // check that user is created

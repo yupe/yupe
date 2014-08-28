@@ -37,7 +37,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     }
     /**
      * Displays a particular model.
-     * 
+     *
      * @param integer $id the ID of the model to be displayed
      *
      * @return void
@@ -45,12 +45,12 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     public function actionView($id)
     {
         $model                 = $this->loadModel($id);
-        
+
         $code                  = "<?php \$this->widget(\"application.modules.contentblock.widgets.ContentBlockWidget\", array(\"code\" => \"{$model->code}\")); ?>";
-        
-        $highlighter           = new CTextHighlighter;
+
+        $highlighter           = new CTextHighlighter();
         $highlighter->language = 'PHP';
-        $example               = $highlighter->highlight($code); 
+        $example               = $highlighter->highlight($code);
 
         $this->render(
             'view', array(
@@ -68,7 +68,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
      */
     public function actionCreate()
     {
-        $model = new ContentBlock;
+        $model = new ContentBlock();
 
         if (($data = Yii::app()->getRequest()->getPost('ContentBlock')) !== null) {
             $model->setAttributes($data);
@@ -92,7 +92,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * 
+     *
      * @param integer $id the ID of the model to be updated
      *
      * @return void
@@ -125,7 +125,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * 
+     *
      * @param integer $id the ID of the model to be deleted
      *
      * @return void
@@ -135,7 +135,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -157,9 +157,9 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     public function actionIndex()
     {
         $model = new ContentBlock('search');
-        
+
         $model->unsetAttributes(); // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'ContentBlock', array()
@@ -172,7 +172,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
-     * 
+     *
      * @param integer $id the ID of the model to be loaded
      *
      * @return ContentBlock $model
@@ -184,6 +184,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $model = ContentBlock::model()->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('ContentBlockModule.contentblock', 'Page was not found!'));
+
         return $model;
     }
 }

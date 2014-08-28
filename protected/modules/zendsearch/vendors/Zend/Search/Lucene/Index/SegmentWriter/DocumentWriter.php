@@ -52,7 +52,7 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
      * Object constructor.
      *
      * @param Zend_Search_Lucene_Storage_Directory $directory
-     * @param string $name
+     * @param string                               $name
      */
     public function __construct(Zend_Search_Lucene_Storage_Directory $directory, $name)
     {
@@ -62,11 +62,10 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
         $this->_termDictionary = array();
     }
 
-
     /**
      * Adds a document to this segment.
      *
-     * @param Zend_Search_Lucene_Document $document
+     * @param  Zend_Search_Lucene_Document  $document
      * @throws Zend_Search_Lucene_Exception
      */
     public function addDocument(Zend_Search_Lucene_Document $document)
@@ -110,7 +109,7 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                             $this->_termDictionary[$termKey] = $term;
                             $this->_termDocs[$termKey] = array();
                             $this->_termDocs[$termKey][$this->_docCount] = array();
-                        } else if (!isset($this->_termDocs[$termKey][$this->_docCount])) {
+                        } elseif (!isset($this->_termDocs[$termKey][$this->_docCount])) {
                             // Existing term, but new term entry
                             $this->_termDocs[$termKey][$this->_docCount] = array();
                         }
@@ -128,7 +127,7 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                         $document->boost *
                         $field->boost));
                     }
-                } else if (($fieldUtf8Value = $field->getUtf8Value()) == '') {
+                } elseif (($fieldUtf8Value = $field->getUtf8Value()) == '') {
                     // Field contains empty value. Treat it as non-indexed and non-tokenized
                     $field = clone($field);
                     $field->isIndexed = $field->isTokenized = false;
@@ -141,7 +140,7 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                         $this->_termDictionary[$termKey] = $term;
                         $this->_termDocs[$termKey] = array();
                         $this->_termDocs[$termKey][$this->_docCount] = array();
-                    } else if (!isset($this->_termDocs[$termKey][$this->_docCount])) {
+                    } elseif (!isset($this->_termDocs[$termKey][$this->_docCount])) {
                         // Existing term, but new term entry
                         $this->_termDocs[$termKey][$this->_docCount] = array();
                     }
@@ -180,7 +179,6 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
         $this->addStoredFields($storedFields);
     }
 
-
     /**
      * Dump Term Dictionary (.tis) and Term Dictionary Index (.tii) segment files
      */
@@ -196,7 +194,6 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
 
         $this->closeDictionaryFiles();
     }
-
 
     /**
      * Close segment, write it to disk and return segment info
@@ -227,4 +224,3 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
     }
 
 }
-

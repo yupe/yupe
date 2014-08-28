@@ -10,7 +10,6 @@
  *
  */
 
-
 /**
  * This is the model class for table "Page".
  *
@@ -46,8 +45,8 @@ class Page extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
-     * @return Page the static model class
+     * @param  string $className
+     * @return Page   the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -306,11 +305,11 @@ class Page extends yupe\models\YModel
 
     public function getAllPagesList($selfId = false)
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->order = "{$this->tableAlias}.order DESC, {$this->tableAlias}.creation_date DESC";
         if ($selfId) {
-            $otherCriteria = new CDbCriteria;
-            $otherCriteria->addNotInCondition('id', (array)$selfId);
+            $otherCriteria = new CDbCriteria();
+            $otherCriteria->addNotInCondition('id', (array) $selfId);
             $otherCriteria->group = "{$this->tableAlias}.slug, {$this->tableAlias}.id";
             $criteria->mergeWith($otherCriteria);
         }

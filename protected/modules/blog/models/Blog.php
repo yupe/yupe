@@ -48,11 +48,10 @@ class Blog extends yupe\models\YModel
     const TYPE_PUBLIC = 1;
     const TYPE_PRIVATE = 2;
 
-
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
-     * @return Blog the static model class
+     * @param  string $className
+     * @return Blog   the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -103,7 +102,7 @@ class Blog extends yupe\models\YModel
         );
     }
 
-    public function  getPostStatusList()
+    public function getPostStatusList()
     {
         return Post::model()->getStatusList();
     }
@@ -250,11 +249,11 @@ class Blog extends yupe\models\YModel
      * Retrieves a list of models based on the current search/filter conditions.
      *
      * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     *                             based on the search/filter conditions.
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->select = 't.*, count(post.id) as postsCount, count(member.id) as membersCount';
         $criteria->join = ' LEFT JOIN {{blog_post}} post ON post.blog_id = t.id
@@ -402,7 +401,7 @@ class Blog extends yupe\models\YModel
 
             $result = Yii::app()->db->createCommand(
                 'SELECT blog_id, status FROM {{blog_user_to_blog}} WHERE user_id = :userId'
-            )->bindValue(':userId', (int)$userId)
+            )->bindValue(':userId', (int) $userId)
             ->queryAll();
 
             $blogs = array();
@@ -414,14 +413,15 @@ class Blog extends yupe\models\YModel
             Yii::app()->cache->set("Blog::Blog::members::{$userId}", $blogs);
         }
 
-        if(false !== $status) {
-            if(isset($blogs[$this->id]) && (int)$blogs[$this->id] === (int)$status) {
+        if (false !== $status) {
+            if (isset($blogs[$this->id]) && (int) $blogs[$this->id] === (int) $status) {
                 return true;
             }
+
             return false;
         }
 
-        return isset($blogs[$this->id]) ? (int)$blogs[$this->id] : false;
+        return isset($blogs[$this->id]) ? (int) $blogs[$this->id] : false;
     }
 
     public function getUserMembership($userId)
@@ -429,7 +429,7 @@ class Blog extends yupe\models\YModel
         return UserToBlog::model()->find(
             'user_id = :userId AND blog_id = :blogId',
             array(
-                ':userId' => (int)$userId,
+                ':userId' => (int) $userId,
                 ':blogId' => $this->id
             )
         );
@@ -442,19 +442,19 @@ class Blog extends yupe\models\YModel
                 FROM {{blog_user_to_blog}}
                  WHERE user_id = :userId AND blog_id = :blogId AND status = :status'
         )
-            ->bindValue(':userId', (int)$userId)
-            ->bindValue(':status', (int)$status)
+            ->bindValue(':userId', (int) $userId)
+            ->bindValue(':status', (int) $status)
             ->bindValue(':blogId', $this->id)
             ->queryScalar();
     }
 
     public function join($userId)
     {
-        if($this->isPrivate()) {
+        if ($this->isPrivate()) {
             return false;
         }
 
-        if ($this->userIn((int)$userId)) {
+        if ($this->userIn((int) $userId)) {
             return true;
         }
 
@@ -463,10 +463,10 @@ class Blog extends yupe\models\YModel
 
         if (null === $member) {
 
-            $member = new UserToBlog;
+            $member = new UserToBlog();
             $member->blog_id = $this->id;
-            $member->user_id = (int)$userId;
-            $member->status = (int)$this->member_status;
+            $member->user_id = (int) $userId;
+            $member->status = (int) $this->member_status;
 
         } else {
 
@@ -491,7 +491,7 @@ class Blog extends yupe\models\YModel
 
     public function leave($userId)
     {
-        if($this->isPrivate()) {
+        if ($this->isPrivate()) {
             return false;
         }
 
@@ -506,7 +506,7 @@ class Blog extends yupe\models\YModel
             ),
             'user_id = :userId AND blog_id = :blogId',
             array(
-                ':userId' => (int)$userId,
+                ':userId' => (int) $userId,
                 ':blogId' => $this->id
             )
         );
@@ -557,7 +557,7 @@ class Blog extends yupe\models\YModel
                 'condition' => '(userToBlog.user_id = :userId AND userToBlog.status = :status)',
                 'params' => array(
                     ':status' => UserToBlog::STATUS_ACTIVE,
-                    ':userId' => (int)$user
+                    ':userId' => (int) $user
                 ),
                 'order' => 'name ASC'
             )
@@ -566,7 +566,7 @@ class Blog extends yupe\models\YModel
 
     public function get($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
-        return $this->with($with)->published()->findByPk((int)$id);
+        return $this->with($with)->published()->findByPk((int) $id);
     }
 
     public function getBySlug($id, array $with = array('posts', 'membersCount', 'createUser'))

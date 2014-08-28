@@ -1,7 +1,7 @@
 <?php
 /* @var $this DefaultController */
 
-$this->breadcrumbs = array(    
+$this->breadcrumbs = array(
     Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)') => array('/zendsearch/manageBackend/index'),
     Yii::t('ZendSearchModule.zendsearch', 'Manage'),
 );
@@ -31,10 +31,10 @@ $this->widget('bootstrap.widgets.TbButton', array(
         'type' => 'POST',
         'data' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
         'url' => $this->createUrl('/zendsearch/manageBackend/create'),
-        'beforeSend' => 'function(){
+        'beforeSend' => 'function () {
 	       $("#create-search").text("'.Yii::t('ZendSearchModule.zendsearch','Wait please...').'");
 	     }',
-        'success' => 'js:function(data,status){
+        'success' => 'js:function (data,status) {
             $("#create-search").text("'.Yii::t('ZendSearchModule.zendsearch','Update find index').'");
             alert(data);
 	     }',

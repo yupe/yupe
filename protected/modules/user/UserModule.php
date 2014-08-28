@@ -11,7 +11,6 @@
  *
  */
 
-
 use yupe\components\WebModule;
 
 class UserModule extends WebModule
@@ -415,6 +414,7 @@ class UserModule extends WebModule
         if (null === $this->defaultAvatar) {
             $this->defaultAvatar = Yii::app()->getTheme()->getAssetsUrl() . '/' . $this->defaultAvatarPath;
         }
+
         return $this->defaultAvatar;
     }
 }

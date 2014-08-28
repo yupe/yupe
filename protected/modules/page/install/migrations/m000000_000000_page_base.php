@@ -58,7 +58,7 @@ class m000000_000000_page_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{page_page}}_user_id", '{{page_page}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{page_page}}_change_user_id", '{{page_page}}', 'change_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
     }
- 
+
     /**
      * Функция удаления таблицы:
      *

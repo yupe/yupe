@@ -13,6 +13,6 @@ class ArchiveController extends yupe\components\controllers\FrontController
 {
     public function actionIndex()
     {
-        $this->render('archive', array('data' => Post::model()->getArchive((int)Yii::app()->request->getQuery('blog'))));
+        $this->render('archive', array('data' => Post::model()->getArchive((int) Yii::app()->request->getQuery('blog'))));
     }
 }

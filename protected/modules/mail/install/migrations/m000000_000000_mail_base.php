@@ -56,7 +56,6 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
         //fk
         $this->addForeignKey("fk_{{mail_mail_template}}_event_id", '{{mail_mail_template}}', 'event_id', '{{mail_mail_event}}', 'id', 'CASCADE', 'NO ACTION');
     }
- 
 
     public function safeDown()
     {

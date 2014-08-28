@@ -17,7 +17,7 @@ class DbFeedbackSender implements IFeedbackSender
 
     public function send(FeedBackForm $form)
     {
-        $feedback = new FeedBack;
+        $feedback = new FeedBack();
 
         $feedback->setAttributes(array(
             'name' => $form->name,
@@ -28,12 +28,9 @@ class DbFeedbackSender implements IFeedbackSender
             'type' => $form->type,
         ));
 
-
-
         if ($feedback->save()) {
 
             if ($this->module->sendConfirmation) {
-
                 return $this->sendConfirmation($form, $feedback);
             }
 
@@ -70,4 +67,4 @@ class DbFeedbackSender implements IFeedbackSender
 
         return $result;
     }
-} 
+}

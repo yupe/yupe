@@ -44,4 +44,4 @@ class UserEmailConfirmEvent extends Event
     {
         return $this->user;
     }
-} 
+}

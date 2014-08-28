@@ -8,4 +8,4 @@ class PostPublishListener
        $post = $event->getPost();
        Yii::log("Publish post {$post->title} ...", CLogger::LEVEL_TRACE);
     }
-} 
+}

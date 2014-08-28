@@ -111,7 +111,7 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('news')->mainCategory),
+                    'data' => Category::model()->getFormattedList((int) Yii::app()->getModule('news')->mainCategory),
                     'htmlOptions' => array(
                         'empty' => Yii::t('NewsModule.news', '--choose--'),
                         'encode' => false

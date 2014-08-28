@@ -18,7 +18,7 @@ class UserPopupInfoWidget extends yupe\widgets\YWidget
     public function run()
     {
         if ($this->model === null || $this->model instanceof User === false) {
-        	return null;
+            return null;
         }
 
         $this->render($this->view, array('model' => $this->model));

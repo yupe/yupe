@@ -16,7 +16,7 @@ Yii::app()->getClientScript()->registerScriptFile($url . '/js/imagesloaded.min.j
 Yii::app()->clientScript->registerScript(
     $this->getId(),
     'var $container = jQuery(".gallery-thumbnails");
-    $container.imagesLoaded(function() {
+    $container.imagesLoaded(function () {
         $container.masonry({
             itemSelector: ".gallery-thumbnail",
             gutter: 10

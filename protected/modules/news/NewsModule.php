@@ -21,7 +21,7 @@ class NewsModule extends WebModule
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
     public $maxSize           = 5368709120;
-    public $maxFiles          = 1;   
+    public $maxFiles          = 1;
     public $rssCount          = 10;
     public $perPage           = 10;
 
@@ -178,7 +178,7 @@ class NewsModule extends WebModule
         return array(
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('NewsModule.news', 'News list'), 'url' => array('/news/newsBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('NewsModule.news', 'News categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('NewsModule.news', 'News categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
         );
     }
 
@@ -192,7 +192,7 @@ class NewsModule extends WebModule
         parent::init();
 
         $this->setImport(array(
-            'news.models.*'            
+            'news.models.*'
         ));
     }
 

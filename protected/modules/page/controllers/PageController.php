@@ -25,7 +25,7 @@ class PageController extends yupe\components\controllers\FrontController
     {
         $page = null;
         // превью
-        $page = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+        $page = ((int) Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
             ? Page::model()->find(
                 'slug = :slug AND (lang=:lang OR (lang IS NULL))',
                 array(
@@ -81,7 +81,7 @@ class PageController extends yupe\components\controllers\FrontController
 
     /**
      * Рекурсивно возвращает пригодный для zii.widgets.CBreadcrumbs массив, начиная со страницы $page
-     * @param Page $page
+     * @param  Page  $page
      * @return array
      * @internal param int $pageId
      */

@@ -20,10 +20,8 @@
  * @version    $Id: Boolean.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Search_Weight */
 require_once 'Zend/Search/Lucene/Search/Weight.php';
-
 
 /**
  * @category   Zend
@@ -56,14 +54,13 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
      */
     private $_weights;
 
-
     /**
      * Zend_Search_Lucene_Search_Weight_Boolean constructor
      * query - the query that this concerns.
      * reader - index reader
      *
      * @param Zend_Search_Lucene_Search_Query $query
-     * @param Zend_Search_Lucene_Interface $reader
+     * @param Zend_Search_Lucene_Interface    $reader
      */
     public function __construct(Zend_Search_Lucene_Search_Query $query,
                                 Zend_Search_Lucene_Interface $reader)
@@ -81,7 +78,6 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         }
     }
 
-
     /**
      * The weight for this query
      * Standard Weight::$_value is not used for boolean queries
@@ -92,7 +88,6 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
     {
         return $this->_query->getBoost();
     }
-
 
     /**
      * The sum of squared weights of contained query clauses.
@@ -114,9 +109,9 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         if ($sum == 0) {
             $sum = 1.0;
         }
+
         return $sum;
     }
-
 
     /**
      * Assigns the query normalization factor to this.
@@ -133,5 +128,3 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         }
     }
 }
-
-

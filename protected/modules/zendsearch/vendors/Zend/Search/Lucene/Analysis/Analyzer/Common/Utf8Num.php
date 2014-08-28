@@ -20,10 +20,8 @@
  * @version    $Id: Utf8Num.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Analysis_Analyzer_Common */
 require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common.php';
-
 
 /**
  * @category   Zend
@@ -124,4 +122,3 @@ class Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num extends Zend_Search_Lu
         return $token;
     }
 }
-

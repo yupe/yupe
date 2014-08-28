@@ -30,7 +30,7 @@ class LoginAction extends CAction
 
         $module = Yii::app()->getModule('user');
 
-        $scenario = $badLoginCount > (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
+        $scenario = $badLoginCount > (int) $module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
 
         $form = new LoginForm($scenario);
 
@@ -50,15 +50,15 @@ class LoginAction extends CAction
                     Yii::t('UserModule.user', 'You authorized successfully!')
                 );
 
-				if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
-					$redirect = $module->loginAdminSuccess;
-				} else {
-					$redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : $module->loginSuccess;
-				}
+                if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
+                    $redirect = $module->loginAdminSuccess;
+                } else {
+                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : $module->loginSuccess;
+                }
 
-				$redirect = Yii::app()->getUser()->getReturnUrl($redirect);
+                $redirect = Yii::app()->getUser()->getReturnUrl($redirect);
 
-				Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
                 $this->controller->redirect(Url::redirectUrl($redirect));
 

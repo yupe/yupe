@@ -22,7 +22,6 @@
 /** Zend_Search_Lucene_Interface */
 require_once 'Zend/Search/Lucene/Interface.php';
 
-
 /**
  * Proxy class intended to be used in userland.
  *
@@ -72,7 +71,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * 0 means pre-2.1 index format
      * -1 means there are no segments files.
      *
-     * @param Zend_Search_Lucene_Storage_Directory $directory
+     * @param  Zend_Search_Lucene_Storage_Directory $directory
      * @return integer
      * @throws Zend_Search_Lucene_Exception
      */
@@ -84,7 +83,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     /**
      * Get segments file name
      *
-     * @param integer $generation
+     * @param  integer $generation
      * @return string
      */
     public static function getSegmentFileName($generation)
@@ -106,7 +105,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * Set index format version.
      * Index is converted to this format at the nearest upfdate time
      *
-     * @param int $formatVersion
+     * @param  int                          $formatVersion
      * @throws Zend_Search_Lucene_Exception
      */
     public function setFormatVersion($formatVersion)
@@ -159,9 +158,9 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     /**
      * Checks, that document is deleted
      *
-     * @param integer $id
+     * @param  integer                      $id
      * @return boolean
-     * @throws Zend_Search_Lucene_Exception    Exception is thrown if $id is out of the range
+     * @throws Zend_Search_Lucene_Exception Exception is thrown if $id is out of the range
      */
     public function isDeleted($id)
     {
@@ -248,7 +247,6 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
         $this->_index->setMaxBufferedDocs($maxBufferedDocs);
     }
 
-
     /**
      * Retrieve index maxMergeDocs option
      *
@@ -282,7 +280,6 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     {
         $this->_index->setMaxMergeDocs($maxMergeDocs);
     }
-
 
     /**
      * Retrieve index mergeFactor option
@@ -333,8 +330,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * of Zend_Search_Lucene_Search_QueryHit objects.
      * Input is a string or Zend_Search_Lucene_Search_Query.
      *
-     * @param mixed $query
-     * @return array Zend_Search_Lucene_Search_QueryHit
+     * @param  mixed                        $query
+     * @return array                        Zend_Search_Lucene_Search_QueryHit
      * @throws Zend_Search_Lucene_Exception
      */
     public function find($query)
@@ -349,7 +346,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     /**
      * Returns a list of all unique field names that exist in this index.
      *
-     * @param boolean $indexed
+     * @param  boolean $indexed
      * @return array
      */
     public function getFieldNames($indexed = false)
@@ -361,7 +358,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * Returns a Zend_Search_Lucene_Document object for the document
      * number $id in this index.
      *
-     * @param integer|Zend_Search_Lucene_Search_QueryHit $id
+     * @param  integer|Zend_Search_Lucene_Search_QueryHit $id
      * @return Zend_Search_Lucene_Document
      */
     public function getDocument($id)
@@ -374,7 +371,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      *
      * Is used for query optimization.
      *
-     * @param Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @return boolean
      */
     public function hasTerm(Zend_Search_Lucene_Index_Term $term)
@@ -385,8 +382,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     /**
      * Returns IDs of all the documents containing term.
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
     public function termDocs(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
@@ -400,8 +397,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * It performs the same operation as termDocs, but return result as
      * Zend_Search_Lucene_Index_DocsFilter object
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return Zend_Search_Lucene_Index_DocsFilter
      */
     public function termDocsFilter(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
@@ -413,8 +410,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * Returns an array of all term freqs.
      * Return array structure: array( docId => freq, ...)
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return integer
      */
     public function termFreqs(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
@@ -426,8 +423,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * Returns an array of all term positions in the documents.
      * Return array structure: array( docId => array( pos1, pos2, ...), ...)
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term            $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
     public function termPositions(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
@@ -438,7 +435,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     /**
      * Returns the number of documents in this index containing the $term.
      *
-     * @param Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @return integer
      */
     public function docFreq(Zend_Search_Lucene_Index_Term $term)
@@ -459,8 +456,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     /**
      * Returns a normalization factor for "field, document" pair.
      *
-     * @param integer $id
-     * @param string $fieldName
+     * @param  integer $id
+     * @param  string  $fieldName
      * @return float
      */
     public function norm($id, $fieldName)
@@ -482,7 +479,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * Deletes a document from the index.
      * $id is an internal document id
      *
-     * @param integer|Zend_Search_Lucene_Search_QueryHit $id
+     * @param  integer|Zend_Search_Lucene_Search_QueryHit $id
      * @throws Zend_Search_Lucene_Exception
      */
     public function delete($id)
@@ -527,7 +524,6 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     {
         return $this->_index->terms();
     }
-
 
     /**
      * Reset terms stream.
@@ -578,7 +574,6 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     {
         $this->_index->closeTermsStream();
     }
-
 
     /**
      * Undeletes all documents currently marked as deleted in this index.

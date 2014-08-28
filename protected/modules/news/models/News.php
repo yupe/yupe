@@ -48,8 +48,8 @@ class News extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
-     * @return News the static model class
+     * @param  string $className
+     * @return News   the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -84,6 +84,7 @@ class News extends yupe\models\YModel
     public function behaviors()
     {
         $module = Yii::app()->getModule('news');
+
         return array(
             'imageUpload' => array(
                 'class'         =>'yupe\components\behaviors\FileUploadBehavior',
@@ -91,7 +92,7 @@ class News extends yupe\models\YModel
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
-                'types'         => $module->allowedExtensions,              
+                'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
                 'fileName' => array($this, 'generateFileName'),
             ),
@@ -141,6 +142,7 @@ class News extends yupe\models\YModel
             'order' => 'date DESC',
             'limit' => $num,
         ));
+
         return $this;
     }
 
@@ -150,6 +152,7 @@ class News extends yupe\models\YModel
             'condition' => 'lang = :lang',
             'params'    => array(':lang' => $lang),
         ));
+
         return $this;
     }
 
@@ -159,6 +162,7 @@ class News extends yupe\models\YModel
             'condition' => 'category_id = :category_id',
             'params'    => array(':category_id' => $category_id),
         ));
+
         return $this;
     }
 
@@ -194,7 +198,7 @@ class News extends yupe\models\YModel
             $this->alias = yupe\helpers\YText::translit($this->title);
         }
 
-        if(!$this->lang) {
+        if (!$this->lang) {
             $this->lang = Yii::app()->language;
         }
 
@@ -230,12 +234,12 @@ class News extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
-        if($this->date) {
+        if ($this->date) {
             $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
         }
         $criteria->compare('title', $this->title, true);
@@ -248,6 +252,7 @@ class News extends yupe\models\YModel
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('t.lang', $this->lang);
         $criteria->with = array('category');
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort'     => array('defaultOrder' => 'date DESC'),
@@ -271,6 +276,7 @@ class News extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('NewsModule.news', '*unknown*');
     }
 
@@ -285,6 +291,7 @@ class News extends yupe\models\YModel
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
+
         return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('NewsModule.news', '*unknown*');
     }
 

@@ -44,8 +44,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Object constructor
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string                       $fileName
+     * @param  boolean                      $storeContent
      * @throws Zend_Search_Lucene_Exception
      */
     private function __construct($fileName, $storeContent)
@@ -95,7 +95,7 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
                             // Break element
                             $documentBody[] = ' ';
                         } else {
-                            $documentBody[] = (string)$run;
+                            $documentBody[] = (string) $run;
                         }
                     }
 
@@ -137,8 +137,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Load Docx document from a file
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string                                $fileName
+     * @param  boolean                               $storeContent
      * @return Zend_Search_Lucene_Document_Docx
      * @throws Zend_Search_Lucene_Document_Exception
      */

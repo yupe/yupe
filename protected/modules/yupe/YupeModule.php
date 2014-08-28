@@ -421,7 +421,6 @@ class YupeModule extends WebModule
         );
     }
 
-
     /**
      * Возвращаем правила валидации для параметров модуля
      *
@@ -439,7 +438,6 @@ class YupeModule extends WebModule
             ),
         );
     }
-
 
     /**
      * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
@@ -472,6 +470,7 @@ class YupeModule extends WebModule
         foreach (explode(',', $this->availableLanguages) as $lang) {
             $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName($lang);
         }
+
         return $langs;
     }
 
@@ -646,7 +645,6 @@ class YupeModule extends WebModule
         parent::init();
     }
 
-
     /**
      * Получает полный алиас нужного лайаута бэкенда с учетом темы
      *
@@ -696,6 +694,7 @@ class YupeModule extends WebModule
             }
             Yii::app()->cache->set('Yupe::editors', $widgets);
         }
+
         return $widgets;
     }
 
@@ -734,6 +733,7 @@ class YupeModule extends WebModule
             }
             closedir($handler);
         }
+
         return $themes;
     }
 
@@ -766,6 +766,7 @@ class YupeModule extends WebModule
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -796,6 +797,7 @@ class YupeModule extends WebModule
 
         if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
             Yii::log('For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager', CLogger::LEVEL_WARNING);
+
             return array();
         }
 
@@ -818,7 +820,6 @@ class YupeModule extends WebModule
             }
         }
 
-
         return array(
             array(
                 'icon' => 'iconflags iconflags-' . $currentLanguage,
@@ -833,7 +834,7 @@ class YupeModule extends WebModule
      * Генерация анкора PoweredBy
      *
      * @param string $color - цвет
-     * @param string $text - текст
+     * @param string $text  - текст
      *
      * @return string poweredBy
      */
@@ -842,6 +843,7 @@ class YupeModule extends WebModule
         if (empty($text)) {
             $text = Yii::t('YupeModule.yupe', 'Powered by Yupe!');
         }
+
         return CHtml::link(
             CHtml::image(Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets')) . "/img/yupe_{$color}.png", $text),
             'http://yupe.ru?from=pb',

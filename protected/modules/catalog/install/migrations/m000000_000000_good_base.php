@@ -46,7 +46,7 @@ class m000000_000000_good_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{catalog_good}}_change_user",'{{catalog_good}}', 'change_user_id','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{catalog_good}}_category",'{{catalog_good}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
     }
- 
+
     /**
      * Откат миграции:
      *

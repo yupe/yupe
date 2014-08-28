@@ -42,6 +42,7 @@ class Migrator extends \CApplicationComponent
         if ($db->schema->getTable($db->tablePrefix . $this->migrationTable) === null) {
             $this->createMigrationHistoryTable();
         }
+
         return parent::init();
     }
 
@@ -76,6 +77,7 @@ class Migrator extends \CApplicationComponent
                 )
             );
         }
+
         return true;
     }
 
@@ -83,7 +85,7 @@ class Migrator extends \CApplicationComponent
      * Проверяем на незавершённые миграции:
      *
      * @param string $module - required module
-     * @param bool $class  - migration class
+     * @param bool   $class  - migration class
      *
      * @return bool is updated to migration
      **/
@@ -160,6 +162,7 @@ class Migrator extends \CApplicationComponent
                                     '{migration}' => $migration['version'],
                                 )
                             ) . '<br />';
+
                             return false;
                         }
                     } catch (ErrorException $e) {
@@ -196,6 +199,7 @@ class Migrator extends \CApplicationComponent
                 array('{module}' => $module)
             ) . '<br />';
         }
+
         return true;
     }
 
@@ -311,6 +315,7 @@ class Migrator extends \CApplicationComponent
                     array('{class}' => $class, '{s}' => sprintf("%.3f", $time))
                 )
             );
+
             return true;
         } else {
             $time = microtime(true) - $start;
@@ -345,8 +350,9 @@ class Migrator extends \CApplicationComponent
     {
         $file = Yii::getPathOfAlias("application.modules." . $module . ".install.migrations") . '/' . $class . '.php';
         include_once $file;
-        $migration = new $class;
+        $migration = new $class();
         $migration->setDbConnection($this->getDbConnection());
+
         return $migration;
     }
 
@@ -357,7 +363,7 @@ class Migrator extends \CApplicationComponent
      */
     protected function getDbConnection()
     {
-        
+
         if ($this->_db !== null) {
             return $this->_db;
         } else {
@@ -482,6 +488,7 @@ class Migrator extends \CApplicationComponent
             closedir($handle);
             sort($migrations);
         }
+
         return $migrations;
     }
 

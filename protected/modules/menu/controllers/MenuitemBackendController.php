@@ -45,7 +45,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             throw new CHttpException(404);
         }
 
-        if(MenuItem::model()->sort($sortOrder)) {
+        if (MenuItem::model()->sort($sortOrder)) {
             Yii::app()->ajax->success();
         }
 
@@ -108,7 +108,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new MenuItem;
+        $model = new MenuItem();
 
         $model->menu_id = Yii::app()->getRequest()->getQuery('mid', null);
 
@@ -124,7 +124,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('create')
                     )
@@ -132,7 +132,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             }
         }
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->select = new CDbExpression('MAX(sort) as sort');
 
@@ -166,7 +166,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('update', 'id' => $model->id)
                     )
@@ -200,7 +200,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(

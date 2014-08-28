@@ -37,7 +37,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
     }
     /**
      * Displays a particular model.
-     * 
+     *
      * @param integer $id the ID of the model to be displayed
      *
      * @return void
@@ -55,14 +55,14 @@ class NewsBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new News;
+        $model = new News();
 
         if (($data = Yii::app()->getRequest()->getPost('News')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was created!')
@@ -79,12 +79,12 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $languages = $this->yupe->getLanguagesList();
 
         //если добавляем перевод
-        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $id = (int) Yii::app()->getRequest()->getQuery('id');
         $lang = Yii::app()->getRequest()->getQuery('lang');
 
         if (!empty($id) && !empty($lang)) {
             $news = News::model()->findByPk($id);
-            
+
             if (null === $news) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
@@ -102,7 +102,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
                 $this->redirect(array('/news/newsBackend/create'));
             }
-            
+
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
@@ -128,12 +128,12 @@ class NewsBackendController extends yupe\components\controllers\BackController
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * 
-     * @param null $alias
-     * @param integer $id the ID of the model to be updated
-     * 
+     *
+     * @param null    $alias
+     * @param integer $id    the ID of the model to be updated
+     *
      * @throws CHttpException
-     * 
+     *
      * @return void
      */
     public function actionUpdate($id)
@@ -141,7 +141,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('News')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -181,20 +181,20 @@ class NewsBackendController extends yupe\components\controllers\BackController
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * 
-     * @param null $alias
-     * @param integer $id the ID of the model to be deleted
-     * 
+     *
+     * @param null    $alias
+     * @param integer $id    the ID of the model to be deleted
+     *
      * @throws CHttpException
-     * 
+     *
      * @return void
      */
     public function actionDelete($id = null)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             $this->loadModel($id)->delete();
-            
+
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('NewsModule.news', 'Record was removed!')
@@ -220,22 +220,22 @@ class NewsBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new News('search');
-        
+
         $model->unsetAttributes(); // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'News', array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
-     * 
+     *
      * @param integer the ID of the model to be loaded
      *
      * @return void
@@ -250,7 +250,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 Yii::t('NewsModule.news', 'Requested page was not found!')
             );
         }
-        
+
         return $model;
     }
 }

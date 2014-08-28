@@ -79,7 +79,7 @@ class YAjaxFileUploadAction extends CAction
         }
 
         // по умолчанию не переименовываем файл
-        $this->rename = (bool)Yii::app()->getRequest()->getQuery('rename', false);
+        $this->rename = (bool) Yii::app()->getRequest()->getQuery('rename', false);
         $this->webPath = '/' . $this->getController()->yupe->uploadPath . '/files/' . date('Y/m/d') . '/';
         $this->uploadPath = Yii::getPathOfAlias('webroot') . $this->webPath;
 
@@ -128,6 +128,7 @@ class YAjaxFileUploadAction extends CAction
 
         $this->fileLink = Yii::app()->getBaseUrl() . $this->webPath . $newFileName;
         $this->fileName = $this->uploadedFile->name;
+
         return true;
     }
-} 
+}

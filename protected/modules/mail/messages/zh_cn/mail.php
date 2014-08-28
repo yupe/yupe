@@ -96,6 +96,6 @@ return array (
     'not active' => '未激活',
     'are required.' => '是必填项。',
     'management' => '管理',
-	'Visual editor' => '可视化编辑器',
-	'Menu items order' => '菜单项排序',
+    'Visual editor' => '可视化编辑器',
+    'Menu items order' => '菜单项排序',
 );

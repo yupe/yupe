@@ -195,6 +195,7 @@ class InstallModule extends WebModule
                     )
                 )
             );
+
         return $installMenu;
     }
 

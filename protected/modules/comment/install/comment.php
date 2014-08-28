@@ -18,7 +18,7 @@ return array(
             )
         ),
     ),
-    'import'    => array(      
+    'import'    => array(
         'application.modules.comment.models.*',
         'application.modules.comment.events.*',
         'application.modules.comment.listeners.*',
@@ -38,7 +38,7 @@ return array(
             )
         )
     ),
-    'rules'     => array(        
+    'rules'     => array(
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',
         '/comment/comment/captcha/<v>' => 'comment/comment/captcha/',
         '/comment/add/' => 'comment/comment/add/',

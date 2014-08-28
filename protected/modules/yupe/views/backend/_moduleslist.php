@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для backend/_moduleslist:
- * 
+ *
  *   @category YupeView
  *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
@@ -17,16 +17,16 @@ if (count($modules)) :
             continue;
         }
 
-        if ($m->canActivate() === false){
+        if ($m->canActivate() === false) {
             continue;
         }
 
         if ($m->getIsActive() || $m->getIsNoDisable()) {
             $on[$m->id] = $m;
-            if (isset($updates[$m->id])){
+            if (isset($updates[$m->id])) {
                 $has[$m->id] = $m;
             }
-        } else if ($m->getIsInstalled()) {
+        } elseif ($m->getIsInstalled()) {
             $off[$m->id] = $m;
         } else {
             $dis[$m->id] = $m;
@@ -69,7 +69,6 @@ if (count($modules)) :
     );
 endif;
 
-
 function moduleRow($module, &$updates, &$modules)
 {
 ?>
@@ -102,8 +101,7 @@ function moduleRow($module, &$updates, &$modules)
             <?php
                 $tabs = array();
 
-                if ($module->getId() != \yupe\components\ModuleManager::CORE_MODULE && count($module->getDependencies()))
-                {
+                if ($module->getId() != \yupe\components\ModuleManager::CORE_MODULE && count($module->getDependencies())) {
                     $deps = $module->getDependencies();
                     $tabs[] = array(
                         'label'   => "<small>" . Yii::t('YupeModule.yupe', 'Depends on') . "</small>",
@@ -117,11 +115,9 @@ function moduleRow($module, &$updates, &$modules)
                         'content' => Yii::t('YupeModule.yupe', 'All modules'),
                         'count'   => Yii::t('YupeModule.yupe', 'All'),
                     );
-                else
-                {
-                    if(count($deps = $module->getDependent()))
-                    {
-                        foreach($deps as $dep) {
+                else {
+                    if (count($deps = $module->getDependent())) {
+                        foreach ($deps as $dep) {
                             if (isset($modules[$dep]) && $modules[$dep] instanceof yupe\components\WebModule === false) {
                                 continue;
                             }
@@ -169,7 +165,7 @@ function moduleRow($module, &$updates, &$modules)
                         : CHtml::link('<i class="glyphicon glyphicon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Install') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'install')))
                     );
 
-                if (isset($updates[$module->getId()]) && $module->getIsInstalled()){
+                if (isset($updates[$module->getId()]) && $module->getIsInstalled()) {
                     echo CHtml::link('<i class="glyphicon glyphicon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Have {n} DB updates!|Have {n} DB updates!|Have {n} DB updates!', count($updates[$module->getId()])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->getId()));
                 }
                 if ($module->getIsActive() && $module->isConfigNeedUpdate())
@@ -205,6 +201,7 @@ function modulesTable($modules, &$updates, &$allmodules,&$controller)
         </tbody>
     </table>
 <?php
+
     return ob_get_clean();
 }
 ?>

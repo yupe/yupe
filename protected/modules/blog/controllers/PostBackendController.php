@@ -38,8 +38,8 @@ class PostBackendController extends yupe\components\controllers\BackController
 
     /**
      * Отображает запись по указанному идентификатору
-     * 
-     * @param integer $id Идинтификатор запись для отображения
+     *
+     * @param  integer        $id Идинтификатор запись для отображения
      * @throws CHttpException
      * @return void
      */
@@ -61,7 +61,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new Post;
+        $model = new Post();
 
         $model->publish_date = date('d-m-Y h:i');
 
@@ -90,8 +90,8 @@ class PostBackendController extends yupe\components\controllers\BackController
 
     /**
      * Редактирование записи.
-     * 
-     * @param integer $id the ID of the model to be updated
+     *
+     * @param  integer        $id the ID of the model to be updated
      * @throws CHttpException
      * @return void
      */
@@ -115,7 +115,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                     Yii::t('BlogModule.blog', 'Post was updated!')
                 );
 
-                if(isset($_POST['post-publish'])) {
+                if (isset($_POST['post-publish'])) {
                     $model->publish();
                 }
 
@@ -136,8 +136,8 @@ class PostBackendController extends yupe\components\controllers\BackController
     /**
      * Удаляет модель записи из базы.
      * Если удаление прошло успешно - возвращется в index
-     * 
-     * @param integer $id идентификатор записи, который нужно удалить
+     *
+     * @param  integer        $id идентификатор записи, который нужно удалить
      * @throws CHttpException
      * @return void
      */
@@ -145,7 +145,7 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
-            
+
             if (($post = Post::model()->loadModel($id)) === null)
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
             else
@@ -174,7 +174,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionIndex()
     {
-        $model = new Post('search');        
+        $model = new Post('search');
         $model->unsetAttributes(); // clear any default values
         if (Yii::app()->getRequest()->getParam('Post'))
             $model->setAttributes(

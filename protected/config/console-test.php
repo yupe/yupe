@@ -57,6 +57,4 @@ return array(
         ),
 
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
-        'db' => file_exists(__DIR__ . '/db-test.php') ? require_once __DIR__ . '/db-test.php' : array(),
-    ),
-);
+        'db' => file_exists(__DIR__ . '/db-test.php') ? require_once __DIR__ . '/db-test.php' : array(),),);

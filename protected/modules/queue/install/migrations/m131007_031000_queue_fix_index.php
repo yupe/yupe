@@ -20,10 +20,9 @@ class m131007_031000_queue_fix_index extends yupe\components\DbMigration
         $this->createIndex("ux_{{queue_queue}}_worker", '{{queue_queue}}', "worker");
         $this->createIndex("ux_{{queue_queue}}_priority", '{{queue_queue}}', "priority");
     }
- 
 
     public function safeDown()
     {
-    	
+
     }
 }

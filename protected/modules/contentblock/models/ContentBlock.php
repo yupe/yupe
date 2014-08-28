@@ -28,7 +28,7 @@ class ContentBlock extends yupe\models\YModel
     const RAW_TEXT = 4;
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string       $className
      * @return ContentBlock the static model class
      */
     public static function model($className = __CLASS__)
@@ -115,15 +115,18 @@ class ContentBlock extends yupe\models\YModel
     public function getType()
     {
         $data = $this->getTypes();
+
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*unknown type*');
     }
 
-	protected function beforeSave()
+    protected function beforeSave()
     {
         if (parent::beforeSave()) {
             Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+
             return true;
         }
+
         return false;
     }
 }

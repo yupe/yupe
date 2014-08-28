@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
-        function changeChildNodes(elem) {
+        function changeChildNodes(elem)
+        {
             $(elem).closest('li').find('input').attr('checked', elem.checked);
         }
 

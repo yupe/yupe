@@ -1,6 +1,6 @@
 <?php if($page->layout):?>
     <?php $this->layout = "//layouts/{$page->layout}";?>
-<?php endif;?>	
+<?php endif;?>
 
 <?php
 /* @var $page Page */

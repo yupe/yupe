@@ -1,6 +1,5 @@
 <?php
 namespace comments;
-use Codeception\Util\Stub as Strub;
 
 class MigrateToNsTest extends \Codeception\TestCase\Test
 {

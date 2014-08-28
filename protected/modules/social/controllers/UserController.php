@@ -11,7 +11,6 @@ use EAuthException;
 use CHttpException;
 use User;
 use RegistrationForm;
-use CLogger;
 use LoginForm;
 
 class UserController extends FrontController
@@ -114,7 +113,7 @@ class UserController extends FrontController
             throw new CHttpException(404, Yii::t('SocialModule.social', 'requested page was not found!'));
         }
 
-        $form = new RegistrationForm;
+        $form = new RegistrationForm();
 
         $form->disableCaptcha = true;
 
@@ -149,7 +148,7 @@ class UserController extends FrontController
 
                 if ($user = Yii::app()->userManager->createUser($form)) {
 
-                    $social = new SocialUser;
+                    $social = new SocialUser();
                     $social->user_id = $user->id;
                     $social->provider = $authData['service'];
                     $social->uid = $authData['uid'];
@@ -198,7 +197,7 @@ class UserController extends FrontController
                 )
             ) {
 
-                $social = new SocialUser;
+                $social = new SocialUser();
                 $social->user_id = Yii::app()->getUser()->getId();
                 $social->provider = $authData['service'];
                 $social->uid = $authData['uid'];

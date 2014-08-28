@@ -28,7 +28,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionIndex($type = null)
     {
-        $form = new FeedBackForm;
+        $form = new FeedBackForm();
 
         // если пользователь авторизован - подставить его данные
         if (Yii::app()->user->isAuthenticated()) {
@@ -37,7 +37,7 @@ class ContactController extends yupe\components\controllers\FrontController
         }
 
         // проверить не передан ли тип и присвоить его аттрибуту модели
-        $form->type = empty($type) ? FeedBack::TYPE_DEFAULT : (int)$type;
+        $form->type = empty($type) ? FeedBack::TYPE_DEFAULT : (int) $type;
 
         $module = Yii::app()->getModule('feedback');
 
@@ -100,7 +100,6 @@ class ContactController extends yupe\components\controllers\FrontController
         $this->render('index', array('model' => $form, 'module' => $module));
     }
 
-
     // отобразить сообщения   с признаком is_faq
     // @TODO CActiveDataProvider перенести в модуль
     public function actionFaq()
@@ -122,7 +121,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionFaqView($id)
     {
-        $id = (int)$id;
+        $id = (int) $id;
 
         if (!$id) {
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));

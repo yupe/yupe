@@ -10,7 +10,7 @@
 
 /**
  * Виджет реализует вывод меню
- * 
+ *
  * Подключение виджета:
  * <?php
  * $this->widget('application.modules.menu.widgets.MenuWidget', array(
@@ -24,8 +24,8 @@
  * ?>
  */
 
-Yii::import('application.modules.menu.models.*'); 
- 
+Yii::import('application.modules.menu.models.*');
+
 class MenuWidget extends yupe\widgets\YWidget
 {
     /**

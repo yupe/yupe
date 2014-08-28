@@ -98,4 +98,3 @@ $this->breadcrumbs = array(
 <br/><br/>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget'); ?>
-

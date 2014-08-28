@@ -87,7 +87,7 @@ class FeedBackCest
 
         $check = array('test_name','test_theme','test_text','test_answer','yupe');
 
-        foreach($check as $ch) {
+        foreach ($check as $ch) {
             $I->see($ch);
         }
 

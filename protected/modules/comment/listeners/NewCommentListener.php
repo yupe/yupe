@@ -26,4 +26,4 @@ class NewCommentListener
             $body
         );
     }
-} 
+}

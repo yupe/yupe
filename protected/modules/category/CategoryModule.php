@@ -41,7 +41,7 @@ class CategoryModule extends WebModule
 
     public function getInstall()
     {
-        if(parent::getInstall()){
+        if (parent::getInstall()) {
             @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
         }
 

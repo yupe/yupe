@@ -4,8 +4,8 @@ namespace application\modules\social\components\services;
 
 use \TwitterOAuthService;
 
-class Twitter extends TwitterOAuthService {
-
+class Twitter extends TwitterOAuthService
+{
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
@@ -16,8 +16,10 @@ class Twitter extends TwitterOAuthService {
                 'service' => $this->getServiceName(),
                 'type' => $this->getServiceType(),
             ));
+
             return true;
         }
+
         return false;
     }
 

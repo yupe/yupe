@@ -9,7 +9,7 @@
                     <li><?php echo CHtml::link(CHtml::encode($post->title), array('/blog/post/show/','slug' => CHtml::encode($post->slug)));?></li>
                 <?php endforeach;?>
             </ul>
-        </div>    
+        </div>
     </div>
 <?php else:?>
     <div class="alert alert-warning">

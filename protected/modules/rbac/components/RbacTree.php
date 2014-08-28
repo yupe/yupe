@@ -52,7 +52,7 @@ class RbacTree
             'userid'
         );
         $authItems = AuthItem::model()->findAll(array('order' => 'type DESC, description ASC'));
-        foreach ((array)$authItems as $item) {
+        foreach ((array) $authItems as $item) {
             $this->itemsGroupedByTypes[$item->type][$item->name] = $item;
             $this->itemsList[$item->name] = $item;
             // если проверять каждый элемент, то генерируется огромное количество запросов, но получается правильное дерево с отмеченными дочерними элементами
@@ -60,7 +60,7 @@ class RbacTree
             $this->permissionList[$item->name] = isset($userAssign[$item->name]); //Yii::app()->authManager->checkAccess($item->name, $this->user->id);
         }
         $authItemsChild = AuthItemChild::model()->findAll();
-        foreach ((array)$authItemsChild as $item) {
+        foreach ((array) $authItemsChild as $item) {
             $this->hierarchy[$item->parent][] = $item->child;
             $this->wereChildren[] = $item->child;
         }
@@ -153,7 +153,7 @@ class RbacTree
         $tree = array();
 
         // цикл идет по элементам определенной роли, которые не были упомянуты в качестве потомков
-        foreach (array_diff(array_keys((array)$this->itemsGroupedByTypes[$type]), $this->wereChildren) as $name) {
+        foreach (array_diff(array_keys((array) $this->itemsGroupedByTypes[$type]), $this->wereChildren) as $name) {
             $tree[] = $this->getTextNode($name);
         }
 

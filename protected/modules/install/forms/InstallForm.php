@@ -20,7 +20,6 @@ class InstallForm extends yupe\models\YFormModel
     const DB_MSSQL      = 3;
     const DB_ORACLE     = 4;
 
-
     /**
      * Параметры для настройки БД:
      **/
@@ -119,7 +118,6 @@ class InstallForm extends yupe\models\YFormModel
             'dbPassword'      => Yii::t('InstallModule.install', 'Password'),
             'tablePrefix'     => Yii::t('InstallModule.install', 'Tables prefix'),
 
-
             /**
              * Для начальной настройки сайта:
              **/
@@ -200,7 +198,7 @@ class InstallForm extends yupe\models\YFormModel
         /**
          * Проверяем доступные СУБД:
          */
-        
+
         if (extension_loaded('pdo_mysql')) {
             $dbTypes[self::DB_MYSQL] = 'MySQL';
         }

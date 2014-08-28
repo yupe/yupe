@@ -20,8 +20,7 @@ class YAjaxImageChooseAction extends CAction
 {
     public function run()
     {
-        if(Yii::app()->hasModule("image") && Yii::app()->getModule('image')->getIsActive())
-        {
+        if (Yii::app()->hasModule("image") && Yii::app()->getModule('image')->getIsActive()) {
             $upPath = '/'. Yii::app()->getModule('yupe')->uploadPath .
                       '/' . Yii::app()->getModule('image')->uploadPath .
                       '/';
@@ -30,8 +29,7 @@ class YAjaxImageChooseAction extends CAction
                 array('category_id' => null, 'parent_id' => null)
             );
 
-            if(!empty($imgs))
-            {
+            if (!empty($imgs)) {
                 foreach($imgs as $img)
                     $forJson[] = array(
                         'thumb' => $upPath.$img->file,
@@ -45,4 +43,4 @@ class YAjaxImageChooseAction extends CAction
             Yii::app()->end();
         }
     }
-} 
+}

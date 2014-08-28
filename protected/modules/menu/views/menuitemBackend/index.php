@@ -43,10 +43,11 @@ $this->menu = array(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('menu-items-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });
 "

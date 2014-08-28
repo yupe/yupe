@@ -49,7 +49,7 @@ class m000000_000000_feedback_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{feedback_feedback}}_answer_user", '{{feedback_feedback}}', 'answer_user','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{feedback_feedback}}_category",'{{feedback_feedback}}', 'category_id','{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
     }
- 
+
     /**
      * Откатываем миграцию
      *

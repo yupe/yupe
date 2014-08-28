@@ -37,10 +37,11 @@ class ContentType
      *
      * @return nothing
      **/
-    static public function setHeader($contentTypeId)
+    public static function setHeader($contentTypeId)
     {
         if (!is_null(self::getHeader($contentTypeId))) {
             header(self::getHeader($contentTypeId));
+
             return true;
         } else {
             return false;
@@ -54,13 +55,12 @@ class ContentType
      *
      * @return string строка типа контента
      **/
-    static public function getHeader($contentTypeId)
+    public static function getHeader($contentTypeId)
     {
         $contentTypes = self::getTypes();
         if (isset($contentTypes[$contentTypeId])) {
             return $contentTypes[$contentTypeId];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -70,7 +70,7 @@ class ContentType
      *
      * @return mixed все типы контента
      **/
-    static public function getTypes()
+    public static function getTypes()
     {
         return array(
             self::TYPE_HTML      => 'Content-type: text/html',

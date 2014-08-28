@@ -21,7 +21,7 @@ class YupeBackendControllerInitEvent extends Event
 
     /**
      * @param \Controller $controller
-     * @param \IWebUser $user
+     * @param \IWebUser   $user
      */
     public function __construct(\CController $controller, \IWebUser $user)
     {
@@ -60,4 +60,4 @@ class YupeBackendControllerInitEvent extends Event
     {
         return $this->user;
     }
-} 
+}

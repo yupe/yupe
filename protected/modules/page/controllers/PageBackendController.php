@@ -11,7 +11,7 @@
  *
  */
 Yii::import('application.modules.menu.models.*');
- 
+
 class PageBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
@@ -65,27 +65,27 @@ class PageBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new Page;
+        $model = new Page();
 
         $menuId = null;
         $menuParentId = 0;
 
         if (($data = Yii::app()->getRequest()->getPost('Page')) !== null) {
-            
+
             $model->setAttributes($data);
 
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                
+
                 if ($model->save()) {
-                    
+
                     // если активен модуль "Меню" - сохраним в меню
                     if (Yii::app()->hasModule('menu')) {
 
-                        $menuId   = (int)Yii::app()->getRequest()->getPost('menu_id');
-                        $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
-                        
+                        $menuId   = (int) Yii::app()->getRequest()->getPost('menu_id');
+                        $parentId = (int) Yii::app()->getRequest()->getPost('parent_id');
+
                         $menu     = Menu::model()->active()->findByPk($menuId);
                         if ($menu) {
                             if (!$menu->addItem($model->title, serialize(array('/page/page/show', 'slug' => $model->slug)), $parentId)) {
@@ -109,7 +109,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                         )
                     );
                 }
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $transaction->rollback();
                 $model->addError(false, $e->getMessage());
             }
@@ -118,7 +118,7 @@ class PageBackendController extends yupe\components\controllers\BackController
         $languages = $this->yupe->getLanguagesList();
 
         //если добавляем перевод
-        $id   = (int)Yii::app()->getRequest()->getQuery('id');
+        $id   = (int) Yii::app()->getRequest()->getQuery('id');
         $lang = Yii::app()->getRequest()->getQuery('lang');
 
         if (!empty($id) && !empty($lang)) {
@@ -128,7 +128,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('PageModule.page', 'Targeting page was not found!')
                 );
-                
+
                 $this->redirect(array('index'));
             }
 
@@ -137,10 +137,10 @@ class PageBackendController extends yupe\components\controllers\BackController
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('PageModule.page', 'Language was not found!')
                 );
-                
+
                 $this->redirect(array('index'));
             }
-            
+
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
@@ -161,7 +161,6 @@ class PageBackendController extends yupe\components\controllers\BackController
         } else {
             $model->lang        = Yii::app()->language;
         }
-
 
         $this->render(
             'create', array(
@@ -194,15 +193,15 @@ class PageBackendController extends yupe\components\controllers\BackController
         $menuParentId = 0;
 
         if (($data = Yii::app()->getRequest()->getPost('Page')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
                 if (Yii::app()->hasModule('menu')) {
 
-                    $menuId   = (int)Yii::app()->getRequest()->getPost('menu_id');
-                    $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
+                    $menuId   = (int) Yii::app()->getRequest()->getPost('menu_id');
+                    $parentId = (int) Yii::app()->getRequest()->getPost('parent_id');
                     $menu     = Menu::model()->active()->findByPk($menuId);
                     if ($menu) {
                         if (!$menu->changeItem($oldTitle, $model->title, serialize(array('/page/page/show', 'slug' => $model->slug)),$parentId)) {
@@ -227,16 +226,16 @@ class PageBackendController extends yupe\components\controllers\BackController
         }
 
         if (Yii::app()->hasModule('menu')) {
-            
+
             $menuItem = MenuItem::model()->findByAttributes(
                 array(
                     "title"=>$oldTitle
                 )
             );
-            
+
             if ($menuItem !== null) {
-                $menuId       = (int)$menuItem->menu_id;
-                $menuParentId = (int)$menuItem->parent_id;
+                $menuId       = (int) $menuItem->menu_id;
+                $menuParentId = (int) $menuItem->parent_id;
             }
         }
 
@@ -265,7 +264,7 @@ class PageBackendController extends yupe\components\controllers\BackController
      * If deletion is successful, the browser will be redirected to the 'index' page
      *
      * @param int $id - record ID
-     * 
+     *
      * @return void
      *
      * @throws CHttpException
@@ -273,13 +272,13 @@ class PageBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id = null)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             $model = $this->loadModel($id);
 
             if (Yii::app()->hasModule('menu')) {
-                
+
                 $menuItem = MenuItem::model()->findByAttributes(array("title" => $model->title));
-                
+
                 if ($menuItem !== null) {
                     $menuItem->delete();
                 }
@@ -287,7 +286,7 @@ class PageBackendController extends yupe\components\controllers\BackController
 
             // we only allow deletion via POST request
             $model->delete();
-            
+
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('PageModule.page', 'Record was removed!')
@@ -313,15 +312,15 @@ class PageBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new Page('search');
-        
+
         $model->unsetAttributes();
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Page', array()
             )
         );
-        
+
         $this->render(
             'index', array(
                 'model' => $model,
@@ -335,7 +334,7 @@ class PageBackendController extends yupe\components\controllers\BackController
      * If the data model is not found, an HTTP exception will be raised.
      *
      * @param int $id - record ID
-     * 
+     *
      * @return Page $model
      *
      * @throws CHttpException
@@ -343,7 +342,7 @@ class PageBackendController extends yupe\components\controllers\BackController
     public function loadModel($id)
     {
         if ($this->_model === null || $this->_model->id !== $id) {
-            
+
             if (($this->_model = Page::model()->with('author', 'changeAuthor')->findByPk($id)) === null) {
                 throw new CHttpException(
                     404,

@@ -24,7 +24,7 @@ class EventBackendController extends yupe\components\controllers\BackController
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
@@ -55,7 +55,7 @@ class EventBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new MailEvent;
+        $model = new MailEvent();
 
         if (($data = Yii::app()->getRequest()->getPost('MailEvent')) !== null) {
             $model->setAttributes($data);
@@ -147,15 +147,15 @@ class EventBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new MailEvent('search');
-        
+
         $model->unsetAttributes();  // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'MailEvent', array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -177,6 +177,7 @@ class EventBackendController extends yupe\components\controllers\BackController
                 Yii::t('MailModule.mail', 'Requested page was not found.')
             );
         }
+
         return $model;
     }
 }

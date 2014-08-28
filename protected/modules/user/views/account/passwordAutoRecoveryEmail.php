@@ -46,7 +46,7 @@
         <p><?php echo $link; ?></p>
 
         <hr />
-        
+
         <p>
             <?php echo Yii::t(
                 'UserModule.user', 'Best regards, "{site}" administration!', array(

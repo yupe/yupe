@@ -21,7 +21,7 @@ class DAO extends \CComponent
 
     // CDbCriteria intance:
     private $_criteria = null;
-    
+
     // CDbCommand instance:
     private $_command = null;
 
@@ -38,7 +38,7 @@ class DAO extends \CComponent
      * Создаём новый инстанс класса
      * для использования статических
      * методов:
-     * 
+     *
      * @return DAO class (self)
      */
     public static function getInstance()
@@ -51,7 +51,7 @@ class DAO extends \CComponent
 
     /**
      * Тестовый статический метод:
-     * 
+     *
      * @return DAO class (self)
      */
     public static function test()
@@ -62,21 +62,21 @@ class DAO extends \CComponent
     /**
      * Возвращаем объект критерии, в случае её отсутствия
      * создаём:
-     * 
+     *
      * @return CDbCriteria instance
      */
     protected function getCriteria()
     {
         return $this->_criteria
                 ?: (
-                    $this->_criteria = new \CDbCriteria
+                    $this->_criteria = new \CDbCriteria()
                 );
     }
 
     /**
      * Возвращаем объект CDbCommand, в случае его отсутствия
      * создаём:
-     * 
+     *
      * @return CDbCommand instance
      */
     protected function getCommand()
@@ -92,7 +92,7 @@ class DAO extends \CComponent
     /**
      * Возвращаем объект CDbSchema, в случае её отсутствия
      * создаём:
-     * 
+     *
      * @return CDbSchema instance
      */
     protected function getSchema()
@@ -108,7 +108,7 @@ class DAO extends \CComponent
     /**
      * Инициализация класса, настройка окружения
      * и инициализация необходимых для работы классов:
-     * 
+     *
      * @return DAO class (self)
      */
     public function init()
@@ -139,9 +139,9 @@ class DAO extends \CComponent
 
     /**
      * Добавляем критерию FROM для дальнейшей работы:
-     * 
-     * @param string $tableName - название таблицы
-     * @return DAO class (self)
+     *
+     * @param  string $tableName - название таблицы
+     * @return DAO    class (self)
      */
     public function in($tableName = null)
     {
@@ -152,11 +152,11 @@ class DAO extends \CComponent
 
     /**
      * Указываем пост-условия для запроса:
-     * 
+     *
      * @param mixed $conditions - the conditions that should be put in the WHERE part.
      * @param array $params     - the parameters (name=>value) to be bound to the query
-     * 
-     * @return [type]             [description]
+     *
+     * @return [type] [description]
      */
     public function where($conditions, array $params = array())
     {
@@ -168,8 +168,8 @@ class DAO extends \CComponent
 
     /**
      * Выполняем обновление записей:
-     * 
-     * @param array  $columns - является массивом пар имя-значение,
+     *
+     * @param  array   $columns - является массивом пар имя-значение,
      *                          задающим значения обновляемых полей
      * @return integer - number of rows affected by the execution.
      */

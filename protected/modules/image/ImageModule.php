@@ -231,7 +231,7 @@ class ImageModule extends WebModule
                 'label' => Yii::t('ImageModule.image', 'Add image'),
                 'url' => array('/image/imageBackend/create')
             ),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('ImageModule.image', 'Images categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('ImageModule.image', 'Images categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int) $this->mainCategory)),
         );
     }
 

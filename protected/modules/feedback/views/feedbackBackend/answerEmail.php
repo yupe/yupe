@@ -14,4 +14,4 @@
     <br/>
     <?php echo Yii::t('FeedbackModule.feedback', 'Truly yours {site} administration!', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
 </body>
-</html>  
+</html>

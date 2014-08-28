@@ -178,7 +178,6 @@ class Comment extends yupe\models\YModel
         );
     }
 
-
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      *
@@ -189,7 +188,7 @@ class Comment extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
@@ -278,11 +277,10 @@ class Comment extends yupe\models\YModel
         return ($this->author) ? $this->author->nick_name : $this->name;
     }
 
-
     public function getAuthorAvatar($size = 32, array $params = array('width' => 32, 'height' => 32))
     {
         if ($this->author) {
-            return CHtml::image($this->author->getAvatar((int)$size), $this->author->nick_name, $params);
+            return CHtml::image($this->author->getAvatar((int) $size), $this->author->nick_name, $params);
         }
 
         return CHtml::image(Yii::app()->getModule('user')->defaultAvatar, $this->name, $params);
@@ -383,7 +381,7 @@ class Comment extends yupe\models\YModel
 
     public function getTarget(array $with = array())
     {
-        if(!class_exists($this->model)) {
+        if (!class_exists($this->model)) {
             return $this->model;
         }
 
@@ -403,7 +401,6 @@ class Comment extends yupe\models\YModel
         return $this->model;
     }
 
-
     public function getTargetTitle()
     {
         $target = $this->getTarget();
@@ -414,7 +411,6 @@ class Comment extends yupe\models\YModel
 
         return $this->model;
     }
-
 
     public function getTargetTitleLink(array $options = null)
     {

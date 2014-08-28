@@ -14,23 +14,23 @@ class MailModule extends yupe\components\WebModule
 {
     const VERSION = '0.8';
 
-	public function getParamsLabels()
-	{
-		return array(
-			'adminMenuOrder' => Yii::t('MailModule.mail', 'Menu items order'),
-			'editor'         => Yii::t('MailModule.mail', 'Visual editor'),
-		);
-	}
+    public function getParamsLabels()
+    {
+        return array(
+            'adminMenuOrder' => Yii::t('MailModule.mail', 'Menu items order'),
+            'editor'         => Yii::t('MailModule.mail', 'Visual editor'),
+        );
+    }
 
-	public function getEditableParams()
-	{
-		return array(
-			'adminMenuOrder',
-			'editor' => Yii::app()->getModule('yupe')->getEditors(),
-		);
-	}
+    public function getEditableParams()
+    {
+        return array(
+            'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->getEditors(),
+        );
+    }
 
-	/**
+    /**
      * Метод получения версии:
      *
      * @return string version
@@ -156,9 +156,9 @@ class MailModule extends yupe\components\WebModule
 
     /**
      * Получаем массив с именами модулей, от которых зависит работа данного модуля
-     * 
+     *
      * @return array Массив с именами модулей, от которых зависит работа данного модуля
-     * 
+     *
      * @since 0.5
      */
     public function getDependencies()

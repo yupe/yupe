@@ -69,8 +69,8 @@ class Imagine
 
     /**
      * Creates an `Imagine` object based on the specified [[driver]].
-     * @return ImagineInterface       the new `Imagine` object
-     * @throws \CException if [[driver]] is unknown or the system doesn't support any [[driver]].
+     * @return ImagineInterface the new `Imagine` object
+     * @throws \CException      if [[driver]] is unknown or the system doesn't support any [[driver]].
      */
     protected static function createImagine()
     {
@@ -110,12 +110,12 @@ class Imagine
      * $obj->crop('path\to\image.jpg', 200, 200, $point);
      * ~~~
      *
-     * @param  string                $filename the image file path or path alias.
-     * @param  integer               $width    the crop width
-     * @param  integer               $height   the crop height
-     * @param  array                 $start    the starting point. This must be an array with two elements representing `x` and `y` coordinates.
+     * @param  string         $filename the image file path or path alias.
+     * @param  integer        $width    the crop width
+     * @param  integer        $height   the crop height
+     * @param  array          $start    the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
-     * @throws \CException if the `$start` parameter is invalid
+     * @throws \CException    if the `$start` parameter is invalid
      */
     public static function crop($filename, $width, $height, array $start = array(0, 0))
     {
@@ -171,11 +171,11 @@ class Imagine
 
     /**
      * Adds a watermark to an existing image.
-     * @param  string                $filename          the image file path or path alias.
-     * @param  string                $watermarkFilename the file path or path alias of the watermark image.
-     * @param  array                 $start             the starting point. This must be an array with two elements representing `x` and `y` coordinates.
+     * @param  string         $filename          the image file path or path alias.
+     * @param  string         $watermarkFilename the file path or path alias of the watermark image.
+     * @param  array          $start             the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
-     * @throws \CException if `$start` is invalid
+     * @throws \CException    if `$start` is invalid
      */
     public static function watermark($filename, $watermarkFilename, array $start = array(0, 0))
     {
@@ -203,7 +203,7 @@ class Imagine
      * - angle: The angle to use to write the text. Defaults to 0.
      *
      * @return ImageInterface
-     * @throws \CException if `$fontOptions` is invalid
+     * @throws \CException    if `$fontOptions` is invalid
      */
     public static function text($filename, $text, $fontFile, array $start = array(0, 0), array $fontOptions = array())
     {

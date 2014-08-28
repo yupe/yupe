@@ -24,15 +24,15 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
 
     protected function uploadFile()
     {
-        if(!Yii::app()->hasModule('image')) {
+        if (!Yii::app()->hasModule('image')) {
             return false;
         }
 
-        if(false === getimagesize($this->uploadedFile->getTempName())){
+        if (false === getimagesize($this->uploadedFile->getTempName())) {
             return false;
         }
 
-        $image = new Image;
+        $image = new Image();
         $image->setScenario('insert');
         $image->addFileInstanceName('file');
         $image->setAttribute('name',$this->uploadedFile->getName());
@@ -42,9 +42,10 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
         if ($image->save()) {
             $this->fileLink = $image->getRawUrl();
             $this->fileName = $image->getName();
+
             return true;
         }
 
         return false;
     }
-} 
+}

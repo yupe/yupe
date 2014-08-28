@@ -33,7 +33,7 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory),
+                    'data' => Category::model()->getFormattedList((int) Yii::app()->getModule('image')->mainCategory),
                     'htmlOptions' => array(
                         'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
                     ),
@@ -124,7 +124,8 @@ $this->widget(
     }
 </style>
 <script type="text/javascript">
-    function readURL(input) {
+    function readURL(input)
+    {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 

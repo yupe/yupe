@@ -57,7 +57,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
      */
     public function actionCreate()
     {
-        $model = new DictionaryGroup;
+        $model = new DictionaryGroup();
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryGroup')) !== null) {
 
@@ -71,7 +71,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('create')
                     )
@@ -106,7 +106,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('update', 'id' => $model->id)
                     )
@@ -136,7 +136,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
-                (array)Yii::app()->getRequest()->getPost(
+                (array) Yii::app()->getRequest()->getPost(
                     'returnUrl',
                     'index'
                 )
@@ -182,7 +182,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
      */
     public function loadModel($id)
     {
-        $model = DictionaryGroup::model()->findByPk((int)$id);
+        $model = DictionaryGroup::model()->findByPk((int) $id);
 
         if ($model === null) {
             throw new CHttpException(

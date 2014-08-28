@@ -17,13 +17,14 @@ class TagCloudWidget extends yupe\widgets\YWidget
                     )
                 )
             );
+
             return false;
         }
         $model = $this->model;
         $model::model()->resetAllTagsCache();
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->order = 'count DESC';
-        $criteria->limit = $this->count;            
+        $criteria->limit = $this->count;
         $this->render('tagcloud', array('tags' => $model::model()->getAllTagsWithModelsCount($criteria)));
     }
 }

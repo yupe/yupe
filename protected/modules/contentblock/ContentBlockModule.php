@@ -86,10 +86,10 @@ class ContentBlockModule extends yupe\components\WebModule
         );
     }
 
-	public function getIsInstallDefault()
-	{
-		return true;
-	}
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
 
     public function getAuthItems()
     {

@@ -135,6 +135,6 @@ $this->widget(
     $(document).ready(function () {
         var url = window.location.href;
         $('.navbar .nav li').removeClass('active');
-        $('.nav a').filter(function() {return this.getAttribute("href") != '#' && this.href == url;}).parents('li').addClass('active');
+        $('.nav a').filter(function () {return this.getAttribute("href") != '#' && this.href == url;}).parents('li').addClass('active');
     });
 </script>

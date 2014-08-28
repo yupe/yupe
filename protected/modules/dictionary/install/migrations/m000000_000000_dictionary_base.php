@@ -66,7 +66,6 @@ class m000000_000000_dictionary_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{dictionary_dictionary_data}}_update_user_id",'{{dictionary_dictionary_data}}', 'update_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{dictionary_dictionary_data}}_data_group_id",'{{dictionary_dictionary_data}}', 'group_id','{{dictionary_dictionary_group}}', 'id', 'CASCADE', 'NO ACTION');
     }
- 
 
     public function safeDown()
     {

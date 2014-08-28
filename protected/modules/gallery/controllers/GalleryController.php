@@ -33,7 +33,7 @@ class GalleryController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
         }
 
-        $image = new Image;
+        $image = new Image();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['Image'])) {
 
@@ -71,7 +71,7 @@ class GalleryController extends yupe\components\controllers\FrontController
 
     public function actionImage($id)
     {
-        $model = Image::model()->findByPk((int)$id);
+        $model = Image::model()->findByPk((int) $id);
 
         if (!$model) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));

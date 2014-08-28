@@ -22,7 +22,7 @@ class QueueModule extends yupe\components\WebModule
         return $this->workerNamesMap;
     }
 
-    public function  getVersion()
+    public function getVersion()
     {
         return self::VERSION;
     }

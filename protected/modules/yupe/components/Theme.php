@@ -14,6 +14,7 @@ class Theme extends CTheme
         if (null === $this->_assetsUrl) {
             $this->_assetsUrl = Yii::app()->getAssetManager()->publish($this->getBasePath() . DIRECTORY_SEPARATOR . $this->resourceFolder);
         }
+
         return $this->_assetsUrl;
     }
 }

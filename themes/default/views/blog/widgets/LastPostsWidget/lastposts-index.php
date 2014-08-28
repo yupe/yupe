@@ -35,14 +35,14 @@
     </div>
 
     <div class="posts-list-block-text">
-        <?php echo strip_tags($data->getQuote()); ?>      
+        <?php echo strip_tags($data->getQuote()); ?>
     </div>
 
     <div class="posts-list-block-tags">
         <div>
             <span class="posts-list-block-tags-block">
                 <i class="glyphicon glyphicon-tags"></i>
-                
+
                 <?php echo Yii::t('BlogModule.blog','Tags'); ?>:
 
                 <?php foreach ((array) $data->getTags() as $tag):?>
@@ -66,5 +66,5 @@
             </span>
         </div>
     </div>
-</div>  
+</div>
 <?php endforeach?>

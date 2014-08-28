@@ -11,13 +11,13 @@ class TokenStorage extends CApplicationComponent
 
     public function create(User $user, $expire, $type)
     {
-        $model = new UserToken;
+        $model = new UserToken();
         $model->user_id = $user->id;
-        $model->type = (int)$type;
+        $model->type = (int) $type;
         $model->token = Yii::app()->userManager->hasher->generateRandomToken();
         $model->ip = Yii::app()->getRequest()->getUserHostAddress();
         $model->status = UserToken::STATUS_NEW;
-        $model->expire = date('Y-m-d h:i:s', time() + (int)$expire);
+        $model->expire = date('Y-m-d h:i:s', time() + (int) $expire);
         if ($model->save()) {
             return $model;
         }
@@ -30,7 +30,7 @@ class TokenStorage extends CApplicationComponent
         return UserToken::model()->deleteAll(
             'type = :type AND user_id = :user_id',
             array(
-                ':type' => (int)$type,
+                ':type' => (int) $type,
                 ':user_id' => $user->id
             )
         );
@@ -70,8 +70,8 @@ class TokenStorage extends CApplicationComponent
             'token = :token AND type = :type AND status = :status',
             array(
                 ':token' => $token,
-                ':type' => (int)$type,
-                ':status' => (int)$status
+                ':type' => (int) $type,
+                ':status' => (int) $status
             )
         );
     }

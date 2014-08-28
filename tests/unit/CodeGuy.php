@@ -6,7 +6,6 @@
 
 
 use Codeception\Module\Db;
-use Codeception\Module\CodeHelper;
 use Codeception\Module\YiiHelper;
 
 /**
@@ -24,7 +23,7 @@ use Codeception\Module\YiiHelper;
 */
 class CodeGuy extends \Codeception\Actor
 {
-   
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -37,15 +36,15 @@ class CodeGuy extends \Codeception\Actor
      * ```
      *
      * @param $table
-     * @param array $data
+     * @param  array   $data
      * @return integer $id
      * @see \Codeception\Module\Db::haveInDatabase()
      */
-    public function haveInDatabase($table, $data) {
+    public function haveInDatabase($table, $data)
+    {
         return $this->scenario->runStep(new \Codeception\Step\Action('haveInDatabase', func_get_args()));
     }
 
- 
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -68,10 +67,11 @@ class CodeGuy extends \Codeception\Actor
      *
      * @param       $table
      * @param array $criteria
-     * Conditional Assertion: Test won't be stopped on fail
+     *                        Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\Db::seeInDatabase()
      */
-    public function canSeeInDatabase($table, $criteria = null) {
+    public function canSeeInDatabase($table, $criteria = null)
+    {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('seeInDatabase', func_get_args()));
     }
     /**
@@ -98,11 +98,11 @@ class CodeGuy extends \Codeception\Actor
      * @param array $criteria
      * @see \Codeception\Module\Db::seeInDatabase()
      */
-    public function seeInDatabase($table, $criteria = null) {
+    public function seeInDatabase($table, $criteria = null)
+    {
         return $this->scenario->runStep(new \Codeception\Step\Assertion('seeInDatabase', func_get_args()));
     }
 
- 
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -127,10 +127,11 @@ class CodeGuy extends \Codeception\Actor
      *
      * @param       $table
      * @param array $criteria
-     * Conditional Assertion: Test won't be stopped on fail
+     *                        Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\Db::dontSeeInDatabase()
      */
-    public function cantSeeInDatabase($table, $criteria = null) {
+    public function cantSeeInDatabase($table, $criteria = null)
+    {
         return $this->scenario->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args()));
     }
     /**
@@ -159,11 +160,11 @@ class CodeGuy extends \Codeception\Actor
      * @param array $criteria
      * @see \Codeception\Module\Db::dontSeeInDatabase()
      */
-    public function dontSeeInDatabase($table, $criteria = null) {
+    public function dontSeeInDatabase($table, $criteria = null)
+    {
         return $this->scenario->runStep(new \Codeception\Step\Assertion('dontSeeInDatabase', func_get_args()));
     }
 
- 
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -187,22 +188,22 @@ class CodeGuy extends \Codeception\Actor
      * @return mixed
      * @see \Codeception\Module\Db::grabFromDatabase()
      */
-    public function grabFromDatabase($table, $column, $criteria = null) {
+    public function grabFromDatabase($table, $column, $criteria = null)
+    {
         return $this->scenario->runStep(new \Codeception\Step\Action('grabFromDatabase', func_get_args()));
     }
 
- 
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
      *
      * @see \Codeception\Module\YiiHelper::createConsoleYiiApp()
      */
-    public function createConsoleYiiApp() {
+    public function createConsoleYiiApp()
+    {
         return $this->scenario->runStep(new \Codeception\Step\Action('createConsoleYiiApp', func_get_args()));
     }
 
- 
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -210,11 +211,11 @@ class CodeGuy extends \Codeception\Actor
      * @param $dbConfigFile string DataBase Configuration file
      * @see \Codeception\Module\YiiHelper::setDbConnectionOptionsFromYiiConfig()
      */
-    public function setDbConnectionOptionsFromYiiConfig($dbConfigFile) {
+    public function setDbConnectionOptionsFromYiiConfig($dbConfigFile)
+    {
         return $this->scenario->runStep(new \Codeception\Step\Action('setDbConnectionOptionsFromYiiConfig', func_get_args()));
     }
 
- 
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -230,7 +231,8 @@ class CodeGuy extends \Codeception\Actor
      * @param array $dumpOptions module config options
      * @see \Codeception\Module\YiiHelper::setDbDumpOptions()
      */
-    public function setDbDumpOptions($dumpOptions) {
+    public function setDbDumpOptions($dumpOptions)
+    {
         return $this->scenario->runStep(new \Codeception\Step\Action('setDbDumpOptions', func_get_args()));
     }
 }

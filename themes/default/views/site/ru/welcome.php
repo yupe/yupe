@@ -11,22 +11,22 @@
      Если вы замечаете "замедление" в работе сайта - не волнуйтесь, в большинстве случаев это связано с тем, что включён YII_DEBUG режим, при его отключении скорость будет на порядок выше. Но не стоит волноваться, ведь при переносе на реальный сервер YII_DEBUG отключается автоматически.
  </p>
  <?php endif; ?>
- 
+
  <p> Начните доработку Вашего сайта с правки <code>SiteController</code> (/protected/controllers/SiteController)</p>
  <P> Мы подготовили для Вас некоторые заготовки, например, список постов (модуль "блог") можно посмотреть вот <?php echo CHtml::link('здесь',array('/site/main'))?> (SiteController/actionMain)</P>
  <p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link('панель управления', array('/backend/')); ?></p>
- 
+
  <p> При возникновении вопросов или проблем - обращайтесь:
    <ul>
      <li>на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a></li>
      <li>на <a href='https://github.com/yupe/yupe/issues'>Github</a></li>
      <li>к документации <a href='http://yupe.ru/docs/index.html?from=mainpage'> которая начинает наполняться </a></li>
    </ul>
- 
+
  <p> Репозиторий дополнительных модулей и виджетов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
- 
+
  <p><a href='http://yupe.ru/contacts?from=mainpage' target='_blank'> Возможно, вы хотите присоединиться к разработке или помочь проекту ?</a></p>
- 
+
  <p>
  	  <iframe src="http://ghbtns.com/github-btn.html?user=yupe&repo=yupe&type=watch&count=true&size=large"
                     allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>

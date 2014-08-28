@@ -57,7 +57,7 @@ class CommentModule extends WebModule
     public function getEditableParams()
     {
         return array(
-            'allowGuestComment'    => $this->getChoice(),  
+            'allowGuestComment'    => $this->getChoice(),
             'defaultCommentStatus' => Comment::model()->getStatusList(),
             'autoApprove'          => $this->getChoice(),
             'notify'               => $this->getChoice(),
@@ -159,7 +159,7 @@ class CommentModule extends WebModule
     {
         return "glyphicon glyphicon-comment";
     }
-    
+
     public function getNavigation()
     {
         return array(
@@ -179,7 +179,7 @@ class CommentModule extends WebModule
 
         $import = array('application.modules.comment.models.*');
 
-        foreach(Yii::app()->getModules() as $module => $data) {
+        foreach (Yii::app()->getModules() as $module => $data) {
             $import[] = "application.modules.{$module}.models.*";
         }
 

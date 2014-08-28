@@ -19,7 +19,6 @@ class m130115_155600_columns_rename extends yupe\components\DbMigration
         $this->renameColumn('{{page_page}}', 'name', 'title_short');
     }
 
-
     public function safeDown()
     {
         $this->renameColumn('{{page_page}}', 'order', 'menu_order');

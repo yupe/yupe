@@ -21,7 +21,7 @@
                 <div class="posts-list-block-meta">
                     <span>
                         <i class="glyphicon glyphicon-user"></i>
-                        
+
                         <?php $this->widget(
                             'application.modules.user.widgets.UserPopupInfoWidget', array(
                                 'model' => $post->createUser
@@ -57,7 +57,7 @@
                     <div>
                         <span class="posts-list-block-tags-block">
                             <i class="glyphicon glyphicon-tags"></i>
-                            
+
                             <?php echo Yii::t('BlogModule.blog','Tags'); ?>:
 
                             <?php foreach ((array) $post->getTags() as $tag):?>

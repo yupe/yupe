@@ -33,7 +33,6 @@ class m000000_000000_queue_base extends yupe\components\DbMigration
         $this->createIndex("ux_{{queue_queue}}_worker", '{{queue_queue}}', "worker", true);
         $this->createIndex("ux_{{queue_queue}}_priority", '{{queue_queue}}', "priority", true);
     }
- 
 
     public function safeDown()
     {

@@ -212,7 +212,7 @@ return array (
     'Yupe!' => 'Yupe!',
     'Yupe try to create DB if it doesn\'t exists.' => 'Yupe 将尝试创建数据库（如果数据库不存在）',
     'Yupe!, yupe, cms, yii' => 'Yupe!, yupe, cms, yii',
-  	'Yupe! - the fastest way to create a site build on top of Yiiframework!' => 'Yupe! - 最快速地构建基于Yii框架的站点！',	
+    'Yupe! - the fastest way to create a site build on top of Yiiframework!' => 'Yupe! - 最快速地构建基于Yii框架的站点！',
     'here' => '这里',
     'go frequently' => '',
     'or' => '或',

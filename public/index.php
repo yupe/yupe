@@ -1,7 +1,7 @@
 <?php
 /**
  * Входной скрипт index:
- * 
+ *
  *   @category YupeScript
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
@@ -14,7 +14,7 @@ if (!ini_get('date.timezone')) {
 }
 
 // Setting internal encoding to UTF-8.
-if(!ini_get('mbstring.internal_encoding')) {
+if (!ini_get('mbstring.internal_encoding')) {
     @ini_set("mbstring.internal_encoding", 'UTF-8');
     mb_internal_encoding('UTF-8');
 }

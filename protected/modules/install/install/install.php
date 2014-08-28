@@ -11,13 +11,13 @@
  * @link     http://yupe.ru
  **/
 return array(
-	'install' => true,
-	'module'  => array(
-		'class' => 'application.modules.install.InstallModule',
-	),
+    'install' => true,
+    'module'  => array(
+        'class' => 'application.modules.install.InstallModule',
+    ),
     'preload' => array('bootstrap'),
     'rules'   => array(
-		// правила контроллера site
-		'/' => '/install/default/index'
-	),
+        // правила контроллера site
+        '/' => '/install/default/index'
+    ),
 );

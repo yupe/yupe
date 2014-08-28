@@ -1,21 +1,21 @@
 <?php
 class UserBlogsWidget extends yupe\widgets\YWidget
 {
-	public $view = 'userblogs';
+    public $view = 'userblogs';
 
-	public $userId;
+    public $userId;
 
-	public function init()
-	{
-		if(!$this->userId) {
+    public function init()
+    {
+        if (!$this->userId) {
             throw new CException(Yii::t('BlogModule.blog','UserBlogsWidget.userId is not defined =('));
-		}
+        }
 
-		parent::init();
-	}
+        parent::init();
+    }
 
-	public function run()
-	{
+    public function run()
+    {
         $this->render($this->view, array('models' => Blog::model()->getListForUser($this->userId)));
-	}
+    }
 }

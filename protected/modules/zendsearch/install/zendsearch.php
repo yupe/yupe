@@ -32,4 +32,3 @@ return array(
         '/search' => 'zendsearch/search/search',
     ),
 );
-?>

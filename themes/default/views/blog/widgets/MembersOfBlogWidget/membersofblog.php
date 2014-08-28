@@ -4,7 +4,7 @@
 	        <?php echo CHtml::link(Yii::t('BlogModule.blog', 'Members'), array('/blog/blog/members','slug' => CHtml::encode($model->slug))); ?>:
 	    </span>
 	    <div class="member-listing">
-	        <?php if (count($model->members)) :?>	        
+	        <?php if (count($model->members)) :?>
 	            <?php foreach ($model->members as $member) : ?>
 	                <span class="member-listing-user">
 	                    <?php echo CHtml::link(CHtml::encode($member->nick_name), array('/user/people/userInfo/', 'username' => CHtml::encode($member->nick_name)));?>

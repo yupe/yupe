@@ -40,7 +40,6 @@ class m000000_000000_comment_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{comment_comment}}_user_id", '{{comment_comment}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
         $this->addForeignKey("fk_{{comment_comment}}_parent_id", '{{comment_comment}}', "parent_id",'{{comment_comment}}', "id",'CASCADE','NO ACTION');
     }
- 
 
     public function safeDown()
     {

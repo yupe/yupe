@@ -6,31 +6,31 @@ Yii::app()->clientScript->registerCss(
     'profile',
     "
     input.confirmed { border: 1px solid #88d395; }
-    div.email-change-msg { display: none; } 
+    div.email-change-msg { display: none; }
 "
 );
 
 Yii::app()->clientScript->registerScript(
     'regs',
     "
-            $(function() {
-                 $('#show_pass').click( function() {
+            $(function () {
+                 $('#show_pass').click( function () {
                       $('#ProfileForm_password').prop('type', $(this).prop('checked')?'text':'password');
                       $('#ProfileForm_cPassword').prop('type', $(this).prop('checked')?'text':'password');
                  });
-                 
+
                  var emailStatusEl = $('p.email-status-confirmed'),
                      loadedEmail = $('#ProfileForm_email').val();
 
-                $('#ProfileForm_email').change(function(){
+                $('#ProfileForm_email').change(function () {
                     var currentEmail = $(this).val();
 
-                    if(emailStatusEl){
-                        if(currentEmail !== loadedEmail) {
+                    if (emailStatusEl) {
+                        if (currentEmail !== loadedEmail) {
                             $('#ProfileForm_email').removeClass('confirmed');
                             emailStatusEl.hide();
                             $('div.email-change-msg').show();
-                        }else{
+                        } else {
                             $('#ProfileForm_email').addClass('confirmed');
                             emailStatusEl.show();
                             $('div.email-change-msg').hide();
@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScript(
                         $('div.email-change-msg').show();
                     }
                 });
-                    
+
             });"
 );
 

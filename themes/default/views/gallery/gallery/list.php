@@ -27,4 +27,3 @@ $this->widget(
     )
 ); ?>
 </div>
-

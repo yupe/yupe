@@ -19,7 +19,7 @@ class TaggingCacheBehavior extends CBehavior
      * Инвалидирует данные, помеченные тегом(ами)
      *
      * @param string $tags - теги кеша
-     * 
+     *
      * @return void
      */
     public function clear($tags)

@@ -64,7 +64,6 @@ class m000000_000000_menu_base extends yupe\components\DbMigration
         //fk
         $this->addForeignKey("fk_{{menu_menu_item}}_menu_id", '{{menu_menu_item}}', 'menu_id', '{{menu_menu}}', 'id', 'CASCADE', 'CASCADE');
     }
- 
 
     public function safeDown()
     {

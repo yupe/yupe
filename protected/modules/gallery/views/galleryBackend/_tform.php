@@ -51,4 +51,3 @@
     </div>
 </div>
 <?php echo CHtml::endForm(); ?>
-

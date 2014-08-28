@@ -143,5 +143,3 @@ $this->breadcrumbs = array(
 <b><?php echo CHtml::link(Yii::t('YupeModule.yupe', 'WE ARE WAITING FOR YOU!'), 'http://yupe.ru/contacts?from=help', array('target' => '_blank')); ?></b>
 
 <br/><br/>
-
-

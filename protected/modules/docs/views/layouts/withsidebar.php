@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для layouts/withsidebar:
- * 
+ *
  *   @category YupeLayout
  *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>

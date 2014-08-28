@@ -30,13 +30,13 @@ class UserSteps extends \WebGuy
 
     public function changeEmail($email)
     {
-        $I = $this;       
+        $I = $this;
         $I->login(\LoginPage::$userEmail, \LoginPage::$userPassword);
         $I->amOnPage(\EditProfilePage::URL);
         $I->fillField(\EditProfilePage::$emailField, $email);
         $I->see('Внимание! После смены e-mail адреса','.text-warning');
         $I->click('Сохранить профиль',\CommonPage::BTN_PRIMARY_CSS_CLASS);
-        $I->see('Вам необходимо продтвердить новый e-mail, проверьте почту!',\CommonPage::SUCCESS_CSS_CLASS);      
+        $I->see('Вам необходимо продтвердить новый e-mail, проверьте почту!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInDatabase('yupe_user_user', array('email_confirm' => 0, 'email' => $email));
         //check token
         $I->seeInDatabase('yupe_user_tokens', array('user_id' => 1,'type' => 3,'status' => 0));

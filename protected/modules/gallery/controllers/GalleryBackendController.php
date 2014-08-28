@@ -27,7 +27,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
@@ -47,14 +47,14 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionCreate()
     {
-        $model = new Gallery;
+        $model = new Gallery();
 
         if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was created')
@@ -72,7 +72,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
     /**
      * Редактирование галереи.
-     * 
+     *
      * @param integer $id the ID of the model to be updated
      *
      * @return void
@@ -82,7 +82,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -106,7 +106,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     /**
      * Удаяет модель галереи из базы.
      * Если удаление прошло успешно - возвращется в index
-     * 
+     *
      * @param integer $id идентификатор галереи, который нужно удалить
      *
      * @return void
@@ -145,15 +145,15 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     public function actionIndex()
     {
         $model = new Gallery('search');
-        
+
         $model->unsetAttributes(); // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Gallery', array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -173,7 +173,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             );
         }
 
-        $image = new Image;
+        $image = new Image();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost('Image')) !== null) {
             $this->_addImage($image, $imageData, $gallery);
@@ -218,7 +218,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $image->setAttributes($imageData);
 
             if ($image->save() && $gallery->addImage($image)) {
-                
+
                 $transaction->commit();
 
                 if (Yii::app()->getRequest()->getPost('ajax') === null) {
@@ -230,9 +230,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 }
             }
         } catch (Exception $e) {
-            
+
             $transaction->rollback();
-            
+
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
@@ -301,7 +301,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
         }
 
-        $image = new Image;
+        $image = new Image();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost('Image')) !== null) {
             $imageData = $imageData[$_FILES['Image']['name']['file']];
@@ -324,9 +324,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                     'delete_type' => 'GET'
                 );
             }
-            
+
             echo json_encode($data);
-            
+
             Yii::app()->end();
         } else {
             throw new CHttpException(
@@ -362,7 +362,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * 
+     *
      * @param integer идентификатор нужной модели
      *
      * @return Gallery $model

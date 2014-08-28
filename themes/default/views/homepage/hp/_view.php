@@ -16,9 +16,9 @@
             <i class="glyphicon glyphicon-user"></i> <?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => CHtml::encode($data->createUser->nick_name))); ?>
             | <i class="glyphicon glyphicon-pencil"></i> <?php echo CHtml::link(CHtml::encode($data->blog->name), array('/blog/blog/show/', 'slug' => CHtml::encode($data->blog->slug))); ?>
             | <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short"); ?>
-            | <i class="glyphicon glyphicon-comment"></i>  <?php echo CHtml::link(($data->commentsCount>0)? $data->commentsCount-1 : 0, array('/blog/post/show/', 'slug' => CHtml::encode($data->slug), '#' => 'comments'));?>
+            | <i class="glyphicon glyphicon-comment"></i>  <?php echo CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0, array('/blog/post/show/', 'slug' => CHtml::encode($data->slug), '#' => 'comments'));?>
             | <i class="glyphicon glyphicon-tags"></i>
-              <?php if (($tags = $data->getTags()) != array()):?>
+              <?php if (($tags = $data->getTags()) != array()) : ?>
                 <?php foreach ($tags as $tag):?>
                     <?php $tag = CHtml::encode($tag);?>
                     &nbsp;

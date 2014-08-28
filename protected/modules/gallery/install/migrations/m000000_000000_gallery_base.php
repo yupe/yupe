@@ -17,7 +17,7 @@ class m000000_000000_gallery_base extends yupe\components\DbMigration
      * @return null
      **/
     public function safeUp()
-    {        
+    {
         /**
          * gallery:
          **/
@@ -47,7 +47,7 @@ class m000000_000000_gallery_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{gallery_image_to_gallery}}_gallery_to_image_image",  '{{gallery_image_to_gallery}}', "image_id", false);
         $this->createIndex("ix_{{gallery_image_to_gallery}}_gallery_to_image_gallery", '{{gallery_image_to_gallery}}', "gallery_id", false);
 
-        //fk  
+        //fk
         $this->addForeignKey("fk_{{gallery_image_to_gallery}}_gallery_to_image_gallery",'{{gallery_image_to_gallery}}', 'gallery_id','{{gallery_gallery}}', 'id', 'CASCADE', 'NO ACTION');
         $this->addForeignKey("fk_{{gallery_image_to_gallery}}_gallery_to_image_image",'{{gallery_image_to_gallery}}', 'image_id', '{{image_image}}', 'id', 'CASCADE', 'NO ACTION');
     }

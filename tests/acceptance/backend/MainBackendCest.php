@@ -22,7 +22,6 @@ class MainBackendCest
         //$I->see('Вы успешно авторизовались!', \CommonPage::SUCCESS_CSS_CLASS);
         $I->amOnPage(\CommonPage::PANEL_URL);
         $I->see('Панель управления "Юпи!"','h1');
-       
 
         //simple check all modules
 
@@ -78,7 +77,6 @@ class MainBackendCest
 
         $I->amOnPage('/backend/user/user');
         $I->see('Пользователи','h1');
-
 
         $I->amGoingTo('change backend language');
         $I->amOnPage('/en/backend');

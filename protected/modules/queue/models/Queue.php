@@ -12,7 +12,6 @@
  *
  */
 
-
 /**
  * This is the model class for table "queue".
  *
@@ -43,6 +42,7 @@ class Queue extends yupe\models\YModel
         if ($this->isNewRecord) {
             $this->create_time = new CDbExpression('NOW()');
         }
+
         return parent::beforeSave();
     }
 
@@ -114,7 +114,7 @@ class Queue extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('worker', $this->worker, true);
@@ -152,6 +152,7 @@ class Queue extends yupe\models\YModel
     public function getPriority()
     {
         $data = $this->getPriorityList();
+
         return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('QueueModule.queue', '-unknown-');
     }
 
@@ -168,6 +169,7 @@ class Queue extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('QueueModule.queue', '-unknown-');
     }
 
@@ -183,10 +185,10 @@ class Queue extends yupe\models\YModel
         return $this->findAll(array(
             'condition' => 'worker = :worker AND status = :status',
             'params' => array(
-                ':worker' => (int)$worker,
+                ':worker' => (int) $worker,
                 ':status' => Queue::STATUS_NEW
             ),
-            'limit' => (int)$limit,
+            'limit' => (int) $limit,
             'order' => 'priority, id desc'
         ));
     }
@@ -199,8 +201,9 @@ class Queue extends yupe\models\YModel
     public function completeWithError($notice, $status = self::STATUS_ERROR)
     {
         $this->notice = $notice;
-        $this->status = (int)$status;
+        $this->status = (int) $status;
         $this->complete_time = new CDbExpression('NOW()');
+
         return $this->save();
     }
 
@@ -208,6 +211,7 @@ class Queue extends yupe\models\YModel
     {
         $this->status = self::STATUS_COMPLETED;
         $this->complete_time = new CDbExpression('NOW()');
+
         return $this->save();
     }
 

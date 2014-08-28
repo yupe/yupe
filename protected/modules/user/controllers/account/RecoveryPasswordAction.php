@@ -17,7 +17,7 @@ class RecoveryPasswordAction extends CAction
 {
     /**
      * Стартуем экшен сброса пароля
-     * @param string $token - токен-сброса пароля
+     * @param  string         $token - токен-сброса пароля
      * @throws CHttpException
      */
     public function run($token)
@@ -36,12 +36,12 @@ class RecoveryPasswordAction extends CAction
         //Проверка токена
         $tokenModel = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
 
-        if(null === $tokenModel) {
+        if (null === $tokenModel) {
             throw new CHttpException(404);
         }
 
         // Если включено автоматическое восстановление пароля
-        if ((int)$module->autoRecoveryPassword === WebModule::CHOICE_YES) {
+        if ((int) $module->autoRecoveryPassword === WebModule::CHOICE_YES) {
 
             if (Yii::app()->userManager->activatePassword($token)) {
 
@@ -64,7 +64,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         // Форма смены пароля:
-        $changePasswordForm = new ChangePasswordForm;
+        $changePasswordForm = new ChangePasswordForm();
 
         // Получаем данные POST если таковые имеются:
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {

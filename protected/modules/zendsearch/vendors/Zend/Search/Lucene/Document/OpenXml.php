@@ -20,10 +20,8 @@
  * @version    $Id: OpenXml.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Document */
 require_once 'Zend/Search/Lucene/Document.php';
-
 
 /**
  * OpenXML document.
@@ -74,8 +72,8 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
     /**
      * Extract metadata from document
      *
-     * @param ZipArchive $package    ZipArchive OpenXML package
-     * @return array    Key-value pairs containing document meta data
+     * @param  ZipArchive $package ZipArchive OpenXML package
+     * @return array      Key-value pairs containing document meta data
      */
     protected function extractMetaData(ZipArchive $package)
     {
@@ -92,13 +90,13 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
                 );
 
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORE) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
+                    $coreProperties[$child->getName()] = (string) $child;
                 }
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
+                    $coreProperties[$child->getName()] = (string) $child;
                 }
                 foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORETERMS) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
+                    $coreProperties[$child->getName()] = (string) $child;
                 }
             }
         }
@@ -109,7 +107,7 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
     /**
      * Determine absolute zip path
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     protected function absoluteZipPath($path)
@@ -125,6 +123,7 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
                 $absolutes[] = $part;
             }
         }
+
         return implode('/', $absolutes);
     }
 }

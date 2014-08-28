@@ -88,7 +88,7 @@ class BackController extends Controller
     }
 
     /**
-     * @param \CAction $action
+     * @param  \CAction $action
      * @return bool
      */
     protected function beforeAction($action)
@@ -143,7 +143,7 @@ class BackController extends Controller
             switch ($action) {
                 case self::BULK_DELETE:
                     $class = CActiveRecord::model($model);
-                    $criteria = new CDbCriteria;
+                    $criteria = new CDbCriteria();
                     $items = array_filter($items, 'intval');
                     $criteria->addInCondition('id', $items);
                     $count = $class->deleteAll($criteria);
@@ -176,8 +176,8 @@ class BackController extends Controller
      */
     public function actionActivate()
     {
-        $status = (int)Yii::app()->getRequest()->getQuery('status');
-        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $status = (int) Yii::app()->getRequest()->getQuery('status');
+        $id = (int) Yii::app()->getRequest()->getQuery('id');
         $modelClass = Yii::app()->getRequest()->getQuery('model');
         $statusField = Yii::app()->getRequest()->getQuery('statusField');
 
@@ -185,7 +185,7 @@ class BackController extends Controller
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
-        $model = new $modelClass;
+        $model = new $modelClass();
         $model = $model->resetScope()->findByPk($id);
         if (!$model) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
@@ -204,7 +204,7 @@ class BackController extends Controller
      */
     public function actionSort()
     {
-        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $id = (int) Yii::app()->getRequest()->getQuery('id');
         $direction = Yii::app()->getRequest()->getQuery('direction');
         $modelClass = Yii::app()->getRequest()->getQuery('model');
         $sortField = Yii::app()->getRequest()->getQuery('sortField');
@@ -213,8 +213,8 @@ class BackController extends Controller
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
-        $model = new $modelClass;
-        $model_depends = new $modelClass;
+        $model = new $modelClass();
+        $model_depends = new $modelClass();
         $model = $model->resetScope()->findByPk($id);
         if (!$model) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));

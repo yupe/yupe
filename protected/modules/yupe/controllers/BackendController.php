@@ -102,7 +102,7 @@ class BackendController extends yupe\components\controllers\BackController
                     'YupeModule.yupe',
                     'There is an error: {error}',
                     array(
-                        '{error}' => implode('<br />', (array)$e->getMessage())
+                        '{error}' => implode('<br />', (array) $e->getMessage())
                     )
                 )
             );
@@ -197,7 +197,7 @@ class BackendController extends yupe\components\controllers\BackController
             }
         }
 
-        // разместим в начале основные параметры 
+        // разместим в начале основные параметры
         $elements = array_merge($mainParams, $elements);
 
         $this->render(
@@ -303,7 +303,7 @@ class BackendController extends yupe\components\controllers\BackController
      * Метода сохранения настроек модуля:
      *
      * @param string $moduleId - идетификтор метода
-     * @param array $params - массив настроек
+     * @param array  $params   - массив настроек
      *
      * @return bool
      **/
@@ -379,7 +379,6 @@ class BackendController extends yupe\components\controllers\BackController
     {
         $this->render('help');
     }
-
 
     /**
      * Метод очистки ресурсов (assets)

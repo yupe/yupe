@@ -49,4 +49,3 @@ $this->pageTitle = $model->name; ?>
         'modelId' => $model->id
     )
 ); ?>
-

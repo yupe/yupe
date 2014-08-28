@@ -25,11 +25,10 @@ class YMailMessage extends CApplicationComponent
      **/
     protected function getMailComponent()
     {
-        if ($this->_mail !== null){
+        if ($this->_mail !== null) {
             return $this->_mail;
-        }
-        else if (($id = $this->mailComponent) !== null) {
-            if ($this->_mail = Yii::app()->getComponent($id)){
+        } elseif (($id = $this->mailComponent) !== null) {
+            if ($this->_mail = Yii::app()->getComponent($id)) {
                 return $this->_mail;
             }
         }
@@ -51,8 +50,8 @@ class YMailMessage extends CApplicationComponent
     /**
      * raiseMailEvent:
      *
-     * @param string $code - код
-     * @param array  $data - данные
+     * @param  string     $code - код
+     * @param  array      $data - данные
      * @throws CException
      * @return bool
      **/
@@ -80,14 +79,15 @@ class YMailMessage extends CApplicationComponent
                throw new CException(Yii::t('MailModule.mail', 'Error when sending mail!'));
             }
         }
+
         return true;
     }
 
     /**
      * sendTemplate:
      *
-     * @param string $code - код
-     * @param array  $data - данные
+     * @param  string     $code - код
+     * @param  array      $data - данные
      * @return bool
      * @throws CException
      **/
@@ -106,9 +106,10 @@ class YMailMessage extends CApplicationComponent
 
         $parsedData = $this->parseTemplate($template, $data);
 
-        if (!$this->getMailComponent()->send($parsedData['from'], $parsedData['to'], $parsedData['theme'], $parsedData['body'])){
+        if (!$this->getMailComponent()->send($parsedData['from'], $parsedData['to'], $parsedData['theme'], $parsedData['body'])) {
             throw new CException(Yii::t('MailModule.mail', 'Error when sending mail!'));
         }
+
         return true;
     }
 
@@ -118,7 +119,7 @@ class YMailMessage extends CApplicationComponent
      * Заменяет в шаблоне переменные не их значения
      *
      * @param \MailTemplate $template - модель шаблона
-     * @param array $data     - данные
+     * @param array         $data     - данные
      *
      * @return string mail text body
      */

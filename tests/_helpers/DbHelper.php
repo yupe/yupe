@@ -2,7 +2,6 @@
 
 namespace Codeception\Module;
 
-
 class DbHelper extends \Codeception\Module\Db
 {
     /**
@@ -14,6 +13,7 @@ class DbHelper extends \Codeception\Module\Db
     {
         $dbConfig = $this->config;
         $dbConfig["dbname"] = preg_replace('/.+dbname=(.+)$/is','$1',$dbConfig["dsn"]);
+
         return $dbConfig;
     }
 }

@@ -4,7 +4,7 @@ class SearchController extends yupe\components\controllers\FrontController
     public function init()
     {
         Yii::import('application.modules.zendsearch.vendors.*');
-        require_once('Zend/Search/Lucene.php');
+        require_once 'Zend/Search/Lucene.php';
         parent::init();
     }
 

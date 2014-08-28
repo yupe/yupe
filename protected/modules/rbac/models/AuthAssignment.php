@@ -15,7 +15,7 @@ class AuthAssignment extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
+     * @param  string         $className active record class name.
      * @return AuthAssignment the static model class
      */
     public static function model($className = __CLASS__)
@@ -82,7 +82,7 @@ class AuthAssignment extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('itemname', $this->itemname);
         $criteria->compare('userid', $this->userid);

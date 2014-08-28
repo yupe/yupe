@@ -14,7 +14,7 @@
                 }, function (response) {
                     if (response.result) {
                         var option = false;
-                        var current = <?php echo (int)$menuParentId; ?>;
+                        var current = <?php echo (int) $menuParentId; ?>;
                         $.each(response.data, function (index, element) {
                             if (index == current) {
                                 option = true;

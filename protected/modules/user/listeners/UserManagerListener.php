@@ -31,4 +31,4 @@ class UserManagerListener
                 'token' => $event->getToken()
             ));
     }
-} 
+}

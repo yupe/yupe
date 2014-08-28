@@ -20,7 +20,6 @@
  * @version    $Id: Analyzer.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** User land classes and interfaces turned on by Zend/Search/Analyzer.php file inclusion. */
 /** @todo Section should be removed with ZF 2.0 release as obsolete */
 if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
@@ -48,7 +47,6 @@ if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
     /** Zend_Search_Lucene_Analysis_Analyzer_Common_TextNum_CaseInsensitive */
     require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common/TextNum/CaseInsensitive.php';
 }
-
 
 /**
  * An Analyzer is used to analyze text.
@@ -96,7 +94,7 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
      *
      * Tokens are returned in UTF-8 (internal Zend_Search_Lucene encoding)
      *
-     * @param string $data
+     * @param  string $data
      * @return array
      */
     public function tokenize($data, $encoding = '')
@@ -110,7 +108,6 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
 
         return $tokenList;
     }
-
 
     /**
      * Tokenization stream API
@@ -141,7 +138,6 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
      */
     abstract public function nextToken();
 
-
     /**
      * Set the default Analyzer implementation used by indexing code.
      *
@@ -151,7 +147,6 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
     {
         self::$_defaultImpl = $analyzer;
     }
-
 
     /**
      * Return the default Analyzer implementation used by indexing code.
@@ -170,4 +165,3 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
         return self::$_defaultImpl;
     }
 }
-

@@ -267,7 +267,6 @@ abstract class WebModule extends CWebModule
         return true;
     }
 
-
     /**
      * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления
      *
@@ -330,7 +329,7 @@ abstract class WebModule extends CWebModule
     public function getRulesForParam($param)
     {
 
-        $rulesFromParam = new CList;
+        $rulesFromParam = new CList();
         foreach ($this->rules() as $rule) {
             $params = preg_split('/[\s,]+/', $rule[0], -1, PREG_SPLIT_NO_EMPTY);
             if (in_array($param, $params)) {
@@ -625,11 +624,11 @@ abstract class WebModule extends CWebModule
     /**
      * Метод включает модуль - копирует файл с конфигурацией
      *
-     * @param boolean $noDependent - не проверять на зависимости от других модулей
+     * @param boolean $noDependent  - не проверять на зависимости от других модулей
      * @param boolean $updateConfig - обновить ли файл конфигурации
      *
      * @throws CException
-     * @return bool статус включения модуля
+     * @return bool       статус включения модуля
      *
      * @since 0.5
      */
@@ -691,7 +690,7 @@ abstract class WebModule extends CWebModule
      * @param boolean $noDependent - не проверять на зависимости от других модулей
      *
      * @throws CException
-     * @return bool статус включения модуля
+     * @return bool       статус включения модуля
      *
      * @since 0.5
      */
@@ -763,7 +762,7 @@ abstract class WebModule extends CWebModule
     /**
      * Метод удаляющий модуль
      * @throws CException
-     * @return bool статус удаления модуля
+     * @return bool       статус удаления модуля
      * @since 0.5
      */
     public function getUnInstall()
@@ -781,7 +780,7 @@ abstract class WebModule extends CWebModule
      * @param array &$installed - массив модулея
      *
      * @throws CException
-     * @return bool статус установки БД модуля
+     * @return bool       статус установки БД модуля
      *
      * @since 0.5
      */
@@ -851,7 +850,7 @@ abstract class WebModule extends CWebModule
      * Метод удаляющий БД модуля
      *
      * @throws CException
-     * @return bool статус удаления БД модуля
+     * @return bool       статус удаления БД модуля
      *
      * @since 0.5
      */
@@ -976,7 +975,7 @@ abstract class WebModule extends CWebModule
     /**
      * Получаем настройки модуля:
      *
-     * @param  boolean $needReset необходимо ли сбросить настройки
+     * @param boolean $needReset необходимо ли сбросить настройки
      *
      * @return void
      */
@@ -1020,7 +1019,7 @@ abstract class WebModule extends CWebModule
      * Временное решение
      *
      * @param Controller $controller - инстанс контроллера
-     * @param Action $action - инстанс экшена
+     * @param Action     $action     - инстанс экшена
      *
      * @todo пока не придумали куда перенести инициализацию editorOptions
      *
@@ -1068,7 +1067,7 @@ abstract class WebModule extends CWebModule
      **/
     public function isNeedUninstall()
     {
-        return !(Yii::app()->migrator->checkForUpdates((array)$this->getId()))
+        return !(Yii::app()->migrator->checkForUpdates((array) $this->getId()))
         && count(Yii::app()->migrator->getMigrationHistory($this->getId(), -1)) < 1;
     }
 

@@ -59,10 +59,11 @@ $this->menu = array(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('user-to-blog-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });"
     );

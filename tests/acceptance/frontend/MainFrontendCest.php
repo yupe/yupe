@@ -63,7 +63,6 @@ class MainFrontendCest
         $I->see('Галереи изображений');
         $I->seeLink('Первая галерея');
 
-
         $I->amOnPage('/en/');
         $I->see('Discuss','h3');
         $I->see('Latest posts','h3');

@@ -36,16 +36,18 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
     Yii::app()->clientScript->registerScript(
         'search',
         "
-                $('.search-form form').submit(function() {
+                $('.search-form form').submit(function () {
                     $.fn.yiiGridView.update('feed-back-list', {
                         data: $(this).serialize()
                     });
+
                     return false;
                 });
-                $('.search-form form [type=reset]').click(function() {
+                $('.search-form form [type=reset]').click(function () {
                     $.fn.yiiGridView.update('feed-back-list', {
                         data: $(this).serialize()
                     });
+
                     return false;
                 });
             "

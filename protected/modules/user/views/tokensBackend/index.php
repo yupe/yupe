@@ -44,7 +44,7 @@ $confirmMessage = CJavaScript::encode(
     Yii::t('UserModule.user', 'Are you sure you want to compromise this token?')
 );
 $compromiseJS = <<<SCRIPT
-    function() {
+    function () {
         event.preventDefault();
 
         if(!confirm($confirmMessage)) return false;

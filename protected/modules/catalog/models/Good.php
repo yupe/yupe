@@ -47,8 +47,8 @@ class Good extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
-     * @return Good the static model class
+     * @param  string $className active record class name.
+     * @return Good   the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -169,7 +169,7 @@ class Good extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('category_id', $this->category_id, true);
@@ -195,6 +195,7 @@ class Good extends yupe\models\YModel
     {
 
         $module = Yii::app()->getModule('catalog');
+
         return array(
             'CTimestampBehavior' => array(
                 'class'             => 'zii.behaviors.CTimestampBehavior',
@@ -252,6 +253,7 @@ class Good extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 
@@ -266,6 +268,7 @@ class Good extends yupe\models\YModel
     public function getSpecial()
     {
         $data = $this->getSpecialList();
+
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('CatalogModule.catalog', '*unknown*');
     }
 

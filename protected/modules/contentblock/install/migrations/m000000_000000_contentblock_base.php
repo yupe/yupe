@@ -27,7 +27,6 @@ class m000000_000000_contentblock_base extends yupe\components\DbMigration
         $this->createIndex("ux_{{contentblock_content_block}}_code", '{{contentblock_content_block}}', "code", true);
         $this->createIndex("ix_{{contentblock_content_block}}_type", '{{contentblock_content_block}}', "type", false);
     }
- 
 
     public function safeDown()
     {

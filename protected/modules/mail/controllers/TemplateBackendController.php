@@ -23,7 +23,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
@@ -54,7 +54,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new MailTemplate;
+        $model = new MailTemplate();
 
         if (Yii::app()->getRequest()->getParam('eid'))
             $model->event_id = (int) Yii::app()->getRequest()->getParam('eid');
@@ -75,7 +75,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
                 );
             }
         }
-        
+
         $this->render('create', array('model' => $model));
     }
 
@@ -91,11 +91,11 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('MailTemplate')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Record was updated!')
@@ -153,19 +153,19 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     public function actionIndex()
     {
         $model = new MailTemplate('search');
-        
+
         $model->unsetAttributes();  // clear any default values
-        
+
         $model->event_id = Yii::app()->getRequest()->getQuery(
             'event', null
         );
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'MailTemplate', array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -182,7 +182,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     public function loadModel($id)
     {
         $model = MailTemplate::model()->findByPk($id);
-        
+
         if ($model === null) {
             throw new CHttpException(
                 404,

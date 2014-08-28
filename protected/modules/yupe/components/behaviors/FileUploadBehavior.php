@@ -24,7 +24,6 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public $attributeName = 'file';
 
-
     /**
      * Атрибут для замены имени поля file если необходимо
      * @var string
@@ -146,8 +145,8 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function beforeSave($event)
     {
-        if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile) {      	
-        	$this->removeFile();
+        if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile) {
+            $this->removeFile();
             $this->saveFile();
         }
 

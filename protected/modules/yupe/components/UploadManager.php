@@ -17,9 +17,9 @@ class UploadManager extends \CApplicationComponent
     private $_baseUrl;
 
     /**
-     * @param CUploadedFile $fileInstance
-     * @param string $uploadPath - file path
-     * @param string $fileName - file name
+     * @param  CUploadedFile $fileInstance
+     * @param  string        $uploadPath   - file path
+     * @param  string        $fileName     - file name
      * @return bool
      *
      * Сохранение загруженного файла
@@ -91,4 +91,4 @@ class UploadManager extends \CApplicationComponent
     {
         $this->_baseUrl = rtrim($value, '/');
     }
-} 
+}

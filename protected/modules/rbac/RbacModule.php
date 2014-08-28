@@ -18,7 +18,6 @@ class RbacModule extends WebModule
         parent::init();
     }
 
-
     public function getAdminPageLink()
     {
         return '/rbac/rbacBackend/assign';

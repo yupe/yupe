@@ -17,4 +17,4 @@
 <br/><br/>
 <?php echo Yii::t('FeedbackModule.feedback','Best regards, administration'); ?> <?php echo CHtml::encode(Yii::app()->name);?> !
 </body>
-</html>  
+</html>

@@ -51,16 +51,13 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
      */
     public function actionCreate()
     {
-        $model = new UserToBlog;
+        $model = new UserToBlog();
 
-        try
-        {
-            if (isset($_POST['UserToBlog']))
-            {
+        try {
+            if (isset($_POST['UserToBlog'])) {
                 $model->attributes = $_POST['UserToBlog'];
 
-                if ($model->save())
-                {
+                if ($model->save()) {
                     Yii::app()->user->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('BlogModule.blog', 'Member was added!')
@@ -73,9 +70,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                     );
                 }
             }
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::WARNING_MESSAGE,
                 Yii::t('BlogModule.blog', 'Cannot add user to the blog. Please make sure he is not a member already.')
@@ -95,12 +90,10 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['UserToBlog']))
-        {
+        if (isset($_POST['UserToBlog'])) {
             $model->attributes = $_POST['UserToBlog'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Member was updated!')
@@ -108,8 +101,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
-                }
-                else {
+                } else {
                     $this->redirect(array($_POST['submit-type']));
                 }
             }
@@ -124,8 +116,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->getRequest()->getIsPostRequest())
-        {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -138,8 +129,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
             }
-        }
-        else {
+        } else {
             throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this!'));
         }
     }
@@ -170,6 +160,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
         if ($model === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         }
+
         return $model;
     }
 }

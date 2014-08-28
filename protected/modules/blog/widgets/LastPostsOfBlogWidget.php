@@ -10,8 +10,8 @@
  * @since 0.1
  *
  */
-Yii::import('application.modules.blog.models.*'); 
- 
+Yii::import('application.modules.blog.models.*');
+
 class LastPostsOfBlogWidget extends yupe\widgets\YWidget
 {
     public $blogId;
@@ -22,16 +22,16 @@ class LastPostsOfBlogWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->addCondition('blog_id = :blog_id');
-        $criteria->limit  = (int)$this->limit;
+        $criteria->limit  = (int) $this->limit;
         $criteria->params = array(
-            ':blog_id' => (int)$this->blogId
+            ':blog_id' => (int) $this->blogId
         );
 
-        if($this->postId) {
+        if ($this->postId) {
             $criteria->addCondition('t.id != :post_id');
-            $criteria->params[':post_id'] = (int)$this->postId;
+            $criteria->params[':post_id'] = (int) $this->postId;
         }
 
         $this->render($this->view, array('posts' => Post::model()->public()->published()->sortByPubDate('DESC')->with('commentsCount','createUser','blog')->findAll($criteria)));

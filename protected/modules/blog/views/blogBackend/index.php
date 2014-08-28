@@ -57,10 +57,11 @@ $this->beginWidget(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('blog-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });"
     );
@@ -180,5 +181,3 @@ $this->beginWidget(
 ); ?>
 
 <?php $this->endWidget();?>
-
-

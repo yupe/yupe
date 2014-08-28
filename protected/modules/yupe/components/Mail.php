@@ -65,7 +65,7 @@ class Mail extends CApplicationComponent
                         $this->_mailer->SMTPSecure = $this->smtp['secure'];
                     }
                     if (isset($this->smtp['debug'])) {
-                        $this->_mailer->SMTPDebug = (int)$this->smtp['debug'];
+                        $this->_mailer->SMTPDebug = (int) $this->smtp['debug'];
                     }
                 }
                 break;
@@ -116,11 +116,11 @@ class Mail extends CApplicationComponent
     /**
      * Функция отправки сообщения:
      *
-     * @param string $from - адрес отправителя
-     * @param string $to - адрес получателя
-     * @param string $theme - тема письма
-     * @param string $body - тело письма
-     * @param bool $isText - является ли тело письма текстом
+     * @param string $from   - адрес отправителя
+     * @param string $to     - адрес получателя
+     * @param string $theme  - тема письма
+     * @param string $body   - тело письма
+     * @param bool   $isText - является ли тело письма текстом
      *
      * @return bool отправилось ли письмо
      **/
@@ -143,6 +143,7 @@ class Mail extends CApplicationComponent
            return $this->_mailer->send();
         } catch (\Exception $e) {
            Yii::log($e->__toString(), \CLogger::LEVEL_ERROR, 'mail');
+
            return false;
         }
     }

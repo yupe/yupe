@@ -109,7 +109,7 @@ class YText
      * @param  string - строка для обрезания
      * @param  integer - до скольких символов обрезать строку
      * @param  string - окончание текста
-     * @return string  - новая строка
+     * @return string - новая строка
      */
     public static function characterLimiter($str, $n = 500, $end_char = '&#8230;')
     {
@@ -131,6 +131,7 @@ class YText
             if (mb_strlen($out) >= $n) {
                 $out = trim($out);
                 $p = new CHtmlPurifier();
+
                 return (mb_strlen($out) == mb_strlen($str))
                     ? $out
                     : $p->purify($out . $end_char);
@@ -147,7 +148,7 @@ class YText
      * @param  string - строка для обрезания
      * @param  integer - до скольких символов обрезать строку
      * @param  string - окончание текста
-     * @return string  - новая строка
+     * @return string - новая строка
      */
 
     public static function wordLimiter($str, $limit = 100, $end_char = '&#8230;')
@@ -156,7 +157,7 @@ class YText
             return $str;
         }
 
-        preg_match('/^\s*+(?:\S++\s*+){1,' . (int)$limit . '}/', $str, $matches);
+        preg_match('/^\s*+(?:\S++\s*+){1,' . (int) $limit . '}/', $str, $matches);
 
         if (mb_strlen($str) == mb_strlen($matches[0])) {
             $end_char = '';
@@ -248,7 +249,7 @@ class YText
      * @return string
      */
 
-    function wordWrap($str, $charlim = '76')
+    public function wordWrap($str, $charlim = '76')
     {
         // Se the character limit
         if (!is_numeric($charlim)) {
@@ -319,7 +320,6 @@ class YText
         return $output;
     }
 
-
     public static function asciiToEntities($str)
     {
         $count = 1;
@@ -361,7 +361,6 @@ class YText
 
         return $out;
     }
-
 
     public static function entitiesToAscii($str, $all = true)
     {

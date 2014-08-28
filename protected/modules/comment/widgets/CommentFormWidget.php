@@ -29,7 +29,7 @@ class CommentFormWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $model = new Comment;
+        $model = new Comment();
 
         $module = Yii::app()->getModule('comment');
 
@@ -38,7 +38,7 @@ class CommentFormWidget extends yupe\widgets\YWidget
             'model_id' => $this->modelId,
         ));
 
-        if($this->allowGuestComment == false && !Yii::app()->user->isAuthenticated()) {
+        if ($this->allowGuestComment == false && !Yii::app()->user->isAuthenticated()) {
             $this->view = 'commentnotallowed';
         }
 

@@ -29,8 +29,8 @@ class Menu extends yupe\models\YModel
     const STATUS_ACTIVE   = 1;
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
-     * @return Menu the static model class
+     * @param  string $className active record class name.
+     * @return Menu   the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -112,7 +112,7 @@ class Menu extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
@@ -126,7 +126,6 @@ class Menu extends yupe\models\YModel
         ));
     }
 
-
     public function scopes()
     {
         return array(
@@ -138,7 +137,6 @@ class Menu extends yupe\models\YModel
             )
         );
     }
-
 
     protected function afterSave()
     {
@@ -165,6 +163,7 @@ class Menu extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->statusList;
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*unknown*');
     }
 
@@ -204,19 +203,19 @@ class Menu extends yupe\models\YModel
                 if ($result->href) {
                     // если адрес надо параметризовать через роутер
                     if (!$result->regular_link) {
-                        
+
                         $url   = @unserialize($result->href) ?: $result->href;
-                        
+
                         $param = array();
 
                         if (!is_array($url)) {
 
                             strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
-                            
+
                             if ($param) {
                                 parse_str($param, $param);
                             }
-                            
+
                         }
 
                         $url = array('url' => (array) $url + $param, 'items' => $childItems);
@@ -225,13 +224,12 @@ class Menu extends yupe\models\YModel
                         $url = array('url' => $result->href, 'items' => $childItems);
                     }
 
-                }
-                else if ($childItems)
+                } elseif ($childItems)
                     $url = array('url' => array('#'), 'items' => $childItems);
                 else
                     $url = array();
 
-                $class      = (($childItems) ? ' submenuItem' : '') . 
+                $class      = (($childItems) ? ' submenuItem' : '') .
                               (($result->class) ? ' ' . $result->class : '');
                 $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
                 $target     = ($result->target && $url) ? array('target' => $result->target) : array();
@@ -250,13 +248,14 @@ class Menu extends yupe\models\YModel
 
             Yii::app()->cache->set("Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->language, $items, 0, new TagsCache('menu', $code, 'loggedIn' . $userId));
         }
+
         return $items;
     }
 
     public function addItem($title,$href,$parentId)
     {
-        $menuItem = new MenuItem;
-        $menuItem->parent_id = (int)$parentId;
+        $menuItem = new MenuItem();
+        $menuItem->parent_id = (int) $parentId;
         $menuItem->menu_id = $this->id;
         $menuItem->title  = $title;
         $menuItem->href   = $href;
@@ -267,8 +266,9 @@ class Menu extends yupe\models\YModel
         $menuItem->after_link = '';
         $menuItem->target = '';
         $menuItem->rel = '';
-        if($menuItem->save()){
+        if ($menuItem->save()) {
             Yii::app()->cache->clear(array('menu', $this->code));
+
             return true;
         }
 
@@ -287,18 +287,18 @@ class Menu extends yupe\models\YModel
     {
         $menuItem = MenuItem::model()->findByAttributes(array("title"=>$oldTitle));
 
-        if($menuItem === null)
-        {
+        if ($menuItem === null) {
             return $this->addItem($newTitle,$href,$parentId);
         }
 
-        $menuItem->parent_id = (int)$parentId;
+        $menuItem->parent_id = (int) $parentId;
         $menuItem->menu_id = $this->id;
         $menuItem->title  = $newTitle;
         $menuItem->href   = $href;
 
-        if($menuItem->save()){
+        if ($menuItem->save()) {
             Yii::app()->cache->clear(array('menu', $this->code));
+
             return true;
         }
 

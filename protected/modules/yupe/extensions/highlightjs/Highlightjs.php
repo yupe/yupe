@@ -42,8 +42,7 @@ class Highlightjs extends CComponent
         $this->_js = Yii::app()->getAssetManager()->publish($assetsPath.DIRECTORY_SEPARATOR.'highlight.pack.js');
         $this->_css = Yii::app()->getAssetManager()->publish($assetsPath.DIRECTORY_SEPARATOR.'/styles/'.$this->style.'.css');
 
-        if($this->remote === true)
-        {
+        if ($this->remote === true) {
             $this->_css = "http://yandex.st/highlightjs/{$this->version}/styles/{$this->style}.min.css";
             $this->_js = "http://yandex.st/highlightjs/{$this->version}/highlight.min.js";
         }

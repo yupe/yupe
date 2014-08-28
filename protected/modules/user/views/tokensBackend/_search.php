@@ -10,8 +10,8 @@
     <?php Yii::app()->clientScript->registerScript(
         'search',
         "
-        $(document).on('submit', '.search-form form', function(event) {
-            
+        $(document).on('submit', '.search-form form', function (event) {
+
             event.preventDefault();
 
             var form = $(this);

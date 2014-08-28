@@ -8,7 +8,7 @@
 
 Yii::import('gii.generators.crud.CrudCode');
 
-class YupeCode extendS CrudCode
+class YupeCode extends CrudCode
 {
 
     public $im;
@@ -23,7 +23,6 @@ class YupeCode extendS CrudCode
     public $mtvor;
 
     public $mid;
-
 
     public function rules()
     {
@@ -54,6 +53,7 @@ class YupeCode extendS CrudCode
                         if ($relation[0] == 'CBelongsToRelation' && $relation[2] == $column->name) {
                             $relationModel = CActiveRecord::model($relation[1]);
                             $suggestedName = $this->suggestName($relationModel->tableSchema->columns)->name;
+
                             return "\$form->dropDownListGroup(\$model, '{$relation[2]}', array('widgetOptions' => array('data' => CHtml::listData($relation[1]::model()->findAll(), 'id', '{$suggestedName}'))))";
                         }
                     }
@@ -79,7 +79,7 @@ class YupeCode extendS CrudCode
         return mb_strtoupper(mb_substr($word, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr(mb_convert_case($word, MB_CASE_LOWER, 'UTF-8'), 1, mb_strlen($word), 'UTF-8');
     }
 
-    // Определяем первый осмысленный текстовый столбец в таблице. Как правило это что-то вроде blahblahName, 
+    // Определяем первый осмысленный текстовый столбец в таблице. Как правило это что-то вроде blahblahName,
     // который можно в будущем использовать в качестве текстового значения для списков в связанных таблицах.
     public function suggestName($columns)
     {
@@ -106,6 +106,7 @@ class YupeCode extendS CrudCode
             return current($columns);
         } else {
             $column = reset($columns);
+
             return $column;
         }
     }

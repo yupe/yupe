@@ -49,7 +49,7 @@ $this->menu = array(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         event.preventDefault();
 
         $.fn.yiiGridView.update('user-grid', {
@@ -57,13 +57,13 @@ $this->menu = array(
         });
     });
 
-    $(document).on('click', '.verify-email', function(){
+    $(document).on('click', '.verify-email', function () {
         var link = $(this);
-        
+
         event.preventDefault();
 
         $.post(link.attr('href'), actionToken.token)
-            .done(function(response){
+            .done(function (response) {
                 bootbox.alert(response.data);
             });
     });

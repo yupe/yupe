@@ -39,7 +39,7 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory),
+                    'data' => Category::model()->getFormattedList((int) Yii::app()->getModule('feedback')->mainCategory),
                     'htmlOptions' => array(
                         'empty' => Yii::t('FeedbackModule.feedback', '--choose--'),
                     ),

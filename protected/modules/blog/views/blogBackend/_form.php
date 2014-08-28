@@ -45,7 +45,7 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('blog')->mainCategory),
+                    'data' => Category::model()->getFormattedList((int) Yii::app()->getModule('blog')->mainCategory),
                     'htmlOptions' => array(
                         'empty' => Yii::t('BlogModule.blog', '--choose--'),
                         'class' => 'popover-help',

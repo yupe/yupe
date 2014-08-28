@@ -38,12 +38,12 @@ $form = $this->beginWidget(
                             'type' => 'POST',
                             'url' => $this->createUrl('/menu/menuitemBackend/dynamicparent', (!$model->isNewRecord ? array('id' => $model->id) : array())),
                             'update' => $parent_id,
-                            'beforeSend' => "function() {
+                            'beforeSend' => "function () {
                             $('" . $parent_id . "').attr('disabled', true);
                             if ($('" . $menu_id . " option:selected').val() == '')
                                 return false;
                         }",
-                            'complete' => "function() {
+                            'complete' => "function () {
                             $('" . $parent_id . "').attr('disabled', false);
                         }",
                         ),

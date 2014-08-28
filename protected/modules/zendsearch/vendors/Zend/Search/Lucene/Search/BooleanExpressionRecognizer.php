@@ -20,7 +20,6 @@
  * @version    $Id: BooleanExpressionRecognizer.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_FSM */
 require_once 'Zend/Search/Lucene/FSM.php';
 
@@ -46,7 +45,6 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
     const IN_AND_OPERATOR = 2;
     const IN_OR_OPERATOR = 3;
 
-
     /**
      * NOT operator signal
      *
@@ -60,7 +58,6 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
      * @var mixed
      */
     private $_literal;
-
 
     /**
      * Set of boolean query conjunctions
@@ -93,7 +90,6 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
      * @var array
      */
     private $_currentConjunction = array();
-
 
     /**
      * Object constructor
@@ -134,12 +130,10 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
         $orOperatorAction = new Zend_Search_Lucene_FSMAction($this, 'orOperatorAction');
         $literalAction = new Zend_Search_Lucene_FSMAction($this, 'literalAction');
 
-
         $this->addEntryAction(self::ST_NOT_OPERATOR, $notOperatorAction);
         $this->addEntryAction(self::ST_OR_OPERATOR, $orOperatorAction);
         $this->addEntryAction(self::ST_LITERAL, $literalAction);
     }
-
 
     /**
      * Process next operator.
@@ -203,7 +197,6 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
         return $this->_conjunctions;
     }
 
-
     /*********************************************************************
      * Actions implementation
      *********************************************************************/
@@ -243,7 +236,6 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
         // Process NOT operator
         $this->notOperatorAction();
     }
-
 
     /**
      * NOT operator processing

@@ -9,7 +9,7 @@ class PanelStatWidget extends \yupe\widgets\YWidget
                 'defaultOrder' => 'id DESC',
             ),
             'pagination'=>array(
-                'pageSize'=> (int)$this->limit,
+                'pageSize'=> (int) $this->limit,
             ),
         ));
 
@@ -22,4 +22,4 @@ class PanelStatWidget extends \yupe\widgets\YWidget
                 'dataProvider' => $dataProvider
             ));
     }
-} 
+}

@@ -43,7 +43,7 @@ class UserToBlog extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string     $className
      * @return UserToBlog the static model class
      */
     public static function model($className = __CLASS__)
@@ -146,12 +146,12 @@ class UserToBlog extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('blog_id', $this->blog_id);
-        if($this->create_date) {
+        if ($this->create_date) {
             $criteria->compare('DATE(from_unixtime(t.create_date))', date('Y-m-d', strtotime($this->create_date)));
         }
         $criteria->compare('update_date', $this->update_date);
@@ -193,6 +193,7 @@ class UserToBlog extends yupe\models\YModel
     public function getRole()
     {
         $data = $this->getRoleList();
+
         return isset($data[$this->role]) ? $data[$this->role] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
@@ -209,6 +210,7 @@ class UserToBlog extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
@@ -230,6 +232,7 @@ class UserToBlog extends yupe\models\YModel
     public function activate()
     {
         $this->status = self::STATUS_ACTIVE;
+
         return $this;
     }
 

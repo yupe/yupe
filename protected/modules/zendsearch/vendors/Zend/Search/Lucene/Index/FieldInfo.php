@@ -20,7 +20,6 @@
  * @version    $Id: FieldInfo.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -47,4 +46,3 @@ class Zend_Search_Lucene_Index_FieldInfo
         $this->payloadsStored = $payloadsStored;
     }
 }
-

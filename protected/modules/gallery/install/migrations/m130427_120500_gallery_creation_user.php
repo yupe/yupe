@@ -17,7 +17,7 @@ class m130427_120500_gallery_creation_user extends yupe\components\DbMigration
      * @return null
      **/
     public function safeUp()
-    {        
+    {
         // add owner column
         $this->addColumn('{{gallery_gallery}}', 'owner', 'integer DEFAULT NULL');
 

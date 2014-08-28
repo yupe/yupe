@@ -345,7 +345,7 @@ return array (
     'Email verification' => 'Подтверждение email',
     'User not found' => 'Пользователь не найден',
     'Send a letter to verify email' => 'Отправить письмо для проверки email',
-	'Select {field}' => 'Выберите {field}',
+    'Select {field}' => 'Выберите {field}',
     'Creating user' => 'Создание пользователя',
     'Removing user' => 'Удаление пользователя',
     'List of users' => 'Просмотр списка пользователей',

@@ -39,7 +39,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
     /**
      * Отображает блог по указанному идентификатору
      * @throws CHttpException
-     * @param integer $id Идинтификатор блог для отображения
+     * @param  integer        $id Идинтификатор блог для отображения
      *
      * @return nothing
      **/
@@ -47,8 +47,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
     {
         if (($model = Blog::model()->loadModel($id)) !== null) {
             $this->render('view', array('model' => $model));
-        }
-        else {
+        } else {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
     }
@@ -61,7 +60,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
      **/
     public function actionCreate()
     {
-        $model = new Blog;
+        $model = new Blog();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Blog') !== null) {
 
@@ -85,7 +84,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
     /**
      * Редактирование блога.
      *
-     * @param integer $id Идинтификатор блога для редактирования
+     * @param  integer $id Идинтификатор блога для редактирования
      * @throw CHttpException
      * @return nothing
      **/
@@ -120,18 +119,18 @@ class BlogBackendController extends yupe\components\controllers\BackController
      * Удаляет модель блога из базы.
      * Если удаление прошло успешно - возвращется в index
      *
-     * @param integer $id - идентификатор блога, который нужно удалить     
+     * @param integer $id - идентификатор блога, который нужно удалить
      *
      * @return nothing
      **/
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             // поддерживаем удаление только из POST-запроса
             if (($model = Blog::model()->loadModel($id)) === null)
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
-            
+
             $model->delete();
 
             Yii::app()->user->setFlash(

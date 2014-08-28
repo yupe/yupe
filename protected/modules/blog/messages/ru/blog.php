@@ -276,7 +276,7 @@ return array (
     'read also:' => 'читайте также:',
     'All posts' => 'Все записи',
     'All' => 'Все',
-	'Select {field}' => 'Выберите {field}',
+    'Select {field}' => 'Выберите {field}',
 
     'Manage blogs'  => 'Управление блогами',
 

@@ -30,7 +30,6 @@ use CActiveDataProvider;
 use CMap;
 use TagsCache;
 
-
 class Settings extends YModel
 {
     /*
@@ -85,16 +84,13 @@ class Settings extends YModel
         if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
         }
-		
 
         // Пользователя можно получить только для веб-приложения
-        if (YII_APP_TYPE == 'web')
-        {        	
-        	$this->user_id = Yii::app()->user->getId();        	
-        }
-        else
-        	$this->user_id = null;        
-        
+        if (YII_APP_TYPE == 'web') {
+            $this->user_id = Yii::app()->user->getId();
+        } else
+            $this->user_id = null;
+
         return parent::beforeSave();
     }
 
@@ -151,17 +147,16 @@ class Settings extends YModel
     /**
      * Получает настройки модуля из базы данных (системные)
      *
-     * @param string $module_id Идентификатор модуля
-     * @param mixed $params Список параметров, которые требуется прочитать
-     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     * @param  string $module_id Идентификатор модуля
+     * @param  mixed  $params    Список параметров, которые требуется прочитать
+     * @return array  Экземпляры класса Settings, соответствующие запрошенным параметрам
      */
     public static function fetchModuleSettings($moduleId, array $params = null)
     {
 
         $settings = array();
 
-        if ($moduleId)
-        {
+        if ($moduleId) {
             $criteria = new CDbCriteria();
 
             $criteria->compare("module_id", $moduleId);
@@ -174,15 +169,12 @@ class Settings extends YModel
 
             $q = Settings::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime, $dependency)->findAll($criteria);
 
-            if(count($q))
-            {
+            if (count($q)) {
                 foreach ($q as $s) {
                     $settings[$s->param_name] = $s;
                 }
-            }
-            elseif (count($params))
-            {
-                foreach($params as $param){
+            } elseif (count($params)) {
+                foreach ($params as $param) {
                     $settings[$param] = null;
                 }
             }
@@ -194,45 +186,41 @@ class Settings extends YModel
     /**
      * Сохраняет настройки модуля
      * @param string $module_id Идентификатор модуля
-     * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
-     * 
+     * @param mixed  $params    Массив параметров и значений которые следует сохранить (param_name => param_value)
+     *
      */
     public static function saveModuleSettings($moduleId, $paramValues)
     {
-    	foreach ($paramValues as $name=>$value)
-    	{
-    		// Получаем настройку
-    		$setting = Settings::model()->find('module_id = :module_id and param_name = :param_name', array(':module_id'=>$moduleId, ':param_name'=>$name));
-    		    		   		
-    		// Если новая запись
-    		if ($setting == null)
-    		{
-    			$setting = new Settings();
-    			$setting->module_id = $moduleId;
-    			$setting->param_name = $name;
-    		}
-    		// Если значение не изменилось то не сохраняем
-    		else
-    		if ($setting->param_value == $value)
-    		{
-    			continue;
-    		}
-    		
-    		// Присваиваем новое значение
-    		$setting->param_value = $value;
-    		
-    		// Добавляем для параметра его правила валидации
-    		$setting->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($name);
-    		
-    		//Сохраняем
-    		if (!$setting->save()) {
-    			return false;
-    		}  		    		
-    	}
-    	
-    	return true;
+        foreach ($paramValues as $name=>$value) {
+            // Получаем настройку
+            $setting = Settings::model()->find('module_id = :module_id and param_name = :param_name', array(':module_id'=>$moduleId, ':param_name'=>$name));
+
+            // Если новая запись
+            if ($setting == null) {
+                $setting = new Settings();
+                $setting->module_id = $moduleId;
+                $setting->param_name = $name;
+            }
+            // Если значение не изменилось то не сохраняем
+            elseif ($setting->param_value == $value) {
+                continue;
+            }
+
+            // Присваиваем новое значение
+            $setting->param_value = $value;
+
+            // Добавляем для параметра его правила валидации
+            $setting->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($name);
+
+            //Сохраняем
+            if (!$setting->save()) {
+                return false;
+            }
+        }
+
+        return true;
     }
-    
+
     /**
      *  Получает настройки модуля/модулей из базы данных (пользователельские)
      *
@@ -258,7 +246,7 @@ class Settings extends YModel
         $result = $this->findAll($criteria);
 
         if (count($result)) {
-            foreach ($result as $s){
+            foreach ($result as $s) {
                 $settings[] = $s;
             }
         }

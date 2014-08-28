@@ -26,7 +26,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
@@ -52,7 +52,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         // Обработка при Ajax-запросе:
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-            
             return Yii::app()->ajax->success(
                 array(
                     'html' => $this->renderPartial(
@@ -75,13 +74,13 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new FeedBack;
+        $model = new FeedBack();
 
         $model->email = Yii::app()->user->getProfileField('email');
         $model->name  = Yii::app()->user->getProfileField('fullName');
 
         if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
@@ -110,14 +109,14 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
      * If update is successful, the browser will be redirected to the 'view' page.
      *
      * @param int $id - record $id
-     * 
+     *
      * @return void
      */
     public function actionUpdate($id = null)
     {
         $model = $this->loadModel($id);
 
-        $status = $model->status; 
+        $status = $model->status;
 
         if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
             $model->setAttributes($data);
@@ -146,9 +145,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
     /**
      * Экшен создания ответа на сообщение:
-     * 
+     *
      * @param int $id - ID сообщения
-     * 
+     *
      * @return void
      *
      * @throws CHttpException
@@ -157,7 +156,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         $model = $this->loadModel($id);
 
-        $form = new AnswerForm;
+        $form = new AnswerForm();
 
         $form->setAttributes(
             array(
@@ -168,7 +167,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
         // Обработка при Ajax-запросе:
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-            
+
             if ($this->saveAnswer($form, $model) === true) {
                 return true;
             }
@@ -208,10 +207,10 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
     /**
      * Сохраняем данные в СУБД, при наявности POST-запросаЖ
-     * 
+     *
      * @param AnswerForm $form  - форма ответа
      * @param FeedBack   $model - модель
-     * 
+     *
      * @return mixed
      */
     public function saveAnswer(AnswerForm $form, FeedBack $model)
@@ -220,7 +219,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             $form->setAttributes($data);
 
             if ($form->validate()) {
-                
+
                 $model->setAttributes(array(
                     'answer'      => $form->answer,
                     'is_faq'      => $form->is_faq,
@@ -290,7 +289,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             );
         }
     }
-    
+
     /**
      * Manages all models.
      *
@@ -299,9 +298,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     public function actionIndex()
     {
         $model = new FeedBack('search');
-        
+
         $model->unsetAttributes(); // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam('FeedBack', array())
         );

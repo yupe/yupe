@@ -66,4 +66,4 @@ class CommentEvent extends Event
     {
         return $this->user;
     }
-} 
+}

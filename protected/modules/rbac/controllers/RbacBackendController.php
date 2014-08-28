@@ -37,7 +37,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     public function actionAssign($id = null)
     {
-        $user = User::model()->findByPk((int)$id);
+        $user = User::model()->findByPk((int) $id);
         if (!$user) {
             $this->redirect(array('userList'));
         }
@@ -49,9 +49,9 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int)$user->id));
+                AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int) $user->id));
                 // убираем дубликаты и несуществующие роли
-                $roles = array_intersect(array_unique((array)Yii::app()->getRequest()->getPost('AuthItem')), $existingRoles);
+                $roles = array_intersect(array_unique((array) Yii::app()->getRequest()->getPost('AuthItem')), $existingRoles);
                 foreach ($roles as $op) {
                     $model = new AuthAssignment();
                     $model->setAttributes(
@@ -166,7 +166,6 @@ class RbacBackendController extends yupe\components\controllers\BackController
         }
     }
 
-
     public function actionUpdate($id)
     {
         /* @var $model AuthItem */
@@ -250,7 +249,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
     /**
      * Разворачивает дерево до списка
      * @param $rules - Дерево правил
-     * @param null $parent
+     * @param  null  $parent
      * @return array - Список правил
      */
     private function getRulesList($rules, $parent = null)

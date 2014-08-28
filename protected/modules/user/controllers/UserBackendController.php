@@ -27,7 +27,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
@@ -67,7 +67,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel($id);
 
-        $form = new ChangePasswordForm;
+        $form = new ChangePasswordForm();
 
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
 
@@ -95,7 +95,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new User;
+        $model = new User();
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
 
@@ -117,7 +117,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('create')
                     )
@@ -152,7 +152,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('update', 'id' => $model->id)
                     )
@@ -178,15 +178,12 @@ class UserBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
             // we only allow deletion via POST request
-            if($this->loadModel($id)->delete())
-            {
+            if ($this->loadModel($id)->delete()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Record was removed!')
                 );
-            }
-            else
-            {
+            } else {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'You can\'t make this changes!')
@@ -195,7 +192,7 @@ class UserBackendController extends yupe\components\controllers\BackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -285,7 +282,6 @@ class UserBackendController extends yupe\components\controllers\BackController
         }
 
         Yii::app()->ajax->failure();
-
 
     }
 

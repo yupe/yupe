@@ -19,7 +19,6 @@
  * @version    $Id: PriorityQueue.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Abstract Priority Queue
  *
@@ -52,7 +51,6 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     private $_heap = array();
 
-
     /**
      * Add element to the queue
      *
@@ -78,7 +76,6 @@ abstract class Zend_Search_Lucene_PriorityQueue
         $this->_heap[$nodeId] = $element;
     }
 
-
     /**
      * Return least element of the queue
      *
@@ -94,7 +91,6 @@ abstract class Zend_Search_Lucene_PriorityQueue
 
         return $this->_heap[0];
     }
-
 
     /**
      * Removes and return least element of the queue
@@ -147,7 +143,6 @@ abstract class Zend_Search_Lucene_PriorityQueue
         return $top;
     }
 
-
     /**
      * Clear queue
      */
@@ -156,16 +151,14 @@ abstract class Zend_Search_Lucene_PriorityQueue
         $this->_heap = array();
     }
 
-
     /**
      * Compare elements
      *
      * Returns true, if $el1 is less than $el2; else otherwise
      *
-     * @param mixed $el1
-     * @param mixed $el2
+     * @param  mixed   $el1
+     * @param  mixed   $el2
      * @return boolean
      */
     abstract protected function _less($el1, $el2);
 }
-

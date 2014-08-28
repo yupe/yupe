@@ -14,7 +14,7 @@ class HpController extends yupe\components\controllers\FrontController
 {
     /**
      * Index action:
-     * 
+     *
      * @return void
      */
     public function actionIndex()
@@ -23,7 +23,7 @@ class HpController extends yupe\components\controllers\FrontController
 
         $view = $data = null;
 
-        if($module->mode == HomepageModule::MODE_PAGE) {
+        if ($module->mode == HomepageModule::MODE_PAGE) {
             $view = 'page';
 
             $data = array(
@@ -31,7 +31,7 @@ class HpController extends yupe\components\controllers\FrontController
             );
         }
 
-        if($module->mode == HomepageModule::MODE_POSTS) {
+        if ($module->mode == HomepageModule::MODE_POSTS) {
             $view = 'posts';
 
             $dataProvider = new CActiveDataProvider(

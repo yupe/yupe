@@ -12,7 +12,6 @@
  **/
 namespace yupe\widgets;
 
-use CHtml;
 use Yii;
 
 /**

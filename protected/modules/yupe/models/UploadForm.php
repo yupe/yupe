@@ -17,4 +17,4 @@ class UploadForm extends CFormModel
             array('file', 'file', 'maxSize' => $this->maxSize, 'mimeTypes' => $this->mimeTypes, 'types' => $this->types)
         );
     }
-} 
+}

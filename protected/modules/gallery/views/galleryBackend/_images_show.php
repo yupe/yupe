@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для Default/_show_images:
- * 
+ *
  *   @category YupeView
  *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>

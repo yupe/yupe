@@ -20,12 +20,10 @@
  * @version    $Id: QueryParserException.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_Search_Lucene base exception
  */
 require_once 'Zend/Search/Lucene/Exception.php';
-
 
 /**
  * @category   Zend
@@ -39,4 +37,3 @@ require_once 'Zend/Search/Lucene/Exception.php';
 class Zend_Search_Lucene_Search_QueryParserException extends Zend_Search_Lucene_Exception
 {
 }
-

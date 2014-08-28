@@ -42,7 +42,7 @@ class m131017_064101_fix_menu_test_data extends yupe\components\DbMigration
     /**
      * Всё тоже самое что и в накате миграции,
      * только поменяны местами элементы:
-     * 
+     *
      * @return void
      */
     public function safeDown()

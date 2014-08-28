@@ -83,7 +83,6 @@ class Zend_Search_Lucene_Search_QueryToken
         );
     }
 
-
     /**
      * TokenCategories
      */
@@ -114,12 +113,11 @@ class Zend_Search_Lucene_Search_QueryToken
      */
     public $position;
 
-
     /**
      * IndexReader constructor needs token type and token text as a parameters.
      *
      * @param integer $tokenCategory
-     * @param string $tokText
+     * @param string  $tokText
      * @param integer $position
      */
     public function __construct($tokenCategory, $tokenText, $position)
@@ -131,11 +129,11 @@ class Zend_Search_Lucene_Search_QueryToken
             case self::TC_WORD:
                 if (strtolower($tokenText) == 'and') {
                     $this->type = self::TT_AND_LEXEME;
-                } else if (strtolower($tokenText) == 'or') {
+                } elseif (strtolower($tokenText) == 'or') {
                     $this->type = self::TT_OR_LEXEME;
-                } else if (strtolower($tokenText) == 'not') {
+                } elseif (strtolower($tokenText) == 'not') {
                     $this->type = self::TT_NOT_LEXEME;
-                } else if (strtolower($tokenText) == 'to') {
+                } elseif (strtolower($tokenText) == 'to') {
                     $this->type = self::TT_TO_LEXEME;
                 } else {
                     $this->type = self::TT_WORD;

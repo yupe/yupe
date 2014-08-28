@@ -41,7 +41,7 @@ class ProfileForm extends CFormModel
             array('birth_date', 'default', 'value' => null),
             array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
-            array('location', 'length', 'max' => 150),            
+            array('location', 'length', 'max' => 150),
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user','Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols')),
             array('nick_name', 'checkNickName'),
@@ -78,10 +78,9 @@ class ProfileForm extends CFormModel
     public function checkNickName($attribute,$params)
     {
         // Если ник поменяли
-        if (Yii::app()->user->profile->nick_name != $this->$attribute)
-        {
+        if (Yii::app()->user->profile->nick_name != $this->$attribute) {
             $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->$attribute));
-            if ($model){
+            if ($model) {
                  $this->addError('nick_name', Yii::t('UserModule.user', 'Nick in use'));
             }
         }
@@ -90,10 +89,9 @@ class ProfileForm extends CFormModel
     public function checkEmail($attribute,$params)
     {
         // Если мыло поменяли
-        if (Yii::app()->user->profile->email != $this->$attribute)
-        {
+        if (Yii::app()->user->profile->email != $this->$attribute) {
             $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
-            if ($model){
+            if ($model) {
                 $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));
             }
         }

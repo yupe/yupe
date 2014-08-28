@@ -30,22 +30,21 @@ class ManageBackendController extends yupe\components\controllers\BackController
     public function init()
     {
         Yii::import('application.modules.zendsearch.vendors.*');
-        
+
         require_once 'Zend/Search/Lucene.php';
-        
+
         return parent::init();
     }
 
     /**
      * Index-экшен:
-     * 
+     *
      * @return void
      */
     public function actionIndex()
     {
         $this->render('index');
     }
-
 
     /**
      * Search index creation
@@ -75,7 +74,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
             if (extension_loaded('iconv') === true) {
                 // Пробежаться по всем моделям и добавить их в индекс
                 foreach ($searchModels as $modelName => $model) {
-                    if(!empty($model['path'])) {
+                    if (!empty($model['path'])) {
                         Yii::import($model['path']);
                     }
                     if (!isset($model['module'])) {

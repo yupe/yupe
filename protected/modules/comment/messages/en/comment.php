@@ -109,4 +109,3 @@ return array (
     'From user' => '',
     'Insert symbols you see on picture'=>'',
 );
-

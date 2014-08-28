@@ -34,7 +34,7 @@ class AuthenticationManager extends CApplicationComponent
         $duration = 0;
 
         if ($form->remember_me) {
-            $sessionTimeInWeeks = (int)Yii::app()->getModule('user')->sessionLifeTime;
+            $sessionTimeInWeeks = (int) Yii::app()->getModule('user')->sessionLifeTime;
             $duration = $sessionTimeInWeeks * 24 * 60 * 60;
         }
 
@@ -77,11 +77,11 @@ class AuthenticationManager extends CApplicationComponent
 
     public function getBadLoginCount(IWebUser $user)
     {
-        return (int)$user->getState($this->badLoginCount, 0);
+        return (int) $user->getState($this->badLoginCount, 0);
     }
 
     public function setBadLoginCount(IWebUser $user, $count)
     {
-        $user->setState($this->badLoginCount, (int)$count);
+        $user->setState($this->badLoginCount, (int) $count);
     }
-} 
+}

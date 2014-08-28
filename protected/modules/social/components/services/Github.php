@@ -3,8 +3,8 @@ namespace application\modules\social\components\services;
 
 use GitHubOAuthService;
 
-class Github extends GitHubOAuthService {
-
+class Github extends GitHubOAuthService
+{
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
@@ -15,8 +15,10 @@ class Github extends GitHubOAuthService {
                     'service' => $this->getServiceName(),
                     'type' => $this->getServiceType(),
                 ));
+
             return true;
         }
+
         return false;
     }
 

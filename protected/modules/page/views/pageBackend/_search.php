@@ -56,7 +56,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->dropDownListGroup($model, 'category_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('page')->mainCategory),
+                        'data' => Category::model()->getFormattedList((int) Yii::app()->getModule('page')->mainCategory),
                         'htmlOptions' => array(
                             'class' => 'popover-help',
                             'empty' => Yii::t('PageModule.page', '- not set -')

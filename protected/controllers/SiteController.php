@@ -55,7 +55,6 @@ class SiteController extends Controller
         }
     }
 
-
     public function actionMain()
     {
         $dataProvider = new \CActiveDataProvider('Post', array(

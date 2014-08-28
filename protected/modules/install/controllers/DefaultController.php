@@ -230,11 +230,9 @@ class DefaultController extends yupe\components\controllers\BackController
             $result = $this->_checkYupeActivate();
         }
 
-
         if ($result) {
             $this->_markFinished(Yii::app()->controller->action->id);
         }
-
 
         $requirements = array_merge(
             $requirements,
@@ -658,7 +656,6 @@ class DefaultController extends yupe\components\controllers\BackController
                     }
                 }
 
-
                 $connection->connectionString = $connectionString;
 
                 try {
@@ -883,8 +880,8 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Запись в "веб-лог" на странице:
      *
-     * @param class $module - клас модуля
-     * @param string $msg - сообщение
+     * @param class  $module   - клас модуля
+     * @param string $msg      - сообщение
      * @param string $category - тип сообщения
      *
      * @return void вывод html
@@ -975,7 +972,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
             if ($model->validate()) {
 
-                $user = new User;
+                $user = new User();
 
                 $user->deleteAll();
 
@@ -999,13 +996,13 @@ class DefaultController extends yupe\components\controllers\BackController
                     //@TODO заменить на обработку через событие
                     if (Yii::app()->hasModule('rbac')) {
                         Yii::import('application.modules.rbac.models.*');
-                        $assign = new AuthAssignment;
+                        $assign = new AuthAssignment();
                         $assign->itemname = AuthItem::ROLE_ADMIN;
                         $assign->userid = $user->id;
                         $assign->save();
                     }
 
-                    $login = new LoginForm;
+                    $login = new LoginForm();
                     $login->email = $model->userEmail;
                     $login->password = $model->userPassword;
 
@@ -1086,7 +1083,7 @@ class DefaultController extends yupe\components\controllers\BackController
                                  'theme',
                                  'backendTheme'
                              ) as $param) {
-                        $settings = new Settings;
+                        $settings = new Settings();
                         $model->email = $model->siteEmail;
 
                         $settings->setAttributes(

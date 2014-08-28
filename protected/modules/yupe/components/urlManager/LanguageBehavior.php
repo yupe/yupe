@@ -46,7 +46,7 @@ class LanguageBehavior extends CBehavior
     public function getCookieLang()
     {
         $lm = Yii::app()->urlManager;
-        
+
         // А вдруг запрещена запись в runtime-каталог:
         try {
             $lang = Yii::app()->getModule('yupe')->cache
@@ -114,11 +114,10 @@ class LanguageBehavior extends CBehavior
 
         // $reqLang = substr(Yii::app()->getRequest()->getPathInfo(), 0, 2);
         //$reqLang = current(explode('/', Yii::app()->getRequest()->getPathInfo()));
-        
+
         // add support to zh_cn
         $path = explode('/', Yii::app()->getRequest()->getPathInfo());
         $reqLang = $path[0];
-                
 
         return in_array($reqLang, $lm->languages)
             ? $reqLang
@@ -145,7 +144,7 @@ class LanguageBehavior extends CBehavior
                     ? '/'
                     : ''
                 );
-        
+
         // Получаем текущий url:
         $path = Yii::app()->getRequest()->getPathInfo();
 
@@ -200,7 +199,7 @@ class LanguageBehavior extends CBehavior
     {
         // Устанавливаем состояние языка:
         Yii::app()->user->setState(Yii::app()->urlManager->langParam, $language);
-        
+
         try {
             if (Yii::app()->getModule('yupe')->cache) {
                 Yii::app()->getRequest()->cookies->add(

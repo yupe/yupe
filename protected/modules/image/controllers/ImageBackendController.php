@@ -41,7 +41,6 @@ class ImageBackendController extends yupe\components\controllers\BackController
         );
     }
 
-
     /**
      * Отображает изображение по указанному идентификатору
      *
@@ -62,7 +61,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new Image;
+        $model = new Image();
 
         if (($data = Yii::app()->getRequest()->getPost('Image')) !== null) {
 
@@ -91,7 +90,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
                     );
 
                     $this->redirect(
-                        (array)Yii::app()->getRequest()->getPost(
+                        (array) Yii::app()->getRequest()->getPost(
                             'submit-type',
                             array('create')
                         )
@@ -133,7 +132,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type',
                         array('update', 'id' => $model->id)
                     )
@@ -168,7 +167,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
