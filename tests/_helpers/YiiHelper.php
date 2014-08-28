@@ -1,16 +1,18 @@
 <?php
 namespace Codeception\Module;
-use Codeception\Util\Driver;
-// here you can define custom functions for CodeGuy 
+
+// here you can define custom functions for CodeGuy
 
 class YiiHelper extends \Codeception\Module
 {
     public function createConsoleYiiApp()
     {
-		require dirname(__FILE__).'/../../vendor/autoload.php';
-        $config = require dirname(__FILE__).'/../../protected/config/console-test.php';
+        require dirname(__FILE__) . '/../../vendor/autoload.php';
+        $config = require dirname(__FILE__) . '/../../protected/config/console-test.php';
         \Yii::$enableIncludePath = false;
-        if(!\Yii::app()) \Yii::createConsoleApplication($config);
+        if (!\Yii::app()) {
+            \Yii::createConsoleApplication($config);
+        }
     }
 
     /**
@@ -20,14 +22,14 @@ class YiiHelper extends \Codeception\Module
     public function setDbConnectionOptionsFromYiiConfig($dbConfigFile)
     {
         $dbConfig = include $dbConfigFile;
-        $mapKeys = array('connectionString'=>'dsn','username'=>'user','password'=>'password');
-        foreach($mapKeys as $k=>$v) {
-            if(array_key_exists($k,$dbConfig)) {
+        $mapKeys = array('connectionString' => 'dsn', 'username' => 'user', 'password' => 'password');
+        foreach ($mapKeys as $k => $v) {
+            if (array_key_exists($k, $dbConfig)) {
                 $dbConfig[$v] = $dbConfig[$k];
                 unset($dbConfig[$k]);
             }
         }
-        $config = $this->_filterOptions($dbConfig,array('dsn','user','password'));
+        $config = $this->_filterOptions($dbConfig, array('dsn', 'user', 'password'));
         $this->getModule('Db')->_reconfigure($config);
         $this->getModule('Db')->_initialize();
     }
@@ -46,16 +48,19 @@ class YiiHelper extends \Codeception\Module
      */
     public function setDbDumpOptions(array $dumpOptions)
     {
-        $config = $this->_filterOptions($dumpOptions,array('dump','populate','cleanup'));
+        $config = $this->_filterOptions($dumpOptions, array('dump', 'populate', 'cleanup'));
         $this->getModule('Db')->_reconfigure($config);
         $this->getModule('Db')->_initialize();
     }
 
-    protected function _filterOptions(array $options,array $optionsList)
+    protected function _filterOptions(array $options, array $optionsList)
     {
-        foreach($options as $k=>$v) {
-            if(in_array($k,$optionsList) && !empty($v)) $summary[$k] = $v;
+        foreach ($options as $k => $v) {
+            if (in_array($k, $optionsList) && !empty($v)) {
+                $summary[$k] = $v;
+            }
         }
+
         return $summary;
     }
 }

@@ -5,8 +5,10 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background: white; color: black;
+    display: block;
+    padding: 0.5em;
+    background: white;
+    color: black;
 }
 
 pre .string,
@@ -18,7 +20,7 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .nginx .built_in,
 pre .tex .formula {
-  color: #888;
+    color: #888;
 }
 
 pre .comment,
@@ -29,7 +31,7 @@ pre .pi,
 pre .javadoc,
 pre .deletion,
 pre .apache .sqbracket {
-  color: #CCC;
+    color: #CCC;
 }
 
 pre .keyword,
@@ -46,5 +48,5 @@ pre .apache .tag,
 pre .tex .command,
 pre .request,
 pre .status {
-  font-weight: bold;
+    font-weight: bold;
 }

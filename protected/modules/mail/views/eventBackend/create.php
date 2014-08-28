@@ -15,8 +15,16 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'), 'url' => array('/mail/eventBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('MailModule.mail', 'Messages list'),
+        'url'   => array('/mail/eventBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('MailModule.mail', 'Create event'),
+        'url'   => array('/mail/eventBackend/create')
+    ),
 );
 ?>
 <div class="page-header">

@@ -60,6 +60,7 @@ class Image extends \CApplicationComponent
                 Yii::app()->cache->set($cacheId, $url);
             } catch (\Exception $e) {
                 Yii::log($e->__toString(), \CLogger::LEVEL_ERROR);
+
                 return null;
             }
         }
@@ -83,4 +84,4 @@ class Image extends \CApplicationComponent
 
         return $this->_uploadManager;
     }
-} 
+}

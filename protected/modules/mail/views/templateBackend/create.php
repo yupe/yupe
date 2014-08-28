@@ -1,14 +1,22 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('MailModule.mail', 'Mail events') => array('/mail/eventBackend/index'),
+    Yii::t('MailModule.mail', 'Mail events')    => array('/mail/eventBackend/index'),
     Yii::t('MailModule.mail', 'Mail templates') => array('index'),
     Yii::t('MailModule.mail', 'Create'),
 );
 
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'), 'url' => array('/mail/templateBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('MailModule.mail', 'Templates list'),
+        'url'   => array('/mail/templateBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('MailModule.mail', 'Create template'),
+        'url'   => array('/mail/templateBackend/create')
+    ),
 );
 ?>
 <div class="page-header">

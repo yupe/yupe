@@ -20,7 +20,6 @@
  * @version    $Id: Field.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * A field is a section of a Document.  Each field has two parts,
  * a name and a value. Values may be free text or they may be atomic
@@ -132,14 +131,13 @@ class Zend_Search_Lucene_Field
         $this->boost = 1.0;
     }
 
-
     /**
      * Constructs a String-valued Field that is not tokenized, but is indexed
      * and stored.  Useful for non-text fields, e.g. date or url.
      *
-     * @param string $name
-     * @param string $value
-     * @param string $encoding
+     * @param  string $name
+     * @param  string $value
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Field
      */
     public static function keyword($name, $value, $encoding = '')
@@ -147,14 +145,13 @@ class Zend_Search_Lucene_Field
         return new self($name, $value, $encoding, true, true, false);
     }
 
-
     /**
      * Constructs a String-valued Field that is not tokenized nor indexed,
      * but is stored in the index, for return with hits.
      *
-     * @param string $name
-     * @param string $value
-     * @param string $encoding
+     * @param  string $name
+     * @param  string $value
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Field
      */
     public static function unIndexed($name, $value, $encoding = '')
@@ -162,14 +159,13 @@ class Zend_Search_Lucene_Field
         return new self($name, $value, $encoding, true, false, false);
     }
 
-
     /**
      * Constructs a Binary String valued Field that is not tokenized nor indexed,
      * but is stored in the index, for return with hits.
      *
-     * @param string $name
-     * @param string $value
-     * @param string $encoding
+     * @param  string $name
+     * @param  string $value
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Field
      */
     public static function binary($name, $value)
@@ -182,9 +178,9 @@ class Zend_Search_Lucene_Field
      * and is stored in the index, for return with hits.  Useful for short text
      * fields, like "title" or "subject". Term vector will not be stored for this field.
      *
-     * @param string $name
-     * @param string $value
-     * @param string $encoding
+     * @param  string $name
+     * @param  string $value
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Field
      */
     public static function text($name, $value, $encoding = '')
@@ -192,14 +188,13 @@ class Zend_Search_Lucene_Field
         return new self($name, $value, $encoding, true, true, true);
     }
 
-
     /**
      * Constructs a String-valued Field that is tokenized and indexed,
      * but that is not stored in the index.
      *
-     * @param string $name
-     * @param string $value
-     * @param string $encoding
+     * @param  string $name
+     * @param  string $value
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Field
      */
     public static function unStored($name, $value, $encoding = '')
@@ -219,9 +214,11 @@ class Zend_Search_Lucene_Field
         ) {
             return $this->value;
         } else {
-
-            return (PHP_OS != 'AIX') ? iconv($this->encoding, 'UTF-8', $this->value) : iconv('ISO8859-1', 'UTF-8', $this->value);
+            return (PHP_OS != 'AIX') ? iconv($this->encoding, 'UTF-8', $this->value) : iconv(
+                'ISO8859-1',
+                'UTF-8',
+                $this->value
+            );
         }
     }
 }
-

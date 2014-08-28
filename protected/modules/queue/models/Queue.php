@@ -43,6 +43,7 @@ class Queue extends yupe\models\YModel
         if ($this->isNewRecord) {
             $this->create_time = new CDbExpression('NOW()');
         }
+
         return parent::beforeSave();
     }
 
@@ -92,15 +93,15 @@ class Queue extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('QueueModule.queue', 'ID'),
-            'worker' => Yii::t('QueueModule.queue', 'Handler'),
-            'create_time' => Yii::t('QueueModule.queue', 'Created at'),
-            'task' => Yii::t('QueueModule.queue', 'Task.'),
-            'start_time' => Yii::t('QueueModule.queue', 'Start'),
+            'id'            => Yii::t('QueueModule.queue', 'ID'),
+            'worker'        => Yii::t('QueueModule.queue', 'Handler'),
+            'create_time'   => Yii::t('QueueModule.queue', 'Created at'),
+            'task'          => Yii::t('QueueModule.queue', 'Task.'),
+            'start_time'    => Yii::t('QueueModule.queue', 'Start'),
             'complete_time' => Yii::t('QueueModule.queue', 'Completing'),
-            'status' => Yii::t('QueueModule.queue', 'Status'),
-            'notice' => Yii::t('QueueModule.queue', 'Notice'),
-            'priority' => Yii::t('QueueModule.queue', 'Priority'),
+            'status'        => Yii::t('QueueModule.queue', 'Status'),
+            'notice'        => Yii::t('QueueModule.queue', 'Notice'),
+            'priority'      => Yii::t('QueueModule.queue', 'Priority'),
         );
     }
 
@@ -114,7 +115,7 @@ class Queue extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('worker', $this->worker, true);
@@ -134,7 +135,7 @@ class Queue extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array(
+            'sort'     => array(
                 'defaultOrder' => 'id DESC'
             )
         ));
@@ -143,31 +144,33 @@ class Queue extends yupe\models\YModel
     public function getPriorityList()
     {
         return array(
-            self::PRIORITY_LOW => Yii::t('QueueModule.queue', 'Low'),
+            self::PRIORITY_LOW    => Yii::t('QueueModule.queue', 'Low'),
             self::PRIORITY_NORMAL => Yii::t('QueueModule.queue', 'Normal'),
-            self::PRIORITY_HIGH => Yii::t('QueueModule.queue', 'High'),
+            self::PRIORITY_HIGH   => Yii::t('QueueModule.queue', 'High'),
         );
     }
 
     public function getPriority()
     {
         $data = $this->getPriorityList();
+
         return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('QueueModule.queue', '-unknown-');
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_NEW => Yii::t('QueueModule.queue', 'New'),
+            self::STATUS_NEW       => Yii::t('QueueModule.queue', 'New'),
             self::STATUS_COMPLETED => Yii::t('QueueModule.queue', 'Completed'),
-            self::STATUS_PROGRESS => Yii::t('QueueModule.queue', 'Working'),
-            self::STATUS_ERROR => Yii::t('QueueModule.queue', 'Error'),
+            self::STATUS_PROGRESS  => Yii::t('QueueModule.queue', 'Working'),
+            self::STATUS_ERROR     => Yii::t('QueueModule.queue', 'Error'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('QueueModule.queue', '-unknown-');
     }
 

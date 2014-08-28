@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Контроллер, отвечающий за отображение списка пользователей и профиля пользователя в публичной части сайта
  *
@@ -20,7 +21,7 @@ class PeopleController extends yupe\components\controllers\FrontController
         $users->status = User::STATUS_ACTIVE;
         $users->pageSize = (int)$this->module->usersPerPage;
 
-        if(isset($_GET['User']['nick_name'])) {
+        if (isset($_GET['User']['nick_name'])) {
             $users->nick_name = CHtml::encode($_GET['User']['nick_name']);
         }
 

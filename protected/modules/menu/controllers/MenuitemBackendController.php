@@ -15,7 +15,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuitemBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuitemBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuitemBackend.Index')),
@@ -30,8 +30,8 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'MenuItem',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'MenuItem',
                 'validAttributes' => array('title', 'href', 'status', 'menu_id', 'sort')
             )
         );
@@ -45,7 +45,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             throw new CHttpException(404);
         }
 
-        if(MenuItem::model()->sort($sortOrder)) {
+        if (MenuItem::model()->sort($sortOrder)) {
             Yii::app()->ajax->success();
         }
 
@@ -72,8 +72,8 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         $items = MenuItem::model()->public()->findAll(
             array(
                 'condition' => 'menu_id = :menu_id',
-                'order' => 'title DESC',
-                'params' => array(
+                'order'     => 'title DESC',
+                'params'    => array(
                     ':menu_id' => $menuId
                 )
             )
@@ -108,7 +108,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new MenuItem;
+        $model = new MenuItem();
 
         $model->menu_id = Yii::app()->getRequest()->getQuery('mid', null);
 
@@ -132,7 +132,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             }
         }
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->select = new CDbExpression('MAX(sort) as sort');
 

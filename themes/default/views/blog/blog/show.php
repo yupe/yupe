@@ -17,7 +17,7 @@ $this->breadcrumbs = array(
                 $blog->getImageUrl(),
                 CHtml::encode($blog->name),
                 array(
-                    'width' => 109,
+                    'width'  => 109,
                     'height' => 109
                 )
             ); ?>
@@ -25,14 +25,19 @@ $this->breadcrumbs = array(
         <div class="blog-description">
             <div class="blog-description-name">
 
-                <?php echo CHtml::link(CHtml::encode($blog->name), array('/blog/post/blog/', 'slug' => CHtml::encode($blog->slug))); ?>
+                <?php echo CHtml::link(
+                    CHtml::encode($blog->name),
+                    array('/blog/post/blog/', 'slug' => CHtml::encode($blog->slug))
+                ); ?>
 
                 <?php echo CHtml::link(
                     CHtml::image(
                         Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png",
                         Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
                         array(
-                            'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
+                            'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode(
+                                    $blog->name
+                                ),
                             'class' => 'rss'
                         )
                     ),
@@ -42,7 +47,10 @@ $this->breadcrumbs = array(
                     )
                 ); ?>
 
-                <?php $this->widget('application.modules.blog.widgets.JoinBlogWidget', array('user' => Yii::app()->user, 'blog' => $blog)); ?>
+                <?php $this->widget(
+                    'application.modules.blog.widgets.JoinBlogWidget',
+                    array('user' => Yii::app()->user, 'blog' => $blog)
+                ); ?>
 
             </div>
 
@@ -68,7 +76,10 @@ $this->breadcrumbs = array(
 
             <span class="blog-description-posts">
                 <i class="glyphicon glyphicon-pencil"></i>
-                <?php echo CHtml::link(count($blog->posts), array('/blog/post/blog/', 'slug' => CHtml::encode($blog->slug))); ?>
+                <?php echo CHtml::link(
+                    count($blog->posts),
+                    array('/blog/post/blog/', 'slug' => CHtml::encode($blog->slug))
+                ); ?>
             </span>
 
             </div>
@@ -98,4 +109,3 @@ $this->breadcrumbs = array(
 <br/><br/>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget'); ?>
-

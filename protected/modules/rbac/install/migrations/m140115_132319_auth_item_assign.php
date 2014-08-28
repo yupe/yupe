@@ -8,9 +8,9 @@ class m140115_132319_auth_item_assign extends yupe\components\DbMigration
             '{{user_user_auth_assignment}}',
             array(
                 'itemname' => "char(64) NOT NULL",
-                'userid' => "integer NOT NULL",
-                'bizrule' => "text",
-                'data' => "text",
+                'userid'   => "integer NOT NULL",
+                'bizrule'  => "text",
+                'data'     => "text",
             ),
             $this->getOptions()
         );

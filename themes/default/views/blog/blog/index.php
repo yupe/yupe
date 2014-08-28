@@ -11,7 +11,7 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
         'method' => 'get',
-        'type' => 'vertical'
+        'type'   => 'vertical'
     )
 );
 ?>
@@ -19,7 +19,11 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12">
         <div class="input-group">
-            <?php echo $form->textField($blogs, 'name', array('placeholder' => Yii::t('BlogModule.blog', 'Search by blog name'), 'class' => 'form-control')); ?>
+            <?php echo $form->textField(
+                $blogs,
+                'name',
+                array('placeholder' => Yii::t('BlogModule.blog', 'Search by blog name'), 'class' => 'form-control')
+            ); ?>
             <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><?php echo Yii::t('BlogModule.blog', 'search'); ?></button>
       </span>
@@ -33,7 +37,8 @@ $form = $this->beginWidget(
     <small>
         <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?> <a
             href="<?php echo Yii::app()->createUrl('/blog/blogRss/feed/'); ?>"><img
-                src="<?php echo Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"; ?>" alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"
+                src="<?php echo Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"; ?>"
+                alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"
                 title="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"></a>
     </small>
 </h1>
@@ -42,11 +47,11 @@ $form = $this->beginWidget(
 $this->widget(
     'bootstrap.widgets.TbListView',
     array(
-        'dataProvider' => $blogs->search(),
-        'template' => '{sorter}<br/><hr/>{items} {pager}',
-        'sorterCssClass' => 'sorter pull-left',
-        'itemView' => '_view',
-        'ajaxUpdate' => false,
+        'dataProvider'       => $blogs->search(),
+        'template'           => '{sorter}<br/><hr/>{items} {pager}',
+        'sorterCssClass'     => 'sorter pull-left',
+        'itemView'           => '_view',
+        'ajaxUpdate'         => false,
         'sortableAttributes' => array(
             'name',
             'postsCount',

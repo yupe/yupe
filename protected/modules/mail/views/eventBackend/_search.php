@@ -11,8 +11,8 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
         'htmlOptions' => array('class' => 'well search-form'),
     )
 ); ?>
@@ -38,10 +38,10 @@ $form = $this->beginWidget(
         $this->widget(
             'bootstrap.widgets.TbButton',
             array(
-                'buttonType' => 'submit',
-                'context' => 'primary',
+                'buttonType'  => 'submit',
+                'context'     => 'primary',
                 'encodeLabel' => false,
-                'label' => '<i class="glyphicon glyphicon-search"></i> ' . Yii::t('MailModule.mail', 'Find')
+                'label'       => '<i class="glyphicon glyphicon-search"></i> ' . Yii::t('MailModule.mail', 'Find')
             )
         ); ?>
     </div>

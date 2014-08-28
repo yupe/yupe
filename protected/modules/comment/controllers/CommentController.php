@@ -9,10 +9,10 @@
  *                type: 'post',
  *                url: $(<comment_form>).attr('action'),
  *                data: $(<comment_form>).serialize(),
- *                success: function(data) {
+ *                success: function (data) {
  *                    // Обработка нормального состояния
  *                },
- *                error: function(data) {
+ *                error: function (data) {
  *                    // Обработка ошибки
  *                },
  *                dataType: 'json'
@@ -48,7 +48,7 @@ class CommentController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class' => 'yupe\components\actions\YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             ),
@@ -106,16 +106,15 @@ class CommentController extends yupe\components\controllers\FrontController
                 $params,
                 array(
                     'user_id' => Yii::app()->getUser()->getId(),
-                    'name' => Yii::app()->getUser()->getState('nick_name'),
-                    'email' => Yii::app()->getUser()->getProfileField('email'),
+                    'name'    => Yii::app()->getUser()->getState('nick_name'),
+                    'email'   => Yii::app()->getUser()->getProfileField('email'),
                 )
             );
         }
 
         $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
 
-        try
-        {
+        try {
             if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
 
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
@@ -124,8 +123,8 @@ class CommentController extends yupe\components\controllers\FrontController
 
                     Yii::app()->ajax->success(
                         array(
-                            'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
-                            'comment' => array(
+                            'message'        => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
+                            'comment'        => array(
                                 'parent_id' => $comment->parent_id
                             ),
                             'commentContent' => $commentContent
@@ -158,9 +157,7 @@ class CommentController extends yupe\components\controllers\FrontController
 
                 $this->redirect($redirect);
             }
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
                 Yii::app()->ajax->failure(

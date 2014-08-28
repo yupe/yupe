@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет отрисовки формы для добавления комментария
  *
@@ -20,8 +21,8 @@ class CommentFormWidget extends yupe\widgets\YWidget
 
     public function init()
     {
-        $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
-        $this->modelId = (int) $this->modelId;
+        $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->modelId = (int)$this->modelId;
 
         $module = Yii::app()->getModule("comment");
         $this->allowGuestComment = $module->allowGuestComment ? true : false;
@@ -29,23 +30,28 @@ class CommentFormWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $model = new Comment;
+        $model = new Comment();
 
         $module = Yii::app()->getModule('comment');
 
-        $model->setAttributes(array(
-            'model'    => $this->model,
-            'model_id' => $this->modelId,
-        ));
+        $model->setAttributes(
+            array(
+                'model'    => $this->model,
+                'model_id' => $this->modelId,
+            )
+        );
 
-        if($this->allowGuestComment == false && !Yii::app()->user->isAuthenticated()) {
+        if ($this->allowGuestComment == false && !Yii::app()->user->isAuthenticated()) {
             $this->view = 'commentnotallowed';
         }
 
-        $this->render($this->view, array(
-            'redirectTo' => $this->redirectTo,
-            'model'      => $model,
-            'module'     => $module,
-        ));
+        $this->render(
+            $this->view,
+            array(
+                'redirectTo' => $this->redirectTo,
+                'model'      => $model,
+                'module'     => $module,
+            )
+        );
     }
 }

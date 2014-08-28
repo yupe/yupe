@@ -18,7 +18,7 @@ class CommentRssController extends yupe\components\controllers\RssController
             throw new CHttpException(404);
         }
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->order = 't.creation_date DESC';
         $criteria->params = array();
         $criteria->limit = $limit;
@@ -40,7 +40,7 @@ class CommentRssController extends yupe\components\controllers\RssController
             ->addCondition('t.id<>t.root');
 
         $criteria->params = array(
-            ':model' => $model,
+            ':model'   => $model,
             ':modelId' => $modelId,
         );
 
@@ -51,19 +51,19 @@ class CommentRssController extends yupe\components\controllers\RssController
     {
         return array(
             'feed' => array(
-                'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $this->data,
-                'title' => $this->title,
+                'class'       => 'yupe\components\actions\YFeedAction',
+                'data'        => $this->data,
+                'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields' => array(
-                    'author_object' => false,
+                'itemFields'  => array(
+                    'author_object'   => false,
                     'author_nickname' => false,
-                    'content' => 'text',
-                    'datetime' => 'creation_date',
-                    'link' => false,
-                    'linkParams' => array('title' => 'alias'),
-                    'title' => false,
-                    'updated' => 'creation_date',
+                    'content'         => 'text',
+                    'datetime'        => 'creation_date',
+                    'link'            => false,
+                    'linkParams'      => array('title' => 'alias'),
+                    'title'           => false,
+                    'updated'         => 'creation_date',
                 ),
             ),
         );

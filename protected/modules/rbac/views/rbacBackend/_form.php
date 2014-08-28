@@ -50,9 +50,9 @@
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'auth-item-form',
+        'id'                   => 'auth-item-form',
         'enableAjaxValidation' => false,
-        'htmlOptions' => array(
+        'htmlOptions'          => array(
             'class' => 'well',
         ),
     )
@@ -79,7 +79,7 @@
             'type',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getTypeList(),
+                    'data'        => $model->getTypeList(),
                     'htmlOptions' => array('empty' => '---'),
                 ),
             )
@@ -95,9 +95,14 @@
 
 <div id="operations-list" style="display:none;">
     <p><b><?php echo Yii::t('RbacModule.rbac', 'Operations') ?>:</b></p>
+
     <div class="row">
         <div class="col-sm-5">
-            <?php echo CHtml::textField('search', '', array('class' => 'form-control', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter'))); ?>
+            <?php echo CHtml::textField(
+                'search',
+                '',
+                array('class' => 'form-control', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter'))
+            ); ?>
         </div>
     </div>
     <p>
@@ -179,8 +184,8 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Save'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Save'),
     )
 );
 ?>

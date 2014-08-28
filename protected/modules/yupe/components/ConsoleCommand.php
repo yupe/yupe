@@ -17,14 +17,14 @@ class ConsoleCommand extends CConsoleCommand
 
     public function log($message, $level = CLogger::LEVEL_INFO, $echo = true, $category = null)
     {
-        if(null === $category) {
+        if (null === $category) {
             $category = $this->getLogCategory();
         }
 
-        if($echo || $this->echo) {
+        if ($echo || $this->echo) {
             echo "{$message}... \n";
         }
 
         Yii::log($message, $level, $category);
     }
-} 
+}

@@ -21,8 +21,9 @@ class YModuleInfo extends YWidget
 
     public function init()
     {
-        if (!$this->module && is_object($this->controller->module))
+        if (!$this->module && is_object($this->controller->module)) {
             $this->module = $this->controller->module;
+        }
     }
 
     public function run()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PageModule основной класс модуля page
  *
@@ -9,7 +10,6 @@
  * @since 0.1
  *
  */
-
 class PageModule extends yupe\components\WebModule
 {
     const VERSION = '0.8';
@@ -31,7 +31,7 @@ class PageModule extends yupe\components\WebModule
         );
     }
 
-    public function  getVersion()
+    public function getVersion()
     {
         return self::VERSION;
     }
@@ -40,8 +40,8 @@ class PageModule extends yupe\components\WebModule
     {
         return array(
             'adminMenuOrder',
-            'editor'        => Yii::app()->getModule('yupe')->editors,
-            'mainCategory'  => CHtml::listData($this->getCategoryList(), 'id', 'name'),
+            'editor'       => Yii::app()->getModule('yupe')->editors,
+            'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
         );
     }
 
@@ -89,10 +89,12 @@ class PageModule extends yupe\components\WebModule
     {
         parent::init();
 
-        $this->setImport(array(
-              'application.modules.page.models.*',              
-              'application.modules.page.components.widgets.*',
-        ));
+        $this->setImport(
+            array(
+                'application.modules.page.models.*',
+                'application.modules.page.components.widgets.*',
+            )
+        );
 
         // Если у модуля не задан редактор - спросим у ядра
         if (!$this->editor) {
@@ -103,7 +105,7 @@ class PageModule extends yupe\components\WebModule
     public function isMultiLang()
     {
         return true;
-    }   
+    }
 
     public function getAdminPageLink()
     {
@@ -113,9 +115,21 @@ class PageModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/pageBackend/create')),
-            array('icon' => 'glyphicon glyphicon-folder-open', 'label' => Yii::t('PageModule.page', 'Pages categories'), 'url' => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('PageModule.page', 'Pages list'),
+                'url'   => array('/page/pageBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('PageModule.page', 'Create page'),
+                'url'   => array('/page/pageBackend/create')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-folder-open',
+                'label' => Yii::t('PageModule.page', 'Pages categories'),
+                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
+            ),
         );
     }
 
@@ -123,38 +137,38 @@ class PageModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'name' => 'Page.PageManager',
+                'name'        => 'Page.PageManager',
                 'description' => Yii::t('PageModule.page', 'Manage pages'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Page.PageBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.Create',
                         'description' => Yii::t('PageModule.page', 'Creating page')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Page.PageBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.Delete',
                         'description' => Yii::t('PageModule.page', 'Removing page')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Page.PageBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.Index',
                         'description' => Yii::t('PageModule.page', 'List of pages')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Page.PageBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.Update',
                         'description' => Yii::t('PageModule.page', 'Editing pages')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Page.PageBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.Inline',
                         'description' => Yii::t('PageModule.page', 'Editing pages')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Page.PageBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.View',
                         'description' => Yii::t('PageModule.page', 'Viewing pages')
                     ),
                 )

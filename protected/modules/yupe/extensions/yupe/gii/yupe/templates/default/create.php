@@ -3,11 +3,11 @@
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
  *
- *   @category YupeGiiTemplate
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category YupeGiiTemplate
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  */
 ?>
 <?php

@@ -25,21 +25,21 @@
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
                             array(
-                                'id' => 'user-grid',
-                                'type' => 'striped condensed',
+                                'id'           => 'user-grid',
+                                'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
-                                'template' => '{items}',
-                                'htmlOptions' => array(
+                                'template'     => '{items}',
+                                'htmlOptions'  => array(
                                     'class' => false
                                 ),
-                                'columns' => array(
+                                'columns'      => array(
                                     array(
-                                        'name' => 'nick_name',
+                                        'name'  => 'nick_name',
                                         'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/update","id" => $data->id))',
-                                        'type' => 'html'
+                                        'type'  => 'html'
                                     ),
                                     array(
-                                        'name' => 'status',
+                                        'name'  => 'status',
                                         'value' => '$data->getStatus()',
                                     ),
                                 ),
@@ -73,8 +73,8 @@
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
     </div>
-    <?php $this->endWidget(); ?>
+</div>
+<?php $this->endWidget(); ?>

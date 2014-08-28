@@ -8,7 +8,7 @@ class m140115_132045_auth_item_child extends yupe\components\DbMigration
             '{{user_user_auth_item_child}}',
             array(
                 'parent' => "char(64) NOT NULL",
-                'child' => "char(64) NOT NULL",
+                'child'  => "char(64) NOT NULL",
             ),
             $this->getOptions()
 

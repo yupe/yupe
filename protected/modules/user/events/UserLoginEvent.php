@@ -50,5 +50,4 @@ class UserLoginEvent extends Event
         return $this->loginForm;
     }
 
-
-} 
+}

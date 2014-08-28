@@ -23,7 +23,6 @@
 /** Zend_Search_Lucene_Index_SegmentInfo */
 require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -69,7 +68,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
      */
     private $_fieldsMap = array();
 
-
     /**
      * Object constructor.
      *
@@ -86,7 +84,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
         $this->_writer = new Zend_Search_Lucene_Index_SegmentWriter_StreamWriter($directory, $name);
     }
 
-
     /**
      * Add segmnet to a collection of segments to be merged
      *
@@ -96,7 +93,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
     {
         $this->_segmentInfos[$segmentInfo->getName()] = $segmentInfo;
     }
-
 
     /**
      * Do merge.
@@ -116,8 +112,8 @@ class Zend_Search_Lucene_Index_SegmentMerger
         if (count($this->_segmentInfos) < 1) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong number of segments to be merged ('
-            . count($this->_segmentInfos)
-            . ').');
+                . count($this->_segmentInfos)
+                . ').');
         }
 
         $this->_mergeFields();
@@ -129,7 +125,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
 
         return $this->_writer->close();
     }
-
 
     /**
      * Merge fields information
@@ -216,7 +211,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
         }
     }
 
-
     /**
      * Merge fields information
      */
@@ -229,7 +223,10 @@ class Zend_Search_Lucene_Index_SegmentMerger
 
         $segmentStartId = 0;
         foreach ($this->_segmentInfos as $segName => $segmentInfo) {
-            $segmentStartId = $segmentInfo->resetTermsStream($segmentStartId, Zend_Search_Lucene_Index_SegmentInfo::SM_MERGE_INFO);
+            $segmentStartId = $segmentInfo->resetTermsStream(
+                $segmentStartId,
+                Zend_Search_Lucene_Index_SegmentInfo::SM_MERGE_INFO
+            );
 
             // Skip "empty" segments
             if ($segmentInfo->currentTerm() !== null) {

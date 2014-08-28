@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('DictionaryModule.dictionary', 'Dictionaries') => array('/dictionary/dictionaryBackend/index'),
+    Yii::t('DictionaryModule.dictionary', 'Dictionaries')     => array('/dictionary/dictionaryBackend/index'),
     Yii::t('DictionaryModule.dictionary', 'Dictionary items') => array('/dictionary/dictionaryDataBackend/index'),
     $model->name,
 );
@@ -11,40 +11,62 @@ $this->menu = array(
     array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'), 'url' => array('/dictionary/dictionaryBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'), 'url' => array('/dictionary/dictionaryBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'),
+                'url'   => array('/dictionary/dictionaryBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'),
+                'url'   => array('/dictionary/dictionaryBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Items'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
-            array('label' => Yii::t('DictionaryModule.dictionary', 'Dictionary item') . ' «' . mb_substr($model->name, 0, 32) . '»'),
             array(
-                'icon' => 'glyphicon glyphicon-pencil',
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Items list'),
+                'url'   => array('/dictionary/dictionaryDataBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('DictionaryModule.dictionary', 'Create item'),
+                'url'   => array('/dictionary/dictionaryDataBackend/create')
+            ),
+            array(
+                'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary item') . ' «' . mb_substr(
+                        $model->name,
+                        0,
+                        32
+                    ) . '»'
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-pencil',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Edit dictionary item'),
-                'url' => array(
+                'url'   => array(
                     '/dictionary/dictionaryDataBackend/update',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'glyphicon glyphicon-eye-open',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Show dictionary item'),
-                'url' => array(
+                'url'   => array(
                     '/dictionary/dictionaryDataBackend/view',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-trash',
-                'label' => Yii::t('DictionaryModule.dictionary', 'Remove dictionary item'),
-                'url' => '#',
+                'icon'        => 'glyphicon glyphicon-trash',
+                'label'       => Yii::t('DictionaryModule.dictionary', 'Remove dictionary item'),
+                'url'         => '#',
                 'linkOptions' => array(
-                    'submit' => array('/dictionary/dictionaryDataBackend/delete', 'id' => $model->id),
+                    'submit'  => array('/dictionary/dictionaryDataBackend/delete', 'id' => $model->id),
                     'confirm' => Yii::t('DictionaryModule.dictionary', 'Do you really want do delete dictionary item?'),
-                    'csrf' => true,
+                    'csrf'    => true,
                 )
             ),
         )
@@ -61,11 +83,11 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             array(
-                'name' => 'group_id',
+                'name'  => 'group_id',
                 'value' => $model->group->name,
             ),
             'code',
@@ -76,23 +98,23 @@ $this->menu = array(
                 'type' => 'raw'
             ),
             array(
-                'name' => 'creation_date',
+                'name'  => 'creation_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"),
             ),
             array(
-                'name' => 'update_date',
+                'name'  => 'update_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
             ),
             array(
-                'name' => 'create_user_id',
+                'name'  => 'create_user_id',
                 'value' => $model->createUser->getFullName(),
             ),
             array(
-                'name' => 'update_user_id',
+                'name'  => 'update_user_id',
                 'value' => $model->updateUser->getFullName(),
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
         ),

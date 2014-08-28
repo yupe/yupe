@@ -11,7 +11,7 @@ class PublisherController extends yupe\components\controllers\FrontController
 
     public function actionWrite()
     {
-        $post = new Post;
+        $post = new Post();
 
         if (($postId = (int)Yii::app()->getRequest()->getQuery('id'))) {
 
@@ -37,7 +37,7 @@ class PublisherController extends yupe\components\controllers\FrontController
                 $redirect = array('/blog/publisher/my');
 
                 if ($post->isDraft()) {
-                    $message = Yii::t('BlogModule.blog',  'Post saved!');
+                    $message = Yii::t('BlogModule.blog', 'Post saved!');
                 }
 
                 if ($post->isPublished()) {
@@ -72,4 +72,4 @@ class PublisherController extends yupe\components\controllers\FrontController
 
         Yii::app()->ajax->failure();
     }
-} 
+}

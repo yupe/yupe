@@ -75,7 +75,6 @@ class InstallCest
         $I->see('Необходимо заполнить поле «Название базы данных».', \CommonPage::ERROR_CSS_CLASS);
         $I->see('Необходимо заполнить поле «Пользователь».', \CommonPage::ERROR_CSS_CLASS);
 
-
         $dbConfig = $I->getDbConfig();
         $I->fillField('InstallForm[dbName]', $dbConfig["dbname"]);
         $I->fillField('InstallForm[dbUser]', $dbConfig["user"]);
@@ -106,12 +105,10 @@ class InstallCest
         $I->see('Отмена');
         $I->click('Продолжить >', '.modal-footer');
 
-
         $I->seeInCurrentUrl('modulesinstall');
         $I->see('Шаг 5 из 8 : "Установка модулей', 'span');
         $I->see('Идет установка модулей...', 'h1');
         $I->see('Журнал установки', 'h3');
-
 
         $I->wait(30000);
         $I->see('20 / 20');
@@ -129,7 +126,6 @@ class InstallCest
         $I->seeInField('InstallForm[cPassword]', '');
         $I->seeLink('< Назад');
         $I->see('Продолжить >');
-
 
         //check form validation
         $I->fillField('InstallForm[userName]', 'yupe');

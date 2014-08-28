@@ -12,11 +12,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'good-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'good-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
     )
 ); ?>
 
@@ -35,11 +35,11 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content' => $model->getAttributeDescription('status')
+                        'data-content'        => $model->getAttributeDescription('status')
                     ),
                 ),
             )
@@ -53,9 +53,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('is_special'),
-                        'data-content' => $model->getAttributeDescription('is_special')
+                        'data-content'        => $model->getAttributeDescription('is_special')
                     ),
                 ),
             )
@@ -69,13 +69,13 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList(),
+                    'data'        => Category::model()->getFormattedList(),
                     'htmlOptions' => array(
-                        'empty' => Yii::t('CatalogModule.catalog', '--choose--'),
-                        'class' => 'popover-help',
+                        'empty'               => Yii::t('CatalogModule.catalog', '--choose--'),
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('category_id'),
-                        'data-content' => $model->getAttributeDescription('category_id'),
-                        'encode' => false,
+                        'data-content'        => $model->getAttributeDescription('category_id'),
+                        'encode'              => false,
                     ),
                 ),
             )
@@ -90,9 +90,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
-                        'data-content' => $model->getAttributeDescription('name')
+                        'data-content'        => $model->getAttributeDescription('name')
                     ),
                 ),
             )
@@ -107,9 +107,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('alias'),
-                        'data-content' => $model->getAttributeDescription('alias')
+                        'data-content'        => $model->getAttributeDescription('alias')
                     ),
                 ),
             )
@@ -124,9 +124,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('price'),
-                        'data-content' => $model->getAttributeDescription('price')
+                        'data-content'        => $model->getAttributeDescription('price')
                     ),
                 ),
             )
@@ -141,9 +141,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('article'),
-                        'data-content' => $model->getAttributeDescription('article')
+                        'data-content'        => $model->getAttributeDescription('article')
                     ),
                 ),
             )
@@ -161,19 +161,32 @@ $form = $this->beginWidget(
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             )
         ); ?>
-        <?php echo $form->fileFieldGroup($model, 'image', array('widgetOptions' => array('htmlOptions' => array('onchange' => 'readURL(this);', 'style' => 'background-color: inherit;')))); ?>
+        <?php echo $form->fileFieldGroup(
+            $model,
+            'image',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'onchange' => 'readURL(this);',
+                        'style'    => 'background-color: inherit;'
+                    )
+                )
+            )
+        ); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
+        <div class="popover-help form-group"
+             data-original-title='<?php echo $model->getAttributeLabel('description'); ?>'
+             data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
                 $this->module->editor,
                 array(
-                    'model' => $model,
+                    'model'     => $model,
                     'attribute' => 'description',
-                    'options' => $this->module->editorOptions,
+                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
         </div>
@@ -181,16 +194,18 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>' data-content='<?php echo $model->getAttributeDescription(
-            'short_description'
-        ); ?>'>
+        <div class="popover-help form-group"
+             data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>'
+             data-content='<?php echo $model->getAttributeDescription(
+                 'short_description'
+             ); ?>'>
             <?php echo $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
                 $this->module->editor,
                 array(
-                    'model' => $model,
+                    'model'     => $model,
                     'attribute' => 'short_description',
-                    'options' => $this->module->editorOptions,
+                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
         </div>
@@ -198,14 +213,15 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('data'); ?>' data-content='<?php echo $model->getAttributeDescription('data'); ?>'>
+        <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('data'); ?>'
+             data-content='<?php echo $model->getAttributeDescription('data'); ?>'>
             <?php echo $form->labelEx($model, 'data'); ?>
             <?php $this->widget(
                 $this->module->editor,
                 array(
-                    'model' => $model,
+                    'model'     => $model,
                     'attribute' => 'data',
-                    'options' => $this->module->editorOptions,
+                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
         </div>
@@ -216,17 +232,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and continue') : Yii::t('CatalogModule.catalog', 'Save product and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and continue') : Yii::t(
+                'CatalogModule.catalog',
+                'Save product and continue'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and close') : Yii::t('CatalogModule.catalog', 'Save product and close'),
+        'label'       => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and close') : Yii::t(
+                'CatalogModule.catalog',
+                'Save product and close'
+            ),
     )
 ); ?>
 

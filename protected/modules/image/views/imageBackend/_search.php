@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -16,9 +16,9 @@ $form = $this->beginWidget(
                 'category_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => Category::model()->getFormattedList(),
+                        'data'        => Category::model()->getFormattedList(),
                         'htmlOptions' => array(
-                            'empty' => '---',
+                            'empty'  => '---',
                             'encode' => false,
                         ),
                     ),
@@ -33,7 +33,11 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <?php echo $form->textAreaGroup($model, 'description', array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))); ?>
+            <?php echo $form->textAreaGroup(
+                $model,
+                'description',
+                array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))
+            ); ?>
         </div>
     </div>
     <div class="row">
@@ -48,7 +52,7 @@ $form = $this->beginWidget(
                 'type',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getTypeList(),
+                        'data'        => $model->getTypeList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -64,7 +68,7 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -78,10 +82,13 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('ImageModule.image', 'Find image'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+                'ImageModule.image',
+                'Find image'
+            ),
     )
 ); ?>
 

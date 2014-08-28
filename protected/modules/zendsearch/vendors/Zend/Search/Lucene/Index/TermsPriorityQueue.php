@@ -37,8 +37,8 @@ class Zend_Search_Lucene_Index_TermsPriorityQueue extends Zend_Search_Lucene_Pri
      *
      * Returns true, if $termsStream1 is "less" than $termsStream2; else otherwise
      *
-     * @param mixed $termsStream1
-     * @param mixed $termsStream2
+     * @param  mixed $termsStream1
+     * @param  mixed $termsStream2
      * @return boolean
      */
     protected function _less($termsStream1, $termsStream2)

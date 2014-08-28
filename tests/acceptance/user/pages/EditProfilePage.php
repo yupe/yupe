@@ -1,4 +1,5 @@
 <?php
+
 class EditProfilePage
 {
     // include url of current page

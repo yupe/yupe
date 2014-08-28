@@ -11,11 +11,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'image-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'image-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -33,7 +33,9 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('image')->mainCategory),
+                    'data'        => Category::model()->getFormattedList(
+                            (int)Yii::app()->getModule('image')->mainCategory
+                        ),
                     'htmlOptions' => array(
                         'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
                     ),
@@ -91,7 +93,7 @@ $form = $this->beginWidget(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
                         'onchange' => 'readURL(this);',
-                        'style' => 'background-color: inherit;',
+                        'style'    => 'background-color: inherit;',
                     ),
                 ),
             )
@@ -110,8 +112,11 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t('GalleryModule.gallery', 'Save image'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t(
+                'GalleryModule.gallery',
+                'Save image'
+            ),
     )
 ); ?>
 

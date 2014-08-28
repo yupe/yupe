@@ -24,11 +24,12 @@
 class ContentBlock extends yupe\models\YModel
 {
     const SIMPLE_TEXT = 1;
-    const HTML_TEXT   = 3;
+    const HTML_TEXT = 3;
+    const RAW_TEXT = 4;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string $className
      * @return ContentBlock the static model class
      */
     public static function model($className = __CLASS__)
@@ -59,7 +60,14 @@ class ContentBlock extends yupe\models\YModel
             array('name', 'length', 'max' => 250),
             array('code', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
-            array('code', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
+            array(
+                'code',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t(
+                        'ContentBlockModule.contentblock',
+                        'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters'
+                    )
+            ),
             array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
@@ -104,27 +112,28 @@ class ContentBlock extends yupe\models\YModel
         return array(
             self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Simple text'),
             self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
+            self::RAW_TEXT    => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
         );
     }
 
     public function getType()
     {
         $data = $this->getTypes();
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*unknown type*');
+
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t(
+            'ContentBlockModule.contentblock',
+            '*unknown type*'
+        );
     }
 
-	protected function beforeSave()
-	{
-		if (parent::beforeSave()) {
-			Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+    protected function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
 
-			if ($this->type == self::SIMPLE_TEXT) {
-				$this->content = strip_tags($this->content);
-			}
+            return true;
+        }
 
-			return true;
-		}
-
-		return false;
-	}
+        return false;
+    }
 }

@@ -9,13 +9,17 @@ $this->breadcrumbs = array(
 
 <h1>
     <?php echo Yii::t('FeedbackModule.feedback', 'FAQ') ?>
-    <?php echo CHtml::link(Yii::t('FeedbackModule.feedback', 'Add question ?'), Yii::app()->createUrl('/feedback/contact/index/'), array('class' => 'btn btn-info')); ?>
+    <?php echo CHtml::link(
+        Yii::t('FeedbackModule.feedback', 'Add question ?'),
+        Yii::app()->createUrl('/feedback/contact/index/'),
+        array('class' => 'btn btn-info')
+    ); ?>
 </h1>
 
 <?php $this->widget(
     'bootstrap.widgets.TbListView',
     array(
         'dataProvider' => $dataProvider,
-        'itemView' => '_view',
+        'itemView'     => '_view',
     )
 ); ?>

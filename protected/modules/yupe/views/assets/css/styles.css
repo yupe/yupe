@@ -4,6 +4,7 @@
 .shortcuts {
     text-align: left;
 }
+
 .shortcuts .shortcut {
     min-height: 114px;
     text-align: center;
@@ -26,6 +27,7 @@
     box-sizing: border-box;
     border-radius: 5px;
 }
+
 .shortcuts .shortcut .shortcut-icon {
     width: 100%;
     margin-top: .25em;
@@ -33,6 +35,7 @@
     font-size: 32px;
     color: #555;
 }
+
 .shortcuts .shortcut:hover {
     background: #E8E8E8;
     background-color: #f0f0f0;
@@ -44,9 +47,11 @@
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffafafa', endColorstr='#ffe1e1e1', GradientType=0);
 }
+
 .shortcuts .shortcut:hover .shortcut-icon {
     color: #666;
 }
+
 .shortcuts .shortcut-label {
     display: block;
     font-weight: 400;

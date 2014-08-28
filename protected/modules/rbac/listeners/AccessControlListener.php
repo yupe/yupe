@@ -17,4 +17,4 @@ class AccessControlListener
         Yii::app()->getModule('yupe')->setBackendFilters($filters);
         Yii::app()->getModule('yupe')->addBackendFilter('accessControl');
     }
-} 
+}

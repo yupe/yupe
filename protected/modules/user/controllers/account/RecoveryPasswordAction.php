@@ -17,7 +17,7 @@ class RecoveryPasswordAction extends CAction
 {
     /**
      * Стартуем экшен сброса пароля
-     * @param string $token - токен-сброса пароля
+     * @param  string $token - токен-сброса пароля
      * @throws CHttpException
      */
     public function run($token)
@@ -36,7 +36,7 @@ class RecoveryPasswordAction extends CAction
         //Проверка токена
         $tokenModel = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
 
-        if(null === $tokenModel) {
+        if (null === $tokenModel) {
             throw new CHttpException(404);
         }
 
@@ -45,16 +45,16 @@ class RecoveryPasswordAction extends CAction
 
             if (Yii::app()->userManager->activatePassword($token)) {
 
-                Yii::app()->getUser()->setFlash(
+                Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
-                $this->getController()->redirect(array('/user/account/login'));
+                $this->controller->redirect(array('/user/account/login'));
 
             } else {
 
-                Yii::app()->getUser()->setFlash(
+                Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error when changing password!')
                 );
@@ -64,7 +64,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         // Форма смены пароля:
-        $changePasswordForm = new ChangePasswordForm;
+        $changePasswordForm = new ChangePasswordForm();
 
         // Получаем данные POST если таковые имеются:
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
@@ -72,17 +72,22 @@ class RecoveryPasswordAction extends CAction
             $changePasswordForm->setAttributes($data);
 
             // Проводим валидацию формы:
-            if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword($token, $changePasswordForm->password)) {
+            if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword(
+                    $token,
+                    $changePasswordForm->password
+                )
+            ) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Password recover successfully')
                 );
 
-                $this->getController()->redirect(array('/user/account/login'));
+                $this->controller->redirect(array('/user/account/login'));
             }
         }
 
-        $this->getController()->render('changePassword', array('model' => $changePasswordForm));
+        // Отрисовываем форму:
+        $this->controller->render('changePassword', array('model' => $changePasswordForm));
     }
 }

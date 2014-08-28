@@ -3,18 +3,29 @@
     <title><?php echo Yii::t('UserModule.user', 'Activation successed!'); ?></title>
 </head>
 <body>
-    <?php echo Yii::t('UserModule.user', 'You successfully registered on "{site}" !', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+<?php echo Yii::t(
+    'UserModule.user',
+    'You successfully registered on "{site}" !',
+    array('{site}' => CHtml::encode(Yii::app()->name))
+); ?>
 
-    <br/><br/>
+<br/><br/>
 
-    <?php echo Yii::t('UserModule.user', 'For account activation, click the'); ?>
-    &nbsp;<?php echo CHtml::link(Yii::t('UserModule.user', 'link'),$link=Yii::app()->createAbsoluteUrl('/user/account/activate', array('token' => $model->activate_key))); ?>
-    <br/><br/>
+<?php echo Yii::t('UserModule.user', 'For account activation, click the'); ?>
+&nbsp;<?php echo CHtml::link(
+    Yii::t('UserModule.user', 'link'),
+    $link = Yii::app()->createAbsoluteUrl('/user/account/activate', array('token' => $model->activate_key))
+); ?>
+<br/><br/>
 
-    <?php  echo $link; ?>
+<?php echo $link; ?>
 
-    <br/><br/>
+<br/><br/>
 
-    <?php echo Yii::t('UserModule.user', 'Best regards, "{site}" administration!', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+<?php echo Yii::t(
+    'UserModule.user',
+    'Best regards, "{site}" administration!',
+    array('{site}' => CHtml::encode(Yii::app()->name))
+); ?>
 </body>
 </html>

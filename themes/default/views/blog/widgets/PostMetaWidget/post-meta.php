@@ -30,7 +30,7 @@
                 array(
                     '/blog/post/show/',
                     'slug' => CHtml::encode($post->slug),
-                    '#' => 'comments'
+                    '#'    => 'comments'
                 )
             );?>
         </span>

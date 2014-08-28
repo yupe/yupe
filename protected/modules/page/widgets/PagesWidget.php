@@ -9,13 +9,13 @@
  * @since 0.1
  *
  */
-Yii::import( 'application.modules.page.models.*');
+Yii::import('application.modules.page.models.*');
 
 class PagesWidget extends yupe\widgets\YWidget
 {
     public $pageStatus;
     public $topLevelOnly = false;
-    public $order        = 't.order ASC, t.creation_date ASC';
+    public $order = 't.order ASC, t.creation_date ASC';
     public $parent_id;
     public $view = 'pageswidget';
     public $visible = true;
@@ -28,14 +28,13 @@ class PagesWidget extends yupe\widgets\YWidget
             $this->pageStatus = Page::STATUS_PUBLISHED;
         }
 
-        $this->parent_id = (int) $this->parent_id;
+        $this->parent_id = (int)$this->parent_id;
     }
 
     public function run()
     {
-        if ($this->visible)
-        {
-            $criteria = new CDbCriteria;
+        if ($this->visible) {
+            $criteria = new CDbCriteria();
             $criteria->order = $this->order;
             $criteria->addCondition("status = {$this->pageStatus}");
 
@@ -49,9 +48,12 @@ class PagesWidget extends yupe\widgets\YWidget
                 $criteria->addCondition("parent_id is null or parent_id = 0");
             }
 
-            $this->render($this->view, array(
-                'pages' => Page::model()->cache($this->cacheTime)->findAll($criteria),
-            ));
+            $this->render(
+                $this->view,
+                array(
+                    'pages' => Page::model()->cache($this->cacheTime)->findAll($criteria),
+                )
+            );
         }
     }
 }

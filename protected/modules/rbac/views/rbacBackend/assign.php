@@ -21,7 +21,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+    Yii::t('RbacModule.rbac', 'Actions')   => array('index'),
     Yii::t('RbacModule.rbac', 'User list') => array('userList'),
     Yii::t('RbacModule.rbac', 'Rights assignment'),
 );
@@ -33,7 +33,7 @@ $this->breadcrumbs = array(
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'auth-item-assign-form',
+        'id'                   => 'auth-item-assign-form',
         'enableAjaxValidation' => false,
     )
 );
@@ -52,8 +52,8 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'context' => 'primary',
-            'label' => Yii::t('RbacModule.rbac', 'Save'),
+            'context'    => 'primary',
+            'label'      => Yii::t('RbacModule.rbac', 'Save'),
         )
     );
     ?>

@@ -92,8 +92,7 @@ class ConfigManager extends CComponent
         $this->initPath();
 
         $this->_base = empty($this->_base)
-            ? require_once $this->basePath . '/config/main.php'
-            : $this->_base;
+            ? require_once $this->basePath . '/config/main.php' : $this->_base;
     }
 
     /**
@@ -115,7 +114,7 @@ class ConfigManager extends CComponent
      * Инициализируем компонент, настраиваем
      * пути и принемаем необходимыей параметры:
      *
-     * @param  array $base - базовые настройки
+     * @param array $base - базовые настройки
      *
      * @return array - получаем настройки приложения
      */
@@ -166,7 +165,6 @@ class ConfigManager extends CComponent
 
         return $cachedSettings;
     }
-
 
     /**
      * @return bool
@@ -241,7 +239,6 @@ class ConfigManager extends CComponent
 
                         break;
 
-
                     case 'commandMap':
                         // commandMap заполняем только для консоли
                         if (YII_APP_TYPE !== 'console') {
@@ -261,16 +258,14 @@ class ConfigManager extends CComponent
         }
 
         //смерджим файл /protected/config/project.php
-
-        return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath.'/config/project.php'));
+        return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath . '/config/project.php'));
     }
-
 
     /**
      * Сливаем настройки, кешируем и отдаём
      * приложению:
      *
-     * @param  array $settings - входящие настройки
+     * @param array $settings - входящие настройки
      *
      * @return array - настройки приложения
      */
@@ -281,7 +276,7 @@ class ConfigManager extends CComponent
             $this->_base,
             array(
                 // Preloaded components:
-                'preload' => CMap::mergeArray(
+                'preload'    => CMap::mergeArray(
                         isset($this->_config['preload'])
                             ? $this->_config['preload']
                             : array(),
@@ -290,7 +285,7 @@ class ConfigManager extends CComponent
                             : array()
                     ),
                 // Подключение основых путей
-                'import' => CMap::mergeArray(
+                'import'     => CMap::mergeArray(
                         isset($this->_config['import'])
                             ? $this->_config['import']
                             : array(),
@@ -299,7 +294,7 @@ class ConfigManager extends CComponent
                             : array()
                     ),
                 // Модули:
-                'modules' => CMap::mergeArray(
+                'modules'    => CMap::mergeArray(
                         isset($this->_config['modules'])
                             ? $this->_config['modules']
                             : array(),
@@ -328,11 +323,9 @@ class ConfigManager extends CComponent
             )
         );
 
-
         if (YII_APP_TYPE == 'web') {
             unset($this->_config['commandMap']);
         }
-
 
         if (!array_key_exists('rules', $settings)) {
             $settings['rules'] = array();
@@ -381,7 +374,7 @@ class ConfigManager extends CComponent
             // Обходим массив Url'ов и убераем схожести:
             foreach ($settings['components']['urlManager']['rules'] as $key => $value) {
 
-                 $search = array_search($value, $rules);
+                $search = array_search($value, $rules);
 
                 if (!empty($search) || isset($rules[$key]) || false === $value) {
                     unset($settings['components']['urlManager']['rules'][$key]);

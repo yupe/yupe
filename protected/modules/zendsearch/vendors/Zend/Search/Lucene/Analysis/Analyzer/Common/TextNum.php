@@ -20,10 +20,8 @@
  * @version    $Id: TextNum.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Analysis_Analyzer_Common */
 require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common.php';
-
 
 /**
  * @category   Zend
@@ -32,7 +30,6 @@ require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Search_Lucene_Analysis_Analyzer_Common_TextNum extends Zend_Search_Lucene_Analysis_Analyzer_Common
 {
     /**
@@ -92,4 +89,3 @@ class Zend_Search_Lucene_Analysis_Analyzer_Common_TextNum extends Zend_Search_Lu
         return $token;
     }
 }
-

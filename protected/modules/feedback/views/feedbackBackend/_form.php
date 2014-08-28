@@ -2,12 +2,12 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'feedback-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'feedback-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'action' => $model->isNewRecord ? array('create') : array('update', 'id' => $model->id),
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'action'                 => $model->isNewRecord ? array('create') : array('update', 'id' => $model->id),
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -25,7 +25,7 @@ $form = $this->beginWidget(
             'type',
             array(
                 'widgetOptions' => array(
-                    'data' => Yii::app()->getModule('feedback')->getTypes(),
+                    'data'        => Yii::app()->getModule('feedback')->getTypes(),
                     'htmlOptions' => array(
                         'empty' => Yii::t('FeedbackModule.feedback', '--choose--'),
                     ),
@@ -39,7 +39,9 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory),
+                    'data'        => Category::model()->getFormattedList(
+                            (int)Yii::app()->getModule('feedback')->mainCategory
+                        ),
                     'htmlOptions' => array(
                         'empty' => Yii::t('FeedbackModule.feedback', '--choose--'),
                     ),
@@ -53,7 +55,7 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
                         'empty' => Yii::t('FeedbackModule.feedback', '--choose--'),
                     ),
@@ -88,10 +90,10 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->editor,
             array(
-                'id' => substr(md5(microtime()), 0, 7),
-                'model' => $model,
+                'id'        => substr(md5(microtime()), 0, 7),
+                'model'     => $model,
                 'attribute' => 'text',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'text'); ?>
@@ -103,10 +105,10 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->editor,
             array(
-                'id' => substr(md5(microtime()), 0, 7),
-                'model' => $model,
+                'id'        => substr(md5(microtime()), 0, 7),
+                'model'     => $model,
                 'attribute' => 'answer',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'answer'); ?>
@@ -134,17 +136,23 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'context' => 'primary',
-            'label' => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Create message and continue') : Yii::t('FeedbackModule.feedback', 'Save message and continue'),
+            'context'    => 'primary',
+            'label'      => $model->isNewRecord ? Yii::t(
+                    'FeedbackModule.feedback',
+                    'Create message and continue'
+                ) : Yii::t('FeedbackModule.feedback', 'Save message and continue'),
         )
     ); ?>
 
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'buttonType' => 'submit',
+            'buttonType'  => 'submit',
             'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-            'label' => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Create message and close') : Yii::t('FeedbackModule.feedback', 'Save message and close'),
+            'label'       => $model->isNewRecord ? Yii::t(
+                    'FeedbackModule.feedback',
+                    'Create message and close'
+                ) : Yii::t('FeedbackModule.feedback', 'Save message and close'),
         )
     ); ?>
 </div>

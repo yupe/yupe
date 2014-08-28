@@ -7,11 +7,11 @@ class m140115_131455_auth_item extends yupe\components\DbMigration
         $this->createTable(
             '{{user_user_auth_item}}',
             array(
-                'name' => "char(64) NOT NULL",
-                'type' => "integer NOT NULL",
+                'name'        => "char(64) NOT NULL",
+                'type'        => "integer NOT NULL",
                 'description' => "text",
-                'bizrule' => "text",
-                'data' => "text",
+                'bizrule'     => "text",
+                'data'        => "text",
             ),
             $this->getOptions()
         );

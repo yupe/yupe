@@ -19,7 +19,5 @@
  * @version    $Id: MultiSearcher.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_MultiSearcher */
 require_once 'Zend/Search/Lucene/MultiSearcher.php';
-

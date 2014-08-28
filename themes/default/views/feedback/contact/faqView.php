@@ -10,28 +10,32 @@ $this->breadcrumbs = array(
 
 <h1>
     <?php echo $model->theme; ?> #<?php echo $model->id; ?>
-    <?php echo CHtml::link(Yii::t('FeedbackModule.feedback', 'Add question ?'), Yii::app()->createUrl('/feedback/contact/index/'), array('class' => 'btn btn-info')); ?>
+    <?php echo CHtml::link(
+        Yii::t('FeedbackModule.feedback', 'Add question ?'),
+        Yii::app()->createUrl('/feedback/contact/index/'),
+        array('class' => 'btn btn-info')
+    ); ?>
 </h1>
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'creation_date',
             'name',
             'theme',
             array(
-                'name' => 'text',
-                'type' => 'raw',
+                'name'  => 'text',
+                'type'  => 'raw',
                 'value' => $model->text,
             ),
             array(
-                'name' => 'type',
+                'name'  => 'type',
                 'value' => $model->getType()
             ),
             array(
-                'name' => 'answer_user',
+                'name'  => 'answer_user',
                 'value' => $model->getAnsweredUser()->getFullName()
             ),
             'answer_date',
@@ -45,7 +49,10 @@ $this->breadcrumbs = array(
 
 <br/><br/>
 
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('label' => Yii::t('FeedbackModule.feedback', 'Opinions'), 'model' => $model, 'modelId' => $model->id)); ?>
+<?php $this->widget(
+    'application.modules.comment.widgets.CommentsListWidget',
+    array('label' => Yii::t('FeedbackModule.feedback', 'Opinions'), 'model' => $model, 'modelId' => $model->id)
+); ?>
 
 <br/>
 
@@ -53,5 +60,9 @@ $this->breadcrumbs = array(
 
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
-    array('redirectTo' => $this->createUrl('/feedback/contact/faqView/', array('id' => $model->id)), 'model' => $model, 'modelId' => $model->id)
+    array(
+        'redirectTo' => $this->createUrl('/feedback/contact/faqView/', array('id' => $model->id)),
+        'model'      => $model,
+        'modelId'    => $model->id
+    )
 ); ?>

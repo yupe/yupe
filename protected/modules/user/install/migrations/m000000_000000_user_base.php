@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User install migration
  * Класс миграций для модуля User:
@@ -57,7 +58,6 @@ class m000000_000000_user_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{user_user}}_status", '{{user_user}}', "status", false);
         $this->createIndex("ix_{{user_user}}_email_confirm", '{{user_user}}', "email_confirm", false);
 
-
         // recovery password table
         $this->createTable(
             '{{user_recovery_password}}',
@@ -65,7 +65,7 @@ class m000000_000000_user_base extends yupe\components\DbMigration
                 'id'            => 'pk',
                 'user_id'       => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-                'code'          =>  'char(32) NOT NULL',
+                'code'          => 'char(32) NOT NULL',
             ),
             $this->getOptions()
         );
@@ -73,7 +73,7 @@ class m000000_000000_user_base extends yupe\components\DbMigration
         $this->createIndex("ux_{{user_recovery_password}}_code", '{{user_recovery_password}}', "code", true);
         $this->createIndex("ix_{{user_recovery_password}}_user_id", '{{user_recovery_password}}', "user_id", false);
     }
- 
+
     /**
      * Функция удаления таблицы:
      *

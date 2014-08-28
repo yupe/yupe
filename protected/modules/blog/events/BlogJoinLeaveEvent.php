@@ -44,4 +44,4 @@ class BlogJoinLeaveEvent extends Event
     {
         return $this->blog;
     }
-} 
+}

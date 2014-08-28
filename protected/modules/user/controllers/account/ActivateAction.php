@@ -40,7 +40,10 @@ class ActivateAction extends CAction
         // Сообщаем об ошибке:
         Yii::app()->getUser()->setFlash(
             yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-            Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.')
+            Yii::t(
+                'UserModule.user',
+                'There was a problem with the activation of the account. Please refer to the site\'s administration.'
+            )
         );
 
         // Переадресовываем на соответствующую ошибку:

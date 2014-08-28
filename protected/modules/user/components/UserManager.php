@@ -30,18 +30,26 @@ class UserManager extends CApplicationComponent
         $transaction = Yii::app()->db->beginTransaction();
 
         try {
-            $user = new User;
+            $user = new User();
             $data = $form->getAttributes();
             unset($data['cPassword'], $data['verifyCode']);
             $user->setAttributes($data);
             $user->hash = $this->hasher->hashPassword($form->password);
             if ($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_REGISTRATION, new UserRegistrationEvent($form, $user, $token));
+                Yii::app()->eventManager->fire(
+                    UserEvents::SUCCESS_REGISTRATION,
+                    new UserRegistrationEvent($form, $user, $token)
+                );
 
                 Yii::log(
-                    Yii::t('UserModule.user', 'Account {nick_name} was created', array('{nick_name}' => $user->nick_name)),
-                    CLogger::LEVEL_INFO, UserModule::$logCategory
+                    Yii::t(
+                        'UserModule.user',
+                        'Account {nick_name} was created',
+                        array('{nick_name}' => $user->nick_name)
+                    ),
+                    CLogger::LEVEL_INFO,
+                    UserModule::$logCategory
                 );
 
                 $transaction->commit();
@@ -55,7 +63,8 @@ class UserManager extends CApplicationComponent
 
             Yii::log(
                 Yii::t('UserModule.user', 'Error {error} account creating!', array('{error}' => $e->__toString())),
-                CLogger::LEVEL_INFO, UserModule::$logCategory
+                CLogger::LEVEL_INFO,
+                UserModule::$logCategory
             );
 
             $transaction->rollback();
@@ -96,11 +105,14 @@ class UserManager extends CApplicationComponent
 
                 Yii::log(
                     Yii::t(
-                        'UserModule.user', 'Account with activate_key = {activate_key} was activated!', array(
+                        'UserModule.user',
+                        'Account with activate_key = {activate_key} was activated!',
+                        array(
                             '{activate_key}' => $token
                         )
                     ),
-                    CLogger::LEVEL_INFO, UserModule::$logCategory
+                    CLogger::LEVEL_INFO,
+                    UserModule::$logCategory
                 );
 
                 Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_ACCOUNT, new UserActivateEvent($token));
@@ -110,7 +122,10 @@ class UserManager extends CApplicationComponent
                 return true;
             }
 
-            throw new CException(Yii::t('UserModule.user', 'There was a problem with the activation of the account. Please refer to the site\'s administration.'));
+            throw new CException(Yii::t(
+                'UserModule.user',
+                'There was a problem with the activation of the account. Please refer to the site\'s administration.'
+            ));
         } catch (Exception $e) {
             $transaction->rollback();
 
@@ -128,9 +143,12 @@ class UserManager extends CApplicationComponent
             return false;
         }
 
-        $user = User::model()->active()->find('email = :email', array(
-            ':email' => $email
-        ));
+        $user = User::model()->active()->find(
+            'email = :email',
+            array(
+                ':email' => $email
+            )
+        );
 
         if (null === $user) {
             return false;
@@ -141,7 +159,10 @@ class UserManager extends CApplicationComponent
         try {
             if (($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_PASSWORD_RECOVERY, new UserPasswordRecoveryEvent($email, $user, $token));
+                Yii::app()->eventManager->fire(
+                    UserEvents::SUCCESS_PASSWORD_RECOVERY,
+                    new UserPasswordRecoveryEvent($email, $user, $token)
+                );
 
                 $transaction->commit();
 
@@ -153,7 +174,10 @@ class UserManager extends CApplicationComponent
 
             $transaction->rollback();
 
-            Yii::app()->eventManager->fire(UserEvents::FAILURE_PASSWORD_RECOVERY, new UserPasswordRecoveryEvent($email, $user));
+            Yii::app()->eventManager->fire(
+                UserEvents::FAILURE_PASSWORD_RECOVERY,
+                new UserPasswordRecoveryEvent($email, $user)
+            );
 
             return false;
         }
@@ -165,7 +189,10 @@ class UserManager extends CApplicationComponent
 
         if (null === $tokenModel) {
 
-            Yii::app()->eventManager->fire(UserEvents::FAILURE_ACTIVATE_PASSWORD, new UserActivatePasswordEvent($token));
+            Yii::app()->eventManager->fire(
+                UserEvents::FAILURE_ACTIVATE_PASSWORD,
+                new UserActivatePasswordEvent($token)
+            );
 
             return false;
         }
@@ -174,7 +201,10 @@ class UserManager extends CApplicationComponent
 
         if (null === $userModel) {
 
-            Yii::app()->eventManager->fire(UserEvents::FAILURE_ACTIVATE_PASSWORD, new UserActivatePasswordEvent($token));
+            Yii::app()->eventManager->fire(
+                UserEvents::FAILURE_ACTIVATE_PASSWORD,
+                new UserActivatePasswordEvent($token)
+            );
 
             return false;
         }
@@ -189,7 +219,10 @@ class UserManager extends CApplicationComponent
 
             if ($this->changeUserPassword($userModel, $password) && $this->tokenStorage->activate($tokenModel)) {
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_PASSWORD, new UserActivatePasswordEvent($token, $password, $userModel, $notify));
+                Yii::app()->eventManager->fire(
+                    UserEvents::SUCCESS_ACTIVATE_PASSWORD,
+                    new UserActivatePasswordEvent($token, $password, $userModel, $notify)
+                );
 
                 $transaction->commit();
 
@@ -207,6 +240,7 @@ class UserManager extends CApplicationComponent
     public function changeUserPassword(User $user, $password)
     {
         $user->hash = $this->hasher->hashPassword($password);
+
         return $user->save();
     }
 
@@ -228,15 +262,20 @@ class UserManager extends CApplicationComponent
                     throw new CException(Yii::t('UserModule.user', 'Error change Email!'));
                 }
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_EMAIL_CONFIRM, new UserEmailConfirmEvent($user, $token));
+                Yii::app()->eventManager->fire(
+                    UserEvents::SUCCESS_EMAIL_CONFIRM,
+                    new UserEmailConfirmEvent($user, $token)
+                );
 
                 $transaction->commit();
+
                 return true;
             }
 
             throw new CException(Yii::t('UserModule.user', 'Error change Email!'));
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -268,18 +307,24 @@ class UserManager extends CApplicationComponent
 
             if ($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_EMAIL_CONFIRM, new UserEmailConfirmEvent($token, $userModel));
+                Yii::app()->eventManager->fire(
+                    UserEvents::SUCCESS_EMAIL_CONFIRM,
+                    new UserEmailConfirmEvent($token, $userModel)
+                );
 
                 $transaction->commit();
 
                 Yii::log(
                     Yii::t(
-                        'UserModule.user', 'Email with activate_key = {activate_key}, id = {id} was activated!', array(
+                        'UserModule.user',
+                        'Email with activate_key = {activate_key}, id = {id} was activated!',
+                        array(
                             '{activate_key}' => $token,
-                            '{id}' => $userModel->id,
+                            '{id}'           => $userModel->id,
                         )
                     ),
-                    CLogger::LEVEL_INFO, UserModule::$logCategory
+                    CLogger::LEVEL_INFO,
+                    UserModule::$logCategory
                 );
 
                 return true;

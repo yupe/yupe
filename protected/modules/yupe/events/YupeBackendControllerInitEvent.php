@@ -60,4 +60,4 @@ class YupeBackendControllerInitEvent extends Event
     {
         return $this->user;
     }
-} 
+}

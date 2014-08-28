@@ -11,10 +11,10 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'dbsettings-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'dbsettings-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
+        'type'                   => 'vertical',
     )
 );
 
@@ -50,20 +50,32 @@ Yii::app()->clientScript->registerScript(
 
 <div class="alert alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
-    <p><?php echo Yii::t('InstallModule.install', 'You can create DB with phpmyadmin help, or with some other sql tools.'); ?></p>
+
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'You can create DB with phpmyadmin help, or with some other sql tools.'
+        ); ?></p>
+
     <p><b><?php echo Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.'); ?></p></b>
 </div>
 
 <?php if (!$data['result']) : { ?>
     <div class="alert alert-danger">
-        <b><?php echo Yii::t('InstallModule.install', 'File {file} not exists or not accessible for write!', array('{file}' => $data['file'])); ?></b>
+        <b><?php echo Yii::t(
+                'InstallModule.install',
+                'File {file} not exists or not accessible for write!',
+                array('{file}' => $data['file'])
+            ); ?></b>
     </div>
 <?php } endif; ?>
 
 <?php echo $form->errorSummary($data['model']); ?>
 
 <div class="alert alert-info">
-    <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'This option is experiment. Only MySQL works stable.'); ?></p>
+    <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t(
+                'InstallModule.install',
+                'This option is experiment. Only MySQL works stable.'
+            ); ?></p>
 </div>
 <div class="row">
     <div class="col-sm-7">
@@ -72,11 +84,11 @@ Yii::app()->clientScript->registerScript(
             'dbType',
             array(
                 'widgetOptions' => array(
-                    'data' => $data['model']->getDbTypeNames(),
+                    'data'        => $data['model']->getDbTypeNames(),
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbType'),
-                        'data-content' => $data['model']->getAttributeDescription('dbType')
+                        'data-content'        => $data['model']->getAttributeDescription('dbType')
                     )
                 )
             )
@@ -92,10 +104,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('host'),
-                        'data-content' => $data['model']->getAttributeDescription('host'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('host'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -111,9 +123,9 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('port'),
-                        'data-content' => $data['model']->getAttributeDescription('port'),
+                        'data-content'        => $data['model']->getAttributeDescription('port'),
                     )
                 )
             )
@@ -129,10 +141,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbName'),
-                        'data-content' => $data['model']->getAttributeDescription('dbName'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('dbName'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -154,10 +166,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('tablePrefix'),
-                        'data-content' => $data['model']->getAttributeDescription('tablePrefix'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('tablePrefix'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -173,10 +185,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbUser'),
-                        'data-content' => $data['model']->getAttributeDescription('dbUser'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('dbUser'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -192,10 +204,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbPassword'),
-                        'data-content' => $data['model']->getAttributeDescription('dbPassword'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('dbPassword'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -211,10 +223,12 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('socket'),
-                        'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)',
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription(
+                                'socket'
+                            ) . ' (обязательно только при подключении через сокет)',
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -224,14 +238,18 @@ Yii::app()->clientScript->registerScript(
 
 <br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/requirements'), array('class' => 'btn btn-default')); ?>
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', '< Back'),
+    array('/install/default/requirements'),
+    array('class' => 'btn btn-default')
+); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => Yii::t('InstallModule.install', 'Check connection and continue >'),
+        'context'    => 'primary',
+        'label'      => Yii::t('InstallModule.install', 'Check connection and continue >'),
     )
 ); ?>
 

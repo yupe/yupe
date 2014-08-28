@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -17,12 +17,12 @@ $form = $this->beginWidget(
                 'category_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => CHtml::listData(Category::model()->published()->findAll(), 'id', 'name'),
+                        'data'        => CHtml::listData(Category::model()->published()->findAll(), 'id', 'name'),
                         'htmlOptions' => array(
-                            'empty' => Yii::t('CatalogModule.catalog', '--choose--'),
-                            'class' => 'popover-help',
+                            'empty'               => Yii::t('CatalogModule.catalog', '--choose--'),
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('category_id'),
-                            'data-content' => $model->getAttributeDescription('category_id')
+                            'data-content'        => $model->getAttributeDescription('category_id')
                         ),
                     ),
                 )
@@ -34,12 +34,12 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
-                            'empty' => Yii::t('CatalogModule.catalog', '--choose--'),
-                            'class' => 'popover-help',
+                            'empty'               => Yii::t('CatalogModule.catalog', '--choose--'),
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('status'),
-                            'data-content' => $model->getAttributeDescription('status')
+                            'data-content'        => $model->getAttributeDescription('status')
                         ),
                     ),
                 )
@@ -52,9 +52,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('is_special'),
-                            'data-content' => $model->getAttributeDescription('is_special')
+                            'data-content'        => $model->getAttributeDescription('is_special')
                         ),
                     ),
                 )
@@ -69,9 +69,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('price'),
-                            'data-content' => $model->getAttributeDescription('price')
+                            'data-content'        => $model->getAttributeDescription('price')
                         ),
                     ),
                 )
@@ -84,9 +84,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('name'),
-                            'data-content' => $model->getAttributeDescription('namece')
+                            'data-content'        => $model->getAttributeDescription('namece')
                         ),
                     ),
                 )
@@ -99,9 +99,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('alias'),
-                            'data-content' => $model->getAttributeDescription('aliase')
+                            'data-content'        => $model->getAttributeDescription('aliase')
                         ),
                     ),
                 )
@@ -116,9 +116,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('article'),
-                            'data-content' => $model->getAttributeDescription('article')
+                            'data-content'        => $model->getAttributeDescription('article')
                         ),
                     ),
                 )
@@ -131,9 +131,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('short_description'),
-                            'data-content' => $model->getAttributeDescription('short_description')
+                            'data-content'        => $model->getAttributeDescription('short_description')
                         ),
                     ),
                 )
@@ -146,9 +146,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('description'),
-                            'data-content' => $model->getAttributeDescription('description')
+                            'data-content'        => $model->getAttributeDescription('description')
                         ),
                     ),
                 )
@@ -160,10 +160,13 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('CatalogModule.catalog', 'Find a product'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+                'CatalogModule.catalog',
+                'Find a product'
+            ),
     )
 ); ?>
 

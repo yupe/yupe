@@ -7,34 +7,42 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - view');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products administration'), 'url' => array('/catalog/catalogBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('CatalogModule.catalog', 'Products administration'),
+        'url'   => array('/catalog/catalogBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
+        'url'   => array('/catalog/catalogBackend/create')
+    ),
     array('label' => Yii::t('CatalogModule.catalog', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon'  => 'glyphicon glyphicon-pencil',
         'label' => Yii::t('CatalogModule.catalog', 'Update product'),
-        'url' => array(
+        'url'   => array(
             '/catalog/catalogBackend/update',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'glyphicon glyphicon-eye-open',
         'label' => Yii::t('CatalogModule.catalog', 'Show product'),
-        'url' => array(
+        'url'   => array(
             '/catalog/catalogBackend/view',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('CatalogModule.catalog', 'Delete product'),
-        'url' => '#',
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('CatalogModule.catalog', 'Delete product'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/catalog/catalogBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'submit'  => array('/catalog/catalogBackend/delete', 'id' => $model->id),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('CatalogModule.catalog', 'Do you really want to remove product?'),
-            'csrf' => true,
+            'csrf'    => true,
         )
     ),
 );
@@ -49,11 +57,11 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             array(
-                'name' => 'category_id',
+                'name'  => 'category_id',
                 'value' => $model->category->name,
             ),
             'name',
@@ -74,27 +82,27 @@ $this->menu = array(
                 'type' => 'raw'
             ),
             array(
-                'name' => 'is_special',
+                'name'  => 'is_special',
                 'value' => $model->getSpecial(),
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
             array(
-                'name' => 'user_id',
+                'name'  => 'user_id',
                 'value' => $model->user->getFullName(),
             ),
             array(
-                'name' => 'change_user_id',
+                'name'  => 'change_user_id',
                 'value' => $model->changeUser->getFullName(),
             ),
             array(
-                'name' => 'create_time',
+                'name'  => 'create_time',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_time, "short", "short"),
             ),
             array(
-                'name' => 'update_time',
+                'name'  => 'update_time',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_time, "short", "short"),
             ),
         ),

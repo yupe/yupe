@@ -20,7 +20,6 @@
  * @version    $Id: Token.php 24832 2012-05-30 13:14:44Z adamlundrigan $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -75,7 +74,6 @@ class Zend_Search_Lucene_Analysis_Token
      */
     private $_positionIncrement;
 
-
     /**
      * Object constructor
      *
@@ -92,7 +90,6 @@ class Zend_Search_Lucene_Analysis_Token
 
         $this->_positionIncrement = 1;
     }
-
 
     /**
      * positionIncrement setter
@@ -127,12 +124,13 @@ class Zend_Search_Lucene_Analysis_Token
     /**
      * Sets the Token's term text.
      *
-     * @param string $text
+     * @param  string $text
      * @return this
      */
     public function setTermText($text)
     {
         $this->_termText = $text;
+
         return $this;
     }
 
@@ -163,4 +161,3 @@ class Zend_Search_Lucene_Analysis_Token
         return $this->_endOffset;
     }
 }
-

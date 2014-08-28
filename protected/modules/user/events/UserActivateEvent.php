@@ -25,4 +25,4 @@ class UserActivateEvent extends Event
     {
         $this->token = $token;
     }
-} 
+}

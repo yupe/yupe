@@ -9,7 +9,7 @@
             array(
                 'class' => 'gallery-image',
                 'title' => $data->image->description,
-                'rel' => $data->gallery->id
+                'rel'   => $data->gallery->id
             )
         ); ?>
         <?php if ($data->image->canChange()) : { ?>

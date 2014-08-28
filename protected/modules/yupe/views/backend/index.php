@@ -10,7 +10,7 @@
 <?php $box = $this->beginWidget(
     'bootstrap.widgets.TbPanel',
     array(
-        'title' => Yii::t('YupeModule.yupe', 'Notify'),
+        'title'      => Yii::t('YupeModule.yupe', 'Notify'),
         'headerIcon' => 'glyphicon glyphicon-exclamation-sign'
     )
 );?>
@@ -37,9 +37,9 @@
                                     'YupeModule.yupe',
                                     'Module {icon} "{module}", messages: {count}',
                                     array(
-                                        '{icon}' => $module->icon ? "<i class='" . $module->icon . "'></i> " : "",
+                                        '{icon}'   => $module->icon ? "<i class='" . $module->icon . "'></i> " : "",
                                         '{module}' => $module->getName(),
-                                        '{count}' => '<span class="badge alert-danger">' . count($value) . '</span>',
+                                        '{count}'  => '<span class="badge alert-danger">' . count($value) . '</span>',
                                     )
                                 ); ?>
                             </a>
@@ -54,7 +54,7 @@
                                                 'Module "{module} ({id})"',
                                                 array(
                                                     '{module}' => $module->getName(),
-                                                    '{id}' => $module->getId(),
+                                                    '{id}'     => $module->getId(),
                                                 )
                                             ); ?>
                                         </h4>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CommentBackendController контроллер для управления комментариями в панели управления
  *
@@ -14,7 +15,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Comment.CommentBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Comment.CommentBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Comment.CommentBackend.Index')),
@@ -73,19 +74,19 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionCreate()
     {
-        $model = new Comment;
+        $model = new Comment();
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
 
             $model->setAttributes($data);
 
             $saveStatus = false;
-            $parentId   = $model->getAttribute('parent_id');
-            
+            $parentId = $model->getAttribute('parent_id');
+
             // Если указан parent_id просто добавляем новый комментарий.
-            if($parentId > 0) {
+            if ($parentId > 0) {
                 $rootForComment = Comment::model()->findByPk($parentId);
-                $saveStatus     = $model->appendTo($rootForComment);
+                $saveStatus = $model->appendTo($rootForComment);
             } else { // Иначе если parent_id не указан...
 
                 $rootNode = $model->createRootOfCommentsIfNotExists(
@@ -94,7 +95,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 // Добавляем комментарий к корню.
-                if ($rootNode!==false && $rootNode->id > 0) {
+                if ($rootNode !== false && $rootNode->id > 0) {
                     $saveStatus = $model->appendTo($rootNode);
                 }
             }
@@ -103,11 +104,15 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
 
                 Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
 
-                Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('CommentModule.comment', 'Comment was created!')
+                );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -124,22 +129,23 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-        
+
         Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->saveNode()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CommentModule.comment','Comment was updated!')
+                    Yii::t('CommentModule.comment', 'Comment was updated!')
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -155,20 +161,23 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             // we only allow deletion via POST request
             $model = $this->loadModel($id);
-            
+
             Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
-            
+
             $model->deleteNode();
 
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
+        } else {
+            throw new CHttpException(400, Yii::t(
+                'CommentModule.comment',
+                'Bad request. Please don\'t repeate similar requests anymore'
+            ));
         }
-        else
-            throw new CHttpException(400, Yii::t('CommentModule.comment', 'Bad request. Please don\'t repeate similar requests anymore'));
     }
 
     /**
@@ -177,15 +186,16 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     public function actionIndex()
     {
         $model = new Comment('search');
-        
+
         $model->unsetAttributes(); // clear any default values
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'Comment', array()
+                'Comment',
+                array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -196,9 +206,11 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
      */
     public function loadModel($id)
     {
-        $model = Comment::model()->findByPk((int) $id);
-        if ($model === null)
+        $model = Comment::model()->findByPk((int)$id);
+        if ($model === null) {
             throw new CHttpException(404, Yii::t('CommentModule.comment', 'Requested page was not found!'));
+        }
+
         return $model;
     }
 }

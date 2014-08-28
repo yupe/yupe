@@ -24,6 +24,6 @@ class UserLoginCest
         $I->see('Email или пароль введены неверно!', \CommonPage::ERROR_CSS_CLASS);
 
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupe.local','testpassword');
+        $I->login('yupe@yupe.local', 'testpassword');
     }
 }

@@ -1,30 +1,32 @@
-<?php if(!empty($models)):?>
-<br/><br/>
-<div>
-    <div class="posts">
+<?php if (!empty($models)): ?>
+    <br/><br/>
+    <div>
+        <div class="posts">
 
-        <p class="posts-header">
-            <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog','Last posts'); ?></span>
-        </p>
+            <p class="posts-header">
+                <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog', 'Last posts'); ?></span>
+            </p>
 
-        <div class="posts-list">
-            <?php foreach($models as $post):?>
-                <div class="posts-list-block">
-                    <div class="posts-list-block-header">
-                        <?php echo CHtml::link(
-                            CHtml::encode($post->title), array(
-                                '/blog/post/show/',
-                                'slug' => CHtml::encode($post->slug)
-                            )
-                        ); ?>
-                    </div>
+            <div class="posts-list">
+                <?php foreach ($models as $post): ?>
+                    <div class="posts-list-block">
+                        <div class="posts-list-block-header">
+                            <?php echo CHtml::link(
+                                CHtml::encode($post->title),
+                                array(
+                                    '/blog/post/show/',
+                                    'slug' => CHtml::encode($post->slug)
+                                )
+                            ); ?>
+                        </div>
 
-                    <div class="posts-list-block-meta">
+                        <div class="posts-list-block-meta">
                     <span>
                         <i class="glyphicon glyphicon-user"></i>
 
                         <?php $this->widget(
-                            'application.modules.user.widgets.UserPopupInfoWidget', array(
+                            'application.modules.user.widgets.UserPopupInfoWidget',
+                            array(
                                 'model' => $post->createUser
                             )
                         ); ?>
@@ -34,7 +36,8 @@
                         <i class="glyphicon glyphicon-pencil"></i>
 
                         <?php echo CHtml::link(
-                            CHtml::encode($post->blog->name), array(
+                            CHtml::encode($post->blog->name),
+                            array(
                                 '/blog/blog/show/',
                                 'slug' => CHtml::encode($post->blog->slug)
                             )
@@ -45,27 +48,32 @@
                         <i class="glyphicon glyphicon-calendar"></i>
 
                         <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-                            $post->publish_date, "long", "short"
+                            $post->publish_date,
+                            "long",
+                            "short"
                         ); ?>
                     </span>
-                    </div>
+                        </div>
 
-                    <div class="posts-list-block-text">
-                        <?php echo strip_tags($post->getQuote()); ?>
-                    </div>
+                        <div class="posts-list-block-text">
+                            <?php echo strip_tags($post->getQuote()); ?>
+                        </div>
 
-                    <div class="posts-list-block-tags">
-                        <div>
+                        <div class="posts-list-block-tags">
+                            <div>
                         <span class="posts-list-block-tags-block">
                             <i class="glyphicon glyphicon-tags"></i>
 
-                            <?php echo Yii::t('BlogModule.blog','Tags'); ?>:
+                            <?php echo Yii::t('BlogModule.blog', 'Tags'); ?>:
 
-                            <?php foreach ((array) $post->getTags() as $tag):?>
+                            <?php foreach ((array)$post->getTags() as $tag): ?>
                                 <span>
-                                    <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag)));?>
+                                    <?php echo CHtml::link(
+                                        CHtml::encode($tag),
+                                        array('/posts/', 'tag' => CHtml::encode($tag))
+                                    ); ?>
                                 </span>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </span>
 
                         <span class="posts-list-block-tags-comments">
@@ -76,15 +84,15 @@
                                 array(
                                     '/blog/post/show/',
                                     'slug' => CHtml::encode($post->slug),
-                                    '#' => 'comments'
+                                    '#'    => 'comments'
                                 )
                             );?>
                         </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
-</div>
-<?php endif;?>
+<?php endif; ?>

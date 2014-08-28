@@ -10,7 +10,6 @@
  *
  **/
 
-
 /**
  * This is the model class for table "ImageToGallery".
  *
@@ -28,7 +27,7 @@ class ImageToGallery extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string $className
      * @return ImageToGallery the static model class
      */
     public static function model($className = __CLASS__)
@@ -91,7 +90,7 @@ class ImageToGallery extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('image_id', $this->image_id, true);
@@ -106,6 +105,7 @@ class ImageToGallery extends yupe\models\YModel
         if ($this->isNewRecord) {
             $this->creation_date = new CDbExpression('NOW()');
         }
+
         return parent::beforeSave();
     }
 }

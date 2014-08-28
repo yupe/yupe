@@ -205,41 +205,41 @@ class YupeModule extends WebModule
 
         if (Yii::app()->hasModule('install')) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'You have active " Install" module, you must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
-                ),
+                        'YupeModule.yupe',
+                        'You have active " Install" module, you must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
+                    ),
             );
         }
 
         if (Yii::app()->db->enableProfiling) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Please, disable profiler (file /protected/config/db.php, parameter "enableProfiling")!'
-                ),
+                        'YupeModule.yupe',
+                        'Please, disable profiler (file /protected/config/db.php, parameter "enableProfiling")!'
+                    ),
             );
         }
 
         if (Yii::app()->db->enableParamLogging) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Please, disable logging (file /protected/config/db.php, parameter "enableParamLogging")!'
-                ),
+                        'YupeModule.yupe',
+                        'Please, disable logging (file /protected/config/db.php, parameter "enableParamLogging")!'
+                    ),
             );
         }
 
         if (Yii::app()->hasModule('gii')) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'You have active "gii" module. You must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
-                ),
+                        'YupeModule.yupe',
+                        'You have active "gii" module. You must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
+                    ),
             );
         }
 
@@ -247,60 +247,60 @@ class YupeModule extends WebModule
 
         if (!is_writable($uploadPath)) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Directory "{dir}" is not available for write! {link}',
-                    array(
-                        '{dir}' => $uploadPath,
-                        '{link}' => CHtml::link(
-                            Yii::t('YupeModule.yupe', 'Change settings'),
-                            array('/yupe/backend/modulesettings/', 'module' => 'yupe')
-                        ),
-                    )
-                ),
+                        'YupeModule.yupe',
+                        'Directory "{dir}" is not available for write! {link}',
+                        array(
+                            '{dir}'  => $uploadPath,
+                            '{link}' => CHtml::link(
+                                    Yii::t('YupeModule.yupe', 'Change settings'),
+                                    array('/yupe/backend/modulesettings/', 'module' => 'yupe')
+                                ),
+                        )
+                    ),
             );
         }
 
         if (!is_writable(Yii::app()->runtimePath)) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Directory "{dir}" is not available for write!',
-                    array('{dir}' => Yii::app()->runtimePath)
-                ),
+                        'YupeModule.yupe',
+                        'Directory "{dir}" is not available for write!',
+                        array('{dir}' => Yii::app()->runtimePath)
+                    ),
             );
         }
 
         if (!is_writable(Yii::app()->getAssetManager()->basePath)) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Directory "{dir}" is not available for write!',
-                    array('{dir}' => Yii::app()->getAssetManager()->basePath)
-                ),
+                        'YupeModule.yupe',
+                        'Directory "{dir}" is not available for write!',
+                        array('{dir}' => Yii::app()->getAssetManager()->basePath)
+                    ),
             );
         }
 
         if (defined('YII_DEBUG') && YII_DEBUG) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Yii is working in debug mode, please, disable it! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
-                ),
+                        'YupeModule.yupe',
+                        'Yii is working in debug mode, please, disable it! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
+                    ),
             );
         }
 
         if (!Yii::app()->db->schemaCachingDuration) {
             $messages[WebModule::CHECK_ERROR][] = array(
-                'type' => WebModule::CHECK_ERROR,
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                    'YupeModule.yupe',
-                    'Please, enable DB caching! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
-                ),
+                        'YupeModule.yupe',
+                        'Please, enable DB caching! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
+                    ),
             );
         }
 
@@ -315,25 +315,28 @@ class YupeModule extends WebModule
     public function getParamsLabels()
     {
         return array(
-            'siteDescription' => Yii::t('YupeModule.yupe', 'Site description'),
-            'siteName' => Yii::t('YupeModule.yupe', 'Site title'),
-            'siteKeyWords' => Yii::t('YupeModule.yupe', 'Site keywords'),
-            'backendLayout' => Yii::t('YupeModule.yupe', 'Layout of backend'),
-            'backendTheme' => Yii::t('YupeModule.yupe', 'Theme of backend'),
-            'theme' => Yii::t('YupeModule.yupe', 'Frontend theme'),
-            'coreCacheTime' => Yii::t('YupeModule.yupe', 'Chacing time (sec.)'),
-            'uploadPath' => Yii::t('YupeModule.yupe', 'File uploads catalog (relative to the site root)'),
-            'editor' => Yii::t('YupeModule.yupe', 'Visual editor'),
-            'email' => Yii::t('YupeModule.yupe', 'Admin Email'),
-            'availableLanguages' => Yii::t('YupeModule.yupe', 'List of available languages (for example. ru,en,de)'),
-            'defaultLanguage' => Yii::t('YupeModule.yupe', 'Default language'),
+            'siteDescription'        => Yii::t('YupeModule.yupe', 'Site description'),
+            'siteName'               => Yii::t('YupeModule.yupe', 'Site title'),
+            'siteKeyWords'           => Yii::t('YupeModule.yupe', 'Site keywords'),
+            'backendLayout'          => Yii::t('YupeModule.yupe', 'Layout of backend'),
+            'backendTheme'           => Yii::t('YupeModule.yupe', 'Theme of backend'),
+            'theme'                  => Yii::t('YupeModule.yupe', 'Frontend theme'),
+            'coreCacheTime'          => Yii::t('YupeModule.yupe', 'Chacing time (sec.)'),
+            'uploadPath'             => Yii::t('YupeModule.yupe', 'File uploads catalog (relative to the site root)'),
+            'editor'                 => Yii::t('YupeModule.yupe', 'Visual editor'),
+            'email'                  => Yii::t('YupeModule.yupe', 'Admin Email'),
+            'availableLanguages'     => Yii::t(
+                    'YupeModule.yupe',
+                    'List of available languages (for example. ru,en,de)'
+                ),
+            'defaultLanguage'        => Yii::t('YupeModule.yupe', 'Default language'),
             'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
-            'allowedIp' => Yii::t('YupeModule.yupe', 'Allowed IP'),
-            'hidePanelUrls' => Yii::t('YupeModule.yupe', 'Hide panel urls'),
-            'logo' => Yii::t('YupeModule.yupe', 'Logo'),
-            'allowedExtensions' => Yii::t('YupeModule.yupe', 'Allowed extensions (separated by comma)'),
-            'mimeTypes' => Yii::t('YupeModule.yupe', 'Mime types'),
-            'maxSize' => Yii::t('YupeModule.yupe', 'Maximum size (in bytes)'),
+            'allowedIp'              => Yii::t('YupeModule.yupe', 'Allowed IP'),
+            'hidePanelUrls'          => Yii::t('YupeModule.yupe', 'Hide panel urls'),
+            'logo'                   => Yii::t('YupeModule.yupe', 'Logo'),
+            'allowedExtensions'      => Yii::t('YupeModule.yupe', 'Allowed extensions (separated by comma)'),
+            'mimeTypes'              => Yii::t('YupeModule.yupe', 'Mime types'),
+            'maxSize'                => Yii::t('YupeModule.yupe', 'Maximum size (in bytes)'),
 
         );
     }
@@ -347,19 +350,19 @@ class YupeModule extends WebModule
     {
         return array(
             'coreCacheTime',
-            'theme' => $this->getThemes(),
-            'backendTheme' => $this->getThemes(true),
+            'theme'                  => $this->getThemes(),
+            'backendTheme'           => $this->getThemes(true),
             'siteName',
             'siteDescription',
             'siteKeyWords',
             'uploadPath',
-            'editor' => $this->getEditors(),
+            'editor'                 => $this->getEditors(),
             'email',
             'availableLanguages',
-            'defaultLanguage' => $this->getLanguagesList(),
+            'defaultLanguage'        => $this->getLanguagesList(),
             'defaultBackendLanguage' => $this->getLanguagesList(),
             'allowedIp',
-            'hidePanelUrls' => $this->getChoice(),
+            'hidePanelUrls'          => $this->getChoice(),
             'logo',
             'allowedExtensions',
             'mimeTypes',
@@ -375,7 +378,7 @@ class YupeModule extends WebModule
     public function getEditableParamsGroups()
     {
         return array(
-            'main' => array(
+            'main'     => array(
                 'label' => Yii::t('YupeModule.yupe', 'Main settings admin panel'),
                 'items' => array(
                     'hidePanelUrls',
@@ -384,7 +387,7 @@ class YupeModule extends WebModule
                     'coreCacheTime'
                 )
             ),
-            'site' => array(
+            'site'     => array(
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
                 'items' => array(
                     'logo',
@@ -393,7 +396,7 @@ class YupeModule extends WebModule
                     'siteKeyWords'
                 )
             ),
-            'theme' => array(
+            'theme'    => array(
                 'label' => Yii::t('YupeModule.yupe', 'Themes'),
                 'items' => array(
                     'theme',
@@ -408,7 +411,7 @@ class YupeModule extends WebModule
                     'defaultBackendLanguage',
                 )
             ),
-            'editors' => array(
+            'editors'  => array(
                 'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
                 'items' => array(
                     'editor',
@@ -420,7 +423,6 @@ class YupeModule extends WebModule
             ),
         );
     }
-
 
     /**
      * Возвращаем правила валидации для параметров модуля
@@ -434,12 +436,11 @@ class YupeModule extends WebModule
                 'availableLanguages',
                 'filter',
                 'filter' => function ($str) {
-                    return preg_replace('/\s+/', '', $str);
-                }
+                        return preg_replace('/\s+/', '', $str);
+                    }
             ),
         );
     }
-
 
     /**
      * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
@@ -472,6 +473,7 @@ class YupeModule extends WebModule
         foreach (explode(',', $this->availableLanguages) as $lang) {
             $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName($lang);
         }
+
         return $langs;
     }
 
@@ -494,74 +496,74 @@ class YupeModule extends WebModule
     {
         return array(
             array(
-                'label' => Yii::t('YupeModule.yupe', 'Clean cache'),
-                'url' => array('/yupe/backend/ajaxflush', 'method' => 1),
+                'label'       => Yii::t('YupeModule.yupe', 'Clean cache'),
+                'url'         => array('/yupe/backend/ajaxflush', 'method' => 1),
                 'linkOptions' => array(
-                    'class' => 'flushAction',
+                    'class'  => 'flushAction',
                     'method' => 'cacheAll',
                 ),
-                'icon' => 'glyphicon glyphicon-trash',
-                'items' => array(
+                'icon'        => 'glyphicon glyphicon-trash',
+                'items'       => array(
                     array(
-                        'icon' => 'glyphicon glyphicon-trash',
-                        'label' => Yii::t('YupeModule.yupe', 'Clean settings cache'),
-                        'url' => array('/yupe/backend/flushDumpSettings'),
+                        'icon'        => 'glyphicon glyphicon-trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Clean settings cache'),
+                        'url'         => array('/yupe/backend/flushDumpSettings'),
                         'linkOptions' => array(
-                            'class' => 'flushAction',
+                            'class'  => 'flushAction',
                             'method' => 'cacheFlush',
                         )
                     ),
                     array(
-                        'icon' => 'glyphicon glyphicon-trash',
-                        'label' => Yii::t('YupeModule.yupe', 'Clean cache'),
-                        'url' => array('/yupe/backend/ajaxflush', 'method' => 1),
+                        'icon'        => 'glyphicon glyphicon-trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Clean cache'),
+                        'url'         => array('/yupe/backend/ajaxflush', 'method' => 1),
                         'linkOptions' => array(
-                            'class' => 'flushAction',
+                            'class'  => 'flushAction',
                             'method' => 'cacheFlush',
                         )
                     ),
                     array(
-                        'icon' => 'glyphicon glyphicon-trash',
-                        'label' => Yii::t('YupeModule.yupe', 'Clean assets'),
-                        'url' => array('/yupe/backend/ajaxflush', 'method' => 2),
+                        'icon'        => 'glyphicon glyphicon-trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Clean assets'),
+                        'url'         => array('/yupe/backend/ajaxflush', 'method' => 2),
                         'linkOptions' => array(
-                            'class' => 'flushAction',
+                            'class'  => 'flushAction',
                             'method' => 'assetsFlush',
                         )
                     ),
                     array(
-                        'icon' => 'glyphicon glyphicon-trash',
-                        'label' => Yii::t('YupeModule.yupe', 'Clean cache and assets'),
-                        'url' => array('/yupe/backend/ajaxflush', 'method' => 3),
+                        'icon'        => 'glyphicon glyphicon-trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Clean cache and assets'),
+                        'url'         => array('/yupe/backend/ajaxflush', 'method' => 3),
                         'linkOptions' => array(
-                            'class' => 'flushAction',
+                            'class'  => 'flushAction',
                             'method' => 'cacheAssetsFlush',
                         )
                     ),
                 )
             ),
             array(
-                'icon' => "glyphicon glyphicon-th",
+                'icon'  => "glyphicon glyphicon-th",
                 'label' => Yii::t('YupeModule.yupe', 'Modules'),
-                'url' => array('/yupe/backend/settings'),
+                'url'   => array('/yupe/backend/settings'),
             ),
             array(
-                'icon' => 'glyphicon glyphicon-picture',
+                'icon'  => 'glyphicon glyphicon-picture',
                 'label' => Yii::t('YupeModule.yupe', 'Theme settings'),
-                'url' => array('/yupe/backend/themesettings'),
+                'url'   => array('/yupe/backend/themesettings'),
             ),
             array(
-                'icon' => 'glyphicon glyphicon-wrench',
+                'icon'  => 'glyphicon glyphicon-wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
-                'url' => array(
+                'url'   => array(
                     '/yupe/backend/modulesettings',
                     'module' => 'yupe',
                 ),
             ),
             array(
-                'icon' => "glyphicon glyphicon-question-sign",
+                'icon'  => "glyphicon glyphicon-question-sign",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                'url' => array('/yupe/backend/help'),
+                'url'   => array('/yupe/backend/help'),
             )
         );
     }
@@ -646,7 +648,6 @@ class YupeModule extends WebModule
         parent::init();
     }
 
-
     /**
      * Получает полный алиас нужного лайаута бэкенда с учетом темы
      *
@@ -696,6 +697,7 @@ class YupeModule extends WebModule
             }
             Yii::app()->cache->set('Yupe::editors', $widgets);
         }
+
         return $widgets;
     }
 
@@ -734,6 +736,7 @@ class YupeModule extends WebModule
             }
             closedir($handler);
         }
+
         return $themes;
     }
 
@@ -766,6 +769,7 @@ class YupeModule extends WebModule
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -795,7 +799,11 @@ class YupeModule extends WebModule
         }
 
         if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
-            Yii::log('For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager', CLogger::LEVEL_WARNING);
+            Yii::log(
+                'For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager',
+                CLogger::LEVEL_WARNING
+            );
+
             return array();
         }
 
@@ -811,19 +819,18 @@ class YupeModule extends WebModule
                 continue;
             } else {
                 $items[] = array(
-                    'icon' => 'iconflags iconflags-' . $lang,
+                    'icon'  => 'iconflags iconflags-' . $lang,
                     'label' => Yii::t('YupeModule.yupe', $lang),
-                    'url' => $homeUrl . Yii::app()->urlManager->replaceLangUrl($cp, $lang),
+                    'url'   => $homeUrl . Yii::app()->urlManager->replaceLangUrl($cp, $lang),
                 );
             }
         }
 
-
         return array(
             array(
-                'icon' => 'iconflags iconflags-' . $currentLanguage,
-                'label' => Yii::t('YupeModule.yupe', $currentLanguage),
-                'items' => $items,
+                'icon'           => 'iconflags iconflags-' . $currentLanguage,
+                'label'          => Yii::t('YupeModule.yupe', $currentLanguage),
+                'items'          => $items,
                 'submenuOptions' => array('style' => 'min-width: 20px;'),
             )
         );
@@ -842,8 +849,14 @@ class YupeModule extends WebModule
         if (empty($text)) {
             $text = Yii::t('YupeModule.yupe', 'Powered by Yupe!');
         }
+
         return CHtml::link(
-            CHtml::image(Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets')) . "/img/yupe_{$color}.png", $text),
+            CHtml::image(
+                Yii::app()->getAssetManager()->publish(
+                    Yii::getPathOfAlias('application.modules.yupe.views.assets')
+                ) . "/img/yupe_{$color}.png",
+                $text
+            ),
             'http://yupe.ru?from=pb',
             array('title' => CHtml::encode($text), 'alt' => CHtml::encode($text))
         );
@@ -868,7 +881,8 @@ class YupeModule extends WebModule
     {
         $data = array();
 
-        foreach (new GlobIterator(Yii::app()->getTheme()->basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . '*.php') as $item) {
+        foreach (new GlobIterator(Yii::app()->getTheme(
+            )->basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . '*.php') as $item) {
             $name = $item->getBaseName('.php');
             $data[$name] = $name;
         }

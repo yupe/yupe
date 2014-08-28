@@ -44,8 +44,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Object constructor
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string $fileName
+     * @param  boolean $storeContent
      * @throws Zend_Search_Lucene_Exception
      */
     private function __construct($fileName, $storeContent)
@@ -73,11 +73,15 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
         foreach ($relations->Relationship as $rel) {
             if ($rel ["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_OFFICEDOCUMENT) {
                 // Found office document! Read in contents...
-                $contents = simplexml_load_string($package->getFromName(
-                    $this->absoluteZipPath(dirname($rel['Target'])
-                    . '/'
-                    . basename($rel['Target']))
-                ));
+                $contents = simplexml_load_string(
+                    $package->getFromName(
+                        $this->absoluteZipPath(
+                            dirname($rel['Target'])
+                            . '/'
+                            . basename($rel['Target'])
+                        )
+                    )
+                );
 
                 $contents->registerXPathNamespace('w', Zend_Search_Lucene_Document_Docx::SCHEMA_WORDPROCESSINGML);
                 $paragraphs = $contents->xpath('//w:body/w:p');
@@ -137,8 +141,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Load Docx document from a file
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string $fileName
+     * @param  boolean $storeContent
      * @return Zend_Search_Lucene_Document_Docx
      * @throws Zend_Search_Lucene_Document_Exception
      */

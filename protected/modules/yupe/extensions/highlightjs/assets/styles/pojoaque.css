@@ -7,9 +7,10 @@ Based on Solarized Style from http://ethanschoonover.com/solarized
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  color: #DCCF8F;
-  background: url(./pojoaque.jpg) repeat scroll left top #181914;
+    display: block;
+    padding: 0.5em;
+    color: #DCCF8F;
+    background: url(./pojoaque.jpg) repeat scroll left top #181914;
 }
 
 pre .comment,
@@ -18,8 +19,8 @@ pre .diff .header,
 pre .doctype,
 pre .lisp .string,
 pre .javadoc {
-  color: #586e75;
-  font-style: italic;
+    color: #586e75;
+    font-style: italic;
 }
 
 pre .keyword,
@@ -31,7 +32,7 @@ pre .addition,
 pre .css .tag,
 pre .clojure .title,
 pre .nginx .title {
-  color: #B64926;
+    color: #B64926;
 }
 
 pre .number,
@@ -42,7 +43,7 @@ pre .phpdoc,
 pre .tex .formula,
 pre .regexp,
 pre .hexcolor {
-  color: #468966;
+    color: #468966;
 }
 
 pre .title,
@@ -55,7 +56,7 @@ pre .lisp .title,
 pre .clojure .built_in,
 pre .identifier,
 pre .id {
-  color: #FFB03B;
+    color: #FFB03B;
 }
 
 pre .attribute,
@@ -66,19 +67,19 @@ pre .constant,
 pre .class .title,
 pre .parent,
 pre .haskell .type {
-  color: #b58900;
+    color: #b58900;
 }
 
 pre .css .attribute {
-  color: #b89859;
+    color: #b89859;
 }
 
-pre .css .number,pre .css .hexcolor{
-  color: #DCCF8F;
+pre .css .number, pre .css .hexcolor {
+    color: #DCCF8F;
 }
 
 pre .css .class {
-  color: #d3a60c;
+    color: #d3a60c;
 }
 
 pre .preprocessor,
@@ -92,13 +93,13 @@ pre .attr_selector,
 pre .important,
 pre .subst,
 pre .cdata {
-  color: #cb4b16;
+    color: #cb4b16;
 }
 
 pre .deletion {
-  color: #dc322f;
+    color: #dc322f;
 }
 
 pre .tex .formula {
-  background: #073642;
+    background: #073642;
 }

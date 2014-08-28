@@ -15,38 +15,54 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('MailModule.mail', 'View mail event');
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'), 'url' => array('/mail/eventBackend/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventBackend/create')),
+    array(
+        'icon'  => 'list-alt',
+        'label' => Yii::t('MailModule.mail', 'Messages list'),
+        'url'   => array('/mail/eventBackend/index')
+    ),
+    array(
+        'icon'  => 'plus-sign',
+        'label' => Yii::t('MailModule.mail', 'Create event'),
+        'url'   => array('/mail/eventBackend/create')
+    ),
     array('label' => Yii::t('MailModule.mail', 'Event') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'pencil',
+        'icon'  => 'pencil',
         'label' => Yii::t('MailModule.mail', 'Edit event'),
-        'url' => array(
+        'url'   => array(
             '/mail/eventBackend/update',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'eye-open',
+        'icon'  => 'eye-open',
         'label' => Yii::t('MailModule.mail', 'View mail event'),
-        'url' => array(
+        'url'   => array(
             '/mail/eventBackend/view',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'trash',
-        'label' => Yii::t('MailModule.mail', 'Remove event'),
-        'url' => '#',
+        'icon'        => 'trash',
+        'label'       => Yii::t('MailModule.mail', 'Remove event'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/mail/eventBackend/delete', 'id' => $model->id),
+            'submit'  => array('/mail/eventBackend/delete', 'id' => $model->id),
             'confirm' => Yii::t('MailModule.mail', 'Do you really want to remove?'),
-            'csrf' => true,
+            'csrf'    => true,
         )
     ),
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'), 'url' => array('/mail/templateBackend/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateBackend/create/', 'eid' => $model->id)),
+    array(
+        'icon'  => 'list-alt',
+        'label' => Yii::t('MailModule.mail', 'Templates list'),
+        'url'   => array('/mail/templateBackend/index')
+    ),
+    array(
+        'icon'  => 'plus-sign',
+        'label' => Yii::t('MailModule.mail', 'Create template'),
+        'url'   => array('/mail/templateBackend/create/', 'eid' => $model->id)
+    ),
 );
 ?>
 <div class="page-header">
@@ -59,7 +75,7 @@ $this->menu = array(
 $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             'code',

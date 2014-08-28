@@ -8,8 +8,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'login-form',
-        'type' => 'vertical',
+        'id'          => 'login-form',
+        'type'        => 'vertical',
         'htmlOptions' => array(
             'class' => 'well',
         )
@@ -42,9 +42,9 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'context' => 'primary',
-                'icon' => 'glyphicon glyphicon-signin',
-                'label' => Yii::t('UserModule.user', 'Change password'),
+                'context'    => 'primary',
+                'icon'       => 'glyphicon glyphicon-signin',
+                'label'      => Yii::t('UserModule.user', 'Change password'),
             )
         ); ?>
     </div>

@@ -50,15 +50,15 @@ class LoginAction extends CAction
                     Yii::t('UserModule.user', 'You authorized successfully!')
                 );
 
-				if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
-					$redirect = $module->loginAdminSuccess;
-				} else {
-					$redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : $module->loginSuccess;
-				}
+                if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
+                    $redirect = $module->loginAdminSuccess;
+                } else {
+                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : $module->loginSuccess;
+                }
 
-				$redirect = Yii::app()->getUser()->getReturnUrl($redirect);
+                $redirect = Yii::app()->getUser()->getReturnUrl($redirect);
 
-				Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
+                Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
                 $this->getController()->redirect(Url::redirectUrl($redirect));
 

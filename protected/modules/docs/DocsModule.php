@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DocsModule основной класс модуля docs
  *
@@ -13,15 +14,15 @@ class DocsModule extends yupe\components\WebModule
 {
     const VERSION = '0.8';
 
-    public $categorySort    = 9999;
-    public $docFolder       = 'application.modules.docs.guide';
+    public $categorySort = 9999;
+    public $docFolder = 'application.modules.docs.guide';
     public $moduleDocFolder = 'application.modules.{module}.guide';
-    public $notFoundOn      = 1;
+    public $notFoundOn = 1;
 
     /**
      * Кеширование страниц на уровне фильтрации:
      */
-    public $cachePages   = 0;
+    public $cachePages = 0;
 
     /**
      *  Добавлено пустое значение на тот случай,
@@ -29,7 +30,7 @@ class DocsModule extends yupe\components\WebModule
      *  файла мы будем использовать преобразование
      *  как для обычного md-файла
      */
-    public $fileExtMD   = 'md,txt';
+    public $fileExtMD = 'md,txt';
     public $fileExtHTML = 'html,htm';
 
     /**
@@ -39,7 +40,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Категория модуля:
-     * 
+     *
      * @return string category
      */
     public function getCategory()
@@ -49,15 +50,21 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Лейблы для редактируемых параметров:
-     * 
+     *
      * @return array edit params labels
      */
     public function getParamsLabels()
     {
         return array(
             'docFolder'       => Yii::t('DocsModule.docs', 'Docs files destination'),
-            'moduleDocFolder' => Yii::t('DocsModule.docs', 'Modules docs files destination ({module} replaced by module title)'),
-            'notFoundOn'      => Yii::t('DocsModule.docs', 'Show error page if doc file in current language was not found?'),
+            'moduleDocFolder' => Yii::t(
+                    'DocsModule.docs',
+                    'Modules docs files destination ({module} replaced by module title)'
+                ),
+            'notFoundOn'      => Yii::t(
+                    'DocsModule.docs',
+                    'Show error page if doc file in current language was not found?'
+                ),
             'fileExtMD'       => Yii::t('DocsModule.docs', 'Extensions for MarkDown files'),
             'fileExtHTML'     => Yii::t('DocsModule.docs', 'Extensions for HTML files'),
             'cachePages'      => Yii::t('DocsModule.docs', 'Pages caching on filtration level'),
@@ -67,7 +74,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Редактируемые параметры:
-     * 
+     *
      * @return array editable params
      */
     public function getEditableParams()
@@ -88,13 +95,13 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Массив групп параметров:
-     * 
-     *  @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     *
+     * @return array массив групп параметров модуля, для группировки параметров на странице настроек
      */
     public function getEditableParamsGroups()
     {
         return array(
-            'main' => array(
+            'main'  => array(
                 'label' => Yii::t('DocsModule.docs', 'General module settings'),
             ),
             'files' => array(
@@ -117,13 +124,13 @@ class DocsModule extends yupe\components\WebModule
     {
         return array(
             0 => Yii::t('DocsModule.docs', 'Show page for language by default'),
-            1  => Yii::t('DocsModule.docs', 'Show error'),
+            1 => Yii::t('DocsModule.docs', 'Show error'),
         );
     }
 
     /**
      * Название модуля:
-     * 
+     *
      * @return string module name
      */
     public function getName()
@@ -134,15 +141,28 @@ class DocsModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/docs/docsBackend/index')),
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs/show/index')),
-            array('icon' => 'glyphicon glyphicon-globe', 'label' => Yii::t('DocsModule.docs', 'Online docs'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DocsModule.docs', 'Show local files'),
+                'url'   => array('/docs/docsBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('DocsModule.docs', 'Local docs'),
+                'url'   => array('/docs/show/index')
+            ),
+            array(
+                'icon'        => 'glyphicon glyphicon-globe',
+                'label'       => Yii::t('DocsModule.docs', 'Online docs'),
+                'url'         => 'http://yupe.ru/docs/index.html?from=help',
+                'linkOptions' => array('target' => '_blank')
+            ),
         );
     }
 
     /**
      * Описание модуля:
-     * 
+     *
      * @return string module description
      */
     public function getDescription()
@@ -152,7 +172,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Автор модуля:
-     * 
+     *
      * @return string module author
      */
     public function getAuthor()
@@ -162,7 +182,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * E-mail адрес автора модуля:
-     * 
+     *
      * @return string module author email
      */
     public function getAuthorEmail()
@@ -172,7 +192,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Домашняя страница модуля:
-     * 
+     *
      * @return string module homepage
      */
     public function getUrl()
@@ -182,7 +202,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Иконка модуля:
-     * 
+     *
      * @return string module icon
      */
     public function getIcon()
@@ -192,7 +212,7 @@ class DocsModule extends yupe\components\WebModule
 
     /**
      * Версия модуля:
-     * 
+     *
      * @return string module version
      */
     public function getVersion()
@@ -217,7 +237,7 @@ class DocsModule extends yupe\components\WebModule
          * Берём из кеша список файлов, иначе получаем его снова:
          */
         if (($files = Yii::app()->cache->get('files_' . $curDocFolder)) === false) {
-            
+
             /**
              * Получаем список файлов для построения
              * бокового или верхнего меню:
@@ -228,8 +248,9 @@ class DocsModule extends yupe\components\WebModule
                 . '*.'
                 . '{'
                 . $this->fileExtMD
-                . $this->fileExtHTML 
-                . '}', GLOB_BRACE
+                . $this->fileExtHTML
+                . '}',
+                GLOB_BRACE
             );
 
             /**
@@ -237,7 +258,7 @@ class DocsModule extends yupe\components\WebModule
              * на любые изменения в каталоге:
              */
             $chain = new CChainedCacheDependency();
-            
+
             foreach (glob($curDocFolder, GLOB_ONLYDIR) as $item) {
                 $chain->dependencies->add(new CDirectoryCacheDependency($item));
             }
@@ -292,7 +313,7 @@ class DocsModule extends yupe\components\WebModule
                 'icon'  => 'glyphicon glyphicon-th-large',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs','Creating module'),
+                        'label' => Yii::t('DocsModule.docs', 'Creating module'),
                         'url'   => array('/docs/show/index', 'file' => 'module.create'),
                         'icon'  => 'glyphicon glyphicon-file'
                     ),
@@ -352,17 +373,21 @@ class DocsModule extends yupe\components\WebModule
                         'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'glyphicon glyphicon-file',
-                    ),                 
+                    ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Migrator'),
                         'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
                         'icon'  => 'glyphicon glyphicon-file',
-                        'items' =>array(
-                             array(
+                        'items' => array(
+                            array(
                                 'label' => Yii::t('DocsModule.docs', 'Methods description'),
-                                'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
+                                'url'   => array(
+                                    '/docs/show/index',
+                                    'file'     => 'migrator.methods',
+                                    'moduleID' => 'yupe'
+                                ),
                                 'icon'  => 'glyphicon glyphicon-file'
-                             ),
+                            ),
                         ),
                     ),
                 ),
@@ -373,23 +398,23 @@ class DocsModule extends yupe\components\WebModule
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Blogs'),
-                        'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'blog' ),
+                        'url'   => array('/docs/show/index', 'file' => 'index', 'moduleID' => 'blog'),
                         'icon'  => 'glyphicon glyphicon-file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Comment'),
-                        'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'comment' ),
+                        'url'   => array('/docs/show/index', 'file' => 'index', 'moduleID' => 'comment'),
                         'icon'  => 'glyphicon glyphicon-file',
                         'items' => array(
                             array(
                                 'label' => Yii::t('DocsModule.docs', 'NestedSets'),
-                                'url' =>  array('/docs/show/index', 'file' => 'nsmigrate','moduleID' => 'comment' )
+                                'url'   => array('/docs/show/index', 'file' => 'nsmigrate', 'moduleID' => 'comment')
                             )
                         )
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'ZendSearch'),
-                        'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'zendsearch' ),
+                        'url'   => array('/docs/show/index', 'file' => 'index', 'moduleID' => 'zendsearch'),
                         'icon'  => 'glyphicon glyphicon-search',
                     ),
                 )
@@ -407,7 +432,6 @@ class DocsModule extends yupe\components\WebModule
         return $this->getTopMenu();
     }
 
-
     /**
      * Получение меню статей:
      *
@@ -418,8 +442,8 @@ class DocsModule extends yupe\components\WebModule
     public function getArticles($topMenu = true)
     {
         return $topMenu === true
-                ? $this->getTopMenu()
-                : $this->getLeftMenu();
+            ? $this->getTopMenu()
+            : $this->getLeftMenu();
     }
 
     /**
@@ -443,7 +467,7 @@ class DocsModule extends yupe\components\WebModule
          * или рендерим:
          */
         if (($content = Yii::app()->cache->get('docs_content_' . $fileName)) === false || empty($content)) {
-            $md = new CMarkdown;
+            $md = new CMarkdown();
             $content = $md->transform(file_get_contents($fileName));
             Yii::app()->cache->set('docs_content_' . $fileName, $content, 0, new CFileCacheDependency($fileName));
         }
@@ -474,8 +498,7 @@ class DocsModule extends yupe\components\WebModule
          */
         if (preg_match("/<h1[^>]*>(.*?)<\\/h1>/si", $content, $match)) {
             return $match[1];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -502,16 +525,22 @@ class DocsModule extends yupe\components\WebModule
          * null
          */
         if ($moduleDocFolder !== null
-            && (($matches = glob(Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
-            || count($matches) < 1)
+            && (($matches = glob(
+                    Yii::getPathOfAlias(
+                        $moduleDocFolder . '.' . Yii::app()->language
+                    ) . DIRECTORY_SEPARATOR . $file . '*'
+                )) === false
+                || count($matches) < 1)
         ) {
             unset($matches);
             unset($moduleDocFolder);
         }
 
-        if (!isset($matches) && ($matches = glob(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
+        if (!isset($matches) && ($matches = glob(
+                Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*'
+            )) === false
             || count($matches) < 1
-        ){
+        ) {
             return null;
         }
 
@@ -521,13 +550,14 @@ class DocsModule extends yupe\components\WebModule
          * также доп.сортировка по длине:
          */
         usort(
-            $matches, function ($a, $b) {
+            $matches,
+            function ($a, $b) {
                 return (strlen(pathinfo($a, PATHINFO_EXTENSION)) < strlen(pathinfo($b, PATHINFO_EXTENSION))
-                        ? -1
-                        : 1)
-                    + (strlen(pathinfo($a, PATHINFO_BASENAME)) < strlen(pathinfo($b, PATHINFO_BASENAME))
-                        ? -1
-                        : 1);
+                    ? -1
+                    : 1)
+                + (strlen(pathinfo($a, PATHINFO_BASENAME)) < strlen(pathinfo($b, PATHINFO_BASENAME))
+                    ? -1
+                    : 1);
             }
         );
 
@@ -538,16 +568,16 @@ class DocsModule extends yupe\components\WebModule
 
         if (!empty($moduleDocFolder)) {
             $docFolder = $moduleDocFolder;
-        }
-        else {
+        } else {
             $docFolder = $this->docFolder;
         }
 
         $path = Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file;
+
         return !file_exists($path)
-                  && $this->notFoundOn == 0
-                    ? Yii::getPathOfAlias($docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
-                    : $path;
+        && $this->notFoundOn == 0
+            ? Yii::getPathOfAlias($docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
+            : $path;
     }
 
     /**
@@ -561,25 +591,31 @@ class DocsModule extends yupe\components\WebModule
 
         foreach (explode(',', $this->staticFiles) as $key) {
 
-            if (($file = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $key) && !file_exists($file))
+            if (($file = Yii::getPathOfAlias(
+                        'webroot'
+                    ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $key) && !file_exists($file)
+            ) {
                 continue;
+            }
 
             $content = $this->renderMarkdown($file);
 
-            $title   = $this->getDocTitle($content);
+            $title = $this->getDocTitle($content);
 
             if ($title === null) {
                 $title = $key;
             }
 
             array_push(
-                $items, array(
+                $items,
+                array(
                     'label' => $title,
                     'url'   => array('/docs/docsBackend/show', 'file' => $key),
                     'icon'  => 'glyphicon glyphicon-file',
                 )
             );
         }
+
         return $items;
     }
 

@@ -10,7 +10,8 @@ class AuthenticationManager extends CApplicationComponent
 
         Yii::log(
             Yii::t('UserModule.user', 'User {user} was logout!', array('{user}' => $user->getState('nick_name'))),
-            CLogger::LEVEL_INFO, UserModule::$logCategory
+            CLogger::LEVEL_INFO,
+            UserModule::$logCategory
         );
 
         $user->logout();
@@ -46,12 +47,15 @@ class AuthenticationManager extends CApplicationComponent
 
             Yii::log(
                 Yii::t(
-                    'UserModule.user', 'User with {email} was logined with IP-address {ip}!', array(
+                    'UserModule.user',
+                    'User with {email} was logined with IP-address {ip}!',
+                    array(
                         '{email}' => $form->email,
-                        '{ip}' => $request->getUserHostAddress(),
+                        '{ip}'    => $request->getUserHostAddress(),
                     )
                 ),
-                CLogger::LEVEL_INFO, UserModule::$logCategory
+                CLogger::LEVEL_INFO,
+                UserModule::$logCategory
             );
 
             Yii::app()->eventManager->fire(UserEvents::SUCCESS_LOGIN, new UserLoginEvent($form, $user, $identity));
@@ -63,13 +67,16 @@ class AuthenticationManager extends CApplicationComponent
 
         Yii::log(
             Yii::t(
-                'UserModule.user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
-                    '{email}' => $form->email,
+                'UserModule.user',
+                'Authorization error with IP-address {ip}! email => {email}, Password => {password}!',
+                array(
+                    '{email}'    => $form->email,
                     '{password}' => $form->password,
-                    '{ip}' => $request->getUserHostAddress(),
+                    '{ip}'       => $request->getUserHostAddress(),
                 )
             ),
-            CLogger::LEVEL_ERROR, UserModule::$logCategory
+            CLogger::LEVEL_ERROR,
+            UserModule::$logCategory
         );
 
         return false;
@@ -84,4 +91,4 @@ class AuthenticationManager extends CApplicationComponent
     {
         $user->setState($this->badLoginCount, (int)$count);
     }
-} 
+}

@@ -5,8 +5,9 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background: #F0F0F0;
+    display: block;
+    padding: 0.5em;
+    background: #F0F0F0;
 }
 
 pre code,
@@ -15,7 +16,7 @@ pre .tag .title,
 pre .lisp .title,
 pre .clojure .built_in,
 pre .nginx .title {
-  color: black;
+    color: black;
 }
 
 pre .string,
@@ -42,7 +43,7 @@ pre .tex .command,
 pre .tex .special,
 pre .erlang_repl .function_or_atom,
 pre .markdown .header {
-  color: #800;
+    color: #800;
 }
 
 pre .comment,
@@ -51,7 +52,7 @@ pre .template_comment,
 pre .diff .header,
 pre .chunk,
 pre .markdown .blockquote {
-  color: #888;
+    color: #888;
 }
 
 pre .number,
@@ -64,7 +65,7 @@ pre .go .constant,
 pre .change,
 pre .markdown .bullet,
 pre .markdown .link_url {
-  color: #080;
+    color: #080;
 }
 
 pre .label,
@@ -91,7 +92,7 @@ pre .markdown .link_label,
 pre .vhdl .attribute,
 pre .clojure .attribute,
 pre .coffeescript .property {
-  color: #88F
+    color: #88F
 }
 
 pre .keyword,
@@ -113,15 +114,15 @@ pre .tex .command,
 pre .markdown .strong,
 pre .request,
 pre .status {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 pre .markdown .emphasis {
-  font-style: italic;
+    font-style: italic;
 }
 
 pre .nginx .built_in {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 pre .coffeescript .javascript,
@@ -131,5 +132,5 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-  opacity: 0.5;
+    opacity: 0.5;
 }

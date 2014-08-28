@@ -10,14 +10,18 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('social')->getCategory() => array(),
-    Yii::t('SocialModule.social', 'Аккаунты') => array('/social/socialBackend/index'),
+    Yii::t('SocialModule.social', 'Аккаунты')      => array('/social/socialBackend/index'),
     Yii::t('SocialModule.social', 'Управление'),
 );
 
 $this->pageTitle = Yii::t('SocialModule.social', 'Аккаунты - управление');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'), 'url' => array('/social/socialBackend/index')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
+        'url'   => array('/social/socialBackend/index')
+    ),
 );
 ?>
 <div class="page-header">
@@ -40,10 +44,11 @@ $this->menu = array(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('social-user-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });
     "
@@ -59,20 +64,20 @@ $this->menu = array(
 $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'social-user-grid',
+        'id'           => 'social-user-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'bulkActions' => array(false),
-        'columns' => array(
+        'filter'       => $model,
+        'bulkActions'  => array(false),
+        'columns'      => array(
             array(
-                'name' => 'user_id',
-                'value' => '$data->user->getFullName()',
+                'name'   => 'user_id',
+                'value'  => '$data->user->getFullName()',
                 'filter' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')
             ),
             'provider',
             'uid',
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'bootstrap.widgets.TbButtonColumn',
                 'template' => '{view}{delete}'
             ),
         ),

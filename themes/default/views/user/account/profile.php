@@ -6,31 +6,31 @@ Yii::app()->clientScript->registerCss(
     'profile',
     "
     input.confirmed { border: 1px solid #88d395; }
-    div.email-change-msg { display: none; } 
+    div.email-change-msg { display: none; }
 "
 );
 
 Yii::app()->clientScript->registerScript(
     'regs',
     "
-            $(function() {
-                 $('#show_pass').click( function() {
+            $(function () {
+                 $('#show_pass').click( function () {
                       $('#ProfileForm_password').prop('type', $(this).prop('checked')?'text':'password');
                       $('#ProfileForm_cPassword').prop('type', $(this).prop('checked')?'text':'password');
                  });
-                 
+
                  var emailStatusEl = $('p.email-status-confirmed'),
                      loadedEmail = $('#ProfileForm_email').val();
 
-                $('#ProfileForm_email').change(function(){
+                $('#ProfileForm_email').change(function () {
                     var currentEmail = $(this).val();
 
-                    if(emailStatusEl){
-                        if(currentEmail !== loadedEmail) {
+                    if (emailStatusEl) {
+                        if (currentEmail !== loadedEmail) {
                             $('#ProfileForm_email').removeClass('confirmed');
                             emailStatusEl.hide();
                             $('div.email-change-msg').show();
-                        }else{
+                        } else {
                             $('#ProfileForm_email').addClass('confirmed');
                             emailStatusEl.show();
                             $('div.email-change-msg').hide();
@@ -39,19 +39,19 @@ Yii::app()->clientScript->registerScript(
                         $('div.email-change-msg').show();
                     }
                 });
-                    
+
             });"
 );
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'profile-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'profile-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array(
-            'class' => 'well',
+        'type'                   => 'vertical',
+        'htmlOptions'            => array(
+            'class'   => 'well',
             'enctype' => 'multipart/form-data',
         )
     )
@@ -73,7 +73,11 @@ $form = $this->beginWidget(
             )
         ); ?>
 
-        <?php echo $form->fileFieldGroup($model, 'avatar', array('widgetOptions' => array('htmlOptions' => array('style' => 'background: inherit;')))); ?>
+        <?php echo $form->fileFieldGroup(
+            $model,
+            'avatar',
+            array('widgetOptions' => array('htmlOptions' => array('style' => 'background: inherit;')))
+        ); ?>
     </div>
 </div>
 
@@ -86,7 +90,8 @@ $form = $this->beginWidget(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
                         'autocomplete' => 'off',
-                        'class' => ((Yii::app()->user->profile->getIsVerifyEmail() && !$model->hasErrors()) ? ' confirmed' : '')
+                        'class'        => ((Yii::app()->user->profile->getIsVerifyEmail() && !$model->hasErrors(
+                                )) ? ' confirmed' : '')
                     ),
                 ),
             )
@@ -128,10 +133,10 @@ $form = $this->beginWidget(
             'gender',
             array(
                 'widgetOptions' => array(
-                    'data' => User::model()->getGendersList(),
+                    'data'        => User::model()->getGendersList(),
                     'htmlOptions' => array(
                         'data-original-title' => $model->getAttributeLabel('gender'),
-                        'data-content' => User::model()->getAttributeDescription('gender')
+                        'data-content'        => User::model()->getAttributeDescription('gender')
                     ),
                 ),
             )
@@ -150,7 +155,7 @@ $form = $this->beginWidget(
                         'format' => 'yy-mm-dd',
                     ),
                 ),
-                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>'
+                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>'
             )
         ); ?>
     </div>
@@ -170,7 +175,11 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-12">
-        <?php echo $form->textAreaGroup($model, 'about', array('widgetOptions' => array('htmlOptions' => array('rows' => 7)))); ?>
+        <?php echo $form->textAreaGroup(
+            $model,
+            'about',
+            array('widgetOptions' => array('htmlOptions' => array('rows' => 7)))
+        ); ?>
     </div>
 </div>
 
@@ -186,13 +195,21 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-3">
-        <?php echo $form->passwordFieldGroup($model, 'password', array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))); ?>
+        <?php echo $form->passwordFieldGroup(
+            $model,
+            'password',
+            array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))
+        ); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-3">
-        <?php echo $form->passwordFieldGroup($model, 'cPassword', array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))); ?>
+        <?php echo $form->passwordFieldGroup(
+            $model,
+            'cPassword',
+            array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))
+        ); ?>
 
     </div>
     <div class="col-xs-3">
@@ -217,7 +234,10 @@ $form = $this->beginWidget(
     <div class="col-xs-12">
         <?php if (Yii::app()->user->profile->getIsVerifyEmail()) : { ?>
             <p class="alert alert-warning">
-                <?php echo Yii::t('UserModule.user', 'Warning! After changing your e-mail you will receive a message explaining how to verify it'); ?>
+                <?php echo Yii::t(
+                    'UserModule.user',
+                    'Warning! After changing your e-mail you will receive a message explaining how to verify it'
+                ); ?>
             </p>
         <?php } endif; ?>
     </div>
@@ -226,8 +246,8 @@ $form = $this->beginWidget(
             'bootstrap.widgets.TbButton',
             array(
                 'buttonType' => 'submit',
-                'context' => 'primary',
-                'label' => Yii::t('UserModule.user', 'Save profile'),
+                'context'    => 'primary',
+                'label'      => Yii::t('UserModule.user', 'Save profile'),
             )
         ); ?>
     </div>

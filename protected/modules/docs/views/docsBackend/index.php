@@ -24,7 +24,10 @@ $this->breadcrumbs = array(
     Yii::t('DocsModule.docs', 'Documentation')
 );
 
-$fileList = $this->module->fileList(str_replace('{module}', '*', Yii::getPathOfAlias($this->module->moduleDocFolder)) . DIRECTORY_SEPARATOR . Yii::app()->language);
+$fileList = $this->module->fileList(
+    str_replace('{module}', '*', Yii::getPathOfAlias($this->module->moduleDocFolder)) . DIRECTORY_SEPARATOR . Yii::app(
+    )->language
+);
 Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Module for project documentation'));
 
 $this->widget('bootstrap.widgets.TbAlert');

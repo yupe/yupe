@@ -19,7 +19,11 @@
 
 <div class="alert alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'Yupe checks PHP version and needed extensions on this step.'); ?></p>
-    <p><?php echo Yii::t('InstallModule.install', 'To continue installation you need to repair error was occured.'); ?></p>
+
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'To continue installation you need to repair error was occured.'
+        ); ?></p>
 </div>
 
 <table class="table table-striped">
@@ -37,7 +41,10 @@
                     'bootstrap.widgets.TbLabel',
                     array(
                         'context' => $requirement[2] ? 'success' : ($requirement[1] ? 'danger' : 'default'),
-                        'label' => $requirement[2] ? 'ОК' : ($requirement[1] ? Yii::t('InstallModule.install', 'Error') : Yii::t('InstallModule.install', 'Warning')),
+                        'label'   => $requirement[2] ? 'ОК' : ($requirement[1] ? Yii::t(
+                                'InstallModule.install',
+                                'Error'
+                            ) : Yii::t('InstallModule.install', 'Warning')),
                     )
                 ); ?>
             </td>
@@ -48,12 +55,24 @@
 
 <br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/environment'), array('class' => 'btn btn-default')); ?>
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', '< Back'),
+    array('/install/default/environment'),
+    array('class' => 'btn btn-default')
+); ?>
 
 <?php
 if ($data['result'] !== false) {
-    echo CHtml::link(Yii::t('InstallModule.install', 'Continue >'), array('/install/default/dbsettings'), array('class' => 'btn btn-primary'));
+    echo CHtml::link(
+        Yii::t('InstallModule.install', 'Continue >'),
+        array('/install/default/dbsettings'),
+        array('class' => 'btn btn-primary')
+    );
 } else {
-    echo CHtml::link(Yii::t('InstallModule.install', 'Refresh'), array('/install/default/requirements'), array('class' => 'btn btn-primary'));
+    echo CHtml::link(
+        Yii::t('InstallModule.install', 'Refresh'),
+        array('/install/default/requirements'),
+        array('class' => 'btn btn-primary')
+    );
 }
 ?>

@@ -32,18 +32,18 @@
  */
 class UserToBlog extends yupe\models\YModel
 {
-    const ROLE_USER      = 1;
+    const ROLE_USER = 1;
     const ROLE_MODERATOR = 2;
-    const ROLE_ADMIN     = 3;
+    const ROLE_ADMIN = 3;
 
-    const STATUS_ACTIVE  = 1;
-    const STATUS_BLOCK   = 2;
+    const STATUS_ACTIVE = 1;
+    const STATUS_BLOCK = 2;
     const STATUS_DELETED = 3;
     const STATUS_CONFIRMATION = 4;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string $className
      * @return UserToBlog the static model class
      */
     public static function model($className = __CLASS__)
@@ -131,8 +131,14 @@ class UserToBlog extends yupe\models\YModel
             'id'      => Yii::t('BlogModule.blog', 'Member Id.'),
             'user_id' => Yii::t('BlogModule.blog', 'Please choose a user which will become the member of the blog'),
             'blog_id' => Yii::t('BlogModule.blog', 'Please choose id of the blog.'),
-            'role'    => Yii::t('BlogModule.blog', 'Please choose user role:<br /><br /><span class="label label-success">User</span> &ndash; Can write and comment blog posts.<br /><br /><span class="label label-warning">Moderator</span> &ndash; Can delete, edit or block posts and comments. Can ban, add or remove members.<br /><br /><span class="label label-important">Administrator</span> &ndash; Can block, add or remove blogs and members.'),
-            'status'  => Yii::t('BlogModule.blog', 'Please choose status of the member:<br /><br /><span class="label label-success">Active</span> &ndash; Active member of the blog.<br /><br /><span class="label label-warning">blocked</span> &ndash; Cannot access the blog.'),
+            'role'    => Yii::t(
+                    'BlogModule.blog',
+                    'Please choose user role:<br /><br /><span class="label label-success">User</span> &ndash; Can write and comment blog posts.<br /><br /><span class="label label-warning">Moderator</span> &ndash; Can delete, edit or block posts and comments. Can ban, add or remove members.<br /><br /><span class="label label-important">Administrator</span> &ndash; Can block, add or remove blogs and members.'
+                ),
+            'status'  => Yii::t(
+                    'BlogModule.blog',
+                    'Please choose status of the member:<br /><br /><span class="label label-success">Active</span> &ndash; Active member of the blog.<br /><br /><span class="label label-warning">blocked</span> &ndash; Cannot access the blog.'
+                ),
             'note'    => Yii::t('BlogModule.blog', 'Short note about the blog member.'),
         );
     }
@@ -146,12 +152,12 @@ class UserToBlog extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('blog_id', $this->blog_id);
-        if($this->create_date) {
+        if ($this->create_date) {
             $criteria->compare('DATE(from_unixtime(t.create_date))', date('Y-m-d', strtotime($this->create_date)));
         }
         $criteria->compare('update_date', $this->update_date);
@@ -163,7 +169,7 @@ class UserToBlog extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array(
+            'sort'     => array(
                 'defaultOrder' => 't.id DESC'
             )
         ));
@@ -193,15 +199,16 @@ class UserToBlog extends yupe\models\YModel
     public function getRole()
     {
         $data = $this->getRoleList();
+
         return isset($data[$this->role]) ? $data[$this->role] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE   => Yii::t('BlogModule.blog', 'Active'),
-            self::STATUS_BLOCK    => Yii::t('BlogModule.blog', 'Blocked'),
-            self::STATUS_DELETED  => Yii::t('BlogModule.blog', 'Deleted'),
+            self::STATUS_ACTIVE       => Yii::t('BlogModule.blog', 'Active'),
+            self::STATUS_BLOCK        => Yii::t('BlogModule.blog', 'Blocked'),
+            self::STATUS_DELETED      => Yii::t('BlogModule.blog', 'Deleted'),
             self::STATUS_CONFIRMATION => Yii::t('BlogModule.blog', 'Confirmation')
         );
     }
@@ -209,6 +216,7 @@ class UserToBlog extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
@@ -230,6 +238,7 @@ class UserToBlog extends yupe\models\YModel
     public function activate()
     {
         $this->status = self::STATUS_ACTIVE;
+
         return $this;
     }
 

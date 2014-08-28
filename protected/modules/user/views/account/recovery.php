@@ -7,10 +7,13 @@
 <p><?php echo Yii::t('UserModule.user', 'For password recovery - select e-mail you used in registration form.'); ?></p>
 
 <div class="form">
-    <?php $form = $this->beginWidget('CActiveForm', array(
-         'id'                     => 'recovery-password-form',
-         'enableClientValidation' => true,
-    )); ?>
+    <?php $form = $this->beginWidget(
+        'CActiveForm',
+        array(
+            'id'                     => 'recovery-password-form',
+            'enableClientValidation' => true,
+        )
+    ); ?>
 
     <?php echo $form->errorSummary($model); ?>
 

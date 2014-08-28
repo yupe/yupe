@@ -45,4 +45,4 @@ class PostPublishEvent extends Event
     {
         return $this->user;
     }
-} 
+}

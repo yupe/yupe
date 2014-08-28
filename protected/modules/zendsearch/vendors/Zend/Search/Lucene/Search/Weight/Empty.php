@@ -20,10 +20,8 @@
  * @version    $Id: Empty.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Search_Weight */
 require_once 'Zend/Search/Lucene/Search/Weight.php';
-
 
 /**
  * @category   Zend
@@ -44,7 +42,6 @@ class Zend_Search_Lucene_Search_Weight_Empty extends Zend_Search_Lucene_Search_W
         return 1;
     }
 
-
     /**
      * Assigns the query normalization factor to this.
      *
@@ -54,4 +51,3 @@ class Zend_Search_Lucene_Search_Weight_Empty extends Zend_Search_Lucene_Search_W
     {
     }
 }
-

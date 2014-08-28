@@ -100,7 +100,7 @@ class YWebUser extends CWebUser
                 'id = :id AND access_level = :level',
                 array(
                     ':level' => User::ACCESS_LEVEL_ADMIN,
-                    ':id' => $this->getId()
+                    ':id'    => $this->getId()
                 )
             );
 
@@ -117,9 +117,9 @@ class YWebUser extends CWebUser
     /**
      * Метод возвращающий профайл пользователя:
      *s
-     * @param string $moduleName - идентификатор модуля
+     * @param  string $moduleName - идентификатор модуля
      * @throws CException
-     * @return User|null - Модель пользователя в случае успеха, иначе null
+     * @return User|null  - Модель пользователя в случае успеха, иначе null
      */
     public function getProfile($moduleName = 'yupe')
     {
@@ -158,7 +158,7 @@ class YWebUser extends CWebUser
 
     /**
      * @param $field
-     * @param string $module
+     * @param  string $module
      * @return array|mixed|null
      */
     public function getProfileField($field, $module = 'yupe')
@@ -181,7 +181,7 @@ class YWebUser extends CWebUser
     }
 
     /**
-     * @param int $size
+     * @param  int $size
      * @return mixed
      */
     public function getAvatar($size = 64)
@@ -236,8 +236,9 @@ class YWebUser extends CWebUser
 
                 $user = User::model()->active()->findByPk($this->getId());
 
-                if(null === $user) {
+                if (null === $user) {
                     $this->logout();
+
                     return false;
                 }
 
@@ -265,9 +266,9 @@ class YWebUser extends CWebUser
     }
 
     /**
-     * @param mixed $id
-     * @param array $states
-     * @param bool $fromCookie
+     * @param  mixed $id
+     * @param  array $states
+     * @param  bool $fromCookie
      * @return bool
      */
     public function beforeLogin($id, $states, $fromCookie)
@@ -280,25 +281,22 @@ class YWebUser extends CWebUser
         $token = $states[$this->authToken];
 
         if (empty($token)) {
-
             return false;
         }
 
         $model = Yii::app()->userManager->tokenStorage->get($token, UserToken::TYPE_COOKIE_AUTH);
 
         if (null === $model) {
-
             return false;
         }
 
         return true;
     }
 
-
     /**
-     * @param string $operation
-     * @param null $userId
-     * @param array $params
+     * @param  string $operation
+     * @param  null $userId
+     * @param  array $params
      * @return bool
      */
     public function checkAccess($operation, $userId = null, $params = array())
@@ -320,10 +318,9 @@ class YWebUser extends CWebUser
         return $access[$operation];
     }
 
-
     /**
-     * @param IUserIdentity $identity
-     * @param int $duration
+     * @param  IUserIdentity $identity
+     * @param  int $duration
      * @return bool
      */
     public function login($identity, $duration = 0)
@@ -331,7 +328,8 @@ class YWebUser extends CWebUser
         if ($duration) {
             //создать токен
             $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                $this->getProfile(), $duration
+                $this->getProfile(),
+                $duration
             );
 
             $identity->setState($this->authToken, $token->token);

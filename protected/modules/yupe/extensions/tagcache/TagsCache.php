@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TagsCache dependency class:
  *
@@ -29,7 +30,7 @@ class TagsCache implements ICacheDependency
     /**
      * Evaluates the dependency by generating and saving the data related with dependency.
      * This method is invoked by cache before writing data into it.
-     * 
+     *
      * @return void
      */
     public function evaluateDependency()
@@ -39,21 +40,21 @@ class TagsCache implements ICacheDependency
 
     /**
      * is dependency changed
-     * 
+     *
      * @return boolean whether the dependency has changed.
      */
     public function getHasChanged()
     {
         $tags = array();
 
-        foreach($this->tags as $tag) {
+        foreach ($this->tags as $tag) {
             $tags[] = TaggingCacheBehavior::PREFIX . $tag;
         }
 
         $values = Yii::app()->cache->mget($tags);
 
-        foreach ($values as $value){
-            if ((float) $value > $this->timestamp){
+        foreach ($values as $value) {
+            if ((float)$value > $this->timestamp) {
                 return true;
             }
         }

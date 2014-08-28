@@ -5,8 +5,10 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background: #002b36; color: #839496;
+    display: block;
+    padding: 0.5em;
+    background: #002b36;
+    color: #839496;
 }
 
 pre .comment,
@@ -16,8 +18,8 @@ pre .doctype,
 pre .pi,
 pre .lisp .string,
 pre .javadoc {
-  color: #586e75;
-  font-style: italic;
+    color: #586e75;
+    font-style: italic;
 }
 
 pre .keyword,
@@ -28,7 +30,7 @@ pre .css .tag,
 pre .request,
 pre .status,
 pre .nginx .title {
-  color: #859900;
+    color: #859900;
 }
 
 pre .number,
@@ -39,7 +41,7 @@ pre .phpdoc,
 pre .tex .formula,
 pre .regexp,
 pre .hexcolor {
-  color: #2aa198;
+    color: #2aa198;
 }
 
 pre .title,
@@ -50,7 +52,7 @@ pre .built_in,
 pre .identifier,
 pre .vhdl .literal,
 pre .id {
-  color: #268bd2;
+    color: #268bd2;
 }
 
 pre .attribute,
@@ -61,7 +63,7 @@ pre .constant,
 pre .class .title,
 pre .parent,
 pre .haskell .type {
-  color: #b58900;
+    color: #b58900;
 }
 
 pre .preprocessor,
@@ -76,13 +78,13 @@ pre .important,
 pre .subst,
 pre .cdata,
 pre .clojure .title {
-  color: #cb4b16;
+    color: #cb4b16;
 }
 
 pre .deletion {
-  color: #dc322f;
+    color: #dc322f;
 }
 
 pre .tex .formula {
-  background: #073642;
+    background: #073642;
 }

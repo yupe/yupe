@@ -29,7 +29,7 @@ class YInLineEditAction extends CAction
     {
         parent::init();
 
-        if(!$this->model || empty($this->validAttributes)) {
+        if (!$this->model || empty($this->validAttributes)) {
             throw new CHttpException(500);
         }
     }
@@ -69,4 +69,4 @@ class YInLineEditAction extends CAction
 
         throw new CHttpException(500, $model->getError($name));
     }
-} 
+}

@@ -25,4 +25,4 @@ class UserLogoutEvent extends Event
     {
         return $this->user;
     }
-} 
+}

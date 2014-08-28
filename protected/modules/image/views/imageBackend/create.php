@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('ImageModule.image', 'Images - add');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ImageModule.image', 'Image management'), 'url' => array('/image/imageBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ImageModule.image', 'Add image'), 'url' => array('/image/imageBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('ImageModule.image', 'Image management'),
+        'url'   => array('/image/imageBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('ImageModule.image', 'Add image'),
+        'url'   => array('/image/imageBackend/create')
+    ),
 );
 ?>
 <div class="page-header">

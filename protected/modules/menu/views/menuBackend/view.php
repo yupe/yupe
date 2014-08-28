@@ -21,27 +21,39 @@ $this->menu = array(
     array(
         'label' => Yii::t('MenuModule.menu', 'Menu'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
-            array('label' => Yii::t('MenuModule.menu', 'Menu') . ' «' . $model->name . '»'),
-            array('icon' => 'glyphicon glyphicon-pencil', 'label' => Yii::t('MenuModule.menu', 'Change menu'), 'url' => array('/menu/menuBackend/update', 'id' => $model->id)),
             array(
-                'icon' => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('MenuModule.menu', 'Manage menu'),
+                'url'   => array('/menu/menuBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('MenuModule.menu', 'Create menu'),
+                'url'   => array('/menu/menuBackend/create')
+            ),
+            array('label' => Yii::t('MenuModule.menu', 'Menu') . ' «' . $model->name . '»'),
+            array(
+                'icon'  => 'glyphicon glyphicon-pencil',
+                'label' => Yii::t('MenuModule.menu', 'Change menu'),
+                'url'   => array('/menu/menuBackend/update', 'id' => $model->id)
+            ),
+            array(
+                'icon'        => 'glyphicon glyphicon-eye-open',
                 'encodeLabel' => false,
-                'label' => Yii::t('MenuModule.menu', 'View menu'),
-                'url' => array(
+                'label'       => Yii::t('MenuModule.menu', 'View menu'),
+                'url'         => array(
                     '/menu/menuBackend/view',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-trash',
-                'label' => Yii::t('MenuModule.menu', 'Remove menu'),
-                'url' => '#',
+                'icon'        => 'glyphicon glyphicon-trash',
+                'label'       => Yii::t('MenuModule.menu', 'Remove menu'),
+                'url'         => '#',
                 'linkOptions' => array(
-                    'submit' => array('/menu/menuBackend/delete', 'id' => $model->id),
+                    'submit'  => array('/menu/menuBackend/delete', 'id' => $model->id),
                     'confirm' => Yii::t('MenuModule.menu', 'Do you really want to delete?'),
-                    'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 ),
             ),
         )
@@ -49,8 +61,16 @@ $this->menu = array(
     array(
         'label' => Yii::t('MenuModule.menu', 'Menu items'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('MenuModule.menu', 'Manage menu items'),
+                'url'   => array('/menu/menuitemBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('MenuModule.menu', 'Create menu item'),
+                'url'   => array('/menu/menuitemBackend/create')
+            ),
         )
     ),
 );
@@ -65,14 +85,14 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             'name',
             'code',
             'description',
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
         ),

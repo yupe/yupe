@@ -33,11 +33,10 @@ abstract class Zend_Search_Lucene_Storage_File
      * Reads $length number of bytes at the current position in the
      * file and advances the file pointer.
      *
-     * @param integer $length
+     * @param  integer $length
      * @return string
      */
     abstract protected function _fread($length = 1);
-
 
     /**
      * Sets the file position indicator and advances the file pointer.
@@ -51,8 +50,8 @@ abstract class Zend_Search_Lucene_Storage_File
      * in offset.)
      * Upon success, returns 0; otherwise, returns -1
      *
-     * @param integer $offset
-     * @param integer $whence
+     * @param  integer $offset
+     * @param  integer $whence
      * @return integer
      */
     abstract public function seek($offset, $whence = SEEK_SET);
@@ -87,7 +86,7 @@ abstract class Zend_Search_Lucene_Storage_File
      *
      * Lock type may be a LOCK_SH (shared lock) or a LOCK_EX (exclusive lock)
      *
-     * @param integer $lockType
+     * @param  integer $lockType
      * @return boolean
      */
     abstract public function lock($lockType, $nonBlockinLock = false);
@@ -122,7 +121,7 @@ abstract class Zend_Search_Lucene_Storage_File
      * Read num bytes from the current position in the file
      * and advances the file pointer.
      *
-     * @param integer $num
+     * @param  integer $num
      * @return string
      */
     public function readBytes($num)
@@ -142,7 +141,6 @@ abstract class Zend_Search_Lucene_Storage_File
         $this->_fwrite($data, $num);
     }
 
-
     /**
      * Reads an integer from the current position in the file
      * and advances the file pointer.
@@ -159,7 +157,6 @@ abstract class Zend_Search_Lucene_Storage_File
         ord($str[3]);
     }
 
-
     /**
      * Writes an integer to the end of file.
      *
@@ -168,12 +165,14 @@ abstract class Zend_Search_Lucene_Storage_File
     public function writeInt($value)
     {
         settype($value, 'integer');
-        $this->_fwrite(chr($value >> 24 & 0xFF) .
-        chr($value >> 16 & 0xFF) .
-        chr($value >> 8 & 0xFF) .
-        chr($value & 0xFF), 4);
+        $this->_fwrite(
+            chr($value >> 24 & 0xFF) .
+            chr($value >> 16 & 0xFF) .
+            chr($value >> 8 & 0xFF) .
+            chr($value & 0xFF),
+            4
+        );
     }
-
 
     /**
      * Returns a long integer from the current position in the file
@@ -207,7 +206,7 @@ abstract class Zend_Search_Lucene_Storage_File
     /**
      * Writes long integer to the end of file
      *
-     * @param integer $value
+     * @param  integer $value
      * @throws Zend_Search_Lucene_Exception
      */
     public function writeLong($value)
@@ -218,19 +217,21 @@ abstract class Zend_Search_Lucene_Storage_File
          */
         if (PHP_INT_SIZE > 4) {
             settype($value, 'integer');
-            $this->_fwrite(chr($value >> 56 & 0xFF) .
-            chr($value >> 48 & 0xFF) .
-            chr($value >> 40 & 0xFF) .
-            chr($value >> 32 & 0xFF) .
-            chr($value >> 24 & 0xFF) .
-            chr($value >> 16 & 0xFF) .
-            chr($value >> 8 & 0xFF) .
-            chr($value & 0xFF), 8);
+            $this->_fwrite(
+                chr($value >> 56 & 0xFF) .
+                chr($value >> 48 & 0xFF) .
+                chr($value >> 40 & 0xFF) .
+                chr($value >> 32 & 0xFF) .
+                chr($value >> 24 & 0xFF) .
+                chr($value >> 16 & 0xFF) .
+                chr($value >> 8 & 0xFF) .
+                chr($value & 0xFF),
+                8
+            );
         } else {
             $this->writeLong32Bit($value);
         }
     }
-
 
     /**
      * Returns a long integer from the current position in the file,
@@ -269,11 +270,10 @@ abstract class Zend_Search_Lucene_Storage_File
         return $wordHigh * (float)0x100000000 /* 0x00000001 00000000 */ + $wordLow;
     }
 
-
     /**
      * Writes long integer to the end of file (32-bit platforms implementation)
      *
-     * @param integer|float $value
+     * @param  integer|float $value
      * @throws Zend_Search_Lucene_Exception
      */
     public function writeLong32Bit($value)
@@ -302,7 +302,6 @@ abstract class Zend_Search_Lucene_Storage_File
         $this->writeInt($wordLow);
     }
 
-
     /**
      * Returns a variable-length integer from the current
      * position in the file and advances the file pointer.
@@ -318,6 +317,7 @@ abstract class Zend_Search_Lucene_Storage_File
             $nextByte = ord($this->_fread(1));
             $val |= ($nextByte & 0x7F) << $shift;
         }
+
         return $val;
     }
 
@@ -335,7 +335,6 @@ abstract class Zend_Search_Lucene_Storage_File
         }
         $this->_fwrite(chr($value));
     }
-
 
     /**
      * Reads a string from the current position in the file
@@ -398,7 +397,7 @@ abstract class Zend_Search_Lucene_Storage_File
     /**
      * Writes a string to the end of file.
      *
-     * @param string $str
+     * @param  string $str
      * @throws Zend_Search_Lucene_Exception
      */
     public function writeString($str)
@@ -460,7 +459,6 @@ abstract class Zend_Search_Lucene_Storage_File
             $this->_fwrite($str);
         }
     }
-
 
     /**
      * Reads binary data from the current position in the file

@@ -1,4 +1,5 @@
 <?php
+
 class CommonPage
 {
     const SUCCESS_CSS_CLASS = '';

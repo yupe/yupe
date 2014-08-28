@@ -10,7 +10,7 @@
  **/
 $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Members') => array('/blog/userToBlogBackend/index'),
-    $model->user->nick_name => array('/blog/userToBlogBackend/view', 'id' => $model->id),
+    $model->user->nick_name              => array('/blog/userToBlogBackend/view', 'id' => $model->id),
     Yii::t('BlogModule.blog', 'Edit'),
 );
 
@@ -20,47 +20,71 @@ $this->menu = array(
     array(
         'label' => Yii::t('BlogModule.blog', 'Blogs'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage blogs'), 'url' => array('/blog/blogBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a blog'), 'url' => array('/blog/blogBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
+                'url'   => array('/blog/blogBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('BlogModule.blog', 'Add a blog'),
+                'url'   => array('/blog/blogBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('BlogModule.blog', 'Posts'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage posts'), 'url' => array('/blog/postBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a post'), 'url' => array('/blog/postBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('BlogModule.blog', 'Manage posts'),
+                'url'   => array('/blog/postBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('BlogModule.blog', 'Add a post'),
+                'url'   => array('/blog/postBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('BlogModule.blog', 'Members'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage members'), 'url' => array('/blog/userToBlogBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a member'), 'url' => array('/blog/userToBlogBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('BlogModule.blog', 'Manage members'),
+                'url'   => array('/blog/userToBlogBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('BlogModule.blog', 'Add a member'),
+                'url'   => array('/blog/userToBlogBackend/create')
+            ),
             array('label' => Yii::t('BlogModule.blog', 'Member') . ' «' . mb_substr($model->id, 0, 32) . '»', 'utf-8'),
             array(
-                'icon' => 'glyphicon glyphicon-pencil',
+                'icon'  => 'glyphicon glyphicon-pencil',
                 'label' => Yii::t('BlogModule.blog', 'Edit member'),
-                'url' => array(
+                'url'   => array(
                     '/blog/userToBlogBackend/update',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'glyphicon glyphicon-eye-open',
                 'label' => Yii::t('BlogModule.blog', 'View member'),
-                'url' => array(
+                'url'   => array(
                     '/blog/userToBlogBackend/view',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-trash',
-                'label' => Yii::t('BlogModule.blog', 'Remove member'),
-                'url' => '#',
+                'icon'        => 'glyphicon glyphicon-trash',
+                'label'       => Yii::t('BlogModule.blog', 'Remove member'),
+                'url'         => '#',
                 'linkOptions' => array(
-                    'submit' => array('/blog/userToBlogBackend/delete', 'id' => $model->id),
+                    'submit'  => array('/blog/userToBlogBackend/delete', 'id' => $model->id),
                     'confirm' => Yii::t('BlogModule.blog', 'Do you really want to remove the member?'),
-                    'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 )
             ),
         )

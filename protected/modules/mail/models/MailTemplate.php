@@ -18,7 +18,7 @@
  * The followings are the available model relations:
  * @property MailEvent $event
  *
-  * MailTemplate model class
+ * MailTemplate model class
  * Класс модели MailTemplate
  *
  * @category YupeModel
@@ -29,7 +29,7 @@
  **/
 class MailTemplate extends yupe\models\YModel
 {
-    const STATUS_ACTIVE     = 1;
+    const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
     /**
@@ -123,7 +123,7 @@ class MailTemplate extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('event_id', $this->event_id, true);
@@ -159,6 +159,7 @@ class MailTemplate extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->statusList;
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MailModule.mail', '--unknown--');
     }
 }

@@ -2,7 +2,7 @@
 $this->beginWidget(
     'bootstrap.widgets.TbPanel',
     array(
-        'title' => Yii::t('BlogModule.blog', 'Blogs'),
+        'title'      => Yii::t('BlogModule.blog', 'Blogs'),
         'headerIcon' => 'glyphicon glyphicon-pencil',
     )
 );

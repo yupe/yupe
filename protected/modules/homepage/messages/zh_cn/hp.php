@@ -16,18 +16,18 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array (
-    'Please activate "Blogs" or/and "Pages" module'=>'请激活"博客"或"页面"模块',
-    'Andrey Opeykin'=>'Boon Xiong',
-    'Home page'=>'主页',
-    'Pages count'=>'页面数量',
-    'Main page management module'=>'主页管理模块',
-    'Posts'=>'文章',
-    'Page'=>'页面',
-    'Page or post'=>'页面或文章',
-    'Whats will be displayed'=>'将要显示的',
-    'Yupe!'=>'内容',
-    'Records' => '记录',
-    'Pages'=>'页面',
-    'read...' => '更多...',
+return array(
+    'Please activate "Blogs" or/and "Pages" module' => '请激活"博客"或"页面"模块',
+    'Andrey Opeykin'                                => 'Boon Xiong',
+    'Home page'                                     => '主页',
+    'Pages count'                                   => '页面数量',
+    'Main page management module'                   => '主页管理模块',
+    'Posts'                                         => '文章',
+    'Page'                                          => '页面',
+    'Page or post'                                  => '页面或文章',
+    'Whats will be displayed'                       => '将要显示的',
+    'Yupe!'                                         => '内容',
+    'Records'                                       => '记录',
+    'Pages'                                         => '页面',
+    'read...'                                       => '更多...',
 );
