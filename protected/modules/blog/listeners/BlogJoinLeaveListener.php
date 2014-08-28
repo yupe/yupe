@@ -12,4 +12,4 @@ class BlogJoinLeaveListener
     {
         Yii::log("User {$event->getUserId()} leave blog {$event->getBlog()->name}...!!!!!", CLogger::LEVEL_ERROR);
     }
-} 
+}

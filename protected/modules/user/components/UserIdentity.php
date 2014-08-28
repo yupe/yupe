@@ -26,7 +26,7 @@ class UserIdentity extends CUserIdentity
         $user = User::model()->active()->find(
             array(
                 'condition' => 'email = :username OR nick_name = :username',
-                'params' => array(
+                'params'    => array(
                     ':username' => $this->username
                 )
             )
@@ -34,10 +34,12 @@ class UserIdentity extends CUserIdentity
 
         if (null === $user) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
+
             return false;
         }
         if (!Yii::app()->userManager->hasher->checkPassword($this->password, $user->hash)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
+
             return false;
         }
 
@@ -48,7 +50,6 @@ class UserIdentity extends CUserIdentity
         Yii::app()->getUser()->setState('id', $user->id);
         Yii::app()->getUser()->setState(YWebUser::STATE_ACCESS_LEVEL, $user->access_level);
         Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $user->nick_name);
-
 
         // для админа в сессию запишем еще несколько значений
         if ((int)$user->access_level === User::ACCESS_LEVEL_ADMIN) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BlogController контроллер для блогов на публичной части сайта
  *
@@ -17,12 +18,12 @@ class BlogController extends yupe\components\controllers\FrontController
      * @return void
      */
     public function actionIndex()
-    {       
+    {
         $blogs = new Blog('search');
         $blogs->unsetAttributes();
         $blogs->status = Blog::STATUS_ACTIVE;
 
-        if(isset($_GET['Blog']['name'])) {
+        if (isset($_GET['Blog']['name'])) {
             $blogs->name = CHtml::encode($_GET['Blog']['name']);
         }
 
@@ -32,22 +33,25 @@ class BlogController extends yupe\components\controllers\FrontController
     /**
      * Отобразить карточку блога
      *
-     * @param string $slug - url блога
+     * @param  string $slug - url блога
      * @throws CHttpException
      *
      * @return void
      */
     public function actionShow($slug = null)
-    {     
+    {
         $blog = Blog::model()->getBySlug($slug);
 
-        if ($blog === null){
-           throw new CHttpException(404, Yii::t('BlogModule.blog', 'Blog "{blog}" was not found!', array('{blog}' => $slug)));
+        if ($blog === null) {
+            throw new CHttpException(404, Yii::t(
+                'BlogModule.blog',
+                'Blog "{blog}" was not found!',
+                array('{blog}' => $slug)
+            ));
         }
 
         $this->render('show', array('blog' => $blog));
     }
-
 
     /**
      * "вступление" в блог
@@ -59,64 +63,64 @@ class BlogController extends yupe\components\controllers\FrontController
      */
     public function actionJoin()
     {
-        if(!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->user->isAuthenticated()) {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->user->isAuthenticated()) {
             throw new CHttpException(404);
         }
 
         $blogId = (int)Yii::app()->request->getPost('blogId');
 
-        if(!$blogId) {
+        if (!$blogId) {
             throw new CHttpException(404);
         }
 
         $blog = Blog::model()->get($blogId);
 
-        if(!$blog) {
+        if (!$blog) {
             throw new CHttpException(404);
-        }        
+        }
 
-        if($blog->join(Yii::app()->user->getId())) {
-            Yii::app()->ajax->success(Yii::t('BlogModule.blog','You have joined!'));
+        if ($blog->join(Yii::app()->user->getId())) {
+            Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'You have joined!'));
         }
 
         //check if user is in blog but blocked
-        if($blog->hasUserInStatus(Yii::app()->getUser()->getId(), UserToBlog::STATUS_BLOCK)) {
-            Yii::app()->ajax->failure(Yii::t('BlogModule.blog','You are blocking in this blog!'));
+        if ($blog->hasUserInStatus(Yii::app()->getUser()->getId(), UserToBlog::STATUS_BLOCK)) {
+            Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'You are blocking in this blog!'));
         }
 
-        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occurred when you were joining the blog!'));
+        Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'An error occurred when you were joining the blog!'));
     }
 
     /**
      * "покинуть" блог
      *
-     * @param int $blogId - id-блога
+     * @param  int $blogId - id-блога
      * @throw CHttpException
      * @return void
      */
     public function actionLeave()
     {
-        if(!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->user->isAuthenticated()) {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->user->isAuthenticated()) {
             throw new CHttpException(404);
         }
 
         $blogId = (int)Yii::app()->request->getPost('blogId');
 
-        if(!$blogId) {
+        if (!$blogId) {
             throw new CHttpException(404);
         }
 
         $blog = Blog::model()->get($blogId);
 
-        if(!$blog) {
+        if (!$blog) {
             throw new CHttpException(404);
         }
 
-        if($blog->leave(Yii::app()->user->getId())) {
-             Yii::app()->ajax->success(Yii::t('BlogModule.blog','You left the blog!'));
+        if ($blog->leave(Yii::app()->user->getId())) {
+            Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'You left the blog!'));
         }
 
-        Yii::app()->ajax->failure(Yii::t('BlogModule.blog','An error occurred when you were leaving the blog!'));
+        Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'An error occurred when you were leaving the blog!'));
     }
 
     /**
@@ -127,7 +131,7 @@ class BlogController extends yupe\components\controllers\FrontController
     {
         $blog = Blog::model()->getBySlug($slug);
 
-        if(null === $blog) {
+        if (null === $blog) {
             throw new CHttpException(404);
         }
 

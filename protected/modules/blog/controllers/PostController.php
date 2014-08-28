@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PostController контроллер для постов на публичной части сайта
  *
@@ -19,8 +20,8 @@ class PostController extends yupe\components\controllers\FrontController
 
     /**
      * Показываем пост по урлу
-     * 
-     * @param string $slug - урл поста
+     *
+     * @param  string $slug - урл поста
      * @throws CHttpException
      * @return void
      */
@@ -28,7 +29,7 @@ class PostController extends yupe\components\controllers\FrontController
     {
         $post = Post::model()->get($slug, array('blog', 'createUser', 'comments.author'));
 
-        if (null === $post){
+        if (null === $post) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Post was not found!'));
         }
 
@@ -37,8 +38,8 @@ class PostController extends yupe\components\controllers\FrontController
 
     /**
      * Показываем посты по тегу
-     * 
-     * @param string $tag - Tag поста
+     *
+     * @param  string $tag - Tag поста
      * @throws CHttpException
      * @return void
      */
@@ -48,34 +49,36 @@ class PostController extends yupe\components\controllers\FrontController
 
         $posts = Post::model()->getByTag($tag);
 
-        if(empty($posts)) {
+        if (empty($posts)) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Posts not found!'));
         }
 
-        $this->render('list', array('posts' => $posts,'tag' => $tag));
+        $this->render('list', array('posts' => $posts, 'tag' => $tag));
     }
-
 
     public function actionBlog($slug)
     {
         $blog = Blog::model()->getByUrl($slug)->find();
 
-        if(null === $blog){
+        if (null === $blog) {
             throw new CHttpException(404);
         }
 
-        $this->render('blog-post',array('target' => $blog,'posts' => $blog->getPosts()));
+        $this->render('blog-post', array('target' => $blog, 'posts' => $blog->getPosts()));
     }
 
     public function actionCategory($alias)
     {
         $category = Category::model()->getByAlias($alias);
 
-        if(null === $category){
+        if (null === $category) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
 
-        $this->render('category-post',array('target' => $category,'posts' => Post::model()->getForCategory($category->id)));
+        $this->render(
+            'category-post',
+            array('target' => $category, 'posts' => Post::model()->getForCategory($category->id))
+        );
     }
 
     public function actionCategories()

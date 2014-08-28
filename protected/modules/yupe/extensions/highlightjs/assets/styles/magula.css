@@ -8,15 +8,16 @@ Music: Aphex Twin / Xtal
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background-color: #f4f4f4;
+    display: block;
+    padding: 0.5em;
+    background-color: #f4f4f4;
 }
 
 pre code,
 pre .subst,
 pre .lisp .title,
 pre .clojure .built_in {
-  color: black;
+    color: black;
 }
 
 pre .string,
@@ -37,7 +38,7 @@ pre .flow,
 pre .stream,
 pre .bash .variable,
 pre .apache .cbracket {
-  color: #050;
+    color: #050;
 }
 
 pre .comment,
@@ -45,7 +46,7 @@ pre .annotation,
 pre .template_comment,
 pre .diff .header,
 pre .chunk {
-  color: #777;
+    color: #777;
 }
 
 pre .number,
@@ -56,7 +57,7 @@ pre .smalltalk .symbol,
 pre .smalltalk .char,
 pre .change,
 pre .tex .special {
-  color: #800;
+    color: #800;
 }
 
 pre .label,
@@ -78,7 +79,7 @@ pre .nginx .built_in,
 pre .tex .formula,
 pre .prompt,
 pre .clojure .attribute {
-  color: #00e;
+    color: #00e;
 }
 
 pre .keyword,
@@ -95,12 +96,12 @@ pre .xml .tag,
 pre .tex .command,
 pre .request,
 pre .status {
-  font-weight: bold;
-  color: navy;
+    font-weight: bold;
+    color: navy;
 }
 
 pre .nginx .built_in {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 pre .coffeescript .javascript,
@@ -110,12 +111,12 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 /* --- */
 pre .apache .tag {
-  font-weight: bold;
-  color: blue;
+    font-weight: bold;
+    color: blue;
 }
 

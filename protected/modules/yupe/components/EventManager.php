@@ -2,7 +2,6 @@
 
 namespace yupe\components;
 
-use Yii;
 use CApplicationComponent;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -24,19 +23,18 @@ class EventManager extends CApplicationComponent
      */
     public $subscribers = array();
 
-
     public function init()
     {
         $this->dispatcher = new EventDispatcher();
 
-        foreach($this->events as $event => $listeners) {
-            foreach($listeners as $listener){
+        foreach ($this->events as $event => $listeners) {
+            foreach ($listeners as $listener) {
                 $this->dispatcher->addListener($event, $listener);
             }
         }
 
-        foreach($this->subscribers as $event => $subscribers) {
-            foreach($subscribers as $subscriber) {
+        foreach ($this->subscribers as $event => $subscribers) {
+            foreach ($subscribers as $subscriber) {
                 $this->dispatcher->addSubscriber($subscriber);
             }
         }
@@ -54,4 +52,4 @@ class EventManager extends CApplicationComponent
     {
         $this->dispatcher->dispatch($eventName, $event);
     }
-} 
+}

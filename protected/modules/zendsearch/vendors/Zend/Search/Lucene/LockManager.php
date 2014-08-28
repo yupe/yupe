@@ -46,7 +46,7 @@ class Zend_Search_Lucene_LockManager
     /**
      * Obtain exclusive write lock on the index
      *
-     * @param Zend_Search_Lucene_Storage_Directory $lockDirectory
+     * @param  Zend_Search_Lucene_Storage_Directory $lockDirectory
      * @return Zend_Search_Lucene_Storage_File
      * @throws Zend_Search_Lucene_Exception
      */
@@ -57,6 +57,7 @@ class Zend_Search_Lucene_LockManager
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Can\'t obtain exclusive index lock');
         }
+
         return $lock;
     }
 
@@ -91,7 +92,7 @@ class Zend_Search_Lucene_LockManager
      *  of opportunity for another process to gain an exclusive lock when
      *  it shoudln't be allowed to).
      *
-     * @param Zend_Search_Lucene_Storage_Directory $lockDirectory
+     * @param  Zend_Search_Lucene_Storage_Directory $lockDirectory
      * @return Zend_Search_Lucene_Storage_File
      * @throws Zend_Search_Lucene_Exception
      */
@@ -102,6 +103,7 @@ class Zend_Search_Lucene_LockManager
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Can\'t obtain exclusive lock for the read lock processing file');
         }
+
         return $lock;
     }
 
@@ -119,13 +121,12 @@ class Zend_Search_Lucene_LockManager
         $lock->unlock();
     }
 
-
     /**
      * Obtain shared read lock on the index
      *
      * It doesn't block other read or update processes, but prevent index from the premature cleaning-up
      *
-     * @param Zend_Search_Lucene_Storage_Directory $defaultLockDirectory
+     * @param  Zend_Search_Lucene_Storage_Directory $defaultLockDirectory
      * @return Zend_Search_Lucene_Storage_File
      * @throws Zend_Search_Lucene_Exception
      */
@@ -136,6 +137,7 @@ class Zend_Search_Lucene_LockManager
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Can\'t obtain shared reading index lock');
         }
+
         return $lock;
     }
 
@@ -153,7 +155,7 @@ class Zend_Search_Lucene_LockManager
     /**
      * Escalate Read lock to exclusive level
      *
-     * @param Zend_Search_Lucene_Storage_Directory $lockDirectory
+     * @param  Zend_Search_Lucene_Storage_Directory $lockDirectory
      * @return boolean
      */
     public static function escalateReadLock(Zend_Search_Lucene_Storage_Directory $lockDirectory)
@@ -180,6 +182,7 @@ class Zend_Search_Lucene_LockManager
             if ($lock->lock(LOCK_EX, true)) {
                 // Exclusive lock is obtained!
                 self::_stopReadLockProcessing($lockDirectory);
+
                 return true;
             }
 
@@ -191,6 +194,7 @@ class Zend_Search_Lucene_LockManager
         $lock->lock(LOCK_SH);
 
         self::_stopReadLockProcessing($lockDirectory);
+
         return false;
     }
 
@@ -210,7 +214,7 @@ class Zend_Search_Lucene_LockManager
      *
      * Returns lock object on success and false otherwise (doesn't block execution)
      *
-     * @param Zend_Search_Lucene_Storage_Directory $lockDirectory
+     * @param  Zend_Search_Lucene_Storage_Directory $lockDirectory
      * @return mixed
      */
     public static function obtainOptimizationLock(Zend_Search_Lucene_Storage_Directory $lockDirectory)
@@ -219,6 +223,7 @@ class Zend_Search_Lucene_LockManager
         if (!$lock->lock(LOCK_EX, true)) {
             return false;
         }
+
         return $lock;
     }
 

@@ -28,7 +28,6 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
         Yii::app()->ajax->failure();
     }
 
-
     /**
      * Действие для управления модулями:
      *
@@ -126,4 +125,4 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
         }
     }
 
-} 
+}

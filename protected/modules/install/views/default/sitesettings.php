@@ -11,10 +11,10 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'sitesettings-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'sitesettings-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
+        'type'                   => 'vertical',
     )
 );
 
@@ -29,10 +29,17 @@ Yii::app()->clientScript->registerScript(
 
 <div class="alert alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
+
     <p><?php echo Yii::t(
             'InstallModule.install',
             'More about SEO {link}',
-            array('{link}' => CHtml::link(Yii::t('InstallModule.install', 'here'), 'http://help.yandex.ru/webmaster/?id=1108938', array('target' => '_blank')))
+            array(
+                '{link}' => CHtml::link(
+                        Yii::t('InstallModule.install', 'here'),
+                        'http://help.yandex.ru/webmaster/?id=1108938',
+                        array('target' => '_blank')
+                    )
+            )
         ); ?></p>
 </div>
 
@@ -45,11 +52,11 @@ Yii::app()->clientScript->registerScript(
             'theme',
             array(
                 'widgetOptions' => array(
-                    'data' => $data['themes'],
+                    'data'        => $data['themes'],
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('theme'),
-                        'data-content' => $data['model']->getAttributeDescription('theme'),
+                        'data-content'        => $data['model']->getAttributeDescription('theme'),
                     )
                 )
             )
@@ -65,11 +72,11 @@ Yii::app()->clientScript->registerScript(
                 'backendTheme',
                 array(
                     'widgetOptions' => array(
-                        'data' => $data['backendThemes'],
+                        'data'        => $data['backendThemes'],
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $data['model']->getAttributeLabel('backendTheme'),
-                            'data-content' => $data['model']->getAttributeDescription('backendTheme'),
+                            'data-content'        => $data['model']->getAttributeDescription('backendTheme'),
                         )
                     )
                 )
@@ -86,9 +93,9 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('siteName'),
-                        'data-content' => $data['model']->getAttributeDescription('siteName'),
+                        'data-content'        => $data['model']->getAttributeDescription('siteName'),
                     )
                 )
             )
@@ -104,10 +111,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('siteDescription'),
-                        'data-content' => $data['model']->getAttributeDescription('siteDescription'),
-                        'rows' => 6,
+                        'data-content'        => $data['model']->getAttributeDescription('siteDescription'),
+                        'rows'                => 6,
                     )
                 )
             )
@@ -123,10 +130,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('siteKeyWords'),
-                        'data-content' => $data['model']->getAttributeDescription('siteKeyWords'),
-                        'rows' => 6,
+                        'data-content'        => $data['model']->getAttributeDescription('siteKeyWords'),
+                        'rows'                => 6,
                     )
                 )
             )
@@ -142,9 +149,9 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('siteEmail'),
-                        'data-content' => $data['model']->getAttributeDescription('siteEmail'),
+                        'data-content'        => $data['model']->getAttributeDescription('siteEmail'),
                     )
                 )
             )
@@ -152,15 +159,19 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/createuser'), array('class' => 'btn btn-default')); ?>
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', '< Back'),
+    array('/install/default/createuser'),
+    array('class' => 'btn btn-default')
+); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => Yii::t('InstallModule.install', 'Continue >'),
+        'context'    => 'primary',
+        'label'      => Yii::t('InstallModule.install', 'Continue >'),
     )
 ); ?>
 

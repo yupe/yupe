@@ -13,9 +13,9 @@ class GalleryViewCest
         $I->see('Всего изображений');
         $I->see('08 ноября 2013 г., 01:21');
 
-        $I->amOnPage(\GalleryPage::ALBUMS_URL.'/1');
-        $I->see('Первая галерея','h1');
-        $I->seeInCurrentUrl(\GalleryPage::ALBUMS_URL.'/1');
+        $I->amOnPage(\GalleryPage::ALBUMS_URL . '/1');
+        $I->see('Первая галерея', 'h1');
+        $I->seeInCurrentUrl(\GalleryPage::ALBUMS_URL . '/1');
 
         $I->see('2013-10-22 22.33.28.jpg');
         $I->see('Подробнее...');

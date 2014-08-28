@@ -32,7 +32,7 @@ class Notify extends CApplicationComponent
     }
 
     /**
-     * @param User $user
+     * @param  User $user
      * @param $theme
      * @param $view
      * @param $data
@@ -41,6 +41,7 @@ class Notify extends CApplicationComponent
     public function send(User $user, $theme, $view, $data)
     {
         $data['user'] = $user;
+
         return $this->mail->send(
             Yii::app()->getModule('user')->notifyEmailFrom,
             $user->email,

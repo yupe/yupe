@@ -171,7 +171,7 @@ abstract class Zend_Search_Lucene_FSM
      * Set FSM state.
      * No any action is invoked
      *
-     * @param integer|string $state
+     * @param  integer|string $state
      * @throws Zend_Search_Exception
      */
     public function setState($state)
@@ -216,7 +216,6 @@ abstract class Zend_Search_Lucene_FSM
         $this->_inputAphabet[$inputSymbol] = $inputSymbol;
     }
 
-
     /**
      * Add transition rules
      *
@@ -239,10 +238,10 @@ abstract class Zend_Search_Lucene_FSM
     /**
      * Add symbol to the input alphabet
      *
-     * @param integer|string $sourceState
-     * @param integer|string $input
-     * @param integer|string $targetState
-     * @param Zend_Search_Lucene_FSMAction|null $inputAction
+     * @param  integer|string $sourceState
+     * @param  integer|string $input
+     * @param  integer|string $targetState
+     * @param  Zend_Search_Lucene_FSMAction|null $inputAction
      * @throws Zend_Search_Exception
      */
     public function addRule($sourceState, $input, $targetState, $inputAction = null)
@@ -270,12 +269,10 @@ abstract class Zend_Search_Lucene_FSM
 
         $this->_rules[$sourceState][$input] = $targetState;
 
-
         if ($inputAction !== null) {
             $this->addInputAction($sourceState, $input, $inputAction);
         }
     }
-
 
     /**
      * Add state entry action.
@@ -381,11 +378,10 @@ abstract class Zend_Search_Lucene_FSM
         $this->_transitionActions[$sourceState][$targetState][] = $action;
     }
 
-
     /**
      * Process an input
      *
-     * @param mixed $input
+     * @param  mixed $input
      * @throws Zend_Search_Exception
      */
     public function process($input)
@@ -415,7 +411,6 @@ abstract class Zend_Search_Lucene_FSM
             }
         }
 
-
         $this->_currentState = $targetState;
 
         if (isset($this->_transitionActions[$sourceState]) &&
@@ -442,4 +437,3 @@ abstract class Zend_Search_Lucene_FSM
         $this->_currentState = $this->_states[0];
     }
 }
-

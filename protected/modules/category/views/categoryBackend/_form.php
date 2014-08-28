@@ -12,11 +12,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'category-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'category-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -50,7 +50,7 @@ $form = $this->beginWidget(
                 'lang',
                 array(
                     'widgetOptions' => array(
-                        'data' => $languages,
+                        'data'        => $languages,
                         'htmlOptions' => array(
                             'empty' => Yii::t('CategoryModule.category', '--choose--'),
                         ),
@@ -97,9 +97,9 @@ $form = $this->beginWidget(
             'parent_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList(),
+                    'data'        => Category::model()->getFormattedList(),
                     'htmlOptions' => array(
-                        'empty' => Yii::t('CategoryModule.category', '--no--'),
+                        'empty'  => Yii::t('CategoryModule.category', '--no--'),
                         'encode' => false,
                     ),
                 ),
@@ -128,7 +128,18 @@ $form = $this->beginWidget(
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             )
         ); ?>
-        <?php echo $form->fileFieldGroup($model, 'image', array('widgetOptions' => array('htmlOptions' => array('onchange' => 'readURL(this);', 'style' => 'background-color: inherit;')))); ?>
+        <?php echo $form->fileFieldGroup(
+            $model,
+            'image',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'onchange' => 'readURL(this);',
+                        'style'    => 'background-color: inherit;'
+                    )
+                )
+            )
+        ); ?>
     </div>
 </div>
 
@@ -139,9 +150,9 @@ $form = $this->beginWidget(
             <?php $this->widget(
                 $this->module->editor,
                 array(
-                    'model' => $model,
+                    'model'     => $model,
                     'attribute' => 'description',
-                    'options' => $this->module->editorOptions,
+                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
             <?php echo $form->error($model, 'description', array('class' => 'help-block error')); ?>
@@ -156,9 +167,9 @@ $form = $this->beginWidget(
             <?php $this->widget(
                 $this->module->editor,
                 array(
-                    'model' => $model,
+                    'model'     => $model,
                     'attribute' => 'short_description',
-                    'options' => $this->module->editorOptions,
+                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
             <br/>
@@ -171,23 +182,26 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and continue') : Yii::t(
-            'CategoryModule.category',
-            'Save category and continue'
-        ),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t(
+                'CategoryModule.category',
+                'Create category and continue'
+            ) : Yii::t(
+                'CategoryModule.category',
+                'Save category and continue'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t(
-            'CategoryModule.category',
-            'Save category and close'
-        ),
+        'label'       => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t(
+                'CategoryModule.category',
+                'Save category and close'
+            ),
     )
 ); ?>
 

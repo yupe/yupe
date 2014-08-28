@@ -18,16 +18,16 @@ class ContentType
     /**
      * Константы типов:
      **/
-    const TYPE_HTML      = 1;
-    const TYPE_TEXT      = 2;
-    const TYPE_JSON      = 3;
-    const TYPE_JS        = 4;
-    const TYPE_XML       = 5;
-    const TYPE_RSS       = 6;
-    const TYPE_ATOM      = 7;
-    const TYPE_ARCH_ZIP  = 8;
-    const TYPE_ARCH_RAR  = 9;
-    const TYPE_ARCH_TAR  = 10;
+    const TYPE_HTML = 1;
+    const TYPE_TEXT = 2;
+    const TYPE_JSON = 3;
+    const TYPE_JS = 4;
+    const TYPE_XML = 5;
+    const TYPE_RSS = 6;
+    const TYPE_ATOM = 7;
+    const TYPE_ARCH_ZIP = 8;
+    const TYPE_ARCH_RAR = 9;
+    const TYPE_ARCH_TAR = 10;
     const TYPE_ARCH_GZIP = 11;
 
     /**
@@ -37,10 +37,11 @@ class ContentType
      *
      * @return nothing
      **/
-    static public function setHeader($contentTypeId)
+    public static function setHeader($contentTypeId)
     {
         if (!is_null(self::getHeader($contentTypeId))) {
             header(self::getHeader($contentTypeId));
+
             return true;
         } else {
             return false;
@@ -54,13 +55,12 @@ class ContentType
      *
      * @return string строка типа контента
      **/
-    static public function getHeader($contentTypeId)
+    public static function getHeader($contentTypeId)
     {
         $contentTypes = self::getTypes();
         if (isset($contentTypes[$contentTypeId])) {
             return $contentTypes[$contentTypeId];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -70,7 +70,7 @@ class ContentType
      *
      * @return mixed все типы контента
      **/
-    static public function getTypes()
+    public static function getTypes()
     {
         return array(
             self::TYPE_HTML      => 'Content-type: text/html',

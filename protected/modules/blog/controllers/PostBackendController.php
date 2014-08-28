@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PostBackendController контроллер для постов в панели управления
  *
@@ -14,7 +15,7 @@ class PostBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Blog.PostBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Blog.PostBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Blog.PostBackend.Index')),
@@ -29,17 +30,25 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'Post',
-                'validAttributes' => array('title', 'slug', 'publish_date', 'status', 'comment_status', 'blog_id', 'category_id')
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Post',
+                'validAttributes' => array(
+                    'title',
+                    'slug',
+                    'publish_date',
+                    'status',
+                    'comment_status',
+                    'blog_id',
+                    'category_id'
+                )
             )
         );
     }
 
     /**
      * Отображает запись по указанному идентификатору
-     * 
-     * @param integer $id Идинтификатор запись для отображения
+     *
+     * @param  integer $id Идинтификатор запись для отображения
      * @throws CHttpException
      * @return void
      */
@@ -61,7 +70,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new Post;
+        $model = new Post();
 
         $model->publish_date = date('d-m-Y h:i');
 
@@ -79,8 +88,9 @@ class PostBackendController extends yupe\components\controllers\BackController
                     Yii::t('BlogModule.blog', 'Post was created!')
                 );
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -90,8 +100,8 @@ class PostBackendController extends yupe\components\controllers\BackController
 
     /**
      * Редактирование записи.
-     * 
-     * @param integer $id the ID of the model to be updated
+     *
+     * @param  integer $id the ID of the model to be updated
      * @throws CHttpException
      * @return void
      */
@@ -115,13 +125,14 @@ class PostBackendController extends yupe\components\controllers\BackController
                     Yii::t('BlogModule.blog', 'Post was updated!')
                 );
 
-                if(isset($_POST['post-publish'])) {
+                if (isset($_POST['post-publish'])) {
                     $model->publish();
                 }
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array(
                             'update',
                             'id' => $model->id,
                         )
@@ -136,8 +147,8 @@ class PostBackendController extends yupe\components\controllers\BackController
     /**
      * Удаляет модель записи из базы.
      * Если удаление прошло успешно - возвращется в index
-     * 
-     * @param integer $id идентификатор записи, который нужно удалить
+     *
+     * @param  integer $id идентификатор записи, который нужно удалить
      * @throws CHttpException
      * @return void
      */
@@ -145,11 +156,12 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
-            
-            if (($post = Post::model()->loadModel($id)) === null)
+
+            if (($post = Post::model()->loadModel($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
-            else
+            } else {
                 $post->delete();
+            }
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -157,14 +169,20 @@ class PostBackendController extends yupe\components\controllers\BackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!Yii::app()->getRequest()->getIsAjaxRequest())
+            if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'returnUrl', array('index')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'returnUrl',
+                        array('index')
                     )
                 );
-        } else
-            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this!'));
+            }
+        } else {
+            throw new CHttpException(400, Yii::t(
+                'BlogModule.blog',
+                'Wrong request. Please don\'t repeate requests like this!'
+            ));
+        }
     }
 
     /**
@@ -174,12 +192,13 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionIndex()
     {
-        $model = new Post('search');        
+        $model = new Post('search');
         $model->unsetAttributes(); // clear any default values
-        if (Yii::app()->getRequest()->getParam('Post'))
+        if (Yii::app()->getRequest()->getParam('Post')) {
             $model->setAttributes(
                 Yii::app()->getRequest()->getParam('Post')
             );
+        }
         $this->render('index', array('model' => $model));
     }
 }

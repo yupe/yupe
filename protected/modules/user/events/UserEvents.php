@@ -33,4 +33,4 @@ class UserEvents
     const SUCCESS_REGISTRATION = 'user.success.registration';
 
     const FAILURE_REGISTRATION = 'user.failure.registration';
-} 
+}

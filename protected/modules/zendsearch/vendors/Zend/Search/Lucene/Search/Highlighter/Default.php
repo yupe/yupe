@@ -22,6 +22,7 @@
 
 /** @see Zend_Search_Lucene_Search_Highlighter_Interface */
 require_once 'Zend/Search/Lucene/Search/Highlighter/Interface.php';
+
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -36,11 +37,23 @@ class Zend_Search_Lucene_Search_Highlighter_Default implements Zend_Search_Lucen
      *
      * @var array
      */
-    protected $_highlightColors = array('#66ffff', '#ff66ff', '#ffff66',
-        '#ff8888', '#88ff88', '#8888ff',
-        '#88dddd', '#dd88dd', '#dddd88',
-        '#aaddff', '#aaffdd', '#ddaaff',
-        '#ddffaa', '#ffaadd', '#ffddaa');
+    protected $_highlightColors = array(
+        '#66ffff',
+        '#ff66ff',
+        '#ffff66',
+        '#ff8888',
+        '#88ff88',
+        '#8888ff',
+        '#88dddd',
+        '#dd88dd',
+        '#dddd88',
+        '#aaddff',
+        '#aaffdd',
+        '#ddaaff',
+        '#ddffaa',
+        '#ffaadd',
+        '#ffddaa'
+    );
 
     /**
      * Index of current color for highlighting
@@ -81,7 +94,7 @@ class Zend_Search_Lucene_Search_Highlighter_Default implements Zend_Search_Lucen
     /**
      * Highlight specified words
      *
-     * @param string|array $words  Words to highlight. They could be organized using the array or string.
+     * @param string|array $words Words to highlight. They could be organized using the array or string.
      */
     public function highlight($words)
     {

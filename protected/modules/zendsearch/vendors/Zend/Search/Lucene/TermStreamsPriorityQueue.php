@@ -23,7 +23,6 @@
 /** Zend_Search_Lucene_Index_TermsStream_Interface */
 require_once 'Zend/Search/Lucene/Index/TermsStream/Interface.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -54,11 +53,10 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
      */
     protected $_lastTerm = null;
 
-
     /**
      * Object constructor
      *
-     * @param array $termStreams  array of term streams (Zend_Search_Lucene_Index_TermsStream_Interface objects)
+     * @param array $termStreams array of term streams (Zend_Search_Lucene_Index_TermsStream_Interface objects)
      */
     public function __construct(array $termStreams)
     {

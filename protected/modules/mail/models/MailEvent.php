@@ -104,10 +104,11 @@ class MailEvent extends yupe\models\YModel
      **/
     public function getShortDescription()
     {
-        if (strlen($this->description) <= 100)
+        if (strlen($this->description) <= 100) {
             return $this->description;
-        else
+        } else {
             return substr($this->description, 0, 100) . " ...";
+        }
     }
 
     /**
@@ -120,7 +121,7 @@ class MailEvent extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('code', $this->code, true);

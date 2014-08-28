@@ -1,4 +1,5 @@
 <?php
+
 class LoginPage
 {
     public static $URL = '/login';

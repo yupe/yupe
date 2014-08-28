@@ -1,12 +1,12 @@
 <?php
 /**
  * Отображение для backend/_moduleslist:
- * 
- *   @category YupeView
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ *
+ * @category YupeView
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
 if (count($modules)) :
     $on = $off = $has = $dis = array();
@@ -17,16 +17,16 @@ if (count($modules)) :
             continue;
         }
 
-        if ($m->canActivate() === false){
+        if ($m->canActivate() === false) {
             continue;
         }
 
         if ($m->getIsActive() || $m->getIsNoDisable()) {
             $on[$m->id] = $m;
-            if (isset($updates[$m->id])){
+            if (isset($updates[$m->id])) {
                 $has[$m->id] = $m;
             }
-        } else if ($m->getIsInstalled()) {
+        } elseif ($m->getIsInstalled()) {
             $off[$m->id] = $m;
         } else {
             $dis[$m->id] = $m;
@@ -36,32 +36,53 @@ if (count($modules)) :
     <?php
     $tabs = array();
 
-    if (count($on))
+    if (count($on)) {
         $tabs[] = array(
-            'label'   => Yii::t('YupeModule.yupe', 'Active') . "&nbsp;" . CHtml::tag('span', array('class' => 'badge alert-success flash'), CHtml::tag('small', array(), count($on))),
+            'label'   => Yii::t('YupeModule.yupe', 'Active') . "&nbsp;" . CHtml::tag(
+                    'span',
+                    array('class' => 'badge alert-success flash'),
+                    CHtml::tag('small', array(), count($on))
+                ),
             'content' => modulesTable($on, $updates, $modules, $this),
             'active'  => true
         );
-    if (count($has))
+    }
+    if (count($has)) {
         $tabs[] = array(
-            'label'   => Yii::t('YupeModule.yupe', 'Have updates') . "&nbsp;" . CHtml::tag('span', array('class' => 'badge alert-warning'), CHtml::tag('small', array(), count($has))),
+            'label'   => Yii::t('YupeModule.yupe', 'Have updates') . "&nbsp;" . CHtml::tag(
+                    'span',
+                    array('class' => 'badge alert-warning'),
+                    CHtml::tag('small', array(), count($has))
+                ),
             'content' => modulesTable($has, $updates, $modules, $this)
         );
-    if (count($off))
+    }
+    if (count($off)) {
         $tabs[] = array(
-            'label'   => Yii::t('YupeModule.yupe', 'Disabled') . "&nbsp;" . CHtml::tag('span', array('class' => 'badge alert-danger'), CHtml::tag('small', array(), count($off))),
+            'label'   => Yii::t('YupeModule.yupe', 'Disabled') . "&nbsp;" . CHtml::tag(
+                    'span',
+                    array('class' => 'badge alert-danger'),
+                    CHtml::tag('small', array(), count($off))
+                ),
             'content' => modulesTable($off, $updates, $modules, $this)
         );
-    if (count($dis))
+    }
+    if (count($dis)) {
         $tabs[] = array(
-            'label'   => Yii::t('YupeModule.yupe', 'Not installed') . "&nbsp;" . CHtml::tag('span', array('class' => 'badge'), CHtml::tag('small', array(), count($dis))),
+            'label'   => Yii::t('YupeModule.yupe', 'Not installed') . "&nbsp;" . CHtml::tag(
+                    'span',
+                    array('class' => 'badge'),
+                    CHtml::tag('small', array(), count($dis))
+                ),
             'content' => modulesTable($dis, $updates, $modules, $this)
         );
+    }
 
     //$tabs[0]['active'] = true;
 
     $this->widget(
-        'bootstrap.widgets.TbTabs', array(
+        'bootstrap.widgets.TbTabs',
+        array(
             'type'        => 'tabs', // 'tabs' or 'pills'
             'tabs'        => $tabs,
             'encodeLabel' => false,
@@ -69,122 +90,187 @@ if (count($modules)) :
     );
 endif;
 
-
 function moduleRow($module, &$updates, &$modules)
 {
-?>
-    <tr class="<?php echo ($module->getIsActive()) ? (is_array($module->checkSelf()) ? 'danger' : '') : 'text-muted';?>">
+    ?>
+    <tr class="<?php echo ($module->getIsActive()) ? (is_array(
+        $module->checkSelf()
+    ) ? 'danger' : '') : 'text-muted'; ?>">
         <td><?php echo $module->icon ? "<i class='" . $module->getIcon() . "'>&nbsp;</i> " : ""; ?></td>
         <td>
-            <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->getCategory()); ?></small><br />
+            <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->getCategory()); ?></small>
+            <br/>
             <?php if ($module->getIsActive() || $module->getIsNoDisable()): ?>
-                <?php echo CHtml::link($module->getName() . ' <small>(' . $module->getId() . ')</small>', $module->getAdminPageLinkNormalize()); ?>
+                <?php echo CHtml::link(
+                    $module->getName() . ' <small>(' . $module->getId() . ')</small>',
+                    $module->getAdminPageLinkNormalize()
+                ); ?>
             <?php else: ?>
                 <span><?php echo $module->getName() . ' <small>(' . $module->getId() . ')</small>'; ?></span>
             <?php endif; ?>
         </td>
         <td>
-            <small class='label label-info'><?php echo $module->getVersion();?></small>
+            <small class='label label-info'><?php echo $module->getVersion(); ?></small>
         </td>
         <td>
             <?php if ($module->isMultiLang()) : ?>
-                <i class="glyphicon glyphicon-globe" title="<?php echo Yii::t('YupeModule.yupe', 'Multilanguage module'); ?>"></i>
+                <i class="glyphicon glyphicon-globe"
+                   title="<?php echo Yii::t('YupeModule.yupe', 'Multilanguage module'); ?>"></i>
             <?php endif; ?>
         </td>
         <td>
             <?php echo $module->description; ?>
-            <br />
-            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('YupeModule.yupe', "Author:") . "</b> " . $module->getAuthor(); ?>
-            (<a href="mailto:<?php echo $module->getAuthorEmail(); ?>"><?php echo $module->getAuthorEmail(); ?></a>) &nbsp;
-            <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Module site:') . "</b> " . CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
+            <br/>
+            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t(
+                        'YupeModule.yupe',
+                        "Author:"
+                    ) . "</b> " . $module->getAuthor(); ?>
+                (<a href="mailto:<?php echo $module->getAuthorEmail(); ?>"><?php echo $module->getAuthorEmail(); ?></a>)
+                &nbsp;
+                <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Module site:') . "</b> " . CHtml::link(
+                        $module->getUrl(),
+                        $module->getUrl()
+                    ); ?></small>
+            <br/>
         </td>
         <td>
             <?php
-                $tabs = array();
+            $tabs = array();
 
-                if ($module->getId() != \yupe\components\ModuleManager::CORE_MODULE && count($module->getDependencies()))
-                {
-                    $deps = $module->getDependencies();
+            if ($module->getId() != \yupe\components\ModuleManager::CORE_MODULE && count($module->getDependencies())) {
+                $deps = $module->getDependencies();
+                $tabs[] = array(
+                    'label'   => "<small>" . Yii::t('YupeModule.yupe', 'Depends on') . "</small>",
+                    'content' => implode(', ', $deps),
+                    'count'   => count($deps),
+                );
+            }
+            if ($module->getId() == \yupe\components\ModuleManager::CORE_MODULE) {
+                $tabs[] = array(
+                    'label'   => "<small>" . Yii::t('YupeModule.yupe', 'Dependent') . "</small>",
+                    'content' => Yii::t('YupeModule.yupe', 'All modules'),
+                    'count'   => Yii::t('YupeModule.yupe', 'All'),
+                );
+            } else {
+                if (count($deps = $module->getDependent())) {
+                    foreach ($deps as $dep) {
+                        if (isset($modules[$dep]) && $modules[$dep] instanceof yupe\components\WebModule === false) {
+                            continue;
+                        }
+                    }
                     $tabs[] = array(
-                        'label'   => "<small>" . Yii::t('YupeModule.yupe', 'Depends on') . "</small>",
+                        'label'   => "<br />" . "<small>" . Yii::t('YupeModule.yupe', 'dependent') . "</small>",
                         'content' => implode(', ', $deps),
                         'count'   => count($deps),
                     );
                 }
-                if( $module->getId() == \yupe\components\ModuleManager::CORE_MODULE)
-                    $tabs[] = array(
-                        'label'   => "<small>" . Yii::t('YupeModule.yupe', 'Dependent') . "</small>",
-                        'content' => Yii::t('YupeModule.yupe', 'All modules'),
-                        'count'   => Yii::t('YupeModule.yupe', 'All'),
+            }
+            foreach ($tabs as $t) {
+                echo $t['label'] . " " . CHtml::tag(
+                        'span',
+                        array(
+                            'class' => 'label label-info',
+                            'rel'   => 'tooltip',
+                            'title' => $t['content'],
+                        ),
+                        CHtml::tag('small', array(), $t['count'])
                     );
-                else
-                {
-                    if(count($deps = $module->getDependent()))
-                    {
-                        foreach($deps as $dep) {
-                            if (isset($modules[$dep]) && $modules[$dep] instanceof yupe\components\WebModule === false) {
-                                continue;
-                            }
-                        }
-                        $tabs[] = array(
-                            'label'   => "<br />" . "<small>" . Yii::t('YupeModule.yupe', 'dependent') . "</small>",
-                            'content' => implode(', ', $deps),
-                            'count'   => count($deps),
-                        );
-                    }
-                }
-                foreach ($tabs as $t)
-                    echo $t['label'] . " " . CHtml::tag('span', array(
-                        'class' => 'label label-info',
-                        'rel'   => 'tooltip',
-                        'title' => $t['content'],
-                    ), CHtml::tag('small', array(), $t['count']));
+            }
 
-              ?>
+            ?>
         </td>
         <td class="button-column">
             <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
-                <?php echo CHtml::link('<i class="glyphicon glyphicon-wrench" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Settings') . '">&nbsp;</i>', array(
-                    '/yupe/backend/modulesettings/',
-                    'module' => $module->getId(),
-                )); ?>
+                <?php echo CHtml::link(
+                    '<i class="glyphicon glyphicon-wrench" rel="tooltip" title="' . Yii::t(
+                        'YupeModule.yupe',
+                        'Settings'
+                    ) . '">&nbsp;</i>',
+                    array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => $module->getId(),
+                    )
+                ); ?>
             <?php endif; ?>
             <?php
-                $url = array('/yupe/modulesBackend/moduleStatus/', 'name' => $module->getId());
-                $htmlOptions = array(
-                    'class'  => 'changeStatus',
-                    'module' => $module->getId(),
+            $url = array('/yupe/modulesBackend/moduleStatus/', 'name' => $module->getId());
+            $htmlOptions = array(
+                'class'  => 'changeStatus',
+                'module' => $module->getId(),
+            );
+
+            echo $module->getIsNoDisable() ? '' :
+                ($module->getIsInstalled() || $module->getIsActive()
+                    ? ($module->getIsActive()
+                        ? CHtml::link(
+                            '<i class="glyphicon glyphicon-minus-sign" rel="tooltip" title="' . Yii::t(
+                                'YupeModule.yupe',
+                                'Disable'
+                            ) . '">&nbsp;</i>',
+                            $url + array('status' => '0'),
+                            array_merge($htmlOptions, array('status' => 0, 'method' => 'deactivate'))
+                        )
+                        : CHtml::link(
+                            '<i class="glyphicon glyphicon-ok-sign" rel="tooltip" title="' . Yii::t(
+                                'YupeModule.yupe',
+                                'Enable'
+                            ) . '">&nbsp;</i>',
+                            $url + array('status' => '1'),
+                            array_merge($htmlOptions, array('status' => 1, 'method' => 'activate'))
+                        ) .
+                        ($module->isNeedUninstall()
+                            ? ''
+                            : CHtml::link(
+                                '<i class="glyphicon glyphicon-remove" rel="tooltip" title="' . Yii::t(
+                                    'YupeModule.yupe',
+                                    'Uninstall'
+                                ) . '">&nbsp;</i>',
+                                $url + array('status' => '0'),
+                                array_merge($htmlOptions, array('status' => 0, 'method' => 'uninstall'))
+                            )
+                        )
+                    )
+                    : CHtml::link(
+                        '<i class="glyphicon glyphicon-download-alt" rel="tooltip" title="' . Yii::t(
+                            'YupeModule.yupe',
+                            'Install'
+                        ) . '">&nbsp;</i>',
+                        $url + array('status' => '1'),
+                        array_merge($htmlOptions, array('status' => 1, 'method' => 'install'))
+                    )
                 );
 
-                echo $module->getIsNoDisable() ? '' :
-                    ($module->getIsInstalled() || $module->getIsActive()
-                        ? ($module->getIsActive()
-                            ? CHtml::link('<i class="glyphicon glyphicon-minus-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Disable') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0, 'method' => 'deactivate')))
-                            : CHtml::link('<i class="glyphicon glyphicon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Enable') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'activate'))) .
-                                ($module->isNeedUninstall()
-                                    ? ''
-                                    : CHtml::link('<i class="glyphicon glyphicon-remove" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Uninstall') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0, 'method' => 'uninstall')))
-                                )
-                        )
-                        : CHtml::link('<i class="glyphicon glyphicon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Install') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'install')))
-                    );
-
-                if (isset($updates[$module->getId()]) && $module->getIsInstalled()){
-                    echo CHtml::link('<i class="glyphicon glyphicon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Have {n} DB updates!|Have {n} DB updates!|Have {n} DB updates!', count($updates[$module->getId()])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->getId()));
-                }
-                if ($module->getIsActive() && $module->isConfigNeedUpdate())
-                    echo CHtml::link('<i class="glyphicon glyphicon-repeat" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Have configuration file updates!') . '">&nbsp;</i>', $url + array('status' => '2'), array_merge($htmlOptions, array('status' => 2, 'method' => 'update')));
-                ?>
+            if (isset($updates[$module->getId()]) && $module->getIsInstalled()) {
+                echo CHtml::link(
+                    '<i class="glyphicon glyphicon-refresh" rel="tooltip" title="' . Yii::t(
+                        'YupeModule.yupe',
+                        'Have {n} DB updates!|Have {n} DB updates!|Have {n} DB updates!',
+                        count($updates[$module->getId()])
+                    ) . '">&nbsp;</i>',
+                    array('/yupe/backend/modupdate', 'name' => $module->getId())
+                );
+            }
+            if ($module->getIsActive() && $module->isConfigNeedUpdate()) {
+                echo CHtml::link(
+                    '<i class="glyphicon glyphicon-repeat" rel="tooltip" title="' . Yii::t(
+                        'YupeModule.yupe',
+                        'Have configuration file updates!'
+                    ) . '">&nbsp;</i>',
+                    $url + array('status' => '2'),
+                    array_merge($htmlOptions, array('status' => 2, 'method' => 'update'))
+                );
+            }
+            ?>
         </td>
     </tr>
 <?php
 }
 
-function modulesTable($modules, &$updates, &$allmodules,&$controller)
+function modulesTable($modules, &$updates, &$allmodules, &$controller)
 {
     ob_start();
     ob_implicit_flush(false);
-?>
+    ?>
     <table class="table table-striped table-vmiddle">
         <thead>
         <tr>
@@ -198,13 +284,16 @@ function modulesTable($modules, &$updates, &$allmodules,&$controller)
         </tr>
         </thead>
         <tbody>
-            <?php
-            foreach ($modules as $module)
-                moduleRow($module, $updates, $allmodules, $controller);
-            ?>
+        <?php
+        foreach ($modules as $module) {
+            moduleRow($module, $updates, $allmodules, $controller);
+        }
+        ?>
         </tbody>
     </table>
-<?php
+    <?php
+
     return ob_get_clean();
 }
+
 ?>

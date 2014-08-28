@@ -12,11 +12,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'dictionary-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'dictionary-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 
@@ -46,9 +46,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'description',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'description'); ?>
@@ -59,17 +59,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Create dictionary and continue') : Yii::t('DictionaryModule.dictionary', 'Save dictionary and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t(
+                'DictionaryModule.dictionary',
+                'Create dictionary and continue'
+            ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and continue'),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Create dictionary and close') : Yii::t('DictionaryModule.dictionary', 'Save dictionary and close'),
+        'label'       => $model->isNewRecord ? Yii::t(
+                'DictionaryModule.dictionary',
+                'Create dictionary and close'
+            ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and close'),
     )
 ); ?>
 

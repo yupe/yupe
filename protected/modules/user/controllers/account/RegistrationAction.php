@@ -23,33 +23,33 @@ class RegistrationAction extends CAction
         }
 
         if ($module->registrationDisabled) {
-        	throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
+            throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
         }
 
-        $form = new RegistrationForm;
+        $form = new RegistrationForm();
 
         if (($data = Yii::app()->getRequest()->getPost('RegistrationForm')) !== null) {
-            
+
             $form->setAttributes($data);
 
-            if ($form->validate()) {				
+            if ($form->validate()) {
 
-				if($user = Yii::app()->userManager->createUser($form)) {
-					
-				    Yii::app()->user->setFlash(
-						yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-						Yii::t('UserModule.user', 'Account was created! Check your email!')
-					);
-					
-					$this->controller->redirect(Url::redirectUrl($module->registrationSuccess));
-				}
+                if ($user = Yii::app()->userManager->createUser($form)) {
+
+                    Yii::app()->user->setFlash(
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t('UserModule.user', 'Account was created! Check your email!')
+                    );
+
+                    $this->controller->redirect(Url::redirectUrl($module->registrationSuccess));
+                }
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error creating account!')
                 );
-			}
-		}
+            }
+        }
 
         $this->controller->render('registration', array('model' => $form, 'module' => $module));
     }

@@ -10,7 +10,7 @@
  *
  **/
 return array(
-    'module'   => array(
+    'module'    => array(
         'class' => 'application.modules.homepage.HomepageModule',
     ),
     'import'    => array(),

@@ -2,11 +2,11 @@
 /**
  * Входной скрипт index:
  *
- *   @category YupeScript
- *   @package  YupeCMS
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category YupeScript
+ * @package  YupeCMS
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  **/
 
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
@@ -15,7 +15,7 @@ if (!ini_get('date.timezone')) {
 }
 
 // Setting internal encoding to UTF-8.
-if(!ini_get('mbstring.internal_encoding')) {
+if (!ini_get('mbstring.internal_encoding')) {
     @ini_set("mbstring.internal_encoding", 'UTF-8');
     mb_internal_encoding('UTF-8');
 }
@@ -30,6 +30,6 @@ $base = require dirname(__FILE__) . '/../protected/config/test.php';
 
 $confManager = new yupe\components\ConfigManager();
 
-require dirname(__FILE__).'/../vendor/autoload.php';
+require dirname(__FILE__) . '/../vendor/autoload.php';
 
 Yii::createWebApplication($confManager->merge($base))->run();

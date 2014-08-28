@@ -25,11 +25,11 @@ form .help-block {
 }
 
 body.admin-panel #footer-guard {
-	height: 40px;
+    height: 40px;
 }
 
 body.admin-panel > footer {
-	position: fixed;
+    position: fixed;
     height: 43px;
     bottom: 0;
     width: 100%;

@@ -16,110 +16,114 @@ $this->widget(
     'bootstrap.widgets.TbNavbar',
     array(
         //'type' => 'inverse',
-        'fluid' => true,
+        'fluid'    => true,
         'collapse' => true,
-        'fixed' => 'top',
-        'brand' => CHtml::image(
-            $yupeAssets . '/img/logo.png',
-            CHtml::encode(Yii::app()->name),
-            array(
-                'width' => '38',
-                'height' => '38',
-                'title' => CHtml::encode(Yii::app()->name),
-            )
-        ),
+        'fixed'    => 'top',
+        'brand'    => CHtml::image(
+                $yupeAssets . '/img/logo.png',
+                CHtml::encode(Yii::app()->name),
+                array(
+                    'width'  => '38',
+                    'height' => '38',
+                    'title'  => CHtml::encode(Yii::app()->name),
+                )
+            ),
         'brandUrl' => CHtml::normalizeUrl(array("/yupe/backend/index")),
-        'items' => array(
+        'items'    => array(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
-                'type' => 'navbar',
+                'type'  => 'navbar',
                 'items' => Yii::app()->moduleManager->getModules(true),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbMenu',
+                'class'       => 'bootstrap.widgets.TbMenu',
                 'htmlOptions' => array('class' => 'navbar-right'),
-                'type' => 'navbar',
+                'type'        => 'navbar',
                 'encodeLabel' => false,
-                'items' => array_merge(
+                'items'       => array_merge(
                     array(
                         array(
-                            'icon' => 'glyphicon glyphicon-question-sign',
+                            'icon'  => 'glyphicon glyphicon-question-sign',
                             'label' => Yii::t('YupeModule.yupe', 'Help'),
-                            'url' => CHtml::normalizeUrl(array('/yupe/backend/help')),
+                            'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
                             'items' => array(
                                 array(
-                                    'icon' => 'glyphicon glyphicon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Official site'),
-                                    'url' => 'http://yupe.ru?from=help',
+                                    'icon'        => 'glyphicon glyphicon-globe',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Official site'),
+                                    'url'         => 'http://yupe.ru?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-book',
-                                    'label' => Yii::t('YupeModule.yupe', 'Official docs'),
-                                    'url' => 'http://yupe.ru/docs/index.html?from=help',
+                                    'icon'        => 'glyphicon glyphicon-book',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Official docs'),
+                                    'url'         => 'http://yupe.ru/docs/index.html?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-th-large',
-                                    'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                    'url' => 'https://github.com/yupe/yupe-ext',
+                                    'icon'        => 'glyphicon glyphicon-th-large',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Additional modules'),
+                                    'url'         => 'https://github.com/yupe/yupe-ext',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-comment',
-                                    'label' => Yii::t('YupeModule.yupe', 'Forum'),
-                                    'url' => 'http://yupe.ru/talk/?from=help',
+                                    'icon'        => 'glyphicon glyphicon-comment',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Forum'),
+                                    'url'         => 'http://yupe.ru/talk/?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-comment',
-                                    'label' => Yii::t('YupeModule.yupe', 'Chat'),
-                                    'url' => 'http://gitter.im/yupe/yupe',
+                                    'icon'        => 'glyphicon glyphicon-comment',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Chat'),
+                                    'url'         => 'http://gitter.im/yupe/yupe',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Community on github'),
-                                    'url' => 'https://github.com/yupe/yupe',
+                                    'icon'        => 'glyphicon glyphicon-globe',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Community on github'),
+                                    'url'         => 'https://github.com/yupe/yupe',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-thumbs-up',
-                                    'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                    'url' => 'http://amylabs.ru/contact?from=help-support',
+                                    'icon'        => 'glyphicon glyphicon-thumbs-up',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Order development and support'),
+                                    'url'         => 'http://amylabs.ru/contact?from=help-support',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-warning-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                    'url' => 'http://yupe.ru/contacts?from=panel',
+                                    'icon'        => 'glyphicon glyphicon-warning-sign',
+                                    'label'       => Yii::t('YupeModule.yupe', 'Report a bug'),
+                                    'url'         => 'http://yupe.ru/contacts?from=panel',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-exclamation-sign',
+                                    'icon'  => 'glyphicon glyphicon-exclamation-sign',
                                     'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                    'url' => array('/yupe/backend/help'),
+                                    'url'   => array('/yupe/backend/help'),
                                 ),
                             )
                         ),
                         array(
-                            'icon' => 'glyphicon glyphicon-home',
+                            'icon'  => 'glyphicon glyphicon-home',
                             'label' => Yii::t('YupeModule.yupe', 'Go home'),
-                            'url' => Yii::app()->createAbsoluteUrl('/')
+                            'url'   => Yii::app()->createAbsoluteUrl('/')
                         ),
                         array(
                             'icon'  => 'glyphicon glyphicon-user',
-                            'label' => '<span class="label label-info">'.CHtml::encode(Yii::app()->getUser()->getProfileField('fullName')).'</span>',
+                            'label' => '<span class="label label-info">' . CHtml::encode(
+                                    Yii::app()->getUser()->getProfileField('fullName')
+                                ) . '</span>',
                             'items' => array(
                                 array(
-                                    'icon' => 'glyphicon glyphicon-cog',
+                                    'icon'  => 'glyphicon glyphicon-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Profile'),
-                                    'url' => CHtml::normalizeUrl((array('/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()))),
+                                    'url'   => CHtml::normalizeUrl(
+                                            (array('/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()))
+                                        ),
                                 ),
                                 array(
-                                    'icon' => 'glyphicon glyphicon-off',
+                                    'icon'  => 'glyphicon glyphicon-off',
                                     'label' => Yii::t('YupeModule.yupe', 'Exit'),
-                                    'url' => CHtml::normalizeUrl(array('/user/account/logout')),
+                                    'url'   => CHtml::normalizeUrl(array('/user/account/logout')),
                                 ),
                             ),
                         ),
@@ -135,6 +139,8 @@ $this->widget(
     $(document).ready(function () {
         var url = window.location.href;
         $('.navbar .nav li').removeClass('active');
-        $('.nav a').filter(function() {return this.getAttribute("href") != '#' && this.href == url;}).parents('li').addClass('active');
+        $('.nav a').filter(function () {
+            return this.getAttribute("href") != '#' && this.href == url;
+        }).parents('li').addClass('active');
     });
 </script>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Image install migration
  * Класс миграций для модуля Image
@@ -21,17 +22,17 @@ class m000000_000000_image_base extends yupe\components\DbMigration
         $this->createTable(
             '{{image_image}}',
             array(
-                'id' => 'pk',
-                'category_id' => 'integer DEFAULT NULL',
-                'parent_id' => 'integer DEFAULT NULL',
-                'name' => 'varchar(250) NOT NULL',
-                'description' => 'text',
-                'file' => 'varchar(250) NOT NULL',
+                'id'            => 'pk',
+                'category_id'   => 'integer DEFAULT NULL',
+                'parent_id'     => 'integer DEFAULT NULL',
+                'name'          => 'varchar(250) NOT NULL',
+                'description'   => 'text',
+                'file'          => 'varchar(250) NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-                'user_id' => 'integer DEFAULT NULL',
-                'alt' => 'varchar(250) NOT NULL',
-                'type' => "integer NOT NULL DEFAULT '0'",
-                'status' => "integer NOT NULL DEFAULT '1'",
+                'user_id'       => 'integer DEFAULT NULL',
+                'alt'           => 'varchar(250) NOT NULL',
+                'type'          => "integer NOT NULL DEFAULT '0'",
+                'status'        => "integer NOT NULL DEFAULT '1'",
             ),
             $this->getOptions()
         );
@@ -43,9 +44,33 @@ class m000000_000000_image_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{image_image}}_category_id", '{{image_image}}', "category_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{image_image}}_category_id",'{{image_image}}', 'category_id','{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{image_image}}_user_id",'{{image_image}}', 'user_id','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{image_image}}_parent_id",'{{image_image}}','parent_id','{{image_image}}','id','SET NULL','NO ACTION');
+        $this->addForeignKey(
+            "fk_{{image_image}}_category_id",
+            '{{image_image}}',
+            'category_id',
+            '{{category_category}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            "fk_{{image_image}}_user_id",
+            '{{image_image}}',
+            'user_id',
+            '{{user_user}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            "fk_{{image_image}}_parent_id",
+            '{{image_image}}',
+            'parent_id',
+            '{{image_image}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
     }
 
     /**

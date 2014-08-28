@@ -18,7 +18,7 @@ return array(
     'import'    => array(),
     'component' => array(
         // компонент для отправки почты
-        'mail' => array(
+        'mail'        => array(
             'class' => 'yupe\components\Mail',
         ),
         'mailMessage' => array(

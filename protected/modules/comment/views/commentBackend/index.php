@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('CommentModule.comment', 'Comments - management');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url' => array('/comment/commentBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('CommentModule.comment', 'Comments list'),
+        'url'   => array('/comment/commentBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('CommentModule.comment', 'Create comment'),
+        'url'   => array('/comment/commentBackend/create')
+    ),
 );
 ?>
 <div class="page-header">
@@ -31,10 +39,11 @@ $this->menu = array(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('comment-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });
 "
@@ -48,39 +57,44 @@ $this->menu = array(
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'comment-grid',
+        'id'           => 'comment-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'columns'      => array(
             array(
-                'name' => 'model',
+                'name'  => 'model',
                 'value' => '$data->getTargetTitleLink()',
-                'type' => 'html'
+                'type'  => 'html'
             ),
             'model_id',
             array(
-                'name' => 'text',
+                'name'  => 'text',
                 'value' => 'yupe\helpers\YText::characterLimiter($data->text, 150)',
-                'type' => 'html'
+                'type'  => 'html'
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
-                    'url' => $this->createUrl('/comment/commentBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
+                    'url'    => $this->createUrl('/comment/commentBackend/inline'),
+                    'mode'   => 'popup',
+                    'type'   => 'select',
                     'source' => $model->getStatusList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'name' => 'status',
-                'type' => 'raw',
-                'value' => '$data->getStatus()',
-                'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList(), array('class' => 'form-control', 'empty' => '')),
+                'name'     => 'status',
+                'type'     => 'raw',
+                'value'    => '$data->getStatus()',
+                'filter'   => CHtml::activeDropDownList(
+                        $model,
+                        'status',
+                        $model->getStatusList(),
+                        array('class' => 'form-control', 'empty' => '')
+                    ),
             ),
             array(
-                'name' => 'creation_date',
+                'name'  => 'creation_date',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
             ),
             'name',

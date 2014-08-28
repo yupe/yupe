@@ -11,11 +11,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'user-to-blog-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'user-to-blog-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 );
 
@@ -36,11 +36,11 @@ $form = $this->beginWidget(
             'user_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(User::model()->findAll(), 'id', 'nick_name'),
+                    'data'        => CHtml::listData(User::model()->findAll(), 'id', 'nick_name'),
                     'htmlOptions' => array(
-                        'class' => 'span7 popover-help',
+                        'class'               => 'span7 popover-help',
                         'data-original-title' => $model->getAttributeLabel('user_id'),
-                        'data-content' => $model->getAttributeDescription('user_id'),
+                        'data-content'        => $model->getAttributeDescription('user_id'),
                     ),
                 ),
             )
@@ -54,11 +54,11 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
+                    'data'        => CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
                     'htmlOptions' => array(
-                        'class' => 'span7 popover-help',
+                        'class'               => 'span7 popover-help',
                         'data-original-title' => $model->getAttributeLabel('blog_id'),
-                        'data-content' => $model->getAttributeDescription('blog_id'),
+                        'data-content'        => $model->getAttributeDescription('blog_id'),
                     ),
                 ),
             )
@@ -72,11 +72,11 @@ $form = $this->beginWidget(
             'role',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getRoleList(),
+                    'data'        => $model->getRoleList(),
                     'htmlOptions' => array(
-                        'class' => 'span7 popover-help',
+                        'class'               => 'span7 popover-help',
                         'data-original-title' => $model->getAttributeLabel('role'),
-                        'data-content' => $model->getAttributeDescription('role'),
+                        'data-content'        => $model->getAttributeDescription('role'),
                     ),
                 ),
             )
@@ -91,11 +91,11 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
-                        'class' => 'span7 popover-help',
+                        'class'               => 'span7 popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content' => $model->getAttributeDescription('status'),
+                        'data-content'        => $model->getAttributeDescription('status'),
                     ),
                 ),
             )
@@ -110,9 +110,9 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('note'),
-                        'data-content' => $model->getAttributeDescription('note')
+                        'data-content'        => $model->getAttributeDescription('note')
                     ),
                 ),
             )
@@ -125,8 +125,11 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and continue') : Yii::t('BlogModule.blog', 'Save member and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and continue') : Yii::t(
+                'BlogModule.blog',
+                'Save member and continue'
+            ),
     )
 ); ?>
 
@@ -134,9 +137,12 @@ $this->widget(
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and close') : Yii::t('BlogModule.blog', 'Save member and close'),
+        'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and close') : Yii::t(
+                'BlogModule.blog',
+                'Save member and close'
+            ),
     )
 ); ?>
 

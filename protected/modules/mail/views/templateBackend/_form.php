@@ -11,11 +11,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'mail-template-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'mail-template-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 
@@ -34,7 +34,7 @@ $form = $this->beginWidget(
             'event_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
+                    'data'        => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
                     'htmlOptions' => array('empty' => Yii::t('MailModule.mail', '--choose--')),
                 ),
             )
@@ -72,9 +72,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'body',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
@@ -86,9 +86,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'description',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
@@ -101,7 +101,7 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(),
                 ),
             )
@@ -113,17 +113,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and continue') : Yii::t('MailModule.mail', 'Save template and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and continue') : Yii::t(
+                'MailModule.mail',
+                'Save template and continue'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and close') : Yii::t('MailModule.mail', 'Save template and close'),
+        'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and close') : Yii::t(
+                'MailModule.mail',
+                'Save template and close'
+            ),
     )
 ); ?>
 

@@ -10,11 +10,11 @@
  *
  **/
 return array(
-    'module'   => array(
+    'module'    => array(
         'class'           => 'application.modules.feedback.FeedbackModule',
         'notifyEmailFrom' => 'test@test.ru',
         'emails'          => 'test_1@test.ru, test_2@test.ru',
-        'panelWidgets' => array(
+        'panelWidgets'    => array(
             'application.modules.feedback.widgets.PanelFeedbackStatWidget' => array(
                 'limit' => 5
             )
@@ -25,10 +25,10 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        '/contacts' => 'feedback/contact/index',
-        '/faq' => 'feedback/contact/faq',
-        '/faq/<id:\d+>' => 'feedback/contact/faqView',
+        '/contacts'                             => 'feedback/contact/index',
+        '/faq'                                  => 'feedback/contact/faq',
+        '/faq/<id:\d+>'                         => 'feedback/contact/faqView',
         '/feedback/contact/captcha/refresh/<v>' => '/feedback/contact/captcha/refresh',
-        '/feedback/contact/captcha/<v>' => '/feedback/contact/captcha/'
+        '/feedback/contact/captcha/<v>'         => '/feedback/contact/captcha/'
     ),
 );

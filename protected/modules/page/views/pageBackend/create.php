@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('PageModule.page', 'Add page');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PageModule.page', 'Add page'), 'url' => array('/page/pageBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('PageModule.page', 'Pages list'),
+        'url'   => array('/page/pageBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('PageModule.page', 'Add page'),
+        'url'   => array('/page/pageBackend/create')
+    ),
 );
 ?>
 <div class="page-header">
@@ -18,4 +26,13 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('menuId' => $menuId, 'menuParentId' => $menuParentId, 'model' => $model, 'pages' => $pages, 'languages' => $languages)); ?>
+<?php echo $this->renderPartial(
+    '_form',
+    array(
+        'menuId'       => $menuId,
+        'menuParentId' => $menuParentId,
+        'model'        => $model,
+        'pages'        => $pages,
+        'languages'    => $languages
+    )
+); ?>

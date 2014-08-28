@@ -3,11 +3,11 @@
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
  *
- *   @category YupeGiiTemplate
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category YupeGiiTemplate
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  */
 ?>
 <?php
@@ -59,7 +59,8 @@ EOF;
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->mid}', 'Редактирование') . ' ' . Yii::t('{$this->mid}', '{$this->rod}'); ?>"; ?><br />
+        <?php echo "<?php echo Yii::t('{$this->mid}', 'Редактирование') . ' ' . Yii::t('{$this->mid}', '{$this->rod}'); ?>"; ?>
+        <br/>
         <small>&laquo;<?php echo "<?php echo \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
     </h1>
 </div>

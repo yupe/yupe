@@ -8,8 +8,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'login-form',
-        'type' => 'vertical',
+        'id'          => 'login-form',
+        'type'        => 'vertical',
         'htmlOptions' => array(
             'class' => 'well',
         )
@@ -43,19 +43,23 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
         'CCaptcha',
         array(
             'showRefreshButton' => true,
-            'imageOptions' => array(
+            'imageOptions'      => array(
                 'width' => '150',
             ),
-            'buttonOptions' => array(
+            'buttonOptions'     => array(
                 'class' => 'btn',
             ),
-            'buttonLabel' => '<i class="icon-repeat"></i>',
+            'buttonLabel'       => '<i class="icon-repeat"></i>',
         )
     ); ?>
 
     <div class='row'>
         <div class="col-sm-6">
-            <?php echo $form->textFieldGroup($model, 'verifyCode', array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))); ?>
+            <?php echo $form->textFieldGroup(
+                $model,
+                'verifyCode',
+                array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))
+            ); ?>
         </div>
     </div>
 <?php } endif; ?>
@@ -67,9 +71,9 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'icon' => 'glyphicon glyphicon-ok',
-        'label' => Yii::t('UserModule.user', 'Sign in'),
+        'context'    => 'primary',
+        'icon'       => 'glyphicon glyphicon-ok',
+        'label'      => Yii::t('UserModule.user', 'Sign in'),
     )
 ); ?>
 
@@ -78,8 +82,8 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'link',
-        'label' => Yii::t('UserModule.user', 'Sign up'),
-        'url' => Yii::app()->createUrl('/user/account/registration'),
+        'label'      => Yii::t('UserModule.user', 'Sign up'),
+        'url'        => Yii::app()->createUrl('/user/account/registration'),
     )
 ); ?>
 

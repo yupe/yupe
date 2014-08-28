@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
+    Yii::t('UserModule.user', 'Users')  => array('/user/userBackend/index'),
     Yii::t('UserModule.user', 'Tokens') => array('/user/tokensBackend/index'),
     Yii::t('UserModule.user', 'Update token') . ' #' . $model->id,
 );
@@ -11,25 +11,45 @@ $this->menu = array(
     array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Manage users'),
+                'url'   => array('/user/userBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('UserModule.user', 'Create user'),
+                'url'   => array('/user/userBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Token list'),
+                'url'   => array('/user/tokensBackend/index')
+            ),
         )
     ),
     array(
         'label' => Yii::t('UserModule.user', 'Token') . ' #' . $model->id,
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-eye-open', 'label' => Yii::t('UserModule.user', 'View'), 'url' => array('/user/tokensBackend/view', 'id' => $model->id)),
-            array('icon' => 'glyphicon glyphicon-pencil', 'label' => Yii::t('UserModule.user', 'Update'), 'url' => array('/user/tokensBackend/update', 'id' => $model->id)),
             array(
-                'icon' => 'glyphicon glyphicon-trash',
-                'label' => Yii::t('UserModule.user', 'Delete'),
-                'url' => array(
+                'icon'  => 'glyphicon glyphicon-eye-open',
+                'label' => Yii::t('UserModule.user', 'View'),
+                'url'   => array('/user/tokensBackend/view', 'id' => $model->id)
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-pencil',
+                'label' => Yii::t('UserModule.user', 'Update'),
+                'url'   => array('/user/tokensBackend/update', 'id' => $model->id)
+            ),
+            array(
+                'icon'        => 'glyphicon glyphicon-trash',
+                'label'       => Yii::t('UserModule.user', 'Delete'),
+                'url'         => array(
                     '/user/tokensBackend/delete',
                     'id' => $model->id
                 ),

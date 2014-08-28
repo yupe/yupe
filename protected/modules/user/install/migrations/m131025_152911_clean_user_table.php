@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Clean user table migration
  * Класс миграций для модуля User:
@@ -9,7 +10,6 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
 class m131025_152911_clean_user_table extends yupe\components\DbMigration
 {
     public function safeUp()
@@ -35,7 +35,7 @@ class m131025_152911_clean_user_table extends yupe\components\DbMigration
                 'id'            => 'pk',
                 'user_id'       => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-                'code'          =>  'char(32) NOT NULL',
+                'code'          => 'char(32) NOT NULL',
             ),
             $this->getOptions()
         );

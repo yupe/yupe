@@ -20,11 +20,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'mail-event-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'mail-event-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 
@@ -59,8 +59,11 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and continue') : Yii::t('MailModule.mail', 'Save event and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and continue') : Yii::t(
+                'MailModule.mail',
+                'Save event and continue'
+            ),
     )
 ); ?>
 
@@ -68,9 +71,12 @@ $this->widget(
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and close') : Yii::t('MailModule.mail', 'Save event and close'),
+        'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and close') : Yii::t(
+                'MailModule.mail',
+                'Save event and close'
+            ),
     )
 ); ?>
 

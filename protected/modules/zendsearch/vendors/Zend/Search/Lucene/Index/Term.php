@@ -20,7 +20,6 @@
  * @version    $Id: Term.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * A Term represents a word from text.  This is the unit of search.  It is
  * composed of two elements, the text of the word, as a string, and the name of
@@ -51,7 +50,6 @@ class Zend_Search_Lucene_Index_Term
      */
     public $text;
 
-
     /**
      * Object constructor
      */
@@ -60,7 +58,6 @@ class Zend_Search_Lucene_Index_Term
         $this->field = ($field === null) ? Zend_Search_Lucene::getDefaultSearchField() : $field;
         $this->text = $text;
     }
-
 
     /**
      * Returns term key
@@ -75,8 +72,8 @@ class Zend_Search_Lucene_Index_Term
     /**
      * Get term prefix
      *
-     * @param string $str
-     * @param integer $length
+     * @param  string $str
+     * @param  integer $length
      * @return string
      */
     public static function getPrefix($str, $length)
@@ -110,7 +107,7 @@ class Zend_Search_Lucene_Index_Term
     /**
      * Get UTF-8 string length
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public static function getLength($str)
@@ -141,4 +138,3 @@ class Zend_Search_Lucene_Index_Term
         return $chars;
     }
 }
-

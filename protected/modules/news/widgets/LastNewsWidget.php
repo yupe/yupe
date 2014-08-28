@@ -26,12 +26,10 @@ class LastNewsWidget extends yupe\widgets\YWidget
         $criteria->limit = (int)$this->limit;
         $criteria->order = 'date DESC';
 
-        if ($this->categories)
-        {
+        if ($this->categories) {
             if (is_array($this->categories)) {
                 $criteria->addInCondition('category_id', $this->categories);
-            }
-            else{
+            } else {
                 $criteria->compare('category_id', $this->categories);
             }
         }

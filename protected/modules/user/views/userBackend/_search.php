@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -34,12 +34,12 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'options' => array(
-                        'format' => 'dd-mm-yyyy',
+                        'format'    => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ),
                 ),
-                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
             )
         );
         ?>
@@ -52,12 +52,12 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'options' => array(
-                        'format' => 'dd-mm-yyyy',
+                        'format'    => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ),
                 ),
-                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
             )
         );
         ?>
@@ -68,7 +68,7 @@ $form = $this->beginWidget(
             'gender',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getGendersList(),
+                    'data'        => $model->getGendersList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -85,7 +85,7 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -99,7 +99,7 @@ $form = $this->beginWidget(
             'access_level',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getAccessLevelsList(),
+                    'data'        => $model->getAccessLevelsList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -114,9 +114,9 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'context' => 'primary',
-            'icon' => 'glyphicon glyphicon-search',
-            'label' => Yii::t('UserModule.user', 'Find user'),
+            'context'    => 'primary',
+            'icon'       => 'glyphicon glyphicon-search',
+            'label'      => Yii::t('UserModule.user', 'Find user'),
         )
     ); ?>
 
@@ -124,9 +124,9 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'reset',
-            'context' => 'danger',
-            'icon' => 'glyphicon glyphicon-remove',
-            'label' => Yii::t('UserModule.user', 'Reset'),
+            'context'    => 'danger',
+            'icon'       => 'glyphicon glyphicon-remove',
+            'label'      => Yii::t('UserModule.user', 'Reset'),
         )
     ); ?>
 </div>

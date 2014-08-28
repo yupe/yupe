@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -22,7 +22,7 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -44,7 +44,7 @@ $form = $this->beginWidget(
                 'parent_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => Category::model()->getFormattedList(),
+                        'data'        => Category::model()->getFormattedList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -59,10 +59,13 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('CategoryModule.category', 'Find category'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+                'CategoryModule.category',
+                'Find category'
+            ),
     )
 ); ?>
 

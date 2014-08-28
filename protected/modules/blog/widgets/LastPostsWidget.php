@@ -10,8 +10,8 @@
  * @since 0.1
  *
  */
-Yii::import('application.modules.blog.models.*'); 
- 
+Yii::import('application.modules.blog.models.*');
+
 class LastPostsWidget extends yupe\widgets\YWidget
 {
     public $view = 'lastposts';
@@ -25,12 +25,14 @@ class LastPostsWidget extends yupe\widgets\YWidget
             'order' => 't.id DESC',
         );
 
-        if(is_array($this->criteria) && !empty($this->criteria)) {
+        if (is_array($this->criteria) && !empty($this->criteria)) {
             $criteria = CMap::mergeArray($criteria, $this->criteria);
         }
 
-        $posts = Post::model()->published()->with('createUser','commentsCount', 'blog')->public()->cache($this->cacheTime)->findAll($criteria);
+        $posts = Post::model()->published()->with('createUser', 'commentsCount', 'blog')->public()->cache(
+            $this->cacheTime
+        )->findAll($criteria);
 
-        $this->render($this->view, array('models' =>$posts));
+        $this->render($this->view, array('models' => $posts));
     }
 }

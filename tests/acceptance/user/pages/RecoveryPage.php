@@ -1,4 +1,5 @@
 <?php
+
 class RecoveryPage
 {
     public static $URL = '/recovery';

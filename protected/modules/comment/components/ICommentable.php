@@ -1,5 +1,8 @@
 <?php
-interface ICommentable {
+
+interface ICommentable
+{
     public function getTitle();
+
     public function getLink();
-} 
+}

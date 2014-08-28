@@ -2,11 +2,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'comment-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'comment-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -48,9 +48,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'text',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <br/><?php echo $form->error($model, 'text'); ?>
@@ -74,17 +74,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and continue') : Yii::t('CommentModule.comment', 'Save comment and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and continue') : Yii::t(
+                'CommentModule.comment',
+                'Save comment and continue'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and close') : Yii::t('CommentModule.comment', 'Save comment and close'),
+        'label'       => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and close') : Yii::t(
+                'CommentModule.comment',
+                'Save comment and close'
+            ),
     )
 ); ?>
 

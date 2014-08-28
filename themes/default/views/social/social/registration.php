@@ -9,7 +9,7 @@
     <?php $form = $this->beginWidget(
         'CActiveForm',
         array(
-            'id' => 'registration-form',
+            'id'                     => 'registration-form',
             'enableClientValidation' => true
         )
     );?>

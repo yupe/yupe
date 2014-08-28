@@ -4,4 +4,3 @@
      data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus" data-yashareTheme="counter"
 
     ></div>
-

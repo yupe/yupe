@@ -10,30 +10,34 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('social')->getCategory() => array(),
-    Yii::t('SocialModule.social', 'Аккаунты') => array('/social/socialBackend/index'),
+    Yii::t('SocialModule.social', 'Аккаунты')      => array('/social/socialBackend/index'),
     $model->id,
 );
 
 $this->pageTitle = Yii::t('social', 'Аккаунты - просмотр');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'), 'url' => array('/social/socialBackend/index')),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
+        'url'   => array('/social/socialBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-eye-open',
         'label' => Yii::t('SocialModule.social', 'Просмотреть аккаунт'),
-        'url' => array(
+        'url'   => array(
             '/social/socialBackend/view',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('SocialModule.social', 'Удалить аккаунт'),
-        'url' => '#',
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('SocialModule.social', 'Удалить аккаунт'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/social/socialBackend/delete', 'id' => $model->id),
+            'submit'  => array('/social/socialBackend/delete', 'id' => $model->id),
             'confirm' => Yii::t('SocialModule.social', 'Вы уверены, что хотите удалить аккаунт?'),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
         )
     ),
 );
@@ -48,11 +52,11 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             array(
-                'name' => 'user_id',
+                'name'  => 'user_id',
                 'value' => $model->user->getFullName()
             ),
             'provider',

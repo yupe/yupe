@@ -31,7 +31,7 @@ class FrontController extends Controller
         $this->description = $this->yupe->siteDescription;
         $this->keywords = $this->yupe->siteKeyWords;
 
-        Yii::app()->theme = $this->yupe->theme ?: 'default';
+        Yii::app()->theme = $this->yupe->theme ? : 'default';
 
         $bootstrap = Yii::app()->theme->basePath . DIRECTORY_SEPARATOR . "bootstrap.php";
         if (is_file($bootstrap)) {

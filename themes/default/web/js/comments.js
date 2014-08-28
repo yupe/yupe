@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // нажатите "ответить"
-    $(document).on("click", "a.reply", function() {
+    $(document).on("click", "a.reply", function () {
         $this = $(this);
         $('#wcml').show();
         $("div.comment-form").remove();
@@ -14,40 +14,40 @@ $(document).ready(function() {
         $("#Comment_parent_id").val($this.attr("rel"));
     });
 
-    $(document).on("click", '#wcml', function(event){
+    $(document).on("click", '#wcml', function (event) {
         event.preventDefault();
         $("div.comment-form").remove();
         $("#comment-form-wrap").show();
         $(this).hide();
     });
 
-    $(document).on('keyup', '#comment-form textarea, #comment-form input[type=text]', function(event){
+    $(document).on('keyup', '#comment-form textarea, #comment-form input[type=text]', function (event) {
         if (event.ctrlKey && event.keyCode == 13) {
             $(this).parents('#comment-form').submit();
         }
     });
 
-    $(document).on('submit', '#comment-form', function(event){
+    $(document).on('submit', '#comment-form', function (event) {
         event.preventDefault();
         var $form = $(this);
         var $submit = $form.find('input[type=submit]');
         var $container = $('#comments');
-        $.post($form.attr('action'), $form.serialize(), function(response){
+        $.post($form.attr('action'), $form.serialize(), function (response) {
             var type = response.result ? 'success' : 'danger';
             $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();
-            if(response.data.commentContent) {                
-                if (response.data.comment.parent_id > 0){
-                    $container = $('#comment-' + response.data.comment.parent_id).parents('.comments-item');                    
+            if (response.data.commentContent) {
+                if (response.data.comment.parent_id > 0) {
+                    $container = $('#comment-' + response.data.comment.parent_id).parents('.comments-item');
                 }
             }
-            $('#Comment_text').val('');  
-            $('#wcml').click();          
-            if ($container.attr('id') != 'comments') {               
+            $('#Comment_text').val('');
+            $('#wcml').click();
+            if ($container.attr('id') != 'comments') {
                 $container.after(response.data.commentContent);
-            }else{
+            } else {
                 $container.append(response.data.commentContent);
             }
-        },'json');
+        }, 'json');
         return false;
-    });       
+    });
 });

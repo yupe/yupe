@@ -12,7 +12,6 @@
  *
  */
 
-
 /**
  * This is the model class for table "Gallery".
  *
@@ -24,14 +23,14 @@
  */
 class Gallery extends yupe\models\YModel
 {
-    const STATUS_DRAFT    = 0;
-    const STATUS_PUBLIC   = 1;
+    const STATUS_DRAFT = 0;
+    const STATUS_PUBLIC = 1;
     const STATUS_PERSONAL = 2;
-    const STATUS_PRIVATE  = 3;
+    const STATUS_PRIVATE = 3;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string $className
      * @return Gallery the static model class
      */
     public static function model($className = __CLASS__)
@@ -88,7 +87,7 @@ class Gallery extends yupe\models\YModel
     public function beforeValidate()
     {
         // Проверяем наличие установленного хозяина галереи
-        if (isset($this->owner) && empty($this->owner)){
+        if (isset($this->owner) && empty($this->owner)) {
             $this->owner = Yii::app()->user->getId();
         }
 
@@ -119,7 +118,7 @@ class Gallery extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
@@ -143,17 +142,20 @@ class Gallery extends yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('GalleryModule.gallery', '*неизвестно*');
     }
 
     public function addImage(Image $image)
     {
-        $im2g = new ImageToGallery;
+        $im2g = new ImageToGallery();
 
-        $im2g->setAttributes(array(
-            'image_id'  => $image->id,
-            'gallery_id' => $this->id,
-        ));
+        $im2g->setAttributes(
+            array(
+                'image_id'   => $image->id,
+                'gallery_id' => $this->id,
+            )
+        );
 
         return $im2g->save();
     }
@@ -161,9 +163,9 @@ class Gallery extends yupe\models\YModel
     /**
      * Получаем картинку для галереи:
      *
-     * @param int $width  - ширина
+     * @param int $width - ширина
      * @param int $height - высота
-     * 
+     *
      * @return string image Url
      **/
     public function previewImage($width = 190, $height = 190)
@@ -181,7 +183,9 @@ class Gallery extends yupe\models\YModel
     public function getUsersList()
     {
         return CHtml::listData(
-            ($users = User::model()->cache(0, new CDbCacheDependency('SELECT MAX(id) FROM {{user_user}}'))->findAll()), 'id', function ($user) {
+            ($users = User::model()->cache(0, new CDbCacheDependency('SELECT MAX(id) FROM {{user_user}}'))->findAll()),
+            'id',
+            function ($user) {
                 return CHtml::encode($user->fullName);
             }
         );
@@ -207,11 +211,11 @@ class Gallery extends yupe\models\YModel
     public function getCanAddPhoto()
     {
         return $this->status == Gallery::STATUS_PUBLIC
-            || (
-                ($this->status == Gallery::STATUS_PRIVATE
-                    || $this->status == Gallery::STATUS_PERSONAL
-                ) && Yii::app()->user->getId() == $this->owner
-            );
+        || (
+            ($this->status == Gallery::STATUS_PRIVATE
+                || $this->status == Gallery::STATUS_PERSONAL
+            ) && Yii::app()->user->getId() == $this->owner
+        );
     }
 
     /**
@@ -223,8 +227,8 @@ class Gallery extends yupe\models\YModel
     {
         return array(
             'published' => array(
-                'condition'=>'status  = :status',
-                'params' => array(
+                'condition' => 'status  = :status',
+                'params'    => array(
                     ':status' => self::STATUS_PUBLIC
                 )
             ),

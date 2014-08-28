@@ -20,7 +20,6 @@
  * @version    $Id: Similarity.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -43,106 +42,107 @@ abstract class Zend_Search_Lucene_Search_Similarity
      *
      * @var array
      */
-    private static $_normTable = array(0 => 0.0,
-        1 => 5.820766E-10,
-        2 => 6.9849193E-10,
-        3 => 8.1490725E-10,
-        4 => 9.313226E-10,
-        5 => 1.1641532E-9,
-        6 => 1.3969839E-9,
-        7 => 1.6298145E-9,
-        8 => 1.8626451E-9,
-        9 => 2.3283064E-9,
-        10 => 2.7939677E-9,
-        11 => 3.259629E-9,
-        12 => 3.7252903E-9,
-        13 => 4.656613E-9,
-        14 => 5.5879354E-9,
-        15 => 6.519258E-9,
-        16 => 7.4505806E-9,
-        17 => 9.313226E-9,
-        18 => 1.1175871E-8,
-        19 => 1.3038516E-8,
-        20 => 1.4901161E-8,
-        21 => 1.8626451E-8,
-        22 => 2.2351742E-8,
-        23 => 2.6077032E-8,
-        24 => 2.9802322E-8,
-        25 => 3.7252903E-8,
-        26 => 4.4703484E-8,
-        27 => 5.2154064E-8,
-        28 => 5.9604645E-8,
-        29 => 7.4505806E-8,
-        30 => 8.940697E-8,
-        31 => 1.0430813E-7,
-        32 => 1.1920929E-7,
-        33 => 1.4901161E-7,
-        34 => 1.7881393E-7,
-        35 => 2.0861626E-7,
-        36 => 2.3841858E-7,
-        37 => 2.9802322E-7,
-        38 => 3.5762787E-7,
-        39 => 4.172325E-7,
-        40 => 4.7683716E-7,
-        41 => 5.9604645E-7,
-        42 => 7.1525574E-7,
-        43 => 8.34465E-7,
-        44 => 9.536743E-7,
-        45 => 1.1920929E-6,
-        46 => 1.4305115E-6,
-        47 => 1.66893E-6,
-        48 => 1.9073486E-6,
-        49 => 2.3841858E-6,
-        50 => 2.861023E-6,
-        51 => 3.33786E-6,
-        52 => 3.8146973E-6,
-        53 => 4.7683716E-6,
-        54 => 5.722046E-6,
-        55 => 6.67572E-6,
-        56 => 7.6293945E-6,
-        57 => 9.536743E-6,
-        58 => 1.1444092E-5,
-        59 => 1.335144E-5,
-        60 => 1.5258789E-5,
-        61 => 1.9073486E-5,
-        62 => 2.2888184E-5,
-        63 => 2.670288E-5,
-        64 => 3.0517578E-5,
-        65 => 3.8146973E-5,
-        66 => 4.5776367E-5,
-        67 => 5.340576E-5,
-        68 => 6.1035156E-5,
-        69 => 7.6293945E-5,
-        70 => 9.1552734E-5,
-        71 => 1.0681152E-4,
-        72 => 1.2207031E-4,
-        73 => 1.5258789E-4,
-        74 => 1.8310547E-4,
-        75 => 2.1362305E-4,
-        76 => 2.4414062E-4,
-        77 => 3.0517578E-4,
-        78 => 3.6621094E-4,
-        79 => 4.272461E-4,
-        80 => 4.8828125E-4,
-        81 => 6.1035156E-4,
-        82 => 7.324219E-4,
-        83 => 8.544922E-4,
-        84 => 9.765625E-4,
-        85 => 0.0012207031,
-        86 => 0.0014648438,
-        87 => 0.0017089844,
-        88 => 0.001953125,
-        89 => 0.0024414062,
-        90 => 0.0029296875,
-        91 => 0.0034179688,
-        92 => 0.00390625,
-        93 => 0.0048828125,
-        94 => 0.005859375,
-        95 => 0.0068359375,
-        96 => 0.0078125,
-        97 => 0.009765625,
-        98 => 0.01171875,
-        99 => 0.013671875,
+    private static $_normTable = array(
+        0   => 0.0,
+        1   => 5.820766E-10,
+        2   => 6.9849193E-10,
+        3   => 8.1490725E-10,
+        4   => 9.313226E-10,
+        5   => 1.1641532E-9,
+        6   => 1.3969839E-9,
+        7   => 1.6298145E-9,
+        8   => 1.8626451E-9,
+        9   => 2.3283064E-9,
+        10  => 2.7939677E-9,
+        11  => 3.259629E-9,
+        12  => 3.7252903E-9,
+        13  => 4.656613E-9,
+        14  => 5.5879354E-9,
+        15  => 6.519258E-9,
+        16  => 7.4505806E-9,
+        17  => 9.313226E-9,
+        18  => 1.1175871E-8,
+        19  => 1.3038516E-8,
+        20  => 1.4901161E-8,
+        21  => 1.8626451E-8,
+        22  => 2.2351742E-8,
+        23  => 2.6077032E-8,
+        24  => 2.9802322E-8,
+        25  => 3.7252903E-8,
+        26  => 4.4703484E-8,
+        27  => 5.2154064E-8,
+        28  => 5.9604645E-8,
+        29  => 7.4505806E-8,
+        30  => 8.940697E-8,
+        31  => 1.0430813E-7,
+        32  => 1.1920929E-7,
+        33  => 1.4901161E-7,
+        34  => 1.7881393E-7,
+        35  => 2.0861626E-7,
+        36  => 2.3841858E-7,
+        37  => 2.9802322E-7,
+        38  => 3.5762787E-7,
+        39  => 4.172325E-7,
+        40  => 4.7683716E-7,
+        41  => 5.9604645E-7,
+        42  => 7.1525574E-7,
+        43  => 8.34465E-7,
+        44  => 9.536743E-7,
+        45  => 1.1920929E-6,
+        46  => 1.4305115E-6,
+        47  => 1.66893E-6,
+        48  => 1.9073486E-6,
+        49  => 2.3841858E-6,
+        50  => 2.861023E-6,
+        51  => 3.33786E-6,
+        52  => 3.8146973E-6,
+        53  => 4.7683716E-6,
+        54  => 5.722046E-6,
+        55  => 6.67572E-6,
+        56  => 7.6293945E-6,
+        57  => 9.536743E-6,
+        58  => 1.1444092E-5,
+        59  => 1.335144E-5,
+        60  => 1.5258789E-5,
+        61  => 1.9073486E-5,
+        62  => 2.2888184E-5,
+        63  => 2.670288E-5,
+        64  => 3.0517578E-5,
+        65  => 3.8146973E-5,
+        66  => 4.5776367E-5,
+        67  => 5.340576E-5,
+        68  => 6.1035156E-5,
+        69  => 7.6293945E-5,
+        70  => 9.1552734E-5,
+        71  => 1.0681152E-4,
+        72  => 1.2207031E-4,
+        73  => 1.5258789E-4,
+        74  => 1.8310547E-4,
+        75  => 2.1362305E-4,
+        76  => 2.4414062E-4,
+        77  => 3.0517578E-4,
+        78  => 3.6621094E-4,
+        79  => 4.272461E-4,
+        80  => 4.8828125E-4,
+        81  => 6.1035156E-4,
+        82  => 7.324219E-4,
+        83  => 8.544922E-4,
+        84  => 9.765625E-4,
+        85  => 0.0012207031,
+        86  => 0.0014648438,
+        87  => 0.0017089844,
+        88  => 0.001953125,
+        89  => 0.0024414062,
+        90  => 0.0029296875,
+        91  => 0.0034179688,
+        92  => 0.00390625,
+        93  => 0.0048828125,
+        94  => 0.005859375,
+        95  => 0.0068359375,
+        96  => 0.0078125,
+        97  => 0.009765625,
+        98  => 0.01171875,
+        99  => 0.013671875,
         100 => 0.015625,
         101 => 0.01953125,
         102 => 0.0234375,
@@ -298,8 +298,8 @@ abstract class Zend_Search_Lucene_Search_Similarity
         252 => 4.2949673E9,
         253 => 5.3687091E9,
         254 => 6.4424509E9,
-        255 => 7.5161928E9);
-
+        255 => 7.5161928E9
+    );
 
     /**
      * Set the default Similarity implementation used by indexing and search
@@ -311,7 +311,6 @@ abstract class Zend_Search_Lucene_Search_Similarity
     {
         self::$_defaultImpl = $similarity;
     }
-
 
     /**
      * Return the default Similarity implementation used by indexing and search
@@ -328,7 +327,6 @@ abstract class Zend_Search_Lucene_Search_Similarity
 
         return self::$_defaultImpl;
     }
-
 
     /**
      * Computes the normalization value for a field given the total number of
@@ -350,8 +348,8 @@ abstract class Zend_Search_Lucene_Search_Similarity
      *             'fieldName' of 'doc'.
      * Returns a normalization factor for hits on this field of this document
      *
-     * @param string $fieldName
-     * @param integer $numTokens
+     * @param  string $fieldName
+     * @param  integer $numTokens
      * @return float
      */
     abstract public function lengthNorm($fieldName, $numTokens);
@@ -367,23 +365,21 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * sumOfSquaredWeights - the sum of the squares of query term weights
      * Returns a normalization factor for query weights
      *
-     * @param float $sumOfSquaredWeights
+     * @param  float $sumOfSquaredWeights
      * @return float
      */
     abstract public function queryNorm($sumOfSquaredWeights);
 
-
     /**
      *  Decodes a normalization factor stored in an index.
      *
-     * @param integer $byte
+     * @param  integer $byte
      * @return float
      */
     public static function decodeNorm($byte)
     {
         return self::$_normTable[$byte & 0xFF];
     }
-
 
     /**
      * Encodes a normalization factor for storage in an index.
@@ -396,10 +392,10 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * small to represent are rounded up to the smallest positive representable
      * value.
      *
-     * @param float $f
+     * @param  float $f
      * @return integer
      */
-    static function encodeNorm($f)
+    public static function encodeNorm($f)
     {
         return self::_floatToByte($f);
     }
@@ -407,7 +403,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
     /**
      * Float to byte conversion
      *
-     * @param integer $b
+     * @param  integer $b
      * @return float
      */
     private static function _floatToByte($f)
@@ -444,7 +440,6 @@ abstract class Zend_Search_Lucene_Search_Similarity
         }
     }
 
-
     /**
      * Computes a score factor based on a term or phrase's frequency in a
      * document.  This value is multiplied by the idf(Term, Searcher)
@@ -459,7 +454,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * freq - the frequency of a term within a document
      * Returns a score factor based on a term's within-document frequency
      *
-     * @param float $freq
+     * @param  float $freq
      * @return float
      */
     abstract public function tf($freq);
@@ -477,11 +472,10 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * distance - the edit distance of this sloppy phrase match
      * Returns the frequency increment for this match
      *
-     * @param integer $distance
+     * @param  integer $distance
      * @return float
      */
     abstract public function sloppyFreq($distance);
-
 
     /**
      * Computes a score factor for a simple term or a phrase.
@@ -493,9 +487,9 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * reader - reader the document collection being searched
      * Returns a score factor for the term
      *
-     * @param mixed $input
-     * @param Zend_Search_Lucene_Interface $reader
-     * @return a score factor for the term
+     * @param  mixed $input
+     * @param  Zend_Search_Lucene_Interface $reader
+     * @return a                            score factor for the term
      */
     public function idf($input, Zend_Search_Lucene_Interface $reader)
     {
@@ -506,6 +500,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
             foreach ($input as $term) {
                 $idf += $this->idfFreq($reader->docFreq($term), $reader->count());
             }
+
             return $idf;
         }
     }
@@ -524,8 +519,8 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * numDocs - the total number of documents in the collection
      * Returns a score factor based on the term's document frequency
      *
-     * @param integer $docFreq
-     * @param integer $numDocs
+     * @param  integer $docFreq
+     * @param  integer $numDocs
      * @return float
      */
     abstract public function idfFreq($docFreq, $numDocs);
@@ -543,10 +538,9 @@ abstract class Zend_Search_Lucene_Search_Similarity
      * maxOverlap - the total number of terms in the query
      * Returns a score factor based on term overlap with the query
      *
-     * @param integer $overlap
-     * @param integer $maxOverlap
+     * @param  integer $overlap
+     * @param  integer $maxOverlap
      * @return float
      */
     abstract public function coord($overlap, $maxOverlap);
 }
-

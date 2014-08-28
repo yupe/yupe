@@ -12,11 +12,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'content-block-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'content-block-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -53,14 +53,18 @@ $form = $this->beginWidget(
             <?php $this->widget(
                 $this->yupe->editor,
                 array(
-                    'model' => $model,
+                    'model'     => $model,
                     'attribute' => 'content',
-                    'options' => $this->module->editorOptions,
+                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
             <?php echo $form->error($model, 'content'); ?>
         <?php else: ?>
-            <?php echo $form->textAreaGroup($model, 'content', array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))); ?>
+            <?php echo $form->textAreaGroup(
+                $model,
+                'content',
+                array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))
+            ); ?>
         <?php endif; ?>
     </div>
 </div>
@@ -70,9 +74,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->yupe->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'description',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'description'); ?>
@@ -83,17 +87,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Add block and continue') : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t(
+                'ContentBlockModule.contentblock',
+                'Add block and continue'
+            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Add block and close') : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
+        'label'       => $model->isNewRecord ? Yii::t(
+                'ContentBlockModule.contentblock',
+                'Add block and close'
+            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
     )
 ); ?>
 

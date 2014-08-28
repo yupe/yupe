@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TemplateBackendController - Класс контроллера Template:
  *
@@ -13,7 +14,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Mail.TemplateBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Mail.TemplateBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Mail.TemplateBackend.Index')),
@@ -23,17 +24,18 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'MailTemplate',
-                'validAttributes' => array('event_id', 'name','description', 'from', 'to', 'theme', 'status')
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'MailTemplate',
+                'validAttributes' => array('event_id', 'name', 'description', 'from', 'to', 'theme', 'status')
             )
         );
     }
+
     /**
      * Отображает почтовый шаблон по указанному идентификатору
      *
@@ -54,10 +56,11 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new MailTemplate;
+        $model = new MailTemplate();
 
-        if (Yii::app()->getRequest()->getParam('eid'))
-            $model->event_id = (int) Yii::app()->getRequest()->getParam('eid');
+        if (Yii::app()->getRequest()->getParam('eid')) {
+            $model->event_id = (int)Yii::app()->getRequest()->getParam('eid');
+        }
 
         if (($data = Yii::app()->getRequest()->getPost('MailTemplate')) !== null) {
             $model->setAttributes($data);
@@ -69,13 +72,14 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
         }
-        
+
         $this->render('create', array('model' => $model));
     }
 
@@ -91,19 +95,20 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('MailTemplate')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
-                
+
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Record was updated!')
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update','id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -135,7 +140,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
         } else {
             throw new CHttpException(
@@ -153,19 +158,21 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     public function actionIndex()
     {
         $model = new MailTemplate('search');
-        
-        $model->unsetAttributes();  // clear any default values
-        
+
+        $model->unsetAttributes(); // clear any default values
+
         $model->event_id = Yii::app()->getRequest()->getQuery(
-            'event', null
+            'event',
+            null
         );
-        
+
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'MailTemplate', array()
+                'MailTemplate',
+                array()
             )
         );
-        
+
         $this->render('index', array('model' => $model));
     }
 
@@ -182,7 +189,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
     public function loadModel($id)
     {
         $model = MailTemplate::model()->findByPk($id);
-        
+
         if ($model === null) {
             throw new CHttpException(
                 404,

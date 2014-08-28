@@ -16,10 +16,10 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array (
-  'Feed version not supported' => 'Версия ленты не поддерживается',
-  'For RSS 1.0 specifications link element should be add per item' => 'В спецификации RSS 1.0 элемент должен быть добавлен для каждой сущности',
-  'Link Element is not set and it is required for RSS 1.0 to be used as about attribute of item' => 'Link Element не установлен. Данный элемент обязателен для стандарта RSS 1.0',
-  'No feed items configured' => 'Сущности не сконфигурированны',
-  'No items have been set' => 'Сущности не установлены',
+return array(
+    'Feed version not supported'                                                                   => 'Версия ленты не поддерживается',
+    'For RSS 1.0 specifications link element should be add per item'                               => 'В спецификации RSS 1.0 элемент должен быть добавлен для каждой сущности',
+    'Link Element is not set and it is required for RSS 1.0 to be used as about attribute of item' => 'Link Element не установлен. Данный элемент обязателен для стандарта RSS 1.0',
+    'No feed items configured'                                                                     => 'Сущности не сконфигурированны',
+    'No items have been set'                                                                       => 'Сущности не установлены',
 );

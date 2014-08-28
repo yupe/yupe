@@ -22,7 +22,7 @@ class SimilarPostsWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->limit = $this->limit;
         $criteria->order = 'publish_date DESC';
 
@@ -31,7 +31,7 @@ class SimilarPostsWidget extends yupe\widgets\YWidget
         $criteria->mergeWith(
             Post::model()->public()->published()->getFindByTagsCriteria($this->post->getTags())
         );
-        
+
         $posts = Post::model()->findAll(
             $criteria
         );

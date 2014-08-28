@@ -24,7 +24,6 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public $attributeName = 'file';
 
-
     /**
      * Атрибут для замены имени поля file если необходимо
      * @var string
@@ -98,18 +97,28 @@ class FileUploadBehavior extends CActiveRecordBehavior
 
         if ($this->checkScenario()) {
             if ($this->requiredOn) {
-                $requiredValidator = CValidator::createValidator('required', $owner, $this->attributeName, array(
-                    'on' => $this->requiredOn,
-                ));
+                $requiredValidator = CValidator::createValidator(
+                    'required',
+                    $owner,
+                    $this->attributeName,
+                    array(
+                        'on' => $this->requiredOn,
+                    )
+                );
                 $owner->validatorList->add($requiredValidator);
             }
 
-            $fileValidator = CValidator::createValidator('file', $owner, $this->attributeName, array(
-                'types' => $this->types,
-                'minSize' => $this->minSize,
-                'maxSize' => $this->maxSize,
-                'allowEmpty' => true,
-            ));
+            $fileValidator = CValidator::createValidator(
+                'file',
+                $owner,
+                $this->attributeName,
+                array(
+                    'types'      => $this->types,
+                    'minSize'    => $this->minSize,
+                    'maxSize'    => $this->maxSize,
+                    'allowEmpty' => true,
+                )
+            );
 
             $owner->validatorList->add($fileValidator);
         }
@@ -120,7 +129,10 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function afterFind($event)
     {
-        $this->_oldFile = Yii::app()->uploadManager->getFilePath($this->owner{$this->attributeName}, $this->getUploadPath());
+        $this->_oldFile = Yii::app()->uploadManager->getFilePath(
+            $this->owner{$this->attributeName},
+            $this->getUploadPath()
+        );
 
         return parent::beforeFind($event);
     }
@@ -146,8 +158,8 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function beforeSave($event)
     {
-        if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile) {      	
-        	$this->removeFile();
+        if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile) {
+            $this->removeFile();
             $this->saveFile();
         }
 

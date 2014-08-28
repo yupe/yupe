@@ -1,17 +1,17 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Yupe!') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Yupe!')   => array('settings'),
     Yii::t('YupeModule.yupe', 'Modules') => array('settings'),
     $module->name,
 );
 ?>
 
-    <h1>
-        <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($module->name); ?>"
-        <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($module->version); ?></small>
-    </h1>
+<h1>
+    <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($module->name); ?>"
+    <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($module->version); ?></small>
+</h1>
 
-    <br/>
+<br/>
 
 <?php if (is_array($elements) && count($elements)): { ?>
     <?php echo CHtml::beginForm(
@@ -40,8 +40,8 @@ $this->breadcrumbs = array(
             ),
             array(
                 'class' => 'btn btn-primary',
-                'id' => 'saveModuleSettings',
-                'name' => 'saveModuleSettings',
+                'id'    => 'saveModuleSettings',
+                'name'  => 'saveModuleSettings',
             )
         ); ?>
     </fieldset>

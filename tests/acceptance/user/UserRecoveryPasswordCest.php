@@ -30,15 +30,18 @@ class UserRecoveryPasswordCest
 
         $I->fillField(RecoveryPage::$emailField, 'yupe@yupe.local');
         $I->click(RecoveryPage::$buttonLabel);
-        $I->see('На указанный email отправлено письмо с инструкцией по восстановлению пароля!', \CommonPage::SUCCESS_CSS_CLASS);
+        $I->see(
+            'На указанный email отправлено письмо с инструкцией по восстановлению пароля!',
+            \CommonPage::SUCCESS_CSS_CLASS
+        );
         $I->seeInCurrentUrl('login');
 
         $I->wantToTest('Failure password recovery');
         $I->amOnPage(RecoveryPage::getRecoveryRoute(time()));
         $I->see('Ошибка 404!');
 
-        $I->seeInDatabase('yupe_user_tokens', array('user_id' => 1,'type' => 2,'status' => 0));
-        $key = $I->grabFromDatabase('yupe_user_tokens','token',  array('user_id' => 1,'type' => 2,'status' => 0));
+        $I->seeInDatabase('yupe_user_tokens', array('user_id' => 1, 'type' => 2, 'status' => 0));
+        $key = $I->grabFromDatabase('yupe_user_tokens', 'token', array('user_id' => 1, 'type' => 2, 'status' => 0));
         $I->amOnPage(RecoveryPage::getRecoveryRoute($key));
 
         $I->see('Восстановление пароля');
@@ -46,10 +49,10 @@ class UserRecoveryPasswordCest
 
         $I->fillField('ChangePasswordForm[password]', '11111111');
         $I->fillField('ChangePasswordForm[cPassword]', '11111111');
-        $I->click('Смена пароля','.btn');
+        $I->click('Смена пароля', '.btn');
 
         $I->seeInCurrentUrl(LoginPage::$URL);
         //$I->see('Успешное восстановение пароля!', \CommonPage::SUCCESS_CSS_CLASS);
-        $I->dontSeeInDatabase('yupe_user_tokens', array('user_id' => 1,'type' => 2,'status' => 0));
+        $I->dontSeeInDatabase('yupe_user_tokens', array('user_id' => 1, 'type' => 2, 'status' => 0));
     }
 }

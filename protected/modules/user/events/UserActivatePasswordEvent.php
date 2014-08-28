@@ -31,7 +31,7 @@ class UserActivatePasswordEvent extends Event
      * @param $password
      * @param $user
      */
-    function __construct($token, $password = null, User $user = null, $notify = true)
+    public function __construct($token, $password = null, User $user = null, $notify = true)
     {
         $this->token = $token;
         $this->password = $password;
@@ -87,7 +87,6 @@ class UserActivatePasswordEvent extends Event
         return $this->user;
     }
 
-
     /**
      * @param mixed $password
      */
@@ -103,4 +102,4 @@ class UserActivatePasswordEvent extends Event
     {
         return $this->password;
     }
-} 
+}

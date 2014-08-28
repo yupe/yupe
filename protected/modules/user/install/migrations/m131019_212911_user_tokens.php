@@ -17,7 +17,8 @@ class m131019_212911_user_tokens extends yupe\components\DbMigration
     public function safeUp()
     {
         $this->createTable(
-            '{{user_tokens}}', array(
+            '{{user_tokens}}',
+            array(
                 'id'      => 'pk',
                 'user_id' => 'integer NOT NULL',
                 'token'   => 'varchar(32) NOT NULL',
@@ -26,7 +27,8 @@ class m131019_212911_user_tokens extends yupe\components\DbMigration
                 'created' => 'datetime NOT NULL',
                 'updated' => 'datetime',
                 'ip'      => 'string',
-            ), $this->getOptions()
+            ),
+            $this->getOptions()
         );
 
         $this->createIndex("ix_{{user_tokens}}_user_id", '{{user_tokens}}', "user_id", false);

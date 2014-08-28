@@ -4,7 +4,7 @@ class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user)
     {
-        $comment = new Comment;
+        $comment = new Comment();
 
         $comment->setAttributes($params);
 
@@ -87,4 +87,4 @@ class CommentManager extends CApplicationComponent
     {
         return Yii::app()->cache->get('Comment::Comment::spam::' . $user->getId());
     }
-} 
+}

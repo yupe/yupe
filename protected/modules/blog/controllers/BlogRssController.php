@@ -18,7 +18,7 @@ class BlogRssController extends yupe\components\controllers\RssController
             throw new CHttpException(404);
         }
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->order = 'publish_date DESC';
         $criteria->params = array();
         $criteria->limit = $limit;
@@ -68,19 +68,19 @@ class BlogRssController extends yupe\components\controllers\RssController
     {
         return array(
             'feed' => array(
-                'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $this->data,
-                'title' => $this->title,
+                'class'       => 'yupe\components\actions\YFeedAction',
+                'data'        => $this->data,
+                'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields' => array(
-                    'author_object' => 'createUser',
+                'itemFields'  => array(
+                    'author_object'   => 'createUser',
                     'author_nickname' => 'nick_name',
-                    'content' => 'content',
-                    'datetime' => 'create_date',
-                    'link' => '/blog/post/show',
-                    'linkParams' => array('slug' => 'slug'),
-                    'title' => 'title',
-                    'updated' => 'update_date',
+                    'content'         => 'content',
+                    'datetime'        => 'create_date',
+                    'link'            => '/blog/post/show',
+                    'linkParams'      => array('slug' => 'slug'),
+                    'title'           => 'title',
+                    'updated'         => 'update_date',
                 ),
             ),
         );

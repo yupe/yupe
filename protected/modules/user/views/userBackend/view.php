@@ -10,40 +10,48 @@ $this->menu = array(
     array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Manage users'),
+                'url'   => array('/user/userBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('UserModule.user', 'Create user'),
+                'url'   => array('/user/userBackend/create')
+            ),
             array('label' => Yii::t('UserModule.user', 'User') . ' «' . $model->nick_name . '»'),
             array(
-                'icon' => 'glyphicon glyphicon-pencil',
+                'icon'  => 'glyphicon glyphicon-pencil',
                 'label' => Yii::t('UserModule.user', 'Edit user'),
-                'url' => array(
+                'url'   => array(
                     '/user/userBackend/update',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'glyphicon glyphicon-eye-open',
                 'label' => Yii::t('UserModule.user', 'Show user'),
-                'url' => array(
+                'url'   => array(
                     '/user/userBackend/view',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-lock',
+                'icon'  => 'glyphicon glyphicon-lock',
                 'label' => Yii::t('UserModule.user', 'Change user password'),
-                'url' => array(
+                'url'   => array(
                     '/user/userBackend/changepassword',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-trash',
-                'label' => Yii::t('UserModule.user', 'Remove user'),
-                'url' => '#',
+                'icon'        => 'glyphicon glyphicon-trash',
+                'label'       => Yii::t('UserModule.user', 'Remove user'),
+                'url'         => '#',
                 'linkOptions' => array(
-                    'submit' => array('/user/userBackend/delete', 'id' => $model->id),
-                    'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                    'submit'  => array('/user/userBackend/delete', 'id' => $model->id),
+                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                     'confirm' => Yii::t('UserModule.user', 'Do you really want to remove user?')
                 ),
             ),
@@ -52,7 +60,11 @@ $this->menu = array(
     array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Token list'),
+                'url'   => array('/user/tokensBackend/index')
+            ),
         )
     ),
 );
@@ -67,7 +79,7 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             'full_name',
@@ -78,19 +90,19 @@ $this->menu = array(
             'birth_date',
             'about',
             array(
-                'name' => 'gender',
+                'name'  => 'gender',
                 'value' => $model->getGender(),
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
             array(
-                'name' => 'access_level',
+                'name'  => 'access_level',
                 'value' => $model->getAccessLevel(),
             ),
             array(
-                'name' => 'email_confirm',
+                'name'  => 'email_confirm',
                 'value' => $model->getEmailConfirmStatus(),
             ),
             'last_visit',

@@ -19,35 +19,43 @@ $this->menu = array(
     array(
         'label' => Yii::t('BlogModule.blog', 'Blogs'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage blogs'), 'url' => array('/blog/blogBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a blog'), 'url' => array('/blog/blogBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
+                'url'   => array('/blog/blogBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('BlogModule.blog', 'Add a blog'),
+                'url'   => array('/blog/blogBackend/create')
+            ),
             array('label' => Yii::t('BlogModule.blog', 'Blog') . ' «' . mb_substr($model->name, 0, 32) . '»', 'utf-8'),
             array(
-                'icon' => 'glyphicon glyphicon-pencil',
+                'icon'        => 'glyphicon glyphicon-pencil',
                 'encodeLabel' => false,
-                'label' => Yii::t('BlogModule.blog', 'Edit blog'),
-                'url' => array(
+                'label'       => Yii::t('BlogModule.blog', 'Edit blog'),
+                'url'         => array(
                     '/blog/blogBackend/update',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-eye-open',
+                'icon'        => 'glyphicon glyphicon-eye-open',
                 'encodeLabel' => false,
-                'label' => Yii::t('BlogModule.blog', 'View blog'),
-                'url' => array(
+                'label'       => Yii::t('BlogModule.blog', 'View blog'),
+                'url'         => array(
                     '/blog/blogBackend/view',
                     'id' => $model->id
                 )
             ),
             array(
-                'icon' => 'glyphicon glyphicon-trash',
-                'label' => Yii::t('BlogModule.blog', 'Remove blog'),
-                'url' => '#',
+                'icon'        => 'glyphicon glyphicon-trash',
+                'label'       => Yii::t('BlogModule.blog', 'Remove blog'),
+                'url'         => '#',
                 'linkOptions' => array(
-                    'submit' => array('/blog/blogBackend/delete', 'id' => $model->id),
+                    'submit'  => array('/blog/blogBackend/delete', 'id' => $model->id),
                     'confirm' => Yii::t('BlogModule.blog', 'Do you really want to remove the blog?'),
-                    'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 )
             ),
         )
@@ -55,15 +63,31 @@ $this->menu = array(
     array(
         'label' => Yii::t('BlogModule.blog', 'Posts'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage posts'), 'url' => array('/blog/postBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a post'), 'url' => array('/blog/postBackend/create/', 'blog' => $model->id)),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('BlogModule.blog', 'Manage posts'),
+                'url'   => array('/blog/postBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('BlogModule.blog', 'Add a post'),
+                'url'   => array('/blog/postBackend/create/', 'blog' => $model->id)
+            ),
         )
     ),
     array(
         'label' => Yii::t('BlogModule.blog', 'Members'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage members'), 'url' => array('/blog/userToBlogBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add a member'), 'url' => array('/blog/userToBlogBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('BlogModule.blog', 'Manage members'),
+                'url'   => array('/blog/userToBlogBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('BlogModule.blog', 'Add a member'),
+                'url'   => array('/blog/userToBlogBackend/create')
+            ),
         )
     ),
 );
@@ -78,51 +102,51 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             'name',
             array(
-                'name' => 'icon',
+                'name'  => 'icon',
                 'value' => CHtml::image($model->getImageUrl()),
-                'type' => 'raw'
+                'type'  => 'raw'
             ),
             array(
                 'name' => 'description',
                 'type' => 'raw'
             ),
             array(
-                'name' => Yii::t('BlogModule.blog', 'Posts'),
+                'name'  => Yii::t('BlogModule.blog', 'Posts'),
                 'value' => $model->postsCount
             ),
             array(
-                'name' => Yii::t('BlogModule.blog', 'Members'),
+                'name'  => Yii::t('BlogModule.blog', 'Members'),
                 'value' => $model->membersCount
             ),
             'icon',
             'slug',
             array(
-                'name' => 'type',
+                'name'  => 'type',
                 'value' => $model->getType(),
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
             array(
-                'name' => 'create_user_id',
+                'name'  => 'create_user_id',
                 'value' => $model->createUser->getFullName(),
             ),
             array(
-                'name' => 'update_user_id',
+                'name'  => 'update_user_id',
                 'value' => $model->updateUser->getFullName(),
             ),
             array(
-                'name' => 'create_date',
+                'name'  => 'create_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_date, "short", "short"),
             ),
             array(
-                'name' => 'update_date',
+                'name'  => 'update_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
             )
         ),

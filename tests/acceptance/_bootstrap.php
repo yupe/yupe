@@ -11,4 +11,3 @@ require_once 'news/pages/NewsPage.php';
 require_once 'feedback/pages/FeedBackPage.php';
 require_once 'blog/pages/BlogPage.php';
 require_once 'gallery/pages/GalleryPage.php';
-

@@ -19,6 +19,6 @@ class FeedBackPage
 
     public static function routeFaq($param)
     {
-        return static::FAQ_URL.'/'.$param;
+        return static::FAQ_URL . '/' . $param;
     }
 }

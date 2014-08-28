@@ -5,8 +5,9 @@ Brown Paper style from goldblog.com.ua (c) Zaripov Yura <yur4ik7@ukr.net>
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background:#b7a68e url(./brown_papersq.png);
+    display: block;
+    padding: 0.5em;
+    background: #b7a68e url(./brown_papersq.png);
 }
 
 pre .keyword,
@@ -20,14 +21,14 @@ pre .nginx .title,
 pre .tex .special,
 pre .request,
 pre .status {
-  color:#005599;
-  font-weight:bold;
+    color: #005599;
+    font-weight: bold;
 }
 
 pre code,
 pre .subst,
 pre .tag .keyword {
-  color: #363C69;
+    color: #363C69;
 }
 
 pre .string,
@@ -57,7 +58,7 @@ pre .envvar,
 pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .number {
-  color: #2C009F;
+    color: #2C009F;
 }
 
 pre .comment,
@@ -71,7 +72,7 @@ pre .shebang,
 pre .apache .sqbracket,
 pre .nginx .built_in,
 pre .tex .formula {
-  color: #802022;
+    color: #802022;
 }
 
 pre .keyword,
@@ -90,7 +91,7 @@ pre .winutils,
 pre .bash .variable,
 pre .apache .tag,
 pre .tex .command {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 pre .coffeescript .javascript,
@@ -100,5 +101,5 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-  opacity: 0.8;
+    opacity: 0.8;
 }

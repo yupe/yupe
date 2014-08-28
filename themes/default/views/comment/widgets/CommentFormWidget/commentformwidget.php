@@ -7,9 +7,9 @@
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
         array(
-            'action' => Yii::app()->createUrl('/comment/add/'),
-            'id' => 'comment-form',
-            'type' => 'vertical',
+            'action'      => Yii::app()->createUrl('/comment/add/'),
+            'id'          => 'comment-form',
+            'type'        => 'vertical',
             'htmlOptions' => array(
                 'class' => 'well',
             )
@@ -59,14 +59,14 @@
                         'CCaptcha',
                         array(
                             'showRefreshButton' => true,
-                            'imageOptions' => array(
+                            'imageOptions'      => array(
                                 'width' => '150',
                             ),
-                            'buttonOptions' => array(
+                            'buttonOptions'     => array(
                                 'class' => 'btn btn-info',
                             ),
-                            'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
-                            'captchaAction' => '/comment/comment/captcha'
+                            'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
+                            'captchaAction'     => '/comment/comment/captcha'
                         )
                     );
                     ?>
@@ -80,7 +80,10 @@
                         array(
                             'widgetOptions' => array(
                                 'htmlOptions' => array(
-                                    'placeholder' => Yii::t('CommentModule.comment', 'Insert symbols you see on picture')
+                                    'placeholder' => Yii::t(
+                                            'CommentModule.comment',
+                                            'Insert symbols you see on picture'
+                                        )
                                 ),
                             ),
                         )
@@ -91,7 +94,8 @@
     <?php } endif; ?>
     <div class="row">
         <div class="col-sm-12">
-            <button class="btn btn-primary" id="add-comment" type="submit" name="add-comment"><i class="glyphicon glyphicon-comment"></i> <?php echo Yii::t(
+            <button class="btn btn-primary" id="add-comment" type="submit" name="add-comment"><i
+                    class="glyphicon glyphicon-comment"></i> <?php echo Yii::t(
                     'CommentModule.comment',
                     'Create comment'
                 ); ?></button>

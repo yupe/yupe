@@ -47,8 +47,8 @@ class ShowController extends yupe\components\controllers\FrontController
             array(
                 'COutputCache',
                 'requestTypes' => array('GET'),
-                'varyByParam' => array('id', 'file'),
-                'dependency' => new CFileCacheDependency($lcFile),
+                'varyByParam'  => array('id', 'file'),
+                'dependency'   => new CFileCacheDependency($lcFile),
             )
         );
     }
@@ -139,9 +139,9 @@ class ShowController extends yupe\components\controllers\FrontController
             'index',
             array(
                 'content' => $content,
-                'title' => $title,
-                'module' => $module,
-                'mtime' => date("d-m-Y H:i", filemtime($lcFile))
+                'title'   => $title,
+                'module'  => $module,
+                'mtime'   => date("d-m-Y H:i", filemtime($lcFile))
             )
         );
     }

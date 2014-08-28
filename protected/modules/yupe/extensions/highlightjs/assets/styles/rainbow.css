@@ -4,18 +4,28 @@ Style with support for rainbow parens
 
 */
 
-pre ::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
-pre ::selection { background:#FF5E99; color:#fff; text-shadow: none; }
-
-pre code {
-  display: block; padding: 0.5em;
-  background: #474949; color: #D1D9E1;
+pre ::-moz-selection {
+    background: #FF5E99;
+    color: #fff;
+    text-shadow: none;
 }
 
+pre ::selection {
+    background: #FF5E99;
+    color: #fff;
+    text-shadow: none;
+}
+
+pre code {
+    display: block;
+    padding: 0.5em;
+    background: #474949;
+    color: #D1D9E1;
+}
 
 pre .body,
 pre .collection {
-   color: #D1D9E1;
+    color: #D1D9E1;
 }
 
 pre .comment,
@@ -24,8 +34,8 @@ pre .diff .header,
 pre .doctype,
 pre .lisp .string,
 pre .javadoc {
-  color: #969896;
-  font-style: italic;
+    color: #969896;
+    font-style: italic;
 }
 
 pre .keyword,
@@ -34,10 +44,12 @@ pre .winutils,
 pre .javascript .title,
 pre .addition,
 pre .css .tag {
-  color: #cc99cc;
+    color: #cc99cc;
 }
 
-pre .number { color: #f99157; }
+pre .number {
+    color: #f99157;
+}
 
 pre .command,
 pre .string,
@@ -46,7 +58,7 @@ pre .phpdoc,
 pre .tex .formula,
 pre .regexp,
 pre .hexcolor {
-  color: #8abeb7;
+    color: #8abeb7;
 }
 
 pre .title,
@@ -56,14 +68,12 @@ pre .chunk,
 pre .decorator,
 pre .built_in,
 pre .lisp .title,
-pre .identifier
-{
-  color: #b5bd68;
+pre .identifier {
+    color: #b5bd68;
 }
 
-pre .class .keyword
-{
-  color: #f2777a;
+pre .class .keyword {
+    color: #f2777a;
 }
 
 pre .variable,
@@ -76,19 +86,19 @@ pre .haskell .label,
 pre .id,
 pre .lisp .title,
 pre .clojure .title .built_in {
-   color: #ffcc66;
+    color: #ffcc66;
 }
 
 pre .tag .title,
 pre .rules .property,
 pre .django .tag .keyword,
 pre .clojure .title .built_in {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 pre .attribute,
 pre .clojure .title {
-  color: #81a2be;
+    color: #81a2be;
 }
 
 pre .preprocessor,
@@ -102,13 +112,13 @@ pre .attr_selector,
 pre .important,
 pre .subst,
 pre .cdata {
-  color: #f99157;
+    color: #f99157;
 }
 
 pre .deletion {
-  color: #dc322f;
+    color: #dc322f;
 }
 
 pre .tex .formula {
-  background: #eee8d5;
+    background: #eee8d5;
 }

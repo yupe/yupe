@@ -11,8 +11,8 @@ class RbacTree
      */
     private $itemsGroupedByTypes = array(
         AuthItem::TYPE_OPERATION => array(),
-        AuthItem::TYPE_TASK => array(),
-        AuthItem::TYPE_ROLE => array()
+        AuthItem::TYPE_TASK      => array(),
+        AuthItem::TYPE_ROLE      => array()
     );
     /**
      * @var array - список правил в формате name => AuthItem object
@@ -37,7 +37,7 @@ class RbacTree
 
     public function __construct($user = null)
     {
-        $this->user = $user ?: Yii::app()->user;
+        $this->user = $user ? : Yii::app()->user;
         $this->getData();
     }
 
@@ -92,7 +92,7 @@ class RbacTree
         $children = $this->getTextItemChildren($itemName);
 
         return array(
-            'text' => $this->getTextItem($this->itemsList[$itemName]),
+            'text'     => $this->getTextItem($this->itemsList[$itemName]),
             'children' => $children,
         );
     }

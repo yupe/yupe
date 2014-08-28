@@ -10,7 +10,6 @@
  * @link     http://yupe.ru
  *
  **/
-
 class FeedBackForm extends CFormModel
 {
     public $name;
@@ -24,14 +23,23 @@ class FeedBackForm extends CFormModel
     public function rules()
     {
         $module = Yii::app()->getModule('feedback');
+
         return array(
             array('name, email, theme, text', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
             array('name, email, phone', 'length', 'max' => 150),
             array('theme', 'length', 'max' => 250),
             array('email', 'email'),
-            array('verifyCode', 'yupe\components\validators\YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
+            array(
+                'verifyCode',
+                'yupe\components\validators\YRequiredValidator',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+            ),
+            array(
+                'verifyCode',
+                'captcha',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+            ),
         );
     }
 
@@ -59,8 +67,7 @@ class FeedBackForm extends CFormModel
 
         if ($types) {
             $types[FeedBack::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'Default');
-        }
-        else{
+        } else {
             $types = array(FeedBack::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default'));
         }
 

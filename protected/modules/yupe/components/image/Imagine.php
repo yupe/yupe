@@ -69,12 +69,12 @@ class Imagine
 
     /**
      * Creates an `Imagine` object based on the specified [[driver]].
-     * @return ImagineInterface       the new `Imagine` object
-     * @throws \CException if [[driver]] is unknown or the system doesn't support any [[driver]].
+     * @return ImagineInterface the new `Imagine` object
+     * @throws \CException      if [[driver]] is unknown or the system doesn't support any [[driver]].
      */
     protected static function createImagine()
     {
-        foreach ((array) static::$driver as $driver) {
+        foreach ((array)static::$driver as $driver) {
             switch ($driver) {
                 case self::DRIVER_GMAGICK:
                     if (class_exists('Gmagick', false)) {
@@ -95,7 +95,10 @@ class Imagine
                     throw new \CException("Unknown driver: $driver");
             }
         }
-        throw new \CException("Your system does not support any of these drivers: " . implode(',', (array) static::$driver));
+        throw new \CException("Your system does not support any of these drivers: " . implode(
+                ',',
+                (array)static::$driver
+            ));
     }
 
     /**
@@ -110,12 +113,12 @@ class Imagine
      * $obj->crop('path\to\image.jpg', 200, 200, $point);
      * ~~~
      *
-     * @param  string                $filename the image file path or path alias.
-     * @param  integer               $width    the crop width
-     * @param  integer               $height   the crop height
-     * @param  array                 $start    the starting point. This must be an array with two elements representing `x` and `y` coordinates.
+     * @param  string $filename the image file path or path alias.
+     * @param  integer $width the crop width
+     * @param  integer $height the crop height
+     * @param  array $start the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
-     * @throws \CException if the `$start` parameter is invalid
+     * @throws \CException    if the `$start` parameter is invalid
      */
     public static function crop($filename, $width, $height, array $start = array(0, 0))
     {
@@ -132,10 +135,10 @@ class Imagine
     /**
      * Creates a thumbnail image. The function differs from [[\Imagine\Image\ImageInterface::thumbnail()]] function that
      * it keeps the aspect ratio of the image.
-     * @param  string         $filename the image file path or path alias.
-     * @param  integer        $width    the width in pixels to create the thumbnail
-     * @param  integer        $height   the height in pixels to create the thumbnail
-     * @param  string         $mode
+     * @param  string $filename the image file path or path alias.
+     * @param  integer $width the width in pixels to create the thumbnail
+     * @param  integer $height the height in pixels to create the thumbnail
+     * @param  string $mode
      * @return ImageInterface
      */
     public static function thumbnail($filename, $width, $height, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND)
@@ -143,7 +146,9 @@ class Imagine
         $box = new Box($width, $height);
         $img = static::getImagine()->open($filename);
 
-        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) || (!$box->getWidth() && !$box->getHeight())) {
+        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight(
+                )) || (!$box->getWidth() && !$box->getHeight())
+        ) {
             return $img->copy();
         }
 
@@ -171,11 +176,11 @@ class Imagine
 
     /**
      * Adds a watermark to an existing image.
-     * @param  string                $filename          the image file path or path alias.
-     * @param  string                $watermarkFilename the file path or path alias of the watermark image.
-     * @param  array                 $start             the starting point. This must be an array with two elements representing `x` and `y` coordinates.
+     * @param  string $filename the image file path or path alias.
+     * @param  string $watermarkFilename the file path or path alias of the watermark image.
+     * @param  array $start the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
-     * @throws \CException if `$start` is invalid
+     * @throws \CException    if `$start` is invalid
      */
     public static function watermark($filename, $watermarkFilename, array $start = array(0, 0))
     {
@@ -192,18 +197,18 @@ class Imagine
 
     /**
      * Draws a text string on an existing image.
-     * @param string $filename    the image file path or path alias.
-     * @param string $text        the text to write to the image
-     * @param string $fontFile    the file path or path alias
-     * @param array  $start       the starting position of the text. This must be an array with two elements representing `x` and `y` coordinates.
-     * @param array  $fontOptions the font options. The following options may be specified:
+     * @param string $filename the image file path or path alias.
+     * @param string $text the text to write to the image
+     * @param string $fontFile the file path or path alias
+     * @param array $start the starting position of the text. This must be an array with two elements representing `x` and `y` coordinates.
+     * @param array $fontOptions the font options. The following options may be specified:
      *
      * - color: The font color. Defaults to "fff".
      * - size: The font size. Defaults to 12.
      * - angle: The angle to use to write the text. Defaults to 0.
      *
      * @return ImageInterface
-     * @throws \CException if `$fontOptions` is invalid
+     * @throws \CException    if `$fontOptions` is invalid
      */
     public static function text($filename, $text, $fontFile, array $start = array(0, 0), array $fontOptions = array())
     {
@@ -229,10 +234,10 @@ class Imagine
 
     /**
      * Adds a frame around of the image. Please note that the image size will increase by `$margin` x 2.
-     * @param  string         $filename the full path to the image file
-     * @param  integer        $margin   the frame size to add around the image
-     * @param  string         $color    the frame color
-     * @param  integer        $alpha    the alpha value of the frame.
+     * @param  string $filename the full path to the image file
+     * @param  integer $margin the frame size to add around the image
+     * @param  string $color the frame color
+     * @param  integer $alpha the alpha value of the frame.
      * @return ImageInterface
      */
     public static function frame($filename, $margin = 20, $color = '666', $alpha = 100)

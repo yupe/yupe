@@ -11,10 +11,10 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'modulesinstall-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'modulesinstall-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
+        'type'                   => 'vertical',
     )
 );
 
@@ -24,14 +24,17 @@ Yii::app()->clientScript->registerScript(
     CClientScript::POS_READY
 );
 
-
 ?>
 
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'Please check modules you want to be installed.'); ?></p>
-    <p><?php echo Yii::t('InstallModule.install', 'Addition modules you can install/activate from control panel.'); ?></p>
+
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'Addition modules you can install/activate from control panel.'
+        ); ?></p>
 </div>
 
 <div class="alert alert-success">
@@ -40,7 +43,7 @@ Yii::app()->clientScript->registerScript(
         'InstallModule.install',
         'Summary modules: {all}, checked for install: {checked}',
         array(
-            '{all}' => '<small class="label label-info">' . count($data['modules']) . '</small>',
+            '{all}'     => '<small class="label label-info">' . count($data['modules']) . '</small>',
             '{checked}' => '<small class="label label-info checked-count">0</small>',
         )
     ); ?>
@@ -50,11 +53,23 @@ Yii::app()->clientScript->registerScript(
 $this->widget(
     'bootstrap.widgets.TbButtonGroup',
     array(
-        'context' => 'info',
-        'buttons' => array(
-            array('label' => Yii::t('InstallModule.install', 'Recommended'), 'url' => '#', 'htmlOptions' => array('id' => 'recom-check')),
-            array('label' => Yii::t('InstallModule.install', 'Only basic modules'), 'url' => '#', 'htmlOptions' => array('id' => 'basic-check')),
-            array('label' => Yii::t('InstallModule.install', 'All'), 'url' => '#', 'htmlOptions' => array('id' => 'all-check')),
+        'context'     => 'info',
+        'buttons'     => array(
+            array(
+                'label'       => Yii::t('InstallModule.install', 'Recommended'),
+                'url'         => '#',
+                'htmlOptions' => array('id' => 'recom-check')
+            ),
+            array(
+                'label'       => Yii::t('InstallModule.install', 'Only basic modules'),
+                'url'         => '#',
+                'htmlOptions' => array('id' => 'basic-check')
+            ),
+            array(
+                'label'       => Yii::t('InstallModule.install', 'All'),
+                'url'         => '#',
+                'htmlOptions' => array('id' => 'all-check')
+            ),
         ),
         'htmlOptions' => array('style' => 'margin: 0;'),
     )
@@ -76,7 +91,7 @@ $this->widget(
     <?php
     $post = Yii::app()->getRequest()->getIsPostRequest();
     $modulesSelection = array(
-        'all' => array(),
+        'all'   => array(),
         'recom' => array(),
         'basic' => array(),
     );
@@ -110,7 +125,8 @@ $this->widget(
             </td>
             <td>
                 <?php if ($module->isMultiLang()) : { ?>
-                    <i class="glyphicon glyphicon-globe" title="<?php echo Yii::t('InstallModule.install', 'Multilanguage module'); ?>"></i>
+                    <i class="glyphicon glyphicon-globe"
+                       title="<?php echo Yii::t('InstallModule.install', 'Multilanguage module'); ?>"></i>
                 <?php } endif; ?>
             </td>
             <td>
@@ -141,16 +157,16 @@ $this->widget(
                         $dep = $data['modules'][$dep]->name;
                     }
                     $tabs[] = array(
-                        'label' => Yii::t('InstallModule.install', 'Depends from'),
+                        'label'   => Yii::t('InstallModule.install', 'Depends from'),
                         'content' => implode(', ', $deps),
-                        'count' => count($deps),
+                        'count'   => count($deps),
                     );
                 }
                 if ($module->getId() == 'yupe') {
                     $tabs[] = array(
-                        'label' => Yii::t('InstallModule.install', 'Dependent'),
+                        'label'   => Yii::t('InstallModule.install', 'Dependent'),
                         'content' => Yii::t('InstallModule.install', 'All modules'),
-                        'count' => Yii::t('InstallModule.install', 'All'),
+                        'count'   => Yii::t('InstallModule.install', 'All'),
                     );
                 } else {
                     if (count($deps = $module->getDependent())) {
@@ -158,9 +174,9 @@ $this->widget(
                             $dep = $data['modules'][$dep]->name;
                         }
                         $tabs[] = array(
-                            'label' => Yii::t('InstallModule.install', 'Dependent'),
+                            'label'   => Yii::t('InstallModule.install', 'Dependent'),
                             'content' => implode(', ', $deps),
-                            'count' => count($deps),
+                            'count'   => count($deps),
                         );
                     }
                 }
@@ -169,7 +185,7 @@ $this->widget(
                             'span',
                             array(
                                 'class' => 'badge alert-info',
-                                'rel' => 'tooltip',
+                                'rel'   => 'tooltip',
                                 'title' => $t['content'],
                             ),
                             CHtml::tag('small', array(), $t['count'])
@@ -179,11 +195,17 @@ $this->widget(
                 <br/>
 
                 <?php echo $module->getIsNoDisable()
-                    ? '<span class="badge alert-warning" style="font-size: 11px;">' . Yii::t('InstallModule.install', 'System module. (Can\'t disable)') . '</span>'
+                    ? '<span class="badge alert-warning" style="font-size: 11px;">' . Yii::t(
+                        'InstallModule.install',
+                        'System module. (Can\'t disable)'
+                    ) . '</span>'
                     : ''
                 ?>
                 <span class="badge alert-warning dependents" style="display: none; font-size: 11px;">
-                            <?php echo Yii::t('InstallModule.install', 'Disable depends modules,<br/>which you would not like to install.'); ?>
+                            <?php echo Yii::t(
+                                'InstallModule.install',
+                                'Disable depends modules,<br/>which you would not like to install.'
+                            ); ?>
                         </span>
             </td>
         </tr>
@@ -208,38 +230,40 @@ $js = <<<EOF
             arrayRevert    = {$jsArrayRevert},
             arrayNoDisable = {$jsArrayNoDisable};
 
-        function checkedCount() {
+        function checkedCount()
+        {
             $('.checked-count').text($('#module-list').find("input:checked").length);
         }
         checkedCount();
 
-        $.each(arrayRevert, function(i, val) {
-            if ($.inArray(i, arrayNoDisable) == -1)
-            {
-                $.each(val, function(iRevert, valRevert) {
+        $.each(arrayRevert, function (i, val) {
+            if ($.inArray(i, arrayNoDisable) == -1) {
+                $.each(val, function (iRevert, valRevert) {
                     if ($('#module_' + valRevert).attr('checked')) {
                         $('#module_' + i).attr('checked', true).attr('onclick', "this.checked=true");
                         $('#module_' + i).parent().siblings('.check-label').find('.dependents').show();
+
                         return false;
                     }
                 });
             }
         });
 
-        $(document).on('change', '#module_{$keyDependencies}', function() {
+        $(document).on('change', '#module_{$keyDependencies}', function () {
             checkedCount();
             var id = $(this).attr('id').replace('module_', '');
             if ($(this).attr('checked')) {
-                $.each(array[id], function(i, val) {
+                $.each(array[id], function (i, val) {
                     $('#module_' + val).attr('checked', true).attr('onclick', "this.checked=true");
                 });
             } else {
-                $.each(array[id], function(i, val) {
+                $.each(array[id], function (i, val) {
                     if ($.inArray(val, arrayNoDisable) == -1) {
                         var all = false;
-                        $.each(arrayRevert[val], function(iRevert, valRevert) {
+                        $.each(arrayRevert[val], function (iRevert, valRevert) {
                             if ($('#module_' + valRevert).attr('checked')) {
                                 all = true;
+
                                 return false;
                             }
                         });
@@ -250,7 +274,7 @@ $js = <<<EOF
             }
         });
 
-        $(document).on('click', '#recom-check, #all-check, #basic-check', function() {
+        $(document).on('click', '#recom-check, #all-check, #basic-check', function () {
             $("{$modulesSelection['all']}").prop('checked', false);
             switch ($(this).attr('id')) {
                 case 'recom-check':
@@ -268,16 +292,16 @@ $js = <<<EOF
             }
             checkedCount();
         });
-        $(document).on('show.bs.modal', '#modules-modal', function() {
-            $('#modules-modal-list').find("i").each(function() {
+        $(document).on('show.bs.modal', '#modules-modal', function () {
+            $('#modules-modal-list').find("i").each(function () {
                 $(this).removeClass("glyphicon glyphicon-ok").addClass("glyphicon glyphicon-minus");
             });
-            $('#module-list').find("input:checked").each(function() {
+            $('#module-list').find("input:checked").each(function () {
                 var id = $(this).attr('id').replace('module_', 'modal_');
                 $('#' + id + ' i').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-ok");
             });
         });
-        $(document).on('click', '#modal-confirm', function() {
+        $(document).on('click', '#modal-confirm', function () {
             $('#modulesinstall-form').submit();
         });
 EOF;
@@ -287,7 +311,10 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
 <div class="modal-header">
     <h4>
-        <?php echo Yii::t('InstallModule.install', 'Will be installed <small class="label label-info checked-count">0</small> modules. Do you want to continue?'); ?>
+        <?php echo Yii::t(
+            'InstallModule.install',
+            'Will be installed <small class="label label-info checked-count">0</small> modules. Do you want to continue?'
+        ); ?>
     </h4>
 </div>
 <div id="modules-modal-list" class="modal-body row">
@@ -299,24 +326,29 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
             if ($moduleCountTr == $i) {
                 echo '</div><div class="col-xs-6">';
             }
-            echo '<div id="modal_' . $module->getId() . '"><i class="glyphicon glyphicon-minus"> </i> ' . $module->name . '</div>';
+            echo '<div id="modal_' . $module->getId(
+                ) . '"><i class="glyphicon glyphicon-minus"> </i> ' . $module->name . '</div>';
             $i++;
         }
         ?>
     </div>
 </div>
 <div class="modal-footer">
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Cancel'), '#', array('class' => 'btn btn-default', 'data-dismiss' => 'modal')); ?>
+    <?php echo CHtml::link(
+        Yii::t('InstallModule.install', 'Cancel'),
+        '#',
+        array('class' => 'btn btn-default', 'data-dismiss' => 'modal')
+    ); ?>
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'buttonType' => 'submit',
-            'context' => 'primary',
-            'label' => Yii::t('InstallModule.install', 'Continue >'),
+            'buttonType'  => 'submit',
+            'context'     => 'primary',
+            'label'       => Yii::t('InstallModule.install', 'Continue >'),
             'htmlOptions' => array(
                 'data-dismiss' => 'modal',
-                'id' => 'modal-confirm'
+                'id'           => 'modal-confirm'
             ),
         )
     ); ?>
@@ -325,14 +357,18 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
 
 <br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/dbsettings'), array('class' => 'btn btn-default')); ?>
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', '< Back'),
+    array('/install/default/dbsettings'),
+    array('class' => 'btn btn-default')
+); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
-        'label' => Yii::t('InstallModule.install', 'Continue >'),
+        'context'     => 'primary',
+        'label'       => Yii::t('InstallModule.install', 'Continue >'),
         'htmlOptions' => array(
             'data-toggle' => 'modal',
             'data-target' => '#modules-modal',

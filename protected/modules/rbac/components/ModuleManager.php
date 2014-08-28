@@ -27,7 +27,6 @@ class ModuleManager extends \yupe\components\ModuleManager
         return join('.', $routeArray);
     }
 
-
     /**
      * Обходит дерево меню и вычисляет доступность элемента для пользователя.
      * Если параметр visible уже установлен, то проверка не осуществляется.
@@ -43,9 +42,10 @@ class ModuleManager extends \yupe\components\ModuleManager
                 $route = $item['url'][0];
                 $role = $this->getRoleByRoute($route);
                 if (!isset($menu[$key]['visible'])) {
-                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app()->getUser()->checkAccess(
-                            $role
-                        );
+                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app(
+                        )->getUser()->checkAccess(
+                                $role
+                            );
                 }
                 $visible = $menu[$key]['visible'];
             }
@@ -61,17 +61,17 @@ class ModuleManager extends \yupe\components\ModuleManager
     {
         $items = $module->getAuthItems();
 
-        if(empty($items) || Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)) {
+        if (empty($items) || Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)) {
             return true;
         }
 
-        foreach($items as $task) {
-            if(Yii::app()->getUser()->checkAccess($task['name'])){
+        foreach ($items as $task) {
+            if (Yii::app()->getUser()->checkAccess($task['name'])) {
                 return true;
             }
 
-            foreach($task['items'] as $item) {
-                if(Yii::app()->getUser()->checkAccess($item['name'])){
+            foreach ($task['items'] as $item) {
+                if (Yii::app()->getUser()->checkAccess($item['name'])) {
                     return true;
                 }
             }
@@ -82,8 +82,8 @@ class ModuleManager extends \yupe\components\ModuleManager
 
     public function filterModulesListByUserRoles(array $modules)
     {
-        foreach($modules as $id => $module) {
-            if(!$this->checkModuleRights($module)) {
+        foreach ($modules as $id => $module) {
+            if (!$this->checkModuleRights($module)) {
                 unset($modules[$id]);
             }
         }
@@ -92,8 +92,8 @@ class ModuleManager extends \yupe\components\ModuleManager
     }
 
     /**
-     * @param bool $navigationOnly
-     * @param bool $disableModule
+     * @param  bool $navigationOnly
+     * @param  bool $disableModule
      * @return array|mixed
      */
     public function getModules($navigationOnly = false, $disableModule = false)
@@ -109,4 +109,4 @@ class ModuleManager extends \yupe\components\ModuleManager
 
         return $modules;
     }
-} 
+}
