@@ -186,10 +186,7 @@ function moduleRow($module, &$updates, &$modules)
                         'YupeModule.yupe',
                         'Settings'
                     ) . '">&nbsp;</i>',
-                    array(
-                        '/yupe/backend/modulesettings/',
-                        'module' => $module->getId(),
-                    )
+                    $module->getSettingsUrl()
                 ); ?>
             <?php endif; ?>
             <?php

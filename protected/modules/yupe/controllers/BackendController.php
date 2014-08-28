@@ -250,7 +250,7 @@ class BackendController extends yupe\components\controllers\BackController
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
             }
-            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
+            $this->redirect($module->getSettingsUrl());
         }
         throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
     }

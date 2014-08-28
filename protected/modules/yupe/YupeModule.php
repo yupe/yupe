@@ -555,10 +555,7 @@ class YupeModule extends WebModule
             array(
                 'icon'  => 'glyphicon glyphicon-wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
-                'url'   => array(
-                    '/yupe/backend/modulesettings',
-                    'module' => 'yupe',
-                ),
+                'url'   => $this->getSettingsUrl(),
             ),
             array(
                 'icon'  => "glyphicon glyphicon-question-sign",

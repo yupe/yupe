@@ -157,7 +157,7 @@ class ModuleManager extends \CApplicationComponent
                                 array(
                                     'icon'  => 'glyphicon glyphicon-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Module settings'),
-                                    'url'   => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
+                                    'url'   => $modules[$key]->getSettingsUrl(),
                                 ),
                             );
                         }
