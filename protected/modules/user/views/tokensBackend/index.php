@@ -76,6 +76,7 @@ SCRIPT;
         'id'           => 'user-tokens-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => false,
         'columns'      => array(
             array(
                 'name'   => 'user_id',

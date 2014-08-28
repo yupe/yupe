@@ -42,7 +42,13 @@ $this->menu = array(
         'id'           => 'auth-item-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'bulkActions'  => array(false),
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/rbac/rbacBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'      => array(
             array(
                 'name'  => 'name',

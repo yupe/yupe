@@ -74,6 +74,13 @@ $this->widget(
         'id'           => 'mail-template-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/mail/templateBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'      => array(
             array(
                 'name'        => 'id',

@@ -98,6 +98,13 @@ $this->widget(
         'id'           => 'mail-event-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/mail/eventBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'      => array(
             array(
                 'name'        => 'id',

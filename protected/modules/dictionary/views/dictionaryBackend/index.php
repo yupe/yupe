@@ -81,6 +81,13 @@ $this->menu = array(
         'id'           => 'dictionary-group-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/dictionary/dictionaryBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'      => array(
             array(
                 'name'        => 'id',

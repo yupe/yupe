@@ -90,6 +90,13 @@ $this->menu = array(
         'sortableAction'    => '/menu/menuitemBackend/sortable',
         'dataProvider'      => $model->search(),
         'filter'            => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/menu/menuitemBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'           => array(
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',

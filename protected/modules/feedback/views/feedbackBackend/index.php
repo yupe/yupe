@@ -74,6 +74,13 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
         'id'           => 'feed-back-list',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/feedback/feedbackBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'      => array(
             array(
                 'name'        => 'id',

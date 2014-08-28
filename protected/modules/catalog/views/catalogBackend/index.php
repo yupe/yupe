@@ -65,6 +65,13 @@ $this->menu = array(
         'id'           => 'good-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/catalog/catalogBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns'      => array(
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',

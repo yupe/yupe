@@ -84,7 +84,7 @@ class CustomGridView extends \TbExtendedGridView
      **/
     public $headlinePosition = self::HP_RIGHT;
 
-    public $template = "{pager}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 20px;'>{headline}</div>";
+    public $template = "{pager}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 20px;'>{headline}</div>";
 
     public $ajaxUrl;
 
@@ -99,13 +99,21 @@ class CustomGridView extends \TbExtendedGridView
         \Booster::getBooster()->registerAssetJs('jquery.saveselection.gridview.js');
         $this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.afterUpdateGrid('" . $this->id . "');";
         echo '<tr><td colspan="' . count($this->columns) . '">';
-        $this->bulk->renderButtons();
-        if ($this->actionsButtons) {
-            echo CHtml::link(
-                Yii::t('YupeModule.yupe', 'Add'),
-                ['/' . $this->controller->module->getId() . '/' . lcfirst($this->_modelName) . 'Backend/create'],
-                ['class' => 'btn btn-success pull-right btn-sm']
-            );
+        if(!empty($this->bulk)) {
+            $this->bulk->renderButtons();
+        }
+        if (!empty($this->actionsButtons)) {
+            if(is_array($this->actionsButtons)) {
+                foreach($this->actionsButtons as $button) {
+                    echo $button;
+                }
+            }else{
+                echo CHtml::link(
+                    Yii::t('YupeModule.yupe', 'Add'),
+                    ['/' . $this->getController()->getModule()->getId() . '/' . lcfirst($this->_modelName) . 'Backend/create'],
+                    ['class' => 'btn btn-success pull-right btn-sm']
+                );
+            }
         }
         echo '</td></tr>';
     }
