@@ -164,7 +164,7 @@ class ContentBlock extends yupe\models\YModel
 
     public function getCategoryName()
     {
-        return empty($this->category) ? '--not selected--' : $this->category->name;
+        return empty($this->category) ? Yii::t('ContentBlockModule.contentblock', '--not selected--') : $this->category->name;
     }
 
     public function getCategoryAlias()
