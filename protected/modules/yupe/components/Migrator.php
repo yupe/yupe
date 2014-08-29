@@ -216,6 +216,10 @@ class Migrator extends \CApplicationComponent
     {
         $db = $this->getDbConnection();
 
+        ob_start();
+        ob_implicit_flush(false);
+
+        echo Yii::t('YupeModule.yupe', "Checking migration {class}", array('{class}' => $class));
         Yii::app()->getCache()->clear('getMigrationHistory');
 
         $start = microtime(true);
@@ -232,6 +236,7 @@ class Migrator extends \CApplicationComponent
         );
 
         $result = $migration->up();
+        Yii::log($msg = ob_get_clean());
 
         if ($result !== false) {
             // Проставляем "установлено"
@@ -261,7 +266,10 @@ class Migrator extends \CApplicationComponent
             throw new CException(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Error was found when installing'
+                    'Error was found when installing: {error}',
+                    array(
+                        '{error}' => $msg
+                    )
                 )
             );
         }
@@ -278,14 +286,15 @@ class Migrator extends \CApplicationComponent
     public function migrateDown($module, $class)
     {
         Yii::log(Yii::t('YupeModule.yupe', "Downgrade migration {class}", array('{class}' => $class)));
-
         $db = $this->getDbConnection();
-
         $start = microtime(true);
         $migration = $this->instantiateMigration($module, $class);
-        $result = $migration->down();
 
-        Yii::app()->getCache()->clear('getMigrationHistory');
+        ob_start();
+        ob_implicit_flush(false);
+        $result = $migration->down();
+        Yii::log($msg = ob_get_clean());
+        Yii::app()->cache->clear('getMigrationHistory');
 
         if ($result !== false) {
             $db->createCommand()->delete(
@@ -321,7 +330,10 @@ class Migrator extends \CApplicationComponent
             throw new CException(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Error was found when installing'
+                    'Error was found when installing: {error}',
+                    array(
+                        '{error}' => $msg
+                    )
                 )
             );
         }
@@ -337,9 +349,11 @@ class Migrator extends \CApplicationComponent
      */
     protected function instantiateMigration($module, $class)
     {
-        include_once Yii::getPathOfAlias("application.modules." . $module . ".install.migrations") . '/' . $class . '.php';
+        $file = Yii::getPathOfAlias("application.modules." . $module . ".install.migrations") . '/' . $class . '.php';
+        include_once $file;
         $migration = new $class();
         $migration->setDbConnection($this->getDbConnection());
+
         return $migration;
     }
 
