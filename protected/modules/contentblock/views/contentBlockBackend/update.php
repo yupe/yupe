@@ -38,7 +38,7 @@ $this->menu = array(
     ),
     array(
         'icon'  => 'glyphicon glyphicon-eye-open',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'View Content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'View content block'),
         'url'   => array(
             '/contentblock/contentBlockBackend/view',
             'id' => $model->id
