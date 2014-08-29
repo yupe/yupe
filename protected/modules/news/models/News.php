@@ -214,7 +214,7 @@ class News extends yupe\models\YModel
         }
 
         if (!$this->lang) {
-            $this->lang = Yii::app()->language;
+            $this->lang = Yii::app()->getLanguage();
         }
 
         return parent::beforeValidate();
@@ -227,7 +227,7 @@ class News extends yupe\models\YModel
 
         if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
-            $this->user_id = Yii::app()->user->getId();
+            $this->user_id = Yii::app()->getUser()->getId();
         }
 
         return parent::beforeSave();

@@ -7,9 +7,9 @@
 
 namespace yupe\components\image;
 
+use Imagine\Image\Palette\RGB;
 use Yii;
 use Imagine\Image\Box;
-use Imagine\Image\Color;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
 use Imagine\Image\ManipulatorInterface;
@@ -155,7 +155,7 @@ class Imagine
         $img = $img->thumbnail($box, $mode);
 
         // create empty image to preserve aspect ratio of thumbnail
-        $thumb = static::getImagine()->create($box, new Color('FFF', 100));
+        $thumb = static::getImagine()->create($box, (new RGB())->color('FFF', 100));
 
         // calculate points
         $size = $img->getSize();
@@ -225,7 +225,7 @@ class Imagine
         $fontAngle = $fontOptions['angle'];
 
         $img = static::getImagine()->open($filename);
-        $font = static::getImagine()->font($fontFile, $fontSize, new Color($fontColor));
+        $font = static::getImagine()->font($fontFile, $fontSize, (new RGB())->color($fontColor));
 
         $img->draw()->text($text, $font, new Point($start[0], $start[1]), $fontAngle);
 
@@ -247,11 +247,11 @@ class Imagine
         $size = $img->getSize();
 
         $pasteTo = new Point($margin, $margin);
-        $padColor = new Color($color, $alpha);
+        $palette = new RGB();
 
         $box = new Box($size->getWidth() + ceil($margin * 2), $size->getHeight() + ceil($margin * 2));
 
-        $image = static::getImagine()->create($box, $padColor);
+        $image = static::getImagine()->create($box, (new RGB())->color($color));
 
         $image->paste($img, $pasteTo);
 
