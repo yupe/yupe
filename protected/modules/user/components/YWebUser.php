@@ -212,7 +212,7 @@ class YWebUser extends CWebUser
      */
     protected function afterLogout()
     {
-        Yii::app()->cache->clear('loggedIn' . $this->getId());
+        Yii::app()->getCache()->clear('loggedIn' . $this->getId());
 
         parent::afterLogout();
     }
@@ -226,7 +226,7 @@ class YWebUser extends CWebUser
      */
     protected function afterLogin($fromCookie)
     {
-        Yii::app()->cache->clear('loggedIn' . $this->getId());
+        Yii::app()->getCache()->clear('loggedIn' . $this->getId());
 
         if ($fromCookie) {
 
@@ -242,9 +242,10 @@ class YWebUser extends CWebUser
                     return false;
                 }
 
+
                 //перегенерировать токен авторизации
                 $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                    $user
+                    $user, (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 60 * 60
                 );
 
                 $this->setState($this->authToken, $token->token);

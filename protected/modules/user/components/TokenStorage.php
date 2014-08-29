@@ -4,20 +4,21 @@ class TokenStorage extends CApplicationComponent
 {
     public function init()
     {
-        UserToken::model()->deleteAll('expire < NOW()');
-
         parent::init();
+
+        $this->deleteExpired();
     }
 
     public function create(User $user, $expire, $type)
     {
+        $expire = (int)$expire;
         $model = new UserToken();
         $model->user_id = $user->id;
         $model->type = (int)$type;
         $model->token = Yii::app()->userManager->hasher->generateRandomToken();
         $model->ip = Yii::app()->getRequest()->getUserHostAddress();
         $model->status = UserToken::STATUS_NEW;
-        $model->expire = date('Y-m-d h:i:s', time() + (int)$expire);
+        $model->expire = new CDbExpression("DATE_ADD(NOW(), INTERVAL {$expire} SECOND)");
         if ($model->save()) {
             return $model;
         }
@@ -34,6 +35,15 @@ class TokenStorage extends CApplicationComponent
                 ':user_id' => $user->id
             )
         );
+    }
+
+    public function deleteExpired()
+    {
+        $deleted = UserToken::model()->deleteAll('expire < NOW()');
+
+        Yii::log(sprintf('Delete %d tokes', $deleted), Clogger::LEVEL_INFO);
+
+        return $deleted;
     }
 
     public function createAccountActivationToken(User $user, $expire = 86400)
