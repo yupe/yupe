@@ -10,8 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
-$yupeAssets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.yupe.views.assets'));
-
+$mainAssets = Yii::app()->getAssetManager()->publish(
+    Yii::getPathOfAlias('application.modules.yupe.views.assets')
+);
 $this->widget(
     'bootstrap.widgets.TbNavbar',
     array(
@@ -20,7 +21,7 @@ $this->widget(
         'collapse' => true,
         'fixed'    => 'top',
         'brand'    => CHtml::image(
-                $yupeAssets . '/img/logo.png',
+                $mainAssets . '/img/logo.png',
                 CHtml::encode(Yii::app()->name),
                 array(
                     'width'  => '38',
@@ -33,7 +34,7 @@ $this->widget(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
                 'type'  => 'navbar',
-                'items' => Yii::app()->moduleManager->getModules(true),
+                'items' => $modules,
             ),
             array(
                 'class'       => 'bootstrap.widgets.TbMenu',
@@ -128,7 +129,7 @@ $this->widget(
                             ),
                         ),
                     ),
-                    $this->controller->yupe->getLanguageSelectorArray()
+                    $yupe->getLanguageSelectorArray()
                 ),
             ),
         ),

@@ -22,7 +22,7 @@ class YLanguageSelector extends YWidget
 
     public function run()
     {
-        $langs = array_keys($this->controller->yupe->getLanguagesList());
+        $langs = array_keys($this->getController()->yupe->getLanguagesList());
 
         if (count($langs) <= 1) {
             return false;
@@ -38,17 +38,17 @@ class YLanguageSelector extends YWidget
         }
 
         if ($this->enableFlag) {
-            Yii::app()->clientScript->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/flags.css');
+            Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/flags.css');
         }
 
         $this->render(
             $this->view,
             array(
                 'langs'           => $langs,
-                'currentLanguage' => Yii::app()->language,
-                'cleanUrl'        => Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url),
-                'homeUrl'         => Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(
-                        Yii::app()->homeUrl
+                'currentLanguage' => Yii::app()->getLanguage(),
+                'cleanUrl'        => Yii::app()->getUrlManager()->getCleanUrl(Yii::app()->getRequest()->getUrl()),
+                'homeUrl'         => Yii::app()->getHomeUrl() . (Yii::app()->getHomeUrl()[strlen(
+                        Yii::app()->getHomeUrl()
                     ) - 1] != "/" ? '/' : ''),
             )
         );

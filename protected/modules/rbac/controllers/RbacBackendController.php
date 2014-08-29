@@ -80,7 +80,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 );
 
                 /*сброс кэша меню*/
-                Yii::app()->getCache()->delete('YAdminPanel::' . $id . 'backend' . '::' . Yii::app()->getLanguage());
+                Yii::app()->getCache()->delete('YAdminPanel::' . $id . '::' . Yii::app()->getLanguage());
 
                 /*сброс кеша прав*/
                 Yii::app()->getCache()->delete(Yii::app()->getUser()->rbacCacheNameSpace . $id);

@@ -45,11 +45,6 @@ class ModuleManager extends \CApplicationComponent
      */
     public $categorySort;
 
-    public function init()
-    {
-        parent::init();
-    }
-
     /**
      * Возвращаем список модулей:
      *

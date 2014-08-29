@@ -13,12 +13,25 @@
  **/
 namespace yupe\widgets;
 
+/**
+ * Class YModuleInfo
+ * @package yupe\widgets
+ */
 class YModuleInfo extends YWidget
 {
+    /**
+     * @var
+     */
     public $module;
 
+    /**
+     * @var string
+     */
     public $view = 'moduleinfowidget';
 
+    /**
+     *
+     */
     public function init()
     {
         if (!$this->module && is_object($this->controller->module)) {
@@ -26,6 +39,9 @@ class YModuleInfo extends YWidget
         }
     }
 
+    /**
+     *
+     */
     public function run()
     {
         $this->render($this->view, array('module' => $this->module));
