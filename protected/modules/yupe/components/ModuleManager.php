@@ -28,6 +28,8 @@ class ModuleManager extends \CApplicationComponent
 {
     const CORE_MODULE = 'yupe';
 
+    const INSTALL_MODULE = 'install';
+
     /**
      * @var
      */
