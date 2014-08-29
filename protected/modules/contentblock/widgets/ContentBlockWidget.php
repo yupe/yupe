@@ -10,6 +10,7 @@
  *
  **/
 Yii::import('application.modules.contentblock.models.ContentBlock');
+Yii::import('application.modules.contentblock.ContentBlockModule');
 
 class ContentBlockWidget extends yupe\widgets\YWidget
 {
@@ -57,15 +58,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 $output = '';
 
             } else {
-                switch ($block->type) {
-                    case ContentBlock::SIMPLE_TEXT:
-                        $output = CHtml::encode($block->content);
-                        break;
-                    case ContentBlock::HTML_TEXT:
-                    case ContentBlock::RAW_TEXT:
-                        $output = $block->content;
-                        break;
-                }
+                $output = $block->getContent();
             }
 
             Yii::app()->cache->set($cacheName, $output);

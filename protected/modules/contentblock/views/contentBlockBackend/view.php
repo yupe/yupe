@@ -68,6 +68,10 @@ $this->menu = array(
             'name',
             'code',
             array(
+                'name'  => 'category_id',
+                'value' => $model->getCategoryName()
+            ),
+            array(
                 'name'  => 'type',
                 'value' => $model->getType(),
             ),
@@ -82,4 +86,10 @@ $this->menu = array(
     <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
     <br/><br/>
     <?php echo $example; ?>
+</div>
+<div>
+    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
+    <br /><br />
+    <?php echo $exampleCategory; ?>
+    <?php echo Yii::t('ContentBlockModule.contentblock', 'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>'); ?>
 </div>
