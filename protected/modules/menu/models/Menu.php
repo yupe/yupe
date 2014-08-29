@@ -99,14 +99,14 @@ class Menu extends yupe\models\YModel
             'id'          => Yii::t('MenuModule.menu', 'Menu Id'),
             'name'        => Yii::t('MenuModule.menu', 'Menu name'),
             'code'        => Yii::t(
-                    'MenuModule.menu',
-                    'Unified code is using in widget, as identifier for menu printing.'
-                ),
+                'MenuModule.menu',
+                'Unified code is using in widget, as identifier for menu printing.'
+            ),
             'description' => Yii::t('MenuModule.menu', 'Short description'),
             'status'      => Yii::t(
-                    'MenuModule.menu',
-                    'Choose menu status: <br /><br /><span class="label label-success">active</span> &ndash; Will be visible on site.<br /><br /><span class="label label-warning">not active</span> &ndash; Will be hidden.'
-                ),
+                'MenuModule.menu',
+                'Choose menu status: <br /><br /><span class="label label-success">active</span> &ndash; Will be visible on site.<br /><br /><span class="label label-warning">not active</span> &ndash; Will be hidden.'
+            ),
         );
     }
 
@@ -127,10 +127,12 @@ class Menu extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 'status DESC, id'),
-        ));
+        return new CActiveDataProvider(
+            get_class($this), array(
+                'criteria' => $criteria,
+                'sort'     => array('defaultOrder' => 'status DESC, id'),
+            )
+        );
     }
 
     public function scopes()
@@ -191,10 +193,10 @@ class Menu extends yupe\models\YModel
                     )
                 )
             )->findByAttributes(
-                    array(
-                        'code' => $code
-                    )
-                );
+                array(
+                    'code' => $code
+                )
+            );
 
             $items = array();
 
@@ -211,35 +213,24 @@ class Menu extends yupe\models\YModel
                 if ($result->href) {
                     // если адрес надо параметризовать через роутер
                     if (!$result->regular_link) {
-
-                        $url = @unserialize($result->href) ? : $result->href;
-
+                        $url = $result->href;
                         $param = array();
-
-                        if (!is_array($url)) {
-
-                            strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
-
-                            if ($param) {
-                                parse_str($param, $param);
-                            }
-
+                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
+                        if ($param) {
+                            parse_str($param, $param);
                         }
-
                         $url = array('url' => (array)$url + $param, 'items' => $childItems);
                     } else {
                         // если обычная ссылка
                         $url = array('url' => $result->href, 'items' => $childItems);
                     }
-
                 } elseif ($childItems) {
                     $url = array('url' => array('#'), 'items' => $childItems);
                 } else {
                     $url = array();
                 }
 
-                $class = (($childItems) ? ' submenuItem' : '') .
-                    (($result->class) ? ' ' . $result->class : '');
+                $class = (($childItems) ? ' submenuItem' : '') . (($result->class) ? ' ' . $result->class : '');
                 $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
                 $target = ($result->target && $url) ? array('target' => $result->target) : array();
                 $rel = ($result->rel && $url) ? array('rel' => $result->rel) : array();
@@ -252,9 +243,9 @@ class Menu extends yupe\models\YModel
                                 'class' => 'listItemLink',
                             ) + $title_attr + $target + $rel,
                         'visible'     => MenuItem::model()->getConditionVisible(
-                                $result->condition_name,
-                                $result->condition_denial
-                            ),
+                            $result->condition_name,
+                            $result->condition_denial
+                        ),
                     ) + $url;
             }
 
@@ -269,7 +260,15 @@ class Menu extends yupe\models\YModel
         return $items;
     }
 
-    public function addItem($title, $href, $parentId)
+    /**
+     * Добавляет новый пункт меню в меню
+     * @param $title string - Заголовок
+     * @param $href string - Ссылка
+     * @param $parentId int - Родитель
+     * @param bool $regularLink - Обычная ссылка
+     * @return bool
+     */
+    public function addItem($title, $href, $parentId, $regularLink = false)
     {
         $menuItem = new MenuItem();
         $menuItem->parent_id = (int)$parentId;
@@ -283,6 +282,7 @@ class Menu extends yupe\models\YModel
         $menuItem->after_link = '';
         $menuItem->target = '';
         $menuItem->rel = '';
+        $menuItem->regular_link = $regularLink;
         if ($menuItem->save()) {
             Yii::app()->cache->clear(array('menu', $this->code));
 
@@ -294,13 +294,14 @@ class Menu extends yupe\models\YModel
 
     /**
      * Метод изменения пункта меню.
-     * @param $oldTitle Старое название элемента (по нему осуществяется поиск)
-     * @param $newTitle Новое название
-     * @param $href Новая ссылка
-     * @param $parentId id меню
+     * @param $oldTitle string Старое название элемента (по нему осуществяется поиск)
+     * @param $newTitle string Новое название
+     * @param $href string Новая ссылка
+     * @param $parentId int id меню
+     * @param $regularLink bool Обычная ссылка
      * @return bool статус выполнения
      */
-    public function changeItem($oldTitle, $newTitle, $href, $parentId)
+    public function changeItem($oldTitle, $newTitle, $href, $parentId, $regularLink = false)
     {
         $menuItem = MenuItem::model()->findByAttributes(array("title" => $oldTitle));
 
@@ -312,6 +313,7 @@ class Menu extends yupe\models\YModel
         $menuItem->menu_id = $this->id;
         $menuItem->title = $newTitle;
         $menuItem->href = $href;
+        $menuItem->regular_link = $regularLink;
 
         if ($menuItem->save()) {
             Yii::app()->cache->clear(array('menu', $this->code));

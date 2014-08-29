@@ -88,7 +88,7 @@ class PageController extends yupe\components\controllers\FrontController
     private function getBreadCrumbsRecursively(Page $page)
     {
         $pages = array();
-        $pages[$page->title] = array('/page/page/show', 'slug' => $page->slug);
+        $pages[$page->title] = $page->getUrl();
         $pp = $page->parentPage;
         if ($pp) {
             $pages += $this->getBreadCrumbsRecursively($pp);

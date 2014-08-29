@@ -68,7 +68,4 @@ $this->menu = array(
 <br/>
 
 <li class="glyphicon glyphicon-globe"></li>
-<?php echo CHtml::link(
-    Yii::app()->createAbsoluteUrl("/page/page/show", array("slug" => $model->slug)),
-    array('/page/page/show', 'slug' => $model->slug)
-); ?>
+<?php echo CHtml::link($model->getUrl(true), $model->getUrl()); ?>
