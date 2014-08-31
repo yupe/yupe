@@ -20,6 +20,7 @@ return array(
     'component' => array(),
     'rules' => array(
         '/shop' => 'shop/shop/index',
+        '/shop/category/<cat>' => 'shop/shop/index/category/<cat>',
         '/shop/<name>' => 'shop/shop/show',
         '/shop/cart/<action>/*' => 'shop/cart/<action>',
         '/shop/order/<action>/*' => 'shop/order/<action>',
