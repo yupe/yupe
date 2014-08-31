@@ -63,6 +63,7 @@ class YInLineEditAction extends CAction
             Yii::app()->ajax->success();
         }
 
-        throw new CHttpException(500, $model->getError($name));
+        http_response_code(500);
+        echo $model->getError($name);
     }
 }
