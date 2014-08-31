@@ -36,6 +36,9 @@ class CommentFormWidget extends yupe\widgets\YWidget
 
         $module = Yii::app()->getModule('comment');
 
+	    Yii::app()->session['invisibleCaptcha'] = substr(md5(microtime()), 0, 10);
+	    Yii::app()->session['invisibleCaptchaValue'] = substr(md5(microtime()), 0, 10);
+
         $model->setAttributes(array(
             'model'    => $this->model,
             'model_id' => $this->modelId,

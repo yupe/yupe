@@ -47,6 +47,8 @@ class Comment extends yupe\models\YModel
 
     public $verifyCode;
 
+	public $antispamField;
+
     /**
      * Returns the static model of the specified AR class.
      *
