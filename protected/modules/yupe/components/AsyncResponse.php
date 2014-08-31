@@ -103,8 +103,14 @@ class AsyncResponse extends CApplicationComponent
     /**
      * @param $data
      */
-    public function rawText($data)
+    public function rawText($data, $status = null)
     {
+        $status = (int)$status;
+
+        if($status) {
+            http_response_code($status);
+        }
+
         echo $data;
         Yii::app()->end();
     }

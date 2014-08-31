@@ -63,7 +63,6 @@ class YInLineEditAction extends CAction
             Yii::app()->ajax->success();
         }
 
-        http_response_code(500);
-        echo $model->getError($name);
+        Yii::app()->ajax->rawText($model->getError($name), 500);
     }
 }
