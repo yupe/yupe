@@ -4,7 +4,18 @@ class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user)
     {
-        $comment = new Comment();
+        if($user->isAuthenticated()) {
+            $params = CMap::mergeArray(
+                $params,
+                array(
+                    'user_id' => $user->getId(),
+                    'name'    => $user->getState('nick_name'),
+                    'email'   => $user->getProfileField('email'),
+                )
+            );
+        }
+
+        $comment = new Comment;
 
         $comment->setAttributes($params);
 
@@ -14,7 +25,7 @@ class CommentManager extends CApplicationComponent
             $comment->status = Comment::STATUS_APPROVED;
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         Yii::app()->eventManager->fire(
             CommentEvents::BEFORE_ADD_COMMENT,
@@ -54,10 +65,10 @@ class CommentManager extends CApplicationComponent
                 );
 
                 // сбросить кэш
-                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
+                Yii::app()->getCache()->delete("Comment{$comment->model}{$comment->model_id}");
 
                 // метка для проверки спама
-                Yii::app()->cache->set(
+                Yii::app()->getCache()->set(
                     'Comment::Comment::spam::' . $user->getId(),
                     time(),
                     (int)$module->antiSpamInterval
@@ -85,6 +96,6 @@ class CommentManager extends CApplicationComponent
 
     public function isSpam($user)
     {
-        return Yii::app()->cache->get('Comment::Comment::spam::' . $user->getId());
+        return Yii::app()->getCache()->get('Comment::Comment::spam::' . $user->getId());
     }
 }

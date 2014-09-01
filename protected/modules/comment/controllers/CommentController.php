@@ -48,7 +48,7 @@ class CommentController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class'     => 'yupe\components\actions\YCaptchaAction',
+                'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             ),
@@ -98,24 +98,11 @@ class CommentController extends yupe\components\controllers\FrontController
             ));
         }
 
-        $params = Yii::app()->getRequest()->getPost('Comment');
-
-        if (Yii::app()->getUser()->isAuthenticated()) {
-
-            $params = CMap::mergeArray(
-                $params,
-                array(
-                    'user_id' => Yii::app()->getUser()->getId(),
-                    'name'    => Yii::app()->getUser()->getState('nick_name'),
-                    'email'   => Yii::app()->getUser()->getProfileField('email'),
-                )
-            );
-        }
-
-        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
-
         try {
-            if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
+
+            $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
+
+            if (($comment = Yii::app()->commentManager->create(Yii::app()->getRequest()->getPost('Comment'), $module, Yii::app()->getUser()))) {
 
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
@@ -123,8 +110,8 @@ class CommentController extends yupe\components\controllers\FrontController
 
                     Yii::app()->ajax->success(
                         array(
-                            'message'        => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
-                            'comment'        => array(
+                            'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
+                            'comment' => array(
                                 'parent_id' => $comment->parent_id
                             ),
                             'commentContent' => $commentContent

@@ -1,8 +1,12 @@
 <?php
-use yupe\components\Event;
 
 class NewCommentListener
 {
+    public static function onBeforeAddComment(CommentEvent $event)
+    {
+
+    }
+
     public static function onSuccessAddComment(CommentEvent $event)
     {
         if (!Yii::app()->hasModule('mail')) {
