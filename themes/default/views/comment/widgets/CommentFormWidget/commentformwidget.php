@@ -24,6 +24,15 @@
     <?php echo $form->hiddenField($model, 'parent_id'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
 
+    <?php echo $form->textField($model, 'spamField', array(
+        'name'  => $spamField,
+        'style' => 'position:absolute;display:none;visibility:hidden;',
+    )); ?>
+
+    <?php echo $form->textField($model, 'comment', array(
+            'style' => 'position:absolute;display:none;visibility:hidden;'
+        )); ?>
+
     <?php if (!Yii::app()->user->isAuthenticated()) : { ?>
         <div class='row'>
             <div class="col-sm-6">
@@ -103,3 +112,13 @@
     </div>
     <?php $this->endWidget(); ?>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#Comment_text').one('click', function(){
+           $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
+        })
+    });
+</script>
+
+

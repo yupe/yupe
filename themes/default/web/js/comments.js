@@ -40,7 +40,9 @@ $(document).ready(function () {
                     $container = $('#comment-' + response.data.comment.parent_id).parents('.comments-item');
                 }
             }
-            $('#Comment_text').val('');
+            if(response.result) {
+                $('#Comment_text').val('');
+            }
             $('#wcml').click();
             if ($container.attr('id') != 'comments') {
                 $container.after(response.data.commentContent);

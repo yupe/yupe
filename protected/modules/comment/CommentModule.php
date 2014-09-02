@@ -25,7 +25,7 @@ class CommentModule extends WebModule
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
     public $rssCount = 10;
-    public $antiSpamInterval = 5;
+    public $antiSpamInterval = 3;
     public $allowedTags;
     public $allowGuestComment = 0;
 

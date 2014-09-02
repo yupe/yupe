@@ -46,6 +46,10 @@ class Comment extends yupe\models\YModel
 
     public $verifyCode;
 
+    public $spamField;
+
+    public $comment;
+
     /**
      * Returns the static model of the specified AR class.
      *
@@ -82,7 +86,7 @@ class Comment extends yupe\models\YModel
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
             array('status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true),
-            array('name, email, url', 'length', 'max' => 150),
+            array('name, email, url, comment', 'length', 'max' => 150),
             array('model', 'length', 'max' => 100),
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),

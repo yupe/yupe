@@ -76,7 +76,7 @@ class CommentController extends yupe\components\controllers\FrontController
 
             $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
 
-            if (($comment = Yii::app()->commentManager->create(Yii::app()->getRequest()->getPost('Comment'), $module, Yii::app()->getUser()))) {
+            if (($comment = Yii::app()->commentManager->create(Yii::app()->getRequest()->getPost('Comment'), $module, Yii::app()->getUser(), Yii::app()->getRequest()))) {
 
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 

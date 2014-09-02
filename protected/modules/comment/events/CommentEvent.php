@@ -2,21 +2,46 @@
 
 use yupe\components\Event;
 
+/**
+ * Class CommentEvent
+ */
 class CommentEvent extends Event
 {
+    /**
+     * @var Comment
+     */
     protected $comment;
 
+    /**
+     * @var IWebUser
+     */
     protected $user;
 
+    /**
+     * @var CommentModule
+     */
     protected $module;
 
-    public function __construct(Comment $comment, IWebUser $user, CommentModule $module)
+    /**
+     * @var CHttpRequest
+     */
+    protected $request;
+
+    /**
+     * @param Comment $comment
+     * @param IWebUser $user
+     * @param CommentModule $module
+     * @param CHttpRequest $request
+     */
+    public function __construct(Comment $comment, IWebUser $user, CommentModule $module, CHttpRequest $request = null)
     {
         $this->comment = $comment;
 
         $this->user = $user;
 
         $this->module = $module;
+
+        $this->request = $request;
     }
 
     /**
@@ -33,6 +58,22 @@ class CommentEvent extends Event
     public function getModule()
     {
         return $this->module;
+    }
+
+    /**
+     * @param \CHttpRequest $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @return \CHttpRequest
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     /**

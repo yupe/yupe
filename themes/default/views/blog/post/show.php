@@ -86,8 +86,7 @@ $this->breadcrumbs = array(
         'application.modules.comment.widgets.CommentsListWidget',
         array(
             'model'    => $post,
-            'modelId'  => $post->id,
-            'comments' => $post->comments
+            'modelId'  => $post->id
         )
     );
     ?>

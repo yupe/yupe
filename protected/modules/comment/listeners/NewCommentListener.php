@@ -11,14 +11,32 @@ class NewCommentListener
 
     public static function onBeforeAddComment(CommentEvent $event)
     {
+        // проверка на таймаут добавления нового комментария
         if (false !== Yii::app()->getCache()->get('Comment::Comment::spam::' . $event->getUser()->getId())) {
-            Yii::log(sprintf('Comment timeout by user "%s" ', $event->getUser()->nick_name), CLogger::LEVEL_ERROR);
-            throw new CException('Comment timeout!');
+            Yii::log(sprintf('Comment timeout by user_d = "%s" ', $event->getUser()->getId()), CLogger::LEVEL_ERROR);
+            throw new CException('Comment timeout !');
+        }
+
+        //проверка на спам
+        $spamField = $event->getUser()->getState('spamField');
+
+        if(null === $event->getRequest()->getPost($spamField) || $event->getRequest()->getPost($spamField) != $event->getUser()->getState('spamFieldValue')) {
+            Yii::log(sprintf('Comment spam (js) by user_d = "%s" ', $event->getUser()->getId()), CLogger::LEVEL_ERROR);
+            throw new CException('Spam !');
+        }
+
+        if($event->getComment()->comment) {
+            Yii::log(sprintf('Comment spam (comment) by user_d = "%s" ', $event->getUser()->getId()), CLogger::LEVEL_ERROR);
+            throw new CException('Spam !');
         }
     }
 
     public static function onSuccessAddComment(CommentEvent $event)
     {
+        $user = $event->getUser();
+
+        Yii::log(sprintf('Success add comment by user_id =  "%s" ', $user->getId()), CLogger::LEVEL_INFO);
+
         if (!Yii::app()->hasModule('mail')) {
             return false;
         }
@@ -26,8 +44,6 @@ class NewCommentListener
         $comment = $event->getComment();
 
         $module = $event->getModule();
-
-        $user = $event->getUser();
 
         // сбросить кэш
         Yii::app()->getCache()->delete("Comment{$comment->model}{$comment->model_id}");
