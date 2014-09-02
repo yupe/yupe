@@ -156,7 +156,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 self::STAT,
                 'Comment',
                 'model_id',
-                'condition' => 'model = :model AND status = :status AND id <> root',
+                'condition' => 'model = :model AND status = :status AND level > 1',
                 'params'    => array(
                     ':model'  => 'Post',
                     ':status' => Comment::STATUS_APPROVED

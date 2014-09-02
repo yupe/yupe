@@ -72,32 +72,6 @@ class CommentController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->commentManager->isSpam(Yii::app()->getUser())) {
-
-            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-
-                Yii::app()->ajax->failure(
-                    array(
-                        'message' => Yii::t(
-                                'CommentModule.comment',
-                                'Spam protection, try to create comment after {few} seconds!',
-                                array(
-                                    '{few}' => $module->antiSpamInterval
-                                )
-                            )
-                    )
-                );
-            }
-
-            throw new CHttpException(404, Yii::t(
-                'CommentModule.comment',
-                'Spam protection, try to create comment after {few} seconds!',
-                array(
-                    '{few}' => $module->antiSpamInterval
-                )
-            ));
-        }
-
         try {
 
             $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
@@ -132,7 +106,7 @@ class CommentController extends yupe\components\controllers\FrontController
 
                     Yii::app()->ajax->failure(
                         array(
-                            'message' => Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                            'message' => Yii::t('CommentModule.comment', 'Record was not added!')
                         )
                     );
                 }
@@ -149,14 +123,14 @@ class CommentController extends yupe\components\controllers\FrontController
 
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                        'message' => Yii::t('CommentModule.comment', $e->getMessage())
                     )
                 );
             }
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                Yii::t('CommentModule.comment', $e->getMessage())
             );
 
             $this->redirect($redirect);

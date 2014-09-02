@@ -4,13 +4,13 @@ class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user)
     {
-        if($user->isAuthenticated()) {
+        if ($user->isAuthenticated()) {
             $params = CMap::mergeArray(
                 $params,
                 array(
                     'user_id' => $user->getId(),
-                    'name'    => $user->getState('nick_name'),
-                    'email'   => $user->getProfileField('email'),
+                    'name' => $user->getState('nick_name'),
+                    'email' => $user->getProfileField('email'),
                 )
             );
         }
@@ -27,12 +27,12 @@ class CommentManager extends CApplicationComponent
 
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        Yii::app()->eventManager->fire(
-            CommentEvents::BEFORE_ADD_COMMENT,
-            new CommentEvent($comment, Yii::app()->getUser(), $module)
-        );
-
         try {
+
+            Yii::app()->eventManager->fire(
+                CommentEvents::BEFORE_ADD_COMMENT,
+                new CommentEvent($comment, Yii::app()->getUser(), $module)
+            );
 
             $root = null;
 
@@ -64,16 +64,6 @@ class CommentManager extends CApplicationComponent
                     new CommentEvent($comment, Yii::app()->getUser(), $module)
                 );
 
-                // сбросить кэш
-                Yii::app()->getCache()->delete("Comment{$comment->model}{$comment->model_id}");
-
-                // метка для проверки спама
-                Yii::app()->getCache()->set(
-                    'Comment::Comment::spam::' . $user->getId(),
-                    time(),
-                    (int)$module->antiSpamInterval
-                );
-
                 return $comment;
             }
 
@@ -94,8 +84,18 @@ class CommentManager extends CApplicationComponent
         }
     }
 
-    public function isSpam($user)
+    public function getCommentsForModule($model, $modelId, $status = Comment::STATUS_APPROVED)
     {
-        return Yii::app()->getCache()->get('Comment::Comment::spam::' . $user->getId());
+         return Comment::model()->findAll(
+             [
+                 'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status AND t.lft > 1',
+                 'params'    => array(
+                     ':model'   => $model,
+                     ':modelId' => (int)$modelId,
+                     ':status'  => (int)$status,
+                 ),
+                 'order'     => 't.lft',
+             ]
+         );
     }
 }

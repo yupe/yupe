@@ -34,6 +34,12 @@ return array(
             'events' => array(
                 'comment.add.success' => array(
                     array('NewCommentListener', 'onSuccessAddComment')
+                ),
+                'comment.before.add' => array(
+                    array('NewCommentListener', 'onBeforeAddComment')
+                ),
+                'comment.after.save' => array(
+                    array('NewCommentListener', 'onAfterSaveComment')
                 )
             )
         )

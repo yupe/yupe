@@ -63,26 +63,13 @@ class CommentsListWidget extends yupe\widgets\YWidget
         $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
 
         if (empty($comments)) {
+
             if (empty($this->comments)) {
-                $this->comments = Comment::model()->findAll(
-                    array(
-                        'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
-                        'params'    => array(
-                            ':model'   => $this->model,
-                            ':modelId' => $this->modelId,
-                            ':status'  => $this->status,
-                        ),
-                        'order'     => 't.lft',
-                    )
-                );
+                $this->comments = Yii::app()->commentManager->getCommentsForModule($this->model, $this->modelId, $this->status);
             }
-            //unset($this->comments[0]); // remove "root" node
-            foreach ($this->comments as $k => $v) {
-                if ($v->id == $v->root) {
-                    unset($this->comments[$k]);
-                }
-            }
+
             $comments = $this->comments;
+
             Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
         }
 

@@ -447,6 +447,7 @@ class ModuleManager extends \CApplicationComponent
                 $currentConfig
             )
         ) {
+            Yii::app()->configManager->flushDump();
             return true;
         }
 

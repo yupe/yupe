@@ -91,12 +91,12 @@ class Comment extends yupe\models\YModel
             array(
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
-                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated()
             ),
             array(
                 'verifyCode',
                 'captcha',
-                'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated()
             ),
             array(
                 'id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id',
@@ -232,9 +232,7 @@ class Comment extends yupe\models\YModel
      **/
     public function afterSave()
     {
-        if ($cache = Yii::app()->getCache()) {
-            $cache->delete("Comment{$this->model}{$this->model_id}");
-        }
+        Yii::app()->eventManager->fire(CommentEvents::AFTER_SAVE_COMMENT, new CommentEvent($this, Yii::app()->getUser(), Yii::app()->getModule('comment')));
 
         return parent::afterSave();
     }
@@ -348,7 +346,7 @@ class Comment extends yupe\models\YModel
         if ($rootNode === null) {
 
             $rootAttributes = array(
-                "user_id"  => Yii::app()->user->getId(),
+                "user_id"  => Yii::app()->getUser()->getId(),
                 "model"    => $model,
                 "model_id" => $model_id,
                 "url"      => "",

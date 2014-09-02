@@ -44,7 +44,7 @@ return array(
     'Create comment and continue'                                 => 'Добавить комментарий и продолжить',
     'New post was created on site "{app}"!'                       => 'Добавлена новая запись на сайте "{app}"!',
     'Create'                                                      => 'Добавление',
-    'Record was not added! Fill form correct!'                    => 'Запись не добавлена! Заполните форму корректно!',
+    'Record was not added!'                                       => 'Запись не добавлена!',
     'Requested page was not found!'                               => 'Запрошенная страница не найдена!',
     'Name'                                                        => 'Имя',
     'Find comments'                                               => 'Искать комментарии',
