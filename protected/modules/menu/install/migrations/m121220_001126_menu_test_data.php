@@ -42,14 +42,15 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
                 'condition_name',
                 'condition_denial',
                 'sort',
-                'status'
+                'status',
+                'regular_link'
             ),
-            array(0, 1, 'Главная', '/', '', 'Главная страница сайта', '', '', '', '', '', 0, 1, 1),
-            array(0, 1, 'Блоги', '/blog/blog/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1),
-            array(2, 1, 'Пользователи', '/user/people/index', '', 'Пользователи', '', '', '', '', '', 0, 3, 1),
-            array(0, 1, 'Wiki', '/wiki/default/index', '', 'Wiki', '', '', '', '', '', 0, 9, 0),
-            array(0, 1, 'Войти', '/login', 'login-text', 'Войти на сайт', '', '', '', '', 'isAuthenticated', 1, 11, 1),
-            array(0, 1, 'Выйти', '/logout', 'login-text', 'Выйти', '', '', '', '', 'isAuthenticated', 0, 12, 1),
+            array(0, 1, 'Главная', '/', '', 'Главная страница сайта', '', '', '', '', '', 0, 1, 1, 1),
+            array(0, 1, 'Блоги', '/blog/blog/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1, 0),
+            array(2, 1, 'Пользователи', '/user/people/index', '', 'Пользователи', '', '', '', '', '', 0, 3, 1, 0),
+            array(0, 1, 'Wiki', '/wiki/default/index', '', 'Wiki', '', '', '', '', '', 0, 9, 0, 0),
+            array(0, 1, 'Войти', '/login', 'login-text', 'Войти на сайт', '', '', '', '', 'isAuthenticated', 1, 11, 1, 0),
+            array(0, 1, 'Выйти', '/logout', 'login-text', 'Выйти', '', '', '', '', 'isAuthenticated', 0, 12, 1, 0),
             array(
                 0,
                 1,
@@ -64,7 +65,8 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
                 'isAuthenticated',
                 1,
                 10,
-                1
+                1,
+                0
             ),
             array(
                 0,
@@ -80,10 +82,11 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
                 'isSuperUser',
                 0,
                 13,
-                1
+                1,
+                0
             ),
-            array(0, 1, 'FAQ', '/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1),
-            array(0, 1, 'Контакты', '/contacts', '', 'Контакты', '', '', '', '', '', 0, 7, 1),
+            array(0, 1, 'FAQ', '/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1, 0),
+            array(0, 1, 'Контакты', '/contacts', '', 'Контакты', '', '', '', '', '', 0, 7, 1, 0),
         );
 
         $columns = array_shift($items);
