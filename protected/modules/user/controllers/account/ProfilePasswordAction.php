@@ -37,7 +37,7 @@ class ProfilePasswordAction extends CAction
                 if ($user->save()) {
                     Yii::app()->user->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('UserModule.user', 'Your password was changed successfully')
+                        Yii::t('UserModule.user', 'Your password was changed successfully.')
                     );
                     $this->controller->redirect(array('/user/account/profile'));
                 }

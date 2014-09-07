@@ -38,6 +38,9 @@ class AccountController extends yupe\components\controllers\FrontController
             'profilePassword' => array(
                 'class' => 'application.modules.user.controllers.account.ProfilePasswordAction'
             ),
+            'profileEmail'    => array(
+                'class' => 'application.modules.user.controllers.account.ProfileEmailAction'
+            ),
             'activate'        => array(
                 'class' => 'application.modules.user.controllers.account.ActivateAction',
             ),

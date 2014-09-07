@@ -71,6 +71,7 @@ return array(
         '/users'                            => 'user/people/index',
         '/profile'                          => 'user/account/profile',
         '/profile/password'                 => 'user/account/profilePassword',
+        '/profile/email'                    => 'user/account/profileEmail',
         '/users/<username:\w+>/'            => 'user/people/userInfo',
         '/activate/<token>'                 => 'user/account/activate',
         '/confirm/<token>'                  => 'user/account/confirm',

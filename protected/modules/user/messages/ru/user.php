@@ -355,5 +355,8 @@ return array(
     'Removing user token'                                                                                               => 'Удаление токена пользователя',
     'List of user tokens'                                                                                               => 'Просмотр списка токенов пользователей',
     'Editing user tokens'                                                                                               => 'Редактирование токена пользователя',
-    'Viewing user tokens'                                                                                               => 'Просмотр токена пользователя'
+    'Viewing user tokens'                                                                                               => 'Просмотр токена пользователя',
+    'Change email'                                                                                                      => 'Изменить email',
+    'Email was updated.'                                                                                                => 'Email был изменен.',
+    'Your password was changed successfully.'                                                                           => 'Ваш пароль успешно изменен.',
 );

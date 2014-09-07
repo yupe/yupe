@@ -52,9 +52,6 @@ class ProfileAction extends CAction
                     // Удаляем ненужные данные:
                     unset($data['avatar']);
 
-                    // Запоминаем старую почту,
-                    $oldEmail = $user->email;
-
                     // Заполняем модель данными:
                     $user->setAttributes($data);
 
@@ -111,23 +108,6 @@ class ProfileAction extends CAction
                         );
 
                         $transaction->commit();
-
-                        // Если включена верификация при смене почты:
-                        if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
-
-                            // Вернуть старый email на время проверки
-                            $user->email = $oldEmail;
-
-                            if (Yii::app()->userManager->changeUserEmail($user, $form->email)) {
-                                Yii::app()->user->setFlash(
-                                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                                    Yii::t(
-                                        'UserModule.user',
-                                        'You need to confirm your e-mail. Please check the mail!'
-                                    )
-                                );
-                            }
-                        }
 
                         $this->controller->redirect(array('/user/account/profile'));
 

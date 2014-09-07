@@ -17,7 +17,6 @@ class ProfileForm extends CFormModel
     public $first_name;
     public $middle_name;
     public $last_name;
-    public $email;
     public $verifyCode;
     public $about;
     public $gender;
@@ -32,17 +31,17 @@ class ProfileForm extends CFormModel
         $module = Yii::app()->getModule('user');
 
         return array(
-            array('nick_name, email, first_name, last_name, middle_name, about', 'filter', 'filter' => 'trim'),
+            array('nick_name, first_name, last_name, middle_name, about', 'filter', 'filter' => 'trim'),
             array(
-                'nick_name, email, first_name, last_name, middle_name, about',
+                'nick_name, first_name, last_name, middle_name, about',
                 'filter',
                 'filter' => array($obj = new CHtmlPurifier(), 'purify')
             ),
-            array('nick_name, email', 'required'),
+            array('nick_name', 'required'),
             array('gender', 'numerical', 'min' => 0, 'max' => 3, 'integerOnly' => true),
             array('gender', 'default', 'value' => 0),
             array('birth_date', 'default', 'value' => null),
-            array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
+            array('nick_name, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),
             array(
@@ -50,13 +49,11 @@ class ProfileForm extends CFormModel
                 'match',
                 'pattern' => '/^[A-Za-z0-9]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
             ),
             array('nick_name', 'checkNickName'),
-            array('email', 'email'),
-            array('email', 'checkEmail'),
             array('site', 'url', 'allowEmpty' => true),
             array('site', 'length', 'max' => 100),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
@@ -77,7 +74,6 @@ class ProfileForm extends CFormModel
             'last_name'    => Yii::t('UserModule.user', 'Last name'),
             'middle_name'  => Yii::t('UserModule.user', 'Family name'),
             'nick_name'    => Yii::t('UserModule.user', 'User name'),
-            'email'        => Yii::t('UserModule.user', 'Email'),
             'gender'       => Yii::t('UserModule.user', 'Sex'),
             'birth_date'   => Yii::t('UserModule.user', 'Birthday date'),
             'about'        => Yii::t('UserModule.user', 'About yourself'),
@@ -95,17 +91,6 @@ class ProfileForm extends CFormModel
             $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->$attribute));
             if ($model) {
                 $this->addError('nick_name', Yii::t('UserModule.user', 'Nick in use'));
-            }
-        }
-    }
-
-    public function checkEmail($attribute, $params)
-    {
-        // Если мыло поменяли
-        if (Yii::app()->user->profile->email != $this->$attribute) {
-            $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
-            if ($model) {
-                $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));
             }
         }
     }
