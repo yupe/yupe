@@ -279,7 +279,7 @@ class YWebUser extends CWebUser
         }
 
         //проверить токен авторизации
-        $token = $states[$this->authToken];
+        $token = isset($states[$this->authToken]) ? $states[$this->authToken] : null ;
 
         if (empty($token)) {
             return false;
