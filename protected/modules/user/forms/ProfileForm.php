@@ -18,8 +18,6 @@ class ProfileForm extends CFormModel
     public $middle_name;
     public $last_name;
     public $email;
-    public $password;
-    public $cPassword;
     public $verifyCode;
     public $about;
     public $gender;
@@ -47,7 +45,6 @@ class ProfileForm extends CFormModel
             array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),
-            array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
             array(
                 'nick_name',
                 'match',
@@ -58,12 +55,6 @@ class ProfileForm extends CFormModel
                     )
             ),
             array('nick_name', 'checkNickName'),
-            array(
-                'cPassword',
-                'compare',
-                'compareAttribute' => 'password',
-                'message'          => Yii::t('UserModule.user', 'Password is not coincide')
-            ),
             array('email', 'email'),
             array('email', 'checkEmail'),
             array('site', 'url', 'allowEmpty' => true),
@@ -87,8 +78,6 @@ class ProfileForm extends CFormModel
             'middle_name'  => Yii::t('UserModule.user', 'Family name'),
             'nick_name'    => Yii::t('UserModule.user', 'User name'),
             'email'        => Yii::t('UserModule.user', 'Email'),
-            'password'     => Yii::t('UserModule.user', 'New password'),
-            'cPassword'    => Yii::t('UserModule.user', 'Password confirmation'),
             'gender'       => Yii::t('UserModule.user', 'Sex'),
             'birth_date'   => Yii::t('UserModule.user', 'Birthday date'),
             'about'        => Yii::t('UserModule.user', 'About yourself'),

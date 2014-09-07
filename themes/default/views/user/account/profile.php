@@ -14,11 +14,6 @@ Yii::app()->clientScript->registerScript(
     'regs',
     "
             $(function () {
-                 $('#show_pass').click( function () {
-                      $('#ProfileForm_password').prop('type', $(this).prop('checked')?'text':'password');
-                      $('#ProfileForm_cPassword').prop('type', $(this).prop('checked')?'text':'password');
-                 });
-
                  var emailStatusEl = $('p.email-status-confirmed'),
                      loadedEmail = $('#ProfileForm_email').val();
 
@@ -183,43 +178,6 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-<hr>
-
-<div class="row">
-    <div class="col-xs-12">
-        <p class="password-change-msg muted span6">
-            <?php echo Yii::t('UserModule.user', 'If you do not want to change password, leave fields empty.'); ?>
-        </p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-3">
-        <?php echo $form->passwordFieldGroup(
-            $model,
-            'password',
-            array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))
-        ); ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-3">
-        <?php echo $form->passwordFieldGroup(
-            $model,
-            'cPassword',
-            array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))
-        ); ?>
-
-    </div>
-    <div class="col-xs-3">
-        <br/>
-        <label class="checkbox">
-            <input type="checkbox" value="1" id="show_pass"> <?php echo Yii::t('UserModule.user', 'show password') ?>
-        </label>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-xs-12">
         <?php if (is_array($this->module->profiles) && count($this->module->profiles)): { ?>
@@ -250,6 +208,7 @@ $form = $this->beginWidget(
                 'label'      => Yii::t('UserModule.user', 'Save profile'),
             )
         ); ?>
+        <?php echo CHtml::link(Yii::t('UserModule.user', 'Change password'), array('/user/account/profilePassword'), array('class' => 'btn btn-default'));?>
     </div>
 </div>
 <?php $this->endWidget(); ?>
