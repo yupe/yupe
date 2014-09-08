@@ -61,12 +61,15 @@ abstract class YWidget extends CWidget
         if (Yii::app()->getTheme() !== null) {
             $class = get_class($this);
             $obj = new ReflectionClass($class);
-            $string = explode(Yii::app()->getModulePath() . \DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
+            $string = explode(Yii::app()->getModulePath() . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
             if (isset($string[1])) {
-                $string = explode(\DIRECTORY_SEPARATOR, $string[1], 2);
-                $themeView = Yii::app()->getThemeManager()->getBasePath() . '/' .
-                    Yii::app()->getTheme()->getName() . '/' . 'views' . '/' .
-                    $string[0] . '/' . 'widgets' . '/' . $obj->getShortName();
+                $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
+                $themeView = Yii::app()->getThemeManager()->getBasePath() . DIRECTORY_SEPARATOR .
+                    Yii::app()->getTheme()->getName() . DIRECTORY_SEPARATOR .
+                    'views' . DIRECTORY_SEPARATOR .
+                    $string[0] . DIRECTORY_SEPARATOR .
+                    'widgets' . DIRECTORY_SEPARATOR .
+                    $obj->getShortName();
             }
         }
 
