@@ -339,4 +339,7 @@ return array(
     'User not found'                                                                                                  => '',
     'Send a letter to verify email'                                                                                   => '',
     'Select {field}'                                                                                                  => '',
+    'Change email'                                                                                                    => '',
+    'Email was updated.'                                                                                              => '',
+    'Your password was changed successfully.'                                                                         => '',
 );

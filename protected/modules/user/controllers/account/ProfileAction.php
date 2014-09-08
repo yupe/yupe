@@ -37,9 +37,6 @@ class ProfileAction extends CAction
 
         $form->setAttributes($user->getAttributes(array_keys($formAttributes)));
 
-        // Очищаем необходимые поля:
-        $form->password = $form->cPassword = null;
-
         $module = Yii::app()->getModule('user');
 
         // Если у нас есть данные из POST - получаем их:
@@ -52,23 +49,11 @@ class ProfileAction extends CAction
                 $form->setAttributes($data);
 
                 if ($form->validate()) {
-
-                    // Новый пароль? - ок, запоминаем:
-                    $newPass = isset($data['password']) ? $data['password'] : null;
-
                     // Удаляем ненужные данные:
-                    unset($data['password'], $data['avatar']);
-
-                    // Запоминаем старую почту,
-                    $oldEmail = $user->email;
+                    unset($data['avatar']);
 
                     // Заполняем модель данными:
                     $user->setAttributes($data);
-
-                    // Новый пароль? - Генерируем хеш:
-                    if ($newPass) {
-                        $user->hash = Yii::app()->userManager->hasher->hashPassword($newPass);
-                    }
 
                     // Если есть ошибки в профиле - перекинем их в форму
                     if ($user->hasErrors()) {
@@ -123,23 +108,6 @@ class ProfileAction extends CAction
                         );
 
                         $transaction->commit();
-
-                        // Если включена верификация при смене почты:
-                        if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
-
-                            // Вернуть старый email на время проверки
-                            $user->email = $oldEmail;
-
-                            if (Yii::app()->userManager->changeUserEmail($user, $form->email)) {
-                                Yii::app()->user->setFlash(
-                                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                                    Yii::t(
-                                        'UserModule.user',
-                                        'You need to confirm your e-mail. Please check the mail!'
-                                    )
-                                );
-                            }
-                        }
 
                         $this->controller->redirect(array('/user/account/profile'));
 
