@@ -25,40 +25,40 @@ $this->menu = array(
     ),
 );
 ?>
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('PageModule.page', 'Pages'); ?>
-        <small><?php echo Yii::t('PageModule.page', 'manage'); ?></small>
-    </h1>
-</div>
+    <div class="page-header">
+        <h1>
+            <?php echo Yii::t('PageModule.page', 'Pages'); ?>
+            <small><?php echo Yii::t('PageModule.page', 'manage'); ?></small>
+        </h1>
+    </div>
 
-<p>
-    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
-        <?php echo Yii::t('PageModule.page', 'Find pages'); ?>
-        <span class="caret">&nbsp;</span>
-    </a>
-</p>
+    <p>
+        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+            <i class="glyphicon glyphicon-search">&nbsp;</i>
+            <?php echo Yii::t('PageModule.page', 'Find pages'); ?>
+            <span class="caret">&nbsp;</span>
+        </a>
+    </p>
 
-<div id="search-toggle" class="collapse out search-form">
-    <?php
-    Yii::app()->clientScript->registerScript(
-        'search',
-        "
-    $('.search-form form').submit(function () {
-        $.fn.yiiGridView.update('page-grid', {
-            data: $(this).serialize()
+    <div id="search-toggle" class="collapse out search-form">
+        <?php
+        Yii::app()->clientScript->registerScript(
+            'search',
+            "
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('page-grid', {
+                data: $(this).serialize()
+            });
+
+            return false;
         });
+    "
+        );
+        $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
+        ?>
+    </div>
 
-        return false;
-    });
-"
-    );
-    $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
-    ?>
-</div>
-
-<p><?php echo Yii::t('PageModule.page', 'This section describes page management'); ?></p>
+    <p><?php echo Yii::t('PageModule.page', 'This section describes page management'); ?></p>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
@@ -120,17 +120,31 @@ $this->menu = array(
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => array(
-                    'url'    => $this->createUrl('/page/pageBackend/inline'),
-                    'type'   => 'select',
-                    'title'  => Yii::t(
+                    'url'     => $this->createUrl('/page/pageBackend/inline'),
+                    'type'    => 'select',
+                    'mode'    => 'inline',
+                    'title'   => Yii::t(
                             'PageModule.page',
                             'Select {field}',
                             array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
                         ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
+                    'source'  => $model->getStatusList(),
+                    'params'  => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
+                    ),
+                    'options' => array(
+                        'display' => 'js:function(value, sourceData) {
+                          var selected = $.grep(sourceData, function(o){ return value == o.value; }),
+                              itemClass = ' . json_encode(
+                                array(
+                                    Page::STATUS_DRAFT      => 'default',
+                                    Page::STATUS_PUBLISHED  => 'success',
+                                    Page::STATUS_MODERATION => 'warning',
+                                )
+                            ) . ';
+                            $(this).html("<span class=\'label label-" + itemClass[value] + "\'>" + selected[0].text + "</span>");
+                      }'
+                    ),
                 ),
                 'name'     => 'status',
                 'type'     => 'raw',
@@ -141,10 +155,6 @@ $this->menu = array(
                         $model->getStatusList(),
                         array('class' => 'form-control', 'empty' => '')
                     ),
-            ),
-            array(
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Page::STATUS_DRAFT => yupe\helpers\Html::DEF, Page::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, Page::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
-                'type'  => 'raw'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

@@ -44,33 +44,26 @@ abstract class YWidget extends CWidget
     public $view;
 
     /**
-     *
-     */
-    public function init()
-    {
-        parent::init();
-    }
-
-    /**
      * @param bool $checkTheme
      * @return null|string
      */
     public function getViewPath($checkTheme = false)
     {
+        if (null === Yii::app()->getTheme()) {
+            return parent::getViewPath($checkTheme);
+        }
+
         $themeView = null;
-        if (Yii::app()->getTheme() !== null) {
-            $class = get_class($this);
-            $obj = new ReflectionClass($class);
-            $string = explode(Yii::app()->getModulePath() . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
-            if (isset($string[1])) {
-                $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
-                $themeView = Yii::app()->getThemeManager()->getBasePath() . DIRECTORY_SEPARATOR .
-                    Yii::app()->getTheme()->getName() . DIRECTORY_SEPARATOR .
-                    'views' . DIRECTORY_SEPARATOR .
-                    $string[0] . DIRECTORY_SEPARATOR .
-                    'widgets' . DIRECTORY_SEPARATOR .
-                    $obj->getShortName();
-            }
+        $reflection = new ReflectionClass(get_class($this));
+        $path = explode(Yii::app()->getModulePath() . DIRECTORY_SEPARATOR, $reflection->getFileName(), 2);
+        if (isset($path[1])) {
+            $path = explode(DIRECTORY_SEPARATOR, $path[1], 2);
+            $themeView = Yii::app()->getThemeManager()->getBasePath() . DIRECTORY_SEPARATOR .
+                Yii::app()->getTheme()->getName() . DIRECTORY_SEPARATOR .
+                'views' . DIRECTORY_SEPARATOR .
+                $path[0] . DIRECTORY_SEPARATOR .
+                'widgets' . DIRECTORY_SEPARATOR .
+                $reflection->getShortName();
         }
 
         return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
