@@ -27,7 +27,7 @@ use CLogger;
  * Class BackController
  * @package yupe\components\controllers
  */
-class BackController extends Controller
+abstract class BackController extends Controller
 {
     /**
      *

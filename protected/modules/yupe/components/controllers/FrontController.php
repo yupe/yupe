@@ -18,7 +18,7 @@ use Yii;
  * Class FrontController
  * @package yupe\components\controllers
  */
-class FrontController extends Controller
+abstract class FrontController extends Controller
 {
     /**
      * Вызывается при инициализации FrontController

@@ -18,7 +18,7 @@ use Yii;
 use CException;
 use CHttpException;
 
-class Controller extends \CController
+abstract class Controller extends \CController
 {
     /**
      * @var
