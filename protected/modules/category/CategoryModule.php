@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CategoryModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $uploadPath = 'category';
 

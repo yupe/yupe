@@ -22,6 +22,6 @@ class SimilarPostsWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view, ['posts' => Yii::app()->commentManager->getSimilarPosts($this->post, $this->limit)]);
+        $this->render($this->view, ['posts' => Yii::app()->postManager->getSimilarPosts($this->post, $this->limit)]);
     }
 }
