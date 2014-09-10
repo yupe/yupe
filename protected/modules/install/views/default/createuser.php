@@ -11,10 +11,10 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'createuser-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'createuser-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
+        'type'                   => 'vertical',
     )
 );
 
@@ -31,8 +31,16 @@ Yii::app()->clientScript->registerScript(
 
 <div class="alert alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'Create admin account'); ?></p>
-    <p><?php echo Yii::t('InstallModule.install', 'Please select hard password with digits, alphas and special symbols.'); ?></p>
-    <p><?php echo Yii::t('InstallModule.install', 'Memorize please. Data form this section will need you for Control Panel access'); ?></p>
+
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'Please select hard password with digits, alphas and special symbols.'
+        ); ?></p>
+
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'Memorize please. Data form this section will need you for Control Panel access'
+        ); ?></p>
 </div>
 
 <?php echo $form->errorSummary($data['model']); ?>
@@ -45,10 +53,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('userName'),
-                        'data-content' => $data['model']->getAttributeDescription('userName'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('userName'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -64,10 +72,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('userEmail'),
-                        'data-content' => $data['model']->getAttributeDescription('userEmail'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('userEmail'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -83,10 +91,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('userPassword'),
-                        'data-content' => $data['model']->getAttributeDescription('userPassword'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('userPassword'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -102,10 +110,10 @@ Yii::app()->clientScript->registerScript(
             array(
                 'widgetOptions' => array(
                     'htmlOptions' => array(
-                        'class' => 'popover-help',
+                        'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('cPassword'),
-                        'data-content' => $data['model']->getAttributeDescription('cPassword'),
-                        'autocomplete' => 'off',
+                        'data-content'        => $data['model']->getAttributeDescription('cPassword'),
+                        'autocomplete'        => 'off',
                     )
                 )
             )
@@ -113,15 +121,19 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/modulesinstall'), array('class' => 'btn btn-default')); ?>
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', '< Back'),
+    array('/install/default/modulesinstall'),
+    array('class' => 'btn btn-default')
+); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => Yii::t('InstallModule.install', 'Continue >'),
+        'context'    => 'primary',
+        'label'      => Yii::t('InstallModule.install', 'Continue >'),
     )
 ); ?>
 

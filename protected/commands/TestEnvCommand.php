@@ -8,12 +8,12 @@
  * @author   YupeTeam <team@yupe.ru>
  * @link     http://yupe.ru
  */
-
 /*
  *
  * @TODO добавить возможность указать параметры для Selenium2 драйвера, можно ограичиться только url
  *
  **/
+
 class TestEnvCommand extends CConsoleCommand
 {
     const COMMAND_DIR = __DIR__;
@@ -25,10 +25,10 @@ class TestEnvCommand extends CConsoleCommand
 
     public function actionIndex()
     {
-        echo self::COMMAND_DIR."\n";
-        echo self::COMMAND_DIR.self::ROOT_DIR."\n";
-        echo self::COMMAND_DIR.self::CONFIG_DIR."\n";
-        echo self::COMMAND_DIR.self::TESTS_DIR."\n";
+        echo self::COMMAND_DIR . "\n";
+        echo self::COMMAND_DIR . self::ROOT_DIR . "\n";
+        echo self::COMMAND_DIR . self::CONFIG_DIR . "\n";
+        echo self::COMMAND_DIR . self::TESTS_DIR . "\n";
         $this->readOptions();
     }
 
@@ -62,20 +62,20 @@ class TestEnvCommand extends CConsoleCommand
 
         $this->readOptions();
 
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::CONFIG_DIR."/db-test.php");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::ROOT_DIR."/codeception.yml");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR."/acceptance.suite.yml");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR."/functional.suite.yml");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR."/unit.suite.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::CONFIG_DIR . "/db-test.php");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::ROOT_DIR . "/codeception.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR . "/acceptance.suite.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR . "/functional.suite.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR . "/unit.suite.yml");
     }
 
     public function actionReset()
     {
-        $this->removeConfigFile(self::COMMAND_DIR . self::CONFIG_DIR."/db-test.php");
-        $this->removeConfigFile(self::COMMAND_DIR . self::ROOT_DIR."/codeception.yml");
-        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR."/acceptance.suite.yml");
-        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR."/functional.suite.yml");
-        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR."/unit.suite.yml");
+        $this->removeConfigFile(self::COMMAND_DIR . self::CONFIG_DIR . "/db-test.php");
+        $this->removeConfigFile(self::COMMAND_DIR . self::ROOT_DIR . "/codeception.yml");
+        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR . "/acceptance.suite.yml");
+        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR . "/functional.suite.yml");
+        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR . "/unit.suite.yml");
     }
 
     /**
@@ -87,10 +87,11 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function createConfigFile($dir, $fileName, $distFileName)
     {
-        $config = $dir."/".$fileName;
-        if(!file_exists($config)) {
-            return copy($dir.'/'.$distFileName,$config);
+        $config = $dir . "/" . $fileName;
+        if (!file_exists($config)) {
+            return copy($dir . '/' . $distFileName, $config);
         }
+
         return false;
     }
 
@@ -115,8 +116,8 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function readFromConsole(&$value)
     {
-        $stdin = substr(trim(fgets(STDIN)),0,50);
-        $value = (strlen($stdin) > 0) ? $stdin : $value ;
+        $stdin = substr(trim(fgets(STDIN)), 0, 50);
+        $value = (strlen($stdin) > 0) ? $stdin : $value;
     }
 
     /**
@@ -126,13 +127,15 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function replaceDbOptionsInConfig($file)
     {
-        if(file_exists($file)) {
-            $fileContents = file_get_contents($file,FILE_TEXT);
-            $fileContents = preg_replace('/<db\.name>/is',$this->dbOptions['dbname'],$fileContents);
-            $fileContents = preg_replace('/<db\.user>/is',$this->dbOptions['dbuser'],$fileContents);
-            $fileContents = preg_replace('/<db\.pass>/is',$this->dbOptions['dbpass'],$fileContents);
-            return (bool) file_put_contents($file,$fileContents,FILE_TEXT);
+        if (file_exists($file)) {
+            $fileContents = file_get_contents($file, FILE_TEXT);
+            $fileContents = preg_replace('/<db\.name>/is', $this->dbOptions['dbname'], $fileContents);
+            $fileContents = preg_replace('/<db\.user>/is', $this->dbOptions['dbuser'], $fileContents);
+            $fileContents = preg_replace('/<db\.pass>/is', $this->dbOptions['dbpass'], $fileContents);
+
+            return (bool)file_put_contents($file, $fileContents, FILE_TEXT);
         }
+
         return false;
     }
 
@@ -143,9 +146,10 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function removeConfigFile($file)
     {
-        if(file_exists($file)) {
+        if (file_exists($file)) {
             return unlink($file);
         }
+
         return true;
     }
 }

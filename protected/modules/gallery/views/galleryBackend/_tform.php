@@ -10,10 +10,15 @@
 <div class="fileupload-buttonbar row">
     <div class="col-sm-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
-		<span class="btn btn-success fileinput-button"> <i class="glyphicon glyphicon-plus"></i> <span><?php echo Yii::t('GalleryModule.gallery', 'Add...'); ?></span>
+		<span class="btn btn-success fileinput-button"> <i
+                class="glyphicon glyphicon-plus"></i> <span><?php echo Yii::t(
+                    'GalleryModule.gallery',
+                    'Add...'
+                ); ?></span>
             <?php
             if ($this->hasModel()) :
-                echo CHtml::activeFileField($this->model, $this->attribute, $htmlOptions) . "\n"; else :
+                echo CHtml::activeFileField($this->model, $this->attribute, $htmlOptions) . "\n";
+            else :
                 echo CHtml::fileField($name, $this->value, $htmlOptions) . "\n";
             endif;
             ?>
@@ -34,7 +39,9 @@
     </div>
     <div class="col-sm-5 fileupload-progress fade">
         <!-- The global progress bar -->
-        <div class="progress"><div class="bar progress-bar progress-bar-success progress-bar-striped active" style="width:0%;"></div></div>
+        <div class="progress">
+            <div class="bar progress-bar progress-bar-success progress-bar-striped active" style="width:0%;"></div>
+        </div>
         <!-- The extended global progress information -->
         <div class="progress-extended">&nbsp;</div>
     </div>
@@ -51,4 +58,3 @@
     </div>
 </div>
 <?php echo CHtml::endForm(); ?>
-

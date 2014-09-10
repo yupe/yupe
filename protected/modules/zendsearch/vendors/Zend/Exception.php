@@ -64,6 +64,7 @@ class Zend_Exception extends Exception
         if ('getprevious' == strtolower($method)) {
             return $this->_getPrevious();
         }
+
         return null;
     }
 
@@ -81,6 +82,7 @@ class Zend_Exception extends Exception
                 . parent::__toString();
             }
         }
+
         return parent::__toString();
     }
 

@@ -49,6 +49,20 @@ Installing yupe/yupe (dev-master 809840596f854a3f78b1e5415b0db6c969a6a3f9)
 
 Наливаем себе чашечку чая и ждем +)
 
+Если вам необходимо установить ветку отличную от ветки по умолчанию - команда будет вот такой:
+
+~~~
+[php]
+php composer.phar create-project yupe/yupe:<Номер ветки здесь>.x-dev yupe-project --no-dev --prefer-dist
+~~~
+
+Например для установки ветки 0.9:
+~~~
+[php]
+php composer.phar create-project yupe/yupe:0.9.x-dev yupe-project --no-dev --prefer-dist
+~~~
+
+
 После того как все закончилось убеждаемся, что веб-сервер имеет права на запись в следующие каталоги:
 
 /protected/runtime/
@@ -67,6 +81,8 @@ Installing yupe/yupe (dev-master 809840596f854a3f78b1e5415b0db6c969a6a3f9)
 Скачать Юпи! в архиве очень просто: переходим на страницу релизов [https://github.com/yupe/yupe/releases](https://github.com/yupe/yupe/releases) и нажимаем на большую зеленую кнопку необходимого релиза! В результате получаем полный архив готовый к установке!
 
 После того как все сделано переходим по адресу **http://localhost/yupe-project/public/** (поменять на свой) и если все хорошо - мы должны увидеть первый шаг установки:
+
+Если установка не запускается - проверьте наличие файла /protected/config/modules/install.php если этого файла нет - скопируйте его в этот каталог из protected/modules/install/install/install.php
 
 <img src='/yd/install.png'>
 

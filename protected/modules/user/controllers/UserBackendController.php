@@ -16,7 +16,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('User.UserBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('User.UserBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('User.UserBackend.Index')),
@@ -27,13 +27,13 @@ class UserBackendController extends yupe\components\controllers\BackController
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'User',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'User',
                 'validAttributes' => array('access_level', 'status', 'email_confirm')
             )
         );
@@ -67,7 +67,7 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel($id);
 
-        $form = new ChangePasswordForm;
+        $form = new ChangePasswordForm();
 
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
 
@@ -95,7 +95,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new User;
+        $model = new User();
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
 
@@ -178,15 +178,12 @@ class UserBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
             // we only allow deletion via POST request
-            if($this->loadModel($id)->delete())
-            {
+            if ($this->loadModel($id)->delete()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Record was removed!')
                 );
-            }
-            else
-            {
+            } else {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'You can\'t make this changes!')
@@ -285,7 +282,6 @@ class UserBackendController extends yupe\components\controllers\BackController
         }
 
         Yii::app()->ajax->failure();
-
 
     }
 

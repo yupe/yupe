@@ -11,17 +11,30 @@ Yii::import('application.modules.install.InstallModule');
 
 <div class="alert alert-warning">
     <p>
-        <?php echo Yii::t('FeedbackModule.feedback', 'If you have any questions, proposals or want to report an error'); ?>
+        <?php echo Yii::t(
+            'FeedbackModule.feedback',
+            'If you have any questions, proposals or want to report an error'
+        ); ?>
     </p>
+
     <p>
-        <?php echo Yii::t('FeedbackModule.feedback', 'If you interesting with quality project which simple in support'); ?>
+        <?php echo Yii::t(
+            'FeedbackModule.feedback',
+            'If you interesting with quality project which simple in support'
+        ); ?>
     </p>
+
     <p>
-        <b><?php echo Yii::t('FeedbackModule.feedback', 'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'); ?></b>
+        <b><?php echo Yii::t(
+                'FeedbackModule.feedback',
+                'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'
+            ); ?></b>
     </p>
+
     <p>
         <?php echo Yii::t('FeedbackModule.feedback', 'We try to answer as fast as we can!'); ?>
     </p>
+
     <p>
         <b><?php echo Yii::t('FeedbackModule.feedback', 'Thanks for attention!'); ?></b>
     </p>
@@ -31,8 +44,8 @@ Yii::import('application.modules.install.InstallModule');
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
         array(
-            'id' => 'feedback-form',
-            'type' => 'vertical',
+            'id'          => 'feedback-form',
+            'type'        => 'vertical',
             'htmlOptions' => array(
                 'class' => 'well',
             )
@@ -40,7 +53,8 @@ Yii::import('application.modules.install.InstallModule');
     ); ?>
 
     <p class="alert alert-info">
-        <?php echo Yii::t('FeedbackModule.feedback', 'Fields with'); ?> <span class="required">*</span> <?php echo Yii::t('FeedbackModule.feedback', 'are required.'); ?>
+        <?php echo Yii::t('FeedbackModule.feedback', 'Fields with'); ?> <span
+            class="required">*</span> <?php echo Yii::t('FeedbackModule.feedback', 'are required.'); ?>
     </p>
 
     <?php echo $form->errorSummary($model); ?>
@@ -81,7 +95,11 @@ Yii::import('application.modules.install.InstallModule');
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->textAreaGroup($model, 'text', array('widgetOptions' => array('htmlOptions' => array('rows' => 10)))); ?>
+            <?php echo $form->textAreaGroup(
+                $model,
+                'text',
+                array('widgetOptions' => array('htmlOptions' => array('rows' => 10)))
+            ); ?>
         </div>
     </div>
 
@@ -91,13 +109,13 @@ Yii::import('application.modules.install.InstallModule');
                 'CCaptcha',
                 array(
                     'showRefreshButton' => true,
-                    'imageOptions' => array(
+                    'imageOptions'      => array(
                         'width' => '150',
                     ),
-                    'buttonOptions' => array(
+                    'buttonOptions'     => array(
                         'class' => 'btn btn-info',
                     ),
-                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
+                    'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
                 )
             ); ?>
             <div class='row'>
@@ -108,7 +126,10 @@ Yii::import('application.modules.install.InstallModule');
                         array(
                             'widgetOptions' => array(
                                 'htmlOptions' => array(
-                                    'placeholder' => Yii::t('FeedbackModule.feedback', 'Insert symbols you see on image')
+                                    'placeholder' => Yii::t(
+                                            'FeedbackModule.feedback',
+                                            'Insert symbols you see on image'
+                                        )
                                 ),
                             ),
                         )
@@ -123,8 +144,8 @@ Yii::import('application.modules.install.InstallModule');
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'context' => 'primary',
-            'label' => Yii::t('FeedbackModule.feedback', 'Send message'),
+            'context'    => 'primary',
+            'label'      => Yii::t('FeedbackModule.feedback', 'Send message'),
         )
     ); ?>
 

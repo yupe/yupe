@@ -2,11 +2,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'queue-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'queue-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -24,7 +24,7 @@ $form = $this->beginWidget(
             'worker',
             array(
                 'widgetOptions' => array(
-                    'data' => Yii::app()->getModule('queue')->getWorkerNamesMap(),
+                    'data'        => Yii::app()->getModule('queue')->getWorkerNamesMap(),
                     'htmlOptions' => array('empty' => '---'),
                 ),
             )
@@ -72,17 +72,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and continue') : Yii::t('QueueModule.queue', 'Save task'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and continue') : Yii::t(
+                'QueueModule.queue',
+                'Save task'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and close') : Yii::t('QueueModule.queue', 'Save blog and close'),
+        'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and close') : Yii::t(
+                'QueueModule.queue',
+                'Save blog and close'
+            ),
     )
 ); ?>
 

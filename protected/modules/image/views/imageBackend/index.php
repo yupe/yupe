@@ -7,8 +7,16 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('ImageModule.image', 'Images - manage');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ImageModule.image', 'Image management'), 'url' => array('/image/imageBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ImageModule.image', 'Add image'), 'url' => array('/image/imageBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('ImageModule.image', 'Image management'),
+        'url'   => array('/image/imageBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('ImageModule.image', 'Add image'),
+        'url'   => array('/image/imageBackend/create')
+    ),
 );
 ?>
 <div class="page-header">
@@ -31,10 +39,11 @@ $this->menu = array(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('image-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });
 "
@@ -49,38 +58,38 @@ $this->menu = array(
 $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'image-grid',
+        'id'           => 'image-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'columns'      => array(
             array(
-                'name' => Yii::t('ImageModule.image', 'file'),
-                'type' => 'raw',
-                'value' => 'CHtml::image($data->getUrl(75, 75), $data->alt, array("width" => 75, "height" => 75))',
+                'name'   => Yii::t('ImageModule.image', 'file'),
+                'type'   => 'raw',
+                'value'  => 'CHtml::image($data->getUrl(75, 75), $data->alt, array("width" => 75, "height" => 75))',
                 'filter' => false
             ),
             'name',
             array(
                 'header' => Yii::t('ImageModule.image', 'Link'),
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->getRawUrl(), $data->getRawUrl())'
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->getRawUrl(), $data->getRawUrl())'
             ),
             array(
-                'name' => 'category_id',
-                'value' => '$data->getCategoryName()',
+                'name'   => 'category_id',
+                'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
-                    $model,
-                    'category_id',
-                    Category::model()->getFormattedList(Yii::app()->getModule('image')->mainCategory),
-                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
-                )
+                        $model,
+                        'category_id',
+                        Category::model()->getFormattedList(Yii::app()->getModule('image')->mainCategory),
+                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                    )
             ),
             array(
-                'name' => 'galleryId',
+                'name'   => 'galleryId',
                 'header' => Yii::t('ImageModule.image', 'Gallery'),
-                'type' => 'raw',
+                'type'   => 'raw',
                 'filter' => $model->galleryList(),
-                'value' => '$data->galleryName === null
+                'value'  => '$data->galleryName === null
                             ? "---"
                             : CHtml::link(
                                 $data->gallery->name,

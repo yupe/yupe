@@ -33,11 +33,11 @@ class AsyncResponse extends CApplicationComponent
     /**
      * @var bool
      */
-    public $success         = true;
+    public $success = true;
     /**
      * @var bool
      */
-    public $failure         = false;
+    public $failure = false;
     /**
      * @var string
      */
@@ -45,7 +45,7 @@ class AsyncResponse extends CApplicationComponent
     /**
      * @var string
      */
-    public $dataParamName   = 'data';
+    public $dataParamName = 'data';
 
     /**
      * @return bool
@@ -62,10 +62,12 @@ class AsyncResponse extends CApplicationComponent
     {
         ContentType::setHeader(ContentType::TYPE_JSON);
 
-        echo json_encode(array(
-            $this->resultParamName => $this->success,
-            $this->dataParamName   => $data,
-        ));
+        echo json_encode(
+            array(
+                $this->resultParamName => $this->success,
+                $this->dataParamName   => $data,
+            )
+        );
 
         Yii::app()->end();
     }
@@ -77,10 +79,12 @@ class AsyncResponse extends CApplicationComponent
     {
         ContentType::setHeader(ContentType::TYPE_JSON);
 
-        echo json_encode(array(
-            $this->resultParamName => $this->failure,
-            $this->dataParamName   => $data,
-        ));
+        echo json_encode(
+            array(
+                $this->resultParamName => $this->failure,
+                $this->dataParamName   => $data,
+            )
+        );
 
         Yii::app()->end();
     }
@@ -99,8 +103,14 @@ class AsyncResponse extends CApplicationComponent
     /**
      * @param $data
      */
-    public function rawText($data)
+    public function rawText($data, $status = null)
     {
+        $status = (int)$status;
+
+        if($status) {
+            http_response_code($status);
+        }
+
         echo $data;
         Yii::app()->end();
     }

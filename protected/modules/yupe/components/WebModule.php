@@ -117,13 +117,6 @@ abstract class WebModule extends CWebModule
     public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar';
 
     /**
-     * Путь к ресурсам модуля, например application.modules.yupe.views.assets
-     * @var string
-     */
-    public $assetsPath;
-    private $_assetsUrl;
-
-    /**
      * @var array
      * @since 0.8
      *
@@ -283,7 +276,6 @@ abstract class WebModule extends CWebModule
         return true;
     }
 
-
     /**
      * каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления
      *
@@ -303,7 +295,7 @@ abstract class WebModule extends CWebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
-            'coreCacheTime' => Yii::t('YupeModule.yupe', 'Cache time')
+            'coreCacheTime'  => Yii::t('YupeModule.yupe', 'Cache time')
         );
 
     }
@@ -346,7 +338,7 @@ abstract class WebModule extends CWebModule
     public function getRulesForParam($param)
     {
 
-        $rulesFromParam = new CList;
+        $rulesFromParam = new CList();
         foreach ($this->rules() as $rule) {
             $params = preg_split('/[\s,]+/', $rule[0], -1, PREG_SPLIT_NO_EMPTY);
             if (in_array($param, $params)) {
@@ -645,7 +637,7 @@ abstract class WebModule extends CWebModule
      * @param boolean $updateConfig - обновить ли файл конфигурации
      *
      * @throws CException
-     * @return bool статус включения модуля
+     * @return bool       статус включения модуля
      *
      * @since 0.5
      */
@@ -707,7 +699,7 @@ abstract class WebModule extends CWebModule
      * @param boolean $noDependent - не проверять на зависимости от других модулей
      *
      * @throws CException
-     * @return bool статус включения модуля
+     * @return bool       статус включения модуля
      *
      * @since 0.5
      */
@@ -773,13 +765,14 @@ abstract class WebModule extends CWebModule
      */
     public function getInstall()
     {
-        return ($this->id == ModuleManager::CORE_MODULE || $status = $this->getActivate()) ? $this->installDB() : $status;
+        return ($this->id == ModuleManager::CORE_MODULE || $status = $this->getActivate()) ? $this->installDB(
+        ) : $status;
     }
 
     /**
      * Метод удаляющий модуль
      * @throws CException
-     * @return bool статус удаления модуля
+     * @return bool       статус удаления модуля
      * @since 0.5
      */
     public function getUnInstall()
@@ -797,7 +790,7 @@ abstract class WebModule extends CWebModule
      * @param array &$installed - массив модулея
      *
      * @throws CException
-     * @return bool статус установки БД модуля
+     * @return bool       статус установки БД модуля
      *
      * @since 0.5
      */
@@ -823,7 +816,7 @@ abstract class WebModule extends CWebModule
                         'First will be installed DB from module {m2} as a relation for {module}',
                         array(
                             '{module}' => $this->getId(),
-                            '{m2}' => $dep,
+                            '{m2}'     => $dep,
                         )
                     )
                 );
@@ -867,7 +860,7 @@ abstract class WebModule extends CWebModule
      * Метод удаляющий БД модуля
      *
      * @throws CException
-     * @return bool статус удаления БД модуля
+     * @return bool       статус удаления БД модуля
      *
      * @since 0.5
      */
@@ -913,7 +906,7 @@ abstract class WebModule extends CWebModule
                                 'YupeModule.yupe',
                                 '{m}: Migration was downgrade - {migrationName}',
                                 array(
-                                    '{m}' => $this->getId(),
+                                    '{m}'             => $this->getId(),
                                     '{migrationName}' => $migrationName,
                                 )
                             ) . '<br />';
@@ -922,7 +915,7 @@ abstract class WebModule extends CWebModule
                                 'YupeModule.yupe',
                                 '{m}: Can\'t downgrade migration - {migrationName}',
                                 array(
-                                    '{m}' => $this->getId(),
+                                    '{m}'             => $this->getId(),
                                     '{migrationName}' => $migrationName,
                                 )
                             ) . '<br />';
@@ -951,7 +944,7 @@ abstract class WebModule extends CWebModule
     {
         return array(
             self::CHOICE_YES => Yii::t('YupeModule.yupe', 'yes'),
-            self::CHOICE_NO => Yii::t('YupeModule.yupe', 'no'),
+            self::CHOICE_NO  => Yii::t('YupeModule.yupe', 'no'),
         );
     }
 
@@ -992,7 +985,7 @@ abstract class WebModule extends CWebModule
     /**
      * Получаем настройки модуля:
      *
-     * @param  boolean $needReset необходимо ли сбросить настройки
+     * @param boolean $needReset необходимо ли сбросить настройки
      *
      * @return void
      */
@@ -1046,9 +1039,9 @@ abstract class WebModule extends CWebModule
     {
         $this->editorOptions = \CMap::mergeArray(
             array(
-                'imageUpload' => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
-                'fileUpload' => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
-                'imageGetJson' => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
+                'imageUpload'             => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
+                'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
+                'imageGetJson'            => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
                 'fileUploadErrorCallback' => 'js:function (data) {
     $(\'#notifications\').notify({
         message: {text: data.error},
@@ -1143,19 +1136,13 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * Возвращает ссылку на опубликованную папку ресурсов
-     * @uses $assetsPath
-     * @return string|null
-     * @throws \CException
+     * @since 0.8
+     * Возвращает Урл для странички настроек модуля
+     * Для того чтобы можно было переопределить
      */
-    public function getAssetsUrl()
+    public function getSettingsUrl()
     {
-        if (!$this->assetsPath) {
-            return null;
-        }
-        if (null === $this->_assetsUrl) {
-            $this->_assetsUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias($this->assetsPath));
-        }
-        return $this->_assetsUrl;
+        return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => $this->getId()]);
     }
+
 }

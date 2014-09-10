@@ -26,8 +26,8 @@ class AuthItem extends CActiveRecord
     {
         return array(
             self::TYPE_OPERATION => Yii::t('RbacModule.rbac', 'Действие'),
-            self::TYPE_TASK => Yii::t('RbacModule.rbac', 'Задача'),
-            self::TYPE_ROLE => Yii::t('RbacModule.rbac', 'Роль'),
+            self::TYPE_TASK      => Yii::t('RbacModule.rbac', 'Задача'),
+            self::TYPE_ROLE      => Yii::t('RbacModule.rbac', 'Роль'),
         );
     }
 
@@ -40,7 +40,7 @@ class AuthItem extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
+     * @param  string $className active record class name.
      * @return AuthItem the static model class
      */
     public static function model($className = __CLASS__)
@@ -86,8 +86,8 @@ class AuthItem extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'authAssignments' => array(self::HAS_MANY, 'AuthAssignment', 'itemname'),
-            'parents' => array(self::HAS_MANY, 'AuthItemChild', 'child'),
-            'children' => array(self::HAS_MANY, 'AuthItemChild', 'parent'),
+            'parents'         => array(self::HAS_MANY, 'AuthItemChild', 'child'),
+            'children'        => array(self::HAS_MANY, 'AuthItemChild', 'parent'),
         );
     }
 
@@ -97,11 +97,11 @@ class AuthItem extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'name' => Yii::t('RbacModule.rbac', 'Название'),
-            'type' => Yii::t('RbacModule.rbac', 'Тип'),
+            'name'        => Yii::t('RbacModule.rbac', 'Название'),
+            'type'        => Yii::t('RbacModule.rbac', 'Тип'),
             'description' => Yii::t('RbacModule.rbac', 'Описание'),
-            'bizrule' => Yii::t('RbacModule.rbac', 'BizRule'),
-            'data' => Yii::t('RbacModule.rbac', 'Данные'),
+            'bizrule'     => Yii::t('RbacModule.rbac', 'BizRule'),
+            'data'        => Yii::t('RbacModule.rbac', 'Данные'),
         );
     }
 
@@ -111,7 +111,7 @@ class AuthItem extends CActiveRecord
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->compare('name', $this->name, true);
         $criteria->compare('type', $this->type);
         $criteria->compare('description', $this->description, true);
@@ -119,8 +119,8 @@ class AuthItem extends CActiveRecord
         $criteria->compare('data', $this->data);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'sort' => array(
+            'criteria'   => $criteria,
+            'sort'       => array(
                 'defaultOrder' => 'name ASC'
             ),
             'pagination' => array(

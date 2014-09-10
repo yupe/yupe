@@ -16,21 +16,37 @@ $this->pageTitle = Yii::t('MailModule.mail', 'Events list');
 
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
-    array('icon' => 'list-alt white', 'label' => Yii::t('MailModule.mail', 'Messages list'), 'url' => array('/mail/eventBackend/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventBackend/create')),
+    array(
+        'icon'  => 'list-alt white',
+        'label' => Yii::t('MailModule.mail', 'Messages list'),
+        'url'   => array('/mail/eventBackend/index')
+    ),
+    array(
+        'icon'  => 'plus-sign',
+        'label' => Yii::t('MailModule.mail', 'Create event'),
+        'url'   => array('/mail/eventBackend/create')
+    ),
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'), 'url' => array('/mail/templateBackend/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateBackend/create')),
+    array(
+        'icon'  => 'list-alt',
+        'label' => Yii::t('MailModule.mail', 'Templates list'),
+        'url'   => array('/mail/templateBackend/index')
+    ),
+    array(
+        'icon'  => 'plus-sign',
+        'label' => Yii::t('MailModule.mail', 'Create template'),
+        'url'   => array('/mail/templateBackend/create')
+    ),
 );
 
 Yii::app()->clientScript->registerScript(
     'search',
     "
-    $('.search-button').click(function(){
+    $('.search-button').click(function () {
     	$('.search-form').toggle();
     	return false;
     });
-    $('.search-form').submit(function(){
+    $('.search-form').submit(function () {
     	$.fn.yiiGridView.update('mail-event-grid', {
     		data: $(this).serialize()
     	});
@@ -58,10 +74,11 @@ Yii::app()->clientScript->registerScript(
     Yii::app()->clientScript->registerScript(
         'search',
         "
-    $('.search-form').submit(function(){       
+    $('.search-form').submit(function () {
         $.fn.yiiGridView.update('mail-event-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });"
     );
@@ -78,49 +95,60 @@ Yii::app()->clientScript->registerScript(
 $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'mail-event-grid',
+        'id'           => 'mail-event-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/mail/eventBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
+        'columns'      => array(
             array(
-                'name' => 'id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->id, array("/mail/eventBackend/update", "id" => $data->id))',
+                'name'        => 'id',
+                'type'        => 'raw',
+                'value'       => 'CHtml::link($data->id, array("/mail/eventBackend/update", "id" => $data->id))',
                 'htmlOptions' => array('style' => 'width:20px'),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'code',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'code',
                 'editable' => array(
-                    'url' => $this->createUrl('/mail/eventBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/mail/eventBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'code', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'code', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'name',
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'name',
                 'editable' => array(
-                    'url' => $this->createUrl('/mail/eventBackend/inline'),
-                    'mode' => 'inline',
+                    'url'    => $this->createUrl('/mail/eventBackend/inline'),
+                    'mode'   => 'inline',
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
                 ),
-                'filter' => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
+                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'description',
-                'value' => '$data->shortDescription;',
-                'editable' => array(
-                    'url' => $this->createUrl('/mail/eventBackend/inline'),
-                    'mode' => 'popup',
-                    'type' => 'textarea',
-                    'title' => Yii::t('MailModule.mail', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('description')))),
+                'class'       => 'bootstrap.widgets.TbEditableColumn',
+                'name'        => 'description',
+                'value'       => '$data->shortDescription;',
+                'editable'    => array(
+                    'url'    => $this->createUrl('/mail/eventBackend/inline'),
+                    'mode'   => 'popup',
+                    'type'   => 'textarea',
+                    'title'  => Yii::t(
+                            'MailModule.mail',
+                            'Select {field}',
+                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                        ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
@@ -128,20 +156,20 @@ $this->widget(
                 'htmlOptions' => array(
                     'style' => 'width: 20%;'
                 ),
-                'filter' => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
+                'filter'      => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
                 'header' => Yii::t('MailModule.mail', 'Templates'),
-                'type' => 'raw',
-                'value' => 'CHtml::link(count($data->templates), array("/mail/templateBackend/index/", "event" => $data->id))',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link(count($data->templates), array("/mail/templateBackend/index/", "event" => $data->id))',
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'bootstrap.widgets.TbButtonColumn',
                 'template' => '{view}{update}{delete}{add}',
-                'buttons' => array(
+                'buttons'  => array(
                     'add' => array(
-                        'label' => false,
-                        'url' => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
+                        'label'   => false,
+                        'url'     => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
                         'options' => array(
                             'class' => 'glyphicon glyphicon-plus-sign',
                             'title' => Yii::t('MailModule.mail', 'Create mail template'),

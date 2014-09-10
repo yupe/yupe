@@ -111,7 +111,7 @@ class HomepageModule extends yupe\components\WebModule
     public function getEditableParams()
     {
         return array(
-            'mode' => $this->getModes(),
+            'mode'   => $this->getModes(),
             'target' => $this->getTargets(),
             'limit'
         );
@@ -129,8 +129,8 @@ class HomepageModule extends yupe\components\WebModule
     public function getParamsLabels()
     {
         return array(
-            'mode' => Yii::t('HomepageModule.homepage', 'Whats will be displayed'),
-            'limit' => Yii::t('HomepageModule.homepage', 'Pages count'),
+            'mode'   => Yii::t('HomepageModule.homepage', 'Whats will be displayed'),
+            'limit'  => Yii::t('HomepageModule.homepage', 'Pages count'),
             'target' => Yii::t('HomepageModule.homepage', 'Page or post')
         );
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CatalogBackendController контроллер для управления каталогом в панели управления
  *
@@ -14,7 +15,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Catalog.CatalogBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Catalog.CatalogBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Catalog.CatalogBackend.Index')),
@@ -24,17 +25,18 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             array('deny')
         );
     }
-    
+
     public function actions()
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'Good',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Good',
                 'validAttributes' => array('name', 'alias', 'price', 'article', 'status')
             )
         );
     }
+
     /**
      * Отображает товар по указанному идентификатору
      * @param integer $id Идинтификатор товар для отображения
@@ -50,22 +52,21 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionCreate()
     {
-        $model = new Good;
+        $model = new Good();
 
-        if (isset($_POST['Good']))
-        {
+        if (isset($_POST['Good'])) {
             $model->attributes = $_POST['Good'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CatalogModule.catalog', 'Record was added!')
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
@@ -81,21 +82,20 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['Good']))
-        {
+        if (isset($_POST['Good'])) {
             $model->attributes = $_POST['Good'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CatalogModule.catalog', 'Record was updated!')
                 );
 
-               if (!isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
-               else
+                } else {
                     $this->redirect(array($_POST['submit-type']));
+                }
             }
         }
         $this->render('update', array('model' => $model));
@@ -108,8 +108,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->getRequest()->getIsPostRequest())
-        {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -119,11 +118,12 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
+            if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        }
-        else
+            }
+        } else {
             throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Unknown request. Don\'t repeat it please!'));
+        }
     }
 
     /**
@@ -133,8 +133,9 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Good('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Good']))
+        if (isset($_GET['Good'])) {
             $model->attributes = $_GET['Good'];
+        }
         $this->render('index', array('model' => $model));
     }
 
@@ -146,8 +147,10 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     public function loadModel($id)
     {
         $model = Good::model()->findByPk($id);
-        if ($model === null)
+        if ($model === null) {
             throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Page was not found!'));
+        }
+
         return $model;
     }
 

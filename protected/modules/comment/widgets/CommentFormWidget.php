@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет отрисовки формы для добавления комментария
  *
@@ -20,32 +21,39 @@ class CommentFormWidget extends yupe\widgets\YWidget
 
     public function init()
     {
-        $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
-        $this->modelId = (int) $this->modelId;
-
-        $module = Yii::app()->getModule("comment");
-        $this->allowGuestComment = $module->allowGuestComment ? true : false;
+        $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->modelId = (int)$this->modelId;
+        $this->allowGuestComment = Yii::app()->getModule("comment")->allowGuestComment ? true : false;
     }
 
     public function run()
     {
         $model = new Comment;
 
-        $module = Yii::app()->getModule('comment');
+        $model->setAttributes(
+            [
+                'model' => $this->model,
+                'model_id' => $this->modelId,
+            ]
+        );
 
-        $model->setAttributes(array(
-            'model'    => $this->model,
-            'model_id' => $this->modelId,
-        ));
-
-        if($this->allowGuestComment == false && !Yii::app()->user->isAuthenticated()) {
+        if ($this->allowGuestComment == false && !Yii::app()->getUser()->isAuthenticated()) {
             $this->view = 'commentnotallowed';
         }
 
-        $this->render($this->view, array(
-            'redirectTo' => $this->redirectTo,
-            'model'      => $model,
-            'module'     => $module,
-        ));
+        Yii::app()->getUser()->setState('spamField', Yii::app()->userManager->hasher->generateRandomToken(8));
+
+        Yii::app()->getUser()->setState('spamFieldValue', Yii::app()->userManager->hasher->generateRandomToken(8));
+
+        $this->render(
+            $this->view,
+            [
+                'redirectTo' => $this->redirectTo,
+                'model' => $model,
+                'module' => Yii::app()->getModule('comment'),
+                'spamField' => Yii::app()->getUser()->getState('spamField'),
+                'spamFieldValue' => Yii::app()->getUser()->getState('spamFieldValue')
+            ]
+        );
     }
 }

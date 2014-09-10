@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Контроллер, отвечающий за работу с пользователями в панели управления
  *
@@ -10,14 +11,13 @@
  * @link     http://yupe.ru
  *
  **/
-
 class ManageBackendController extends yupe\components\controllers\BackController
 {
 
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Zendsearch.ManageBackend.Create')),
             array('deny')
         );
@@ -30,22 +30,21 @@ class ManageBackendController extends yupe\components\controllers\BackController
     public function init()
     {
         Yii::import('application.modules.zendsearch.vendors.*');
-        
+
         require_once 'Zend/Search/Lucene.php';
-        
+
         return parent::init();
     }
 
     /**
      * Index-экшен:
-     * 
+     *
      * @return void
      */
     public function actionIndex()
     {
         $this->render('index');
     }
-
 
     /**
      * Search index creation
@@ -55,8 +54,9 @@ class ManageBackendController extends yupe\components\controllers\BackController
         /**
          * Если это не AJAX-запрос - посылаем:
          **/
-        if (!Yii::app()->getRequest()->getIsPostRequest() && !Yii::app()->getRequest()->getIsAjaxRequest())
+        if (!Yii::app()->getRequest()->getIsPostRequest() && !Yii::app()->getRequest()->getIsAjaxRequest()) {
             throw new CHttpException(404, Yii::t('ZendSearchModule.zendsearch', 'Page was not found!'));
+        }
 
         try {
             // Папка для хранения индекса поиска
@@ -75,17 +75,34 @@ class ManageBackendController extends yupe\components\controllers\BackController
             if (extension_loaded('iconv') === true) {
                 // Пробежаться по всем моделям и добавить их в индекс
                 foreach ($searchModels as $modelName => $model) {
-                    if(!empty($model['path'])) {
+                    if (!empty($model['path'])) {
                         Yii::import($model['path']);
                     }
                     if (!isset($model['module'])) {
-                        $messages[] = Yii::t('ZendSearchModule.zendsearch', 'Update config file or module, Module index not found for model "{model}"!', array('{model}' => $modelName));
-                    } elseif (is_file(Yii::getPathOfAlias($model['path']) . '.php') && Yii::app()->hasModule($model['module'])) {
+                        $messages[] = Yii::t(
+                            'ZendSearchModule.zendsearch',
+                            'Update config file or module, Module index not found for model "{model}"!',
+                            array('{model}' => $modelName)
+                        );
+                    } elseif (is_file(Yii::getPathOfAlias($model['path']) . '.php') && Yii::app()->hasModule(
+                            $model['module']
+                        )
+                    ) {
                         $searchNodes = $modelName::model()->findAll();
                         foreach ($searchNodes as $node) {
                             $doc = new Zend_Search_Lucene_Document();
-                            $doc->addField(Zend_Search_Lucene_Field::Text('title', CHtml::encode($node->$model['titleColumn']), 'UTF-8'));
-                            $link = str_replace('{' . $model['linkColumn'] . '}', $node->$model['linkColumn'], $model['linkPattern']);
+                            $doc->addField(
+                                Zend_Search_Lucene_Field::Text(
+                                    'title',
+                                    CHtml::encode($node->$model['titleColumn']),
+                                    'UTF-8'
+                                )
+                            );
+                            $link = str_replace(
+                                '{' . $model['linkColumn'] . '}',
+                                $node->$model['linkColumn'],
+                                $model['linkPattern']
+                            );
                             $doc->addField(Zend_Search_Lucene_Field::Text('link', $link, 'UTF-8'));
                             $contentColumns = explode(',', $model['textColumns']);
                             $i = 0;
@@ -94,7 +111,9 @@ class ManageBackendController extends yupe\components\controllers\BackController
                                 if ($i == 0) {
                                     $doc->addField(Zend_Search_Lucene_Field::Text('content', $content, 'UTF-8'));
                                     $description = $this->cleanContent($this->previewContent($node->$column, $limit));
-                                    $doc->addField(Zend_Search_Lucene_Field::Text('description', $description, 'UTF-8'));
+                                    $doc->addField(
+                                        Zend_Search_Lucene_Field::Text('description', $description, 'UTF-8')
+                                    );
                                 } else {
                                     $doc->addField(Zend_Search_Lucene_Field::Text('content' . $i, $content, 'UTF-8'));
                                 }
@@ -105,7 +124,11 @@ class ManageBackendController extends yupe\components\controllers\BackController
                         $index->optimize();
                         $index->commit();
                     } else {
-                        $messages[] = Yii::t('ZendSearchModule.zendsearch', 'Module "{module}" not installed!', array('{module}' => $model['module']));
+                        $messages[] = Yii::t(
+                            'ZendSearchModule.zendsearch',
+                            'Module "{module}" not installed!',
+                            array('{module}' => $model['module'])
+                        );
                     }
                 }
             } else {
@@ -114,14 +137,14 @@ class ManageBackendController extends yupe\components\controllers\BackController
 
             Yii::app()->ajax->raw(
                 empty($messages)
-                    ? Yii::t('ZendSearchModule.zendsearch','Index updated successfully!')
-                    : Yii::t('ZendSearchModule.zendsearch','There is an error!')
-                        . ': '
-                        . implode("\n", $messages)
+                    ? Yii::t('ZendSearchModule.zendsearch', 'Index updated successfully!')
+                    : Yii::t('ZendSearchModule.zendsearch', 'There is an error!')
+                    . ': '
+                    . implode("\n", $messages)
             );
         } catch (Exception $e) {
             Yii::app()->ajax->raw(
-                Yii::t('ZendSearchModule.zendsearch','There is an error!') . ":\n" . $e->getMessage()
+                Yii::t('ZendSearchModule.zendsearch', 'There is an error!') . ":\n" . $e->getMessage()
             );
         }
     }

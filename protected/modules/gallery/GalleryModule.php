@@ -27,7 +27,7 @@ class GalleryModule extends yupe\components\WebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('GalleryModule.gallery', 'Menu items order'),
-            'editor' => Yii::t('GalleryModule.gallery', 'Visual Editor'),
+            'editor'         => Yii::t('GalleryModule.gallery', 'Visual Editor'),
         );
     }
 
@@ -99,14 +99,14 @@ class GalleryModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('GalleryModule.gallery', 'Galleries list'),
-                'url' => array('/gallery/galleryBackend/index')
+                'url'   => array('/gallery/galleryBackend/index')
             ),
             array(
-                'icon' => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'glyphicon glyphicon-plus-sign',
                 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
-                'url' => array('/gallery/galleryBackend/create')
+                'url'   => array('/gallery/galleryBackend/create')
             ),
         );
     }
@@ -115,53 +115,53 @@ class GalleryModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'name' => 'Gallery.GalleryManager',
+                'name'        => 'Gallery.GalleryManager',
                 'description' => Yii::t('GalleryModule.gallery', 'Manage gallery'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Create',
                         'description' => Yii::t('GalleryModule.gallery', 'Creating gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Delete',
                         'description' => Yii::t('GalleryModule.gallery', 'Removing gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Index',
                         'description' => Yii::t('GalleryModule.gallery', 'List of gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Update',
                         'description' => Yii::t('GalleryModule.gallery', 'Editing gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Inline',
                         'description' => Yii::t('GalleryModule.gallery', 'Editing gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.View',
                         'description' => Yii::t('GalleryModule.gallery', 'Viewing gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Images',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Images',
                         'description' => Yii::t('GalleryModule.gallery', 'Images gallery')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.DeleteImage',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.DeleteImage',
                         'description' => Yii::t('GalleryModule.gallery', 'Delete image')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Gallery.GalleryBackend.Addimages',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Addimages',
                         'description' => Yii::t('GalleryModule.gallery', 'Add image')
                     ),
                 )

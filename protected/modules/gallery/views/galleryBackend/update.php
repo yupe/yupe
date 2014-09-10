@@ -9,25 +9,37 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - edit');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/galleryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
+        'url'   => array('/gallery/galleryBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
+        'url'   => array('/gallery/galleryBackend/create')
+    ),
     array('label' => Yii::t('GalleryModule.gallery', 'Gallery') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon'  => 'glyphicon glyphicon-pencil',
         'label' => Yii::t('GalleryModule.gallery', 'Edit gallery'),
-        'url' => array(
+        'url'   => array(
             '/gallery/galleryBackend/update',
             'id' => $model->id
         )
     ),
-    array('icon' => 'glyphicon glyphicon-picture', 'label' => Yii::t('GalleryModule.gallery', 'Gallery images'), 'url' => array('/gallery/galleryBackend/images', 'id' => $model->id)),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('GalleryModule.gallery', 'Remove gallery'),
-        'url' => '#',
+        'icon'  => 'glyphicon glyphicon-picture',
+        'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
+        'url'   => array('/gallery/galleryBackend/images', 'id' => $model->id)
+    ),
+    array(
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('GalleryModule.gallery', 'Remove gallery'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/gallery/galleryBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'submit'  => array('/gallery/galleryBackend/delete', 'id' => $model->id),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('GalleryModule.gallery', 'Do you really want to remove gallery?'),
         )
     ),

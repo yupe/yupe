@@ -10,7 +10,7 @@
 
 /**
  * Виджет реализует вывод меню
- * 
+ *
  * Подключение виджета:
  * <?php
  * $this->widget('application.modules.menu.widgets.MenuWidget', array(
@@ -24,8 +24,8 @@
  * ?>
  */
 
-Yii::import('application.modules.menu.models.*'); 
- 
+Yii::import('application.modules.menu.models.*');
+
 class MenuWidget extends yupe\widgets\YWidget
 {
     /**
@@ -35,11 +35,11 @@ class MenuWidget extends yupe\widgets\YWidget
     /**
      * @var string начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню
      */
-    public $parent_id    = 0;
+    public $parent_id = 0;
     /**
      * string данный параметр указывает название layout
      */
-    public $layout       = 'main';
+    public $layout = 'main';
     /**
      * @var array особенные параметры передаваемые в layout
      */
@@ -47,14 +47,17 @@ class MenuWidget extends yupe\widgets\YWidget
     /**
      * @var array параметры виджета zii.widgets.CMenu
      */
-    public $params       = array();
+    public $params = array();
 
     public function run()
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
-        $this->render($this->layout, array(
-            'params'       => $this->params,
-            'layoutParams' => $this->layoutParams,
-        ));
+        $this->render(
+            $this->layout,
+            array(
+                'params'       => $this->params,
+                'layoutParams' => $this->layoutParams,
+            )
+        );
     }
 }

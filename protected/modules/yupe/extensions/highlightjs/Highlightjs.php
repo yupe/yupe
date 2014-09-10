@@ -1,12 +1,12 @@
 <?php
-/**
-* Highlightjs.php Компонент подключающий библиотеку Highlight.js
-*
-* @author Anton Kucherov <idexter.ru@gmail.com>
-* @link http://idexter.ru/
-* @copyright 2013 idexter.ru
-*/
 
+/**
+ * Highlightjs.php Компонент подключающий библиотеку Highlight.js
+ *
+ * @author Anton Kucherov <idexter.ru@gmail.com>
+ * @link http://idexter.ru/
+ * @copyright 2013 idexter.ru
+ */
 class Highlightjs extends CComponent
 {
     /**
@@ -22,7 +22,7 @@ class Highlightjs extends CComponent
     /**
      * @var string Стиль оформления кода
      */
-    public $style ='default';
+    public $style = 'default';
 
     /**
      * @var string Версия библиотеки при использовании опции $remote
@@ -39,11 +39,12 @@ class Highlightjs extends CComponent
     {
         $assetsPath = Yii::getPathOfAlias($this->assetsPath);
 
-        $this->_js = Yii::app()->getAssetManager()->publish($assetsPath.DIRECTORY_SEPARATOR.'highlight.pack.js');
-        $this->_css = Yii::app()->getAssetManager()->publish($assetsPath.DIRECTORY_SEPARATOR.'/styles/'.$this->style.'.css');
+        $this->_js = Yii::app()->getAssetManager()->publish($assetsPath . DIRECTORY_SEPARATOR . 'highlight.pack.js');
+        $this->_css = Yii::app()->getAssetManager()->publish(
+            $assetsPath . DIRECTORY_SEPARATOR . '/styles/' . $this->style . '.css'
+        );
 
-        if($this->remote === true)
-        {
+        if ($this->remote === true) {
             $this->_css = "http://yandex.st/highlightjs/{$this->version}/styles/{$this->style}.min.css";
             $this->_js = "http://yandex.st/highlightjs/{$this->version}/highlight.min.js";
         }
@@ -59,6 +60,6 @@ class Highlightjs extends CComponent
 
         $clientScript->registerCssFile($this->_css);
         $clientScript->registerScriptFile($this->_js);
-        $clientScript->registerScript('hightlightjs',"hljs.initHighlightingOnLoad();");
+        $clientScript->registerScript('hightlightjs', "hljs.initHighlightingOnLoad();");
     }
 }

@@ -31,19 +31,19 @@
 class FeedBack extends yupe\models\YModel
 {
 
-    const STATUS_NEW           = 0;
-    const STATUS_PROCESS       = 1;
-    const STATUS_FINISHED      = 2;
+    const STATUS_NEW = 0;
+    const STATUS_PROCESS = 1;
+    const STATUS_FINISHED = 2;
     const STATUS_ANSWER_SENDED = 3;
 
     const TYPE_DEFAULT = 0;
-    
+
     const IS_FAQ_NO = 0;
-    const IS_FAQ    = 1;
+    const IS_FAQ = 1;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string $className
      * @return FeedBack the static model class
      */
     public static function model($className = __CLASS__)
@@ -77,7 +77,11 @@ class FeedBack extends yupe\models\YModel
             array('answer_date', 'length', 'max' => 100),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
-            array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
+            array(
+                'id, creation_date, change_date, name, email, theme, text, type, status, ip',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -112,7 +116,7 @@ class FeedBack extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
 
@@ -145,17 +149,16 @@ class FeedBack extends yupe\models\YModel
     /**
      * Обновляем дату изменения. Если новая запись
      * обновляем необходимые поля:
-     * 
+     *
      * @return void
      */
     public function beforeValidate()
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
-            $this->ip            = Yii::app()->getRequest()->userHostAddress;
+            $this->ip = Yii::app()->getRequest()->userHostAddress;
 
             if (!$this->type) {
                 $this->type = self::TYPE_DEFAULT;
@@ -167,7 +170,7 @@ class FeedBack extends yupe\models\YModel
 
     /**
      * Именованные условия:
-     * 
+     *
      * @return array
      */
     public function scopes()
@@ -176,7 +179,7 @@ class FeedBack extends yupe\models\YModel
             'new'      => array(
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_NEW),
-             ),
+            ),
             'answered' => array(
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_ANSWER_SENDED),
@@ -190,17 +193,20 @@ class FeedBack extends yupe\models\YModel
 
     /**
      * Имя пользователя который ответил:
-     * 
+     *
      * @return string
      */
     public function getAnsweredUser()
     {
-        return $this->answer_user ? User::model()->findByPk($this->answer_user) : Yii::t('FeedbackModule.feedback', '-');
+        return $this->answer_user ? User::model()->findByPk($this->answer_user) : Yii::t(
+            'FeedbackModule.feedback',
+            '-'
+        );
     }
 
     /**
      * Список возможных статусов:
-     * 
+     *
      * @return array
      */
     public function getStatusList()
@@ -215,18 +221,22 @@ class FeedBack extends yupe\models\YModel
 
     /**
      * Получаем текстовый статус:
-     * 
+     *
      * @return string
      */
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('FeedbackModule.feedback', 'Unknown status message');
+
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t(
+            'FeedbackModule.feedback',
+            'Unknown status message'
+        );
     }
 
     /**
      * Список возможных типов:
-     * 
+     *
      * @return array
      */
     public function getTypeList()
@@ -235,8 +245,7 @@ class FeedBack extends yupe\models\YModel
 
         if ($types) {
             $types[self::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'Default');
-        }
-        else{
+        } else {
             $types = array(self::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default'));
         }
 
@@ -245,18 +254,22 @@ class FeedBack extends yupe\models\YModel
 
     /**
      * Получаем тип:
-     * 
+     *
      * @return string
      */
     public function getType()
     {
         $data = $this->getTypeList();
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('FeedbackModule.feedback', 'Unknown message type');
+
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t(
+            'FeedbackModule.feedback',
+            'Unknown message type'
+        );
     }
 
     /**
      * Массив текстовых статусов:
-     * 
+     *
      * @return array
      */
     public function getIsFaqList()
@@ -269,38 +282,39 @@ class FeedBack extends yupe\models\YModel
 
     /**
      * Получаем класс по статусу:
-     * 
+     *
      * @return string label-class
      */
     public function getStatusClass()
     {
         return $this->status
-                ? (
-                    ($this->status == self::STATUS_NEW)
-                    ? 'warning'
-                    : (
-                        ($this->status== self::STATUS_ANSWER_SENDED)
-                        ?  'success'
-                        : 'default'
-                    )
-                )
-                : 'info';
+            ? (
+            ($this->status == self::STATUS_NEW)
+                ? 'warning'
+                : (
+            ($this->status == self::STATUS_ANSWER_SENDED)
+                ? 'success'
+                : 'default'
+            )
+            )
+            : 'info';
     }
 
     /**
      * Получаем текст, при необходимости обрезаем:
-     * 
+     *
      * @param mixed $size - максимальная длина
-     * 
+     *
      * @return string
      */
     public function getText($size = false)
     {
-        if (false === $size || $size > mb_strlen($this->text)){
+        if (false === $size || $size > mb_strlen($this->text)) {
             return $this->text;
         }
-        
+
         $p = new CHtmlPurifier();
+
         return $p->purify(
             mb_substr($this->text, 0, $size) . '...'
         );
@@ -308,30 +322,31 @@ class FeedBack extends yupe\models\YModel
 
     /**
      * Находится ли ответ в FAQ:
-     * 
+     *
      * @return string
      */
     public function getIsFaq()
     {
         $data = $this->getIsFaqList();
+
         return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('FeedbackModule.feedback', '*unknown*');
     }
 
     /**
      * Связи:
-     * 
+     *
      * @return array
      */
     public function relations()
     {
         return array(
-            'category' => array(self::BELONGS_TO,'Category','category_id'),
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
         );
     }
 
     /**
      * Категория:
-     * 
+     *
      * @return string
      */
     public function getCategory()

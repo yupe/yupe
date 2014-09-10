@@ -11,8 +11,8 @@ class ECKEditorWidget extends CInputWidget
         $this->widget(
             'bootstrap.widgets.TbCKEditor',
             array(
-                'model' => $this->model,
-                'attribute' => $this->attribute,
+                'model'         => $this->model,
+                'attribute'     => $this->attribute,
                 'editorOptions' => $this->options
             )
         );

@@ -12,11 +12,11 @@ $this->widget(
     'gallery.extensions.colorbox.ColorBox',
     array(
         'target' => '.gallery-image',
-        'config' => array(// тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
+        'config' => array( // тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
         ),
     )
 );
-$mainAssets = Yii::app()->assetManager->publish(    Yii::getPathOfAlias('gallery.views.assets'));
+$mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('gallery.views.assets'));
 Yii::app()->clientScript->registerCssFile($mainAssets . '/css/gallery.css');
 ?>
 
@@ -24,10 +24,10 @@ Yii::app()->clientScript->registerCssFile($mainAssets . '/css/gallery.css');
 <?php $this->widget(
     'bootstrap.widgets.TbListView',
     array(
-        'dataProvider' => $dataProvider,
-        'itemView' => '_image',
-        'template' => "{items}\n{pager}",
+        'dataProvider'  => $dataProvider,
+        'itemView'      => '_image',
+        'template'      => "{items}\n{pager}",
         'itemsCssClass' => 'row gallery-thumbnails thumbnails',
-        'itemsTagName' => 'div'
+        'itemsTagName'  => 'div'
     )
 ); ?>

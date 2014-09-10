@@ -24,24 +24,32 @@ class CategoryModule extends WebModule
 
         $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
-        if (!is_writable($uploadPath))
+        if (!is_writable($uploadPath)) {
             $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
-                'message' => Yii::t('CategoryModule.category', 'Directory "{dir}" is available for write! {link}', array(
-                    '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('CategoryModule.category', 'Change settings'), array(
-                        '/yupe/backend/modulesettings/',
-                        'module' => 'category',
-                    )),
-                )),
+                'message' => Yii::t(
+                        'CategoryModule.category',
+                        'Directory "{dir}" is available for write! {link}',
+                        array(
+                            '{dir}'  => $uploadPath,
+                            '{link}' => CHtml::link(
+                                    Yii::t('CategoryModule.category', 'Change settings'),
+                                    array(
+                                        '/yupe/backend/modulesettings/',
+                                        'module' => 'category',
+                                    )
+                                ),
+                        )
+                    ),
             );
+        }
 
         return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getInstall()
     {
-        if(parent::getInstall()){
+        if (parent::getInstall()) {
             @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
         }
 
@@ -60,7 +68,10 @@ class CategoryModule extends WebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('CategoryModule.category', 'Menu items order'),
-            'uploadPath'     => Yii::t('CategoryModule.category', 'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)'),
+            'uploadPath'     => Yii::t(
+                    'CategoryModule.category',
+                    'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)'
+                ),
         );
     }
 
@@ -118,17 +129,27 @@ class CategoryModule extends WebModule
     {
         parent::init();
 
-        $this->setImport(array(
-            'category.models.*',
-            'category.components.*',
-        ));
+        $this->setImport(
+            array(
+                'category.models.*',
+                'category.components.*',
+            )
+        );
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CategoryModule.category', 'Categories list'), 'url' => array('/category/categoryBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('CategoryModule.category', 'Categories list'),
+                'url'   => array('/category/categoryBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('CategoryModule.category', 'Create category'),
+                'url'   => array('/category/categoryBackend/create')
+            ),
         );
     }
 
@@ -141,38 +162,38 @@ class CategoryModule extends WebModule
     {
         return array(
             array(
-                'name' => 'Category.CategoryManager',
+                'name'        => 'Category.CategoryManager',
                 'description' => Yii::t('CategoryModule.category', 'Manage categories'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Category.CategoryBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Create',
                         'description' => Yii::t('CategoryModule.category', 'Creating category')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Category.CategoryBackend.Delete',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Delete',
                         'description' => Yii::t('CategoryModule.category', 'Removing category')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Category.CategoryBackend.Index',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Index',
                         'description' => Yii::t('CategoryModule.category', 'List of categories')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Category.CategoryBackend.Update',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Update',
                         'description' => Yii::t('CategoryModule.category', 'Editing categories')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Category.CategoryBackend.Inline',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Inline',
                         'description' => Yii::t('CategoryModule.category', 'Editing categories')
                     ),
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Category.CategoryBackend.View',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.View',
                         'description' => Yii::t('CategoryModule.category', 'Viewing categories')
                     ),
                 )

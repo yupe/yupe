@@ -103,6 +103,10 @@ return array(
     'import'    => array(
         'application.modules.client.models.*',
     ),
+    // обязательно явно прописываем все публичне урл-адреса, так как у нас CUrlManager::useStrictParsing === true
+    'rules'     => array(
+        '/clients' => '/client/default/index',
+    )
     'component' => array()
 );
 ~~~

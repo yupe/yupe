@@ -4,8 +4,6 @@ body {
     padding-bottom: 20px;
 }
 
-
-
 /* Copyright 2013 Soundarapandian
  * Pricing table built on Twitter Bootstrap.
  */
@@ -24,15 +22,18 @@ body {
 .clearfix {
     *zoom: 1;
 }
+
 .clearfix:before,
 .clearfix:after {
     display: table;
     content: "";
     line-height: 0;
 }
+
 .clearfix:after {
     clear: both;
 }
+
 .precio ul {
     display: block;
     padding: 0;
@@ -50,11 +51,13 @@ body {
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
+
 @media (max-width: 767px) {
     .precio ul {
         display: inline-block;
     }
 }
+
 .precio ul > li {
     padding: 11.5px 0;
     border: 1px solid #ddd;
@@ -69,12 +72,15 @@ body {
       }*/
 
 }
+
 .precio ul > li:nth-child(odd) {
     background: #f8f8f8;
 }
+
 .precio ul > li .icon-remove {
     color: #ff2233;
 }
+
 .precio ul.featured,
 .precio ul:hover {
     position: relative;
@@ -84,60 +90,72 @@ body {
     -moz-box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.2);
     box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.2);
 }
+
 @media (max-width: 767px) {
     .precio ul.featured,
     .precio ul:hover {
         margin-top: 0;
     }
 }
+
 .precio.featured {
     padding-top: 40px;
 }
+
 .precio.collpase-margin {
     display: inline-block;
     *display: inline;
     zoom: 1;
     margin: 0 auto;
 }
+
 .precio.collpase-margin ul {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+
 .precio.comparison {
     display: inline-block;
     *display: inline;
     zoom: 1;
     margin: 0 auto;
 }
+
 .precio.comparison ul:first-child:hover {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 }
+
 .precio.comparison ul:first-child > li {
     font-weight: bold;
 }
+
 .precio.comparison ul:hover {
     margin-top: 0;
     margin-bottom: 0;
 }
+
 .precio.comparison ul li:first-child {
     background: #e5e5e5;
 }
+
 .precio.comparison ul {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+
 .precio .lead {
     display: block;
     margin: 0;
     border-top: none;
     color: #ffffff;
     text-shadow: 0 -1px 1px #999999;
-    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.2) inset, 0 2px 0 rgba(255,255,255,0.3) inset;
-    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.2) inset, 0 2px 0 rgba(255,255,255,0.3) inset;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2) inset, 0 2px 0 rgba(255,255,255,0.3) inset;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset, 0 2px 0 rgba(255, 255, 255, 0.3) inset;
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset, 0 2px 0 rgba(255, 255, 255, 0.3) inset;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset, 0 2px 0 rgba(255, 255, 255, 0.3) inset;
 }
+
 /* Skin Mixin */
 /* Skin */
 .precio .lead,
@@ -153,6 +171,7 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff3753f', endColorstr='#fff16022', GradientType=0) !important;
     *background: #f16022;
 }
+
 .precio.green .lead {
     border: 1px solid #668a26;
     border-left-color: #84b231;
@@ -165,6 +184,7 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff95c939', endColorstr='#ff84b231', GradientType=0) !important;
     *background: #84b231;
 }
+
 .precio.blue .lead {
     border: 1px solid #3b7bbc;
     border-left-color: #5e95cc;
@@ -177,6 +197,7 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff75a4d3', endColorstr='#ff5e95cc', GradientType=0) !important;
     *background: #5e95cc;
 }
+
 .precio.red .lead {
     border: 1px solid #a12f3d;
     border-left-color: #c63d4e;
@@ -189,6 +210,7 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcd5564', endColorstr='#ffc63d4e', GradientType=0) !important;
     *background: #c63d4e;
 }
+
 .precio.gray .lead {
     border: 1px solid #a1a1a1;
     border-left-color: #bababa;
@@ -201,6 +223,7 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc9c9c9', endColorstr='#ffbababa', GradientType=0) !important;
     *background: #bababa;
 }
+
 .precio.black .lead {
     border: 1px solid #454545;
     border-left-color: #5e5e5e;
@@ -214,7 +237,6 @@ body {
     *background: #5e5e5e;
 }
 
-
 .plan-mouseover .plan-name {
     background-color: #4e9a06 !important;
 }
@@ -227,14 +249,15 @@ body {
 /*
  * =================== End pricing table =====================*/
 
-
 @media (max-width: 767px) {
     .pricing-table .plan {
         margin-bottom: 20px;
     }
+
     .pricing-variable-height .plan {
         margin-left: 0;
     }
+
     .pricing-three-column {
         width: 100%;
     }
@@ -245,7 +268,7 @@ span.label a {
 }
 
 /* blog */
-.blog-info>span {
+.blog-info > span {
     display: inline-block;
     padding-right: .7em;
 }

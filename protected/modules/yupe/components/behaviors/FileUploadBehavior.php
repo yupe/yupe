@@ -24,7 +24,6 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public $attributeName = 'file';
 
-
     /**
      * Атрибут для замены имени поля file если необходимо
      * @var string
@@ -76,12 +75,12 @@ class FileUploadBehavior extends CActiveRecordBehavior
     /**
      * @var CUploadedFile
      */
-    protected $_newFile;
+    private $_newFile;
 
     /**
      * @var CUploadedFile
      */
-    protected $_oldFile;
+    private $_oldFile;
 
     /**
      * @param \CComponent $owner
@@ -108,9 +107,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
                 $owner,
                 $this->attributeName,
                 array(
-                    'types' => $this->types,
-                    'minSize' => $this->minSize,
-                    'maxSize' => $this->maxSize,
+                    'types'      => $this->types,
+                    'minSize'    => $this->minSize,
+                    'maxSize'    => $this->maxSize,
                     'allowEmpty' => true,
                 )
             );
@@ -124,7 +123,10 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function afterFind($event)
     {
-        $this->_oldFile = Yii::app()->uploadManager->getFilePath($this->owner{$this->attributeName}, $this->getUploadPath());
+        $this->_oldFile = Yii::app()->uploadManager->getFilePath(
+            $this->owner{$this->attributeName},
+            $this->getUploadPath()
+        );
 
         parent::afterFind($event);
     }

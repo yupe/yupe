@@ -148,8 +148,8 @@ class User extends yupe\models\YModel
             array(
                 'avatar',
                 'file',
-                'types' => implode(',', $module->avatarExtensions),
-                'maxSize' => $module->avatarMaxSize,
+                'types'      => implode(',', $module->avatarExtensions),
+                'maxSize'    => $module->avatarMaxSize,
                 'allowEmpty' => true
             ),
             array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
@@ -187,34 +187,33 @@ class User extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('UserModule.user', 'Id'),
-            'creation_date' => Yii::t('UserModule.user', 'Activated at'),
-            'change_date' => Yii::t('UserModule.user', 'Updated at'),
-            'first_name' => Yii::t('UserModule.user', 'Name'),
-            'last_name' => Yii::t('UserModule.user', 'Last name'),
-            'middle_name' => Yii::t('UserModule.user', 'Family name'),
-            'full_name' => Yii::t('UserModule.user', 'Full name'),
-            'nick_name' => Yii::t('UserModule.user', 'Nick'),
-            'email' => Yii::t('UserModule.user', 'Email'),
-            'gender' => Yii::t('UserModule.user', 'Sex'),
-            'password' => Yii::t('UserModule.user', 'Password'),
-            'status' => Yii::t('UserModule.user', 'Status'),
-            'access_level' => Yii::t('UserModule.user', 'Access'),
-            'last_visit' => Yii::t('UserModule.user', 'Last visit'),
+            'id'                => Yii::t('UserModule.user', 'Id'),
+            'creation_date'     => Yii::t('UserModule.user', 'Activated at'),
+            'change_date'       => Yii::t('UserModule.user', 'Updated at'),
+            'first_name'        => Yii::t('UserModule.user', 'Name'),
+            'last_name'         => Yii::t('UserModule.user', 'Last name'),
+            'middle_name'       => Yii::t('UserModule.user', 'Family name'),
+            'full_name'         => Yii::t('UserModule.user', 'Full name'),
+            'nick_name'         => Yii::t('UserModule.user', 'Nick'),
+            'email'             => Yii::t('UserModule.user', 'Email'),
+            'gender'            => Yii::t('UserModule.user', 'Sex'),
+            'password'          => Yii::t('UserModule.user', 'Password'),
+            'status'            => Yii::t('UserModule.user', 'Status'),
+            'access_level'      => Yii::t('UserModule.user', 'Access'),
+            'last_visit'        => Yii::t('UserModule.user', 'Last visit'),
             'registration_date' => Yii::t('UserModule.user', 'Register date'),
-            'registration_ip' => Yii::t('UserModule.user', 'Register Ip'),
-            'activation_ip' => Yii::t('UserModule.user', 'Activation Ip'),
-            'activate_key' => Yii::t('UserModule.user', 'Activation code'),
-            'avatar' => Yii::t('UserModule.user', 'Avatar'),
-            'use_gravatar' => Yii::t('UserModule.user', 'Gravatar'),
-            'email_confirm' => Yii::t('UserModule.user', 'Email was confirmed'),
-            'birth_date' => Yii::t('UserModule.user', 'Birthday'),
-            'site' => Yii::t('UserModule.user', 'Site/blog'),
-            'location' => Yii::t('UserModule.user', 'Location'),
-            'about' => Yii::t('UserModule.user', 'About yourself'),
+            'registration_ip'   => Yii::t('UserModule.user', 'Register Ip'),
+            'activation_ip'     => Yii::t('UserModule.user', 'Activation Ip'),
+            'activate_key'      => Yii::t('UserModule.user', 'Activation code'),
+            'avatar'            => Yii::t('UserModule.user', 'Avatar'),
+            'use_gravatar'      => Yii::t('UserModule.user', 'Gravatar'),
+            'email_confirm'     => Yii::t('UserModule.user', 'Email was confirmed'),
+            'birth_date'        => Yii::t('UserModule.user', 'Birthday'),
+            'site'              => Yii::t('UserModule.user', 'Site/blog'),
+            'location'          => Yii::t('UserModule.user', 'Location'),
+            'about'             => Yii::t('UserModule.user', 'About yourself'),
         );
     }
-
 
     /**
      * Проверка верификации почты:
@@ -225,7 +224,6 @@ class User extends yupe\models\YModel
     {
         return $this->email_confirm;
     }
-
 
     /**
      * Строковое значение верификации почты пользователя:
@@ -246,7 +244,7 @@ class User extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.change_date', $this->change_date, true);
@@ -267,11 +265,11 @@ class User extends yupe\models\YModel
         $criteria->compare('t.email_confirm', $this->email_confirm);
 
         return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
+            'criteria'   => $criteria,
             'pagination' => array(
                 'pageSize' => (int)$this->pageSize,
             ),
-            'sort' => array(
+            'sort'       => array(
                 'defaultOrder' => 'id DESC',
             )
         ));
@@ -340,7 +338,6 @@ class User extends yupe\models\YModel
         return parent::beforeSave();
     }
 
-
     /**
      * Метод перед удалением:
      *
@@ -368,29 +365,29 @@ class User extends yupe\models\YModel
     public function scopes()
     {
         return array(
-            'active' => array(
+            'active'     => array(
                 'condition' => 't.status = :user_status',
-                'params' => array(
+                'params'    => array(
                     ':user_status' => self::STATUS_ACTIVE
                 ),
             ),
             'registered' => array(
                 'condition' => 't.status = :user_status',
-                'params' => array(
+                'params'    => array(
                     ':user_status' => self::STATUS_NOT_ACTIVE
                 ),
             ),
-            'blocked' => array(
+            'blocked'    => array(
                 'condition' => 'status = :blocked_status',
-                'params' => array(':blocked_status' => self::STATUS_BLOCK),
+                'params'    => array(':blocked_status' => self::STATUS_BLOCK),
             ),
-            'admin' => array(
+            'admin'      => array(
                 'condition' => 'access_level = :access_level',
-                'params' => array(':access_level' => self::ACCESS_LEVEL_ADMIN),
+                'params'    => array(':access_level' => self::ACCESS_LEVEL_ADMIN),
             ),
-            'user' => array(
+            'user'       => array(
                 'condition' => 'access_level = :access_level',
-                'params' => array(':access_level' => self::ACCESS_LEVEL_USER),
+                'params'    => array(':access_level' => self::ACCESS_LEVEL_USER),
             ),
         );
     }
@@ -404,7 +401,7 @@ class User extends yupe\models\YModel
     {
         return array(
             self::ACCESS_LEVEL_ADMIN => Yii::t('UserModule.user', 'Administrator'),
-            self::ACCESS_LEVEL_USER => Yii::t('UserModule.user', 'User'),
+            self::ACCESS_LEVEL_USER  => Yii::t('UserModule.user', 'User'),
         );
     }
 
@@ -429,8 +426,8 @@ class User extends yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE => Yii::t('UserModule.user', 'Active'),
-            self::STATUS_BLOCK => Yii::t('UserModule.user', 'Blocked'),
+            self::STATUS_ACTIVE     => Yii::t('UserModule.user', 'Active'),
+            self::STATUS_BLOCK      => Yii::t('UserModule.user', 'Blocked'),
             self::STATUS_NOT_ACTIVE => Yii::t('UserModule.user', 'Not activated'),
         );
     }
@@ -457,7 +454,7 @@ class User extends yupe\models\YModel
     {
         return array(
             self::EMAIL_CONFIRM_YES => Yii::t('UserModule.user', 'Yes'),
-            self::EMAIL_CONFIRM_NO => Yii::t('UserModule.user', 'No'),
+            self::EMAIL_CONFIRM_NO  => Yii::t('UserModule.user', 'No'),
         );
     }
 
@@ -483,8 +480,8 @@ class User extends yupe\models\YModel
     {
         return array(
             self::GENDER_FEMALE => Yii::t('UserModule.user', 'female'),
-            self::GENDER_MALE => Yii::t('UserModule.user', 'male'),
-            self::GENDER_THING => Yii::t('UserModule.user', 'not set'),
+            self::GENDER_MALE   => Yii::t('UserModule.user', 'male'),
+            self::GENDER_THING  => Yii::t('UserModule.user', 'not set'),
         );
     }
 
@@ -502,7 +499,6 @@ class User extends yupe\models\YModel
             ? $data[$this->gender]
             : $data[self::GENDER_THING];
     }
-
 
     /**
      * Получить url аватарки пользователя:
@@ -548,7 +544,7 @@ class User extends yupe\models\YModel
     /**
      * Получаем полное имя пользователя:
      *
-     * @param  string $separator - разделитель
+     * @param string $separator - разделитель
      *
      * @return string
      */
@@ -558,7 +554,6 @@ class User extends yupe\models\YModel
             ? $this->last_name . $separator . $this->first_name . ($this->middle_name ? ($separator . $this->middle_name) : "")
             : $this->nick_name;
     }
-
 
     /**
      * Удаление старого аватара:

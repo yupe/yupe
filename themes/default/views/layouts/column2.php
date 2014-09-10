@@ -10,10 +10,13 @@
         <div id="sidebar">
             <?php
             $this->beginWidget('zii.widgets.CPortlet', array('title' => Yii::t('default', 'Actions')));
-            $this->widget('zii.widgets.CMenu', array(
-                'items' => $this->menu,
-                'htmlOptions' => array('class' => 'operations'),
-            ));
+            $this->widget(
+                'zii.widgets.CMenu',
+                array(
+                    'items'       => $this->menu,
+                    'htmlOptions' => array('class' => 'operations'),
+                )
+            );
             $this->endWidget();
             ?>
         </div>

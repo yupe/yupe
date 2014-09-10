@@ -19,7 +19,7 @@ class RegistrationAction extends CAction
         $module = Yii::app()->getModule('user');
 
         if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->controller->redirect(Yii::app()->getUser()->getReturnUrl());
+            $this->getController()->redirect(Yii::app()->getUser()->getReturnUrl());
         }
 
         if ($module->registrationDisabled) {
@@ -36,21 +36,21 @@ class RegistrationAction extends CAction
 
 				if($user = Yii::app()->userManager->createUser($form)) {
 					
-				    Yii::app()->user->setFlash(
+				    Yii::app()->getUser()->setFlash(
 						yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
 						Yii::t('UserModule.user', 'Account was created! Check your email!')
 					);
 					
-					$this->controller->redirect(Url::redirectUrl($module->registrationSuccess));
+					$this->getController()->redirect(Url::redirectUrl($module->registrationSuccess));
 				}
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error creating account!')
                 );
 			}
 		}
 
-        $this->controller->render('registration', array('model' => $form, 'module' => $module));
+        $this->getController()->render('registration', array('model' => $form, 'module' => $module));
     }
 }

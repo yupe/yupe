@@ -46,7 +46,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
      */
     private $_field;
 
-
     /**
      * Fuzzy search query
      *
@@ -60,7 +59,6 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
      * @var float
      */
     private $_similarity = 1.;
-
 
     /**
      * Object constractor
@@ -95,7 +93,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
     /**
      * Transform entry to a subquery
      *
-     * @param string $encoding
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Search_Query
      * @throws Zend_Search_Lucene_Search_QueryParserException
      */
@@ -112,9 +110,9 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
                 $this->_similarity
             );
             $query->setBoost($this->_boost);
+
             return $query;
         }
-
 
         /** Zend_Search_Lucene_Search_Query_Preprocessing_Term */
         require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Term.php';
@@ -125,6 +123,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
                 null
         );
         $query->setBoost($this->_boost);
+
         return $query;
     }
 }

@@ -79,4 +79,4 @@ class UserPasswordRecoveryEvent extends Event
     {
         return $this->user;
     }
-} 
+}

@@ -60,12 +60,11 @@ class Controller extends \CController
      * Устанавливает заголовок страниц
      * @param string $title заголовок
      */
-    public function setPageTitle($title,$savePrev=false,$separator='|')
+    public function setPageTitle($title, $savePrev = false, $separator = '|')
     {
-        if($savePrev) {
+        if ($savePrev) {
             $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
-        }
-        else {
+        } else {
             $this->pageTitle = CHtml::encode($title);
         }
     }
@@ -94,12 +93,12 @@ class Controller extends \CController
     /**
      * Функция отрисовки виджета:
      *
-     * @param string $className     - имя класса
-     * @param mixed  $properties    - параметры
-     * @param bool   $captureOutput - требуется ли "захват" вывода виджета
+     * @param string $className - имя класса
+     * @param mixed $properties - параметры
+     * @param bool $captureOutput - требуется ли "захват" вывода виджета
      *
      * @return mixed Инстанс виджета в случае, когда $captureOutput является ложным,
-     * или вывод виджета, когда $captureOutput - истина
+     *               или вывод виджета, когда $captureOutput - истина
      **/
     public function widget($className, $properties = array(), $captureOutput = false)
     {
@@ -108,17 +107,19 @@ class Controller extends \CController
             $modulePath = explode('.', $className);
 
             $isModule = strpos($className, 'application.modules') !== false
-                    && !empty($modulePath[2])
-                    && !Yii::app()->hasModule($modulePath[2]);
+                && !empty($modulePath[2])
+                && !Yii::app()->hasModule($modulePath[2]);
 
             if (Yii::getPathOfAlias($className) == false || $isModule) {
-                
+
                 $modulePath = explode('.', $className);
 
                 if ($isModule) {
                     throw new CException(
                         Yii::t(
-                            'YupeModule.yupe', 'Widget "{widget}" was not found! Please enable "{module}" module!', array(
+                            'YupeModule.yupe',
+                            'Widget "{widget}" was not found! Please enable "{module}" module!',
+                            array(
                                 '{widget}' => $className,
                                 '{module}' => $modulePath[2]
                             )
@@ -128,7 +129,9 @@ class Controller extends \CController
 
                     throw new CException(
                         Yii::t(
-                            'YupeModule.yupe', 'Widget "{widget}" was not found!', array(
+                            'YupeModule.yupe',
+                            'Widget "{widget}" was not found!',
+                            array(
                                 '{widget}' => $className,
                             )
                         ), 1
@@ -139,20 +142,24 @@ class Controller extends \CController
             }
 
             $widget = parent::widget($className, $properties, $captureOutput);
-        
+
         } catch (CException $e) {
 
             echo CHtml::tag(
-                'p', array(
+                'p',
+                array(
                     'class' => 'alert alert-danger'
-                ), $e->getCode()
+                ),
+                $e->getCode()
                     ? $e->getMessage()
                     : Yii::t(
-                        'YupeModule.yupe', 'Error occurred during the render widget ({widget}): {error}', array(
-                            '{error}'  => $e->getMessage(),
-                            '{widget}' => $className,
-                        )
+                    'YupeModule.yupe',
+                    'Error occurred during the render widget ({widget}): {error}',
+                    array(
+                        '{error}'  => $e->getMessage(),
+                        '{widget}' => $className,
                     )
+                )
             );
 
             return null;
@@ -172,15 +179,16 @@ class Controller extends \CController
     public function processOutput($output)
     {
         ContentType::setHeader($this->headerTypeId);
+
         return parent::processOutput($output);
     }
 
     /**
      * Если вызван ошибочный запрос:
      *
-     * @param string  $message - сообщение
-     * @param integer $error   - код ошибки
-     * 
+     * @param string $message - сообщение
+     * @param integer $error - код ошибки
+     *
      * @return void
      */
     protected function badRequest($message = null, $error = 400)
@@ -188,10 +196,10 @@ class Controller extends \CController
         // Если сообщение не установленно - выставляем
         // дефолтное
         $message = $message
-                    ?: Yii::t(
-                        'YupeModule.yupe',
-                        'Bad request. Please don\'t use similar requests anymore!'
-                    );
+            ? : Yii::t(
+                'YupeModule.yupe',
+                'Bad request. Please don\'t use similar requests anymore!'
+            );
 
         if (Yii::app()->getRequest()->getIsAjaxRequest() === true) {
             return Yii::app()->ajax->failure($message);
@@ -210,7 +218,17 @@ class Controller extends \CController
     {
         if (Yii::app()->getComponent('log')) {
             foreach (Yii::app()->getComponent('log')->routes as $route) {
-                if (in_array(get_class($route), array('CFileLogRoute','CProfileLogRoute', 'CWebLogRoute', 'YiiDebugToolbarRoute','DbProfileLogRoute'))) {
+                if (in_array(
+                    get_class($route),
+                    array(
+                        'CFileLogRoute',
+                        'CProfileLogRoute',
+                        'CWebLogRoute',
+                        'YiiDebugToolbarRoute',
+                        'DbProfileLogRoute'
+                    )
+                )
+                ) {
                     $route->enabled = false;
                 }
             }

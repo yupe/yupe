@@ -4,7 +4,8 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 
 */
 pre code {
-  display: block; padding: 0.5em;
+    display: block;
+    padding: 0.5em;
 }
 
 pre .comment,
@@ -13,7 +14,7 @@ pre .template_comment,
 pre .diff .header,
 pre .chunk,
 pre .apache .cbracket {
-  color: rgb(0, 128, 0);
+    color: rgb(0, 128, 0);
 }
 
 pre .keyword,
@@ -28,7 +29,7 @@ pre .status,
 pre .nginx .title,
 pre .xml .tag,
 pre .xml .tag .value {
-  color: rgb(0, 0, 255);
+    color: rgb(0, 0, 255);
 }
 
 pre .string,
@@ -48,7 +49,7 @@ pre .stream,
 pre .apache .tag,
 pre .date,
 pre .tex .formula {
-  color: rgb(163, 21, 21);
+    color: rgb(163, 21, 21);
 }
 
 pre .ruby .string,
@@ -69,18 +70,31 @@ pre .apache .sqbracket,
 pre .nginx .built_in,
 pre .tex .special,
 pre .prompt {
-  color: rgb(43, 145, 175);
+    color: rgb(43, 145, 175);
 }
 
 pre .phpdoc,
 pre .javadoc,
 pre .xmlDocTag {
-  color: rgb(128, 128, 128);
+    color: rgb(128, 128, 128);
 }
 
-pre .vhdl .typename { font-weight: bold; }
-pre .vhdl .string { color: #666666; }
-pre .vhdl .literal { color: rgb(163, 21, 21); }
-pre .vhdl .attribute { color: #00B0E8; }
+pre .vhdl .typename {
+    font-weight: bold;
+}
 
-pre .xml .attribute { color: rgb(255, 0, 0); }
+pre .vhdl .string {
+    color: #666666;
+}
+
+pre .vhdl .literal {
+    color: rgb(163, 21, 21);
+}
+
+pre .vhdl .attribute {
+    color: #00B0E8;
+}
+
+pre .xml .attribute {
+    color: rgb(255, 0, 0);
+}

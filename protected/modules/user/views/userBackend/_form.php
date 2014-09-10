@@ -2,11 +2,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'user-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'user-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 
@@ -59,13 +59,13 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'options' => array(
-                        'format' => 'yyyy-mm-dd',
-                        'weekStart' => 1,
-                        'autoclose' => true,
+                        'format'      => 'yyyy-mm-dd',
+                        'weekStart'   => 1,
+                        'autoclose'   => true,
                         'orientation' => 'auto right',
                     ),
                 ),
-                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
             )
         );
         ?>
@@ -78,9 +78,9 @@ $form = $this->beginWidget(
         $this->widget(
             $this->module->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'about',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
@@ -147,17 +147,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and continue') : Yii::t('UserModule.user', 'Save user and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and continue') : Yii::t(
+                'UserModule.user',
+                'Save user and continue'
+            ),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and close') : Yii::t('UserModule.user', 'Save user and close'),
+        'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and close') : Yii::t(
+                'UserModule.user',
+                'Save user and close'
+            ),
     )
 ); ?>
 

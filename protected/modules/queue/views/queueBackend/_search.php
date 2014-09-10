@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -16,7 +16,7 @@ $form = $this->beginWidget(
                 'worker',
                 array(
                     'widgetOptions' => array(
-                        'data' => Yii::app()->getModule('queue')->getWorkerNamesMap(),
+                        'data'        => Yii::app()->getModule('queue')->getWorkerNamesMap(),
                         'htmlOptions' => array('empty' => '---'),
                     ),
                 )
@@ -28,7 +28,7 @@ $form = $this->beginWidget(
                 'priority',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getPriorityList(),
+                        'data'        => $model->getPriorityList(),
                         'htmlOptions' => array('empty' => '---'),
                     ),
                 )
@@ -40,7 +40,7 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array('empty' => '---'),
                     ),
                 )
@@ -56,12 +56,12 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'options' => array(
-                            'format' => 'dd-mm-yyyy',
+                            'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
                         ),
                     ),
-                    'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
                 )
             );
             ?>
@@ -73,12 +73,12 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'options' => array(
-                            'format' => 'dd-mm-yyyy',
+                            'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
                         ),
                     ),
-                    'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
                 )
             );
             ?>
@@ -90,12 +90,12 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'options' => array(
-                            'format' => 'dd-mm-yyyy',
+                            'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
                         ),
                     ),
-                    'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
                 )
             );
             ?>
@@ -116,10 +116,10 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Find task'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Find task'),
     )
 ); ?>
 

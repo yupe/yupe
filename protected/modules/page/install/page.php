@@ -12,8 +12,8 @@
  *
  */
 return array(
-    'module'   => array(
-        'class'  => 'application.modules.page.PageModule',
+    'module'    => array(
+        'class' => 'application.modules.page.PageModule',
         // Указание здесь layout'a портит отображение на фронтенде:
         //'layout' => '//layouts/column2',
     ),

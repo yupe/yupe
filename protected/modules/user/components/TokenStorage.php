@@ -4,20 +4,21 @@ class TokenStorage extends CApplicationComponent
 {
     public function init()
     {
-        UserToken::model()->deleteAll('expire < NOW()');
-
         parent::init();
+
+        $this->deleteExpired();
     }
 
     public function create(User $user, $expire, $type)
     {
-        $model = new UserToken;
+        $expire = (int)$expire;
+        $model = new UserToken();
         $model->user_id = $user->id;
         $model->type = (int)$type;
         $model->token = Yii::app()->userManager->hasher->generateRandomToken();
         $model->ip = Yii::app()->getRequest()->getUserHostAddress();
         $model->status = UserToken::STATUS_NEW;
-        $model->expire = date('Y-m-d h:i:s', time() + (int)$expire);
+        $model->expire = new CDbExpression("DATE_ADD(NOW(), INTERVAL {$expire} SECOND)");
         if ($model->save()) {
             return $model;
         }
@@ -30,10 +31,19 @@ class TokenStorage extends CApplicationComponent
         return UserToken::model()->deleteAll(
             'type = :type AND user_id = :user_id',
             array(
-                ':type' => (int)$type,
+                ':type'    => (int)$type,
                 ':user_id' => $user->id
             )
         );
+    }
+
+    public function deleteExpired()
+    {
+        $deleted = UserToken::model()->deleteAll('expire < NOW()');
+
+        Yii::log(sprintf('Delete %d tokes', $deleted), Clogger::LEVEL_INFO);
+
+        return $deleted;
     }
 
     public function createAccountActivationToken(User $user, $expire = 86400)
@@ -69,8 +79,8 @@ class TokenStorage extends CApplicationComponent
         return UserToken::model()->find(
             'token = :token AND type = :type AND status = :status',
             array(
-                ':token' => $token,
-                ':type' => (int)$type,
+                ':token'  => $token,
+                ':type'   => (int)$type,
                 ':status' => (int)$status
             )
         );
@@ -86,8 +96,8 @@ class TokenStorage extends CApplicationComponent
                     'id != :id AND user_id = :user_id AND type = :type',
                     array(
                         ':user_id' => $token->user_id,
-                        ':type' => $token->type,
-                        ':id' => $token->id
+                        ':type'    => $token->type,
+                        ':id'      => $token->id
                     )
                 );
             }

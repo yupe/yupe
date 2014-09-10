@@ -1,4 +1,5 @@
 <?php
+
 class LogoutPage
 {
     public static $URL = '/logout';

@@ -29,24 +29,22 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
     public function actionIndex($limit = 5)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
 
         $this->log("Try process {$limit} mail tasks...");
 
-        $queue = new Queue;
+        $queue = new Queue();
 
         $models = $queue->getTasksForWorker(self::MAIL_WORKER_ID, $limit);
 
         $this->log("Find " . count($models) . " new mail task");
 
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $this->log("Process mail task id = {$model->id}");
 
             $data = $model->decodeJson();
 
-            if (!$data)
-            {
+            if (!$data) {
                 $model->completeWithError('Error json_decode', CLogger::LEVEL_ERROR);
 
                 $this->log("Error json_decode");
@@ -54,8 +52,7 @@ class YQueueMailSenderCommand extends ConsoleCommand
                 continue;
             }
 
-            if (!isset($data['from'], $data['to'], $data['theme'], $data['body']))
-            {
+            if (!isset($data['from'], $data['to'], $data['theme'], $data['body'])) {
                 $model->completeWithError('Wrong data...');
 
                 $this->log('Wrong data...', CLogger::LEVEL_ERROR);
@@ -65,8 +62,7 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
             $from = $this->from ? $this->from : $data['from'];
 
-            if (Yii::app()->getComponent($this->sender)->send($from, $data['to'], $data['theme'], $data['body']))
-            {
+            if (Yii::app()->getComponent($this->sender)->send($from, $data['to'], $data['theme'], $data['body'])) {
                 $model->complete();
 
                 $this->log("Success send mail");

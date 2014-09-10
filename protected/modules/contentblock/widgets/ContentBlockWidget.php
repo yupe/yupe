@@ -10,6 +10,7 @@
  *
  **/
 Yii::import('application.modules.contentblock.models.ContentBlock');
+Yii::import('application.modules.contentblock.ContentBlockModule');
 
 class ContentBlockWidget extends yupe\widgets\YWidget
 {
@@ -20,10 +21,12 @@ class ContentBlockWidget extends yupe\widgets\YWidget
     public function init()
     {
         if (empty($this->code)) {
-            throw new CException(Yii::t(
-                'ContentBlockModule.contentblock',
-                'Insert content block title for ContentBlockWidget!'
-            ));
+            throw new CException(
+                Yii::t(
+                    'ContentBlockModule.contentblock',
+                    'Insert content block title for ContentBlockWidget!'
+                )
+            );
         }
 
         $this->silent = (bool)$this->silent;
@@ -55,16 +58,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 $output = '';
 
             } else {
-
-                switch ($block->type) {
-
-                    case ContentBlock::SIMPLE_TEXT:
-                        $output = CHtml::encode($block->content);
-                        break;
-                    case ContentBlock::HTML_TEXT:
-                        $output = $block->content;
-                        break;
-                }
+                $output = $block->getContent();
             }
 
             Yii::app()->cache->set($cacheName, $output);

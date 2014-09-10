@@ -8,10 +8,10 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'social-registration-form',
-        'type' => 'vertical',
+        'id'           => 'social-registration-form',
+        'type'         => 'vertical',
         'inlineErrors' => true,
-        'htmlOptions' => array(
+        'htmlOptions'  => array(
             'class' => 'well',
         )
     )
@@ -39,8 +39,8 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'submit',
-            'context' => 'primary',
-            'label' => Yii::t('UserModule.user', 'Sign up'),
+            'context'    => 'primary',
+            'label'      => Yii::t('UserModule.user', 'Sign up'),
         )
     ); ?>
 </div>

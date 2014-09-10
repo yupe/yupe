@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
+    Yii::t('UserModule.user', 'Users')  => array('/user/userBackend/index'),
     Yii::t('UserModule.user', 'Tokens') => array('/user/tokensBackend/index'),
     Yii::t('UserModule.user', 'Token management'),
 );
@@ -11,14 +11,26 @@ $this->menu = array(
     array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Manage users'),
+                'url'   => array('/user/userBackend/index')
+            ),
+            array(
+                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('UserModule.user', 'Create user'),
+                'url'   => array('/user/userBackend/create')
+            ),
         )
     ),
     array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+            array(
+                'icon'  => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('UserModule.user', 'Token list'),
+                'url'   => array('/user/tokensBackend/index')
+            ),
         )
     ),
 );
@@ -44,7 +56,7 @@ $confirmMessage = CJavaScript::encode(
     Yii::t('UserModule.user', 'Are you sure you want to compromise this token?')
 );
 $compromiseJS = <<<SCRIPT
-    function() {
+    function () {
         event.preventDefault();
 
         if(!confirm($confirmMessage)) return false;
@@ -61,19 +73,20 @@ SCRIPT;
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id' => 'user-tokens-grid',
+        'id'           => 'user-tokens-grid',
         'dataProvider' => $model->search(),
-        'filter' => $model,
-        'columns' => array(
+        'filter'       => $model,
+        'actionsButtons' => false,
+        'columns'      => array(
             array(
-                'name' => 'user_id',
-                'value' => '$data->getFullName()',
+                'name'   => 'user_id',
+                'value'  => '$data->getFullName()',
                 'filter' => $model->getUserList()
             ),
             array(
-                'name' => 'type',
-                'value' => '$data->getType()',
-                'filter' => $model->getTypeList(),
+                'name'        => 'type',
+                'value'       => '$data->getType()',
+                'filter'      => $model->getTypeList(),
                 'htmlOptions' => array(
                     'style' => implode(
                         ' ',
@@ -87,8 +100,8 @@ SCRIPT;
                 ),
             ),
             array(
-                'name' => 'token',
-                'value' => '$data->token',
+                'name'        => 'token',
+                'value'       => '$data->token',
                 'htmlOptions' => array(
                     'style' => implode(
                         ' ',
@@ -102,34 +115,34 @@ SCRIPT;
                 ),
             ),
             array(
-                'name'   => 'created',
-                'value'  => '$data->beautifyDate($data->created)',
-                'filter' => false,
+                'name'        => 'created',
+                'value'       => '$data->beautifyDate($data->created)',
+                'filter'      => false,
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )
             ),
             array(
-                'name' => 'updated',
-                'filter' => false,
-                'value' => '$data->beautifyDate($data->updated)',
+                'name'        => 'updated',
+                'filter'      => false,
+                'value'       => '$data->beautifyDate($data->updated)',
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )
             ),
             array(
-                'name' => 'expire',
-                'filter' => false,
-                'value' => '$data->beautifyDate($data->expire)',
+                'name'        => 'expire',
+                'filter'      => false,
+                'value'       => '$data->beautifyDate($data->expire)',
                 'htmlOptions' => array(
                     'style' => 'width: 120px;'
                 )
             ),
             array(
-                'name' => 'status',
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [UserToken::STATUS_NEW => yupe\helpers\Html::SUCCESS, UserToken::STATUS_ACTIVATE => yupe\helpers\Html::INFO, UserToken::STATUS_FAIL => yupe\helpers\Html::DANGER])',
-                'type'  => 'raw',
-                'filter' => $model->getStatusList(),
+                'name'        => 'status',
+                'value'       => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [UserToken::STATUS_NEW => yupe\helpers\Html::SUCCESS, UserToken::STATUS_ACTIVATE => yupe\helpers\Html::INFO, UserToken::STATUS_FAIL => yupe\helpers\Html::DANGER])',
+                'type'        => 'raw',
+                'filter'      => $model->getStatusList(),
                 'htmlOptions' => array(
                     'style' => implode(
                         ' ',
@@ -143,16 +156,16 @@ SCRIPT;
                 ),
             ),
             array(
-                'header' => Yii::t('UserModule.user', 'Management'),
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-                'template' => "{fail} &emsp; {view} {update} {delete}",
-                'buttons' => array(
+                'header'      => Yii::t('UserModule.user', 'Management'),
+                'class'       => 'bootstrap.widgets.TbButtonColumn',
+                'template'    => "{fail} &emsp; {view} {update} {delete}",
+                'buttons'     => array(
                     'fail' => array(
-                        'icon' => 'glyphicon glyphicon-remove',
-                        'label' => Yii::t('UserModule.user', 'Compromise'),
-                        'click' => $compromiseJS,
+                        'icon'    => 'glyphicon glyphicon-remove',
+                        'label'   => Yii::t('UserModule.user', 'Compromise'),
+                        'click'   => $compromiseJS,
                         'visible' => '$data->getIsCompromised() === false',
-                        'url' => 'array("/user/tokensBackend/compromise", "id" => $data->id)',
+                        'url'     => 'array("/user/tokensBackend/compromise", "id" => $data->id)',
                     ),
                 ),
                 'htmlOptions' => array(

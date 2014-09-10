@@ -1,5 +1,5 @@
-jQuery(document).ready(function($) {
-   window.locale = {
+jQuery(document).ready(function ($) {
+    window.locale = {
         "fileupload": {
             "errors": {
                 "maxFileSize": "Размер файла больше дозволенного",

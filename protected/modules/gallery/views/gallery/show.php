@@ -12,7 +12,8 @@
 <div class="gallery-show">
     <?php $this->pageTitle = Yii::t('GalleryModule.gallery', 'Gallery'); ?>
     <?php $this->breadcrumbs = array(
-        Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/gallery/list'), $model->name
+        Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/gallery/list'),
+        $model->name
     ); ?>
     <h1 class="page-header"><?php echo CHtml::encode($model->name); ?></h1>
     <?php echo $model->description; ?>

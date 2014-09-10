@@ -34,9 +34,9 @@
             "role": "Developer"
         },
         {
-            "name" : "Alexander Tischenko",
-            "email" : "tsm@archaron.ru",
-            "homepage":"http://archaron.ru/",
+            "name": "Alexander Tischenko",
+            "email": "tsm@archaron.ru",
+            "homepage": "http://archaron.ru/",
             "role": "Developer"
         },
         {
@@ -69,13 +69,13 @@
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
         "zhuravljov/yii2-debug": "dev-master",
-		"phpmailer/phpmailer": "dev-master",
-        "yiiext/taggable-behavior" : "1.5.*",
+        "phpmailer/phpmailer": "dev-master",
+        "yiiext/taggable-behavior": "1.5.*",
         "nodge/yii-eauth": "dev-master",
-        "imagine/imagine": "v0.5",
-        "symfony/event-dispatcher" : "2.*",
+        "imagine/imagine": "v0.6.1",
+        "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
-        "yiiext/twig-renderer":"1.1.*"
+        "yiiext/twig-renderer": "1.1.*"
     },
     "repositories": {
         "taggable": {
@@ -90,22 +90,21 @@
                 }
             }
         },
-        "twig":{
-            "type":"package",
-            "package":{
-                "name":"yiiext/twig-renderer",
-                "version":"1.1.15",
-                "source":{
-                    "type":"git",
-                    "url":"https://github.com/yiiext/twig-renderer",
-                    "reference":"v1.1.15"
+        "twig": {
+            "type": "package",
+            "package": {
+                "name": "yiiext/twig-renderer",
+                "version": "1.1.15",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/yiiext/twig-renderer",
+                    "reference": "v1.1.15"
                 }
             }
         }
     },
     "require-dev": {
-        "codeception/codeception": "2.*",
-        "malyshev/yii-debug-toolbar" : "dev-master"
+        "codeception/codeception": "2.*"
     },
     "minimum-stability": "stable"
 }

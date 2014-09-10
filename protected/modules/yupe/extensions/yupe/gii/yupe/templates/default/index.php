@@ -3,11 +3,11 @@
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
  *
- *   @category YupeGiiTemplate
- *   @package  yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
+ * @category YupeGiiTemplate
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
  */
 ?>
 <?php
@@ -56,20 +56,21 @@ EOF;
 </p>
 
 <div id="search-toggle" class="collapse out search-form">
-<?php echo <<<EOF
+    <?php echo <<<EOF
 <?php
 Yii::app()->clientScript->registerScript('search', "
-    $('.search-form form').submit(function() {
+    $('.search-form form').submit(function () {
         $.fn.yiiGridView.update('{$this->class2id($this->modelClass)}-grid', {
             data: $(this).serialize()
         });
+
         return false;
     });
 ");
 \$this->renderPartial('_search', array('model' => \$model));
 ?>\n
 EOF;
-?>
+    ?>
 </div>
 
 <br/>
@@ -77,23 +78,25 @@ EOF;
 <p> <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления {$this->mtvor}'); ?>\n"; ?></p>
 
 <?php echo "<?php\n"; ?> $this->widget('yupe\widgets\CustomGridView', array(
-    'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
-    'type'         => 'striped condensed',
-    'dataProvider' => $model->search(),
-    'filter'       => $model,
-    'columns'      => array(
+'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
+'type'         => 'striped condensed',
+'dataProvider' => $model->search(),
+'filter'       => $model,
+'columns'      => array(
 <?php
 $count = 0;
 foreach ($this->tableSchema->columns as $column) {
-    if(++$count == 7)
+    if (++$count == 7) {
         echo "        /*\n";
+    }
     echo "        '" . $column->name . "',\n";
 }
-if ($count >= 7)
+if ($count >= 7) {
     echo "        */\n";
+}
 ?>
-        array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
-        ),
-    ),
+array(
+'class' => 'bootstrap.widgets.TbButtonColumn',
+),
+),
 )); ?>

@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array(
             'class' => 'well',
         ),
@@ -32,7 +32,7 @@ $form = $this->beginWidget(
             'type',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getTypeList(),
+                    'data'        => $model->getTypeList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -46,7 +46,7 @@ $form = $this->beginWidget(
             'status',
             array(
                 'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
+                    'data'        => $model->getStatusList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -60,7 +60,9 @@ $form = $this->beginWidget(
             'category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => Category::model()->getFormattedList((int)Yii::app()->getModule('feedback')->mainCategory),
+                    'data'        => Category::model()->getFormattedList(
+                            (int)Yii::app()->getModule('feedback')->mainCategory
+                        ),
                     'htmlOptions' => array(
                         'empty' => '---',
                     ),
@@ -75,12 +77,12 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'options' => array(
-                        'format' => 'yyyy-mm-dd',
+                        'format'    => 'yyyy-mm-dd',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ),
                 ),
-                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
             )
         ); ?>
     </div>
@@ -95,7 +97,7 @@ $form = $this->beginWidget(
         <?php $this->widget(
             'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget',
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'answer',
             )
         ); ?>
@@ -105,10 +107,13 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i>' . Yii::t('FeedbackModule.feedback', 'Find messages '),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i>' . Yii::t(
+                'FeedbackModule.feedback',
+                'Find messages '
+            ),
     )
 ); ?>
 

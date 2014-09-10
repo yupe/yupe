@@ -3,20 +3,25 @@ namespace application\modules\social\components\services;
 
 use GitHubOAuthService;
 
-class Github extends GitHubOAuthService {
-
+class Github extends GitHubOAuthService
+{
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
     {
         if (parent::authenticate()) {
-            $this->setState(self::AUTH_DATA_KEY, array(
-                    'uid' => $this->getId(),
+            $this->setState(
+                self::AUTH_DATA_KEY,
+                array(
+                    'uid'     => $this->getId(),
                     'service' => $this->getServiceName(),
-                    'type' => $this->getServiceType(),
-                ));
+                    'type'    => $this->getServiceType(),
+                )
+            );
+
             return true;
         }
+
         return false;
     }
 

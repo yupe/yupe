@@ -35,7 +35,6 @@ require_once 'Zend/Search/Lucene/Analysis/TokenFilter.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Lucene_Analysis_TokenFilter
 {
     /**
@@ -57,7 +56,7 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
     /**
      * Normalize Token or remove it (if null is returned)
      *
-     * @param Zend_Search_Lucene_Analysis_Token $srcToken
+     * @param  Zend_Search_Lucene_Analysis_Token $srcToken
      * @return Zend_Search_Lucene_Analysis_Token
      */
     public function normalize(Zend_Search_Lucene_Analysis_Token $srcToken)
@@ -75,7 +74,7 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
      *
      * You can call this method one or more times. New stopwords are always added to current set.
      *
-     * @param string $filepath full path for text file with stopwords
+     * @param  string $filepath full path for text file with stopwords
      * @throws Zend_Search_Exception When the file doesn`t exists or is not readable.
      */
     public function loadFromFile($filepath = null)
@@ -101,4 +100,3 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
         }
     }
 }
-

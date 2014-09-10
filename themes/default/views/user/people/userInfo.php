@@ -11,7 +11,10 @@ $this->breadcrumbs = array(
     </div>
 
     <div class='col-xs-6'>
-        <i class="glyphicon glyphicon-user"></i> <?php echo CHtml::link(CHtml::encode($user->getFullName()), array('/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name))); ?>
+        <i class="glyphicon glyphicon-user"></i> <?php echo CHtml::link(
+            CHtml::encode($user->getFullName()),
+            array('/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name))
+        ); ?>
         <br/>
         <?php if ($user->last_visit): { ?>
             <i class="glyphicon glyphicon-time"></i> <?php echo Yii::t(
@@ -28,7 +31,11 @@ $this->breadcrumbs = array(
         <?php } endif; ?>
 
         <?php if ($user->site): { ?>
-            <i class="glyphicon glyphicon-globe"></i> <?php echo CHtml::link($user->site, $user->site, array('rel' => 'nofollow', 'target' => '_blank')); ?><br/>
+            <i class="glyphicon glyphicon-globe"></i> <?php echo CHtml::link(
+                $user->site,
+                $user->site,
+                array('rel' => 'nofollow', 'target' => '_blank')
+            ); ?><br/>
         <?php } endif; ?>
     </div>
 </div>
@@ -62,10 +69,10 @@ $this->breadcrumbs = array(
             <?php $this->widget(
                 'application.modules.blog.widgets.LastPostsWidget',
                 array(
-                    'view' => 'lastuserposts',
+                    'view'     => 'lastuserposts',
                     'criteria' => array(
                         'condition' => 't.create_user_id = :user_id',
-                        'params' => array(
+                        'params'    => array(
                             ':user_id' => $user->id
                         )
                     )

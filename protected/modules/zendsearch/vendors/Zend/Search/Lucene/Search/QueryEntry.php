@@ -36,7 +36,6 @@ abstract class Zend_Search_Lucene_Search_QueryEntry
      */
     protected $_boost = 1.0;
 
-
     /**
      * Process modifier ('~')
      *
@@ -44,11 +43,10 @@ abstract class Zend_Search_Lucene_Search_QueryEntry
      */
     abstract public function processFuzzyProximityModifier($parameter = null);
 
-
     /**
      * Transform entry to a subquery
      *
-     * @param string $encoding
+     * @param  string $encoding
      * @return Zend_Search_Lucene_Search_Query
      */
     abstract public function getQuery($encoding);
@@ -62,6 +60,5 @@ abstract class Zend_Search_Lucene_Search_QueryEntry
     {
         $this->_boost *= $boostFactor;
     }
-
 
 }

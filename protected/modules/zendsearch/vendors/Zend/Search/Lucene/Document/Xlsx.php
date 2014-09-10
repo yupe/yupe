@@ -20,7 +20,6 @@
  * @version    $Id: Xlsx.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Document_OpenXml */
 require_once 'Zend/Search/Lucene/Document/OpenXml.php';
 
@@ -73,8 +72,8 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Object constructor
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string $fileName
+     * @param  boolean $storeContent
      * @throws Zend_Search_Lucene_Exception
      */
     private function __construct($fileName, $storeContent)
@@ -104,13 +103,24 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
         foreach ($relations->Relationship as $rel) {
             if ($rel["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_OFFICEDOCUMENT) {
                 // Found office document! Read relations for workbook...
-                $workbookRelations = simplexml_load_string($package->getFromName($this->absoluteZipPath(dirname($rel["Target"]) . "/_rels/" . basename($rel["Target"]) . ".rels")));
-                $workbookRelations->registerXPathNamespace("rel", Zend_Search_Lucene_Document_OpenXml::SCHEMA_RELATIONSHIP);
+                $workbookRelations = simplexml_load_string(
+                    $package->getFromName(
+                        $this->absoluteZipPath(dirname($rel["Target"]) . "/_rels/" . basename($rel["Target"]) . ".rels")
+                    )
+                );
+                $workbookRelations->registerXPathNamespace(
+                    "rel",
+                    Zend_Search_Lucene_Document_OpenXml::SCHEMA_RELATIONSHIP
+                );
 
                 // Read shared strings
-                $sharedStringsPath = $workbookRelations->xpath("rel:Relationship[@Type='" . Zend_Search_Lucene_Document_Xlsx::SCHEMA_SHAREDSTRINGS . "']");
+                $sharedStringsPath = $workbookRelations->xpath(
+                    "rel:Relationship[@Type='" . Zend_Search_Lucene_Document_Xlsx::SCHEMA_SHAREDSTRINGS . "']"
+                );
                 $sharedStringsPath = (string)$sharedStringsPath[0]['Target'];
-                $xmlStrings = simplexml_load_string($package->getFromName($this->absoluteZipPath(dirname($rel["Target"]) . "/" . $sharedStringsPath)));
+                $xmlStrings = simplexml_load_string(
+                    $package->getFromName($this->absoluteZipPath(dirname($rel["Target"]) . "/" . $sharedStringsPath))
+                );
                 if (isset($xmlStrings) && isset($xmlStrings->si)) {
                     foreach ($xmlStrings->si as $val) {
                         if (isset($val->t)) {
@@ -125,7 +135,13 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
                 foreach ($workbookRelations->Relationship as $workbookRelation) {
                     if ($workbookRelation["Type"] == Zend_Search_Lucene_Document_Xlsx::SCHEMA_WORKSHEETRELATION) {
                         $worksheets[str_replace('rId', '', (string)$workbookRelation["Id"])] = simplexml_load_string(
-                            $package->getFromName($this->absoluteZipPath(dirname($rel["Target"]) . "/" . dirname($workbookRelation["Target"]) . "/" . basename($workbookRelation["Target"])))
+                            $package->getFromName(
+                                $this->absoluteZipPath(
+                                    dirname($rel["Target"]) . "/" . dirname(
+                                        $workbookRelation["Target"]
+                                    ) . "/" . basename($workbookRelation["Target"])
+                                )
+                            )
                         );
                     }
                 }
@@ -159,7 +175,7 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
                             $value = (string)$c->v;
                             if ($value == '0') {
                                 $value = false;
-                            } else if ($value == '1') {
+                            } elseif ($value == '1') {
                                 $value = true;
                             } else {
                                 $value = (bool)$c->v;
@@ -189,8 +205,13 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
 
                             // Check for numeric values
                             if (is_numeric($value) && $dataType != 's') {
-                                if ($value == (int)$value) $value = (int)$value;
-                                elseif ($value == (float)$value) $value = (float)$value; elseif ($value == (double)$value) $value = (double)$value;
+                                if ($value == (int)$value) {
+                                    $value = (int)$value;
+                                } elseif ($value == (float)$value) {
+                                    $value = (float)$value;
+                                } elseif ($value == (double)$value) {
+                                    $value = (double)$value;
+                                }
                             }
                     }
 
@@ -229,7 +250,7 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Parse rich text XML
      *
-     * @param SimpleXMLElement $is
+     * @param  SimpleXMLElement $is
      * @return string
      */
     private function _parseRichText($is = null)
@@ -250,8 +271,8 @@ class Zend_Search_Lucene_Document_Xlsx extends Zend_Search_Lucene_Document_OpenX
     /**
      * Load Xlsx document from a file
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string $fileName
+     * @param  boolean $storeContent
      * @return Zend_Search_Lucene_Document_Xlsx
      */
     public static function loadXlsxFile($fileName, $storeContent = false)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет отрисовки галереи изображений через colorbox
  *
@@ -56,7 +57,7 @@ class ColorBox extends yupe\widgets\YWidget
                 CClientScript::POS_END
             );
         } else {
-            throw new Exception(Yii::t('GalleryModule.gallery','Catalog with assets not found!'));
+            throw new Exception(Yii::t('GalleryModule.gallery', 'Catalog with assets not found!'));
         }
     }
 }

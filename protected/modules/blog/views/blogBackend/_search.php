@@ -11,9 +11,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 );
@@ -29,9 +29,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('name'),
-                            'data-content' => $model->getAttributeDescription('name'),
+                            'data-content'        => $model->getAttributeDescription('name'),
                         ),
                     ),
                 )
@@ -44,9 +44,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('slug'),
-                            'data-content' => $model->getAttributeDescription('slug'),
+                            'data-content'        => $model->getAttributeDescription('slug'),
                         ),
                     ),
                 )
@@ -60,12 +60,12 @@ $form = $this->beginWidget(
                 'type',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getTypeList(),
+                        'data'        => $model->getTypeList(),
                         'htmlOptions' => array(
-                            'empty' => '---',
-                            'class' => 'popover-help',
+                            'empty'               => '---',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('type'),
-                            'data-content' => $model->getAttributeDescription('type'),
+                            'data-content'        => $model->getAttributeDescription('type'),
                         ),
                     ),
                 )
@@ -77,12 +77,12 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
-                            'empty' => '---',
-                            'class' => 'popover-help',
+                            'empty'               => '---',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('status'),
-                            'data-content' => $model->getAttributeDescription('status'),
+                            'data-content'        => $model->getAttributeDescription('status'),
                         ),
                     ),
                 )
@@ -97,9 +97,9 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'htmlOptions' => array(
-                            'class' => 'popover-help',
+                            'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('description'),
-                            'data-content' => $model->getAttributeDescription('description'),
+                            'data-content'        => $model->getAttributeDescription('description'),
                         ),
                     ),
                 )
@@ -112,10 +112,10 @@ $form = $this->beginWidget(
 $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Find a blog'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Find a blog'),
     )
 ); ?>
 

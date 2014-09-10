@@ -89,14 +89,14 @@ class Image extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class' => 'yupe\components\behaviors\FileUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'file',
-                'minSize' => $module->minSize,
-                'maxSize' => $module->maxSize,
-                'types' => $module->allowedExtensions,
-                'requiredOn' => 'insert',
-                'uploadPath' => $module->uploadPath,
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'requiredOn'    => 'insert',
+                'uploadPath'    => $module->uploadPath,
             ),
         );
     }
@@ -117,14 +117,14 @@ class Image extends yupe\models\YModel
         // class name for the relations automatically generated below.
         return array_merge(
             array(
-                'image' => array(self::BELONGS_TO, 'Image', 'id'),
+                'image'    => array(self::BELONGS_TO, 'Image', 'id'),
                 'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-                'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+                'user'     => array(self::BELONGS_TO, 'User', 'user_id'),
             ),
             Yii::app()->hasModule('gallery')
                 ? array(
                 'galleryRell' => array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id')),
-                'gallery' => array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
+                'gallery'     => array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
             )
                 : array()
         );
@@ -136,18 +136,18 @@ class Image extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('ImageModule.image', 'id'),
-            'category_id' => Yii::t('ImageModule.image', 'Category'),
-            'name' => Yii::t('ImageModule.image', 'Title'),
-            'description' => Yii::t('ImageModule.image', 'Description'),
-            'file' => Yii::t('ImageModule.image', 'File'),
+            'id'            => Yii::t('ImageModule.image', 'id'),
+            'category_id'   => Yii::t('ImageModule.image', 'Category'),
+            'name'          => Yii::t('ImageModule.image', 'Title'),
+            'description'   => Yii::t('ImageModule.image', 'Description'),
+            'file'          => Yii::t('ImageModule.image', 'File'),
             'creation_date' => Yii::t('ImageModule.image', 'Created at'),
-            'user_id' => Yii::t('ImageModule.image', 'Creator'),
-            'alt' => Yii::t('ImageModule.image', 'Alternative text'),
-            'status' => Yii::t('ImageModule.image', 'Status'),
-            'parent_id' => Yii::t('ImageModule.image', 'Parent'),
-            'type' => Yii::t('ImageModule.image', 'Image type'),
-            'galleryId' => Yii::t('ImageModule.image', 'Gallery'),
+            'user_id'       => Yii::t('ImageModule.image', 'Creator'),
+            'alt'           => Yii::t('ImageModule.image', 'Alternative text'),
+            'status'        => Yii::t('ImageModule.image', 'Status'),
+            'parent_id'     => Yii::t('ImageModule.image', 'Parent'),
+            'type'          => Yii::t('ImageModule.image', 'Image type'),
+            'galleryId'     => Yii::t('ImageModule.image', 'Gallery'),
         );
     }
 
@@ -160,7 +160,7 @@ class Image extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.name', $this->name, true);
@@ -193,7 +193,7 @@ class Image extends yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_CHECKED => Yii::t('ImageModule.image', 'allowed'),
+            self::STATUS_CHECKED    => Yii::t('ImageModule.image', 'allowed'),
             self::STATUS_NEED_CHECK => Yii::t('ImageModule.image', 'need to be checked')
         );
     }
@@ -209,7 +209,7 @@ class Image extends yupe\models\YModel
     {
         $list = array(
             self::TYPE_PREVIEW => Yii::t('ImageModule.image', 'Preview'),
-            self::TYPE_SIMPLE => Yii::t('ImageModule.image', 'Picture'),
+            self::TYPE_SIMPLE  => Yii::t('ImageModule.image', 'Picture'),
         );
 
         $types = Yii::app()->getModule('image')->types;
@@ -254,7 +254,7 @@ class Image extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('image');
 
-		return Yii::app()->uploadManager->getFileUrl($this->file, $module->uploadPath);
+        return Yii::app()->uploadManager->getFileUrl($this->file, $module->uploadPath);
     }
 
     /**

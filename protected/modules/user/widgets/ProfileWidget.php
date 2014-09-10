@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by JetBrains PhpStorm.
  * User: andrey
@@ -6,14 +7,13 @@
  * Time: 9:46 PM
  * To change this template use File | Settings | File Templates.
  */
-
 class ProfileWidget extends yupe\widgets\YWidget
 {
     public $view = 'profile-widget';
 
     public function run()
     {
-        if(Yii::app()->user->isAuthenticated()) {
+        if (Yii::app()->user->isAuthenticated()) {
             $this->render($this->view, array('user' => Yii::app()->user->getProfile()));
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Gallery install migration
  * Класс миграций для модуля Gallery:
@@ -17,7 +18,7 @@ class m130427_120500_gallery_creation_user extends yupe\components\DbMigration
      * @return null
      **/
     public function safeUp()
-    {        
+    {
         // add owner column
         $this->addColumn('{{gallery_gallery}}', 'owner', 'integer DEFAULT NULL');
 
@@ -25,7 +26,15 @@ class m130427_120500_gallery_creation_user extends yupe\components\DbMigration
         $this->createIndex("ix_{{gallery_gallery}}_owner", '{{gallery_gallery}}', "owner", false);
 
         //add foreign key to users
-        $this->addForeignKey("fk_{{gallery_gallery}}_owner",'{{gallery_gallery}}', 'owner','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey(
+            "fk_{{gallery_gallery}}_owner",
+            '{{gallery_gallery}}',
+            'owner',
+            '{{user_user}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
     }
 
     /**
@@ -35,9 +44,9 @@ class m130427_120500_gallery_creation_user extends yupe\components\DbMigration
      **/
     public function safeDown()
     {
-        $this->dropForeignKey('fk_{{gallery_gallery}}_owner','{{gallery_gallery}}');
+        $this->dropForeignKey('fk_{{gallery_gallery}}_owner', '{{gallery_gallery}}');
 
-        $this->dropIndex('ix_{{gallery_gallery}}_owner','{{gallery_gallery}}');
+        $this->dropIndex('ix_{{gallery_gallery}}_owner', '{{gallery_gallery}}');
 
         $this->dropColumn('{{gallery_gallery}}', 'owner');
     }

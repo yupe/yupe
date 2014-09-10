@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -18,7 +18,7 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
                             'empty' => Yii::t('CommentModule.comment', '--choose--'),
                         ),
@@ -61,12 +61,12 @@ $form = $this->beginWidget(
                 array(
                     'widgetOptions' => array(
                         'options' => array(
-                            'format' => 'yyyy-mm-dd',
+                            'format'    => 'yyyy-mm-dd',
                             'weekStart' => 1,
                             'autoclose' => true,
                         ),
                     ),
-                    'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
                 )
             );
             ?>
@@ -87,10 +87,13 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('CommentModule.comment', 'Find comments'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+                'CommentModule.comment',
+                'Find comments'
+            ),
     )
 ); ?>
 

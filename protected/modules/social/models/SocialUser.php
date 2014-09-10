@@ -61,12 +61,12 @@ class SocialUser extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'user_id' => Yii::t('SocialModule.social', 'User'),
+            'id'       => 'ID',
+            'user_id'  => Yii::t('SocialModule.social', 'User'),
             'provider' => Yii::t('SocialModule.social', 'Service'),
-            'uid' => Yii::t('SocialModule.social', 'Uuid'),
+            'uid'      => Yii::t('SocialModule.social', 'Uuid'),
             'username' => Yii::t('SocialModule.social', 'User name'),
-            'email' => Yii::t('SocialModule.social', 'Email')
+            'email'    => Yii::t('SocialModule.social', 'Email')
         );
     }
 
@@ -80,11 +80,11 @@ class SocialUser extends YModel
      * - Pass data provider to CGridView, CListView or any similar widget.
      *
      * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     *                             based on the search/filter conditions.
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('user_id', $this->user_id);

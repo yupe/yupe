@@ -16,25 +16,37 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/galleryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
+    array(
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
+        'url'   => array('/gallery/galleryBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
+        'url'   => array('/gallery/galleryBackend/create')
+    ),
     array('label' => Yii::t('GalleryModule.gallery', 'Gallery') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon'  => 'glyphicon glyphicon-pencil',
         'label' => Yii::t('GalleryModule.gallery', 'Edit gallery'),
-        'url' => array(
+        'url'   => array(
             '/gallery/galleryBackend/update',
             'id' => $model->id
         )
     ),
-    array('icon' => 'glyphicon glyphicon-picture', 'label' => Yii::t('GalleryModule.gallery', 'Gallery images'), 'url' => array('/gallery/galleryBackend/images', 'id' => $model->id)),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('GalleryModule.gallery', 'Remove gallery'),
-        'url' => '#',
+        'icon'  => 'glyphicon glyphicon-picture',
+        'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
+        'url'   => array('/gallery/galleryBackend/images', 'id' => $model->id)
+    ),
+    array(
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('GalleryModule.gallery', 'Remove gallery'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/gallery/galleryBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'submit'  => array('/gallery/galleryBackend/delete', 'id' => $model->id),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('GalleryModule.gallery', 'Do you really want to remove gallery?'),
         )
     ),
@@ -51,25 +63,29 @@ $this->menu = array(
 $this->widget(
     'bootstrap.widgets.TbTabs',
     array(
-        'type' => 'tabs', // 'tabs' or 'pills'
-        'tabs' => array(
+        'type'   => 'tabs', // 'tabs' or 'pills'
+        'tabs'   => array(
             array(
-                'id' => '_images_show',
-                'label' => Yii::t('GalleryModule.gallery', 'Show gallery'),
-                'content' => $this->renderPartial('_images_show', array('model' => $model, 'dataProvider' => $dataProvider), true),
-                'active' => $tab == '_images_show',
+                'id'      => '_images_show',
+                'label'   => Yii::t('GalleryModule.gallery', 'Show gallery'),
+                'content' => $this->renderPartial(
+                        '_images_show',
+                        array('model' => $model, 'dataProvider' => $dataProvider),
+                        true
+                    ),
+                'active'  => $tab == '_images_show',
             ),
             array(
-                'id' => '_image_add',
-                'label' => Yii::t('GalleryModule.gallery', 'Create image'),
+                'id'      => '_image_add',
+                'label'   => Yii::t('GalleryModule.gallery', 'Create image'),
                 'content' => $this->renderPartial('_image_add', array('model' => $image,), true),
-                'active' => $tab == '_image_add',
+                'active'  => $tab == '_image_add',
             ),
             array(
-                'id' => '_images_add',
-                'label' => Yii::t('GalleryModule.gallery', 'Group adding'),
+                'id'      => '_images_add',
+                'label'   => Yii::t('GalleryModule.gallery', 'Group adding'),
                 'content' => $this->renderPartial('_images_add', array('model' => $image, 'gallery' => $model,), true),
-                'active' => $tab == '_images_add',
+                'active'  => $tab == '_images_add',
             ),
         ),
         'events' => array('shown' => 'js:loadContent')

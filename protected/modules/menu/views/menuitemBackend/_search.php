@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-        'type' => 'vertical',
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
         'htmlOptions' => array('class' => 'well'),
     )
 ); ?>
@@ -20,7 +20,7 @@ $form = $this->beginWidget(
                 'menu_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
+                        'data'        => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -34,7 +34,7 @@ $form = $this->beginWidget(
                 'status',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getStatusList(),
+                        'data'        => $model->getStatusList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -50,7 +50,7 @@ $form = $this->beginWidget(
                 'parent_id',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getParentList(),
+                        'data'        => $model->getParentList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -64,7 +64,7 @@ $form = $this->beginWidget(
                 'condition_name',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getConditionList(),
+                        'data'        => $model->getConditionList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -78,7 +78,7 @@ $form = $this->beginWidget(
                 'condition_denial',
                 array(
                     'widgetOptions' => array(
-                        'data' => $model->getConditionDenialList(),
+                        'data'        => $model->getConditionDenialList(),
                         'htmlOptions' => array(
                             'empty' => '---',
                         ),
@@ -92,10 +92,13 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'context' => 'primary',
+        'context'     => 'primary',
         'encodeLabel' => false,
-        'buttonType' => 'submit',
-        'label' => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Find menu item'),
+        'buttonType'  => 'submit',
+        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+                'MenuModule.menu',
+                'Find menu item'
+            ),
     )
 ); ?>
 

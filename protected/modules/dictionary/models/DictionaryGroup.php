@@ -10,7 +10,6 @@
  *
  */
 
-
 /**
  * This is the model class for table "dictionary_group".
  *
@@ -33,7 +32,7 @@ class DictionaryGroup extends yupe\models\YModel
 {
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * @param  string $className
      * @return DictionaryGroup the static model class
      */
     public static function model($className = __CLASS__)
@@ -65,7 +64,11 @@ class DictionaryGroup extends yupe\models\YModel
             array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, code, name, description, creation_date, update_date, create_user_id, update_user_id', 'safe', 'on' => 'search'),
+            array(
+                'id, code, name, description, creation_date, update_date, create_user_id, update_user_id',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -110,7 +113,7 @@ class DictionaryGroup extends yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('code', $this->code, true);
@@ -127,12 +130,11 @@ class DictionaryGroup extends yupe\models\YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date    = new CDbExpression('NOW()');
+        $this->update_date = new CDbExpression('NOW()');
 
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
-            $this->creation_date  = $this->update_date;
+            $this->creation_date = $this->update_date;
         }
 
         return parent::beforeSave();
@@ -140,10 +142,12 @@ class DictionaryGroup extends yupe\models\YModel
 
     public function getData()
     {
-        return DictionaryData::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(array(
-            'condition' => 'group_id = :group_id',
-            'params'    => array(':group_id' => $this->id),
-            'order'     => 'name DESC',
-        ));
+        return DictionaryData::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(
+            array(
+                'condition' => 'group_id = :group_id',
+                'params'    => array(':group_id' => $this->id),
+                'order'     => 'name DESC',
+            )
+        );
     }
 }

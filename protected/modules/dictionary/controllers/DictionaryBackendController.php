@@ -30,8 +30,8 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'DictionaryGroup',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'DictionaryGroup',
                 'validAttributes' => array('name', 'code', 'description')
             )
         );
@@ -57,7 +57,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
      */
     public function actionCreate()
     {
-        $model = new DictionaryGroup;
+        $model = new DictionaryGroup();
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryGroup')) !== null) {
 

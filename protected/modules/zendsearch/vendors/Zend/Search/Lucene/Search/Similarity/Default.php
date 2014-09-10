@@ -20,10 +20,8 @@
  * @version    $Id: Default.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Search_Similarity */
 require_once 'Zend/Search/Lucene/Search/Similarity.php';
-
 
 /**
  * @category   Zend
@@ -38,8 +36,8 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as '1/sqrt(numTerms)'.
      *
-     * @param string $fieldName
-     * @param integer $numTerms
+     * @param  string $fieldName
+     * @param  integer $numTerms
      * @return float
      */
     public function lengthNorm($fieldName, $numTerms)
@@ -54,7 +52,7 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as '1/sqrt(sumOfSquaredWeights)'.
      *
-     * @param float $sumOfSquaredWeights
+     * @param  float $sumOfSquaredWeights
      * @return float
      */
     public function queryNorm($sumOfSquaredWeights)
@@ -65,7 +63,7 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as 'sqrt(freq)'.
      *
-     * @param float $freq
+     * @param  float $freq
      * @return float
      */
     public function tf($freq)
@@ -76,7 +74,7 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as '1/(distance + 1)'.
      *
-     * @param integer $distance
+     * @param  integer $distance
      * @return float
      */
     public function sloppyFreq($distance)
@@ -87,8 +85,8 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as 'log(numDocs/(docFreq+1)) + 1'.
      *
-     * @param integer $docFreq
-     * @param integer $numDocs
+     * @param  integer $docFreq
+     * @param  integer $numDocs
      * @return float
      */
     public function idfFreq($docFreq, $numDocs)
@@ -99,8 +97,8 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     /**
      * Implemented as 'overlap/maxOverlap'.
      *
-     * @param integer $overlap
-     * @param integer $maxOverlap
+     * @param  integer $overlap
+     * @param  integer $maxOverlap
      * @return float
      */
     public function coord($overlap, $maxOverlap)

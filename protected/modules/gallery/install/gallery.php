@@ -9,14 +9,14 @@
  * @link     http://yupe.ru
  **/
 return array(
-    'module'   => array(
+    'module'    => array(
         'class' => 'application.modules.gallery.GalleryModule',
     ),
     'import'    => array(),
     'component' => array(),
     'rules'     => array(
-        '/albums' => 'gallery/gallery/list',
-        '/albums/<id:\d+>' => 'gallery/gallery/show',
+        '/albums'                 => 'gallery/gallery/list',
+        '/albums/<id:\d+>'        => 'gallery/gallery/show',
         '/albums/images/<id:\d+>' => 'gallery/gallery/image'
     ),
 );

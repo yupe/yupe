@@ -16,7 +16,7 @@ Yii::app()->getClientScript()->registerScriptFile($url . '/js/imagesloaded.min.j
 Yii::app()->clientScript->registerScript(
     $this->getId(),
     'var $container = jQuery(".gallery-thumbnails");
-    $container.imagesLoaded(function() {
+    $container.imagesLoaded(function () {
         $container.masonry({
             itemSelector: ".gallery-thumbnail",
             gutter: 10
@@ -28,7 +28,7 @@ $this->widget(
     'gallery.extensions.colorbox.ColorBox',
     array(
         'target' => '.gallery-image',
-        'lang' => 'ru',
+        'lang'   => 'ru',
         'config' => array(
             'rel' => '.gallery-image',
         ),
@@ -38,10 +38,10 @@ $this->widget(
 <?php $this->widget(
     'bootstrap.widgets.TbListView',
     array(
-        'dataProvider' => $dataProvider,
-        'itemView' => '_image',
-        'template' => "{items}\n{pager}",
+        'dataProvider'  => $dataProvider,
+        'itemView'      => '_image',
+        'template'      => "{items}\n{pager}",
         'itemsCssClass' => 'row gallery-thumbnails thumbnails',
-        'itemsTagName' => 'ul'
+        'itemsTagName'  => 'ul'
     )
 ); ?>

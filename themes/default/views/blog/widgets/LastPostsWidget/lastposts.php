@@ -9,7 +9,10 @@ $this->beginWidget(
 <ul class="list-unstyled">
     <?php foreach ($models as $model): ?>
         <li>
-            <?php echo CHtml::link(CHtml::encode($model->title), array('/blog/post/show/', 'slug' => CHtml::encode($model->slug))); ?>
+            <?php echo CHtml::link(
+                CHtml::encode($model->title),
+                array('/blog/post/show/', 'slug' => CHtml::encode($model->slug))
+            ); ?>
             <nobr>
                 <i class="glyphicon glyphicon-comment"></i> <?php echo $model->getCommentCount(); ?>
             </nobr>

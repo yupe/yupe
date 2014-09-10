@@ -29,7 +29,7 @@ class YInLineEditAction extends CAction
     {
         parent::init();
 
-        if(!$this->model || empty($this->validAttributes)) {
+        if (!$this->model || empty($this->validAttributes)) {
             throw new CHttpException(500);
         }
     }
@@ -47,11 +47,7 @@ class YInLineEditAction extends CAction
         $value = Yii::app()->getRequest()->getPost('value');
         $pk = Yii::app()->getRequest()->getPost('pk');
 
-        if (!isset($name, $value, $pk)) {
-            throw new CHttpException(404);
-        }
-
-        if (!in_array($name, $this->validAttributes)) {
+        if (!isset($name, $value, $pk) || !in_array($name, $this->validAttributes)) {
             throw new CHttpException(404);
         }
 
@@ -67,6 +63,6 @@ class YInLineEditAction extends CAction
             Yii::app()->ajax->success();
         }
 
-        throw new CHttpException(500, $model->getError($name));
+        Yii::app()->ajax->rawText($model->getError($name), 500);
     }
-} 
+}

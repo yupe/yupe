@@ -118,9 +118,9 @@ class ZendSearchModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'glyphicon glyphicon-list-alt',
                 'label' => Yii::t('ZendSearchModule.zendsearch', 'Index'),
-                'url' => array('/zendsearch/manageBackend/index')
+                'url'   => array('/zendsearch/manageBackend/index')
             )
         );
     }
@@ -129,13 +129,13 @@ class ZendSearchModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'name' => 'ZendSearch.ZendSearchManager',
+                'name'        => 'ZendSearch.ZendSearchManager',
                 'description' => Yii::t('ZendSearchModule.zendsearch', 'Manage search index'),
-                'type' => AuthItem::TYPE_TASK,
-                'items' => array(
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
                     array(
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Zendsearch.ManageBackend.Create',
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Zendsearch.ManageBackend.Create',
                         'description' => Yii::t('ZendSearchModule.zendsearch', 'Reindex site')
                     ),
                 )

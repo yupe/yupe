@@ -29,10 +29,9 @@
         'bootstrap.widgets.TbButton',
         array(
             'context' => 'primary',
-            'label' => Yii::t('RbacModule.rbac', 'Search'),
+            'label'   => Yii::t('RbacModule.rbac', 'Search'),
         )
     ); ?>
 </div>
 
 <?php $this->endWidget(); ?>
-

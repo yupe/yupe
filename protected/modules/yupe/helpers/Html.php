@@ -1,8 +1,8 @@
 <?php
 namespace yupe\helpers;
 
-class Html {
-
+class Html
+{
     const SUCCESS = 'success';
 
     const DEF = 'default';
@@ -13,13 +13,13 @@ class Html {
 
     const WARNING = 'warning';
 
-    const DANGER  = 'danger';
+    const DANGER = 'danger';
 
     protected static function render($class, $text, $strip = true)
     {
         $class = strip_tags($class);
 
-        if($strip) {
+        if ($strip) {
             $text = strip_tags($text);
         }
 
@@ -55,10 +55,10 @@ class Html {
     {
         return static::render(self::DANGER, $text, $strip);
     }
-    
+
     public static function label($status, $text, array $map)
     {
-        if(!isset($map[$status]) || $map[$status] === self::DEF) {
+        if (!isset($map[$status]) || $map[$status] === self::DEF) {
             return static::def($text);
         }
 

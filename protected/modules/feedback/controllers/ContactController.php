@@ -19,7 +19,7 @@ class ContactController extends yupe\components\controllers\FrontController
     {
         return array(
             'captcha' => array(
-                'class' => 'yupe\components\actions\YCaptchaAction',
+                'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
             )
@@ -28,7 +28,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionIndex($type = null)
     {
-        $form = new FeedBackForm;
+        $form = new FeedBackForm();
 
         // если пользователь авторизован - подставить его данные
         if (Yii::app()->user->isAuthenticated()) {
@@ -100,7 +100,6 @@ class ContactController extends yupe\components\controllers\FrontController
         $this->render('index', array('model' => $form, 'module' => $module));
     }
 
-
     // отобразить сообщения   с признаком is_faq
     // @TODO CActiveDataProvider перенести в модуль
     public function actionFaq()
@@ -108,12 +107,12 @@ class ContactController extends yupe\components\controllers\FrontController
         $dataProvider = new CActiveDataProvider('FeedBack', array(
             'criteria' => array(
                 'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
-                'params' => array(
-                    ':is_faq' => FeedBack::IS_FAQ,
-                    ':sended' => FeedBack::STATUS_ANSWER_SENDED,
+                'params'    => array(
+                    ':is_faq'   => FeedBack::IS_FAQ,
+                    ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
                     ':finished' => FeedBack::STATUS_FINISHED,
                 ),
-                'order' => 'id DESC',
+                'order'     => 'id DESC',
             )
         ));
 

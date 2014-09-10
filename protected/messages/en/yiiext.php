@@ -16,21 +16,21 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array (
-  'Cannot create more than one root in single root mode.' => '',
-  'Many roots mode is off.' => '',
-  'The node already is root node.' => '',
-  'The node cannot be deleted because it is already deleted.' => '',
-  'The node cannot be deleted because it is new.' => '',
-  'The node cannot be inserted because it is deleted.' => '',
-  'The node cannot be inserted because it is not new.' => '',
-  'The node cannot be inserted because target node is deleted.' => '',
-  'The node should not be deleted.' => '',
-  'The node should not be new record.' => '',
-  'The target node should not be deleted.' => '',
-  'The target node should not be descendant.' => '',
-  'The target node should not be root.' => '',
-  'The target node should not be self.' => '',
-  'You should not use CActiveRecord::delete() method when NestedSetBehavior attached.' => '',
-  'You should not use CActiveRecord::save() method when NestedSetBehavior attached.' => '',
+return array(
+    'Cannot create more than one root in single root mode.'                              => '',
+    'Many roots mode is off.'                                                            => '',
+    'The node already is root node.'                                                     => '',
+    'The node cannot be deleted because it is already deleted.'                          => '',
+    'The node cannot be deleted because it is new.'                                      => '',
+    'The node cannot be inserted because it is deleted.'                                 => '',
+    'The node cannot be inserted because it is not new.'                                 => '',
+    'The node cannot be inserted because target node is deleted.'                        => '',
+    'The node should not be deleted.'                                                    => '',
+    'The node should not be new record.'                                                 => '',
+    'The target node should not be deleted.'                                             => '',
+    'The target node should not be descendant.'                                          => '',
+    'The target node should not be root.'                                                => '',
+    'The target node should not be self.'                                                => '',
+    'You should not use CActiveRecord::delete() method when NestedSetBehavior attached.' => '',
+    'You should not use CActiveRecord::save() method when NestedSetBehavior attached.'   => '',
 );

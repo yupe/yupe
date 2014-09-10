@@ -9,10 +9,10 @@
  *                type: 'post',
  *                url: $(<comment_form>).attr('action'),
  *                data: $(<comment_form>).serialize(),
- *                success: function(data) {
+ *                success: function (data) {
  *                    // Обработка нормального состояния
  *                },
- *                error: function(data) {
+ *                error: function (data) {
  *                    // Обработка ошибки
  *                },
  *                dataType: 'json'
@@ -72,51 +72,11 @@ class CommentController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->commentManager->isSpam(Yii::app()->getUser())) {
+        try {
 
-            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+            $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
 
-                Yii::app()->ajax->failure(
-                    array(
-                        'message' => Yii::t(
-                                'CommentModule.comment',
-                                'Spam protection, try to create comment after {few} seconds!',
-                                array(
-                                    '{few}' => $module->antiSpamInterval
-                                )
-                            )
-                    )
-                );
-            }
-
-            throw new CHttpException(404, Yii::t(
-                'CommentModule.comment',
-                'Spam protection, try to create comment after {few} seconds!',
-                array(
-                    '{few}' => $module->antiSpamInterval
-                )
-            ));
-        }
-
-        $params = Yii::app()->getRequest()->getPost('Comment');
-
-        if (Yii::app()->getUser()->isAuthenticated()) {
-
-            $params = CMap::mergeArray(
-                $params,
-                array(
-                    'user_id' => Yii::app()->getUser()->getId(),
-                    'name' => Yii::app()->getUser()->getState('nick_name'),
-                    'email' => Yii::app()->getUser()->getProfileField('email'),
-                )
-            );
-        }
-
-        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
-
-        try
-        {
-            if (($comment = Yii::app()->commentManager->create($params, $module, Yii::app()->getUser()))) {
+            if (($comment = Yii::app()->commentManager->create(Yii::app()->getRequest()->getPost('Comment'), $module, Yii::app()->getUser(), Yii::app()->getRequest()))) {
 
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
@@ -146,7 +106,7 @@ class CommentController extends yupe\components\controllers\FrontController
 
                     Yii::app()->ajax->failure(
                         array(
-                            'message' => Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                            'message' => Yii::t('CommentModule.comment', 'Record was not added!')
                         )
                     );
                 }
@@ -158,21 +118,19 @@ class CommentController extends yupe\components\controllers\FrontController
 
                 $this->redirect($redirect);
             }
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                        'message' => Yii::t('CommentModule.comment', $e->getMessage())
                     )
                 );
             }
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!')
+                Yii::t('CommentModule.comment', $e->getMessage())
             );
 
             $this->redirect($redirect);

@@ -2,7 +2,7 @@
 $this->beginWidget(
     'bootstrap.widgets.TbPanel',
     array(
-        'title' => Yii::t('BlogModule.blog', 'Discuss'),
+        'title'      => Yii::t('BlogModule.blog', 'Discuss'),
         'headerIcon' => 'glyphicon glyphicon-pencil',
     )
 );
@@ -10,7 +10,10 @@ $this->beginWidget(
 <ul class="list-unstyled">
     <?php foreach ($data as $model): ?>
         <li>
-            <?php echo CHtml::link(CHtml::encode($model['title']), array('/blog/post/show/', 'slug' => CHtml::encode($model['slug']))); ?>
+            <?php echo CHtml::link(
+                CHtml::encode($model['title']),
+                array('/blog/post/show/', 'slug' => CHtml::encode($model['slug']))
+            ); ?>
             <i class="glyphicon glyphicon-comment"></i>
             <?php echo $model['commentsCount']; ?>
         </li>

@@ -1,10 +1,10 @@
 <?php
 /**
- * 
+ *
  * @author Antonio Ramirez Cobos <ramirez.cobos@gmail.com>
  * @link http://www.ramirezcobos.com/
- * 
- * 
+ *
+ *
  * THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,34 +25,37 @@
  * @version $Id: EFeedTag.php 1 2010-12-31 Antonio Ramirez Cobos $
  * @package rss
  */
-class EFeedTag{
-	/**
-	 * Tag name
-	 * @var string name 
-	 */
-	public $name;
-	/**
-	 * 
-	 * Tag content
-	 * @var string content
-	 */
-	public $content;
-	/**
-	 * 
-	 * Tag attributes array
-	 * @var array attributes
-	 */
-	public $attributes = array();
-	/**
-	 * 
-	 * EFeedTag constructor
-	 * @param string $name
-	 * @param string $content
-	 * @param array $attributes
-	 */
-    function __construct($name, $content, $attributes = array() ){
-    	$this->name = $name;
-    	$this->content = $content;
-    	$this->attributes = is_array($attributes)? $attributes: array();
+class EFeedTag
+{
+    /**
+     * Tag name
+     * @var string name
+     */
+    public $name;
+    /**
+     *
+     * Tag content
+     * @var string content
+     */
+    public $content;
+    /**
+     *
+     * Tag attributes array
+     * @var array attributes
+     */
+    public $attributes = array();
+
+    /**
+     *
+     * EFeedTag constructor
+     * @param string $name
+     * @param string $content
+     * @param array $attributes
+     */
+    public function __construct($name, $content, $attributes = array())
+    {
+        $this->name = $name;
+        $this->content = $content;
+        $this->attributes = is_array($attributes) ? $attributes : array();
     }
 }

@@ -15,7 +15,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Image.ImageBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Image.ImageBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Image.ImageBackend.Index')),
@@ -30,17 +30,16 @@ class ImageBackendController extends yupe\components\controllers\BackController
     {
         return array(
             'AjaxImageUpload' => array(
-                'class' => 'yupe\components\actions\YAjaxImageUploadAction',
-                'maxSize' => $this->module->maxSize,
+                'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize'   => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types' => $this->module->allowedExtensions
+                'types'     => $this->module->allowedExtensions
             ),
             'AjaxImageChoose' => array(
                 'class' => 'yupe\components\actions\YAjaxImageChooseAction'
             )
         );
     }
-
 
     /**
      * Отображает изображение по указанному идентификатору
@@ -62,7 +61,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
      */
     public function actionCreate()
     {
-        $model = new Image;
+        $model = new Image();
 
         if (($data = Yii::app()->getRequest()->getPost('Image')) !== null) {
 

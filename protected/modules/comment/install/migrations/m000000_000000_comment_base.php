@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment install migration
  * Класс миграций для модуля Comment:
@@ -14,7 +15,9 @@ class m000000_000000_comment_base extends yupe\components\DbMigration
 
     public function safeUp()
     {
-        $this->createTable('{{comment_comment}}', array(
+        $this->createTable(
+            '{{comment_comment}}',
+            array(
                 'id'            => 'pk',
                 'parent_id'     => 'integer DEFAULT NULL',
                 'user_id'       => 'integer DEFAULT NULL',
@@ -27,7 +30,8 @@ class m000000_000000_comment_base extends yupe\components\DbMigration
                 'text'          => 'text NOT NULL',
                 'status'        => "integer NOT NULL DEFAULT '0'",
                 'ip'            => 'varchar(20) DEFAULT NULL'
-            ), $this->getOptions()
+            ),
+            $this->getOptions()
         );
 
         $this->createIndex("ix_{{comment_comment}}_status", '{{comment_comment}}', "status", false);
@@ -37,10 +41,25 @@ class m000000_000000_comment_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{comment_comment}}_user_id", '{{comment_comment}}', "user_id", false);
         $this->createIndex("ix_{{comment_comment}}_parent_id", '{{comment_comment}}', "parent_id", false);
 
-        $this->addForeignKey("fk_{{comment_comment}}_user_id", '{{comment_comment}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
-        $this->addForeignKey("fk_{{comment_comment}}_parent_id", '{{comment_comment}}', "parent_id",'{{comment_comment}}', "id",'CASCADE','NO ACTION');
+        $this->addForeignKey(
+            "fk_{{comment_comment}}_user_id",
+            '{{comment_comment}}',
+            'user_id',
+            '{{user_user}}',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            "fk_{{comment_comment}}_parent_id",
+            '{{comment_comment}}',
+            "parent_id",
+            '{{comment_comment}}',
+            "id",
+            'CASCADE',
+            'NO ACTION'
+        );
     }
- 
 
     public function safeDown()
     {

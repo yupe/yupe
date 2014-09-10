@@ -1,47 +1,61 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/feedbackBackend/index'),
-    $model->theme => array('/feedback/feedbackBackend/view', 'id' => $model->id),
+    $model->theme                                  => array('/feedback/feedbackBackend/view', 'id' => $model->id),
     Yii::t('FeedbackModule.feedback', 'Reply'),
 );
 
 $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - answer');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/feedbackBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message '), 'url' => array('/feedback/feedbackBackend/create')),
-    array('label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
+        'url'   => array('/feedback/feedbackBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
+        'url'   => array('/feedback/feedbackBackend/create')
+    ),
+    array(
+        'label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr(
+                $model->theme,
+                0,
+                32
+            ) . '»'
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-pencil',
         'label' => Yii::t('FeedbackModule.feedback', 'Edit message '),
-        'url' => array(
+        'url'   => array(
             '/feedback/feedbackBackend/update',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'glyphicon glyphicon-eye-open',
         'label' => Yii::t('FeedbackModule.feedback', 'View message'),
-        'url' => array(
+        'url'   => array(
             '/feedback/feedbackBackend/view',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-envelope',
+        'icon'  => 'glyphicon glyphicon-envelope',
         'label' => Yii::t('FeedbackModule.feedback', 'Reply for message'),
-        'url' => array(
+        'url'   => array(
             '/feedback/feedbackBackend/answer',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('FeedbackModule.feedback', 'Remove message '),
-        'url' => '#',
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('FeedbackModule.feedback', 'Remove message '),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/feedback/feedbackBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'submit'  => array('/feedback/feedbackBackend/delete', 'id' => $model->id),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
         )
     ),
@@ -69,7 +83,7 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'creation_date',
             'name',
@@ -81,11 +95,11 @@ $this->menu = array(
                 'type' => 'raw',
             ),
             array(
-                'name' => 'type',
+                'name'  => 'type',
                 'value' => $model->getType(),
             ),
             array(
-                'name' => 'status',
+                'name'  => 'status',
                 'value' => $model->getStatus(),
             ),
         ),
@@ -98,12 +112,12 @@ $this->menu = array(
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'feed-back-form-answer',
-        'action' => array('/feedback/feedbackBackend/answer', 'id' => $model->id),
-        'enableAjaxValidation' => false,
+        'id'                     => 'feed-back-form-answer',
+        'action'                 => array('/feedback/feedbackBackend/answer', 'id' => $model->id),
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -120,9 +134,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->yupe->editor,
             array(
-                'model' => $answerForm,
-                'attribute' => 'answer',
-                'options' => array(
+                'model'       => $answerForm,
+                'attribute'   => 'answer',
+                'options'     => array(
                     'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxImageUpload/',
                 ),
                 'htmlOptions' => array('rows' => 20, 'cols' => 6),
@@ -141,8 +155,8 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => Yii::t('FeedbackModule.feedback', 'Send reply for message'),
+        'context'    => 'primary',
+        'label'      => Yii::t('FeedbackModule.feedback', 'Send reply for message'),
     )
 ); ?>
 

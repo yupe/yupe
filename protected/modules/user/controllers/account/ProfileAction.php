@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за редактирование профиля пользователя
  *
@@ -28,14 +29,14 @@ class ProfileAction extends CAction
             );
         }
 
-        $form = new ProfileForm;
+        $form = new ProfileForm();
 
         $formAttributes = $form->getAttributes();
 
         unset($formAttributes['avatar'], $formAttributes['verifyCode']);
 
         $form->setAttributes($user->getAttributes(array_keys($formAttributes)));
-        
+
         // Очищаем необходимые поля:
         $form->password = $form->cPassword = null;
 
@@ -51,16 +52,16 @@ class ProfileAction extends CAction
                 $form->setAttributes($data);
 
                 if ($form->validate()) {
-                    
+
                     // Новый пароль? - ок, запоминаем:
-                    $newPass = isset($data['password'])? $data['password'] : null;
-                    
+                    $newPass = isset($data['password']) ? $data['password'] : null;
+
                     // Удаляем ненужные данные:
                     unset($data['password'], $data['avatar']);
 
                     // Запоминаем старую почту,
                     $oldEmail = $user->email;
-                    
+
                     // Заполняем модель данными:
                     $user->setAttributes($data);
 
@@ -75,7 +76,7 @@ class ProfileAction extends CAction
                     }
 
                     // Если у нас есть дополнительные профили - проверим их
-                    foreach ((array) $this->controller->module->profiles as $p) {
+                    foreach ((array)$this->controller->module->profiles as $p) {
                         $p->validate() || $form->addErrors($p->getErrors());
                     }
 
@@ -87,7 +88,7 @@ class ProfileAction extends CAction
                                 'UserModule.user',
                                 'Profile for #{id}-{nick_name} was changed',
                                 array(
-                                    '{id}' => $user->id,
+                                    '{id}'        => $user->id,
                                     '{nick_name}' => $user->nick_name,
                                 )
                             ),
@@ -100,9 +101,9 @@ class ProfileAction extends CAction
                             Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
 
-                        if($form->use_gravatar) {
+                        if ($form->use_gravatar) {
                             $user->avatar = null;
-                        }elseif(($uploadedFile = CUploadedFile::getInstance($form, 'avatar')) !== null){                                                        
+                        } elseif (($uploadedFile = CUploadedFile::getInstance($form, 'avatar')) !== null) {
                             $user->changeAvatar($uploadedFile);
                         }
 
@@ -121,7 +122,6 @@ class ProfileAction extends CAction
                             Yii::t('UserModule.user', 'Profile was updated')
                         );
 
-
                         $transaction->commit();
 
                         // Если включена верификация при смене почты:
@@ -130,7 +130,7 @@ class ProfileAction extends CAction
                             // Вернуть старый email на время проверки
                             $user->email = $oldEmail;
 
-                            if(Yii::app()->userManager->changeUserEmail($user, $form->email)) {
+                            if (Yii::app()->userManager->changeUserEmail($user, $form->email)) {
                                 Yii::app()->user->setFlash(
                                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                                     Yii::t(
@@ -142,7 +142,7 @@ class ProfileAction extends CAction
                         }
 
                         $this->controller->redirect(array('/user/account/profile'));
-                    
+
                     } else {
 
                         Yii::log(
@@ -153,7 +153,7 @@ class ProfileAction extends CAction
                     }
                 }
 
-            } catch(Exception $e) {
+            } catch (Exception $e) {
 
                 $transaction->rollback();
 
@@ -165,7 +165,8 @@ class ProfileAction extends CAction
         }
 
         $this->controller->render(
-            'profile', array(
+            'profile',
+            array(
                 'model'  => $form,
                 'module' => $module,
                 'user'   => $user

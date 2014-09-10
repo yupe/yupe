@@ -14,11 +14,15 @@
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'On this step Yupe trying to install modules you checked. This process can take several minutes...'); ?></p>
+    <p><?php echo Yii::t(
+            'InstallModule.install',
+            'On this step Yupe trying to install modules you checked. This process can take several minutes...'
+        ); ?></p>
 </div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
-    <div class="progress-bar bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+    <div class="progress-bar bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+         style="width: 0%">
     </div>
 </div>
 <small id="modstate"></small>
@@ -26,10 +30,10 @@
 $this->widget(
     'bootstrap.widgets.TbPanel',
     array(
-        'title' => Yii::t('InstallModule.install', 'Backlog journal'),
-        'headerIcon' => 'list',
-        'content' => '',
-        'id' => 'log-content',
+        'title'       => Yii::t('InstallModule.install', 'Backlog journal'),
+        'headerIcon'  => 'list',
+        'content'     => '',
+        'id'          => 'log-content',
         'htmlOptions' => array('style' => 'margin-top: 20px; font-size: 10px; line-height: 12px;'),
     )
 ); ?>
@@ -56,8 +60,7 @@ $this->widget(
     );
 
     echo "var total=" . count($modules) . ";\n var modules = {\n";
-    foreach ($modules as $m)
-        {echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";}
+    foreach ($modules as $m) {echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";}
     echo "\n};";
     ?>
 
@@ -131,14 +134,18 @@ $this->widget(
     $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'label' => Yii::t('InstallModule.install', 'Look journal'),
-            'url' => '#',
+            'label'       => Yii::t('InstallModule.install', 'Look journal'),
+            'url'         => '#',
             'htmlOptions' => array(
                 'data-dismiss' => 'modal',
             ),
         )
     ); ?>
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Continue >'), array('/install/default/createuser'), array('class' => 'btn btn-primary nextButton')); ?>
+    <?php echo CHtml::link(
+        Yii::t('InstallModule.install', 'Continue >'),
+        array('/install/default/createuser'),
+        array('class' => 'btn btn-primary nextButton')
+    ); ?>
 </div>
 <?php $this->endWidget(); ?>
 
@@ -149,15 +156,18 @@ $this->widget(
     </h4>
 </div>
 <div id="modules-modal-list" class="modal-body row">
-    <?php echo Yii::t('InstallModule.install', 'There is an error occured when installing modules. You can watch errors in backlog journal.'); ?>
+    <?php echo Yii::t(
+        'InstallModule.install',
+        'There is an error occured when installing modules. You can watch errors in backlog journal.'
+    ); ?>
 </div>
 <div class="modal-footer">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
         array(
-            'label' => Yii::t('InstallModule.install', 'Look journal'),
-            'url' => '#',
+            'label'       => Yii::t('InstallModule.install', 'Look journal'),
+            'url'         => '#',
             'htmlOptions' => array(
                 'data-dismiss' => 'modal',
             ),
@@ -172,6 +182,14 @@ $this->widget(
 <?php $this->endWidget(); ?>
 
 <div class='buttons' style='display: none'>
-    <?php echo CHtml::link(Yii::t('InstallModule.install', '< Back'), array('/install/default/modulesinstall'), array('class' => 'btn btn-default')); ?>
-    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Continue >'), array('/install/default/createuser'), array('class' => 'btn btn-primary nextButton')); ?>
+    <?php echo CHtml::link(
+        Yii::t('InstallModule.install', '< Back'),
+        array('/install/default/modulesinstall'),
+        array('class' => 'btn btn-default')
+    ); ?>
+    <?php echo CHtml::link(
+        Yii::t('InstallModule.install', 'Continue >'),
+        array('/install/default/createuser'),
+        array('class' => 'btn btn-primary nextButton')
+    ); ?>
 </div>

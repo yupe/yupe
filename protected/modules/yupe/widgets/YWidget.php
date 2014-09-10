@@ -13,6 +13,7 @@
  *
  */
 namespace yupe\widgets;
+
 use ReflectionClass;
 use CWidget;
 use Yii;
@@ -31,7 +32,7 @@ abstract class YWidget extends CWidget
      *
      *  limit - кол-во записей для вывода
      *
-    */
+     */
 
     public $limit = 5;
 
@@ -39,28 +40,36 @@ abstract class YWidget extends CWidget
      *  view - название шаблона (view) который используется для отрисовки виджета
      *
      *
-    */
+     */
     public $view;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
     }
 
+    /**
+     * @param bool $checkTheme
+     * @return null|string
+     */
     public function getViewPath($checkTheme = false)
-    {         
+    {
         $themeView = null;
-        if (Yii::app()->theme !== null) {            
-            $class = get_class($this);                                       
+        if (Yii::app()->getTheme() !== null) {
+            $class = get_class($this);
             $obj = new ReflectionClass($class);
-            $string = explode(Yii::app()->modulePath . \DIRECTORY_SEPARATOR, $obj->getFileName(), 2);           
-            if (isset($string[1])) {                
+            $string = explode(Yii::app()->getModulePath() . \DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
+            if (isset($string[1])) {
                 $string = explode(\DIRECTORY_SEPARATOR, $string[1], 2);
-                $themeView = Yii::app()->themeManager->basePath . '/' .
-                             Yii::app()->theme->name . '/' . 'views' . '/' .
-                             $string[0] . '/' . 'widgets' . '/' . $obj->getShortName();
-            }            
+                $themeView = Yii::app()->getThemeManager()->getBasePath() . '/' .
+                    Yii::app()->getTheme()->getName() . '/' . 'views' . '/' .
+                    $string[0] . '/' . 'widgets' . '/' . $obj->getShortName();
+            }
         }
+
         return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
     }
 }

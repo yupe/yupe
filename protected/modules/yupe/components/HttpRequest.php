@@ -31,10 +31,8 @@ class HttpRequest extends CHttpRequest
     {
         parent::normalizeRequest();
 
-        if ($this->enableCsrfValidation)
-        {
-            foreach ($this->noCsrfValidationRoutes as $route)
-            {
+        if ($this->enableCsrfValidation) {
+            foreach ($this->noCsrfValidationRoutes as $route) {
                 if (strpos($this->pathInfo, $route) === 0) {
                     Yii::app()->detachEventHandler('onBeginRequest', array($this, 'validateCsrfToken'));
                 }
@@ -43,7 +41,7 @@ class HttpRequest extends CHttpRequest
     }
 
     /**
-     * @param null $urlIfNull
+     * @param  null $urlIfNull
      * @return null
      */
     public function urlReferer($urlIfNull = null)

@@ -18,7 +18,7 @@ class NewsRssController extends yupe\components\controllers\RssController
             throw new CHttpException(404);
         }
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->order = 'date DESC';
         $criteria->params = array();
         $criteria->limit = $limit;
@@ -48,19 +48,19 @@ class NewsRssController extends yupe\components\controllers\RssController
     {
         return array(
             'feed' => array(
-                'class' => 'yupe\components\actions\YFeedAction',
-                'data' => $this->data,
-                'title' => $this->title,
+                'class'       => 'yupe\components\actions\YFeedAction',
+                'data'        => $this->data,
+                'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields' => array(
-                    'author_object' => 'user',
+                'itemFields'  => array(
+                    'author_object'   => 'user',
                     'author_nickname' => 'nick_name',
-                    'content' => 'short_text',
-                    'datetime' => 'date',
-                    'link' => '/news/news/show',
-                    'linkParams' => array('title' => 'alias'),
-                    'title' => 'title',
-                    'updated' => 'change_date',
+                    'content'         => 'short_text',
+                    'datetime'        => 'date',
+                    'link'            => '/news/news/show',
+                    'linkParams'      => array('title' => 'alias'),
+                    'title'           => 'title',
+                    'updated'         => 'change_date',
                 ),
             ),
         );

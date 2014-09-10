@@ -77,7 +77,7 @@ class BackController extends Controller
             new YupeBackendControllerInitEvent($this, Yii::app()->getUser())
         );
 
-        if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
+        if ($backendTheme && is_dir(Yii::getPathOfAlias("themes.backend_" . $backendTheme))) {
             Yii::app()->theme = "backend_" . $backendTheme;
         } else {
             Yii::app()->theme = $this->yupe->theme;
@@ -88,7 +88,7 @@ class BackController extends Controller
     }
 
     /**
-     * @param \CAction $action
+     * @param  \CAction $action
      * @return bool
      */
     protected function beforeAction($action)
@@ -143,7 +143,7 @@ class BackController extends Controller
             switch ($action) {
                 case self::BULK_DELETE:
                     $class = CActiveRecord::model($model);
-                    $criteria = new CDbCriteria;
+                    $criteria = new CDbCriteria();
                     $items = array_filter($items, 'intval');
                     $criteria->addInCondition('id', $items);
                     $count = $class->deleteAll($criteria);
@@ -185,7 +185,7 @@ class BackController extends Controller
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
-        $model = new $modelClass;
+        $model = new $modelClass();
         $model = $model->resetScope()->findByPk($id);
         if (!$model) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
@@ -213,8 +213,8 @@ class BackController extends Controller
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
-        $model = new $modelClass;
-        $model_depends = new $modelClass;
+        $model = new $modelClass();
+        $model_depends = new $modelClass();
         $model = $model->resetScope()->findByPk($id);
         if (!$model) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));

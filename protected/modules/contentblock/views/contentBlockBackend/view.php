@@ -7,32 +7,46 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - view');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'), 'url' => array('/contentblock/contentBlockBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'), 'url' => array('/contentblock/contentBlockBackend/create')),
-    array('label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon'  => 'glyphicon glyphicon-list-alt',
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
+        'url'   => array('/contentblock/contentBlockBackend/index')
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
+        'url'   => array('/contentblock/contentBlockBackend/create')
+    ),
+    array(
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks') . ' «' . mb_substr(
+                $model->name,
+                0,
+                32
+            ) . '»'
+    ),
+    array(
+        'icon'  => 'glyphicon glyphicon-pencil',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Edit content block'),
-        'url' => array(
+        'url'   => array(
             '/contentblock/contentBlockBackend/update',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'glyphicon glyphicon-eye-open',
         'label' => Yii::t('ContentBlockModule.contentblock', 'View content block'),
-        'url' => array(
+        'url'   => array(
             '/contentblock/contentBlockBackend/view',
             'id' => $model->id
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Remove content block'),
-        'url' => '#',
+        'icon'        => 'glyphicon glyphicon-trash',
+        'label'       => Yii::t('ContentBlockModule.contentblock', 'Remove content block'),
+        'url'         => '#',
         'linkOptions' => array(
-            'submit' => array('/contentblock/contentBlockBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'submit'  => array('/contentblock/contentBlockBackend/delete', 'id' => $model->id),
+            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('ContentBlockModule.contentblock', 'Do you really want to delete content block?'),
         )
     ),
@@ -48,13 +62,17 @@ $this->menu = array(
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
     array(
-        'data' => $model,
+        'data'       => $model,
         'attributes' => array(
             'id',
             'name',
             'code',
             array(
-                'name' => 'type',
+                'name'  => 'category_id',
+                'value' => $model->getCategoryName()
+            ),
+            array(
+                'name'  => 'type',
                 'value' => $model->getType(),
             ),
             'content',
@@ -68,4 +86,10 @@ $this->menu = array(
     <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
     <br/><br/>
     <?php echo $example; ?>
+</div>
+<div>
+    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
+    <br /><br />
+    <?php echo $exampleCategory; ?>
+    <?php echo Yii::t('ContentBlockModule.contentblock', 'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>'); ?>
 </div>

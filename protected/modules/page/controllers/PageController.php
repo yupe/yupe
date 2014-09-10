@@ -36,8 +36,8 @@ class PageController extends yupe\components\controllers\FrontController
             : Page::model()->published()->find(
                 'slug = :slug AND (lang = :lang OR (lang = :deflang))',
                 array(
-                    ':slug' => $slug,
-                    ':lang' => Yii::app()->language,
+                    ':slug'    => $slug,
+                    ':lang'    => Yii::app()->language,
                     ':deflang' => $this->yupe->defaultLanguage,
                 )
             );
@@ -81,14 +81,14 @@ class PageController extends yupe\components\controllers\FrontController
 
     /**
      * Рекурсивно возвращает пригодный для zii.widgets.CBreadcrumbs массив, начиная со страницы $page
-     * @param Page $page
+     * @param  Page $page
      * @return array
      * @internal param int $pageId
      */
     private function getBreadCrumbsRecursively(Page $page)
     {
         $pages = array();
-        $pages[$page->title] = array('/page/page/show', 'slug' => $page->slug);
+        $pages[$page->title] = $page->getUrl();
         $pp = $page->parentPage;
         if ($pp) {
             $pages += $this->getBreadCrumbsRecursively($pp);

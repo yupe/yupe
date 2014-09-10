@@ -2,8 +2,19 @@
 
 class CommentManager extends CApplicationComponent
 {
-    public function create($params, $module, $user)
+    public function create($params, $module, $user, $request = null)
     {
+        if ($user->isAuthenticated()) {
+            $params = CMap::mergeArray(
+                $params,
+                [
+                    'user_id' => $user->getId(),
+                    'name' => $user->getState('nick_name'),
+                    'email' => $user->getProfileField('email'),
+                ]
+            );
+        }
+
         $comment = new Comment;
 
         $comment->setAttributes($params);
@@ -14,14 +25,14 @@ class CommentManager extends CApplicationComponent
             $comment->status = Comment::STATUS_APPROVED;
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
-
-        Yii::app()->eventManager->fire(
-            CommentEvents::BEFORE_ADD_COMMENT,
-            new CommentEvent($comment, Yii::app()->getUser(), $module)
-        );
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
+
+            Yii::app()->eventManager->fire(
+                CommentEvents::BEFORE_ADD_COMMENT,
+                new CommentEvent($comment, $user, $module, $request)
+            );
 
             $root = null;
 
@@ -50,17 +61,7 @@ class CommentManager extends CApplicationComponent
 
                 Yii::app()->eventManager->fire(
                     CommentEvents::SUCCESS_ADD_COMMENT,
-                    new CommentEvent($comment, Yii::app()->getUser(), $module)
-                );
-
-                // сбросить кэш
-                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
-
-                // метка для проверки спама
-                Yii::app()->cache->set(
-                    'Comment::Comment::spam::' . $user->getId(),
-                    time(),
-                    (int)$module->antiSpamInterval
+                    new CommentEvent($comment, $user, $module)
                 );
 
                 return $comment;
@@ -74,7 +75,7 @@ class CommentManager extends CApplicationComponent
 
             Yii::app()->eventManager->fire(
                 CommentEvents::ERROR_ADD_COMMENT,
-                new CommentEvent($comment, Yii::app()->getUser(), $module)
+                new CommentEvent($comment, $user, $module)
             );
 
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR, 'comment');
@@ -83,8 +84,35 @@ class CommentManager extends CApplicationComponent
         }
     }
 
-    public function isSpam($user)
+    public function getCommentsForModule($model, $modelId, $status = Comment::STATUS_APPROVED)
     {
-        return Yii::app()->cache->get('Comment::Comment::spam::' . $user->getId());
+         return Comment::model()->with(['author'])->findAll(
+             [
+                 'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status AND t.lft > 1',
+                 'params'    => array(
+                     ':model'   => $model,
+                     ':modelId' => (int)$modelId,
+                     ':status'  => (int)$status,
+                 ),
+                 'order'     => 't.lft',
+             ]
+         );
     }
-} 
+
+    public function getSimilarPosts(Post $post, $limit = 10)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->limit = $limit;
+        $criteria->order = 'publish_date DESC';
+
+        $criteria->addNotInCondition('t.id', [$post->id]);
+
+        $criteria->mergeWith(
+            Post::model()->public()->published()->getFindByTagsCriteria($post->getTags())
+        );
+
+        return Post::model()->findAll(
+            $criteria
+        );
+    }
+}

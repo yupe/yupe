@@ -20,10 +20,8 @@
  * @version    $Id: Term.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Search_Lucene_Search_Weight */
 require_once 'Zend/Search/Lucene/Search/Weight.php';
-
 
 /**
  * @category   Zend
@@ -69,7 +67,6 @@ class Zend_Search_Lucene_Search_Weight_Term extends Zend_Search_Lucene_Search_We
      */
     private $_queryWeight;
 
-
     /**
      * Zend_Search_Lucene_Search_Weight_Term constructor
      * reader - index reader
@@ -78,15 +75,15 @@ class Zend_Search_Lucene_Search_Weight_Term extends Zend_Search_Lucene_Search_We
      * @param Zend_Search_Lucene_Search_Query $query
      * @param Zend_Search_Lucene_Interface $reader
      */
-    public function __construct(Zend_Search_Lucene_Index_Term $term,
-                                Zend_Search_Lucene_Search_Query $query,
-                                Zend_Search_Lucene_Interface $reader)
-    {
+    public function __construct(
+        Zend_Search_Lucene_Index_Term $term,
+        Zend_Search_Lucene_Search_Query $query,
+        Zend_Search_Lucene_Interface $reader
+    ) {
         $this->_term = $term;
         $this->_query = $query;
         $this->_reader = $reader;
     }
-
 
     /**
      * The sum of squared weights of contained query clauses.
@@ -105,7 +102,6 @@ class Zend_Search_Lucene_Search_Weight_Term extends Zend_Search_Lucene_Search_We
         return $this->_queryWeight * $this->_queryWeight;
     }
 
-
     /**
      * Assigns the query normalization factor to this.
      *
@@ -122,4 +118,3 @@ class Zend_Search_Lucene_Search_Weight_Term extends Zend_Search_Lucene_Search_We
         $this->_value = $this->_queryWeight * $this->_idf;
     }
 }
-

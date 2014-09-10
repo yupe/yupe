@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Mail install migration
@@ -19,12 +20,14 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
          * mail_event:
          **/
         $this->createTable(
-            '{{mail_mail_event}}', array(
-                    'id'          => 'pk',
-                    'code'        => 'varchar(150) NOT NULL',
-                    'name'        => 'varchar(150) NOT NULL',
-                    'description' => 'text',
-            ), $this->getOptions()
+            '{{mail_mail_event}}',
+            array(
+                'id'          => 'pk',
+                'code'        => 'varchar(150) NOT NULL',
+                'name'        => 'varchar(150) NOT NULL',
+                'description' => 'text',
+            ),
+            $this->getOptions()
         );
 
         $this->createIndex("ux_{{mail_mail_event}}_code", '{{mail_mail_event}}', "code", true);
@@ -33,7 +36,8 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
          * mail_template:
          **/
         $this->createTable(
-           '{{mail_mail_template}}', array(
+            '{{mail_mail_template}}',
+            array(
                 'id'          => 'pk',
                 'code'        => 'varchar(150) NOT NULL',
                 'event_id'    => 'integer NOT NULL',
@@ -54,9 +58,16 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
         $this->createIndex("ix_{{mail_mail_template}}_event_id", '{{mail_mail_template}}', "event_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{mail_mail_template}}_event_id", '{{mail_mail_template}}', 'event_id', '{{mail_mail_event}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey(
+            "fk_{{mail_mail_template}}_event_id",
+            '{{mail_mail_template}}',
+            'event_id',
+            '{{mail_mail_event}}',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
     }
- 
 
     public function safeDown()
     {

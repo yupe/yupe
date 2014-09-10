@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DictionaryDataBackend контроллер для управления данными справочников в панели управления
  *
@@ -14,11 +15,15 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     public function accessRules()
     {
         return array(
-            array('allow', 'roles'   => array('admin')),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('create'), 'roles' => array('Dictionary.DictionaryDataBackend.Create')),
             array('allow', 'actions' => array('delete'), 'roles' => array('Dictionary.DictionaryDataBackend.Delete')),
             array('allow', 'actions' => array('index'), 'roles' => array('Dictionary.DictionaryDataBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Dictionary.DictionaryDataBackend.Update')),
+            array(
+                'allow',
+                'actions' => array('inlineEdit'),
+                'roles'   => array('Dictionary.DictionaryDataBackend.Update')
+            ),
             array('allow', 'actions' => array('update'), 'roles' => array('Dictionary.DictionaryDataBackend.Update')),
             array('allow', 'actions' => array('view'), 'roles' => array('Dictionary.DictionaryDataBackend.View')),
             array('deny')
@@ -29,15 +34,16 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     {
         return array(
             'inline' => array(
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'DictionaryData',
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'DictionaryData',
                 'validAttributes' => array('name', 'code', 'description', 'value', 'status')
             )
         );
     }
+
     /**
      * Displays a particular model.
-     * 
+     *
      * @param integer $id the ID of the model to be displayed
      *
      * @return void
@@ -55,40 +61,41 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
      */
     public function actionCreate()
     {
-        $model = new DictionaryData;
+        $model = new DictionaryData();
 
-        $gid = (int) Yii::app()->getRequest()->getQuery('gid');
-        
+        $gid = (int)Yii::app()->getRequest()->getQuery('gid');
+
         if ($gid) {
             $model->group_id = $gid;
         }
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
 
-				Yii::app()->user->setFlash(
-					yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-					Yii::t('DictionaryModule.dictionary', 'Record was added!')
-				);
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('DictionaryModule.dictionary', 'Record was added!')
+                );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('create')
                     )
                 );
             }
         }
-        
+
         $this->render('create', array('model' => $model));
     }
 
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * 
+     *
      * @param integer $id the ID of the model to be updated
      *
      * @return void
@@ -98,7 +105,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
-            
+
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -109,8 +116,9 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('update', 'id' => $model->id)
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        array('update', 'id' => $model->id)
                     )
                 );
             }
@@ -122,7 +130,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * 
+     *
      * @param integer $id the ID of the model to be deleted
      *
      * @return void
@@ -132,19 +140,20 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            
+
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			Yii::app()->user->setFlash(
-				yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-				Yii::t('DictionaryModule.dictionary', 'Record was removed!')
-			);
+            Yii::app()->user->setFlash(
+                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                Yii::t('DictionaryModule.dictionary', 'Record was removed!')
+            );
 
-			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-			if (!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+            if (!isset($_GET['ajax'])) {
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
 
         } else {
             throw new CHttpException(
@@ -162,18 +171,19 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     public function actionIndex()
     {
         $model = new DictionaryData('search');
-        
-        $model->unsetAttributes();  // clear any default values
 
-        $group_id = (int) Yii::app()->getRequest()->getQuery('group_id');
-        
+        $model->unsetAttributes(); // clear any default values
+
+        $group_id = (int)Yii::app()->getRequest()->getQuery('group_id');
+
         if ($group_id) {
             $model->group_id = $group_id;
         }
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'DictionaryData', array()
+                'DictionaryData',
+                array()
             )
         );
 
@@ -183,7 +193,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
-     * 
+     *
      * @param integer the ID of the model to be loaded
      *
      * @return DictionaryData $model
@@ -192,8 +202,8 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
      */
     public function loadModel($id)
     {
-        $model = DictionaryData::model()->findByPk((int) $id);
-        
+        $model = DictionaryData::model()->findByPk((int)$id);
+
         if ($model === null) {
             throw new CHttpException(
                 404,

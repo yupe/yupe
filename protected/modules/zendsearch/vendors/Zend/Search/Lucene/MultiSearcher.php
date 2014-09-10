@@ -19,7 +19,6 @@
  * @version    $Id: MultiSearcher.php 24862 2012-06-02 00:04:53Z adamlundrigan $
  */
 
-
 /** Zend_Search_Lucene_Interface */
 require_once 'Zend/Search/Lucene/Interface.php';
 
@@ -50,7 +49,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Object constructor.
      *
-     * @param array $indices   Arrays of indices for search
+     * @param  array $indices Arrays of indices for search
      * @throws Zend_Search_Lucene_Exception
      */
     public function __construct($indices = array())
@@ -75,7 +74,6 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
         $this->_indices[] = $index;
     }
 
-
     /**
      * Get current generation number
      *
@@ -83,7 +81,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * 0 means pre-2.1 index format
      * -1 means there are no segments files.
      *
-     * @param Zend_Search_Lucene_Storage_Directory $directory
+     * @param  Zend_Search_Lucene_Storage_Directory $directory
      * @return integer
      * @throws Zend_Search_Lucene_Exception
      */
@@ -96,7 +94,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Get segments file name
      *
-     * @param integer $generation
+     * @param  integer $generation
      * @return string
      */
     public static function getSegmentFileName($generation)
@@ -187,9 +185,9 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Checks, that document is deleted
      *
-     * @param integer $id
+     * @param  integer $id
      * @return boolean
-     * @throws Zend_Search_Lucene_Exception    Exception is thrown if $id is out of the range
+     * @throws Zend_Search_Lucene_Exception Exception is thrown if $id is out of the range
      */
     public function isDeleted($id)
     {
@@ -222,7 +220,6 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
             $index->setDefaultSearchField($fieldName);
         }
     }
-
 
     /**
      * Get default search field.
@@ -456,8 +453,8 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * of Zend_Search_Lucene_Search_QueryHit objects.
      * Input is a string or Zend_Search_Lucene_Search_Query.
      *
-     * @param mixed $query
-     * @return array Zend_Search_Lucene_Search_QueryHit
+     * @param  mixed $query
+     * @return array                        Zend_Search_Lucene_Search_QueryHit
      * @throws Zend_Search_Lucene_Exception
      */
     public function find($query)
@@ -490,7 +487,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Returns a list of all unique field names that exist in this index.
      *
-     * @param boolean $indexed
+     * @param  boolean $indexed
      * @return array
      */
     public function getFieldNames($indexed = false)
@@ -508,9 +505,9 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * Returns a Zend_Search_Lucene_Document object for the document
      * number $id in this index.
      *
-     * @param integer|Zend_Search_Lucene_Search_QueryHit $id
+     * @param  integer|Zend_Search_Lucene_Search_QueryHit $id
      * @return Zend_Search_Lucene_Document
-     * @throws Zend_Search_Lucene_Exception    Exception is thrown if $id is out of the range
+     * @throws Zend_Search_Lucene_Exception               Exception is thrown if $id is out of the range
      */
     public function getDocument($id)
     {
@@ -538,7 +535,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      *
      * Is used for query optimization.
      *
-     * @param Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @return boolean
      */
     public function hasTerm(Zend_Search_Lucene_Index_Term $term)
@@ -555,8 +552,8 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Returns IDs of all the documents containing term.
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      * @throws Zend_Search_Lucene_Exception
      */
@@ -592,8 +589,8 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * It performs the same operation as termDocs, but return result as
      * Zend_Search_Lucene_Index_DocsFilter object
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return Zend_Search_Lucene_Index_DocsFilter
      * @throws Zend_Search_Lucene_Exception
      */
@@ -607,8 +604,8 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * Returns an array of all term freqs.
      * Return array structure: array( docId => freq, ...)
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return integer
      * @throws Zend_Search_Lucene_Exception
      */
@@ -645,8 +642,8 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * Returns an array of all term positions in the documents.
      * Return array structure: array( docId => array( pos1, pos2, ...), ...)
      *
-     * @param Zend_Search_Lucene_Index_Term $term
-     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @param  Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      * @throws Zend_Search_Lucene_Exception
      */
@@ -682,7 +679,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Returns the number of documents in this index containing the $term.
      *
-     * @param Zend_Search_Lucene_Index_Term $term
+     * @param  Zend_Search_Lucene_Index_Term $term
      * @return integer
      */
     public function docFreq(Zend_Search_Lucene_Index_Term $term)
@@ -724,8 +721,8 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Returns a normalization factor for "field, document" pair.
      *
-     * @param integer $id
-     * @param string $fieldName
+     * @param  integer $id
+     * @param  string $fieldName
      * @return float
      */
     public function norm($id, $fieldName)
@@ -763,7 +760,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * Deletes a document from the index.
      * $id is an internal document id
      *
-     * @param integer|Zend_Search_Lucene_Search_QueryHit $id
+     * @param  integer|Zend_Search_Lucene_Search_QueryHit $id
      * @throws Zend_Search_Lucene_Exception
      */
     public function delete($id)
@@ -773,6 +770,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
 
             if ($indexCount > $id) {
                 $index->delete($id);
+
                 return;
             }
 
@@ -782,7 +780,6 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
         require_once 'Zend/Search/Lucene/Exception.php';
         throw new Zend_Search_Lucene_Exception('Document id is out of the range.');
     }
-
 
     /**
      * Callback used to choose target index for new documents
@@ -799,7 +796,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Set callback for choosing target index.
      *
-     * @param callback $callback
+     * @param  callback $callback
      * @throws Zend_Search_Lucene_Exception
      */
     public function setDocumentDistributorCallback($callback)
@@ -825,7 +822,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     /**
      * Adds a document to this index.
      *
-     * @param Zend_Search_Lucene_Document $document
+     * @param  Zend_Search_Lucene_Document $document
      * @throws Zend_Search_Lucene_Exception
      */
     public function addDocument(Zend_Search_Lucene_Document $document)
@@ -876,7 +873,6 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
 
         return array_unique(call_user_func_array('array_merge', $termsList));
     }
-
 
     /**
      * Terms stream priority queue object
@@ -943,7 +939,6 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
         $this->_termsStream = null;
     }
 
-
     /**
      * Undeletes all documents currently marked as deleted in this index.
      */
@@ -953,7 +948,6 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
             $index->undeleteAll();
         }
     }
-
 
     /**
      * Add reference to the index object

@@ -44,7 +44,7 @@ class Zend_Search_Lucene_Index_DictionaryLoader
      *
      * See Zend_Search_Lucene_Index_SegmintInfo class for details
      *
-     * @param string $data
+     * @param  string $data
      * @return array
      * @throws Zend_Search_Lucene_Exception
      */
@@ -96,7 +96,9 @@ class Zend_Search_Lucene_Index_DictionaryLoader
         $pos += 4;
 
         // $skipInterval   = $tiiFile->readInt();
-        $skipInterval = ord($data[$pos]) << 24 | ord($data[$pos + 1]) << 16 | ord($data[$pos + 2]) << 8 | ord($data[$pos + 3]);
+        $skipInterval = ord($data[$pos]) << 24 | ord($data[$pos + 1]) << 16 | ord($data[$pos + 2]) << 8 | ord(
+                $data[$pos + 3]
+            );
         $pos += 4;
         if ($indexTermCount < 1) {
             require_once 'Zend/Search/Lucene/Exception.php';
@@ -244,7 +246,6 @@ class Zend_Search_Lucene_Index_DictionaryLoader
             }
             $indexPointer += $vint;
 
-
             // $this->_termDictionary[] =  new Zend_Search_Lucene_Index_Term($termValue, $termFieldNum);
             $termDictionary[] = array($termFieldNum, $termValue);
 
@@ -269,4 +270,3 @@ class Zend_Search_Lucene_Index_DictionaryLoader
         return array($termDictionary, $termInfos);
     }
 }
-

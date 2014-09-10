@@ -31,7 +31,7 @@ class UserIdentity extends CBaseUserIdentity
                 'provider = :provider AND uid = :uid',
                 array(
                     ':provider' => $this->service->getServiceName(),
-                    ':uid' => $this->service->getId(),
+                    ':uid'      => $this->service->getId(),
                 )
             );
 

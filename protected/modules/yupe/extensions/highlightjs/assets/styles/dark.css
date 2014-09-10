@@ -5,8 +5,9 @@ Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Or
 */
 
 pre code {
-  display: block; padding: 0.5em;
-  background: #444;
+    display: block;
+    padding: 0.5em;
+    background: #444;
 }
 
 pre .keyword,
@@ -18,12 +19,12 @@ pre .lisp .title,
 pre .clojure .built_in,
 pre .nginx .title,
 pre .tex .special {
-  color: white;
+    color: white;
 }
 
 pre code,
 pre .subst {
-  color: #DDD;
+    color: #DDD;
 }
 
 pre .string,
@@ -55,7 +56,7 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .prompt {
-  color: #D88;
+    color: #D88;
 }
 
 pre .comment,
@@ -68,7 +69,7 @@ pre .deletion,
 pre .shebang,
 pre .apache .sqbracket,
 pre .tex .formula {
-  color: #777;
+    color: #777;
 }
 
 pre .keyword,
@@ -89,7 +90,7 @@ pre .apache .tag,
 pre .tex .special,
 pre .request,
 pre .status {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 pre .coffeescript .javascript,
@@ -99,5 +100,5 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-  opacity: 0.5;
+    opacity: 0.5;
 }

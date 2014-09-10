@@ -12,11 +12,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'id' => 'content-block-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'content-block-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'type' => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
     )
 ); ?>
 <div class="alert alert-info">
@@ -47,17 +47,45 @@ $form = $this->beginWidget(
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'content'); ?>
-        <?php $this->widget(
-            $this->yupe->editor,
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'category_id',
             array(
-                'model' => $model,
-                'attribute' => 'content',
-                'options' => $this->module->editorOptions,
+                'widgetOptions' => array(
+                    'data'        => Category::model()->getFormattedList(),
+                    'htmlOptions' => array(
+                        'empty'               => Yii::t('ContentBlockModule.contentblock','--choose--'),
+                        'class'               => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('category_id'),
+                        'data-content'        => $model->getAttributeDescription('category_id'),
+                        'encode'              => false
+                    ),
+                ),
             )
         ); ?>
-        <?php echo $form->error($model, 'content'); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 form-group">
+        <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT): ?>
+            <?php echo $form->labelEx($model, 'content'); ?>
+            <?php $this->widget(
+                $this->yupe->editor,
+                array(
+                    'model'     => $model,
+                    'attribute' => 'content',
+                    'options'   => $this->module->editorOptions,
+                )
+            ); ?>
+            <?php echo $form->error($model, 'content'); ?>
+        <?php else: ?>
+            <?php echo $form->textAreaGroup(
+                $model,
+                'content',
+                array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))
+            ); ?>
+        <?php endif; ?>
     </div>
 </div>
 <div class="row">
@@ -66,9 +94,9 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->yupe->editor,
             array(
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'description',
-                'options' => $this->module->editorOptions,
+                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'description'); ?>
@@ -79,17 +107,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     array(
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Add block and continue') : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t(
+                'ContentBlockModule.contentblock',
+                'Add block and continue'
+            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
     )
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Add block and close') : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
+        'label'       => $model->isNewRecord ? Yii::t(
+                'ContentBlockModule.contentblock',
+                'Add block and close'
+            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
     )
 ); ?>
 

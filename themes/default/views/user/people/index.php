@@ -12,7 +12,7 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
         'method' => 'get',
-        'type' => 'vertical'
+        'type'   => 'vertical'
     )
 );
 ?>
@@ -20,7 +20,11 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12">
         <div class="input-group">
-            <?php echo $form->textField($users, 'nick_name', array('class' => 'form-control', 'placeholder' => 'поиск по нику',)); ?>
+            <?php echo $form->textField(
+                $users,
+                'nick_name',
+                array('class' => 'form-control', 'placeholder' => 'поиск по нику',)
+            ); ?>
             <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">Найти</button>
                   </span>
@@ -36,33 +40,33 @@ $this->widget(
     'bootstrap.widgets.TbGridView',
     array(
         'dataProvider' => $users->search(),
-        'type' => 'condensed striped',
-        'template' => "{items}\n{pager}",
-        'columns' => array(
+        'type'         => 'condensed striped',
+        'template'     => "{items}\n{pager}",
+        'columns'      => array(
             array(
                 'header' => false,
-                'value' => 'CHtml::link(CHtml::image($data->getAvatar(90)), array("/user/people/userInfo","username" => $data->nick_name))',
-                'type' => 'html'
+                'value'  => 'CHtml::link(CHtml::image($data->getAvatar(90)), array("/user/people/userInfo","username" => $data->nick_name))',
+                'type'   => 'html'
             ),
             array(
-                'name' => 'nick_name',
+                'name'   => 'nick_name',
                 'header' => 'Пользователь',
-                'type' => 'html',
-                'value' => 'CHtml::link($data->nick_name, array("/user/people/userInfo","username" => $data->nick_name))'
+                'type'   => 'html',
+                'value'  => 'CHtml::link($data->nick_name, array("/user/people/userInfo","username" => $data->nick_name))'
             ),
             array(
-                'name' => 'location',
+                'name'   => 'location',
                 'header' => 'Откуда'
             ),
             array(
                 'header' => 'Был на сайте',
-                'name' => 'last_visit',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->last_visit, "long", false)'
+                'name'   => 'last_visit',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->last_visit, "long", false)'
             ),
             array(
                 'header' => 'Присоеденился',
-                'name' => 'registration_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->registration_date, "long", false)'
+                'name'   => 'registration_date',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->registration_date, "long", false)'
             )
         )
     )

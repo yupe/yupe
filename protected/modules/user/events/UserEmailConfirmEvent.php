@@ -10,7 +10,7 @@ class UserEmailConfirmEvent extends Event
     public function __construct($token, User $user = null)
     {
         $this->token = $token;
-        $this->user  = $user;
+        $this->user = $user;
     }
 
     /**
@@ -44,4 +44,4 @@ class UserEmailConfirmEvent extends Event
     {
         return $this->user;
     }
-} 
+}

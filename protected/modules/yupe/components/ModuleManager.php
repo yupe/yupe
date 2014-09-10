@@ -15,15 +15,12 @@ namespace yupe\components;
 
 use CChainedCacheDependency;
 use CDirectoryCacheDependency;
-use CHtml;
 use Exception;
 use GlobIterator;
 use TagsCache;
 use Yii;
 use yupe\widgets\YFlashMessages;
-use yupe\components\WebModule;
 use yupe\helpers\YFile;
-
 
 class ModuleManager extends \CApplicationComponent
 {
@@ -48,12 +45,6 @@ class ModuleManager extends \CApplicationComponent
      */
     public $categorySort;
 
-    public function init()
-    {
-        parent::init();
-    }
-
-
     /**
      * Возвращаем список модулей:
      *
@@ -68,9 +59,9 @@ class ModuleManager extends \CApplicationComponent
 
         $this->categoryIcon = array(
             Yii::t('YupeModule.yupe', 'Services') => 'glyphicon glyphicon-briefcase',
-            Yii::t('YupeModule.yupe', 'Yupe!') => 'glyphicon glyphicon-cog',
-            Yii::t('YupeModule.yupe', 'Content') => 'glyphicon glyphicon-file',
-            $this->otherCategoryName => 'glyphicon glyphicon-cog',
+            Yii::t('YupeModule.yupe', 'Yupe!')    => 'glyphicon glyphicon-cog',
+            Yii::t('YupeModule.yupe', 'Content')  => 'glyphicon glyphicon-file',
+            $this->otherCategoryName              => 'glyphicon glyphicon-cog',
         );
 
         $this->categorySort = array(
@@ -139,9 +130,9 @@ class ModuleManager extends \CApplicationComponent
 
                     // Шаблон категорий
                     $modulesNavigation[$keyCategory] = array(
-                        'label' => $keyCategory,
+                        'label'          => $keyCategory,
                         //'url' => '#',
-                        'items' => array(),
+                        'items'          => array(),
                         'submenuOptions' => array("id" => "mainmenu_" . $uniqueMenuId)
                     );
                     $uniqueMenuId++;
@@ -161,9 +152,9 @@ class ModuleManager extends \CApplicationComponent
                             $modSettings = array(
                                 '---',
                                 array(
-                                    'icon' => 'glyphicon glyphicon-cog',
+                                    'icon'  => 'glyphicon glyphicon-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Module settings'),
-                                    'url' => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
+                                    'url'   => $modules[$key]->getSettingsUrl(),
                                 ),
                             );
                         }
@@ -180,11 +171,11 @@ class ModuleManager extends \CApplicationComponent
 
                         // Шаблон модулей
                         $data = array(
-                            'icon' => $modules[$key]->icon,
-                            'label' => $modules[$key]->name,
-                            'url' => $modules[$key]->adminPageLinkNormalize,
+                            'icon'           => $modules[$key]->icon,
+                            'label'          => $modules[$key]->name,
+                            'url'            => $modules[$key]->adminPageLinkNormalize,
                             'submenuOptions' => array("id" => "submenu_" . $key),
-                            'items' => array(),
+                            'items'          => array(),
                         );
 
                         // Добавляем подменю у модулей
@@ -241,8 +232,8 @@ class ModuleManager extends \CApplicationComponent
 
         $modulesNavigation = array_merge($modulesNavigation, $modulesExtendedNavigation);
         return ($navigationOnly === true) ? $modulesNavigation : array(
-            'modules' => $modules,
-            'yiiModules' => $yiiModules,
+            'modules'           => $modules,
+            'yiiModules'        => $yiiModules,
             'modulesNavigation' => $modulesNavigation,
         );
     }
@@ -345,7 +336,6 @@ class ModuleManager extends \CApplicationComponent
         return $modules;
     }
 
-
     /**
      * Подгружает модуль
      *
@@ -385,7 +375,7 @@ class ModuleManager extends \CApplicationComponent
      */
     public function getModulesConfig($module = false)
     {
-        return Yii::app()->getBasePath(). '/config/modules/' . ($module ? $module . '.php' : '');
+        return Yii::app()->getBasePath() . '/config/modules/' . ($module ? $module . '.php' : '');
     }
 
     /**
@@ -399,7 +389,7 @@ class ModuleManager extends \CApplicationComponent
 
     public function getModulesConfigBack($module = '')
     {
-        return Yii::app()->getBasePath(). '/config/modulesBack/' . empty($module) ? $module : $module . '.php';
+        return Yii::app()->getBasePath() . '/config/modulesBack/' . empty($module) ? $module : $module . '.php';
     }
 
     /**
@@ -413,7 +403,7 @@ class ModuleManager extends \CApplicationComponent
     public function getModulesConfigDefault($module = '')
     {
         return empty($module) ? Yii::getPathOfAlias('application.modules') :
-             Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
+            Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
     }
 
     /**
@@ -445,7 +435,7 @@ class ModuleManager extends \CApplicationComponent
     /**
      * Обновить конфигурационный файл модуля
      *
-     * @param WebModule $module
+     * @param  WebModule $module
      * @return bool
      * @since 0.8
      */
@@ -455,10 +445,15 @@ class ModuleManager extends \CApplicationComponent
 
         $currentConfig = $this->getModulesConfig($module->getId());
 
-        if((!file_exists($currentConfig) || YFile::rmFile($currentConfig)) && YFile::cpFile($newConfig, $currentConfig)) {
+        if ((!file_exists($currentConfig) || YFile::rmFile($currentConfig)) && YFile::cpFile(
+                $newConfig,
+                $currentConfig
+            )
+        ) {
+            Yii::app()->configManager->flushDump();
             return true;
         }
 
         return false;
     }
-} 
+}

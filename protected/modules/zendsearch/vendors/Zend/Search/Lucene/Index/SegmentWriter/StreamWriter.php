@@ -43,7 +43,6 @@ class Zend_Search_Lucene_Index_SegmentWriter_StreamWriter extends Zend_Search_Lu
         parent::__construct($directory, $name);
     }
 
-
     /**
      * Create stored fields files and open them for write
      */
@@ -91,4 +90,3 @@ class Zend_Search_Lucene_Index_SegmentWriter_StreamWriter extends Zend_Search_Lu
             true);
     }
 }
-
