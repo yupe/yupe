@@ -32,6 +32,8 @@
  * @property User $user
  *
  */
+Yii::import('application.modules.order.OrderModule');
+
 class Order extends yupe\models\YModel
 {
     const STATUS_NEW = 0;

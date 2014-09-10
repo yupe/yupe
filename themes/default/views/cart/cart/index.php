@@ -2,9 +2,12 @@
 /* @var $positions Product[] */
 /* @var $order Order */
 /* @var $coupons Coupon[] */
-Yii::import('order.models.*');
-$storeAssets = Yii::app()->getModule('store')->getAssetsUrl();
-Yii::app()->getClientScript()->registerScriptFile($storeAssets . '/js/store.js');
+Yii::app()->getClientScript()->registerCssFile(
+    Yii::app()->getModule('cart')->getAssetsUrl(). '/css/cart-frontend.css'
+);
+Yii::app()->getClientScript()->registerScriptFile(
+    Yii::app()->getModule('store')->getAssetsUrl() . '/js/store.js'
+);
 $this->pageTitle = Yii::t('CartModule.cart', 'Корзина');
 $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
 ?>
@@ -12,7 +15,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
 
 <div class="row">
     <div class="col-sm-12">
-        <?php if (Yii::app()->shoppingCart->isEmpty()): ?>
+        <?php if (Yii::app()->cart->isEmpty()): ?>
             <h1><?php echo Yii::t("CartModule.cart", "Корзина пуста"); ?></h1>
             <?php echo Yii::t("CartModule.cart", "В корзине нет товаров"); ?>
         <?php else: ?>
@@ -121,7 +124,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                         <td colspan="2" style="text-align: right;">
                             <h4>
                                 <strong id="cart-full-cost">
-                                    <?php echo Yii::app()->shoppingCart->getCost(); ?>
+                                    <?php echo Yii::app()->cart->getCost(); ?>
                                 </strong>
                                 <?php echo Yii::t("CartModule.cart", "руб."); ?>
                             </h4>

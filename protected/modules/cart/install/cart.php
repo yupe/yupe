@@ -9,7 +9,7 @@ return array(
         'application.modules.cart.models.*',
     ),
     'component' => array(
-        'shoppingCart' => array(
+        'cart' => array(
             'class' => 'application.modules.cart.extensions.shopping-cart.EShoppingCart',
         ),
     ),

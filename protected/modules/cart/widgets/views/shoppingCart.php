@@ -6,12 +6,12 @@
         </div>
     </div>
     <div class="panel-body">
-        <?php if (Yii::app()->shoppingCart->isEmpty()): ?>
+        <?php if (Yii::app()->cart->isEmpty()): ?>
             <?php echo Yii::t("CartModule.cart", "В корзине нет товаров"); ?>
         <?php else: ?>
             <div class="row">
                 <div class="col-sm-12">
-                    <?php $count = Yii::app()->shoppingCart->getCount(); ?>
+                    <?php $count = Yii::app()->cart->getCount(); ?>
                     <p>
                         <?php echo Yii::t('CartModule.cart', '{n} товар|{n} товара|{n} товаров|{n} товара', $count); ?>
                     </p>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-sm-6 text-right">
                             <p>
-                                <?php echo Yii::app()->shoppingCart->getCost(); ?>
+                                <?php echo Yii::app()->cart->getCost(); ?>
                                 <?php echo Yii::t("CartModule.cart", "руб."); ?>
                             </p>
                         </div>

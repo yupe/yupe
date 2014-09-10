@@ -38,7 +38,7 @@ class CouponManager extends CComponent
         /* @var $coupon Coupon */
         $coupon = Coupon::model()->getCouponByCode($code);
         if ($coupon) {
-            $price = Yii::app()->shoppingCart->getCost();
+            $price = Yii::app()->cart->getCost();
             if ($coupon->getIsAvailable($price)) {
                 $this->coupons = array_unique(array_merge($this->coupons, array($code)));
                 $this->saveState();
@@ -66,11 +66,11 @@ class CouponManager extends CComponent
 
     public function check()
     {
-        if (Yii::app()->shoppingCart->isEmpty()) {
+        if (Yii::app()->cart->isEmpty()) {
             $this->clear();
             return;
         }
-        $price = Yii::app()->shoppingCart->getCost();
+        $price = Yii::app()->cart->getCost();
         foreach ($this->coupons as $code) {
             /* @var $coupon Coupon */
             $coupon = Coupon::model()->getCouponByCode($code);

@@ -117,6 +117,13 @@ abstract class WebModule extends CWebModule
     public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar';
 
     /**
+     * Путь к ресурсам модуля, например application.modules.yupe.views.assets
+     * @var string
+     */
+    public $assetsPath;
+    private $_assetsUrl;
+
+    /**
      * @var array
      * @since 0.8
      *
@@ -1137,6 +1144,24 @@ abstract class WebModule extends CWebModule
 
     /**
      * @since 0.8
+     * Возвращает ссылку на опубликованную папку ресурсов
+     * @uses $assetsPath
+     * @return string|null
+     * @throws \CException
+     */
+    public function getAssetsUrl()
+    {
+        if (!$this->assetsPath) {
+            return null;
+        }
+        if (null === $this->_assetsUrl) {
+            $this->_assetsUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias($this->assetsPath));
+        }
+        return $this->_assetsUrl;
+    }
+
+    /**
+     * @since 0.8
      * Возвращает Урл для странички настроек модуля
      * Для того чтобы можно было переопределить
      */
@@ -1144,5 +1169,4 @@ abstract class WebModule extends CWebModule
     {
         return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => $this->getId()]);
     }
-
 }

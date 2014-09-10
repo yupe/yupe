@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CartModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public $assetsPath = 'cart.views.assets';
 
@@ -40,12 +40,17 @@ class CartModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('CartModule.cart', 'Dark_Cs');
+        return Yii::t('CartModule.cart', 'amylabs team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('CartModule.cart', 'darkcs2@gmail.com');
+        return Yii::t('CartModule.cart', 'hello@amylabs.ru');
+    }
+
+    public function getAuthorUrl()
+    {
+        return Yii::t('CartModule.cart', 'http://amylabs.ru');
     }
 
     public function getCategory()
@@ -73,18 +78,6 @@ class CartModule extends WebModule
 
     public function clearCart()
     {
-        Yii::app()->shoppingCart->clear();
+        Yii::app()->cart->clear();
     }
-
-    public function beforeControllerAction($controller, $action)
-    {
-        $mainAssets = $this->getAssetsUrl();
-        if ($controller instanceof \yupe\components\controllers\BackController) {
-
-        } else {
-            Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/cart-frontend.css');
-        }
-        return parent::beforeControllerAction($controller, $action);
-    }
-
 }
