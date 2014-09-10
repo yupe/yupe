@@ -6,6 +6,8 @@ class UserEvents
 
     const FAILURE_ACTIVATE_ACCOUNT = 'user.failure.activate';
 
+    const SUCCESS_EMAIL_CHANGE = 'user.success.email.change';
+
     const SUCCESS_EMAIL_CONFIRM = 'user.success.email.confirm';
 
     const FAILURE_EMAIL_CONFIRM = 'user.failure.email.confirm';

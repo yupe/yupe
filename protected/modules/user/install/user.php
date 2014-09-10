@@ -59,6 +59,9 @@ return array(
                 ),
                 'user.success.email.confirm'     => array(
                     array('UserManagerListener', 'onSuccessEmailConfirm')
+                ),
+                'user.success.email.change'     => array(
+                    array('UserManagerListener', 'onSuccessEmailChange')
                 )
             )
         )

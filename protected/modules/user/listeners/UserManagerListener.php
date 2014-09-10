@@ -44,12 +44,24 @@ class UserManagerListener
         }
     }
 
-    public static function onSuccessEmailConfirm(UserEmailConfirmEvent $event)
+    public static function onSuccessEmailChange(UserEmailConfirmEvent $event)
     {
         Yii::app()->notify->send(
             $event->getUser(),
             Yii::t('UserModule.user', 'Email verification'),
             '//user/email/needEmailActivationEmail',
+            array(
+                'token' => $event->getToken()
+            )
+        );
+    }
+
+    public static function onSuccessEmailConfirm(UserEmailConfirmEvent $event)
+    {
+        Yii::app()->notify->send(
+            $event->getUser(),
+            Yii::t('UserModule.user', 'Email verification'),
+            '//user/email/emailConfirmSuccessEmail',
             array(
                 'token' => $event->getToken()
             )
