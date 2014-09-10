@@ -44,6 +44,13 @@ abstract class YWidget extends CWidget
     public $view;
 
     /**
+     * @since 0.8.1
+     *
+     * Модуль к которому относится виджет
+     */
+    public $module;
+
+    /**
      * @param bool $checkTheme
      * @return null|string
      */

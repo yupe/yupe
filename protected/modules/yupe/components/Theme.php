@@ -7,6 +7,7 @@ use CTheme;
 class Theme extends CTheme
 {
     public $resourceFolder = 'web';
+
     private $_assetsUrl;
 
     public function getAssetsUrl()

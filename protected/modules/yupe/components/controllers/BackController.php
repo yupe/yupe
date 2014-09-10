@@ -15,6 +15,7 @@ namespace yupe\components\controllers;
 
 use Yii;
 use yupe\events\YupeBackendControllerInitEvent;
+use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
 use yupe\widgets\YFlashMessages;
 use CHttpException;
@@ -74,7 +75,7 @@ abstract class BackController extends Controller
 
         Yii::app()->eventManager->fire(
             YupeEvents::BACKEND_CONTROLLER_INIT,
-            new YupeBackendControllerInitEvent($this, Yii::app()->getUser())
+            new YupeControllerInitEvent($this, Yii::app()->getUser())
         );
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("themes.backend_" . $backendTheme))) {

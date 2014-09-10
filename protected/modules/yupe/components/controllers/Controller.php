@@ -17,6 +17,7 @@ use CHtml;
 use Yii;
 use CException;
 use CHttpException;
+use yupe\widgets\YWidget;
 
 abstract class Controller extends \CController
 {
@@ -76,7 +77,7 @@ abstract class Controller extends \CController
      **/
     public function isMultilang()
     {
-        return isset(Yii::app()->urlManager->languages) && is_array(Yii::app()->urlManager->languages);
+        return isset(Yii::app()->getUrlManager()->languages) && is_array(Yii::app()->getUrlManager()->languages);
     }
 
     /**
@@ -110,9 +111,7 @@ abstract class Controller extends \CController
                 && !empty($modulePath[2])
                 && !Yii::app()->hasModule($modulePath[2]);
 
-            if (Yii::getPathOfAlias($className) == false || $isModule) {
-
-                $modulePath = explode('.', $className);
+            if (false === Yii::getPathOfAlias($className) || $isModule) {
 
                 if ($isModule) {
                     throw new CException(
@@ -134,11 +133,9 @@ abstract class Controller extends \CController
                             array(
                                 '{widget}' => $className,
                             )
-                        ), 1
+                        )
                     );
-
                 }
-
             }
 
             $widget = parent::widget($className, $properties, $captureOutput);
