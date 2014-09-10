@@ -87,7 +87,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
                         $result = true;
                         break;
                     case 2:
-                        $message = ($result = $module->getActivate(false)) === true
+                        $message = ($result = Yii::app()->moduleManager->updateModuleConfig($module))
                             ? Yii::t('YupeModule.yupe', 'Settings file "{n}" updated successfully!', $name)
                             : Yii::t(
                                 'YupeModule.yupe',
