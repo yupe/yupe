@@ -1,4 +1,4 @@
-<div class="panel panel-default" id="<?php echo $id; ?>">
+<div class="panel panel-default" id="cart-widget" data-cart-widget-url="<?= Yii::app()->createUrl('/cart/cart/widget');?>">
     <div class="panel-heading">
         <div class="panel-title">
             <i class="glyphicon glyphicon-shopping-cart"></i>

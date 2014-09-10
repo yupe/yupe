@@ -7,7 +7,7 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
      */
     public $id;
 
-    public $layout = 'shoppingCart';
+    public $view = 'shoppingCart';
 
     public function init()
     {
@@ -17,6 +17,6 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->layout, array('id' => $this->id));
+        $this->render($this->view, [ 'id' => $this->id ]);
     }
 }

@@ -13,6 +13,12 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
 ?>
 
 
+<script type="text/javascript">
+    var yupeCartDeleteProductUrl = '<?= Yii::app()->createUrl('/cart/cart/delete/')?>';
+    var yupeCartUpdateUrl = '<?= Yii::app()->createUrl('/cart/cart/update/')?>';
+    var yupeCartWidgetUrl = '<?= Yii::app()->createUrl('/cart/cart/widget/')?>';
+</script>
+
 <div class="row">
     <div class="col-sm-12">
         <?php if (Yii::app()->cart->isEmpty()): ?>

@@ -1,4 +1,4 @@
-<?php $productUrl = Yii::app()->createUrl('/store/catalog/show', array('name' => $data->alias)); ?>
+<?php $productUrl = Yii::app()->createUrl('/store/catalog/show', array('name' => CHtml::encode($data->alias))); ?>
 <div class="col-sm-4">
     <div class="col-item">
         <div class="photo">
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="price col-sm-12">
                     <h5>
-                        <a href="<?php echo $productUrl; ?>"><?php echo CHtml::encode($data->name); ?></a>
+                        <a href="<?php echo $productUrl; ?>"><?php echo CHtml::encode($data->getName()); ?></a>
                     </h5>
                     <h5 class="price-text-color">
                         <?php echo floor($data->getResultPrice()); ?> <i class="fa fa-rub"></i>
@@ -20,7 +20,7 @@
             <div class="separator clear-left">
                 <?php if (Yii::app()->hasModule('cart')): ?>
                     <p class="btn-add">
-                        <a href="#" class="hidden-sm quick-add-product-to-cart" data-product-id="<?php echo $data->id; ?>"><i class="glyphicon glyphicon-shopping-cart"></i></a>
+                        <a href="#" class="hidden-sm quick-add-product-to-cart" data-product-id="<?php echo $data->id; ?>" data-cart-add-url="<?php echo Yii::app()->createUrl('/cart/cart/add');?>"><i class="glyphicon glyphicon-shopping-cart"></i></a>
                     </p>
                 <?php endif; ?>
                 <p class="btn-details">

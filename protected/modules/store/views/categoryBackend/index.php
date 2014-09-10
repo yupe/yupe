@@ -25,6 +25,13 @@ $this->menu = array(
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('YupeModule.yupe', 'Add'),
+                ['/store/categoryBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns' => array(
             array(
                 'name'   => 'image',

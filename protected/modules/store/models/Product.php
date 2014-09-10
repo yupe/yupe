@@ -552,4 +552,9 @@ class Product extends yupe\models\YModel implements ICommentable
 
         return $this->producer->name;
     }
+
+    public function getName()
+    {
+        return $this->name;
+    }
 }

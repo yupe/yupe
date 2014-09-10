@@ -34,9 +34,9 @@ class CartController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $product = CartProduct::model()->findByPk((int)$product['id']);
+        $model = CartProduct::model()->findByPk((int)$product['id']);
 
-        if(null === $product) {
+        if(null === $model) {
             throw new CHttpException(404);
         }
 
@@ -51,47 +51,45 @@ class CartController extends yupe\components\controllers\FrontController
                 $variants[] = $variant;
             }
         }
-        $product->selectedVariants = $variants;
+        $model->selectedVariants = $variants;
         $quantity = isset($product['quantity']) ? (int)$product['quantity'] : 1;
-        Yii::app()->cart->put($product, $quantity ? : 1);
-        Yii::app()->ajax->rawText(
-            json_encode(['result' => 'success', 'message' => Yii::t("CartModule.cart", 'Товар успешно добавлен в корзину')])
-        );
-
+        Yii::app()->cart->put($model, $quantity ? : 1);
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Товар успешно добавлен в корзину'));
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        if (Yii::app()->request->isPostRequest) {
-            $position = Yii::app()->cart->itemAt($id);
-            Yii::app()->cart->update($position, $_POST['Product']['quantity']);
-            Yii::app()->ajax->rawText(
-                json_encode(array('result' => 'success', 'message' => Yii::t("CartModule.cart", 'Количество изменено')))
-            );
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('id')) {
+            throw new CHttpException(404);
         }
+
+        $position = Yii::app()->cart->itemAt(Yii::app()->getRequest()->getPost('id'));
+        $quantity  = (int)Yii::app()->getRequest()->getPost('quantity');
+        Yii::app()->cart->update($position, $quantity);
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Количество изменено'));
     }
 
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
-            Yii::app()->cart->remove($id);
-            Yii::app()->ajax->rawText(
-                json_encode(array('result' => 'success', 'message' => Yii::t("CartModule.cart", 'Товар удален из корзины')))
-            );
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('id')) {
+            throw new CHttpException(404);
         }
+
+        Yii::app()->cart->remove(Yii::app()->getRequest()->getPost('id'));
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Товар удален из корзины'));
     }
 
     public function actionClear()
     {
-        if (Yii::app()->request->isPostRequest) {
-            Yii::app()->cart->clear();
-            Yii::app()->ajax->rawText(
-                json_encode(array('result' => 'success', 'message' => Yii::t("CartModule.cart", 'Корзина очищена')))
-            );
+        if (!Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
         }
+
+        Yii::app()->cart->clear();
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Корзина очищена'));
     }
 
-    public function actionCartWidget()
+    public function actionWidget()
     {
         //$this->renderPartial('//cart/widgets/views/shoppingCart');
         // хочет отправить куки новые для авторизации каждый раз
@@ -100,7 +98,7 @@ class CartController extends yupe\components\controllers\FrontController
 
     public function actionAddCoupon()
     {
-        $code = strtoupper(Yii::app()->request->getParam('code'));;
+        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));;
         $result = Yii::app()->cart->couponManager->add($code);
         if (true === $result) {
             Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купон «{code}» добавлен", array('{code}' => $code)));
@@ -111,7 +109,7 @@ class CartController extends yupe\components\controllers\FrontController
 
     public function actionRemoveCoupon()
     {
-        $code = strtoupper(Yii::app()->request->getParam('code'));
+        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));
         if ($code) {
             Yii::app()->cart->couponManager->remove($code);
             Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купон «{code}» удален", array('{code}' => $code)));

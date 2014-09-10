@@ -1,3 +1,8 @@
+
+$(document).ajaxError(function(){
+    $('#notifications').notify({ message: { text: 'Произошла ошибка =(' }, 'type': 'danger' }).show();
+});
+
 $(document).ready(function () {
     var cartWidgetSelector = '#shopping-cart-widget';
 
@@ -14,7 +19,6 @@ $(document).ready(function () {
 
     function showNotify(element, result, message) {
         if ($.isFunction($.fn.notify)) {
-            //element.notify(message, {className: result, autoHideDelay: 2000, elementPosition: 'top center'});
             $("#notifications").notify({message: {text: message}, 'type': result}).show();
         }
     }
@@ -83,7 +87,7 @@ $(document).ready(function () {
     });
 
     function updateCartWidget() {
-        $(cartWidgetSelector).load('/cart/cartWidget');
+        $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'));
     }
 
     $('#add-product-to-cart').click(function (e) {
@@ -97,7 +101,7 @@ $(document).ready(function () {
             data: form.serialize(),
             url: form.attr('action'),
             success: function (data) {
-                if (data.result == 'success') {
+                if (data.result) {
                     updateCartWidget();
                 }
                 showNotify(button, data.result, data.message);
@@ -113,12 +117,12 @@ $(document).ready(function () {
         var data = {'Product[id]': el.data('product-id')};
         data[yupeTokenName] = yupeToken;
         $.ajax({
-            url: '/cart/add',
+            url: el.data('cart-add-url'),
             type: 'post',
             data: data,
             dataType: 'json',
             success: function (data) {
-                if (data.result == 'success') {
+                if (data.result) {
                     updateCartWidget();
                 }
                 showNotify(el, data.result, data.message);
@@ -153,16 +157,16 @@ $(document).ready(function () {
     }
 
     function changePositionQuantity(productId, quantity) {
-        var data = {'Product[quantity]': quantity};
+        var data = {'quantity': quantity, 'id' : productId};
         data[yupeTokenName] = yupeToken;
         $.ajax({
-            url: '/cart/update/' + productId,
+            url: yupeCartUpdateUrl,
             type: 'post',
             data: data,
             dataType: 'json',
             success: function (data) {
-                if (data.result == 'success') {
-
+                if (data.result) {
+                    updateCartWidget();
                 }
             }
         });
@@ -183,15 +187,15 @@ $(document).ready(function () {
     $('.cart-delete-product').click(function (e) {
         e.preventDefault();
         var el = $(this);
-        var data = {};
+        var data = {'id' : el.data('position-id')};
         data[yupeTokenName] = yupeToken;
         $.ajax({
-            url: '/cart/delete/' + el.data('position-id'),
+            url: yupeCartDeleteProductUrl,
             type: 'post',
             data: data,
             dataType: 'json',
             success: function (data) {
-                if (data.result == 'success') {
+                if (data.result) {
                     el.parents('tr').remove();
                     updateCartTotalCost();
                 }
@@ -319,7 +323,7 @@ $(document).ready(function () {
             data: data,
             dataType: 'json',
             success: function (data) {
-                if (data.result == 'success') {
+                if (data.result) {
                     updateCartWidget();
                 }
             }
