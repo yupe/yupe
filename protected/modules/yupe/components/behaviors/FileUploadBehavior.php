@@ -75,12 +75,12 @@ class FileUploadBehavior extends CActiveRecordBehavior
     /**
      * @var CUploadedFile
      */
-    private $_newFile;
+    protected $_newFile;
 
     /**
      * @var CUploadedFile
      */
-    private $_oldFile;
+    protected $_oldFile;
 
     /**
      * @param \CComponent $owner
