@@ -28,6 +28,9 @@ use CException;
  */
 class ConfigManager extends CComponent
 {
+    const ENV_WEB = 'web';
+
+    const ENV_CONSOLE = 'console';
     // Настройки:
     /**
      * @var array
@@ -82,6 +85,13 @@ class ConfigManager extends CComponent
      */
     public $cacheFileName = 'cached_settings';
 
+    protected $env = self::ENV_WEB;
+
+    public function sentEnv($env)
+    {
+        $this->env = $env;
+    }
+
     /**
      * Инициализация компонента:
      *
@@ -106,7 +116,7 @@ class ConfigManager extends CComponent
         $this->appModules = $this->basePath . '/modules';
 
         // Задаем название файла кеша для настроек
-        $this->cacheFileName .= '_' . YII_APP_TYPE;
+        $this->cacheFileName .= '_' . $this->env;
         $this->_cacheFilePath = $this->basePath . '/config/' . $this->cacheFileName . '.php';
     }
 
@@ -241,7 +251,7 @@ class ConfigManager extends CComponent
 
                     case 'commandMap':
                         // commandMap заполняем только для консоли
-                        if (YII_APP_TYPE !== 'console') {
+                        if ($this->env !== self::ENV_CONSOLE) {
                             continue;
                         }
                     default:
@@ -323,7 +333,7 @@ class ConfigManager extends CComponent
             )
         );
 
-        if (YII_APP_TYPE == 'web') {
+        if ($this->env == self::ENV_WEB) {
             unset($this->_config['commandMap']);
         }
 

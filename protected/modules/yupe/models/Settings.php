@@ -93,11 +93,7 @@ class Settings extends YModel
         }
 
         // Пользователя можно получить только для веб-приложения
-        if (YII_APP_TYPE == 'web') {
-            $this->user_id = Yii::app()->user->getId();
-        } else {
-            $this->user_id = null;
-        }
+        $this->user_id = Yii::app()->hasComponent('user') ? Yii::app()->getUser()->getId() : null;
 
         return parent::beforeSave();
     }
