@@ -73,8 +73,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('DictionaryModule.dictionary', 'This section describes dictionary management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(

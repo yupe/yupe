@@ -61,8 +61,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('GalleryModule.gallery', 'This section describes image gallery management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -95,10 +93,10 @@ $this->menu = array(
                     'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
                     'type'   => 'textarea',
                     'title'  => Yii::t(
-                            'GalleryModule.gallery',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
-                        ),
+                        'GalleryModule.gallery',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                    ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
@@ -106,29 +104,16 @@ $this->menu = array(
                 'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'GalleryModule.gallery',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/gallery/galleryBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Gallery::STATUS_DRAFT    => ['class' => 'label-default'],
+                    Gallery::STATUS_PERSONAL => ['class' => 'label-info'],
+                    Gallery::STATUS_PRIVATE  => ['class' => 'label-warning'],
+                    Gallery::STATUS_PUBLIC   => ['class' => 'label-success'],
+                ],
             ),
             array(
                 'name'   => 'owner',
@@ -140,10 +125,6 @@ $this->menu = array(
                 'value'  => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
                 'type'   => 'raw',
                 'filter' => false
-            ),
-            array(
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Gallery::STATUS_DRAFT => yupe\helpers\Html::DEF, Gallery::STATUS_PUBLIC => yupe\helpers\Html::SUCCESS])',
-                'type'  => 'raw'
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbButtonColumn',

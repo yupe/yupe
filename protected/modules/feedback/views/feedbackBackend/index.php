@@ -64,16 +64,12 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
     ?>
 </div>
 
-<p>
-    <?php echo Yii::t('FeedbackModule.feedback', 'This section represent feedback management'); ?>
-</p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id'           => 'feed-back-list',
-        'dataProvider' => $model->search(),
-        'filter'       => $model,
+        'id'             => 'feed-back-list',
+        'dataProvider'   => $model->search(),
+        'filter'         => $model,
         'actionsButtons' => [
             CHtml::link(
                 Yii::t('YupeModule.yupe', 'Add'),
@@ -81,7 +77,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns'      => array(
+        'columns'        => array(
             array(
                 'name'        => 'id',
                 'htmlOptions' => array('style' => 'width:20px'),
@@ -139,32 +135,23 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                 'type'     => 'raw',
                 'value'    => '$data->getType()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'type',
-                        $model->getTypeList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'type',
+                    $model->getTypeList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/feedback/feedbackBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/feedback/feedbackBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    FeedBack::STATUS_ANSWER_SENDED => ['class' => 'label-default'],
+                    FeedBack::STATUS_FINISHED      => ['class' => 'label-success'],
+                    FeedBack::STATUS_NEW           => ['class' => 'label-danger'],
+                    FeedBack::STATUS_PROCESS       => ['class' => 'label-info'],
+                ],
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -181,11 +168,11 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                 'type'     => 'raw',
                 'value'    => '$data->getIsFaq()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'is_faq',
-                        $model->getIsFaqList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'is_faq',
+                    $model->getIsFaqList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             'creation_date',
             'answer_date',

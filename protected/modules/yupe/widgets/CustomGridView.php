@@ -84,13 +84,13 @@ class CustomGridView extends \TbExtendedGridView
      **/
     public $headlinePosition = self::HP_RIGHT;
 
-    public $template = "{pager}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 20px;'>{headline}</div>";
+    public $template = "{pager}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 26px 0;'>{headline}</div>";
 
     public $ajaxUrl;
 
     public $selectableRows = 2;
 
-    public $pagerCssClass = 'pull-left';
+    public $pagerCssClass = 'pager-container';
 
     public $actionsButtons = true;
 

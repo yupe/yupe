@@ -44,8 +44,6 @@ $this->menu = array(
 
 <?php $this->renderPartial('_search', array('model' => $model)); ?>
 
-<p><?php echo Yii::t('UserModule.user', 'This section represents token management!'); ?></p>
-
 <?php
 $data = json_encode(
     array(

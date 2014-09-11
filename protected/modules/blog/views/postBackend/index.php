@@ -108,10 +108,10 @@ $this->beginWidget(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('blog_id')))
-                        ),
+                        'BlogModule.blog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('blog_id')))
+                    ),
                     'source' => CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -120,11 +120,11 @@ $this->beginWidget(
                 'name'     => 'blog_id',
                 'type'     => 'raw',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'blog_id',
-                        CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'blog_id',
+                    CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -180,37 +180,11 @@ $this->beginWidget(
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id))',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'create_user_id',
-                        CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(), 'id', 'nick_name'),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
-            ),
-            array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/blog/postBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
+                    $model,
+                    'create_user_id',
+                    CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(), 'id', 'nick_name'),
+                    array('class' => 'form-control', 'empty' => '')
                 ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -219,10 +193,10 @@ $this->beginWidget(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('comment_status')))
-                        ),
+                        'BlogModule.blog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('comment_status')))
+                    ),
                     'source' => array_merge(array('' => '---'), $model->getCommentStatusList()),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -232,11 +206,11 @@ $this->beginWidget(
                 'type'     => 'raw',
                 'value'    => '$data->getCommentStatus()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'comment_status',
-                        $model->getCommentStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'comment_status',
+                    $model->getCommentStatusList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
                 'header' => Yii::t('BlogModule.blog', 'Tags'),
@@ -248,8 +222,16 @@ $this->beginWidget(
                 'type'   => 'raw',
             ),
             array(
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Post::STATUS_DRAFT => "default", Post::STATUS_PUBLISHED => "success", Post::STATUS_SHEDULED => "info", Post::STATUS_MODERATED => "warning"])',
-                'type'  => 'raw'
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/blog/postBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Post::STATUS_PUBLISHED => ['class' => 'label-success'],
+                    Post::STATUS_SCHEDULED => ['class' => 'label-info'],
+                    Post::STATUS_DRAFT     => ['class' => 'label-default'],
+                    Post::STATUS_MODERATED => ['class' => 'label-warning'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

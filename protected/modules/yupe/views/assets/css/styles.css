@@ -281,3 +281,12 @@ table .button-column {
 .nav-tabs {
     margin-bottom: 10px;
 }
+
+/* постраничная навигация в гридах */
+.pager-container {
+    position: absolute;
+}
+
+.pager-container .pagination {
+    margin: 26px 0 0 0;
+}

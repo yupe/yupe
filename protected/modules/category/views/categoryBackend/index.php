@@ -52,8 +52,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('CategoryModule.category', 'This section describes category management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -95,11 +93,11 @@ $this->menu = array(
                 'name'   => 'parent_id',
                 'value'  => '$data->getParentName()',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'parent_id',
-                        Category::model()->getFormattedList(),
-                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
-                    )
+                    $model,
+                    'parent_id',
+                    Category::model()->getFormattedList(),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                )
             ),
             array(
                 'name'   => 'image',
@@ -108,30 +106,15 @@ $this->menu = array(
                 'filter' => false
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/category/categoryBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'CategoryModule.category',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/category/categoryBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Category::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    Category::STATUS_MODERATION => ['class' => 'label-warning'],
+                    Category::STATUS_DRAFT      => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'name'   => 'lang',
