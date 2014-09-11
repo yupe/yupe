@@ -49,6 +49,11 @@
                                         'type'  => 'html'
                                     ),
                                     array(
+                                        'name'   => 'create_date',
+                                        'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+                                        'filter' => false
+                                    ),
+                                    array(
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
                                     ),

@@ -41,6 +41,7 @@
                                         'value' => 'CHtml::link($data->theme, array("/feedback/feedbackBackend/update","id" => $data->id))',
                                         'type'  => 'html'
                                     ),
+                                    'creation_date',
                                     array(
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
