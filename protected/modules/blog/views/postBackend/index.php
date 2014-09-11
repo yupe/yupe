@@ -64,12 +64,12 @@ $this->menu = array(
 );
 ?>
 
-<?php
-$this->beginWidget(
-    'booster.widgets.TbPanel',
-    ['title' => Yii::t('BlogModule.blog', 'Posts'), 'headerIcon' => $this->module->getIcon()]
-);
-?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('BlogModule.blog', 'Posts'); ?>
+        <small><?php echo Yii::t('BlogModule.blog', 'administration'); ?></small>
+    </h1>
+</div>
 
 <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="glyphicon glyphicon-search">&nbsp;</i>
@@ -239,5 +239,3 @@ $this->beginWidget(
         ),
     )
 ); ?>
-
-<?php $this->endWidget(); ?>
