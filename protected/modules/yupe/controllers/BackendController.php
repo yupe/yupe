@@ -116,6 +116,28 @@ class BackendController extends yupe\components\controllers\BackController
     }
 
     /**
+     * Формирует поле для редактирование параметра модуля
+     * @param \yupe\components\WebModule $module
+     * @param $param
+     * @return string
+     */
+    private function getModuleParamRow(\yupe\components\WebModule $module, $param)
+    {
+        $editableParams = $module->getEditableParams();
+        $moduleParamsLabels = $module->getParamsLabels();
+
+        $res = CHtml::label($moduleParamsLabels[$param], $param);
+
+        /* если есть ключ в массиве параметров, то значит этот параметр выпадающий список в вариантами */
+        if (array_key_exists($param, $editableParams)) {
+            $res .= CHtml::dropDownList($param, $module->{$param}, $editableParams[$param], ['class' => 'form-control', 'empty' => Yii::t('YupeModule.yupe', '--choose--')]);
+        } else {
+            $res .= CHtml::textField($param, $module->{$param}, ['class' => 'form-control']);
+        }
+        return $res;
+    }
+
+    /**
      * Экшен отображения настроек модуля:
      *
      * @throws CHttpException
@@ -131,83 +153,38 @@ class BackendController extends yupe\components\controllers\BackController
         }
 
         $editableParams = $module->getEditableParams();
-        $moduleParamsLabels = $module->getParamsLabels();
         $paramGroups = $module->getEditableParamsGroups();
 
-        // разберем элементы по группам
-        $mainParams = array();
-        $elements = array();
+        $groups = array();
+
         foreach ($paramGroups as $name => $group) {
-            $layout = isset($group["items"])
-                ? array_fill_keys($group["items"], $name)
-                : array();
-            $label = isset($group['label'])
-                ? $group['label']
-                : $name;
-
-            if ($name === 'main') {
-                if ($label !== $name) {
-                    $mainParams["paramsgroup_" . $name] = CHtml::tag("h4", array(), $label);
-                }
-                $mainParams = array_merge($mainParams, $layout);
-            } else {
-                $elements["paramsgroup_" . $name] = CHtml::tag("h4", array(), $label);
-                $elements = array_merge($elements, $layout);
-            }
-        }
-
-        foreach ($module as $key => $value) {
-            if (array_key_exists($key, $editableParams)) {
-                $element = CHtml::label($moduleParamsLabels[$key], $key)
-                    . CHtml::dropDownList(
-                        $key,
-                        $value,
-                        $editableParams[$key],
-                        array(
-                            'empty' => Yii::t('YupeModule.yupe', '--choose--'),
-                            'class' => 'form-control'
-                        )
-                    );
-            } else {
-                if (in_array($key, $editableParams)) {
-                    $element = CHtml::label(
-                            (isset($moduleParamsLabels[$key])
-                                ? $moduleParamsLabels[$key]
-                                : $key
-                            ),
-                            $key
-                        ) . CHtml::textField(
-                            $key,
-                            $value,
-                            array(
-                                'maxlength' => 300,
-                                'class'     => 'form-control'
-                            )
-                        );
-                } else {
-                    unset($element);
-                }
-            }
-            if (isset($element)) {
-                if (array_key_exists($key, $elements)) {
-                    $elements[$key] = $element;
-                } else {
-                    $mainParams[$key] = $element;
+            $title = isset($group['label']) ? $group['label'] : $name;
+            $groups[$title] = array();
+            if (isset($group['items'])) {
+                foreach ((array)$group['items'] as $item) {
+                    /*удаляем элементы, которые были в группах*/
+                    if (($key = array_search($item, $editableParams)) !== false) {
+                        unset($editableParams[$key]);
+                    } else {
+                        unset($editableParams['item']);
+                    }
+                    unset($editableParams[$item]);
+                    $groups[$title][] = $this->getModuleParamRow($module, $item);
                 }
             }
         }
 
-        // разместим в начале основные параметры
-        $elements = array_merge($mainParams, $elements);
+        /* если остались параметры без групп, то засунем их в одну группу */
+        if ($editableParams) {
+            $title = Yii::t('YupeModule.yupe', 'Other');
+            $groups[$title] = array();
+            foreach ((array)$editableParams as $key => $params) {
+                /* из-за формата настроек параметров название атрибута будет или ключом, или значением */
+                $groups[$title][] = $this->getModuleParamRow($module, is_string($key) ? $key : $params);
+            }
+        }
 
-        $this->render(
-            'modulesettings',
-            array(
-                'module'             => $module,
-                'elements'           => $elements,
-                'moduleParamsLabels' => $moduleParamsLabels,
-            )
-        );
+        $this->render('modulesettings', ['module' => $module, 'groups' => $groups,]);
     }
 
     /**
@@ -225,11 +202,13 @@ class BackendController extends yupe\components\controllers\BackController
             }
 
             if (!($module = Yii::app()->getModule($moduleId))) {
-                throw new CHttpException(404, Yii::t(
-                    'YupeModule.yupe',
-                    'Module "{module}" was not found!',
-                    array('{module}' => $moduleId)
-                ));
+                throw new CHttpException(
+                    404, Yii::t(
+                        'YupeModule.yupe',
+                        'Module "{module}" was not found!',
+                        array('{module}' => $moduleId)
+                    )
+                );
             }
 
             if ($this->saveParamsSetting($moduleId, $module->getEditableParamsKey())) {
@@ -364,8 +343,7 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer(
-                ) : array("/yupe/backend")
+                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : array("/yupe/backend")
             );
         }
     }
