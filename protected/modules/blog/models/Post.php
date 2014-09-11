@@ -373,7 +373,11 @@ class Post extends yupe\models\YModel implements ICommentable
             $this->create_user_ip = Yii::app()->getRequest()->userHostAddress;
         }
 
-        $this->setTags((array)$this->tags);
+        if (!$this->tags) {
+            $this->removeAllTags();
+        } else {
+            $this->setTags((array)$this->tags);
+        }
 
         return parent::beforeSave();
     }
