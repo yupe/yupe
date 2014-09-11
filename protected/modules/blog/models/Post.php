@@ -63,6 +63,8 @@ class Post extends yupe\models\YModel implements ICommentable
 
     public $tagsItems;
 
+    public $tags;
+
     /**
      * Returns the static model of the specified AR class.
      * @param  string $className
@@ -122,6 +124,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 'filter' => array($obj = new CHtmlPurifier(), 'purify')
             ),
             array('slug', 'unique'),
+            array('tags', 'safe'),
             array(
                 'id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang',
                 'safe',
@@ -284,12 +287,14 @@ class Post extends yupe\models\YModel implements ICommentable
 
         $criteria->with = array('createUser', 'updateUser', 'blog');
 
-        return new CActiveDataProvider('Post', array(
-            'criteria' => $criteria,
-            'sort'     => array(
-                'defaultOrder' => 'publish_date DESC',
+        return new CActiveDataProvider(
+            'Post', array(
+                'criteria' => $criteria,
+                'sort'     => array(
+                    'defaultOrder' => 'publish_date DESC',
+                )
             )
-        ));
+        );
     }
 
     public function allPosts()
@@ -368,6 +373,8 @@ class Post extends yupe\models\YModel implements ICommentable
             $this->create_user_ip = Yii::app()->getRequest()->userHostAddress;
         }
 
+        $this->setTags((array)$this->tags);
+
         return parent::beforeSave();
     }
 
@@ -381,7 +388,7 @@ class Post extends yupe\models\YModel implements ICommentable
             )
         );
 
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     public function beforeValidate()
@@ -398,7 +405,7 @@ class Post extends yupe\models\YModel implements ICommentable
         return array(
             self::STATUS_DRAFT     => Yii::t('BlogModule.blog', 'Draft'),
             self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Published'),
-            self::STATUS_SCHEDULED  => Yii::t('BlogModule.blog', 'Scheduled'),
+            self::STATUS_SCHEDULED => Yii::t('BlogModule.blog', 'Scheduled'),
             self::STATUS_MODERATED => Yii::t('BlogModule.blog', 'Moderated')
         );
     }
@@ -451,14 +458,13 @@ class Post extends yupe\models\YModel implements ICommentable
     public function afterFind()
     {
         $this->publish_date = date('d-m-Y H:i', $this->publish_date);
-
         return parent::afterFind();
     }
 
     public function getQuote($limit = 500)
     {
         return $this->quote
-            ? : yupe\helpers\YText::characterLimiter(
+            ?: yupe\helpers\YText::characterLimiter(
                 $this->content,
                 (int)$limit
             );

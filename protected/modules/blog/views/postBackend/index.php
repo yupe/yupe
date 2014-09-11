@@ -213,8 +213,18 @@ $this->menu = array(
                 ),
             ),
             array(
-                'header' => Yii::t('BlogModule.blog', 'Tags'),
-                'value'  => 'implode(", ", $data->getTags())'
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'editable' => array(
+                    'url'     => $this->createUrl('/blog/postBackend/inline'),
+                    'mode'    => 'inline',
+                    'type'    => 'select2',
+                    'select2' => [
+                        'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+                    ],
+                ),
+                'name'     => 'tags',
+                'value'    => 'join(", ", $data->getTags())',
+                'filter'   => false,
             ),
             array(
                 'header' => "<i class=\"glyphicon glyphicon-comment\"></i>",
