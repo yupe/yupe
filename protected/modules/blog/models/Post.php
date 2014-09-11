@@ -52,7 +52,7 @@ class Post extends yupe\models\YModel implements ICommentable
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
-    const STATUS_SHEDULED = 2;
+    const STATUS_SCHEDULED = 2;
     const STATUS_MODERATED = 3;
 
     const ACCESS_PUBLIC = 1;
@@ -398,7 +398,7 @@ class Post extends yupe\models\YModel implements ICommentable
         return array(
             self::STATUS_DRAFT     => Yii::t('BlogModule.blog', 'Draft'),
             self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Published'),
-            self::STATUS_SHEDULED  => Yii::t('BlogModule.blog', 'Scheduled'),
+            self::STATUS_SCHEDULED  => Yii::t('BlogModule.blog', 'Scheduled'),
             self::STATUS_MODERATED => Yii::t('BlogModule.blog', 'Moderated')
         );
     }

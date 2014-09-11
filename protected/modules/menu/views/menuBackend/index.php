@@ -82,8 +82,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -124,10 +122,10 @@ $this->menu = array(
                     'type'       => 'textarea',
                     'inputclass' => 'input-large',
                     'title'      => Yii::t(
-                            'MenuModule.menu',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
-                        ),
+                        'MenuModule.menu',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                    ),
                     'params'     => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
@@ -135,30 +133,14 @@ $this->menu = array(
                 'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/menu/menuBackend/inline'),
-                    'mode'   => 'inline',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'MenuModule.menu',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/menu/menuBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Menu::STATUS_ACTIVE   => ['class' => 'label-success'],
+                    Menu::STATUS_DISABLED => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'header' => Yii::t('MenuModule.menu', 'Items'),

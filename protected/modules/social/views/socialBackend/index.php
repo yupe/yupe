@@ -57,9 +57,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p> <?php echo Yii::t('social', 'В данном разделе представлены средства управления аккаунтом'); ?>
-</p>
-
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',

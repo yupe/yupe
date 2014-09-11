@@ -52,8 +52,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('ContentBlockModule.contentblock', 'This section presents content blocks management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(

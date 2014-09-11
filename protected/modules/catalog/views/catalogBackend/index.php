@@ -57,14 +57,12 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('CatalogModule.catalog', 'This section describes products manager'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id'           => 'good-grid',
-        'dataProvider' => $model->search(),
-        'filter'       => $model,
+        'id'             => 'good-grid',
+        'dataProvider'   => $model->search(),
+        'filter'         => $model,
         'actionsButtons' => [
             CHtml::link(
                 Yii::t('YupeModule.yupe', 'Add'),
@@ -72,7 +70,7 @@ $this->menu = array(
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns'      => array(
+        'columns'        => array(
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'name',
@@ -104,10 +102,10 @@ $this->menu = array(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'CatalogModule.catalog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))
-                        ),
+                        'CatalogModule.catalog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))
+                    ),
                     'source' => Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -117,11 +115,11 @@ $this->menu = array(
                 'type'     => 'raw',
                 'value'    => '$data->category->name',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'category_id',
-                        Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
-                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
-                    )
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                )
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -148,46 +146,35 @@ $this->menu = array(
                 'filter'   => CHtml::activeTextField($model, 'article', array('class' => 'form-control')),
             ),
             array(
-                'name'   => 'is_special',
-                'type'   => 'raw',
-                'value'  => 'is_special',
-                'filter' => Yii::app()->getModule('catalog')->getChoice()
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'is_special',
+                'url'     => $this->createUrl('/catalog/catalogBackend/inline'),
+                'source'  => $model->getSpecialList(),
+                'options' => [
+                    Good::SPECIAL_ACTIVE     => array('class' => 'label-success'),
+                    Good::SPECIAL_NOT_ACTIVE => array('class' => 'label-default'),
+                ],
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'CatalogModule.catalog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/catalog/catalogBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Good::STATUS_ACTIVE     => ['class' => 'label-success'],
+                    Good::STATUS_NOT_ACTIVE => ['class' => 'label-warning'],
+                    Good::STATUS_ZERO       => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'name'   => 'user_id',
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
                 'filter' => CHtml::listData(
-                        User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),
-                        'id',
-                        'nick_name'
-                    )
+                    User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),
+                    'id',
+                    'nick_name'
+                )
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

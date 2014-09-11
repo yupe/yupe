@@ -32,7 +32,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             'inline' => array(
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Good',
-                'validAttributes' => array('name', 'alias', 'price', 'article', 'status')
+                'validAttributes' => array('name', 'alias', 'price', 'article', 'status', 'category_id', 'is_special')
             )
         );
     }
@@ -142,7 +142,9 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * @param integer идентификатор нужной модели
+     * @param $id integer идентификатор нужной модели
+     * @throws CHttpException
+     * @return Good
      */
     public function loadModel($id)
     {

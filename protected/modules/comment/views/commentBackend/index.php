@@ -52,8 +52,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('CommentModule.comment', 'This section describes comment management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -73,25 +71,16 @@ $this->menu = array(
                 'type'  => 'html'
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/comment/commentBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/comment/commentBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Comment::STATUS_APPROVED   => ['class' => 'label-success'],
+                    Comment::STATUS_DELETED    => ['class' => 'label-default'],
+                    Comment::STATUS_NEED_CHECK => ['class' => 'label-warning'],
+                    Comment::STATUS_SPAM       => ['class' => 'label-danger'],
+                ],
             ),
             array(
                 'name'  => 'creation_date',
