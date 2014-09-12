@@ -85,7 +85,8 @@
         "imagine/imagine": "v0.6.1",
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
-        "yiiext/twig-renderer": "1.1.*"
+        "yiiext/twig-renderer": "1.1.*",
+        "guzzlehttp/guzzle": "4.2.*"
     },
     "repositories": {
         "taggable": {
