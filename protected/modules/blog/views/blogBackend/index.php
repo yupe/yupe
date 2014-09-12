@@ -139,10 +139,10 @@ $this->menu = array(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
-                        ),
+                        'BlogModule.blog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
+                    ),
                     'source' => $model->getTypeList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -152,48 +152,33 @@ $this->menu = array(
                 'type'     => 'raw',
                 'value'    => '$data->getType()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'type',
-                        $model->getTypeList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'type',
+                    $model->getTypeList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
 
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/blog/blogBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/blog/blogBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Blog::STATUS_ACTIVE  => ['class' => 'label-success'],
+                    Blog::STATUS_BLOCKED => ['class' => 'label-default'],
+                    Blog::STATUS_DELETED => ['class' => 'label-danger'],
+                ],
             ),
             array(
                 'name'   => 'category_id',
                 'value'  => 'empty($data->category) ? "---" : $data->category->name',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'category_id',
-                        Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory),
-                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
-                    )
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                )
             ),
             array(
                 'name'   => 'create_user_id',

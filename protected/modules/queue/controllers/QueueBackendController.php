@@ -27,6 +27,17 @@ class QueueBackendController extends yupe\components\controllers\BackController
         );
     }
 
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Queue',
+                'validAttributes' => array('status', 'priority'),
+            )
+        );
+    }
+
     /**
      * Отображает задание по указанному идентификатору
      *
