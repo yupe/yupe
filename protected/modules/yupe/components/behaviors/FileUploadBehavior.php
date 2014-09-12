@@ -1,10 +1,4 @@
 <?php
-/**
- *
- * @package  yupe.modules.yupe.components.behaviors
- *
- */
-
 namespace yupe\components\behaviors;
 
 use CActiveRecordBehavior;
@@ -14,79 +8,68 @@ use Yii;
 
 /**
  * Class FileUploadBehavior
- * @package yupe\components\behaviors
+ * @package yupe.modules.yupe.components.behaviors
  */
 class FileUploadBehavior extends CActiveRecordBehavior
 {
     /**
-     * Атрибут модели для хранения изображения
-     * @var string
+     * @var string attribute to store name of the uploaded file.
      */
     public $attributeName = 'file';
 
     /**
-     * Атрибут для замены имени поля file если необходимо
-     * @var string
+     *
+     * @var string the name of the file input field, used to get instance by name.
+     * Optional. If not set get instance by model attribute will be used.
      */
-    public $fileInstanceName = '';
+    public $fileInstanceName;
 
     /**
-     * Загружаемое изображение
-     * @var
-     */
-    public $image;
-
-    /**
-     * Минимальный размер загружаемого изображения
-     * @var int
+     * @var int minimum file size.
      */
     public $minSize = 0;
 
     /**
-     * Максимальный размер загружаемого изображения
-     * @var int
+     * @var int maximum file size.
      */
     public $maxSize = 5368709120;
 
     /**
-     * Допустимые типы изображений
-     * @var string
+     * @var string allowed file types.
      */
     public $types = 'jpg,jpeg,png,gif';
 
     /**
-     * Список сценариев в которых будет использовано поведение
-     * @var array
+     *
+     * @var array allowed scenarios when this behavior will be used.
      */
     public $scenarios = array('insert', 'update');
 
     /**
-     * Список сценариев в которых изображение обязательно, 'insert, update'
-     * @var
+     * @var string scenarios when file upload is required.
      */
     public $requiredOn;
 
     /**
-     * Callback для генерации имени загружаемого файла
-     * @var
+     * @var callable callback function to generate filename.
+     * Optional. If not set, default implementation will be used.
      */
     public $fileName;
 
     /**
-     * Директория для загрузки изображений
-     * @var
+     * @var mixed path of the upload directory. Callback or string.
      */
     public $uploadPath;
 
     /**
-     * @var CUploadedFile
+     * @var CUploadedFile new uploaded file instance.
      */
-    private $_newFile;
+    protected $_currentFile;
 
     /**
-     * @var CUploadedFile
+     * @var CUploadedFile previous uploaded file instance.
      */
-    private $_oldFile;
+    protected $_prevFile;
 
     /**
      * @param \CComponent $owner
@@ -113,9 +96,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
                 $owner,
                 $this->attributeName,
                 array(
-                    'types'      => $this->types,
-                    'minSize'    => $this->minSize,
-                    'maxSize'    => $this->maxSize,
+                    'types' => $this->types,
+                    'minSize' => $this->minSize,
+                    'maxSize' => $this->maxSize,
                     'allowEmpty' => true,
                 )
             );
@@ -129,12 +112,12 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function afterFind($event)
     {
-        $this->_oldFile = Yii::app()->uploadManager->getFilePath(
-            $this->owner{$this->attributeName},
+        $this->_prevFile = Yii::app()->uploadManager->getFilePath(
+            $this->getOwner()->{$this->attributeName},
             $this->getUploadPath()
         );
 
-        return parent::beforeFind($event);
+        return parent::afterFind($event);
     }
 
     /**
@@ -142,23 +125,22 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function beforeValidate($event)
     {
-        if (empty($this->fileInstanceName)) {
-            $this->_newFile = CUploadedFile::getInstance($this->owner, $this->attributeName);
-        } else {
-            $this->_newFile = CUploadedFile::getInstanceByName($this->fileInstanceName);
-        }
+        $this->_currentFile = $this->fileInstanceName === null
+            ? CUploadedFile::getInstance($this->owner, $this->attributeName)
+            : CUploadedFile::getInstanceByName($this->fileInstanceName);
 
-        if ($this->checkScenario() && $this->_newFile) {
-            $this->owner->{$this->attributeName} = $this->_newFile;
+        if ($this->checkScenario() && $this->_currentFile) {
+            $this->owner->{$this->attributeName} = $this->_currentFile;
         }
     }
 
     /**
      * @param \CModelEvent $event
+     * @return boolean
      */
     public function beforeSave($event)
     {
-        if ($this->checkScenario() && $this->_newFile instanceof CUploadedFile) {
+        if ($this->checkScenario() && $this->_currentFile instanceof CUploadedFile) {
             $this->removeFile();
             $this->saveFile();
         }
@@ -177,20 +159,18 @@ class FileUploadBehavior extends CActiveRecordBehavior
     }
 
     /**
-     *
+     * Remove previous uploaded file.
      */
     public function removeFile()
     {
-        if (@is_file($this->_oldFile)) {
-            @unlink($this->_oldFile);
+        if (@is_file($this->_prevFile)) {
+            @unlink($this->_prevFile);
         }
     }
 
-    /*
-     * Проверяет допустимо ли использовать поведение в текущем сценарии
-     */
     /**
-     * @return bool
+     * Checks whether there is a current scenario in allowed scenarios.
+     * @return bool true if current scenario is allowed.
      */
     public function checkScenario()
     {
@@ -198,30 +178,25 @@ class FileUploadBehavior extends CActiveRecordBehavior
     }
 
     /**
-     *
+     * Save new uploaded file to disk and set model attribute.
      */
     public function saveFile()
     {
-        $fileName = $this->getFileName() . '.' . $this->_newFile->getExtensionName();
-        Yii::app()->uploadManager->save($this->_newFile, $this->getUploadPath(), $fileName);
+        $fileName = $this->getFileName() . '.' . $this->_currentFile->getExtensionName();
+        Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $fileName);
         $this->owner->{$this->attributeName} = $fileName;
     }
 
     /**
-     * @param $name
+     * @param $name string the name of the file input field.
      */
     public function addFileInstanceName($name)
     {
         $this->fileInstanceName = $name;
     }
 
-    /*
-     * Получить имя файла
-     * Свойство может быть задано как callback
-     */
     /**
-     *
-     * @return mixed|string
+     * @return string generated file name.
      */
     public function getFileName()
     {
@@ -231,16 +206,23 @@ class FileUploadBehavior extends CActiveRecordBehavior
     }
 
     /**
-     * Получить каталог для загрузки изображений
-     * С версии 0.7 может быть задан как callback
-     *
-     * @since 0.7
-     * @return string
+     * @return string path of the upload directory.
      */
     public function getUploadPath()
     {
         return is_callable($this->uploadPath)
             ? call_user_func($this->uploadPath)
             : $this->uploadPath;
+    }
+
+    /**
+     * @return string url to uploaded file.
+     */
+    public function getFileUrl()
+    {
+        return Yii::app()->uploadManager->getFileUrl(
+            $this->getOwner()->{$this->attributeName},
+            $this->uploadPath
+        );
     }
 }
