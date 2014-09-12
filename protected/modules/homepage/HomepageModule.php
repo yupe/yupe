@@ -85,7 +85,7 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getAuthor()
     {
-        return Yii::t('HomepageModule.homepage', 'Andrey Opeykin');
+        return 'amylabs team';
     }
 
     public function getUrl()

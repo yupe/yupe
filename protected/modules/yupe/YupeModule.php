@@ -602,7 +602,7 @@ class YupeModule extends WebModule
      **/
     public function getAuthor()
     {
-        return Yii::t('YupeModule.yupe', 'yupe team');
+        return 'yupe team';
     }
 
     /**

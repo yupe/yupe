@@ -28,22 +28,22 @@
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
                             array(
-                                'id'           => 'feedback-grid',
-                                'type'         => 'striped condensed',
+                                'id' => 'feedback-grid',
+                                'type' => 'striped condensed',
                                 'dataProvider' => $dataProvider,
-                                'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'template' => '{items}',
+                                'htmlOptions' => array(
                                     'class' => false
                                 ),
-                                'columns'      => array(
+                                'columns' => array(
                                     array(
-                                        'name'  => 'theme',
+                                        'name' => 'theme',
                                         'value' => 'CHtml::link($data->theme, array("/feedback/feedbackBackend/update","id" => $data->id))',
-                                        'type'  => 'html'
+                                        'type' => 'html'
                                     ),
                                     'creation_date',
                                     array(
-                                        'name'  => 'status',
+                                        'name' => 'status',
                                         'value' => '$data->getStatus()',
                                     ),
                                 ),

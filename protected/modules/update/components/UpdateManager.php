@@ -19,8 +19,6 @@ class UpdateManager extends CApplicationComponent
 
     protected $client;
 
-    protected $cacheKey = 'yupe::update::info';
-
     public function init()
     {
         parent::init();
@@ -36,13 +34,13 @@ class UpdateManager extends CApplicationComponent
     {
         try
         {
-            $data = Yii::app()->getCache()->get($this->cacheKey);
+            $data = Yii::app()->getCache()->get('yupe::update::info');
 
             if(false === $data) {
 
                 $data = $this->client->get($this->checkUpdateUrl)->json();
 
-                Yii::app()->getCache()->set($this->cacheKey, $data, $this->cacheTime);
+                Yii::app()->getCache()->set('yupe::update::info', $data, $this->cacheTime);
             }
 
             return $data;
@@ -57,6 +55,13 @@ class UpdateManager extends CApplicationComponent
 
     public function getModulesUpdateList(array $modules)
     {
+        $data = Yii::app()->getCache()->get('yupe::update::list');
+
+        if(false !== $data) {
+
+            return $data;
+        }
+
         $updates = $this->getModulesUpdateInfo();
 
         $data = ['total' => 0, 'modules' => [],'result' => !empty($updates)];
@@ -81,6 +86,20 @@ class UpdateManager extends CApplicationComponent
             ];
         }
 
+        Yii::app()->getCache()->set('yupe::update::list', $data, $this->cacheTime);
+
         return $data;
     }
+
+    public function getUpdatesCount()
+    {
+        $data = Yii::app()->getCache()->get('yupe::update::list');
+
+        if(false === $data) {
+            return false;
+        }
+
+        return isset($data['total']) ? $data['total'] : 0;
+    }
+
 } 

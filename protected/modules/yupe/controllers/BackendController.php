@@ -247,7 +247,7 @@ class BackendController extends yupe\components\controllers\BackController
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Themes settings saved successfully!')
                 );
-                Yii::app()->cache->clear('yupe');
+                Yii::app()->getCache()->clear('yupe');
             } else {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
@@ -400,7 +400,7 @@ class BackendController extends yupe\components\controllers\BackController
             case 'cacheAll':
 
                 try {
-                    Yii::app()->cache->flush();
+                    Yii::app()->getCache()->flush();
                     $this->_cleanAssets();
                     if (Yii::app()->configManager->isCached()) {
                         Yii::app()->configManager->flushDump();
@@ -421,7 +421,7 @@ class BackendController extends yupe\components\controllers\BackController
              **/
             case 'cacheFlush':
                 try {
-                    Yii::app()->cache->flush();
+                    Yii::app()->getCache()->flush();
                     Yii::app()->ajax->success(
                         Yii::t('YupeModule.yupe', 'Cache cleaned successfully!')
                     );
@@ -446,7 +446,7 @@ class BackendController extends yupe\components\controllers\BackController
              **/
             case 'cacheAssetsFlush':
                 try {
-                    Yii::app()->cache->flush();
+                    Yii::app()->getCache()->flush();
                     if ($this->_cleanAssets()) {
                         Yii::app()->ajax->success(
                             Yii::t('YupeModule.yupe', 'Assets and cache cleaned successfully!')

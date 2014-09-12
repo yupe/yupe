@@ -41,7 +41,7 @@ class SocialModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('SocialModule.social', 'amyLabs');
+        return 'amylabs team';
     }
 
     public function getAuthorEmail()

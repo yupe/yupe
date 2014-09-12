@@ -18,5 +18,6 @@ return array(
     'The error occurred. Failed to receive information about updates. Try later.' => 'Произошла ошибка. Не удалось получить информацию об обновлениях. Попробуйте позже.',
     'Check for updates' => 'Проверить обновления',
     'You have the most current version' => 'У Вас установлены самые актуальные версии модулей!',
-    'Available updates: total !' => 'Доступно обновлений: <strong>total</strong>. Рекомендуем обновиться!'
+    'Available updates: total !' => 'Доступно обновлений: <strong>total</strong>. Рекомендуем обновиться!',
+    'Check ?' => 'Проверить снова ?'
 );

@@ -634,10 +634,10 @@ abstract class WebModule extends CWebModule
      */
     public function getActivate($noDependent = false)
     {
-        $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
-
-        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+        Yii::app()->getCache()->flush();
         Yii::app()->configManager->flushDump();
+
+        $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
 
         if (is_file($fileConfig) && $this->id != ModuleManager::INSTALL_MODULE) {
             return true;
@@ -696,12 +696,12 @@ abstract class WebModule extends CWebModule
      */
     public function getDeActivate($noDependent = false)
     {
+        Yii::app()->getCache()->flush();
+        Yii::app()->configManager->flushDump();
+
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->id);
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->id);
         $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($this->id);
-
-        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        Yii::app()->configManager->flushDump();
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));

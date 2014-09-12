@@ -177,7 +177,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getAuthor()
     {
-        return Yii::t('DocsModule.docs', 'YupeTeam');
+        return 'yupe team';
     }
 
     /**

@@ -35,8 +35,8 @@ $this->breadcrumbs = array(
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#check-for-update-modal').modal('show');
         $.post('<?php echo Yii::app()->createUrl('/update/updateBackend/index')?>', {'<?php echo Yii::app()->getRequest()->csrfTokenName;?>': '<?php echo Yii::app()->getRequest()->csrfToken;?>'}, function (response) {
-            $('#check-for-update-modal').modal('show');
             if (response.result) {
                 $('#result').html(response.data);
                 $('#check-for-update-modal').modal('hide');
