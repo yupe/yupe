@@ -160,8 +160,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
 
     /**
      * Remove previous uploaded file.
+     * @return void.
      */
-    public function removeFile()
+    protected function removeFile()
     {
         if (@is_file($this->_prevFile)) {
             @unlink($this->_prevFile);
@@ -179,12 +180,12 @@ class FileUploadBehavior extends CActiveRecordBehavior
 
     /**
      * Save new uploaded file to disk and set model attribute.
+     * @return void.
      */
     public function saveFile()
     {
-        $fileName = $this->getFileName() . '.' . $this->_currentFile->getExtensionName();
-        Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $fileName);
-        $this->owner->{$this->attributeName} = $fileName;
+        Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $this->getFileName());
+        $this->owner->{$this->attributeName} = $this->getFileName();
     }
 
     /**
@@ -200,9 +201,18 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function getFileName()
     {
-        return is_callable($this->fileName)
-            ? call_user_func($this->fileName)
-            : md5(microtime(true) . uniqid());
+        static $name;
+
+        if ($name === null) {
+            if (is_callable($this->fileName)) {
+                $name = call_user_func($this->fileName);
+            } else {
+                $name = md5(microtime(true) . uniqid());
+            }
+            $name .= '.' . $this->_currentFile->getExtensionName();
+        }
+
+        return $name;
     }
 
     /**
@@ -220,9 +230,6 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function getFileUrl()
     {
-        return Yii::app()->uploadManager->getFileUrl(
-            $this->getOwner()->{$this->attributeName},
-            $this->uploadPath
-        );
+        return Yii::app()->uploadManager->getFileUrl($this->getOwner()->{$this->attributeName}, $this->uploadPath);
     }
 }
