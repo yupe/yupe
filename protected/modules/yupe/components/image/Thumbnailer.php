@@ -20,7 +20,7 @@ class Thumbnailer extends \CApplicationComponent
         $width,
         $height,
         $mode = ImageInterface::THUMBNAIL_OUTBOUND,
-        $saveOptions = array()
+        $options = array()
     ) {
         $name = $width . 'x' . $height . '_' . $mode . '_' . $file;
         $cacheId = $this->cachePrefix . $name;
@@ -50,7 +50,7 @@ class Thumbnailer extends \CApplicationComponent
                     $width,
                     $height,
                     $mode
-                )->save($thumbFile, $saveOptions);
+                )->save($thumbFile, $options);
             }
 
             $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;

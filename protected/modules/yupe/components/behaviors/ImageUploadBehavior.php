@@ -85,7 +85,7 @@ class ImageUploadBehavior extends FileUploadBehavior
         $this->getOwner()->{$this->attributeName} = $this->getFileName();
     }
 
-    public function getImageUrl($width = 0, $height = 0, $isAdaptive = true)
+    public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = array())
     {
         if ($width || $height) {
             $width = $width === 0 ? $height : $width;
@@ -96,7 +96,8 @@ class ImageUploadBehavior extends FileUploadBehavior
                 $this->uploadPath,
                 $width,
                 $height,
-                $isAdaptive ? ImageInterface::THUMBNAIL_OUTBOUND : ImageInterface::THUMBNAIL_INSET
+                $isAdaptive ? ImageInterface::THUMBNAIL_OUTBOUND : ImageInterface::THUMBNAIL_INSET,
+                $options
             );
 
         }
