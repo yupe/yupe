@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Файл конфигурации модуля
  *
  * @category YupeForms
@@ -15,7 +14,7 @@ return array(
 	'module'  => array(
 		'class' => 'application.modules.install.InstallModule',
 	),
-	'rules'   => array(
+	'rules' => array(
 		// правила контроллера site
 		'/' => '/install/default/index'
 	),

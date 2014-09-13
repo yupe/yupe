@@ -234,4 +234,5 @@ return array (
   'All discussions here' => '',
   'Just good guys' => 'Просто отличные парни =)',
   'Please, select your language below for continue.' => 'Пожалуйста, выберите язык ниже для продолжения.',
+  'Property doesn\'t exists in InstallForm' => 'Указанный атрибут не найден в InstallForm',
 );

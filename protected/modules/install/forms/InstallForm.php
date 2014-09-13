@@ -24,15 +24,15 @@ class InstallForm extends yupe\models\YFormModel
     /**
      * Параметры для настройки БД:
      **/
-    public $host        = '127.0.0.1';
-    public $port        = '3306';
-    public $socket      = '';
+    public $host		= '127.0.0.1';
+    public $port		= '3306';
+    public $socket;
     public $dbName;
     public $createDb;
     public $dbUser;
     public $dbPassword;
     public $tablePrefix = 'yupe_';
-    public $dbType      = self::DB_MYSQL;
+    public $dbType		= self::DB_MYSQL;
 
     /**
      * Для создания пользователя:
@@ -50,17 +50,30 @@ class InstallForm extends yupe\models\YFormModel
     public $siteKeyWords    = 'Юпи!, yupe, yii, cms, цмс';
     public $siteEmail;
     public $theme           = 'default';
-    public $backendTheme    = '';
+    public $backendTheme;
 
     public $email;
 
-    public function init()
-    {
-        $this->siteName = Yii::t('InstallModule.install','Yupe!');
-        $this->siteKeyWords = Yii::t('InstallModule.install','Yupe!, yupe, cms, yii');
-        $this->siteDescription = Yii::t('InstallModule.install','Yupe! - the fastest way to create a site build on top of Yiiframework!');
-        parent::init();
-    }
+	/**
+	 * Инициализация формы
+	 */
+	public function init() {
+		$this->siteName = Yii::t('InstallModule.install','Yupe!');
+		$this->siteKeyWords = Yii::t('InstallModule.install','Yupe!, yupe, cms, yii');
+		$this->siteDescription = Yii::t('InstallModule.install','Yupe! - the fastest way to create a site build on top of Yiiframework!');
+
+		// -- Получаем настройки по умолчанию
+		$module = Yii::app()->getModule('install');/** @var InstallModule $module */
+		if (is_array($module->defaultAttributes)) {
+			foreach ($module->defaultAttributes as $attribute => $value) {
+				if (!property_exists($this, $attribute)) throw new CException(Yii::t('InstallModule.install', 'Property doesn\'t exists in InstallForm') . ': ' . CHtml::encode($attribute));
+				$this->{$attribute} = $value;
+			}
+		}
+		// -- -- -- --
+
+		parent::init();
+	}
 
     /**
      * Правила валидации параметров формы:

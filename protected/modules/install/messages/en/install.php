@@ -226,4 +226,5 @@ return array (
     'All discussions here' => '',
     'Just good guys' => '',
     'Please, select your language below for continue.' => '',
+    'Property doesn\'t exists in InstallForm' => '',
 );
