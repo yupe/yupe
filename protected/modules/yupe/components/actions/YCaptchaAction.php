@@ -41,6 +41,8 @@ class YCaptchaAction extends CCaptchaAction
 
         $module = $controller->getModule();
 
+        if (isNull($module)) return; 
+        
         if(property_exists($module,"minCaptchaLength")) {
             $this->minLength = $module->minCaptchaLength;
         }
