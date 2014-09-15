@@ -36,7 +36,7 @@ return array(
         '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
     ),
     'module'    => array(
-        'components' => array(
+        'components'    => array(
             'bootstrap' => array(
                 'class'            => 'vendor.clevertech.yii-booster.src.components.Booster',
                 'coreCss'          => true,
@@ -48,5 +48,16 @@ return array(
                 'enableNotifierJS' => false,
             ),
         ),
+        'visualEditors' => [
+            'redactor' => [
+                'class' => 'yupe\widgets\editors\Redactor',
+            ],
+            'ckeditor' => [
+                'class' => 'yupe\widgets\editors\CKEditor',
+            ],
+            'textarea' => [
+                'class' => 'yupe\widgets\editors\Textarea',
+            ],
+        ],
     )
 );

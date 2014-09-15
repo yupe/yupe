@@ -148,11 +148,10 @@ $form = $this->beginWidget(
         <div class="form-group">
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
-                $this->module->editor,
+                $this->module->getVisualEditor(),
                 array(
                     'model'     => $model,
                     'attribute' => 'description',
-                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
             <?php echo $form->error($model, 'description', array('class' => 'help-block error')); ?>
@@ -165,11 +164,10 @@ $form = $this->beginWidget(
         <div class="form-group">
             <?php echo $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
-                $this->module->editor,
+                $this->module->getVisualEditor(),
                 array(
                     'model'     => $model,
                     'attribute' => 'short_description',
-                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
             <br/>
