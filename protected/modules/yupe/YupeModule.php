@@ -74,10 +74,7 @@ class YupeModule extends WebModule
      * @var string
      */
     public $coreModuleId = 'yupe';
-    /**
-     * @var string
-     */
-    public $editorsDir = 'application.modules.yupe.widgets.editors';
+
     /**
      * @var string
      */
@@ -131,6 +128,12 @@ class YupeModule extends WebModule
      * Массив фильтров для контроллеров панели управления
      */
     protected $backEndFilters = array(array('yupe\filters\YBackAccessControl'));
+
+    public $visualEditors = [
+        'redactor' => [
+            'class' => 'yupe\widgets\editors\RedactorEditor',
+        ],
+    ];
 
     /**
      * @return array
@@ -666,36 +669,11 @@ class YupeModule extends WebModule
      * Метод возвращает список доступных для использования в панели управления визуальных редакторов
      *
      * @since 0.4
-     * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
-     *
-     * Для добавления нового редатора необходимо:
-     * Скопировать каталог с виджетом редактора в application.modules.yupe.widgets.editors
-     * php-файл с виджетом должен иметь имя *Widget.php, например "EImperaviRedactorWidget"
-     *
-     * @return mixed
+     * @return array
      */
     public function getEditors()
     {
-        if (($widgets = Yii::app()->cache->get('Yupe::editors')) === false) {
-            $path = Yii::getPathOfAlias($this->editorsDir);
-            $widgets = array();
-            if ($path && $handler = opendir($path)) {
-                while (($dir = readdir($handler))) {
-                    if ($dir != '.' && $dir != '..' && !is_file($dir)) {
-                        //посмотреть внутри файл с окончанием Widget.php
-                        $files = glob($path . '/' . $dir . '/' . '*Widget.php');
-                        if (count($files) == 1) {
-                            $editor = $this->editorsDir . '.' . $dir . '.' . basename(array_shift($files), '.php');
-                            $widgets[$editor] = $editor;
-                        }
-                    }
-                }
-                closedir($handler);
-            }
-            Yii::app()->cache->set('Yupe::editors', $widgets);
-        }
-
-        return $widgets;
+        return array_combine(array_keys($this->visualEditors), array_keys($this->visualEditors));
     }
 
     /**

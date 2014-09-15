@@ -70,11 +70,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'body'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'body',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
@@ -84,11 +83,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'description',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
