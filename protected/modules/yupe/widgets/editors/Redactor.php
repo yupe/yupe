@@ -12,6 +12,13 @@ class Redactor extends \CInputWidget
 
     public function run()
     {
+        Yii::app()->getClientScript()->registerCss(
+            'redactor-toolbar-fixed',
+            ".toolbar_fixed_box {
+                top: 53px !important;
+            }"
+        );
+
         $this->widget(
             $this->redactorWidgetClass,
             [
@@ -35,7 +42,8 @@ class Redactor extends \CInputWidget
                     type: \'danger\',
                     fadeOut: {delay: 5000}
                 }).show();
-                }'
+                }',
+            'toolbarFixedBox'         => true,
         );
     }
 }
