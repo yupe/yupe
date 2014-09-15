@@ -11,7 +11,7 @@
 $this->beginContent("docs.views.layouts.docs");
 ?>
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-10">
         <!-- breadcrumbs -->
         <?php $this->widget(
             'bootstrap.widgets.TbBreadcrumbs',
@@ -39,8 +39,8 @@ $this->beginContent("docs.views.layouts.docs");
         <!-- content -->
         <div id="footer-guard"><!-- --></div>
     </div>
-    <div class="col-sm-3">
-        <div class="well">
+    <div class="col-sm-2">
+        <div class="panel panel-default" style="padding: 8px 0;">
             <?php
             $this->widget(
                 'bootstrap.widgets.TbMenu',
@@ -50,7 +50,7 @@ $this->beginContent("docs.views.layouts.docs");
                 )
             ); ?>
         </div>
-        <div class="well" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
+        <div class="panel panel-default" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
         <div class="alert alert-warning">
             <strong><?php echo Yii::app()->name; ?></strong> разрабатывается <a
                 href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной

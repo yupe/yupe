@@ -84,9 +84,10 @@
     ?>
     <!-- /mainmenu -->
     <!-- content -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="page">
         <?php echo $content; ?>
     </div>
+    <div id="footer-guard"></div>
     <!-- /content -->
 </div>
 <footer>
