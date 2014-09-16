@@ -12,7 +12,7 @@ class UpdateManager extends CApplicationComponent
 
     const LOG_CATEGORY = 'update-center';
 
-    public $checkUpdateUrl = 'http://update.yupe.ru/update/check';
+    protected  $checkUpdateUrl = 'http://update.yupe.ru/update/check';
 
     // 8 часов
     public $cacheTime = 43200;
