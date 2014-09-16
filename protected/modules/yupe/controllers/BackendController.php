@@ -362,11 +362,13 @@ class BackendController extends yupe\components\controllers\BackController
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('YupeModule.yupe', 'Module name is not set!')
             );
-
-            $this->redirect(
-                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : array("/yupe/backend")
-            );
         }
+        
+        $this->redirect(
+            Yii::app()->getRequest()->getUrlReferrer() !== null 
+                ? Yii::app()->getRequest()->getUrlReferrer()
+                : array("/yupe/backend")
+        );
     }
 
     /**
