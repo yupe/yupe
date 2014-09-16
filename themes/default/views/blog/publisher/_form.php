@@ -42,8 +42,7 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(
-                            Blog::model()->getListForUser(Yii::app()->getUser()->getId()),
+                    'data' => CHtml::listData($blogs,
                             'id',
                             'name'
                         ),

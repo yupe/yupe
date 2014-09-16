@@ -53,9 +53,7 @@ class PublisherController extends yupe\components\controllers\FrontController
             }
         }
 
-        $blogs = Blog::model()->getListForUser(Yii::app()->getUser()->getId());
-
-        $this->render('write', array('post' => $post, 'blogs' => $blogs));
+        $this->render('write', [ 'post' => $post, 'blogs' => (new Blog())->getListForUser(Yii::app()->getUser()->getId()) ]);
     }
 
     public function actionMy()

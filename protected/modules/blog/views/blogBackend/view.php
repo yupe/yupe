@@ -116,6 +116,17 @@ $this->menu = array(
                 'type' => 'raw'
             ),
             array(
+                'name'  => 'create_user_id',
+                'value' => CHtml::link($model->createUser->getFullName(), ['/user/userBackend/view', 'id' => $model->createUser->id]),
+                'type'  => 'raw'
+            ),
+            array(
+                'name'  => 'update_user_id',
+                'value' => CHtml::link($model->updateUser->getFullName(), ['/user/userBackend/view', 'id' => $model->updateUser->id]),
+                'type'  => 'raw'
+            ),
+
+            array(
                 'name'  => Yii::t('BlogModule.blog', 'Posts'),
                 'value' => $model->postsCount
             ),

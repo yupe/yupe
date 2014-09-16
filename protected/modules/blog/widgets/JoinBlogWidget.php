@@ -19,8 +19,9 @@ class JoinBlogWidget extends \yupe\widgets\YWidget
 
     public function run()
     {
-        $inBlog = $this->blog->userIn($this->user->getId(), false);
-
-        $this->render($this->view, array('inBlog' => $inBlog, 'user' => $this->user, 'blog' => $this->blog));
+        $this->render(
+            $this->view,
+            ['inBlog' => $this->blog->userIn($this->user->getId(), false), 'user' => $this->user, 'blog' => $this->blog]
+        );
     }
 }
