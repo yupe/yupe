@@ -73,6 +73,11 @@ class Post extends yupe\models\YModel implements ICommentable
     /**
      *
      */
+    const STATUS_DELETED = 4;
+
+    /**
+     *
+     */
     const ACCESS_PUBLIC = 1;
     /**
      *
@@ -403,7 +408,7 @@ class Post extends yupe\models\YModel implements ICommentable
     public function getImageUrl()
     {
         if ($this->image) {
-            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+            return Yii::app()->getBaseUrl() . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
             Yii::app()->getModule('blog')->uploadPath . '/' . $this->image;
         }
 
@@ -419,7 +424,7 @@ class Post extends yupe\models\YModel implements ICommentable
 
         $this->update_user_id = Yii::app()->user->getId();
 
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->create_user_id = $this->update_user_id;
             $this->create_user_ip = Yii::app()->getRequest()->userHostAddress;
         }
@@ -470,7 +475,8 @@ class Post extends yupe\models\YModel implements ICommentable
             self::STATUS_DRAFT => Yii::t('BlogModule.blog', 'Draft'),
             self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Published'),
             self::STATUS_SCHEDULED => Yii::t('BlogModule.blog', 'Scheduled'),
-            self::STATUS_MODERATED => Yii::t('BlogModule.blog', 'Moderated')
+            self::STATUS_MODERATED => Yii::t('BlogModule.blog', 'Moderated'),
+            self::STATUS_DELETED   => Yii::t('BlogModule.blog', 'Deleted')
         );
     }
 
@@ -721,7 +727,7 @@ class Post extends yupe\models\YModel implements ICommentable
      * @param $tags
      * @return bool
      */
-    public function createPublicPost(array $post, $tags)
+    public function createPublicPost(array $post)
     {
         if (empty($post['blog_id']) || empty($post['user_id'])) {
             $this->addError('blog_id', Yii::t('BlogModule.blog', "Post form error!"));
@@ -750,9 +756,9 @@ class Post extends yupe\models\YModel implements ICommentable
         }
 
         $this->setAttributes($post);
-        $this->setTags($tags);
+        $this->setTags($post['tags']);
         $this->publish_date = date('d-m-Y h:i');
-        $this->status = $blog->post_status;
+        $this->status = $post['status'] == self::STATUS_DRAFT ? self::STATUS_DRAFT : $blog->post_status;
 
         return $this->save();
     }
@@ -777,7 +783,7 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function deleteUserPost($postId, $userId)
     {
-        return $this->deleteAll(
+        return $this->updateAll(['status' => self::STATUS_DELETED],
             'create_user_id = :userId AND id = :id AND status != :status',
             array(
                 ':userId' => (int)$userId,
