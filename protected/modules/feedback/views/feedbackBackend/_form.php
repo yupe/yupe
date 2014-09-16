@@ -88,12 +88,11 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'id'        => substr(md5(microtime()), 0, 7),
                 'model'     => $model,
                 'attribute' => 'text',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'text'); ?>
@@ -103,12 +102,11 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'answer'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'id'        => substr(md5(microtime()), 0, 7),
                 'model'     => $model,
                 'attribute' => 'answer',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'answer'); ?>

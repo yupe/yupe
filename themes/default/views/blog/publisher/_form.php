@@ -130,11 +130,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'content'); ?>
         <?php
         $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'content',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>

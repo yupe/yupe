@@ -75,11 +75,10 @@ $form = $this->beginWidget(
          data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->yupe->editor,
+            $this->yupe->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'description',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>

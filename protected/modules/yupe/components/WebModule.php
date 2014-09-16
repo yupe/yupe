@@ -74,13 +74,14 @@ abstract class WebModule extends CWebModule
     public $coreCacheTime = 3600;
 
     /**
-     * @var array редактор
+     * @var string - id редактора
      */
-    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
+    public $editor = 'redactor';
+
     /**
-     * @var array опции редактора
+     * @var null|string - класс редактора
      */
-    public $editorOptions = array();
+    private $visualEditor = null;
 
     /**
      * @var bool | string
@@ -1028,22 +1029,6 @@ abstract class WebModule extends CWebModule
      **/
     public function beforeControllerAction($controller, $action)
     {
-        $this->editorOptions = \CMap::mergeArray(
-            array(
-                'imageUpload'             => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
-                'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
-                'imageGetJson'            => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
-                'fileUploadErrorCallback' => 'js:function (data) {
-    $(\'#notifications\').notify({
-        message: {text: data.error},
-        type: \'danger\',
-        fadeOut: {delay: 5000}
-    }).show();
-}'
-            ),
-            $this->editorOptions
-        );
-
         if ($controller instanceof \yupe\components\controllers\BackController) {
             Yii::app()->errorHandler->errorAction = 'yupe/backend/error';
         }
@@ -1136,4 +1121,19 @@ abstract class WebModule extends CWebModule
         return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => $this->getId()]);
     }
 
+    /**
+     * Возвращает класс виджета выбранного редактора
+     *
+     * @return string|null
+     * @throws CException
+     */
+    public function getVisualEditor()
+    {
+        if ($this->visualEditor === null) {
+            $yupe = Yii::app()->getModule('yupe');
+            $editor = $this->editor ?: $yupe->editor;
+            $this->visualEditor = $yupe->visualEditors[$editor]['class'];
+        }
+        return $this->visualEditor;
+    }
 }
