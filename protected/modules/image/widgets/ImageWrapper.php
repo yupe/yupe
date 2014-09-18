@@ -10,7 +10,9 @@
  * @since 0.1
  *
  */
-class ImageWrapper extends CWidget
+use yupe\widgets\YWidget;
+
+class ImageWrapper extends YWidget
 {
     public $width = '100px';
     /**

@@ -28,6 +28,8 @@
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.2/styles/github.min.css">
+    <script src="http://yastatic.net/highlightjs/8.2/highlight.min.js"></script>
 </head>
 
 <body>

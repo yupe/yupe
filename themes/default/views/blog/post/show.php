@@ -46,7 +46,7 @@ $this->breadcrumbs = array(
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="post">
             <p>
                 <?php if ($post->image): ?>
                     <?php echo CHtml::image($post->getImageUrl()); ?>
@@ -103,3 +103,22 @@ $this->breadcrumbs = array(
     ?>
 
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#post img').addClass('img-responsive');
+        $('pre').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
+<?php $this->widget('application.modules.image.widgets.colorbox.ColorBoxWidget', ['targets' => [
+        '#post img' => [
+          'maxWidth' => 1200,
+          'maxHeight' => 800,
+          'href' => new CJavaScriptExpression("js:function(){
+                    return $(this).prop('src');
+                }")
+            ]
+    ]]);?>
