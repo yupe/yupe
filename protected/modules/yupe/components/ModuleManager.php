@@ -318,7 +318,7 @@ class ModuleManager extends \CApplicationComponent
                         if(!$this->isValidModule($dir)) {
                             continue;
                         }
-                        if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
+                        if ($dir != '.' && $dir != '..' && !is_file($path.'/'.$dir) && !isset($enableModule[$dir])) {
                             $modules[$dir] = $this->getCreateModule($dir);
                             $imports[] = Yii::app()->cache->get('tmpImports');
                         }
