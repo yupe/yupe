@@ -306,7 +306,7 @@ class Menu extends yupe\models\YModel
         $menuItem = MenuItem::model()->findByAttributes(array("title" => $oldTitle));
 
         if ($menuItem === null) {
-            return $this->addItem($newTitle, $href, $parentId);
+            return $this->addItem($newTitle, $href, $parentId, $regularLink);
         }
 
         $menuItem->parent_id = (int)$parentId;
