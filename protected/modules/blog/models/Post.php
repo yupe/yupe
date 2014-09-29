@@ -432,7 +432,7 @@ class Post extends yupe\models\YModel implements ICommentable
         if (!$this->tags) {
             $this->removeAllTags();
         } else {
-            $this->setTags((array)$this->tags);
+            $this->setTags($this->tags);
         }
 
         return parent::beforeSave();
