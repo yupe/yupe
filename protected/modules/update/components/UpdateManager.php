@@ -129,6 +129,8 @@ class UpdateManager extends CApplicationComponent
             return $data;
         } catch (\Exception $e) {
 
+            var_dump($e);die();
+
             Yii::log($e->__toString(), \CLogger::LEVEL_ERROR, static::LOG_CATEGORY);
 
             return false;
@@ -258,6 +260,8 @@ class UpdateManager extends CApplicationComponent
 
             return true;
         } catch (\Exception $e) {
+
+            var_dump($e);die();
 
             Yii::log(
                 sprintf('Error download module file %e', $e->__toString()),
