@@ -1,10 +1,15 @@
 <?php
 
-class UpdateModule extends \yupe\components\WebModule
+use yupe\components\WebModule;
+use yupe\helpers\YFile;
+
+class UpdateModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.7';
 
     public $controllerNamespace = '\application\modules\update\controllers';
+
+    public $updateTmpPath;
 
     public function getCategory()
     {
@@ -73,6 +78,45 @@ class UpdateModule extends \yupe\components\WebModule
                 'update.components.*',
             )
         );
+
+        $this->updateTmpPath = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'updates';
     }
 
+    public function getInstall()
+    {
+        if (parent::getInstall()) {
+            YFile::checkPath($this->updateTmpPath);
+        }
+
+        return false;
+    }
+
+    public function checkSelf()
+    {
+        $messages = array();
+
+        if (!YFile::checkPath($this->updateTmpPath)) {
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
+                'message' => Yii::t(
+                        'UpdateModule.update',
+                        'Please, choose catalog for updates!'
+                    ),
+            );
+        }
+
+        if (!YFile::checkPath(Yii::getPathOfAlias("application.modules"))) {
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
+                'message' => Yii::t(
+                    'UpdateModule.update',
+                    'Directory {dir} is not writable!',
+                    ['{dir}' => Yii::getPathOfAlias("application.modules")]
+                ),
+            );
+        }
+
+
+        return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
+    }
 }

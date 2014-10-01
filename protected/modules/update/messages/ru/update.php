@@ -19,5 +19,10 @@ return array(
     'Check for updates' => 'Проверить обновления',
     'You have the most current version' => 'У Вас установлены самые актуальные версии модулей!',
     'Available updates: total !' => 'Доступно обновлений: <strong>total</strong>. Рекомендуем обновиться!',
-    'Check ?' => 'Проверить снова ?'
+    'Check ?' => 'Проверить снова ?',
+    'update'  => 'Обновить',
+    'Module update. Please, wait...' => 'Обновление модуля, пожалуйста, подождите...',
+    'Module updated!' => 'Модуль обновлен!',
+    'Directory {dir} is not writable!' => 'Каталог {dir} недоступен для записи!',
+    'Before upgrading, please backup your site and database!' => 'Перед обновлением, пожалуйста, сделайте резервную копию сайта и базы данных!'
 );

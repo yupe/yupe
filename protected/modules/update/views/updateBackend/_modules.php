@@ -1,4 +1,7 @@
     <?php if($total):?>
+        <div class=" alert alert-info" role="alert">
+            <?= Yii::t('UpdateModule.update', 'Before upgrading, please backup your site and database!');?>
+        </div>
         <div class="alert alert-warning" role="alert">
             <?= Yii::t('UpdateModule.update', 'Available updates: total !', ['total' => $total]); ?>
         </div>
@@ -24,6 +27,7 @@
             <th style="width: 32px;"><?php echo Yii::t('UpdateModule.update', 'Developer');?></th>
             <th style="width: 32px;"><?php echo Yii::t('UpdateModule.update', 'Current version');?></th>
             <th style="width: 32px;"><?php echo Yii::t('UpdateModule.update', 'Available version');?></th>
+            <th style="width: 32px"></th>
             <th style="width: 32px"></th>
         </tr>
 
@@ -56,6 +60,11 @@
                         ); ?>
                     <?php endif; ?>
                 </td>
+                <td>
+                    <?php if($module['update']):?>
+                        <a href="#" class="module-update" data-version="<?= CHtml::encode($module['version']);?>"  data-module="<?= CHtml::encode($module['module']->getId());?>" title="<?= Yii::t('UpdateModule.update', 'update');?>"><span class="glyphicon glyphicon-download"></span></a>
+                    <?php endif;?>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -68,6 +77,29 @@
                 $('#change-data-id').html($(this).attr('data-content'));
                 $('#change-log-popup').modal('show');
             })
+
+            $('a.module-update').on('click', function(event){
+                var $this = $(this);
+                event.preventDefault();
+                if(!window.confirm('Подтвеждаете обновление ?')) {
+                    return false;
+                }
+
+                $('#wait-for-update').modal('show');
+                $.post('<?= Yii::app()->createUrl("/update/updateBackend/update");?>', {
+                    'module' : $this.data('module'),
+                    'version' : $this.data('version'),
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->csrfToken;?>'
+                }, function(response){
+                    if(response.result) {
+                        $('#wait-for-update').modal('hide');
+                        window.location.reload();
+                    }else{
+                        $('#notifications').notify({ message: { text: '<?= Yii::t('UpdateModule.update', 'The error occurred. Failed to receive information about updates. Try later.');?>' }, 'type': 'danger' }).show();
+                        $('#wait-for-update').modal('hide');
+                    }
+                }, 'json')
+            });
         });
     </script>
 
@@ -99,3 +131,25 @@
     </div>
 
 <?php $this->endWidget(); ?>
+
+
+
+    <?php $this->beginWidget(
+        'bootstrap.widgets.TbModal',
+        array('id' => 'wait-for-update')
+    ); ?>
+
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h4><?php echo Yii::t('UpdateModule.update', 'Module update. Please, wait...');?></h4>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar" style="width: 100%"></div>
+        </div>
+
+    </div>
+
+    <?php $this->endWidget(); ?>
