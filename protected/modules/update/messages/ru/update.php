@@ -1,5 +1,7 @@
 <?php
 return array(
+    'Modules update view' => 'Просмотр доступных обновлений',
+    'Modules update' => 'Обновление модулей',
     'Yupe!'   => 'Юпи!',
     'Updates' => 'Обновления',
     'Update and notification system for Yupe!' => 'Оповещение об обновлениях "Юпи!"',

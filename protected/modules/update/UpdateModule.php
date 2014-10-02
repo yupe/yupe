@@ -119,4 +119,27 @@ class UpdateModule extends WebModule
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name'        => 'UpdateManage',
+                'description' => Yii::t('UpdateModule.update', 'Modules update'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
+                    array(
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Update.UpdateBackend.index',
+                        'description' => Yii::t('UpdateModule.update', 'Modules update view')
+                    ),
+                    array(
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Update.UpdateBackend.update',
+                        'description' => Yii::t('UpdateModule.update', 'Modules update')
+                    ),
+                )
+            )
+        );
+    }
 }

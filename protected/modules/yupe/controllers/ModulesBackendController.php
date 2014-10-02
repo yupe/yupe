@@ -6,6 +6,14 @@
  */
 class ModulesBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array(AuthItem::ROLE_ADMIN)),
+            array('deny',),
+        );
+    }
+
     /**
      *
      */

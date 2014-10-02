@@ -864,4 +864,28 @@ class YupeModule extends WebModule
 
         return $data;
     }
+
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name'        => 'ManageYupeParams',
+                'description' => Yii::t('YupeModule.yupe', 'Modules update'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
+                    array(
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Yupe.YupeBackend.index',
+                        'description' => Yii::t('YupeModule.yupe', 'Yupe panel')
+                    ),
+                    array(
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Update.UpdateBackend.update',
+                        'description' => Yii::t('YupeModule.yupe', 'Modules update')
+                    ),
+                )
+            )
+        );
+    }
 }

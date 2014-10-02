@@ -8,6 +8,16 @@ use yupe\widgets\YFlashMessages;
 
 class UpdateBackendController extends BackController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array(\AuthItem::ROLE_ADMIN)),
+            array('allow', 'actions' => array('create'), 'roles' => array('Update.UpdateBackend.index')),
+            array('allow', 'actions' => array('delete'), 'roles' => array('Update.UpdateBackend.update')),
+            array('deny')
+        );
+    }
+
     public function actionIndex()
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
