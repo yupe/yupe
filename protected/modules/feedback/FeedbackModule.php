@@ -183,17 +183,17 @@ class FeedbackModule extends WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('FeedbackModule.feedback', 'Messages list'),
                 'url'   => array('/feedback/feedbackBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('FeedbackModule.feedback', 'Create message'),
                 'url'   => array('/feedback/feedbackBackend/create')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('FeedbackModule.feedback', 'Messages categories'),
                 'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
             ),
@@ -237,7 +237,7 @@ class FeedbackModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-retweet';
+        return 'fa fa-fw fa-retweet';
     }
 
     /**

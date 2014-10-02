@@ -58,7 +58,7 @@ class ContentBlockModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-th-large";
+        return "fa fa-fw fa-th-large";
     }
 
     public function init()
@@ -81,12 +81,12 @@ class ContentBlockModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'),
                 'url'   => array('/contentblock/contentBlockBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'),
                 'url'   => array('/contentblock/contentBlockBackend/create')
             ),
