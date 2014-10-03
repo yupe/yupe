@@ -28,12 +28,12 @@ class UpdateManager extends CApplicationComponent
     /**
      * @var string
      */
-    protected $checkUpdateUrl = 'http://localhost:8888/promo/public/update/check';//'http://update.yupe.ru/update/check';
+    protected $checkUpdateUrl = 'http://update.yupe.ru/update/check';
 
     /**
      * @var string
      */
-    protected $getModuleUrl = 'http://localhost:8888/promo/public/update/module';//'http://update.yupe.ru/update/module';
+    protected $getModuleUrl = 'http://update.yupe.ru/update/module';
 
     // 8 часов
     /**
