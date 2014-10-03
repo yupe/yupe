@@ -12,8 +12,8 @@ class UpdateBackendController extends BackController
     {
         return array(
             array('allow', 'roles' => array(\AuthItem::ROLE_ADMIN)),
-            array('allow', 'actions' => array('create'), 'roles' => array('Update.UpdateBackend.index')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Update.UpdateBackend.update')),
+            array('allow', 'actions' => array('index'), 'roles' => array('Update.UpdateBackend.index')),
+            array('allow', 'actions' => array('update'), 'roles' => array('Update.UpdateBackend.update')),
             array('deny')
         );
     }
@@ -22,17 +22,18 @@ class UpdateBackendController extends BackController
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
+            $modules = Yii::app()->moduleManager->getModules();
+
             $updates = Yii::app()->updateManager->getModulesUpdateList(
-                Yii::app()->moduleManager->getModules()
+                $modules['modules']
             );
 
             Yii::app()->ajax->success(
                 $this->renderPartial(
                     '_modules',
                     array(
-                        'result' => $updates['result'],
-                        'modules' => $updates['modules'],
-                        'total' => $updates['total']
+                        'updates' => $updates,
+                        'modules' => $modules['modules']
                     ),
                     true
                 )

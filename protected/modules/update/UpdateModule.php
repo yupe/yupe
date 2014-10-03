@@ -5,7 +5,7 @@ use yupe\helpers\YFile;
 
 class UpdateModule extends WebModule
 {
-    const VERSION = '0.7';
+    const VERSION = '0.8';
 
     public $controllerNamespace = '\application\modules\update\controllers';
 

@@ -1,9 +1,9 @@
-    <?php if($total):?>
+    <?php if(count($updates)):?>
         <div class=" alert alert-info" role="alert">
             <?= Yii::t('UpdateModule.update', 'Before upgrading, please backup your site and database!');?>
         </div>
         <div class="alert alert-warning" role="alert">
-            <?= Yii::t('UpdateModule.update', 'Available updates: total !', ['total' => $total]); ?>
+            <?= Yii::t('UpdateModule.update', 'Available updates: total !', ['total' => count($updates)]); ?>
         </div>
     <?php elseif($result):?>
         <div class="alert alert-success" role="alert">
@@ -11,7 +11,7 @@
         </div>
     <?php endif;?>
 
-    <?php if(!$result):?>
+    <?php if(false === $updates):?>
 
         <div class="alert alert-danger">
             <?php echo Yii::t('UpdateModule.update', 'The error occurred. Failed to receive information about updates. Try later.');?>
@@ -35,34 +35,34 @@
         <tbody>
         <?php foreach ($modules as $id => $module): ?>
             <tr>
-                <td><?php echo CHtml::encode($module['module']->getName()); ?></td>
+                <td><?php echo CHtml::encode($module->getName()); ?></td>
                 <td>
-                    <?php echo CHtml::encode($module['module']->getDescription()); ?>
+                    <?php echo CHtml::encode($module->getDescription()); ?>
                 </td>
                 <td>
-                    <?php echo CHtml::encode($module['module']->getAuthor()); ?>
+                    <?php echo CHtml::encode($module->getAuthor()); ?>
                 </td>
                 <td>
-                    <span class="label label-info"><?php echo CHtml::encode($module['module']->getVersion()); ?></span>
+                    <span class="label label-info"><?php echo CHtml::encode($module->getVersion()); ?></span>
                 </td>
                 <td>
                     <span
-                        class="<?php echo $module['update'] ? 'label label-success' : 'label label-info'; ?>"><?php echo CHtml::encode(
-                            $module['version']
+                        class="<?php echo isset($updates[$module->getId()]) ? 'label label-success' : 'label label-info'; ?>"><?php echo CHtml::encode(
+                            isset($updates[$module->getId()]) ? $updates[$module->getId()]['version'] : $module->getVersion()
                         ); ?></span>
                 </td>
                 <td>
-                    <?php if ($module['update']): ?>
+                    <?php if (isset($updates[$module->getId()])): ?>
                         <?php echo CHtml::link(
                             Yii::t('UpdateModule.update', 'Whats new ?'),
                             '#',
-                            array('class' => 'change-log', 'data-content' => $module['change'])
+                            array('class' => 'change-log', 'data-content' => $updates[$module->getId()]['change'])
                         ); ?>
                     <?php endif; ?>
                 </td>
                 <td>
-                    <?php if($module['update']):?>
-                        <a href="#" class="module-update" data-version="<?= CHtml::encode($module['version']);?>"  data-module="<?= CHtml::encode($module['module']->getId());?>" title="<?= Yii::t('UpdateModule.update', 'update');?>"><span class="glyphicon glyphicon-download"></span></a>
+                    <?php if(isset($updates[$module->getId()])):?>
+                        <a href="#" class="module-update" data-version="<?= CHtml::encode($updates[$module->getId()]['version']);?>"  data-module="<?= CHtml::encode($module->getId());?>" title="<?= Yii::t('UpdateModule.update', 'update');?>"><span class="glyphicon glyphicon-download"></span></a>
                     <?php endif;?>
                 </td>
             </tr>

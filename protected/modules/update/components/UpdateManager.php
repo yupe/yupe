@@ -28,12 +28,12 @@ class UpdateManager extends CApplicationComponent
     /**
      * @var string
      */
-    protected $checkUpdateUrl = 'http://update.yupe.ru/update/check';
+    protected $checkUpdateUrl = 'http://localhost:8888/promo/public/update/check';//'http://update.yupe.ru/update/check';
 
     /**
      * @var string
      */
-    protected $getModuleUrl = 'http://update.yupe.ru/update/module';
+    protected $getModuleUrl = 'http://localhost:8888/promo/public/update/module';//'http://update.yupe.ru/update/module';
 
     // 8 часов
     /**
@@ -107,6 +107,8 @@ class UpdateManager extends CApplicationComponent
 
                 $check = [];
 
+                Yii::log('Start get updates from server...', \CLogger::LEVEL_INFO, static::LOG_CATEGORY);
+
                 foreach ($modules as $id => $module) {
                     $check[$module->getId()] = $module->getVersion();
                 }
@@ -122,6 +124,7 @@ class UpdateManager extends CApplicationComponent
                     ]
                 )->json();
 
+                Yii::log(sprintf('Stop get updates from server...%s', json_encode($data)), \CLogger::LEVEL_INFO, static::LOG_CATEGORY);
 
                 Yii::app()->getCache()->set('yupe::update::info', $data, $this->cacheTime);
             }
@@ -141,6 +144,8 @@ class UpdateManager extends CApplicationComponent
      */
     public function getModulesUpdateList(array $modules)
     {
+        Yii::log('Calc updates for modules...', \CLogger::LEVEL_INFO, static::LOG_CATEGORY);
+
         $data = Yii::app()->getCache()->get('yupe::update::list');
 
         if (false !== $data) {
@@ -148,30 +153,7 @@ class UpdateManager extends CApplicationComponent
             return $data;
         }
 
-        $updates = $this->getModulesUpdateInfo($modules['modules']);
-
-        $data = ['total' => 0, 'modules' => [], 'result' => !empty($updates)];
-
-        foreach ($modules['modules'] as $id => $module) {
-
-            $version = isset($updates[$module->getId()]['version']) ? $updates[$module->getId(
-            )]['version'] : static::DEFAULT_VERSION_LABEL;
-
-            $update = false;
-
-            if ($version != static::DEFAULT_VERSION_LABEL && $version != $module->getVersion()) {
-                $data['total']++;
-                $update = true;
-            }
-
-            $data['modules'][$module->getId()] = [
-                'id' => $id,
-                'module' => $module,
-                'version' => $version,
-                'update' => $update,
-                'change' => $update ? $updates[$module->getId()]['change'] : ''
-            ];
-        }
+        $data = $this->getModulesUpdateInfo($modules);
 
         Yii::app()->getCache()->set('yupe::update::list', $data, $this->cacheTime);
 
@@ -189,7 +171,7 @@ class UpdateManager extends CApplicationComponent
             return false;
         }
 
-        return isset($data['total']) ? $data['total'] : 0;
+        return count($data);
     }
 
 
@@ -323,7 +305,7 @@ class UpdateManager extends CApplicationComponent
 
             $modulesPath = Yii::getPathOfAlias("application.modules");
 
-            if(!is_writable($modulesPath)) {
+            if (!is_writable($modulesPath)) {
                 throw new CException(
                     sprintf('Error extract zip file. Directory %s not writable...', $modulesPath)
                 );
@@ -420,7 +402,7 @@ class UpdateManager extends CApplicationComponent
             YFile::rmDir($backupPath);
         }
 
-        if($rmUploaded) {
+        if ($rmUploaded) {
 
             YFile::rmIfExists($this->getUploadPathForModule($module, $this->escapeVersion($version)));
 
