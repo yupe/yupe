@@ -150,7 +150,7 @@ class HomepageModule extends yupe\components\WebModule
         return array(
             array(
                 'name'        => 'ManageHomePage',
-                'description' => Yii::t('HomepageModule.homepage', 'Modules update'),
+                'description' => Yii::t('HomepageModule.homepage', 'Manage home page'),
                 'type'        => AuthItem::TYPE_TASK,
                 'items'       => array(
                     array(
