@@ -81,7 +81,7 @@
             $('a.module-update').on('click', function(event){
                 var $this = $(this);
                 event.preventDefault();
-                if(!window.confirm('Подтвеждаете обновление ?')) {
+                if(!window.confirm('<?= Yii::t('UpdateModule.update', 'Confirm updates ?');?>')) {
                     return false;
                 }
 
@@ -131,8 +131,6 @@
     </div>
 
 <?php $this->endWidget(); ?>
-
-
 
     <?php $this->beginWidget(
         'bootstrap.widgets.TbModal',

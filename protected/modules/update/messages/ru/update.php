@@ -1,5 +1,6 @@
 <?php
 return array(
+    'Confirm updates ?'   => 'Подтверждаете обновление ?',
     'Modules update view' => 'Просмотр доступных обновлений',
     'Modules update' => 'Обновление модулей',
     'Yupe!'   => 'Юпи!',
