@@ -193,9 +193,7 @@ class UpdateManager extends CApplicationComponent
                         'module' => $module,
                         'version' => $version,
                         'md5' => false
-                    ]
-                ],
-                [
+                    ],
                     'save_to' => $moduleFilePath
                 ]
             );
@@ -216,9 +214,7 @@ class UpdateManager extends CApplicationComponent
                         'module' => $module,
                         'version' => $version,
                         'md5' => true
-                    ]
-                ],
-                [
+                    ],
                     'save_to' => $md5FilePath
                 ]
             );
