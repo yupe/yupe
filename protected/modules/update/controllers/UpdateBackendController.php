@@ -28,10 +28,13 @@ class UpdateBackendController extends BackController
                 $modules['modules']
             );
 
+            $success = is_array($updates);
+
             Yii::app()->ajax->success(
                 $this->renderPartial(
                     '_modules',
                     array(
+                        'success' => $success,
                         'updates' => $updates,
                         'modules' => $modules['modules']
                     ),

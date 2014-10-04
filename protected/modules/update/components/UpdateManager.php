@@ -1,7 +1,6 @@
 <?php
 namespace application\modules\update\components;
 
-use GuzzleHttp\Exception\ClientException;
 use Yii;
 use CException;
 use CApplicationComponent;
@@ -113,10 +112,10 @@ class UpdateManager extends CApplicationComponent
                     $check[$module->getId()] = $module->getVersion();
                 }
 
-                $data = $this->client->post(
+                $data = $this->client->get(
                     $this->checkUpdateUrl,
                     [
-                        'body' => [
+                        'query' => [
                             'data' => \CJSON::encode($check),
                             'app' => Yii::app()->name,
                             'url' => Yii::app()->getBaseUrl(true)
@@ -187,14 +186,16 @@ class UpdateManager extends CApplicationComponent
             $moduleFilePath = $this->getUploadPathForModule($module, $this->escapeVersion($version));
 
             // получить сам файл модуля
-            $this->client->post(
+            $this->client->get(
                 $this->getModuleUrl,
                 [
-                    'body' => [
+                    'query' => [
                         'module' => $module,
                         'version' => $version,
                         'md5' => false
-                    ],
+                    ]
+                ],
+                [
                     'save_to' => $moduleFilePath
                 ]
             );
@@ -208,14 +209,16 @@ class UpdateManager extends CApplicationComponent
             $md5FilePath = $this->getUploadPathForModule($module, $this->escapeVersion($version), true);
 
             //получить md5-файл
-            $this->client->post(
+            $this->client->get(
                 $this->getModuleUrl,
                 [
-                    'body' => [
+                    'query' => [
                         'module' => $module,
                         'version' => $version,
                         'md5' => true
-                    ],
+                    ]
+                ],
+                [
                     'save_to' => $md5FilePath
                 ]
             );

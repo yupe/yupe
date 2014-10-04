@@ -1,11 +1,11 @@
-    <?php if(count($updates)):?>
+    <?php if($success && count($updates)):?>
         <div class=" alert alert-info" role="alert">
             <?= Yii::t('UpdateModule.update', 'Before upgrading, please backup your site and database!');?>
         </div>
         <div class="alert alert-warning" role="alert">
             <?= Yii::t('UpdateModule.update', 'Available updates: total !', ['total' => count($updates)]); ?>
         </div>
-    <?php elseif($result):?>
+    <?php elseif($success):?>
         <div class="alert alert-success" role="alert">
             <?= Yii::t('UpdateModule.update', 'You have the most current version');?>
         </div>
