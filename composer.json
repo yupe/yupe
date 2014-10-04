@@ -117,5 +117,10 @@
     "require-dev": {
         "codeception/codeception": "2.*"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "post-create-project-cmd": [
+            "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
+        ]
+    }
 }
