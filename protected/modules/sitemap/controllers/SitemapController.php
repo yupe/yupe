@@ -8,14 +8,10 @@ class SitemapController extends yupe\components\controllers\FrontController
     public function actionIndex()
     {
         if (!($xml = Yii::app()->cache->get($this->cacheKey))) {
-
             if (!Yii::app()->cache->get($this->cacheKeyLock)) {
                 Yii::app()->cache->set($this->cacheKeyLock, true, 90);
 
-
                 $modules = require_once(Yii::getPathOfAlias('application.modules.sitemap.config') . DIRECTORY_SEPARATOR . 'modules.php');
-
-                $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
                 $activeModels = SitemapModel::model()->active()->findAll();
 
@@ -45,29 +41,36 @@ class SitemapController extends yupe\components\controllers\FrontController
                     $xml .= $this->getUrlRow($host . '/' . ltrim(str_replace($host, '', $page->url), '/'), $page->changefreq, $page->priority);
                 }
 
-                $xml .= '</urlset>';
                 Yii::app()->cache->set($this->cacheKey, $xml, $this->getModule()->cacheTime * 3600 + 1);
                 Yii::app()->cache->delete($this->cacheKeyLock);
             } else {
-                $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>';
+
             }
         }
 
         header("Content-type: text/xml");
+        echo $this->getXmlHead();
+        echo CHtml::openTag('urlset', ['xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9']);
         echo $xml;
+        echo CHtml::closeTag('urlset');
         Yii::app()->end();
     }
 
-    private function getUrlRow($loc, $changefreq = SitemapHelper::DAILY, $priority = 0.5, $lastmod = null)
+    private function getXmlHead()
     {
-        $res = '<url>';
-        $res .= '<loc>' . $loc . '</loc>';
-        $res .= '<changefreq>' . $changefreq . '</changefreq>';
-        $res .= '<priority>' . $priority . '</priority>';
+        return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+    }
+
+    private function getUrlRow($loc, $changefreq = SitemapHelper::FREQUENCY_DAILY, $priority = 0.5, $lastmod = null)
+    {
+        $res = CHtml::openTag('url');
+        $res .= CHtml::tag('loc', [], htmlspecialchars($loc));
+        $res .= CHtml::tag('changefreq', [], $changefreq);
+        $res .= CHtml::tag('priority', [], $priority);
         if ($lastmod) {
-            $res .= '<lastmod>' . SitemapHelper::dateToW3C($lastmod) . '</lastmod>';
+            $res .= CHtml::tag('lastmod', [], SitemapHelper::dateToW3C($lastmod));
         }
-        $res .= '</url>';
+        $res .= CHtml::closeTag('url');
         return $res;
     }
 }
