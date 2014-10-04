@@ -207,11 +207,11 @@ class Page extends yupe\models\YModel
     public function beforeSave()
     {
         $this->change_date = new CDbExpression('now()');
-        $this->user_id = Yii::app()->user->getId();
+        $this->change_user_id = Yii::app()->user->getId();
 
         if ($this->isNewRecord) {
             $this->creation_date = $this->change_date;
-            $this->change_user_id = $this->user_id;
+            $this->user_id = $this->change_user_id;
         }
 
         return parent::beforeSave();
