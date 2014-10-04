@@ -116,19 +116,19 @@ class CommentModule extends WebModule
             $messages[WebModule::CHECK_NOTICE][] = array(
                 'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
-                        'CommentModule.comment',
-                        'You have {{count}} new comments. {{link}}',
-                        array(
-                            '{{count}}' => $count,
-                            '{{link}}'  => CHtml::link(
-                                    Yii::t('CommentModule.comment', 'Comments moderation'),
-                                    array(
-                                        '/comment/commentBackend/index',
-                                        'Comment[status]' => Comment::STATUS_NEED_CHECK,
-                                    )
-                                ),
-                        )
-                    ),
+                    'CommentModule.comment',
+                    'You have {{count}} new comments. {{link}}',
+                    array(
+                        '{{count}}' => $count,
+                        '{{link}}'  => CHtml::link(
+                            Yii::t('CommentModule.comment', 'Comments moderation'),
+                            array(
+                                '/comment/commentBackend/index',
+                                'Comment[status]' => Comment::STATUS_NEED_CHECK,
+                            )
+                        ),
+                    )
+                ),
             );
         }
 
@@ -162,19 +162,19 @@ class CommentModule extends WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-comment";
+        return "fa fa-fw fa-comment";
     }
 
     public function getNavigation()
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('CommentModule.comment', 'Comments list'),
                 'url'   => array('/comment/commentBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('CommentModule.comment', 'Create comment'),
                 'url'   => array('/comment/commentBackend/create')
             ),
