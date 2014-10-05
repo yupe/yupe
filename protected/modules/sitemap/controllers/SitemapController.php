@@ -4,12 +4,21 @@ class SitemapController extends yupe\components\controllers\FrontController
 {
     public $cacheKey = "sitemap::sitemap.xml";
     public $cacheKeyLock = "sitemap::lock";
+    public $cacheKeyPart = "sitemap::part::";
+    public $cacheKeyNumberParts = "sitemap::number::parts";
+
+    private $maxLinksCount = 25000;
 
     public function actionIndex()
     {
-        if (!($xml = Yii::app()->cache->get($this->cacheKey))) {
-            if (!Yii::app()->cache->get($this->cacheKeyLock)) {
-                Yii::app()->cache->set($this->cacheKeyLock, true, 90);
+        if (!($numberParts = Yii::app()->getCache()->get($this->cacheKeyNumberParts))) {
+            if (!Yii::app()->getCache()->get($this->cacheKeyLock)) {
+                Yii::app()->getCache()->set($this->cacheKeyLock, true, 90);
+
+                set_time_limit(120);
+
+                $urls = [];
+                $cacheTime = $this->getModule()->cacheTime * 3600 + 1;
 
                 $modules = require_once(Yii::getPathOfAlias('application.modules.sitemap.config') . DIRECTORY_SEPARATOR . 'modules.php');
 
@@ -24,7 +33,7 @@ class SitemapController extends yupe\components\controllers\FrontController
                             $dataProvider = $options['getDataProvider']();
                             $iterator = new CDataProviderIterator($dataProvider, 100);
                             foreach ($iterator as $model) {
-                                $xml .= $this->getUrlRow(
+                                $urls[] = $this->getUrlRow(
                                     $options['getUrl']($model),
                                     $item->changefreq,
                                     $item->priority,
@@ -36,13 +45,22 @@ class SitemapController extends yupe\components\controllers\FrontController
                 }
 
                 $host = Yii::app()->getRequest()->hostInfo;
-                $pages = SitemapPage::model()->active()->findAll();
-                foreach ($pages as $page) {
-                    $xml .= $this->getUrlRow($host . '/' . ltrim(str_replace($host, '', $page->url), '/'), $page->changefreq, $page->priority);
+                $pagesDataProvider = new CActiveDataProvider(SitemapPage::model()->active(), []);
+                $pagesIterator = new CDataProviderIterator($pagesDataProvider, 100);
+                foreach ($pagesIterator as $page) {
+                    $urls[] = $this->getUrlRow($host . '/' . ltrim(str_replace($host, '', $page->url), '/'), $page->changefreq, $page->priority);
                 }
 
-                Yii::app()->cache->set($this->cacheKey, $xml, $this->getModule()->cacheTime * 3600 + 1);
-                Yii::app()->cache->delete($this->cacheKeyLock);
+                $parts = array_chunk($urls, $this->maxLinksCount);
+                foreach ($parts as $key => $part) {
+                    $xml = join("", $part);
+                    Yii::app()->getCache()->set($this->cacheKeyPart . $key, $xml, $cacheTime);
+                }
+
+                $numberParts = count($parts);
+                Yii::app()->getCache()->set($this->cacheKeyNumberParts, $numberParts, $cacheTime);
+
+                Yii::app()->getCache()->delete($this->cacheKeyLock);
             } else {
 
             }
@@ -50,15 +68,46 @@ class SitemapController extends yupe\components\controllers\FrontController
 
         header("Content-type: text/xml");
         echo $this->getXmlHead();
-        echo CHtml::openTag('urlset', ['xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9']);
-        echo $xml;
-        echo CHtml::closeTag('urlset');
+
+        if ($numberParts == 1) {
+            echo $this->getUrlSetFromCache(0);
+        } else {
+            echo $this->getSitemapIndex($numberParts);
+        }
         Yii::app()->end();
+    }
+
+    public function actionPart($number)
+    {
+        header("Content-type: text/xml");
+        echo $this->getXmlHead();
+        echo $this->getUrlSetFromCache($number);
     }
 
     private function getXmlHead()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+    }
+
+    private function getUrlSetFromCache($partNumber)
+    {
+        $res = CHtml::openTag('urlset', ['xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9']);
+        $res .= Yii::app()->getCache()->get($this->cacheKeyPart . $partNumber);;
+        $res .= CHtml::closeTag('urlset');
+        return $res;
+    }
+
+    private function getSitemapIndex($numberParts = null)
+    {
+        $numberParts = $numberParts ?: Yii::app()->getCache()->get($this->cacheKeyNumberParts);
+        $res = CHtml::openTag('sitemapindex', ['xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9']);
+        for ($i = 0; $i < (int)$numberParts; $i++) {
+            $res .= CHtml::openTag('sitemap');
+            $res .= CHtml::tag('loc', [], htmlspecialchars(Yii::app()->createAbsoluteUrl('sitemap/sitemap/part', ['number' => $i])));
+            $res .= CHtml::closeTag('sitemap');
+        }
+        $res .= CHtml::closeTag('sitemapindex');
+        return $res;
     }
 
     private function getUrlRow($loc, $changefreq = SitemapHelper::FREQUENCY_DAILY, $priority = 0.5, $lastmod = null)

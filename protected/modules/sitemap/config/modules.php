@@ -7,7 +7,7 @@ return [
                 return $model->getUrl(true);
             },
             'getDataProvider' => function () {
-                return new CActiveDataProvider(CActiveRecord::model('page')->published(), []);
+                return new CActiveDataProvider(CActiveRecord::model('Page')->published(), []);
             },
             'getLastMod' => function ($model) {
                 return $model->change_date;
@@ -20,7 +20,7 @@ return [
                 return Yii::app()->createAbsoluteUrl('news/news/show', ['alias' => $model->alias]);
             },
             'getDataProvider' => function () {
-                return new CActiveDataProvider(CActiveRecord::model('news')->published(), []);
+                return new CActiveDataProvider(CActiveRecord::model('News')->published(), []);
             },
             'getLastMod' => function ($model) {
                 return $model->change_date;
