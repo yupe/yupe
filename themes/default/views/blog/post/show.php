@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerScript(
 $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
     CHtml::encode($post->blog->name)   => array('/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)),
-    CHtml::encode($post->title),
+    $post->title,
 );
 ?>
 

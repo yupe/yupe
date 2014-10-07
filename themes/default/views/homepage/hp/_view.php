@@ -8,6 +8,9 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
+        <p>
+            <?php echo $data->getImageUrl() ? CHtml::image($data->getImageUrl(), CHtml::encode($data->title)) : "";?>
+        </p>
         <p><?php echo strip_tags($data->getQuote()); ?></p>
         <!--<p><?php echo CHtml::link(
             Yii::t('HomepageModule.homepage', 'read...'),
