@@ -266,7 +266,7 @@ table .button-column {
 }
 
 .datepicker {
-    z-index: 100 !important;
+    z-index: 1060 !important;
 }
 
 .ui-sortable tr {
