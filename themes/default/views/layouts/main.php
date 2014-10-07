@@ -56,7 +56,16 @@
 
         <!-- sidebar -->
         <aside class="col-sm-3 sidebar">
-
+            <?php if (Yii::app()->hasModule('blog')): ?>
+                <?php Yii::import('application.modules.blog.BlogModule');?>
+                <p>
+                    <?= CHtml::link(
+                        "<i class='glyphicon glyphicon-pencil'></i> " . Yii::t('BlogModule.blog', 'Add a post'),
+                        ['/blog/publisher/write'],
+                        ['class' => 'btn btn-success', 'style' => 'width: 100%;']);
+                    ?>
+                </p>
+            <?php endif; ?>
             <div class="widget blogs-widget">
                 <?php $this->widget(
                     'yupe\widgets\RandomDataWidget',

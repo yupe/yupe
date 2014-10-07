@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerScript(
 $this->breadcrumbs = array(
     Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
     CHtml::encode($post->blog->name)   => array('/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)),
-    CHtml::encode($post->title),
+    $post->title,
 );
 ?>
 
@@ -72,6 +72,34 @@ $this->breadcrumbs = array(
 </div>
 
 <br/>
+
+<div class="post-author">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <?php echo CHtml::link(
+                        $this->widget(
+                            'application.modules.user.widgets.AvatarWidget',
+                            ['user' => $post->createUser, 'noCache' => true],
+                            true
+                        ),
+                        ['/user/people/userInfo/', 'username' => $post->createUser->nick_name]
+                    ); ?>
+                </div>
+                <div class="col-sm-10">
+                    <h4><?= Yii::t('BlogModule.blog', 'About author'); ?></h4>
+                    <p>
+                        <strong><?= $post->createUser->getFullName(); ?></strong>
+                    </p>
+                    <blockquote>
+                        <?= $post->createUser->about; ?>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php $this->widget('blog.widgets.SimilarPostsWidget', array('post' => $post)); ?>
 

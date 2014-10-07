@@ -55,6 +55,9 @@
                 </div>
 
                 <div class="posts-list-block-text">
+                    <p>
+                        <?php echo $post->getImageUrl() ? CHtml::image($post->getImageUrl(), CHtml::encode($post->title)) : "";?>
+                    </p>
                     <?php echo strip_tags($post->getQuote()); ?>
                 </div>
 
