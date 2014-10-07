@@ -38,7 +38,7 @@ class UserModule extends WebModule
     public $avatarsDir = 'avatars';
     public $avatarMaxSize = 10000;
     public $defaultAvatarPath = 'images/avatar.png';
-    public $avatarExtensions = array('jpg', 'png', 'gif');
+    public $avatarExtensions = 'jpg,png,gif';
     public $usersPerPage = 20;
     public $badLoginCount = 3;
 
@@ -127,6 +127,7 @@ class UserModule extends WebModule
             'minCaptchaLength'         => Yii::t('UserModule.user', 'Minimum captcha length'),
             'maxCaptchaLength'         => Yii::t('UserModule.user', 'Maximum captcha length'),
             'documentRoot'             => Yii::t('UserModule.user', 'Server root'),
+            'avatarExtensions'         => Yii::t('UserModule.user', 'Avatar extensions'),
             'avatarsDir'               => Yii::t('UserModule.user', 'Directory for avatar uploading'),
             'avatarMaxSize'            => Yii::t('UserModule.user', 'Maximum avatar size'),
             'defaultAvatarPath'        => Yii::t('UserModule.user', 'Empty avatar'),
@@ -145,6 +146,7 @@ class UserModule extends WebModule
     {
         return array(
             'avatarMaxSize',
+            'avatarExtensions',
             'defaultAvatarPath',
             'avatarsDir',
             'showCaptcha'              => $this->getChoice(),
@@ -182,6 +184,7 @@ class UserModule extends WebModule
             'avatar'    => array(
                 'label' => Yii::t('UserModule.user', 'Avatar'),
                 'items' => array(
+                    'avatarExtensions',
                     'avatarsDir',
                     'avatarMaxSize',
                     'defaultAvatarPath'
