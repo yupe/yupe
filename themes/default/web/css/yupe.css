@@ -757,3 +757,16 @@ a.reply {
 .auth-services {
     padding: 0;
 }
+
+.post-author {
+
+}
+
+.post-author h4 {
+    margin-top: 0;
+}
+
+.post-author blockquote {
+    font-size: 14px;
+    padding: 0;
+}
