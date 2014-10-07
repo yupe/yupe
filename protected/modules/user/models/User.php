@@ -143,7 +143,7 @@ class User extends yupe\models\YModel
             array(
                 'avatar',
                 'file',
-                'types'      => implode(',', $module->avatarExtensions),
+                'types'      => $module->avatarExtensions,
                 'maxSize'    => $module->avatarMaxSize,
                 'allowEmpty' => true
             ),

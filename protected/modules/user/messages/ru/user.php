@@ -361,4 +361,5 @@ return array(
     'Change email'                                                                                                      => 'Изменить email',
     'Email was updated.'                                                                                                => 'Email был изменен.',
     'Your password was changed successfully.'                                                                           => 'Ваш пароль успешно изменен.',
+    'Avatar extensions'                                                                                                 => 'Расширения аватаров',
 );

@@ -9,7 +9,6 @@ return array(
         ),
         'documentRoot'     => $_SERVER['DOCUMENT_ROOT'],
         'avatarsDir'       => 'avatars',
-        'avatarExtensions' => array('jpg', 'png', 'gif'),
         'notifyEmailFrom'  => 'test@test.ru'
     ),
     'import'    => array(

@@ -342,4 +342,5 @@ return array(
     'Change email'                                                                                                    => '',
     'Email was updated.'                                                                                              => '',
     'Your password was changed successfully.'                                                                         => '',
+    'Avatar extensions'                                                                                               => '',
 );
