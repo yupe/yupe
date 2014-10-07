@@ -12,7 +12,7 @@ class PublisherController extends yupe\components\controllers\FrontController
     public function actionWrite()
     {
         $post = new Post();
-
+        $post->blog_id = Yii::app()->getRequest()->getParam('blog-id');
         if (($postId = (int)Yii::app()->getRequest()->getQuery('id'))) {
 
             $post = Post::model()->findUserPost($postId, Yii::app()->getUser()->getId());

@@ -47,10 +47,18 @@ $this->breadcrumbs = array(
                     )
                 ); ?>
 
-                <?php $this->widget(
-                    'application.modules.blog.widgets.JoinBlogWidget',
-                    array('user' => Yii::app()->user, 'blog' => $blog)
-                ); ?>
+                <div class="pull-right">
+                    <?php $this->widget(
+                        'application.modules.blog.widgets.JoinBlogWidget',
+                        array('user' => Yii::app()->user, 'blog' => $blog)
+                    ); ?>
+                    <?php
+                    if ($blog->userIn(Yii::app()->user->getId())) {
+                        echo CHtml::link(Yii::t('BlogModule.blog', 'Add a post'), ['/blog/publisher/write', 'blog-id' => $blog->id], ['class' => 'btn btn-success btn-sm']);
+                    }
+                    ?>
+                </div>
+
 
             </div>
 
