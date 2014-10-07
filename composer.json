@@ -121,6 +121,9 @@
     "scripts": {
         "post-create-project-cmd": [
             "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
+        ],
+        "post-install-cmd": [
+            "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
         ]
     }
 }
