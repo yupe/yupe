@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
-    const VERSION = '0.8.1';
+    const VERSION = '0.8.2';
 
     public $accountActivationSuccess = '/user/account/login';
     public $accountActivationFailure = '/user/account/registration';
@@ -405,7 +405,7 @@ class UserModule extends WebModule
     }
 
     /**
-     * Возвращает аватар по умолчанию из текущей темы (web/images/avatar.png)
+     * Возвращает аватар по умолчанию из текущей темы (<theme_name>/web/images/avatar.png)
      * @since 0.8
      * @return string
      */
