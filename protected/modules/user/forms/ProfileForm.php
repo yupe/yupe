@@ -41,6 +41,7 @@ class ProfileForm extends CFormModel
             array('gender', 'numerical', 'min' => 0, 'max' => 3, 'integerOnly' => true),
             array('gender', 'default', 'value' => 0),
             array('birth_date', 'default', 'value' => null),
+            array('birth_date', 'date', 'format' => 'yyyy-mm-dd'),
             array('nick_name, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),

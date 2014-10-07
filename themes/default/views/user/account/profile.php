@@ -111,7 +111,7 @@ $form = $this->beginWidget(
             array(
                 'widgetOptions' => array(
                     'options' => array(
-                        'format' => 'yy-mm-dd',
+                        'format' => 'yyyy-mm-dd',
                     ),
                 ),
                 'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>'
