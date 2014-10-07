@@ -11,7 +11,7 @@
 $this->beginContent("docs.views.layouts.docs");
 ?>
 <div class="row">
-    <div class="col-sm-10">
+    <div class="col-lg-10 col-md-9">
         <!-- breadcrumbs -->
         <?php $this->widget(
             'bootstrap.widgets.TbBreadcrumbs',
@@ -39,7 +39,7 @@ $this->beginContent("docs.views.layouts.docs");
         <!-- content -->
         <div id="footer-guard"><!-- --></div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-lg-2 col-md-3">
         <div class="panel panel-default" style="padding: 8px 0;">
             <?php
             $this->widget(
