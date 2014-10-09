@@ -770,3 +770,24 @@ a.reply {
     font-size: 14px;
     padding: 0;
 }
+
+.profile-comment {
+
+}
+
+.profile-comment .comments-item {
+    margin-top: 0;
+}
+
+.profile-comment .post-link {
+    font-family: Tahoma, sans-serif;
+    font-size: 10px;
+}
+
+.profile-comment .post-link a {
+    color: #666;
+}
+
+.profile-comment .post-link .count {
+    color: #ff0000;
+}
