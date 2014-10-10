@@ -758,6 +758,8 @@ a.reply {
     padding: 0;
 }
 
+/* карточка пользователя под постом */
+
 .post-author {
 
 }
@@ -770,6 +772,8 @@ a.reply {
     font-size: 14px;
     padding: 0;
 }
+
+/* страница профиля пользователя */
 
 .profile-comment {
 
@@ -790,4 +794,10 @@ a.reply {
 
 .profile-comment .post-link .count {
     color: #ff0000;
+}
+
+/* виджеты в sidebar */
+
+.sidebar .widget .list-unstyled > hr:last-child, .sidebar .widget .list-unstyled li:last-child hr {
+    display: none;
 }
