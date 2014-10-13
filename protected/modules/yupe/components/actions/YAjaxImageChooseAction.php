@@ -40,7 +40,7 @@ class YAjaxImageChooseAction extends CAction
                     );
                 }
             }
-            
+
             Yii::app()->ajax->raw($forJson);
         }
     }
