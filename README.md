@@ -10,7 +10,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
 
-![Юпи!](http://amylabs.ru/images/yupe.png)
+![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
 
 **Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 
 
@@ -22,11 +22,12 @@
 * корпоративные порталы
 * блоги / сообщества
 * каталоги товаров
+* интернет-магазины
 
 
-**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
+**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe-cms.ru/pages/friends)**
 
-Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yii
+Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x
 
 [Процесс установки](http://yupe.ru/docs/install.html) очень прост и занимает не более 5 минут!
 
@@ -47,7 +48,8 @@
 
 Ссылки
 ------
-* [Официальный сайт](http://yupe.ru/)
+* [Сообщество](http://yupe.ru/)
+* [Официальный сайт](http://yupe-cms.ru/)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
@@ -59,7 +61,7 @@
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
-* Коммерческая [разработка](http://amylabs.ru/yupe/development) и [поддержка](http://amylabs.ru/yupe/support)
+* Коммерческая [разработка](http://yupe-cms.ru/service/development) и [поддержка](http://yupe-cms.ru/service/support)
 
 Возможности
 -----------
@@ -94,6 +96,6 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
 
 
-(c) 2010 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+(c) 2012 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
-![amyLabs](http://amylabs.ru/images/logo.png)
+![amyLabs](http://amylabs.ru/assets/8066f72d/images/logo1.png)
