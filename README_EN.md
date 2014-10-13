@@ -2,10 +2,10 @@ Yupe! - CMS, based on Yii framework
 ==================================
 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
-[![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
-[![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
-[![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
-[![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
+[![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.svg)](https://packagist.org/packages/yupe/yupe)
+[![Gitter chat](https://badges.gitter.im/yupe/yupe.svg)](https://gitter.im/yupe/yupe)
+[![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.svg)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
+[![Code Climate](https://codeclimate.com/github/yupe/yupe.svg)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 
 **Attention! All pull-requests must be made in [dev branch](https://github.com/yupe/yupe/tree/dev)**
