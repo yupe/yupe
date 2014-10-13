@@ -182,11 +182,10 @@ $form = $this->beginWidget(
              data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
-                $this->module->editor,
+                $this->module->getVisualEditor(),
                 array(
                     'model'     => $model,
                     'attribute' => 'description',
-                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
         </div>
@@ -201,11 +200,10 @@ $form = $this->beginWidget(
              ); ?>'>
             <?php echo $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
-                $this->module->editor,
+                $this->module->getVisualEditor(),
                 array(
                     'model'     => $model,
                     'attribute' => 'short_description',
-                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
         </div>
@@ -217,11 +215,10 @@ $form = $this->beginWidget(
              data-content='<?php echo $model->getAttributeDescription('data'); ?>'>
             <?php echo $form->labelEx($model, 'data'); ?>
             <?php $this->widget(
-                $this->module->editor,
+                $this->module->getVisualEditor(),
                 array(
                     'model'     => $model,
                     'attribute' => 'data',
-                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
         </div>

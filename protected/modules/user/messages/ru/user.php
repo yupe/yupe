@@ -64,6 +64,8 @@ return array(
     'Password recovery.'                                                                                                => 'Восстановление пароля',
     'Password recovery - management'                                                                                    => 'Восстановление пароля - управление',
     'Password recovery for "{site}"!'                                                                                   => 'Восстановление пароля для сайта "{site}"!',
+    'Email confirm for "{site}"!'                                                                                       => 'Подтверждение почты для сайта "{site}"!',
+    'Your new email is confirmed!'                                                                                      => 'Ваша почта подтверждена',
     'Password recovery!'                                                                                                => 'Восстановление пароля!',
     'Passwords recovery!'                                                                                               => 'Восстановления паролей',
     'Session lifetime (in days) when "Remember me" options enabled'                                                     => 'Время жизни сессии (в днях) при включенной опции "Запомнить меня"',
@@ -355,5 +357,9 @@ return array(
     'Removing user token'                                                                                               => 'Удаление токена пользователя',
     'List of user tokens'                                                                                               => 'Просмотр списка токенов пользователей',
     'Editing user tokens'                                                                                               => 'Редактирование токена пользователя',
-    'Viewing user tokens'                                                                                               => 'Просмотр токена пользователя'
+    'Viewing user tokens'                                                                                               => 'Просмотр токена пользователя',
+    'Change email'                                                                                                      => 'Изменить email',
+    'Email was updated.'                                                                                                => 'Email был изменен.',
+    'Your password was changed successfully.'                                                                           => 'Ваш пароль успешно изменен.',
+    'Avatar extensions'                                                                                                 => 'Расширения аватаров',
 );

@@ -52,8 +52,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('ImageModule.image', 'This section describes Image management functions'); ?></p>
-
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',

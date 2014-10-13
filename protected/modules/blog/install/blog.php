@@ -19,7 +19,11 @@ return array(
         )
     ),
     'import'    => array(),
-    'component' => array(),
+    'component' => array(
+        'postManager' => array(
+            'class' => 'application.modules.blog.components.PostManager',
+        ),
+    ),
     'rules'     => array(
         '/post/<slug>.html'       => 'blog/post/show',
         '/posts/tag/<tag>'        => 'blog/post/list',

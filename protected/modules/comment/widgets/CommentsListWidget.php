@@ -65,7 +65,7 @@ class CommentsListWidget extends yupe\widgets\YWidget
         if (empty($comments)) {
 
             if (empty($this->comments)) {
-                $this->comments = Yii::app()->commentManager->getCommentsForModule($this->model, $this->modelId, $this->status);
+                $this->comments = Yii::app()->commentManager->getCommentsForModel($this->model, $this->modelId, $this->status);
             }
 
             $comments = $this->comments;

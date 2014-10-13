@@ -30,8 +30,11 @@ $(document).ready(function () {
     $(document).on('submit', '#comment-form', function (event) {
         event.preventDefault();
         var $form = $(this);
-        var $submit = $form.find('input[type=submit]');
         var $container = $('#comments');
+        if(!$('#Comment_text').val()){
+            $('#notifications').notify({ message: { text: 'Комментарий пуст =(' }, 'type': 'danger' }).show();
+            return false;
+        }
         $.post($form.attr('action'), $form.serialize(), function (response) {
             var type = response.result ? 'success' : 'danger';
             $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();

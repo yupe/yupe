@@ -166,11 +166,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 <?php echo $model->hasErrors('full_text') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'full_text'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'full_text',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <span class="help-block">
@@ -187,11 +186,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12">
         <?php echo $form->labelEx($model, 'short_text'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'short_text',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <span class="help-block">

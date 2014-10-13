@@ -85,7 +85,7 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getAuthor()
     {
-        return Yii::t('HomepageModule.homepage', 'Andrey Opeykin');
+        return 'amylabs team';
     }
 
     public function getUrl()
@@ -121,7 +121,7 @@ class HomepageModule extends yupe\components\WebModule
     {
         return array(
             'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Main settings'),
+                'label' => Yii::t('HomepageModule.homepage', 'Main settings'),
             )
         );
     }
@@ -143,5 +143,23 @@ class HomepageModule extends yupe\components\WebModule
     public function getIsInstallDefault()
     {
         return true;
+    }
+
+    public function getAuthItems()
+    {
+        return array(
+            array(
+                'name'        => 'ManageHomePage',
+                'description' => Yii::t('HomepageModule.homepage', 'Manage home page'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => array(
+                    array(
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Homepage.YupeBackend.Modulesettings',
+                        'description' => Yii::t('HomepageModule.homepage', 'Manage home page')
+                    ),
+                )
+            )
+        );
     }
 }

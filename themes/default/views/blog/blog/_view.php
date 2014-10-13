@@ -6,7 +6,7 @@
             array('width' => 64, 'height' => 64, 'class' => 'thumbnail')
         ); ?>
     </div>
-    <div class="col-sm-7 blog-info">
+    <div class="col-sm-6 blog-info">
 
         <h2><?php echo CHtml::link(
                 CHtml::encode($data->name),
@@ -35,11 +35,16 @@
         <span> <?php echo strip_tags($data->description); ?> </span>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-4 text-right">
         <?php $this->widget(
             'application.modules.blog.widgets.JoinBlogWidget',
             array('user' => Yii::app()->user, 'blog' => $data)
         ); ?>
+        <?php
+        if ($data->userIn(Yii::app()->user->getId())) {
+            echo CHtml::link(Yii::t('BlogModule.blog', 'Add a post'), ['/blog/publisher/write', 'blog-id' => $data->id], ['class' => 'btn btn-success btn-sm']);
+        }
+        ?>
     </div>
 </div>
 <hr/>

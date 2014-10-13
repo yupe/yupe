@@ -39,7 +39,8 @@ class PostBackendController extends yupe\components\controllers\BackController
                     'status',
                     'comment_status',
                     'blog_id',
-                    'category_id'
+                    'category_id',
+                    'tags',
                 )
             )
         );
@@ -78,9 +79,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             $model->setAttributes(
                 Yii::app()->getRequest()->getPost('Post')
             );
-            $model->setTags(
-                Yii::app()->getRequest()->getPost('tags')
-            );
+            $model->tags = Yii::app()->getRequest()->getPost('tags');
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -115,9 +114,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             $model->setAttributes(
                 Yii::app()->getRequest()->getPost('Post')
             );
-            $model->setTags(
-                Yii::app()->getRequest()->getPost('tags')
-            );
+            $model->tags = Yii::app()->getRequest()->getPost('tags');
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(

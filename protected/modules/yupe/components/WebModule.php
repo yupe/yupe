@@ -74,13 +74,14 @@ abstract class WebModule extends CWebModule
     public $coreCacheTime = 3600;
 
     /**
-     * @var array редактор
+     * @var string - id редактора
      */
-    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
+    public $editor = 'redactor';
+
     /**
-     * @var array опции редактора
+     * @var null|string - класс редактора
      */
-    public $editorOptions = array();
+    private $visualEditor = null;
 
     /**
      * @var bool | string
@@ -650,10 +651,10 @@ abstract class WebModule extends CWebModule
      */
     public function getActivate($noDependent = false)
     {
-        $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
-
-        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+        Yii::app()->getCache()->flush();
         Yii::app()->configManager->flushDump();
+
+        $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->getId());
 
         if (is_file($fileConfig) && $this->id != ModuleManager::INSTALL_MODULE) {
             return true;
@@ -712,13 +713,13 @@ abstract class WebModule extends CWebModule
      */
     public function getDeActivate($noDependent = false)
     {
+        Yii::app()->getCache()->flush();
+        Yii::app()->configManager->flushDump();
+
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->id);
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->id);
         $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($this->id);
-
-        Yii::app()->getCache()->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        Yii::app()->configManager->flushDump();
-
+        
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));
         } else {
@@ -1044,22 +1045,6 @@ abstract class WebModule extends CWebModule
      **/
     public function beforeControllerAction($controller, $action)
     {
-        $this->editorOptions = \CMap::mergeArray(
-            array(
-                'imageUpload'             => Yii::app()->createUrl('/image/imageBackend/AjaxImageUpload'),
-                'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
-                'imageGetJson'            => Yii::app()->createUrl('/image/imageBackend/AjaxImageChoose'),
-                'fileUploadErrorCallback' => 'js:function (data) {
-    $(\'#notifications\').notify({
-        message: {text: data.error},
-        type: \'danger\',
-        fadeOut: {delay: 5000}
-    }).show();
-}'
-            ),
-            $this->editorOptions
-        );
-
         if ($controller instanceof \yupe\components\controllers\BackController) {
             Yii::app()->errorHandler->errorAction = 'yupe/backend/error';
         }
@@ -1168,5 +1153,21 @@ abstract class WebModule extends CWebModule
     public function getSettingsUrl()
     {
         return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => $this->getId()]);
+    }
+
+    /**
+     * Возвращает класс виджета выбранного редактора
+     *
+     * @return string|null
+     * @throws CException
+     */
+    public function getVisualEditor()
+    {
+        if ($this->visualEditor === null) {
+            $yupe = Yii::app()->getModule('yupe');
+            $editor = $this->editor ?: $yupe->editor;
+            $this->visualEditor = $yupe->visualEditors[$editor]['class'];
+        }
+        return $this->visualEditor;
     }
 }

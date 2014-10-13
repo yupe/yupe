@@ -39,7 +39,7 @@ $form = $this->beginWidget(
 $this->widget(
     'bootstrap.widgets.TbGridView',
     array(
-        'dataProvider' => $users->search(),
+        'dataProvider' => $provider,
         'type'         => 'condensed striped',
         'template'     => "{items}\n{pager}",
         'columns'      => array(

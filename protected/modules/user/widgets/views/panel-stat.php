@@ -38,6 +38,7 @@
                                         'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/update","id" => $data->id))',
                                         'type'  => 'html'
                                     ),
+                                    'registration_date',
                                     array(
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',

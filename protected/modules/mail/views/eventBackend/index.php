@@ -87,10 +87,6 @@ Yii::app()->clientScript->registerScript(
     ?>
 </div>
 
-<p>
-    <?php echo Yii::t('MailModule.mail', 'This section contain mail messages management'); ?>
-</p>
-
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',

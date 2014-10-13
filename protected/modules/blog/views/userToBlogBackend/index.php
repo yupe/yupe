@@ -111,10 +111,10 @@ $this->menu = array(
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
                 'filter' => CHtml::listData(
-                        User::model()->cache($this->yupe->coreCacheTime)->findAll(),
-                        'id',
-                        'nick_name'
-                    )
+                    User::model()->cache($this->yupe->coreCacheTime)->findAll(),
+                    'id',
+                    'nick_name'
+                )
             ),
             array(
                 'name'   => 'blog_id',
@@ -129,10 +129,10 @@ $this->menu = array(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('role')))
-                        ),
+                        'BlogModule.blog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('role')))
+                    ),
                     'source' => $model->getRoleList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -142,37 +142,24 @@ $this->menu = array(
                 'type'     => 'raw',
                 'value'    => '$data->getRole()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'role',
-                        $model->getRoleList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'role',
+                    $model->getRoleList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/blog/userToBlogBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/blog/userToBlogBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    UserToBlog::STATUS_ACTIVE       => ['class' => 'label-success'],
+                    UserToBlog::STATUS_BLOCK        => ['class' => 'label-default'],
+                    UserToBlog::STATUS_CONFIRMATION => ['class' => 'label-info'],
+                    UserToBlog::STATUS_DELETED      => ['class' => 'label-danger'],
+
+                ],
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -180,10 +167,10 @@ $this->menu = array(
                     'url'    => $this->createUrl('/blog/userToBlogBackend/inline'),
                     'mode'   => 'inline',
                     'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('note')))
-                        ),
+                        'BlogModule.blog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('note')))
+                    ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )

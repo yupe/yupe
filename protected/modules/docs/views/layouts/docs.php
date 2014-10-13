@@ -23,6 +23,7 @@
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
     Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/styles.css');
+    Yii::app()->getClientScript()->registerCssFile($docsAssets . '/css/docs.css');
 
     if (($langs = $this->yupe->getLanguageSelectorArray()) != array()) {
         Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
@@ -84,9 +85,10 @@
     ?>
     <!-- /mainmenu -->
     <!-- content -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="page">
         <?php echo $content; ?>
     </div>
+    <div id="footer-guard"></div>
     <!-- /content -->
 </div>
 <footer>

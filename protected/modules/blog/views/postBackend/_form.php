@@ -139,11 +139,6 @@ $form = $this->beginWidget(
         ); ?>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#tags").val('<?php echo join(',',$model->getTags());?>');
-    });
-</script>
 <div class="row">
     <div class="col-sm-5">
         <div class="form-group">
@@ -155,10 +150,10 @@ $form = $this->beginWidget(
                     'asDropDownList' => false,
                     'name'           => 'tags',
                     'options'        => array(
-                        'tags'            => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                        'placeholder'     => Yii::t('BlogModule.blog', 'tags'),
-                        'tokenSeparators' => array(',', ' ')
+                        'tags'        => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+                        'placeholder' => Yii::t('BlogModule.blog', 'tags'),
                     ),
+                    'value'          => join(", ", $model->getTags()),
                     'htmlOptions'    => array(
                         'class'               => 'form-control popover-help',
                         'data-original-title' => $model->getAttributeLabel('tags'),
@@ -201,11 +196,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'content'); ?>
         <?php
         $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'content',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>
@@ -217,11 +211,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'quote'); ?>
         <?php
         $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'quote',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>

@@ -1,12 +1,7 @@
 <?php if (!empty($models)): ?>
-    <br/><br/>
+    <br/>
     <div>
         <div class="posts">
-
-            <p class="posts-header">
-                <span class="posts-header-text"><?php echo Yii::t('BlogModule.blog', 'Last posts'); ?></span>
-            </p>
-
             <div class="posts-list">
                 <?php foreach ($models as $post): ?>
                     <div class="posts-list-block">

@@ -84,7 +84,7 @@ class CommentManager extends CApplicationComponent
         }
     }
 
-    public function getCommentsForModule($model, $modelId, $status = Comment::STATUS_APPROVED)
+    public function getCommentsForModel($model, $modelId, $status = Comment::STATUS_APPROVED)
     {
          return Comment::model()->with(['author'])->findAll(
              [
@@ -97,22 +97,5 @@ class CommentManager extends CApplicationComponent
                  'order'     => 't.lft',
              ]
          );
-    }
-
-    public function getSimilarPosts(Post $post, $limit = 10)
-    {
-        $criteria = new CDbCriteria();
-        $criteria->limit = $limit;
-        $criteria->order = 'publish_date DESC';
-
-        $criteria->addNotInCondition('t.id', [$post->id]);
-
-        $criteria->mergeWith(
-            Post::model()->public()->published()->getFindByTagsCriteria($post->getTags())
-        );
-
-        return Post::model()->findAll(
-            $criteria
-        );
     }
 }

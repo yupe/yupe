@@ -13,7 +13,7 @@ $this->breadcrumbs = array(
 
 <br/>
 
-<?php if (is_array($elements) && count($elements)): { ?>
+<?php if (is_array($groups) && count($groups)): { ?>
     <?php echo CHtml::beginForm(
         array('/yupe/backend/saveModulesettings'),
         'post',
@@ -21,30 +21,61 @@ $this->breadcrumbs = array(
             'class' => 'well',
         )
     ); ?>
-    <fieldset class="inline">
-        <?php echo CHtml::hiddenField('module_id', $module->getId()); ?>
+    <?php echo CHtml::hiddenField('module_id', $module->getId()); ?>
+    <div class="row">
+        <div class="col-sm-8">
+            <?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
+            <?php $i = 0; ?>
+            <?php foreach ((array)$groups as $title => $items): ?>
+                <?php $i++; ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#group-<?= $i ?>">
+                                <?= $title ?>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="group-<?= $i ?>" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <?php foreach ((array)$items as $item): ?>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <?= $item ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
 
-        <?php foreach ($elements as $element): { ?>
-            <div class="row">
-                <div class="col-xs-8 form-group"><?php echo $element; ?></div>
-            </div>
-        <?php } endforeach; ?>
-        <br/>
-        <?php echo CHtml::submitButton(
-            Yii::t(
-                'YupeModule.yupe',
-                'Save "{{name}}" module settings',
+            <?php endforeach; ?>
+
+
+            <?php $this->endWidget(); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <?php echo CHtml::submitButton(
+                Yii::t(
+                    'YupeModule.yupe',
+                    'Save "{{name}}" module settings',
+                    array(
+                        '{{name}}' => CHtml::encode($module->name)
+                    )
+                ),
                 array(
-                    '{{name}}' => CHtml::encode($module->name)
+                    'class' => 'btn btn-primary',
+                    'id'    => 'saveModuleSettings',
+                    'name'  => 'saveModuleSettings',
                 )
-            ),
-            array(
-                'class' => 'btn btn-primary',
-                'id'    => 'saveModuleSettings',
-                'name'  => 'saveModuleSettings',
-            )
-        ); ?>
-    </fieldset>
+            ); ?>
+        </div>
+    </div>
     <?php echo CHtml::endForm(); ?>
 <?php } else: { ?>
     <b><?php echo Yii::t('YupeModule.yupe', 'There is no parameters which you cat change for this module...'); ?></b>

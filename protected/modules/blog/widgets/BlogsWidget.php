@@ -24,7 +24,7 @@ class BlogsWidget extends yupe\widgets\YWidget
             'postsCount'
         )->cache($this->cacheTime)->findAll(
                 array(
-                    'join'   => 'JOIN {{blog_user_to_blog}} utb ON utb.blog_id = t.id',
+                    'join'   => 'LEFT JOIN {{blog_user_to_blog}} utb ON utb.blog_id = t.id',
                     'select' => 't.name, t.slug',
                     'order'  => 'count(utb.id) DESC',
                     'group'  => 't.slug, t.name, t.id',

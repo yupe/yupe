@@ -9,7 +9,6 @@ return array(
         ),
         'documentRoot'     => $_SERVER['DOCUMENT_ROOT'],
         'avatarsDir'       => 'avatars',
-        'avatarExtensions' => array('jpg', 'png', 'gif'),
         'notifyEmailFrom'  => 'test@test.ru'
     ),
     'import'    => array(
@@ -59,6 +58,9 @@ return array(
                 ),
                 'user.success.email.confirm'     => array(
                     array('UserManagerListener', 'onSuccessEmailConfirm')
+                ),
+                'user.success.email.change'     => array(
+                    array('UserManagerListener', 'onSuccessEmailChange')
                 )
             )
         )
@@ -70,6 +72,8 @@ return array(
         '/recovery'                         => 'user/account/recovery',
         '/users'                            => 'user/people/index',
         '/profile'                          => 'user/account/profile',
+        '/profile/password'                 => 'user/account/profilePassword',
+        '/profile/email'                    => 'user/account/profileEmail',
         '/users/<username:\w+>/'            => 'user/people/userInfo',
         '/activate/<token>'                 => 'user/account/activate',
         '/confirm/<token>'                  => 'user/account/confirm',

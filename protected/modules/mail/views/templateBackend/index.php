@@ -63,17 +63,13 @@ $this->menu = array(
     ?>
 </div>
 
-<p>
-    <?php echo Yii::t('MailModule.mail', 'This section contain mail message templates management'); ?>
-</p>
-
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id'           => 'mail-template-grid',
-        'dataProvider' => $model->search(),
-        'filter'       => $model,
+        'id'             => 'mail-template-grid',
+        'dataProvider'   => $model->search(),
+        'filter'         => $model,
         'actionsButtons' => [
             CHtml::link(
                 Yii::t('YupeModule.yupe', 'Add'),
@@ -81,7 +77,7 @@ $this->widget(
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns'      => array(
+        'columns'        => array(
             array(
                 'name'        => 'id',
                 'type'        => 'raw',
@@ -119,10 +115,10 @@ $this->widget(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'MailModule.mail',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('event_id')))
-                        ),
+                        'MailModule.mail',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('event_id')))
+                    ),
                     'source' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -132,11 +128,11 @@ $this->widget(
                 'type'     => 'raw',
                 'value'    => '$data->event->name',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'event_id',
-                        CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'event_id',
+                    CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -176,30 +172,14 @@ $this->widget(
                 'filter'   => CHtml::activeTextField($model, 'to', array('class' => 'form-control')),
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/mail/templateBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'MailModule.mail',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/mail/templateBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    MailTemplate::STATUS_ACTIVE     => ['class' => 'label-success'],
+                    MailTemplate::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

@@ -58,8 +58,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('PageModule.page', 'This section describes page management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -96,11 +94,11 @@ $this->menu = array(
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'category_id',
-                        Category::model()->getFormattedList(Yii::app()->getModule('page')->mainCategory),
-                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
-                    )
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('page')->mainCategory),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                )
             ),
             array(
                 'name'   => 'parent_id',
@@ -118,37 +116,20 @@ $this->menu = array(
                 'filter' => $this->yupe->getLanguagesList()
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/page/pageBackend/inline'),
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'PageModule.page',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
-            ),
-            array(
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [Page::STATUS_DRAFT => yupe\helpers\Html::DEF, Page::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, Page::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
-                'type'  => 'raw'
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/page/pageBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Page::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    Page::STATUS_MODERATION => ['class' => 'label-warning'],
+                    Page::STATUS_DRAFT      => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
         ),
     )
-); ?>
+);
+?>

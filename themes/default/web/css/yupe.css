@@ -699,7 +699,6 @@ a.reply {
     padding-right: 10px;
     position: relative;
     width: 100%;
-    left: -5px;
     border-bottom: 1px solid #e2e2e2;
     content: "";
 }
@@ -716,9 +715,9 @@ a.reply {
     padding-right: 10px;
     position: relative;
     width: 100%;
-    left: -5px;
     background-color: #f5f5f5;
     border-bottom: 1px solid #e4e4e4;
+    margin: 10px 0 0 0;
 }
 
 .posts-list-block-tags *, .posts-list-block-tags-comments a:hover {
@@ -757,4 +756,48 @@ a.reply {
 
 .auth-services {
     padding: 0;
+}
+
+/* карточка пользователя под постом */
+
+.post-author {
+
+}
+
+.post-author h4 {
+    margin-top: 0;
+}
+
+.post-author blockquote {
+    font-size: 14px;
+    padding: 0;
+}
+
+/* страница профиля пользователя */
+
+.profile-comment {
+
+}
+
+.profile-comment .comments-item {
+    margin-top: 0;
+}
+
+.profile-comment .post-link {
+    font-family: Tahoma, sans-serif;
+    font-size: 10px;
+}
+
+.profile-comment .post-link a {
+    color: #666;
+}
+
+.profile-comment .post-link .count {
+    color: #ff0000;
+}
+
+/* виджеты в sidebar */
+
+.sidebar .widget .list-unstyled > hr:last-child, .sidebar .widget .list-unstyled li:last-child hr {
+    display: none;
 }

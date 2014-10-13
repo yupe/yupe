@@ -20,28 +20,28 @@ class YAjaxImageChooseAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->hasModule("image") && Yii::app()->getModule('image')->getIsActive()) {
-            $upPath = '/' . Yii::app()->getModule('yupe')->uploadPath .
-                '/' . Yii::app()->getModule('image')->uploadPath .
-                '/';
+        if (Yii::app()->hasModule("image")) {
+            $upPath = Yii::app()->getBaseUrl() . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath .
+                DIRECTORY_SEPARATOR . Yii::app()->getModule('image')->uploadPath .
+                DIRECTORY_SEPARATOR;
 
-            $imgs = Image::model()->findAllByAttributes(
+            $images = Image::model()->findAllByAttributes(
                 array('category_id' => null, 'parent_id' => null)
             );
 
-            if (!empty($imgs)) {
-                foreach ($imgs as $img) {
+            $forJson = [];
+
+            if (!empty($images)) {
+                foreach ($images as $img) {
                     $forJson[] = array(
                         'thumb' => $upPath . $img->file,
                         'image' => $upPath . $img->file,
                         'title' => $upPath . $img->name
                     );
                 }
-
-                echo json_encode($forJson);
             }
 
-            Yii::app()->end();
+            Yii::app()->ajax->raw($forJson);
         }
     }
 }

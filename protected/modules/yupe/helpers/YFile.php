@@ -123,6 +123,7 @@ class YFile extends CFileHelper
     /**
      * @param $file
      * @since 0.8
+     * @return bool
      */
     public static function rmFile($file)
     {
@@ -133,10 +134,24 @@ class YFile extends CFileHelper
      * @param $from
      * @param $to
      * @since 0.8
+     * @return bool
      */
     public static function cpFile($from, $to)
     {
         return copy($from, $to);
     }
 
+
+    public static function rmIfExists($file)
+    {
+        if(!file_exists($file)) {
+            return true;
+        }
+
+        if(is_dir($file)) {
+            return static::rmDir($file);
+        }
+
+        return static::rmFile($file);
+    }
 }

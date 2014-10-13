@@ -58,8 +58,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('NewsModule.news', 'This section describes News Management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -96,47 +94,28 @@ $this->menu = array(
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'category_id',
-                        Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory),
-                        array('class' => 'form-control', 'encode' => false, 'empty' => '')
-                    )
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory),
+                    array('class' => 'form-control', 'encode' => false, 'empty' => '')
+                )
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/news/newsBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'NewsModule.news',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/news/newsBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    News::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    News::STATUS_MODERATION => ['class' => 'label-warning'],
+                    News::STATUS_DRAFT      => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'name'   => 'lang',
                 'value'  => '$data->getFlag()',
                 'filter' => $this->yupe->getLanguagesList(),
                 'type'   => 'html'
-            ),
-            array(
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [News::STATUS_DRAFT => yupe\helpers\Html::DEF, News::STATUS_PUBLISHED => yupe\helpers\Html::SUCCESS, News::STATUS_MODERATION => yupe\helpers\Html::WARNING])',
-                'type'  => 'raw'
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn'

@@ -42,8 +42,7 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(
-                            Blog::model()->getListForUser(Yii::app()->getUser()->getId()),
+                    'data' => CHtml::listData($blogs,
                             'id',
                             'name'
                         ),
@@ -130,11 +129,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'content'); ?>
         <?php
         $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'content',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
     </div>

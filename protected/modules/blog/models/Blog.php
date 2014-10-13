@@ -41,11 +41,26 @@
  */
 class Blog extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_BLOCKED = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_DELETED = 2;
 
+    /**
+     *
+     */
     const TYPE_PUBLIC = 1;
+    /**
+     *
+     */
     const TYPE_PRIVATE = 2;
 
     /**
@@ -102,11 +117,17 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return array
+     */
     public function getPostStatusList()
     {
         return Post::model()->getStatusList();
     }
 
+    /**
+     * @return array
+     */
     public function getMemberStatusList()
     {
         return UserToBlog::model()->getStatusList();
@@ -156,6 +177,9 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return array(
@@ -300,6 +324,9 @@ class Blog extends yupe\models\YModel
         ));
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $module = Yii::app()->getModule('blog');
@@ -324,14 +351,20 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return string
+     */
     public function generateFileName()
     {
         return md5($this->name . microtime(true) . uniqid());
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->update_user_id = Yii::app()->user->getId();
+        $this->update_user_id = Yii::app()->getUser()->getId();
 
         if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
@@ -340,6 +373,9 @@ class Blog extends yupe\models\YModel
         return parent::beforeSave();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->slug) {
@@ -349,6 +385,9 @@ class Blog extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    /**
+     *
+     */
     public function afterDelete()
     {
         Comment::model()->deleteAll(
@@ -362,6 +401,9 @@ class Blog extends yupe\models\YModel
         return parent::afterDelete();
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return array(
@@ -371,6 +413,9 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -378,6 +423,9 @@ class Blog extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getTypeList()
     {
         return array(
@@ -386,6 +434,9 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         $data = $this->getTypeList();
@@ -393,13 +444,18 @@ class Blog extends yupe\models\YModel
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
+    /**
+     * @param $userId
+     * @param int $status
+     * @return bool|int
+     */
     public function userIn($userId, $status = UserToBlog::STATUS_ACTIVE)
     {
-        $blogs = Yii::app()->cache->get("Blog::Blog::members::{$userId}");
+        $blogs = Yii::app()->getCache()->get("Blog::Blog::members::{$userId}");
 
         if (false === $blogs) {
 
-            $result = Yii::app()->db->createCommand(
+            $result = Yii::app()->getDb()->createCommand(
                 'SELECT blog_id, status FROM {{blog_user_to_blog}} WHERE user_id = :userId'
             )->bindValue(':userId', (int)$userId)
                 ->queryAll();
@@ -410,7 +466,7 @@ class Blog extends yupe\models\YModel
                 $blogs[$data['blog_id']] = $data['status'];
             }
 
-            Yii::app()->cache->set("Blog::Blog::members::{$userId}", $blogs);
+            Yii::app()->getCache()->set("Blog::Blog::members::{$userId}", $blogs);
         }
 
         if (false !== $status) {
@@ -424,6 +480,10 @@ class Blog extends yupe\models\YModel
         return isset($blogs[$this->id]) ? (int)$blogs[$this->id] : false;
     }
 
+    /**
+     * @param $userId
+     * @return CActiveRecord
+     */
     public function getUserMembership($userId)
     {
         return UserToBlog::model()->find(
@@ -435,9 +495,14 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @param $userId
+     * @param $status
+     * @return mixed
+     */
     public function hasUserInStatus($userId, $status)
     {
-        return Yii::app()->db->createCommand(
+        return Yii::app()->getDb()->createCommand(
             'SELECT count(id)
                 FROM {{blog_user_to_blog}}
                  WHERE user_id = :userId AND blog_id = :blogId AND status = :status'
@@ -448,6 +513,10 @@ class Blog extends yupe\models\YModel
             ->queryScalar();
     }
 
+    /**
+     * @param $userId
+     * @return bool
+     */
     public function join($userId)
     {
         if ($this->isPrivate()) {
@@ -481,7 +550,7 @@ class Blog extends yupe\models\YModel
 
             Yii::app()->eventManager->fire(BlogEvents::BLOG_JOIN, new BlogJoinLeaveEvent($this, $userId));
 
-            Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
+            Yii::app()->getCache()->delete("Blog::Blog::members::{$userId}");
 
             return true;
         }
@@ -489,13 +558,17 @@ class Blog extends yupe\models\YModel
         return false;
     }
 
+    /**
+     * @param $userId
+     * @return bool|int
+     */
     public function leave($userId)
     {
         if ($this->isPrivate()) {
             return false;
         }
 
-        Yii::app()->cache->delete("Blog::Blog::members::{$userId}");
+        Yii::app()->getCache()->delete("Blog::Blog::members::{$userId}");
 
         Yii::app()->eventManager->fire(BlogEvents::BLOG_LEAVE, new BlogJoinLeaveEvent($this, $userId));
 
@@ -512,6 +585,9 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return UserToBlog
+     */
     public function getMembersList()
     {
         $members = new UserToBlog('search');
@@ -522,6 +598,9 @@ class Blog extends yupe\models\YModel
         return $members;
     }
 
+    /**
+     * @return string
+     */
     public function getImageUrl()
     {
         if ($this->icon) {
@@ -534,6 +613,9 @@ class Blog extends yupe\models\YModel
         return $icon;
     }
 
+    /**
+     * @return Post
+     */
     public function getPosts()
     {
         $posts = new Post('search');
@@ -545,12 +627,19 @@ class Blog extends yupe\models\YModel
         return $posts;
     }
 
+    /**
+     * @return mixed
+     */
     public function getList()
     {
         return $this->published()->findAll(array('order' => 'name ASC'));
     }
 
-    public function getListForUser($user)
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function getMembershipListForUser($user)
     {
         return $this->with('userToBlog')->published()->findAll(
             array(
@@ -564,24 +653,54 @@ class Blog extends yupe\models\YModel
         );
     }
 
+    /**
+     * @param $id
+     * @param array $with
+     * @return mixed
+     */
     public function get($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
         return $this->with($with)->published()->findByPk((int)$id);
     }
 
+    /**
+     * @param $id
+     * @param array $with
+     * @return mixed
+     */
     public function getBySlug($id, array $with = array('posts', 'membersCount', 'createUser'))
     {
         return $this->with($with)->getByUrl($id)->published()->find();
     }
 
+    /**
+     * @return bool
+     */
     public function isPrivate()
     {
         return $this->type == self::TYPE_PRIVATE;
     }
 
+    /**
+     * @param $userId
+     * @return bool
+     */
     public function isOwner($userId)
     {
         return $this->create_user_id == $userId;
+    }
+
+    public function getPrivateBlogsForUser($userId)
+    {
+        return $this->published()->findAll('create_user_id = :id AND type = :type', [
+                ':id'   => (int)$userId,
+                ':type' => self::TYPE_PRIVATE
+            ]);
+    }
+
+    public function getListForUser($userId)
+    {
+        return CMap::mergeArray($this->getMembershipListForUser($userId), $this->getPrivateBlogsForUser($userId));
     }
 
 }

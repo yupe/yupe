@@ -71,11 +71,10 @@ $form = $this->beginWidget(
         <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT): ?>
             <?php echo $form->labelEx($model, 'content'); ?>
             <?php $this->widget(
-                $this->yupe->editor,
+                $this->yupe->getVisualEditor(),
                 array(
                     'model'     => $model,
                     'attribute' => 'content',
-                    'options'   => $this->module->editorOptions,
                 )
             ); ?>
             <?php echo $form->error($model, 'content'); ?>
@@ -92,11 +91,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->yupe->editor,
+            $this->yupe->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'description',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <?php echo $form->error($model, 'description'); ?>

@@ -85,8 +85,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('UserModule.user', 'This section represents account management!'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -111,10 +109,10 @@ $this->menu = array(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'UserModule.user',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('access_level')))
-                        ),
+                        'UserModule.user',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('access_level')))
+                    ),
                     'source' => $model->getAccessLevelsList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -124,37 +122,22 @@ $this->menu = array(
                 'type'     => 'raw',
                 'value'    => '$data->getAccessLevel()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'access_level',
-                        $model->getAccessLevelsList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
-            ),
-            array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/user/userBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'UserModule.user',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
+                    $model,
+                    'access_level',
+                    $model->getAccessLevelsList(),
+                    array('class' => 'form-control', 'empty' => '')
                 ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+            ),
+            array(
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/user/userBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    User::STATUS_ACTIVE     => ['class' => 'label-success'],
+                    User::STATUS_BLOCK      => ['class' => 'label-danger'],
+                    User::STATUS_NOT_ACTIVE => ['class' => 'label-warning'],
+                ],
             ),
             array(
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -163,10 +146,10 @@ $this->menu = array(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'UserModule.user',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('email_confirm')))
-                        ),
+                        'UserModule.user',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('email_confirm')))
+                    ),
                     'source' => $model->getEmailConfirmStatusList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -176,11 +159,11 @@ $this->menu = array(
                 'type'     => 'raw',
                 'value'    => '$data->getEmailConfirmStatus()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'email_confirm',
-                        $model->getEmailConfirmStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'email_confirm',
+                    $model->getEmailConfirmStatusList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
             ),
             array(
                 'name'   => 'registration_date',
@@ -189,10 +172,6 @@ $this->menu = array(
             array(
                 'name'   => 'last_visit',
                 'filter' => false
-            ),
-            array(
-                'value' => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [User::STATUS_BLOCK => yupe\helpers\Html::DANGER, User::STATUS_NOT_ACTIVE => yupe\helpers\Html::WARNING, User::STATUS_ACTIVE => yupe\helpers\Html::SUCCESS])',
-                'type'  => 'raw'
             ),
             array(
                 'header'      => Yii::t('UserModule.user', 'Management'),

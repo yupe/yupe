@@ -72,14 +72,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p>
-    <?php echo Yii::t('MenuModule.menu', 'This section describes Menu Items Management'); ?> <span
-        class="label label-info"><?php echo Yii::t(
-            'MenuModule.menu',
-            'Use drag and drop to sort'
-        ); ?></span>
-</p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -90,7 +82,7 @@ $this->menu = array(
         'sortableAction'    => '/menu/menuitemBackend/sortable',
         'dataProvider'      => $model->search(),
         'filter'            => $model,
-        'actionsButtons' => [
+        'actionsButtons'    => [
             CHtml::link(
                 Yii::t('YupeModule.yupe', 'Add'),
                 ['/menu/menuitemBackend/create'],
@@ -131,15 +123,15 @@ $this->menu = array(
                 'name'   => 'parent_id',
                 'value'  => '$data->getParent()',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'parent_id',
-                        $model->parentTree,
-                        array(
-                            'disabled' => ($model->menu_id) ? false : true,
-                            'encode'   => false,
-                            'class'    => 'form-control'
-                        )
-                    ),
+                    $model,
+                    'parent_id',
+                    $model->parentTree,
+                    array(
+                        'disabled' => ($model->menu_id) ? false : true,
+                        'encode'   => false,
+                        'class'    => 'form-control'
+                    )
+                ),
             ),
             array(
                 'name'   => 'condition_name',
@@ -147,36 +139,14 @@ $this->menu = array(
                 'filter' => $model->getConditionList(),
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/menu/menuitemBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'MenuModule.menu',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
-            ),
-            array(
-                'name'   => 'sort',
-                'type'   => 'raw',
-                'value'  => '$this->grid->getUpDownButtons($data)',
-                'filter' => false
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/menu/menuitemBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    MenuItem::STATUS_ACTIVE   => ['class' => 'label-success'],
+                    MenuItem::STATUS_DISABLED => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

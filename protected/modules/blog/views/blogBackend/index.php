@@ -64,12 +64,12 @@ $this->menu = array(
 );
 ?>
 
-<?php
-$this->beginWidget(
-    'booster.widgets.TbPanel',
-    ['title' => $this->module->getName(), 'headerIcon' => $this->module->getIcon()]
-);
-?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?>
+        <small><?php echo Yii::t('BlogModule.blog', 'Administration'); ?></small>
+    </h1>
+</div>
 
 <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="glyphicon glyphicon-search">&nbsp;</i>
@@ -139,10 +139,10 @@ $this->beginWidget(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
-                        ),
+                        'BlogModule.blog',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
+                    ),
                     'source' => $model->getTypeList(),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -152,48 +152,33 @@ $this->beginWidget(
                 'type'     => 'raw',
                 'value'    => '$data->getType()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'type',
-                        $model->getTypeList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'type',
+                    $model->getTypeList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
 
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/blog/blogBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'BlogModule.blog',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/blog/blogBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Blog::STATUS_ACTIVE  => ['class' => 'label-success'],
+                    Blog::STATUS_BLOCKED => ['class' => 'label-default'],
+                    Blog::STATUS_DELETED => ['class' => 'label-danger'],
+                ],
             ),
             array(
                 'name'   => 'category_id',
                 'value'  => 'empty($data->category) ? "---" : $data->category->name',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'category_id',
-                        Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory),
-                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
-                    )
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('blog')->mainCategory),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                )
             ),
             array(
                 'name'   => 'create_user_id',
@@ -222,5 +207,3 @@ $this->beginWidget(
         ),
     )
 ); ?>
-
-<?php $this->endWidget(); ?>

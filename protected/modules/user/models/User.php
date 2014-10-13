@@ -81,11 +81,6 @@ class User extends yupe\models\YModel
     public $use_gravatar = false;
 
     /**
-     * @var
-     */
-    public $pageSize;
-
-    /**
      * @return string the associated database table name
      */
     public function tableName()
@@ -148,7 +143,7 @@ class User extends yupe\models\YModel
             array(
                 'avatar',
                 'file',
-                'types'      => implode(',', $module->avatarExtensions),
+                'types'      => $module->avatarExtensions,
                 'maxSize'    => $module->avatarMaxSize,
                 'allowEmpty' => true
             ),
@@ -161,6 +156,8 @@ class User extends yupe\models\YModel
                 'on' => 'search'
             ),
             array('birth_date', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('registration_date', 'default', 'value' => new CDbExpression('NOW()'), 'on' => 'insert'),
+            array('change_date', 'default', 'value' => new CDbExpression('NOW()'), 'on' => 'update')
         );
     }
 
@@ -242,7 +239,7 @@ class User extends yupe\models\YModel
      *
      * @return CActiveDataProvider
      */
-    public function search()
+    public function search($pageSize = 10)
     {
         $criteria = new CDbCriteria();
 
@@ -267,10 +264,10 @@ class User extends yupe\models\YModel
         return new CActiveDataProvider(get_class($this), array(
             'criteria'   => $criteria,
             'pagination' => array(
-                'pageSize' => (int)$this->pageSize,
+                'pageSize' => $pageSize,
             ),
             'sort'       => array(
-                'defaultOrder' => 'id DESC',
+                'defaultOrder' => 'last_visit DESC',
             )
         ));
     }
@@ -310,15 +307,12 @@ class User extends yupe\models\YModel
      */
     public function beforeSave()
     {
-        if ($this->getIsNewRecord()) {
-            $this->registration_date = new CDbExpression('NOW()');
-        } else {
+        if(!$this->getIsNewRecord() && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN) {
             // Запрещаем действия, при которых администратор
             // может быть заблокирован или сайт останется без
             // администратора:
             if (
                 $this->admin()->count() == 1
-                && (int)$this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
                 && ((int)$this->access_level === self::ACCESS_LEVEL_USER || (int)$this->status !== self::STATUS_ACTIVE)
             ) {
                 $this->addError(
@@ -329,11 +323,6 @@ class User extends yupe\models\YModel
                 return false;
             }
         }
-        if (!$this->birth_date) {
-            $this->birth_date = null;
-        }
-        // Меняем дату изменения профиля:
-        $this->change_date = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }
@@ -345,7 +334,7 @@ class User extends yupe\models\YModel
      */
     public function beforeDelete()
     {
-        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN) {
+        if ($this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN && $this->admin()->count() == 1) {
             $this->addError(
                 'access_level',
                 Yii::t('UserModule.user', 'You can\'t make this changes!')
@@ -521,7 +510,7 @@ class User extends yupe\models\YModel
         // если это граватар
         if ($this->use_gravatar && $this->email) {
             return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
-                Yii::app()->createAbsoluteUrl('/') . $userModule->defaultAvatar
+                Yii::app()->createAbsoluteUrl('/') . $userModule->getDefaultAvatar()
             );
         }
 

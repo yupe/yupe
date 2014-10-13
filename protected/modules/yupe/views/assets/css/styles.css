@@ -289,3 +289,13 @@ input.form-control[type="file"] {
 .treeview .checkbox {
     margin: 0;
 }
+
+
+/* постраничная навигация в гридах */
+.pager-container {
+    position: absolute;
+}
+
+.pager-container .pagination {
+    margin: 26px 0 0 0;
+}

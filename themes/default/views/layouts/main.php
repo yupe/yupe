@@ -8,15 +8,17 @@
     <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
     <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
     <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
-    <meta property="og:description" content="<?php echo $this->description; ?>"/>
+    <meta property="og:description" content="<?php echo CHtml::encode($this->description); ?>"/>
     <?php
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
-    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/comments.js');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/main.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/yupe.css');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/blog.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/comments.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
@@ -26,6 +28,8 @@
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.2/styles/github.min.css">
+    <script src="http://yastatic.net/highlightjs/8.2/highlight.min.js"></script>
 </head>
 
 <body>
@@ -52,6 +56,16 @@
 
         <!-- sidebar -->
         <aside class="col-sm-3 sidebar">
+            <?php if (Yii::app()->hasModule('blog')): ?>
+                <?php Yii::import('application.modules.blog.BlogModule');?>
+                <p>
+                    <?= CHtml::link(
+                        "<i class='glyphicon glyphicon-pencil'></i> " . Yii::t('BlogModule.blog', 'Add a post'),
+                        ['/blog/publisher/write'],
+                        ['class' => 'btn btn-success', 'style' => 'width: 100%;']);
+                    ?>
+                </p>
+            <?php endif; ?>
             <?php if (Yii::app()->hasModule('cart')): ?>
                 <div class="widget shopping-cart-widget" id="shopping-cart-widget">
                     <?php $this->widget('application.modules.cart.widgets.ShoppingCartWidget'); ?>

@@ -73,8 +73,6 @@ $this->menu = array(
     ?>
 </div>
 
-<p><?php echo Yii::t('DictionaryModule.dictionary', 'This section describes dictionary items management'); ?></p>
-
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     array(
@@ -131,10 +129,10 @@ $this->menu = array(
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'DictionaryModule.dictionary',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('group_id')))
-                        ),
+                        'DictionaryModule.dictionary',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('group_id')))
+                    ),
                     'source' => CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name'),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -144,38 +142,22 @@ $this->menu = array(
                 'type'     => 'raw',
                 'value'    => '$data->group->name',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'group_id',
-                        CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name'),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                    $model,
+                    'group_id',
+                    CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name'),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
 
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
-                    'url'    => $this->createUrl('/dictionary/dictionaryDataBackend/inline'),
-                    'mode'   => 'popup',
-                    'type'   => 'select',
-                    'title'  => Yii::t(
-                            'DictionaryModule.dictionary',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
-                        ),
-                    'source' => $model->getStatusList(),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'name'     => 'status',
-                'type'     => 'raw',
-                'value'    => '$data->getStatus()',
-                'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'status',
-                        $model->getStatusList(),
-                        array('class' => 'form-control', 'empty' => '')
-                    ),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/dictionary/dictionaryDataBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    DictionaryData::STATUS_ACTIVE  => ['class' => 'label-success'],
+                    DictionaryData::STATUS_DELETED => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

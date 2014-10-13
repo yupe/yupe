@@ -19,13 +19,12 @@ class PeopleController extends yupe\components\controllers\FrontController
         $users = new User('search');
         $users->unsetAttributes();
         $users->status = User::STATUS_ACTIVE;
-        $users->pageSize = (int)$this->module->usersPerPage;
 
         if (isset($_GET['User']['nick_name'])) {
             $users->nick_name = CHtml::encode($_GET['User']['nick_name']);
         }
 
-        $this->render('index', array('users' => $users));
+        $this->render('index', array('users' => $users,'provider' => $users->search((int)$this->module->usersPerPage)));
     }
 
     // Вывод публичной страницы пользователя

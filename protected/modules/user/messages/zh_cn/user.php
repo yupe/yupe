@@ -338,4 +338,8 @@ return array(
     'Email verification'                                                                                              => '电子邮件验证',
     'User not found'                                                                                                  => '用户未找到',
     'Send a letter to verify email'                                                                                   => '',
+    'Change email'                                                                                                    => '',
+    'Email was updated.'                                                                                              => '',
+    'Your password was changed successfully.'                                                                         => '',
+    'Avatar extensions'                                                                                               => '',
 );

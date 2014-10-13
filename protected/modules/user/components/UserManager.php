@@ -263,8 +263,8 @@ class UserManager extends CApplicationComponent
                 }
 
                 Yii::app()->eventManager->fire(
-                    UserEvents::SUCCESS_EMAIL_CONFIRM,
-                    new UserEmailConfirmEvent($user, $token)
+                    UserEvents::SUCCESS_EMAIL_CHANGE,
+                    new UserEmailConfirmEvent($token, $user)
                 );
 
                 $transaction->commit();

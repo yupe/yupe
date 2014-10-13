@@ -46,11 +46,10 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model'     => $model,
                 'attribute' => 'text',
-                'options'   => $this->module->editorOptions,
             )
         ); ?>
         <br/><?php echo $form->error($model, 'text'); ?>
