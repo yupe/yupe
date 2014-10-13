@@ -88,11 +88,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model' => $model,
                 'attribute' => 'description',
-                'options' => $this->module->editorOptions,
             )
         ); ?>
         <p class="help-block"></p>
@@ -104,11 +103,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 <?php echo $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'short_description'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model' => $model,
                 'attribute' => 'short_description',
-                'options' => $this->module->editorOptions,
             )
         ); ?>
         <p class="help-block"></p>
