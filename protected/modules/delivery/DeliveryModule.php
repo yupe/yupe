@@ -7,7 +7,7 @@ class DeliveryModule extends WebModule
 
     public function getDependencies()
     {
-        return array('store');
+        return array('store', 'payment');
     }
 
     public function getEditableParams()

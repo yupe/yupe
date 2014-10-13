@@ -58,11 +58,10 @@ $form = $this->beginWidget(
             <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
                 <?php echo $form->labelEx($model, 'description'); ?>
                 <?php $this->widget(
-                    $this->module->editor,
+                    $this->module->getVisualEditor(),
                     array(
                         'model' => $model,
                         'attribute' => 'description',
-                        'options' => Yii::app()->getModule('store')->editorOptions,
                     )
                 ); ?>
                 <p class="help-block"></p>
