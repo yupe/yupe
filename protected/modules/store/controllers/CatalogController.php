@@ -30,7 +30,8 @@ class CatalogController extends yupe\components\controllers\FrontController
                 throw new CHttpException(404, 'Not found');
             }
             $criteria->with = array('categoryRelation' => array('together' => true));
-            $criteria->compare('categoryRelation.category_id', $cat->id);
+            $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
+            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $cat->id]);
         }
 
         if (isset($_GET['q'])) {

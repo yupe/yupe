@@ -7,6 +7,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $id
  * @property integer $type_id
  * @property integer $producer_id
+ * @property integer $category_id
  * @property string $sku
  * @property string $name
  * @property string $alias
@@ -84,8 +85,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return array(
             array('name, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, alias, price, discount_price, discount, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('status, is_special, producer_id, type_id, quantity, in_stock', 'numerical', 'integerOnly' => true),
-            array('status, is_special', 'length', 'max' => 11),
+            array('status, is_special, producer_id, type_id, quantity, in_stock, category_id', 'numerical', 'integerOnly' => true),
             array('price, discount_price, discount, length, height, width, weight', 'store\components\validators\NumberValidator'),
             array('name, meta_keywords, meta_title, meta_description', 'length', 'max' => 250),
             array('sku', 'length', 'max' => 100),
@@ -114,7 +114,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'producer' => array(self::BELONGS_TO, 'Producer', 'producer_id'),
             'categoryRelation' => array(self::HAS_MANY, 'ProductCategory', 'product_id'),
             'categories' => array(self::HAS_MANY, 'StoreCategory', array('category_id' => 'id'), 'through' => 'categoryRelation'),
-            'mainCategory' => array(self::HAS_ONE, 'StoreCategory', array('category_id' => 'id'), 'through' => 'categoryRelation', 'condition' => 'categoryRelation.is_main = 1'),
+            'mainCategory' => array(self::BELONGS_TO, 'StoreCategory', array('category_id' => 'id')),
             'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
             'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
             'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
@@ -242,10 +242,12 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('producer_id', $this->producer_id);
+        $criteria->compare('category_id', $this->category_id);
 
         if ($this->category) {
             $criteria->with = array('categoryRelation' => array('together' => true));
-            $criteria->compare('categoryRelation.category_id', $this->category);
+            $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
+            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category]);
         }
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
@@ -345,14 +347,14 @@ class Product extends yupe\models\YModel implements ICommentable
             : '---';
     }
 
-    public function setProductCategories($categories, $mainCategory)
+    /**
+     * Устанавливает дополнительные категории товара
+     * @param $categories - список id категорий
+     */
+    public function setProductCategories($categories)
     {
         $categories = is_array($categories) ? $categories : (array)$categories;
-        $mainCategory = $mainCategory ?: $categories[0];
-        if (!in_array($mainCategory, $categories)) {
-            array_push($categories, $mainCategory);
-        }
-
+        $categories = array_diff($categories, (array)$this->category_id);
         foreach ($categories as $category_id) {
             $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
             if (!$model) {
@@ -360,8 +362,6 @@ class Product extends yupe\models\YModel implements ICommentable
                 $model->category_id = $category_id;
                 $model->product_id = $this->id;
             }
-
-            $model->is_main = ($category_id == $mainCategory) ? 1 : 0;
             $model->save();
         }
 
@@ -374,7 +374,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getCategoriesIdList()
     {
-        $cats = ProductCategory::model()->findAllByAttributes(array('product_id' => $this->id), 'is_main = 0');
+        $cats = ProductCategory::model()->findAllByAttributes(array('product_id' => $this->id));
         $list = array();
         foreach ($cats as $key => $cat) {
             $list[] = $cat->category_id;
@@ -540,7 +540,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getTypeAttributes()
     {
-        if(empty($this->type)) {
+        if (empty($this->type)) {
             return [];
         }
 
@@ -549,7 +549,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getProducerName()
     {
-        if(empty($this->producer)) {
+        if (empty($this->producer)) {
             return null;
         }
 
