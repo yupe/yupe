@@ -82,7 +82,7 @@ class PageModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-file";
+        return "fa fa-fw fa-file";
     }
 
     public function init()
@@ -116,17 +116,17 @@ class PageModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('PageModule.page', 'Pages list'),
                 'url'   => array('/page/pageBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('PageModule.page', 'Create page'),
                 'url'   => array('/page/pageBackend/create')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('PageModule.page', 'Pages categories'),
                 'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
             ),

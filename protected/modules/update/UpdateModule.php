@@ -38,7 +38,7 @@ class UpdateModule extends WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-refresh";
+        return "fa fa-fw fa-refresh";
     }
 
     public function getVersion()
@@ -61,7 +61,7 @@ class UpdateModule extends WebModule
         return array(
             array('label' => Yii::t('UpdateModule.update', 'Updates')),
             array(
-                'icon' => 'glyphicon glyphicon-refresh',
+                'icon' => 'fa fa-fw fa-refresh',
                 'label' => Yii::t('UpdateModule.update', 'Check for updates'),
                 'url' => array('/update/updateBackend/index')
             ),

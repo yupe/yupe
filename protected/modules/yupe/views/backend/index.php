@@ -11,7 +11,7 @@
     'bootstrap.widgets.TbPanel',
     array(
         'title'      => Yii::t('YupeModule.yupe', 'Notify'),
-        'headerIcon' => 'glyphicon glyphicon-exclamation-sign'
+        'headerIcon' => 'fa fa-fw fa-exclamation-circle'
     )
 );?>
 <?php foreach ($modules as $module): { ?>

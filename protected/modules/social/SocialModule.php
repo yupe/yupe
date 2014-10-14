@@ -66,7 +66,7 @@ class SocialModule extends WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-globe";
+        return "fa fa-fw fa-globe";
     }
 
     public function getNavigation()
@@ -74,7 +74,7 @@ class SocialModule extends WebModule
         return array(
             array('label' => Yii::t('SocialModule.social', 'Users')),
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('SocialModule.social', 'Accounts'),
                 'url'   => array('/social/socialBackend/index')
             ),

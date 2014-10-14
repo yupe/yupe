@@ -100,7 +100,7 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-home';
+        return 'fa fa-fw fa-home';
     }
 
     public function getAdminPageLink()
