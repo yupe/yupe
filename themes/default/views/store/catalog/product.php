@@ -1,4 +1,5 @@
 <?php
+
 /* @var $product Product */
 
 $this->pageTitle = $product ? ($product->meta_title ?: $product->name) : Yii::t('StoreModule.catalog', 'Product');
@@ -8,10 +9,12 @@ $this->keywords = $product->meta_keywords;
 
 $mainAssets = Yii::app()->getModule('store')->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.simpleGal.js');
+Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
+Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 $this->breadcrumbs = array_merge(
     array(Yii::t("StoreModule.catalog", 'Каталог') => array('/store/catalog/index')),
-    $product->mainCategory ? $product->mainCategory->getBreadcrumbs(true): array(),
+    $product->mainCategory ? $product->mainCategory->getBreadcrumbs(true) : array(),
     array($product->name)
 );
 ?>

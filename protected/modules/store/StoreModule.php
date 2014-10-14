@@ -186,18 +186,6 @@ class StoreModule extends WebModule
         );
     }
 
-    public function beforeControllerAction($controller, $action)
-    {
-        $mainAssets = $this->getAssetsUrl();
-        if ($controller instanceof \yupe\components\controllers\BackController) {
-            Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-backend.css');
-        } else {
-            Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
-            Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
-        }
-        return parent::beforeControllerAction($controller, $action);
-    }
-
     public function getAuthItems()
     {
         return array(
