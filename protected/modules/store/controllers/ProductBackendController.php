@@ -42,7 +42,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
             $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
-                $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
+                $model->setProductCategories($_POST['categories']);
 
                 $this->updateProductImages($model);
 
@@ -73,7 +73,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
             $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
-                $model->setProductCategories($_POST['categories'], $_POST['categories']['main']);
+                $model->setProductCategories($_POST['categories']);
                 $this->updateProductImages($model);
                 Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was updated!'));
 
