@@ -20,15 +20,16 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.category', 'Fields with'); ?>
+    <?php echo Yii::t('StoreModule.store', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.category', 'are required'); ?>
+    <?php echo Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
 
+
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
             $model,
             'parent_id',
@@ -36,9 +37,20 @@ $form = $this->beginWidget(
                 'widgetOptions' => array(
                     'data' => StoreCategory::model()->getFormattedList(),
                     'htmlOptions' => array(
-                        'empty' => Yii::t('StoreModule.category', '--no--'),
+                        'empty' => Yii::t('StoreModule.store', '--no--'),
                         'encode' => false,
                     ),
+                ),
+            )
+        ); ?>
+    </div>
+    <div class="col-sm-4">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'status',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getStatusList(),
                 ),
             )
         ); ?>
@@ -83,11 +95,10 @@ $form = $this->beginWidget(
     <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model' => $model,
                 'attribute' => 'description',
-                'options' => $this->module->editorOptions,
             )
         ); ?>
         <p class="help-block"></p>
@@ -99,29 +110,14 @@ $form = $this->beginWidget(
     <div class="col-sm-12 <?php echo $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'short_description'); ?>
         <?php $this->widget(
-            $this->module->editor,
+            $this->module->getVisualEditor(),
             array(
                 'model' => $model,
                 'attribute' => 'short_description',
-                'options' => $this->module->editorOptions,
             )
         ); ?>
         <p class="help-block"></p>
         <?php echo $form->error($model, 'short_description'); ?>
-    </div>
-</div>
-
-<div class='row'>
-    <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
-            $model,
-            'status',
-            array(
-                'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
-                ),
-            )
-        ); ?>
     </div>
 </div>
 
@@ -131,7 +127,7 @@ $form = $this->beginWidget(
         <div class="panel-heading">
             <div class="panel-title">
                 <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
-                    <?php echo Yii::t('StoreModule.category', 'Data for SEO'); ?>
+                    <?php echo Yii::t('StoreModule.store', 'Data for SEO'); ?>
                 </a>
             </div>
         </div>
@@ -163,7 +159,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.category', 'Create category and continue') : Yii::t('StoreModule.category', 'Save category and continue'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Create category and continue') : Yii::t('StoreModule.store', 'Save category and continue'),
     )
 ); ?>
 
@@ -172,7 +168,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.category', 'Create category and close') : Yii::t('StoreModule.category', 'Save category and close'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Create category and close') : Yii::t('StoreModule.store', 'Save category and close'),
     )
 ); ?>
 

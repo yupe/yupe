@@ -22,20 +22,20 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.product', 'Fields marked with'); ?>
+    <?php echo Yii::t('StoreModule.store', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.product', 'are required.'); ?>
+    <?php echo Yii::t('StoreModule.store', 'are required.'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.product", "Общие"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.product", "Склад"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.product", "Изображения"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.product", "Атрибуты"); ?></a></li>
-    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.product", "Варианты"); ?></a></li>
-    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.product", "SEO"); ?></a></li>
+    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Общие"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Склад"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Изображения"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
+    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Варианты"); ?></a></li>
+    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "SEO"); ?></a></li>
 </ul>
 
 <div class="tab-content">
@@ -115,7 +115,7 @@ $form = $this->beginWidget(
         <div class='row'>
             <div class="col-sm-7">
                 <div class="form-group">
-                    <?php echo CHtml::label(Yii::t("StoreModule.product", "Главная категория"), 'categories_main', array('class' => 'control-label')); ?>
+                    <?php echo CHtml::label(Yii::t("StoreModule.store", "Главная категория"), 'categories_main', array('class' => 'control-label')); ?>
                     <?php $categoriesList = (new StoreCategory())->getTabList(); ?>
                     <?php echo CHtml::dropDownList('categories[main]', $model->getMainCategoryId(), $categoriesList, array('class' => 'form-control')); ?>
                 </div>
@@ -125,7 +125,7 @@ $form = $this->beginWidget(
         <div class='row'>
             <div class="col-sm-7">
                 <div class="form-group">
-                    <?php echo CHtml::label(Yii::t("StoreModule.product", 'Дополнительные категории'), null, array('class' => 'control-label')); ?>
+                    <?php echo CHtml::label(Yii::t("StoreModule.store", 'Дополнительные категории'), null, array('class' => 'control-label')); ?>
                     <?php        $this->widget(
                         'store.widgets.CategoryTreeWidget',
                         array(
@@ -141,11 +141,10 @@ $form = $this->beginWidget(
             <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
                 <?php echo $form->labelEx($model, 'description'); ?>
                 <?php $this->widget(
-                    $this->module->editor,
+                    $this->module->getVisualEditor(),
                     array(
                         'model' => $model,
                         'attribute' => 'description',
-                        'options' => $this->module->editorOptions,
                     )
                 ); ?>
                 <p class="help-block"></p>
@@ -157,11 +156,10 @@ $form = $this->beginWidget(
             <div class="col-sm-12 <?php echo $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
                 <?php echo $form->labelEx($model, 'short_description'); ?>
                 <?php $this->widget(
-                    $this->module->editor,
+                    $this->module->getVisualEditor(),
                     array(
                         'model' => $model,
                         'attribute' => 'short_description',
-                        'options' => $this->module->editorOptions,
                     )
                 ); ?>
                 <p class="help-block"></p>
@@ -173,11 +171,10 @@ $form = $this->beginWidget(
             <div class="col-sm-12 <?php echo $model->hasErrors('data') ? 'has-error' : ''; ?>">
                 <?php echo $form->labelEx($model, 'data'); ?>
                 <?php $this->widget(
-                    $this->module->editor,
+                    $this->module->getVisualEditor(),
                     array(
                         'model' => $model,
                         'attribute' => 'data',
-                        'options' => $this->module->editorOptions,
                     )
                 ); ?>
                 <p class="help-block"></p>
@@ -229,7 +226,7 @@ $form = $this->beginWidget(
     <div class="tab-pane" id="images">
         <div class="row form-group">
             <div class="col-sm-2">
-                <?php echo Yii::t("StoreModule.product", "Изображения"); ?>
+                <?php echo Yii::t("StoreModule.store", "Изображения"); ?>
             </div>
             <div class="col-sm-2">
                 <button id="button-add-image" type="button" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i></button>
@@ -241,11 +238,11 @@ $form = $this->beginWidget(
                 <div class="image-template hidden form-group">
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for=""><?php echo Yii::t("StoreModule.product", "Файл"); ?></label>
+                            <label for=""><?php echo Yii::t("StoreModule.store", "Файл"); ?></label>
                             <input type="file" class="image-file"/>
                         </div>
                         <div class="col-sm-2">
-                            <label for=""><?php echo Yii::t("StoreModule.product", "Заголовок"); ?></label>
+                            <label for=""><?php echo Yii::t("StoreModule.store", "Заголовок"); ?></label>
                             <input type="text" class="image-title form-control"/>
                         </div>
                         <div class="col-sm-1" style="padding-top: 24px">
@@ -265,7 +262,7 @@ $form = $this->beginWidget(
                         <div>
                             <label for="product-image-<?php echo $image->id; ?>">
                                 <input type="radio" name="main_image" value="<?php echo $image->id; ?>" id="product-image-<?php echo $image->id; ?>" <?php echo $image->is_main ? 'checked' : ''; ?>/>
-                                <?php echo Yii::t("StoreModule.product", "Главное"); ?>
+                                <?php echo Yii::t("StoreModule.store", "Главное"); ?>
                             </label>
                             <a href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
@@ -306,11 +303,11 @@ $form = $this->beginWidget(
     <div class="tab-pane" id="variants">
         <div class="row">
             <div class="col-sm-12 form-group">
-                <label class="control-label" for=""><?php echo Yii::t("StoreModule.product", "Атрибут"); ?></label>
+                <label class="control-label" for=""><?php echo Yii::t("StoreModule.store", "Атрибут"); ?></label>
                 <div class="form-inline">
                     <div class="form-group">
                         <select id="variants-type-attributes" class="form-control"></select>
-                        <a href="#" class="btn btn-default" id="add-product-variant"><?php echo Yii::t("StoreModule.product", "Добавить"); ?></a>
+                        <a href="#" class="btn btn-default" id="add-product-variant"><?php echo Yii::t("StoreModule.store", "Добавить"); ?></a>
                     </div>
                 </div>
             </div>
@@ -321,11 +318,11 @@ $form = $this->beginWidget(
                     <table>
                         <thead>
                             <tr>
-                                <td><?php echo Yii::t("StoreModule.product", "Атрибут"); ?></td>
-                                <td><?php echo Yii::t("StoreModule.product", "Значение"); ?></td>
-                                <td><?php echo Yii::t("StoreModule.product", "Тип стоимости"); ?></td>
-                                <td><?php echo Yii::t("StoreModule.product", "Стоимость"); ?></td>
-                                <td><?php echo Yii::t("StoreModule.product", "Артикул"); ?></td>
+                                <td><?php echo Yii::t("StoreModule.store", "Атрибут"); ?></td>
+                                <td><?php echo Yii::t("StoreModule.store", "Значение"); ?></td>
+                                <td><?php echo Yii::t("StoreModule.store", "Тип стоимости"); ?></td>
+                                <td><?php echo Yii::t("StoreModule.store", "Стоимость"); ?></td>
+                                <td><?php echo Yii::t("StoreModule.store", "Артикул"); ?></td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -348,7 +345,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.product', 'Add product and continue') : Yii::t('StoreModule.product', 'Save product and continue'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Add product and continue') : Yii::t('StoreModule.store', 'Save product and continue'),
     )
 ); ?>
 
@@ -357,7 +354,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.product', 'Add product and close') : Yii::t('StoreModule.product', 'Save product and close'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Add product and close') : Yii::t('StoreModule.store', 'Save product and close'),
     )
 ); ?>
 

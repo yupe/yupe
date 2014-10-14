@@ -45,9 +45,17 @@ class Producer extends yupe\models\YModel
             array('name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250),
             array('short_description, description', 'safe'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('slug', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.producer', 'Illegal characters in {attribute}')),
+            array(
+                'slug',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
+            ),
             array('slug', 'unique'),
-            array('id, name_short, name, slug, status, order, image, short_description, description, meta_title, meta_keywords, meta_description', 'safe', 'on' => 'search'),
+            array(
+                'id, name_short, name, slug, status, order, image, short_description, description, meta_title, meta_keywords, meta_description',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
@@ -67,18 +75,18 @@ class Producer extends yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('StoreModule.producer', 'ID'),
-            'name_short' => Yii::t('StoreModule.producer', 'Короткое название'),
-            'name' => Yii::t('StoreModule.producer', 'Полное название'),
-            'slug' => Yii::t('StoreModule.producer', 'URL'),
-            'status' => Yii::t('StoreModule.producer', 'Статус'),
-            'order' => Yii::t('StoreModule.producer', 'Порядок в меню'),
-            'image' => Yii::t('StoreModule.producer', 'Изображение'),
-            'short_description' => Yii::t('StoreModule.producer', 'Короткое описание'),
-            'description' => Yii::t('StoreModule.producer', 'Описание'),
-            'meta_title' => Yii::t('StoreModule.producer', 'Meta title'),
-            'meta_keywords' => Yii::t('StoreModule.producer', 'Meta keywords'),
-            'meta_description' => Yii::t('StoreModule.producer', 'Meta description'),
+            'id' => Yii::t('StoreModule.store', 'ID'),
+            'name_short' => Yii::t('StoreModule.store', 'Короткое название'),
+            'name' => Yii::t('StoreModule.store', 'Полное название'),
+            'slug' => Yii::t('StoreModule.store', 'URL'),
+            'status' => Yii::t('StoreModule.store', 'Статус'),
+            'order' => Yii::t('StoreModule.store', 'Порядок в меню'),
+            'image' => Yii::t('StoreModule.store', 'Изображение'),
+            'short_description' => Yii::t('StoreModule.store', 'Короткое описание'),
+            'description' => Yii::t('StoreModule.store', 'Описание'),
+            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
         );
     }
 
@@ -131,6 +139,7 @@ class Producer extends yupe\models\YModel
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
+
         return array(
             'imageUpload' => array(
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
@@ -161,6 +170,7 @@ class Producer extends yupe\models\YModel
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : '*неизвестен*';
     }
 
@@ -171,6 +181,7 @@ class Producer extends yupe\models\YModel
         foreach ($producers as $key => $producer) {
             $list[$producer->id] = $producer->name_short;
         }
+
         return $list;
     }
 }

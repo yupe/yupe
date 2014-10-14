@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('StoreModule.attribute', 'Атрибуты') => array('/store/attributeBackend/index'),
-    Yii::t('StoreModule.attribute', 'Управление'),
+    Yii::t('StoreModule.store', 'Атрибуты') => array('/store/attributeBackend/index'),
+    Yii::t('StoreModule.store', 'Управление'),
 );
 
-$this->pageTitle = Yii::t('StoreModule.attribute', 'Атрибуты - управление');
+$this->pageTitle = Yii::t('StoreModule.store', 'Атрибуты - управление');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.attribute', 'Управление атрибутами'), 'url' => array('/store/attributeBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.attribute', 'Добавить атрибут'), 'url' => array('/store/attributeBackend/create')),
+    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление атрибутами'), 'url' => array('/store/attributeBackend/index')),
+    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Добавить атрибут'), 'url' => array('/store/attributeBackend/create')),
 );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.attribute', 'Атрибуты'); ?>
-        <small><?php echo Yii::t('StoreModule.attribute', 'управление'); ?></small>
+        <?php echo Yii::t('StoreModule.store', 'Атрибуты'); ?>
+        <small><?php echo Yii::t('StoreModule.store', 'управление'); ?></small>
     </h1>
 </div>
 
@@ -22,8 +22,8 @@ $this->menu = array(
     <div class="col-sm-3">
         <fieldset>
             <legend>Группы атрибутов</legend>
-            <a href="#" id="clear-attribute-group-filter"><?php echo Yii::t("StoreModule.attribute", "Без групп"); ?></a>
-            <a href="#" id="add-attribute-group" class="btn btn-default pull-right"><?php echo Yii::t("StoreModule.attribute", "Добавить группу"); ?></a>
+            <a href="#" id="clear-attribute-group-filter"><?php echo Yii::t("StoreModule.store", "Без групп"); ?></a>
+            <a href="#" id="add-attribute-group" class="btn btn-default pull-right"><?php echo Yii::t("StoreModule.store", "Добавить группу"); ?></a>
             <script type="text/javascript">
                 $(document).ready(function () {
                     $('#clear-attribute-group-filter').click(function (e) {
@@ -38,7 +38,7 @@ $this->menu = array(
 
                     $('#add-attribute-group').click(function (e) {
                         e.preventDefault();
-                        var name = prompt('<?php echo Yii::t("StoreModule.attribute", "Название"); ?>');
+                        var name = prompt('<?php echo Yii::t("StoreModule.store", "Название"); ?>');
                         if (name) {
                             var data = {name: name};
                             data["<?php echo Yii::app()->getRequest()->csrfTokenName?>"] = "<?php echo Yii::app()->getRequest()->csrfToken?>";
@@ -92,7 +92,7 @@ $this->menu = array(
                         'editable' => array(
                             'type' => 'text',
                             'url' => array('/store/attributeBackend/inlineEditGroup'),
-                            'title' => Yii::t('StoreModule.attribute', 'Введите {field}', array('{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name')))),
+                            'title' => Yii::t('StoreModule.store', 'Введите {field}', array('{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name')))),
                             'params' => array(
                                 Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                             ),

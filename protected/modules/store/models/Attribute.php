@@ -56,7 +56,7 @@ class Attribute extends \yupe\models\YModel
                 'name',
                 'match',
                 'pattern' => '/^([a-z0-9._-])+$/i',
-                'message' => Yii::t('StoreModule.attribute', 'Название может содержать только буквы, цифры и подчеркивания.')
+                'message' => Yii::t('StoreModule.store', 'Название может содержать только буквы, цифры и подчеркивания.')
             ),
             array('type, group_id', 'numerical', 'integerOnly' => true),
             array('required', 'boolean'),
@@ -82,13 +82,13 @@ class Attribute extends \yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('StoreModule.attribute', 'Id'),
-            'name' => Yii::t('StoreModule.attribute', 'Идентификатор'),
-            'title' => Yii::t('StoreModule.attribute', 'Название'),
-            'type' => Yii::t('StoreModule.attribute', 'Тип'),
-            'required' => Yii::t('StoreModule.attribute', 'Обязательный'),
-            'group_id' => Yii::t('StoreModule.attribute', 'Группа'),
-            'unit' => Yii::t('StoreModule.attribute', 'Единица измерения'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'name' => Yii::t('StoreModule.store', 'Идентификатор'),
+            'title' => Yii::t('StoreModule.store', 'Название'),
+            'type' => Yii::t('StoreModule.store', 'Тип'),
+            'required' => Yii::t('StoreModule.store', 'Обязательный'),
+            'group_id' => Yii::t('StoreModule.store', 'Группа'),
+            'unit' => Yii::t('StoreModule.store', 'Единица измерения'),
         );
     }
 
@@ -98,13 +98,13 @@ class Attribute extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return array(
-            'id' => Yii::t('StoreModule.attribute', 'Id'),
-            'name' => Yii::t('StoreModule.attribute', 'Идентификатор'),
-            'title' => Yii::t('StoreModule.attribute', 'Название'),
-            'type' => Yii::t('StoreModule.attribute', 'Тип'),
-            'required' => Yii::t('StoreModule.attribute', 'Обязательный'),
-            'group_id' => Yii::t('StoreModule.attribute', 'Группа'),
-            'unit' => Yii::t('StoreModule.attribute', 'Единица измерения'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'name' => Yii::t('StoreModule.store', 'Идентификатор'),
+            'title' => Yii::t('StoreModule.store', 'Название'),
+            'type' => Yii::t('StoreModule.store', 'Тип'),
+            'required' => Yii::t('StoreModule.store', 'Обязательный'),
+            'group_id' => Yii::t('StoreModule.store', 'Группа'),
+            'unit' => Yii::t('StoreModule.store', 'Единица измерения'),
         );
     }
 
@@ -142,13 +142,13 @@ class Attribute extends \yupe\models\YModel
     public static function getTypesList()
     {
         return array(
-            self::TYPE_TEXT => Yii::t('StoreModule.attribute', 'Короткий текст (до 250 символов)'),
-            self::TYPE_TEXTAREA => Yii::t('StoreModule.attribute', 'Текст'),
-            self::TYPE_DROPDOWN => Yii::t('StoreModule.attribute', 'Список'),
-            //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.attribute', 'Список чекбоксов'),
-            self::TYPE_CHECKBOX => Yii::t('StoreModule.attribute', 'Чекбокс'),
-            //self::TYPE_IMAGE => Yii::t('StoreModule.attribute', 'Изображение'),
-            //self::TYPE_NUMBER => Yii::t('StoreModule.attribute', 'Число'),
+            self::TYPE_TEXTAREA => Yii::t('StoreModule.store', 'Короткий текст (до 250 символов)'),
+            self::TYPE_TEXT => Yii::t('StoreModule.store', 'Текст'),
+            self::TYPE_DROPDOWN => Yii::t('StoreModule.store', 'Список'),
+            //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Список чекбоксов'),
+            self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Чекбокс'),
+            //self::TYPE_IMAGE => Yii::t('StoreModule.store', 'Изображение'),
+            //self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
         );
     }
 
@@ -166,13 +166,11 @@ class Attribute extends \yupe\models\YModel
                 return CHtml::textField($name, $value, $htmlOptions);
                 break;
             case self::TYPE_TEXTAREA:
-                $controller = new yupe\components\controllers\BackController('Attribute');
-                return $controller->widget(
-                    Yii::app()->getModule('store')->editor,
+                return Yii::app()->getController()->widget(
+                    Yii::app()->getModule('store')->getVisualEditor(),
                     array(
                         'name' => $name,
-                        'value' => $value,
-                        'options' => Yii::app()->getModule('store')->editorOptions,
+                        'value' => $value
                     ),
                     true
                 );

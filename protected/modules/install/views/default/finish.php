@@ -24,16 +24,23 @@
 <p><?php echo Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
 
 <?php echo CHtml::link(
-    Yii::t('InstallModule.install', 'Official docs'),
-    'http://yupe.ru/docs/index.html?from=finish'
-); ?> - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
+    Yii::t('InstallModule.install', 'Official Yupe site'),
+    'http://yupe-cms.ru/?from=finish'
+); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
 
 <br/><br/>
 
 <?php echo CHtml::link(
-    Yii::t('InstallModule.install', 'Official Yupe site'),
+    Yii::t('InstallModule.install', 'Community'),
     'http://yupe.ru/?from=finish'
 ); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
+
+<br/><br/>
+
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', 'Official docs'),
+    'http://yupe.ru/docs/index.html?from=finish'
+); ?> - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
 
 <br/><br/>
 

@@ -90,7 +90,7 @@ class Product extends yupe\models\YModel implements ICommentable
             array('name, meta_keywords, meta_title, meta_description', 'length', 'max' => 250),
             array('sku', 'length', 'max' => 100),
             array('alias', 'length', 'max' => 150),
-            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.product', 'Illegal characters in {attribute}')),
+            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('is_special', 'in', 'range' => array(0, 1)),
@@ -153,33 +153,36 @@ class Product extends yupe\models\YModel implements ICommentable
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('StoreModule.product', 'ID'),
-            'category_id' => Yii::t('StoreModule.product', 'Category'),
-            'type_id' => Yii::t('StoreModule.product', 'Type'),
-            'name' => Yii::t('StoreModule.product', 'Title'),
-            'price' => Yii::t('StoreModule.product', 'Price'),
-            'discount_price' => Yii::t('StoreModule.product', 'Discount price'),
-            'discount' => Yii::t('StoreModule.product', 'Discount, %'),
-            'sku' => Yii::t('StoreModule.product', 'SKU'),
-            'image' => Yii::t('StoreModule.product', 'Image'),
-            'short_description' => Yii::t('StoreModule.product', 'Short description'),
-            'description' => Yii::t('StoreModule.product', 'Description'),
-            'alias' => Yii::t('StoreModule.product', 'Alias'),
-            'data' => Yii::t('StoreModule.product', 'Data'),
-            'status' => Yii::t('StoreModule.product', 'Status'),
-            'create_time' => Yii::t('StoreModule.product', 'Added'),
-            'update_time' => Yii::t('StoreModule.product', 'Updated'),
-            'user_id' => Yii::t('StoreModule.product', 'User'),
-            'change_user_id' => Yii::t('StoreModule.product', 'Editor'),
-            'is_special' => Yii::t('StoreModule.product', 'Special'),
-            'length' => Yii::t('StoreModule.product', 'Length, m.'),
-            'height' => Yii::t('StoreModule.product', 'Height, m.'),
-            'width' => Yii::t('StoreModule.product', 'Width, m.'),
-            'weight' => Yii::t('StoreModule.product', 'Weight, kg.'),
-            'quantity' => Yii::t('StoreModule.product', 'Quantity'),
-            'producer_id' => Yii::t('StoreModule.product', 'Producer'),
-            'in_stock' => Yii::t('StoreModule.product', 'Stock status'),
-            'category' => Yii::t('StoreModule.product', 'Category'),
+            'id' => Yii::t('StoreModule.store', 'ID'),
+            'category_id' => Yii::t('StoreModule.store', 'Category'),
+            'type_id' => Yii::t('StoreModule.store', 'Type'),
+            'name' => Yii::t('StoreModule.store', 'Title'),
+            'price' => Yii::t('StoreModule.store', 'Price'),
+            'discount_price' => Yii::t('StoreModule.store', 'Discount price'),
+            'discount' => Yii::t('StoreModule.store', 'Discount, %'),
+            'sku' => Yii::t('StoreModule.store', 'SKU'),
+            'image' => Yii::t('StoreModule.store', 'Image'),
+            'short_description' => Yii::t('StoreModule.store', 'Short description'),
+            'description' => Yii::t('StoreModule.store', 'Description'),
+            'alias' => Yii::t('StoreModule.store', 'Alias'),
+            'data' => Yii::t('StoreModule.store', 'Data'),
+            'status' => Yii::t('StoreModule.store', 'Status'),
+            'create_time' => Yii::t('StoreModule.store', 'Added'),
+            'update_time' => Yii::t('StoreModule.store', 'Updated'),
+            'user_id' => Yii::t('StoreModule.store', 'User'),
+            'change_user_id' => Yii::t('StoreModule.store', 'Editor'),
+            'is_special' => Yii::t('StoreModule.store', 'Special'),
+            'length' => Yii::t('StoreModule.store', 'Length, m.'),
+            'height' => Yii::t('StoreModule.store', 'Height, m.'),
+            'width' => Yii::t('StoreModule.store', 'Width, m.'),
+            'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
+            'quantity' => Yii::t('StoreModule.store', 'Quantity'),
+            'producer_id' => Yii::t('StoreModule.store', 'Producer'),
+            'in_stock' => Yii::t('StoreModule.store', 'Stock status'),
+            'category' => Yii::t('StoreModule.store', 'Category'),
+            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
         );
     }
 
@@ -189,28 +192,28 @@ class Product extends yupe\models\YModel implements ICommentable
     public function attributeDescriptions()
     {
         return array(
-            'id' => Yii::t('StoreModule.product', 'ID'),
-            'category_id' => Yii::t('StoreModule.product', 'Category'),
-            'name' => Yii::t('StoreModule.product', 'Title'),
-            'price' => Yii::t('StoreModule.product', 'Price'),
-            'sku' => Yii::t('StoreModule.product', 'SKU'),
-            'image' => Yii::t('StoreModule.product', 'Image'),
-            'short_description' => Yii::t('StoreModule.product', 'Short description'),
-            'description' => Yii::t('StoreModule.product', 'Description'),
-            'alias' => Yii::t('StoreModule.product', 'Alias'),
-            'data' => Yii::t('StoreModule.product', 'Data'),
-            'status' => Yii::t('StoreModule.product', 'Status'),
-            'create_time' => Yii::t('StoreModule.product', 'Added'),
-            'update_time' => Yii::t('StoreModule.product', 'Edited'),
-            'user_id' => Yii::t('StoreModule.product', 'User'),
-            'change_user_id' => Yii::t('StoreModule.product', 'Editor'),
-            'is_special' => Yii::t('StoreModule.product', 'Special'),
-            'length' => Yii::t('StoreModule.product', 'Length, m.'),
-            'height' => Yii::t('StoreModule.product', 'Height, m.'),
-            'width' => Yii::t('StoreModule.product', 'Width, m.'),
-            'weight' => Yii::t('StoreModule.product', 'Weight, kg.'),
-            'quantity' => Yii::t('StoreModule.product', 'Quantity'),
-            'producer_id' => Yii::t('StoreModule.product', 'Producer'),
+            'id' => Yii::t('StoreModule.store', 'ID'),
+            'category_id' => Yii::t('StoreModule.store', 'Category'),
+            'name' => Yii::t('StoreModule.store', 'Title'),
+            'price' => Yii::t('StoreModule.store', 'Price'),
+            'sku' => Yii::t('StoreModule.store', 'SKU'),
+            'image' => Yii::t('StoreModule.store', 'Image'),
+            'short_description' => Yii::t('StoreModule.store', 'Short description'),
+            'description' => Yii::t('StoreModule.store', 'Description'),
+            'alias' => Yii::t('StoreModule.store', 'Alias'),
+            'data' => Yii::t('StoreModule.store', 'Data'),
+            'status' => Yii::t('StoreModule.store', 'Status'),
+            'create_time' => Yii::t('StoreModule.store', 'Added'),
+            'update_time' => Yii::t('StoreModule.store', 'Edited'),
+            'user_id' => Yii::t('StoreModule.store', 'User'),
+            'change_user_id' => Yii::t('StoreModule.store', 'Editor'),
+            'is_special' => Yii::t('StoreModule.store', 'Special'),
+            'length' => Yii::t('StoreModule.store', 'Length, m.'),
+            'height' => Yii::t('StoreModule.store', 'Height, m.'),
+            'width' => Yii::t('StoreModule.store', 'Width, m.'),
+            'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
+            'quantity' => Yii::t('StoreModule.store', 'Quantity'),
+            'producer_id' => Yii::t('StoreModule.store', 'Producer'),
         );
     }
 
@@ -274,7 +277,7 @@ class Product extends yupe\models\YModel implements ICommentable
         foreach ((array)$this->_eavAttributes as $name => $value) {
             $model = Attribute::model()->getAttributeByName($name);
             if ($model->required && !$value) {
-                $this->addError('eav.' . $name, Yii::t("StoreModule.product", "Атрибут \"title\" обязателен", array('title' => $model->title)));
+                $this->addError('eav.' . $name, Yii::t("StoreModule.store", "Атрибут \"title\" обязателен", array('title' => $model->title)));
             }
         }
 
@@ -289,37 +292,37 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getStatusList()
     {
         return array(
-            self::STATUS_ZERO => Yii::t('StoreModule.product', 'Not available'),
-            self::STATUS_ACTIVE => Yii::t('StoreModule.product', 'Active'),
-            self::STATUS_NOT_ACTIVE => Yii::t('StoreModule.product', 'Not active'),
+            self::STATUS_ZERO => Yii::t('StoreModule.store', 'Not available'),
+            self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Active'),
+            self::STATUS_NOT_ACTIVE => Yii::t('StoreModule.store', 'Not active'),
         );
     }
 
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.product', '*unknown*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
     public function getSpecialList()
     {
         return array(
-            self::SPECIAL_NOT_ACTIVE => Yii::t('StoreModule.product', 'No'),
-            self::STATUS_ACTIVE => Yii::t('StoreModule.product', 'Yes'),
+            self::SPECIAL_NOT_ACTIVE => Yii::t('StoreModule.store', 'No'),
+            self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Yes'),
         );
     }
 
     public function getSpecial()
     {
         $data = $this->getSpecialList();
-        return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('StoreModule.product', '*unknown*');
+        return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('StoreModule.store', '*unknown*');
     }
 
     public function getInStockList()
     {
         return array(
-            self::STATUS_IN_STOCK => Yii::t('StoreModule.product', 'In stock'),
-            self::STATUS_NOT_IN_STOCK => Yii::t('StoreModule.product', 'Not in stock'),
+            self::STATUS_IN_STOCK => Yii::t('StoreModule.store', 'In stock'),
+            self::STATUS_NOT_IN_STOCK => Yii::t('StoreModule.store', 'Not in stock'),
         );
     }
 

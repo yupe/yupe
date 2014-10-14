@@ -47,7 +47,7 @@ class CartController extends yupe\components\controllers\FrontController
                 continue;
             }
             $variant = ProductVariant::model()->findByPk($var);
-            if ($variant && $variant->product_id == $product->id) {
+            if ($variant && $variant->product_id == $model->id) {
                 $variants[] = $variant;
             }
         }
