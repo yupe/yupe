@@ -1,5 +1,5 @@
 <?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/jquery-sortable.js');
+  Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/jquery-sortable.js');
 ?>
 
 <?php
@@ -17,16 +17,28 @@ $form = $this->beginWidget(
     )
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.attribute', 'Fields with'); ?>
+    <?php echo Yii::t('StoreModule.store', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.attribute', 'are required'); ?>
+    <?php echo Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'type',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getTypesList(),
+                    'htmlOptions' => array(
+                        'empty' => '---',
+                        'id' => 'attribute-type',
+                    ),
+                ),
+            )
+        ); ?>
     </div>
 </div>
 
@@ -49,6 +61,13 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'name'); ?>
+    </div>
+</div>
+
+
+<div class='row'>
+    <div class="col-sm-7">
         <?php echo $form->textFieldGroup($model, 'title'); ?>
     </div>
 </div>
@@ -65,28 +84,12 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-<div class='row'>
-    <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
-            $model,
-            'type',
-            array(
-                'widgetOptions' => array(
-                    'data' => $model->getTypesList(),
-                    'htmlOptions' => array(
-                        'empty' => '---',
-                        'id' => 'attribute-type',
-                    ),
-                ),
-            )
-        ); ?>
-    </div>
-</div>
+
 <div class="row">
     <div id="options" class="<?php echo !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
         <div class="row form-group">
             <div class="col-sm-12">
-                <?php echo Yii::t("StoreModule.attribute", "Опции, каждое значение с новой строки"); ?>
+                <?php echo Yii::t("StoreModule.store", "Опции, каждое значение с новой строки"); ?>
             </div>
         </div>
         <div class="row">
@@ -117,7 +120,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.attribute', 'Добавить и продолжить') : Yii::t('StoreModule.attribute', 'Сохранить и продолжить'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Добавить и продолжить') : Yii::t('StoreModule.store', 'Сохранить и продолжить'),
     )
 ); ?>
 
@@ -126,7 +129,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.attribute', 'Добавить и вернуться к списку') : Yii::t('StoreModule.attribute', 'Сохранить и вернуться к списку'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Добавить и вернуться к списку') : Yii::t('StoreModule.store', 'Сохранить и вернуться к списку'),
     )
 ); ?>
 

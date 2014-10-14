@@ -1,19 +1,19 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('StoreModule.attribute', 'Атрибуты') => array('/store/attributeBackend/index'),
+    Yii::t('StoreModule.store', 'Атрибуты') => array('/store/attributeBackend/index'),
     $model->name => array('/store/attributeBackend/view', 'id' => $model->id),
-    Yii::t('StoreModule.attribute', 'Редактировать'),
+    Yii::t('StoreModule.store', 'Редактировать'),
 );
 
-$this->pageTitle = Yii::t('StoreModule.attribute', 'Атрибуты - редактировать');
+$this->pageTitle = Yii::t('StoreModule.store', 'Атрибуты - редактировать');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.attribute', 'Управление'), 'url' => array('/store/attributeBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.attribute', 'Добавить'), 'url' => array('/store/attributeBackend/create')),
-    array('label' => Yii::t('StoreModule.attribute', 'Атрибут') . ' «' . mb_substr($model->name, 0, 32) . '»'),
+    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление'), 'url' => array('/store/attributeBackend/index')),
+    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Добавить'), 'url' => array('/store/attributeBackend/create')),
+    array('label' => Yii::t('StoreModule.store', 'Атрибут') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
         'icon' => 'glyphicon glyphicon-pencil',
-        'label' => Yii::t('StoreModule.attribute', 'Редактировать'),
+        'label' => Yii::t('StoreModule.store', 'Редактировать'),
         'url' => array(
             '/store/attributeBackend/update',
             'id' => $model->id
@@ -21,7 +21,7 @@ $this->menu = array(
     ),
     array(
         'icon' => 'glyphicon glyphicon-eye-open',
-        'label' => Yii::t('StoreModule.attribute', 'Просмотр'),
+        'label' => Yii::t('StoreModule.store', 'Просмотр'),
         'url' => array(
             '/store/attributeBackend/view',
             'id' => $model->id
@@ -29,12 +29,12 @@ $this->menu = array(
     ),
     array(
         'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('StoreModule.attribute', 'Удалить'),
+        'label' => Yii::t('StoreModule.store', 'Удалить'),
         'url' => '#',
         'linkOptions' => array(
             'submit' => array('/store/attributeBackend/delete', 'id' => $model->id),
             'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
-            'confirm' => Yii::t('StoreModule.attribute', 'Do you really want to remove attribute?'),
+            'confirm' => Yii::t('StoreModule.store', 'Do you really want to remove attribute?'),
             'csrf' => true,
         )
     ),
@@ -42,7 +42,7 @@ $this->menu = array(
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.attribute', 'Редактировать'); ?><br/>
+        <?php echo Yii::t('StoreModule.store', 'Редактировать'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

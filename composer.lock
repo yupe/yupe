@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "9a34593dc37f8eaf630d7b42b29644b7c29a15a2"
+                "reference": "093405dff14fb6f7d978d43b6463c51174b5326a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/9a34593dc37f8eaf630d7b42b29644b7c29a15a2",
-                "reference": "9a34593dc37f8eaf630d7b42b29644b7c29a15a2",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/093405dff14fb6f7d978d43b6463c51174b5326a",
+                "reference": "093405dff14fb6f7d978d43b6463c51174b5326a",
                 "shasum": ""
             },
             "require": {
@@ -399,7 +399,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2014-10-01 05:37:44"
+            "time": "2014-10-13 06:10:20"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -460,16 +460,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.16.0",
+            "version": "v1.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "8ce37115802e257a984a82d38254884085060024"
+                "reference": "7c4c01dcf578523cfcddf383641a4f12790270ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/8ce37115802e257a984a82d38254884085060024",
-                "reference": "8ce37115802e257a984a82d38254884085060024",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/7c4c01dcf578523cfcddf383641a4f12790270ec",
+                "reference": "7c4c01dcf578523cfcddf383641a4f12790270ec",
                 "shasum": ""
             },
             "require": {
@@ -513,7 +513,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-07-05 12:19:05"
+            "time": "2014-10-10 14:09:53"
         },
         {
             "name": "yiiext/imperavi-redactor-widget",
@@ -737,16 +737,16 @@
     "packages-dev": [
         {
             "name": "codeception/codeception",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "b7562022177e32a5a4c5ddc68fe3c3c2566156f5"
+                "reference": "a093950c44c570bd4d28f1fa56a0fee6d8e288d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/b7562022177e32a5a4c5ddc68fe3c3c2566156f5",
-                "reference": "b7562022177e32a5a4c5ddc68fe3c3c2566156f5",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/a093950c44c570bd4d28f1fa56a0fee6d8e288d1",
+                "reference": "a093950c44c570bd4d28f1fa56a0fee6d8e288d1",
                 "shasum": ""
             },
             "require": {
@@ -814,24 +814,24 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-10-07 23:19:42"
+            "time": "2014-10-12 20:41:05"
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "8806c41c178ad4a2e87294b851d730779555d252"
+                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8806c41c178ad4a2e87294b851d730779555d252",
-                "reference": "8806c41c178ad4a2e87294b851d730779555d252",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
+                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
                 "shasum": ""
             },
             "require": {
-                "php": "~5.3"
+                "php": ">=5.3,<8.0-DEV"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
@@ -868,7 +868,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-04 22:48:25"
+            "time": "2014-10-13 12:58:55"
         },
         {
             "name": "facebook/webdriver",

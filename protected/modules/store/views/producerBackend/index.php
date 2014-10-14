@@ -43,11 +43,28 @@ $this->widget(
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/store/producerBackend/update", "id" => $data->id))',
             ),
-            'slug',
             array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList()
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'slug',
+                'editable' => array(
+                    'url'    => $this->createUrl('/store/producerBackend/inline'),
+                    'mode'   => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'filter'   => CHtml::activeTextField($model, 'slug', array('class' => 'form-control')),
+            ),
+            array(
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/store/producerBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Producer::STATUS_ACTIVE => ['class' => 'label-success'],
+                    Producer::STATUS_NOT_ACTIVE => ['class' => 'label-info'],
+                    Producer::STATUS_ZERO => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

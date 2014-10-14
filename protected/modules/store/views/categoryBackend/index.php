@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('StoreModule.category', 'Categories') => array('/store/categoryBackend/index'),
-    Yii::t('StoreModule.category', 'Manage'),
+    Yii::t('StoreModule.store', 'Categories') => array('/store/categoryBackend/index'),
+    Yii::t('StoreModule.store', 'Manage'),
 );
 
-$this->pageTitle = Yii::t('StoreModule.category', 'Categories - manage');
+$this->pageTitle = Yii::t('StoreModule.store', 'Categories - manage');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.category', 'Category manage'), 'url' => array('/store/categoryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.category', 'Create category'), 'url' => array('/store/categoryBackend/create')),
+    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Category manage'), 'url' => array('/store/categoryBackend/index')),
+    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Create category'), 'url' => array('/store/categoryBackend/create')),
 );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.category', 'Categories'); ?>
-        <small><?php echo Yii::t('StoreModule.category', 'manage'); ?></small>
+        <?php echo Yii::t('StoreModule.store', 'Categories'); ?>
+        <small><?php echo Yii::t('StoreModule.store', 'manage'); ?></small>
     </h1>
 </div>
 
@@ -55,13 +55,17 @@ $this->menu = array(
                 'filter' => CHtml::activeDropDownList($model, 'parent_id', StoreCategory::model()->getFormattedList(), array('encode' => false, 'empty' => '', 'class' => 'form-control'))
             ),
             array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList(),
-                'value'  => '$data->getStatus()'
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/store/categoryBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    StoreCategory::STATUS_PUBLISHED => ['class' => 'label-success'],
+                    StoreCategory::STATUS_DRAFT => ['class' => 'label-default'],
+                ],
             ),
             array(
-                'header' => Yii::t('StoreModule.category', 'Products'),
+                'header' => Yii::t('StoreModule.store', 'Products'),
                 'value' => '$data->productCount'
             ),
             array(

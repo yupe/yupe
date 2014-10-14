@@ -60,7 +60,7 @@ class StoreCategory extends \yupe\models\YModel
             array('status', 'length', 'max' => 11),
             array('name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
-            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.category', 'Запрещенные символы в поле {attribute}')),
+            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Запрещенные символы в поле {attribute}')),
             array('alias', 'unique'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
@@ -147,17 +147,17 @@ class StoreCategory extends \yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('StoreModule.category', 'Id'),
-            'parent_id' => Yii::t('StoreModule.category', 'Parent'),
-            'name' => Yii::t('StoreModule.category', 'Name'),
-            'image' => Yii::t('StoreModule.category', 'Image'),
-            'short_description' => Yii::t('StoreModule.category', 'Short description'),
-            'description' => Yii::t('StoreModule.category', 'Description'),
-            'alias' => Yii::t('StoreModule.category', 'Alias'),
-            'meta_title' => Yii::t('StoreModule.category', 'Meta Title'),
-            'meta_keywords' => Yii::t('StoreModule.category', 'Meta Keywords'),
-            'meta_description' => Yii::t('StoreModule.category', 'Meta Description'),
-            'status' => Yii::t('StoreModule.category', 'Status'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'parent_id' => Yii::t('StoreModule.store', 'Parent'),
+            'name' => Yii::t('StoreModule.store', 'Name'),
+            'image' => Yii::t('StoreModule.store', 'Image'),
+            'short_description' => Yii::t('StoreModule.store', 'Short description'),
+            'description' => Yii::t('StoreModule.store', 'Description'),
+            'alias' => Yii::t('StoreModule.store', 'Alias'),
+            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
+            'status' => Yii::t('StoreModule.store', 'Status'),
         );
     }
 
@@ -167,17 +167,17 @@ class StoreCategory extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return array(
-            'id' => Yii::t('StoreModule.category', 'Id'),
-            'parent_id' => Yii::t('StoreModule.category', 'Parent'),
-            'name' => Yii::t('StoreModule.category', 'Title'),
-            'image' => Yii::t('StoreModule.category', 'Image'),
-            'short_description' => Yii::t('StoreModule.category', 'Short description'),
-            'description' => Yii::t('StoreModule.category', 'Description'),
-            'alias' => Yii::t('StoreModule.category', 'Alias'),
-            'meta_title' => Yii::t('StoreModule.category', 'Meta Title'),
-            'meta_keywords' => Yii::t('StoreModule.category', 'Meta Keywords'),
-            'meta_description' => Yii::t('StoreModule.category', 'Meta Description'),
-            'status' => Yii::t('StoreModule.category', 'Status'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'parent_id' => Yii::t('StoreModule.store', 'Parent'),
+            'name' => Yii::t('StoreModule.store', 'Title'),
+            'image' => Yii::t('StoreModule.store', 'Image'),
+            'short_description' => Yii::t('StoreModule.store', 'Short description'),
+            'description' => Yii::t('StoreModule.store', 'Description'),
+            'alias' => Yii::t('StoreModule.store', 'Alias'),
+            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
+            'status' => Yii::t('StoreModule.store', 'Status'),
         );
     }
 
@@ -208,15 +208,15 @@ class StoreCategory extends \yupe\models\YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT => Yii::t('StoreModule.category', 'Draft'),
-            self::STATUS_PUBLISHED => Yii::t('StoreModule.category', 'Published')
+            self::STATUS_DRAFT => Yii::t('StoreModule.store', 'Draft'),
+            self::STATUS_PUBLISHED => Yii::t('StoreModule.store', 'Published')
         );
     }
 
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.category', '*unknown*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
     public function getAllCategoryList($selfId = false)

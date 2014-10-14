@@ -20,15 +20,15 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.producer', 'Поля, отмеченные'); ?>
+    <?php echo Yii::t('StoreModule.store', 'Поля, отмеченные'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.producer', 'обязательны.'); ?>
+    <?php echo Yii::t('StoreModule.store', 'обязательны.'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
 
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
@@ -120,7 +120,7 @@ $form = $this->beginWidget(
         <div class="panel-heading">
             <div class="panel-title">
                 <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
-                    <?php echo Yii::t('StoreModule.producer', 'Data for SEO'); ?>
+                    <?php echo Yii::t('StoreModule.store', 'Data for SEO'); ?>
                 </a>
             </div>
         </div>
@@ -152,7 +152,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => Yii::t('StoreModule.producer', 'Сохранить и продолжить'),
+        'label' => Yii::t('StoreModule.store', 'Сохранить и продолжить'),
     )
 );
 ?>
@@ -162,7 +162,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => Yii::t('StoreModule.producer', 'Сохранить и вернуться к списку'),
+        'label' => Yii::t('StoreModule.store', 'Сохранить и вернуться к списку'),
     )
 );
 ?>

@@ -2,6 +2,20 @@
 
 class ProducerBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Producer',
+                'validAttributes' => array(
+                    'status',
+                    'slug'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(

@@ -43,18 +43,12 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
-    </div>
-</div>
-<?php $categoriesList = (new StoreCategory())->getTabList(); ?>
-<div class='row'>
-    <div class="col-sm-7">
         <?php echo $form->dropDownListGroup(
             $model,
             'main_category_id',
             array(
                 'widgetOptions' => array(
-                    'data' => $categoriesList,
+                    'data' => (new StoreCategory())->getTabList(),
                     'htmlOptions' => array(
                         'empty' => '---',
                         'id' => 'main_category_id',
@@ -64,6 +58,13 @@ $form = $this->beginWidget(
         ); ?>
     </div>
 </div>
+
+<div class='row'>
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup($model, 'name'); ?>
+    </div>
+</div>
+
 
 <div class='row'>
     <div class="col-sm-7 form-group">
@@ -109,7 +110,7 @@ $form = $this->beginWidget(
         );
     }
     ?>
-    <div class="col-sm-3">
+    <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php echo Yii::t("StoreModule.type", "Атрибуты типа"); ?>
@@ -126,7 +127,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.type', 'Добавить и продолжить') : Yii::t('StoreModule.type', 'Сохранить и продолжить'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.type', 'Добавить и продолжить') : Yii::t('StoreModule.type', 'Сохранить и продолжить'),
     )
 ); ?>
 
@@ -135,7 +136,7 @@ $form = $this->beginWidget(
     array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.type', 'Добавить и вернуться к списку') : Yii::t('StoreModule.type', 'Сохранить и вернуться к списку'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.type', 'Добавить и вернуться к списку') : Yii::t('StoreModule.type', 'Сохранить и вернуться к списку'),
     )
 ); ?>
 

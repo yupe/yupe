@@ -1,19 +1,19 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('StoreModule.category', 'Categories') => array('/store/categoryBackend/index'),
+    Yii::t('StoreModule.store', 'Categories') => array('/store/categoryBackend/index'),
     $model->name => array('/store/categoryBackend/view', 'id' => $model->id),
-    Yii::t('StoreModule.category', 'Change'),
+    Yii::t('StoreModule.store', 'Change'),
 );
 
-$this->pageTitle = Yii::t('StoreModule.category', 'Categories - edit');
+$this->pageTitle = Yii::t('StoreModule.store', 'Categories - edit');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.category', 'Category manage'), 'url' => array('/store/categoryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.category', 'Create category'), 'url' => array('/store/categoryBackend/create')),
-    array('label' => Yii::t('StoreModule.category', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'),
+    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Category manage'), 'url' => array('/store/categoryBackend/index')),
+    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Create category'), 'url' => array('/store/categoryBackend/create')),
+    array('label' => Yii::t('StoreModule.store', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
         'icon' => 'glyphicon glyphicon-pencil',
-        'label' => Yii::t('StoreModule.category', 'Change category'),
+        'label' => Yii::t('StoreModule.store', 'Change category'),
         'url' => array(
             '/store/categoryBackend/update',
             'id' => $model->id
@@ -21,7 +21,7 @@ $this->menu = array(
     ),
     array(
         'icon' => 'glyphicon glyphicon-eye-open',
-        'label' => Yii::t('StoreModule.category', 'View category'),
+        'label' => Yii::t('StoreModule.store', 'View category'),
         'url' => array(
             '/store/categoryBackend/view',
             'id' => $model->id
@@ -29,12 +29,12 @@ $this->menu = array(
     ),
     array(
         'icon' => 'glyphicon glyphicon-trash',
-        'label' => Yii::t('StoreModule.category', 'Remove category'),
+        'label' => Yii::t('StoreModule.store', 'Remove category'),
         'url' => '#',
         'linkOptions' => array(
             'submit' => array('/store/categoryBackend/delete', 'id' => $model->id),
             'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
-            'confirm' => Yii::t('StoreModule.category', 'Do you really want to remove category?'),
+            'confirm' => Yii::t('StoreModule.store', 'Do you really want to remove category?'),
             'csrf' => true,
         )
     ),
@@ -42,7 +42,7 @@ $this->menu = array(
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.category', 'Change category'); ?><br/>
+        <?php echo Yii::t('StoreModule.store', 'Change category'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

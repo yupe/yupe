@@ -58,13 +58,15 @@ $this->menu = array(
             'slug',
             array(
                 'name' => 'status',
-                'value' => $model->statusTitle,
+                'value' => $model->getStatusTitle(),
             ),
             'order',
             array(
                 'name' => 'image',
                 'type' => 'raw',
-                'value' => CHtml::image($model->getImageUrl()),
+                'value' => function($model){
+                        return $model->image ? CHtml::image($model->getImageUrl()) : '';
+                    },
             ),
             array(
                 'name' => 'short_description',

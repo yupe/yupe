@@ -2,6 +2,20 @@
 
 class CategoryBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'StoreCategory',
+                'validAttributes' => array(
+                    'status',
+                    'alias'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(
@@ -48,7 +62,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.category', 'Record was created!')
+                    Yii::t('StoreModule.store', 'Record was created!')
                 );
 
                 $this->redirect(
@@ -86,7 +100,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.category', 'StoreCategory was changed!')
+                    Yii::t('StoreModule.store', 'Category was changed!')
                 );
 
                 $this->redirect(
@@ -146,7 +160,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('StoreModule.category', 'Bad request. Please don\'t use similar requests anymore')
+                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore')
             );
         }
     }
@@ -182,7 +196,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     {
         $model = StoreCategory::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.category', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
         }
         return $model;
     }
