@@ -1,5 +1,7 @@
 <?php
-/* @var $category Category */
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-frontend.css');
+Yii::app()->getClientScript()->registerScriptFile($this->module->getAssetsUrl() . '/js/store.js');
+/* @var $category StoreCategory */
 
 $this->pageTitle = $category ? ($category->meta_title ?: $category->name) : Yii::t('StoreModule.catalog', 'Products');
 $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => array('/store/catalog/index'));

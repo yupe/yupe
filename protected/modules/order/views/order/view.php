@@ -1,5 +1,7 @@
 <?php
 /* @var $model Order */
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-frontend.css');
+
 $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model->id));
 ?>
 <div class="row">
@@ -189,7 +191,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">
-                                <?php $paymentManager =Yii::app()->paymentManager; ?>
+                                <?php $paymentManager = Yii::app()->paymentManager; ?>
                                 <?php foreach ((array)$model->delivery->paymentMethods as $payment): ?>
                                     <li class="payment-method">
                                         <div class="checkbox">

@@ -1,4 +1,6 @@
 <?php
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
+
 $this->breadcrumbs = array(
     Yii::t('OrderModule.order', 'Заказы') => array('/order/orderBackend/index'),
     Yii::t('OrderModule.order', 'Управление'),

@@ -1,3 +1,5 @@
+<?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-backend.css'); ?>
+
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#product-form').liTranslit({
