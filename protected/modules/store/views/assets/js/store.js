@@ -1,6 +1,5 @@
-
-$(document).ajaxError(function(){
-    $('#notifications').notify({ message: { text: 'Произошла ошибка =(' }, 'type': 'danger' }).show();
+$(document).ajaxError(function () {
+    $('#notifications').notify({message: {text: 'Произошла ошибка =('}, 'type': 'danger'}).show();
 });
 
 $(document).ready(function () {
@@ -104,7 +103,7 @@ $(document).ready(function () {
                 if (data.result) {
                     updateCartWidget();
                 }
-                showNotify(button, data.result, data.message);
+                showNotify(button, data.result ? 'success' : 'danger', data.data);
             }
         }).always(function () {
             button.button('reset');
@@ -125,7 +124,7 @@ $(document).ready(function () {
                 if (data.result) {
                     updateCartWidget();
                 }
-                showNotify(el, data.result, data.message);
+                showNotify(el, data.result ? 'success' : 'danger', data.data);
             }
         });
     });
@@ -157,7 +156,7 @@ $(document).ready(function () {
     }
 
     function changePositionQuantity(productId, quantity) {
-        var data = {'quantity': quantity, 'id' : productId};
+        var data = {'quantity': quantity, 'id': productId};
         data[yupeTokenName] = yupeToken;
         $.ajax({
             url: yupeCartUpdateUrl,
@@ -187,7 +186,7 @@ $(document).ready(function () {
     $('.cart-delete-product').click(function (e) {
         e.preventDefault();
         var el = $(this);
-        var data = {'id' : el.data('position-id')};
+        var data = {'id': el.data('position-id')};
         data[yupeTokenName] = yupeToken;
         $.ajax({
             url: yupeCartDeleteProductUrl,

@@ -78,16 +78,6 @@ class PaymentModule extends WebModule
         );
     }
 
-    public function beforeControllerAction($controller, $action)
-    {
-        $mainAssets = $this->getAssetsUrl();
-        if ($controller instanceof \yupe\components\controllers\BackController) {
-        } else {
-            Yii::app()->clientScript->registerCssFile($mainAssets . '/css/payment-frontend.css');
-        }
-        return parent::beforeControllerAction($controller, $action);
-    }
-
     public function getAuthItems()
     {
         return array(

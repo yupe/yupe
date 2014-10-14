@@ -110,18 +110,6 @@ class OrderModule extends WebModule
         );
     }
 
-    public function beforeControllerAction($controller, $action)
-    {
-        $mainAssets = $this->getAssetsUrl();
-        if ($controller instanceof \yupe\components\controllers\BackController) {
-            Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-backend.css');
-        } else {
-            Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
-            Yii::app()->getClientScript()->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/store.js');
-        }
-        return parent::beforeControllerAction($controller, $action);
-    }
-
     public function sendNotifyOrder($type, Order $order, $theme = "")
     {
         $emailsTo = array();

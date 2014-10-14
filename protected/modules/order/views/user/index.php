@@ -1,4 +1,7 @@
-<?php /* @var $orders Order[] */
+<?php
+/* @var $orders Order[] */
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-frontend.css');
+
 $this->pageTitle = Yii::t('OrderModule.order', 'Личный кабинет');
 ?>
 

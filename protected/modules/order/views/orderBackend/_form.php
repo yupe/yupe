@@ -1,4 +1,6 @@
 <?php
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
