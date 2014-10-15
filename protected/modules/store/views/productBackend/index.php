@@ -36,9 +36,8 @@ $this->menu = array(
                 'value' => 'CHtml::link($data->name, array("/store/productBackend/update", "id" => $data->id))',
             ),
             array(
-                'name' => 'category',
+                'name' => 'mainCategory.name',
                 'type' => 'raw',
-                'value' => '$data->mainCategory->name',
                 'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), array('encode' => false, 'empty' => '', 'class' => 'form-control')),
                 'htmlOptions' => array('width' => '220px'),
             ),

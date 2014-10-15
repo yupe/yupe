@@ -64,16 +64,17 @@ class ProductImage extends \yupe\models\YModel
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath . '/product',
-                'resize' => array(
+                'resizeOnUpload' => true,
+                'resizeOptions' => array(
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 )
             ),
-            'imageThumb' => array(
+            /*'imageThumb' => array(
                 'class' => 'yupe\components\behaviors\ImageThumbBehavior',
                 'uploadPath' => $module->uploadPath . '/product',
                 'attributeName' => 'name',
-            ),
+            ),*/
         );
     }
 
