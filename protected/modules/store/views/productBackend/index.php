@@ -28,7 +28,7 @@ $this->menu = array(
         'columns' => array(
             array(
                 'type' => 'raw',
-                'value' => '$data->mainImage ? CHtml::image($data->mainImage->getImageUrl(40, 40, true), "", array("class" => "img-thumbnail")) : ""',
+                'value' => 'CHtml::image($data->getImageUrl(40, 40, true), "", array("class" => "img-thumbnail"))',
             ),
             array(
                 'name' => 'name',

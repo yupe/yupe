@@ -86,6 +86,10 @@ class ImageUploadBehavior extends FileUploadBehavior
 
     public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = array())
     {
+        if (!is_file($this->_prevFile)) {
+            return null;
+        };
+
         if ($width || $height) {
             $width = $width === 0 ? $height : $width;
             $height = $height === 0 ? $width : $height;

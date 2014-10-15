@@ -2,6 +2,11 @@
     display: none !important;
 }
 
+.product-image {
+    float: left;
+    margin: 4px 20px 4px;
+}
+
 .product-image label {
     display: inline-block;
 }
