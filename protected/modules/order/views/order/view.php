@@ -17,10 +17,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model
                             <div class="media">
                                 <?php $productUrl = Yii::app()->createUrl('store/catalog/show', array('name' => $position->product->alias)); ?>
                                 <a class="img-thumbnail pull-left" href="<?php echo $productUrl; ?>">
-                                    <img class="media-object" src="<?php echo $position->product->mainImage ? $position->product->mainImage->getImageUrl(
-                                        72,
-                                        72
-                                    ) : ''; ?>" style="width: 72px; height: 72px;">
+                                    <img class="media-object" src="<?php echo $position->product->image ? $position->product->getImageUrl(72, 72) : ''; ?>" style="width: 72px; height: 72px;">
                                 </a>
 
                                 <div class="media-body">

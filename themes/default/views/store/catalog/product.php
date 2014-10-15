@@ -31,9 +31,12 @@ $this->breadcrumbs = array_merge(
                     <div class="col-sm-4">
                         <div class="thumbnails">
                             <div class="image-preview">
-                                <img src="<?php echo $product->mainImage ? $product->mainImage->getImageUrl() : ''; ?>" alt="" class="" id="main-image">
+                                <img src="<?php echo $product->getImageUrl(); ?>" alt="" class="" id="main-image">
                             </div>
-                            <?php foreach (array_filter(array_merge(array($product->mainImage), $product->imagesNotMain)) as $key => $image): { ?>
+                            <a href="<?php echo $product->getImageUrl(); ?>">
+                                <img src="<?php echo $product->getImageUrl(50, 50); ?>"/>
+                            </a>
+                            <?php foreach($product->images as $key => $image): { ?>
                                 <a href="<?php echo $image->getImageUrl(); ?>">
                                     <img src="<?php echo $image->getImageUrl(50, 50); ?>"/>
                                 </a>

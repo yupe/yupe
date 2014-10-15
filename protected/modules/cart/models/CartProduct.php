@@ -6,4 +6,9 @@ class CartProduct extends Product implements IECartPosition
     {
         return parent::model($className);
     }
+
+    public function getProductModel()
+    {
+        return Product::model()->findByPk($this->id);
+    }
 }

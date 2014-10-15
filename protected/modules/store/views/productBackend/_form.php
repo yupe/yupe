@@ -146,6 +146,31 @@ $form = $this->beginWidget(
         </div>
 
         <div class='row'>
+            <div class="col-sm-7">
+                <?php
+                echo CHtml::image(
+                    !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+                    $model->name,
+                    array(
+                        'class' => 'preview-image img-thumbnail',
+                        'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                    )
+                ); ?>
+                <?php echo $form->fileFieldGroup(
+                    $model,
+                    'image',
+                    array(
+                        'widgetOptions' => array(
+                            'htmlOptions' => array(
+                                'onchange' => 'readURL(this);',
+                            ),
+                        ),
+                    )
+                ); ?>
+            </div>
+        </div>
+
+        <div class='row'>
             <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
                 <?php echo $form->labelEx($model, 'description'); ?>
                 <?php $this->widget(
@@ -268,10 +293,6 @@ $form = $this->beginWidget(
                             <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
                         </div>
                         <div>
-                            <label for="product-image-<?php echo $image->id; ?>">
-                                <input type="radio" name="main_image" value="<?php echo $image->id; ?>" id="product-image-<?php echo $image->id; ?>" <?php echo $image->is_main ? 'checked' : ''; ?>/>
-                                <?php echo Yii::t("StoreModule.store", "Главное"); ?>
-                            </label>
                             <a href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
                                 array('id' => $image->id)

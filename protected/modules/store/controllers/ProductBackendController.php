@@ -88,29 +88,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
     public function updateProductImages(Product $product)
     {
-        $setFirstImageAsMain = !isset($_POST['main_image']);
-
-        if (isset($_POST['main_image'])) {
-            $productMainImage = $product->mainImage;
-            if ($productMainImage && $productMainImage->id != $_POST['main_image']) {
-                $productMainImage->is_main = 0;
-                $productMainImage->save();
-                $productMainImage = false;
-            }
-            if (!$productMainImage) {
-                $newProductMainImage = ProductImage::model()->findByPk($_POST['main_image']);
-                if ($newProductMainImage) {
-                    $newProductMainImage->is_main = 1;
-                    $newProductMainImage->save();
-                }
-            }
-        }
-
         foreach (CUploadedFile::getInstancesByName('ProductImage') as $key => $image) {
             $productImage = new ProductImage();
             $productImage->product_id = $product->id;
             $productImage->attributes = $_POST['ProductImage'][$key];
-            $productImage->is_main = ($key == 0 && $setFirstImageAsMain) ? 1 : 0;
             $productImage->addFileInstanceName('ProductImage[' . $key . '][name]');
             $productImage->save();
         }
@@ -236,7 +217,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 $data[] = array(
                     'id' => $product->id,
                     'name' => $product->name,
-                    'thumb' => $product->mainImage ? $product->mainImage->getImageUrl(50, 50) : '',
+                    'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
                 );
             }
             Yii::app()->ajax->rawText(

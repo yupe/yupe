@@ -30,6 +30,9 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
+ * @property string $image
+ *
+ * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true, $options = [])
  *
  * The followings are the available model relations:
  * @property Type $type
@@ -37,7 +40,6 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property StoreCategory $mainCategory
  * @property ProductImage $mainImage
  * @property ProductImage[] $images
- * @property ProductImage[] $imagesNotMain
  * @property ProductVariant[] $variants
  * @property Comment[] $comments
  *
@@ -87,7 +89,7 @@ class Product extends yupe\models\YModel implements ICommentable
             array('name, description, short_description, alias, price, discount_price, discount, data, status, is_special', 'filter', 'filter' => 'trim'),
             array('status, is_special, producer_id, type_id, quantity, in_stock, category_id', 'numerical', 'integerOnly' => true),
             array('price, discount_price, discount, length, height, width, weight', 'store\components\validators\NumberValidator'),
-            array('name, meta_keywords, meta_title, meta_description', 'length', 'max' => 250),
+            array('name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250),
             array('sku', 'length', 'max' => 100),
             array('alias', 'length', 'max' => 150),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')),
@@ -116,8 +118,6 @@ class Product extends yupe\models\YModel implements ICommentable
             'categories' => array(self::HAS_MANY, 'StoreCategory', array('category_id' => 'id'), 'through' => 'categoryRelation'),
             'mainCategory' => array(self::BELONGS_TO, 'StoreCategory', array('category_id' => 'id')),
             'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
-            'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
-            'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
             'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute'), 'order' => 'variants.attribute_id, variants.id'),
             'comments' => array(
                 self::HAS_MANY,
@@ -255,6 +255,8 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function behaviors()
     {
+        $module = Yii::app()->getModule('store');
+
         return array(
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -266,7 +268,21 @@ class Product extends yupe\models\YModel implements ICommentable
                 'class' => 'application.modules.store.components.behaviors.EEavBehavior',
                 'tableName' => '{{store_product_attribute_eav}}',
                 'entityField' => 'product_id',
-            )
+            ),
+            'imageUpload' => array(
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'scenarios' => array('insert', 'update'),
+                'attributeName' => 'image',
+                'minSize' => $module->minSize,
+                'maxSize' => $module->maxSize,
+                'types' => $module->allowedExtensions,
+                'uploadPath' => $module->uploadPath . '/product',
+                'resizeOnUpload' => true,
+                'resizeOptions' => array(
+                    'maxWidth' => 900,
+                    'maxHeight' => 900,
+                )
+            ),
         );
     }
 
@@ -350,6 +366,7 @@ class Product extends yupe\models\YModel implements ICommentable
     /**
      * Устанавливает дополнительные категории товара
      * @param $categories - список id категорий
+     * @return bool
      */
     public function setProductCategories($categories)
     {

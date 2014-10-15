@@ -90,17 +90,6 @@ class ProductVariant extends \yupe\models\YModel
         );
     }
 
-    /**
-     * @return array customized attribute descriptions (name=>description)
-     */
-    public function attributeDescriptions()
-    {
-        return array(
-            'is_main' => Yii::t('StoreModule.product', 'Главное'),
-            'title' => Yii::t('StoreModule.product', 'Заголовок'),
-        );
-    }
-
     public function getTypeList()
     {
         return array(
