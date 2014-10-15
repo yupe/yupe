@@ -2,7 +2,6 @@
 
 namespace yupe\components\behaviors;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Yii;
 use yupe\components\image\Imagine;
 use yupe\helpers\YFile;

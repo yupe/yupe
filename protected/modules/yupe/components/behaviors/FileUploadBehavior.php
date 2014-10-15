@@ -207,7 +207,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
             if (is_callable($this->fileName)) {
                 $name = call_user_func($this->fileName);
             } else {
-                $name = md5(microtime(true) . uniqid());
+                $name = md5(uniqid($this->getOwner()->{$this->attributeName}));
             }
             $name .= '.' . $this->_currentFile->getExtensionName();
         }
