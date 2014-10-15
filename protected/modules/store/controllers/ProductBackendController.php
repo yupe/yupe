@@ -42,11 +42,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
             $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
-                $model->setProductCategories($_POST['categories']);
+                $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
 
                 $this->updateProductImages($model);
 
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was added!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was added!'));
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
@@ -65,7 +65,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionUpdate($id)
     {
-
         $model = $this->loadModel($id);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
@@ -73,9 +72,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
             $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
-                $model->setProductCategories($_POST['categories']);
+                $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
                 $this->updateProductImages($model);
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was updated!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was updated!'));
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
@@ -138,7 +137,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('StoreModule.product', 'Record was removed!')
+                Yii::t('StoreModule.store', 'Record was removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -146,7 +145,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
             }
         } else {
-            throw new CHttpException(400, Yii::t('StoreModule.product', 'Unknown request. Don\'t repeat it please!'));
+            throw new CHttpException(400, Yii::t('StoreModule.store', 'Unknown request. Don\'t repeat it please!'));
         }
     }
 
@@ -172,7 +171,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         $model = Product::model()->with('images')->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.product', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
         }
         return $model;
     }

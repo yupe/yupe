@@ -60,7 +60,7 @@ $form = $this->beginWidget(
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'type_id',
@@ -73,6 +73,20 @@ $form = $this->beginWidget(
                                 'id' => 'product-type',
                             ),
                         )
+                    )
+                ); ?>
+            </div>
+            <div class="col-sm-4">
+                <?php echo $form->dropDownListGroup(
+                    $model,
+                    'category_id',
+                    array(
+                        'widgetOptions' => array(
+                            'data' => (new StoreCategory())->getTabList(),
+                            'htmlOptions' => array(
+                                'empty' => '---',
+                            ),
+                        ),
                     )
                 ); ?>
             </div>
@@ -93,6 +107,7 @@ $form = $this->beginWidget(
                 ); ?>
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm-7">
                 <?php echo $form->textFieldGroup($model, 'name'); ?>
@@ -112,22 +127,6 @@ $form = $this->beginWidget(
             </div>
             <div class="col-sm-2">
                 <?php echo $form->textFieldGroup($model, 'discount'); ?>
-            </div>
-        </div>
-        <div class='row'>
-            <div class="col-sm-7">
-                <?php echo $form->dropDownListGroup(
-                    $model,
-                    'category_id',
-                    array(
-                        'widgetOptions' => array(
-                            'data' => (new StoreCategory())->getTabList(),
-                            'htmlOptions' => array(
-                                'empty' => '---',
-                            ),
-                        ),
-                    )
-                ); ?>
             </div>
         </div>
 

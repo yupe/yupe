@@ -353,23 +353,36 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function setProductCategories($categories)
     {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
         $categories = is_array($categories) ? $categories : (array)$categories;
         $categories = array_diff($categories, (array)$this->category_id);
-        foreach ($categories as $category_id) {
-            $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
-            if (!$model) {
-                $model = new ProductCategory();
-                $model->category_id = $category_id;
-                $model->product_id = $this->id;
-            }
-            $model->save();
-        }
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('product_id = :product_id');
-        $criteria->params = array(':product_id' => $this->id);
-        $criteria->addNotInCondition('category_id', $categories);
-        ProductCategory::model()->deleteAll($criteria);
+        try
+        {
+            foreach ($categories as $category_id) {
+                $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
+                if (!$model) {
+                    $model = new ProductCategory();
+                    $model->category_id = $category_id;
+                    $model->product_id = $this->id;
+                }
+                $model->save();
+            }
+
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('product_id = :product_id');
+            $criteria->params = array(':product_id' => $this->id);
+            $criteria->addNotInCondition('category_id', $categories);
+            ProductCategory::model()->deleteAll($criteria);
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
     }
 
     public function getCategoriesIdList()
@@ -431,25 +444,37 @@ class Product extends yupe\models\YModel implements ICommentable
 
     private function updateVariants($variants)
     {
-        $productVariants = array();
-        foreach ($variants as $var) {
-            $variant = null;
-            if (isset($var['id'])) {
-                $variant = ProductVariant::model()->findByPk($var['id']);
-            }
-            $variant = $variant ?: new ProductVariant();
-            $variant->attributes = $var;
-            $variant->product_id = $this->id;
-            if ($variant->save()) {
-                $productVariants[] = $variant->id;
-            }
-        }
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('product_id = :product_id');
-        $criteria->params = array(':product_id' => $this->id);
-        $criteria->addNotInCondition('id', $productVariants);
-        ProductVariant::model()->deleteAll($criteria);
+        try
+        {
+            $productVariants = array();
+            foreach ($variants as $var) {
+                $variant = null;
+                if (isset($var['id'])) {
+                    $variant = ProductVariant::model()->findByPk($var['id']);
+                }
+                $variant = $variant ?: new ProductVariant();
+                $variant->attributes = $var;
+                $variant->product_id = $this->id;
+                if ($variant->save()) {
+                    $productVariants[] = $variant->id;
+                }
+            }
+
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('product_id = :product_id');
+            $criteria->params = array(':product_id' => $this->id);
+            $criteria->addNotInCondition('id', $productVariants);
+            ProductVariant::model()->deleteAll($criteria);
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
     }
 
     public function getBasePrice()
