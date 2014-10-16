@@ -118,12 +118,40 @@
         "codeception/codeception": "2.*"
     },
     "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "application\\": "protected/",
+            "yupe\\": "protected/modules/yupe/"
+        }
+    },
     "scripts": {
+        "pre-create-project-cmd": [
+            "yupe\\components\\Composer::preCreate"
+        ],
         "post-create-project-cmd": [
-            "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
+            "yupe\\components\\Composer::postCreate"
+        ],
+        "pre-install-cmd": [
+            "yupe\\components\\Composer::preInstall"
         ],
         "post-install-cmd": [
-            "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
+            "yupe\\components\\Composer::postInstall"
+        ],
+        "pre-update-cmd": [
+            "yupe\\components\\Composer::preUpdate"
+        ],
+        "post-update-cmd": [
+            "yupe\\components\\Composer::postUpdate"
+        ]
+    },
+    "extra": {
+        "writable": [
+            "public/assets",
+            "public/uploads",
+            "protected/runtime",
+            "protected/config/db.php",
+            "protected/config/modules",
+            "protected/config/modulesBack"
         ]
     }
 }
