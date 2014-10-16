@@ -6,11 +6,6 @@ use Composer\Script\Event;
 
 class Composer {
 
-    public static function preCreate(Event $event)
-    {
-        echo "Creating yupe project!\n";
-    }
-
     public static function postCreate(Event $event)
     {
         self::prepare($event);

@@ -125,9 +125,6 @@
         }
     },
     "scripts": {
-        "pre-create-project-cmd": [
-            "yupe\\components\\Composer::preCreate"
-        ],
         "post-create-project-cmd": [
             "yupe\\components\\Composer::postCreate"
         ],
