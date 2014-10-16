@@ -68,7 +68,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                 <div class="media">
                                     <?php $productUrl = Yii::app()->createUrl('store/catalog/show', array('name' => $position->alias)); ?>
                                     <a class="img-thumbnail pull-left" href="<?php echo $productUrl; ?>">
-                                        <img class="media-object" src="<?php echo $position->mainImage ? $position->mainImage->getImageUrl(72, 72) : ''; ?>" style="width: 72px; height: 72px;">
+                                        <img class="media-object" src="<?php echo $position->getProductModel()->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
                                     </a>
 
                                     <div class="media-body">

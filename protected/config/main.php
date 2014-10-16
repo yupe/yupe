@@ -103,7 +103,7 @@ return array(
         'migrator'      => array('class' => 'yupe\components\Migrator',),
         // DAO simple wrapper:
         'dao'           => array('class' => 'yupe\components\DAO',),
-        'image'         => array('class' => 'yupe\components\image\Image',),
+        'thumbnailer'   => array('class' => 'yupe\components\image\Thumbnailer',),
         'uploadManager' => array('class' => 'yupe\components\UploadManager',),
         'themeManager'  => array(
             'class'      => 'CThemeManager',

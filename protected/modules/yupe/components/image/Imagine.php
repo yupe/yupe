@@ -95,10 +95,12 @@ class Imagine
                     throw new \CException("Unknown driver: $driver");
             }
         }
-        throw new \CException("Your system does not support any of these drivers: " . implode(
+        throw new \CException(
+            "Your system does not support any of these drivers: " . implode(
                 ',',
                 (array)static::$driver
-            ));
+            )
+        );
     }
 
     /**
@@ -146,8 +148,8 @@ class Imagine
         $box = new Box($width, $height);
         $img = static::getImagine()->open($filename);
 
-        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight(
-                )) || (!$box->getWidth() && !$box->getHeight())
+        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) ||
+            (!$box->getWidth() && !$box->getHeight())
         ) {
             return $img->copy();
         }
@@ -247,13 +249,34 @@ class Imagine
         $size = $img->getSize();
 
         $pasteTo = new Point($margin, $margin);
-        $palette = new RGB();
 
         $box = new Box($size->getWidth() + ceil($margin * 2), $size->getHeight() + ceil($margin * 2));
 
-        $image = static::getImagine()->create($box, (new RGB())->color($color));
+        $image = static::getImagine()->create($box, (new RGB())->color($color, $alpha));
 
         $image->paste($img, $pasteTo);
+
+        return $image;
+    }
+
+    public static function resize($filename, $width, $height)
+    {
+        $image = static::getImagine()->open($filename);
+
+        $realWidth = $image->getSize()->getWidth();
+        $realHeight = $image->getSize()->getHeight();
+
+        if ($realWidth > $width || $realHeight > $height) {
+            $ratio = $realWidth / $realHeight;
+
+            if ($ratio > 1) {
+                $height = $width / $ratio;
+            } else {
+                $width = $height * $ratio;
+            }
+
+            $image->resize(new \Imagine\Image\Box($width, $height));
+        }
 
         return $image;
     }

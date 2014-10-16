@@ -4,7 +4,6 @@
  *
  * @property integer $id
  * @property integer $product_id
- * @property integer $is_main
  * @property string $name
  * @property string $title
  *
@@ -38,7 +37,7 @@ class ProductImage extends \yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('product_id, is_main', 'numerical', 'integerOnly' => true),
+            array('product_id', 'numerical', 'integerOnly' => true),
             array('name, title', 'length', 'max' => 250),
         );
     }
@@ -64,16 +63,17 @@ class ProductImage extends \yupe\models\YModel
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath . '/product',
-                'resize' => array(
+                'resizeOnUpload' => true,
+                'resizeOptions' => array(
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 )
             ),
-            'imageThumb' => array(
+            /*'imageThumb' => array(
                 'class' => 'yupe\components\behaviors\ImageThumbBehavior',
                 'uploadPath' => $module->uploadPath . '/product',
                 'attributeName' => 'name',
-            ),
+            ),*/
         );
     }
 
@@ -88,7 +88,6 @@ class ProductImage extends \yupe\models\YModel
     public function attributeLabels()
     {
         return array(
-            'is_main' => Yii::t('StoreModule.product', 'Главное'),
             'title' => Yii::t('StoreModule.product', 'Заголовок'),
         );
     }
@@ -99,7 +98,6 @@ class ProductImage extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return array(
-            'is_main' => Yii::t('StoreModule.product', 'Главное'),
             'title' => Yii::t('StoreModule.product', 'Заголовок'),
         );
     }

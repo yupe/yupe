@@ -7,6 +7,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $id
  * @property integer $type_id
  * @property integer $producer_id
+ * @property integer $category_id
  * @property string $sku
  * @property string $name
  * @property string $alias
@@ -29,6 +30,9 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
+ * @property string $image
+ *
+ * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true, $options = [])
  *
  * The followings are the available model relations:
  * @property Type $type
@@ -36,7 +40,6 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property StoreCategory $mainCategory
  * @property ProductImage $mainImage
  * @property ProductImage[] $images
- * @property ProductImage[] $imagesNotMain
  * @property ProductVariant[] $variants
  * @property Comment[] $comments
  *
@@ -84,10 +87,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return array(
             array('name, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, alias, price, discount_price, discount, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('status, is_special, producer_id, type_id, quantity, in_stock', 'numerical', 'integerOnly' => true),
-            array('status, is_special', 'length', 'max' => 11),
+            array('status, is_special, producer_id, type_id, quantity, in_stock, category_id', 'numerical', 'integerOnly' => true),
             array('price, discount_price, discount, length, height, width, weight', 'store\components\validators\NumberValidator'),
-            array('name, meta_keywords, meta_title, meta_description', 'length', 'max' => 250),
+            array('name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250),
             array('sku', 'length', 'max' => 100),
             array('alias', 'length', 'max' => 150),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')),
@@ -114,10 +116,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'producer' => array(self::BELONGS_TO, 'Producer', 'producer_id'),
             'categoryRelation' => array(self::HAS_MANY, 'ProductCategory', 'product_id'),
             'categories' => array(self::HAS_MANY, 'StoreCategory', array('category_id' => 'id'), 'through' => 'categoryRelation'),
-            'mainCategory' => array(self::HAS_ONE, 'StoreCategory', array('category_id' => 'id'), 'through' => 'categoryRelation', 'condition' => 'categoryRelation.is_main = 1'),
+            'mainCategory' => array(self::BELONGS_TO, 'StoreCategory', array('category_id' => 'id')),
             'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
-            'mainImage' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' => 'is_main = 1'),
-            'imagesNotMain' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'is_main = 0'),
             'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute'), 'order' => 'variants.attribute_id, variants.id'),
             'comments' => array(
                 self::HAS_MANY,
@@ -242,10 +242,12 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('producer_id', $this->producer_id);
+        $criteria->compare('category_id', $this->category_id);
 
         if ($this->category) {
             $criteria->with = array('categoryRelation' => array('together' => true));
-            $criteria->compare('categoryRelation.category_id', $this->category);
+            $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
+            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category]);
         }
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
@@ -253,6 +255,8 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function behaviors()
     {
+        $module = Yii::app()->getModule('store');
+
         return array(
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -264,7 +268,21 @@ class Product extends yupe\models\YModel implements ICommentable
                 'class' => 'application.modules.store.components.behaviors.EEavBehavior',
                 'tableName' => '{{store_product_attribute_eav}}',
                 'entityField' => 'product_id',
-            )
+            ),
+            'imageUpload' => array(
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'scenarios' => array('insert', 'update'),
+                'attributeName' => 'image',
+                'minSize' => $module->minSize,
+                'maxSize' => $module->maxSize,
+                'types' => $module->allowedExtensions,
+                'uploadPath' => $module->uploadPath . '/product',
+                'resizeOnUpload' => true,
+                'resizeOptions' => array(
+                    'maxWidth' => 900,
+                    'maxHeight' => 900,
+                )
+            ),
         );
     }
 
@@ -345,36 +363,48 @@ class Product extends yupe\models\YModel implements ICommentable
             : '---';
     }
 
-    public function setProductCategories($categories, $mainCategory)
+    /**
+     * Устанавливает дополнительные категории товара
+     * @param $categories - список id категорий
+     * @return bool
+     */
+    public function setProductCategories($categories)
     {
-        $categories = is_array($categories) ? $categories : (array)$categories;
-        $mainCategory = $mainCategory ?: $categories[0];
-        if (!in_array($mainCategory, $categories)) {
-            array_push($categories, $mainCategory);
-        }
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
-        foreach ($categories as $category_id) {
-            $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
-            if (!$model) {
-                $model = new ProductCategory();
-                $model->category_id = $category_id;
-                $model->product_id = $this->id;
+        $categories = is_array($categories) ? $categories : (array)$categories;
+        $categories = array_diff($categories, (array)$this->category_id);
+
+        try
+        {
+            foreach ($categories as $category_id) {
+                $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
+                if (!$model) {
+                    $model = new ProductCategory();
+                    $model->category_id = $category_id;
+                    $model->product_id = $this->id;
+                }
+                $model->save();
             }
 
-            $model->is_main = ($category_id == $mainCategory) ? 1 : 0;
-            $model->save();
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('product_id = :product_id');
+            $criteria->params = array(':product_id' => $this->id);
+            $criteria->addNotInCondition('category_id', $categories);
+            ProductCategory::model()->deleteAll($criteria);
+            $transaction->commit();
+            return true;
         }
-
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('product_id = :product_id');
-        $criteria->params = array(':product_id' => $this->id);
-        $criteria->addNotInCondition('category_id', $categories);
-        ProductCategory::model()->deleteAll($criteria);
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
     }
 
     public function getCategoriesIdList()
     {
-        $cats = ProductCategory::model()->findAllByAttributes(array('product_id' => $this->id), 'is_main = 0');
+        $cats = ProductCategory::model()->findAllByAttributes(array('product_id' => $this->id));
         $list = array();
         foreach ($cats as $key => $cat) {
             $list[] = $cat->category_id;
@@ -431,25 +461,37 @@ class Product extends yupe\models\YModel implements ICommentable
 
     private function updateVariants($variants)
     {
-        $productVariants = array();
-        foreach ($variants as $var) {
-            $variant = null;
-            if (isset($var['id'])) {
-                $variant = ProductVariant::model()->findByPk($var['id']);
-            }
-            $variant = $variant ?: new ProductVariant();
-            $variant->attributes = $var;
-            $variant->product_id = $this->id;
-            if ($variant->save()) {
-                $productVariants[] = $variant->id;
-            }
-        }
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('product_id = :product_id');
-        $criteria->params = array(':product_id' => $this->id);
-        $criteria->addNotInCondition('id', $productVariants);
-        ProductVariant::model()->deleteAll($criteria);
+        try
+        {
+            $productVariants = array();
+            foreach ($variants as $var) {
+                $variant = null;
+                if (isset($var['id'])) {
+                    $variant = ProductVariant::model()->findByPk($var['id']);
+                }
+                $variant = $variant ?: new ProductVariant();
+                $variant->attributes = $var;
+                $variant->product_id = $this->id;
+                if ($variant->save()) {
+                    $productVariants[] = $variant->id;
+                }
+            }
+
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('product_id = :product_id');
+            $criteria->params = array(':product_id' => $this->id);
+            $criteria->addNotInCondition('id', $productVariants);
+            ProductVariant::model()->deleteAll($criteria);
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
     }
 
     public function getBasePrice()
@@ -540,7 +582,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getTypeAttributes()
     {
-        if(empty($this->type)) {
+        if (empty($this->type)) {
             return [];
         }
 
@@ -549,7 +591,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getProducerName()
     {
-        if(empty($this->producer)) {
+        if (empty($this->producer)) {
             return null;
         }
 

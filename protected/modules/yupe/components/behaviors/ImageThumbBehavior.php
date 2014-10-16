@@ -64,7 +64,7 @@ class ImageThumbBehavior extends CActiveRecordBehavior
     public function deleteThumbs()
     {
         $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
-        foreach ((array)glob($this->getUploadManager()->getBasePath() . '/' . Yii::app()->image->thumbDir . DIRECTORY_SEPARATOR . $this->uploadPath . DIRECTORY_SEPARATOR . '*_' . $fileName) as $file)
+        foreach ((array)glob(Yii::app()->thumbnailer->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath . DIRECTORY_SEPARATOR . '*_' . $fileName) as $file)
         {
             @unlink($file);
         }
