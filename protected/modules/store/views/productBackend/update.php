@@ -1,4 +1,11 @@
 <?php
+/**
+ * @var $this ProductBackendController
+ * @var $model Product
+ */
+
+$this->layout = 'product';
+
 $this->breadcrumbs = array(
     Yii::t('StoreModule.store', 'Products') => array('/store/productBackend/index'),
     $model->name => array('/store/productBackend/view', 'id' => $model->id),
@@ -8,8 +15,6 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('StoreModule.store', 'Products - edition');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.store', 'Products administration'), 'url' => array('/store/productBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.store', 'Add a product'), 'url' => array('/store/productBackend/create')),
     array('label' => Yii::t('StoreModule.store', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
         'icon' => 'glyphicon glyphicon-pencil',

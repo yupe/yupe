@@ -16,7 +16,8 @@ $form = $this->beginWidget(
         'id' => 'product-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type' => 'vertical',
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
         'clientOptions' => array(
             'validateOnSubmit' => true,
         ),

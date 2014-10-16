@@ -23,3 +23,7 @@
 hr {
     margin: 4px;
 }
+
+#product-form .tab-content {
+    padding: 10px;
+}
