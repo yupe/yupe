@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public $notifyEmailFrom = '';
     public $notifyEmailsTo = '';

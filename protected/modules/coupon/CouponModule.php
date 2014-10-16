@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CouponModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public function getDependencies()
     {
@@ -52,12 +52,17 @@ class CouponModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('CouponModule.coupon', 'Dark_Cs');
+        return Yii::t('CouponModule.coupon', 'amylabs team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('CouponModule.coupon', 'darkcs2@gmail.com');
+        return Yii::t('CouponModule.coupon', 'hello@amylabs.ru');
+    }
+
+    public function getUrl()
+    {
+        return 'http://amylabs.ru';
     }
 
     public function getIcon()

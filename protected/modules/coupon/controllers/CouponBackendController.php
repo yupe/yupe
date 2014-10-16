@@ -2,6 +2,19 @@
 
 class CouponBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Coupon',
+                'validAttributes' => array(
+                    'status'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(
