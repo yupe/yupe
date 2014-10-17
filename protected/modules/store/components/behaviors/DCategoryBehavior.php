@@ -60,6 +60,16 @@ class DCategoryBehavior extends CActiveRecordBehavior
 
     public $useCache = true;
 
+    /**
+     * @var string Тег, по которому будут кешироваться записи
+     */
+    public $cacheTag;
+
+    /**
+     * @var string Если не будет указан конкретный тег, по которому происходит кеширование моделей, тег будет сформирован из префикса + класс модели
+     */
+    public $defaultCachePrefix = 'categorybehavior::model::';
+
     protected $_primaryKey;
     protected $_tableSchema;
     protected $_tableName;
@@ -234,7 +244,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
         }
 
         $connection = $model->getDbConnection();
-        return $this->useCache ? $model->cache($connection->queryCachingDuration) : $model;
+        return $this->useCache ? $model->cache($connection->queryCachingDuration, new \TagsCache($this->getCacheTag())) : $model;
     }
 
     protected function aliasAttributes($attributes)
@@ -286,5 +296,22 @@ class DCategoryBehavior extends CActiveRecordBehavior
     protected function getOriginalCriteria()
     {
         return clone $this->_criteria;
+    }
+
+    protected function getCacheTag()
+    {
+        return $this->cacheTag ?: $this->defaultCachePrefix . get_class($this->getOwner());
+    }
+
+    public function afterSave($event)
+    {
+        Yii::app()->getCache()->clear($this->getCacheTag());
+        parent::afterSave($event);
+    }
+
+    public function afterDelete($event)
+    {
+        Yii::app()->getCache()->clear($this->getCacheTag());
+        parent::afterDelete($event);
     }
 }
