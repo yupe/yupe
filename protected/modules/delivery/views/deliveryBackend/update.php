@@ -38,5 +38,4 @@ $this->menu = array(
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
-
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model, 'payments' => $payments)); ?>

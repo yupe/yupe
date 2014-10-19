@@ -31,7 +31,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
 
         if (isset($_POST['Payment'])) {
             $model->attributes = $_POST['Payment'];
-            $model->setPaymentSystemSettings($_POST['PaymentSettings']);
+            $model->setPaymentSystemSettings(Yii::app()->getRequest()->getPost('PaymentSettings', []));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

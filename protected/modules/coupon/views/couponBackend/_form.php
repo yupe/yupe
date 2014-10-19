@@ -183,6 +183,7 @@
                     'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
                     'ajaxUrl' => Yii::app()->createUrl('/order/orderBackend/index'),
                     'actionsButtons' => false,
+                    'bulkActions' => [false],
                     'columns' => array(
                         array(
                             'name' => 'id',

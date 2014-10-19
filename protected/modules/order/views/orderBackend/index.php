@@ -45,20 +45,29 @@ $this->widget(
             ),
             'total_price',
             array(
+                'class'=> 'yupe\widgets\EditableStatusColumn',
                 'name' => 'paid',
-                'value' => '$data->getPaidStatus()',
-                'filter' => $model->getPaidStatusList(),
+                'url'  => $this->createUrl('/order/orderBackend/inline'),
+                'source'  => $model->getPaidStatusList(),
+                'options' => [
+                    Order::PAID_STATUS_NOT_PAID => ['class' => 'label-danger'],
+                    Order::PAID_STATUS_PAID => ['class' => 'label-success']
+                ],
             ),
             array(
                 'name' => 'date'
             ),
             array(
-                'name' => 'coupon_code',
-            ),
-            array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList()
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/order/orderBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Order::STATUS_FINISHED => ['class' => 'label-success'],
+                    Order::STATUS_ACCEPTED => ['class' => 'label-info'],
+                    Order::STATUS_NEW => ['class' => 'label-default'],
+                    Order::STATUS_DELETED => ['class' => 'label-danger'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

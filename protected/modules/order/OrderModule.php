@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.3';
 
     public $notifyEmailFrom = '';
     public $notifyEmailsTo = '';
@@ -86,12 +86,17 @@ class OrderModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('OrderModule.order', 'Dark_Cs');
+        return Yii::t('OrderModule.order', 'amylabs team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('OrderModule.order', 'darkcs2@gmail.com');
+        return Yii::t('OrderModule.order', 'hello@amylabs');
+    }
+
+    public function getUrl()
+    {
+        return 'http://amylabs.ru';
     }
 
     public function getIcon()

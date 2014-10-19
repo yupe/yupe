@@ -20,7 +20,7 @@ $id = $model->id;
         <?php if ($product): ?>
             <input type="hidden" class="product-base-price" value="<?php echo $product->getResultPrice(); ?>"/>
             <input type="hidden" name="OrderProduct[<?php echo $id; ?>][product_id]" value="<?php echo $product->id; ?>"/>
-            <img src="<?php echo $product->getRelated('mainImage') ? $product->getRelated('mainImage')->getImageUrl(40, 40) : ''; ?>" alt="" class="img-thumbnail"/>
+            <img src="<?= $product->getImageUrl(40, 40); ?>" alt="" class="img-thumbnail"/>
         <?php endif; ?>
     </div>
     <div class="col-sm-3">

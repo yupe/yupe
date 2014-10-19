@@ -2,6 +2,20 @@
 
 class OrderBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Order',
+                'validAttributes' => array(
+                    'status',
+                    'paid'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(
