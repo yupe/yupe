@@ -19,7 +19,10 @@ class CartController extends yupe\components\controllers\FrontController
                 $coupons[] = Coupon::model()->getCouponByCode($code);
             }
         }
-        $this->render('index', array('positions' => $positions, 'order' => $order, 'coupons' => $coupons));
+
+        $deliveryTypes = Delivery::model()->published()->findAll();
+
+        $this->render('index', array('positions' => $positions, 'order' => $order, 'coupons' => $coupons, 'deliveryTypes' => $deliveryTypes));
     }
 
     public function actionAdd()

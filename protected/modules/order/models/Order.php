@@ -320,11 +320,11 @@ class Order extends yupe\models\YModel
     {
         $productsCost = $this->getProductsCost();
 
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->url = md5(uniqid(time(), true));
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip = Yii::app()->getRequest()->userHostAddress;
             if ($this->getScenario() == self::SCENARIO_USER) {
-                $this->user_id = Yii::app()->user->id;
+                $this->user_id = Yii::app()->getUser()->id;
                 $this->delivery_price = $this->delivery ? $this->delivery->getCost($productsCost) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
@@ -338,7 +338,7 @@ class Order extends yupe\models\YModel
             $coupons = $this->getValidCoupons($this->couponCodes);;
             foreach ($coupons as $coupon) {
                 $validCouponCodes[] = $coupon->code;
-                if ($this->isNewRecord) {
+                if ($this->getIsNewRecord()) {
                     $coupon->decreaseQuantity();
                 }
             }
@@ -453,7 +453,7 @@ class Order extends yupe\models\YModel
 
         foreach ($products as $var) {
             /* @var $var OrderProduct */
-            if ($var->isNewRecord) {
+            if ($var->getIsNewRecord()) {
                 $var->order_id = $this->id;
             }
 

@@ -27,7 +27,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
         <?php else: ?>
             <?php
             $form = $this->beginWidget(
-                'CActiveForm',
+                'bootstrap.widgets.TbActiveForm',
                 array(
                     'action' => array('/order/order/create'),
                     'id' => 'order-form',
@@ -184,7 +184,6 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                         <b><?php echo Yii::t("CartModule.cart", "Способ доставки"); ?></b>
                                     </label>
                                     <div class="controls">
-                                        <?php $deliveryTypes = Delivery::model()->published()->findAll(); ?>
                                         <?php foreach ($deliveryTypes as $key => $delivery): ?>
                                             <label class="radio" for="delivery-<?php echo $delivery->id; ?>">
                                                 <input type="radio" name="Order[delivery_id]" id="delivery-<?php echo $delivery->id; ?>"

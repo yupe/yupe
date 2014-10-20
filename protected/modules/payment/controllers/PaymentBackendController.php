@@ -2,6 +2,19 @@
 
 class PaymentBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Payment',
+                'validAttributes' => array(
+                    'status'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(

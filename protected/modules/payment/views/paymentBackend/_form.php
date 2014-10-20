@@ -26,7 +26,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
@@ -37,10 +37,7 @@ $form = $this->beginWidget(
             )
         ); ?>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'module',
@@ -58,7 +55,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="panel-title"><?php echo Yii::t("PaymentModule.payment", "Настройки платежной системы"); ?></span>
