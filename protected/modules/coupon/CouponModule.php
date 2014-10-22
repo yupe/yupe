@@ -8,7 +8,7 @@ class CouponModule extends WebModule
 
     public function getDependencies()
     {
-        return array();
+        return array('cart');
     }
 
     public function getEditableParams()

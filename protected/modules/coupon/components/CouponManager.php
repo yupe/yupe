@@ -17,12 +17,12 @@ class CouponManager extends CComponent
 
     private function restoreFromSession()
     {
-        $this->coupons = Yii::app()->user->getState($this->couponStateKey, array());
+        $this->coupons = Yii::app()->getUser()->getState($this->couponStateKey, array());
     }
 
     private function saveState()
     {
-        Yii::app()->user->setState($this->couponStateKey, $this->coupons);
+        Yii::app()->getUser()->setState($this->couponStateKey, $this->coupons);
     }
 
     /**
@@ -33,7 +33,7 @@ class CouponManager extends CComponent
     {
         $code = strtoupper($code);
         if (in_array($code, $this->coupons)) {
-            return array(Yii::t("CartModule.cart", 'Купон уже добавлен'));
+            return array(Yii::t("CouponManager.coupon", 'Купон уже добавлен'));
         }
         /* @var $coupon Coupon */
         $coupon = Coupon::model()->getCouponByCode($code);
@@ -47,7 +47,7 @@ class CouponManager extends CComponent
                 return $coupon->getCouponErrors($price);
             }
         } else {
-            return array(Yii::t("CartModule.cart", 'Купон не найден'));
+            return array(Yii::t("CouponManager.coupon", 'Купон не найден'));
         }
     }
 
