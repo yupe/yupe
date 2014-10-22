@@ -12,6 +12,7 @@ hr {
 
 #add-product {
     min-width: 75px;
+    width: 100%;
 }
 
 #orderDate {
@@ -19,8 +20,8 @@ hr {
 }
 #orderAddProduct {
     padding-top: 10px;
+    padding-bottom: 10px;
 }
-
 
 #products .well {
     min-height: 20px;

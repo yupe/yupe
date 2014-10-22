@@ -33,12 +33,11 @@ $form = $this->beginWidget(
                     )
                 ); ?>
             </div>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <?php echo $form->datePickerGroup(
                     $model,
                     'date',
                     array(
-
                         'widgetOptions' => array(
                             'options' => array(
                                 'format' => 'dd.mm.yyyy',
@@ -94,7 +93,7 @@ $form = $this->beginWidget(
                                 <?php endforeach; ?>
                             </div>
                         </div>
-                        <div class="row" id="orderAddProduct">
+                        <div class="row product-row" id="orderAddProduct">
                             <div class="col-sm-10">
                                 <?php $this->widget(
                                     'bootstrap.widgets.TbSelect2',
@@ -122,15 +121,15 @@ $form = $this->beginWidget(
                                 );?>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-default btn-sm col-sm-12" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Добавить"); ?></a>
+                                <a class="btn btn-default btn-sm" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Добавить"); ?></a>
                             </div>
-                            <div class="col-sm-12 text-right">
-                                <h4>
-                                    <?php echo Yii::t("OrderModule.order", "Всего"); ?>:
-                                    <span id="total-product-cost"><?php echo $totalProductCost; ?></span>
-                                    <?php echo Yii::t("OrderModule.order", "руб."); ?>
-                                </h4>
-                            </div>
+                        </div>
+                        <div class="text-right">
+                            <h4>
+                                <?php echo Yii::t("OrderModule.order", "Всего"); ?>:
+                                <span id="total-product-cost"><?php echo $totalProductCost; ?></span>
+                                <?php echo Yii::t("OrderModule.order", "руб."); ?>
+                            </h4>
                         </div>
                     </div>
                 </div>
