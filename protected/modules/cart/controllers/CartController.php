@@ -99,36 +99,4 @@ class CartController extends yupe\components\controllers\FrontController
         $this->widget('cart.widgets.ShoppingCartWidget', array('id' => 'shopping-cart-widget'));
     }
 
-    public function actionAddCoupon()
-    {
-        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));;
-        $result = Yii::app()->cart->couponManager->add($code);
-        if (true === $result) {
-            Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купон «{code}» добавлен", array('{code}' => $code)));
-        } else {
-            Yii::app()->ajax->failure($result);
-        }
-    }
-
-    public function actionRemoveCoupon()
-    {
-        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));
-        if ($code) {
-            Yii::app()->cart->couponManager->remove($code);
-            Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купон «{code}» удален", array('{code}' => $code)));
-        } else {
-            Yii::app()->ajax->failure(Yii::t("CartModule.cart", 'Купон не найден'));
-        }
-    }
-
-    public function actionClearCoupons()
-    {
-        Yii::app()->cart->couponManager->clear();
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купоны удалены"));
-    }
-
-    public function actionCoupons()
-    {
-        Yii::app()->ajax->success(Yii::app()->cart->couponManager->coupons);
-    }
 }

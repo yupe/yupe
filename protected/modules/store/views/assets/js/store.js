@@ -317,7 +317,7 @@ $(document).ready(function () {
         var data = {};
         data[yupeTokenName] = yupeToken;
         $.ajax({
-            url: '/cart/clear',
+            url: '/coupon/clear',
             type: 'post',
             data: data,
             dataType: 'json',
@@ -337,7 +337,7 @@ $(document).ready(function () {
             var data = {'code': code};
             data[yupeTokenName] = yupeToken;
             $.ajax({
-                url: '/cart/addCoupon',
+                url: '/coupon/add',
                 type: 'post',
                 data: data,
                 dataType: 'json',
@@ -358,7 +358,7 @@ $(document).ready(function () {
         var data = {'code': code};
         data[yupeTokenName] = yupeToken;
         $.ajax({
-            url: '/cart/removeCoupon',
+            url: '/coupon/remove',
             type: 'post',
             data: data,
             dataType: 'json',
