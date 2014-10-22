@@ -33,18 +33,22 @@ $form = $this->beginWidget(
                     )
                 ); ?>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" >
                 <?php echo $form->datePickerGroup(
                     $model,
                     'date',
                     array(
+
                         'widgetOptions' => array(
                             'options' => array(
                                 'format' => 'dd.mm.yyyy',
                                 'weekStart' => 1,
                                 'autoclose' => true,
+
                             ),
+                            'htmlOptions' => array('id'=>'orderDate'),
                         ),
+
                         'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
                     )
                 );
@@ -90,8 +94,8 @@ $form = $this->beginWidget(
                                 <?php endforeach; ?>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-8">
+                        <div class="row" id="orderAddProduct">
+                            <div class="col-sm-10">
                                 <?php $this->widget(
                                     'bootstrap.widgets.TbSelect2',
                                     array(
@@ -117,10 +121,10 @@ $form = $this->beginWidget(
                                     )
                                 );?>
                             </div>
-                            <div class="col-sm-1">
-                                <a class="btn btn-default btn-sm" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Добавить"); ?></a>
+                            <div class="col-sm-2">
+                                <a class="btn btn-default btn-sm col-sm-12" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Добавить"); ?></a>
                             </div>
-                            <div class="col-sm-3 text-right">
+                            <div class="col-sm-12 text-right">
                                 <h4>
                                     <?php echo Yii::t("OrderModule.order", "Всего"); ?>:
                                     <span id="total-product-cost"><?php echo $totalProductCost; ?></span>
@@ -201,11 +205,12 @@ $form = $this->beginWidget(
                                     )
                                 ); ?>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <br/>
                                 <?php echo $form->checkBoxGroup($model, 'paid'); ?>
                             </div>
-                            <div class="col-sm-4 text-right">
+                            <div class="col-sm-6 text-right">
+                                <br/>
                                 <h4>
                                     <?php echo Yii::t("OrderModule.order", "Итого"); ?>: <?php echo $model->total_price; ?> <?php echo Yii::t("OrderModule.order", "руб."); ?>
                                 </h4>
