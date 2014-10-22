@@ -9,6 +9,8 @@
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
+[![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
+[![Issue Stats Pull request](http://issuestats.com/yupe/yupe/yii2/badge/pr)](http://issuestats.com/github/yupe/yupe)
 
 ![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
 
