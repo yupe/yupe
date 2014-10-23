@@ -6,11 +6,6 @@
 - Тимашов Максим  apexwire@gmail.com
 - Кучеров Антон [http://idexter.ru/](http://idexter.ru/)
 - Плаксунов Юрий [http://amylabs.ru/](http://amylabs.ru/)
-- Михаил Чемезов [http://vk.com/m.chemezov](http://vk.com/m.chemezov)
-- Елизаров Алексей [http://amylabs.ru/](http://amylabs.ru/)
-- Тищенко Александр [https://twitter.com/archaron](https://twitter.com/archaron)
-- Лыженков Александр [http://lyzhenkov.ru](http://lyzhenkov.ru)
-- Куликов Евгений [http://akulikov.org.ua](http://akulikov.org.ua)
-- Черепанов Антон [https://twitter.com/davetoxa](https://twitter.com/davetoxa)
+- Чемезов Михаил [http://vk.com/m.chemezov](http://vk.com/m.chemezov)
 
-[Ждем только тебя !](http://yupe.ru/feedback/index)
+[Ждем только тебя !](http://yupe.ru/contacts)

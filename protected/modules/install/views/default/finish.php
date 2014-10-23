@@ -25,7 +25,7 @@
 
 <?php echo CHtml::link(
     Yii::t('InstallModule.install', 'Official Yupe site'),
-    'http://yupe-cms.ru/?from=finish'
+    'http://yupe-project.ru/?from=finish'
 ); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
 
 <br/><br/>

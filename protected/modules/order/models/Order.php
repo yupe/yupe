@@ -249,6 +249,16 @@ class Order extends yupe\models\YModel
         return Yii::app()->hasModule('coupon');
     }
 
+    public function hasCoupon()
+    {
+        return !empty($this->coupon_code);
+    }
+
+    public function getCoupons()
+    {
+        return $this->couponCodes;
+    }
+
     public function getDeliveryCost()
     {
         $cost = $this->delivery_price;
@@ -482,5 +492,20 @@ class Order extends yupe\models\YModel
     {
         Yii::app()->getModule('order')->sendNotifyOrderPaid($this);
         return true;
+    }
+
+    public function getTotalPrice()
+    {
+        return (float)$this->total_price - ($this->separate_delivery ? 0 : $this->delivery_price);
+    }
+
+    public function getDeliveryPrice()
+    {
+        return (float)$this->delivery_price;
+    }
+
+    public function getTotalPriceWithDelivery()
+    {
+        return $this->getTotalPrice() + $this->getDeliveryPrice();
     }
 }

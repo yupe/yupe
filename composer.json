@@ -24,11 +24,6 @@
             "role": "Developer"
         },
         {
-            "name": "Alexey Elizarov",
-            "homepage": "http://amylabs.ru",
-            "role": "Designer"
-        },
-        {
             "name": "Maxim Timashov",
             "email": "apexwire@gmail.com",
             "role": "Developer"
@@ -41,28 +36,6 @@
         {
             "name": "Mihail Chemezov",
             "homepage": "http://vk.com/m.chemezov",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Tischenko",
-            "email": "tsm@archaron.ru",
-            "homepage": "http://archaron.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Evgeniy Kulikov",
-            "email": "tuxuls@gmail.com",
-            "homepage": "http://akulikov.org.ua",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Lyzhenkov",
-            "homepage": "http://lyzhenkov.ru",
-            "role": "Developer"
-        },
-        {
-            "name": "Anton Cherepanov",
-            "homepage": "https://twitter.com/davetoxa",
             "role": "Developer"
         }
     ],

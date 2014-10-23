@@ -4,7 +4,7 @@ class OrderController extends yupe\components\controllers\FrontController
 {
     public function actionView($url = null)
     {
-        $model = Order::model()->findByAttributes(array('url' => $url));
+        $model = Order::model()->findByAttributes(['url' => $url]);
         if ($model === null) {
             throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
         }

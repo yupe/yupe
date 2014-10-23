@@ -168,4 +168,11 @@ class Payment extends yupe\models\YModel
     {
         return $this->_paymentSettings;
     }
+
+    public function getPaymentForm(Order $order)
+    {
+        $paymentSystem = Yii::app()->paymentManager->getPaymentSystemObject($this->module);
+
+        return $paymentSystem ? $paymentSystem->renderCheckoutForm($this, $order, true) : "";
+    }
 }

@@ -107,4 +107,9 @@ class OrderProduct extends \yupe\models\YModel
         }
         return parent::beforeSave();
     }
+
+    public function getTotalPrice()
+    {
+        return (float)$this->price * $this->quantity;
+    }
 }

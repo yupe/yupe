@@ -602,4 +602,9 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return $this->name;
     }
+
+    public function isInStock()
+    {
+        return $this->in_stock;
+    }
 }

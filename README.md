@@ -10,7 +10,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
 [![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
-[![Issue Stats Pull request](http://issuestats.com/yupe/yupe/yii2/badge/pr)](http://issuestats.com/github/yupe/yupe)
+[![Issue Stats Pull request](http://issuestats.com/yupe/yupe/yupe/badge/pr)](http://issuestats.com/github/yupe/yupe)
 
 ![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
 
@@ -27,7 +27,7 @@
 * интернет-магазины
 
 
-**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe-cms.ru/pages/friends)**
+**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe-project.ru/pages/friends)**
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x
 
@@ -51,7 +51,7 @@
 Ссылки
 ------
 * [Сообщество](http://yupe.ru/)
-* [Официальный сайт](http://yupe-cms.ru/)
+* [Официальный сайт](http://yupe-project.ru/)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
@@ -63,7 +63,7 @@
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
-* Коммерческая [разработка](http://yupe-cms.ru/service/development) и [поддержка](http://yupe-cms.ru/service/support)
+* Коммерческая [разработка](http://yupe-project.ru/service/development) и [поддержка](http://yupe-project.ru/service/support)
 
 Возможности
 -----------
@@ -86,6 +86,7 @@
 * Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums/5)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 * Авторизация через социальные сети (с использованием nodge/yii-eauth)
+* Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)
 
 **Если вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
 

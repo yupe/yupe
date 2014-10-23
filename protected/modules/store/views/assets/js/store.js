@@ -309,6 +309,7 @@ $(document).ready(function () {
     updateAllCosts();
 
     $('#start-payment').click(function () {
+        alert('!');
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
     });
 
