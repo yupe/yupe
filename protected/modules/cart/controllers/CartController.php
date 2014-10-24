@@ -6,15 +6,19 @@ class CartController extends yupe\components\controllers\FrontController
     {
         $positions = Yii::app()->cart->getPositions();
         $order = new Order(Order::SCENARIO_USER);
-        if (!Yii::app()->getUser()->isAuthenticated()) {
+        if (Yii::app()->getUser()->isAuthenticated()) {
             $user = Yii::app()->getUser()->getProfile();
             $order->name = $user->getFullName();
             $order->email = $user->email;
             $order->address = $user->location;
         }
-        $couponCodes = Yii::app()->cart->couponManager->coupons;
-        $coupons = array();
+
+        $coupons = [];
+
         if (Yii::app()->hasModule('coupon')) {
+
+            $couponCodes = Yii::app()->cart->couponManager->coupons;
+
             foreach ($couponCodes as $code) {
                 $coupons[] = Coupon::model()->getCouponByCode($code);
             }
@@ -22,7 +26,7 @@ class CartController extends yupe\components\controllers\FrontController
 
         $deliveryTypes = Delivery::model()->published()->findAll();
 
-        $this->render('index', array('positions' => $positions, 'order' => $order, 'coupons' => $coupons, 'deliveryTypes' => $deliveryTypes));
+        $this->render('index', ['positions' => $positions, 'order' => $order, 'coupons' => $coupons, 'deliveryTypes' => $deliveryTypes ]);
     }
 
     public function actionAdd()
@@ -96,7 +100,7 @@ class CartController extends yupe\components\controllers\FrontController
     {
         //$this->renderPartial('//cart/widgets/views/shoppingCart');
         // хочет отправить куки новые для авторизации каждый раз
-        $this->widget('cart.widgets.ShoppingCartWidget', array('id' => 'shopping-cart-widget'));
+        $this->widget('cart.widgets.ShoppingCartWidget', ['id' => 'shopping-cart-widget']);
     }
 
 }
