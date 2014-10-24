@@ -134,7 +134,7 @@ class ConfigManager extends CComponent
         // Настройки путей:
         $this->initPath();
 
-        return $this->getSettings($base);
+        return $this->getSettings();
     }
 
     /**
