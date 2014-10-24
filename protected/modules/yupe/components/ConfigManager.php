@@ -117,7 +117,7 @@ class ConfigManager extends CComponent
 
         // Задаем название файла кеша для настроек
         $this->cacheFileName .= '_' . $this->env;
-        $this->_cacheFilePath = $this->basePath . '/config/' . $this->cacheFileName . '.php';
+        $this->_cacheFilePath = Yii::getPathOfAlias('application.runtime'). DIRECTORY_SEPARATOR . $this->cacheFileName . '.php';
     }
 
     /**
