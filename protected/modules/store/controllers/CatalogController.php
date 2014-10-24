@@ -38,7 +38,6 @@ class CatalogController extends yupe\components\controllers\FrontController
         if (strlen($query) > 2) {
             $result = (new ProductRepository())->searchLite($query);
         }
-        echo CJSON::encode($result);
-        Yii::app()->end();
+        Yii::app()->ajax->raw($result);
     }
 }
