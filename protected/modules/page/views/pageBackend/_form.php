@@ -23,6 +23,9 @@
                             }
                             $('#parent_id').append(new Option(element, index, option));
                         })
+                        if(current) {
+                            $('#parent_id').val(current);
+                        }
                         $('#parent_id').removeAttr('disabled');
                         $('#pareData').show();
                     }
