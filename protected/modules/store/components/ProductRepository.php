@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class ProductRepository
+ */
 class ProductRepository extends CComponent
 {
+    /**
+     * @param int $perPage
+     * @return CActiveDataProvider
+     */
     public function getListForIndexPage($perPage = 20)
     {
         $criteria = new CDbCriteria();
@@ -23,6 +30,11 @@ class ProductRepository extends CComponent
         );
     }
 
+    /**
+     * @param StoreCategory $category
+     * @param int $perPage
+     * @return CActiveDataProvider
+     */
     public function getListForCategory(StoreCategory $category, $perPage = 20)
     {
         $criteria = new CDbCriteria();
@@ -47,6 +59,10 @@ class ProductRepository extends CComponent
         );
     }
 
+    /**
+     * @param $query
+     * @return array
+     */
     public function searchLite($query)
     {
         $criteria = new CDbCriteria();
@@ -56,9 +72,18 @@ class ProductRepository extends CComponent
         $criteria->addSearchCondition('name', $query, true);
         $models = Product::model()->findAll($criteria);
         $result = [];
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $result[] = CHtml::link($model->name, ['/store/catalog/show', 'name' => $model->alias]);
         }
         return $result;
+    }
+
+    /**
+     * @param $alias
+     * @return mixed
+     */
+    public function getByAlias($alias)
+    {
+        return Product::model()->published()->find('alias = :alias', [':alias' => $alias]);
     }
 } 

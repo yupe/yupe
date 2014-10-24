@@ -49,7 +49,7 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
         </h3>
         <div class="category-tree">
             <?php
-               $this->widget('zii.widgets.CMenu', array('items' => $tree,));
+               $this->widget('zii.widgets.CMenu', array('items' => $tree));
             ?>
         </div>
     </div>
