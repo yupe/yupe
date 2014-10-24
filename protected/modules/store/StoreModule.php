@@ -182,6 +182,7 @@ class StoreModule extends WebModule
         $this->setImport(
             array(
                 'store.models.*',
+                'store.components.*',
             )
         );
     }

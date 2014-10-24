@@ -38,8 +38,9 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                 'value' => 'CHtml::link($data->name, array("/store/productBackend/update", "id" => $data->id))',
             ),
             array(
-                'name' => 'mainCategory.name',
-                'type' => 'raw',
+                'name'   => 'mainCategory.name',
+                'header' => Yii::t('StoreModule.store', 'Категория'),
+                'type'   => 'raw',
                 'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), array('encode' => false, 'empty' => '', 'class' => 'form-control')),
                 'htmlOptions' => array('width' => '220px'),
             ),

@@ -607,4 +607,5 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return $this->in_stock;
     }
+
 }

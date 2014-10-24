@@ -54,7 +54,7 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-<div class="row">
+<div class="row" id="payment-system-settings-row" style="display: none;">
     <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -149,3 +149,19 @@ $form = $this->beginWidget(
 ?>
 
 <?php $this->endWidget(); ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#payment-system').on('change', function(){
+            if($(this).val()) {
+                $('#payment-system-settings-row').show();
+            }else{
+                $('#payment-system-settings-row').hide();
+            }
+        });
+        if($('#payment-system').val()) {
+            $('#payment-system-settings-row').show();
+        }
+    });
+
+</script>
