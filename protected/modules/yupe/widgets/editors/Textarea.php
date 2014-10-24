@@ -27,7 +27,8 @@ class Textarea extends \CInputWidget
     {
         return [
             'class' => 'form-control',
-            'rows'  => '6',
+            'rows'  => '10',
+            'style' => 'resize: vertical;'
         ];
     }
 }
