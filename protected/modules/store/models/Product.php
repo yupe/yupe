@@ -608,4 +608,57 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->in_stock;
     }
 
+    public function getMetaTitle()
+    {
+        return $this->meta_title ?: $this->name;
+    }
+
+    public function getMetaDescription()
+    {
+        return $this->meta_description;
+    }
+
+    public function getMetaKeywords()
+    {
+        return $this->meta_keywords;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function getAttributeGroups()
+    {
+        $attributeGroups = [];
+
+        foreach ($this->getTypeAttributes() as $attribute) {
+            if ($attribute->group) {
+                $attributeGroups[$attribute->group->name][] = $attribute;
+            } else {
+                $attributeGroups[Yii::t('StoreModule.attribute', 'Без группы')][] = $attribute;
+            }
+        }
+
+        return $attributeGroups;
+    }
+
+
+    public function getVariantsGroup()
+    {
+        $variantsGroups = [];
+
+        foreach ((array)$this->variants as $variant) {
+            $variantsGroups[$variant->attribute->title][] = $variant;
+        }
+
+        return $variantsGroups;
+    }
+
+
+    public function getDiscountPrice()
+    {
+        return $this->discount_price;
+    }
+
 }
