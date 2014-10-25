@@ -41,9 +41,9 @@ class CommentFormWidget extends yupe\widgets\YWidget
             $this->view = 'commentnotallowed';
         }
 
-        Yii::app()->getUser()->setState('spamField', Yii::app()->userManager->hasher->generateRandomToken(8));
+        Yii::app()->getUser()->setState('spamField', md5(Yii::app()->userManager->hasher->generateRandomToken(8)));
 
-        Yii::app()->getUser()->setState('spamFieldValue', Yii::app()->userManager->hasher->generateRandomToken(8));
+        Yii::app()->getUser()->setState('spamFieldValue', md5(Yii::app()->userManager->hasher->generateRandomToken(8)));
 
         $this->render(
             $this->view,
