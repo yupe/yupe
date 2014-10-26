@@ -273,14 +273,6 @@ class Category extends yupe\models\YModel
         return '---';
     }
 
-    public function getImageSrc()
-    {
-        return Yii::app()->baseUrl . "/" .
-        Yii::app()->getModule("yupe")->uploadPath . "/" .
-        Yii::app()->getModule("category")->uploadPath . "/" .
-        $this->image;
-    }
-
     public function getByAlias($alias)
     {
         return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find(
