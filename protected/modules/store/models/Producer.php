@@ -149,11 +149,11 @@ class Producer extends yupe\models\YModel
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module !== null ? $module->uploadPath . '/producer' : null,
-            ),
-            'imageThumb' => array(
-                'class' => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath' => $module->uploadPath . '/producer',
-                'attributeName' => 'image',
+                'resizeOptions' => array(
+                    'maxWidth' => 900,
+                    'maxHeight' => 900,
+                ),
+                'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
             ),
         );
     }

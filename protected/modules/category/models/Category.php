@@ -88,7 +88,7 @@ class Category extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'image',
                 'uploadPath'    => $module->uploadPath,

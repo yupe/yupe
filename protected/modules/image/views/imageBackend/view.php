@@ -67,12 +67,12 @@ $this->menu = array(
                 'name'  => 'file',
                 'type'  => 'raw',
                 'label' => Yii::t('ImageModule.image', 'Link'),
-                'value' => CHtml::link($model->getRawUrl(), $model->getRawUrl()),
+                'value' => CHtml::link($model->getImageUrl(), $model->getImageUrl()),
             ),
             array(
                 'name'  => 'file',
                 'type'  => 'raw',
-                'value' => CHtml::image($model->getUrl(100), $model->alt),
+                'value' => CHtml::image($model->getImageUrl(100), $model->alt),
             ),
             'creation_date',
             array(

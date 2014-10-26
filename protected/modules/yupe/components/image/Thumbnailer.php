@@ -14,16 +14,26 @@ class Thumbnailer extends \CApplicationComponent
     private $_basePath;
     private $_baseUrl;
 
+    /**
+     * @param $file string Полный путь к исходному файлу в файловой системе
+     * @param $uploadDir string Подпапка в папке с миниатюрами куда надо поместить изображение
+     * @param $width
+     * @param $height
+     * @param string $mode
+     * @param array $options
+     * @return mixed|string
+     * @throws CHttpException
+     */
     public function thumbnail(
         $file,
         $uploadDir,
         $width,
         $height,
         $mode = ImageInterface::THUMBNAIL_OUTBOUND,
-        $options = array()
+        $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
     ) {
-        $name = $width . 'x' . $height . '_' . $mode . '_' . $file;
-        $cacheId = $this->cachePrefix . $name;
+        $name = $width . 'x' . $height . '_' . $mode . '_' . basename($file);
+        $cacheId = $this->cachePrefix . '::' . $file . '::' . $name;
 
         $url = Yii::app()->cache->get($cacheId);
 
@@ -46,7 +56,7 @@ class Thumbnailer extends \CApplicationComponent
 
             if (!file_exists($thumbFile)) {
                 Imagine::thumbnail(
-                    Yii::app()->uploadManager->getFilePath($file, $uploadDir),
+                    $file,
                     $width,
                     $height,
                     $mode

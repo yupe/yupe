@@ -220,7 +220,7 @@ class Good extends yupe\models\YModel
                 'updateAttribute'   => 'update_time',
             ),
             'imageUpload'        => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
@@ -289,24 +289,6 @@ class Good extends yupe\models\YModel
             'CatalogModule.catalog',
             '*unknown*'
         );
-    }
-
-    public function getImageUrl($width = 75, $height = 75)
-    {
-        if (false !== $this->image) {
-
-            $module = Yii::app()->getModule('catalog');
-
-            return Yii::app()->image->makeThumbnail(
-                $this->image,
-                $module->uploadPath,
-                $width,
-                $height,
-                \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
-            );
-        }
-
-        return false;
     }
 
     /**

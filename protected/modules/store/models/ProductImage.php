@@ -69,11 +69,6 @@ class ProductImage extends \yupe\models\YModel
                     'maxHeight' => 900,
                 )
             ),
-            /*'imageThumb' => array(
-                'class' => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath' => $module->uploadPath . '/product',
-                'attributeName' => 'name',
-            ),*/
         );
     }
 
