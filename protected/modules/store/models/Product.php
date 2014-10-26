@@ -662,10 +662,4 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
 
-    public function productCopy(Product $modelLoad) {
-
-
-       // print_r($model);
-    }
-
 }
