@@ -3,7 +3,7 @@
  * @var $this ProductBackendController
  * @var $model Product
  */
-use yupe\widgets\CustomGridView;
+
 $this->layout = 'product';
 
 $this->breadcrumbs = array(

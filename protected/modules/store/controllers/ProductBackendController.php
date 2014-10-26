@@ -13,26 +13,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             array('allow', 'actions' => array('update'), 'roles' => array('Store.ProductBackend.Update'),),
             array('allow', 'actions' => array('index'), 'roles' => array('Store.ProductBackend.Index'),),
             array('allow', 'actions' => array('view'), 'roles' => array('Store.ProductBackend.View'),),
-            array(
-                'allow',
-                'actions' => array('typeAttributes'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
-            array(
-                'allow',
-                'actions' => array('typeAttributesForm'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
-            array(
-                'allow',
-                'actions' => array('variantRow'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
-            array(
-                'allow',
-                'actions' => array('copy'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
+            array('allow', 'actions' => array('typeAttributes'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
+            array('allow', 'actions' => array('typeAttributesForm'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
+            array('allow', 'actions' => array('variantRow'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
+            array('allow', 'actions' => array('copy'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
             array('deny',),
         );
     }
