@@ -77,7 +77,12 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $this->render('create', array('model' => $model));
     }
 
-
+    /**
+     * Копирование товара
+     *
+     * @throws CDbException
+     * @throws CHttpException
+     */
     public function actionCopy()
     {
 
@@ -115,22 +120,32 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 $newProduct->attributes = $loadModel->attributes;
 
                 $EavAttributes = $loadModel->getEavAttributes();
-                if(!empty($EavAttributes)) {
+                if (!empty($EavAttributes)) {
                     $newProduct->setTypeAttributes($loadModel->getEavAttributes());
                 }
 
-                if($variants = $loadModel->variants) {
+                if ($variants = $loadModel->variants) {
                     $variantattributes = [];
-                    foreach($variants as $variant) {
-                        $variantattributes[] =$variant->attributes;
+                    foreach ($variants as $variant) {
+                        $variantattributes[] = $variant->attributes;
                     }
-                    if(!empty($variantattributes)) {
+                    if (!empty($variantattributes)) {
                         $newProduct->setProductVariants($variantattributes);
                     }
                 }
 
                 $newProduct->alias = $loadModel->alias . time();
                 $newProduct->save();
+
+                if ($categories = $loadModel->categories) {
+                    $categoriesAttributes = [];
+                    foreach ($categories as $categorie) {
+                        $categories[] = $categorie->attributes;
+                    }
+                    if (!empty($categoriesAttributes)) {
+                        $newProduct->setProductCategories($categories);
+                    }
+                }
             }
 
             $transaction->commit();
