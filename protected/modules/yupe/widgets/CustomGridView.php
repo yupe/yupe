@@ -197,11 +197,10 @@ class CustomGridView extends \TbExtendedGridView
             'context'    => 'warning',
             'size'       => 'small',
             'label'      => Yii::t('YupeModule.yupe', 'Copy'),
-            'htmlOptions'        => array('data-url' => Yii::app()->getController()->createUrl('copy')),
             'click'      => 'js:function (values) { if(!confirm("' . Yii::t(
                     'YupeModule.yupe',
                     'Copy select element?'
-                ) . '")) return false; multiaction("copy", values, "copy-' . strtolower($this->_modelName).'"); }',
+                ) . '")) return false; multiaction("copy", values); }',
         ):null;
 
         $this->type = empty($this->type) ? 'striped condensed' : $this->type;
@@ -436,12 +435,9 @@ JS
     {
         Yii::app()->getClientScript()->registerScript(
             __CLASS__ . '#' . $this->id . 'ExMultiaction',
-            'var multiaction = function (action, values, idBulk) {
+            'var multiaction = function (action, values) {
                 var queryString = "";
-                var url = $("#"+idBulk).data("url");
-                if(!url) {
-                     url = "' . Yii::app()->getController()->createUrl('multiaction') . '";
-                }
+                var url = "' . Yii::app()->getController()->createUrl('multiaction') . '";
                 $.map(values, function (itemInput) {
                     queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + itemInput;
                 });

@@ -34,6 +34,7 @@ abstract class BackController extends Controller
      *
      */
     const BULK_DELETE = 'delete';
+    const BULK_COPY= 'copy';
 
     // Прятать sidebar или нет:
     /**
@@ -138,6 +139,12 @@ abstract class BackController extends Controller
             Yii::app()->ajax->success();
         }
 
+        /**
+         * FIX: выполнение вложеных транзакции
+         */
+        $db = Yii::app()->db;
+        $db->setActive(0);
+        $db->pdoClass = 'yupe\extensions\NestedPDO';
         $transaction = Yii::app()->db->beginTransaction();
 
         try {
@@ -159,7 +166,29 @@ abstract class BackController extends Controller
                         )
                     );
                     break;
-
+                case self::BULK_COPY:
+                    $class = CActiveRecord::model($model);
+                    if(method_exists($class, 'copyModel')) {
+                        $class->copyModel($items);
+                    } else {
+                        foreach ($items as $item) {
+                            $loadModel = $model::model()->findByPk($item);
+                            if ($loadModel === null) {
+                                throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+                            }
+                            if(class_exists($model, false)) {
+                                $newModel = new $model();
+                                $newModel->attributes = $loadModel->attributes;
+                                if($loadModel->hasAttribute('alias')){
+                                    $newModel->alias = $loadModel->alias . time();
+                                }
+                                $newModel->save();
+                            }
+                        }
+                    }
+                    $transaction->commit();
+                    Yii::app()->ajax->success(Yii::t('YupeModule.yupe', 'Copy {count} records!', array('{count}' => count($items))));
+                    break;
                 default:
                     throw new CHttpException(404);
                     break;
