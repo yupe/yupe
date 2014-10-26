@@ -661,4 +661,11 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->discount_price;
     }
 
+
+    public function productCopy(Product $modelLoad) {
+
+
+       // print_r($model);
+    }
+
 }

@@ -13,9 +13,26 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             array('allow', 'actions' => array('update'), 'roles' => array('Store.ProductBackend.Update'),),
             array('allow', 'actions' => array('index'), 'roles' => array('Store.ProductBackend.Index'),),
             array('allow', 'actions' => array('view'), 'roles' => array('Store.ProductBackend.View'),),
-            array('allow', 'actions' => array('typeAttributes'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
-            array('allow', 'actions' => array('typeAttributesForm'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
-            array('allow', 'actions' => array('variantRow'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
+            array(
+                'allow',
+                'actions' => array('typeAttributes'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('typeAttributesForm'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('variantRow'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('copy'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
             array('deny',),
         );
     }
@@ -46,7 +63,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
                 $this->updateProductImages($model);
 
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was added!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('StoreModule.store', 'Record was added!'));
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
@@ -57,6 +75,75 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             }
         }
         $this->render('create', array('model' => $model));
+    }
+
+
+    public function actionCopy()
+    {
+
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        $model = Yii::app()->getRequest()->getPost('model');
+        $action = Yii::app()->getRequest()->getPost('do');
+
+        if (!isset($model, $action)) {
+            throw new CHttpException(404);
+        }
+
+        $items = Yii::app()->getRequest()->getPost('items');
+
+        if (!is_array($items) || empty($items)) {
+            Yii::app()->ajax->success();
+        }
+
+        /**
+         * FIX: выполнение вложеных транзакции
+         */
+        $db = Yii::app()->db;
+        $db->setActive(0);
+        $db->pdoClass = 'yupe\extensions\NestedPDO';
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+
+            foreach ($items as $item) {
+                $loadModel = $this->loadModel($item);
+                $newProduct = new Product();
+
+                $newProduct->attributes = $loadModel->attributes;
+
+                $EavAttributes = $loadModel->getEavAttributes();
+                if(!empty($EavAttributes)) {
+                    $newProduct->setTypeAttributes($loadModel->getEavAttributes());
+                }
+
+                if($variants = $loadModel->variants) {
+                    $variantattributes = [];
+                    foreach($variants as $variant) {
+                        $variantattributes[] =$variant->attributes;
+                    }
+                    if(!empty($variantattributes)) {
+                        $newProduct->setProductVariants($variantattributes);
+                    }
+                }
+
+                $newProduct->alias = $loadModel->alias . time();
+                $newProduct->save();
+            }
+
+            $transaction->commit();
+            Yii::app()->ajax->success(
+                Yii::t('YupeModule.yupe', 'Copy records!')
+            );
+
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            Yii::app()->ajax->failure($e->getMessage());
+        }
+
     }
 
     /**
@@ -74,7 +161,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
                 $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
                 $this->updateProductImages($model);
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was updated!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('StoreModule.store', 'Record was updated!'));
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
