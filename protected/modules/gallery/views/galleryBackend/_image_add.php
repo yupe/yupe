@@ -83,7 +83,7 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-6">
         <?php if (!$model->isNewRecord) : { ?>
-            <?php echo CHtml::image($model->getUrl(), $model->alt); ?>
+            <?php echo CHtml::image($model->getImageUrl(), $model->alt); ?>
         <?php } endif; ?>
         <img id="preview" src="#" class='img-polaroid' alt="current preview of image"/>
         <?php echo $form->fileFieldGroup(

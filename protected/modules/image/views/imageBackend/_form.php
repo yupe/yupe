@@ -95,7 +95,7 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-7">
         <?php if (!$model->isNewRecord) : { ?>
-            <?php echo CHtml::image($model->getUrl(300, 200), $model->alt, array("width" => 300, "height" => 200)); ?>
+            <?php echo CHtml::image($model->getImageUrl(300, 200), $model->alt, array("width" => 300, "height" => 200)); ?>
         <?php } endif; ?>
         <?php echo $form->fileFieldGroup(
             $model,

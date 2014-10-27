@@ -281,7 +281,8 @@ class Product extends yupe\models\YModel implements ICommentable
                 'resizeOptions' => array(
                     'maxWidth' => 900,
                     'maxHeight' => 900,
-                )
+                ),
+                'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
             ),
         );
     }

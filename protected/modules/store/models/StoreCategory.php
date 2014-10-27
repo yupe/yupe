@@ -82,11 +82,6 @@ class StoreCategory extends \yupe\models\YModel
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
             ),
-            'imageThumb' => array(
-                'class' => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath' => $module->uploadPath . '/category',
-                'attributeName' => 'image',
-            ),
             'CategoryTreeBehavior' => array(
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
                 'titleAttribute' => 'name',

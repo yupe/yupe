@@ -12,6 +12,11 @@ class ImageUploadBehavior extends FileUploadBehavior
     public $resizeOnUpload = true;
     public $resizeOptions = array();
 
+    /**
+     * @var null|string Полный путь к изображению по умолчанию в публичной папке
+     */
+    public $defaultImage = null;
+
     public function attach($event)
     {
         parent::attach($event);
@@ -84,18 +89,26 @@ class ImageUploadBehavior extends FileUploadBehavior
         $this->getOwner()->{$this->attributeName} = $this->getFileName();
     }
 
-    public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = array())
+    public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = [])
     {
-        if (!is_file($this->_prevFile)) {
-            return null;
-        };
+        $file = $this->_prevFile;
+        $defaultImagePath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $this->defaultImage;
+        $fileUploaded = is_file($this->_prevFile);
+
+        if (!$fileUploaded) {
+            if (is_file($defaultImagePath)) {
+                $file = $defaultImagePath;
+            } else {
+                return null;
+            }
+        }
 
         if ($width || $height) {
             $width = $width === 0 ? $height : $width;
             $height = $height === 0 ? $width : $height;
 
             return Yii::app()->thumbnailer->thumbnail(
-                $this->owner->{$this->attributeName},
+                $file,
                 $this->uploadPath,
                 $width,
                 $height,
@@ -105,6 +118,6 @@ class ImageUploadBehavior extends FileUploadBehavior
 
         }
 
-        return $this->getFileUrl();
+        return $fileUploaded ? $this->getFileUrl() : $this->defaultImage;
     }
 }

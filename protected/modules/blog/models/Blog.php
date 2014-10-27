@@ -333,7 +333,7 @@ class Blog extends yupe\models\YModel
 
         return array(
             'imageUpload'        => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'icon',
                 'minSize'       => $module->minSize,
@@ -341,6 +341,7 @@ class Blog extends yupe\models\YModel
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
                 'fileName'      => array($this, 'generateFileName'),
+                'defaultImage'  => Yii::app()->getTheme()->getAssetsUrl() . '/images/blog-default.jpg',
             ),
             'CTimestampBehavior' => array(
                 'class'             => 'zii.behaviors.CTimestampBehavior',
@@ -596,21 +597,6 @@ class Blog extends yupe\models\YModel
         $members->status = UserToBlog::STATUS_ACTIVE;
 
         return $members;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImageUrl()
-    {
-        if ($this->icon) {
-            $icon = Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
-                Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon;
-        } else {
-            $icon = Yii::app()->getTheme()->getAssetsUrl() . '/images/blog-default.jpg';
-        }
-
-        return $icon;
     }
 
     /**

@@ -515,14 +515,14 @@ class User extends yupe\models\YModel
         }
 
         $avatar = $this->avatar;
-        $path = $userModule->getUploadPath() . $avatar;
+        $path = $userModule->getUploadPath();
 
         if (!file_exists($path)) {
             $avatar = $userModule->defaultAvatar;
         }
 
-        return Yii::app()->image->makeThumbnail(
-            $avatar,
+        return Yii::app()->thumbnailer->thumbnail(
+            $path . $avatar,
             $userModule->avatarsDir,
             $size,
             $size,

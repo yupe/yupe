@@ -105,7 +105,7 @@ $this->menu = array(
                 'name'   => 'icon',
                 'header' => false,
                 'type'   => 'raw',
-                'value'  => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))',
+                'value'  => 'CHtml::image($data->getImageUrl(64, 64), $data->name, array("width"  => 64, "height" => 64))',
                 'filter' => false
             ),
             array(

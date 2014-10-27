@@ -40,7 +40,7 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
         $image->setAttribute('type', Image::TYPE_SIMPLE);
 
         if ($image->save()) {
-            $this->fileLink = $image->getRawUrl();
+            $this->fileLink = $image->getImageUrl();
             $this->fileName = $image->getName();
 
             return true;

@@ -29,7 +29,7 @@
 
     <?php if ($model->file !== null) : { ?>
         <div class="row">
-            <?php echo CHtml::image($model->getUrl(190), $model->alt); ?>
+            <?php echo CHtml::image($model->getImageUrl(190), $model->alt); ?>
         </div>
     <?php } endif; ?>
 
