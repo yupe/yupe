@@ -73,6 +73,8 @@ abstract class BackController extends Controller
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
 
+        Yii::app()->getErrorHandler()->errorAction = '/yupe/backend/error';
+
         Yii::app()->eventManager->fire(
             YupeEvents::BACKEND_CONTROLLER_INIT,
             new YupeControllerInitEvent($this, Yii::app()->getUser())

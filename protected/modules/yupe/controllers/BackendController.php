@@ -475,7 +475,7 @@ class BackendController extends yupe\components\controllers\BackController
 
     public function actionError()
     {
-        $error = Yii::app()->errorHandler->error;
+        $error = Yii::app()->getErrorHandler()->error;
 
         if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
             $this->redirect(array('index'));

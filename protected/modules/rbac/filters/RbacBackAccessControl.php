@@ -16,14 +16,14 @@ class RbacBackAccessControl extends CAccessControlFilter
             throw new CHttpException(404);
         }
 
-        Yii::app()->getUser()->loginUrl = array('/user/account/backendlogin');
+        Yii::app()->getUser()->loginUrl = ['/user/account/backendlogin'];
 
-        if (Yii::app()->getUser()->isGuest) {
+        if (Yii::app()->getUser()->getIsGuest()) {
             if ($filterChain->controller->yupe->hidePanelUrls == WebModule::CHOICE_YES) {
                 throw new CHttpException(404);
             }
             Yii::app()->getUser()->setReturnUrl(Yii::app()->getRequest()->getUrl());
-            $filterChain->controller->redirect(array('/user/account/backendlogin'));
+            $filterChain->controller->redirect(['/user/account/backendlogin']);
         }
 
         return true;
