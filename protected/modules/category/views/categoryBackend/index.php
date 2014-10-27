@@ -102,7 +102,7 @@ $this->menu = array(
             array(
                 'name'   => 'image',
                 'type'   => 'raw',
-                'value'  => '$data->image ? CHtml::image($data->imageSrc, $data->name, array("width"  => 100, "height" => 100)) : "---"',
+                'value'  => '$data->image ? CHtml::image($data->getImageUrl(50, 50), $data->name, array("width"  => 50, "height" => 50)) : "---"',
                 'filter' => false
             ),
             array(
