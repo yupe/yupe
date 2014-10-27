@@ -52,7 +52,7 @@ class CatalogController extends yupe\components\controllers\FrontController
      */
     public function actionCategory($path)
     {
-        $category = StoreCategory::model()->getByAlias($path);
+        $category = StoreCategory::model()->findByPath($path);
 
         if (null === $category) {
             throw new CHttpException(404);

@@ -97,11 +97,21 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         }
     }
 
-    public function actionDeleteImage($id)
+    public function actionDeleteImage()
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-            ProductImage::model()->findByPk($id)->delete();
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
+
+            $id = (int)Yii::app()->getRequest()->getPost('id');
+
+            $model = ProductImage::model()->findByPk($id);
+
+            if(null !== $model) {
+                $model->delete();
+                Yii::app()->ajax->success();
+            }
         }
+
+        throw new CHttpException(404);
     }
 
     /**
@@ -157,16 +167,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         return $model;
     }
 
-
-    protected function performAjaxValidation(Product $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'good-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
-
-
     public function actionTypeAttributesForm($id)
     {
         $type = Type::model()->findByPk($id);
@@ -199,31 +199,5 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 CJSON::encode($tmp)
             );
         }
-    }
-
-    public function actionAjaxSearch()
-    {
-        if (isset($_GET['q'])) {
-            $search = $_GET['q'];
-
-            $model = Product::model()->findAll(
-                array(
-                    'condition' => 'name LIKE :name',
-                    'params' => array(':name' => '%' . str_replace(' ', '%', $search) . '%')
-                )
-            );
-            $data = array();
-            foreach ($model as $product) {
-                $data[] = array(
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
-                );
-            }
-            Yii::app()->ajax->rawText(
-                CJSON::encode($data)
-            );
-        }
-        Yii::app()->end();
     }
 }

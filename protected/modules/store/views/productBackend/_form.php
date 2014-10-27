@@ -286,7 +286,7 @@ $form = $this->beginWidget(
                 </div>
             </div>
 
-            <?php if (!$model->isNewRecord): ?>
+            <?php if (!$model->getIsNewRecord()): ?>
                 <?php foreach ($model->images as $image): ?>
 
                     <div class="product-image">
@@ -294,7 +294,7 @@ $form = $this->beginWidget(
                             <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
                         </div>
                         <div>
-                            <a href="<?php echo Yii::app()->createUrl(
+                            <a data-id="<?= $image->id;?>" href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
                                 array('id' => $image->id)
                             ); ?>" class="pull-right product-delete-image"><i class="glyphicon glyphicon-remove"></i></a>
@@ -463,8 +463,12 @@ $form = $this->beginWidget(
             var deleteUrl = $(this).attr('href');
             var blockForDelete = $(this).closest('.product-image');
             $.ajax({
-                type: "GET",
-                url: deleteUrl,
+                type: "POST",
+                data: {
+                    'id': $(this).data('id'),
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>' : '<?= Yii::app()->getRequest()->csrfToken;?>'
+                },
+                url: '<?= Yii::app()->createUrl('/store/productBackend/deleteImage');?>',
                 success: function () {
                     blockForDelete.remove();
                 }
