@@ -269,4 +269,19 @@ class StoreCategory extends \yupe\models\YModel
         }
         return $this->_url;
     }
+
+    public function getMetaTile()
+    {
+        return $this->meta_title ?: $this->name;
+    }
+
+    public function getMetaDescription()
+    {
+        return $this->description;
+    }
+
+    public function getMetaKeywords()
+    {
+        return $this->meta_keywords;
+    }
 }

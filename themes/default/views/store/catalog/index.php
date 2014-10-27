@@ -9,7 +9,7 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?php echo Yii::t("StoreModule.catalog", "Каталог продукции"); ?></h2>
+        <h2><?= Yii::t("StoreModule.catalog", "Каталог продукции"); ?></h2>
     </div>
 </div>
 
@@ -24,7 +24,6 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
                         'name' => 'q',
                         'value' => Yii::app()->getRequest()->getParam('q'),
                         'source' => $this->createUrl('/store/catalog/autocomplete'),
-                        // additional javascript options for the autocomplete plugin
                         'options' => array(
                             'showAnim' => 'fold',
                             'minLength' => 3,
@@ -36,7 +35,7 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
                 );
                 ?>
                 <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><?php echo Yii::t("StoreModule.catalog", "поиск"); ?> <i class="glyphicon glyphicon-search"></i></button>
+                    <button type="submit" class="btn btn-default"><?= Yii::t("StoreModule.catalog", "поиск"); ?> <i class="glyphicon glyphicon-search"></i></button>
                 </span>
             </div>
         </form>
@@ -45,11 +44,11 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
 <div class="row">
     <div class="col-sm-3">
         <h3>
-            <span><?php echo Yii::t("StoreModule.catalog", "Категории"); ?></span>
+            <span><?= Yii::t("StoreModule.catalog", "Категории"); ?></span>
         </h3>
         <div class="category-tree">
             <?php
-               $this->widget('zii.widgets.CMenu', array('items' => $tree));
+                $this->widget('application.modules.store.widgets.CategoryWidget');
             ?>
         </div>
     </div>

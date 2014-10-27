@@ -3,10 +3,11 @@ Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '
 Yii::app()->getClientScript()->registerScriptFile($this->module->getAssetsUrl() . '/js/store.js');
 /* @var $category StoreCategory */
 
-$this->pageTitle = $category->meta_title ?: $category->name;
+$this->pageTitle =  $category->getMetaTile();
+$this->description = $category->getMetaDescription();
+$this->keywords =  $category->getMetaKeywords();
+
 $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => array('/store/catalog/index'));
-$this->description = $category->meta_description;
-$this->keywords =  $category->meta_keywords;
 
 $this->breadcrumbs = array_merge(
     $this->breadcrumbs,
@@ -32,7 +33,6 @@ $this->breadcrumbs = array_merge(
                         'name' => 'q',
                         'value' => Yii::app()->getRequest()->getParam('q'),
                         'source' => $this->createUrl('/store/catalog/autocomplete'),
-                        // additional javascript options for the autocomplete plugin
                         'options' => array(
                             'showAnim' => 'fold',
                             'minLength' => 3,
@@ -57,7 +57,7 @@ $this->breadcrumbs = array_merge(
         </h3>
         <div class="category-tree">
             <?php
-                $this->widget('zii.widgets.CMenu', array('items' => $tree,));
+                $this->widget('application.modules.store.widgets.CategoryWidget');
             ?>
         </div>
     </div>

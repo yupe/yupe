@@ -43,9 +43,7 @@ class CatalogController extends yupe\components\controllers\FrontController
      */
     public function actionIndex()
     {
-        $tree = (new StoreCategory())->getMenuList(5);
-
-        $this->render('index', ['tree' => $tree, 'dataProvider' => $this->productRepository->getListForIndexPage()]);
+        $this->render('index', ['dataProvider' => $this->productRepository->getListForIndexPage()]);
     }
 
     /**
@@ -60,9 +58,13 @@ class CatalogController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $tree = (new StoreCategory())->getMenuList(5);
-
-        $this->render('category', ['tree' => $tree, 'dataProvider' => $this->productRepository->getListForCategory($category), 'category' => $category]);
+        $this->render(
+            'category',
+            [
+                'dataProvider' => $this->productRepository->getListForCategory($category),
+                'category' => $category
+            ]
+        );
     }
 
     /**

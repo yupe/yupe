@@ -19,8 +19,16 @@ class CouponModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Список купонов'), 'url' => array('/coupon/couponBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CouponModule.coupon', 'Добавить купон'), 'url' => array('/coupon/couponBackend/create')),
+            array(
+                'icon' => 'glyphicon glyphicon-list-alt',
+                'label' => Yii::t('CouponModule.coupon', 'Список купонов'),
+                'url' => array('/coupon/couponBackend/index')
+            ),
+            array(
+                'icon' => 'glyphicon glyphicon-plus-sign',
+                'label' => Yii::t('CouponModule.coupon', 'Добавить купон'),
+                'url' => array('/coupon/couponBackend/create')
+            ),
 
         );
     }
@@ -89,11 +97,31 @@ class CouponModule extends WebModule
                 'name' => 'Coupon.CouponBackend.Management',
                 'description' => Yii::t("StoreModule.store", 'Управление купонами'),
                 'items' => array(
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Coupon.CouponBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка купонов'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Coupon.CouponBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание купона'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Coupon.CouponBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование купона'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Coupon.CouponBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр купона'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Coupon.CouponBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление купона'),),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Coupon.CouponBackend.Index',
+                        'description' => Yii::t("StoreModule.store", 'Просмотр списка купонов'),
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Coupon.CouponBackend.Create',
+                        'description' => Yii::t("StoreModule.store", 'Создание купона'),
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Coupon.CouponBackend.Update',
+                        'description' => Yii::t("StoreModule.store", 'Редактирование купона'),
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Coupon.CouponBackend.View',
+                        'description' => Yii::t("StoreModule.store", 'Просмотр купона'),
+                    ),
+                    array(
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Coupon.CouponBackend.Delete',
+                        'description' => Yii::t("StoreModule.store", 'Удаление купона'),
+                    ),
                 ),
             ),
         );

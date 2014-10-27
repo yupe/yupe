@@ -8,6 +8,7 @@ $this->keywords = $product->getMetaKeywords();
 
 $mainAssets = Yii::app()->getModule('store')->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.simpleGal.js');
+
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
@@ -43,7 +44,10 @@ $this->breadcrumbs = array_merge(
                 </div>
             </div>
             <div class="col-sm-8">
-                <?= $product->isInStock() ? Yii::t("StoreModule.catalog", "В наличии") : Yii::t("StoreModule.catalog", "Нет в наличии"); ?>
+                <?= $product->isInStock() ? Yii::t("StoreModule.catalog", "В наличии") : Yii::t(
+                    "StoreModule.catalog",
+                    "Нет в наличии"
+                ); ?>
                 <br/>
                 <?= $product->quantity; ?> <?= Yii::t("StoreModule.catalog", "в наличии"); ?>
                 <br/>
@@ -80,7 +84,10 @@ $this->breadcrumbs = array_merge(
 
                 <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
                     <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
-                    <?= CHtml::hiddenField(Yii::app()->getRequest()->csrfTokenName, Yii::app()->getRequest()->csrfToken); ?>
+                    <?= CHtml::hiddenField(
+                        Yii::app()->getRequest()->csrfTokenName,
+                        Yii::app()->getRequest()->csrfToken
+                    ); ?>
                     <table class="table table-condensed">
                         <?php foreach ($product->getVariantsGroup() as $title => $variantsGroup): { ?>
                             <tr>
@@ -88,11 +95,12 @@ $this->breadcrumbs = array_merge(
                                     <?= CHtml::encode($title); ?>
                                 </td>
                                 <td>
-                                    <?= CHtml::dropDownList(
+                                    <?=
+                                    CHtml::dropDownList(
                                         'ProductVariant[]',
                                         null,
                                         CHtml::listData($variantsGroup, 'id', 'optionValue'),
-                                        array('empty' => '', 'options' => $options, 'class' => 'form-control')
+                                        array('empty' => '', 'class' => 'form-control')
                                     ); ?>
                                 </td>
                             </tr>
