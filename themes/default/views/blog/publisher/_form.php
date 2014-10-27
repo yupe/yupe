@@ -42,7 +42,7 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData($blogs,
+                    'data' => ['' => '---'] + CHtml::listData($blogs,
                             'id',
                             'name'
                         ),

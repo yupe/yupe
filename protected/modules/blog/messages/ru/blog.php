@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array(
+    'Blog is empty!' => 'Выберите блог!',
     'Moderation' => 'На модерации',
     'Publish' => 'Опубликовать',
     'Posts categories' => 'Категории записей',

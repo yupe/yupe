@@ -44,7 +44,7 @@ $form = $this->beginWidget(
             'blog_id',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(Blog::model()->getList(), 'id', 'name'),
+                    'data' => ['' => '---'] +  CHtml::listData(Blog::model()->getList(), 'id', 'name'),
                 )
             )
         );?>

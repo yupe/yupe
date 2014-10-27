@@ -717,7 +717,7 @@ class Post extends yupe\models\YModel implements ICommentable
     public function createPublicPost(array $post)
     {
         if (empty($post['blog_id']) || empty($post['user_id'])) {
-            $this->addError('blog_id', Yii::t('BlogModule.blog', "Post form error!"));
+            $this->addError('blog_id', Yii::t('BlogModule.blog', "Blog is empty!"));
 
             return false;
         }
