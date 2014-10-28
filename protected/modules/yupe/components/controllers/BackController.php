@@ -83,13 +83,10 @@ abstract class BackController extends Controller
             new YupeControllerInitEvent($this, Yii::app()->getUser())
         );
 
-        if ($backendTheme && is_dir(Yii::getPathOfAlias("themes.backend_" . $backendTheme))) {
+        if ($backendTheme) {
             Yii::app()->theme = "backend_" . $backendTheme;
         } else {
             Yii::app()->theme = $this->yupe->theme;
-            if (!$this->yupe->enableAssets) {
-                return;
-            }
         }
     }
 
@@ -103,8 +100,7 @@ abstract class BackController extends Controller
          * $this->module->getId() !== 'install' избавляет от ошибок на этапе установки
          * $this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate') устраняем проблемы с зацикливанием
          */
-        if ($this->module->getId() !== 'install'
-            && ($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
+        if (($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
             && ($updates = Yii::app()->migrator->checkForUpdates(
                 array($this->module->getId() => $this->module)
             )) !== null

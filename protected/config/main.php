@@ -40,8 +40,6 @@ return array(
     'controllerNamespace' => 'application\controllers',
     'preload'             => defined('YII_DEBUG')
         && YII_DEBUG
-        && is_writable(Yii::getPathOfAlias('application.runtime'))
-        && is_writable(Yii::getPathOfAlias('public.assets'))
             ? array('debug') : array(),
     'aliases'             => array(
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),

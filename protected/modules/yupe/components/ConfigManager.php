@@ -229,12 +229,6 @@ class ConfigManager extends CComponent
                 );
             }
 
-            // А также включаем assets'ы (они были отключены на
-            // этапе установки системы):
-            if ($item->getBaseName('.php') == ModuleManager::CORE_MODULE) {
-                $settings['enableAssets'] = true;
-            }
-
             // Просматриваем основные настройки для
             // слияния:
             foreach ($this->configCategories as $category) {
