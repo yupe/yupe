@@ -14,32 +14,7 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
 </div>
 
 <div class="row">
-    <section class="catalog-filter col-sm-12">
-        <form action="">
-            <div class="input-group">
-                <?php
-                $this->widget(
-                    'zii.widgets.jui.CJuiAutoComplete',
-                    array(
-                        'name' => 'q',
-                        'value' => Yii::app()->getRequest()->getParam('q'),
-                        'source' => $this->createUrl('/store/catalog/autocomplete'),
-                        'options' => array(
-                            'showAnim' => 'fold',
-                            'minLength' => 3,
-                        ),
-                        'htmlOptions' => array(
-                            'class' => 'form-control',
-                        ),
-                    )
-                );
-                ?>
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><?= Yii::t("StoreModule.catalog", "поиск"); ?> <i class="glyphicon glyphicon-search"></i></button>
-                </span>
-            </div>
-        </form>
-    </section>
+    <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
 </div>
 <div class="row">
     <div class="col-sm-3">

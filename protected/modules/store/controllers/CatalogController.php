@@ -67,6 +67,31 @@ class CatalogController extends yupe\components\controllers\FrontController
         );
     }
 
+    public function actionSearch()
+    {
+        if (Yii::app()->getRequest()->getQuery('SearchForm')) {
+
+            $form = new SearchForm();
+
+            $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
+
+            if ($form->validate()) {
+
+                $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
+
+                $this->render(
+                    'search',
+                    [
+                        'category'   => $category,
+                        'searchForm' => $form,
+                        'dataProvider' => $this->productRepository->search($form->q, $form->category)
+                    ]
+                );
+
+            }
+        }
+    }
+
     /**
      *
      */

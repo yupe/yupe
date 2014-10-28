@@ -59,6 +59,33 @@ class ProductRepository extends CComponent
         );
     }
 
+    public function search($query, $category = null, $perPage = 20)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->params = [];
+        $criteria->addCondition('status = :status');
+        $criteria->params['status'] = Product::STATUS_ACTIVE;
+        $criteria->addSearchCondition('name', $query, true);
+
+        if(null !== $category) {
+            $criteria->addCondition('category_id = :category');
+            $criteria->params[':category'] = (int)$category;
+        }
+
+        return $dataProvider = new CActiveDataProvider(
+            Product::model(), array(
+                'criteria' => $criteria,
+                'pagination' => array(
+                    'pageSize' => (int)$perPage,
+                    'pageVar' => 'page',
+                ),
+                'sort' => array(
+                    'sortVar' => 'sort',
+                ),
+            )
+        );
+    }
+
     /**
      * @param $query
      * @return array
