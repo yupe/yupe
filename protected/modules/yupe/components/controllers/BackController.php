@@ -14,6 +14,7 @@
 namespace yupe\components\controllers;
 
 use Yii;
+use yupe\components\WebModule;
 use yupe\events\YupeBackendControllerInitEvent;
 use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
@@ -73,7 +74,9 @@ abstract class BackController extends Controller
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
 
-        Yii::app()->getErrorHandler()->errorAction = '/yupe/backend/error';
+        if($this->yupe->hidePanelUrls == WebModule::CHOICE_NO) {
+            Yii::app()->getErrorHandler()->errorAction = '/yupe/backend/error';
+        }
 
         Yii::app()->eventManager->fire(
             YupeEvents::BACKEND_CONTROLLER_INIT,
