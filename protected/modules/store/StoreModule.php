@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class StoreModule extends WebModule
 {
-    const VERSION = '0.3';
+    const VERSION = '0.4';
 
     public $uploadPath = 'store';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -73,12 +73,17 @@ class StoreModule extends WebModule
         return false;
     }
 
+    public function getIsShowInAdminMenu()
+    {
+        return false;
+    }
+
     public function getExtendedNavigation()
     {
         return array(
             array(
                 'icon' => 'glyphicon glyphicon-shopping-cart',
-                'label' => Yii::t('StoreModule.store', 'Каталог'),
+                'label' => Yii::t('StoreModule.store', 'Catalog'),
                 'items' => array(
                     array(
                         'icon' => 'glyphicon glyphicon-shopping-cart',
@@ -132,7 +137,7 @@ class StoreModule extends WebModule
 
     public function getAdminPageLink()
     {
-        return '/store/productBackend/index';
+        return '/store/storeBackend/index';
     }
 
     public function getVersion()
@@ -140,19 +145,14 @@ class StoreModule extends WebModule
         return self::VERSION;
     }
 
-    public function getCategory()
-    {
-        return Yii::t('StoreModule.store', 'Content');
-    }
-
     public function getName()
     {
-        return Yii::t('StoreModule.store', 'Магазин');
+        return Yii::t('StoreModule.store', 'Store');
     }
 
     public function getDescription()
     {
-        return Yii::t('StoreModule.store', 'Модуль для создания расширенного каталога товаров');
+        return Yii::t('StoreModule.store', 'Модуль для создания интернет-магазина');
     }
 
     public function getAuthor()

@@ -57,13 +57,6 @@ class OrderModule extends WebModule
         );
     }
 
-    public function getExtendedNavigation()
-    {
-        return array(
-            array('icon' => 'glyphicon glyphicon-gift', 'label' => Yii::t('OrderModule.order', 'Заказы'), 'url' => array('/order/orderBackend/index')),
-        );
-    }
-
     public function getAdminPageLink()
     {
         return '/order/orderBackend/index';

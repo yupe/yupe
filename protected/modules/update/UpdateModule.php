@@ -126,15 +126,15 @@ class UpdateModule extends WebModule
             array(
                 'name'        => 'UpdateManage',
                 'description' => Yii::t('UpdateModule.update', 'Modules update'),
-                'type'        => AuthItem::TYPE_TASK,
+                'type'        => 1,
                 'items'       => array(
                     array(
-                        'type'        => AuthItem::TYPE_OPERATION,
+                        'type'        => 0,
                         'name'        => 'Update.UpdateBackend.index',
                         'description' => Yii::t('UpdateModule.update', 'Modules update view')
                     ),
                     array(
-                        'type'        => AuthItem::TYPE_OPERATION,
+                        'type'        => 0,
                         'name'        => 'Update.UpdateBackend.update',
                         'description' => Yii::t('UpdateModule.update', 'Modules update')
                     ),

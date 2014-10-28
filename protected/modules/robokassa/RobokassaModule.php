@@ -21,6 +21,11 @@ class RobokassaModule extends WebModule
         return false;
     }
 
+    public function getIsShowInAdminMenu()
+    {
+        return false;
+    }
+
     public function getVersion()
     {
         return self::VERSION;
@@ -60,5 +65,4 @@ class RobokassaModule extends WebModule
     {
         parent::init();
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 return array(
+    'Catalog' => 'Каталог',
+    'Store'   => 'Магазин',
     'Content' => 'Контент',
     'Data for SEO' => 'Данные для поисковой оптимизации',
     'Meta title' => 'Заголовок',

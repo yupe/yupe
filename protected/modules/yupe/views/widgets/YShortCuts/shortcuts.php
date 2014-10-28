@@ -1,5 +1,8 @@
 <div class="shortcuts">
     <?php foreach ($modules as $module): ?>
+        <?php if(!$module->getIsShowInAdminMenu() && !$module->getExtendedNavigation()):?>
+            <?php continue;?>
+        <?php endif;?>
         <a class="shortcut" href="<?php echo Yii::app()->createAbsoluteUrl($module->getAdminPageLink()); ?>">
             <div class="cn">
                 <i class="shortcut-icon <?php echo $module->getIcon(); ?>"></i>
