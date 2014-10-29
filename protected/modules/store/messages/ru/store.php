@@ -168,6 +168,6 @@ return array(
     'Discount, %' => 'Скидка, %',
     'In stock' => 'В наличии',
     'Not in stock' => 'Нет в наличии',
-    'Stock status' => 'Статус на складе',
+    'Stock status' => 'На складе',
     'Record was updated!' => 'Запись изменена!'
 );

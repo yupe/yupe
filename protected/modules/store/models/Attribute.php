@@ -50,7 +50,7 @@ class Attribute extends \yupe\models\YModel
         // will receive user inputs.
         return array(
             array('name, title', 'filter', 'filter' => 'trim'),
-            array('name', 'required'),
+            array('name, type, title', 'required'),
             array('name', 'unique'),
             array(
                 'name',

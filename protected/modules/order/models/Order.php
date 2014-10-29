@@ -144,7 +144,7 @@ class Order extends yupe\models\YModel
             'status' => Yii::t('OrderModule.order', 'Статус'),
             'date' => Yii::t('OrderModule.order', 'Дата'),
             'user_id' => Yii::t('OrderModule.order', 'Пользователь'),
-            'name' => Yii::t('OrderModule.order', 'Имя'),
+            'name' => Yii::t('OrderModule.order', 'Клиент'),
             'address' => Yii::t('OrderModule.order', 'Адрес'),
             'phone' => Yii::t('OrderModule.order', 'Телефон'),
             'email' => Yii::t('OrderModule.order', 'Email'),
@@ -334,7 +334,7 @@ class Order extends yupe\models\YModel
             $this->url = md5(uniqid(time(), true));
             $this->ip = Yii::app()->getRequest()->userHostAddress;
             if ($this->getScenario() == self::SCENARIO_USER) {
-                $this->user_id = Yii::app()->getUser()->id;
+                $this->user_id = Yii::app()->getUser()->getId();
                 $this->delivery_price = $this->delivery ? $this->delivery->getCost($productsCost) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }

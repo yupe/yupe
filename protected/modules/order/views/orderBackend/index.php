@@ -38,25 +38,15 @@ $this->widget(
                 'value' => 'CHtml::link("Заказ №".$data->id, array("/order/orderBackend/update", "id" => $data->id))',
             ),
             array(
+                'name' => 'date'
+            ),
+            array(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => '$data->name . ($data->note ? "<br><div class=\"note\">$data->note</div>" : "")',
                 'htmlOptions' => array('width' => '400px'),
             ),
             'total_price',
-            array(
-                'class'=> 'yupe\widgets\EditableStatusColumn',
-                'name' => 'paid',
-                'url'  => $this->createUrl('/order/orderBackend/inline'),
-                'source'  => $model->getPaidStatusList(),
-                'options' => [
-                    Order::PAID_STATUS_NOT_PAID => ['class' => 'label-danger'],
-                    Order::PAID_STATUS_PAID => ['class' => 'label-success']
-                ],
-            ),
-            array(
-                'name' => 'date'
-            ),
             array(
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
@@ -69,6 +59,17 @@ $this->widget(
                     Order::STATUS_DELETED => ['class' => 'label-danger'],
                 ],
             ),
+            array(
+                'class'=> 'yupe\widgets\EditableStatusColumn',
+                'name' => 'paid',
+                'url'  => $this->createUrl('/order/orderBackend/inline'),
+                'source'  => $model->getPaidStatusList(),
+                'options' => [
+                    Order::PAID_STATUS_NOT_PAID => ['class' => 'label-danger'],
+                    Order::PAID_STATUS_PAID => ['class' => 'label-success']
+                ],
+            ),
+            'payment_date',
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

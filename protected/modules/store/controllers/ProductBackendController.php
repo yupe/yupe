@@ -2,6 +2,21 @@
 
 class ProductBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Product',
+                'validAttributes' => array(
+                    'status',
+                    'in_stock',
+                    'price'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(

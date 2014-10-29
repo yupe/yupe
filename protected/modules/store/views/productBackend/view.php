@@ -82,7 +82,10 @@ $this->menu = array(
                 'type' => 'raw'
             ),
             'alias',
-            'data',
+            array(
+                'name' => 'data',
+                'type' => 'raw'
+            ),
             array(
                 'name' => 'is_special',
                 'value' => $model->getSpecial(),

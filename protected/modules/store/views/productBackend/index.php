@@ -32,6 +32,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                 'type' => 'raw',
                 'value' => 'CHtml::image($data->getImageUrl(40, 40, true), "", array("class" => "img-thumbnail"))',
             ),
+            'sku',
             array(
                 'name' => 'name',
                 'type' => 'raw',
@@ -45,23 +46,42 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                 'htmlOptions' => array('width' => '220px'),
             ),
             array(
-                'name' => 'producer_id',
-                'type' => 'raw',
-                'value' => '$data->producerLink',
-                'filter' => CHtml::activeDropDownList($model, 'producer_id', Producer::model()->getFormattedList(), array('encode' => false, 'empty' => '', 'class' => 'form-control'))
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'price',
+                'value'    => function($data) {
+                        return (float)$data->price;
+                    },
+                'editable' => array(
+                    'url'    => $this->createUrl('/store/productBackend/inline'),
+                    'mode'   => 'inline',
+                    'params' => array(
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    )
+                ),
+                'filter'   => CHtml::activeTextField($model, 'price', array('class' => 'form-control')),
             ),
             array(
-                'name' => 'price',
-                'value' => '(float)$data->price',
-                'htmlOptions' => array('width' => '60px'),
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/store/productBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Product::STATUS_ACTIVE => ['class' => 'label-success'],
+                    Product::STATUS_NOT_ACTIVE => ['class' => 'label-info'],
+                    Product::STATUS_ZERO => ['class' => 'label-default'],
+                ],
             ),
-            'sku',
             array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList(),
-                'value'  => '$data->getStatusTitle()'
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'in_stock',
+                'url'     => $this->createUrl('/store/productBackend/inline'),
+                'source'  => $model->getInStockList(),
+                'options' => [
+                    Product::STATUS_IN_STOCK => ['class' => 'label-success'],
+                    Product::STATUS_NOT_IN_STOCK => ['class' => 'label-danger']
+                ],
             ),
+            'quantity',
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
