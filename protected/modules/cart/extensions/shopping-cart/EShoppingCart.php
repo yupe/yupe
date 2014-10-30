@@ -1,5 +1,5 @@
 <?php
-Yii::import('application.modules.cart.extensions.shopping-cart.CouponManager');
+Yii::import('application.modules.coupon.components.CouponManager');
 
 /**
  * Shopping cart class
@@ -35,6 +35,7 @@ class EShoppingCart extends CMap
     public function init()
     {
         $this->restoreFromSession();
+        //@TODO подумать как убрать зависимости
         $this->couponManager = new CouponManager();
     }
 

@@ -19,7 +19,14 @@ class UserController extends yupe\components\controllers\FrontController
 
     public function actionIndex()
     {
-        $orders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->user->id), array('order' => 'date DESC'));
-        $this->render('index', array('orders' => $orders));
+        $this->render(
+            'index',
+            array(
+                'orders' => Order::model()->findAllByAttributes(
+                        array('user_id' => Yii::app()->getUser()->getId()),
+                        array('order' => 'date DESC')
+                    )
+            )
+        );
     }
 }

@@ -2,6 +2,21 @@
 
 class ProductBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Product',
+                'validAttributes' => array(
+                    'status',
+                    'in_stock',
+                    'price'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(
@@ -42,11 +57,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
             $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
-                $model->setProductCategories($_POST['categories']);
+                $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
 
                 $this->updateProductImages($model);
 
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was added!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was added!'));
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
@@ -65,7 +80,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionUpdate($id)
     {
-
         $model = $this->loadModel($id);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
@@ -73,9 +87,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
             $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
             if ($model->save()) {
-                $model->setProductCategories($_POST['categories']);
+                $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
                 $this->updateProductImages($model);
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.product', 'Record was updated!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was updated!'));
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
@@ -89,39 +103,30 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
     public function updateProductImages(Product $product)
     {
-        $setFirstImageAsMain = !isset($_POST['main_image']);
-
-        if (isset($_POST['main_image'])) {
-            $productMainImage = $product->mainImage;
-            if ($productMainImage && $productMainImage->id != $_POST['main_image']) {
-                $productMainImage->is_main = 0;
-                $productMainImage->save();
-                $productMainImage = false;
-            }
-            if (!$productMainImage) {
-                $newProductMainImage = ProductImage::model()->findByPk($_POST['main_image']);
-                if ($newProductMainImage) {
-                    $newProductMainImage->is_main = 1;
-                    $newProductMainImage->save();
-                }
-            }
-        }
-
         foreach (CUploadedFile::getInstancesByName('ProductImage') as $key => $image) {
             $productImage = new ProductImage();
             $productImage->product_id = $product->id;
             $productImage->attributes = $_POST['ProductImage'][$key];
-            $productImage->is_main = ($key == 0 && $setFirstImageAsMain) ? 1 : 0;
             $productImage->addFileInstanceName('ProductImage[' . $key . '][name]');
             $productImage->save();
         }
     }
 
-    public function actionDeleteImage($id)
+    public function actionDeleteImage()
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-            ProductImage::model()->findByPk($id)->delete();
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
+
+            $id = (int)Yii::app()->getRequest()->getPost('id');
+
+            $model = ProductImage::model()->findByPk($id);
+
+            if(null !== $model) {
+                $model->delete();
+                Yii::app()->ajax->success();
+            }
         }
+
+        throw new CHttpException(404);
     }
 
     /**
@@ -138,7 +143,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('StoreModule.product', 'Record was removed!')
+                Yii::t('StoreModule.store', 'Record was removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -146,7 +151,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
             }
         } else {
-            throw new CHttpException(400, Yii::t('StoreModule.product', 'Unknown request. Don\'t repeat it please!'));
+            throw new CHttpException(400, Yii::t('StoreModule.store', 'Unknown request. Don\'t repeat it please!'));
         }
     }
 
@@ -172,20 +177,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         $model = Product::model()->with('images')->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.product', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
         }
         return $model;
     }
-
-
-    protected function performAjaxValidation(Product $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'good-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
-
 
     public function actionTypeAttributesForm($id)
     {
@@ -219,31 +214,5 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 CJSON::encode($tmp)
             );
         }
-    }
-
-    public function actionAjaxSearch()
-    {
-        if (isset($_GET['q'])) {
-            $search = $_GET['q'];
-
-            $model = Product::model()->findAll(
-                array(
-                    'condition' => 'name LIKE :name',
-                    'params' => array(':name' => '%' . str_replace(' ', '%', $search) . '%')
-                )
-            );
-            $data = array();
-            foreach ($model as $product) {
-                $data[] = array(
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'thumb' => $product->mainImage ? $product->mainImage->getImageUrl(50, 50) : '',
-                );
-            }
-            Yii::app()->ajax->rawText(
-                CJSON::encode($data)
-            );
-        }
-        Yii::app()->end();
     }
 }

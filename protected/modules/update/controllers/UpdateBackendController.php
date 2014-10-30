@@ -11,7 +11,7 @@ class UpdateBackendController extends BackController
     public function accessRules()
     {
         return array(
-            array('allow', 'roles' => array(\AuthItem::ROLE_ADMIN)),
+            array('allow', 'roles' => array('admin')),
             array('allow', 'actions' => array('index'), 'roles' => array('Update.UpdateBackend.index')),
             array('allow', 'actions' => array('update'), 'roles' => array('Update.UpdateBackend.update')),
             array('deny')

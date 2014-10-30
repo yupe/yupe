@@ -1,38 +1,26 @@
 <?php
 
-Yii::import('application.modules.store.models.*');
+Yii::import('application.modules.store.models.StoreCategory');
 
 /**
  * Class CategoryWidget
  *
  * <pre>
- * <?php $this->widget('application.modules.store.widgets.CategoryWidget',
- *  array(
- *      'layout' => 'main'
- *  ));
+ * <?php
+ *    $this->widget('application.modules.store.widgets.CategoryWidget');
  * ?>
  * </pre>
  */
 class CategoryWidget extends yupe\widgets\YWidget
 {
-    /**
-     * @var string Id of elements
-     */
-    public $id;
-    public $layout = '';
-    public $htmlOptions;
+    public $depth = 1;
 
-    public $depth = 5;
+    public $view = 'category-widget';
 
-    public function init()
-    {
-
-    }
+    public $htmlOptions = [];
 
     public function run()
     {
-        $cat = new StoreCategory();
-        $tree = $cat->getMenuList($this->depth);
-        $this->render($this->layout ?: 'application.modules.store.views.widgets.CategoryWidget', array('items' => $tree, 'htmlOptions' => $this->htmlOptions));
+        $this->render($this->view,  ['tree' => (new StoreCategory())->getMenuList($this->depth), 'htmlOptions' => $this->htmlOptions ]);
     }
 }

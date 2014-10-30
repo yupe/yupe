@@ -32,22 +32,23 @@ $this->widget(
         'sortableAction' => '/delivery/deliveryBackend/sortable',
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('width' => '50px'),
-            ),
-            array(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/delivery/deliveryBackend/update", "id" => $data->id))',
             ),
-            array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList()
-            ),
             'price',
             'free_from',
             'available_from',
+            array(
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/delivery/deliveryBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Delivery::STATUS_ACTIVE => ['class' => 'label-success'],
+                    Delivery::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
+                ],
+            ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

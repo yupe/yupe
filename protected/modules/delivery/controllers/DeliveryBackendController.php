@@ -2,6 +2,19 @@
 
 class DeliveryBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Delivery',
+                'validAttributes' => array(
+                    'status'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(
@@ -50,7 +63,10 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
         $max = $model->find($criteria);
 
         $model->position = $max->position + 1;
-        $this->render('create', array('model' => $model));
+
+        $payments = Payment::model()->published()->findAll(['order' => 'position']);
+
+        $this->render('create', ['model' => $model, 'payments' => $payments]);
     }
 
     public function actionUpdate($id)
@@ -76,7 +92,10 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+
+        $payments = Payment::model()->published()->findAll(['order' => 'position']);
+
+        $this->render('update', ['model' => $model, 'payments' => $payments]);
     }
 
     public function actionDelete($id)

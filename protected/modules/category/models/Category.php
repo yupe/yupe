@@ -88,7 +88,7 @@ class Category extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'image',
                 'uploadPath'    => $module->uploadPath,
@@ -271,14 +271,6 @@ class Category extends yupe\models\YModel
         }
 
         return '---';
-    }
-
-    public function getImageSrc()
-    {
-        return Yii::app()->baseUrl . "/" .
-        Yii::app()->getModule("yupe")->uploadPath . "/" .
-        Yii::app()->getModule("category")->uploadPath . "/" .
-        $this->image;
     }
 
     public function getByAlias($alias)

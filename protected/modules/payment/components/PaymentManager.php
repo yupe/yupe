@@ -12,6 +12,7 @@ class PaymentManager extends CComponent
 
     }
 
+
     /**
      * Возвращает список зарегестрированных платежных систем в формате array(id_payment_system => payment_system_object, ...)
      *

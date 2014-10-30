@@ -26,7 +26,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
@@ -37,10 +37,7 @@ $form = $this->beginWidget(
             )
         ); ?>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'module',
@@ -57,8 +54,8 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-6">
+<div class="row" id="payment-system-settings-row" style="display: none;">
+    <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="panel-title"><?php echo Yii::t("PaymentModule.payment", "Настройки платежной системы"); ?></span>
@@ -152,3 +149,19 @@ $form = $this->beginWidget(
 ?>
 
 <?php $this->endWidget(); ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#payment-system').on('change', function(){
+            if($(this).val()) {
+                $('#payment-system-settings-row').show();
+            }else{
+                $('#payment-system-settings-row').hide();
+            }
+        });
+        if($('#payment-system').val()) {
+            $('#payment-system-settings-row').show();
+        }
+    });
+
+</script>

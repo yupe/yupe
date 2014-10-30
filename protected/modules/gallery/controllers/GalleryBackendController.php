@@ -326,8 +326,8 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                     'name'          => $image->name,
                     'type'          => $_FILES['Image']['type']['file'],
                     'size'          => $_FILES['Image']['size']['file'],
-                    'url'           => $image->getUrl(),
-                    'thumbnail_url' => $image->getUrl(80),
+                    'url'           => $image->getImageUrl(),
+                    'thumbnail_url' => $image->getImageUrl(80),
                     'delete_url'    => $this->createUrl(
                             '/gallery/galleryBackend/deleteImage',
                             array(

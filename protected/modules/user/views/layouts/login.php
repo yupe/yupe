@@ -68,6 +68,12 @@
                                     array(
                                         'icon'        => 'glyphicon glyphicon-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official site'),
+                                        'url'         => 'http://yupe-project.ru?from=help',
+                                        'linkOptions' => array('target' => '_blank'),
+                                    ),
+                                    array(
+                                        'icon'        => 'glyphicon glyphicon-globe',
+                                        'label'       => Yii::t('YupeModule.yupe', 'Community'),
                                         'url'         => 'http://yupe.ru?from=help',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
@@ -116,7 +122,7 @@
                                     array(
                                         'icon'  => 'glyphicon glyphicon-exclamation-sign',
                                         'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                        'url'   => 'http://yupe.ru/about?from=help-support',
+                                        'url'   => 'http://yupe-project.ru/about?from=help-support',
                                     ),
                                 )
                             ),
@@ -136,7 +142,9 @@
     ); ?>
 
     <div class="container-fluid" id="page">
-        <?php echo $content; ?>
+        <div class="row">
+            <?php echo $content; ?>
+        </div>
     </div>
     <div id="footer-guard"></div>
 </div>

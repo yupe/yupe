@@ -32,20 +32,21 @@ $this->widget(
         'sortableAction' => '/payment/paymentBackend/sortable',
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('width' => '50px'),
-            ),
-            array(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/payment/paymentBackend/update", "id" => $data->id))',
             ),
-            array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList()
-            ),
             'module',
+            array(
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/payment/paymentBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Payment::STATUS_ACTIVE => ['class' => 'label-success'],
+                    Payment::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
+                ],
+            ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

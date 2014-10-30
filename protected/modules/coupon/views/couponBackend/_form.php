@@ -1,6 +1,8 @@
 <ul class="nav nav-tabs">
     <li class="active"><a href="#coupon" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "Купон"); ?></a></li>
-    <li><a href="#history" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "История покупок"); ?></a></li>
+    <?php if(!$model->getIsNewRecord()):?>
+        <li><a href="#history" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "История покупок"); ?></a></li>
+    <?php endif;?>
 </ul>
 
 <div class="tab-content">
@@ -25,7 +27,18 @@
 
         <?php echo $form->errorSummary($model); ?>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
+                <?php echo $form->dropDownListGroup(
+                    $model,
+                    'type',
+                    array(
+                        'widgetOptions' => array(
+                            'data' => $model->getTypeList(),
+                        ),
+                    )
+                ); ?>
+            </div>
+            <div class="col-sm-3">
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'status',
@@ -50,40 +63,11 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-2">
-                <?php echo $form->dropDownListGroup(
-                    $model,
-                    'type',
-                    array(
-                        'widgetOptions' => array(
-                            'data' => $model->getTypeList(),
-                        ),
-                    )
-                ); ?>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <?php echo $form->textFieldGroup($model, 'value'); ?>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <?php echo $form->textFieldGroup($model, 'min_order_price'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <?php echo $form->dropDownListGroup(
-                    $model,
-                    'registered_user',
-                    array(
-                        'widgetOptions' => array(
-                            'data' => $this->module->getChoice(),
-                        ),
-                    )
-                ); ?>
             </div>
         </div>
 
@@ -99,10 +83,21 @@
                     )
                 ); ?>
             </div>
+            <div class="col-sm-4">
+                <?php echo $form->dropDownListGroup(
+                    $model,
+                    'registered_user',
+                    array(
+                        'widgetOptions' => array(
+                            'data' => $this->module->getChoice(),
+                        ),
+                    )
+                ); ?>
+            </div>
         </div>
 
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <?php echo $form->datePickerGroup(
                     $model,
                     'date_start',
@@ -142,12 +137,11 @@
             <div class="col-sm-3">
                 <?php echo $form->textFieldGroup($model, 'quantity'); ?>
             </div>
-        </div>
-        <div class="row">
             <div class="col-sm-3">
                 <?php echo $form->textFieldGroup($model, 'quantity_per_user'); ?>
             </div>
         </div>
+
 
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
@@ -174,7 +168,7 @@
 
     <div class="tab-pane panel-body" id="history">
         <?php
-        if (!$model->isNewRecord) {
+        if (!$model->getIsNewRecord()) {
             Yii::app()->getModule('order');
             $order = new Order('search');
             $order->unsetAttributes();
@@ -188,6 +182,8 @@
                     'filter' => $order,
                     'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
                     'ajaxUrl' => Yii::app()->createUrl('/order/orderBackend/index'),
+                    'actionsButtons' => false,
+                    'bulkActions' => [false],
                     'columns' => array(
                         array(
                             'name' => 'id',

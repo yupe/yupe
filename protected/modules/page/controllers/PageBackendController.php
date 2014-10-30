@@ -244,6 +244,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                 )
             );
 
+
             if ($menuItem !== null) {
                 $menuId = (int)$menuItem->menu_id;
                 $menuParentId = (int)$menuItem->parent_id;

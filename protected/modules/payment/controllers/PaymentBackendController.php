@@ -2,6 +2,19 @@
 
 class PaymentBackendController extends yupe\components\controllers\BackController
 {
+    public function actions()
+    {
+        return array(
+            'inline' => array(
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Payment',
+                'validAttributes' => array(
+                    'status'
+                )
+            )
+        );
+    }
+
     public function accessRules()
     {
         return array(
@@ -26,12 +39,9 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Payment();
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Payment'])) {
-            $model->attributes = $_POST['Payment'];
-            $model->setPaymentSystemSettings($_POST['PaymentSettings']);
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['Payment'])) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Payment'));
+            $model->setPaymentSystemSettings(Yii::app()->getRequest()->getPost('PaymentSettings', []));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -45,6 +55,8 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
                 }
             }
         }
+
+        //@TODO вынести в метод модели
         $criteria = new CDbCriteria;
         $criteria->select = new CDbExpression('MAX(position) as position');
         $max = $model->find($criteria);
@@ -57,13 +69,9 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Payment'])) {
-            $model->attributes = $_POST['Payment'];
-            $model->setPaymentSystemSettings($_POST['PaymentSettings']);
-
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['Payment'])) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Payment'));
+            $model->setPaymentSystemSettings(Yii::app()->getRequest()->getPost('PaymentSettings', []));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

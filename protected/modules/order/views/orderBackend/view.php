@@ -55,12 +55,16 @@ $this->menu = array(
             'id',
             array(
                 'name' => 'delivery_id',
-                'value' => $model->delivery->name
+                'value' => function($model){
+                    return empty($model->delivery) ? '---' : $model->delivery->name;
+                }
             ),
             'delivery_price',
             array(
                 'name' => 'payment_method_id',
-                'value' => $model->payment->name
+                'value' => function($model){
+                    return empty($model->payment) ? '---' : $model->payment->name;
+                }
             ),
             'paid',
             'payment_date',
@@ -71,7 +75,7 @@ $this->menu = array(
             'separate_delivery',
             array(
                 'name' => 'status',
-                'value' => $model->statusTitle,
+                'value' => $model->getStatusTitle(),
             ),
             'date',
             array(

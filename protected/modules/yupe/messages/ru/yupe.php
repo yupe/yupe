@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array(
+    'Plaksunov Yuri'=> 'Плаксунов Юрий',
+    'Mihail Chemezov'=> 'Чемезов Михаил',
+    'Community' => 'Сообщество',
     'Yupe panel' => 'Панель управления Юпи! Главная страница',
     'Display on' => 'Выводить по',
     'Add' => 'Добавить',
@@ -191,7 +194,7 @@ return array(
     'Official forum' => 'Официальный форум',
     'Official site' => 'Официальный сайт',
     'Ok' => 'Да',
-    'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)' => 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/contacts?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)',
+    'On business support and development you can always <a href="http://yupe-project.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe-project.ru/contacts/?form=help" target="_blank">http://yupe-project.ru/contacts</a>)' => 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe-project.ru/contacts?form=help" target="_blank">написать нам</a> (<a href="http://yupe-project.ru/contacts/?form=help" target="_blank">http://yupe-project.ru/contacts</a>)',
     'Opeykin Andrey' => 'Опейкин Андрей',
     'Order development and support' => 'Разработка и поддержка',
     'Other' => 'Другое',

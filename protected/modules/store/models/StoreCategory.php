@@ -82,11 +82,6 @@ class StoreCategory extends \yupe\models\YModel
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
             ),
-            'imageThumb' => array(
-                'class' => 'yupe\components\behaviors\ImageThumbBehavior',
-                'uploadPath' => $module->uploadPath . '/category',
-                'attributeName' => 'image',
-            ),
             'CategoryTreeBehavior' => array(
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
                 'titleAttribute' => 'name',
@@ -273,5 +268,20 @@ class StoreCategory extends \yupe\models\YModel
             $this->_url = Yii::app()->getRequest()->baseUrl . '/catalog/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
         }
         return $this->_url;
+    }
+
+    public function getMetaTile()
+    {
+        return $this->meta_title ?: $this->name;
+    }
+
+    public function getMetaDescription()
+    {
+        return $this->description;
+    }
+
+    public function getMetaKeywords()
+    {
+        return $this->meta_keywords;
     }
 }

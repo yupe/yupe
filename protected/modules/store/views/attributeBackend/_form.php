@@ -1,3 +1,13 @@
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $('#attribute-form').liTranslit({
+            elName: '#Attribute_title',
+            elAlias:'#Attribute_name'
+        });
+    })
+</script>
+
+
 <?php
   Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/jquery-sortable.js');
 ?>
@@ -25,7 +35,21 @@ $form = $this->beginWidget(
 <?php echo $form->errorSummary($model); ?>
 
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-3">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'group_id',
+            array(
+                'widgetOptions' => array(
+                    'data' => AttributeGroup::model()->getFormattedList(),
+                    'htmlOptions' => array(
+                        'empty' => '---',
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+    <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
@@ -42,33 +66,16 @@ $form = $this->beginWidget(
     </div>
 </div>
 
+
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
-            $model,
-            'group_id',
-            array(
-                'widgetOptions' => array(
-                    'data' => AttributeGroup::model()->getFormattedList(),
-                    'htmlOptions' => array(
-                        'empty' => '---',
-                    ),
-                ),
-            )
-        ); ?>
+        <?php echo $form->textFieldGroup($model, 'title'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
         <?php echo $form->textFieldGroup($model, 'name'); ?>
-    </div>
-</div>
-
-
-<div class='row'>
-    <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'title'); ?>
     </div>
 </div>
 

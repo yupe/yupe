@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class PaymentModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public $pathAssets = 'payment.views.assets';
 
@@ -53,12 +53,17 @@ class PaymentModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('PaymentModule.payment', 'Dark_Cs');
+        return Yii::t('PaymentModule.payment', 'amylabs team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('PaymentModule.payment', 'darkcs2@gmail.com');
+        return Yii::t('PaymentModule.payment', 'hello@amylabs.ru');
+    }
+
+    public function getUrl()
+    {
+        return 'http://amylabs.ru';
     }
 
     public function getIcon()

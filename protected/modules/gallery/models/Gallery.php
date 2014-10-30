@@ -171,7 +171,7 @@ class Gallery extends yupe\models\YModel
     public function previewImage($width = 190, $height = 190)
     {
         return $this->imagesCount > 0
-            ? $this->images[0]->getUrl($width, $height)
+            ? $this->images[0]->getImageUrl($width, $height)
             : Yii::app()->getTheme()->getAssetsUrl() . '/images/thumbnail.png';
     }
 

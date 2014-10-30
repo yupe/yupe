@@ -9,8 +9,10 @@
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
+[![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
+[![Issue Stats Pull request](http://issuestats.com/yupe/yupe/yupe/badge/pr)](http://issuestats.com/github/yupe/yupe)
 
-![Юпи!](http://amylabs.ru/images/yupe.png)
+![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
 
 **Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 
 
@@ -22,11 +24,12 @@
 * корпоративные порталы
 * блоги / сообщества
 * каталоги товаров
+* интернет-магазины
 
 
-**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
+**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe-project.ru/pages/friends)**
 
-Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yii
+Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x
 
 [Процесс установки](http://yupe.ru/docs/install.html) очень прост и занимает не более 5 минут!
 
@@ -47,7 +50,8 @@
 
 Ссылки
 ------
-* [Официальный сайт](http://yupe.ru/)
+* [Сообщество](http://yupe.ru/)
+* [Официальный сайт](http://yupe-project.ru/)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
@@ -59,7 +63,7 @@
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
-* Коммерческая [разработка](http://amylabs.ru/yupe/development) и [поддержка](http://amylabs.ru/yupe/support)
+* Коммерческая [разработка](http://yupe-project.ru/service/development) и [поддержка](http://yupe-project.ru/service/support)
 
 Возможности
 -----------
@@ -82,6 +86,7 @@
 * Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums/5)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 * Авторизация через социальные сети (с использованием nodge/yii-eauth)
+* Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)
 
 **Если вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
 
@@ -94,6 +99,6 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
 
 
-(c) 2010 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+(c) 2012 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
-![amyLabs](http://amylabs.ru/images/logo.png)
+![amyLabs](http://amylabs.ru/assets/8066f72d/images/logo1.png)

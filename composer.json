@@ -24,11 +24,6 @@
             "role": "Developer"
         },
         {
-            "name": "Alexey Elizarov",
-            "homepage": "http://amylabs.ru",
-            "role": "Designer"
-        },
-        {
             "name": "Maxim Timashov",
             "email": "apexwire@gmail.com",
             "role": "Developer"
@@ -41,28 +36,6 @@
         {
             "name": "Mihail Chemezov",
             "homepage": "http://vk.com/m.chemezov",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Tischenko",
-            "email": "tsm@archaron.ru",
-            "homepage": "http://archaron.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Evgeniy Kulikov",
-            "email": "tuxuls@gmail.com",
-            "homepage": "http://akulikov.org.ua",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Lyzhenkov",
-            "homepage": "http://lyzhenkov.ru",
-            "role": "Developer"
-        },
-        {
-            "name": "Anton Cherepanov",
-            "homepage": "https://twitter.com/davetoxa",
             "role": "Developer"
         }
     ],
@@ -118,12 +91,37 @@
         "codeception/codeception": "2.*"
     },
     "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "application\\": "protected/",
+            "yupe\\": "protected/modules/yupe/"
+        }
+    },
     "scripts": {
         "post-create-project-cmd": [
-            "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
+            "yupe\\components\\Composer::postCreate"
+        ],
+        "pre-install-cmd": [
+            "yupe\\components\\Composer::preInstall"
         ],
         "post-install-cmd": [
-            "php -r \"copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');\""
+            "yupe\\components\\Composer::postInstall"
+        ],
+        "pre-update-cmd": [
+            "yupe\\components\\Composer::preUpdate"
+        ],
+        "post-update-cmd": [
+            "yupe\\components\\Composer::postUpdate"
+        ]
+    },
+    "extra": {
+        "writable": [
+            "public/assets",
+            "public/uploads",
+            "protected/runtime",
+            "protected/config/db.php",
+            "protected/config/modules",
+            "protected/config/modulesBack"
         ]
     }
 }

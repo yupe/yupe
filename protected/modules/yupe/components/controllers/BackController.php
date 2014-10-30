@@ -14,6 +14,7 @@
 namespace yupe\components\controllers;
 
 use Yii;
+use yupe\components\WebModule;
 use yupe\events\YupeBackendControllerInitEvent;
 use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
@@ -73,18 +74,19 @@ abstract class BackController extends Controller
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
 
+        if($this->yupe->hidePanelUrls == WebModule::CHOICE_NO) {
+            Yii::app()->getErrorHandler()->errorAction = '/yupe/backend/error';
+        }
+
         Yii::app()->eventManager->fire(
             YupeEvents::BACKEND_CONTROLLER_INIT,
             new YupeControllerInitEvent($this, Yii::app()->getUser())
         );
 
-        if ($backendTheme && is_dir(Yii::getPathOfAlias("themes.backend_" . $backendTheme))) {
+        if ($backendTheme) {
             Yii::app()->theme = "backend_" . $backendTheme;
         } else {
             Yii::app()->theme = $this->yupe->theme;
-            if (!$this->yupe->enableAssets) {
-                return;
-            }
         }
     }
 
@@ -98,8 +100,7 @@ abstract class BackController extends Controller
          * $this->module->getId() !== 'install' избавляет от ошибок на этапе установки
          * $this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate') устраняем проблемы с зацикливанием
          */
-        if ($this->module->getId() !== 'install'
-            && ($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
+        if (($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
             && ($updates = Yii::app()->migrator->checkForUpdates(
                 array($this->module->getId() => $this->module)
             )) !== null

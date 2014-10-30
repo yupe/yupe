@@ -30,7 +30,7 @@ $this->widget(
             array(
                 'name' => 'image',
                 'type' => 'raw',
-                'value' => '$data->image ? CHtml::image($data->getImageUrl(50), "", array("width" => 50, "height" => 50, "class" => "img-thumbnail")) : ""',
+                'value' => 'CHtml::image($data->getImageUrl(50), "", array("width" => 50, "height" => 50, "class" => "img-thumbnail"))',
                 'filter' => false
             ),
             array(

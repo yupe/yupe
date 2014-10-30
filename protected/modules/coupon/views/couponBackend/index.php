@@ -29,31 +29,22 @@ $this->widget(
         'filter' => $model,
         'columns' => array(
             array(
-                'name' => 'id',
-                'htmlOptions' => array('style' => 'width: 40px'),
-            ),
-            array(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/coupon/couponBackend/update", "id" => $data->id))',
             ),
             'code',
-            /*array(
-                'name' => 'type',
-                'value' => '$data->getTypeTitle()',
-            ),
-            'value',
-            'min_order_price',
-            'registered_user:boolean',
-            'free_shipping:boolean',
             'date_start',
             'date_end',
-            'quantity',
-            'quantity_per_user',*/
             array(
-                'name' => 'status',
-                'type' => 'raw',
-                'filter' => $model->getStatusList()
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/coupon/couponBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Coupon::STATUS_ACTIVE => ['class' => 'label-success'],
+                    Coupon::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
+                ],
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',

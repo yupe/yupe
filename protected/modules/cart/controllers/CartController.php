@@ -6,20 +6,27 @@ class CartController extends yupe\components\controllers\FrontController
     {
         $positions = Yii::app()->cart->getPositions();
         $order = new Order(Order::SCENARIO_USER);
-        if (!Yii::app()->getUser()->isAuthenticated()) {
+        if (Yii::app()->getUser()->isAuthenticated()) {
             $user = Yii::app()->getUser()->getProfile();
             $order->name = $user->getFullName();
             $order->email = $user->email;
             $order->address = $user->location;
         }
-        $couponCodes = Yii::app()->cart->couponManager->coupons;
-        $coupons = array();
+
+        $coupons = [];
+
         if (Yii::app()->hasModule('coupon')) {
+
+            $couponCodes = Yii::app()->cart->couponManager->coupons;
+
             foreach ($couponCodes as $code) {
                 $coupons[] = Coupon::model()->getCouponByCode($code);
             }
         }
-        $this->render('index', array('positions' => $positions, 'order' => $order, 'coupons' => $coupons));
+
+        $deliveryTypes = Delivery::model()->published()->findAll();
+
+        $this->render('index', ['positions' => $positions, 'order' => $order, 'coupons' => $coupons, 'deliveryTypes' => $deliveryTypes ]);
     }
 
     public function actionAdd()
@@ -93,39 +100,7 @@ class CartController extends yupe\components\controllers\FrontController
     {
         //$this->renderPartial('//cart/widgets/views/shoppingCart');
         // хочет отправить куки новые для авторизации каждый раз
-        $this->widget('cart.widgets.ShoppingCartWidget', array('id' => 'shopping-cart-widget'));
+        $this->widget('cart.widgets.ShoppingCartWidget', ['id' => 'shopping-cart-widget']);
     }
 
-    public function actionAddCoupon()
-    {
-        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));;
-        $result = Yii::app()->cart->couponManager->add($code);
-        if (true === $result) {
-            Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купон «{code}» добавлен", array('{code}' => $code)));
-        } else {
-            Yii::app()->ajax->failure($result);
-        }
-    }
-
-    public function actionRemoveCoupon()
-    {
-        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));
-        if ($code) {
-            Yii::app()->cart->couponManager->remove($code);
-            Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купон «{code}» удален", array('{code}' => $code)));
-        } else {
-            Yii::app()->ajax->failure(Yii::t("CartModule.cart", 'Купон не найден'));
-        }
-    }
-
-    public function actionClearCoupons()
-    {
-        Yii::app()->cart->couponManager->clear();
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", "Купоны удалены"));
-    }
-
-    public function actionCoupons()
-    {
-        Yii::app()->ajax->success(Yii::app()->cart->couponManager->coupons);
-    }
 }

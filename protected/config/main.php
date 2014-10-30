@@ -40,8 +40,6 @@ return array(
     'controllerNamespace' => 'application\controllers',
     'preload'             => defined('YII_DEBUG')
         && YII_DEBUG
-        && is_writable(Yii::getPathOfAlias('application.runtime'))
-        && is_writable(Yii::getPathOfAlias('public.assets'))
             ? array('debug') : array(),
     'aliases'             => array(
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
@@ -103,7 +101,7 @@ return array(
         'migrator'      => array('class' => 'yupe\components\Migrator',),
         // DAO simple wrapper:
         'dao'           => array('class' => 'yupe\components\DAO',),
-        'image'         => array('class' => 'yupe\components\image\Image',),
+        'thumbnailer'   => array('class' => 'yupe\components\image\Thumbnailer',),
         'uploadManager' => array('class' => 'yupe\components\UploadManager',),
         'themeManager'  => array(
             'class'      => 'CThemeManager',

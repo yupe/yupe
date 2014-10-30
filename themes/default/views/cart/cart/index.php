@@ -27,7 +27,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
         <?php else: ?>
             <?php
             $form = $this->beginWidget(
-                'CActiveForm',
+                'bootstrap.widgets.TbActiveForm',
                 array(
                     'action' => array('/order/order/create'),
                     'id' => 'order-form',
@@ -68,7 +68,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                 <div class="media">
                                     <?php $productUrl = Yii::app()->createUrl('store/catalog/show', array('name' => $position->alias)); ?>
                                     <a class="img-thumbnail pull-left" href="<?php echo $productUrl; ?>">
-                                        <img class="media-object" src="<?php echo $position->mainImage ? $position->mainImage->getImageUrl(72, 72) : ''; ?>" style="width: 72px; height: 72px;">
+                                        <img class="media-object" src="<?php echo $position->getProductModel()->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
                                     </a>
 
                                     <div class="media-body">
@@ -184,7 +184,6 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                         <b><?php echo Yii::t("CartModule.cart", "Способ доставки"); ?></b>
                                     </label>
                                     <div class="controls">
-                                        <?php $deliveryTypes = Delivery::model()->published()->findAll(); ?>
                                         <?php foreach ($deliveryTypes as $key => $delivery): ?>
                                             <label class="radio" for="delivery-<?php echo $delivery->id; ?>">
                                                 <input type="radio" name="Order[delivery_id]" id="delivery-<?php echo $delivery->id; ?>"

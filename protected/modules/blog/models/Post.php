@@ -382,7 +382,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 'cacheID' => 'cache',
             ),
             'imageUpload' => array(
-                'class' => 'yupe\components\behaviors\FileUploadBehavior',
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios' => array('insert', 'update'),
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
@@ -400,19 +400,6 @@ class Post extends yupe\models\YModel implements ICommentable
     public function generateFileName()
     {
         return md5($this->slug . microtime(true) . uniqid());
-    }
-
-    /**
-     * @return bool|string
-     */
-    public function getImageUrl()
-    {
-        if ($this->image) {
-            return Yii::app()->getBaseUrl() . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
-            Yii::app()->getModule('blog')->uploadPath . '/' . $this->image;
-        }
-
-        return false;
     }
 
     /**
@@ -730,7 +717,7 @@ class Post extends yupe\models\YModel implements ICommentable
     public function createPublicPost(array $post)
     {
         if (empty($post['blog_id']) || empty($post['user_id'])) {
-            $this->addError('blog_id', Yii::t('BlogModule.blog', "Post form error!"));
+            $this->addError('blog_id', Yii::t('BlogModule.blog', "Blog is empty!"));
 
             return false;
         }

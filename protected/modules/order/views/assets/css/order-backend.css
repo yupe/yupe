@@ -10,6 +10,19 @@ hr {
     margin: 4px;
 }
 
+#add-product {
+    min-width: 75px;
+    width: 100%;
+}
+
+#orderDate {
+    min-width: 110px;
+}
+#orderAddProduct {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 #products .well {
     min-height: 20px;
     padding: 5px 5px 5px 2px;

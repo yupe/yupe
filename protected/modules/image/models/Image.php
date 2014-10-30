@@ -89,7 +89,7 @@ class Image extends yupe\models\YModel
 
         return array(
             'imageUpload' => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'file',
                 'minSize'       => $module->minSize,
@@ -227,34 +227,6 @@ class Image extends yupe\models\YModel
     public function getCategoryName()
     {
         return ($this->category === null) ? '---' : $this->category->name;
-    }
-
-    /**
-     * Получаем URL к файлу:
-     *
-     * @param int $width - параметр ширины для изображения
-     * @param int $height - параметр высоты для изображения
-     *
-     * @return string URL к файлу
-     */
-    public function getUrl($width = 75, $height = 75, $mode = \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND)
-    {
-        $module = Yii::app()->getModule('image');
-
-        return Yii::app()->image->makeThumbnail(
-            $this->file,
-            $module->uploadPath,
-            $width,
-            $height,
-            $mode
-        );
-    }
-
-    public function getRawUrl()
-    {
-        $module = Yii::app()->getModule('image');
-
-        return Yii::app()->uploadManager->getFileUrl($this->file, $module->uploadPath);
     }
 
     /**

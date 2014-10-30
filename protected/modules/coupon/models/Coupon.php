@@ -40,7 +40,7 @@ class Coupon extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, code, status', 'required'),
+            array('name, code, status, type', 'required'),
             array('name, code', 'filter', 'filter' => 'trim'),
             array('name, code', 'length', 'max' => 255),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
@@ -76,12 +76,12 @@ class Coupon extends yupe\models\YModel
             'value' => Yii::t('CouponModule.coupon', 'Величина скидки'),
             'min_order_price' => Yii::t('CouponModule.coupon', 'Минимальная сумма заказа'),
             'type' => Yii::t('CouponModule.coupon', 'Тип'),
-            'registered_user' => Yii::t('CouponModule.coupon', 'Только для зарегистрированных пользователей'),
+            'registered_user' => Yii::t('CouponModule.coupon', 'Только для клиентов'),
             'free_shipping' => Yii::t('CouponModule.coupon', 'Бесплатная доставка'),
             'date_start' => Yii::t('CouponModule.coupon', 'Дата начала'),
             'date_end' => Yii::t('CouponModule.coupon', 'Дата конца'),
             'quantity' => Yii::t('CouponModule.coupon', 'Количество купонов'),
-            'quantity_per_user' => Yii::t('CouponModule.coupon', 'Количество купонов на одного пользователя'),
+            'quantity_per_user' => Yii::t('CouponModule.coupon', 'Кол-во на одного пользователя'),
             'status' => Yii::t('CouponModule.coupon', 'Статус'),
         );
     }

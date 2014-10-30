@@ -115,7 +115,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#Comment_text').one('click', function(){
+        $(document).one('click', '#Comment_text', function(){
            $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
         })
     });

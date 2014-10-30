@@ -121,7 +121,7 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <?php
         echo CHtml::image(
-            !$model->isNewRecord && $model->image ? $model->getImageSrc() : '#',
+            !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
             $model->name,
             array(
                 'class' => 'preview-image',

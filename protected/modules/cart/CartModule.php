@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CartModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.3';
 
     public $assetsPath = 'cart.views.assets';
 
@@ -19,6 +19,16 @@ class CartModule extends WebModule
     }
 
     public function getNavigation()
+    {
+        return false;
+    }
+
+    public function getAdminPageLink()
+    {
+        return false;
+    }
+
+    public function getIsShowInAdminMenu()
     {
         return false;
     }

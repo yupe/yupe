@@ -204,4 +204,9 @@ class Delivery extends yupe\models\YModel
     {
         return $this->free_from < $total_price ? 0 : $this->price;
     }
+
+    public function hasPaymentMethods()
+    {
+        return count($this->paymentRelation);
+    }
 }

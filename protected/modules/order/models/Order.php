@@ -144,7 +144,7 @@ class Order extends yupe\models\YModel
             'status' => Yii::t('OrderModule.order', 'Статус'),
             'date' => Yii::t('OrderModule.order', 'Дата'),
             'user_id' => Yii::t('OrderModule.order', 'Пользователь'),
-            'name' => Yii::t('OrderModule.order', 'Имя'),
+            'name' => Yii::t('OrderModule.order', 'Клиент'),
             'address' => Yii::t('OrderModule.order', 'Адрес'),
             'phone' => Yii::t('OrderModule.order', 'Телефон'),
             'email' => Yii::t('OrderModule.order', 'Email'),
@@ -249,6 +249,16 @@ class Order extends yupe\models\YModel
         return Yii::app()->hasModule('coupon');
     }
 
+    public function hasCoupon()
+    {
+        return !empty($this->coupon_code);
+    }
+
+    public function getCoupons()
+    {
+        return $this->couponCodes;
+    }
+
     public function getDeliveryCost()
     {
         $cost = $this->delivery_price;
@@ -320,11 +330,11 @@ class Order extends yupe\models\YModel
     {
         $productsCost = $this->getProductsCost();
 
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->url = md5(uniqid(time(), true));
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip = Yii::app()->getRequest()->userHostAddress;
             if ($this->getScenario() == self::SCENARIO_USER) {
-                $this->user_id = Yii::app()->user->id;
+                $this->user_id = Yii::app()->getUser()->getId();
                 $this->delivery_price = $this->delivery ? $this->delivery->getCost($productsCost) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
@@ -338,7 +348,7 @@ class Order extends yupe\models\YModel
             $coupons = $this->getValidCoupons($this->couponCodes);;
             foreach ($coupons as $coupon) {
                 $validCouponCodes[] = $coupon->code;
-                if ($this->isNewRecord) {
+                if ($this->getIsNewRecord()) {
                     $coupon->decreaseQuantity();
                 }
             }
@@ -453,7 +463,7 @@ class Order extends yupe\models\YModel
 
         foreach ($products as $var) {
             /* @var $var OrderProduct */
-            if ($var->isNewRecord) {
+            if ($var->getIsNewRecord()) {
                 $var->order_id = $this->id;
             }
 
@@ -482,5 +492,20 @@ class Order extends yupe\models\YModel
     {
         Yii::app()->getModule('order')->sendNotifyOrderPaid($this);
         return true;
+    }
+
+    public function getTotalPrice()
+    {
+        return (float)$this->total_price - ($this->separate_delivery ? 0 : $this->delivery_price);
+    }
+
+    public function getDeliveryPrice()
+    {
+        return (float)$this->delivery_price;
+    }
+
+    public function getTotalPriceWithDelivery()
+    {
+        return $this->getTotalPrice() + $this->getDeliveryPrice();
     }
 }

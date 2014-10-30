@@ -16,7 +16,8 @@ $form = $this->beginWidget(
         'id' => 'product-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+        'type' => 'vertical',
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
         'clientOptions' => array(
             'validateOnSubmit' => true,
         ),
@@ -60,7 +61,7 @@ $form = $this->beginWidget(
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'type_id',
@@ -73,6 +74,20 @@ $form = $this->beginWidget(
                                 'id' => 'product-type',
                             ),
                         )
+                    )
+                ); ?>
+            </div>
+            <div class="col-sm-4">
+                <?php echo $form->dropDownListGroup(
+                    $model,
+                    'category_id',
+                    array(
+                        'widgetOptions' => array(
+                            'data' => (new StoreCategory())->getTabList(),
+                            'htmlOptions' => array(
+                                'empty' => '---',
+                            ),
+                        ),
                     )
                 ); ?>
             </div>
@@ -93,6 +108,7 @@ $form = $this->beginWidget(
                 ); ?>
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm-7">
                 <?php echo $form->textFieldGroup($model, 'name'); ?>
@@ -114,22 +130,6 @@ $form = $this->beginWidget(
                 <?php echo $form->textFieldGroup($model, 'discount'); ?>
             </div>
         </div>
-        <div class='row'>
-            <div class="col-sm-7">
-                <?php echo $form->dropDownListGroup(
-                    $model,
-                    'category_id',
-                    array(
-                        'widgetOptions' => array(
-                            'data' => (new StoreCategory())->getTabList(),
-                            'htmlOptions' => array(
-                                'empty' => '---',
-                            ),
-                        ),
-                    )
-                ); ?>
-            </div>
-        </div>
 
         <div class='row'>
             <div class="col-sm-7">
@@ -143,6 +143,31 @@ $form = $this->beginWidget(
                         )
                     ); ?>
                 </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-sm-7">
+                <?php
+                echo CHtml::image(
+                    !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+                    $model->name,
+                    array(
+                        'class' => 'preview-image img-thumbnail',
+                        'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                    )
+                ); ?>
+                <?php echo $form->fileFieldGroup(
+                    $model,
+                    'image',
+                    array(
+                        'widgetOptions' => array(
+                            'htmlOptions' => array(
+                                'onchange' => 'readURL(this);',
+                            ),
+                        ),
+                    )
+                ); ?>
             </div>
         </div>
 
@@ -261,7 +286,7 @@ $form = $this->beginWidget(
                 </div>
             </div>
 
-            <?php if (!$model->isNewRecord): ?>
+            <?php if (!$model->getIsNewRecord()): ?>
                 <?php foreach ($model->images as $image): ?>
 
                     <div class="product-image">
@@ -269,11 +294,7 @@ $form = $this->beginWidget(
                             <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
                         </div>
                         <div>
-                            <label for="product-image-<?php echo $image->id; ?>">
-                                <input type="radio" name="main_image" value="<?php echo $image->id; ?>" id="product-image-<?php echo $image->id; ?>" <?php echo $image->is_main ? 'checked' : ''; ?>/>
-                                <?php echo Yii::t("StoreModule.store", "Главное"); ?>
-                            </label>
-                            <a href="<?php echo Yii::app()->createUrl(
+                            <a data-id="<?= $image->id;?>" href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
                                 array('id' => $image->id)
                             ); ?>" class="pull-right product-delete-image"><i class="glyphicon glyphicon-remove"></i></a>
@@ -442,8 +463,12 @@ $form = $this->beginWidget(
             var deleteUrl = $(this).attr('href');
             var blockForDelete = $(this).closest('.product-image');
             $.ajax({
-                type: "GET",
-                url: deleteUrl,
+                type: "POST",
+                data: {
+                    'id': $(this).data('id'),
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>' : '<?= Yii::app()->getRequest()->csrfToken;?>'
+                },
+                url: '<?= Yii::app()->createUrl('/store/productBackend/deleteImage');?>',
                 success: function () {
                     blockForDelete.remove();
                 }

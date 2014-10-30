@@ -1,77 +1,110 @@
 <?php
 
+/**
+ * Class CatalogController
+ * @property ProductRepository $productRepository
+ *
+ */
 class CatalogController extends yupe\components\controllers\FrontController
 {
-    const PRODUCTS_PER_PAGE = 20;
+    /**
+     *
+     * @var
+     */
+    protected $productRepository;
 
+    /**
+     *
+     */
+    public function init()
+    {
+        $this->productRepository = new ProductRepository();
+
+        parent::init();
+    }
+
+    /**
+     * @param $name
+     * @throws CHttpException
+     */
     public function actionShow($name)
     {
-        $products = Product::model()->published()->find('alias = :alias', array(':alias' => $name));
+        $product = $this->productRepository->getByAlias($name);
 
-        if (!$products) {
+        if (null === $product) {
             throw new CHttpException(404, Yii::t('StoreModule.catalog', 'Product was not found!'));
         }
 
-        $this->render('product', array('product' => $products));
+        $this->render('product', ['product' => $product]);
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
-        $this->actionCategory();
+        $this->render('index', ['dataProvider' => $this->productRepository->getListForIndexPage()]);
     }
 
-    public function actionCategory($path = null)
+    /**
+     * @param $path
+     * @throws CHttpException
+     */
+    public function actionCategory($path)
     {
-        $criteria = new CDbCriteria();
-        $cat = null;
-        if ($path) {
-            $cat = StoreCategory::model()->findByPath($path);
-            if ($cat === null) {
-                throw new CHttpException(404, 'Not found');
-            }
-            $criteria->with = array('categoryRelation' => array('together' => true));
-            $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
-            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $cat->id]);
+        $category = StoreCategory::model()->findByPath($path);
+
+        if (null === $category) {
+            throw new CHttpException(404);
         }
 
-        if (isset($_GET['q'])) {
-            $criteria->addSearchCondition('name', $_GET['q']);
-            $criteria->addSearchCondition('sku', $_GET['q'], true, 'OR');
-        }
-        if (isset($_GET['price-from'])) {
-            $criteria->addCondition('price >= ' . floatval($_GET['price-from']));
-        }
-        if (isset($_GET['price-to']) && floatval($_GET['price-to']) > 0) {
-            $criteria->addCondition('price <= ' . $_GET['price-to']);
-        }
-
-        $dataProvider = new CActiveDataProvider(
-            Product::model(), array(
-                'criteria' => $criteria,
-                'pagination' => array(
-                    'pageSize' => self::PRODUCTS_PER_PAGE,
-                    'pageVar' => 'page',
-                ),
-                'sort' => array(
-                    'sortVar' => 'sort',
-                ),
-            )
+        $this->render(
+            'category',
+            [
+                'dataProvider' => $this->productRepository->getListForCategory($category),
+                'category' => $category
+            ]
         );
-
-        $this->render('index', array('dataProvider' => $dataProvider, 'category' => $cat));
     }
 
+    public function actionSearch()
+    {
+        if (Yii::app()->getRequest()->getQuery('SearchForm')) {
+
+            $form = new SearchForm();
+
+            $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
+
+            if ($form->validate()) {
+
+                $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
+
+                $this->render(
+                    'search',
+                    [
+                        'category'   => $category,
+                        'searchForm' => $form,
+                        'dataProvider' => $this->productRepository->search($form->q, $form->category)
+                    ]
+                );
+
+            }
+        }
+    }
+
+    /**
+     *
+     */
     public function actionAutocomplete()
     {
-        $term = $_GET['term'];
-        $res = array();
-        if (strlen($term) > 2) {
-            $q = "SELECT name FROM {{store_product}} WHERE name LIKE :search or sku LIKE :search";
-            $command = Yii::app()->db->createCommand($q);
-            $command->bindValue(":search", '%' . $term . '%', PDO::PARAM_STR);
-            $res = $command->queryColumn();
+        $query = Yii::app()->getRequest()->getQuery('term');
+
+        $result = [];
+
+        if (strlen($query) > 2) {
+            $result = $this->productRepository->searchLite($query);
         }
-        echo CJSON::encode($res);
-        Yii::app()->end();
+
+        Yii::app()->ajax->raw($result);
     }
 }

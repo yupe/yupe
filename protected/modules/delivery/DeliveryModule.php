@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class DeliveryModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public function getDependencies()
     {
@@ -50,12 +50,17 @@ class DeliveryModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t('DeliveryModule.delivery', 'Dark_Cs');
+        return Yii::t('DeliveryModule.delivery', 'amylabs team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('DeliveryModule.delivery', 'darkcs2@gmail.com');
+        return Yii::t('DeliveryModule.delivery', 'hello@amylabs.ru');
+    }
+
+    public function getUrl()
+    {
+        return 'http://amylabs.ru';
     }
 
     public function getIcon()

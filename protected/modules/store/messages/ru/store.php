@@ -1,5 +1,7 @@
 <?php
 return array(
+    'Catalog' => 'Каталог',
+    'Store'   => 'Магазин',
     'Content' => 'Контент',
     'Data for SEO' => 'Данные для поисковой оптимизации',
     'Meta title' => 'Заголовок',
@@ -166,6 +168,6 @@ return array(
     'Discount, %' => 'Скидка, %',
     'In stock' => 'В наличии',
     'Not in stock' => 'Нет в наличии',
-    'Stock status' => 'Статус на складе',
+    'Stock status' => 'На складе',
     'Record was updated!' => 'Запись изменена!'
 );

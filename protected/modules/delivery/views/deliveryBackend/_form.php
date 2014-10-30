@@ -21,11 +21,6 @@ $form = $this->beginWidget(
     <div class="col-sm-8">
         <div class="row">
             <div class="col-sm-7">
-                <?php echo $form->textFieldGroup($model, 'name'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'status',
@@ -35,6 +30,11 @@ $form = $this->beginWidget(
                         ),
                     )
                 ); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <?php echo $form->textFieldGroup($model, 'name'); ?>
             </div>
         </div>
         <div class="row">
@@ -70,17 +70,20 @@ $form = $this->beginWidget(
         </div>
         <?php echo $form->hiddenField($model, 'position'); ?>
     </div>
+
+    <?php if(!empty($payments)):?>
     <div class="col-sm-4">
         <?php echo $form->checkBoxListGroup(
             $model,
             'payment_methods',
             array(
                 'widgetOptions' => array(
-                    'data' => CHtml::listData(Payment::model()->published()->findAll(array('order' => 'position')), 'id', 'name'),
+                    'data' => CHtml::listData($payments, 'id', 'name'),
                 ),
             )
         );?>
     </div>
+    <?php endif;?>
 </div>
 
 <?php $this->widget(

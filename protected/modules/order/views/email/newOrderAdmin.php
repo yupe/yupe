@@ -111,8 +111,8 @@ $order->refresh();
                     <td align="center" style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
                         <?php if ($orderProduct->product): ?>
                             <a href="<?php echo $productUrl; ?>">
-                                <?php if ($orderProduct->product->mainImage): ?>
-                                    <img border="0" src="<?php echo Yii::app()->getBaseUrl(true) . $orderProduct->product->mainImage->getImageUrl(50, 50); ?>">
+                                <?php if ($orderProduct->product->image): ?>
+                                    <img border="0" src="<?php echo Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(50, 50); ?>">
                                 <?php endif; ?>
                             </a>
                         <?php else: ?>

@@ -1034,25 +1034,6 @@ abstract class WebModule extends CWebModule
     }
 
     /**
-     * Временное решение
-     *
-     * @param Controller $controller - инстанс контроллера
-     * @param Action $action - инстанс экшена
-     *
-     * @todo пока не придумали куда перенести инициализацию editorOptions
-     *
-     * @return bool
-     **/
-    public function beforeControllerAction($controller, $action)
-    {
-        if ($controller instanceof \yupe\components\controllers\BackController) {
-            Yii::app()->errorHandler->errorAction = 'yupe/backend/error';
-        }
-
-        return true;
-    }
-
-    /**
      * Можно ли включить модуль
      *
      * @return bool

@@ -127,7 +127,7 @@ class YupeModule extends WebModule
      *
      * Массив фильтров для контроллеров панели управления
      */
-    protected $backEndFilters = array(array('yupe\filters\YBackAccessControl'));
+    protected $backEndFilters = [['yupe\filters\YBackAccessControl - error']];
 
     public $visualEditors = [
         'redactor' => [
@@ -832,7 +832,7 @@ class YupeModule extends WebModule
                 ) . "/img/yupe_{$color}.png",
                 $text
             ),
-            'http://yupe.ru?from=pb',
+            'http://yupe-project.ru?from=pb',
             array('title' => CHtml::encode($text), 'alt' => CHtml::encode($text))
         );
     }

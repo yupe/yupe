@@ -14,8 +14,9 @@ return array(
     ),
     'rules' => array(
         '/catalog' => 'store/catalog/index',
+        '/catalog/search' => 'store/catalog/search',
         '/catalog/show/<name:[\w_\/-]+>' => 'store/catalog/show',
         '/catalog/<path:[\w_\/-]+>' => 'store/catalog/category',
-        '/store/catalog/autocomplete' => 'store/catalog/autocomplete',
+        '/store/catalog/autocomplete' => 'store/catalog/autocomplete'
     ),
 );
