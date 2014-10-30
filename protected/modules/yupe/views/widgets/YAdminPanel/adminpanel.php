@@ -34,14 +34,7 @@ $this->widget(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
                 'type'  => 'navbar',
-                'items' => array_merge($modules, array(
-                        array(
-                            'label' => Yii::t('YupeModule.yupe', 'Modules'),
-                            'icon'  => 'fa fa-fw fa-th',
-                            'url'   => array('/yupe/backend/settings'),
-                        )
-                    )
-                )
+                'items' => $modules
             ),
             array(
                 'class'       => 'bootstrap.widgets.TbMenu',
