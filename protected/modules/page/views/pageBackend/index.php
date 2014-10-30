@@ -14,12 +14,12 @@ $this->pageTitle = Yii::t('PageModule.page', 'Pages list');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('PageModule.page', 'Pages list'),
         'url'   => array('/page/pageBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('PageModule.page', 'Create page'),
         'url'   => array('/page/pageBackend/create')
     ),
@@ -34,7 +34,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('PageModule.page', 'Find pages'); ?>
         <span class="caret">&nbsp;</span>
     </a>

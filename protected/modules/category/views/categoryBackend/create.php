@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - create');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
         'url'   => array('/category/categoryBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
         'url'   => array('/category/categoryBackend/create')
     ),

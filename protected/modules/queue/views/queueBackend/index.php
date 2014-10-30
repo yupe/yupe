@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - manage');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('QueueModule.queue', 'Task list'),
         'url'   => array('/queue/queueBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('QueueModule.queue', 'Task creation'),
         'url'   => array('/queue/queueBackend/create')
     ),
@@ -28,7 +28,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('QueueModule.queue', 'Find tasks'); ?>
         <span class="caret">&nbsp;</span>
     </a>

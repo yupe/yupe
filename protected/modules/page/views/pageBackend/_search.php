@@ -89,7 +89,7 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'context'     => 'primary',
         'encodeLabel' => false,
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('PageModule.page', 'Find pages'),
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('PageModule.page', 'Find pages'),
     )
 ); ?>
 

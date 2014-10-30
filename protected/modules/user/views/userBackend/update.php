@@ -10,18 +10,18 @@ $this->menu = array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
                 'url'   => array('/user/userBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
                 'url'   => array('/user/userBackend/create')
             ),
             array('label' => Yii::t('UserModule.user', 'User') . ' «' . $model->nick_name . '»'),
             array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('UserModule.user', 'Edit user'),
                 'url'   => array(
                     '/user/userBackend/update',
@@ -29,7 +29,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('UserModule.user', 'Show user'),
                 'url'   => array(
                     '/user/userBackend/view',
@@ -37,7 +37,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-lock',
+                'icon'  => 'fa fa-fw fa-lock',
                 'label' => Yii::t('UserModule.user', 'Change user password'),
                 'url'   => array(
                     '/user/userBackend/changepassword',
@@ -45,7 +45,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('UserModule.user', 'Remove user'),
                 'url'         => '#',
                 'linkOptions' => array(
@@ -60,7 +60,7 @@ $this->menu = array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
                 'url'   => array('/user/tokensBackend/index')
             ),

@@ -8,18 +8,18 @@ $this->pageTitle = Yii::t('PageModule.page', 'Show page');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('PageModule.page', 'Pages list'),
         'url'   => array('/page/pageBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('PageModule.page', 'Create page'),
         'url'   => array('/page/pageBackend/create')
     ),
     array('label' => Yii::t('PageModule.page', 'Page') . ' «' . mb_substr($model->title, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('PageModule.page', 'Edit page'),
         'url'   => array(
             '/page/pageBackend/update',
@@ -27,7 +27,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('PageModule.page', 'Show page'),
         'url'   => array(
             '/page/pageBackend/view',
@@ -35,7 +35,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('PageModule.page', 'Remove this page'),
         'url'         => '#',
         'linkOptions' => array(
@@ -67,5 +67,5 @@ $this->menu = array(
 <p><?php echo $model->body; ?></p>
 <br/>
 
-<li class="glyphicon glyphicon-globe"></li>
+<li class="fa fa-fw fa-globe"></li>
 <?php echo CHtml::link($model->getUrl(true), $model->getUrl()); ?>

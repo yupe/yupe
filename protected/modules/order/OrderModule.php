@@ -53,7 +53,7 @@ class OrderModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-gift', 'label' => Yii::t('OrderModule.order', 'Заказы'), 'url' => array('/order/orderBackend/index')),
+            array('icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Заказы'), 'url' => array('/order/orderBackend/index')),
         );
     }
 
@@ -94,7 +94,7 @@ class OrderModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-gift';
+        return 'fa fa-fw fa-gift';
     }
 
     public function init()

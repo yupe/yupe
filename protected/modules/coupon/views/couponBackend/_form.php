@@ -109,7 +109,7 @@
                                 'autoclose' => true,
                             ),
                         ),
-                        'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                        'prepend' => '<i class="fa fa-calendar"></i>',
                     )
                 );
                 ?>
@@ -126,7 +126,7 @@
                                 'autoclose' => true,
                             ),
                         ),
-                        'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                        'prepend' => '<i class="fa fa-calendar"></i>',
                     )
                 );
                 ?>

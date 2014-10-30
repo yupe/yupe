@@ -33,8 +33,8 @@ echo <<<EOF
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - управление');
 
     \$this->menu = array(
-        array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
-        array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
+        array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
+        array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
     );
 ?>
 EOF;
@@ -49,7 +49,7 @@ EOF;
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo "<?php echo Yii::t('{$this->mid}', 'Поиск {$this->mrod}');?>\n"; ?>
         <span class="caret">&nbsp;</span>
     </a>

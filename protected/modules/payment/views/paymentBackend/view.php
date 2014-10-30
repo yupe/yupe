@@ -8,11 +8,11 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('PaymentModule.payment', 'Способы оплаты - просмотр');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => array('/payment/paymentBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => array('/payment/paymentBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => array('/payment/paymentBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => array('/payment/paymentBackend/create')),
     array('label' => Yii::t('PaymentModule.payment', 'Способ оплаты') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('PaymentModule.payment', 'Редактирование способ оплаты'),
         'url' => array(
             '/payment/paymentBackend/update',
@@ -20,7 +20,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('PaymentModule.payment', 'Просмотреть способ оплаты'),
         'url' => array(
             '/payment/paymentBackend/view',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('PaymentModule.payment', 'Удалить способ оплаты'),
         'url' => '#',
         'linkOptions' => array(

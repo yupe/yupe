@@ -70,7 +70,7 @@ class CartModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-shopping-cart';
+        return 'fa fa-fw fa-shopping-cart';
     }
 
     public function init()

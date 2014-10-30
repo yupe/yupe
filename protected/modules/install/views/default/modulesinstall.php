@@ -125,7 +125,7 @@ $this->widget(
             </td>
             <td>
                 <?php if ($module->isMultiLang()) : { ?>
-                    <i class="glyphicon glyphicon-globe"
+                    <i class="fa fa-fw fa-globe"
                        title="<?php echo Yii::t('InstallModule.install', 'Multilanguage module'); ?>"></i>
                 <?php } endif; ?>
             </td>
@@ -294,11 +294,11 @@ $js = <<<EOF
         });
         $(document).on('show.bs.modal', '#modules-modal', function () {
             $('#modules-modal-list').find("i").each(function () {
-                $(this).removeClass("glyphicon glyphicon-ok").addClass("glyphicon glyphicon-minus");
+                $(this).removeClass("fa fa-fw fa-check").addClass("fa fa-fw fa-minus");
             });
             $('#module-list').find("input:checked").each(function () {
                 var id = $(this).attr('id').replace('module_', 'modal_');
-                $('#' + id + ' i').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-ok");
+                $('#' + id + ' i').removeClass("fa fa-fw fa-minus").addClass("fa fa-fw fa-check");
             });
         });
         $(document).on('click', '#modal-confirm', function () {
@@ -327,7 +327,7 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
                 echo '</div><div class="col-xs-6">';
             }
             echo '<div id="modal_' . $module->getId(
-                ) . '"><i class="glyphicon glyphicon-minus"> </i> ' . $module->name . '</div>';
+                ) . '"><i class="fa fa-fw fa-minus"> </i> ' . $module->name . '</div>';
             $i++;
         }
         ?>

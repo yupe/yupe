@@ -10,12 +10,12 @@
 
     $this->menu = array(
         array(
-            'icon'  => 'glyphicon glyphicon-list-alt',
+            'icon'  => 'fa fa-fw fa-list-alt',
             'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
             'url'   => array('/feedback/feedbackBackend/index')
         ),
         array(
-            'icon'  => 'glyphicon glyphicon-plus-sign',
+            'icon'  => 'fa fa-fw fa-plus-square',
             'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
             'url'   => array('/feedback/feedbackBackend/create')
         ),
@@ -27,7 +27,7 @@
                 ) . '»'
         ),
         array(
-            'icon'  => 'glyphicon glyphicon-pencil',
+            'icon'  => 'fa fa-fw fa-pencil',
             'label' => Yii::t('FeedbackModule.feedback', 'Edit message '),
             'url'   => array(
                 '/feedback/feedbackBackend/update',
@@ -35,7 +35,7 @@
             )
         ),
         array(
-            'icon'  => 'glyphicon glyphicon-eye-open',
+            'icon'  => 'fa fa-fw fa-eye',
             'label' => Yii::t('FeedbackModule.feedback', 'View message'),
             'url'   => array(
                 '/feedback/feedbackBackend/view',
@@ -43,7 +43,7 @@
             )
         ),
         array(
-            'icon'  => 'glyphicon glyphicon-envelope',
+            'icon'  => 'fa fa-fw fa-envelope',
             'label' => Yii::t('FeedbackModule.feedback', 'Reply for message'),
             'url'   => array(
                 '/feedback/feedbackBackend/answer',
@@ -51,7 +51,7 @@
             )
         ),
         array(
-            'icon'        => 'glyphicon glyphicon-trash',
+            'icon'        => 'fa fa-fw fa-trash-o',
             'label'       => Yii::t('FeedbackModule.feedback', 'Remove message '),
             'url'         => '#',
             'linkOptions' => array(

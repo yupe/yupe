@@ -23,8 +23,8 @@ class DeliveryModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Список способов доставки'), 'url' => array('/delivery/deliveryBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ'), 'url' => array('/delivery/deliveryBackend/create')),
+            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Список способов доставки'), 'url' => array('/delivery/deliveryBackend/index')),
+            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ'), 'url' => array('/delivery/deliveryBackend/create')),
         );
     }
 
@@ -65,7 +65,7 @@ class DeliveryModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-plane';
+        return 'fa fa-fw fa-plane';
     }
 
     public function init()

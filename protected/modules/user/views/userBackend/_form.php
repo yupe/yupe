@@ -66,7 +66,7 @@ $form = $this->beginWidget(
                         'startView'   => 2,
                     ),
                 ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="fa fa-calendar"></i>',
             )
         );
         ?>

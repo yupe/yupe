@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-user"></i> <?php echo Yii::t('UserModule.user', 'Users'); ?>
+                    <i class="fa fa-fw fa-user"></i> <?php echo Yii::t('UserModule.user', 'Users'); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $usersCount; ?></span>
                 <span class="badge alert-info"><?php echo $allUsersCnt; ?></span>

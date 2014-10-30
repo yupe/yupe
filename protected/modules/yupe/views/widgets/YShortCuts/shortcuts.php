@@ -12,12 +12,12 @@
                         <span class='label label-warning config-update' data-module="<?php echo $module->getId(); ?>"
                               data-toggle="tooltip" data-placement="top"
                               title="<?php echo Yii::t('YupeModule.yupe', 'Apply new configuration'); ?>"><i
-                                class='glyphicon glyphicon-refresh pull-left'></i></span>
+                                class='fa fa-fw fa-refresh'></i></span>
                     <?php endif; ?>
                     <?php if (!empty($updates[$module->getId()])): ?>
                         <span class='label label-danger' data-toggle="tooltip" data-placement="top"
                               title="<?php echo Yii::t('YupeModule.yupe', 'Apply new migrations'); ?>"><i
-                                class='glyphicon glyphicon-refresh'></i><?php echo count($updates[$module->getId()]); ?></span>
+                                class='fa fa-fw fa-refresh'></i><?php echo count($updates[$module->getId()]); ?></span>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>

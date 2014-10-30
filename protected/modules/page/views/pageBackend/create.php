@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('PageModule.page', 'Add page');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('PageModule.page', 'Pages list'),
         'url'   => array('/page/pageBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('PageModule.page', 'Add page'),
         'url'   => array('/page/pageBackend/create')
     ),

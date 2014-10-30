@@ -82,7 +82,7 @@ $form = $this->beginWidget(
                         'data-content'        => $model->getAttributeDescription('publish_date'),
                     ),
                 ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="fa fa-calendar"></i>',
             )
         ); ?>
     </div>

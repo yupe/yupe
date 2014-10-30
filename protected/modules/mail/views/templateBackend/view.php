@@ -8,18 +8,18 @@ $this->pageTitle = Yii::t('MailModule.mail', 'View mail template');
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Templates list'),
         'url'   => array('/mail/templateBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create template'),
         'url'   => array('/mail/templateBackend/create/', 'eid' => $model->id)
     ),
     array('label' => Yii::t('MailModule.mail', 'Template') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('MailModule.mail', 'Edit template'),
         'url'   => array(
             '/mail/templateBackend/update',
@@ -27,7 +27,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('MailModule.mail', 'View mail template'),
         'url'   => array(
             '/mail/templateBackend/view',
@@ -35,7 +35,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('MailModule.mail', 'Remove template'),
         'url'         => '#',
         'linkOptions' => array(
@@ -46,12 +46,12 @@ $this->menu = array(
     ),
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Messages list'),
         'url'   => array('/mail/eventBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create event'),
         'url'   => array('/mail/eventBackend/create')
     ),

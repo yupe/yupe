@@ -26,7 +26,7 @@ $this->pageTitle = $model->name; ?>
         $model->user->nick_name,
         array('/user/people/userInfo', 'username' => $model->user->nick_name)
     ); ?>
-    <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
+    <i class="fa fa-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
         'dd MMMM yyyy г., hh:mm',
         $model->creation_date
     ); ?>

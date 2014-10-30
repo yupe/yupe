@@ -17,7 +17,7 @@
                 <?php
                 // Редактирование:
                 echo CHtml::link(
-                    '<i class="glyphicon glyphicon-pencil"></i>',
+                    '<i class="fa fa-fw fa-pencil"></i>',
                     Yii::app()->createAbsoluteUrl(
                         'image/imageBackend/update',
                         array(
@@ -28,7 +28,7 @@
                 <?php
                 // Удаление:
                 echo CHtml::link(
-                    '<i class="glyphicon glyphicon-remove"></i>',
+                    '<i class="fa fa-fw fa-times"></i>',
                     Yii::app()->createAbsoluteUrl(
                         'gallery/galleryBackend/deleteImage',
                         array(

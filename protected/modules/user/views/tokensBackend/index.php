@@ -12,12 +12,12 @@ $this->menu = array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
                 'url'   => array('/user/userBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
                 'url'   => array('/user/userBackend/create')
             ),
@@ -27,7 +27,7 @@ $this->menu = array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
                 'url'   => array('/user/tokensBackend/index')
             ),
@@ -159,7 +159,7 @@ SCRIPT;
                 'template'    => "{fail} &emsp; {view} {update} {delete}",
                 'buttons'     => array(
                     'fail' => array(
-                        'icon'    => 'glyphicon glyphicon-remove',
+                        'icon'    => 'fa fa-fw fa-times',
                         'label'   => Yii::t('UserModule.user', 'Compromise'),
                         'click'   => $compromiseJS,
                         'visible' => '$data->getIsCompromised() === false',

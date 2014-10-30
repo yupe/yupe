@@ -9,18 +9,18 @@ $this->pageTitle = Yii::t('ImageModule.image', 'Images - edit');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ImageModule.image', 'Image management'),
         'url'   => array('/image/imageBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ImageModule.image', 'Add image'),
         'url'   => array('/image/imageBackend/create')
     ),
     array('label' => Yii::t('ImageModule.image', 'Image') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('ImageModule.image', 'Edit image'),
         'url'   => array(
             '/image/imageBackend/update',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('ImageModule.image', 'View image'),
         'url'   => array(
             '/image/imageBackend/view',
@@ -36,7 +36,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('ImageModule.image', 'Remove image'),
         'url'         => '#',
         'linkOptions' => array(

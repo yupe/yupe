@@ -82,11 +82,9 @@ a.shortcut {
     position: absolute;
     top: 3px;
     right: 3px;
-    padding: 3px 5px;
+    padding: 5px;
     display: block;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    font-size: 100%;
 }
 
 .shortcut .cn {
@@ -272,10 +270,6 @@ table .button-column {
 .ui-sortable tr {
     cursor: move;
     background: #fff;
-}
-
-.glyphicon {
-    padding-right: 2px;
 }
 
 .nav-tabs {

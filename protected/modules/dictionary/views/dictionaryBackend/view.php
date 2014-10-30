@@ -11,12 +11,12 @@ $this->menu = array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'),
                 'url'   => array('/dictionary/dictionaryBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'),
                 'url'   => array('/dictionary/dictionaryBackend/create')
             ),
@@ -28,7 +28,7 @@ $this->menu = array(
                     ) . '»'
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Edit dictionary'),
                 'url'   => array(
                     '/dictionary/dictionaryBackend/update',
@@ -36,7 +36,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Show dictionary'),
                 'url'   => array(
                     '/dictionary/dictionaryBackend/view',
@@ -44,7 +44,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('DictionaryModule.dictionary', 'Remove dictionary'),
                 'url'         => '#',
                 'linkOptions' => array(
@@ -59,12 +59,12 @@ $this->menu = array(
         'label' => Yii::t('DictionaryModule.dictionary', 'Items'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'),
                 'url'   => array('/dictionary/dictionaryDataBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'),
                 'url'   => array('/dictionary/dictionaryDataBackend/create')
             ),

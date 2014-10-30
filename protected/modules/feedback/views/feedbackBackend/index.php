@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - manage');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
         'url'   => array('/feedback/feedbackBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
         'url'   => array('/feedback/feedbackBackend/create')
     ),
@@ -33,7 +33,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('FeedbackModule.feedback', 'Find messages'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -184,7 +184,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                         'label'   => false,
                         'url'     => 'Yii::app()->createUrl("/feedback/feedbackBackend/answer", array("id" => $data->id))',
                         'options' => array(
-                            'class' => 'glyphicon glyphicon-envelope',
+                            'class' => 'fa fa-envelope',
                             'title' => Yii::t('FeedbackModule.feedback', 'Messages - answer'),
                         ),
                     )

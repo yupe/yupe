@@ -9,12 +9,12 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
                 'url'   => array('/rbac/rbacBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('RbacModule.rbac', 'Create role'),
                 'url'   => array('/rbac/rbacBackend/create')
             ),
@@ -24,7 +24,7 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Users'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Users'),
                 'url'   => array('/rbac/rbacBackend/userList')
             ),

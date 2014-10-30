@@ -21,8 +21,8 @@ class PaymentModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Список способов оплаты'), 'url' => array('/payment/paymentBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ'), 'url' => array('/payment/paymentBackend/create')),
+            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Список способов оплаты'), 'url' => array('/payment/paymentBackend/index')),
+            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ'), 'url' => array('/payment/paymentBackend/create')),
         );
     }
 
@@ -68,7 +68,7 @@ class PaymentModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-usd';
+        return 'fa fa-fw fa-usd';
     }
 
     public function init()

@@ -9,18 +9,18 @@ $this->pageTitle = Yii::t('CommentModule.comment', 'Comments - edit');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CommentModule.comment', 'Manage comments'),
         'url'   => array('/comment/commentBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CommentModule.comment', 'Create comment'),
         'url'   => array('/comment/commentBackend/create')
     ),
     array('label' => Yii::t('CommentModule.comment', 'Comment') . ' «' . mb_substr($model->id, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CommentModule.comment', 'Edit comment'),
         'url'   => array(
             '/comment/commentBackend/update',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('CommentModule.comment', 'View comment'),
         'url'   => array(
             '/comment/commentBackend/view',
@@ -36,7 +36,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('CommentModule.comment', 'Delete comment'),
         'url'         => '#',
         'linkOptions' => array(

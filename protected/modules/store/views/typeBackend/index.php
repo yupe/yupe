@@ -7,8 +7,8 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('StoreModule.type', 'Типы товаров - управление');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление типами'), 'url' => array('/store/typeBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.type', 'Добавить тип'), 'url' => array('/store/typeBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление типами'), 'url' => array('/store/typeBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Добавить тип'), 'url' => array('/store/typeBackend/create')),
 );
 ?>
 <div class="page-header">

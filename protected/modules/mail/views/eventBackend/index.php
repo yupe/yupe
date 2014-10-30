@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerScript(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('MailModule.mail', 'Find mail messages'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -167,7 +167,7 @@ $this->widget(
                         'label'   => false,
                         'url'     => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
                         'options' => array(
-                            'class' => 'glyphicon glyphicon-plus-sign',
+                            'class' => 'fa fa-fw fa-plus-square',
                             'title' => Yii::t('MailModule.mail', 'Create mail template'),
                         )
                     )
