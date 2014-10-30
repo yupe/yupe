@@ -127,11 +127,11 @@ $this->menu = array(
                 'filter' => false
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{images}{update}{delete}',
                 'buttons'  => array(
                     'images' => array(
-                        'icon'  => 'fa fa-picture-o',
+                        'icon'  => 'fa fa-fw fa-picture-o',
                         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
                         'url'   => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
                     ),

@@ -177,16 +177,13 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
             'creation_date',
             'answer_date',
             array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{answer}{view}{update}{delete}',
                 'buttons'  => array(
                     'answer' => array(
-                        'label'   => false,
-                        'url'     => 'Yii::app()->createUrl("/feedback/feedbackBackend/answer", array("id" => $data->id))',
-                        'options' => array(
-                            'class' => 'fa fa-envelope',
-                            'title' => Yii::t('FeedbackModule.feedback', 'Messages - answer'),
-                        ),
+                        'icon'  => 'fa fa-fw fa-envelope',
+                        'label' => Yii::t('FeedbackModule.feedback', 'Messages - answer'),
+                        'url'   => 'Yii::app()->createUrl("/feedback/feedbackBackend/answer", array("id" => $data->id))',
                     )
                 )
             ),

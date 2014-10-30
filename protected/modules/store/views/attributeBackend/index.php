@@ -134,7 +134,7 @@ $this->menu = array(
                         'filter' => $model->getTypesList()
                     ),
                     array(
-                        'class' => 'bootstrap.widgets.TbButtonColumn',
+                        'class' => 'yupe\widgets\CustomButtonColumn',
                     ),
                 ),
             )

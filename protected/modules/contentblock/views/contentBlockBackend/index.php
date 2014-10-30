@@ -130,7 +130,7 @@ $this->menu = array(
                 'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

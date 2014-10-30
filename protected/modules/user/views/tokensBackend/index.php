@@ -155,7 +155,7 @@ SCRIPT;
             ),
             array(
                 'header'      => Yii::t('UserModule.user', 'Management'),
-                'class'       => 'bootstrap.widgets.TbButtonColumn',
+                'class'       => 'yupe\widgets\CustomButtonColumn',
                 'template'    => "{fail} &emsp; {view} {update} {delete}",
                 'buttons'     => array(
                     'fail' => array(

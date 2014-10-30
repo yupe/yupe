@@ -175,7 +175,7 @@ $this->menu = array(
             ),
             array(
                 'header'      => Yii::t('UserModule.user', 'Management'),
-                'class'       => 'bootstrap.widgets.TbButtonColumn',
+                'class'       => 'yupe\widgets\CustomButtonColumn',
                 'template'    => '{view}{update}{password}{sendactivation}{delete}',
                 'buttons'     => array(
                     'password'       => array(
@@ -193,9 +193,6 @@ $this->menu = array(
                         )
                     ),
                 ),
-                'htmlOptions' => array(
-                    'style' => 'width: 80px; text-align: right;'
-                )
             ),
         ),
     )

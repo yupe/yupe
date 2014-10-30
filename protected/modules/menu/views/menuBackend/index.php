@@ -148,16 +148,13 @@ $this->menu = array(
                 'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitemBackend/index", array("MenuItem[menu_id]" => $data->id)))',
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{view}{update}{delete}{add}',
                 'buttons'  => array(
                     'add' => array(
-                        'label'   => false,
-                        'url'     => 'Yii::app()->createUrl("/menu/menuitemBackend/create", array("mid" => $data->id))',
-                        'options' => array(
-                            'class' => 'icon-plus-sign',
-                            'title' => Yii::t('MenuModule.menu', 'Create menu item'),
-                        ),
+                        'icon'  => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('MenuModule.menu', 'Create menu item'),
+                        'url'   => 'Yii::app()->createUrl("/menu/menuitemBackend/create", array("mid" => $data->id))',
                     ),
                 ),
             ),

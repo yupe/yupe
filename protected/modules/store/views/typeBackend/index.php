@@ -39,7 +39,7 @@ $this->menu = array(
                 'filter' => false
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

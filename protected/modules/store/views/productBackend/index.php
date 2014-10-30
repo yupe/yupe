@@ -83,7 +83,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
             ),
             'quantity',
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

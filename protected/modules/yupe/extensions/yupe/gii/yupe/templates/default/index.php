@@ -96,7 +96,7 @@ if ($count >= 7) {
 }
 ?>
 array(
-'class' => 'bootstrap.widgets.TbButtonColumn',
+'class' => 'yupe\widgets\CustomButtonColumn',
 ),
 ),
 )); ?>

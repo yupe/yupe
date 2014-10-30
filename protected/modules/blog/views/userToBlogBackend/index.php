@@ -188,7 +188,7 @@ $this->menu = array(
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "medium", "short")',
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

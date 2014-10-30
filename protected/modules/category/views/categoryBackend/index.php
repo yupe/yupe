@@ -122,7 +122,7 @@ $this->menu = array(
                 'filter' => $this->yupe->getLanguagesList()
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

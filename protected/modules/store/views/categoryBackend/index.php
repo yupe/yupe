@@ -69,7 +69,7 @@ $this->menu = array(
                 'value' => '$data->productCount'
             ),
             array(
-                'class'  => 'bootstrap.widgets.TbButtonColumn',
+                'class'  => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

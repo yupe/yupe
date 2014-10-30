@@ -202,7 +202,7 @@ $this->menu = array(
                 'type'   => 'html'
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

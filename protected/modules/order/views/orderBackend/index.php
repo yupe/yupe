@@ -71,7 +71,7 @@ $this->widget(
             ),
             'payment_date',
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

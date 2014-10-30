@@ -74,7 +74,7 @@ $this->widget(
             'provider',
             'uid',
             array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{view}{delete}'
             ),
         ),

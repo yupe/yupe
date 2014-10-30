@@ -89,7 +89,7 @@ $this->menu = array(
             'name',
             'email',
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

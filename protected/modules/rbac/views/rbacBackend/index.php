@@ -100,7 +100,7 @@ $this->menu = array(
                 'type'     => 'raw',
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

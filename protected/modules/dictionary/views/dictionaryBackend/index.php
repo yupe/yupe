@@ -135,7 +135,7 @@ $this->menu = array(
                 'value'  => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryDataBackend/index", "group_id" => $data->id))',
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )
