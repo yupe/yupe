@@ -62,7 +62,9 @@ class ImageUploadBehavior extends FileUploadBehavior
             return;
         }
 
-        $path = Yii::app()->uploadManager->getFilePath($this->getFileName(), $this->getUploadPath());
+        $newFileName = $this->getFileName();
+        $path = Yii::app()->uploadManager->getFilePath($newFileName, $this->getUploadPath());
+
 
         if (!YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME))) {
             throw new \CHttpException(
@@ -86,7 +88,7 @@ class ImageUploadBehavior extends FileUploadBehavior
             $this->resizeOptions['quality']
         );
 
-        $this->getOwner()->{$this->attributeName} = $this->getFileName();
+        $this->getOwner()->{$this->attributeName} = $newFileName;
     }
 
     public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = [])
