@@ -135,17 +135,12 @@ $this->widget(
                 <span><?php echo $module->name; ?></span>
             </td>
             <td style="font-size: 90%;">
-                <?php echo $module->description; ?>
-                <br/>
-                <small>
-                    <b><?php echo Yii::t('InstallModule.install', 'Author:'); ?></b> <?php echo $module->author; ?>
-                    (<a href="mailto:<?php echo $module->authorEmail; ?>">
-                        <?php echo $module->authorEmail; ?>
-                    </a>)
-                    <b><?php echo Yii::t('InstallModule.install', 'Module site:'); ?></b>
-                    <?php echo CHtml::link($module->url, $module->url); ?>
-                </small>
-                <br/>
+                <p><?php echo $module->description; ?></p>
+
+                <p class="small">
+                    <b><?php echo Yii::t('InstallModule.install', 'Author:'); ?></b> <?php echo $module->author; ?> (<?= CHtml::link($module->authorEmail, 'mailto:' . $module->authorEmail) ?>)
+                    <b><?php echo Yii::t('InstallModule.install', 'Module site:'); ?></b> <?php echo CHtml::link($module->url, $module->url); ?>
+                </p>
             </td>
             <td class="check-label" style="font-size: 13px;">
                 <?php
