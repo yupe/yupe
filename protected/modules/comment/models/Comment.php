@@ -428,4 +428,15 @@ class Comment extends yupe\models\YModel
     {
         return $this->status == self::STATUS_APPROVED;
     }
+
+    public function hasParent()
+    {
+        return $this->parent_id;
+    }
+
+    public function getParent($cache = 3600)
+    {
+        return $this->cache((int)$cache)->findByPk($this->parent_id);
+    }
+
 }

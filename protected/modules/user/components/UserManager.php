@@ -115,7 +115,8 @@ class UserManager extends CApplicationComponent
                     UserModule::$logCategory
                 );
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_ACCOUNT, new UserActivateEvent($token));
+
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_ACCOUNT, new UserActivateEvent($token, $userModel));
 
                 $transaction->commit();
 
