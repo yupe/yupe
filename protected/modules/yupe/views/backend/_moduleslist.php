@@ -114,7 +114,7 @@ function moduleRow($module, &$updates, &$modules)
         </td>
         <td>
             <?php if ($module->isMultiLang()) : ?>
-                <i class="glyphicon glyphicon-globe"
+                <i class="fa fa-fw fa-globe"
                    title="<?php echo Yii::t('YupeModule.yupe', 'Multilanguage module'); ?>"></i>
             <?php endif; ?>
         </td>
@@ -182,10 +182,10 @@ function moduleRow($module, &$updates, &$modules)
         <td class="button-column">
             <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
                 <?php echo CHtml::link(
-                    '<i class="glyphicon glyphicon-wrench" rel="tooltip" title="' . Yii::t(
+                    '<i class="fa fa-fw fa-wrench" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',
                         'Settings'
-                    ) . '">&nbsp;</i>',
+                    ) . '"></i>',
                     $module->getSettingsUrl()
                 ); ?>
             <?php endif; ?>
@@ -200,7 +200,7 @@ function moduleRow($module, &$updates, &$modules)
                 ($module->getIsInstalled() || $module->getIsActive()
                     ? ($module->getIsActive()
                         ? CHtml::link(
-                            '<i class="glyphicon glyphicon-minus-sign" rel="tooltip" title="' . Yii::t(
+                            '<i class="fa fa-fw fa-minus-circle" rel="tooltip" title="' . Yii::t(
                                 'YupeModule.yupe',
                                 'Disable'
                             ) . '">&nbsp;</i>',
@@ -208,7 +208,7 @@ function moduleRow($module, &$updates, &$modules)
                             array_merge($htmlOptions, array('status' => 0, 'method' => 'deactivate'))
                         )
                         : CHtml::link(
-                            '<i class="glyphicon glyphicon-ok-sign" rel="tooltip" title="' . Yii::t(
+                            '<i class="fa fa-fw fa-check-circle" rel="tooltip" title="' . Yii::t(
                                 'YupeModule.yupe',
                                 'Enable'
                             ) . '">&nbsp;</i>',
@@ -218,7 +218,7 @@ function moduleRow($module, &$updates, &$modules)
                         ($module->isNeedUninstall()
                             ? ''
                             : CHtml::link(
-                                '<i class="glyphicon glyphicon-remove" rel="tooltip" title="' . Yii::t(
+                                '<i class="fa fa-fw fa-times" rel="tooltip" title="' . Yii::t(
                                     'YupeModule.yupe',
                                     'Uninstall'
                                 ) . '">&nbsp;</i>',
@@ -228,7 +228,7 @@ function moduleRow($module, &$updates, &$modules)
                         )
                     )
                     : CHtml::link(
-                        '<i class="glyphicon glyphicon-download-alt" rel="tooltip" title="' . Yii::t(
+                        '<i class="fa fa-fw fa-download" rel="tooltip" title="' . Yii::t(
                             'YupeModule.yupe',
                             'Install'
                         ) . '">&nbsp;</i>',
@@ -239,7 +239,7 @@ function moduleRow($module, &$updates, &$modules)
 
             if (isset($updates[$module->getId()]) && $module->getIsInstalled()) {
                 echo CHtml::link(
-                    '<i class="glyphicon glyphicon-refresh" rel="tooltip" title="' . Yii::t(
+                    '<i class="fa fa-fw fa-refresh" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',
                         'Have {n} DB updates!|Have {n} DB updates!|Have {n} DB updates!',
                         count($updates[$module->getId()])
@@ -249,7 +249,7 @@ function moduleRow($module, &$updates, &$modules)
             }
             if ($module->getIsActive() && $module->isConfigNeedUpdate()) {
                 echo CHtml::link(
-                    '<i class="glyphicon glyphicon-repeat" rel="tooltip" title="' . Yii::t(
+                    '<i class="fa fa-fw fa-repeat" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',
                         'Have configuration file updates!'
                     ) . '">&nbsp;</i>',

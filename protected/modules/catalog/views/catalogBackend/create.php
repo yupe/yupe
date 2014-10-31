@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - creating');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CatalogModule.catalog', 'Product admin'),
         'url'   => array('/catalog/catalogBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
         'url'   => array('/catalog/catalogBackend/create')
     ),

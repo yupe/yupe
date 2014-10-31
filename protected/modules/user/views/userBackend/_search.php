@@ -39,7 +39,7 @@ $form = $this->beginWidget(
                         'autoclose' => true,
                     ),
                 ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="fa fa-calendar"></i>',
             )
         );
         ?>
@@ -57,7 +57,7 @@ $form = $this->beginWidget(
                         'autoclose' => true,
                     ),
                 ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="fa fa-calendar"></i>',
             )
         );
         ?>
@@ -115,7 +115,7 @@ $form = $this->beginWidget(
         array(
             'buttonType' => 'submit',
             'context'    => 'primary',
-            'icon'       => 'glyphicon glyphicon-search',
+            'icon'       => 'fa fa-search',
             'label'      => Yii::t('UserModule.user', 'Find user'),
         )
     ); ?>
@@ -125,7 +125,7 @@ $form = $this->beginWidget(
         array(
             'buttonType' => 'reset',
             'context'    => 'danger',
-            'icon'       => 'glyphicon glyphicon-remove',
+            'icon'       => 'fa fa-times',
             'label'      => Yii::t('UserModule.user', 'Reset'),
         )
     ); ?>

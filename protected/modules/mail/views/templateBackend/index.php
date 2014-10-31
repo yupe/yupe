@@ -9,23 +9,23 @@ $this->pageTitle = Yii::t('MailModule.mail', 'Mail templates list');
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Templates list'),
         'url'   => array('/mail/templateBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create template'),
         'url'   => array('/mail/templateBackend/create')
     ),
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Messages list'),
         'url'   => array('/mail/eventBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create event'),
         'url'   => array('/mail/eventBackend/create')
     ),
@@ -39,7 +39,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('MailModule.mail', 'Find mail templates'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -182,7 +182,7 @@ $this->widget(
                 ],
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

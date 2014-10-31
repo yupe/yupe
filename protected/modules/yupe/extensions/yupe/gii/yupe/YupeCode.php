@@ -43,9 +43,9 @@ class YupeCode extends CrudCode
             if (stripos($column->dbType, 'text') !== false) {
                 return "\$form->textAreaGroup(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
             } elseif ($column->dbType == 'date') {
-                return "\$form->datePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"glyphicon glyphicon-calendar\"></i>'))";
+                return "\$form->datePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"fa fa-calendar\"></i>'))";
             } elseif ($column->dbType == 'datetime') {
-                return "\$form->dateTimePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"glyphicon glyphicon-calendar\"></i>'))";
+                return "\$form->dateTimePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"fa fa-calendar\"></i>'))";
             } else {
                 if ($column->isForeignKey) {
                     $relations = CActiveRecord::model($modelClass)->relations();

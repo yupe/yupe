@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-retweet"></i> <?php echo Yii::t(
+                    <i class="fa fa-retweet"></i> <?php echo Yii::t(
                         'FeedbackModule.feedback',
                         'Feedback'
                     ); ?>

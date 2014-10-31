@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('ImageModule.image', 'Images - add');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ImageModule.image', 'Image management'),
         'url'   => array('/image/imageBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ImageModule.image', 'Add image'),
         'url'   => array('/image/imageBackend/create')
     ),

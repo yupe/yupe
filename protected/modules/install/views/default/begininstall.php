@@ -31,10 +31,9 @@ $this->widget(
     'bootstrap.widgets.TbPanel',
     array(
         'title'       => Yii::t('InstallModule.install', 'Backlog journal'),
-        'headerIcon'  => 'list',
+        'headerIcon'  => 'fa fa-fw fa-list',
         'content'     => '',
         'id'          => 'log-content',
-        'htmlOptions' => array('style' => 'margin-top: 20px; font-size: 10px; line-height: 12px;'),
     )
 ); ?>
 <script type="text/javascript">

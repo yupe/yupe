@@ -58,10 +58,10 @@ class ModuleManager extends \CApplicationComponent
         $this->otherCategoryName = Yii::t('YupeModule.yupe', 'Other');
 
         $this->categoryIcon = array(
-            Yii::t('YupeModule.yupe', 'Services') => 'glyphicon glyphicon-briefcase',
-            Yii::t('YupeModule.yupe', 'Yupe!')    => 'glyphicon glyphicon-cog',
-            Yii::t('YupeModule.yupe', 'Content')  => 'glyphicon glyphicon-file',
-            $this->otherCategoryName              => 'glyphicon glyphicon-cog',
+            Yii::t('YupeModule.yupe', 'Services') => 'fa fa-fw fa-briefcase',
+            Yii::t('YupeModule.yupe', 'Yupe!')    => 'fa fa-fw fa-cog',
+            Yii::t('YupeModule.yupe', 'Content')  => 'fa fa-fw fa-file',
+            $this->otherCategoryName              => 'fa fa-fw fa-cog',
         );
 
         $this->categorySort = array(
@@ -152,7 +152,7 @@ class ModuleManager extends \CApplicationComponent
                             $modSettings = array(
                                 '---',
                                 array(
-                                    'icon'  => 'glyphicon glyphicon-cog',
+                                    'icon'  => 'fa fa-fw fa-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Module settings'),
                                     'url'   => $modules[$key]->getSettingsUrl(),
                                 ),

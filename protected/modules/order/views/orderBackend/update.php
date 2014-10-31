@@ -8,11 +8,11 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('OrderModule.order', 'Заказы - редактирование');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('OrderModule.order', 'Управление заказами'), 'url' => array('/order/orderBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('OrderModule.order', 'Добавить заказ'), 'url' => array('/order/orderBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Управление заказами'), 'url' => array('/order/orderBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Добавить заказ'), 'url' => array('/order/orderBackend/create')),
     array('label' => Yii::t('OrderModule.order', 'Заказ') . ' «' . $model->id . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('OrderModule.order', 'Редактирование заказа'),
         'url' => array(
             '/order/orderBackend/update',
@@ -20,7 +20,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('OrderModule.order', 'Просмотреть заказ'),
         'url' => array(
             '/order/orderBackend/view',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('OrderModule.order', 'Удалить заказ'),
         'url' => '#',
         'linkOptions' => array(

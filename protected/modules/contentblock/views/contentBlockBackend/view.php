@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - v
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
         'url'   => array('/contentblock/contentBlockBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
         'url'   => array('/contentblock/contentBlockBackend/create')
     ),
@@ -25,7 +25,7 @@ $this->menu = array(
             ) . '»'
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Edit content block'),
         'url'   => array(
             '/contentblock/contentBlockBackend/update',
@@ -33,7 +33,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('ContentBlockModule.contentblock', 'View content block'),
         'url'   => array(
             '/contentblock/contentBlockBackend/view',
@@ -41,7 +41,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('ContentBlockModule.contentblock', 'Remove content block'),
         'url'         => '#',
         'linkOptions' => array(

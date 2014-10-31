@@ -117,7 +117,7 @@ class CategoryModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-folder-open';
+        return 'fa fa-fw fa-folder-open';
     }
 
     public function isMultiLang()
@@ -141,12 +141,12 @@ class CategoryModule extends WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('CategoryModule.category', 'Categories list'),
                 'url'   => array('/category/categoryBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('CategoryModule.category', 'Create category'),
                 'url'   => array('/category/categoryBackend/create')
             ),

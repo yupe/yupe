@@ -11,7 +11,7 @@
     <div class="col-sm-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
 		<span class="btn btn-success fileinput-button"> <i
-                class="glyphicon glyphicon-plus"></i> <span><?php echo Yii::t(
+                class="fa fa-fw fa-plus"></i> <span><?php echo Yii::t(
                     'GalleryModule.gallery',
                     'Add...'
                 ); ?></span>
@@ -24,15 +24,15 @@
             ?>
 		</span>
         <button type="submit" class="btn btn-primary start">
-            <i class="glyphicon glyphicon-upload"></i>
+            <i class="fa fa-fw fa-upload"></i>
             <span><?php echo Yii::t('GalleryModule.gallery', 'Start uploading'); ?></span>
         </button>
         <button type="reset" class="btn btn-warning cancel">
-            <i class="glyphicon glyphicon-ban-circle"></i>
+            <i class="fa fa-fw fa-ban"></i>
             <span><?php echo Yii::t('GalleryModule.gallery', 'Cancel uploading'); ?></span>
         </button>
         <button type="button" class="btn btn-danger delete">
-            <i class="glyphicon glyphicon-trash"></i>
+            <i class="fa fa-fw fa-trash-o"></i>
             <span><?php echo Yii::t('GalleryModule.gallery', 'Remove'); ?></span>
         </button>
         <input type="checkbox" class="toggle">

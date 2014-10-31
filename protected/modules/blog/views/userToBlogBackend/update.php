@@ -21,12 +21,12 @@ $this->menu = array(
         'label' => Yii::t('BlogModule.blog', 'Blogs'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
                 'url'   => array('/blog/blogBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a blog'),
                 'url'   => array('/blog/blogBackend/create')
             ),
@@ -36,12 +36,12 @@ $this->menu = array(
         'label' => Yii::t('BlogModule.blog', 'Posts'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage posts'),
                 'url'   => array('/blog/postBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a post'),
                 'url'   => array('/blog/postBackend/create')
             ),
@@ -51,18 +51,18 @@ $this->menu = array(
         'label' => Yii::t('BlogModule.blog', 'Members'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage members'),
                 'url'   => array('/blog/userToBlogBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a member'),
                 'url'   => array('/blog/userToBlogBackend/create')
             ),
             array('label' => Yii::t('BlogModule.blog', 'Member') . ' «' . mb_substr($model->id, 0, 32) . '»', 'utf-8'),
             array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('BlogModule.blog', 'Edit member'),
                 'url'   => array(
                     '/blog/userToBlogBackend/update',
@@ -70,7 +70,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('BlogModule.blog', 'View member'),
                 'url'   => array(
                     '/blog/userToBlogBackend/view',
@@ -78,7 +78,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('BlogModule.blog', 'Remove member'),
                 'url'         => '#',
                 'linkOptions' => array(

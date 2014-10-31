@@ -33,7 +33,7 @@
             </td>
             <td class="start">{% if (!o.options.autoUpload) { %}
                 <button class="btn btn-primary">
-                    <i class="glyphicon glyphicon-upload"></i>
+                    <i class="fa fa-fw fa-upload"></i>
                     <span>{%=locale.fileupload.start%}</span>
                 </button>
             {% } %}</td>
@@ -42,7 +42,7 @@
         {% } %}
         <td class="cancel">{% if (!i) { %}
             <button class="btn btn-warning">
-                <i class="glyphicon glyphicon-ban-circle"></i>
+                <i class="fa fa-fw fa-ban"></i>
                 <span>{%=locale.fileupload.cancel%}</span>
             </button>
         {% } %}</td>

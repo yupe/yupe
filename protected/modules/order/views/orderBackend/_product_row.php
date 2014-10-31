@@ -104,6 +104,6 @@ $id = $model->id;
         </div>
     </div>
     <div class="col-sm-1 text-right">
-        <a href="#" class="btn btn-default btn-sm  btn-danger remove-product"><i class="glyphicon glyphicon-remove"></i></a>
+        <a href="#" class="btn btn-default btn-sm  btn-danger remove-product"><i class="fa fa-fw fa-times"></i></a>
     </div>
 </div>

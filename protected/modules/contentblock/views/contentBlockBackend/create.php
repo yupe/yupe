@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - a
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
         'url'   => array('/contentblock/contentBlockBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
         'url'   => array('/contentblock/contentBlockBackend/create')
     ),

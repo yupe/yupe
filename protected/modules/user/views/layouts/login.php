@@ -61,73 +61,73 @@
                     'items'       => array_merge(
                         array(
                             array(
-                                'icon'  => 'glyphicon glyphicon-question-sign',
+                                'icon'  => 'fa fa-fw fa-question-circle',
                                 'label' => Yii::t('YupeModule.yupe', 'Help'),
                                 'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
                                 'items' => array(
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-globe',
+                                        'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official site'),
                                         'url'         => 'http://yupe-project.ru?from=help',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-globe',
+                                        'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Community'),
                                         'url'         => 'http://yupe.ru?from=help',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-book',
+                                        'icon'        => 'fa fa-fw fa-book',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official docs'),
                                         'url'         => 'http://yupe.ru/docs/index.html?from=help',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-th-large',
+                                        'icon'        => 'fa fa-fw fa-th-large',
                                         'label'       => Yii::t('YupeModule.yupe', 'Additional modules'),
                                         'url'         => 'https://github.com/yupe/yupe-ext',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-comment',
+                                        'icon'        => 'fa fa-fw fa-comment',
                                         'label'       => Yii::t('YupeModule.yupe', 'Forum'),
                                         'url'         => 'http://yupe.ru/talk/?from=help',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-comment',
+                                        'icon'        => 'fa fa-fw fa-comment',
                                         'label'       => Yii::t('YupeModule.yupe', 'Chat'),
                                         'url'         => 'http://gitter.im/yupe/yupe',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-globe',
+                                        'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Community on github'),
                                         'url'         => 'https://github.com/yupe/yupe',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-thumbs-up',
+                                        'icon'        => 'fa fa-fw fa-thumbs-up',
                                         'label'       => Yii::t('YupeModule.yupe', 'Order development and support'),
                                         'url'         => 'http://yupe.ru/service?from=help-support',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'        => 'glyphicon glyphicon-warning-sign',
+                                        'icon'        => 'fa fa-fw fa-warning',
                                         'label'       => Yii::t('YupeModule.yupe', 'Report a bug'),
                                         'url'         => 'http://yupe.ru/contacts?from=help-support',
                                         'linkOptions' => array('target' => '_blank'),
                                     ),
                                     array(
-                                        'icon'  => 'glyphicon glyphicon-exclamation-sign',
+                                        'icon'        => 'fa fa-fw fa-question-circle',
                                         'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                                         'url'   => 'http://yupe-project.ru/about?from=help-support',
                                     ),
                                 )
                             ),
                             array(
-                                'icon'    => 'glyphicon glyphicon-home',
+                                'icon'    => 'fa fa-fw fa-home',
                                 'label'   => Yii::t('YupeModule.yupe', 'Go home'),
                                 'visible' => Yii::app()->getController(
                                     ) instanceof yupe\components\controllers\BackController === true,

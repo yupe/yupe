@@ -22,7 +22,7 @@ class DocsBackendController extends yupe\components\controllers\BackController
     {
         $this->menu = array(
             array(
-                'icon'  => 'glyphicon glyphicon-file',
+                'icon'  => 'fa fa-fw fa-file',
                 'label' => Yii::t('DocsModule.docs', 'About module'),
                 'url'   => array('/docs/docsBackend/index')
             ),

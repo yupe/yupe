@@ -7,8 +7,8 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('DeliveryModule.delivery', 'Способы доставки - управление');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставка'), 'url' => array('/delivery/deliveryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => array('/delivery/deliveryBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставка'), 'url' => array('/delivery/deliveryBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => array('/delivery/deliveryBackend/create')),
 );
 ?>
 <div class="page-header">
@@ -50,7 +50,7 @@ $this->widget(
                 ],
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

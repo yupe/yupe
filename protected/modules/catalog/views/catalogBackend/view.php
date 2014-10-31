@@ -8,18 +8,18 @@ $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - view');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CatalogModule.catalog', 'Products administration'),
         'url'   => array('/catalog/catalogBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
         'url'   => array('/catalog/catalogBackend/create')
     ),
     array('label' => Yii::t('CatalogModule.catalog', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CatalogModule.catalog', 'Update product'),
         'url'   => array(
             '/catalog/catalogBackend/update',
@@ -27,7 +27,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('CatalogModule.catalog', 'Show product'),
         'url'   => array(
             '/catalog/catalogBackend/view',
@@ -35,7 +35,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('CatalogModule.catalog', 'Delete product'),
         'url'         => '#',
         'linkOptions' => array(

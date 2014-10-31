@@ -48,7 +48,7 @@ $form = $this->beginWidget(
                             'htmlOptions' => array('id'=>'orderDate'),
                         ),
 
-                        'prepend' => '<i class="glyphicon glyphicon-calendar"></i>',
+                        'prepend' => '<i class="fa fa-calendar"></i>',
                     )
                 );
                 ?>

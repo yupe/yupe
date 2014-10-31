@@ -13,12 +13,12 @@ $this->menu = array(
         'label' => Yii::t('MenuModule.menu', 'Menu'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu'),
                 'url'   => array('/menu/menuBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu'),
                 'url'   => array('/menu/menuBackend/create')
             ),
@@ -28,18 +28,18 @@ $this->menu = array(
         'label' => Yii::t('MenuModule.menu', 'Menu items'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu items'),
                 'url'   => array('/menu/menuitemBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu item'),
                 'url'   => array('/menu/menuitemBackend/create')
             ),
             array('label' => Yii::t('MenuModule.menu', 'Menu item') . ' «' . $model->title . '»'),
             array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('MenuModule.menu', 'Change menu item'),
                 'url'   => array(
                     '/menu/menuitemBackend/update',
@@ -47,7 +47,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('MenuModule.menu', 'View menu item'),
                 'url'   => array(
                     '/menu/menuitemBackend/view',
@@ -55,7 +55,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('MenuModule.menu', 'Remove menu item'),
                 'url'         => '#',
                 'linkOptions' => array(

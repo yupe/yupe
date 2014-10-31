@@ -18,12 +18,12 @@ $this->pageTitle = Yii::t('social', 'Аккаунты - просмотр');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
         'url'   => array('/social/socialBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('SocialModule.social', 'Просмотреть аккаунт'),
         'url'   => array(
             '/social/socialBackend/view',
@@ -31,7 +31,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('SocialModule.social', 'Удалить аккаунт'),
         'url'         => '#',
         'linkOptions' => array(

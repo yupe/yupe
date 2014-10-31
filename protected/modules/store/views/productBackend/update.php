@@ -17,7 +17,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - edition');
 $this->menu = array(
     array('label' => Yii::t('StoreModule.store', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('StoreModule.store', 'Update product'),
         'url' => array(
             '/store/productBackend/update',
@@ -25,7 +25,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('StoreModule.store', 'Show product'),
         'url' => array(
             '/store/productBackend/view',
@@ -33,7 +33,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.store', 'Remove product'),
         'url' => '#',
         'linkOptions' => array(

@@ -17,23 +17,23 @@ $this->pageTitle = Yii::t('MailModule.mail', 'Events list');
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
     array(
-        'icon'  => 'list-alt white',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Messages list'),
         'url'   => array('/mail/eventBackend/index')
     ),
     array(
-        'icon'  => 'plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create event'),
         'url'   => array('/mail/eventBackend/create')
     ),
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
     array(
-        'icon'  => 'list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Templates list'),
         'url'   => array('/mail/templateBackend/index')
     ),
     array(
-        'icon'  => 'plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create template'),
         'url'   => array('/mail/templateBackend/create')
     ),
@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerScript(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('MailModule.mail', 'Find mail messages'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -91,9 +91,9 @@ Yii::app()->clientScript->registerScript(
 $this->widget(
     'yupe\widgets\CustomGridView',
     array(
-        'id'           => 'mail-event-grid',
-        'dataProvider' => $model->search(),
-        'filter'       => $model,
+        'id'             => 'mail-event-grid',
+        'dataProvider'   => $model->search(),
+        'filter'         => $model,
         'actionsButtons' => [
             CHtml::link(
                 Yii::t('YupeModule.yupe', 'Add'),
@@ -101,7 +101,7 @@ $this->widget(
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns'      => array(
+        'columns'        => array(
             array(
                 'name'        => 'id',
                 'type'        => 'raw',
@@ -141,10 +141,10 @@ $this->widget(
                     'mode'   => 'popup',
                     'type'   => 'textarea',
                     'title'  => Yii::t(
-                            'MailModule.mail',
-                            'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
-                        ),
+                        'MailModule.mail',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                    ),
                     'params' => array(
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     )
@@ -160,16 +160,13 @@ $this->widget(
                 'value'  => 'CHtml::link(count($data->templates), array("/mail/templateBackend/index/", "event" => $data->id))',
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{view}{update}{delete}{add}',
                 'buttons'  => array(
                     'add' => array(
-                        'label'   => false,
-                        'url'     => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
-                        'options' => array(
-                            'class' => 'glyphicon glyphicon-plus-sign',
-                            'title' => Yii::t('MailModule.mail', 'Create mail template'),
-                        )
+                        'icon'  => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('MailModule.mail', 'Create mail template'),
+                        'url'   => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
                     )
                 )
             ),

@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('CommentModule.comment', 'Comments - management');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CommentModule.comment', 'Comments list'),
         'url'   => array('/comment/commentBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CommentModule.comment', 'Create comment'),
         'url'   => array('/comment/commentBackend/create')
     ),
@@ -28,7 +28,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('CommentModule.comment', 'Find comments'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -89,7 +89,7 @@ $this->menu = array(
             'name',
             'email',
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

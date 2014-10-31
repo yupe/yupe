@@ -95,7 +95,7 @@ $form = $this->beginWidget(
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'MenuModule.menu',
                 'Find menu item'
             ),

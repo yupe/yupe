@@ -9,7 +9,7 @@ $this->menu = array(
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-user',
+                'icon'  => 'fa fa-fw fa-user',
                 'label' => Yii::t('RbacModule.rbac', 'User list'),
                 'url'   => array('userList')
             ),
@@ -27,7 +27,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('RbacModule.rbac', 'Find users'); ?>
         <span class="caret">&nbsp;</span>
     </a>

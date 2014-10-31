@@ -21,12 +21,12 @@ $this->menu = array(
         'label' => Yii::t('BlogModule.blog', 'Blogs'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
                 'url'   => array('/blog/blogBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a blog'),
                 'url'   => array('/blog/blogBackend/create')
             ),
@@ -36,18 +36,18 @@ $this->menu = array(
         'label' => Yii::t('BlogModule.blog', 'Posts'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage posts'),
                 'url'   => array('/blog/postBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a post'),
                 'url'   => array('/blog/postBackend/create')
             ),
             array('label' => Yii::t('BlogModule.blog', 'Post') . ' «' . mb_substr($model->title, 0, 32) . '»', 'utf-8'),
             array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('BlogModule.blog', 'Edit posts'),
                 'url'   => array(
                     '/blog/postBackend/update',
@@ -55,7 +55,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-comment',
+                'icon'  => 'fa fa-fw fa-comment',
                 'label' => Yii::t('BlogModule.blog', 'Comments'),
                 'url'   => array(
                     '/comment/commentBackend/index',
@@ -65,7 +65,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('BlogModule.blog', 'View post'),
                 'url'   => array(
                     '/blog/postBackend/view',
@@ -73,7 +73,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('BlogModule.blog', 'Remove post'),
                 'url'         => '#',
                 'linkOptions' => array(
@@ -88,12 +88,12 @@ $this->menu = array(
         'label' => Yii::t('BlogModule.blog', 'Members'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage members'),
                 'url'   => array('/blog/userToBlogBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a member'),
                 'url'   => array('/blog/userToBlogBackend/create')
             ),

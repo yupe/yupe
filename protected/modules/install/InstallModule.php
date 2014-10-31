@@ -27,9 +27,9 @@ class InstallModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = array(
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'InstallModule.install',
-                        'You have "Insatll" module active! After install it need to be disabled!'
-                    )
+                    'InstallModule.install',
+                    'You have "Insatll" module active! After install it need to be disabled!'
+                )
             );
         }
 
@@ -183,29 +183,15 @@ class InstallModule extends WebModule
         $installMenu = array();
         $startUrl = '/' . Yii::app()->controller->module->getId() . '/' . Yii::app()->controller->id . '/';
         foreach ($installSteps as $key => $value) {
+            $active = Yii::app()->controller->action->id == $key;
+
             $installMenu[] = array_merge(
                 array(
-                    'label'       => $value,
-                    'icon'        => (
-                        Yii::app()->controller->action->id == $key
-                            ? 'arrow-right'
-                            : (
-                        $this->isStepFinished($key)
-                            ? 'ok'
-                            : 'remove'
-                        )
-                        ),
-                    'itemOptions' => array('class' => (Yii::app()->controller->action->id == $key) ? 'current' : '')
+                    'label'  => $value,
+                    'icon'   => $active ? 'fa fa-fw fa-arrow-right' : ($this->isStepFinished($key) ? 'fa fa-fw fa-check' : 'fa fa-fw fa-times'),
+                    'active' => Yii::app()->controller->action->id == $key,
                 ),
-                (
-                $this->isStepFinished($key) !== true
-                    ? array(
-                    'disabled' => true,
-                )
-                    : array(
-                    'url' => Yii::app()->createUrl($startUrl . $key),
-                )
-                )
+                $this->isStepFinished($key) !== true && !$active ? ['disabled' => true, 'url' => false] : ['url' => Yii::app()->createUrl($startUrl . $key)]
             );
         }
 
@@ -319,7 +305,7 @@ class InstallModule extends WebModule
      **/
     public function getIcon()
     {
-        return "fa fa-fw fa-download-alt";
+        return "fa fa-fw fa-download";
     }
 
     /**

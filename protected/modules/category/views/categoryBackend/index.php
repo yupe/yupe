@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - manage');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
         'url'   => array('/category/categoryBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
         'url'   => array('/category/categoryBackend/create')
     ),
@@ -28,7 +28,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('CategoryModule.category', 'Find category'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -122,7 +122,7 @@ $this->menu = array(
                 'filter' => $this->yupe->getLanguagesList()
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

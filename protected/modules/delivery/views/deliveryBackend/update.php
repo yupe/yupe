@@ -8,11 +8,11 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('DeliveryModule.delivery', 'Способы доставки - редактирование');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставки'), 'url' => array('/delivery/deliveryBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => array('/delivery/deliveryBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставки'), 'url' => array('/delivery/deliveryBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => array('/delivery/deliveryBackend/create')),
     array('label' => Yii::t('DeliveryModule.delivery', 'Способ доставки') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('DeliveryModule.delivery', 'Редактирование способ доставки'),
         'url' => array(
             '/delivery/deliveryBackend/update',
@@ -20,7 +20,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('DeliveryModule.delivery', 'Удалить способ доставки'),
         'url' => '#',
         'linkOptions' => array(

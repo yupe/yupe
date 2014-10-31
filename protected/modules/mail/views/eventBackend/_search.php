@@ -41,7 +41,7 @@ $form = $this->beginWidget(
                 'buttonType'  => 'submit',
                 'context'     => 'primary',
                 'encodeLabel' => false,
-                'label'       => '<i class="glyphicon glyphicon-search"></i> ' . Yii::t('MailModule.mail', 'Find')
+                'label'       => '<i class="fa fa-search"></i> ' . Yii::t('MailModule.mail', 'Find')
             )
         ); ?>
     </div>
