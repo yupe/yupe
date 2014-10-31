@@ -45,7 +45,7 @@ return array(
     '( You always can find another modules on {link} or {order_link} )' => '( дополнительные модули всегда можно поискать на {link} или {order_link} )',
     '--choose--' => '--выберите--',
     'About Yupe!' => 'О Юпи!',
-    'About module' => 'Информация о модул',
+    'About module' => 'Информация о модуле',
     'Active' => 'Активные',
     'Additional modules' => 'Дополнительные модули',
     'Additional modules and components' => 'Дополнительные модули и компоненты',

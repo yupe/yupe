@@ -63,9 +63,10 @@ $form = $this->beginWidget(
                         'weekStart'   => 1,
                         'autoclose'   => true,
                         'orientation' => 'auto right',
+                        'startView'   => 2,
                     ),
                 ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="fa fa-calendar"></i>',
             )
         );
         ?>
@@ -148,9 +149,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and continue') : Yii::t(
-                'UserModule.user',
-                'Save user and continue'
-            ),
+            'UserModule.user',
+            'Save user and continue'
+        ),
     )
 ); ?>
 
@@ -160,9 +161,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
         'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and close') : Yii::t(
-                'UserModule.user',
-                'Save user and close'
-            ),
+            'UserModule.user',
+            'Save user and close'
+        ),
     )
 ); ?>
 

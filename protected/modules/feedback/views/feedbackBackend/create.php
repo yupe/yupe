@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - add');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
         'url'   => array('/feedback/feedbackBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
         'url'   => array('/feedback/feedbackBackend/create')
     ),

@@ -8,11 +8,11 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('CouponModule.coupon', 'Купоны - редактирование');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Управление купонами'), 'url' => array('/coupon/couponBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('CouponModule.coupon', 'Добавить купон'), 'url' => array('/coupon/couponBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Управление купонами'), 'url' => array('/coupon/couponBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('CouponModule.coupon', 'Добавить купон'), 'url' => array('/coupon/couponBackend/create')),
     array('label' => Yii::t('CouponModule.coupon', 'Производитель') . ' «' . mb_substr($model->code, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CouponModule.coupon', 'Редактирование купона'),
         'url' => array(
             '/coupon/couponBackend/update',
@@ -20,7 +20,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('CouponModule.coupon', 'Просмотреть купон'),
         'url' => array(
             '/coupon/couponBackend/view',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('CouponModule.coupon', 'Удалить купон'),
         'url' => '#',
         'linkOptions' => array(

@@ -13,12 +13,12 @@ $this->pageTitle = Yii::t('CatalogModule.catalog', 'Manage products');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CatalogModule.catalog', 'Manage products'),
         'url'   => array('/catalog/catalogBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
         'url'   => array('/catalog/catalogBackend/create')
     ),
@@ -33,7 +33,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('CatalogModule.catalog', 'Find products'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -177,7 +177,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

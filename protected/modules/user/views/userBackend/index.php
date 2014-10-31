@@ -17,12 +17,12 @@ $this->menu = array(
         'label' => Yii::t('UserModule.user', 'Users'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
                 'url'   => array('/user/userBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
                 'url'   => array('/user/userBackend/create')
             ),
@@ -32,7 +32,7 @@ $this->menu = array(
         'label' => Yii::t('UserModule.user', 'Tokens'),
         'items' => array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
                 'url'   => array('/user/tokensBackend/index')
             ),
@@ -50,7 +50,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('UserModule.user', 'Find users'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -175,27 +175,24 @@ $this->menu = array(
             ),
             array(
                 'header'      => Yii::t('UserModule.user', 'Management'),
-                'class'       => 'bootstrap.widgets.TbButtonColumn',
+                'class'       => 'yupe\widgets\CustomButtonColumn',
                 'template'    => '{view}{update}{password}{sendactivation}{delete}',
                 'buttons'     => array(
                     'password'       => array(
-                        'icon'  => 'glyphicon glyphicon-lock',
+                        'icon'  => 'fa fa-fw fa-lock',
                         'label' => Yii::t('UserModule.user', 'Change password'),
                         'url'   => 'array("/user/userBackend/changepassword", "id" => $data->id)',
                     ),
                     'sendactivation' => array(
                         'label'   => Yii::t('UserModule.user', 'Send activation confirm'),
                         'url'     => 'array("/user/userBackend/sendactivation", "id" => $data->id)',
-                        'icon'    => 'glyphicon glyphicon-repeat',
+                        'icon'    => 'fa fa-fw fa-repeat',
                         'visible' => '$data->status != User::STATUS_ACTIVE',
                         'options' => array(
                             'class' => 'user sendactivation'
                         )
                     ),
                 ),
-                'htmlOptions' => array(
-                    'style' => 'width: 80px; text-align: right;'
-                )
             ),
         ),
     )

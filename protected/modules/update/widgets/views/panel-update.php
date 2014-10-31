@@ -7,7 +7,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-refresh"></i> <?php echo Yii::t('UpdateModule.update', 'Updates'); ?>
+                    <i class="fa fa-fw fa-refresh"></i> <?php echo Yii::t('UpdateModule.update', 'Updates'); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $count; ?></span>
             </h4>

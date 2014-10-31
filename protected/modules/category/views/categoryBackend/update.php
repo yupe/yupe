@@ -9,18 +9,18 @@ $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - edit');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
         'url'   => array('/category/categoryBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
         'url'   => array('/category/categoryBackend/create')
     ),
     array('label' => Yii::t('CategoryModule.category', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CategoryModule.category', 'Change category'),
         'url'   => array(
             '/category/categoryBackend/update',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('CategoryModule.category', 'View category'),
         'url'   => array(
             '/category/categoryBackend/view',
@@ -36,7 +36,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('CategoryModule.category', 'Remove category'),
         'url'         => '#',
         'linkOptions' => array(

@@ -62,7 +62,7 @@
                 </td>
                 <td>
                     <?php if(isset($updates[$module->getId()])):?>
-                        <a href="#" class="module-update" data-version="<?= CHtml::encode($updates[$module->getId()]['version']);?>"  data-module="<?= CHtml::encode($module->getId());?>" title="<?= Yii::t('UpdateModule.update', 'update');?>"><span class="glyphicon glyphicon-download"></span></a>
+                        <a href="#" class="module-update" data-version="<?= CHtml::encode($updates[$module->getId()]['version']);?>"  data-module="<?= CHtml::encode($module->getId());?>" title="<?= Yii::t('UpdateModule.update', 'update');?>"><span class="fa fa-fw fa-download"></span></a>
                     <?php endif;?>
                 </td>
             </tr>

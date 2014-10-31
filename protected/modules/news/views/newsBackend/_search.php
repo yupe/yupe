@@ -28,7 +28,7 @@ $form = $this->beginWidget(
                         'autoclose' => true,
                     ),
                 ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                'prepend'       => '<i class="fa fa-calendar"></i>',
             )
         );
         ?>
@@ -99,7 +99,7 @@ $form = $this->beginWidget(
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'NewsModule.news',
                 'Find article'
             ),

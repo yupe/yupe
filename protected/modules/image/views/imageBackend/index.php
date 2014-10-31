@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('ImageModule.image', 'Images - manage');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ImageModule.image', 'Image management'),
         'url'   => array('/image/imageBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ImageModule.image', 'Add image'),
         'url'   => array('/image/imageBackend/create')
     ),
@@ -28,7 +28,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('ImageModule.image', 'Find images'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -95,7 +95,7 @@ $this->widget(
                             )',
             ),
             array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ),
         ),
     )

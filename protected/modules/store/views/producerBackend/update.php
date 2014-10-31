@@ -8,11 +8,11 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('StoreModule.producer', 'Производители - редактирование');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.producer', 'Управление производителями'), 'url' => array('/store/producerBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.producer', 'Добавить производителя'), 'url' => array('/store/producerBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Управление производителями'), 'url' => array('/store/producerBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Добавить производителя'), 'url' => array('/store/producerBackend/create')),
     array('label' => Yii::t('StoreModule.producer', 'Производитель') . ' «' . mb_substr($model->name_short, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('StoreModule.producer', 'Редактирование производителя'),
         'url' => array(
             '/store/producerBackend/update',
@@ -20,7 +20,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('StoreModule.producer', 'Просмотреть производителя'),
         'url' => array(
             '/store/producerBackend/view',
@@ -28,7 +28,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.producer', 'Удалить производителя'),
         'url' => '#',
         'linkOptions' => array(

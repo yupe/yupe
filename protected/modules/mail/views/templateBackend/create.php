@@ -8,12 +8,12 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Templates list'),
         'url'   => array('/mail/templateBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create template'),
         'url'   => array('/mail/templateBackend/create')
     ),

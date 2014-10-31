@@ -82,11 +82,9 @@ a.shortcut {
     position: absolute;
     top: 3px;
     right: 3px;
-    padding: 3px 5px;
+    padding: 5px;
     display: block;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    font-size: 100%;
 }
 
 .shortcut .cn {
@@ -108,7 +106,6 @@ a.shortcut {
 html,
 body {
     height: 100%;
-    min-width: 960px !important;
 }
 
 #overall-wrap {
@@ -118,7 +115,6 @@ body {
 
 .navbar-fixed-top {
     border-bottom: 2px solid #FF9600;
-    min-width: 960px !important;
 }
 
 footer {
@@ -237,7 +233,6 @@ table .button-column {
 
 .button-column a {
     color: #333;
-    padding-left: 3px;
     text-decoration: none;
 }
 
@@ -272,10 +267,6 @@ table .button-column {
 .ui-sortable tr {
     cursor: move;
     background: #fff;
-}
-
-.glyphicon {
-    padding-right: 2px;
 }
 
 .nav-tabs {

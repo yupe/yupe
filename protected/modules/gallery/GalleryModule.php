@@ -68,7 +68,7 @@ class GalleryModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-camera";
+        return "fa fa-fw fa-camera";
     }
 
     public function getAdminPageLink()
@@ -99,12 +99,12 @@ class GalleryModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('GalleryModule.gallery', 'Galleries list'),
                 'url'   => array('/gallery/galleryBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
                 'url'   => array('/gallery/galleryBackend/create')
             ),

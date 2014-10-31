@@ -1,6 +1,6 @@
 <p>
     <a class="btn btn-default btn-sm" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('UserModule.user', 'Find tokens'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -102,7 +102,7 @@
             array(
                 'buttonType' => 'submit',
                 'context'    => 'primary',
-                'icon'       => 'glyphicon glyphicon-search',
+                'icon'       => 'fa fa-search',
                 'label'      => Yii::t('UserModule.user', 'Find tokens'),
             )
         ); ?>
@@ -112,7 +112,7 @@
             array(
                 'buttonType' => 'reset',
                 'context'    => 'danger',
-                'icon'       => 'glyphicon glyphicon-remove',
+                'icon'       => 'fa fa-times',
                 'label'      => Yii::t('UserModule.user', 'Reset'),
             )
         ); ?>

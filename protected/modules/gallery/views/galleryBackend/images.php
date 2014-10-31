@@ -17,18 +17,18 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
         'url'   => array('/gallery/galleryBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
         'url'   => array('/gallery/galleryBackend/create')
     ),
     array('label' => Yii::t('GalleryModule.gallery', 'Gallery') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('GalleryModule.gallery', 'Edit gallery'),
         'url'   => array(
             '/gallery/galleryBackend/update',
@@ -36,12 +36,12 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-picture',
+        'icon'  => 'fa fa-fw fa-picture-o',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
         'url'   => array('/gallery/galleryBackend/images', 'id' => $model->id)
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('GalleryModule.gallery', 'Remove gallery'),
         'url'         => '#',
         'linkOptions' => array(

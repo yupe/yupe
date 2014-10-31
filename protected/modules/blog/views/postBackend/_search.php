@@ -90,7 +90,7 @@ $form = $this->beginWidget(
                             'data-content'        => $model->getAttributeDescription('publish_date'),
                         ),
                     ),
-                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
+                    'prepend'       => '<i class="fa fa-calendar"></i>',
                 )
             ); ?>
         </div>
@@ -204,7 +204,7 @@ $this->widget(
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Find a post'),
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Find a post'),
     )
 ); ?>
 

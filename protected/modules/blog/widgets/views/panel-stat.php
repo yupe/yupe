@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-pencil"></i> <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?>
+                    <i class="fa fa-fw fa-pencil"></i> <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $postsCount; ?></span>
                 <span class="badge alert-info"><?php echo $allPostsCnt; ?></span>

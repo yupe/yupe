@@ -8,12 +8,12 @@ $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - creating');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('QueueModule.queue', 'Task list'),
         'url'   => array('/queue/queueBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('QueueModule.queue', 'Task creation'),
         'url'   => array('/queue/queueBackend/create')
     ),

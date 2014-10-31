@@ -81,7 +81,7 @@
         array(
             'buttonType' => 'submit',
             'context'    => 'primary',
-            'icon'       => 'glyphicon glyphicon-picture',
+            'icon'       => 'fa fa-picture-o',
             'label'      => $model->getIsNewRecord()
                     ? Yii::t('GalleryModule.gallery', 'Create image')
                     : Yii::t('GalleryModule.gallery', 'Refresh image')

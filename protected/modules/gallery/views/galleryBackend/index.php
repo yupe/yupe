@@ -18,12 +18,12 @@ $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - manage');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
         'url'   => array('/gallery/galleryBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
         'url'   => array('/gallery/galleryBackend/create')
     ),
@@ -38,7 +38,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('GalleryModule.gallery', 'Find galleries'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -127,11 +127,11 @@ $this->menu = array(
                 'filter' => false
             ),
             array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{images}{update}{delete}',
                 'buttons'  => array(
                     'images' => array(
-                        'icon'  => 'picture',
+                        'icon'  => 'fa fa-fw fa-picture-o',
                         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
                         'url'   => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
                     ),

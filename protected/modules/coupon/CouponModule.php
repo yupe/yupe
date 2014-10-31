@@ -20,12 +20,12 @@ class CouponModule extends WebModule
     {
         return array(
             array(
-                'icon' => 'glyphicon glyphicon-list-alt',
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('CouponModule.coupon', 'Список купонов'),
                 'url' => array('/coupon/couponBackend/index')
             ),
             array(
-                'icon' => 'glyphicon glyphicon-plus-sign',
+                'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('CouponModule.coupon', 'Добавить купон'),
                 'url' => array('/coupon/couponBackend/create')
             ),
@@ -75,7 +75,7 @@ class CouponModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-tags';
+        return 'fa fa-fw fa-tags';
     }
 
     public function init()

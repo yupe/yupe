@@ -28,18 +28,18 @@ class RbacModule extends WebModule
         return array(
             array('label' => Yii::t('RbacModule.rbac', 'Roles')),
             array(
-                'icon'  => 'glyphicon glyphicon-user',
+                'icon'  => 'fa fa-fw fa-user',
                 'label' => Yii::t('RbacModule.rbac', 'Assign roles'),
                 'url'   => array('/rbac/rbacBackend/assign')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-align-left',
+                'icon'  => 'fa fa-fw fa-align-left',
                 'label' => Yii::t('RbacModule.rbac', 'Manage operations'),
                 'url'   => array('/rbac/rbacBackend/index')
             ),
             array('label' => Yii::t('RbacModule.rbac', 'RBAC')),
             array(
-                'icon'  => 'glyphicon glyphicon-magnet',
+                'icon'  => 'fa fa-fw fa-magnet',
                 'label' => Yii::t('RbacModule.rbac', 'Import RBAC'),
                 'url'   => array('/rbac/rbacBackend/import')
             )
@@ -83,7 +83,7 @@ class RbacModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-ok';
+        return 'fa fa-fw fa-check';
     }
 
     public function getDependencies()

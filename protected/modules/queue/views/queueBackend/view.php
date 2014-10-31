@@ -8,18 +8,18 @@ $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - show');
 
 $this->menu = array(
     array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('QueueModule.queue', 'Task list'),
         'url'   => array('/queue/queueBackend/index')
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('QueueModule.queue', 'Create task'),
         'url'   => array('/queue/queueBackend/create')
     ),
     array('label' => Yii::t('QueueModule.queue', 'Task') . ' «' . $model->id . '»'),
     array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('QueueModule.queue', 'Edit task.'),
         'url'   => array(
             '/queue/queueBackend/update',
@@ -27,7 +27,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('QueueModule.queue', 'Show task'),
         'url'   => array(
             '/queue/queueBackend/view',
@@ -35,7 +35,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('QueueModule.queue', 'Remove task'),
         'url'         => '#',
         'linkOptions' => array(

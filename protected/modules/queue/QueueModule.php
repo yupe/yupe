@@ -58,7 +58,7 @@ class QueueModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-tasks';
+        return 'fa fa-fw fa-tasks';
     }
 
     public function getAdminPageLink()
@@ -82,17 +82,17 @@ class QueueModule extends yupe\components\WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('QueueModule.queue', 'Task list'),
                 'url'   => array('/queue/queueBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('QueueModule.queue', 'Create task'),
                 'url'   => array('/queue/queueBackend/create')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-trash',
+                'icon'  => 'fa fa-fw fa-trash-o',
                 'label' => Yii::t('QueueModule.queue', 'Clean queue'),
                 'url'   => array('/queue/queueBackend/clear')
             ),

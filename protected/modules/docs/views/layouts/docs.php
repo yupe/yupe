@@ -65,14 +65,14 @@
                     'items'       => array_merge(
                         array(
                             array(
-                                'icon'        => 'glyphicon glyphicon-home',
+                                'icon'        => 'fa fa-fw fa-home',
                                 'label'       => Yii::t('DocsModule.docs', 'Go home'),
                                 'linkOptions' => array('target' => '_blank'),
                                 'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                             ),
                             array(
                                 'label' => $this->yupe->getVersion(),
-                                'icon'  => 'glyphicon glyphicon-thumbs-up',
+                                'icon'  => 'fa fa-fw fa-thumbs-up',
                                 'url'   => 'http://yupe.ru/?from=doc-navbar'
                             ),
                         ),

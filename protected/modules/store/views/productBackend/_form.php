@@ -263,7 +263,7 @@ $form = $this->beginWidget(
                 <?php echo Yii::t("StoreModule.store", "Изображения"); ?>
             </div>
             <div class="col-sm-2">
-                <button id="button-add-image" type="button" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i></button>
+                <button id="button-add-image" type="button" class="btn btn-default"><i class="fa fa-fw fa-plus"></i></button>
             </div>
         </div>
         <div class="row">
@@ -280,7 +280,7 @@ $form = $this->beginWidget(
                             <input type="text" class="image-title form-control"/>
                         </div>
                         <div class="col-sm-1" style="padding-top: 24px">
-                            <button class="button-delete-image btn btn-default" type="button"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button class="button-delete-image btn btn-default" type="button"><i class="fa fa-fw fa-trash-o"></i></button>
                         </div>
                     </div>
                 </div>
@@ -297,7 +297,7 @@ $form = $this->beginWidget(
                             <a data-id="<?= $image->id;?>" href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
                                 array('id' => $image->id)
-                            ); ?>" class="pull-right product-delete-image"><i class="glyphicon glyphicon-remove"></i></a>
+                            ); ?>" class="pull-right product-delete-image"><i class="fa fa-fw fa-times"></i></a>
                         </div>
                     </div>
 

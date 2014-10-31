@@ -32,7 +32,7 @@
                             class="badge alert-info"><?php echo $data->imagesCount; ?></span>
                     </li>
                     <li>
-                        <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
+                        <i class="fa fa-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
                             'dd MMMM yyyy г., hh:mm',
                             $data->lastUpdated
                         ); ?>

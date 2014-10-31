@@ -7,11 +7,11 @@ $this->breadcrumbs = array(
 $this->pageTitle = Yii::t('StoreModule.attribute', 'Типы товаров - просмотр');
 
 $this->menu = array(
-    array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('StoreModule.attribute', 'Управление'), 'url' => array('/store/typeBackend/index')),
-    array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('StoreModule.attribute', 'Добавить'), 'url' => array('/store/typeBackend/create')),
+    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.attribute', 'Управление'), 'url' => array('/store/typeBackend/index')),
+    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.attribute', 'Добавить'), 'url' => array('/store/typeBackend/create')),
     array('label' => Yii::t('StoreModule.attribute', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'),
     array(
-        'icon' => 'glyphicon glyphicon-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('StoreModule.attribute', 'Редактировать'),
         'url' => array(
             '/store/typeBackend/update',
@@ -19,7 +19,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-eye-open',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('StoreModule.attribute', 'Просмотр'),
         'url' => array(
             '/store/typeBackend/view',
@@ -27,7 +27,7 @@ $this->menu = array(
         )
     ),
     array(
-        'icon' => 'glyphicon glyphicon-trash',
+        'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.attribute', 'Удалить'),
         'url' => '#',
         'linkOptions' => array(

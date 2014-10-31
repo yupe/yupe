@@ -181,7 +181,7 @@ class NewsModule extends WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-bullhorn";
+        return "fa fa-fw fa-bullhorn";
     }
 
     public function getAdminPageLink()
@@ -193,17 +193,17 @@ class NewsModule extends WebModule
     {
         return array(
             array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('NewsModule.news', 'News list'),
                 'url'   => array('/news/newsBackend/index')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('NewsModule.news', 'Create article'),
                 'url'   => array('/news/newsBackend/create')
             ),
             array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('NewsModule.news', 'News categories'),
                 'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
             ),
