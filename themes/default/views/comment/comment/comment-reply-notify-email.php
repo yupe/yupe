@@ -9,7 +9,7 @@
 Запись: <?= $model->getTargetTitleLink(); ?><br/>
 
 Текст: "<?= CHtml::encode($model->text); ?>"<br/>
-Отправитель: <?= Chtml::encode($model->name); ?> - <?= Chtml::encode($model->email); ?> <br/>
+Отправитель: <?= Chtml::encode($model->name); ?><br/>
 
 <br/><br/>
 С уважением, администрация сайта <?= CHtml::encode(Yii::app()->name); ?> !

@@ -810,7 +810,7 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function getLink()
     {
-        return Yii::app()->createUrl('/blog/post/show/', array('slug' => $this->slug));
+        return Yii::app()->createAbsoluteUrl('/blog/post/show/', array('slug' => $this->slug));
     }
 
     /**

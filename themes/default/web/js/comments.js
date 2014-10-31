@@ -2,16 +2,18 @@ $(document).ready(function () {
     // нажатите "ответить"
     $(document).on("click", "a.reply", function () {
         $this = $(this);
-        $('#wcml').show();
-        $("div.comment-form").remove();
-        var htmlForm = $("#comment-form-wrap").clone();
-        htmlForm.addClass("comment-form").show();
-        $("#comment-form-wrap").hide();
-        $this.parents("div.comments-item").after(htmlForm);
-        $("#Comment_level").val(
-            parseInt($this.parents("div.well").parent("div").attr('level'), 0) + 1
-        );
-        $("#Comment_parent_id").val($this.attr("rel"));
+        if($this.attr("rel") != $("#Comment_parent_id").val()) {
+            $('#wcml').show();
+            $("div.comment-form").remove();
+            var htmlForm = $("#comment-form-wrap").clone();
+            htmlForm.addClass("comment-form").show();
+            $("#comment-form-wrap").hide();
+            $this.parents("div.comments-item").after(htmlForm);
+            $("#Comment_level").val(
+                parseInt($this.parents("div.well").parent("div").attr('level'), 0) + 1
+            );
+            $("#Comment_parent_id").val($this.attr("rel"));
+        }
     });
 
     $(document).on("click", '#wcml', function (event) {
@@ -35,6 +37,7 @@ $(document).ready(function () {
             $('#notifications').notify({ message: { text: 'Комментарий пуст =(' }, 'type': 'danger' }).show();
             return false;
         }
+        console.log($form.serialize());
         $.post($form.attr('action'), $form.serialize(), function (response) {
             var type = response.result ? 'success' : 'danger';
             $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();
@@ -46,7 +49,7 @@ $(document).ready(function () {
             if(response.result) {
                 $('#Comment_text').val('');
             }
-            $('#wcml').click();
+
             if ($container.attr('id') != 'comments') {
                 $container.after(response.data.commentContent);
             } else {

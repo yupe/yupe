@@ -2,6 +2,8 @@
 
 Yii::import('application.modules.comment.events.CommentEvent');
 Yii::import('application.modules.notify.NotifyModule');
+Yii::import('application.modules.blog.models.Post');
+Yii::import('application.modules.blog.models.Blog');
 
 class NotifyNewCommentListener
 {
@@ -12,19 +14,19 @@ class NotifyNewCommentListener
         $module = $event->getModule();
 
         //ответ на комментарий
-        if($comment->hasParent()) {
+        if ($comment->hasParent()) {
 
             $parent = $comment->getParent();
 
-            if(null !== $parent && $parent->user_id) {
+            if (null !== $parent && $parent->user_id) {
 
                 $notify = NotifySettings::model()->getForUser($parent->user_id);
 
-                if(null !== $notify && $notify->isNeedSendForCommentAnswer()) {
+                if (null !== $notify && $notify->isNeedSendForCommentAnswer()) {
 
                     return Yii::app()->mail->send(
-                        $comment->email,
                         $module->email,
+                        $parent->email,
                         Yii::t(
                             'NotifyModule.notify',
                             'Reply to your comment on the website "{app}"!',
@@ -32,7 +34,7 @@ class NotifyNewCommentListener
                         ),
                         Yii::app()->getController()->renderPartial(
                             'comment-reply-notify-email',
-                            ['model' => $event->getComment()],
+                            ['model' => $comment],
                             true
                         )
                     );
@@ -41,7 +43,6 @@ class NotifyNewCommentListener
         }
 
         //нотификация автору поста
-
 
 
     }
