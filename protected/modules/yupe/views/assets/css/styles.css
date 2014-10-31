@@ -106,7 +106,6 @@ a.shortcut {
 html,
 body {
     height: 100%;
-    min-width: 960px !important;
 }
 
 #overall-wrap {
@@ -116,7 +115,6 @@ body {
 
 .navbar-fixed-top {
     border-bottom: 2px solid #FF9600;
-    min-width: 960px !important;
 }
 
 footer {
