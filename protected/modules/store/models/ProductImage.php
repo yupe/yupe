@@ -72,11 +72,6 @@ class ProductImage extends \yupe\models\YModel
         );
     }
 
-    public function generateFileName()
-    {
-        return md5($this->name . time());
-    }
-
     /**
      * @return array customized attribute labels (name=>label)
      */

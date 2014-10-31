@@ -184,8 +184,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function saveFile()
     {
-        Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $this->getFileName());
-        $this->owner->{$this->attributeName} = $this->getFileName();
+        $newFileName = $this->getFileName();
+        Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $newFileName);
+        $this->owner->{$this->attributeName} = $newFileName;
     }
 
     /**
@@ -201,16 +202,12 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function getFileName()
     {
-        static $name;
-
-        if ($name === null) {
-            if (is_callable($this->fileName)) {
-                $name = call_user_func($this->fileName);
-            } else {
-                $name = md5(uniqid($this->getOwner()->{$this->attributeName}));
-            }
-            $name .= '.' . $this->_currentFile->getExtensionName();
+        if (is_callable($this->fileName)) {
+            $name = call_user_func($this->fileName);
+        } else {
+            $name = md5(uniqid($this->getOwner()->{$this->attributeName}));
         }
+        $name .= '.' . $this->_currentFile->getExtensionName();
 
         return $name;
     }
