@@ -126,10 +126,10 @@ abstract class BackController extends Controller
             throw new CHttpException(404);
         }
 
-        $model = Yii::app()->getRequest()->getPost('model');
+        $modelClass = Yii::app()->getRequest()->getPost('model');
         $action = Yii::app()->getRequest()->getPost('do');
 
-        if (!isset($model, $action)) {
+        if (!isset($modelClass, $action)) {
             throw new CHttpException(404);
         }
 
@@ -144,11 +144,14 @@ abstract class BackController extends Controller
         try {
             switch ($action) {
                 case self::BULK_DELETE:
-                    $class = CActiveRecord::model($model);
-                    $criteria = new CDbCriteria();
                     $items = array_filter($items, 'intval');
-                    $criteria->addInCondition('id', $items);
-                    $count = $class->deleteAll($criteria);
+                    $models = CActiveRecord::model($modelClass)->findAllByPk($items);
+                    $count = 0;
+
+                    foreach ($models as $model) {
+                        $count += (int)$model->delete();
+                    }
+
                     $transaction->commit();
                     Yii::app()->ajax->success(
                         Yii::t(
