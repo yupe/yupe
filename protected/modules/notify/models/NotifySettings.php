@@ -112,4 +112,9 @@ class NotifySettings extends \yupe\models\YModel
     {
         return $this->my_comment;
     }
+
+    public function isNeedSendForNewPostComment()
+    {
+        return $this->my_post;
+    }
 }
