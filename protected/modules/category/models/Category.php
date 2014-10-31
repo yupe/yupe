@@ -242,13 +242,21 @@ class Category extends yupe\models\YModel
         return $out;
     }
 
-    public function getFormattedList($parent_id = null, $level = 0)
+    /**
+     * Возвращает отформатированный список в соответствии со вложенность категорий.
+     *
+     * @param null|int $parent_id
+     * @param int $level
+     * @param null|array|CDbCriteria $criteria
+     * @return array
+     */
+    public function getFormattedList($parent_id = null, $level = 0, $criteria = null)
     {
         if (empty($parent_id)) {
             $parent_id = null;
         }
 
-        $categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
+        $categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id), $criteria);
 
         $list = array();
 
