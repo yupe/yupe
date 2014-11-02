@@ -11,7 +11,7 @@
 <?php echo Yii::t(
     'FeedbackModule.feedback',
     '{name}, Your message was created, thanks!',
-    array('{name}' => $model->name)
+    array('{name}' => $model->getName())
 ); ?>
 
 <br/><br/>
