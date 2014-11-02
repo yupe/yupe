@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class FeedBackContantsForm extends CFormModel implements IFeedbackForm
+class FeedBackForm extends CFormModel implements IFeedbackForm
 {
     public $name;
     public $email;

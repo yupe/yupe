@@ -28,7 +28,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionIndex($type = null)
     {
-        $form = new FeedBackContantsForm();
+        $form = new FeedBackForm();
 
         // если пользователь авторизован - подставить его данные
         if (Yii::app()->user->isAuthenticated()) {
@@ -41,9 +41,9 @@ class ContactController extends yupe\components\controllers\FrontController
 
         $module = Yii::app()->getModule('feedback');
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackContantsForm'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm'])) {
 
-            $form->setAttributes(Yii::app()->getRequest()->getPost('FeedBackContantsForm'));
+            $form->setAttributes(Yii::app()->getRequest()->getPost('FeedBackForm'));
 
             if ($form->validate()) {
 
