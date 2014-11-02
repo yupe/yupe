@@ -28,7 +28,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
     public function actionIndex($type = null)
     {
-        $form = new FeedBackForm();
+        $form = new FeedBackContantsForm();
 
         // если пользователь авторизован - подставить его данные
         if (Yii::app()->user->isAuthenticated()) {
@@ -41,9 +41,9 @@ class ContactController extends yupe\components\controllers\FrontController
 
         $module = Yii::app()->getModule('feedback');
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackContantsForm'])) {
 
-            $form->setAttributes(Yii::app()->getRequest()->getPost('FeedBackForm'));
+            $form->setAttributes(Yii::app()->getRequest()->getPost('FeedBackContantsForm'));
 
             if ($form->validate()) {
 
@@ -78,16 +78,18 @@ class ContactController extends yupe\components\controllers\FrontController
                     $this->redirect(
                         $module->successPage ? array($module->successPage) : array('/feedback/contact/index/')
                     );
-                }
+                } else {
 
-                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-                    Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'It is not possible to send message!'));
-                }
+                    if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+                        Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'It is not possible to send message!'));
+                    }
 
-                Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
-                );
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
+                    );
+
+                }
 
             } else {
 
