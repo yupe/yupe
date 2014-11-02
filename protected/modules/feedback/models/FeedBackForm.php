@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FeedBackForm бозовая форма обратной связи для публичной части сайта
+ * FeedBackForm базовая форма обратной связи для публичной части сайта
  *
  * @category YupeController
  * @package  yupe.modules.feedback.models
@@ -40,6 +40,6 @@ class FeedBackForm extends CFormModel implements IFeedbackForm
 
     public function getType()
     {
-        return '>type';
+        return 'type';
     }
 }
