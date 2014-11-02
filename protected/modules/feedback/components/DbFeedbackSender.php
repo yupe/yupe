@@ -21,12 +21,12 @@ class DbFeedbackSender implements IFeedbackSender
 
         $feedback->setAttributes(
             array(
-                'name'  => $form->name,
-                'email' => $form->email,
-                'theme' => $form->theme,
-                'text'  => $form->text,
-                'phone' => $form->phone,
-                'type'  => $form->type,
+                'name'  => $form->getName(),
+                'email' => $form->getEmail(),
+                'theme' => $form->getTheme(),
+                'text'  => $form->getText(),
+                'phone' => $form->getPhone(),
+                'type'  => $form->getType(),
             )
         );
 

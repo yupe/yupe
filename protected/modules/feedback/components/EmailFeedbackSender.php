@@ -27,7 +27,7 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
 
         $result = $this->mail->send(
             $this->module->notifyEmailFrom,
-            $form->email,
+            $form->getEmail(),
             Yii::t(
                 'FeedbackModule.feedback',
                 'Your proposition on site "{site}" was received',
