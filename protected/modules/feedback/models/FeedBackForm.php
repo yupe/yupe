@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class FeedBackForm extends CFormModel
+class FeedBackForm extends CFormModel implements IFeedbackForm
 {
     public $name;
     public $email;
@@ -72,5 +72,35 @@ class FeedBackForm extends CFormModel
         }
 
         return $types;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 }
