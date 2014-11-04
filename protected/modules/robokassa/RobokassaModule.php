@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class RobokassaModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.9';
 
     public function getDependencies()
     {

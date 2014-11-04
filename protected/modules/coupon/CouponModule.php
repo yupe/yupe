@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CouponModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.9';
 
     public function getDependencies()
     {

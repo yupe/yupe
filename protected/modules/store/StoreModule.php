@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class StoreModule extends WebModule
 {
-    const VERSION = '0.4';
+    const VERSION = '0.9';
 
     public $uploadPath = 'store';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
