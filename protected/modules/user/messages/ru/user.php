@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array(
+    'Notify settings' => 'Настройки уведомлений',
     'Users (last day / all)' => 'Пользователей (за сутки /  всего)',
     'Not active' => 'Не прошли активацию',
     'Expire' => 'Истекает',

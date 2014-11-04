@@ -314,12 +314,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nodge/yii-eauth.git",
-                "reference": "256e6194fca863aa1d8ba0b2f0cc2e3ee5f0d9b7"
+                "reference": "bc95ae7499ed6bd127dc3202a2e14a6a85f85d5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nodge/yii-eauth/zipball/256e6194fca863aa1d8ba0b2f0cc2e3ee5f0d9b7",
-                "reference": "256e6194fca863aa1d8ba0b2f0cc2e3ee5f0d9b7",
+                "url": "https://api.github.com/repos/Nodge/yii-eauth/zipball/bc95ae7499ed6bd127dc3202a2e14a6a85f85d5f",
+                "reference": "bc95ae7499ed6bd127dc3202a2e14a6a85f85d5f",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +345,7 @@
             ],
             "description": "EAuth extension allows to authenticate users by the OpenID, OAuth 1.0 and OAuth 2.0 providers.",
             "homepage": "https://github.com/Nodge/yii-eauth",
-            "time": "2014-10-26 17:12:51"
+            "time": "2014-10-28 12:58:02"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -353,12 +353,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "2000bbb41f7cbb4db766436ab7c996907a8c1c31"
+                "reference": "92b445d674db70d691da5e7c5b108cd42e58f75e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/2000bbb41f7cbb4db766436ab7c996907a8c1c31",
-                "reference": "2000bbb41f7cbb4db766436ab7c996907a8c1c31",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/92b445d674db70d691da5e7c5b108cd42e58f75e",
+                "reference": "92b445d674db70d691da5e7c5b108cd42e58f75e",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +398,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2014-10-23 20:25:25"
+            "time": "2014-10-31 06:56:08"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -520,12 +520,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
-                "reference": "e5eb92e9cb0389acb0571efefb0e341525d96a35"
+                "reference": "8088b182e3c016d71d6e18aa398c734c33e09ef7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/e5eb92e9cb0389acb0571efefb0e341525d96a35",
-                "reference": "e5eb92e9cb0389acb0571efefb0e341525d96a35",
+                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/8088b182e3c016d71d6e18aa398c734c33e09ef7",
+                "reference": "8088b182e3c016d71d6e18aa398c734c33e09ef7",
                 "shasum": ""
             },
             "type": "library",
@@ -551,7 +551,7 @@
                 "wysiwyg",
                 "yii"
             ],
-            "time": "2014-10-14 20:29:16"
+            "time": "2014-11-03 18:02:11"
         },
         {
             "name": "yiiext/nested-set-behavior",
@@ -871,22 +871,23 @@
         },
         {
             "name": "facebook/webdriver",
-            "version": "v0.4",
+            "version": "v0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "342df507312ea5ae5337be47e16e4268d7ed661f"
+                "reference": "fab0b484142430f4f598baef45680f945a60eb4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/342df507312ea5ae5337be47e16e4268d7ed661f",
-                "reference": "342df507312ea5ae5337be47e16e4268d7ed661f",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/fab0b484142430f4f598baef45680f945a60eb4f",
+                "reference": "fab0b484142430f4f598baef45680f945a60eb4f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.19"
             },
             "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.*",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
@@ -907,7 +908,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2014-02-21 18:22:11"
+            "time": "2014-10-28 20:04:04"
         },
         {
             "name": "phpunit/php-code-coverage",

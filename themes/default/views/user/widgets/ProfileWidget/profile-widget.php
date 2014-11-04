@@ -36,6 +36,18 @@
                             )
                         ); ?>
                     </li>
+                    <?php if(Yii::app()->hasModule('notify')):?>
+                        <?php $this->widget(
+                            'bootstrap.widgets.TbButton',
+                            array(
+                                'label'      => Yii::t('UserModule.user', 'Notify settings'),
+                                'icon'       => 'glyphicon glyphicon-pencil',
+                                'buttonType' => 'link',
+                                'context'    => 'link',
+                                'url'        => array('/notify/notify/settings/'),
+                            )
+                        ); ?>
+                    <?php endif;?>
                     <li>
                         <i class="glyphicon glyphicon-envelope"></i> <?php echo $user->email; ?>
                     </li>

@@ -105,7 +105,7 @@ class NotifySettings extends \yupe\models\YModel
 
     public function getForUser($userId)
     {
-        return $this->cache(Yii::app()->getModule('yupe')->coreCacheTime, null, 3)->find('user_id = :id', [':id' => $userId]);
+        return $this->find('user_id = :id', [':id' => $userId]);
     }
 
     public function isNeedSendForCommentAnswer()
@@ -116,5 +116,14 @@ class NotifySettings extends \yupe\models\YModel
     public function isNeedSendForNewPostComment()
     {
         return $this->my_post;
+    }
+
+    public function create($userId)
+    {
+        if($this->getIsNewRecord()) {
+            $this->user_id = (int)$userId;
+            return $this->save();
+        }
+        return true;
     }
 }

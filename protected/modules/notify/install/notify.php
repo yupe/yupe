@@ -19,5 +19,7 @@ return array(
             )
         )
     ),
-    'rules' => array(),
+    'rules' => array(
+        '/profile/notify' => 'notify/notify/settings'
+    ),
 );

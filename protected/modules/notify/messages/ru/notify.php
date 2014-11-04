@@ -10,5 +10,6 @@ return [
     'My comment answer' => 'Ответ на мой комментарий',
     'Add' => 'Добавить',
     'Reply to your comment on the website "{app}"!' => 'Ответ на Ваш комментарий на сайте "{app}" !',
-    'New comment to your post on website "{app}"!'  => 'Новый комментарий к Вашей записи на сайте "{app}" !'
+    'New comment to your post on website "{app}"!'  => 'Новый комментарий к Вашей записи на сайте "{app}" !',
+    'Settings changed!' => 'Настройки изменены!'
 ];
