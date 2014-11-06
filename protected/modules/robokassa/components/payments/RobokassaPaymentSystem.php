@@ -40,39 +40,46 @@ class RobokassaPaymentSystem extends PaymentSystem
         }
     }
 
-    public function processCheckout(Payment $payment)
+    public function processCheckout(Payment $payment, CHttpRequest $request)
     {
-        $amount = $_POST['OutSum'];
-        $order_id = intval($_POST['InvId']);
-        $crc = strtoupper($_POST['SignatureValue']);
+        $amount = $request->getParam('OutSum');
+        $orderId = (int)$request->getParam('InvId');
+        $crc = strtoupper($request->getParam('SignatureValue'));
 
-        $order = Order::model()->findByPk($order_id);
-        if (!$order) {
-            die('Оплачиваемый заказ не найден.');
+        $order = Order::model()->findByPk($orderId);
+
+        if (null === $order) {
+            Yii::log(Yii::t('PaymentModule.payment','Order with id = {id} not found!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            return false;
         }
 
-        if ($order->paid) {
-            die('Этот заказ уже оплачен.');
+        if ($order->isPaid()) {
+            Yii::log(Yii::t('PaymentModule.payment','Order with id = {id} already payed!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            return false;
         }
 
         $settings = $payment->getPaymentSystemSettings();
 
-        $mrh_pass2 = $settings['password2'];
+        $myCrc = strtoupper(md5("$amount:$orderId:".$settings['password2']));
 
-        $my_crc = strtoupper(md5("$amount:$order_id:$mrh_pass2"));
-        if ($my_crc !== $crc) {
-            die("bad sign\n");
+        if ($myCrc !== $crc) {
+            Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Bad crc!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            return false;
         }
 
         if ($amount != Yii::app()->money->convert($order->total_price, $payment->currency_id)) {
-            die("incorrect price\n");
+            Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Incorrect price!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            return false;
         }
 
-        $order->paid = Order::PAID_STATUS_PAID;
-        $order->payment_method_id = $payment->id;
-        $order->save();
-        $order->close();
-
-        die("OK" . $order_id . "\n");
+        if($order->pay($payment)) {
+            //@TODO заменить на события
+            Yii::log(Yii::t('PaymentModule.payment','Success pay order with id = {id}!', ['{id}' => $orderId]), CLogger::LEVEL_INFO, self::LOG_CATEGORY);
+            $order->close();
+            return true;
+        }else{
+            Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Error change status!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            return false;
+        }
     }
 }
