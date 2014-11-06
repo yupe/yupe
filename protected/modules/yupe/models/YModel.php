@@ -113,7 +113,7 @@ abstract class YModel extends CActiveRecord
     }
 
     /**
-     * Загружаем можель по её PK
+     * Загружаем модель по её PK
      *
      * @param mixed $id - primary key
      *
