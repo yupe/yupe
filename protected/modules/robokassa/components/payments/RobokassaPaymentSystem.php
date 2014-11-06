@@ -18,7 +18,6 @@ class RobokassaPaymentSystem extends PaymentSystem
         $inv_desc = "Оплата заказа №" . $order->id . ' в ' . Yii::app()->getModule('yupe')->siteName;
 
         $out_sum = Yii::app()->money->convert($order->total_price, $payment->currency_id);
-        $in_curr = "PCR";
         $culture = $settings['language'];
         $crc = md5("$mrh_login:$out_sum:$inv_id:$mrh_pass1");
 
@@ -28,7 +27,6 @@ class RobokassaPaymentSystem extends PaymentSystem
         $form .= CHtml::hiddenField('InvId', $inv_id);
         $form .= CHtml::hiddenField('Desc', $inv_desc);
         $form .= CHtml::hiddenField('SignatureValue', $crc);
-        $form .= CHtml::hiddenField('IncCurrLabel', $in_curr);
         $form .= CHtml::hiddenField('Culture', $culture);
         $form .= CHtml::submitButton('Заплатить');
         $form .= CHtml::endForm();
