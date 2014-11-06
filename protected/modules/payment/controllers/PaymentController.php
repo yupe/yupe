@@ -1,6 +1,8 @@
 <?php
 
-class PaymentController extends yupe\components\controllers\FrontController
+use yupe\components\controllers\FrontController;
+
+class PaymentController extends FrontController
 {
     public function actionProcess($id = null)
     {
