@@ -12,6 +12,8 @@ return [
             'getLastMod' => function ($model) {
                 return $model->change_date;
             },
+            'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
+            'priority' => 0.5,
         ]
     ],
     'news' => [
@@ -25,6 +27,8 @@ return [
             'getLastMod' => function ($model) {
                 return $model->change_date;
             },
+            'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
+            'priority' => 0.5,
         ]
     ],
     'blog' => [
@@ -38,6 +42,8 @@ return [
             'getLastMod' => function ($model) {
                 return date('d-m-Y H:i', $model->update_date);
             },
+            'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
+            'priority' => 0.5,
         ],
         'Post' => [
             'getUrl' => function ($model) {
@@ -49,6 +55,8 @@ return [
             'getLastMod' => function ($model) {
                 return date('d-m-Y H:i', $model->update_date);
             },
+            'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
+            'priority' => 0.5,
         ]
     ],
 ];

@@ -47,73 +47,6 @@ $form = $this->beginWidget(
 
 <?php $this->endWidget(); ?>
 
-
-<h3>
-    <?= Yii::t('SitemapModule.sitemap', 'Modules') ?>
-</h3>
-
-<?php $this->widget(
-    'yupe\widgets\CustomGridView',
-    [
-        'id' => 'model-grid',
-        'dataProvider' => $sitemapModel->search(),
-        'filter' => $sitemapModel,
-        'sortField' => 'order',
-        'template' => "{items}\n{pager}",
-        'actionsButtons' => false,
-        'selectableRows' => false,
-        'bulkActions' => [null],
-        'columns' => [
-            [
-                'name' => 'module',
-            ],
-            [
-                'name' => 'model',
-            ],
-            [
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'changefreq',
-                'editable' => [
-                    'url' => $this->createUrl('/sitemap/sitemapBackend/inlineModel'),
-                    'mode' => 'inline',
-                    'type' => 'select',
-                    'source' => SitemapHelper::getChangeFreqList(),
-                    'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ]
-                ],
-                'filter' => CHtml::activeDropDownList($sitemapModel, 'changefreq', SitemapHelper::getChangeFreqList(), ['class' => 'form-control', 'empty' => '']),
-                'htmlOptions' => ['style' => 'width: 250px;'],
-            ],
-            [
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'priority',
-                'editable' => [
-                    'url' => $this->createUrl('/sitemap/sitemapBackend/inlineModel'),
-                    'mode' => 'inline',
-                    'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ]
-                ],
-                'filter' => CHtml::activeTextField($sitemapModel, 'priority', ['class' => 'form-control']),
-                'htmlOptions' => ['style' => 'width: 250px;'],
-            ],
-            [
-                'class' => 'yupe\widgets\EditableStatusColumn',
-                'name' => 'status',
-                'url' => $this->createUrl('/sitemap/sitemapBackend/inlineModel'),
-                'source' => $sitemapModel->getStatusList(),
-                'options' => [
-                    SitemapModel::STATUS_ACTIVE => ['class' => 'label-success'],
-                    SitemapModel::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
-                ],
-                'htmlOptions' => ['style' => 'width: 150px;'],
-            ],
-        ],
-    ]
-);
-?>
-
 <h3>
     <?= Yii::t('SitemapModule.sitemap', 'Pages') ?>
 </h3>
@@ -250,8 +183,8 @@ $form = $this->beginWidget(
                 'url' => $this->createUrl('/sitemap/sitemapBackend/inlinePage'),
                 'source' => $sitemapPage->getStatusList(),
                 'options' => [
-                    SitemapModel::STATUS_ACTIVE => ['class' => 'label-success'],
-                    SitemapModel::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
+                    SitemapPage::STATUS_ACTIVE => ['class' => 'label-success'],
+                    SitemapPage::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
                 'htmlOptions' => ['style' => 'width: 150px;'],
             ],

@@ -30,10 +30,6 @@ class SitemapBackendController extends \yupe\components\controllers\BackControll
 
     public function actionSettings()
     {
-        $sitemapModel = new SitemapModel('search');
-        $sitemapModel->unsetAttributes();
-        $sitemapModel->setAttributes(Yii::app()->getRequest()->getParam('SitemapModel', []));
-
         $sitemapPage = new SitemapPage('search');
         $sitemapPage->unsetAttributes();
         $sitemapPage->setAttributes(Yii::app()->getRequest()->getParam('SitemapPage', []));
@@ -43,7 +39,7 @@ class SitemapBackendController extends \yupe\components\controllers\BackControll
             $this->getModule()->getSettings(true);
             $this->redirect('settings');
         }
-        $this->render('settings', ['sitemapModel' => $sitemapModel, 'sitemapPage' => $sitemapPage]);
+        $this->render('settings', ['sitemapPage' => $sitemapPage]);
     }
 
     public function actionCreatePage()

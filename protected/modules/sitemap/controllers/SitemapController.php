@@ -20,23 +20,19 @@ class SitemapController extends yupe\components\controllers\FrontController
                 $urls = [];
                 $cacheTime = $this->getModule()->cacheTime * 3600 + 1;
 
-                $modules = require_once(Yii::getPathOfAlias('application.modules.sitemap.config') . DIRECTORY_SEPARATOR . 'modules.php');
+                $modules = require_once(Yii::getPathOfAlias('sitemap.config') . DIRECTORY_SEPARATOR . 'modules.php');
 
-                $activeModels = SitemapModel::model()->active()->findAll();
-
-                /* @var $item SitemapModel */
-                foreach ($activeModels as $item) {
-                    if (isset($modules[$item->module]) && isset($modules[$item->module][$item->model])) {
-                        $options = $modules[$item->module][$item->model];
-                        $module = Yii::app()->getModule($item->module);
-                        if ($module->isInstalled) {
+                foreach ($modules as $name => $moduleModels) {
+                    $module = Yii::app()->getModule($name);
+                    if ($module->getIsInstalled()) {
+                        foreach ($moduleModels as $options) {
                             $dataProvider = $options['getDataProvider']();
                             $iterator = new CDataProviderIterator($dataProvider, 100);
                             foreach ($iterator as $model) {
                                 $urls[] = $this->getUrlRow(
                                     $options['getUrl']($model),
-                                    $item->changefreq,
-                                    $item->priority,
+                                    $options['changeFreq'],
+                                    $options['priority'],
                                     $options['getLastMod']($model)
                                 );
                             }

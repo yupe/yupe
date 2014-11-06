@@ -7,7 +7,7 @@
  * @property float $priority
  * @property integer $status
  *
- * @method SitemapModel active()
+ * @method SitemapPage active()
  */
 class SitemapPage extends yupe\models\YModel
 {
