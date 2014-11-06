@@ -795,7 +795,7 @@ abstract class WebModule extends CWebModule
     /**
      * Метод установки БД модуля
      *
-     * @param array &$installed - массив модулея
+     * @param array &$installed - массив модуля
      *
      * @throws CException
      * @return bool       статус установки БД модуля
