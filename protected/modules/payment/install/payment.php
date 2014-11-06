@@ -11,7 +11,7 @@ return array(
     'component' => array(
         'request' => array(
             'noCsrfValidationRoutes' => array(
-                'payment/payment/process',
+                'payment/process',
             ),
         ),
         'paymentManager' => array(

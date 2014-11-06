@@ -75,7 +75,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 if (Yii::app()->request->getParam('notify_user', false)) {
-                    $this->module->sendNotifyOrderChanged($model);
+                    //@TODO event
                 }
 
                 Yii::app()->user->setFlash(

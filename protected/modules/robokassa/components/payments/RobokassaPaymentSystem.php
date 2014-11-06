@@ -71,9 +71,7 @@ class RobokassaPaymentSystem extends PaymentSystem
         }
 
         if($order->pay($payment)) {
-            //@TODO заменить на события
             Yii::log(Yii::t('PaymentModule.payment','Success pay order with id = {id}!', ['{id}' => $orderId]), CLogger::LEVEL_INFO, self::LOG_CATEGORY);
-            $order->close();
             return true;
         }else{
             Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Error change status!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);

@@ -480,14 +480,6 @@ class Order extends yupe\models\YModel
         parent::afterSave();
     }
 
-    /**
-     * Вызывается после успешной оплаты заказа, например, тут можно уменьшить количество товаров на складе
-     */
-    public function close()
-    {
-        Yii::app()->getModule('order')->sendNotifyOrderPaid($this);
-        return true;
-    }
 
     public function getTotalPrice()
     {
@@ -519,6 +511,14 @@ class Order extends yupe\models\YModel
         $this->payment_method_id = $payment->id;
         $this->payment_date = new CDbExpression('now()');
 
-        return $this->save();
+        $result = $this->save();
+
+        if($result) {
+            Yii::app()->eventManager->fire(OrderEvents::SUCCESS_PAID, new PayOrderEvent($this, $payment));
+        }else{
+            Yii::app()->eventManager->fire(OrderEvents::FAILURE_PAID, new PayOrderEvent($this, $payment));
+        }
+
+        return $result;
     }
 }

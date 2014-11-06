@@ -26,9 +26,6 @@ class OrderController extends yupe\components\controllers\FrontController
                 if (Yii::app()->hasModule('cart')) {
                     Yii::app()->getModule('cart')->clearCart();
                 }
-                // отправка оповещений
-                // @TODO исправить на события
-                $this->module->sendNotifyOrderCreated($model);
                 $this->redirect(['/order/order/view', 'url' => $model->url]);
             } else {
                 Yii::app()->getUser()->setFlash(

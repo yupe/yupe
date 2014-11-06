@@ -6,8 +6,8 @@ class OrderModule extends WebModule
 {
     const VERSION = '0.9';
 
-    public $notifyEmailFrom = '';
-    public $notifyEmailsTo = '';
+    public $notifyEmailFrom;
+    public $notifyEmailsTo;
 
     public $assetsPath = "order.views.assets";
 
@@ -108,59 +108,6 @@ class OrderModule extends WebModule
         );
     }
 
-    public function sendNotifyOrder($type, Order $order, $theme = "")
-    {
-        $emailsTo = array();
-        $emailFrom = $this->notifyEmailFrom ?: Yii::app()->getModule('yupe')->email;
-        $emailBody = "";
-        switch ($type) {
-            case "admin":
-                $theme = $theme ?: Yii::t('OrderModule.order', 'Новый заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName));
-                $emailsTo = preg_split('/,/', $this->notifyEmailsTo);
-                $emailBody = Yii::app()->controller->renderPartial('/email/newOrderAdmin', array('order' => $order), true);
-                break;
-            case "user":
-                $theme = $theme ?: Yii::t('OrderModule.order', 'Заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName));
-                $emailsTo = array($order->email);
-                $emailBody = Yii::app()->controller->renderPartial('/email/newOrderUser', array('order' => $order), true);
-                break;
-            default:
-                return;
-        }
-        foreach ($emailsTo as $email) {
-            $email = trim($email);
-            if ($email) {
-                Yii::app()->mail->send(
-                    $emailFrom,
-                    $email,
-                    $theme,
-                    $emailBody
-                );
-                Yii::app()->mail->reset();
-            }
-        }
-    }
-
-    public function sendNotifyOrderCreated(Order $order)
-    {
-        // оповещение пользователя
-        $this->sendNotifyOrder('user', $order);
-        // оповещение администраторов
-        $this->sendNotifyOrder('admin', $order);
-    }
-
-    public function sendNotifyOrderChanged(Order $order)
-    {
-        /* при изменении заказа, наверно, не стоит уведомлять администратора*/
-        $this->sendNotifyOrder('user', $order);
-    }
-
-    public function sendNotifyOrderPaid(Order $order)
-    {
-        $this->sendNotifyOrder('user', $order);
-        $this->sendNotifyOrder('admin', $order, Yii::t('OrderModule.order', 'Заказ №{n} в магазине {site} оплачен', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)));
-    }
-
     public function getAuthItems()
     {
         return array(
@@ -177,5 +124,10 @@ class OrderModule extends WebModule
                 ),
             ),
         );
+    }
+
+    public function getNotifyTo()
+    {
+        return explode(',', $this->$notifyEmailsTo);
     }
 }
