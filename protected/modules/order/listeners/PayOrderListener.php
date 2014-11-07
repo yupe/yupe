@@ -6,6 +6,8 @@ class PayOrderListener
     {
         $order = $event->getOrder();
 
+        $order->refresh();
+
         $module = Yii::app()->getModule('order');
 
         $from = $module->notifyEmailFrom ? : Yii::app()->getModule('yupe')->email;

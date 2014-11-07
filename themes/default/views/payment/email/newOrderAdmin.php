@@ -1,21 +1,20 @@
-<?php
-/* @var $order Order */;
-$order->refresh();
-?>
 <html>
 <head>
 </head>
 <body>
-<?php $subject = Yii::t('OrderModule.order', 'Заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)); ?>
+<?php $subject = Yii::t(
+    'OrderModule.order',
+    'Заказ №{n} в магазине "{site}"',
+    array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)
+); ?>
 <h1 style="font-weight:normal;">
-    <?= CHtml::link("Заказ №{$order->id}", Yii::app()->createAbsoluteUrl('/order/orderBackend/update', array('id' => $order->id))); ?>
+    <?= CHtml::link(
+        "Заказ №{$order->id}",
+        Yii::app()->createAbsoluteUrl('/order/orderBackend/update', array('id' => $order->id))
+    ); ?>
     на сумму <?= Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->total_price)); ?>
-    <?php if ($order->isPaid()): ?>
-        оплачен,
-    <?php else: ?>
-        еще не оплачен,
-    <?php endif; ?>
-    <?= $order->getStatusTitle();?>
+    <?= $order->getPaidStatus(); ?>
+    <?= $order->getStatusTitle(); ?>
 </h1>
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
     <tr>
@@ -31,11 +30,7 @@ $order->refresh();
             Оплата
         </td>
         <td style="padding:6px; width:330; background-color:#ffffff; border:1px solid #e0e0e0;">
-            <?php if ($order->isPaid()): ?>
-                <font color="green">оплачен</font>
-            <?php else: ?>
-                еще не оплачен
-            <?php endif; ?>
+            <?= $order->getPaidStatus(); ?>
         </td>
     </tr>
     <?php if ($order->name): ?>
@@ -103,13 +98,20 @@ $order->refresh();
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
 
     <?php foreach ($order->products as $orderProduct): ?>
-        <?php $productUrl = Yii::app()->createAbsoluteUrl('/store/catalog/show', array('name' => $orderProduct->product->alias)); ?>
+        <?php $productUrl = Yii::app()->createAbsoluteUrl(
+            '/store/catalog/show',
+            array('name' => $orderProduct->product->alias)
+        ); ?>
         <tr>
-            <td align="center" style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
+            <td align="center"
+                style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
                 <?php if ($orderProduct->product): ?>
                     <a href="<?= $productUrl; ?>">
                         <?php if ($orderProduct->product->image): ?>
-                            <img border="0" src="<?= Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(50, 50); ?>">
+                            <img border="0" src="<?= Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(
+                                50,
+                                50
+                            ); ?>">
                         <?php endif; ?>
                     </a>
                 <?php else: ?>
@@ -122,7 +124,8 @@ $order->refresh();
                     <h5><?= $variant['attribute_title']; ?>: <?= $variant['optionValue']; ?></h5>
                 <?php endforeach; ?>
             </td>
-            <td align=right style="padding:6px; text-align:right; width:150; background-color:#ffffff; border:1px solid #e0e0e0;">
+            <td align=right
+                style="padding:6px; text-align:right; width:150; background-color:#ffffff; border:1px solid #e0e0e0;">
                 <?= $orderProduct->quantity; ?> шт. &times; <?= $orderProduct->price; ?>&nbsp; руб.
             </td>
         </tr>
@@ -135,7 +138,8 @@ $order->refresh();
             <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
                 Купон <?= CHtml::encode($order->coupon_code); ?>
             </td>
-            <td align=right style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
+            <td align=right
+                style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
                 &minus;<?= $order->coupon_discount; ?>&nbsp;руб.
             </td>
         </tr>
@@ -147,7 +151,8 @@ $order->refresh();
             <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
                 <?= CHtml::encode($order->delivery->name); ?>
             </td>
-            <td align="right" style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
+            <td align="right"
+                style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
                 <?= $order->getDeliveryPrice(); ?>&nbsp;руб.
             </td>
         </tr>
@@ -158,7 +163,8 @@ $order->refresh();
         <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;font-weight:bold;">
             Итого
         </td>
-        <td align="right" style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;font-weight:bold;">
+        <td align="right"
+            style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;font-weight:bold;">
             <?= $order->getTotalPriceWithDelivery(); ?>&nbsp;руб.
         </td>
     </tr>
