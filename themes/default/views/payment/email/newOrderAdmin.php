@@ -8,17 +8,14 @@ $order->refresh();
     <body>
         <?php $subject = Yii::t('OrderModule.order', 'Заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)); ?>
         <h1 style="font-weight:normal;">
-            <?php echo CHtml::link("Заказ №{$order->id}", Yii::app()->createAbsoluteUrl('/order/orderBackend/update', array('id' => $order->id))); ?>
-            на сумму <?php echo Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->total_price)); ?>
-            <?php if ($order->paid): ?>
+            <?= CHtml::link("Заказ №{$order->id}", Yii::app()->createAbsoluteUrl('/order/orderBackend/update', array('id' => $order->id))); ?>
+            на сумму <?= Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->total_price)); ?>
+            <?php if ($order->isPaid()): ?>
                 оплачен,
             <?php else: ?>
                 еще не оплачен,
             <?php endif; ?>
-            <?php
-            $status = array(0 => 'ждет обработки', 1 => 'в обработке', 2 => 'выполнен');
-            echo $status[$order->status];
-            ?>
+            <?= $order->getStatusTitle();?>
         </h1>
         <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
             <tr>
@@ -26,7 +23,7 @@ $order->refresh();
                     Статус
                 </td>
                 <td style="padding:6px; width:330; background-color:#ffffff; border:1px solid #e0e0e0;">
-                    <?php echo $status[$order->status];; ?>
+                    <?= $status[$order->status];; ?>
                 </td>
             </tr>
             <tr>
@@ -34,7 +31,7 @@ $order->refresh();
                     Оплата
                 </td>
                 <td style="padding:6px; width:330; background-color:#ffffff; border:1px solid #e0e0e0;">
-                    <?php if ($order->paid): ?>
+                    <?php if ($order->isPaid()): ?>
                         <font color="green">оплачен</font>
                     <?php else: ?>
                         еще не оплачен
@@ -47,7 +44,7 @@ $order->refresh();
                         Имя, фамилия
                     </td>
                     <td style="padding:6px; width:330; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo $order->name; ?>
+                        <?= CHtml::encode($order->name); ?>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -57,7 +54,7 @@ $order->refresh();
                         Email
                     </td>
                     <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo $order->email; ?>
+                        <?= CHtml::encode($order->email); ?>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -67,7 +64,7 @@ $order->refresh();
                         Телефон
                     </td>
                     <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo $order->phone; ?>
+                        <?= CHtml::encode($order->phone); ?>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -77,7 +74,7 @@ $order->refresh();
                         Адрес доставки
                     </td>
                     <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo $order->address; ?>
+                        <?= CHtml::encode($order->address); ?>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -87,7 +84,7 @@ $order->refresh();
                         Комментарий
                     </td>
                     <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo nl2br($order->comment); ?>
+                        <?= nl2br(CHtml::encode($order->comment)); ?>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -96,7 +93,7 @@ $order->refresh();
                     Дата
                 </td>
                 <td style="padding:6px; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
-                    <?php echo Yii::app()->getDateFormatter()->formatDateTime($order->date, "long", "short"); ?>
+                    <?= Yii::app()->getDateFormatter()->formatDateTime($order->date, "long", "short"); ?>
                 </td>
             </tr>
         </table>
@@ -110,23 +107,23 @@ $order->refresh();
                 <tr>
                     <td align="center" style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
                         <?php if ($orderProduct->product): ?>
-                            <a href="<?php echo $productUrl; ?>">
+                            <a href="<?= $productUrl; ?>">
                                 <?php if ($orderProduct->product->image): ?>
-                                    <img border="0" src="<?php echo Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(50, 50); ?>">
+                                    <img border="0" src="<?= Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(50, 50); ?>">
                                 <?php endif; ?>
                             </a>
                         <?php else: ?>
-                            <?php echo $orderProduct->product_name; ?>
+                            <?= CHtml::encode($orderProduct->product_name); ?>
                         <?php endif; ?>
                     </td>
                     <td style="padding:6px; width:250; padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
-                        <a href="<?php echo $productUrl; ?>"><?php echo $orderProduct->product_name; ?></a>
+                        <a href="<?= $productUrl; ?>"><?= $orderProduct->product_name; ?></a>
                         <?php foreach ($orderProduct->variantsArray as $variant): ?>
-                            <h5><?php echo $variant['attribute_title']; ?>: <?php echo $variant['optionValue']; ?></h5>
+                            <h5><?= $variant['attribute_title']; ?>: <?= $variant['optionValue']; ?></h5>
                         <?php endforeach; ?>
                     </td>
                     <td align=right style="padding:6px; text-align:right; width:150; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo $orderProduct->quantity; ?> шт. &times; <?php echo $orderProduct->price; ?>&nbsp; руб.
+                        <?= $orderProduct->quantity; ?> шт. &times; <?= $orderProduct->price; ?>&nbsp; руб.
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -136,10 +133,10 @@ $order->refresh();
                 <tr>
                     <td style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;"></td>
                     <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
-                        Купон <?php echo $order->coupon_code; ?>
+                        Купон <?= CHtml::encode($order->coupon_code); ?>
                     </td>
                     <td align=right style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        &minus;<?php echo $order->coupon_discount; ?>&nbsp;руб.
+                        &minus;<?= $order->coupon_discount; ?>&nbsp;руб.
                     </td>
                 </tr>
             <?php endif; ?>
@@ -148,10 +145,10 @@ $order->refresh();
                 <tr>
                     <td style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;"></td>
                     <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
-                        <?php echo $order->delivery->name; ?>
+                        <?= CHtml::encode($order->delivery->name); ?>
                     </td>
                     <td align="right" style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
-                        <?php echo $order->delivery_price; ?>&nbsp;руб.
+                        <?= $order->getDeliveryPrice(); ?>&nbsp;руб.
                     </td>
                 </tr>
             <?php endif; ?>
@@ -162,7 +159,7 @@ $order->refresh();
                     Итого
                 </td>
                 <td align="right" style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;font-weight:bold;">
-                    <?php echo $order->total_price; ?>&nbsp;руб.
+                    <?= $order->getTotalPriceWithDelivery(); ?>&nbsp;руб.
                 </td>
             </tr>
         </table>

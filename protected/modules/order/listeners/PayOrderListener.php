@@ -8,7 +8,7 @@ class PayOrderListener
 
         $module = Yii::app()->getModule('order');
 
-        $from  = $module->notifyEmailFrom ? : Yii::app()->getModule('yupe')->email;
+        $from = $module->notifyEmailFrom ? : Yii::app()->getModule('yupe')->email;
 
         //администратору
         $to = $module->getNotifyTo();
@@ -21,7 +21,11 @@ class PayOrderListener
                 Yii::app()->mail->send(
                     $from,
                     $email,
-                    Yii::t('OrderModule.order', 'Новый заказ №{n} в магазине {site}', array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)),
+                    Yii::t(
+                        'OrderModule.order',
+                        'Новый заказ №{n} в магазине {site} .',
+                        ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
+                    ),
                     $body
                 );
                 Yii::app()->mail->reset();
@@ -29,5 +33,19 @@ class PayOrderListener
         }
 
         //пользователю
+        $to = $order->email;
+
+        $body = Yii::app()->getControler()->renderPartial('/email/newOrderUser', ['order' => $order], true);
+
+        Yii::app()->mail->send(
+            $from,
+            $to,
+            Yii::t(
+                'OrderModule.order',
+                'Новый заказ №{n} в магазине {site} .',
+                ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
+            ),
+            $body
+        );
     }
 } 
