@@ -25,7 +25,7 @@ class PayOrderListener
                     $email,
                     Yii::t(
                         'OrderModule.order',
-                        'Новый заказ №{n} в магазине {site} .',
+                        'Новый заказ №{n} в магазине "{site}" .',
                         ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
                     ),
                     $body
@@ -44,7 +44,7 @@ class PayOrderListener
             $to,
             Yii::t(
                 'OrderModule.order',
-                'Новый заказ №{n} в магазине {site} .',
+                'Ваш заказ №{n} в магазине "{site}" .',
                 ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
             ),
             $body

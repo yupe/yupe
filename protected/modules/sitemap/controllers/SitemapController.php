@@ -24,7 +24,7 @@ class SitemapController extends yupe\components\controllers\FrontController
 
                 foreach ($modules as $name => $moduleModels) {
                     $module = Yii::app()->getModule($name);
-                    if ($module->getIsInstalled()) {
+                    if (null != $module && $module->getIsInstalled()) {
                         foreach ($moduleModels as $options) {
                             $dataProvider = $options['getDataProvider']();
                             $iterator = new CDataProviderIterator($dataProvider, 100);
@@ -44,7 +44,11 @@ class SitemapController extends yupe\components\controllers\FrontController
                 $pagesDataProvider = new CActiveDataProvider(SitemapPage::model()->active(), []);
                 $pagesIterator = new CDataProviderIterator($pagesDataProvider, 100);
                 foreach ($pagesIterator as $page) {
-                    $urls[] = $this->getUrlRow($host . '/' . ltrim(str_replace($host, '', $page->url), '/'), $page->changefreq, $page->priority);
+                    $urls[] = $this->getUrlRow(
+                        $host . '/' . ltrim(str_replace($host, '', $page->url), '/'),
+                        $page->changefreq,
+                        $page->priority
+                    );
                 }
 
                 $parts = array_chunk($urls, $this->maxLinksCount);
@@ -57,8 +61,6 @@ class SitemapController extends yupe\components\controllers\FrontController
                 Yii::app()->getCache()->set($this->cacheKeyNumberParts, $numberParts, $cacheTime);
 
                 Yii::app()->getCache()->delete($this->cacheKeyLock);
-            } else {
-
             }
         }
 
@@ -90,19 +92,25 @@ class SitemapController extends yupe\components\controllers\FrontController
         $res = CHtml::openTag('urlset', ['xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9']);
         $res .= Yii::app()->getCache()->get($this->cacheKeyPart . $partNumber);;
         $res .= CHtml::closeTag('urlset');
+
         return $res;
     }
 
     private function getSitemapIndex($numberParts = null)
     {
-        $numberParts = $numberParts ?: Yii::app()->getCache()->get($this->cacheKeyNumberParts);
+        $numberParts = $numberParts ? : Yii::app()->getCache()->get($this->cacheKeyNumberParts);
         $res = CHtml::openTag('sitemapindex', ['xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9']);
         for ($i = 0; $i < (int)$numberParts; $i++) {
             $res .= CHtml::openTag('sitemap');
-            $res .= CHtml::tag('loc', [], htmlspecialchars(Yii::app()->createAbsoluteUrl('sitemap/sitemap/part', ['number' => $i])));
+            $res .= CHtml::tag(
+                'loc',
+                [],
+                htmlspecialchars(Yii::app()->createAbsoluteUrl('sitemap/sitemap/part', ['number' => $i]))
+            );
             $res .= CHtml::closeTag('sitemap');
         }
         $res .= CHtml::closeTag('sitemapindex');
+
         return $res;
     }
 
@@ -116,6 +124,7 @@ class SitemapController extends yupe\components\controllers\FrontController
             $res .= CHtml::tag('lastmod', [], SitemapHelper::dateToW3C($lastmod));
         }
         $res .= CHtml::closeTag('url');
+
         return $res;
     }
 }

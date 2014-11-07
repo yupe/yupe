@@ -2,19 +2,8 @@
 <head>
 </head>
 <body>
-<?php $subject = Yii::t(
-    'OrderModule.order',
-    'Заказ №{n} в магазине "{site}"',
-    array('{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName)
-); ?>
 <h1 style="font-weight:normal;">
-    <?= CHtml::link(
-        "Заказ №{$order->id}",
-        Yii::app()->createAbsoluteUrl('/order/orderBackend/update', array('id' => $order->id))
-    ); ?>
-    на сумму <?= Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->total_price)); ?>
-    <?= $order->getPaidStatus(); ?>
-    <?= $order->getStatusTitle(); ?>
+    Ваш заказ на сумму <?= Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->getTotalPrice()));?> в магазине "<?= Yii::app()->getModule('yupe')->siteName;?>".
 </h1>
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
     <tr>
