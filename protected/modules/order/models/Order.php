@@ -33,6 +33,8 @@
  *
  */
 Yii::import('application.modules.order.OrderModule');
+Yii::import('application.modules.order.events.OrderEvents');
+Yii::import('application.modules.order.events.PayOrderEvent');
 
 class Order extends yupe\models\YModel
 {

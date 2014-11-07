@@ -103,7 +103,7 @@ class OrderModule extends WebModule
 
         $this->setImport(
             array(
-                'order.models.*',
+                'order.models.*'
             )
         );
     }
@@ -128,6 +128,6 @@ class OrderModule extends WebModule
 
     public function getNotifyTo()
     {
-        return explode(',', $this->$notifyEmailsTo);
+        return explode(',', $this->notifyEmailsTo);
     }
 }
