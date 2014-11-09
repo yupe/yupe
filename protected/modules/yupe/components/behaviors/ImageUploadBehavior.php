@@ -89,6 +89,7 @@ class ImageUploadBehavior extends FileUploadBehavior
         );
 
         $this->getOwner()->{$this->attributeName} = $newFileName;
+        $this->_prevFile = $this->getPrevFile();
     }
 
     public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = [])

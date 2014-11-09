@@ -182,7 +182,7 @@ class Image extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->creation_date = new CDbExpression('NOW()');
             $this->user_id = Yii::app()->user->getId();
         }
