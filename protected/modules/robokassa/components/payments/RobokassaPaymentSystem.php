@@ -4,6 +4,9 @@
  * Class RobokassaPaymentSystem
  * @link http://www.robokassa.ru/ru/Doc/Ru/Interface.aspx
  */
+
+Yii::import('application.modules.robokassa.RobokassaModule');
+
 class RobokassaPaymentSystem extends PaymentSystem
 {
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
