@@ -10,25 +10,26 @@ class RobokassaPaymentSystem extends PaymentSystem
     {
         $settings = $payment->getPaymentSystemSettings();
 
-        $mrh_login = $settings['login'];
-        $mrh_pass1 = $settings['password1'];
-
-        $inv_id = $order->id;
-
-        $inv_desc = "Оплата заказа №" . $order->id . ' в ' . Yii::app()->getModule('yupe')->siteName;
-
-        $out_sum = Yii::app()->money->convert($order->total_price, $payment->currency_id);
+        $mrhLogin = $settings['login'];
+        $mrhPass1 = $settings['password1'];
         $culture = $settings['language'];
-        $crc = md5("$mrh_login:$out_sum:$inv_id:$mrh_pass1");
+
+        $invId = $order->id;
+
+        $invDesc = Yii::t('RobokassaModule.robokassa', 'Оплата заказа №{id} на сайте "{site}"', ['{id}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]);
+
+        $outSum = Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id);
+
+        $crc = md5("$mrhLogin:$outSum:$invId:$mrhPass1");
 
         $form = CHtml::form($settings['testmode'] ? "http://test.robokassa.ru/Index.aspx" : "https://merchant.roboxchange.com/Index.aspx");
-        $form .= CHtml::hiddenField('MrchLogin', $mrh_login);
-        $form .= CHtml::hiddenField('OutSum', $out_sum);
-        $form .= CHtml::hiddenField('InvId', $inv_id);
-        $form .= CHtml::hiddenField('Desc', $inv_desc);
+        $form .= CHtml::hiddenField('MrchLogin', $mrhLogin);
+        $form .= CHtml::hiddenField('OutSum', $outSum);
+        $form .= CHtml::hiddenField('InvId', $invId);
+        $form .= CHtml::hiddenField('Desc', $invDesc);
         $form .= CHtml::hiddenField('SignatureValue', $crc);
         $form .= CHtml::hiddenField('Culture', $culture);
-        $form .= CHtml::submitButton('Заплатить');
+        $form .= CHtml::submitButton(Yii::t('RobokassaModule.robokassa','Заплатить'));
         $form .= CHtml::endForm();
 
         if ($return) {
@@ -47,34 +48,34 @@ class RobokassaPaymentSystem extends PaymentSystem
         $order = Order::model()->findByPk($orderId);
 
         if (null === $order) {
-            Yii::log(Yii::t('PaymentModule.payment','Order with id = {id} not found!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            Yii::log(Yii::t('RobokassaModule.robokassa', 'Order with id = {id} not found!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
             return false;
         }
 
         if ($order->isPaid()) {
-            Yii::log(Yii::t('PaymentModule.payment','Order with id = {id} already payed!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            Yii::log(Yii::t('RobokassaModule.robokassa', 'Order with id = {id} already payed!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
             return false;
         }
 
         $settings = $payment->getPaymentSystemSettings();
 
-        $myCrc = strtoupper(md5("$amount:$orderId:".$settings['password2']));
+        $myCrc = strtoupper(md5("$amount:$orderId:" . $settings['password2']));
 
         if ($myCrc !== $crc) {
-            Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Bad crc!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            Yii::log(Yii::t('RobokassaModule.robokassa', 'Error pay order with id = {id}! Bad crc!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
             return false;
         }
 
         if ($amount != Yii::app()->money->convert($order->total_price, $payment->currency_id)) {
-            Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Incorrect price!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+            Yii::log(Yii::t('RobokassaModule.robokassa', 'Error pay order with id = {id}! Incorrect price!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
             return false;
         }
 
-        if($order->pay($payment)) {
-            Yii::log(Yii::t('PaymentModule.payment','Success pay order with id = {id}!', ['{id}' => $orderId]), CLogger::LEVEL_INFO, self::LOG_CATEGORY);
+        if ($order->pay($payment)) {
+            Yii::log(Yii::t('RobokassaModule.robokassa', 'Success pay order with id = {id}!', ['{id}' => $orderId]), CLogger::LEVEL_INFO, self::LOG_CATEGORY);
             return true;
-        }else{
-            Yii::log(Yii::t('PaymentModule.payment','Error pay order with id = {id}! Error change status!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
+        } else {
+            Yii::log(Yii::t('RobokassaModule.robokassa', 'Error pay order with id = {id}! Error change status!', ['{id}' => $orderId]), CLogger::LEVEL_ERROR, self::LOG_CATEGORY);
             return false;
         }
     }
