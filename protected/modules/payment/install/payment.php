@@ -15,12 +15,7 @@ return array(
             ),
         ),
         'paymentManager' => array(
-            'class' => 'application.modules.payment.components.PaymentManager',
-            'paymentSystems' => array(
-                /* 'robokassa' => array(
-                    'class' => 'application.modules.robokassa.components.payments.RobokassaPaymentSystem',
-                )*/
-            ),
+            'class' => 'application.modules.payment.components.PaymentManager'
         ),
     ),
     'rules' => array(

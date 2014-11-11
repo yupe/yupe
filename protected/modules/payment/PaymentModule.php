@@ -79,7 +79,7 @@ class PaymentModule extends WebModule
             array(
                 'payment.models.*',
                 'payment.components.payments.*',
-                //'order.listeners.*'
+                'payment.listeners.*'
             )
         );
     }
