@@ -10,7 +10,7 @@ class PaymentModule extends WebModule
 
     public function getDependencies()
     {
-        return array('store', 'order');
+        return array('store');
     }
 
     public function getCategory()
@@ -79,7 +79,7 @@ class PaymentModule extends WebModule
             array(
                 'payment.models.*',
                 'payment.components.payments.*',
-                'order.listeners.*'
+                //'order.listeners.*'
             )
         );
     }
