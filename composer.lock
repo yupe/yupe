@@ -353,12 +353,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "92b445d674db70d691da5e7c5b108cd42e58f75e"
+                "reference": "740780dd1aed7d6f91430f7be66759763c597739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/92b445d674db70d691da5e7c5b108cd42e58f75e",
-                "reference": "92b445d674db70d691da5e7c5b108cd42e58f75e",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/740780dd1aed7d6f91430f7be66759763c597739",
+                "reference": "740780dd1aed7d6f91430f7be66759763c597739",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +398,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2014-10-31 06:56:08"
+            "time": "2014-11-09 13:47:02"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -520,12 +520,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
-                "reference": "8088b182e3c016d71d6e18aa398c734c33e09ef7"
+                "reference": "9c4c936d94e98cc3397ef9657c1ac1cc5c36e6dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/8088b182e3c016d71d6e18aa398c734c33e09ef7",
-                "reference": "8088b182e3c016d71d6e18aa398c734c33e09ef7",
+                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/9c4c936d94e98cc3397ef9657c1ac1cc5c36e6dc",
+                "reference": "9c4c936d94e98cc3397ef9657c1ac1cc5c36e6dc",
                 "shasum": ""
             },
             "type": "library",
@@ -551,7 +551,7 @@
                 "wysiwyg",
                 "yii"
             ],
-            "time": "2014-11-03 18:02:11"
+            "time": "2014-11-04 11:06:51"
         },
         {
             "name": "yiiext/nested-set-behavior",
@@ -871,16 +871,16 @@
         },
         {
             "name": "facebook/webdriver",
-            "version": "v0.5",
+            "version": "v0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "fab0b484142430f4f598baef45680f945a60eb4f"
+                "reference": "bbcb697efb394d17bd9ec3d467e7da847cde4509"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/fab0b484142430f4f598baef45680f945a60eb4f",
-                "reference": "fab0b484142430f4f598baef45680f945a60eb4f",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/bbcb697efb394d17bd9ec3d467e7da847cde4509",
+                "reference": "bbcb697efb394d17bd9ec3d467e7da847cde4509",
                 "shasum": ""
             },
             "require": {
@@ -908,7 +908,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2014-10-28 20:04:04"
+            "time": "2014-11-05 20:53:09"
         },
         {
             "name": "phpunit/php-code-coverage",
