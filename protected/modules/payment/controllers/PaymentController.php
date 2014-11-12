@@ -1,6 +1,8 @@
 <?php
 
-class PaymentController extends yupe\components\controllers\FrontController
+use yupe\components\controllers\FrontController;
+
+class PaymentController extends FrontController
 {
     public function actionProcess($id = null)
     {
@@ -9,8 +11,10 @@ class PaymentController extends yupe\components\controllers\FrontController
         if ($payment && $payment->module) {
             $paymentSystem = Yii::app()->paymentManager->getPaymentSystemObject($payment->module);
             if ($paymentSystem) {
-                $paymentSystem->processCheckout($payment);
+                $paymentSystem->processCheckout($payment, Yii::app()->getRequest());
             }
+        }else{
+            throw new CHttpException(404);
         }
     }
 }

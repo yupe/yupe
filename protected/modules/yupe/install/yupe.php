@@ -31,6 +31,7 @@ return array(
                 ),
             ),
         ),
+
     ),
     'rules'     => array(
         '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',

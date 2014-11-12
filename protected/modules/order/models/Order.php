@@ -33,6 +33,8 @@
  *
  */
 Yii::import('application.modules.order.OrderModule');
+Yii::import('application.modules.order.events.OrderEvents');
+Yii::import('application.modules.order.events.PayOrderEvent');
 
 class Order extends yupe\models\YModel
 {
@@ -362,11 +364,6 @@ class Order extends yupe\models\YModel
         /* итоговая цена получается из стоимости доставки (если доставка не оплачивается отдельно) + стоимость всех продуктов - скидка по купонам */
         $this->total_price = ($this->separate_delivery ? 0 : $this->delivery_price) + $productsCost - $this->coupon_discount;
 
-        if ($this->oldAttributes['paid'] == self::PAID_STATUS_NOT_PAID && $this->paid == self::PAID_STATUS_PAID) {
-            $this->payment_date = new CDbExpression('now()');
-        } else {
-            $this->payment_date = null;
-        }
         return parent::beforeSave();
     }
 
@@ -485,14 +482,6 @@ class Order extends yupe\models\YModel
         parent::afterSave();
     }
 
-    /**
-     * Вызывается после успешной оплаты заказа, например, тут можно уменьшить количество товаров на складе
-     */
-    public function close()
-    {
-        Yii::app()->getModule('order')->sendNotifyOrderPaid($this);
-        return true;
-    }
 
     public function getTotalPrice()
     {
@@ -507,5 +496,31 @@ class Order extends yupe\models\YModel
     public function getTotalPriceWithDelivery()
     {
         return $this->getTotalPrice() + $this->getDeliveryPrice();
+    }
+
+    public function isPaid()
+    {
+        return $this->paid === static::PAID_STATUS_PAID;
+    }
+
+    public function pay(Payment $payment)
+    {
+        if($this->isPaid()) {
+            return true;
+        }
+
+        $this->paid = static::PAID_STATUS_PAID;
+        $this->payment_method_id = $payment->id;
+        $this->payment_date = new CDbExpression('now()');
+
+        $result = $this->save();
+
+        if($result) {
+            Yii::app()->eventManager->fire(OrderEvents::SUCCESS_PAID, new PayOrderEvent($this, $payment));
+        }else{
+            Yii::app()->eventManager->fire(OrderEvents::FAILURE_PAID, new PayOrderEvent($this, $payment));
+        }
+
+        return $result;
     }
 }

@@ -1,6 +1,8 @@
 <?php
 /* @var $model Order */
-Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-frontend.css');
+$mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
+Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model->id));
 ?>

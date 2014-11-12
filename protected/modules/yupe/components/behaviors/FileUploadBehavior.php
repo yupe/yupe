@@ -112,13 +112,19 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function afterFind($event)
     {
-        $this->_prevFile = Yii::app()->uploadManager->getFilePath(
-            $this->getOwner()->{$this->attributeName},
-            $this->getUploadPath()
-        );
+        $this->_prevFile = $this->getPrevFile();
 
         return parent::afterFind($event);
     }
+
+    protected function getPrevFile()
+    {
+        return Yii::app()->uploadManager->getFilePath(
+            $this->getOwner()->{$this->attributeName},
+            $this->getUploadPath()
+        );
+    }
+
 
     /**
      * @param \CModelEvent $event
@@ -187,6 +193,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
         $newFileName = $this->getFileName();
         Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $newFileName);
         $this->owner->{$this->attributeName} = $newFileName;
+        $this->_prevFile = $this->getPrevFile();
     }
 
     /**

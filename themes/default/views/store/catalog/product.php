@@ -9,8 +9,8 @@ $this->keywords = $product->getMetaKeywords();
 $mainAssets = Yii::app()->getModule('store')->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.simpleGal.js');
 
-Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
-Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
+Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/store-frontend.css');
+Yii::app()->getClientScript()->registerScriptFile(Yii::app()->getTheme()->getAssetsUrl() . '/js/store.js');
 
 $this->breadcrumbs = array_merge(
     [Yii::t("StoreModule.catalog", 'Каталог') => ['/store/catalog/index']],

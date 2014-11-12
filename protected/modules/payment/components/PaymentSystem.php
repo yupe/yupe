@@ -2,6 +2,8 @@
 
 class PaymentSystem extends CComponent
 {
+    const LOG_CATEGORY = 'store.payment';
+
     public $parametersFile = 'parameters.json';
 
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
@@ -9,7 +11,7 @@ class PaymentSystem extends CComponent
         throw new CException("Must be implemented");
     }
 
-    public function processCheckout(Payment $payment)
+    public function processCheckout(Payment $payment, CHttpRequest $request)
     {
         throw new CException("Must be implemented");
     }

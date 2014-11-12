@@ -5,9 +5,10 @@
 Yii::app()->getClientScript()->registerCssFile(
     Yii::app()->getModule('cart')->getAssetsUrl(). '/css/cart-frontend.css'
 );
-Yii::app()->getClientScript()->registerScriptFile(
-    Yii::app()->getModule('store')->getAssetsUrl() . '/js/store.js'
-);
+
+$mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
+
 $this->pageTitle = Yii::t('CartModule.cart', 'Корзина');
 $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
 ?>

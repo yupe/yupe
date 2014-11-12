@@ -11,16 +11,11 @@ return array(
     'component' => array(
         'request' => array(
             'noCsrfValidationRoutes' => array(
-                'payment/payment/process',
+                'payment/process',
             ),
         ),
         'paymentManager' => array(
-            'class' => 'application.modules.payment.components.PaymentManager',
-            'paymentSystems' => array(
-                /* 'robokassa' => array(
-                    'class' => 'application.modules.robokassa.components.payments.RobokassaPaymentSystem',
-                )*/
-            ),
+            'class' => 'application.modules.payment.components.PaymentManager'
         ),
     ),
     'rules' => array(

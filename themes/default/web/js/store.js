@@ -308,8 +308,7 @@ $(document).ready(function () {
     checkFirstAvailableDeliveryType();
     updateAllCosts();
 
-    $('#start-payment').click(function () {
-        alert('!');
+    $('#start-payment').on('click',function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
     });
 

@@ -7,6 +7,16 @@ return array(
     'import' => array(
         'application.modules.order.models.*',
     ),
+    'component' => array(
+        'eventManager'   => array(
+            'class'  => 'yupe\components\EventManager',
+            'events' => array(
+                'order.pay.success' => array(
+                    array('PayOrderListener', 'onSuccessPay')
+                ),
+            )
+        )
+    ),
     'rules' => array(
         '/order/<url:\w+>' => 'order/order/view',
         '/store/order/<action:\w+>' => 'order/order/<action>',
