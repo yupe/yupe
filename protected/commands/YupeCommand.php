@@ -30,17 +30,14 @@ class YupeCommand extends \yupe\components\ConsoleCommand
         }
 
         if (empty($modules)) {
-            echo "There is no modules to update." . PHP_EOL;
+            $this->log("There is no modules to update.");
             return 0;
         } else {
-            echo ('The following modules have update for config files: ' . implode(',', array_keys($modules))) . '.' . PHP_EOL;
+            $this->log('The following modules have update for config files: ' . implode(',', array_keys($modules)) . '.');
 
             if ($interactive) {
-                echo "Are you sure you want to do this? [y/N]: ";
-                $handle = fopen("php://stdin", "r");
-                $line = trim(fgets($handle));
-                if (!in_array(strtolower($line), array('yes', 'y'))) {
-                    echo "ABORTING!\n";
+                if (!$this->confirm("Are you sure you want to do this?")) {
+                    $this->log("ABORTING!");
                     exit;
                 }
             }
@@ -53,9 +50,9 @@ class YupeCommand extends \yupe\components\ConsoleCommand
                 $result = Yii::app()->moduleManager->updateModuleConfig($value);
 
                 if ($result) {
-                    echo 'Module "' . $key . '" successfully updated!' . PHP_EOL;
+                    $this->log('Module "' . $key . '" successfully updated!');
                 } else {
-                    echo 'An error occurred while updating the module "' . $key . '"' . PHP_EOL;
+                    $this->log('An error occurred while updating the module "' . $key . '"', CLogger::LEVEL_ERROR);
                     return 1;
                 }
             }
@@ -93,17 +90,14 @@ class YupeCommand extends \yupe\components\ConsoleCommand
         }
 
         if (empty($modules)) {
-            echo "There is no modules to update." . PHP_EOL;
+            $this->log("There is no modules to update.");
             return 0;
         } else {
-            echo ('The following modules have new migrations: ' . implode(',', array_keys($modules))) . '.' . PHP_EOL;
+            $this->log('The following modules have new migrations: ' . implode(',', array_keys($modules)) . '.');
 
             if ($interactive) {
-                echo "Are you sure you want to do this? [y/N]: ";
-                $handle = fopen("php://stdin", "r");
-                $line = trim(fgets($handle));
-                if (!in_array(strtolower($line), array('yes', 'y'))) {
-                    echo "ABORTING!\n";
+                if (!$this->confirm("Are you sure you want to do this?")) {
+                    $this->log("ABORTING!");
                     exit;
                 }
             }
@@ -116,9 +110,9 @@ class YupeCommand extends \yupe\components\ConsoleCommand
                 $result = Yii::app()->migrator->updateToLatest($key);
 
                 if ($result) {
-                    echo 'Module "' . $key . '" successfully updated!' . PHP_EOL;
+                    $this->log('Module "' . $key . '" successfully updated!');
                 } else {
-                    echo 'An error occurred while updating the module "' . $key . '"' . PHP_EOL;
+                    $this->log('An error occurred while updating the module "' . $key . '"', CLogger::LEVEL_ERROR);
                     return 1;
                 }
             }
