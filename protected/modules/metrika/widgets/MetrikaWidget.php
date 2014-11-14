@@ -15,8 +15,20 @@ class MetrikaWidget extends yupe\widgets\YWidget
 {
     public $view = 'view';
 
+    public function init()
+    {
+        $this->publishAssets();
+    }
+
+    public function publishAssets()
+    {
+        Yii::app()->clientScript->registerCoreScript('jquery');
+    }
+
     public function run()
     {
-        $this->render($this->view);
+        $this->render($this->view, array(
+            'url' => Yii::app()->getBaseUrl(true).'/metrika'
+        ));
     }
 }

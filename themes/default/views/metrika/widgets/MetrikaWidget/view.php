@@ -1,6 +1,6 @@
 <script>
     $( document ).ready(function()
     {
-        $.get('/metrika');
+        $.get('<?php echo $url;?>');
     });
 </script>
