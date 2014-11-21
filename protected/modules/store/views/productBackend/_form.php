@@ -294,7 +294,7 @@ $form = $this->beginWidget(
                             <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
                         </div>
                         <div>
-                            <a data-id="<?= $image->id;?>" href="<?php echo Yii::app()->createUrl(
+                            <a data-id="<?= $image->id; ?>" href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
                                 array('id' => $image->id)
                             ); ?>" class="pull-right product-delete-image"><i class="fa fa-fw fa-times"></i></a>
@@ -466,7 +466,7 @@ $form = $this->beginWidget(
                 type: "POST",
                 data: {
                     'id': $(this).data('id'),
-                    '<?= Yii::app()->getRequest()->csrfTokenName;?>' : '<?= Yii::app()->getRequest()->csrfToken;?>'
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->csrfToken;?>'
                 },
                 url: '<?= Yii::app()->createUrl('/store/productBackend/deleteImage');?>',
                 success: function () {
@@ -474,5 +474,15 @@ $form = $this->beginWidget(
                 }
             });
         });
+
+        function activateFirstTabWithErrors() {
+            var tab = $('.has-error').parents('.tab-pane').first();
+            if (tab.length) {
+                var id = tab.attr('id');
+                $('a[href="#' + id + '"]').tab('show');
+            }
+        }
+
+        activateFirstTabWithErrors();
     });
 </script>
