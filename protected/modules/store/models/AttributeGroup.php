@@ -105,4 +105,14 @@ class AttributeGroup extends yupe\models\YModel
         }
         return $list;
     }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $position = Yii::app()->getDb()->createCommand("select max(position) from {$this->tableName()}")->queryScalar();
+            $this->position = (int)$position + 1;
+        }
+
+        return parent::beforeSave();
+    }
 }

@@ -23,6 +23,7 @@ Yii::import('bootstrap.widgets.TbExtendedGridView');
 
 class CustomGridView extends \TbExtendedGridView
 {
+    private $uid;
     /**
      *  model name variable
      * @access private
@@ -94,6 +95,11 @@ class CustomGridView extends \TbExtendedGridView
 
     public $actionsButtons = true;
 
+    /**
+     * @var bool Скрывать строку с кнопками
+     */
+    public $hideBulkActions = false;
+
     public function renderBulkActions()
     {
         \Booster::getBooster()->registerAssetJs('jquery.saveselection.gridview.js');
@@ -126,11 +132,13 @@ class CustomGridView extends \TbExtendedGridView
 
     public function renderTableHeader()
     {
-        if (!$this->hideHeader) {
-            echo "<thead>\n";
+        echo "<thead>\n";
 
+        if(!$this->hideBulkActions){
             $this->renderBulkActions();
+        }
 
+        if (!$this->hideHeader) {
             if ($this->filterPosition === self::FILTER_POS_HEADER) {
                 $this->renderFilter();
             }
@@ -144,13 +152,10 @@ class CustomGridView extends \TbExtendedGridView
             if ($this->filterPosition === self::FILTER_POS_BODY) {
                 $this->renderFilter();
             }
-
-            echo "</thead>\n";
         } elseif ($this->filter !== null && ($this->filterPosition === self::FILTER_POS_HEADER || $this->filterPosition === self::FILTER_POS_BODY)) {
-            echo "<thead>\n";
             $this->renderFilter();
-            echo "</thead>\n";
         }
+        echo "</thead>\n";
     }
 
     /**
@@ -161,6 +166,7 @@ class CustomGridView extends \TbExtendedGridView
     public function init()
     {
         $this->_modelName = $this->dataProvider->modelClass;
+        $this->uid = uniqid($this->_modelName);
         $this->headlinePosition = empty($this->headlinePosition) ? self::HP_RIGHT : $this->headlinePosition;
         $this->initPageSizes();
         $this->ajaxUrl = empty($this->ajaxUrl)
@@ -180,7 +186,7 @@ class CustomGridView extends \TbExtendedGridView
                     'click'      => 'js:function (values) { if(!confirm("' . Yii::t(
                             'YupeModule.yupe',
                             'Do you really want to delete selected elements?'
-                        ) . '")) return false; multiaction("delete", values); }',
+                        ) . '")) return false; multiaction' . $this->uid . '("delete", values); }',
                 ),
             ),
             'checkBoxColumnConfig' => array(
@@ -420,7 +426,7 @@ JS
     {
         Yii::app()->getClientScript()->registerScript(
             __CLASS__ . '#' . $this->id . 'ExMultiaction',
-            'var multiaction = function (action, values) {
+            'var multiaction' . $this->uid . ' = function (action, values) {
                 var queryString = "";
                 var url = "' . Yii::app()->getController()->createUrl('multiaction') . '";
                 $.map(values, function (itemInput) {

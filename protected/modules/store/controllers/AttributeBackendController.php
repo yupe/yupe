@@ -30,7 +30,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     /**
      * Отображает атрибут по указанному идентификатору
      *
-     * @param integer $id Идинтификатор атрибута для отображения
+     * @param integer $id Идентификатор атрибута для отображения
      *
      * @return void
      */
