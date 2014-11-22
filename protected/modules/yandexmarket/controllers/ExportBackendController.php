@@ -6,11 +6,11 @@ class ExportBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Store.ExportBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Store.ExportBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Store.ExportBackend.Update'],],
-            ['allow', 'actions' => ['index'], 'roles' => ['Store.ExportBackend.Index'],],
-            ['allow', 'actions' => ['view'], 'roles' => ['Store.ExportBackend.View'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['YandexMarket.ExportBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['YandexMarket.ExportBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['YandexMarket.ExportBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['YandexMarket.ExportBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['YandexMarket.ExportBackend.View'],],
             ['deny',],
         ];
     }
@@ -26,7 +26,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.store', 'Выгрузка товаров создана.')
+                    Yii::t('YandexMarketModule.default', 'Выгрузка товаров создана.')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['create']));
@@ -48,7 +48,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.store', 'Выгрузка товаров обновлена.')
+                    Yii::t('YandexMarketModule.default', 'Выгрузка товаров обновлена.')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['update', 'id' => $model->id,]));
@@ -78,7 +78,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore')
+                Yii::t('YandexMarketModule.default', 'Bad request. Please don\'t use similar requests anymore')
             );
         }
     }
@@ -105,7 +105,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
     {
         $model = Export::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('YandexMarketModule.default', 'Page was not found!'));
         }
         return $model;
     }

@@ -265,18 +265,6 @@ class StoreModule extends WebModule
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление типа'),],
                         ],
                     ],
-                    [
-                        'type' => AuthItem::TYPE_TASK,
-                        'name' => 'Store.ExportBackend.Management',
-                        'description' => Yii::t("StoreModule.store", 'Управление экспортом товаров'),
-                        'items' => [
-                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ExportBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка выгрузок'),],
-                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ExportBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание выгрузки'),],
-                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ExportBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование выгрузки'),],
-                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ExportBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр выгрузки'),],
-                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ExportBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление выгрузки'),],
-                        ],
-                    ],
                 ],
             ],
         ];

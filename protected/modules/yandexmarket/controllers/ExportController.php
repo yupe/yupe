@@ -6,7 +6,7 @@
  */
 class ExportController extends yupe\components\controllers\FrontController
 {
-    public $cacheKey = 'store::export::';
+    public $cacheKey = 'yandexmarket::export::';
 
     public function actionView($id)
     {

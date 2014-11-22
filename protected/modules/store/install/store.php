@@ -18,6 +18,5 @@ return [
         '/catalog/show/<name:[\w_\/-]+>' => 'store/catalog/show',
         '/catalog/<path:[\w_\/-]+>' => 'store/catalog/category',
         '/store/catalog/autocomplete' => 'store/catalog/autocomplete',
-        '/store/export/<id:\d+>' => 'store/export/view',
     ],
 ];

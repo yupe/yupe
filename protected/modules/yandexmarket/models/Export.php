@@ -33,7 +33,7 @@ class Export extends \yupe\models\YModel
      */
     public function tableName()
     {
-        return '{{store_export}}';
+        return '{{yandex_market_export}}';
     }
 
     /**
@@ -69,19 +69,19 @@ class Export extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.store', 'Id'),
-            'name' => Yii::t('StoreModule.store', 'Название выгрузки'),
-            'settings' => Yii::t('StoreModule.store', 'Settings'),
-            'brands' => Yii::t('StoreModule.store', 'Бренды'),
-            'categories' => Yii::t('StoreModule.store', 'Categories'),
-            'shop_name' => Yii::t('StoreModule.store', 'Короткое название магазина'),
-            'shop_company' => Yii::t('StoreModule.store', 'Полное наименование компании, владеющей магазином'),
-            'shop_url' => Yii::t('StoreModule.store', 'URL-адрес главной страницы магазина'),
-            'shop_platform' => Yii::t('StoreModule.store', 'Система управления контентом, на основе которой работает магазин (CMS)'),
-            'shop_version' => Yii::t('StoreModule.store', 'Версия CMS'),
-            'shop_agency' => Yii::t('StoreModule.store', 'Наименование агентства, которое оказывает техническую поддержку интернет-магазину и отвечает за работоспособность сайта'),
-            'shop_email' => Yii::t('StoreModule.store', 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку'),
-            'shop_cpa' => Yii::t('StoreModule.store', 'Участие товарных предложений в программе «Покупка на Маркете»'),
+            'id' => Yii::t('YandexMarketModule.default', 'Id'),
+            'name' => Yii::t('YandexMarketModule.default', 'Название выгрузки'),
+            'settings' => Yii::t('YandexMarketModule.default', 'Settings'),
+            'brands' => Yii::t('YandexMarketModule.default', 'Бренды'),
+            'categories' => Yii::t('YandexMarketModule.default', 'Categories'),
+            'shop_name' => Yii::t('YandexMarketModule.default', 'Короткое название магазина'),
+            'shop_company' => Yii::t('YandexMarketModule.default', 'Полное наименование компании, владеющей магазином'),
+            'shop_url' => Yii::t('YandexMarketModule.default', 'URL-адрес главной страницы магазина'),
+            'shop_platform' => Yii::t('YandexMarketModule.default', 'Система управления контентом, на основе которой работает магазин (CMS)'),
+            'shop_version' => Yii::t('YandexMarketModule.default', 'Версия CMS'),
+            'shop_agency' => Yii::t('YandexMarketModule.default', 'Наименование агентства, которое оказывает техническую поддержку интернет-магазину и отвечает за работоспособность сайта'),
+            'shop_email' => Yii::t('YandexMarketModule.default', 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку'),
+            'shop_cpa' => Yii::t('YandexMarketModule.default', 'Участие товарных предложений в программе «Покупка на Маркете»'),
         ];
     }
 

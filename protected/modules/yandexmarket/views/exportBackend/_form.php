@@ -14,9 +14,9 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.store', 'Поля помеченные'); ?>
+    <?php echo Yii::t('YandexMarketModule.default', 'Поля помеченные'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.store', 'обязательны'); ?>
+    <?php echo Yii::t('YandexMarketModule.default', 'обязательны'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -99,7 +99,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Добавить и продолжить') : Yii::t('StoreModule.store', 'Сохранить и продолжить'),
+        'label' => $model->getIsNewRecord() ? Yii::t('YandexMarketModule.default', 'Добавить и продолжить') : Yii::t('YandexMarketModule.default', 'Сохранить и продолжить'),
     ]
 ); ?>
 
@@ -108,7 +108,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Добавить и вернуться к списку') : Yii::t('StoreModule.store', 'Сохранить и вернуться к списку'),
+        'label' => $model->getIsNewRecord() ? Yii::t('YandexMarketModule.default', 'Добавить и вернуться к списку') : Yii::t('YandexMarketModule.default', 'Сохранить и вернуться к списку'),
     ]
 ); ?>
 
