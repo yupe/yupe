@@ -1,22 +1,22 @@
 <?php
 
-return array(
-    'module' => array(
+return [
+    'module' => [
         'class' => 'application.modules.store.StoreModule',
-    ),
-    'import' => array(
+    ],
+    'import' => [
         'application.modules.store.models.*',
-    ),
-    'component' => array(
-        'money' => array(
+    ],
+    'component' => [
+        'money' => [
             'class' => 'application.modules.store.components.Money',
-        ),
-    ),
-    'rules' => array(
+        ],
+    ],
+    'rules' => [
         '/catalog' => 'store/catalog/index',
         '/catalog/search' => 'store/catalog/search',
         '/catalog/show/<name:[\w_\/-]+>' => 'store/catalog/show',
         '/catalog/<path:[\w_\/-]+>' => 'store/catalog/category',
-        '/store/catalog/autocomplete' => 'store/catalog/autocomplete'
-    ),
-);
+        '/store/catalog/autocomplete' => 'store/catalog/autocomplete',
+    ],
+];

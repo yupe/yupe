@@ -376,8 +376,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $categories = is_array($categories) ? $categories : (array)$categories;
         $categories = array_diff($categories, (array)$this->category_id);
 
-        try
-        {
+        try {
             foreach ($categories as $category_id) {
                 $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
                 if (!$model) {
@@ -395,9 +394,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ProductCategory::model()->deleteAll($criteria);
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -464,8 +461,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        try
-        {
+        try {
             $productVariants = array();
             foreach ($variants as $var) {
                 $variant = null;
@@ -487,9 +483,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ProductVariant::model()->deleteAll($criteria);
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -662,4 +656,10 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->discount_price;
     }
 
+    public function getUrl($absolute = false)
+    {
+        return $absolute ?
+            Yii::app()->createAbsoluteUrl('/store/catalog/show', array('name' => CHtml::encode($this->alias))) :
+            Yii::app()->createUrl('/store/catalog/show', array('name' => CHtml::encode($this->alias)));
+    }
 }

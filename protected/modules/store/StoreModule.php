@@ -15,7 +15,7 @@ class StoreModule extends WebModule
 
     public function getDependencies()
     {
-        return array('comment');
+        return ['comment'];
     }
 
     public function getUploadPath()
@@ -25,7 +25,7 @@ class StoreModule extends WebModule
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
@@ -41,31 +41,31 @@ class StoreModule extends WebModule
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'uploadPath',
             'editor' => Yii::app()->getModule('yupe')->editors,
-        );
+        ];
     }
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'uploadPath' => Yii::t('StoreModule.store', 'Каталог для загрузок файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
-            'editor'     => Yii::t('StoreModule.store', 'Визуальный редактор'),
-        );
+            'editor' => Yii::t('StoreModule.store', 'Визуальный редактор'),
+        ];
     }
 
     public function getEditableParamsGroups()
     {
-        return array(
-            '0.main' => array(
+        return [
+            '0.main' => [
                 'label' => Yii::t('StoreModule.store', 'Настройки визуальных редакторов'),
-                'items' => array(
+                'items' => [
                     'uploadPath',
                     'editor'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     public function getNavigation()
@@ -80,59 +80,68 @@ class StoreModule extends WebModule
 
     public function getExtendedNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'fa fa-fw fa-shopping-cart',
+        return [
+            [
+                'icon' => 'fa fa-fw fa-shopping-cart',
                 'label' => Yii::t('StoreModule.store', 'Catalog'),
-                'items' => array(
-                    array(
-                        'icon'  => 'fa fa-fw fa-shopping-cart',
+                'items' => [
+                    [
+                        'icon' => 'fa fa-fw fa-shopping-cart',
                         'label' => Yii::t('StoreModule.store', 'Товары'),
-                        'url'   => array('/store/productBackend/index'),
-                        'items' => array(
-                            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список товаров'), 'url' => array('/store/productBackend/index')),
-                            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить товар'), 'url' => array('/store/productBackend/create')),
-                        ),
-                    ),
-                    array(
-                        'icon'  => 'fa fa-fw fa-list-alt',
+                        'url' => ['/store/productBackend/index'],
+                        'items' => [
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список товаров'), 'url' => ['/store/productBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить товар'), 'url' => ['/store/productBackend/create']],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
                         'label' => Yii::t('StoreModule.store', 'Типы товаров'),
-                        'url'   => array('/store/typeBackend/index'),
-                        'items' => array(
-                            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список типов'), 'url' => array('/store/typeBackend/index')),
-                            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить тип'), 'url' => array('/store/typeBackend/create')),
-                        ),
-                    ),
-                    array(
-                        'icon'  => 'fa fa-fw fa-pencil-square-o',
-                        'label' => Yii::t('StoreModule.storeibute', 'Атрибуты'),
-                        'url'   => array('/store/attributeBackend/index'),
-                        'items' => array(
-                            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.storeibute', 'Список атрибутов'), 'url' => array('/store/attributeBackend/index')),
-                            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.storeibute', 'Добавить атрибут'), 'url' => array('/store/attributeBackend/create')),
-                        ),
-                    ),
-                    array(
-                        'icon'  => 'fa fa-fw fa-folder-open',
-                        'label' => Yii::t('StoreModule.storegory', 'Категории'),
-                        'url'   => array('/store/categoryBackend/index'),
-                        'items' => array(
-                            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.storegory', 'Список категорий'), 'url' => array('/store/categoryBackend/index')),
-                            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.storegory', 'Добавить категорию'), 'url' => array('/store/categoryBackend/create')),
-                        ),
-                    ),
-                    array(
-                        'icon'  => 'fa fa-fw fa-plane',
+                        'url' => ['/store/typeBackend/index'],
+                        'items' => [
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список типов'), 'url' => ['/store/typeBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить тип'), 'url' => ['/store/typeBackend/create']],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-pencil-square-o',
+                        'label' => Yii::t('StoreModule.store', 'Атрибуты'),
+                        'url' => ['/store/attributeBackend/index'],
+                        'items' => [
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список атрибутов'), 'url' => ['/store/attributeBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить атрибут'), 'url' => ['/store/attributeBackend/create']],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-folder-open',
+                        'label' => Yii::t('StoreModule.store', 'Категории'),
+                        'url' => ['/store/categoryBackend/index'],
+                        'items' => [
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список категорий'), 'url' => ['/store/categoryBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить категорию'), 'url' => ['/store/categoryBackend/create']],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-plane',
                         'label' => Yii::t('StoreModule.store', 'Производители'),
-                        'url'   => array('/store/producerBackend/index'),
-                        'items' => array(
-                            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список производителей'), 'url' => array('/store/producerBackend/index')),
-                            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить производителя'), 'url' => array('/store/producerBackend/create')),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        'url' => ['/store/producerBackend/index'],
+                        'items' => [
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список производителей'), 'url' => ['/store/producerBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить производителя'), 'url' => ['/store/producerBackend/create']],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-upload',
+                        'label' => Yii::t('StoreModule.store', 'Экспорт'),
+                        'url' => ['/store/exportBackend/index'],
+                        'items' => [
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список выгрузок'), 'url' => ['/store/exportBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить выгрузку'), 'url' => ['/store/exportBackend/create']],
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function getAdminPageLink()
@@ -180,84 +189,84 @@ class StoreModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'store.models.*',
                 'store.forms.*',
                 'store.components.*',
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
-                'type'        => AuthItem::TYPE_ROLE,
-                'name'        => 'Store.Manager',
+        return [
+            [
+                'type' => AuthItem::TYPE_ROLE,
+                'name' => 'Store.Manager',
                 'description' => Yii::t("StoreModule.store", 'Управляющий каталогом товаров'),
-                'items'       => array(
-                    array(
-                        'type'        => AuthItem::TYPE_TASK,
-                        'name'        => 'Store.AttributeBackend.Management',
+                'items' => [
+                    [
+                        'type' => AuthItem::TYPE_TASK,
+                        'name' => 'Store.AttributeBackend.Management',
                         'description' => Yii::t("StoreModule.store", 'Управление атрибутами товаров'),
-                        'items'       => array(
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка атрибутов'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание атрибута'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование атрибута'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр атрибута'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление атрибута'),),
-                        ),
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_TASK,
-                        'name'        => 'Store.CategoryBackend.Management',
+                        'items' => [
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка атрибутов'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание атрибута'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование атрибута'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр атрибута'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление атрибута'),],
+                        ],
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_TASK,
+                        'name' => 'Store.CategoryBackend.Management',
                         'description' => Yii::t("StoreModule.store", 'Управление категориями товаров'),
-                        'items'       => array(
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка категорий'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание категории'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование категории'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр категории'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление категории'),),
-                        ),
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_TASK,
-                        'name'        => 'Store.ProducerBackend.Management',
+                        'items' => [
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка категорий'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание категории'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование категории'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр категории'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление категории'),],
+                        ],
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_TASK,
+                        'name' => 'Store.ProducerBackend.Management',
                         'description' => Yii::t("StoreModule.store", 'Управление производителями'),
-                        'items'       => array(
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка производителей'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание производителя'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование производителя'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр производителя'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление производителя'),),
-                        ),
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_TASK,
-                        'name'        => 'Store.ProductBackend.Management',
+                        'items' => [
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка производителей'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание производителя'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование производителя'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр производителя'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление производителя'),],
+                        ],
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_TASK,
+                        'name' => 'Store.ProductBackend.Management',
                         'description' => Yii::t("StoreModule.store", 'Управление товарами'),
-                        'items'       => array(
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка товаров'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание товара'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование товара'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр товара'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление товара'),),
-                        ),
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_TASK,
-                        'name'        => 'Store.TypeBackend.Management',
+                        'items' => [
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка товаров'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание товара'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование товара'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр товара'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление товара'),],
+                        ],
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_TASK,
+                        'name' => 'Store.TypeBackend.Management',
                         'description' => Yii::t("StoreModule.store", 'Управление типами товаров'),
-                        'items'       => array(
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка типов'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание типа'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование типа'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр типа'),),
-                            array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление типа'),),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        'items' => [
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Index', 'description' => Yii::t("StoreModule.store", 'Просмотр списка типов'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Create', 'description' => Yii::t("StoreModule.store", 'Создание типа'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Update', 'description' => Yii::t("StoreModule.store", 'Редактирование типа'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.View', 'description' => Yii::t("StoreModule.store", 'Просмотр типа'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Delete', 'description' => Yii::t("StoreModule.store", 'Удаление типа'),],
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 }
