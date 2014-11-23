@@ -61,7 +61,7 @@ abstract class ConsoleCommand extends CConsoleCommand
         }
 
         if ($echo || $this->echo) {
-            echo "{$message}... \n";
+            echo "{$message}\n";
         }
 
         Yii::log($message, $level, $category);

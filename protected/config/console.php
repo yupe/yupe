@@ -22,6 +22,8 @@ return array(
         'mail'     => array(
             'class' => 'yupe\components\Mail',
         ),
+        'configManager' => array('class' => 'yupe\components\ConfigManager'),
+        'moduleManager' => array('class' => 'yupe\components\ModuleManager'),
         'migrator' => array(
             'class' => 'yupe\components\Migrator',
         ),
