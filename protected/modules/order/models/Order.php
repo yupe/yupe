@@ -113,6 +113,16 @@ class Order extends yupe\models\YModel
         );
     }
 
+    public function scopes()
+    {
+        return [
+            'new' => array(
+                'condition' => 't.status = :status',
+                'params' => array(':status' => self::STATUS_NEW),
+            ),
+        ];
+    }
+
     public function behaviors()
     {
         return array(
