@@ -162,10 +162,10 @@ class Attribute extends \yupe\models\YModel
     {
         $name = $name ?: 'Attribute[' . $this->name . ']';
         switch ($this->type) {
-            case self::TYPE_TEXT:
+            case self::TYPE_TEXTAREA:
                 return CHtml::textField($name, $value, $htmlOptions);
                 break;
-            case self::TYPE_TEXTAREA:
+            case self::TYPE_TEXT:
                 return Yii::app()->getController()->widget(
                     Yii::app()->getModule('store')->getVisualEditor(),
                     array(
