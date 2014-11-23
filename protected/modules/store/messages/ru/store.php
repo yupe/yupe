@@ -169,5 +169,7 @@ return array(
     'In stock' => 'В наличии',
     'Not in stock' => 'Нет в наличии',
     'Stock status' => 'На складе',
-    'Record was updated!' => 'Запись изменена!'
+    'Record was updated!' => 'Запись изменена!',
+    'Add'  => 'Добавить',
+    'Copy' => 'Копировать'
 );

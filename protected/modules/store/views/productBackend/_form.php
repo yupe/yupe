@@ -9,6 +9,16 @@
     })
 </script>
 
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Общие"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Склад"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Изображения"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
+    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Варианты"); ?></a></li>
+    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "SEO"); ?></a></li>
+</ul>
+
+
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
@@ -17,7 +27,7 @@ $form = $this->beginWidget(
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
         'type' => 'vertical',
-        'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        'htmlOptions' => array('enctype' => 'multipart/form-data', 'class' => 'well'),
         'clientOptions' => array(
             'validateOnSubmit' => true,
         ),
@@ -32,14 +42,6 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Общие"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Склад"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Изображения"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
-    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Варианты"); ?></a></li>
-    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "SEO"); ?></a></li>
-</ul>
 
 <div class="tab-content">
     <div class="tab-pane active" id="common">
