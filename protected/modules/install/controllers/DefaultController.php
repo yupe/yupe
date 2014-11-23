@@ -680,6 +680,7 @@ class DefaultController extends yupe\components\controllers\BackController
                             'enableProfiling'       => "{debug}",
                             'schemaCachingDuration' => 108000,
                             'tablePrefix'           => $form->tablePrefix,
+                            'pdoClass'              => 'yupe\extensions\NestedPDO',
                         );
 
                         $dbConfString = "<?php\n return "

@@ -6,8 +6,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         return array(
             'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Product',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Product',
                 'validAttributes' => array(
                     'status',
                     'in_stock',
@@ -22,7 +22,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         return array(
             array('allow', 'roles' => array('admin'),),
             array('allow', 'actions' => array('ajaxSearch'), 'roles' => array('Store.ProductBackend.Index'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Store.ProductBackend.Create'),),
+            array('allow', 'actions' => array('create', 'copy'), 'roles' => array('Store.ProductBackend.Create'),),
             array('allow', 'actions' => array('delete'), 'roles' => array('Store.ProductBackend.Delete'),),
             array('allow', 'actions' => array('deleteImage'), 'roles' => array('Store.ProductBackend.Update'),),
             array('allow', 'actions' => array('update'), 'roles' => array('Store.ProductBackend.Update'),),
@@ -120,7 +120,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             $model = ProductImage::model()->findByPk($id);
 
-            if(null !== $model) {
+            if (null !== $model) {
                 $model->delete();
                 Yii::app()->ajax->success();
             }
@@ -213,6 +213,20 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->ajax->rawText(
                 CJSON::encode($tmp)
             );
+        }
+    }
+
+    public function actionCopy()
+    {
+        if ($data = Yii::app()->getRequest()->getPost('items')) {
+            foreach ($data as $id) {
+                $model = Product::model()->findByPk($id);
+                if ($model) {
+                    $model->copy();
+                }
+            }
+
+            Yii::app()->ajax->success();
         }
     }
 }

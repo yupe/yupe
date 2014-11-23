@@ -46,6 +46,7 @@
                     <span class="label label-info"><?php echo CHtml::encode($module->getVersion()); ?></span>
                 </td>
                 <td>
+
                     <span
                         class="<?php echo isset($updates[$module->getId()]) ? 'label label-success' : 'label label-info'; ?>"><?php echo CHtml::encode(
                             isset($updates[$module->getId()]) ? $updates[$module->getId()]['version'] : $module->getVersion()

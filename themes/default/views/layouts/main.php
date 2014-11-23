@@ -79,7 +79,7 @@
                         'data' => array(
                             CHtml::link(
                                 CHtml::image(
-                                    $mainAssets . '/images/amyLabs.jpg',
+                                    $mainAssets . '/images/amylabs.png',
                                     'amylabs - разработка на Юпи! и Yii !',
                                     array('style' => 'width: 100%')
                                 ),
@@ -88,12 +88,12 @@
                             ),
                             CHtml::link(
                                 CHtml::image(
-                                    $mainAssets . '/images/yupe-logo.jpg',
-                                    'Юпи! - cms на Yii !',
+                                    $mainAssets . '/images/yupe-shop.png',
+                                    'Разработка и запуск интернет магазина на Yii и "Юпи!"',
                                     array('style' => 'width: 100%')
                                 ),
-                                'http://yupe.ru?from=yupe-rb',
-                                array('title' => 'Юпи! - cms на Yii !', 'target' => '_blank')
+                                'http://yupe-project.ru/ecommerce?from=yupe-rb',
+                                array('title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"', 'target' => '_blank')
                             ),
                         )
                     )

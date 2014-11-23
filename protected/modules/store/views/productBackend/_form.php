@@ -9,6 +9,16 @@
     })
 </script>
 
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Общие"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Склад"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Изображения"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
+    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Варианты"); ?></a></li>
+    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "SEO"); ?></a></li>
+</ul>
+
+
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
@@ -17,7 +27,7 @@ $form = $this->beginWidget(
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
         'type' => 'vertical',
-        'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        'htmlOptions' => array('enctype' => 'multipart/form-data', 'class' => 'well'),
         'clientOptions' => array(
             'validateOnSubmit' => true,
         ),
@@ -32,14 +42,6 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Общие"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Склад"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Изображения"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
-    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Варианты"); ?></a></li>
-    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "SEO"); ?></a></li>
-</ul>
 
 <div class="tab-content">
     <div class="tab-pane active" id="common">
@@ -294,7 +296,7 @@ $form = $this->beginWidget(
                             <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
                         </div>
                         <div>
-                            <a data-id="<?= $image->id;?>" href="<?php echo Yii::app()->createUrl(
+                            <a data-id="<?= $image->id; ?>" href="<?php echo Yii::app()->createUrl(
                                 '/store/productBackend/deleteImage',
                                 array('id' => $image->id)
                             ); ?>" class="pull-right product-delete-image"><i class="fa fa-fw fa-times"></i></a>
@@ -466,7 +468,7 @@ $form = $this->beginWidget(
                 type: "POST",
                 data: {
                     'id': $(this).data('id'),
-                    '<?= Yii::app()->getRequest()->csrfTokenName;?>' : '<?= Yii::app()->getRequest()->csrfToken;?>'
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->csrfToken;?>'
                 },
                 url: '<?= Yii::app()->createUrl('/store/productBackend/deleteImage');?>',
                 success: function () {
@@ -474,5 +476,15 @@ $form = $this->beginWidget(
                 }
             });
         });
+
+        function activateFirstTabWithErrors() {
+            var tab = $('.has-error').parents('.tab-pane').first();
+            if (tab.length) {
+                var id = tab.attr('id');
+                $('a[href="#' + id + '"]').tab('show');
+            }
+        }
+
+        activateFirstTabWithErrors();
     });
 </script>

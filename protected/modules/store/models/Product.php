@@ -42,6 +42,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property ProductImage[] $images
  * @property ProductVariant[] $variants
  * @property Comment[] $comments
+ * @property StoreCategory[] $categories
  *
  */
 class Product extends yupe\models\YModel implements ICommentable
@@ -376,8 +377,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $categories = is_array($categories) ? $categories : (array)$categories;
         $categories = array_diff($categories, (array)$this->category_id);
 
-        try
-        {
+        try {
             foreach ($categories as $category_id) {
                 $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
                 if (!$model) {
@@ -395,9 +395,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ProductCategory::model()->deleteAll($criteria);
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -464,8 +462,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        try
-        {
+        try {
             $productVariants = array();
             foreach ($variants as $var) {
                 $variant = null;
@@ -487,9 +484,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ProductVariant::model()->deleteAll($criteria);
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -662,4 +657,56 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->discount_price;
     }
 
+    /**
+     * @return null|Product
+     * @throws CDbException
+     */
+    public function copy()
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        $model = new Product();
+        try {
+            $model->attributes = $this->attributes;
+            $model->image = null;
+            $model->alias = null;
+
+            $similarNamesCount = Yii::app()->db->createCommand()
+                ->select('count(*)')
+                ->from($this->tableName())
+                ->where('name like ":name [%]"', [':name' => $this->name])
+                ->queryScalar();
+
+            $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
+
+            if ($eavAttributes = $this->getEavAttributes()) {
+                $model->setTypeAttributes($eavAttributes);
+            }
+
+            if ($variants = $this->variants) {
+                $variantAttributes = [];
+                foreach ($variants as $variant) {
+                    $variantAttributes[] = $variant->getAttributes(['attribute_id', 'attribute_value', 'amount', 'type', 'sku']);
+                }
+                $model->setProductVariants($variantAttributes);
+            }
+
+            if ($model->save()) {
+                if ($categories = $this->categories) {
+                    $categoriesIds = [];
+                    foreach ($categories as $category) {
+                        $categoriesIds[] = $category->id;
+                    }
+                    $model->setProductCategories($categoriesIds);
+                }
+            }
+
+            $transaction->commit();
+
+            return $model;
+        } catch (Exception $e) {
+            $transaction->rollback();
+        }
+
+        return null;
+    }
 }
