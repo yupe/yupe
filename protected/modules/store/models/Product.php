@@ -673,10 +673,10 @@ class Product extends yupe\models\YModel implements ICommentable
             $similarNamesCount = Yii::app()->db->createCommand()
                 ->select('count(*)')
                 ->from($this->tableName())
-                ->where('name like ":name [%]"', [':name' => $this->name])
+                ->where("name like :name", [':name' => $this->name . ' [%]'])
                 ->queryScalar();
 
-            $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
+            $model->name  = $this->name . ' [' . ($similarNamesCount + 1) . ']';
 
             if ($eavAttributes = $this->getEavAttributes()) {
                 $model->setTypeAttributes($eavAttributes);
