@@ -36,7 +36,6 @@ $id = $model->id;
                 $variantGroupsSelected = array();
                 $options = array();
                 $orderProductVariants = $model->variantsArray;
-                //var_dump($orderProductVariants); die();
                 foreach ((array)$product->variants as $variant) {
                     $variantGroups[$variant->attribute->title][] = $variant;
                     $options[$variant->id] = array('data-type' => $variant->type, 'data-amount' => $variant->amount);

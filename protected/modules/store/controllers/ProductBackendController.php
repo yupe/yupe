@@ -28,9 +28,21 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             array('allow', 'actions' => array('update'), 'roles' => array('Store.ProductBackend.Update'),),
             array('allow', 'actions' => array('index'), 'roles' => array('Store.ProductBackend.Index'),),
             array('allow', 'actions' => array('view'), 'roles' => array('Store.ProductBackend.View'),),
-            array('allow', 'actions' => array('typeAttributes'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
-            array('allow', 'actions' => array('typeAttributesForm'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
-            array('allow', 'actions' => array('variantRow'), 'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),),
+            array(
+                'allow',
+                'actions' => array('typeAttributes'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('typeAttributesForm'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('variantRow'),
+                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
+            ),
             array('deny',),
         );
     }
@@ -61,7 +73,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
                 $this->updateProductImages($model);
 
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was added!'));
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('StoreModule.store', 'Record was added!')
+                );
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
@@ -89,7 +104,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
                 $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
                 $this->updateProductImages($model);
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was updated!'));
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('StoreModule.store', 'Record was updated!')
+                );
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
@@ -179,6 +197,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         if ($model === null) {
             throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
         }
+
         return $model;
     }
 
@@ -213,6 +232,32 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->ajax->rawText(
                 CJSON::encode($tmp)
             );
+        }
+    }
+
+
+    public function actionAjaxSearch()
+    {
+        if (Yii::app()->getRequest()->getQuery('q')) {
+
+            $search = Yii::app()->getRequest()->getQuery('q');
+
+            $criteria = new CDbCriteria();
+            $criteria->addSearchCondition('name', Yii::app()->getRequest()->getQuery('q'));
+
+            $model = Product::model()->findAll($criteria);
+
+            $data = array();
+
+            foreach ($model as $product) {
+                $data[] = array(
+                    'id' => $product->id,
+                    'name' => $product->name." ({$product->sku}) ".$product->getPrice(),
+                    'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
+                );
+            }
+
+            Yii::app()->ajax->raw($data);
         }
     }
 
