@@ -24,18 +24,19 @@ $this->menu = [
             <legend>Группы атрибутов</legend>
             <script type="text/javascript">
                 $(document).ready(function () {
-                    $('#clear-attribute-group-filter').click(function (e) {
+                    var $container = $('body');
+                    $container.on('click', '#clear-attribute-group-filter', function (e) {
                         e.preventDefault();
                         $("#Attribute_group_id").val('').trigger("change");
                         $('#attribute-group-grid').find('tr').removeClass('selected');
                     });
 
                     // TODO: вызывается два раза, надо сделать, чтобы обновление грида происходило только один раз
-                    $("input[type=checkbox]", "#attribute-group-grid").change(function () {
+                    $container.on('change', "#attribute-group-grid input[type=checkbox]", function () {
                         changeGroupFilter();
                     });
 
-                    $('#add-attribute-group').click(function (e) {
+                    $container.on('click', '#add-attribute-group', function (e) {
                         e.preventDefault();
                         var name = prompt('<?php echo Yii::t("StoreModule.store", "Название"); ?>');
                         if (name) {
@@ -94,6 +95,7 @@ $this->menu = [
                         ['id' => 'add-attribute-group', 'class' => 'btn btn-sm btn-success pull-right']
                     ),
                 ],
+                'afterAjaxUpdate' => 'js:function(id, data){ changeGroupFilter(); }',
                 'columns' => [
                     [
                         'name' => 'name',
