@@ -709,4 +709,11 @@ class Product extends yupe\models\YModel implements ICommentable
 
         return null;
     }
+
+    public function getUrl($absolute = false)
+    {
+        return $absolute ?
+            Yii::app()->createAbsoluteUrl('/store/catalog/show', array('name' => $this->alias)) :
+            Yii::app()->createUrl('/store/catalog/show', array('name' => $this->alias));
+    }
 }

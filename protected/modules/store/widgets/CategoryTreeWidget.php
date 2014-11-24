@@ -23,8 +23,7 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
     public $options = array(
         'plugins' => array('checkbox'),
         'checkbox' => array(
-            'three_state' => false,
-            'keep_selected_style' => false
+            'keep_selected_style' => false,
         )
     );
 
