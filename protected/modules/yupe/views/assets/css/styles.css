@@ -290,3 +290,32 @@ input.form-control[type="file"] {
 .pager-container .pagination {
     margin: 26px 0 0 0;
 }
+
+/* верхнее меню */
+
+@media (min-width: 768px) {
+    .navbar .navbar-nav > li > a {
+        padding: 2px 10px;
+    }
+    .navbar .navbar-right {
+        float: left !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .navbar .navbar-nav > li > a {
+        padding: 15px 2px;
+    }
+    .navbar .navbar-right {
+        float: right !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .navbar .navbar-nav > li > a {
+        padding: 15px 7px;
+    }
+    .navbar .navbar-right {
+        float: right !important;
+    }
+}
