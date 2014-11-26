@@ -32,7 +32,7 @@
                                 'icon'       => 'glyphicon glyphicon-pencil',
                                 'buttonType' => 'link',
                                 'context'    => 'link',
-                                'url'        => array('/user/account/profile/'),
+                                'url'        => array('/user/profile/profile/'),
                             )
                         ); ?>
                     </li>
