@@ -6,11 +6,11 @@ class m140812_160000_store_attribute_group_base extends yupe\components\DbMigrat
     {
         $this->createTable(
             '{{store_attribute_group}}',
-            array(
+            [
                 'id' => 'pk',
                 'name' => "varchar(255) not null",
                 'position' => "integer not null default '1'",
-            ),
+            ],
             $this->getOptions()
         );
     }

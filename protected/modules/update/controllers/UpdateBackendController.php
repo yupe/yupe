@@ -10,12 +10,12 @@ class UpdateBackendController extends BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Update.UpdateBackend.index')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Update.UpdateBackend.update')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Update.UpdateBackend.index']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Update.UpdateBackend.update']],
+            ['deny']
+        ];
     }
 
     public function actionIndex()
@@ -33,11 +33,11 @@ class UpdateBackendController extends BackController
             Yii::app()->ajax->success(
                 $this->renderPartial(
                     '_modules',
-                    array(
+                    [
                         'success' => $success,
                         'updates' => $updates,
                         'modules' => $modules['modules']
-                    ),
+                    ],
                     true
                 )
             );

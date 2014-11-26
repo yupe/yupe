@@ -17,8 +17,8 @@ class NewsController extends yupe\components\controllers\FrontController
         $news = News::model()->published();
 
         $news = ($this->isMultilang())
-            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $alias))
-            : $news->find('alias = :alias', array(':alias' => $alias));
+            ? $news->language(Yii::app()->language)->find('alias = :alias', [':alias' => $alias])
+            : $news->find('alias = :alias', [':alias' => $alias]);
 
         if (!$news) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'News article was not found!'));
@@ -31,45 +31,45 @@ class NewsController extends yupe\components\controllers\FrontController
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
             );
 
-            $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
+            $this->redirect([Yii::app()->getModule('user')->accountActivationSuccess]);
         }
 
-        $this->render('show', array('news' => $news));
+        $this->render('show', ['news' => $news]);
     }
 
     public function actionIndex()
     {
-        $dbCriteria = new CDbCriteria(array(
+        $dbCriteria = new CDbCriteria([
             'condition' => 't.status = :status',
-            'params'    => array(
+            'params'    => [
                 ':status' => News::STATUS_PUBLISHED,
-            ),
+            ],
             'limit'     => $this->module->perPage,
             'order'     => 't.creation_date DESC',
-            'with'      => array('user'),
-        ));
+            'with'      => ['user'],
+        ]);
 
         if (!Yii::app()->user->isAuthenticated()) {
             $dbCriteria->mergeWith(
-                array(
+                [
                     'condition' => 'is_protected = :is_protected',
-                    'params'    => array(
+                    'params'    => [
                         ':is_protected' => News::PROTECTED_NO
-                    )
-                )
+                    ]
+                ]
             );
         }
 
         if ($this->isMultilang()) {
             $dbCriteria->mergeWith(
-                array(
+                [
                     'condition' => 't.lang = :lang',
-                    'params'    => array(':lang' => Yii::app()->language),
-                )
+                    'params'    => [':lang' => Yii::app()->language],
+                ]
             );
         }
 
-        $dataProvider = new CActiveDataProvider('News', array('criteria' => $dbCriteria));
-        $this->render('index', array('dataProvider' => $dataProvider));
+        $dataProvider = new CActiveDataProvider('News', ['criteria' => $dbCriteria]);
+        $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

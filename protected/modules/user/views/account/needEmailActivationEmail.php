@@ -11,11 +11,11 @@
     <?php echo Yii::t(
         'UserModule.user',
         'You have successfully changed your email on "{site}"!',
-        array(
+        [
             '{site}' => CHtml::encode(
                     Yii::app()->getModule('yupe')->siteName
                 )
-        )
+        ]
     ); ?>
 </p>
 
@@ -27,9 +27,9 @@
             Yii::t('user', 'link'),
             $link = $this->createAbsoluteUrl(
                 '/user/account/emailConfirm',
-                array(
+                [
                     'token' => $model->activate_key
-                )
+                ]
             )
         ); ?>
 </p>
@@ -42,11 +42,11 @@
     <?php echo Yii::t(
         'UserModule.user',
         'Truly yours, administration of "{site}" !',
-        array(
+        [
             '{site}' => CHtml::encode(
                     Yii::app()->getModule('yupe')->siteName
                 )
-        )
+        ]
     ); ?>
 </p>
 </body>

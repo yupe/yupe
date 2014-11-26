@@ -51,27 +51,27 @@ class ContentBlock extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('name, code, content, type', 'filter', 'filter' => 'trim'),
-            array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, code, content, type', 'required'),
-            array('type, category_id', 'numerical', 'integerOnly' => true),
-            array('type', 'length', 'max' => 11),
-            array('type', 'in', 'range' => array_keys($this->types)),
-            array('name', 'length', 'max' => 250),
-            array('code', 'length', 'max' => 100),
-            array('description', 'length', 'max' => 255),
-            array(
+        return [
+            ['name, code, content, type', 'filter', 'filter' => 'trim'],
+            ['name, code', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, code, content, type', 'required'],
+            ['type, category_id', 'numerical', 'integerOnly' => true],
+            ['type', 'length', 'max' => 11],
+            ['type', 'in', 'range' => array_keys($this->types)],
+            ['name', 'length', 'max' => 250],
+            ['code', 'length', 'max' => 100],
+            ['description', 'length', 'max' => 255],
+            [
                 'code',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t(
                         'ContentBlockModule.contentblock',
                         'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters'
                     )
-            ),
-            array('code', 'unique'),
-            array('id, name, code, type, content, description, category_id', 'safe', 'on' => 'search'),
-        );
+            ],
+            ['code', 'unique'],
+            ['id, name, code, type, content, description, category_id', 'safe', 'on' => 'search'],
+        ];
     }
     /**
      * @return array relational rules.
@@ -80,9 +80,9 @@ class ContentBlock extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id')
-        );
+        return [
+            'category' => [self::BELONGS_TO, 'Category', 'category_id']
+        ];
     }
 
     /**
@@ -90,7 +90,7 @@ class ContentBlock extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'          => Yii::t('ContentBlockModule.contentblock', 'id'),
             'name'        => Yii::t('ContentBlockModule.contentblock', 'Title'),
             'code'        => Yii::t('ContentBlockModule.contentblock', 'Code'),
@@ -98,7 +98,7 @@ class ContentBlock extends yupe\models\YModel
             'content'     => Yii::t('ContentBlockModule.contentblock', 'Content'),
             'description' => Yii::t('ContentBlockModule.contentblock', 'Description'),
             'category_id' => Yii::t('ContentBlockModule.contentblock', 'Category'),
-        );
+        ];
     }
 
     /**
@@ -118,16 +118,16 @@ class ContentBlock extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('category_id', $this->category_id);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function getTypes()
     {
-        return array(
+        return [
             self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Simple text'),
             self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
             self::RAW_TEXT    => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
-        );
+        ];
     }
 
     public function getType()

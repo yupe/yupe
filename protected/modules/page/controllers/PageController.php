@@ -28,18 +28,18 @@ class PageController extends yupe\components\controllers\FrontController
         $page = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
             ? Page::model()->find(
                 'slug = :slug AND (lang=:lang OR (lang IS NULL))',
-                array(
+                [
                     ':slug' => $slug,
                     ':lang' => Yii::app()->language,
-                )
+                ]
             )
             : Page::model()->published()->find(
                 'slug = :slug AND (lang = :lang OR (lang = :deflang))',
-                array(
+                [
                     ':slug'    => $slug,
                     ':lang'    => Yii::app()->language,
                     ':deflang' => $this->yupe->defaultLanguage,
-                )
+                ]
             );
 
         if (null === $page) {
@@ -53,14 +53,14 @@ class PageController extends yupe\components\controllers\FrontController
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
             );
 
-            $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
+            $this->redirect([Yii::app()->getModule('user')->accountActivationSuccess]);
         }
 
         $this->currentPage = $page;
 
         $view = $page->view ? $page->view : 'page';
 
-        $this->render($view, array('page' => $page));
+        $this->render($view, ['page' => $page]);
     }
 
     /**
@@ -68,7 +68,7 @@ class PageController extends yupe\components\controllers\FrontController
      */
     public function getBreadCrumbs()
     {
-        $pages = array();
+        $pages = [];
         if ($this->currentPage->parentPage) {
             $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
         }
@@ -87,7 +87,7 @@ class PageController extends yupe\components\controllers\FrontController
      */
     private function getBreadCrumbsRecursively(Page $page)
     {
-        $pages = array();
+        $pages = [];
         $pages[$page->title] = $page->getUrl();
         $pp = $page->parentPage;
         if ($pp) {

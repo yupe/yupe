@@ -18,6 +18,6 @@ class PostMetaWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view, array('post' => $this->post));
+        $this->render($this->view, ['post' => $this->post]);
     }
 }

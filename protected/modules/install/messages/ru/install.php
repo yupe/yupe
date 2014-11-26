@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Community' => 'Сообщество',
     'forum' => 'форум',
     'Thank you!' => 'Спасибо!',
@@ -233,4 +233,4 @@ return array(
     'Just good guys' => 'Просто отличные парни',
     'Please, select your language below for continue.' => 'Пожалуйста, выберите язык ниже для продолжения.',
     'This option is experiment. Only MySQL works stable.' => 'Это экспериментальная возможность. На данный момент гарантирована поддержка MySQL.',
-);
+];

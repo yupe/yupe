@@ -6,9 +6,9 @@ class NotifyController extends FrontController
 {
     public function filters()
     {
-        return array(
-            array('yupe\filters\YFrontAccessControl')
-        );
+        return [
+            ['yupe\filters\YFrontAccessControl']
+        ];
     }
 
     public function actionSettings()

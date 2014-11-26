@@ -8,7 +8,7 @@ class RobokassaModule extends WebModule
 
     public function getDependencies()
     {
-        return array('payment');
+        return ['payment'];
     }
 
     public function getNavigation()
@@ -33,7 +33,7 @@ class RobokassaModule extends WebModule
 
     public function getEditableParams()
     {
-        return array();
+        return [];
     }
 
     public function getName()

@@ -17,7 +17,7 @@ class m000000_000000_good_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{catalog_good}}',
-            array(
+            [
                 'id'                => 'pk',
                 'category_id'       => 'integer DEFAULT NULL',
                 'name'              => 'varchar(250) NOT NULL',
@@ -34,7 +34,7 @@ class m000000_000000_good_base extends yupe\components\DbMigration
                 'update_time'       => 'datetime NOT NULL',
                 'user_id'           => 'integer DEFAULT NULL',
                 'change_user_id'    => 'integer DEFAULT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

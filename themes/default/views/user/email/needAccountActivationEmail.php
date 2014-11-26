@@ -8,11 +8,11 @@
 <?php echo Yii::t(
     'UserModule.user',
     'You was successfully registered on "{site}" !',
-    array(
+    [
         '{site}' => CHtml::encode(
                 Yii::app()->getModule('yupe')->siteName
             )
-    )
+    ]
 ); ?>
 
 <br/><br/>
@@ -21,9 +21,9 @@
         Yii::t('UserModule.user', 'link'),
         $link = Yii::app()->createAbsoluteUrl(
             '/user/account/activate',
-            array(
+            [
                 'token' => $token->token
-            )
+            ]
         )
     ); ?>
 
@@ -36,11 +36,11 @@
 <?php echo Yii::t(
     'UserModule.user',
     'Truly yours, administration of "{site}" !',
-    array(
+    [
         '{site}' => CHtml::encode(
                 Yii::app()->getModule('yupe')->siteName
             )
-    )
+    ]
 ); ?>
 
 </body>

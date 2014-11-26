@@ -18,17 +18,17 @@ class AnswerForm extends CFormModel
 
     public function rules()
     {
-        return array(
-            array('answer', 'required'),
-            array('is_faq', 'in', 'range' => array(0, 1)),
-        );
+        return [
+            ['answer', 'required'],
+            ['is_faq', 'in', 'range' => [0, 1]],
+        ];
     }
 
     public function attributeLabels()
     {
-        return array(
+        return [
             'answer' => Yii::t('FeedbackModule.feedback', 'Reply'),
             'is_faq' => Yii::t('FeedbackModule.feedback', 'In FAQ'),
-        );
+        ];
     }
 }

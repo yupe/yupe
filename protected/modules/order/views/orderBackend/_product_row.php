@@ -24,7 +24,7 @@ $id = $model->id;
         <?php endif; ?>
     </div>
     <div class="col-sm-3">
-        <?php echo CHtml::link($model->product_name ?: $product->name, array('/store/productBackend/update', 'id' => $product->id)); ?>
+        <?php echo CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
         <br/>
         [<?php echo $product->getResultPrice(); ?> <?php echo Yii::t("OrderModule.order", "руб."); ?>]
     </div>
@@ -32,13 +32,13 @@ $id = $model->id;
         <?php if ($product): ?>
             <div class="row">
                 <?php
-                $variantGroups = array();
-                $variantGroupsSelected = array();
-                $options = array();
+                $variantGroups = [];
+                $variantGroupsSelected = [];
+                $options = [];
                 $orderProductVariants = $model->variantsArray;
                 foreach ((array)$product->variants as $variant) {
                     $variantGroups[$variant->attribute->title][] = $variant;
-                    $options[$variant->id] = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
+                    $options[$variant->id] = ['data-type' => $variant->type, 'data-amount' => $variant->amount];
 
                     /* выясняем какие из выбранных вариантов в покупке еще существуют, если эти варианты уже удалили, то позже их все равно добавим в список*/
                     $varFound = false;
@@ -59,7 +59,7 @@ $id = $model->id;
                     $var['optionValue'] = '[Удален] ' . $var['optionValue'];
                     $variantGroups[$var['attribute_title']][] = $var;
                     $variantGroupsSelected[$var['attribute_title']] = $var['id'];
-                    $options[$var['id']] = array('data-type' => $var['type'], 'data-amount' => $var['amount'], 'class' => 'muted');
+                    $options[$var['id']] = ['data-type' => $var['type'], 'data-amount' => $var['amount'], 'class' => 'muted'];
                 }
                 ?>
                 <?php foreach ($variantGroups as $title => $variantGroup): ?>
@@ -72,7 +72,7 @@ $id = $model->id;
                                 'OrderProduct[' . $id . '][variant_ids][]',
                                 isset($variantGroupsSelected[$title]) ? $variantGroupsSelected[$title] : null,
                                 CHtml::listData($variantGroup, 'id', 'optionValue'),
-                                array('empty' => '', 'options' => $options, 'class' => 'form-control product-variant')
+                                ['empty' => '', 'options' => $options, 'class' => 'form-control product-variant']
                             ); ?>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ $id = $model->id;
         <div class="row">
             <div class="col-sm-6">
                 <div class="input-group">
-                    <?php echo CHtml::activeTextField($model, 'price', array('class' => 'form-control product-price', 'name' => 'OrderProduct[' . $id . '][price]')); ?>
+                    <?php echo CHtml::activeTextField($model, 'price', ['class' => 'form-control product-price', 'name' => 'OrderProduct[' . $id . '][price]']); ?>
                     <span class="input-group-addon">
                         <?php echo Yii::t("OrderModule.order", "руб."); ?>
                     </span>
@@ -94,7 +94,7 @@ $id = $model->id;
             </div>
             <div class="col-sm-6">
                 <div class="input-group">
-                    <?php echo CHtml::activeTextField($model, 'quantity', array('class' => 'form-control product-quantity', 'name' => 'OrderProduct[' . $id . '][quantity]')); ?>
+                    <?php echo CHtml::activeTextField($model, 'quantity', ['class' => 'form-control product-quantity', 'name' => 'OrderProduct[' . $id . '][quantity]']); ?>
                     <span class="input-group-addon">
                         <?php echo Yii::t("OrderModule.order", "шт."); ?>
                     </span>

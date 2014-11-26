@@ -26,22 +26,22 @@ Yii::app()->clientScript->registerScript(
 
 $this->widget(
     'gallery.extensions.colorbox.ColorBox',
-    array(
+    [
         'target' => '.gallery-image',
         'lang'   => 'ru',
-        'config' => array(
+        'config' => [
             'rel' => '.gallery-image',
-        ),
-    )
+        ],
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbListView',
-    array(
+    [
         'dataProvider'  => $dataProvider,
         'itemView'      => '_image',
         'template'      => "{items}\n{pager}",
         'itemsCssClass' => 'row gallery-thumbnails thumbnails',
         'itemsTagName'  => 'ul'
-    )
+    ]
 ); ?>

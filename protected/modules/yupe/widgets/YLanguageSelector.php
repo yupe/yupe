@@ -43,14 +43,14 @@ class YLanguageSelector extends YWidget
 
         $this->render(
             $this->view,
-            array(
+            [
                 'langs'           => $langs,
                 'currentLanguage' => Yii::app()->getLanguage(),
                 'cleanUrl'        => Yii::app()->getUrlManager()->getCleanUrl(Yii::app()->getRequest()->getUrl()),
                 'homeUrl'         => Yii::app()->getHomeUrl() . (Yii::app()->getHomeUrl()[strlen(
                         Yii::app()->getHomeUrl()
                     ) - 1] != "/" ? '/' : ''),
-            )
+            ]
         );
     }
 }

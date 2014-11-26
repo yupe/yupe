@@ -34,7 +34,7 @@ $this->menu = [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::link($data->name, array("/yandexmarket/exportBackend/update", "id" => $data->id));
+                    return CHtml::link($data->name, ["/yandexmarket/exportBackend/update", "id" => $data->id]);
                 },
             ],
             [

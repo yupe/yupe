@@ -43,7 +43,7 @@ class EFeedTag
      * Tag attributes array
      * @var array attributes
      */
-    public $attributes = array();
+    public $attributes = [];
 
     /**
      *
@@ -52,10 +52,10 @@ class EFeedTag
      * @param string $content
      * @param array $attributes
      */
-    public function __construct($name, $content, $attributes = array())
+    public function __construct($name, $content, $attributes = [])
     {
         $this->name = $name;
         $this->content = $content;
-        $this->attributes = is_array($attributes) ? $attributes : array();
+        $this->attributes = is_array($attributes) ? $attributes : [];
     }
 }

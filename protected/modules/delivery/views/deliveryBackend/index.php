@@ -1,15 +1,15 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('DeliveryModule.delivery', 'Способы доставки') => array('/delivery/deliveryBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('DeliveryModule.delivery', 'Способы доставки') => ['/delivery/deliveryBackend/index'],
     Yii::t('DeliveryModule.delivery', 'Управление'),
-);
+];
 
 $this->pageTitle = Yii::t('DeliveryModule.delivery', 'Способы доставки - управление');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставка'), 'url' => array('/delivery/deliveryBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => array('/delivery/deliveryBackend/create')),
-);
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставка'), 'url' => ['/delivery/deliveryBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => ['/delivery/deliveryBackend/create']],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -21,7 +21,7 @@ $this->menu = array(
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id' => 'delivery-grid',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
@@ -30,16 +30,16 @@ $this->widget(
         'sortableAjaxSave' => true,
         'sortableAttribute' => 'position',
         'sortableAction' => '/delivery/deliveryBackend/sortable',
-        'columns' => array(
-            array(
+        'columns' => [
+            [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/delivery/deliveryBackend/update", "id" => $data->id))',
-            ),
+            ],
             'price',
             'free_from',
             'available_from',
-            array(
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/delivery/deliveryBackend/inline'),
@@ -48,10 +48,10 @@ $this->widget(
                     Delivery::STATUS_ACTIVE => ['class' => 'label-success'],
                     Delivery::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

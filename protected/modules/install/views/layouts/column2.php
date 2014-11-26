@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-sm-9 well">
         <?php if (count($this->breadcrumbs)) {
-            $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', ['links' => $this->breadcrumbs]);
         }
         ?><!-- breadcrumbs -->
         <?php //$this->widget('yupe\widgets\YFlashMessages'); ?>
@@ -16,10 +16,10 @@
             <?php
             $this->widget(
                 'bootstrap.widgets.TbMenu',
-                array(
+                [
                     'type' => 'list',
                     'items' => Yii::app()->controller->module->getInstallMenu(),
-                )
+                ]
             );?>
         </div>
         <div class="alert alert-warning">
@@ -28,7 +28,7 @@
             поддержке <?php echo CHtml::link(
                 'amyLabs',
                 'http://amylabs.ru',
-                array('target' => '_blank')
+                ['target' => '_blank']
             ); ?>!
             <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
             проблем!

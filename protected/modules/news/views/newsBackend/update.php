@@ -1,52 +1,52 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('NewsModule.news', 'News') => array('/news/newsBackend/index'),
-    $model->title                     => array('/news/newsBackend/view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('NewsModule.news', 'News') => ['/news/newsBackend/index'],
+    $model->title                     => ['/news/newsBackend/view', 'id' => $model->id],
     Yii::t('NewsModule.news', 'Edit'),
-);
+];
 
 $this->pageTitle = Yii::t('NewsModule.news', 'News - edit');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('NewsModule.news', 'News management'),
-        'url'   => array('/news/newsBackend/index')
-    ),
-    array(
+        'url'   => ['/news/newsBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('NewsModule.news', 'Create article'),
-        'url'   => array('/news/newsBackend/create')
-    ),
-    array('label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'),
-    array(
+        'url'   => ['/news/newsBackend/create']
+    ],
+    ['label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'],
+    [
         'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('NewsModule.news', 'Edit news article'),
-        'url'   => array(
+        'url'   => [
             '/news/newsBackend/update/',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('NewsModule.news', 'View news article'),
-        'url'   => array(
+        'url'   => [
             '/news/newsBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('NewsModule.news', 'Remove news'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/news/newsBackend/delete', 'id' => $model->id),
-            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit'  => ['/news/newsBackend/delete', 'id' => $model->id],
+            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('NewsModule.news', 'Do you really want to remove the article?'),
             'csrf'    => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -57,5 +57,5 @@ $this->menu = array(
 
 <?php echo $this->renderPartial(
     '_form',
-    array('model' => $model, 'languages' => $languages, 'langModels' => $langModels)
+    ['model' => $model, 'languages' => $languages, 'langModels' => $langModels]
 ); ?>

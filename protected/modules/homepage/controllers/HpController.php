@@ -26,31 +26,31 @@ class HpController extends yupe\components\controllers\FrontController
         if ($module->mode == HomepageModule::MODE_PAGE) {
             $view = 'page';
 
-            $data = array(
+            $data = [
                 'page' => Page::model()->findByPk($module->target)
-            );
+            ];
         }
 
         if ($module->mode == HomepageModule::MODE_POSTS) {
             $view = 'posts';
 
             $dataProvider = new CActiveDataProvider(
-                'Post', array(
+                'Post', [
                     'criteria' => new CDbCriteria(
-                            array(
+                            [
                                 'condition' => 't.status = :status',
-                                'params'    => array(':status' => Post::STATUS_PUBLISHED),
+                                'params'    => [':status' => Post::STATUS_PUBLISHED],
                                 'limit'     => $module->limit,
                                 'order'     => 't.publish_date DESC',
-                                'with'      => array('createUser', 'blog', 'commentsCount'),
-                            )
+                                'with'      => ['createUser', 'blog', 'commentsCount'],
+                            ]
                         ),
-                )
+                ]
             );
 
-            $data = array(
+            $data = [
                 'dataProvider' => $dataProvider
-            );
+            ];
         }
 
         $this->render($view, $data);

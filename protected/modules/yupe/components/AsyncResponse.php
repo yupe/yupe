@@ -63,10 +63,10 @@ class AsyncResponse extends CApplicationComponent
         ContentType::setHeader(ContentType::TYPE_JSON);
 
         echo json_encode(
-            array(
+            [
                 $this->resultParamName => $this->success,
                 $this->dataParamName   => $data,
-            )
+            ]
         );
 
         Yii::app()->end();
@@ -80,10 +80,10 @@ class AsyncResponse extends CApplicationComponent
         ContentType::setHeader(ContentType::TYPE_JSON);
 
         echo json_encode(
-            array(
+            [
                 $this->resultParamName => $this->failure,
                 $this->dataParamName   => $data,
-            )
+            ]
         );
 
         Yii::app()->end();

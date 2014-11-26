@@ -1,15 +1,15 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.producer', 'Производители') => array('/store/producerBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.producer', 'Производители') => ['/store/producerBackend/index'],
     Yii::t('StoreModule.producer', 'Добавить'),
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.producer', 'Производители - добавить');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Управление производителями'), 'url' => array('/store/producerBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Добавить производителя'), 'url' => array('/store/producerBackend/create')),
-);
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Управление производителями'), 'url' => ['/store/producerBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Добавить производителя'), 'url' => ['/store/producerBackend/create']],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -18,4 +18,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

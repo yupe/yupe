@@ -16,24 +16,24 @@ class CatalogController extends yupe\components\controllers\FrontController
 
     public function actionShow($name)
     {
-        $good = Good::model()->published()->find('alias = :alias', array(':alias' => $name));
+        $good = Good::model()->published()->find('alias = :alias', [':alias' => $name]);
 
         if (!$good) {
             throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Product was not found!'));
         }
 
-        $this->render('good', array('good' => $good));
+        $this->render('good', ['good' => $good]);
     }
 
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider(Good::model()->published(), array(
-            'criteria' => new CDbCriteria(array(
+        $dataProvider = new CActiveDataProvider(Good::model()->published(), [
+            'criteria' => new CDbCriteria([
                     'limit' => self::GOOD_PER_PAGE,
                     'order' => 't.create_time DESC',
-                )),
-        ));
+                ]),
+        ]);
 
-        $this->render('index', array('dataProvider' => $dataProvider));
+        $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

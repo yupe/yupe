@@ -28,10 +28,10 @@ class YupeCode extends CrudCode
     {
         return array_merge(
             parent::rules(),
-            array(
-                array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter' => 'trim'),
-                array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'required'),
-            )
+            [
+                ['im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter' => 'trim'],
+                ['im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'required'],
+            ]
         );
     }
 

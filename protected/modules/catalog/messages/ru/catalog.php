@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Name'                                                 => 'Название',
     'Goods categories'                                     => 'Категории товаров',
     'Delete'                                               => 'Удалить',
@@ -106,4 +106,4 @@ return array(
     'List of goods'                                        => 'Просмотр списка товаров',
     'Editing goods'                                        => 'Редактирование товара',
     'Viewing goods'                                        => 'Просмотр товара'
-);
+];

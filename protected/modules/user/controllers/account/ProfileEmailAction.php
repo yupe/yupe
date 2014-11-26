@@ -22,7 +22,7 @@ class ProfileEmailAction extends CAction
             );
             Yii::app()->user->logout();
             $this->controller->redirect(
-                array('/user/account/login')
+                ['/user/account/login']
             );
         }
 
@@ -55,9 +55,9 @@ class ProfileEmailAction extends CAction
                         Yii::t('UserModule.user', 'Email was updated.')
                     );
                 }
-                $this->controller->redirect(array('/user/account/profile'));
+                $this->controller->redirect(['/user/account/profile']);
             }
         }
-        $this->controller->render('profileEmail', array('model' => $form,));
+        $this->controller->render('profileEmail', ['model' => $form,]);
     }
 }

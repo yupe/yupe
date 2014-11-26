@@ -4,10 +4,10 @@ $this->description = Yii::t('BlogModule.blog', 'Latest post');
 $this->keywords = Yii::t('BlogModule.blog', 'Latest post');
 ?>
 
-<?php $this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
+<?php $this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
     Yii::t('BlogModule.blog', 'Latest posts'),
-); ?>
+]; ?>
 
 <div class="posts">
 
@@ -38,15 +38,15 @@ $this->keywords = Yii::t('BlogModule.blog', 'Latest post');
 
     <?php $this->widget(
         'bootstrap.widgets.TbListView',
-        array(
+        [
             'id'           => 'posts-list',
             'dataProvider' => $model->allPosts(),
             'itemView'     => '_post',
             'template'     => "{items}\n{pager}",
             'ajaxUpdate'   => false,
-            'htmlOptions'  => array(
+            'htmlOptions'  => [
                 'class' => 'posts-list'
-            )
-        )
+            ]
+        ]
     ); ?>
 </div>

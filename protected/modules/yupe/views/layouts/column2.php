@@ -5,10 +5,10 @@
         if (count($this->breadcrumbs)) {
             $this->widget(
                 'bootstrap.widgets.TbBreadcrumbs',
-                array(
-                    'homeLink' => CHtml::link(Yii::t('YupeModule.yupe', 'Home'), array('/yupe/backend/index')),
+                [
+                    'homeLink' => CHtml::link(Yii::t('YupeModule.yupe', 'Home'), ['/yupe/backend/index']),
                     'links'    => $this->breadcrumbs,
-                )
+                ]
             );
         }
         ?>
@@ -24,10 +24,10 @@
             <div class="panel panel-default" style="padding: 8px 0;">
                 <?php $this->widget(
                     'bootstrap.widgets.TbMenu',
-                    array(
+                    [
                         'type'  => 'list',
                         'items' => $this->yupe->getSubMenu($this->menu),
-                    )
+                    ]
                 ); ?>
             </div>
         <?php } endif; ?>

@@ -26,12 +26,12 @@
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id' => 'type-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('StoreModule.type', 'Поля помеченные'); ?>
@@ -46,15 +46,15 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'main_category_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => (new StoreCategory())->getTabList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
                         'id' => 'main_category_id',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -69,19 +69,19 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-7 form-group">
         <?php echo CHtml::activeLabel($model, 'categories'); ?>
-        <?php $this->widget('store.widgets.CategoryTreeWidget', array('selectedCategories' => unserialize($model->categories), 'id' => 'category-tree')); ?>
+        <?php $this->widget('store.widgets.CategoryTreeWidget', ['selectedCategories' => unserialize($model->categories), 'id' => 'category-tree']); ?>
     </div>
 </div>
 
 <div class="row">
-    <?php $tree = array();
-    $selectedAttributes = array();
+    <?php $tree = [];
+    $selectedAttributes = [];
     $model->refresh();
     foreach ($model->typeAttributes as $attribute) {
         $selectedAttributes[] = $attribute->id;
     }
     foreach ((array)AttributeGroup::model()->findAll() as $group) {
-        $items = array();
+        $items = [];
         $groupHasNotSelectedAttribute = false;
         $groupItems = (array)$group->groupAttributes;
         foreach ($groupItems as $item) {
@@ -89,25 +89,25 @@ $form = $this->beginWidget(
             if (!$selected) {
                 $groupHasNotSelectedAttribute = true;
             }
-            $items[] = array('text' => CHtml::tag('div', array('class' => 'checkbox'), CHtml::label(CHtml::checkBox('attributes[]', $selected, array('value' => $item->id)) . $item->title, null)));
+            $items[] = ['text' => CHtml::tag('div', ['class' => 'checkbox'], CHtml::label(CHtml::checkBox('attributes[]', $selected, ['value' => $item->id]) . $item->title, null))];
         }
-        $tree[] = array(
+        $tree[] = [
             'text' => CHtml::tag(
                 'div',
-                array('class' => 'checkbox'),
-                CHtml::label(CHtml::checkBox('', count($groupItems) && !$groupHasNotSelectedAttribute, array('class' => 'group-checkbox')) . $group->name, null)
+                ['class' => 'checkbox'],
+                CHtml::label(CHtml::checkBox('', count($groupItems) && !$groupHasNotSelectedAttribute, ['class' => 'group-checkbox']) . $group->name, null)
             ),
             'children' => $items
-        );
+        ];
     }
-    foreach ((array)Attribute::model()->findAllByAttributes(array('group_id' => null)) as $attribute) {
-        $tree[] = array(
+    foreach ((array)Attribute::model()->findAllByAttributes(['group_id' => null]) as $attribute) {
+        $tree[] = [
             'text' => CHtml::tag(
                 'div',
-                array('class' => 'checkbox'),
-                CHtml::label(CHtml::checkBox('attributes[]', in_array($attribute->id, $selectedAttributes), array('value' => $attribute->id)) . $attribute->title, null)
+                ['class' => 'checkbox'],
+                CHtml::label(CHtml::checkBox('attributes[]', in_array($attribute->id, $selectedAttributes), ['value' => $attribute->id]) . $attribute->title, null)
             )
-        );
+        ];
     }
     ?>
     <div class="col-sm-7">
@@ -116,7 +116,7 @@ $form = $this->beginWidget(
                 <?php echo Yii::t("StoreModule.type", "Атрибуты типа"); ?>
             </div>
             <div class="panel-body">
-                <?php $this->widget('CTreeView', array('data' => $tree, 'collapsed' => true)); ?>
+                <?php $this->widget('CTreeView', ['data' => $tree, 'collapsed' => true]); ?>
             </div>
         </div>
     </div>
@@ -124,20 +124,20 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.type', 'Добавить и продолжить') : Yii::t('StoreModule.type', 'Сохранить и продолжить'),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.type', 'Добавить и вернуться к списку') : Yii::t('StoreModule.type', 'Сохранить и вернуться к списку'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

@@ -25,7 +25,7 @@ class ProfilePasswordAction extends CAction
             Yii::app()->user->logout();
 
             $this->controller->redirect(
-                array('/user/account/login')
+                ['/user/account/login']
             );
         }
         $form = new ProfilePasswordForm();
@@ -39,10 +39,10 @@ class ProfilePasswordAction extends CAction
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('UserModule.user', 'Your password was changed successfully.')
                     );
-                    $this->controller->redirect(array('/user/account/profile'));
+                    $this->controller->redirect(['/user/account/profile']);
                 }
             }
         }
-        $this->controller->render('profilePassword', array('model' => $form));
+        $this->controller->render('profilePassword', ['model' => $form]);
     }
 }

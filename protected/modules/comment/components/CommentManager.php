@@ -89,11 +89,11 @@ class CommentManager extends CApplicationComponent
          return Comment::model()->with(['author'])->findAll(
              [
                  'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status AND t.lft > 1',
-                 'params'    => array(
+                 'params'    => [
                      ':model'   => $model,
                      ':modelId' => (int)$modelId,
                      ':status'  => (int)$status,
-                 ),
+                 ],
                  'order'     => 't.lft',
              ]
          );

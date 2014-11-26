@@ -42,12 +42,12 @@ class YQueueMail extends yupe\components\Mail
     {
         return $this->getQueueComponent()->add(
             $this->queueMailWorkerId,
-            array(
+            [
                 'from'  => $from,
                 'to'    => $to,
                 'theme' => $theme,
                 'body'  => $body,
-            )
+            ]
         );
     }
 }

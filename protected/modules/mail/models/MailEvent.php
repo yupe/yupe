@@ -55,17 +55,17 @@ class MailEvent extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('code, name', 'required'),
-            array('code', 'length', 'max' => 100),
-            array('name', 'length', 'max' => 300),
-            array('description', 'safe'),
-            array('code', 'unique'),
+        return [
+            ['name, code, description', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['code, name', 'required'],
+            ['code', 'length', 'max' => 100],
+            ['name', 'length', 'max' => 300],
+            ['description', 'safe'],
+            ['code', 'unique'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, code, name, description', 'safe', 'on' => 'search'),
-        );
+            ['id, code, name, description', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -77,9 +77,9 @@ class MailEvent extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'templates' => array(self::HAS_MANY, 'MailTemplate', 'event_id'),
-        );
+        return [
+            'templates' => [self::HAS_MANY, 'MailTemplate', 'event_id'],
+        ];
     }
 
     /**
@@ -89,12 +89,12 @@ class MailEvent extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'          => Yii::t('MailModule.mail', 'ID'),
             'code'        => Yii::t('MailModule.mail', 'Symbolic code'),
             'name'        => Yii::t('MailModule.mail', 'Title'),
             'description' => Yii::t('MailModule.mail', 'Description'),
-        );
+        ];
     }
 
     /**
@@ -128,6 +128,6 @@ class MailEvent extends yupe\models\YModel
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 }

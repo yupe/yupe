@@ -56,7 +56,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
     /**
      * @var array default criteria for all queries
      */
-    public $defaultCriteria = array();
+    public $defaultCriteria = [];
 
     public $useCache = true;
 
@@ -99,13 +99,13 @@ class DCategoryBehavior extends CActiveRecordBehavior
         $this->cached();
 
         $items = $this->getFullAssocData(
-            array(
+            [
                 $this->primaryKeyAttribute,
                 $this->titleAttribute,
-            )
+            ]
         );
 
-        $result = array();
+        $result = [];
         foreach ($items as $item) {
             $result[$item[$this->primaryKeyAttribute]] = $item[$this->titleAttribute];
         }
@@ -122,13 +122,13 @@ class DCategoryBehavior extends CActiveRecordBehavior
         $this->cached();
 
         $items = $this->getFullAssocData(
-            array(
+            [
                 $this->aliasAttribute,
                 $this->titleAttribute,
-            )
+            ]
         );
 
-        $result = array();
+        $result = [];
         foreach ($items as $item) {
             $result[$item[$this->aliasAttribute]] = $item[$this->titleAttribute];
         }
@@ -146,10 +146,10 @@ class DCategoryBehavior extends CActiveRecordBehavior
 
         $items = $this->cached($this->getOwner())->findAll($criteria);
 
-        $result = array();
+        $result = [];
 
         foreach ($items as $item) {
-            $result = $result + array($item->{$this->urlAttribute} => $item->{$this->titleAttribute});
+            $result = $result + [$item->{$this->urlAttribute} => $item->{$this->titleAttribute}];
         }
 
         return $result;
@@ -165,19 +165,19 @@ class DCategoryBehavior extends CActiveRecordBehavior
 
         $items = $this->cached($this->getOwner())->findAll($criteria);
 
-        $result = array();
+        $result = [];
 
         foreach ($items as $item) {
             $active = $item->{$this->linkActiveAttribute};
-            $result[$item->getPrimaryKey()] = array(
+            $result[$item->getPrimaryKey()] = [
                 'id' => $item->getPrimaryKey(),
                 'label' => $item->{$this->titleAttribute},
                 'url' => $item->{$this->urlAttribute},
                 'icon' => $this->iconAttribute !== null ? $item->{$this->iconAttribute} : '',
                 'active' => $active,
-                'itemOptions' => array('class' => 'item_' . $item->getPrimaryKey()),
-                'linkOptions' => $active ? array('rel' => 'nofollow') : array(),
-            );
+                'itemOptions' => ['class' => 'item_' . $item->getPrimaryKey()],
+                'linkOptions' => $active ? ['rel' => 'nofollow'] : [],
+            ];
         }
 
         return $result;
@@ -191,10 +191,10 @@ class DCategoryBehavior extends CActiveRecordBehavior
     public function findByAlias($alias)
     {
         $model = $this->cached($this->getOwner())->find(
-            array(
+            [
                 'condition' => 't.' . $this->aliasAttribute . '=:alias',
-                'params' => array(':alias' => $alias),
-            )
+                'params' => [':alias' => $alias],
+            ]
         );
         return $model;
     }
@@ -222,7 +222,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
     {
         $criteria = $this->getOwnerCriteria();
 
-        $attributes = $this->aliasAttributes(array_unique(array_merge($attributes, array($this->primaryKeyAttribute))));
+        $attributes = $this->aliasAttributes(array_unique(array_merge($attributes, [$this->primaryKeyAttribute])));
         $criteria->select = implode(', ', $attributes);
 
         $command = $this->createFindCommand($criteria);
@@ -249,7 +249,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
 
     protected function aliasAttributes($attributes)
     {
-        $aliasesAttributes = array();
+        $aliasesAttributes = [];
         foreach ($attributes as $attribute) {
             $aliasesAttributes[] = 't.' . $attribute;
         }

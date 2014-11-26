@@ -21,7 +21,7 @@ class TestEnvCommand extends CConsoleCommand
     const CONFIG_DIR = "/../config";
     const TESTS_DIR = "/../../tests";
 
-    public $dbOptions = array('dbname' => 'yupe_test', 'dbuser' => 'root', 'dbpass' => '');
+    public $dbOptions = ['dbname' => 'yupe_test', 'dbuser' => 'root', 'dbpass' => ''];
 
     public function actionIndex()
     {

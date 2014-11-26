@@ -4,29 +4,29 @@ class UserController extends yupe\components\controllers\FrontController
 {
     public function filters()
     {
-        return array(
+        return [
             'accessControl',
-        );
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'actions' => array('index'), 'users' => array('@'),),
-            array('deny', 'users' => array('*'),),
-        );
+        return [
+            ['allow', 'actions' => ['index'], 'users' => ['@'],],
+            ['deny', 'users' => ['*'],],
+        ];
     }
 
     public function actionIndex()
     {
         $this->render(
             'index',
-            array(
+            [
                 'orders' => Order::model()->findAllByAttributes(
-                        array('user_id' => Yii::app()->getUser()->getId()),
-                        array('order' => 'date DESC')
+                        ['user_id' => Yii::app()->getUser()->getId()],
+                        ['order' => 'date DESC']
                     )
-            )
+            ]
         );
     }
 }

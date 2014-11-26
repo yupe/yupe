@@ -17,6 +17,6 @@ class UserBlogsWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view, array('models' => Blog::model()->getMembershipListForUser($this->userId)));
+        $this->render($this->view, ['models' => Blog::model()->getMembershipListForUser($this->userId)]);
     }
 }

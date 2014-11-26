@@ -4,20 +4,20 @@ class TypeBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Store.TypeBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Store.TypeBackend.Delete'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Store.TypeBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Store.TypeBackend.Index'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Store.TypeBackend.View'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Store.TypeBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Store.TypeBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Store.TypeBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Store.TypeBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Store.TypeBackend.View'],],
+            ['deny',],
+        ];
     }
 
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     public function actionCreate()
@@ -41,7 +41,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
@@ -49,7 +49,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
         //$criteria = new CDbCriteria();
         //$criteria->addNotInCondition('id', CHtml::listData($model->attributeRelation, 'attribute_id', 'attribute_id'));
         $availableAttributes = Attribute::model()->findAll();
-        $this->render('create', array('model' => $model, 'availableAttributes' => $availableAttributes));
+        $this->render('create', ['model' => $model, 'availableAttributes' => $availableAttributes]);
     }
 
 
@@ -74,10 +74,10 @@ class TypeBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id,
-                        )
+                        ]
                     )
                 );
             }
@@ -85,7 +85,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
         $criteria = new CDbCriteria();
         $criteria->addNotInCondition('id', CHtml::listData($model->attributeRelation, 'attribute_id', 'attribute_id'));
         $availableAttributes = Attribute::model()->findAll($criteria);
-        $this->render('update', array('model' => $model, 'availableAttributes' => $availableAttributes));
+        $this->render('update', ['model' => $model, 'availableAttributes' => $availableAttributes]);
     }
 
 
@@ -131,7 +131,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
             $model->attributes = $_GET['Type'];
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

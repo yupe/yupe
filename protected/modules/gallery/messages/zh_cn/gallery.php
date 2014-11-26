@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Delete'                                                     => '删除',
     'Do you really want to delete selected elements?'            => '您真的想删除选中的元素吗?',
     '*unknown*'                                                  => '*未知*',
@@ -105,4 +105,4 @@ return array(
     'More...'                                                    => '更多...',
     'Images count'                                               => '图片数量',
     'Select {field}'                                             => '选择 {field}',
-);
+];

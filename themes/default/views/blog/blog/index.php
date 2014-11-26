@@ -4,15 +4,15 @@ $this->description = Yii::t('BlogModule.blog', 'Blogs');
 $this->keywords = Yii::t('BlogModule.blog', 'Blogs');
 ?>
 
-<?php $this->breadcrumbs = array(Yii::t('BlogModule.blog', 'Blogs')); ?>
+<?php $this->breadcrumbs = [Yii::t('BlogModule.blog', 'Blogs')]; ?>
 
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'method' => 'get',
         'type'   => 'vertical'
-    )
+    ]
 );
 ?>
 
@@ -22,7 +22,7 @@ $form = $this->beginWidget(
             <?php echo $form->textField(
                 $blogs,
                 'name',
-                array('placeholder' => Yii::t('BlogModule.blog', 'Search by blog name'), 'class' => 'form-control')
+                ['placeholder' => Yii::t('BlogModule.blog', 'Search by blog name'), 'class' => 'form-control']
             ); ?>
             <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><?php echo Yii::t('BlogModule.blog', 'search'); ?></button>
@@ -46,17 +46,17 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbListView',
-    array(
+    [
         'dataProvider'       => $blogs->search(),
         'template'           => '{sorter}<br/><hr/>{items} {pager}',
         'sorterCssClass'     => 'sorter pull-left',
         'itemView'           => '_view',
         'ajaxUpdate'         => false,
-        'sortableAttributes' => array(
+        'sortableAttributes' => [
             'name',
             'postsCount',
             'membersCount'
-        ),
-    )
+        ],
+    ]
 );
 ?>

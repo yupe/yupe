@@ -18,19 +18,19 @@ if ($city_id && ($city = GeoCity::model()->with('country')->findByPk($city_id)))
         <?php
         $form->widget(
             'zii.widgets.jui.CJuiAutoComplete',
-            array(
+            [
                 'name'        => 'GeoProfile[geo_city]',
                 'value'       => $city,
                 'sourceUrl'   => $this->createUrl('/geo/geo/cityAjax'),
-                'htmlOptions' => array('class' => 'span5'),
-                'options'     => array(
+                'htmlOptions' => ['class' => 'span5'],
+                'options'     => [
                     'showAnim' => 'fold',
                     'select'   => 'js: function (event, ui) {
              $("#GeoProfile_geo_city_id").val(ui.item.id);
             }',
 
-                )
-            )
+                ]
+            ]
         );
         echo CHtml::hiddenField('GeoProfile[geo_city_id]', $city_id);
         if (!$city_id && $guessed_city) {

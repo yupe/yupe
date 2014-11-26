@@ -4,7 +4,7 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
 {
     public function send(IFeedbackForm $form)
     {
-        $emailBody = Yii::app()->controller->renderPartial('feedbackEmail', array('model' => $form), true);
+        $emailBody = Yii::app()->controller->renderPartial('feedbackEmail', ['model' => $form], true);
 
         foreach (explode(',', $this->module->emails) as $mail) {
             $this->mail->send($form->getEmail(), $mail, $form->getTheme(), $emailBody);
@@ -21,7 +21,7 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
     {
         $emailBody = Yii::app()->controller->renderPartial(
             'feedbackConfirmationEmailEmpty',
-            array('model' => $form),
+            ['model' => $form],
             true
         );
 
@@ -31,7 +31,7 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
             Yii::t(
                 'FeedbackModule.feedback',
                 'Your proposition on site "{site}" was received',
-                array('{site}' => Yii::app()->name)
+                ['{site}' => Yii::app()->name]
             ),
             $emailBody
         );

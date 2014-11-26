@@ -24,27 +24,27 @@
                     <div class="col-sm-8">
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
-                            array(
+                            [
                                 'id'           => 'user-grid',
                                 'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
                                 'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'htmlOptions'  => [
                                     'class' => false
-                                ),
-                                'columns'      => array(
-                                    array(
+                                ],
+                                'columns'      => [
+                                    [
                                         'name'  => 'nick_name',
                                         'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/update","id" => $data->id))',
                                         'type'  => 'html'
-                                    ),
+                                    ],
                                     'registration_date',
-                                    array(
+                                    [
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
-                                    ),
-                                ),
-                            )
+                                    ],
+                                ],
+                            ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">

@@ -1,24 +1,24 @@
 <?php
 
-return array(
-    'module' => array(
+return [
+    'module' => [
         'class' => 'application.modules.payment.PaymentModule',
-    ),
-    'import' => array(
+    ],
+    'import' => [
         'application.modules.payment.models.*',
         'application.modules.payment.components.*',
-    ),
-    'component' => array(
-        'request' => array(
-            'noCsrfValidationRoutes' => array(
+    ],
+    'component' => [
+        'request' => [
+            'noCsrfValidationRoutes' => [
                 'payment/process',
-            ),
-        ),
-        'paymentManager' => array(
+            ],
+        ],
+        'paymentManager' => [
             'class' => 'application.modules.payment.components.PaymentManager'
-        ),
-    ),
-    'rules' => array(
+        ],
+    ],
+    'rules' => [
         '/payment/process/<id:\w+>' => 'payment/payment/process',
-    ),
-);
+    ],
+];

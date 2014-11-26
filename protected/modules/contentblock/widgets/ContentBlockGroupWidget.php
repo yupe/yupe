@@ -30,15 +30,15 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
             ));
         }else {
 
-            $category = Category::model()->find('alias = :category', array(':category' => $this->category));
+            $category = Category::model()->find('alias = :category', [':category' => $this->category]);
 
             if (null === $category) {
                 throw new CException(Yii::t(
                     'ContentBlockModule.contentblock',
                     'Category "{category}" does not exist, please enter the unsettled category',
-                    array(
+                    [
                         '{category}' => $this->category
-                    )
+                    ]
                 ));
             }
         }
@@ -55,7 +55,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
 
         if ($blocks === false) {
 
-            $category = Category::model()->find('alias = :category', array(':category' => $this->category));
+            $category = Category::model()->find('alias = :category', [':category' => $this->category]);
 
             $criteria = new CDbCriteria;
             $criteria->addCondition('category_id = :category_id');
@@ -76,9 +76,9 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                     Yii::t(
                         'ContentBlockModule.contentblock',
                         'Group content block "{category_id}" was not found !',
-                        array(
+                        [
                             '{category_id}' => $this->category
-                        )
+                        ]
                     )
                 );
             }
@@ -86,6 +86,6 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
             Yii::app()->cache->set($cacheName, $blocks,$this->cacheTime);
         }
 
-        $this->render($this->view, array('blocks' => $blocks));
+        $this->render($this->view, ['blocks' => $blocks]);
     }
 }

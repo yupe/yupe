@@ -21,7 +21,7 @@ class m000000_000000_yupe_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{yupe_settings}}',
-            array(
+            [
                 'id'            => 'pk',
                 'module_id'     => 'varchar(100) NOT NULL',
                 'param_name'    => 'varchar(100) NOT NULL',
@@ -30,7 +30,7 @@ class m000000_000000_yupe_base extends yupe\components\DbMigration
                 'change_date'   => 'datetime NOT NULL',
                 'user_id'       => 'integer DEFAULT NULL',
                 'type'          => "integer NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

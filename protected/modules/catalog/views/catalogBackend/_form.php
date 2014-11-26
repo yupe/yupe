@@ -11,13 +11,13 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'good-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 ); ?>
 
 <div class="alert alert-info">
@@ -33,16 +33,16 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
                         'data-content'        => $model->getAttributeDescription('status')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-3">
@@ -50,15 +50,15 @@ $form = $this->beginWidget(
         <?php echo $form->checkBoxGroup(
             $model,
             'is_special',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('is_special'),
                         'data-content'        => $model->getAttributeDescription('is_special')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -67,18 +67,18 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty'               => Yii::t('CatalogModule.catalog', '--choose--'),
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('category_id'),
                         'data-content'        => $model->getAttributeDescription('category_id'),
                         'encode'              => false,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -87,15 +87,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'name',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
                         'data-content'        => $model->getAttributeDescription('name')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -104,15 +104,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'alias',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('alias'),
                         'data-content'        => $model->getAttributeDescription('alias')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -121,15 +121,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'price',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('price'),
                         'data-content'        => $model->getAttributeDescription('price')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -138,15 +138,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'article',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('article'),
                         'data-content'        => $model->getAttributeDescription('article')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -156,22 +156,22 @@ $form = $this->beginWidget(
         echo CHtml::image(
             !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
             $model->name,
-            array(
+            [
                 'class' => 'preview-image',
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
-            )
+            ]
         ); ?>
         <?php echo $form->fileFieldGroup(
             $model,
             'image',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
                         'style'    => 'background-color: inherit;'
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -183,10 +183,10 @@ $form = $this->beginWidget(
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
-                array(
+                [
                     'model'     => $model,
                     'attribute' => 'description',
-                )
+                ]
             ); ?>
         </div>
     </div>
@@ -201,10 +201,10 @@ $form = $this->beginWidget(
             <?php echo $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
-                array(
+                [
                     'model'     => $model,
                     'attribute' => 'short_description',
-                )
+                ]
             ); ?>
         </div>
     </div>
@@ -216,10 +216,10 @@ $form = $this->beginWidget(
             <?php echo $form->labelEx($model, 'data'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
-                array(
+                [
                     'model'     => $model,
                     'attribute' => 'data',
-                )
+                ]
             ); ?>
         </div>
     </div>
@@ -227,26 +227,26 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and continue') : Yii::t(
                 'CatalogModule.catalog',
                 'Save product and continue'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and close') : Yii::t(
                 'CatalogModule.catalog',
                 'Save product and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

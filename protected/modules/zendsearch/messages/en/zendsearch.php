@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '0.2'                                                                       => '',
     'WebAction webstudio'                                                       => '',
     'http://webaction.su'                                                       => '',
@@ -44,4 +44,4 @@ return array(
     'Update config file or module, Module index not found for model "{model}"!' => '',
     'Module "{module}" not installed!'                                          => '',
     'This module require "Iconv" extension!'                                    => '',
-);
+];

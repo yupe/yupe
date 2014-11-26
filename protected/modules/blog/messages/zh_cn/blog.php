@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Delete' => '',
     'Wait for confirmation' => '',
     'Confirmation' => '',
@@ -237,4 +237,4 @@ return array(
     'read also:' => '更多阅读：',
     'All posts' => '全部文章',
     'About author' => '',
-);
+];

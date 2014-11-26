@@ -30,10 +30,10 @@ class TokenStorage extends CApplicationComponent
     {
         return UserToken::model()->deleteAll(
             'type = :type AND user_id = :user_id',
-            array(
+            [
                 ':type'    => (int)$type,
                 ':user_id' => $user->id
-            )
+            ]
         );
     }
 
@@ -78,11 +78,11 @@ class TokenStorage extends CApplicationComponent
     {
         return UserToken::model()->find(
             'token = :token AND type = :type AND status = :status',
-            array(
+            [
                 ':token'  => $token,
                 ':type'   => (int)$type,
                 ':status' => (int)$status
-            )
+            ]
         );
     }
 
@@ -94,11 +94,11 @@ class TokenStorage extends CApplicationComponent
             if ($invalidate) {
                 UserToken::model()->deleteAll(
                     'id != :id AND user_id = :user_id AND type = :type',
-                    array(
+                    [
                         ':user_id' => $token->user_id,
                         ':type'    => $token->type,
                         ':id'      => $token->id
-                    )
+                    ]
                 );
             }
 

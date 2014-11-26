@@ -1,34 +1,34 @@
 <?php
 
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class'        => 'application.modules.zendsearch.ZendSearchModule',
         // Указание здесь layout'a портит отображение на фронтенде:
         //'layout' => '//layouts/column2',
-        'searchModels' => array(
-            'News' => array(
+        'searchModels' => [
+            'News' => [
                 'path'        => 'application.modules.news.models.News',
                 'module'      => 'news',
                 'titleColumn' => 'title',
                 'linkColumn'  => 'alias',
                 'linkPattern' => '/news/news/show?title={alias}',
                 'textColumns' => 'full_text,short_text,keywords,description',
-            ),
-            'Page' => array(
+            ],
+            'Page' => [
                 'module'      => 'page',
                 'path'        => 'application.modules.page.models.Page',
                 'titleColumn' => 'title',
                 'linkColumn'  => 'slug',
                 'linkPattern' => '/page/page/show?slug={slug}',
                 'textColumns' => 'body,title_short,keywords,description',
-            ),
-        ),
-    ),
-    'import'    => array(
+            ],
+        ],
+    ],
+    'import'    => [
         'application.modules.zendsearch.models.*',
-    ),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'component' => [],
+    'rules'     => [
         '/search' => 'zendsearch/search/search',
-    ),
-);
+    ],
+];

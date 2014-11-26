@@ -49,13 +49,13 @@
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                   => 'auth-item-form',
         'enableAjaxValidation' => false,
-        'htmlOptions'          => array(
+        'htmlOptions'          => [
             'class' => 'well',
-        ),
-    )
+        ],
+    ]
 ); ?>
 
 <div class="alert alert-info">
@@ -77,12 +77,12 @@
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getTypeList(),
-                    'htmlOptions' => array('empty' => '---'),
-                ),
-            )
+                    'htmlOptions' => ['empty' => '---'],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -101,13 +101,13 @@
             <?php echo CHtml::textField(
                 'search',
                 '',
-                array('class' => 'form-control', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter'))
+                ['class' => 'form-control', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter')]
             ); ?>
         </div>
     </div>
     <p>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', array('id' => 'check-all')); ?>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', array('id' => 'uncheck-all')); ?>
+        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', ['id' => 'check-all']); ?>
+        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', ['id' => 'uncheck-all']); ?>
     </p>
     <?php foreach ($operations as $k => $v): { ?>
         <div class="row operation">
@@ -117,7 +117,7 @@
                         <?php echo CHtml::checkBox(
                             'ChildAuthItems[]',
                             isset($checkedList[$k]),
-                            array('class' => 'item', 'value' => $k, 'id' => $k)
+                            ['class' => 'item', 'value' => $k, 'id' => $k]
                         ); ?>
                         <?php echo $v; ?>
                     </label>
@@ -137,7 +137,7 @@
                         <?php echo CHtml::checkBox(
                             'ChildAuthItems[]',
                             isset($checkedList[$k]),
-                            array('class' => 'item', 'value' => $k, 'id' => $k)
+                            ['class' => 'item', 'value' => $k, 'id' => $k]
                         ); ?>
                         <?php echo $v; ?>
                     </label>
@@ -157,7 +157,7 @@
                         <?php echo CHtml::checkBox(
                             'ChildAuthItems[]',
                             isset($checkedList[$k]),
-                            array('class' => 'item', 'value' => $k, 'id' => $k)
+                            ['class' => 'item', 'value' => $k, 'id' => $k]
                         ); ?>
                         <?php echo $v; ?>
                     </label>
@@ -182,11 +182,11 @@
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('RbacModule.blog', 'Создать') : Yii::t('RbacModule.rbac', 'Save'),
-    )
+    ]
 );
 ?>
 

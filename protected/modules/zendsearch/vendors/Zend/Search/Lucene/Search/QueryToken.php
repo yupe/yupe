@@ -61,7 +61,7 @@ class Zend_Search_Lucene_Search_QueryToken
      */
     public static function getTypes()
     {
-        return array(
+        return [
             self::TT_WORD,
             self::TT_PHRASE,
             self::TT_FIELD,
@@ -81,7 +81,7 @@ class Zend_Search_Lucene_Search_QueryToken
             self::TT_NOT_LEXEME,
             self::TT_TO_LEXEME,
             self::TT_NUMBER
-        );
+        ];
     }
 
     /**

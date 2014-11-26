@@ -34,7 +34,7 @@
 
 <body>
 <?php if (Yii::app()->hasModule('menu')): { ?>
-    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array('name' => 'top-menu')); ?>
+    <?php $this->widget('application.modules.menu.widgets.MenuWidget', ['name' => 'top-menu']); ?>
 <?php } endif; ?>
 <!-- container -->
 <div class='container'>
@@ -43,9 +43,9 @@
     <!-- breadcrumbs -->
     <?php $this->widget(
         'bootstrap.widgets.TbBreadcrumbs',
-        array(
+        [
             'links' => $this->breadcrumbs,
-        )
+        ]
     );?>
     <div class="row">
         <!-- content -->
@@ -75,28 +75,28 @@
             <div class="widget blogs-widget">
                 <?php $this->widget(
                     'yupe\widgets\RandomDataWidget',
-                    array(
-                        'data' => array(
+                    [
+                        'data' => [
                             CHtml::link(
                                 CHtml::image(
                                     $mainAssets . '/images/amylabs.png',
                                     'amylabs - разработка на Юпи! и Yii !',
-                                    array('style' => 'width: 100%')
+                                    ['style' => 'width: 100%']
                                 ),
                                 'http://amylabs.ru?from=yupe-rb',
-                                array('title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank')
+                                ['title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank']
                             ),
                             CHtml::link(
                                 CHtml::image(
                                     $mainAssets . '/images/yupe-shop.png',
                                     'Разработка и запуск интернет магазина на Yii и "Юпи!"',
-                                    array('style' => 'width: 100%')
+                                    ['style' => 'width: 100%']
                                 ),
                                 'http://yupe-project.ru/ecommerce?from=yupe-rb',
-                                array('title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"', 'target' => '_blank')
+                                ['title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"', 'target' => '_blank']
                             ),
-                        )
-                    )
+                        ]
+                    ]
                 ); ?>
             </div>
 
@@ -108,27 +108,27 @@
 
             <?php if (Yii::app()->hasModule('blog')): ?>
                 <div class="widget stream-widget">
-                    <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
+                    <?php $this->widget('application.modules.blog.widgets.StreamWidget', ['cacheTime' => 300]); ?>
                 </div>
 
                 <div class="widget last-posts-widget">
                     <?php $this->widget(
                         'application.modules.blog.widgets.LastPostsWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime)
+                        ['cacheTime' => $this->yupe->coreCacheTime]
                     ); ?>
                 </div>
 
                 <div class="widget blogs-widget">
                     <?php $this->widget(
                         'application.modules.blog.widgets.BlogsWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime)
+                        ['cacheTime' => $this->yupe->coreCacheTime]
                     ); ?>
                 </div>
 
                 <div class="widget tags-cloud-widget">
                     <?php $this->widget(
                         'application.modules.blog.widgets.TagCloudWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
+                        ['cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50]
                     ); ?>
                 </div>
             <?php endif; ?>
@@ -137,7 +137,7 @@
                 <div class="widget last-questions-widget">
                     <?php $this->widget(
                         'application.modules.feedback.widgets.FaqWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime)
+                        ['cacheTime' => $this->yupe->coreCacheTime]
                     ); ?>
                 </div>
             <?php endif; ?>
@@ -154,7 +154,7 @@
 <?php if (Yii::app()->hasModule('contentblock')): { ?>
     <?php $this->widget(
         "application.modules.contentblock.widgets.ContentBlockWidget",
-        array("code" => "STAT", "silent" => true)
+        ["code" => "STAT", "silent" => true]
     ); ?>
 <?php } endif; ?>
 </body>

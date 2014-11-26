@@ -1,9 +1,9 @@
 <?php $this->pageTitle = Yii::t('BlogModule.blog', 'Posts archive'); ?>
 
-<?php $this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Posts') => array('/blog/blog/index/'),
+<?php $this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Posts') => ['/blog/blog/index/'],
     Yii::t('BlogModule.blog', 'archive'),
-); ?>
+]; ?>
 
 <p><?php echo Yii::t('BlogModule.blog', 'Posts archive'); ?></p>
 
@@ -21,7 +21,7 @@
                         ); ?></span>
                     <?php echo CHtml::link(
                         CHtml::encode($post['title']),
-                        array('/blog/post/show/', 'slug' => CHtml::encode($post['slug']))
+                        ['/blog/post/show/', 'slug' => CHtml::encode($post['slug'])]
                     ); ?>
                 </li>
             <?php endforeach; ?>

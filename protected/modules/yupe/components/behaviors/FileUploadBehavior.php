@@ -43,7 +43,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
      *
      * @var array allowed scenarios when this behavior will be used.
      */
-    public $scenarios = array('insert', 'update');
+    public $scenarios = ['insert', 'update'];
 
     /**
      * @var string scenarios when file upload is required.
@@ -84,9 +84,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
                     'required',
                     $owner,
                     $this->attributeName,
-                    array(
+                    [
                         'on' => $this->requiredOn,
-                    )
+                    ]
                 );
                 $owner->validatorList->add($requiredValidator);
             }
@@ -95,12 +95,12 @@ class FileUploadBehavior extends CActiveRecordBehavior
                 'file',
                 $owner,
                 $this->attributeName,
-                array(
+                [
                     'types' => $this->types,
                     'minSize' => $this->minSize,
                     'maxSize' => $this->maxSize,
                     'allowEmpty' => true,
-                )
+                ]
             );
 
             $owner->validatorList->add($fileValidator);

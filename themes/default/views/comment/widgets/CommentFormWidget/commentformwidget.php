@@ -6,14 +6,14 @@
 
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
-        array(
+        [
             'action'      => Yii::app()->createUrl('/comment/add/'),
             'id'          => 'comment-form',
             'type'        => 'vertical',
-            'htmlOptions' => array(
+            'htmlOptions' => [
                 'class' => 'well',
-            )
-        )
+            ]
+        ]
     ); ?>
 
 
@@ -24,14 +24,14 @@
     <?php echo $form->hiddenField($model, 'parent_id'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
 
-    <?php echo $form->textField($model, 'spamField', array(
+    <?php echo $form->textField($model, 'spamField', [
         'name'  => $spamField,
         'style' => 'position:absolute;display:none;visibility:hidden;',
-    )); ?>
+    ]); ?>
 
-    <?php echo $form->textField($model, 'comment', array(
+    <?php echo $form->textField($model, 'comment', [
             'style' => 'position:absolute;display:none;visibility:hidden;'
-        )); ?>
+        ]); ?>
 
     <?php if (!Yii::app()->user->isAuthenticated()) : { ?>
         <div class='row'>
@@ -66,17 +66,17 @@
                     <?php
                     $this->widget(
                         'CCaptcha',
-                        array(
+                        [
                             'showRefreshButton' => true,
-                            'imageOptions'      => array(
+                            'imageOptions'      => [
                                 'width' => '150',
-                            ),
-                            'buttonOptions'     => array(
+                            ],
+                            'buttonOptions'     => [
                                 'class' => 'btn btn-info',
-                            ),
+                            ],
                             'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
                             'captchaAction'     => '/comment/comment/captcha'
-                        )
+                        ]
                     );
                     ?>
                 </div>
@@ -86,16 +86,16 @@
                     <?php echo $form->textFieldGroup(
                         $model,
                         'verifyCode',
-                        array(
-                            'widgetOptions' => array(
-                                'htmlOptions' => array(
+                        [
+                            'widgetOptions' => [
+                                'htmlOptions' => [
                                     'placeholder' => Yii::t(
                                             'CommentModule.comment',
                                             'Insert symbols you see on picture'
                                         )
-                                ),
-                            ),
-                        )
+                                ],
+                            ],
+                        ]
                     ); ?>
                 </div>
             </div>

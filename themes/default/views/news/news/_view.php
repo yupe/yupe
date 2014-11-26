@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <h4><strong><?php echo CHtml::link(
                     CHtml::encode($data->title),
-                    array('/news/news/show/', 'alias' => $data->alias)
+                    ['/news/news/show/', 'alias' => $data->alias]
                 ); ?></strong></h4>
     </div>
 </div>
@@ -12,8 +12,8 @@
 
         <p><?php echo CHtml::link(
                 Yii::t('NewsModule.news', 'read...'),
-                array('/news/news/show/', 'alias' => $data->alias),
-                array('class' => 'btn')
+                ['/news/news/show/', 'alias' => $data->alias],
+                ['class' => 'btn']
             ); ?></p>
     </div>
 </div>

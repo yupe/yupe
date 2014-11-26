@@ -35,10 +35,10 @@ class YandexMarketModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Список выгрузок'), 'url' => array('/yandexmarket/exportBackend/index')),
+        return [
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Список выгрузок'), 'url' => ['/yandexmarket/exportBackend/index']],
             ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YandexMarketModule.default', 'Добавить выгрузку'), 'url' => ['/yandexmarket/exportBackend/create']]
-        );
+        ];
     }
 
     public function getVersion()

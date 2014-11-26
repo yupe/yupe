@@ -2,7 +2,7 @@
     <div class="span8">
         <h4><strong><?php echo CHtml::link(
                     CHtml::encode($data->title),
-                    array('/blog/post/show/', 'slug' => $data->slug)
+                    ['/blog/post/show/', 'slug' => $data->slug]
                 ); ?></strong></h4>
     </div>
 </div>
@@ -11,12 +11,12 @@
         <p> <?php echo $data->getQuote(); ?></p>
         <!--<p><?php echo CHtml::link(
             Yii::t('default', 'read...'),
-            array('/blog/post/show/', 'slug' => $data->slug),
-            array('class' => 'btn')
+            ['/blog/post/show/', 'slug' => $data->slug],
+            ['class' => 'btn']
         ); ?></p>-->
     </div>
 </div>
 
-<?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $data)); ?>
+<?php $this->widget('blog.widgets.PostMetaWidget', ['post' => $data]); ?>
 
 <hr>

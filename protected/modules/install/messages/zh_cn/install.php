@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '0.2'                                                                                                                                                                                                   => '',
     '< Back'                                                                                                                                                                                                => '< 后退',
     '<b>Optional</b>.'                                                                                                                                                                                      => '<b>可选项</b>.',
@@ -225,4 +225,4 @@ return array(
     'All discussions here'                                                                                                                                                                                  => '',
     'Just good guys'                                                                                                                                                                                        => '',
     'Please, select your language below for continue.'                                                                                                                                                      => '请选择下面的语言按钮继续安装。',
-);
+];

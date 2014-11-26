@@ -9,14 +9,14 @@
  * @since 0.1
  *
  */
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.catalog.CatalogModule',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'import'    => [],
+    'component' => [],
+    'rules'     => [
         '/catalog'        => 'catalog/catalog/index',
         '/catalog/<name>' => 'catalog/catalog/show',
-    ),
-);
+    ],
+];

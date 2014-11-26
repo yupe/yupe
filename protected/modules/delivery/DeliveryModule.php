@@ -7,12 +7,12 @@ class DeliveryModule extends WebModule
 
     public function getDependencies()
     {
-        return array('store', 'payment');
+        return ['store', 'payment'];
     }
 
     public function getEditableParams()
     {
-        return array();
+        return [];
     }
 
     public function getCategory()
@@ -22,10 +22,10 @@ class DeliveryModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Список способов доставки'), 'url' => array('/delivery/deliveryBackend/index')),
-            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ'), 'url' => array('/delivery/deliveryBackend/create')),
-        );
+        return [
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Список способов доставки'), 'url' => ['/delivery/deliveryBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ'), 'url' => ['/delivery/deliveryBackend/create']],
+        ];
     }
 
     public function getAdminPageLink()
@@ -73,27 +73,27 @@ class DeliveryModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'delivery.models.*',
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Delivery.DeliveryBackend.Management',
                 'description' => Yii::t("StoreModule.store", 'Управление способами доставки'),
-                'items' => array(
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Index', 'description' => Yii::t("DeliveryModule.delivery", 'Просмотр списка способов доставки'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Create', 'description' => Yii::t("DeliveryModule.delivery", 'Создание способа доставки'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Update', 'description' => Yii::t("DeliveryModule.delivery", 'Редактирование способа доставки'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.View', 'description' => Yii::t("DeliveryModule.delivery", 'Просмотр способа доставки'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Delete', 'description' => Yii::t("DeliveryModule.delivery", 'Удаление способа доставки'),),
-                ),
-            ),
-        );
+                'items' => [
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Index', 'description' => Yii::t("DeliveryModule.delivery", 'Просмотр списка способов доставки'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Create', 'description' => Yii::t("DeliveryModule.delivery", 'Создание способа доставки'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Update', 'description' => Yii::t("DeliveryModule.delivery", 'Редактирование способа доставки'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.View', 'description' => Yii::t("DeliveryModule.delivery", 'Просмотр способа доставки'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Delete', 'description' => Yii::t("DeliveryModule.delivery", 'Удаление способа доставки'),],
+                ],
+            ],
+        ];
     }
 }

@@ -58,16 +58,16 @@ class UserRegistrationCest
         // check that user is created
         $I->seeInDatabase(
             'yupe_user_user',
-            array(
+            [
                 'email'         => $testEMail,
                 'access_level'  => 0,
                 'status'        => 2,
                 'email_confirm' => 0,
                 'nick_name'     => $testNickName
-            )
+            ]
         );
         //check that token is created
-        $I->seeInDatabase('yupe_user_tokens', array('user_id' => 2, 'type' => 1, 'status' => 0));
+        $I->seeInDatabase('yupe_user_tokens', ['user_id' => 2, 'type' => 1, 'status' => 0]);
 
         $I->wantTo('Test that new user cant login without account activation...');
         $I->fillField(\LoginPage::$emailField, $testEMail);
@@ -76,7 +76,7 @@ class UserRegistrationCest
         $I->see('Email или пароль введены неверно!', \CommonPage::ERROR_CSS_CLASS);
 
         $I->wantTo('Test account activation...');
-        $key = $I->grabFromDatabase('yupe_user_tokens', 'token', array('user_id' => 2, 'type' => 1, 'status' => 0));
+        $key = $I->grabFromDatabase('yupe_user_tokens', 'token', ['user_id' => 2, 'type' => 1, 'status' => 0]);
         $I->amOnPage(\RegistrationPage::getActivateRoute(time()));
         $I->see(
             'Внимание! Возникла проблема с активацией аккаунта. Обратитесь к администрации сайта.',
@@ -89,16 +89,16 @@ class UserRegistrationCest
         // check user
         $I->seeInDatabase(
             'yupe_user_user',
-            array(
+            [
                 'email'         => $testEMail,
                 'access_level'  => 0,
                 'status'        => 1,
                 'email_confirm' => 1,
                 'nick_name'     => $testNickName
-            )
+            ]
         );
         //check  token
-        $I->dontSeeInDatabase('yupe_user_tokens', array('user_id' => 2, 'type' => 1, 'status' => 0));
+        $I->dontSeeInDatabase('yupe_user_tokens', ['user_id' => 2, 'type' => 1, 'status' => 0]);
 
         $I->wantTo('Test login with new account...');
         $I = new WebGuy\UserSteps($scenario);

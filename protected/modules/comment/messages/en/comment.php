@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '0.5'                                                         => '',
     'Email'                                                       => '',
     'Email for notifications'                                     => '',
@@ -108,4 +108,4 @@ return array(
     'WRITE COMMENT'                                               => '',
     'From user'                                                   => '',
     'Insert symbols you see on picture'                           => '',
-);
+];

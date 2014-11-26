@@ -1,6 +1,6 @@
 <div class="post">
     <div class="title">
-        <?php echo CHtml::link(CHtml::encode($data->name), array('/catalog/catalog/show', 'name' => $data->alias)); ?>
+        <?php echo CHtml::link(CHtml::encode($data->name), ['/catalog/catalog/show', 'name' => $data->alias]); ?>
     </div>
     <br/>
 
@@ -13,7 +13,7 @@
         <br/>
         <?php echo CHtml::link(
             Yii::t('CatalogModule.catalog', 'Constant link'),
-            array('/catalog/catalog/show', 'name' => $data->alias)
+            ['/catalog/catalog/show', 'name' => $data->alias]
         ); ?>
     </div>
 </div>

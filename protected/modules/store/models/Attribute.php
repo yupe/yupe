@@ -48,31 +48,31 @@ class Attribute extends \yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, title', 'filter', 'filter' => 'trim'),
-            array('name, type, title', 'required'),
-            array('name', 'unique'),
-            array(
+        return [
+            ['name, title', 'filter', 'filter' => 'trim'],
+            ['name, type, title', 'required'],
+            ['name', 'unique'],
+            [
                 'name',
                 'match',
                 'pattern' => '/^([a-z0-9._-])+$/i',
                 'message' => Yii::t('StoreModule.store', 'Название может содержать только буквы, цифры и подчеркивания.')
-            ),
-            array('type, group_id', 'numerical', 'integerOnly' => true),
-            array('required', 'boolean'),
-            array('unit', 'length', 'max' => 30),
-            array('rawOptions', 'safe'),
-            array('id, name, title, type, required, group_id', 'safe', 'on' => 'search'),
-        );
+            ],
+            ['type, group_id', 'numerical', 'integerOnly' => true],
+            ['required', 'boolean'],
+            ['unit', 'length', 'max' => 30],
+            ['rawOptions', 'safe'],
+            ['id, name, title, type, required, group_id', 'safe', 'on' => 'search'],
+        ];
     }
 
 
     public function relations()
     {
-        return array(
-            'options' => array(self::HAS_MANY, 'AttributeOption', 'attribute_id', 'order' => 'options.position ASC'),
-            'group' => array(self::BELONGS_TO, 'AttributeGroup', 'group_id'),
-        );
+        return [
+            'options' => [self::HAS_MANY, 'AttributeOption', 'attribute_id', 'order' => 'options.position ASC'],
+            'group' => [self::BELONGS_TO, 'AttributeGroup', 'group_id'],
+        ];
     }
 
 
@@ -81,7 +81,7 @@ class Attribute extends \yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'Id'),
             'name' => Yii::t('StoreModule.store', 'Идентификатор'),
             'title' => Yii::t('StoreModule.store', 'Название'),
@@ -89,7 +89,7 @@ class Attribute extends \yupe\models\YModel
             'required' => Yii::t('StoreModule.store', 'Обязательный'),
             'group_id' => Yii::t('StoreModule.store', 'Группа'),
             'unit' => Yii::t('StoreModule.store', 'Единица измерения'),
-        );
+        ];
     }
 
     /**
@@ -97,7 +97,7 @@ class Attribute extends \yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'Id'),
             'name' => Yii::t('StoreModule.store', 'Идентификатор'),
             'title' => Yii::t('StoreModule.store', 'Название'),
@@ -105,7 +105,7 @@ class Attribute extends \yupe\models\YModel
             'required' => Yii::t('StoreModule.store', 'Обязательный'),
             'group_id' => Yii::t('StoreModule.store', 'Группа'),
             'unit' => Yii::t('StoreModule.store', 'Единица измерения'),
-        );
+        ];
     }
 
     /**
@@ -123,25 +123,25 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('group_id', $this->group_id);
 
         $sort = new CSort;
-        $sort->attributes = array(
+        $sort->attributes = [
             '*',
-            'title' => array(
+            'title' => [
                 'asc' => 'title',
                 'desc' => 'title DESC',
-            ),
-        );
+            ],
+        ];
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
                 'sort' => $sort
-            )
+            ]
         );
     }
 
     public static function getTypesList()
     {
-        return array(
+        return [
             self::TYPE_TEXTAREA => Yii::t('StoreModule.store', 'Короткий текст (до 250 символов)'),
             self::TYPE_TEXT => Yii::t('StoreModule.store', 'Текст'),
             self::TYPE_DROPDOWN => Yii::t('StoreModule.store', 'Список'),
@@ -149,7 +149,7 @@ class Attribute extends \yupe\models\YModel
             self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Чекбокс'),
             //self::TYPE_IMAGE => Yii::t('StoreModule.store', 'Изображение'),
             //self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
-        );
+        ];
     }
 
     public static function getTypeTitle($type)
@@ -158,7 +158,7 @@ class Attribute extends \yupe\models\YModel
         return $list[$type];
     }
 
-    public function renderField($value = null, $name = null, $htmlOptions = array('class' => 'form-control'))
+    public function renderField($value = null, $name = null, $htmlOptions = ['class' => 'form-control'])
     {
         $name = $name ?: 'Attribute[' . $this->name . ']';
         switch ($this->type) {
@@ -168,16 +168,16 @@ class Attribute extends \yupe\models\YModel
             case self::TYPE_TEXT:
                 return Yii::app()->getController()->widget(
                     Yii::app()->getModule('store')->getVisualEditor(),
-                    array(
+                    [
                         'name' => $name,
                         'value' => $value
-                    ),
+                    ],
                     true
                 );
                 break;
             case self::TYPE_DROPDOWN:
                 $data = CHtml::listData($this->options, 'id', 'value');
-                return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, ($this->required ? array() : array('empty' => '---'))));
+                return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, ($this->required ? [] : ['empty' => '---'])));
                 break;
             case self::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($this->options, 'id', 'value');
@@ -233,12 +233,12 @@ class Attribute extends \yupe\models\YModel
      */
     public static function getTypesWithOptions()
     {
-        return array(self::TYPE_DROPDOWN, self::TYPE_CHECKBOX_LIST);
+        return [self::TYPE_DROPDOWN, self::TYPE_CHECKBOX_LIST];
     }
 
     public function getAttributeByName($name)
     {
-        return $name ? self::model()->findByAttributes(array('name' => $name)) : null;
+        return $name ? self::model()->findByAttributes(['name' => $name]) : null;
     }
 
     public function getGroupTitle()
@@ -258,9 +258,9 @@ class Attribute extends \yupe\models\YModel
     public function afterSave()
     {
         // удаляем старые значения
-        AttributeOption::model()->deleteAllByAttributes(array('attribute_id' => $this->id));
+        AttributeOption::model()->deleteAllByAttributes(['attribute_id' => $this->id]);
 
-        if (in_array($this->type, array(Attribute::TYPE_DROPDOWN))) {
+        if (in_array($this->type, [Attribute::TYPE_DROPDOWN])) {
             $newOptions = explode("\n", $this->rawOptions);
             $newOptions = array_filter(
                 $newOptions,

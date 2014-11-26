@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '0.2'                                                                => '',
     'IDE/Editors'                                                        => '',
     'YupeTeam'                                                           => '',
@@ -74,4 +74,4 @@ return array(
     'Yupe! Documentation'                                                => '木星！文档',
     'Comment'                                                            => '',
     'Set testing environment'                                            => ''
-);
+];

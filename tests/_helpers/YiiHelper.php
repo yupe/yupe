@@ -22,14 +22,14 @@ class YiiHelper extends \Codeception\Module
     public function setDbConnectionOptionsFromYiiConfig($dbConfigFile)
     {
         $dbConfig = include $dbConfigFile;
-        $mapKeys = array('connectionString' => 'dsn', 'username' => 'user', 'password' => 'password');
+        $mapKeys = ['connectionString' => 'dsn', 'username' => 'user', 'password' => 'password'];
         foreach ($mapKeys as $k => $v) {
             if (array_key_exists($k, $dbConfig)) {
                 $dbConfig[$v] = $dbConfig[$k];
                 unset($dbConfig[$k]);
             }
         }
-        $config = $this->_filterOptions($dbConfig, array('dsn', 'user', 'password'));
+        $config = $this->_filterOptions($dbConfig, ['dsn', 'user', 'password']);
         $this->getModule('Db')->_reconfigure($config);
         $this->getModule('Db')->_initialize();
     }
@@ -48,7 +48,7 @@ class YiiHelper extends \Codeception\Module
      */
     public function setDbDumpOptions(array $dumpOptions)
     {
-        $config = $this->_filterOptions($dumpOptions, array('dump', 'populate', 'cleanup'));
+        $config = $this->_filterOptions($dumpOptions, ['dump', 'populate', 'cleanup']);
         $this->getModule('Db')->_reconfigure($config);
         $this->getModule('Db')->_initialize();
     }

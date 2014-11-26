@@ -58,14 +58,14 @@ class UpdateModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('label' => Yii::t('UpdateModule.update', 'Updates')),
-            array(
+        return [
+            ['label' => Yii::t('UpdateModule.update', 'Updates')],
+            [
                 'icon' => 'fa fa-fw fa-refresh',
                 'label' => Yii::t('UpdateModule.update', 'Check for updates'),
-                'url' => array('/update/updateBackend/index')
-            ),
-        );
+                'url' => ['/update/updateBackend/index']
+            ],
+        ];
     }
 
     public function init()
@@ -73,10 +73,10 @@ class UpdateModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'update.models.*',
                 'update.components.*',
-            )
+            ]
         );
 
         $this->updateTmpPath = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'updates';
@@ -93,27 +93,27 @@ class UpdateModule extends WebModule
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         if (!YFile::checkPath($this->updateTmpPath)) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'UpdateModule.update',
                         'Please, choose catalog for updates!'
                     ),
-            );
+            ];
         }
 
         if (!YFile::checkPath(Yii::getPathOfAlias("application.modules"))) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'UpdateModule.update',
                     'Directory {dir} is not writable!',
                     ['{dir}' => Yii::getPathOfAlias("application.modules")]
                 ),
-            );
+            ];
         }
 
 
@@ -122,24 +122,24 @@ class UpdateModule extends WebModule
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'UpdateManage',
                 'description' => Yii::t('UpdateModule.update', 'Modules update'),
                 'type'        => 1,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => 0,
                         'name'        => 'Update.UpdateBackend.index',
                         'description' => Yii::t('UpdateModule.update', 'Modules update view')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => 0,
                         'name'        => 'Update.UpdateBackend.update',
                         'description' => Yii::t('UpdateModule.update', 'Modules update')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 }

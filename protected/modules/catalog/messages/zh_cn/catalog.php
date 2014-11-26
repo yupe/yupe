@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                                      => '',
     '--choose--'                                                                     => '',
     '0.2'                                                                            => '',
@@ -95,4 +95,4 @@ return array(
     'team@yupe.ru'                                                                   => '',
     'yupe team'                                                                      => '木星团队',
     'Constant link'                                                                  => '',
-);
+];

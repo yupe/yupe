@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     'Users'                                                 => 'Пользователи',
     'Socialization'                                         => 'Социализация',
     'Module for login and registration via social networks' => 'Модуль для входа и регистрации через социальные сети',
@@ -13,4 +13,4 @@ return array(
     'Removing social account'                               => 'Удаление социального аккаунта',
     'List of social accounts'                               => 'Просмотр списка социальных аккаунтов',
     'Viewing social account'                                => 'Просмотр социального акканута'
-);
+];

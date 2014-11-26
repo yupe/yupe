@@ -8,7 +8,7 @@ class Redactor extends \CInputWidget
 {
     private $redactorWidgetClass = 'vendor.yiiext.imperavi-redactor-widget.ImperaviRedactorWidget';
 
-    public $options = array();
+    public $options = [];
 
     public function run()
     {
@@ -49,7 +49,7 @@ class Redactor extends \CInputWidget
 
     public function getOptions()
     {
-        return array(
+        return [
             'buttonSource'            => true,
             'imageUpload'             => Yii::app()->createUrl('/yupe/backend/AjaxImageUpload'),
             'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
@@ -62,6 +62,6 @@ class Redactor extends \CInputWidget
                 }).show();
                 }',
             'toolbarFixedTopOffset' => 53
-        );
+        ];
     }
 }

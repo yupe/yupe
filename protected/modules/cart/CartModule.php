@@ -10,12 +10,12 @@ class CartModule extends WebModule
 
     public function getDependencies()
     {
-        return array('order');
+        return ['order'];
     }
 
     public function getEditableParams()
     {
-        return array();
+        return [];
     }
 
     public function getNavigation()
@@ -78,11 +78,11 @@ class CartModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'cart.extensions.shopping-cart.*',
                 'cart.widgets.ShoppingCartWidget',
                 'cart.models.*',
-            )
+            ]
         );
     }
 

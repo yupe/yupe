@@ -1,15 +1,15 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.type', 'Типы товаров') => array('/store/typeBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.type', 'Типы товаров') => ['/store/typeBackend/index'],
     Yii::t('StoreModule.type', 'Управление'),
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.type', 'Типы товаров - управление');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление типами'), 'url' => array('/store/typeBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Добавить тип'), 'url' => array('/store/typeBackend/create')),
-);
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление типами'), 'url' => ['/store/typeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Добавить тип'), 'url' => ['/store/typeBackend/create']],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -20,27 +20,27 @@ $this->menu = array(
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id' => 'type-grid',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
-        'columns' => array(
-            array(
+        'columns' => [
+            [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/store/typeBackend/update", "id" => $data->id))',
-            ),
-            array(
+            ],
+            [
                 'name'  => 'main_category_id',
                 'value' => function($data) {
                         return $data->category ? $data->category->name : '---';
                     },
                 'filter' => false
-            ),
-            array(
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

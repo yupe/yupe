@@ -1,69 +1,69 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('MenuModule.menu', 'Menu')       => array('/menu/menuBackend/index'),
-    Yii::t('MenuModule.menu', 'Menu items') => array('/menu/menuitemBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('MenuModule.menu', 'Menu')       => ['/menu/menuBackend/index'],
+    Yii::t('MenuModule.menu', 'Menu items') => ['/menu/menuitemBackend/index'],
     $model->title,
-);
+];
 
 $this->pageTitle = Yii::t('MenuModule.menu', 'Menu items - show');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('MenuModule.menu', 'Menu'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu'),
-                'url'   => array('/menu/menuBackend/index')
-            ),
-            array(
+                'url'   => ['/menu/menuBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu'),
-                'url'   => array('/menu/menuBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/menu/menuBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('MenuModule.menu', 'Menu items'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu items'),
-                'url'   => array('/menu/menuitemBackend/index')
-            ),
-            array(
+                'url'   => ['/menu/menuitemBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu item'),
-                'url'   => array('/menu/menuitemBackend/create')
-            ),
-            array('label' => Yii::t('MenuModule.menu', 'Menu item') . ' «' . $model->title . '»'),
-            array(
+                'url'   => ['/menu/menuitemBackend/create']
+            ],
+            ['label' => Yii::t('MenuModule.menu', 'Menu item') . ' «' . $model->title . '»'],
+            [
                 'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('MenuModule.menu', 'Change menu item'),
-                'url'   => array('/menu/menuitemBackend/update', 'id' => $model->id)
-            ),
-            array(
+                'url'   => ['/menu/menuitemBackend/update', 'id' => $model->id]
+            ],
+            [
                 'icon'        => 'fa fa-fw fa-eye',
                 'encodeLabel' => false,
                 'label'       => Yii::t('MenuModule.menu', 'View menu item'),
-                'url'         => array(
+                'url'         => [
                     '/menu/menuitemBackend/view',
                     'id' => $model->id
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('MenuModule.menu', 'Remove menu item'),
                 'url'         => '#',
-                'linkOptions' => array(
-                    'submit'  => array('/menu/menuitemBackend/delete', 'id' => $model->id),
+                'linkOptions' => [
+                    'submit'  => ['/menu/menuitemBackend/delete', 'id' => $model->id],
                     'confirm' => Yii::t('MenuModule.menu', 'Do you really want to delete?'),
-                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
-                ),
-            ),
-        )
-    ),
-);
+                    'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
+                ],
+            ],
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -74,9 +74,9 @@ $this->menu = array(
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data'       => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
             'title',
             'href',
@@ -86,23 +86,23 @@ $this->menu = array(
             'after_link',
             'target',
             'rel',
-            array(
+            [
                 'name'  => 'menu_id',
                 'value' => $model->menu->name,
-            ),
-            array(
+            ],
+            [
                 'name'  => 'parent_id',
                 'value' => $model->parent,
-            ),
-            array(
+            ],
+            [
                 'name'  => 'condition_name',
                 'value' => $model->conditionName,
-            ),
+            ],
             'sort',
-            array(
+            [
                 'name'  => 'status',
                 'value' => $model->getStatus(),
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

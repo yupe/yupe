@@ -1,13 +1,13 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'queue-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('QueueModule.queue', 'Fields with'); ?>
@@ -22,12 +22,12 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'worker',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Yii::app()->getModule('queue')->getWorkerNamesMap(),
-                    'htmlOptions' => array('empty' => '---'),
-                ),
-            )
+                    'htmlOptions' => ['empty' => '---'],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -46,11 +46,11 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'priority',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getPriorityList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -59,37 +59,37 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and continue') : Yii::t(
                 'QueueModule.queue',
                 'Save task'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and close') : Yii::t(
                 'QueueModule.queue',
                 'Save blog and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

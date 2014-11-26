@@ -13,12 +13,12 @@
  *   @var $this NotifyBackendController
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
+    'bootstrap.widgets.TbActiveForm', [
         'id'                     => 'notify-settings-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 );
 ?>
 
@@ -32,35 +32,35 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup($model, 'user_id', array('widgetOptions' => array('data' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')))); ?>
+            <?php echo $form->dropDownListGroup($model, 'user_id', ['widgetOptions' => ['data' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')]]); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup($model, 'my_post', array('widgetOptions' => array('data' => $this->module->getChoice(),'htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_post'), 'data-content' => $model->getAttributeDescription('my_post'))))); ?>
+            <?php echo $form->dropDownListGroup($model, 'my_post', ['widgetOptions' => ['data' => $this->module->getChoice(),'htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_post'), 'data-content' => $model->getAttributeDescription('my_post')]]]); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup($model, 'my_comment', array('widgetOptions' => array('data' => $this->module->getChoice(),'htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_comment'), 'data-content' => $model->getAttributeDescription('my_comment'))))); ?>
+            <?php echo $form->dropDownListGroup($model, 'my_comment', ['widgetOptions' => ['data' => $this->module->getChoice(),'htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_comment'), 'data-content' => $model->getAttributeDescription('my_comment')]]]); ?>
         </div>
     </div>
 
     <?php
     $this->widget(
-        'bootstrap.widgets.TbButton', array(
+        'bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
             'context'    => 'primary',
             'label'      => Yii::t('notify', 'Сохранить уведомление и продолжить'),
-        )
+        ]
     ); ?>
     <?php
     $this->widget(
-        'bootstrap.widgets.TbButton', array(
+        'bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
-            'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
+            'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
             'label'      => Yii::t('notify', 'Сохранить уведомление и закрыть'),
-        )
+        ]
     ); ?>
 
 <?php $this->endWidget(); ?>

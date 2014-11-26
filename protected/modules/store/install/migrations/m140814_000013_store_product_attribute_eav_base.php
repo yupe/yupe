@@ -6,11 +6,11 @@ class m140814_000013_store_product_attribute_eav_base extends yupe\components\Db
     {
         $this->createTable(
             "{{store_product_attribute_eav}}",
-            array(
+            [
                 "product_id" => "integer not null",
                 "attribute" => "varchar(250) not null",
                 "value" => "text",
-            ),
+            ],
             $this->getOptions()
         );
 

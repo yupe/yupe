@@ -1,12 +1,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 
 <fieldset>
@@ -18,28 +18,28 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'menu_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );?>
         </div>
     </div>
@@ -48,42 +48,42 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'parent_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getParentList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'condition_name',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getConditionList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'condition_denial',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getConditionDenialList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );?>
         </div>
     </div>
@@ -91,7 +91,7 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
@@ -99,7 +99,7 @@ $form = $this->beginWidget(
                 'MenuModule.menu',
                 'Find menu item'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

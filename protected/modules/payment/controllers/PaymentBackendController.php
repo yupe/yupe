@@ -4,35 +4,35 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
 {
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Payment',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'status'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Payment.PaymentBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Payment.PaymentBackend.Delete'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Payment.PaymentBackend.Update'),),
-            array('allow', 'actions' => array('paymentSystemSettings'), 'roles' => array('Payment.PaymentBackend.Create', 'Payment.PaymentBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Payment.PaymentBackend.Index'),),
-            array('allow', 'actions' => array('sortable'), 'roles' => array('Payment.PaymentBackend.Update'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Payment.PaymentBackend.View'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Payment.PaymentBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Payment.PaymentBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Payment.PaymentBackend.Update'],],
+            ['allow', 'actions' => ['paymentSystemSettings'], 'roles' => ['Payment.PaymentBackend.Create', 'Payment.PaymentBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Payment.PaymentBackend.Index'],],
+            ['allow', 'actions' => ['sortable'], 'roles' => ['Payment.PaymentBackend.Update'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Payment.PaymentBackend.View'],],
+            ['deny',],
+        ];
     }
 
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     public function actionCreate()
@@ -49,9 +49,9 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
@@ -62,7 +62,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         $max = $model->find($criteria);
 
         $model->position = $max->position + 1;
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
@@ -79,13 +79,13 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     public function actionDelete($id)
@@ -99,7 +99,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             );
 
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t('PaymentModule.payment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
@@ -114,7 +114,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         if (isset($_GET['Payment'])) {
             $model->attributes = $_GET['Payment'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
 
@@ -161,10 +161,10 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         $payment = Payment::model()->findByPk(Yii::app()->request->getParam('payment_id'));
         $this->renderPartial(
             '_payment_system_settings',
-            array(
+            [
                 'paymentSystem' => Yii::app()->request->getParam('payment_system'),
-                'paymentSettings' => $payment ? $payment->getPaymentSystemSettings() : array(),
-            )
+                'paymentSettings' => $payment ? $payment->getPaymentSystemSettings() : [],
+            ]
         );
     }
 }

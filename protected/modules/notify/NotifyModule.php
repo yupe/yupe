@@ -8,11 +8,11 @@ class NotifyModule extends WebModule
 
     public function getDependencies()
     {
-        return array(
+        return [
             'comment',
             'blog',
             'mail'
-        );
+        ];
     }
 
 	public function init()
@@ -72,12 +72,12 @@ class NotifyModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array(
+        return [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('NotifyModule.notify', 'Notify settings'),
-                'url'   => array('/notify/notifyBackend/index')
-            )
-        );
+                'url'   => ['/notify/notifyBackend/index']
+            ]
+        ];
     }
 }

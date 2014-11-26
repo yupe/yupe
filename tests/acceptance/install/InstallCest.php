@@ -89,7 +89,7 @@ class InstallCest
         $I->see('20', '.label-info');
         $I->see('7', '.label-info');
 
-        $links = array('Рекомендованные', 'Только основные', 'Все');
+        $links = ['Рекомендованные', 'Только основные', 'Все'];
 
         foreach ($links as $link) {
             $I->see($link, '.btn-info');

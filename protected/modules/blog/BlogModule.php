@@ -25,63 +25,63 @@ class BlogModule extends yupe\components\WebModule
 
     public function getDependencies()
     {
-        return array(
+        return [
             'user',
             'category',
             'comment',
             'image'
-        );
+        ];
     }
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
         // count moderated users
         $membersCnt = UserToBlog::model()->count(
             'status = :status',
-            array(':status' => UserToBlog::STATUS_CONFIRMATION)
+            [':status' => UserToBlog::STATUS_CONFIRMATION]
         );
 
         if ($membersCnt) {
-            $messages[WebModule::CHECK_NOTICE][] = array(
+            $messages[WebModule::CHECK_NOTICE][] = [
                 'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
                         'BlogModule.blog',
                         '{count} new members of blog wait for confirmation!',
-                        array(
+                        [
                             '{count}' => CHtml::link(
                                     $membersCnt,
-                                    array(
+                                    [
                                         '/blog/userToBlogBackend/index',
                                         'UserToBlog[status]' => UserToBlog::STATUS_CONFIRMATION,
                                         'order'              => 'id.desc'
-                                    )
+                                    ]
                                 )
-                        )
+                        ]
                     )
-            );
+            ];
         }
 
-        $postsCount = Post::model()->count('status = :status', array(':status' => Post::STATUS_MODERATED));
+        $postsCount = Post::model()->count('status = :status', [':status' => Post::STATUS_MODERATED]);
 
         if ($postsCount) {
-            $messages[WebModule::CHECK_NOTICE][] = array(
+            $messages[WebModule::CHECK_NOTICE][] = [
                 'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
                         'BlogModule.blog',
                         '{count} new posts wait for moderation!',
-                        array(
+                        [
                             '{count}' => CHtml::link(
                                     $postsCount,
-                                    array(
+                                    [
                                         '/blog/postBackend/index',
                                         'Post[status]' => Post::STATUS_MODERATED,
                                         'order'        => 'id.desc'
-                                    )
+                                    ]
                                 )
-                        )
+                        ]
                     )
-            );
+            ];
         }
 
         return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE])) ? $messages : true;
@@ -94,7 +94,7 @@ class BlogModule extends yupe\components\WebModule
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'mainCategory'      => Yii::t('BlogModule.blog', 'Main blog category'),
             'mainPostCategory'  => Yii::t('BlogModule.blog', 'Main posts category'),
             'adminMenuOrder'    => Yii::t('BlogModule.blog', 'Menu items order'),
@@ -102,22 +102,22 @@ class BlogModule extends yupe\components\WebModule
             'uploadPath'        => Yii::t(
                     'BlogModule.blog',
                     'File directory (relatively {path})',
-                    array(
+                    [
                         '{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
                                 "yupe"
                             )->uploadPath
-                    )
+                    ]
                 ),
             'allowedExtensions' => Yii::t('BlogModule.blog', 'Allowed extensions (separated by comma)'),
             'minSize'           => Yii::t('BlogModule.blog', 'Minimum size (in bytes)'),
             'maxSize'           => Yii::t('BlogModule.blog', 'Maximum size (in bytes)'),
             'rssCount'          => Yii::t('BlogModule.blog', 'RSS records count')
-        );
+        ];
     }
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'adminMenuOrder',
             'editor'           => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory'     => CHtml::listData($this->getCategoryList(), 'id', 'name'),
@@ -127,7 +127,7 @@ class BlogModule extends yupe\components\WebModule
             'minSize',
             'maxSize',
             'rssCount'
-        );
+        ];
     }
 
     public function getCategoryListForPost()
@@ -137,51 +137,51 @@ class BlogModule extends yupe\components\WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('label' => Yii::t('BlogModule.blog', 'Blogs')),
-            array(
+        return [
+            ['label' => Yii::t('BlogModule.blog', 'Blogs')],
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Blog list'),
-                'url'   => array('/blog/blogBackend/index')
-            ),
-            array(
+                'url'   => ['/blog/blogBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'New blog'),
-                'url'   => array('/blog/blogBackend/create')
-            ),
-            array(
+                'url'   => ['/blog/blogBackend/create']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('BlogModule.blog', 'Blogs categories'),
-                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
-            ),
-            array('label' => Yii::t('BlogModule.blog', 'Posts')),
-            array(
+                'url'   => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory]
+            ],
+            ['label' => Yii::t('BlogModule.blog', 'Posts')],
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Post list'),
-                'url'   => array('/blog/postBackend/index')
-            ),
-            array(
+                'url'   => ['/blog/postBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'New post'),
-                'url'   => array('/blog/postBackend/create')
-            ),
-            array(
+                'url'   => ['/blog/postBackend/create']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('BlogModule.blog', 'Posts categories'),
-                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
-            ),
-            array('label' => Yii::t('BlogModule.blog', 'Members')),
-            array(
+                'url'   => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory]
+            ],
+            ['label' => Yii::t('BlogModule.blog', 'Members')],
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Member list'),
-                'url'   => array('/blog/userToBlogBackend/index')
-            ),
-            array(
+                'url'   => ['/blog/userToBlogBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'New member'),
-                'url'   => array('/blog/userToBlogBackend/create')
-            ),
-        );
+                'url'   => ['/blog/userToBlogBackend/create']
+            ],
+        ];
     }
 
     public function getVersion()
@@ -239,124 +239,124 @@ class BlogModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'blog.listeners.*',
                 'blog.events.*',
                 'blog.models.*',
                 'blog.components.*',
                 'vendor.yiiext.taggable-behavior.*',
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'Blog.BlogManager',
                 'description' => Yii::t('BlogModule.blog', 'Manage blogs'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
+                'items'       => [
 
                     //blogs
 
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.Create',
                         'description' => Yii::t('BlogModule.blog', 'Creating blog')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.Delete',
                         'description' => Yii::t('BlogModule.blog', 'Removing blog')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.Index',
                         'description' => Yii::t('BlogModule.blog', 'List of blogs')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.Update',
                         'description' => Yii::t('BlogModule.blog', 'Editing blog')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.Inline',
                         'description' => Yii::t('BlogModule.blog', 'Editing blog')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.View',
                         'description' => Yii::t('BlogModule.blog', 'Viewing blogs')
-                    ),
+                    ],
                     //posts
 
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.Create',
                         'description' => Yii::t('BlogModule.blog', 'Creating post')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.Delete',
                         'description' => Yii::t('BlogModule.blog', 'Removing post')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.Index',
                         'description' => Yii::t('BlogModule.blog', 'List of posts')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.Update',
                         'description' => Yii::t('BlogModule.blog', 'Editing post')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.Inline',
                         'description' => Yii::t('BlogModule.blog', 'Editing post')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.View',
                         'description' => Yii::t('BlogModule.blog', 'Viewing post')
-                    ),
+                    ],
                     //members
 
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.Create',
                         'description' => Yii::t('BlogModule.blog', 'Creating member')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.Delete',
                         'description' => Yii::t('BlogModule.blog', 'Removing member')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.Index',
                         'description' => Yii::t('BlogModule.blog', 'List of members')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.Update',
                         'description' => Yii::t('BlogModule.blog', 'Editing member')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.Inline',
                         'description' => Yii::t('BlogModule.blog', 'Editing member')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.View',
                         'description' => Yii::t('BlogModule.blog', 'Viewing member')
-                    ),
+                    ],
 
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 }

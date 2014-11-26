@@ -13,7 +13,7 @@ if (!isset($type)) {
     <div class="col-sm-12">
         <?php if (is_array($type->typeAttributes)): { ?>
             <?php
-            $attributeGroups = array();
+            $attributeGroups = [];
             foreach ($type->typeAttributes as $attribute) {
                 if ($attribute->group) {
                     $attributeGroups[$attribute->group->name][] = $attribute;

@@ -42,26 +42,26 @@ class ProductVariant extends \yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('attribute_id, product_id, amount, type', 'required'),
-            array('id, attribute_id, product_id, type', 'numerical', 'integerOnly' => true),
-            array('type', 'in', 'range' => array(self::TYPE_SUM, self::TYPE_PERCENT, self::TYPE_BASE_PRICE)),
-            array('amount', 'numerical'),
-            array('sku', 'length', 'max' => 50),
-            array('attribute_value', 'length', 'max' => 255),
+        return [
+            ['attribute_id, product_id, amount, type', 'required'],
+            ['id, attribute_id, product_id, type', 'numerical', 'integerOnly' => true],
+            ['type', 'in', 'range' => [self::TYPE_SUM, self::TYPE_PERCENT, self::TYPE_BASE_PRICE]],
+            ['amount', 'numerical'],
+            ['sku', 'length', 'max' => 50],
+            ['attribute_value', 'length', 'max' => 255],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, attribute_id, attribute_value, product_id, amount, type, sku', 'safe', 'on' => 'search'),
-        );
+            ['id, attribute_id, attribute_value, product_id, amount, type, sku', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function beforeValidate()
     {
         if (!$this->attribute_value) {
             $this->addErrors(
-                array(
+                [
                     'attribute_value' => Yii::t('StoreModule.product', 'Необходимо указать значение атрибута')
-                )
+                ]
             );
         }
         return parent::beforeValidate();
@@ -69,9 +69,9 @@ class ProductVariant extends \yupe\models\YModel
 
     public function relations()
     {
-        return array(
-            'attribute' => array(self::BELONGS_TO, 'Attribute', 'attribute_id'),
-        );
+        return [
+            'attribute' => [self::BELONGS_TO, 'Attribute', 'attribute_id'],
+        ];
     }
 
     /**
@@ -79,7 +79,7 @@ class ProductVariant extends \yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.product', 'Id'),
             'product_id' => Yii::t('StoreModule.product', 'Продукт'),
             'attribute_id' => Yii::t('StoreModule.product', 'Атрибут'),
@@ -87,16 +87,16 @@ class ProductVariant extends \yupe\models\YModel
             'type' => Yii::t('StoreModule.product', 'Тип стоимости'),
             'amount' => Yii::t('StoreModule.product', 'Стоимость'),
             'sku' => Yii::t('StoreModule.product', 'Артикул'),
-        );
+        ];
     }
 
     public function getTypeList()
     {
-        return array(
+        return [
             self::TYPE_SUM => Yii::t('StoreModule.product', 'Увеличение на сумму'),
             self::TYPE_PERCENT => Yii::t('StoreModule.product', 'Увеличение на процент'),
             self::TYPE_BASE_PRICE => Yii::t('StoreModule.product', 'Изменение базой цены'),
-        );
+        ];
     }
 
     public function getOptionValue($includeCost = false)

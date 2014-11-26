@@ -36,7 +36,7 @@ class YRequiredValidator extends CValidator
                     : Yii::t(
                         'YupeModule.yupe',
                         '{attribute} must be {value}',
-                        array('{value}' => $this->requiredValue)
+                        ['{value}' => $this->requiredValue]
                     );
 
                 $this->addError($object, $attribute, $message);

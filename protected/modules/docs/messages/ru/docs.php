@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Install'                                                            => 'Установка',
     'Creating module'                                                    => 'Создание модуля',
     '0.2'                                                                => '0.2',
@@ -76,4 +76,4 @@ return array(
     'Yupe! Documentation'                                                => 'Юпи! Документация',
     'Comment'                                                            => 'Комментарии',
     'Set testing environment'                                            => 'Настройка тестового окружения'
-);
+];

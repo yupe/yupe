@@ -146,7 +146,7 @@ class EEavBehavior extends CActiveRecordBehavior
                     Yii::t(
                         'yiiext',
                         'Table "{table}" does not have a primary key defined.',
-                        array('{table}' => $this->getOwner()->getTableSchema())
+                        ['{table}' => $this->getOwner()->getTableSchema()]
                     )
                 );
             }
@@ -229,19 +229,19 @@ class EEavBehavior extends CActiveRecordBehavior
                 self::t(
                     'yii',
                     'Property "{class}.{property}" is not defined.',
-                    array('{class}' => get_class($this), '{property}' => 'tableName')
+                    ['{class}' => get_class($this), '{property}' => 'tableName']
                 )
             );
         }
         // Prepare translate component for behavior messages.
         if (!Yii::app()->hasComponent(__CLASS__ . 'Messages')) {
             Yii::app()->setComponents(
-                array(
-                    __CLASS__ . 'Messages' => array(
+                [
+                    __CLASS__ . 'Messages' => [
                         'class' => 'CPhpMessageSource',
                         'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'messages',
-                    )
-                )
+                    ]
+                ]
             );
         }
         // Prepare cache component.
@@ -277,7 +277,7 @@ class EEavBehavior extends CActiveRecordBehavior
     public function afterDelete($event)
     {
         // Delete all attributes.
-        $this->deleteEavAttributes(array(), true);
+        $this->deleteEavAttributes([], true);
         // Call parent method for convenience.
         parent::afterDelete($event);
     }
@@ -310,7 +310,7 @@ class EEavBehavior extends CActiveRecordBehavior
             if (!is_null($values = $this->attributes->itemAt($attribute))) {
                 // Create array of values for convenience.
                 if (!is_array($values)) {
-                    $values = array($values);
+                    $values = [$values];
                 }
                 // Save each value of attribute into DB.
                 foreach ($values as $value) {
@@ -351,7 +351,7 @@ class EEavBehavior extends CActiveRecordBehavior
             $value = $row[$this->valueField];
             // Check if value exists.
             if (!is_null($current = $this->attributes->itemAt($attribute)) && $current != $value) {
-                $value = is_array($current) ? $current[] = $value : array($current, $value);
+                $value = is_array($current) ? $current[] = $value : [$current, $value];
             }
             $this->attributes->add($attribute, $value);
         }
@@ -366,7 +366,7 @@ class EEavBehavior extends CActiveRecordBehavior
      * @param boolean whether auto save attributes.
      * @return CActiveRecord
      */
-    public function deleteEavAttributes($attributes = array(), $save = false)
+    public function deleteEavAttributes($attributes = [], $save = false)
     {
         // If not set attributes for deleting, delete all.
         if (empty($attributes)) {
@@ -412,21 +412,21 @@ class EEavBehavior extends CActiveRecordBehavior
      */
     public function setEavAttribute($attribute, $value, $save = false)
     {
-        return $this->setEavAttributes(array($attribute => $value), $save);
+        return $this->setEavAttributes([$attribute => $value], $save);
     }
 
     /**
      * @param array attributes key for get.
      * @return array
      */
-    public function getEavAttributes($attributes = array())
+    public function getEavAttributes($attributes = [])
     {
         // Get all attributes if not specified.
         if (empty($attributes)) {
             $attributes = $this->getSafeAttributesArray();
         }
         // Values array.
-        $values = array();
+        $values = [];
         // Queue for load.
         $loadQueue = new CList;
         foreach ($attributes as $attribute) {
@@ -458,7 +458,7 @@ class EEavBehavior extends CActiveRecordBehavior
      */
     public function getEavAttribute($attribute)
     {
-        $values = $this->getEavAttributes(array($attribute));
+        $values = $this->getEavAttributes([$attribute]);
         return $this->attributes->itemAt($attribute);
     }
 
@@ -467,7 +467,7 @@ class EEavBehavior extends CActiveRecordBehavior
      * @param array attributes values or key for filter models.
      * @return CActiveRecord
      */
-    public function withEavAttributes($attributes = array())
+    public function withEavAttributes($attributes = [])
     {
         // If not set attributes, search models with anything attributes exists.
         if (empty($attributes)) {
@@ -489,11 +489,11 @@ class EEavBehavior extends CActiveRecordBehavior
      */
     protected function getSaveEavAttributeCommand($attribute, $value)
     {
-        $data = array(
+        $data = [
             $this->entityField => $this->getModelId(),
             $this->attributeField => $attribute,
             $this->valueField => $value,
-        );
+        ];
         return $this->getOwner()
             ->getCommandBuilder()
             ->createInsertCommand($this->tableName, $data);
@@ -516,7 +516,7 @@ class EEavBehavior extends CActiveRecordBehavior
      * @param  $attributes
      * @return CDbCommand
      */
-    protected function getDeleteCommand($attributes = array())
+    protected function getDeleteCommand($attributes = [])
     {
         return $this->getOwner()
             ->getCommandBuilder()
@@ -528,7 +528,7 @@ class EEavBehavior extends CActiveRecordBehavior
      * @param  $attributes
      * @return CDbCriteria
      */
-    protected function getLoadEavAttributesCriteria($attributes = array())
+    protected function getLoadEavAttributesCriteria($attributes = [])
     {
         $criteria = new CDbCriteria;
         $criteria->addCondition("{$this->entityField} = {$this->getModelId()}");
@@ -543,7 +543,7 @@ class EEavBehavior extends CActiveRecordBehavior
      * @param  $attributes
      * @return CDbCriteria
      */
-    protected function getDeleteEavAttributesCriteria($attributes = array())
+    protected function getDeleteEavAttributesCriteria($attributes = [])
     {
         return $this->getLoadEavAttributesCriteria($attributes);
     }
@@ -565,7 +565,7 @@ class EEavBehavior extends CActiveRecordBehavior
             if (is_string($attribute)) {
                 $attribute = $conn->quoteValue($attribute);
                 if (!is_array($values)) {
-                    $values = array($values);
+                    $values = [$values];
                 }
                 foreach ($values as $value) {
                     $value = $conn->quoteValue($value);

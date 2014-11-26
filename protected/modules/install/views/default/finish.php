@@ -13,11 +13,11 @@
 
 <p><?php echo Yii::t('InstallModule.install', 'Your site is ready to work!'); ?></p>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/site/index')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), ['/site/index']); ?>
 
 <?php echo Yii::t('InstallModule.install', 'or'); ?>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), array('/yupe/backend/index')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), ['/yupe/backend/index']); ?>
 
 <br/><br/>
 

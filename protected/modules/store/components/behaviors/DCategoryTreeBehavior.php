@@ -44,7 +44,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $items = $command->queryAll();
         $this->clearOwnerCriteria();
 
-        $result = array();
+        $result = [];
 
         foreach ($parents as $parent_id) {
             $this->_childsArrayRecursive($items, $result, $parent_id);
@@ -73,24 +73,24 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $this->cached();
 
         $items = $this->getFullAssocData(
-            array(
+            [
                 $this->primaryKeyAttribute,
                 $this->titleAttribute,
                 $this->parentAttribute,
-            ),
+            ],
             $parent
         );
 
-        $associated = array();
+        $associated = [];
         foreach ($items as $item) {
             $associated[$item[$this->primaryKeyAttribute]] = $item;
         }
         $items = $associated;
 
-        $result = array();
+        $result = [];
 
         foreach ($items as $item) {
-            $titles = array($item[$this->titleAttribute]);
+            $titles = [$item[$this->titleAttribute]];
 
             $temp = $item;
             while (isset($items[(int)$temp[$this->parentAttribute]])) {
@@ -114,24 +114,24 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $this->cached();
 
         $items = $this->getFullAssocData(
-            array(
+            [
                 $this->aliasAttribute,
                 $this->titleAttribute,
                 $this->parentAttribute,
-            ),
+            ],
             $parent
         );
 
-        $associated = array();
+        $associated = [];
         foreach ($items as $item) {
             $associated[$item[$this->aliasAttribute]] = $item;
         }
         $items = $associated;
 
-        $result = array();
+        $result = [];
 
         foreach ($items as $item) {
-            $titles = array($item[$this->titleAttribute]);
+            $titles = [$item[$this->titleAttribute]];
 
             $temp = $item;
             while (isset($items[(int)$temp[$this->parentAttribute]])) {
@@ -157,15 +157,15 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $this->cached();
 
         $items = $this->getFullAssocData(
-            array(
+            [
                 $this->primaryKeyAttribute,
                 $this->titleAttribute,
                 $this->parentAttribute
-            ),
+            ],
             $parent
         );
 
-        $result = array();
+        $result = [];
         foreach ($parents as $parent_id) {
             $this->_getTabListRecursive($items, $result, $parent_id);
         }
@@ -203,7 +203,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
 
         $items = $this->cached($this->getOwner())->findAll($criteria);
 
-        $categories = array();
+        $categories = [];
         foreach ($items as $item) {
             $categories[(int)$item->{$this->parentAttribute}][] = $item;
         }
@@ -214,10 +214,10 @@ class DCategoryTreeBehavior extends DCategoryBehavior
     protected function _getUrlListRecursive($items, $parent, $indent = 0)
     {
         $parent = (int)$parent;
-        $resultArray = array();
+        $resultArray = [];
         if (isset($items[$parent]) && $items[$parent]) {
             foreach ($items[$parent] as $item) {
-                $resultArray = $resultArray + array($item->{$this->urlAttribute} => str_repeat('-- ', $indent) . $item->{$this->titleAttribute}) + $this->_getUrlListRecursive(
+                $resultArray = $resultArray + [$item->{$this->urlAttribute} => str_repeat('-- ', $indent) . $item->{$this->titleAttribute}] + $this->_getUrlListRecursive(
                         $items,
                         $item->getPrimaryKey(),
                         $indent + 1
@@ -247,7 +247,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
 
         $items = $this->cached($this->getOwner())->findAll($criteria);
 
-        $categories = array();
+        $categories = [];
         foreach ($items as $item) {
             $categories[(int)$item->{$this->parentAttribute}][] = $item;
         }
@@ -258,19 +258,19 @@ class DCategoryTreeBehavior extends DCategoryBehavior
     protected function _getMenuListRecursive($items, $parent, $sub)
     {
         $parent = (int)$parent;
-        $resultArray = array();
+        $resultArray = [];
         if (isset($items[$parent]) && $items[$parent]) {
             foreach ($items[$parent] as $item) {
                 $active = $item->{$this->linkActiveAttribute};
-                $resultArray[$item->getPrimaryKey()] = array(
+                $resultArray[$item->getPrimaryKey()] = [
                         'id' => $item->getPrimaryKey(),
                         'label' => $item->{$this->titleAttribute},
                         'url' => $item->{$this->urlAttribute},
                         'icon' => $this->iconAttribute !== null ? $item->{$this->iconAttribute} : '',
                         'active' => $active,
-                        'itemOptions' => array('class' => 'item_' . $item->getPrimaryKey()),
-                        'linkOptions' => $active ? array('rel' => 'nofollow') : array(),
-                    ) + ($sub ? array('items' => $this->_getMenuListRecursive($items, $item->getPrimaryKey(), $sub - 1)) : array());
+                        'itemOptions' => ['class' => 'item_' . $item->getPrimaryKey()],
+                        'linkOptions' => $active ? ['rel' => 'nofollow'] : [],
+                    ] + ($sub ? ['items' => $this->_getMenuListRecursive($items, $item->getPrimaryKey(), $sub - 1)] : []);
             }
         }
         return $resultArray;
@@ -291,20 +291,20 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         if (count($domens) == 1) {
 
             $criteria->mergeWith(
-                array(
+                [
                     'condition' => 't.' . $this->aliasAttribute . '=:alias AND (t.' . $this->parentAttribute . ' iS NULL OR t.' . $this->parentAttribute . '=0)',
-                    'params' => array(':alias' => $domens[0])
-                )
+                    'params' => [':alias' => $domens[0]]
+                ]
             );
             $model = $this->cached($this->getOwner())->find($criteria);
 
         } else {
 
             $criteria->mergeWith(
-                array(
+                [
                     'condition' => 't.' . $this->aliasAttribute . '=:alias',
-                    'params' => array(':alias' => $domens[0])
-                )
+                    'params' => [':alias' => $domens[0]]
+                ]
             );
             $parent = $this->cached($this->getOwner())->find($criteria);
 
@@ -355,7 +355,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
      */
     public function getPath($separator = '/')
     {
-        $uri = array($this->getOwner()->{$this->aliasAttribute});
+        $uri = [$this->getOwner()->{$this->aliasAttribute}];
 
         $category = $this->getOwner();
 
@@ -376,9 +376,9 @@ class DCategoryTreeBehavior extends DCategoryBehavior
     public function getBreadcrumbs($lastLink = false)
     {
         if ($lastLink) {
-            $breadcrumbs = array($this->getOwner()->{$this->titleAttribute} => $this->getOwner()->{$this->urlAttribute});
+            $breadcrumbs = [$this->getOwner()->{$this->titleAttribute} => $this->getOwner()->{$this->urlAttribute}];
         } else {
-            $breadcrumbs = array($this->getOwner()->{$this->titleAttribute});
+            $breadcrumbs = [$this->getOwner()->{$this->titleAttribute}];
         }
         $page = $this->getOwner();
 
@@ -398,7 +398,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
      */
     public function getFullTitle($inverse = false, $separator = ' - ')
     {
-        $titles = array($this->getOwner()->{$this->titleAttribute});
+        $titles = [$this->getOwner()->{$this->titleAttribute}];
 
         $item = $this->getOwner();
         $i = 50;
@@ -423,7 +423,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
     {
         $criteria = $this->getOwnerCriteria();
 
-        $attributes = $this->aliasAttributes(array_unique(array_merge($attributes, array($this->primaryKeyAttribute))));
+        $attributes = $this->aliasAttributes(array_unique(array_merge($attributes, [$this->primaryKeyAttribute])));
 
         $criteria->select = implode(', ', $attributes);
 
@@ -432,7 +432,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         }
 
         if ($parent) {
-            $criteria->compare($this->primaryKeyAttribute, array_merge(array($parent), $this->getChildsArray($parent)));
+            $criteria->compare($this->primaryKeyAttribute, array_merge([$parent], $this->getChildsArray($parent)));
         }
 
         $command = $this->createFindCommand($criteria);
@@ -452,12 +452,12 @@ class DCategoryTreeBehavior extends DCategoryBehavior
 
     protected function arrayFromArgs($items)
     {
-        $array = array();
+        $array = [];
 
         if (!$items) {
-            $items = array(0);
+            $items = [0];
         } elseif (!is_array($items)) {
-            $items = array($items);
+            $items = [$items];
         }
 
         foreach ($items as $item) {
@@ -478,13 +478,13 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         }
 
         $criteria->mergeWith(
-            array(
+            [
                 'condition' => 't.' . $this->aliasAttribute . '=:alias AND t.' . $this->parentAttribute . '=:parent_id',
-                'params' => array(
+                'params' => [
                     ':alias' => $alias,
                     ':parent_id' => $this->getOwner()->getPrimaryKey()
-                )
-            )
+                ]
+            ]
         );
 
         return $this->cached($this->getOwner())->find($criteria);

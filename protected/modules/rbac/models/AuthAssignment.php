@@ -38,14 +38,14 @@ class AuthAssignment extends CActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('itemname, userid', 'required'),
-            array('itemname, userid', 'length', 'max' => 64),
-            array('bizrule, data', 'safe'),
+        return [
+            ['itemname, userid', 'required'],
+            ['itemname, userid', 'length', 'max' => 64],
+            ['bizrule, data', 'safe'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('itemname, userid, bizrule, data', 'safe', 'on' => 'search'),
-        );
+            ['itemname, userid, bizrule, data', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -55,9 +55,9 @@ class AuthAssignment extends CActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'item' => array(self::BELONGS_TO, 'AuthItem', 'itemname'),
-        );
+        return [
+            'item' => [self::BELONGS_TO, 'AuthItem', 'itemname'],
+        ];
     }
 
     /**
@@ -65,12 +65,12 @@ class AuthAssignment extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'itemname' => 'Itemname',
             'userid'   => 'Userid',
             'bizrule'  => 'Bizrule',
             'data'     => 'Data',
-        );
+        ];
     }
 
     /**
@@ -89,8 +89,8 @@ class AuthAssignment extends CActiveRecord
         $criteria->compare('bizrule', $this->bizrule);
         $criteria->compare('data', $this->data);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria' => $criteria,
-        ));
+        ]);
     }
 }

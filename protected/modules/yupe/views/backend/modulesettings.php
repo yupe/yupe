@@ -1,9 +1,9 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Yupe!')   => array('settings'),
-    Yii::t('YupeModule.yupe', 'Modules') => array('settings'),
+$this->breadcrumbs = [
+    Yii::t('YupeModule.yupe', 'Yupe!')   => ['settings'],
+    Yii::t('YupeModule.yupe', 'Modules') => ['settings'],
     $module->name,
-);
+];
 ?>
 
 <h1>
@@ -15,11 +15,11 @@ $this->breadcrumbs = array(
 
 <?php if (is_array($groups) && count($groups)): { ?>
     <?php echo CHtml::beginForm(
-        array('/yupe/backend/saveModulesettings'),
+        ['/yupe/backend/saveModulesettings'],
         'post',
-        array(
+        [
             'class' => 'well',
-        )
+        ]
     ); ?>
     <?php echo CHtml::hiddenField('module_id', $module->getId()); ?>
     <div class="row">
@@ -64,15 +64,15 @@ $this->breadcrumbs = array(
                 Yii::t(
                     'YupeModule.yupe',
                     'Save "{{name}}" module settings',
-                    array(
+                    [
                         '{{name}}' => CHtml::encode($module->name)
-                    )
+                    ]
                 ),
-                array(
+                [
                     'class' => 'btn btn-primary',
                     'id'    => 'saveModuleSettings',
                     'name'  => 'saveModuleSettings',
-                )
+                ]
             ); ?>
         </div>
     </div>

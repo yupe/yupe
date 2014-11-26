@@ -29,19 +29,19 @@ class AttributeGroup extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('name', 'required'),
-            array('name', 'filter', 'filter' => 'trim'),
-            array('name', 'length', 'max' => 255),
-            array('id, name, position', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name', 'required'],
+            ['name', 'filter', 'filter' => 'trim'],
+            ['name', 'length', 'max' => 255],
+            ['id, name, position', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function relations()
     {
-        return array(
-            'groupAttributes' => array(self::HAS_MANY, 'Attribute', 'group_id'),
-        );
+        return [
+            'groupAttributes' => [self::HAS_MANY, 'Attribute', 'group_id'],
+        ];
     }
 
     /**
@@ -49,11 +49,11 @@ class AttributeGroup extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.attribute', 'ID'),
             'name' => Yii::t('StoreModule.attribute', 'Название группы'),
             'position' => Yii::t('StoreModule.attribute', 'Позиция'),
-        );
+        ];
     }
 
 
@@ -66,10 +66,10 @@ class AttributeGroup extends yupe\models\YModel
         $criteria->compare('position', $this->position);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-                'sort' => array('defaultOrder' => 't.position')
-            )
+                'sort' => ['defaultOrder' => 't.position']
+            ]
         );
     }
 
@@ -98,8 +98,8 @@ class AttributeGroup extends yupe\models\YModel
 
     public function getFormattedList()
     {
-        $groups = $this->findAll(array('order' => 'name ASC'));
-        $list = array();
+        $groups = $this->findAll(['order' => 'name ASC']);
+        $list = [];
         foreach ($groups as $key => $group) {
             $list[$group->id] = $group->name;
         }

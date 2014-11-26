@@ -1,11 +1,11 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <fieldset class="inline">
     <div class="row">
@@ -13,30 +13,30 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'parent_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $pages,
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'class' => 'popover-help',
                             'empty' => Yii::t('PageModule.page', '- not set -')
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->statusList,
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'class' => 'popover-help',
                             'empty' => Yii::t('PageModule.page', '- no matter -')
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
@@ -63,17 +63,17 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'category_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => Category::model()->getFormattedList(
                                 (int)Yii::app()->getModule('page')->mainCategory
                             ),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'class' => 'popover-help',
                             'empty' => Yii::t('PageModule.page', '- not set -')
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
@@ -85,12 +85,12 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
         'context'     => 'primary',
         'encodeLabel' => false,
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('PageModule.page', 'Find pages'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

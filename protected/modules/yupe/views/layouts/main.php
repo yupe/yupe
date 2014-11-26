@@ -24,7 +24,7 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    if (($langs = $this->yupe->getLanguageSelectorArray()) != array()) {
+    if (($langs = $this->yupe->getLanguageSelectorArray()) != []) {
         Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
     }
     ?>
@@ -32,7 +32,7 @@
     Yii::app()->getClientScript()->registerScript(
         'yupeToken',
         'var actionToken = ' . json_encode(
-            array(
+            [
                 'token'      => Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken,
                 'url'        => Yii::app()->createAbsoluteUrl('yupe/modulesBackend/moduleStatus'),
                 'message'    => Yii::t('YupeModule.yupe', 'Wait please, your request in process...'),
@@ -43,15 +43,15 @@
                 'loadingimg' => CHtml::image(
                         $mainAssets . '/img/progressbar.gif',
                         '',
-                        array(
+                        [
                             'style' => 'width: 100%; height: 20px;',
-                        )
+                        ]
                     ),
-                'buttons'    => array(
+                'buttons'    => [
                     'yes' => Yii::t('YupeModule.yupe', 'Ok'),
                     'no'  => Yii::t('YupeModule.yupe', 'Cancel'),
-                ),
-                'messages'   => array(
+                ],
+                'messages'   => [
                     'confirm_update'           => Yii::t(
                             'YupeModule.yupe',
                             'Do you really want to update configuration file?'
@@ -77,8 +77,8 @@
                             'Do you really want to clean cache and assets?'
                         ) . '<br />' . Yii::t('YupeModule.yupe', 'This process can take much time!'),
                     'unknown'                  => Yii::t('YupeModule.yupe', 'Unknown action was selected!'),
-                )
-            )
+                ]
+            ]
         ),
         CClientScript::POS_BEGIN
     );

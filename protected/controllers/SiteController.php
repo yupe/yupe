@@ -43,33 +43,33 @@ class SiteController extends Controller
         $error = \Yii::app()->errorHandler->error;
 
         if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
-            $this->redirect(array('index'));
+            $this->redirect(['index']);
         }
 
         if (!\Yii::app()->getRequest()->getIsAjaxRequest()) {
 
             $this->render(
                 'error',
-                array(
+                [
                     'error' => $error
-                )
+                ]
             );
         }
     }
 
     public function actionMain()
     {
-        $dataProvider = new \CActiveDataProvider('Post', array(
+        $dataProvider = new \CActiveDataProvider('Post', [
 
-            'criteria' => new \CDbCriteria(array(
+            'criteria' => new \CDbCriteria([
                     'condition' => 't.status = :status',
-                    'params'    => array(':status' => \Post::STATUS_PUBLISHED),
+                    'params'    => [':status' => \Post::STATUS_PUBLISHED],
                     'limit'     => self::POST_PER_PAGE,
                     'order'     => 't.id DESC',
-                    'with'      => array('createUser', 'blog', 'commentsCount'),
-                )),
-        ));
+                    'with'      => ['createUser', 'blog', 'commentsCount'],
+                ]),
+        ]);
 
-        $this->render('main', array('dataProvider' => $dataProvider));
+        $this->render('main', ['dataProvider' => $dataProvider]);
     }
 }

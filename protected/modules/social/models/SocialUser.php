@@ -37,12 +37,12 @@ class SocialUser extends YModel
      */
     public function rules()
     {
-        return array(
-            array('user_id, provider, uid', 'required'),
-            array('user_id', 'numerical', 'integerOnly' => true),
-            array('provider, uid', 'length', 'max' => 250),
-            array('id, user_id, provider, uid', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['user_id, provider, uid', 'required'],
+            ['user_id', 'numerical', 'integerOnly' => true],
+            ['provider, uid', 'length', 'max' => 250],
+            ['id, user_id, provider, uid', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -50,9 +50,9 @@ class SocialUser extends YModel
      */
     public function relations()
     {
-        return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
     /**
@@ -60,14 +60,14 @@ class SocialUser extends YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'       => 'ID',
             'user_id'  => Yii::t('SocialModule.social', 'User'),
             'provider' => Yii::t('SocialModule.social', 'Service'),
             'uid'      => Yii::t('SocialModule.social', 'Uuid'),
             'username' => Yii::t('SocialModule.social', 'User name'),
             'email'    => Yii::t('SocialModule.social', 'Email')
-        );
+        ];
     }
 
     /**
@@ -91,9 +91,9 @@ class SocialUser extends YModel
         $criteria->compare('provider', $this->provider, true);
         $criteria->compare('uid', $this->uid, true);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria' => $criteria,
-        ));
+        ]);
     }
 
     /**

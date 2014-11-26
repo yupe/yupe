@@ -39,8 +39,8 @@ class EmailConfirmAction extends CAction
 
         $this->getController()->redirect(
             Yii::app()->getUser()->isAuthenticated()
-                ? array('/user/account/profile')
-                : array('/user/account/login')
+                ? ['/user/account/profile']
+                : ['/user/account/login']
         );
     }
 }

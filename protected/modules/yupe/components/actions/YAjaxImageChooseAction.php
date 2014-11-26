@@ -26,18 +26,18 @@ class YAjaxImageChooseAction extends CAction
                 DIRECTORY_SEPARATOR;
 
             $images = Image::model()->findAllByAttributes(
-                array('category_id' => null, 'parent_id' => null)
+                ['category_id' => null, 'parent_id' => null]
             );
 
             $forJson = [];
 
             if (!empty($images)) {
                 foreach ($images as $img) {
-                    $forJson[] = array(
+                    $forJson[] = [
                         'thumb' => $upPath . $img->file,
                         'image' => $upPath . $img->file,
                         'title' => $upPath . $img->name
-                    );
+                    ];
                 }
             }
 

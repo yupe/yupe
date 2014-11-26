@@ -1,52 +1,52 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CategoryModule.category', 'Categories') => array('/category/categoryBackend/index'),
-    $model->name                                    => array('/category/categoryBackend/view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('CategoryModule.category', 'Categories') => ['/category/categoryBackend/index'],
+    $model->name                                    => ['/category/categoryBackend/view', 'id' => $model->id],
     Yii::t('CategoryModule.category', 'Change'),
-);
+];
 
 $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - edit');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
-        'url'   => array('/category/categoryBackend/index')
-    ),
-    array(
+        'url'   => ['/category/categoryBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
-        'url'   => array('/category/categoryBackend/create')
-    ),
-    array('label' => Yii::t('CategoryModule.category', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-    array(
+        'url'   => ['/category/categoryBackend/create']
+    ],
+    ['label' => Yii::t('CategoryModule.category', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    [
         'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CategoryModule.category', 'Change category'),
-        'url'   => array(
+        'url'   => [
             '/category/categoryBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('CategoryModule.category', 'View category'),
-        'url'   => array(
+        'url'   => [
             '/category/categoryBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('CategoryModule.category', 'Remove category'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/category/categoryBackend/delete', 'id' => $model->id),
-            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit'  => ['/category/categoryBackend/delete', 'id' => $model->id],
+            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('CategoryModule.category', 'Do you really want to remove category?'),
             'csrf'    => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -57,5 +57,5 @@ $this->menu = array(
 
 <?php echo $this->renderPartial(
     '_form',
-    array('model' => $model, 'languages' => $languages, 'langModels' => $langModels)
+    ['model' => $model, 'languages' => $languages, 'langModels' => $langModels]
 ); ?>

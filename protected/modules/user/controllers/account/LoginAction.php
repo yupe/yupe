@@ -70,6 +70,6 @@ class LoginAction extends CAction
             }
         }
 
-        $this->getController()->render($this->id, array('model' => $form));
+        $this->getController()->render($this->id, ['model' => $form]);
     }
 }

@@ -6,11 +6,11 @@
                 $data->image->alt
             ),
             $data->image->getImageUrl(),
-            array(
+            [
                 'class' => 'gallery-image',
                 'title' => $data->image->description,
                 'rel'   => $data->gallery->id
-            )
+            ]
         ); ?>
         <?php if ($data->image->canChange()) : { ?>
             <div class="image-changes">
@@ -20,9 +20,9 @@
                     '<i class="fa fa-fw fa-pencil"></i>',
                     Yii::app()->createAbsoluteUrl(
                         'image/imageBackend/update',
-                        array(
+                        [
                             'id' => $data->image->id
-                        )
+                        ]
                     )
                 ); ?>
                 <?php
@@ -31,9 +31,9 @@
                     '<i class="fa fa-fw fa-times"></i>',
                     Yii::app()->createAbsoluteUrl(
                         'gallery/galleryBackend/deleteImage',
-                        array(
+                        [
                             'id' => $data->image->id
-                        )
+                        ]
                     )
                 ); ?>
             </div>

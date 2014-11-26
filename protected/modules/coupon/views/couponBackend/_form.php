@@ -11,12 +11,12 @@
         /* @var $model Coupon */
         $form = $this->beginWidget(
             'bootstrap.widgets.TbActiveForm',
-            array(
+            [
                 'id' => 'coupon-form',
                 'enableAjaxValidation' => false,
                 'enableClientValidation' => true,
-                'htmlOptions' => array('class' => 'well'),
-            )
+                'htmlOptions' => ['class' => 'well'],
+            ]
         );
         ?>
         <div class="alert alert-info">
@@ -31,22 +31,22 @@
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'type',
-                    array(
-                        'widgetOptions' => array(
+                    [
+                        'widgetOptions' => [
                             'data' => $model->getTypeList(),
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
             <div class="col-sm-3">
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'status',
-                    array(
-                        'widgetOptions' => array(
+                    [
+                        'widgetOptions' => [
                             'data' => $model->getStatusList(),
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
         </div>
@@ -76,22 +76,22 @@
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'free_shipping',
-                    array(
-                        'widgetOptions' => array(
+                    [
+                        'widgetOptions' => [
                             'data' => $this->module->getChoice(),
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
             <div class="col-sm-4">
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'registered_user',
-                    array(
-                        'widgetOptions' => array(
+                    [
+                        'widgetOptions' => [
                             'data' => $this->module->getChoice(),
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
         </div>
@@ -101,16 +101,16 @@
                 <?php echo $form->datePickerGroup(
                     $model,
                     'date_start',
-                    array(
-                        'widgetOptions' => array(
-                            'options' => array(
+                    [
+                        'widgetOptions' => [
+                            'options' => [
                                 'format' => 'yyyy-mm-dd',
                                 'weekStart' => 1,
                                 'autoclose' => true,
-                            ),
-                        ),
+                            ],
+                        ],
                         'prepend' => '<i class="fa fa-calendar"></i>',
-                    )
+                    ]
                 );
                 ?>
             </div>
@@ -118,16 +118,16 @@
                 <?php echo $form->datePickerGroup(
                     $model,
                     'date_end',
-                    array(
-                        'widgetOptions' => array(
-                            'options' => array(
+                    [
+                        'widgetOptions' => [
+                            'options' => [
                                 'format' => 'yyyy-mm-dd',
                                 'weekStart' => 1,
                                 'autoclose' => true,
-                            ),
-                        ),
+                            ],
+                        ],
                         'prepend' => '<i class="fa fa-calendar"></i>',
-                    )
+                    ]
                 );
                 ?>
             </div>
@@ -145,21 +145,21 @@
 
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context' => 'primary',
                 'label' => Yii::t('CouponModule.coupon', 'Сохранить и продолжить'),
-            )
+            ]
         );
         ?>
 
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
-                'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+                'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
                 'label' => Yii::t('CouponModule.coupon', 'Сохранить и вернуться к списку'),
-            )
+            ]
         );
         ?>
 
@@ -175,7 +175,7 @@
             $order->coupon_code = $model->code;
             $this->widget(
                 'yupe\widgets\CustomGridView',
-                array(
+                [
                     'id' => 'order-grid',
                     'type' => 'condensed',
                     'dataProvider' => $order->search(),
@@ -184,45 +184,45 @@
                     'ajaxUrl' => Yii::app()->createUrl('/order/orderBackend/index'),
                     'actionsButtons' => false,
                     'bulkActions' => [false],
-                    'columns' => array(
-                        array(
+                    'columns' => [
+                        [
                             'name' => 'id',
-                            'htmlOptions' => array('width' => '90px'),
+                            'htmlOptions' => ['width' => '90px'],
                             'type' => 'raw',
                             'value' => 'CHtml::link("Заказ №".$data->id, array("/order/orderBackend/update", "id" => $data->id))',
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'name',
                             'type' => 'raw',
                             'value' => '$data->name . ($data->note ? "<br><div class=\"note\">$data->note</div>" : "")',
-                            'htmlOptions' => array('width' => '400px'),
-                        ),
+                            'htmlOptions' => ['width' => '400px'],
+                        ],
                         'total_price',
-                        array(
+                        [
                             'name' => 'paid',
                             'value' => '$data->getPaidStatus()',
                             'filter' => $order->getPaidStatusList(),
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'date'
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'coupon_code',
                             'visible' => true,
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'status',
                             'type' => 'raw',
                             'filter' => $order->getStatusList()
-                        ),
-                        array(
+                        ],
+                        [
                             'class' => 'bootstrap.widgets.TbButtonColumn',
                             'viewButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/view",array("id"=>$data->primaryKey))',
                             'updateButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/update",array("id"=>$data->primaryKey))',
                             'deleteButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/delete",array("id"=>$data->primaryKey))',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );
         }
         ?>

@@ -10,7 +10,7 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 $this->pageTitle = Yii::t('CartModule.cart', 'Корзина');
-$this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
+$this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
 ?>
 
 
@@ -29,23 +29,23 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
             <?php
             $form = $this->beginWidget(
                 'bootstrap.widgets.TbActiveForm',
-                array(
-                    'action' => array('/order/order/create'),
+                [
+                    'action' => ['/order/order/create'],
                     'id' => 'order-form',
                     'enableAjaxValidation' => false,
                     'enableClientValidation' => true,
-                    'clientOptions' => array(
+                    'clientOptions' => [
                         'validateOnSubmit' => true,
                         'validateOnChange' => true,
                         'validateOnType' => false,
                         'beforeValidate' => 'js:function(form){$(form).find("button[type=\'submit\']").prop("disabled", true); return true;}',
                         'afterValidate' => 'js:function(form, data, hasError){$(form).find("button[type=\'submit\']").prop("disabled", false); return !hasError;}',
-                    ),
-                    'htmlOptions' => array(
+                    ],
+                    'htmlOptions' => [
                         'hideErrorMessage' => false,
                         'class' => 'order-form',
-                    )
-                )
+                    ]
+                ]
             );
             ?>
             <table class="table">
@@ -67,7 +67,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                 <input type="hidden" class="position-id" value="<?php echo $positionId; ?>"/>
 
                                 <div class="media">
-                                    <?php $productUrl = Yii::app()->createUrl('store/catalog/show', array('name' => $position->alias)); ?>
+                                    <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->alias]); ?>
                                     <a class="img-thumbnail pull-left" href="<?php echo $productUrl; ?>">
                                         <img class="media-object" src="<?php echo $position->getProductModel()->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
                                     </a>
@@ -97,7 +97,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                     <?php echo CHtml::textField(
                                         'OrderProduct[' . $positionId . '][quantity]',
                                         $position->getQuantity(),
-                                        array('id' => 'cart_' . $positionId, 'class' => 'form-control text-center position-count')
+                                        ['id' => 'cart_' . $positionId, 'class' => 'form-control text-center position-count']
                                     ); ?>
                                     <div class="input-group-btn">
                                         <button class="btn btn-default cart-quantity-increase" type="button" data-target="#cart_<?php echo $positionId; ?>">+</button>
@@ -160,7 +160,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                                 <?php echo CHtml::hiddenField(
                                                     "Order[couponCodes][{$coupon->code}]",
                                                     $coupon->code,
-                                                    array(
+                                                    [
                                                         'class' => 'coupon-input',
                                                         'data-code' => $coupon->code,
                                                         'data-name' => $coupon->name,
@@ -168,7 +168,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                                         'data-type' => $coupon->type,
                                                         'data-min-order-price' => $coupon->min_order_price,
                                                         'data-free-shipping' => $coupon->free_shipping,
-                                                    )
+                                                    ]
                                                 );?>
                                             </span>
                                         <?php endforeach; ?>
@@ -251,7 +251,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                         <td>
                                             <div>
                                                 <?php echo $form->labelEx($order, 'name'); ?>
-                                                <?php echo $form->textField($order, 'name', array('class' => 'form-control')); ?>
+                                                <?php echo $form->textField($order, 'name', ['class' => 'form-control']); ?>
                                                 <?php echo $form->error($order, 'name'); ?>
                                             </div>
                                         </td>
@@ -260,7 +260,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                         <td>
                                             <div>
                                                 <?php echo $form->labelEx($order, 'phone'); ?>
-                                                <?php echo $form->textField($order, 'phone', array('class' => 'form-control')); ?>
+                                                <?php echo $form->textField($order, 'phone', ['class' => 'form-control']); ?>
                                                 <?php echo $form->error($order, 'phone'); ?>
                                             </div>
                                         </td>
@@ -269,7 +269,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                         <td>
                                             <div>
                                                 <?php echo $form->labelEx($order, 'email'); ?>
-                                                <?php echo $form->emailField($order, 'email', array('class' => 'form-control')); ?>
+                                                <?php echo $form->emailField($order, 'email', ['class' => 'form-control']); ?>
                                                 <?php echo $form->error($order, 'email'); ?>
                                             </div>
                                         </td>
@@ -278,7 +278,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                         <td>
                                             <div>
                                                 <?php echo $form->labelEx($order, 'address'); ?>
-                                                <?php echo $form->textField($order, 'address', array('class' => 'form-control')); ?>
+                                                <?php echo $form->textField($order, 'address', ['class' => 'form-control']); ?>
                                                 <?php echo $form->error($order, 'address'); ?>
                                             </div>
                                         </td>
@@ -286,7 +286,7 @@ $this->breadcrumbs = array(Yii::t("CartModule.cart", 'Корзина'));
                                     <tr>
                                         <td>
                                             <?php echo $form->labelEx($order, 'comment'); ?>
-                                            <?php echo $form->textArea($order, 'comment', array('class' => 'form-control')); ?>
+                                            <?php echo $form->textArea($order, 'comment', ['class' => 'form-control']); ?>
                                         </td>
                                     </tr>
                                 </tbody>

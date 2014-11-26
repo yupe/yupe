@@ -17,7 +17,7 @@ class m000000_000000_comment_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{comment_comment}}',
-            array(
+            [
                 'id'            => 'pk',
                 'parent_id'     => 'integer DEFAULT NULL',
                 'user_id'       => 'integer DEFAULT NULL',
@@ -30,7 +30,7 @@ class m000000_000000_comment_base extends yupe\components\DbMigration
                 'text'          => 'text NOT NULL',
                 'status'        => "integer NOT NULL DEFAULT '0'",
                 'ip'            => 'varchar(20) DEFAULT NULL'
-            ),
+            ],
             $this->getOptions()
         );
 

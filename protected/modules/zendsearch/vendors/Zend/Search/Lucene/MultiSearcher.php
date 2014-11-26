@@ -52,7 +52,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      * @param  array $indices Arrays of indices for search
      * @throws Zend_Search_Lucene_Exception
      */
-    public function __construct($indices = array())
+    public function __construct($indices = [])
     {
         $this->_indices = $indices;
 
@@ -460,10 +460,10 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     public function find($query)
     {
         if (count($this->_indices) == 0) {
-            return array();
+            return [];
         }
 
-        $hitsList = array();
+        $hitsList = [];
 
         $indexShift = 0;
         foreach ($this->_indices as $index) {
@@ -492,7 +492,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function getFieldNames($indexed = false)
     {
-        $fieldNamesList = array();
+        $fieldNamesList = [];
 
         foreach ($this->_indices as $index) {
             $fieldNamesList[] = $index->getFieldNames($indexed);
@@ -564,7 +564,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
             throw new Zend_Search_Lucene_Exception('Document filters could not used with multi-searcher');
         }
 
-        $docsList = array();
+        $docsList = [];
 
         $indexShift = 0;
         foreach ($this->_indices as $index) {
@@ -616,14 +616,14 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
             throw new Zend_Search_Lucene_Exception('Document filters could not used with multi-searcher');
         }
 
-        $freqsList = array();
+        $freqsList = [];
 
         $indexShift = 0;
         foreach ($this->_indices as $index) {
             $freqs = $index->termFreqs($term);
 
             if ($indexShift != 0) {
-                $freqsShifted = array();
+                $freqsShifted = [];
 
                 foreach ($freqs as $docId => $freq) {
                     $freqsShifted[$docId + $indexShift] = $freq;
@@ -654,14 +654,14 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
             throw new Zend_Search_Lucene_Exception('Document filters could not used with multi-searcher');
         }
 
-        $termPositionsList = array();
+        $termPositionsList = [];
 
         $indexShift = 0;
         foreach ($this->_indices as $index) {
             $termPositions = $index->termPositions($term);
 
             if ($indexShift != 0) {
-                $termPositionsShifted = array();
+                $termPositionsShifted = [];
 
                 foreach ($termPositions as $docId => $positions) {
                     $termPositions[$docId + $indexShift] = $positions;
@@ -865,7 +865,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function terms()
     {
-        $termsList = array();
+        $termsList = [];
 
         foreach ($this->_indices as $index) {
             $termsList[] = $index->terms();

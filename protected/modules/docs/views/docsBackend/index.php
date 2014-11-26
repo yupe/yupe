@@ -20,9 +20,9 @@ Yii::app()->clientScript->registerCssFile(
     )
 );
 
-$this->breadcrumbs = array(
+$this->breadcrumbs = [
     Yii::t('DocsModule.docs', 'Documentation')
-);
+];
 
 $fileList = $this->module->fileList(
     str_replace('{module}', '*', Yii::getPathOfAlias($this->module->moduleDocFolder)) . DIRECTORY_SEPARATOR . Yii::app(
@@ -50,7 +50,7 @@ $this->widget('bootstrap.widgets.TbAlert');
                     array_walk(
                         $fileList,
                         function ($item, $key) {
-                            echo CHtml::tag('li', array(), $item);
+                            echo CHtml::tag('li', [], $item);
                         }
                     ); ?>
                 </ol>

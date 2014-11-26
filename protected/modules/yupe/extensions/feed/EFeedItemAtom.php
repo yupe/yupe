@@ -70,7 +70,7 @@ class EFeedItemAtom extends EFeedItemAbstract
             throw new CException(Yii::t('EFeed', $link . ' does not seem to be a valid URL'));
         }
 
-        $this->addTag('link', '', array('href' => $link));
+        $this->addTag('link', '', ['href' => $link]);
         $this->addTag('id', EFeed::uuid($link, 'urn:uuid:'));
     }
 

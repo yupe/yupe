@@ -19,12 +19,12 @@ class YFlashMessages extends YWidget
     const WARNING_MESSAGE = 'warning';
     const ERROR_MESSAGE = 'error';
 
-    public $options = array();
+    public $options = [];
 
     public $view = 'flashmessages';
 
     public function run()
     {
-        $this->render($this->view, array('options' => $this->options));
+        $this->render($this->view, ['options' => $this->options]);
     }
 }

@@ -6,11 +6,11 @@ class m140815_200000_store_delivery_payment_base extends yupe\components\DbMigra
     {
         $this->createTable(
             "{{store_delivery_payment}}",
-            array(
+            [
                 "delivery_id" => "integer not null",
                 "payment_id" => "integer not null",
                 "PRIMARY KEY (`delivery_id`, `payment_id`)"
-            ),
+            ],
             $this->getOptions()
         );
 

@@ -28,30 +28,30 @@ class BackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('index')),
-            array('allow', 'actions' => array('error')),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index']],
+            ['allow', 'actions' => ['error']],
+            ['deny',],
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'AjaxFileUpload' => array(
+        return [
+            'AjaxFileUpload' => [
                 'class'     => 'yupe\components\actions\YAjaxFileUploadAction',
                 'maxSize'   => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
                 'types'     => $this->module->allowedExtensions
-            ),
-            'AjaxImageUpload' => array(
+            ],
+            'AjaxImageUpload' => [
                 'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
                 'maxSize'   => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
                 'types'     => $this->module->allowedExtensions
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -93,10 +93,10 @@ class BackendController extends yupe\components\controllers\BackController
             );
         }
 
-        $message = array(
+        $message = [
             'success' => Yii::t('YupeModule.yupe', 'Settings cache was reset successfully'),
             'failure' => Yii::t('YupeModule.yupe', 'There was an error when processing the request'),
-        );
+        ];
 
         try {
 
@@ -107,9 +107,9 @@ class BackendController extends yupe\components\controllers\BackController
                 Yii::t(
                     'YupeModule.yupe',
                     'There is an error: {error}',
-                    array(
+                    [
                         '{error}' => implode('<br />', (array)$e->getMessage())
-                    )
+                    ]
                 )
             );
         }
@@ -161,11 +161,11 @@ class BackendController extends yupe\components\controllers\BackController
         $editableParams = $module->getEditableParams();
         $paramGroups = $module->getEditableParamsGroups();
 
-        $groups = array();
+        $groups = [];
 
         foreach ($paramGroups as $name => $group) {
             $title = isset($group['label']) ? $group['label'] : $name;
-            $groups[$title] = array();
+            $groups[$title] = [];
             if (isset($group['items'])) {
                 foreach ((array)$group['items'] as $item) {
                     /*удаляем элементы, которые были в группах*/
@@ -183,7 +183,7 @@ class BackendController extends yupe\components\controllers\BackController
         /* если остались параметры без групп, то засунем их в одну группу */
         if ($editableParams) {
             $title = Yii::t('YupeModule.yupe', 'Other');
-            $groups[$title] = array();
+            $groups[$title] = [];
             foreach ((array)$editableParams as $key => $params) {
                 /* из-за формата настроек параметров название атрибута будет или ключом, или значением */
                 $groups[$title][] = $this->getModuleParamRow($module, is_string($key) ? $key : $params);
@@ -212,7 +212,7 @@ class BackendController extends yupe\components\controllers\BackController
                     404, Yii::t(
                         'YupeModule.yupe',
                         'Module "{module}" was not found!',
-                        array('{module}' => $moduleId)
+                        ['{module}' => $moduleId]
                     )
                 );
             }
@@ -223,9 +223,9 @@ class BackendController extends yupe\components\controllers\BackController
                     Yii::t(
                         'YupeModule.yupe',
                         'Settings for "{module}" saved successfully!',
-                        array(
+                        [
                             '{module}' => $module->getName()
-                        )
+                        ]
                     )
                 );
                 $module->getSettings(true);
@@ -248,7 +248,7 @@ class BackendController extends yupe\components\controllers\BackController
     public function actionThemesettings()
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            if ($this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
+            if ($this->saveParamsSetting($this->yupe->coreModuleId, ['theme', 'backendTheme'])) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Themes settings saved successfully!')
@@ -260,10 +260,10 @@ class BackendController extends yupe\components\controllers\BackController
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
             }
-            $this->redirect(array('/yupe/backend/themesettings/'));
+            $this->redirect(['/yupe/backend/themesettings/']);
         }
 
-        $settings = Settings::fetchModuleSettings('yupe', array('theme', 'backendTheme'));
+        $settings = Settings::fetchModuleSettings('yupe', ['theme', 'backendTheme']);
         $noThemeValue = Yii::t('YupeModule.yupe', 'Theme is don\'t use');
 
         $theme = isset($settings['theme']) && $settings['theme']->param_value != ''
@@ -275,12 +275,12 @@ class BackendController extends yupe\components\controllers\BackController
 
         $this->render(
             'themesettings',
-            array(
+            [
                 'themes'        => $this->yupe->getThemes(),
                 'theme'         => $theme,
                 'backendThemes' => $this->yupe->getThemes(true),
                 'backendTheme'  => $backendTheme,
-            )
+            ]
         );
     }
 
@@ -294,7 +294,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function saveParamsSetting($moduleId, $params)
     {
-        $paramValues = array();
+        $paramValues = [];
 
         // Перебираем все параметры модуля
         foreach ($params as $param_name) {
@@ -324,7 +324,7 @@ class BackendController extends yupe\components\controllers\BackController
             }
 
             if ($module->getIsInstalled()) {
-                $updates = Yii::app()->migrator->checkForUpdates(array($name => $module));
+                $updates = Yii::app()->migrator->checkForUpdates([$name => $module]);
                 if (Yii::app()->getRequest()->getIsPostRequest()) {
                     Yii::app()->migrator->updateToLatest($name);
 
@@ -332,9 +332,9 @@ class BackendController extends yupe\components\controllers\BackController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('YupeModule.yupe', 'Module was updated their migrations!')
                     );
-                    $this->redirect(array("index"));
+                    $this->redirect(["index"]);
                 } else {
-                    $this->render('modupdate', array('updates' => $updates, 'module' => $module));
+                    $this->render('modupdate', ['updates' => $updates, 'module' => $module]);
                 }
             } else {
                 Yii::app()->user->setFlash(
@@ -349,7 +349,7 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : array("/yupe/backend")
+                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : ["/yupe/backend"]
             );
         }
     }
@@ -478,11 +478,11 @@ class BackendController extends yupe\components\controllers\BackController
         $error = Yii::app()->getErrorHandler()->error;
 
         if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
-            $this->redirect(array('index'));
+            $this->redirect(['index']);
         }
 
         if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-            $this->render('error', array('error' => $error));
+            $this->render('error', ['error' => $error]);
         }
     }
 }

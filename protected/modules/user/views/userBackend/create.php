@@ -1,38 +1,38 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('UserModule.user', 'Users') => ['/user/userBackend/index'],
     Yii::t('UserModule.user', 'Create'),
-);
+];
 
 $this->pageTitle = Yii::t('UserModule.user', 'Users - create');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('UserModule.user', 'Users'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
-                'url'   => array('/user/userBackend/index')
-            ),
-            array(
+                'url'   => ['/user/userBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
-                'url'   => array('/user/userBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/user/userBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('UserModule.user', 'Tokens'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
-                'url'   => array('/user/tokensBackend/index')
-            ),
-        )
-    ),
-);
+                'url'   => ['/user/tokensBackend/index']
+            ],
+        ]
+    ],
+];
 ?>
 
 <div class="page-header">
@@ -42,4 +42,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

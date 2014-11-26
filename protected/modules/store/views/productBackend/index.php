@@ -6,10 +6,10 @@
 
 $this->layout = 'product';
 
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.store', 'Products') => array('/store/productBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.store', 'Products') => ['/store/productBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
 ?>
@@ -22,7 +22,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id' => 'product-grid',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
@@ -39,44 +39,44 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                 ['id' => 'copy-products', 'class' => 'btn btn-sm btn-default pull-right', 'style' => 'margin-right: 4px;']
             ),
         ],
-        'columns' => array(
-            array(
+        'columns' => [
+            [
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::image($data->getImageUrl(40, 40, true), "", array("class" => "img-thumbnail"));
+                    return CHtml::image($data->getImageUrl(40, 40, true), "", ["class" => "img-thumbnail"]);
                 },
-            ),
+            ],
             'sku',
-            array(
+            [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::link($data->name, array("/store/productBackend/update", "id" => $data->id));
+                    return CHtml::link($data->name, ["/store/productBackend/update", "id" => $data->id]);
                 },
-            ),
-            array(
+            ],
+            [
                 'name' => 'mainCategory.name',
                 'header' => Yii::t('StoreModule.store', 'Категория'),
                 'type' => 'raw',
-                'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), array('encode' => false, 'empty' => '', 'class' => 'form-control')),
-                'htmlOptions' => array('width' => '220px'),
-            ),
-            array(
+                'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
+                'htmlOptions' => ['width' => '220px'],
+            ],
+            [
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'price',
                 'value' => function ($data) {
                     return (float)$data->price;
                 },
-                'editable' => array(
+                'editable' => [
                     'url' => $this->createUrl('/store/productBackend/inline'),
                     'mode' => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter' => CHtml::activeTextField($model, 'price', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'price', ['class' => 'form-control']),
+            ],
+            [
                 'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'status',
                 'url' => $this->createUrl('/store/productBackend/inline'),
@@ -86,8 +86,8 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                     Product::STATUS_NOT_ACTIVE => ['class' => 'label-info'],
                     Product::STATUS_ZERO => ['class' => 'label-default'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'in_stock',
                 'url' => $this->createUrl('/store/productBackend/inline'),
@@ -96,13 +96,13 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                     Product::STATUS_IN_STOCK => ['class' => 'label-success'],
                     Product::STATUS_NOT_IN_STOCK => ['class' => 'label-danger']
                 ],
-            ),
+            ],
             'quantity',
-            array(
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>
 
 <?php

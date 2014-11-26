@@ -8,21 +8,21 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(
-    Yii::app()->getModule('social')->getCategory() => array(),
-    Yii::t('SocialModule.social', 'Аккаунты')      => array('/social/socialBackend/index'),
+$this->breadcrumbs = [
+    Yii::app()->getModule('social')->getCategory() => [],
+    Yii::t('SocialModule.social', 'Аккаунты')      => ['/social/socialBackend/index'],
     Yii::t('SocialModule.social', 'Управление'),
-);
+];
 
 $this->pageTitle = Yii::t('SocialModule.social', 'Аккаунты - управление');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
-        'url'   => array('/social/socialBackend/index')
-    ),
-);
+        'url'   => ['/social/socialBackend/index']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -53,30 +53,30 @@ $this->menu = array(
     });
     "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'social-user-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'bulkActions'  => array(false),
-        'columns'      => array(
-            array(
+        'bulkActions'  => [false],
+        'columns'      => [
+            [
                 'name'   => 'user_id',
                 'value'  => '$data->user->getFullName()',
                 'filter' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')
-            ),
+            ],
             'provider',
             'uid',
-            array(
+            [
                 'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{view}{delete}'
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

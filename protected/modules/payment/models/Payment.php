@@ -15,7 +15,7 @@ class Payment extends yupe\models\YModel
     const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 0;
 
-    private $_paymentSettings = array();
+    private $_paymentSettings = [];
 
     /**
      * @return string the associated database table name
@@ -37,26 +37,26 @@ class Payment extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, position, status', 'required'),
-            array('name', 'filter', 'filter' => 'trim'),
-            array('currency_id', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 255),
-            array('module', 'length', 'max' => 100),
-            array('description', 'safe'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('id, module, name, description, settings, currency_id, position, status', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name, position, status', 'required'],
+            ['name', 'filter', 'filter' => 'trim'],
+            ['currency_id', 'numerical', 'integerOnly' => true],
+            ['name', 'length', 'max' => 255],
+            ['module', 'length', 'max' => 100],
+            ['description', 'safe'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['id, module, name, description, settings, currency_id, position, status', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
-            ),
-        );
+                'params' => [':status' => self::STATUS_ACTIVE],
+            ],
+        ];
     }
 
     /**
@@ -64,7 +64,7 @@ class Payment extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('PaymentModule.payment', 'ID'),
             'name' => Yii::t('PaymentModule.payment', 'Название'),
             'description' => Yii::t('PaymentModule.payment', 'Описание'),
@@ -73,7 +73,7 @@ class Payment extends yupe\models\YModel
             'module' => Yii::t('PaymentModule.payment', 'Платежная система'),
             'currency_id' => Yii::t('PaymentModule.payment', 'Валюта'),
             'settings' => Yii::t('PaymentModule.payment', 'Настройки платежной системы'),
-        );
+        ];
     }
 
 
@@ -90,19 +90,19 @@ class Payment extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-                'sort' => array('defaultOrder' => 't.position')
-            )
+                'sort' => ['defaultOrder' => 't.position']
+            ]
         );
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE => Yii::t("PaymentModule.payment", 'Активен'),
             self::STATUS_NOT_ACTIVE => Yii::t("PaymentModule.payment", 'Неактивен'),
-        );
+        ];
     }
 
     public function getStatusTitle()
@@ -156,7 +156,7 @@ class Payment extends yupe\models\YModel
 
     public function clearDeliveryMethods()
     {
-        DeliveryPayment::model()->deleteAllByAttributes(array('payment_id' => $this->id));
+        DeliveryPayment::model()->deleteAllByAttributes(['payment_id' => $this->id]);
     }
 
     public function setPaymentSystemSettings($settings)

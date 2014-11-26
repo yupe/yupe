@@ -28,27 +28,27 @@
                     <div class="col-sm-8">
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
-                            array(
+                            [
                                 'id'           => 'post-grid',
                                 'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
                                 'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'htmlOptions'  => [
                                     'class' => false
-                                ),
-                                'columns'      => array(
-                                    array(
+                                ],
+                                'columns'      => [
+                                    [
                                         'name'  => 'text',
                                         'value' => 'CHtml::link(yupe\helpers\YText::characterLimiter($data->text, 100), array("/comment/commentBackend/update","id" => $data->id))',
                                         'type'  => 'html'
-                                    ),
+                                    ],
                                     'creation_date',
-                                    array(
+                                    [
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
-                                    ),
-                                ),
-                            )
+                                    ],
+                                ],
+                            ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">

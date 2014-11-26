@@ -2,10 +2,10 @@
 /* @var $model ProfileForm */
 
 $this->pageTitle = Yii::t('UserModule.user', 'Change password');
-$this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'User profile') => array('/user/account/profile'),
+$this->breadcrumbs = [
+    Yii::t('UserModule.user', 'User profile') => ['/user/account/profile'],
     Yii::t('UserModule.user', 'Change password')
-);
+];
 
 Yii::app()->clientScript->registerScript(
     'show-password',
@@ -19,14 +19,14 @@ Yii::app()->clientScript->registerScript(
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'profile-password-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array(
+        'htmlOptions'            => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 );
 ?>
 
@@ -37,7 +37,7 @@ $form = $this->beginWidget(
         <?php echo $form->passwordFieldGroup(
             $model,
             'password',
-            array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))
+            ['widgetOptions' => ['htmlOptions' => ['autocomplete' => 'off']]]
         ); ?>
     </div>
 </div>
@@ -47,7 +47,7 @@ $form = $this->beginWidget(
         <?php echo $form->passwordFieldGroup(
             $model,
             'cPassword',
-            array('widgetOptions' => array('htmlOptions' => array('autocomplete' => 'off')))
+            ['widgetOptions' => ['htmlOptions' => ['autocomplete' => 'off']]]
         ); ?>
 
     </div>
@@ -63,11 +63,11 @@ $form = $this->beginWidget(
     <div class="col-xs-12">
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context'    => 'primary',
                 'label'      => Yii::t('UserModule.user', 'Change password'),
-            )
+            ]
         ); ?>
     </div>
 </div>

@@ -62,15 +62,15 @@ class UserToken extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('user_id, type, ip, token, expire', 'required'),
-            array('user_id, type, status', 'numerical', 'integerOnly' => true),
-            array('token, ip', 'length', 'max' => 255),
-            array('updated', 'safe'),
+        return [
+            ['user_id, type, ip, token, expire', 'required'],
+            ['user_id, type, status', 'numerical', 'integerOnly' => true],
+            ['token, ip', 'length', 'max' => 255],
+            ['updated', 'safe'],
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, token, type, status, created, updated, ip', 'safe', 'on' => 'search'),
-        );
+            ['id, user_id, token, type, status, created, updated, ip', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -80,9 +80,9 @@ class UserToken extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
     /**
@@ -90,7 +90,7 @@ class UserToken extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'      => 'ID',
             'user_id' => Yii::t('UserModule.user', 'User'),
             'token'   => Yii::t('UserModule.user', 'Token'),
@@ -100,7 +100,7 @@ class UserToken extends yupe\models\YModel
             'updated' => Yii::t('UserModule.user', 'Updated'),
             'ip'      => Yii::t('UserModule.user', 'Ip'),
             'expire'  => Yii::t('UserModule.user', 'Expire')
-        );
+        ];
     }
 
     /**
@@ -121,7 +121,7 @@ class UserToken extends yupe\models\YModel
 
         $criteria = new CDbCriteria();
 
-        $criteria->with = array('user');
+        $criteria->with = ['user'];
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.user_id', $this->user_id);
@@ -147,12 +147,12 @@ class UserToken extends yupe\models\YModel
         $criteria->compare('t.expire', $this->expire, true);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-                'sort'     => array(
+                'sort'     => [
                     'defaultOrder' => 't.id DESC',
-                )
-            )
+                ]
+            ]
         );
     }
 
@@ -179,11 +179,11 @@ class UserToken extends yupe\models\YModel
      */
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_NEW      => Yii::t('UserModule.user', 'New'),
             self::STATUS_ACTIVATE => Yii::t('UserModule.user', 'Activated'),
             self::STATUS_FAIL     => Yii::t('UserModule.user', 'Compromised by'),
-        );
+        ];
     }
 
     /**
@@ -193,12 +193,12 @@ class UserToken extends yupe\models\YModel
      */
     public static function getTypeList()
     {
-        return array(
+        return [
             self::TYPE_ACTIVATE        => Yii::t('UserModule.user', 'User activate'),
             self::TYPE_CHANGE_PASSWORD => Yii::t('UserModule.user', 'Change/reset password'),
             self::TYPE_EMAIL_VERIFY    => Yii::t('UserModule.user', 'Email verification'),
             self::TYPE_COOKIE_AUTH     => Yii::t('UserModule.user', 'Cookie auth'),
-        );
+        ];
     }
 
     /**
@@ -217,11 +217,11 @@ class UserToken extends yupe\models\YModel
             3600,
             new TagsCache('user-tokens-dateList', 'dateList-' . $dateField)
         )->findAll(
-                array(
+                [
                     'select' => $sql . ' as ' . $dateField,
                     'group'  => $dateField,
                     'order'  => $dateField . ' DESC'
-                )
+                ]
             );
 
         return CHtml::listData($dateList, $dateField, $dateField);

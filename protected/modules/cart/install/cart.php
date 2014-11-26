@@ -1,21 +1,21 @@
 <?php
 
-return array(
-    'module' => array(
+return [
+    'module' => [
         'class' => 'application.modules.cart.CartModule',
-    ),
-    'import' => array(
+    ],
+    'import' => [
         'application.modules.cart.extensions.shopping-cart.*',
         'application.modules.cart.models.*',
-    ),
-    'component' => array(
-        'cart' => array(
+    ],
+    'component' => [
+        'cart' => [
             'class' => 'application.modules.cart.extensions.shopping-cart.EShoppingCart',
-        ),
-    ),
-    'rules' => array(
+        ],
+    ],
+    'rules' => [
         '/cart' => 'cart/cart/index',
         '/cart/<action:\w+>' => 'cart/cart/<action>',
         '/cart/<action:\w+>/<id:\w+>' => 'cart/cart/<action>',
-    ),
-);
+    ],
+];

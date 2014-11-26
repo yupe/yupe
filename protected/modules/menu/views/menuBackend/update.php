@@ -10,73 +10,73 @@
  * @link     http://yupe.ru
  *
  **/
-$this->breadcrumbs = array(
-    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
-    $model->name                      => array('/menu/menuBackend/view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('MenuModule.menu', 'Menu') => ['/menu/menuBackend/index'],
+    $model->name                      => ['/menu/menuBackend/view', 'id' => $model->id],
     Yii::t('MenuModule.menu', 'Edit'),
-);
+];
 
 $this->pageTitle = Yii::t('MenuModule.menu', 'Menu - edit');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('MenuModule.menu', 'Menu'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu'),
-                'url'   => array('/menu/menuBackend/index')
-            ),
-            array(
+                'url'   => ['/menu/menuBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu'),
-                'url'   => array('/menu/menuBackend/create')
-            ),
-            array('label' => Yii::t('MenuModule.menu', 'Menu') . ' «' . $model->name . '»'),
-            array(
+                'url'   => ['/menu/menuBackend/create']
+            ],
+            ['label' => Yii::t('MenuModule.menu', 'Menu') . ' «' . $model->name . '»'],
+            [
                 'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('MenuModule.menu', 'Change menu'),
-                'url'   => array(
+                'url'   => [
                     '/menu/menuBackend/update',
                     'id' => $model->id
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('MenuModule.menu', 'View menu'),
-                'url'   => array(
+                'url'   => [
                     '/menu/menuBackend/view',
                     'id' => $model->id
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('MenuModule.menu', 'Remove menu'),
                 'url'         => '#',
-                'linkOptions' => array(
-                    'submit'  => array('/menu/menuBackend/delete', 'id' => $model->id),
+                'linkOptions' => [
+                    'submit'  => ['/menu/menuBackend/delete', 'id' => $model->id],
                     'confirm' => Yii::t('MenuModule.menu', 'Do you really want to remove menu?'),
-                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
-                ),
-            ),
-        )
-    ),
-    array(
+                    'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
+                ],
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('MenuModule.menu', 'Menu items'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu items'),
-                'url'   => array('/menu/menuitemBackend/index')
-            ),
-            array(
+                'url'   => ['/menu/menuitemBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu item'),
-                'url'   => array('/menu/menuitemBackend/create')
-            ),
-        )
-    ),
-); ?>
+                'url'   => ['/menu/menuitemBackend/create']
+            ],
+        ]
+    ],
+]; ?>
 <div class="page-header">
     <h1>
         <?php echo Yii::t('MenuModule.menu', 'Edit menu'); ?><br/>
@@ -84,4 +84,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

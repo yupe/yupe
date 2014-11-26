@@ -21,7 +21,7 @@ class m000000_000000_feedback_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{feedback_feedback}}',
-            array(
+            [
                 'id'            => 'pk',
                 'category_id'   => 'integer DEFAULT NULL',
                 'answer_user'   => 'integer DEFAULT NULL',
@@ -38,7 +38,7 @@ class m000000_000000_feedback_base extends yupe\components\DbMigration
                 'is_faq'        => "integer NOT NULL DEFAULT '0'",
                 'status'        => "integer NOT NULL DEFAULT '0'",
                 'ip'            => 'varchar(20) NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

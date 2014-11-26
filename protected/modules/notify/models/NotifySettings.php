@@ -29,14 +29,14 @@ class NotifySettings extends \yupe\models\YModel
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('user_id', 'required'),
-            array('user_id', 'unique'),
-			array('user_id, my_post, my_comment', 'numerical', 'integerOnly'=>true),
+		return [
+			['user_id', 'required'],
+            ['user_id', 'unique'],
+			['user_id, my_post, my_comment', 'numerical', 'integerOnly'=>true],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, my_post, my_comment', 'safe', 'on'=>'search'),
-		);
+			['id, user_id, my_post, my_comment', 'safe', 'on'=>'search'],
+		];
 	}
 
 	/**
@@ -46,9 +46,9 @@ class NotifySettings extends \yupe\models\YModel
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-		);
+		return [
+			'user' => [self::BELONGS_TO, 'User', 'user_id'],
+		];
 	}
 
 	/**
@@ -56,12 +56,12 @@ class NotifySettings extends \yupe\models\YModel
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'user_id' => Yii::t('NotifyModule.notify', 'User'),
 			'my_post' => Yii::t('NotifyModule.notify', 'My post comment'),
 			'my_comment' => Yii::t('NotifyModule.notify', 'My comment answer'),
-		);
+		];
 	}
 
 	/**
@@ -87,9 +87,9 @@ class NotifySettings extends \yupe\models\YModel
 		$criteria->compare('my_post',$this->my_post);
 		$criteria->compare('my_comment',$this->my_comment);
 
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($this, [
 			'criteria'=>$criteria,
-		));
+		]);
 	}
 
 	/**

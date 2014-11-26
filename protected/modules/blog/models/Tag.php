@@ -49,13 +49,13 @@ class Tag extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name', 'required'),
-            array('name', 'length', 'max' => 255),
+        return [
+            ['name', 'required'],
+            ['name', 'length', 'max' => 255],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name', 'safe', 'on' => 'search'),
-        );
+            ['id, name', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -65,9 +65,9 @@ class Tag extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'yupePosts' => array(self::MANY_MANY, 'Post', '{{post_to_tag}}(tag_id, post_id)'),
-        );
+        return [
+            'yupePosts' => [self::MANY_MANY, 'Post', '{{post_to_tag}}(tag_id, post_id)'],
+        ];
     }
 
     /**
@@ -75,10 +75,10 @@ class Tag extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'   => 'ID',
             'name' => 'Name',
-        );
+        ];
     }
 
     /**
@@ -95,8 +95,8 @@ class Tag extends yupe\models\YModel
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria' => $criteria,
-        ));
+        ]);
     }
 }

@@ -42,7 +42,7 @@ class ImageWrapper extends YWidget
      */
     public $noCache = false;
 
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     public function run()
     {
@@ -56,10 +56,10 @@ class ImageWrapper extends YWidget
             )
         );
 
-        $htmlOptions = array(
+        $htmlOptions = [
             'class' => 'img-wrapper-tocenter',
             'style' => 'width: ' . $this->width . '; height: ' . $this->height . '; background-color: ' . $this->backgroundColor . ';',
-        );
+        ];
 
         if (isset($this->htmlOptions['class'])) {
             $class = $this->htmlOptions['class'];

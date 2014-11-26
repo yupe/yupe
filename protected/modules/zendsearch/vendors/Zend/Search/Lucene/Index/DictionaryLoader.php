@@ -50,8 +50,8 @@ class Zend_Search_Lucene_Index_DictionaryLoader
      */
     public static function load($data)
     {
-        $termDictionary = array();
-        $termInfos = array();
+        $termDictionary = [];
+        $termInfos = [];
         $pos = 0;
 
         // $tiVersion = $tiiFile->readInt();
@@ -247,11 +247,11 @@ class Zend_Search_Lucene_Index_DictionaryLoader
             $indexPointer += $vint;
 
             // $this->_termDictionary[] =  new Zend_Search_Lucene_Index_Term($termValue, $termFieldNum);
-            $termDictionary[] = array($termFieldNum, $termValue);
+            $termDictionary[] = [$termFieldNum, $termValue];
 
             $termInfos[] =
                 // new Zend_Search_Lucene_Index_TermInfo($docFreq, $freqPointer, $proxPointer, $skipDelta, $indexPointer);
-                array($docFreq, $freqPointer, $proxPointer, $skipDelta, $indexPointer);
+                [$docFreq, $freqPointer, $proxPointer, $skipDelta, $indexPointer];
 
             $prevTerm = $termValue;
         }
@@ -267,6 +267,6 @@ class Zend_Search_Lucene_Index_DictionaryLoader
             $termDictionary[0][0] = -1;
         }
 
-        return array($termDictionary, $termInfos);
+        return [$termDictionary, $termInfos];
     }
 }

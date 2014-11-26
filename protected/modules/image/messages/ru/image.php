@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Images categories'                                                     => 'Категории изображений',
     'General module settings'                                               => 'Основные настройки модуля',
     'Link'                                                                  => 'Ссылка',
@@ -98,4 +98,4 @@ return array(
     'List of images'                                                        => 'Просмотр списка изображений',
     'Editing images'                                                        => 'Редактирование изображений',
     'Viewing images'                                                        => 'Просмотр изображений'
-);
+];

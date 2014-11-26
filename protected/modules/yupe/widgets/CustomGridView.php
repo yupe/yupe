@@ -58,7 +58,7 @@ class CustomGridView extends \TbExtendedGridView
     /**
      * @var array Page sizes available to set for web-user.
      */
-    public $pageSizes = array(5, 10, 15, 20, 50, 100);
+    public $pageSizes = [5, 10, 15, 20, 50, 100];
 
     /**
      * @var string A name for query parameter, that stores page size specified by web-user.
@@ -173,11 +173,11 @@ class CustomGridView extends \TbExtendedGridView
             ? (array)Yii::app()->getController()->getAction()->getId()
             : $this->ajaxUrl;
 
-        $this->bulkActions = empty($this->bulkActions) ? array(
+        $this->bulkActions = empty($this->bulkActions) ? [
             'class'                => 'booster.widgets.TbBulkActions',
             'align'                => 'right',
-            'actionButtons'        => array(
-                array(
+            'actionButtons'        => [
+                [
                     'id'         => 'delete-' . strtolower($this->_modelName),
                     'buttonType' => 'button',
                     'context'    => 'danger',
@@ -187,12 +187,12 @@ class CustomGridView extends \TbExtendedGridView
                             'YupeModule.yupe',
                             'Do you really want to delete selected elements?'
                         ) . '")) return false; multiaction' . $this->uid . '("delete", values); }',
-                ),
-            ),
-            'checkBoxColumnConfig' => array(
+                ],
+            ],
+            'checkBoxColumnConfig' => [
                 'name' => 'id'
-            )
-        ) : $this->bulkActions;
+            ]
+        ] : $this->bulkActions;
 
         $this->type = empty($this->type) ? 'striped condensed' : $this->type;
 
@@ -250,25 +250,25 @@ class CustomGridView extends \TbExtendedGridView
 
         $urlUp = Yii::app()->getController()->createUrl(
             "sort",
-            array(
+            [
                 'model'     => $this->_modelName,
                 'id'        => $data->id,
                 'sortField' => $this->sortField,
                 'direction' => 'up',
-            )
+            ]
         );
 
         $urlDown = Yii::app()->getController()->createUrl(
             "sort",
-            array(
+            [
                 'model'     => $this->_modelName,
                 'id'        => $data->id,
                 'sortField' => $this->sortField,
                 'direction' => 'down',
-            )
+            ]
         );
 
-        $options = array('onclick' => 'ajaxSetSort(this, "' . $this->id . '"); return false;',);
+        $options = ['onclick' => 'ajaxSetSort(this, "' . $this->id . '"); return false;',];
 
         return CHtml::link($upUrlImage, $urlUp, $options) . ' ' . CHtml::link($downUrlImage, $urlDown, $options);
     }
@@ -291,14 +291,14 @@ class CustomGridView extends \TbExtendedGridView
         // Если переменная не найдена нужно проверить наличие данных в БД
         if (!isset($sessionSettings[$modelName]['pageSize'])) {
 
-            $sessionSettings[$modelName] = array();
+            $sessionSettings[$modelName] = [];
             $setting = Settings::model()->findAllByAttributes(
-                array(
+                [
                     'user_id'    => Yii::app()->getUser()->getId(),
                     'module_id'  => $modelName,
                     'param_name' => 'pageSize',
                     'type'       => Settings::TYPE_USER,
-                )
+                ]
             );
 
             // Если не найдена запись, создаем
@@ -315,12 +315,12 @@ class CustomGridView extends \TbExtendedGridView
 
             // Обновим запись в базе
             $setting = Settings::model()->findByAttributes(
-                array(
+                [
                     'user_id'    => Yii::app()->getUser()->getId(),
                     'module_id'  => $modelName,
                     'param_name' => 'pageSize',
                     'type'       => Settings::TYPE_USER
-                )
+                ]
             );
 
             // Если не найдена запись, создаем
@@ -360,15 +360,15 @@ class CustomGridView extends \TbExtendedGridView
 
         /* Перебор переключателей: */
         foreach ($this->pageSizes as $pageSize) {
-            $buttons[] = array(
+            $buttons[] = [
                 'label'       => $pageSize,
                 'active'      => $pageSize == $currentPageSize,
-                'htmlOptions' => array(
+                'htmlOptions' => [
                     'class' => 'pageSize',
                     'rel'   => $pageSize,
-                ),
+                ],
                 'url'         => '#',
-            );
+            ];
         }
 
         echo Yii::t('YupeModule.yupe', 'Display on');
@@ -376,10 +376,10 @@ class CustomGridView extends \TbExtendedGridView
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(
             'bootstrap.widgets.TbButtonGroup',
-            array(
+            [
                 'size'    => 'small',
                 'buttons' => $buttons
-            )
+            ]
         );
 
         /* Скрипт передачи PageSize: */

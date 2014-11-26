@@ -6,7 +6,7 @@ class m140813_200000_store_category_base extends yupe\components\DbMigration
     {
         $this->createTable(
             "{{store_category}}",
-            array(
+            [
                 "id" => "pk",
                 "parent_id" => "integer default null",
                 "alias" => "varchar(150) not null",
@@ -18,7 +18,7 @@ class m140813_200000_store_category_base extends yupe\components\DbMigration
                 "meta_description" => "varchar(250) default null",
                 "meta_keywords" => "varchar(250) default null",
                 "status" => "boolean not null default '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

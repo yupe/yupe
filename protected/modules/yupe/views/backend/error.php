@@ -8,17 +8,17 @@ switch ($error['code']) {
         $msg = Yii::t(
             'default',
             'Page you try to request, was not found. You can go out from this page and {link}.',
-            array(
+            [
                 '{link}' => CHtml::link(
                         Yii::t('default', 'go to home page'),
                         $this->createUrl('/yupe/backend/index'),
-                        array(
+                        [
                             'title' => Yii::t('default', 'go to home page'),
                             'alt'   => Yii::t('default', 'go to home page'),
-                        )
+                        ]
                     ),
 
-            )
+            ]
         );
         break;
     default:
