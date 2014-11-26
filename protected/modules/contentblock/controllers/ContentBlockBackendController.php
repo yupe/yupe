@@ -14,31 +14,31 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('ContentBlock.ContentblockBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('ContentBlock.ContentblockBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('ContentBlock.ContentblockBackend.Index')),
-            array(
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['ContentBlock.ContentblockBackend.Index']],
+            [
                 'allow',
-                'actions' => array('inlineEdit'),
-                'roles'   => array('ContentBlock.ContentblockBackend.Update')
-            ),
-            array('allow', 'actions' => array('update'), 'roles' => array('ContentBlock.ContentblockBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('ContentBlock.ContentblockBackend.View')),
-            array('deny')
-        );
+                'actions' => ['inlineEdit'],
+                'roles'   => ['ContentBlock.ContentblockBackend.Update']
+            ],
+            ['allow', 'actions' => ['update'], 'roles' => ['ContentBlock.ContentblockBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['ContentBlock.ContentblockBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'ContentBlock',
-                'validAttributes' => array('name', 'code', 'type', 'description')
-            )
-        );
+                'validAttributes' => ['name', 'code', 'type', 'description']
+            ]
+        ];
     }
 
     /**
@@ -62,11 +62,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 
         $this->render(
             'view',
-            array(
+            [
                 'model'   => $model,
                 'example' => $example,
                 'exampleCategory' => $exampleCategory
-            )
+            ]
         );
     }
 
@@ -92,12 +92,12 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -126,12 +126,12 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -175,11 +175,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'ContentBlock',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

@@ -14,30 +14,30 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Gallery.GalleryBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Gallery.GalleryBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Gallery.GalleryBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Gallery.GalleryBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Gallery.GalleryBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Gallery.GalleryBackend.View')),
-            array('allow', 'actions' => array('images'), 'roles' => array('Gallery.GalleryBackend.Images')),
-            array('allow', 'actions' => array('deleteImage'), 'roles' => array('Gallery.GalleryBackend.DeleteImage')),
-            array('allow', 'actions' => array('addimages'), 'roles' => array('Gallery.GalleryBackend.Addimages')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Gallery.GalleryBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Gallery.GalleryBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Gallery.GalleryBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Gallery.GalleryBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Gallery.GalleryBackend.View']],
+            ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
+            ['allow', 'actions' => ['deleteImage'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
+            ['allow', 'actions' => ['addimages'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Gallery',
-                'validAttributes' => array('name', 'description', 'status')
-            )
-        );
+                'validAttributes' => ['name', 'description', 'status']
+            ]
+        ];
     }
 
     /**
@@ -64,12 +64,12 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -97,13 +97,13 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -154,11 +154,11 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Gallery',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -187,26 +187,26 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         }
 
         $dataProvider = new CActiveDataProvider(
-            'ImageToGallery', array(
-                'criteria' => array(
+            'ImageToGallery', [
+                'criteria' => [
                     'condition' => 't.gallery_id = :gallery_id',
-                    'params'    => array(':gallery_id' => $gallery->id),
+                    'params'    => [':gallery_id' => $gallery->id],
                     'order'     => 't.creation_date DESC',
                     'with'      => 'image',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->render(
             'images',
-            array(
+            [
                 'dataProvider' => $dataProvider,
                 'image'        => $image,
                 'model'        => $gallery,
                 'tab'          => !($errors = $image->getErrors())
                         ? '_images_show'
                         : '_image_add'
-            )
+            ]
         );
     }
 
@@ -234,7 +234,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
-                    $this->redirect(array('/gallery/galleryBackend/images', 'id' => $gallery->id));
+                    $this->redirect(['/gallery/galleryBackend/images', 'id' => $gallery->id]);
                 }
             }
         } catch (Exception $e) {
@@ -270,12 +270,12 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         $message = Yii::t(
             'GalleryModule.gallery',
             'Image #{id} {result} deleted',
-            array(
+            [
                 '{id}'     => $id,
                 '{result}' => ($result = $image->delete())
                         ? Yii::t('GalleryModule.gallery', 'success')
                         : Yii::t('GalleryModule.gallery', 'not')
-            )
+            ]
         );
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest) {
@@ -320,9 +320,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $imageData = $imageData[$_FILES['Image']['name']['file']];
             $this->_addImage($image, $imageData, $gallery);
             if ($image->hasErrors()) {
-                $data[] = array('error' => $image->getErrors());
+                $data[] = ['error' => $image->getErrors()];
             } else {
-                $data[] = array(
+                $data[] = [
                     'name'          => $image->name,
                     'type'          => $_FILES['Image']['type']['file'],
                     'size'          => $_FILES['Image']['size']['file'],
@@ -330,13 +330,13 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                     'thumbnail_url' => $image->getImageUrl(80),
                     'delete_url'    => $this->createUrl(
                             '/gallery/galleryBackend/deleteImage',
-                            array(
+                            [
                                 'id'     => $image->id,
                                 'method' => 'uploader'
-                            )
+                            ]
                         ),
                     'delete_type'   => 'GET'
-                );
+                ];
             }
 
             echo json_encode($data);
@@ -368,9 +368,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
         $this->renderPartial(
             $view,
-            array(
+            [
                 'model' => $gallery,
-            )
+            ]
         );
     }
 

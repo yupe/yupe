@@ -6,13 +6,13 @@ class m140814_000018_store_product_image_base extends yupe\components\DbMigratio
     {
         $this->createTable(
             "{{store_product_image}}",
-            array(
+            [
                 "id" => "pk",
                 "product_id" => "integer not null",
                 "name" => "varchar(250) not null",
                 "title" => "varchar(250) null",
                 "is_main" => "boolean not null default '0'",
-            ),
+            ],
             $this->getOptions()
         );
 

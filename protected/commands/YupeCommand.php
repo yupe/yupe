@@ -19,7 +19,7 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      */
     public function actionUpdate_config($module = null, $interactive = true)
     {
-        $modules = array();
+        $modules = [];
         $filter = $module === null ? null : array_map('trim', explode(',', $module));
 
         foreach (Yii::app()->getModules() as $key => $value) {
@@ -77,13 +77,13 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      */
     public function actionUpdate_migrations($module = null, $interactive = true)
     {
-        $modules = array();
+        $modules = [];
         $filter = $module === null ? null : array_map('trim', explode(',', $module));
 
         foreach (Yii::app()->getModules() as $key => $value) {
             if ($filter === null || in_array($key, $filter)) {
                 $module = Yii::app()->getModule($key);
-                if (!empty($module) && Yii::app()->migrator->checkForUpdates(array($key => $value))) {
+                if (!empty($module) && Yii::app()->migrator->checkForUpdates([$key => $value])) {
                     $modules[$key] = $module;
                 }
             }

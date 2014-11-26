@@ -14,27 +14,27 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Dictionary.DictionaryBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Dictionary.DictionaryBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Dictionary.DictionaryBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Dictionary.DictionaryBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Dictionary.DictionaryBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Dictionary.DictionaryBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Dictionary.DictionaryBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Dictionary.DictionaryBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Dictionary.DictionaryBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Dictionary.DictionaryBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Dictionary.DictionaryBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Dictionary.DictionaryBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'DictionaryGroup',
-                'validAttributes' => array('name', 'code', 'description')
-            )
-        );
+                'validAttributes' => ['name', 'code', 'description']
+            ]
+        ];
     }
 
     /**
@@ -46,7 +46,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -73,13 +73,13 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -108,13 +108,13 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -163,11 +163,11 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'DictionaryGroup',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

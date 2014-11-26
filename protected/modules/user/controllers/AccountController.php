@@ -15,53 +15,53 @@ class AccountController extends yupe\components\controllers\FrontController
 {
     public function filters()
     {
-        return array(
-            array('yupe\filters\YFrontAccessControl + profile')
-        );
+        return [
+            ['yupe\filters\YFrontAccessControl + profile']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'captcha'         => array(
+        return [
+            'captcha'         => [
                 'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
-            ),
-            'registration'    => array(
+            ],
+            'registration'    => [
                 'class' => 'application.modules.user.controllers.account.RegistrationAction',
-            ),
-            'profile'         => array(
+            ],
+            'profile'         => [
                 'class' => 'application.modules.user.controllers.account.ProfileAction'
-            ),
-            'profilePassword' => array(
+            ],
+            'profilePassword' => [
                 'class' => 'application.modules.user.controllers.account.ProfilePasswordAction'
-            ),
-            'profileEmail'    => array(
+            ],
+            'profileEmail'    => [
                 'class' => 'application.modules.user.controllers.account.ProfileEmailAction'
-            ),
-            'activate'        => array(
+            ],
+            'activate'        => [
                 'class' => 'application.modules.user.controllers.account.ActivateAction',
-            ),
-            'login'           => array(
+            ],
+            'login'           => [
                 'class' => 'application.modules.user.controllers.account.LoginAction',
-            ),
-            'backendlogin'    => array(
+            ],
+            'backendlogin'    => [
                 'class' => 'application.modules.user.controllers.account.LoginAction',
-            ),
-            'logout'          => array(
+            ],
+            'logout'          => [
                 'class' => 'application.modules.user.controllers.account.LogOutAction',
-            ),
-            'recovery'        => array(
+            ],
+            'recovery'        => [
                 'class' => 'application.modules.user.controllers.account.RecoveryAction',
-            ),
-            'restore'         => array(
+            ],
+            'restore'         => [
                 'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction',
-            ),
-            'confirm'         => array(
+            ],
+            'confirm'         => [
                 'class' => 'application.modules.user.controllers.account.EmailConfirmAction',
-            ),
-        );
+            ],
+        ];
     }
 }

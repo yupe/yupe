@@ -1,10 +1,10 @@
 <?php
 /* @var $this DefaultController */
 
-$this->breadcrumbs = array(
-    Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)') => array('/zendsearch/manageBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)') => ['/zendsearch/manageBackend/index'],
     Yii::t('ZendSearchModule.zendsearch', 'Manage'),
-);
+];
 
 $this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Find (Zend) - manage');
 ?>
@@ -24,7 +24,7 @@ $this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Find (Zend) - manage')
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'ajaxButton',
         'id'          => 'create-search',
         'context'     => 'primary',
@@ -32,9 +32,9 @@ $this->widget(
         'loadingText' => Yii::t('ZendSearchModule.zendsearch', 'Index is updating... Wait please...'),
         'size'        => 'large',
         'url'         => $this->createUrl('/zendsearch/manageBackend/create'),
-        'ajaxOptions' => array(
+        'ajaxOptions' => [
             'type'       => 'POST',
-            'data'       => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'data'       => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'url'        => $this->createUrl('/zendsearch/manageBackend/create'),
             'beforeSend' => 'function () {
 	       $("#create-search").text("' . Yii::t('ZendSearchModule.zendsearch', 'Wait please...') . '");
@@ -43,7 +43,7 @@ $this->widget(
             $("#create-search").text("' . Yii::t('ZendSearchModule.zendsearch', 'Update find index') . '");
             alert(data);
 	     }',
-        )
-    )
+        ]
+    ]
 );
 ?>

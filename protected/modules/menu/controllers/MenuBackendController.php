@@ -14,27 +14,27 @@ class MenuBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Menu.MenuBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Menu.MenuBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Menu.MenuBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Menu.MenuBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Menu.MenuBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Menu',
-                'validAttributes' => array('name', 'code', 'status', 'description')
-            )
-        );
+                'validAttributes' => ['name', 'code', 'status', 'description']
+            ]
+        ];
     }
 
     /**
@@ -64,10 +64,10 @@ class MenuBackendController extends yupe\components\controllers\BackController
 
         $this->render(
             'view',
-            array(
+            [
                 'model'   => $model,
                 'example' => $example,
-            )
+            ]
         );
     }
 
@@ -92,13 +92,13 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -123,12 +123,12 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -175,11 +175,11 @@ class MenuBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Menu',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

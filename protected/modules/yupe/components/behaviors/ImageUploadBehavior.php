@@ -10,7 +10,7 @@ use Imagine\Image\ImageInterface;
 class ImageUploadBehavior extends FileUploadBehavior
 {
     public $resizeOnUpload = true;
-    public $resizeOptions = array();
+    public $resizeOptions = [];
 
     /**
      * @var null|string Полный путь к изображению по умолчанию в публичной папке
@@ -23,14 +23,14 @@ class ImageUploadBehavior extends FileUploadBehavior
 
         if ($this->resizeOnUpload) {
             $this->resizeOptions = array_merge(
-                array(
+                [
                     'width' => 950,
                     'height' => 950,
-                    'quality' => array(
+                    'quality' => [
                         'jpegQuality' => 75,
                         'pngCompressionLevel' => 7
-                    ),
-                ),
+                    ],
+                ],
                 $this->resizeOptions
             );
         }
@@ -72,7 +72,7 @@ class ImageUploadBehavior extends FileUploadBehavior
                 Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not acceptable for write!',
-                    array('{dir}' => $path)
+                    ['{dir}' => $path]
                 )
             );
         }

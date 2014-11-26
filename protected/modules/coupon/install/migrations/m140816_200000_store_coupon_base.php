@@ -6,7 +6,7 @@ class m140816_200000_store_coupon_base extends yupe\components\DbMigration
     {
         $this->createTable(
             "{{store_coupon}}",
-            array(
+            [
                 "id" => "pk",
                 "name" => "varchar(255) not null default ''",
                 "code" => "varchar(255) not null",
@@ -20,7 +20,7 @@ class m140816_200000_store_coupon_base extends yupe\components\DbMigration
                 "quantity" => "integer null",
                 "quantity_per_user" => "integer null",
                 "status" => "tinyint not null default '0'",
-            ),
+            ],
             $this->getOptions()
         );
     }

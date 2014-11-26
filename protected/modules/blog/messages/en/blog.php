@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*' => '',
     '--choose blog--' => '',
     '--choose--' => '',
@@ -229,4 +229,4 @@ return array(
     'All' => '',
     'Select {field}' => '',
     'About author' => '',
-);
+];

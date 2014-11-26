@@ -13,27 +13,27 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Mail.TemplateBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Mail.TemplateBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Mail.TemplateBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Mail.TemplateBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Mail.TemplateBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Mail.TemplateBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Mail.TemplateBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Mail.TemplateBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Mail.TemplateBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Mail.TemplateBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Mail.TemplateBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Mail.TemplateBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'MailTemplate',
-                'validAttributes' => array('event_id', 'name', 'description', 'from', 'to', 'theme', 'status')
-            )
-        );
+                'validAttributes' => ['event_id', 'name', 'description', 'from', 'to', 'theme', 'status']
+            ]
+        ];
     }
 
     /**
@@ -45,7 +45,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -74,13 +74,13 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -108,13 +108,13 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -169,11 +169,11 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'MailTemplate',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

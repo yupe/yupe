@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('QueueModule.queue', 'Tasks') => array('/queue/queueBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('QueueModule.queue', 'Tasks') => ['/queue/queueBackend/index'],
     Yii::t('QueueModule.queue', 'Management'),
-);
+];
 
 $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - manage');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('QueueModule.queue', 'Task list'),
-        'url'   => array('/queue/queueBackend/index')
-    ),
-    array(
+        'url'   => ['/queue/queueBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('QueueModule.queue', 'Task creation'),
-        'url'   => array('/queue/queueBackend/create')
-    ),
-);
+        'url'   => ['/queue/queueBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -48,27 +48,27 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'queue-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
+        'columns'      => [
             'id',
-            array(
+            [
                 'name'   => 'worker',
                 'value'  => '$data->getWorkerName()',
                 'filter' => Yii::app()->getModule('queue')->getWorkerNamesMap()
-            ),
+            ],
             'create_time',
             'start_time',
             'complete_time',
-            array(
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'priority',
                 'url'     => $this->createUrl('/queue/queueBackend/inline'),
@@ -78,8 +78,8 @@ $this->menu = array(
                     Queue::PRIORITY_LOW    => ['class' => 'label-default'],
                     Queue::PRIORITY_NORMAL => ['class' => 'label-info'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/queue/queueBackend/inline'),
@@ -90,11 +90,11 @@ $this->menu = array(
                     Queue::STATUS_NEW       => ['class' => 'label-info'],
                     Queue::STATUS_PROGRESS  => ['class' => 'label-warning'],
                 ],
-            ),
+            ],
             'notice',
-            array(
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

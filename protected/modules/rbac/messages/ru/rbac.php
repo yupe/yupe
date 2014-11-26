@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     'Module for user rights and permissions'         => 'Модуль для управления правами и ролями пользователей',
     'Manage roles'                                   => 'Управление ролями',
     'Manage operations'                              => 'Управление операциями',
@@ -55,4 +55,4 @@ return array(
     'Permissions'                                    => 'Права',
     'View action'                                    => 'Просмотр действия',
     'Operations'                                     => 'Операции'
-);
+];

@@ -17,9 +17,9 @@
 class OrderProduct extends \yupe\models\YModel
 {
     /* @var $variant_ids Array - массив id вариантов, котороые нужно установить у продукта */
-    public $variant_ids = array();
-    private $oldVariants = array();
-    public $variantsArray = array();
+    public $variant_ids = [];
+    private $oldVariants = [];
+    public $variantsArray = [];
 
     /**
      * @return string the associated database table name
@@ -36,21 +36,21 @@ class OrderProduct extends \yupe\models\YModel
 
     public function rules()
     {
-        return array(
-            array('order_id', 'required'),
-            array('product_name, sku', 'length', 'max' => 255),
-            array('price', 'store\components\validators\NumberValidator'),
-            array('variant_ids', 'safe'),
-            array('quantity, order_id, product_id', 'numerical', 'integerOnly' => true),
-        );
+        return [
+            ['order_id', 'required'],
+            ['product_name, sku', 'length', 'max' => 255],
+            ['price', 'store\components\validators\NumberValidator'],
+            ['variant_ids', 'safe'],
+            ['quantity, order_id, product_id', 'numerical', 'integerOnly' => true],
+        ];
     }
 
     public function relations()
     {
-        return array(
-            'order' => array(self::BELONGS_TO, 'Order', 'order_id'),
-            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
-        );
+        return [
+            'order' => [self::BELONGS_TO, 'Order', 'order_id'],
+            'product' => [self::BELONGS_TO, 'Product', 'product_id'],
+        ];
     }
 
     public function afterFind()
@@ -69,7 +69,7 @@ class OrderProduct extends \yupe\models\YModel
 
     public function beforeSave()
     {
-        if (Product::model()->exists('id = :product_id', array(":product_id" => $this->product_id))) {
+        if (Product::model()->exists('id = :product_id', [":product_id" => $this->product_id])) {
             $this->variant_ids = array_filter($this->variant_ids);
 
             // удаляем варианты, которые не были выбраны, старые не трогаем, чтобы оставить данные, на случай, если вариант был удален из системы
@@ -84,7 +84,7 @@ class OrderProduct extends \yupe\models\YModel
                 },
                 $this->oldVariants
             );
-            $newVariants = array();
+            $newVariants = [];
             foreach ($this->variant_ids as $varId) {
                 if (!in_array($varId, $oldVariantIds)) {
                     /* @var $variant ProductVariant */
@@ -93,11 +93,11 @@ class OrderProduct extends \yupe\models\YModel
                         // сохраняем информацию на случай удаления варианта из системы
                         $newVariants[] = array_merge(
                             $variant->attributes,
-                            array(
+                            [
                                 'attribute_name' => $variant->attribute->name,
                                 'attribute_title' => $variant->attribute->title,
                                 'optionValue' => $variant->getOptionValue(),
-                            )
+                            ]
                         );
                     }
                 }

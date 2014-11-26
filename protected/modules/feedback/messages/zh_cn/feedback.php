@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'continue'                                                                                                     => '继续',
     '*unknown*'                                                                                                    => '*未知*',
     '--choose--'                                                                                                   => '--选择--',
@@ -161,4 +161,4 @@ return array(
     'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'         => '',
     'We try to answer as fast as we can!'                                                                          => '',
     'Thanks for attention!'                                                                                        => '谢谢关注！',
-);
+];

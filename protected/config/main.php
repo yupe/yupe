@@ -25,7 +25,7 @@ Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
 Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 Yii::setPathOfAlias('themes','/../../themes/');
 
-return array(
+return [
     'basePath'            => dirname(__FILE__) . '/..',
     // контроллер по умолчанию
     'defaultController'   => 'site',
@@ -40,24 +40,24 @@ return array(
     'controllerNamespace' => 'application\controllers',
     'preload'             => defined('YII_DEBUG')
         && YII_DEBUG
-            ? array('debug') : array(),
-    'aliases'             => array(
+            ? ['debug'] : [],
+    'aliases'             => [
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
-    ),
-    'import'              => array(
+    ],
+    'import'              => [
         // подключение основых путей
         'application.modules.yupe.models.*',
         'application.modules.yupe.widgets.*',
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.extensions.tagcache.*',
-    ),
+    ],
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
-    'modules'             => array(
-        'yupe' => array(
+    'modules'             => [
+        'yupe' => [
             'class' => 'application.modules.yupe.YupeModule',
             'cache' => true,
-        ),
+        ],
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
             'class'          => 'system.gii.GiiModule',
@@ -67,53 +67,53 @@ return array(
             ),
             'ipFilters'=>array(),
         ),*/
-    ),
-    'behaviors'           => array(
-        'onBeginRequest' => array(
+    ],
+    'behaviors'           => [
+        'onBeginRequest' => [
             'class' => 'yupe\components\urlManager\LanguageBehavior'
-        )
-    ),
+        ]
+    ],
     'params'              => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
-    'components'          => array(
-        'viewRenderer'  => array(
+    'components'          => [
+        'viewRenderer'  => [
             'class'         => 'vendor.yiiext.twig-renderer.ETwigViewRenderer',
             'twigPathAlias' => 'vendor.twig.twig.lib.Twig',
             // All parameters below are optional, change them to your needs
             'fileExtension' => '.twig',
-            'options'       => array('autoescape' => true,),
-            'globals'       => array('html' => 'CHtml'),
-            'filters'       => array('jencode' => 'CJSON::encode',),
-        ),
-        'debug'         => array('class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug', 'internalUrls' => false,),
+            'options'       => ['autoescape' => true,],
+            'globals'       => ['html' => 'CHtml'],
+            'filters'       => ['jencode' => 'CJSON::encode',],
+        ],
+        'debug'         => ['class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug', 'internalUrls' => false,],
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
-        'db'            => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : array(),
-        'bootstrap'     => array(
+        'db'            => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : [],
+        'bootstrap'     => [
             'class'          => 'bootstrap.components.Booster',
             'responsiveCss'  => true,
             'fontAwesomeCss' => true,
-        ),
-        'eventManager'  => array('class' => 'yupe\components\EventManager'),
-        'configManager' => array('class' => 'yupe\components\ConfigManager',),
-        'moduleManager' => array('class' => 'yupe\components\ModuleManager',),
+        ],
+        'eventManager'  => ['class' => 'yupe\components\EventManager'],
+        'configManager' => ['class' => 'yupe\components\ConfigManager',],
+        'moduleManager' => ['class' => 'yupe\components\ModuleManager',],
         // Работа с миграциями, обновление БД модулей
-        'migrator'      => array('class' => 'yupe\components\Migrator',),
+        'migrator'      => ['class' => 'yupe\components\Migrator',],
         // DAO simple wrapper:
-        'dao'           => array('class' => 'yupe\components\DAO',),
-        'thumbnailer'   => array('class' => 'yupe\components\image\Thumbnailer',),
-        'uploadManager' => array('class' => 'yupe\components\UploadManager',),
-        'themeManager'  => array(
+        'dao'           => ['class' => 'yupe\components\DAO',],
+        'thumbnailer'   => ['class' => 'yupe\components\image\Thumbnailer',],
+        'uploadManager' => ['class' => 'yupe\components\UploadManager',],
+        'themeManager'  => [
             'class'      => 'CThemeManager',
             'basePath'   => dirname(__DIR__) . '/../themes',
             'themeClass' => 'yupe\components\Theme',
-        ),
-        'cache'         => array(
+        ],
+        'cache'         => [
             'class'     => 'CFileCache',
-            'behaviors' => array('clear' => array('class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',),),
-        ),
+            'behaviors' => ['clear' => ['class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',],],
+        ],
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
-        'urlManager'    => array(
+        'urlManager'    => [
             'class'            => 'yupe\components\urlManager\LangUrlManager',
             //comment this if if multilingual unnecessary
             //'class'          => 'CUrlManager', // default yii UrlManager
@@ -126,7 +126,7 @@ return array(
             // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'          => 'cache',
             'useStrictParsing' => true,
-            'rules'            => array( // общие правила
+            'rules'            => [ // общие правила
                 '/'                                                            => '/site/index',
                 // для корректной работы устновщика
                 '/install/default/<action:\w+>'                                => '/install/default/<action>',
@@ -140,37 +140,37 @@ return array(
                 '/site/<action:\w+>'                                           => 'site/<action>',
                 '/debug/<controller:\w+>/<action:\w+>'                         => 'debug/<controller>/<action>',
                 // Для  YiiDebugPanel
-            )
-        ),
+            ]
+        ],
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
-        'request'       => array(
+        'request'       => [
             'class'                  => 'yupe\components\HttpRequest',
             'enableCsrfValidation'   => true,
-            'csrfCookie'             => array('httpOnly' => true,),
+            'csrfCookie'             => ['httpOnly' => true,],
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => array('backend/AjaxImageUpload', 'backend/AjaxFileUpload'),
+            'noCsrfValidationRoutes' => ['backend/AjaxImageUpload', 'backend/AjaxFileUpload'],
             'enableCookieValidation' => true,
             // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
-        ),
-        'session'       => array('cookieParams' => array('httponly' => true,)),
+        ],
+        'session'       => ['cookieParams' => ['httponly' => true,]],
         // подключение компонента для генерации ajax-ответов
-        'ajax'          => array('class' => 'yupe\components\AsyncResponse',),
+        'ajax'          => ['class' => 'yupe\components\AsyncResponse',],
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
-        'log'           => array(
+        'log'           => [
             'class'  => 'CLogRouter',
-            'routes' => array(
-                array(
+            'routes' => [
+                [
                     'class'  => 'CFileLogRoute',
                     'levels' => 'error, warning, info, trace', // на продакшн лучше оставить error, warning
-                ),
-            ),
-        ),
-        'errorHandler'  => array( // use 'site/error' action to display errors
+                ],
+            ],
+        ],
+        'errorHandler'  => [ // use 'site/error' action to display errors
             'errorAction' => 'site/error',
-        ),
-    ),
-    'rules'               => array( //подробнее http://yupe.ru/docs/yupe/userspace.config.html
-    )
-);
+        ],
+    ],
+    'rules'               => [ //подробнее http://yupe.ru/docs/yupe/userspace.config.html
+    ]
+];

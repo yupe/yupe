@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CommentModule.comment', 'Comments') => ['/comment/commentBackend/index'],
     Yii::t('CommentModule.comment', 'Create'),
-);
+];
 
 $this->pageTitle = Yii::t('CommentModule.comment', 'Comment - create');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CommentModule.comment', 'Comments list'),
-        'url'   => array('/comment/commentBackend/index')
-    ),
-    array(
+        'url'   => ['/comment/commentBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CommentModule.comment', 'Create comment'),
-        'url'   => array('/comment/commentBackend/create')
-    ),
-);
+        'url'   => ['/comment/commentBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -26,4 +26,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

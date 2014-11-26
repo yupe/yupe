@@ -23,6 +23,6 @@ class PostCategoryWidget extends yupe\widgets\YWidget
             ->order('postCnt DESC')
             ->group('c.id')->queryAll();
 
-        $this->render($this->view, array('data' => $data));
+        $this->render($this->view, ['data' => $data]);
     }
 }

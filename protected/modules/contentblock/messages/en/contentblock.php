@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown type*'                                                                                                                                                                                                                                                                                                                                                => '',
     '0.2'                                                                                                                                                                                                                                                                                                                                                           => '',
     'Add block'                                                                                                                                                                                                                                                                                                                                                     => '',
@@ -85,4 +85,4 @@ return array(
     '--not selected--'                                                                                                                                                                                                                                                                                                                                              => '',
     'Category "{category}" does not exist, please enter the unsettled category'                                                                                                                                                                                                                                                                                     => '',
     'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>' => ''
-);
+];

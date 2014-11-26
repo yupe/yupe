@@ -20,13 +20,13 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'blog-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 );
 
 ?>
@@ -43,20 +43,20 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(
                             (int)Yii::app()->getModule('blog')->mainCategory
                         ),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty'               => Yii::t('BlogModule.blog', '--choose--'),
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('category_id'),
                         'data-content'        => $model->getAttributeDescription('category_id'),
                         'encode'              => false
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -66,32 +66,32 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getTypeList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('type'),
                         'data-content'        => $model->getAttributeDescription('type'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
                         'data-content'        => $model->getAttributeDescription('status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -101,32 +101,32 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'member_status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getMemberStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('member_status'),
                         'data-content'        => $model->getAttributeDescription('member_status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'post_status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getPostStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('post_status'),
                         'data-content'        => $model->getAttributeDescription('post_status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -137,15 +137,15 @@ $form = $this->beginWidget(
         echo $form->textFieldGroup(
             $model,
             'name',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
                         'data-content'        => $model->getAttributeDescription('name'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -155,15 +155,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'slug',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
                         'data-content'        => $model->getAttributeDescription('slug'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -174,21 +174,21 @@ $form = $this->beginWidget(
         echo CHtml::image(
             $model->getImageUrl(),
             $model->name,
-            array(
+            [
                 'class' => 'preview-image',
-            )
+            ]
         ); ?>
         <?php echo $form->fileFieldGroup(
             $model,
             'icon',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
                         'style'    => 'background-color: inherit;'
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -203,10 +203,10 @@ $form = $this->beginWidget(
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model'     => $model,
                 'attribute' => 'description',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -214,27 +214,27 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create blog and continue') : Yii::t(
                 'BlogModule.blog',
                 'Save blog and continue'
             ),
-    )
+    ]
 ); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create blog and close') : Yii::t(
                 'BlogModule.blog',
                 'Save blog and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

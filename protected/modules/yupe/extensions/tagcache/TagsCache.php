@@ -45,7 +45,7 @@ class TagsCache implements ICacheDependency
      */
     public function getHasChanged()
     {
-        $tags = array();
+        $tags = [];
 
         foreach ($this->tags as $tag) {
             $tags[] = TaggingCacheBehavior::PREFIX . $tag;

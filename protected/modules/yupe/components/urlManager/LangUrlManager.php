@@ -61,7 +61,7 @@ class LangUrlManager extends CUrlManager
 
         // Обходим массив правил и выполняем
         // преобразования для новых правил:
-        $newRules = array();
+        $newRules = [];
 
         foreach ($this->rules as $rule => $p) {
             $rule = ($rule[0] == '/'
@@ -145,7 +145,7 @@ class LangUrlManager extends CUrlManager
      *
      * @return string parent::createUrl()
      */
-    public function createUrl($route, $params = array(), $ampersand = '&')
+    public function createUrl($route, $params = [], $ampersand = '&')
     {
         // Обновляем список языков, ведь он мог измениться:
         $this->loadLangs();
@@ -214,7 +214,7 @@ class LangUrlManager extends CUrlManager
             if (isset($param[$this->langParam])) {
                 unset($param[$this->langParam]);
             }
-            if ($param != array()) {
+            if ($param != []) {
                 $url .= '?' . http_build_query($param);
             }
         }

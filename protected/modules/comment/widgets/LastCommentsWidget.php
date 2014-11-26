@@ -30,12 +30,12 @@ class LastCommentsWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $criteria = new CDbCriteria(array(
+        $criteria = new CDbCriteria([
             'condition' => 'status = :status AND id<>root',
-            'params'    => array(':status' => $this->commentStatus),
+            'params'    => [':status' => $this->commentStatus],
             'limit'     => $this->limit,
             'order'     => 'id DESC',
-        ));
+        ]);
 
         if ($this->model) {
             $criteria->addCondition('model = :model');
@@ -48,6 +48,6 @@ class LastCommentsWidget extends yupe\widgets\YWidget
 
         $comments = Comment::model()->findAll($criteria);
 
-        $this->render($this->view, array('models' => $comments));
+        $this->render($this->view, ['models' => $comments]);
     }
 }

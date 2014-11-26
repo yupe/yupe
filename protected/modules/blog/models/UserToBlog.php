@@ -66,16 +66,16 @@ class UserToBlog extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('user_id, blog_id', 'required', 'except' => 'search'),
-            array('role, status, user_id, blog_id, create_date, update_date', 'numerical', 'integerOnly' => true),
-            array('user_id, blog_id, create_date, update_date, role, status', 'length', 'max' => 11),
-            array('note', 'length', 'max' => 250),
-            array('role', 'in', 'range' => array_keys($this->getRoleList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('note', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('id, user_id, blog_id, create_date, update_date, role, status, note', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['user_id, blog_id', 'required', 'except' => 'search'],
+            ['role, status, user_id, blog_id, create_date, update_date', 'numerical', 'integerOnly' => true],
+            ['user_id, blog_id, create_date, update_date, role, status', 'length', 'max' => 11],
+            ['note', 'length', 'max' => 250],
+            ['role', 'in', 'range' => array_keys($this->getRoleList())],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['note', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['id, user_id, blog_id, create_date, update_date, role, status, note', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -85,10 +85,10 @@ class UserToBlog extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'blog' => array(self::BELONGS_TO, 'Blog', 'blog_id'),
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'blog' => [self::BELONGS_TO, 'Blog', 'blog_id'],
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
     public function afterSave()
@@ -110,7 +110,7 @@ class UserToBlog extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'          => Yii::t('BlogModule.blog', 'id'),
             'user_id'     => Yii::t('BlogModule.blog', 'User'),
             'blog_id'     => Yii::t('BlogModule.blog', 'Blog'),
@@ -119,7 +119,7 @@ class UserToBlog extends yupe\models\YModel
             'role'        => Yii::t('BlogModule.blog', 'Role'),
             'status'      => Yii::t('BlogModule.blog', 'Status'),
             'note'        => Yii::t('BlogModule.blog', 'Notice'),
-        );
+        ];
     }
 
     /**
@@ -127,7 +127,7 @@ class UserToBlog extends yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id'      => Yii::t('BlogModule.blog', 'Member Id.'),
             'user_id' => Yii::t('BlogModule.blog', 'Please choose a user which will become the member of the blog'),
             'blog_id' => Yii::t('BlogModule.blog', 'Please choose id of the blog.'),
@@ -140,7 +140,7 @@ class UserToBlog extends yupe\models\YModel
                     'Please choose status of the member:<br /><br /><span class="label label-success">Active</span> &ndash; Active member of the blog.<br /><br /><span class="label label-warning">blocked</span> &ndash; Cannot access the blog.'
                 ),
             'note'    => Yii::t('BlogModule.blog', 'Short note about the blog member.'),
-        );
+        ];
     }
 
     /**
@@ -165,35 +165,35 @@ class UserToBlog extends yupe\models\YModel
         $criteria->compare('t.status', $this->status);
         $criteria->compare('note', $this->note);
 
-        $criteria->with = array('user', 'blog');
+        $criteria->with = ['user', 'blog'];
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => array(
+            'sort'     => [
                 'defaultOrder' => 't.id DESC'
-            )
-        ));
+            ]
+        ]);
     }
 
     public function behaviors()
     {
-        return array(
-            'CTimestampBehavior' => array(
+        return [
+            'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
                 'createAttribute'   => 'create_date',
                 'updateAttribute'   => 'update_date',
-            ),
-        );
+            ],
+        ];
     }
 
     public function getRoleList()
     {
-        return array(
+        return [
             self::ROLE_USER      => Yii::t('BlogModule.blog', 'User'),
             self::ROLE_MODERATOR => Yii::t('BlogModule.blog', 'Moderator'),
             self::ROLE_ADMIN     => Yii::t('BlogModule.blog', 'Administrator'),
-        );
+        ];
     }
 
     public function getRole()
@@ -205,12 +205,12 @@ class UserToBlog extends yupe\models\YModel
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE       => Yii::t('BlogModule.blog', 'Active'),
             self::STATUS_BLOCK        => Yii::t('BlogModule.blog', 'Blocked'),
             self::STATUS_DELETED      => Yii::t('BlogModule.blog', 'Deleted'),
             self::STATUS_CONFIRMATION => Yii::t('BlogModule.blog', 'Confirmation')
-        );
+        ];
     }
 
     public function getStatus()

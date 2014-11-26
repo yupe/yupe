@@ -72,7 +72,7 @@ class ContentType
      **/
     public static function getTypes()
     {
-        return array(
+        return [
             self::TYPE_HTML      => 'Content-type: text/html',
             self::TYPE_TEXT      => 'Content-type: text/plain',
             self::TYPE_JSON      => 'Content-type: application/json',
@@ -84,6 +84,6 @@ class ContentType
             self::TYPE_ARCH_RAR  => 'Content-type: application/x-rar',
             self::TYPE_ARCH_TAR  => 'Content-type: application/x-tar',
             self::TYPE_ARCH_GZIP => 'Content-type: application/gzip',
-        );
+        ];
     }
 }

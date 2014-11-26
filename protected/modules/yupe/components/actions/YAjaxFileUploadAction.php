@@ -92,7 +92,7 @@ class YAjaxFileUploadAction extends CAction
                         'error' => Yii::t(
                             'YupeModule.yupe',
                             'Can\'t create catalog "{dir}" for files!',
-                            array('{dir}' => $this->uploadPath)
+                            ['{dir}' => $this->uploadPath]
                         )
                     ]
                 );

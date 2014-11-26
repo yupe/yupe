@@ -27,7 +27,7 @@ class YText
     {
         $str = str_replace(' ', '-', $str);
 
-        $tr = array(
+        $tr = [
             "А" => "A",
             "Б" => "B",
             "В" => "V",
@@ -92,7 +92,7 @@ class YText
             "э" => "e",
             "ю" => "yu",
             "я" => "ya",
-        );
+        ];
 
         $str = strtolower(strtr($str, $tr));
         $str = preg_replace('/[^0-9a-z\_-]/', '', $str);
@@ -117,7 +117,7 @@ class YText
             return $str;
         }
 
-        $str = preg_replace("/\s+/", ' ', str_replace(array("\r\n", "\r", "\n"), ' ', $str));
+        $str = preg_replace("/\s+/", ' ', str_replace(["\r\n", "\r", "\n"], ' ', $str));
 
         if (mb_strlen($str) <= $n) {
             return $str;
@@ -261,12 +261,12 @@ class YText
 
         // Standardize newlines
         if (strpos($str, "\r") !== false) {
-            $str = str_replace(array("\r\n", "\r"), "\n", $str);
+            $str = str_replace(["\r\n", "\r"], "\n", $str);
         }
 
         // If the current word is surrounded by {unwrap} tags we'll
         // strip the entire chunk and replace it with a marker.
-        $unwrap = array();
+        $unwrap = [];
         if (preg_match_all("|(\{unwrap\}.+?\{/unwrap\})|s", $str, $matches)) {
             for ($i = 0; $i < count($matches['0']); $i++) {
                 $unwrap[] = $matches['1'][$i];
@@ -315,7 +315,7 @@ class YText
         }
 
         // Remove the unwrap tags
-        $output = str_replace(array('{unwrap}', '{/unwrap}'), '', $output);
+        $output = str_replace(['{unwrap}', '{/unwrap}'], '', $output);
 
         return $output;
     }
@@ -324,7 +324,7 @@ class YText
     {
         $count = 1;
         $out = '';
-        $temp = array();
+        $temp = [];
 
         for ($i = 0, $s = mb_strlen($str); $i < $s; $i++) {
             $ordinal = ord($str[$i]);
@@ -354,7 +354,7 @@ class YText
 
                     $out .= '&#' . $number . ';';
                     $count = 1;
-                    $temp = array();
+                    $temp = [];
                 }
             }
         }
@@ -386,8 +386,8 @@ class YText
 
         if ($all) {
             $str = str_replace(
-                array("&amp;", "&lt;", "&gt;", "&quot;", "&apos;", "&#45;"),
-                array("&", "<", ">", "\"", "'", "-"),
+                ["&amp;", "&lt;", "&gt;", "&quot;", "&apos;", "&#45;"],
+                ["&", "<", ">", "\"", "'", "-"],
                 $str
             );
         }

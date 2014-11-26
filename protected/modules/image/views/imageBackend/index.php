@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('ImageModule.image', 'Images') => array('/image/imageBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('ImageModule.image', 'Images') => ['/image/imageBackend/index'],
     Yii::t('ImageModule.image', 'Management'),
-);
+];
 
 $this->pageTitle = Yii::t('ImageModule.image', 'Images - manage');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ImageModule.image', 'Image management'),
-        'url'   => array('/image/imageBackend/index')
-    ),
-    array(
+        'url'   => ['/image/imageBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ImageModule.image', 'Add image'),
-        'url'   => array('/image/imageBackend/create')
-    ),
-);
+        'url'   => ['/image/imageBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -48,41 +48,41 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'image-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'name'   => Yii::t('ImageModule.image', 'file'),
                 'type'   => 'raw',
                 'value'  => 'CHtml::image($data->getImageUrl(75, 75), $data->alt, array("width" => 75, "height" => 75))',
                 'filter' => false
-            ),
+            ],
             'name',
-            array(
+            [
                 'header' => Yii::t('ImageModule.image', 'Link'),
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->getImageUrl(), $data->getImageUrl())'
-            ),
-            array(
+            ],
+            [
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
                         $model,
                         'category_id',
                         Category::model()->getFormattedList(Yii::app()->getModule('image')->mainCategory),
-                        array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                        ['encode' => false, 'empty' => '', 'class' => 'form-control']
                     )
-            ),
-            array(
+            ],
+            [
                 'name'   => 'galleryId',
                 'header' => Yii::t('ImageModule.image', 'Gallery'),
                 'type'   => 'raw',
@@ -93,10 +93,10 @@ $this->widget(
                                 $data->gallery->name,
                                 array("/gallery/galleryBackend/images", "id" => $data->gallery->id)
                             )',
-            ),
-            array(
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

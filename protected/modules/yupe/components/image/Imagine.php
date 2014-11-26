@@ -39,7 +39,7 @@ class Imagine
      * @var array|string the driver to use. This can be either a single driver name or an array of driver names.
      * If the latter, the first available driver will be used.
      */
-    public static $driver = array(self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2);
+    public static $driver = [self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2];
 
     /**
      * @var ImagineInterface instance.
@@ -122,7 +122,7 @@ class Imagine
      * @return ImageInterface
      * @throws \CException    if the `$start` parameter is invalid
      */
-    public static function crop($filename, $width, $height, array $start = array(0, 0))
+    public static function crop($filename, $width, $height, array $start = [0, 0])
     {
         if (!isset($start[0], $start[1])) {
             throw new \CException('$start must be an array of two elements.');
@@ -184,7 +184,7 @@ class Imagine
      * @return ImageInterface
      * @throws \CException    if `$start` is invalid
      */
-    public static function watermark($filename, $watermarkFilename, array $start = array(0, 0))
+    public static function watermark($filename, $watermarkFilename, array $start = [0, 0])
     {
         if (!isset($start[0], $start[1])) {
             throw new \CException('$start must be an array of two elements.');
@@ -212,7 +212,7 @@ class Imagine
      * @return ImageInterface
      * @throws \CException    if `$fontOptions` is invalid
      */
-    public static function text($filename, $text, $fontFile, array $start = array(0, 0), array $fontOptions = array())
+    public static function text($filename, $text, $fontFile, array $start = [0, 0], array $fontOptions = [])
     {
         if (!isset($start[0], $start[1])) {
             throw new \CException('$start must be an array of two elements.');

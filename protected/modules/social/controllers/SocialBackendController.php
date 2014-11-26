@@ -21,13 +21,13 @@ class SocialBackendController extends BackController
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Social.Socialbackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Social.Socialbackend.Index')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Social.Socialbackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Social.Socialbackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Social.Socialbackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Social.Socialbackend.View']],
+            ['deny']
+        ];
     }
 
     /**
@@ -39,7 +39,7 @@ class SocialBackendController extends BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -63,7 +63,7 @@ class SocialBackendController extends BackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t(
@@ -85,7 +85,7 @@ class SocialBackendController extends BackController
         if (isset($_GET['application_modules_social_models_SocialUser'])) {
             $model->attributes = $_GET['application_modules_social_models_SocialUser'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

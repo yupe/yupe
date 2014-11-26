@@ -36,7 +36,7 @@ class YWebUser extends CWebUser
     /**
      * @var array
      */
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     /**
      * @var int
@@ -98,10 +98,10 @@ class YWebUser extends CWebUser
 
             $user = User::model()->active()->find(
                 'id = :id AND access_level = :level',
-                array(
+                [
                     ':level' => User::ACCESS_LEVEL_ADMIN,
                     ':id'    => $this->getId()
-                )
+                ]
             );
 
             if (null === $user) {
@@ -133,9 +133,9 @@ class YWebUser extends CWebUser
             throw new CException(Yii::t(
                 'YupeModule.yupe',
                 'Module "{module}" not found!',
-                array(
+                [
                     '{module}' => $moduleName
-                )
+                ]
             ));
         }
 
@@ -145,9 +145,9 @@ class YWebUser extends CWebUser
             throw new CException(Yii::t(
                 'YupeModule.yupe',
                 'Module "{module}" has no profile model!',
-                array(
+                [
                     '{module}' => $moduleName
-                )
+                ]
             ));
         }
 
@@ -194,7 +194,7 @@ class YWebUser extends CWebUser
             return $avatars[$size];
         }
 
-        $avatars = array();
+        $avatars = [];
 
         $profile = $this->getProfile();
 
@@ -254,7 +254,7 @@ class YWebUser extends CWebUser
 
                 //дата входа
                 $user->last_visit = new CDbExpression('NOW()');
-                $user->update(array('last_visit'));
+                $user->update(['last_visit']);
 
                 $transaction->commit();
 
@@ -300,7 +300,7 @@ class YWebUser extends CWebUser
      * @param  array $params
      * @return bool
      */
-    public function checkAccess($operation, $userId = null, $params = array())
+    public function checkAccess($operation, $userId = null, $params = [])
     {
         if ($userId !== null) {
             return (bool)Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);

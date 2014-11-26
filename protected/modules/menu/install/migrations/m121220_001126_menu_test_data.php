@@ -18,17 +18,17 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
     {
         $this->insert(
             '{{menu_menu}}',
-            array(
+            [
                 'id'          => 1,
                 'name'        => 'Верхнее меню',
                 'code'        => 'top-menu',
                 'description' => Yii::t('MenuModule.menu', 'Main site menu. Located at top in "main menu" block.'),
                 'status'      => 1
-            )
+            ]
         );
 
-        $items = array(
-            array(
+        $items = [
+            [
                 'parent_id',
                 'menu_id',
                 'title',
@@ -44,14 +44,14 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
                 'sort',
                 'status',
                 'regular_link'
-            ),
-            array(0, 1, 'Главная', '/', '', 'Главная страница сайта', '', '', '', '', '', 0, 1, 1, 1),
-            array(0, 1, 'Блоги', '/blog/blog/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1, 0),
-            array(2, 1, 'Пользователи', '/user/people/index', '', 'Пользователи', '', '', '', '', '', 0, 3, 1, 0),
-            array(0, 1, 'Wiki', '/wiki/default/index', '', 'Wiki', '', '', '', '', '', 0, 9, 0, 0),
-            array(0, 1, 'Войти', '/login', 'login-text', 'Войти на сайт', '', '', '', '', 'isAuthenticated', 1, 11, 1, 0),
-            array(0, 1, 'Выйти', '/logout', 'login-text', 'Выйти', '', '', '', '', 'isAuthenticated', 0, 12, 1, 0),
-            array(
+            ],
+            [0, 1, 'Главная', '/', '', 'Главная страница сайта', '', '', '', '', '', 0, 1, 1, 1],
+            [0, 1, 'Блоги', '/blog/blog/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1, 0],
+            [2, 1, 'Пользователи', '/user/people/index', '', 'Пользователи', '', '', '', '', '', 0, 3, 1, 0],
+            [0, 1, 'Wiki', '/wiki/default/index', '', 'Wiki', '', '', '', '', '', 0, 9, 0, 0],
+            [0, 1, 'Войти', '/login', 'login-text', 'Войти на сайт', '', '', '', '', 'isAuthenticated', 1, 11, 1, 0],
+            [0, 1, 'Выйти', '/logout', 'login-text', 'Выйти', '', '', '', '', 'isAuthenticated', 0, 12, 1, 0],
+            [
                 0,
                 1,
                 'Регистрация',
@@ -67,8 +67,8 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
                 10,
                 1,
                 0
-            ),
-            array(
+            ],
+            [
                 0,
                 1,
                 'Панель управления',
@@ -84,17 +84,17 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
                 13,
                 1,
                 0
-            ),
-            array(0, 1, 'FAQ', '/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1, 0),
-            array(0, 1, 'Контакты', '/contacts', '', 'Контакты', '', '', '', '', '', 0, 7, 1, 0),
-        );
+            ],
+            [0, 1, 'FAQ', '/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1, 0],
+            [0, 1, 'Контакты', '/contacts', '', 'Контакты', '', '', '', '', '', 0, 7, 1, 0],
+        ];
 
         $columns = array_shift($items);
         /**
          * Как нибудь описать процесс надо, для большей понятности
          */
         foreach ($items as $i) {
-            $item = array();
+            $item = [];
             $n = 0;
 
             foreach ($columns as $c) {

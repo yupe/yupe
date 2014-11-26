@@ -6,12 +6,12 @@ class m140814_000010_store_product_category_base extends yupe\components\DbMigra
     {
         $this->createTable(
             "{{store_product_category}}",
-            array(
+            [
                 "id" => "pk",
                 "product_id" => "integer",
                 "category_id" => "integer",
                 "is_main" => "boolean NOT NULL DEFAULT '0'",
-            ),
+            ],
             $this->getOptions()
         );
 

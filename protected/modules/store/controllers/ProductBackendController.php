@@ -4,47 +4,47 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 {
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Product',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'status',
                     'in_stock',
                     'price'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('ajaxSearch'), 'roles' => array('Store.ProductBackend.Index'),),
-            array('allow', 'actions' => array('create', 'copy'), 'roles' => array('Store.ProductBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Store.ProductBackend.Delete'),),
-            array('allow', 'actions' => array('deleteImage'), 'roles' => array('Store.ProductBackend.Update'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Store.ProductBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Store.ProductBackend.Index'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Store.ProductBackend.View'),),
-            array(
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['ajaxSearch'], 'roles' => ['Store.ProductBackend.Index'],],
+            ['allow', 'actions' => ['create', 'copy'], 'roles' => ['Store.ProductBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Store.ProductBackend.Delete'],],
+            ['allow', 'actions' => ['deleteImage'], 'roles' => ['Store.ProductBackend.Update'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Store.ProductBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Store.ProductBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Store.ProductBackend.View'],],
+            [
                 'allow',
-                'actions' => array('typeAttributes'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
-            array(
+                'actions' => ['typeAttributes'],
+                'roles' => ['Store.ProductBackend.Create', 'Store.ProductBackend.Update'],
+            ],
+            [
                 'allow',
-                'actions' => array('typeAttributesForm'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
-            array(
+                'actions' => ['typeAttributesForm'],
+                'roles' => ['Store.ProductBackend.Create', 'Store.ProductBackend.Update'],
+            ],
+            [
                 'allow',
-                'actions' => array('variantRow'),
-                'roles' => array('Store.ProductBackend.Create', 'Store.ProductBackend.Update'),
-            ),
-            array('deny',),
-        );
+                'actions' => ['variantRow'],
+                'roles' => ['Store.ProductBackend.Create', 'Store.ProductBackend.Update'],
+            ],
+            ['deny',],
+        ];
     }
 
     /**
@@ -53,7 +53,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -81,12 +81,12 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -110,13 +110,13 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     public function updateProductImages(Product $product)
@@ -166,7 +166,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t('StoreModule.store', 'Unknown request. Don\'t repeat it please!'));
@@ -183,7 +183,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         if (isset($_GET['Product'])) {
             $model->attributes = $_GET['Product'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -204,14 +204,14 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     public function actionTypeAttributesForm($id)
     {
         $type = Type::model()->findByPk($id);
-        $this->renderPartial('_attribute_form', array('type' => $type));
+        $this->renderPartial('_attribute_form', ['type' => $type]);
     }
 
     public function actionVariantRow($id)
     {
         $variant = new ProductVariant();
         $variant->attribute_id = $id;
-        $this->renderPartial('_variant_row', array('variant' => $variant));
+        $this->renderPartial('_variant_row', ['variant' => $variant]);
     }
 
     public function actionTypeAttributes($id)
@@ -219,13 +219,13 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $type_id = $id;
         $type = Type::model()->findByPk($type_id);
         if ($type) {
-            $tmp = array();
+            $tmp = [];
             foreach ($type->typeAttributes as $attr) {
                 if ($attr->type == Attribute::TYPE_DROPDOWN) {
-                    $tmp[] = array_merge($attr->attributes, array('options' => $attr->options));
+                    $tmp[] = array_merge($attr->attributes, ['options' => $attr->options]);
                 } else {
-                    if (in_array($attr->type, array(Attribute::TYPE_CHECKBOX, Attribute::TYPE_TEXT))) {
-                        $tmp[] = array_merge($attr->attributes, array('options' => array()));
+                    if (in_array($attr->type, [Attribute::TYPE_CHECKBOX, Attribute::TYPE_TEXT])) {
+                        $tmp[] = array_merge($attr->attributes, ['options' => []]);
                     }
                 }
             }
@@ -247,14 +247,14 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             $model = Product::model()->findAll($criteria);
 
-            $data = array();
+            $data = [];
 
             foreach ($model as $product) {
-                $data[] = array(
+                $data[] = [
                     'id' => $product->id,
                     'name' => $product->name." ({$product->sku}) ".$product->getPrice(),
                     'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
-                );
+                ];
             }
 
             Yii::app()->ajax->raw($data);

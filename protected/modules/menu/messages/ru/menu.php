@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Record was updated!'                                                                                                                                                                                                                                 => 'Запись изменена!',
     'Use drag and drop to sort'                                                                                                                                                                                                                           => 'Используйте drag & drop для сортировки',
     'Answer'                                                                                                                                                                                                                                              => 'Ответить',
@@ -143,4 +143,4 @@ return array(
     'List of menu items'                                                                                                                                                                                                                                  => 'Просмотр списка пунктов меню',
     'Editing menu items'                                                                                                                                                                                                                                  => 'Редактирование пунктов меню',
     'Viewing menu items'                                                                                                                                                                                                                                  => 'Просмотр пунктов меню'
-);
+];

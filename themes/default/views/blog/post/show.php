@@ -11,11 +11,11 @@ Yii::app()->clientScript->registerScript(
     CClientScript::POS_BEGIN
 );
 
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-    CHtml::encode($post->blog->name)   => array('/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)),
+$this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
+    CHtml::encode($post->blog->name)   => ['/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)],
     $post->title,
-);
+];
 ?>
 
 <div class="post">
@@ -28,10 +28,10 @@ $this->breadcrumbs = array(
                     <i class="glyphicon glyphicon-pencil"></i>
                     <?php echo CHtml::link(
                         CHtml::encode($post->blog->name),
-                        array(
+                        [
                             '/blog/blog/show/',
                             'slug' => Chtml::encode($post->blog->slug)
-                        )
+                        ]
                     ); ?>
                 </span>
                 <span>
@@ -62,12 +62,12 @@ $this->breadcrumbs = array(
             <i class='glyphicon glyphicon-globe'></i> <?php echo CHtml::link(
                 $post->link,
                 $post->link,
-                array('target' => '_blank', 'rel' => 'nofollow')
+                ['target' => '_blank', 'rel' => 'nofollow']
             ); ?>
         </div>
     <?php endif; ?>
 
-    <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $post)); ?>
+    <?php $this->widget('blog.widgets.PostMetaWidget', ['post' => $post]); ?>
 
 </div>
 
@@ -101,7 +101,7 @@ $this->breadcrumbs = array(
     </div>
 </div>
 
-<?php $this->widget('blog.widgets.SimilarPostsWidget', array('post' => $post)); ?>
+<?php $this->widget('blog.widgets.SimilarPostsWidget', ['post' => $post]); ?>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget'); ?>
 
@@ -112,21 +112,21 @@ $this->breadcrumbs = array(
     <?php
     $this->widget(
         'application.modules.comment.widgets.CommentsListWidget',
-        array(
+        [
             'model'    => $post,
             'modelId'  => $post->id
-        )
+        ]
     );
     ?>
 
     <?php
     $this->widget(
         'application.modules.comment.widgets.CommentFormWidget',
-        array(
-            'redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)),
+        [
+            'redirectTo' => $this->createUrl('/blog/post/show/', ['slug' => $post->slug]),
             'model'      => $post,
             'modelId'    => $post->id,
-        )
+        ]
     );
     ?>
 

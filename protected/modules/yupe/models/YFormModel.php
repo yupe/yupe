@@ -20,7 +20,7 @@ abstract class YFormModel extends CFormModel
 {
     public function attributeDescriptions()
     {
-        return array();
+        return [];
     }
 
     public function getAttributeDescription($attribute)

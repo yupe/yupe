@@ -24,8 +24,8 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Личный кабинет');
                 </td>
                 <td>
                     <?php echo CHtml::link(
-                            Yii::t('OrderModule.order', 'Заказ №{n}', array($order->id)),
-                            array('/order/order/view', 'url' => $order->url)
+                            Yii::t('OrderModule.order', 'Заказ №{n}', [$order->id]),
+                            ['/order/order/view', 'url' => $order->url]
                         ) . ($order->paid ? ' - ' . $order->getPaidStatus() : ''); ?>
                 </td>
                 <td>

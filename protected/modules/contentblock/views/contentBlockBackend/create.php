@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/contentBlockBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
     Yii::t('ContentBlockModule.contentblock', 'Adding new content block'),
-);
+];
 
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - add');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
-        'url'   => array('/contentblock/contentBlockBackend/index')
-    ),
-    array(
+        'url'   => ['/contentblock/contentBlockBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
-        'url'   => array('/contentblock/contentBlockBackend/create')
-    ),
-);
+        'url'   => ['/contentblock/contentBlockBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -26,4 +26,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

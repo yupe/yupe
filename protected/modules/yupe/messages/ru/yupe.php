@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Plaksunov Yuri'=> 'Плаксунов Юрий',
     'Mihail Chemezov'=> 'Чемезов Михаил',
     'Community' => 'Сообщество',
@@ -345,4 +345,4 @@ return array(
     'Mime types' => 'MIME-типы',
     'Minimum size (in bytes)' => 'Минимальный размер (в байтах)',
     'Maximum size (in bytes)' => 'Максимальный размер (в байтах)',
-);
+];

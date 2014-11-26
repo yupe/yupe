@@ -36,18 +36,18 @@ class AttributeOption extends \yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('attribute_id, position', 'numerical', 'integerOnly' => true),
-            array('value', 'length', 'max' => 255),
-        );
+        return [
+            ['attribute_id, position', 'numerical', 'integerOnly' => true],
+            ['value', 'length', 'max' => 255],
+        ];
     }
 
 
     public function relations()
     {
-        return array(
-            'parent' => array(self::BELONGS_TO, 'Attribute', 'attribute_id'),
-        );
+        return [
+            'parent' => [self::BELONGS_TO, 'Attribute', 'attribute_id'],
+        ];
     }
 
     /**
@@ -55,11 +55,11 @@ class AttributeOption extends \yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.attribute', 'Id'),
             'position' => Yii::t('StoreModule.attribute', 'Позиция'),
             'value' => Yii::t('StoreModule.attribute', 'Значение'),
-        );
+        ];
     }
 
     /**
@@ -67,10 +67,10 @@ class AttributeOption extends \yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.attribute', 'Id'),
             'position' => Yii::t('StoreModule.attribute', 'Позиция'),
             'value' => Yii::t('StoreModule.attribute', 'Значение'),
-        );
+        ];
     }
 }

@@ -17,28 +17,28 @@ class ProfileEmailForm extends CFormModel
 
     public function rules()
     {
-        return array(
-            array('email', 'filter', 'filter' => 'trim'),
-            array('email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('email', 'required'),
-            array('email', 'length', 'max' => 50),
-            array('email', 'email'),
-            array('email', 'checkEmail'),
-        );
+        return [
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['email', 'required'],
+            ['email', 'length', 'max' => 50],
+            ['email', 'email'],
+            ['email', 'checkEmail'],
+        ];
     }
 
     public function attributeLabels()
     {
-        return array(
+        return [
             'email' => Yii::t('UserModule.user', 'Email'),
-        );
+        ];
     }
 
     public function checkEmail($attribute, $params)
     {
         // Если мыло поменяли
         if (Yii::app()->user->profile->email != $this->$attribute) {
-            $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
+            $model = User::model()->find('email = :email', [':email' => $this->$attribute]);
             if ($model) {
                 $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));
             }

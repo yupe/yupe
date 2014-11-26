@@ -4,34 +4,34 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
 {
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Producer',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'status',
                     'slug'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Store.ProducerBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Store.ProducerBackend.Delete'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Store.ProducerBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Store.ProducerBackend.Index'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Store.ProducerBackend.View'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Store.ProducerBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Store.ProducerBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Store.ProducerBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Store.ProducerBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Store.ProducerBackend.View'],],
+            ['deny',],
+        ];
     }
 
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     public function actionCreate()
@@ -51,13 +51,13 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
@@ -77,13 +77,13 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     public function actionDelete($id)
@@ -97,7 +97,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
             );
 
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t('StoreModule.producer', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
@@ -111,7 +111,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         if (isset($_GET['Producer'])) {
             $model->attributes = $_GET['Producer'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     public function loadModel($id)

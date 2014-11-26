@@ -1,8 +1,8 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('UpdateModule.update', 'Modules') => array('/yupe/backend/settings'),
+$this->breadcrumbs = [
+    Yii::t('UpdateModule.update', 'Modules') => ['/yupe/backend/settings'],
     Yii::t('UpdateModule.update', 'Check for update'),
-);
+];
 ?>
 
 <h1><?php echo Yii::t('UpdateModule.update', 'Updates'); ?></h1>
@@ -11,7 +11,7 @@ $this->breadcrumbs = array(
 
 <?php $this->beginWidget(
     'booster.widgets.TbModal',
-    array('id' => 'check-for-update-modal')
+    ['id' => 'check-for-update-modal']
 ); ?>
 
 <div class="modal-header">

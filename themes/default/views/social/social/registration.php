@@ -8,10 +8,10 @@
 
     <?php $form = $this->beginWidget(
         'CActiveForm',
-        array(
+        [
             'id'                     => 'registration-form',
             'enableClientValidation' => true
-        )
+        ]
     );?>
 
     <?php echo $form->errorSummary($model); ?>

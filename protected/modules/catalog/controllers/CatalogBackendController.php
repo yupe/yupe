@@ -14,27 +14,27 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Catalog.CatalogBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Catalog.CatalogBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Catalog.CatalogBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Catalog.CatalogBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Catalog.CatalogBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Catalog.CatalogBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Catalog.CatalogBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Catalog.CatalogBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Catalog.CatalogBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Catalog.CatalogBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Catalog.CatalogBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Catalog.CatalogBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Good',
-                'validAttributes' => array('name', 'alias', 'price', 'article', 'status', 'category_id', 'is_special')
-            )
-        );
+                'validAttributes' => ['name', 'alias', 'price', 'article', 'status', 'category_id', 'is_special']
+            ]
+        ];
     }
 
     /**
@@ -43,7 +43,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -66,12 +66,12 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -92,13 +92,13 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -119,7 +119,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Unknown request. Don\'t repeat it please!'));
@@ -136,7 +136,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
         if (isset($_GET['Good'])) {
             $model->attributes = $_GET['Good'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

@@ -70,30 +70,30 @@ class MenuModule extends yupe\components\WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('label' => Yii::t('MenuModule.menu', 'Menu')),
-            array(
+        return [
+            ['label' => Yii::t('MenuModule.menu', 'Menu')],
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu'),
-                'url'   => array('/menu/menuBackend/index')
-            ),
-            array(
+                'url'   => ['/menu/menuBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu'),
-                'url'   => array('/menu/menuBackend/create')
-            ),
-            array('label' => Yii::t('MenuModule.menu', 'Menu items')),
-            array(
+                'url'   => ['/menu/menuBackend/create']
+            ],
+            ['label' => Yii::t('MenuModule.menu', 'Menu items')],
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu items'),
-                'url'   => array('/menu/menuitemBackend/index')
-            ),
-            array(
+                'url'   => ['/menu/menuitemBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu item'),
-                'url'   => array('/menu/menuitemBackend/create')
-            ),
-        );
+                'url'   => ['/menu/menuitemBackend/create']
+            ],
+        ];
     }
 
     public function init()
@@ -101,85 +101,85 @@ class MenuModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'application.modules.menu.models.*'
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'Menu.MenuManager',
                 'description' => Yii::t('MenuModule.menu', 'Manage menus'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
+                'items'       => [
                     //menu
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.Create',
                         'description' => Yii::t('MenuModule.menu', 'Creating menu')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.Delete',
                         'description' => Yii::t('MenuModule.menu', 'Removing menu')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.Index',
                         'description' => Yii::t('MenuModule.menu', 'List of menu')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.Update',
                         'description' => Yii::t('MenuModule.menu', 'Editing menu')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.Inline',
                         'description' => Yii::t('MenuModule.menu', 'Editing menu')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu')
-                    ),
+                    ],
                     //menu items
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.Create',
                         'description' => Yii::t('MenuModule.menu', 'Creating menu item')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.Delete',
                         'description' => Yii::t('MenuModule.menu', 'Removing menu item')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.Index',
                         'description' => Yii::t('MenuModule.menu', 'List of menu items')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.Update',
                         'description' => Yii::t('MenuModule.menu', 'Editing menu items')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.Inline',
                         'description' => Yii::t('MenuModule.menu', 'Editing menu')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu items')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 
 }

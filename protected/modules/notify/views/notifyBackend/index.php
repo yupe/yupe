@@ -8,26 +8,26 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(
-    Yii::app()->getModule('notify')->getCategory() => array(),
-    Yii::t('notify', 'Уведомления') => array('/notify/notifyBackend/index'),
+$this->breadcrumbs = [
+    Yii::app()->getModule('notify')->getCategory() => [],
+    Yii::t('notify', 'Уведомления') => ['/notify/notifyBackend/index'],
     Yii::t('notify', 'Управление'),
-);
+];
 
 $this->pageTitle = Yii::t('notify', 'Уведомления - управление');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('notify', 'Управление уведомлением'),
-        'url' => array('/notify/notifyBackend/index')
-    ),
-    array(
+        'url' => ['/notify/notifyBackend/index']
+    ],
+    [
         'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('notify', 'Добавить уведомление'),
-        'url' => array('/notify/notifyBackend/create')
-    ),
-);
+        'url' => ['/notify/notifyBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -58,7 +58,7 @@ $this->menu = array(
            });
        "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
@@ -70,7 +70,7 @@ $this->menu = array(
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id' => 'notify-settings-grid',
         'type' => 'striped condensed',
         'dataProvider' => $model->search(),
@@ -82,7 +82,7 @@ $this->widget(
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns' => array(
+        'columns' => [
             [
                 'name'  => 'user_id',
                 'value' => function($data) {
@@ -104,9 +104,9 @@ $this->widget(
                     },
                 'filter' => $this->module->getChoice()
             ],
-            array(
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

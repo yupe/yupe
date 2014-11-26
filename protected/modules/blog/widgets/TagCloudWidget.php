@@ -10,16 +10,16 @@ class TagCloudWidget extends yupe\widgets\YWidget
         if (!@class_exists($this->model)) {
             echo CHtml::tag(
                 'p',
-                array(
+                [
                     'class' => 'alert alert-error'
-                ),
+                ],
                 Yii::t(
                     'YupeModule.yupe',
                     'Widget {widget}: Model "{model}" was not found!',
-                    array(
+                    [
                         '{model}'  => $this->model,
                         '{widget}' => get_class($this),
-                    )
+                    ]
                 )
             );
 
@@ -30,6 +30,6 @@ class TagCloudWidget extends yupe\widgets\YWidget
         $criteria = new CDbCriteria();
         $criteria->order = 'count DESC';
         $criteria->limit = $this->count;
-        $this->render('tagcloud', array('tags' => $model::model()->getAllTagsWithModelsCount($criteria)));
+        $this->render('tagcloud', ['tags' => $model::model()->getAllTagsWithModelsCount($criteria)]);
     }
 }

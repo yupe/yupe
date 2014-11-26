@@ -15,28 +15,28 @@ class UserBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('User.UserBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('User.UserBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('User.UserBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.UserBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('User.UserBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('User.UserBackend.View')),
-            array('allow', 'actions' => array('view'), 'roles' => array('User.UserBackend.Changepassword')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['User.UserBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['User.UserBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['User.UserBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['User.UserBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['User.UserBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.View']],
+            ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.Changepassword']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'User',
-                'validAttributes' => array('access_level', 'status', 'email_confirm')
-            )
-        );
+                'validAttributes' => ['access_level', 'status', 'email_confirm']
+            ]
+        ];
     }
 
     /**
@@ -53,7 +53,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -80,11 +80,11 @@ class UserBackendController extends yupe\components\controllers\BackController
                     Yii::t('UserModule.user', 'Password was changed successfully')
                 );
 
-                $this->redirect(array('/user/userBackend/view', 'id' => $model->id));
+                $this->redirect(['/user/userBackend/view', 'id' => $model->id]);
             }
         }
 
-        $this->render('changepassword', array('model' => $model, 'changePasswordForm' => $form));
+        $this->render('changepassword', ['model' => $model, 'changePasswordForm' => $form]);
     }
 
     /**
@@ -102,11 +102,11 @@ class UserBackendController extends yupe\components\controllers\BackController
             $model->setAttributes($data);
 
             $model->setAttributes(
-                array(
+                [
                     'hash' => Yii::app()->userManager->hasher->hashPassword(
                             Yii::app()->userManager->hasher->generateRandomPassword()
                         ),
-                )
+                ]
             );
 
             if ($model->save()) {
@@ -119,13 +119,13 @@ class UserBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -154,13 +154,13 @@ class UserBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -216,11 +216,11 @@ class UserBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'User',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -236,12 +236,12 @@ class UserBackendController extends yupe\components\controllers\BackController
             if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
+                    Yii::t('UserModule.user', 'User with #{id} was not found', ['{id}' => $id])
                 );
-                $this->redirect(array('index'));
+                $this->redirect(['index']);
             } else {
                 Yii::app()->ajax->failure(
-                    Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
+                    Yii::t('UserModule.user', 'User with #{id} was not found', ['{id}' => $id])
                 );
             }
         }
@@ -250,13 +250,13 @@ class UserBackendController extends yupe\components\controllers\BackController
             if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
+                    Yii::t('UserModule.user', 'User #{id} is already activated', ['{id}' => $id])
                 );
 
-                $this->redirect(array('index'));
+                $this->redirect(['index']);
             } else {
                 Yii::app()->ajax->failure(
-                    Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
+                    Yii::t('UserModule.user', 'User #{id} is already activated', ['{id}' => $id])
                 );
             }
         }
@@ -270,12 +270,12 @@ class UserBackendController extends yupe\components\controllers\BackController
                 Yii::t(
                     'UserModule.user',
                     'Registration on {site}',
-                    array('{site}' => Yii::app()->getModule('yupe')->siteName)
+                    ['{site}' => Yii::app()->getModule('yupe')->siteName]
                 ),
                 '//user/email/needAccountActivationEmail',
-                array(
+                [
                     'token' => $token
-                )
+                ]
             );
 
             Yii::app()->ajax->success(Yii::t('UserModule.user', 'Sent!'));
@@ -339,9 +339,9 @@ class UserBackendController extends yupe\components\controllers\BackController
                 $user,
                 Yii::t('UserModule.user', 'Email verification'),
                 '//user/email/needEmailActivationEmail',
-                array(
+                [
                     'token' => $token
-                )
+                ]
             );
 
             Yii::app()->ajax->success(Yii::t('UserModule.user', 'Sent!'));

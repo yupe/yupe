@@ -20,7 +20,7 @@ class NewsRssController extends yupe\components\controllers\RssController
 
         $criteria = new CDbCriteria();
         $criteria->order = 'date DESC';
-        $criteria->params = array();
+        $criteria->params = [];
         $criteria->limit = $limit;
 
         $this->title = $this->yupe->siteName;
@@ -46,23 +46,23 @@ class NewsRssController extends yupe\components\controllers\RssController
 
     public function actions()
     {
-        return array(
-            'feed' => array(
+        return [
+            'feed' => [
                 'class'       => 'yupe\components\actions\YFeedAction',
                 'data'        => $this->data,
                 'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields'  => array(
+                'itemFields'  => [
                     'author_object'   => 'user',
                     'author_nickname' => 'nick_name',
                     'content'         => 'short_text',
                     'datetime'        => 'date',
                     'link'            => '/news/news/show',
-                    'linkParams'      => array('title' => 'alias'),
+                    'linkParams'      => ['title' => 'alias'],
                     'title'           => 'title',
                     'updated'         => 'change_date',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

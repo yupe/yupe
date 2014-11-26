@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Delete'                                                      => 'Удалить',
     'Do you really want to delete selected elements?'             => 'Вы уверены, что хотите удалить выбранные элементы?',
     '*unknown*'                                                   => '*неизвестно*',
@@ -111,4 +111,4 @@ return array(
     'List of dictionary data'                                     => 'Просмотр данных справочников',
     'Editing dictionary data'                                     => 'Редактирование данных справочников',
     'Viewing dictionary data'                                     => 'Просмотр данных справочников'
-);
+];

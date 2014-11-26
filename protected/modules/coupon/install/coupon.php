@@ -1,14 +1,14 @@
 <?php
 
-return array(
-    'module' => array(
+return [
+    'module' => [
         'class' => 'application.modules.coupon.CouponModule',
-    ),
-    'import' => array(
+    ],
+    'import' => [
         'application.modules.coupon.models.*'
-    ),
-    'rules' => array(
+    ],
+    'rules' => [
         '/coupon/<action:\w+>' => 'coupon/coupon/<action>',
         '/coupon/<action:\w+>/<id:\w+>' => 'coupon/coupon/<action>',
-    ),
-);
+    ],
+];

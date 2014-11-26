@@ -19,13 +19,13 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'post-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 );
 
 ?>
@@ -42,48 +42,48 @@ $form = $this->beginWidget(
         <?php echo $form->select2Group(
             $model,
             'blog_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => ['' => '---'] +  CHtml::listData(Blog::model()->getList(), 'id', 'name'),
-                )
-            )
+                ]
+            ]
         );?>
     </div>
     <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
                         'data-content'        => $model->getAttributeDescription('status')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-3">
         <?php echo $form->dateTimePickerGroup(
             $model,
             'publish_date',
-            array(
-                'widgetOptions' => array(
-                    'options'     => array(
+            [
+                'widgetOptions' => [
+                    'options'     => [
                         'format'    => 'dd-mm-yyyy hh:ii',
                         'weekStart' => 1,
                         'autoclose' => true,
-                    ),
-                    'htmlOptions' => array(
+                    ],
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('publish_date'),
                         'data-content'        => $model->getAttributeDescription('publish_date'),
-                    ),
-                ),
+                    ],
+                ],
                 'prepend'       => '<i class="fa fa-calendar"></i>',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -93,15 +93,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'title',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('title'),
                         'data-content'        => $model->getAttributeDescription('title')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -110,15 +110,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'slug',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
                         'data-content'        => $model->getAttributeDescription('slug')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -127,39 +127,39 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'link',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('link'),
                         'data-content'        => $model->getAttributeDescription('link')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-5">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'tags', array('control-label')); ?>
+            <?php echo $form->labelEx($model, 'tags', ['control-label']); ?>
             <?php
             $this->widget(
                 'booster.widgets.TbSelect2',
-                array(
+                [
                     'asDropDownList' => false,
                     'name'           => 'tags',
-                    'options'        => array(
+                    'options'        => [
                         'tags'        => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
                         'placeholder' => Yii::t('BlogModule.blog', 'tags'),
-                    ),
+                    ],
                     'value'          => join(", ", $model->getTags()),
-                    'htmlOptions'    => array(
+                    'htmlOptions'    => [
                         'class'               => 'form-control popover-help',
                         'data-original-title' => $model->getAttributeLabel('tags'),
                         'data-content'        => $model->getAttributeDescription('tags')
-                    ),
-                )
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -170,22 +170,22 @@ $form = $this->beginWidget(
         echo CHtml::image(
             !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
             $model->title,
-            array(
+            [
                 'class' => 'preview-image',
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
-            )
+            ]
         ); ?>
         <?php echo $form->fileFieldGroup(
             $model,
             'image',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
                         'style'    => 'background-color: inherit;'
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -197,10 +197,10 @@ $form = $this->beginWidget(
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model'     => $model,
                 'attribute' => 'content',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -212,10 +212,10 @@ $form = $this->beginWidget(
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model'     => $model,
                 'attribute' => 'quote',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -237,54 +237,54 @@ $form = $this->beginWidget(
                             <?php echo $form->dropDownListGroup(
                                 $model,
                                 'category_id',
-                                array(
-                                    'widgetOptions' => array(
+                                [
+                                    'widgetOptions' => [
                                         'data'        => Category::model()->getFormattedList(
                                                 (int)Yii::app()->getModule('blog')->mainPostCategory
                                             ),
-                                        'htmlOptions' => array(
+                                        'htmlOptions' => [
                                             'empty'               => Yii::t('BlogModule.blog', '--choose--'),
                                             'class'               => 'popover-help',
                                             'data-original-title' => $model->getAttributeLabel('category_id'),
                                             'data-content'        => $model->getAttributeDescription('category_id'),
                                             'data-container'      => "body",
-                                        ),
-                                    ),
-                                )
+                                        ],
+                                    ],
+                                ]
                             ); ?>
                         </div>
                         <div class="col-sm-2">
                             <?php echo $form->dropDownListGroup(
                                 $model,
                                 'access_type',
-                                array(
-                                    'widgetOptions' => array(
+                                [
+                                    'widgetOptions' => [
                                         'data'        => $model->getAccessTypeList(),
-                                        'htmlOptions' => array(
+                                        'htmlOptions' => [
                                             'class'               => 'popover-help',
                                             'data-original-title' => $model->getAttributeLabel('access_type'),
                                             'data-content'        => $model->getAttributeDescription('access_type'),
                                             'data-container'      => "body",
-                                        ),
-                                    ),
-                                )
+                                        ],
+                                    ],
+                                ]
                             ); ?>
                         </div>
                         <div class="col-sm-2">
                             <?php echo $form->dropDownListGroup(
                                 $model,
                                 'comment_status',
-                                array(
-                                    'widgetOptions' => array(
+                                [
+                                    'widgetOptions' => [
                                         'data'        => $model->getCommentStatusList(),
-                                        'htmlOptions' => array(
+                                        'htmlOptions' => [
                                             'class'               => 'popover-help',
                                             'data-original-title' => $model->getAttributeLabel('comment_status'),
                                             'data-content'        => $model->getAttributeDescription('comment_status'),
                                             'data-container'      => "body",
-                                        ),
-                                    ),
-                                )
+                                        ],
+                                    ],
+                                ]
                             ); ?>
                         </div>
                     </div>
@@ -311,15 +311,15 @@ $form = $this->beginWidget(
                             <?php echo $form->textFieldGroup(
                                 $model,
                                 'keywords',
-                                array(
-                                    'widgetOptions' => array(
-                                        'htmlOptions' => array(
+                                [
+                                    'widgetOptions' => [
+                                        'htmlOptions' => [
                                             'class'               => 'popover-help',
                                             'data-original-title' => $model->getAttributeLabel('keywords'),
                                             'data-content'        => $model->getAttributeDescription('keywords'),
-                                        ),
-                                    ),
-                                )
+                                        ],
+                                    ],
+                                ]
                             ); ?>
                         </div>
                     </div>
@@ -328,15 +328,15 @@ $form = $this->beginWidget(
                             <?php echo $form->textAreaGroup(
                                 $model,
                                 'description',
-                                array(
-                                    'widgetOptions' => array(
-                                        'htmlOptions' => array(
+                                [
+                                    'widgetOptions' => [
+                                        'htmlOptions' => [
                                             'class'               => 'popover-help',
                                             'data-original-title' => $model->getAttributeLabel('description'),
                                             'data-content'        => $model->getAttributeDescription('description'),
-                                        ),
-                                    ),
-                                )
+                                        ],
+                                    ],
+                                ]
                             ); ?>
                         </div>
                     </div>
@@ -353,15 +353,15 @@ $form = $this->beginWidget(
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'id'          => 'post-publish',
             'buttonType'  => 'submit',
             'context'     => 'success',
             'label'       => Yii::t('BlogModule.blog', 'Publish'),
-            'htmlOptions' => array(
+            'htmlOptions' => [
                 'name' => 'post-publish'
-            )
-        )
+            ]
+        ]
     );
     ?>
 
@@ -370,27 +370,27 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create post and continue') : Yii::t(
                 'BlogModule.blog',
                 'Save post and continue'
             ),
-    )
+    ]
 ); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create post and close') : Yii::t(
                 'BlogModule.blog',
                 'Save post and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

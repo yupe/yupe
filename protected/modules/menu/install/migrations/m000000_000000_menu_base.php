@@ -18,13 +18,13 @@ class m000000_000000_menu_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{menu_menu}}',
-            array(
+            [
                 'id'          => 'pk',
                 'name'        => 'varchar(255) NOT NULL',
                 'code'        => 'string NOT NULL',
                 'description' => 'varchar(255) NOT NULL',
                 'status'      => "integer NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -37,7 +37,7 @@ class m000000_000000_menu_base extends yupe\components\DbMigration
          **/
         $this->createTable(
             '{{menu_menu_item}}',
-            array(
+            [
                 'id'               => 'pk',
                 'parent_id'        => 'integer NOT NULL',
                 'menu_id'          => 'integer NOT NULL',
@@ -54,7 +54,7 @@ class m000000_000000_menu_base extends yupe\components\DbMigration
                 'condition_denial' => "integer DEFAULT '0'",
                 'sort'             => "integer NOT NULL DEFAULT '1'",
                 'status'           => "integer NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

@@ -64,25 +64,25 @@ class FeedBack extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('name, email, theme, text', 'required'),
-            array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('type, status, answer_user, is_faq, type, category_id', 'numerical', 'integerOnly' => true),
-            array('is_faq', 'in', 'range' => array_keys($this->getIsFaqList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('type', 'in', 'range' => array_keys($this->getTypeList())),
-            array('name, email, phone', 'length', 'max' => 150),
-            array('theme', 'length', 'max' => 250),
-            array('ip', 'length', 'max' => 20),
-            array('answer_date', 'length', 'max' => 100),
-            array('email', 'email'),
-            array('answer', 'filter', 'filter' => 'trim'),
-            array(
+        return [
+            ['name, email, theme, text', 'required'],
+            ['name, email, theme, text, phone', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['type, status, answer_user, is_faq, type, category_id', 'numerical', 'integerOnly' => true],
+            ['is_faq', 'in', 'range' => array_keys($this->getIsFaqList())],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['type', 'in', 'range' => array_keys($this->getTypeList())],
+            ['name, email, phone', 'length', 'max' => 150],
+            ['theme', 'length', 'max' => 250],
+            ['ip', 'length', 'max' => 20],
+            ['answer_date', 'length', 'max' => 100],
+            ['email', 'email'],
+            ['answer', 'filter', 'filter' => 'trim'],
+            [
                 'id, creation_date, change_date, name, email, theme, text, type, status, ip',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -90,7 +90,7 @@ class FeedBack extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'            => Yii::t('FeedbackModule.feedback', 'ID'),
             'creation_date' => Yii::t('FeedbackModule.feedback', 'Created'),
             'change_date'   => Yii::t('FeedbackModule.feedback', 'Updated'),
@@ -107,7 +107,7 @@ class FeedBack extends yupe\models\YModel
             'status'        => Yii::t('FeedbackModule.feedback', 'Status'),
             'ip'            => Yii::t('FeedbackModule.feedback', 'Ip-address'),
             'category_id'   => Yii::t('FeedbackModule.feedback', 'Category'),
-        );
+        ];
     }
 
     /**
@@ -140,10 +140,10 @@ class FeedBack extends yupe\models\YModel
         $criteria->compare('is_faq', $this->is_faq);
         $criteria->compare('category_id', $this->category_id);
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 'creation_date DESC, status ASC'),
-        ));
+            'sort'     => ['defaultOrder' => 'creation_date DESC, status ASC'],
+        ]);
     }
 
     /**
@@ -175,20 +175,20 @@ class FeedBack extends yupe\models\YModel
      */
     public function scopes()
     {
-        return array(
-            'new'      => array(
+        return [
+            'new'      => [
                 'condition' => 'status = :status',
-                'params'    => array(':status' => self::STATUS_NEW),
-            ),
-            'answered' => array(
+                'params'    => [':status' => self::STATUS_NEW],
+            ],
+            'answered' => [
                 'condition' => 'status = :status',
-                'params'    => array(':status' => self::STATUS_ANSWER_SENDED),
-            ),
-            'faq'      => array(
+                'params'    => [':status' => self::STATUS_ANSWER_SENDED],
+            ],
+            'faq'      => [
                 'condition' => 'is_faq = :is_faq',
-                'params'    => array(':is_faq' => self::IS_FAQ),
-            ),
-        );
+                'params'    => [':is_faq' => self::IS_FAQ],
+            ],
+        ];
     }
 
     /**
@@ -211,12 +211,12 @@ class FeedBack extends yupe\models\YModel
      */
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_NEW           => Yii::t('FeedbackModule.feedback', 'New message'),
             self::STATUS_PROCESS       => Yii::t('FeedbackModule.feedback', 'Message in handle'),
             self::STATUS_FINISHED      => Yii::t('FeedbackModule.feedback', 'Message was handled'),
             self::STATUS_ANSWER_SENDED => Yii::t('FeedbackModule.feedback', 'Reply was received'),
-        );
+        ];
     }
 
     /**
@@ -246,7 +246,7 @@ class FeedBack extends yupe\models\YModel
         if ($types) {
             $types[self::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'Default');
         } else {
-            $types = array(self::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default'));
+            $types = [self::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default')];
         }
 
         return $types;
@@ -274,10 +274,10 @@ class FeedBack extends yupe\models\YModel
      */
     public function getIsFaqList()
     {
-        return array(
+        return [
             self::IS_FAQ_NO => Yii::t('FeedbackModule.feedback', 'No'),
             self::IS_FAQ    => Yii::t('FeedbackModule.feedback', 'Yes'),
-        );
+        ];
     }
 
     /**
@@ -339,9 +339,9 @@ class FeedBack extends yupe\models\YModel
      */
     public function relations()
     {
-        return array(
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-        );
+        return [
+            'category' => [self::BELONGS_TO, 'Category', 'category_id'],
+        ];
     }
 
     /**

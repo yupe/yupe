@@ -25,7 +25,7 @@ class ProfileAction extends CAction
             Yii::app()->user->logout();
 
             $this->controller->redirect(
-                array('/user/account/login')
+                ['/user/account/login']
             );
         }
 
@@ -72,10 +72,10 @@ class ProfileAction extends CAction
                             Yii::t(
                                 'UserModule.user',
                                 'Profile for #{id}-{nick_name} was changed',
-                                array(
+                                [
                                     '{id}'        => $user->id,
                                     '{nick_name}' => $user->nick_name,
-                                )
+                                ]
                             ),
                             CLogger::LEVEL_INFO,
                             UserModule::$logCategory
@@ -109,12 +109,12 @@ class ProfileAction extends CAction
 
                         $transaction->commit();
 
-                        $this->controller->redirect(array('/user/account/profile'));
+                        $this->controller->redirect(['/user/account/profile']);
 
                     } else {
 
                         Yii::log(
-                            Yii::t('UserModule.user', 'Error when save profile! #{id}', array('{id}' => $user->id)),
+                            Yii::t('UserModule.user', 'Error when save profile! #{id}', ['{id}' => $user->id]),
                             CLogger::LEVEL_ERROR,
                             UserModule::$logCategory
                         );
@@ -134,11 +134,11 @@ class ProfileAction extends CAction
 
         $this->controller->render(
             'profile',
-            array(
+            [
                 'model'  => $form,
                 'module' => $module,
                 'user'   => $user
-            )
+            ]
         );
     }
 }

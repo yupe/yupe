@@ -10,7 +10,7 @@
     <?php echo CHtml::activeTextField(
             $this->model,
             'name',
-            array('value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control')
+            ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control']
         ) . "\n"; ?>
             </span>
         </td>
@@ -20,7 +20,7 @@
     <?php echo CHtml::activeTextField(
             $this->model,
             'alt',
-            array('value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control')
+            ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control']
         ) . "\n"; ?>
             </span>
         </td>

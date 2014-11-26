@@ -24,11 +24,11 @@ class AuthItem extends CActiveRecord
 
     public function getTypeList()
     {
-        return array(
+        return [
             self::TYPE_OPERATION => Yii::t('RbacModule.rbac', 'Действие'),
             self::TYPE_TASK      => Yii::t('RbacModule.rbac', 'Задача'),
             self::TYPE_ROLE      => Yii::t('RbacModule.rbac', 'Роль'),
-        );
+        ];
     }
 
     public function getType()
@@ -63,18 +63,18 @@ class AuthItem extends CActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, type, description', 'required'),
-            array('type', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 64),
-            array('type', 'in', 'range' => array_keys($this->getTypeList())),
-            array('name', 'unique'),
-            array('name', 'match', 'pattern' => '/^[A-Za-z0-9._-]{2,50}$/'),
-            array('description, bizrule, data', 'safe'),
+        return [
+            ['name, type, description', 'required'],
+            ['type', 'numerical', 'integerOnly' => true],
+            ['name', 'length', 'max' => 64],
+            ['type', 'in', 'range' => array_keys($this->getTypeList())],
+            ['name', 'unique'],
+            ['name', 'match', 'pattern' => '/^[A-Za-z0-9._-]{2,50}$/'],
+            ['description, bizrule, data', 'safe'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('name, type, description, bizrule, data', 'safe', 'on' => 'search'),
-        );
+            ['name, type, description, bizrule, data', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -84,11 +84,11 @@ class AuthItem extends CActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'authAssignments' => array(self::HAS_MANY, 'AuthAssignment', 'itemname'),
-            'parents'         => array(self::HAS_MANY, 'AuthItemChild', 'child'),
-            'children'        => array(self::HAS_MANY, 'AuthItemChild', 'parent'),
-        );
+        return [
+            'authAssignments' => [self::HAS_MANY, 'AuthAssignment', 'itemname'],
+            'parents'         => [self::HAS_MANY, 'AuthItemChild', 'child'],
+            'children'        => [self::HAS_MANY, 'AuthItemChild', 'parent'],
+        ];
     }
 
     /**
@@ -96,13 +96,13 @@ class AuthItem extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'name'        => Yii::t('RbacModule.rbac', 'Название'),
             'type'        => Yii::t('RbacModule.rbac', 'Тип'),
             'description' => Yii::t('RbacModule.rbac', 'Описание'),
             'bizrule'     => Yii::t('RbacModule.rbac', 'BizRule'),
             'data'        => Yii::t('RbacModule.rbac', 'Данные'),
-        );
+        ];
     }
 
     /**
@@ -118,14 +118,14 @@ class AuthItem extends CActiveRecord
         $criteria->compare('bizrule', $this->bizrule);
         $criteria->compare('data', $this->data);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria'   => $criteria,
-            'sort'       => array(
+            'sort'       => [
                 'defaultOrder' => 'name ASC'
-            ),
-            'pagination' => array(
+            ],
+            'pagination' => [
                 'pageSize' => 30
-            ),
-        ));
+            ],
+        ]);
     }
 }

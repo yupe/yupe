@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Comments (last day / all)'                                   => 'Комментарии (за сутки / всего)',
     'Moderation'                                                  => 'На модерации',
     '--choose--'                                                  => '--выберите--',
@@ -125,4 +125,4 @@ return array(
     'List of comments'                                            => 'Просмотр списка комментариев',
     'Editing comments'                                            => 'Редактирование комментариев',
     'Viewing comments'                                            => 'Просмотр комментариев'
-);
+];

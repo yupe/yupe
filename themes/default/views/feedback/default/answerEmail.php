@@ -3,14 +3,14 @@
     <title><?php echo Yii::t(
             'FeedbackModule.feedback',
             'Answer for your message from {site}',
-            array('{site}' => Yii::app()->name)
+            ['{site}' => Yii::app()->name]
         ); ?></title>
 </head>
 <body>
 <?php echo Yii::t(
     'FeedbackModule.feedback',
     'Answer for your message from {site}',
-    array('{site}' => Yii::app()->name)
+    ['{site}' => Yii::app()->name]
 ); ?>
 <br/><br/>
 
@@ -23,7 +23,7 @@
 <?php echo Yii::t(
     'FeedbackModule.feedback',
     'Best regards, administration of "{site}"!',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 </body>
 </html>

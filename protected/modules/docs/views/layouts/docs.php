@@ -25,7 +25,7 @@
     Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/styles.css');
     Yii::app()->getClientScript()->registerCssFile($docsAssets . '/css/docs.css');
 
-    if (($langs = $this->yupe->getLanguageSelectorArray()) != array()) {
+    if (($langs = $this->yupe->getLanguageSelectorArray()) != []) {
         Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
     }
 
@@ -37,50 +37,50 @@
     <?php
     $this->widget(
         'bootstrap.widgets.TbNavbar',
-        array(
+        [
             'fixed'    => 'top',
             'fluid'    => true,
             'collapse' => true,
             'brand'    => CHtml::image(
                     Yii::app()->getModule('yupe')->getLogo(),
                     Yii::t('DocsModule.docs', 'Yupe! Documentation'),
-                    array(
+                    [
                         'width'  => '38',
                         'height' => '38',
                         'title'  => Yii::t('DocsModule.docs', 'Yupe! Documentation'),
-                    )
+                    ]
                 ),
-            'brandUrl' => CHtml::normalizeUrl(array("index")),
-            'items'    => array(
-                array(
+            'brandUrl' => CHtml::normalizeUrl(["index"]),
+            'items'    => [
+                [
                     'class' => 'bootstrap.widgets.TbMenu',
                     'type'  => 'navbar',
                     'items' => $this->module->getArticles(),
-                ),
-                array(
+                ],
+                [
                     'class'       => 'bootstrap.widgets.TbMenu',
                     'type'        => 'navbar',
-                    'htmlOptions' => array('class' => 'pull-right'),
+                    'htmlOptions' => ['class' => 'pull-right'],
                     'encodeLabel' => false,
                     'items'       => array_merge(
-                        array(
-                            array(
+                        [
+                            [
                                 'icon'        => 'fa fa-fw fa-home',
                                 'label'       => Yii::t('DocsModule.docs', 'Go home'),
-                                'linkOptions' => array('target' => '_blank'),
-                                'url'         => array('/' . Yii::app()->defaultController . '/index/'),
-                            ),
-                            array(
+                                'linkOptions' => ['target' => '_blank'],
+                                'url'         => ['/' . Yii::app()->defaultController . '/index/'],
+                            ],
+                            [
                                 'label' => $this->yupe->getVersion(),
                                 'icon'  => 'fa fa-fw fa-thumbs-up',
                                 'url'   => 'http://yupe.ru/?from=doc-navbar'
-                            ),
-                        ),
+                            ],
+                        ],
                         $this->yupe->getLanguageSelectorArray()
                     ),
-                ),
-            ),
-        )
+                ],
+            ],
+        ]
     );
     ?>
     <!-- /mainmenu -->
@@ -107,7 +107,7 @@
 </footer>
 <?php $this->widget(
     "application.modules.contentblock.widgets.ContentBlockWidget",
-    array("code" => "DISQUS_JS", "silent" => true)
+    ["code" => "DISQUS_JS", "silent" => true]
 ); ?>
 
 <script type="text/javascript">

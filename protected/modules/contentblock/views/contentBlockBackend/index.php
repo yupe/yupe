@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/contentBlockBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
     Yii::t('ContentBlockModule.contentblock', 'Administration'),
-);
+];
 
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - admin');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
-        'url'   => array('/contentblock/contentBlockBackend/index')
-    ),
-    array(
+        'url'   => ['/contentblock/contentBlockBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
-        'url'   => array('/contentblock/contentBlockBackend/create')
-    ),
-);
+        'url'   => ['/contentblock/contentBlockBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -48,44 +48,44 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'content-block-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'name',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'type'   => 'select',
                     'title'  => Yii::t(
                             'ContentBlockModule.contentblock',
                             'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
+                            ['{field}' => mb_strtolower($model->getAttributeLabel('type'))]
                         ),
                     'source' => $model->getTypes(),
-                    'params' => array(
+                    'params' => [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    )
-                ),
+                    ]
+                ],
                 'name'     => 'type',
                 'type'     => 'raw',
                 'value'    => '$data->getType()',
@@ -93,45 +93,45 @@ $this->menu = array(
                         $model,
                         'type',
                         $model->getTypes(),
-                        array('class' => 'form-control', 'empty' => '')
+                        ['class' => 'form-control', 'empty' => '']
                     ),
-            ),
-            array(
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'code',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'code', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'code', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'description',
-                'editable' => array(
+                'editable' => [
                     'url'       => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'title'     => Yii::t(
                             'ContentBlockModule.contentblock',
                             'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                            ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
                         ),
                     'emptytext' => Yii::t(
                             'ContentBlockModule.contentblock',
                             'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                            ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
                         ),
-                    'params'    => array(
+                    'params'    => [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

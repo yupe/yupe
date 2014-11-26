@@ -1,44 +1,44 @@
 <?php
 /* @var $model Payment */
-$this->breadcrumbs = array(
-    Yii::t('PaymentModule.payment', 'Способы оплаты') => array('/payment/paymentBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('PaymentModule.payment', 'Способы оплаты') => ['/payment/paymentBackend/index'],
     $model->name,
-);
+];
 
 $this->pageTitle = Yii::t('PaymentModule.payment', 'Способы оплаты - просмотр');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => array('/payment/paymentBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => array('/payment/paymentBackend/create')),
-    array('label' => Yii::t('PaymentModule.payment', 'Способ оплаты') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-    array(
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => ['/payment/paymentBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => ['/payment/paymentBackend/create']],
+    ['label' => Yii::t('PaymentModule.payment', 'Способ оплаты') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    [
         'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('PaymentModule.payment', 'Редактирование способ оплаты'),
-        'url' => array(
+        'url' => [
             '/payment/paymentBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('PaymentModule.payment', 'Просмотреть способ оплаты'),
-        'url' => array(
+        'url' => [
             '/payment/paymentBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('PaymentModule.payment', 'Удалить способ оплаты'),
         'url' => '#',
-        'linkOptions' => array(
-            'submit' => array('/payment/paymentBackend/delete', 'id' => $model->id),
+        'linkOptions' => [
+            'submit' => ['/payment/paymentBackend/delete', 'id' => $model->id],
             'confirm' => Yii::t('PaymentModule.payment', 'Вы уверены, что хотите удалить способ оплаты?'),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'csrf' => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -49,22 +49,22 @@ $this->menu = array(
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data' => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
             'name',
-            array(
+            [
                 'name' => 'status',
                 'value' => $model->statusTitle,
-            ),
+            ],
             'module',
             'position',
-            array(
+            [
                 'name' => 'description',
                 'type' => 'html'
-            ),
+            ],
 
-        ),
-    )
+        ],
+    ]
 ); ?>

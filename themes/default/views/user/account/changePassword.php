@@ -1,19 +1,19 @@
 <?php
 $this->pageTitle = Yii::t('UserModule.user', 'Password recovery');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
+$this->breadcrumbs = [Yii::t('UserModule.user', 'Password recovery')];
 ?>
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'          => 'login-form',
         'type'        => 'vertical',
-        'htmlOptions' => array(
+        'htmlOptions' => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 ); ?>
 
 <div class="row">
@@ -40,12 +40,12 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context'    => 'primary',
                 'icon'       => 'glyphicon glyphicon-signin',
                 'label'      => Yii::t('UserModule.user', 'Change password'),
-            )
+            ]
         ); ?>
     </div>
 </div>

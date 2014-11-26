@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Contacts');
-$this->breadcrumbs = array(Yii::t('FeedbackModule.feedback', 'Contacts'));
+$this->breadcrumbs = [Yii::t('FeedbackModule.feedback', 'Contacts')];
 Yii::import('application.modules.feedback.FeedbackModule');
 Yii::import('application.modules.install.InstallModule');
 ?>
@@ -43,13 +43,13 @@ Yii::import('application.modules.install.InstallModule');
 <div class="form">
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
-        array(
+        [
             'id'          => 'feedback-form',
             'type'        => 'vertical',
-            'htmlOptions' => array(
+            'htmlOptions' => [
                 'class' => 'well',
-            )
-        )
+            ]
+        ]
     ); ?>
 
     <p class="alert alert-info">
@@ -65,11 +65,11 @@ Yii::import('application.modules.install.InstallModule');
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'type',
-                    array(
-                        'widgetOptions' => array(
+                    [
+                        'widgetOptions' => [
                             'data' => $module->getTypes(),
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
         </div>
@@ -98,7 +98,7 @@ Yii::import('application.modules.install.InstallModule');
             <?php echo $form->textAreaGroup(
                 $model,
                 'text',
-                array('widgetOptions' => array('htmlOptions' => array('rows' => 10)))
+                ['widgetOptions' => ['htmlOptions' => ['rows' => 10]]]
             ); ?>
         </div>
     </div>
@@ -107,32 +107,32 @@ Yii::import('application.modules.install.InstallModule');
         <?php if (CCaptcha::checkRequirements()): ?>
             <?php $this->widget(
                 'CCaptcha',
-                array(
+                [
                     'showRefreshButton' => true,
-                    'imageOptions'      => array(
+                    'imageOptions'      => [
                         'width' => '150',
-                    ),
-                    'buttonOptions'     => array(
+                    ],
+                    'buttonOptions'     => [
                         'class' => 'btn btn-info',
-                    ),
+                    ],
                     'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
-                )
+                ]
             ); ?>
             <div class='row'>
                 <div class="col-sm-6">
                     <?php echo $form->textFieldGroup(
                         $model,
                         'verifyCode',
-                        array(
-                            'widgetOptions' => array(
-                                'htmlOptions' => array(
+                        [
+                            'widgetOptions' => [
+                                'htmlOptions' => [
                                     'placeholder' => Yii::t(
                                             'FeedbackModule.feedback',
                                             'Insert symbols you see on image'
                                         )
-                                ),
-                            ),
-                        )
+                                ],
+                            ],
+                        ]
                     ); ?>
                 </div>
             </div>
@@ -142,11 +142,11 @@ Yii::import('application.modules.install.InstallModule');
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
             'label'      => Yii::t('FeedbackModule.feedback', 'Send message'),
-        )
+        ]
     ); ?>
 
     <?php $this->endWidget(); ?>

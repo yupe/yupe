@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Cannot create more than one root in single root mode.'                              => '',
     'Many roots mode is off.'                                                            => '',
     'The node already is root node.'                                                     => '',
@@ -33,4 +33,4 @@ return array(
     'The target node should not be self.'                                                => '',
     'You should not use CActiveRecord::delete() method when NestedSetBehavior attached.' => '',
     'You should not use CActiveRecord::save() method when NestedSetBehavior attached.'   => '',
-);
+];

@@ -17,6 +17,6 @@ class RandomDataWidget extends YWidget
 
     public function run()
     {
-        $this->render('randomdata', array('item' => $this->data[array_rand($this->data)]));
+        $this->render('randomdata', ['item' => $this->data[array_rand($this->data)]]);
     }
 }

@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Allowed IP'                                                                                                                                                                                                                 => '',
     ' The resulting interface is well integrated into the control panel of Yupe!.'                                                                                                                                               => '',
     ' We are working with it =)'                                                                                                                                                                                                 => '',
@@ -322,4 +322,4 @@ return array(
     'zh'                                                                                                                                                                                                                         => '中文',
     'en'                                                                                                                                                                                                                         => '英语',
     'zh_cn'                                                                                                                                                                                                                      => '简体中文',
-);
+];

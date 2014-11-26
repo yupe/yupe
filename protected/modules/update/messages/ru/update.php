@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     'Confirm updates ?'   => 'Подтверждаете обновление ?',
     'Modules update view' => 'Просмотр доступных обновлений',
     'Modules update' => 'Обновление модулей',
@@ -28,4 +28,4 @@ return array(
     'Module updated!' => 'Модуль обновлен!',
     'Directory {dir} is not writable!' => 'Каталог {dir} недоступен для записи!',
     'Before upgrading, please backup your site and database!' => 'Перед обновлением, пожалуйста, сделайте резервную копию сайта и базы данных!'
-);
+];

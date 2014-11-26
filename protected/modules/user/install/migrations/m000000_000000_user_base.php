@@ -21,7 +21,7 @@ class m000000_000000_user_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{user_user}}',
-            array(
+            [
                 'id'                => 'pk',
                 'creation_date'     => 'datetime NOT NULL',
                 'change_date'       => 'datetime NOT NULL',
@@ -48,7 +48,7 @@ class m000000_000000_user_base extends yupe\components\DbMigration
                 'use_gravatar'      => "boolean NOT NULL DEFAULT '1'",
                 'activate_key'      => 'char(32) NOT NULL',
                 'email_confirm'     => "boolean NOT NULL DEFAULT '0'",
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -61,12 +61,12 @@ class m000000_000000_user_base extends yupe\components\DbMigration
         // recovery password table
         $this->createTable(
             '{{user_recovery_password}}',
-            array(
+            [
                 'id'            => 'pk',
                 'user_id'       => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'code'          => 'char(32) NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

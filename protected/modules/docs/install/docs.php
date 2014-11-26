@@ -12,15 +12,15 @@
  *
  **/
 
-return array(
-    'import' => array(),
-    'rules'  => array(
+return [
+    'import' => [],
+    'rules'  => [
         '/docs/<moduleID:[a-zA-Z0-9\-_.]+>/<file:[a-zA-Z0-9\-_.]+>.html' => 'docs/show/index',
         '/docs/<file:[a-zA-Z0-9\-_.]+>.html'                             => 'docs/show/index',
         '/backend/docs/<file:[a-zA-Z0-9\-_.]+>.html'                     => 'docs/docsBackend/show',
         '/docs'                                                          => 'docs/show/index',
-    ),
-    'module' => array(
+    ],
+    'module' => [
         'class' => 'application.modules.docs.DocsModule',
-    ),
-);
+    ],
+];

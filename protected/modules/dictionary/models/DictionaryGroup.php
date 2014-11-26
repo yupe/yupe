@@ -55,21 +55,21 @@ class DictionaryGroup extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('code, name', 'required'),
-            array('code', 'length', 'max' => 100),
-            array('name, description', 'length', 'max' => 250),
-            array('create_user_id, update_user_id', 'length', 'max' => 10),
-            array('code', 'yupe\components\validators\YSLugValidator'),
-            array('code', 'unique'),
+        return [
+            ['code, name', 'required'],
+            ['code', 'length', 'max' => 100],
+            ['name, description', 'length', 'max' => 250],
+            ['create_user_id, update_user_id', 'length', 'max' => 10],
+            ['code', 'yupe\components\validators\YSLugValidator'],
+            ['code', 'unique'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array(
+            [
                 'id, code, name, description, creation_date, update_date, create_user_id, update_user_id',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -79,12 +79,12 @@ class DictionaryGroup extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'dictionaryData' => array(self::HAS_MANY, 'DictionaryData', 'group_id'),
-            'updateUser'     => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'createUser'     => array(self::BELONGS_TO, 'User', 'create_user_id'),
-            'dataCount'      => array(self::STAT, 'DictionaryData', 'group_id'),
-        );
+        return [
+            'dictionaryData' => [self::HAS_MANY, 'DictionaryData', 'group_id'],
+            'updateUser'     => [self::BELONGS_TO, 'User', 'update_user_id'],
+            'createUser'     => [self::BELONGS_TO, 'User', 'create_user_id'],
+            'dataCount'      => [self::STAT, 'DictionaryData', 'group_id'],
+        ];
     }
 
     /**
@@ -92,7 +92,7 @@ class DictionaryGroup extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'             => Yii::t('DictionaryModule.dictionary', 'id'),
             'code'           => Yii::t('DictionaryModule.dictionary', 'Code'),
             'name'           => Yii::t('DictionaryModule.dictionary', 'Title'),
@@ -101,7 +101,7 @@ class DictionaryGroup extends yupe\models\YModel
             'update_date'    => Yii::t('DictionaryModule.dictionary', 'Updated at'),
             'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Created by.'),
             'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Updated by'),
-        );
+        ];
     }
 
     /**
@@ -124,7 +124,7 @@ class DictionaryGroup extends yupe\models\YModel
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function beforeSave()
@@ -143,11 +143,11 @@ class DictionaryGroup extends yupe\models\YModel
     public function getData()
     {
         return DictionaryData::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(
-            array(
+            [
                 'condition' => 'group_id = :group_id',
-                'params'    => array(':group_id' => $this->id),
+                'params'    => [':group_id' => $this->id],
                 'order'     => 'name DESC',
-            )
+            ]
         );
     }
 }

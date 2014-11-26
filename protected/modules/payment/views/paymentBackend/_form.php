@@ -2,12 +2,12 @@
 /* @var $model Payment */
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id' => 'payment-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 );
 ?>
 
@@ -30,26 +30,26 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'module',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => Yii::app()->paymentManager->getSystemsFormattedList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'id' => 'payment-system',
                         'empty' => Yii::t("PaymentModule.payment", 'Ручная обработка'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -63,10 +63,10 @@ $form = $this->beginWidget(
             <div class="panel-body" id="payment-system-settings">
                 <?php $this->renderPartial(
                     '_payment_system_settings',
-                    array(
+                    [
                         'paymentSystem' => $model->module,
                         'paymentSettings' => $model->getPaymentSystemSettings(),
-                    )
+                    ]
                 ); ?>
             </div>
         </div>
@@ -101,11 +101,11 @@ $form = $this->beginWidget(
     <div class="row">
         <div class="col-sm-7">
             <div class="form-group">
-                <?php echo CHtml::label(Yii::t("PaymentModule.payment", 'Ссылка для HTTP уведомлений платежной системы'), null, array('class' => 'control-label')); ?>
+                <?php echo CHtml::label(Yii::t("PaymentModule.payment", 'Ссылка для HTTP уведомлений платежной системы'), null, ['class' => 'control-label']); ?>
                 <?php echo CHtml::textField(
                     'PaymentProcessUrl',
-                    Yii::app()->createAbsoluteUrl('/payment/payment/process', array('id' => $model->id)),
-                    array('disabled' => true, 'class' => 'form-control')
+                    Yii::app()->createAbsoluteUrl('/payment/payment/process', ['id' => $model->id]),
+                    ['disabled' => true, 'class' => 'form-control']
                 ) ?>
             </div>
         </div>
@@ -117,10 +117,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model' => $model,
                 'attribute' => 'description',
-            )
+            ]
         ); ?>
         <p class="help-block"></p>
         <?php echo $form->error($model, 'description'); ?>
@@ -130,21 +130,21 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => Yii::t('PaymentModule.payment', 'Сохранить и продолжить'),
-    )
+    ]
 );
 ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label' => Yii::t('PaymentModule.payment', 'Сохранить и вернуться к списку'),
-    )
+    ]
 );
 ?>
 

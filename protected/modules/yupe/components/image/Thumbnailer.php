@@ -47,7 +47,7 @@ class Thumbnailer extends \CApplicationComponent
                     Yii::t(
                         'YupeModule.yupe',
                         'Directory "{dir}" is not acceptable for write!',
-                        array('{dir}' => $uploadPath)
+                        ['{dir}' => $uploadPath]
                     )
                 );
             }

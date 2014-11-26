@@ -72,36 +72,36 @@ class InstallForm extends yupe\models\YFormModel
      **/
     public function rules()
     {
-        return array(
+        return [
             /**
              * Для настройки БД:
              **/
-            array('host, port, dbName, dbUser, dbType', 'required', 'on' => 'dbSettings'),
-            array('dbPassword', 'length', 'min' => 0, 'max' => 32),
-            array('port, dbType', 'numerical', 'integerOnly' => true),
-            array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
-            array('socket, createDb, tablePrefix', 'safe'),
+            ['host, port, dbName, dbUser, dbType', 'required', 'on' => 'dbSettings'],
+            ['dbPassword', 'length', 'min' => 0, 'max' => 32],
+            ['port, dbType', 'numerical', 'integerOnly' => true],
+            ['dbName, dbUser', 'length', 'min' => 0, 'max' => 256],
+            ['socket, createDb, tablePrefix', 'safe'],
             /**
              * Для начальной настройки сайта:
              **/
-            array('siteName, siteDescription, siteKeyWords, siteEmail, theme', 'required', 'on' => 'siteSettings'),
-            array('siteName', 'length', 'max' => 30),
-            array('siteDescription, siteKeyWords, theme, backendTheme', 'length', 'max' => 180),
-            array('siteEmail', 'email'),
+            ['siteName, siteDescription, siteKeyWords, siteEmail, theme', 'required', 'on' => 'siteSettings'],
+            ['siteName', 'length', 'max' => 30],
+            ['siteDescription, siteKeyWords, theme, backendTheme', 'length', 'max' => 180],
+            ['siteEmail', 'email'],
             /**
              * Для настройки администратора:
              **/
-            array('userName, userPassword, cPassword, userEmail', 'required', 'on' => 'createUser'),
-            array('userPassword, cPassword', 'length', 'min' => 8),
-            array('userName', 'length', 'min' => 4),
-            array(
+            ['userName, userPassword, cPassword, userEmail', 'required', 'on' => 'createUser'],
+            ['userPassword, cPassword', 'length', 'min' => 8],
+            ['userName', 'length', 'min' => 4],
+            [
                 'cPassword',
                 'compare',
                 'compareAttribute' => 'userPassword',
                 'message'          => Yii::t('InstallModule.install', 'Passwords are not consistent')
-            ),
-            array('userEmail', 'email'),
-        );
+            ],
+            ['userEmail', 'email'],
+        ];
     }
 
     /**
@@ -111,7 +111,7 @@ class InstallForm extends yupe\models\YFormModel
      **/
     public function attributeLabels()
     {
-        return array(
+        return [
             /**
              * Для настройки БД:
              **/
@@ -140,7 +140,7 @@ class InstallForm extends yupe\models\YFormModel
             'userEmail'       => Yii::t('InstallModule.install', 'Email'),
             'userPassword'    => Yii::t('InstallModule.install', 'Password'),
             'cPassword'       => Yii::t('InstallModule.install', 'Password confirm'),
-        );
+        ];
     }
 
     /**
@@ -150,7 +150,7 @@ class InstallForm extends yupe\models\YFormModel
      **/
     public function attributeDescriptions()
     {
-        return array(
+        return [
             /**
              * Для настройки БД:
              **/
@@ -182,7 +182,7 @@ class InstallForm extends yupe\models\YFormModel
                 ),
             'userPassword'    => Yii::t('InstallModule.install', 'Admin password'),
             'cPassword'       => Yii::t('InstallModule.install', 'Admin password confirm'),
-        );
+        ];
     }
 
     /**
@@ -200,7 +200,7 @@ class InstallForm extends yupe\models\YFormModel
          *
          */
 
-        $dbTypes = array();
+        $dbTypes = [];
         /**
          * Проверяем доступные СУБД:
          */
@@ -219,10 +219,10 @@ class InstallForm extends yupe\models\YFormModel
      **/
     public function getDbTypes()
     {
-        return array(
+        return [
             self::DB_MYSQL      => 'mysql',
             self::DB_POSTGRESQL => 'pgsql',
-        );
+        ];
     }
 
     /**

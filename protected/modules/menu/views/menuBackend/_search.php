@@ -12,12 +12,12 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 
 <fieldset>
@@ -34,14 +34,14 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3 col-xs-6">
@@ -53,12 +53,12 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Find menu'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

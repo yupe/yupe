@@ -16,7 +16,7 @@ class ArchiveController extends yupe\components\controllers\FrontController
     {
         $this->render(
             'archive',
-            array('data' => Post::model()->getArchive((int)Yii::app()->request->getQuery('blog')))
+            ['data' => Post::model()->getArchive((int)Yii::app()->request->getQuery('blog'))]
         );
     }
 }

@@ -17,7 +17,7 @@ class EShoppingCart extends CMap
      */
     public $refresh = true;
 
-    public $discounts = array();
+    public $discounts = [];
 
     public $cartId = __CLASS__;
 

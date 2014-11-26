@@ -27,7 +27,7 @@ class BlogController extends yupe\components\controllers\FrontController
             $blogs->name = CHtml::encode($_GET['Blog']['name']);
         }
 
-        $this->render('index', array('blogs' => $blogs));
+        $this->render('index', ['blogs' => $blogs]);
     }
 
     /**
@@ -46,11 +46,11 @@ class BlogController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t(
                 'BlogModule.blog',
                 'Blog "{blog}" was not found!',
-                array('{blog}' => $slug)
+                ['{blog}' => $slug]
             ));
         }
 
-        $this->render('show', array('blog' => $blog));
+        $this->render('show', ['blog' => $blog]);
     }
 
     /**
@@ -135,6 +135,6 @@ class BlogController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $this->render('members', array('blog' => $blog, 'members' => $blog->getMembersList()));
+        $this->render('members', ['blog' => $blog, 'members' => $blog->getMembersList()]);
     }
 }

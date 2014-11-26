@@ -11,12 +11,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id' => 'category-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 ); ?>
 
 <div class="alert alert-info">
@@ -33,26 +33,26 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'parent_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => StoreCategory::model()->getFormattedList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => Yii::t('StoreModule.store', '--no--'),
                         'encode' => false,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -72,21 +72,21 @@ $form = $this->beginWidget(
         echo CHtml::image(
             !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
             $model->name,
-            array(
+            [
                 'class' => 'preview-image img-thumbnail',
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
-            )
+            ]
         ); ?>
         <?php echo $form->fileFieldGroup(
             $model,
             'image',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -96,10 +96,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model' => $model,
                 'attribute' => 'description',
-            )
+            ]
         ); ?>
         <p class="help-block"></p>
         <?php echo $form->error($model, 'description'); ?>
@@ -111,10 +111,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'short_description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model' => $model,
                 'attribute' => 'short_description',
-            )
+            ]
         ); ?>
         <p class="help-block"></p>
         <?php echo $form->error($model, 'short_description'); ?>
@@ -156,20 +156,20 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Create category and continue') : Yii::t('StoreModule.store', 'Save category and continue'),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Create category and close') : Yii::t('StoreModule.store', 'Save category and close'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Blog is empty!' => 'Выберите блог!',
     'Moderation' => 'На модерации',
     'Publish' => 'Опубликовать',
@@ -293,4 +293,4 @@ return array(
     'Editing member' => 'Редактирование участника',
     'Viewing member' => 'Просмотр участника',
     'About author' => 'Об авторе',
-);
+];

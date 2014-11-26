@@ -32,14 +32,14 @@ class FeedBackCest
         $I->see('Ваше сообщение отправлено! Спасибо!', \CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInDatabase(
             'yupe_feedback_feedback',
-            array(
+            [
                 'name'   => 'test_name',
                 'email'  => 'test@yupe.ru',
                 'theme'  => 'test_theme',
                 'text'   => 'test_text',
                 'is_faq' => 0,
                 'status' => 0
-            )
+            ]
         );
 
         $I->amGoingTo('check that new message is hide from public access');
@@ -68,14 +68,14 @@ class FeedBackCest
         $I->seeInCurrentUrl('/backend/feedback/feedback');
         $I->seeInDatabase(
             'yupe_feedback_feedback',
-            array(
+            [
                 'name'   => 'test_name',
                 'email'  => 'test@yupe.ru',
                 'theme'  => 'test_theme',
                 'answer' => 'test_answer',
                 'is_faq' => 1,
                 'status' => 3
-            )
+            ]
         );
 
         $I->logout();
@@ -92,7 +92,7 @@ class FeedBackCest
         $I->see('test_theme #1', 'h1');
         $I->see('Задайте вопрос ?!', '.btn');
 
-        $check = array('test_name', 'test_theme', 'test_text', 'test_answer', 'yupe');
+        $check = ['test_name', 'test_theme', 'test_text', 'test_answer', 'yupe'];
 
         foreach ($check as $ch) {
             $I->see($ch);

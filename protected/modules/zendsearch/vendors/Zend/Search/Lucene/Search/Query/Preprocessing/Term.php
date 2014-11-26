@@ -90,7 +90,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             if (Zend_Search_Lucene::getDefaultSearchField() === null) {
                 $searchFields = $index->getFieldNames(true);
             } else {
-                $searchFields = array(Zend_Search_Lucene::getDefaultSearchField());
+                $searchFields = [Zend_Search_Lucene::getDefaultSearchField()];
             }
 
             require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Term.php';
@@ -109,7 +109,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             }
 
             if (count($query->getTerms()) == 0) {
-                $this->_matches = array();
+                $this->_matches = [];
                 if ($hasInsignificantSubqueries) {
                     require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
 
@@ -202,7 +202,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_word, $this->_encoding);
 
         if (count($tokens) == 0) {
-            $this->_matches = array();
+            $this->_matches = [];
             require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
 
             return new Zend_Search_Lucene_Search_Query_Insignificant();
@@ -318,7 +318,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
         }
 
         //It's not insignificant or one term query
-        $words = array();
+        $words = [];
         foreach ($tokens as $token) {
             $words[] = $token->getTermText();
         }

@@ -17,7 +17,7 @@ if (!$variant->id) {
         <?php echo $variant->attribute->renderField($variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
     </td>
     <td>
-        <?php echo CHtml::dropDownList('ProductVariant[' . $variant->id . '][type]', $variant->type, $variant->getTypeList(), array('class' => 'form-control')); ?>
+        <?php echo CHtml::dropDownList('ProductVariant[' . $variant->id . '][type]', $variant->type, $variant->getTypeList(), ['class' => 'form-control']); ?>
     </td>
     <td><input class="form-control" type="text" name="ProductVariant[<?php echo $variant->id; ?>][amount]" value="<?php echo $variant->amount; ?>"></td>
     <td><input class="form-control" type="text" name="ProductVariant[<?php echo $variant->id; ?>][sku]" value="<?php echo $variant->sku; ?>"></td>

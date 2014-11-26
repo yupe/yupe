@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     'Catalog' => 'Каталог',
     'Store'   => 'Магазин',
     'Content' => 'Контент',
@@ -172,4 +172,4 @@ return array(
     'Record was updated!' => 'Запись изменена!',
     'Add'  => 'Добавить',
     'Copy' => 'Копировать'
-);
+];

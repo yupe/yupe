@@ -13,7 +13,7 @@ class m140702_230000_initial_role_data extends yupe\components\DbMigration
         $adminRole->type = AuthItem::TYPE_ROLE;
         $adminRole->save();
 
-        $admins = User::model()->findAllByAttributes(array('access_level' => User::ACCESS_LEVEL_ADMIN));
+        $admins = User::model()->findAllByAttributes(['access_level' => User::ACCESS_LEVEL_ADMIN]);
         foreach ($admins as $admin) {
             $assign = new AuthAssignment();
             $assign->itemname = $adminRole->name;

@@ -17,14 +17,14 @@ class GalleryController extends yupe\components\controllers\FrontController
     public function actionList()
     {
         $dataProvider = new CActiveDataProvider(
-            'Gallery', array(
-                'criteria' => array(
+            'Gallery', [
+                'criteria' => [
                     'scopes' => 'published'
-                )
-            )
+                ]
+            ]
         );
 
-        $this->render('list', array('dataProvider' => $dataProvider));
+        $this->render('list', ['dataProvider' => $dataProvider]);
     }
 
     public function actionShow($id)
@@ -46,7 +46,7 @@ class GalleryController extends yupe\components\controllers\FrontController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
-                    $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
+                    $this->redirect(['/gallery/gallery/show', 'id' => $gallery->id]);
                 }
             } catch (Exception $e) {
                 $transaction->rollback();
@@ -63,10 +63,10 @@ class GalleryController extends yupe\components\controllers\FrontController
 
         $this->render(
             'show',
-            array(
+            [
                 'image' => $image,
                 'model' => $gallery,
-            )
+            ]
         );
     }
 
@@ -78,7 +78,7 @@ class GalleryController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
         }
 
-        $this->render('image', array('model' => $model));
+        $this->render('image', ['model' => $model]);
     }
 
     /**
@@ -97,12 +97,12 @@ class GalleryController extends yupe\components\controllers\FrontController
         $message = Yii::t(
             'GalleryModule.gallery',
             'Image #{id} {result} deleted',
-            array(
+            [
                 '{id}'     => $id,
                 '{result}' => ($result = $image->delete())
                         ? Yii::t('GalleryModule.gallery', 'успешно')
                         : Yii::t('GalleryModule.gallery', 'не')
-            )
+            ]
         );
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
@@ -147,17 +147,17 @@ class GalleryController extends yupe\components\controllers\FrontController
                 $message = Yii::t(
                     'GalleryModule.gallery',
                     'Image #{id} edited',
-                    array(
+                    [
                         '{id}' => $id,
-                    )
+                    ]
                 );
 
                 if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->success(
-                        array(
+                        [
                             'message' => $message,
                             'type'    => 'saved',
-                        )
+                        ]
                     );
                 }
 
@@ -167,18 +167,18 @@ class GalleryController extends yupe\components\controllers\FrontController
                 );
 
                 $this->redirect(
-                    array('/gallery/gallery/show', 'id' => $image->gallery->id)
+                    ['/gallery/gallery/show', 'id' => $image->gallery->id]
                 );
             }
         }
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
             Yii::app()->ajax->success(
-                array(
-                    'form' => $this->renderPartial('_form', array('model' => $image), true)
-                )
+                [
+                    'form' => $this->renderPartial('_form', ['model' => $image], true)
+                ]
             );
         }
-        $this->render('edit-image', array('model' => $image));
+        $this->render('edit-image', ['model' => $image]);
     }
 }

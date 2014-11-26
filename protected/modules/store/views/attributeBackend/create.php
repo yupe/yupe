@@ -1,15 +1,15 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.store', 'Атрибуты') => array('/store/attributeBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.store', 'Атрибуты') => ['/store/attributeBackend/index'],
     Yii::t('StoreModule.store', 'Добавить'),
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.store', 'Атрибуты - добавить');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление'), 'url' => array('/store/attributeBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить'), 'url' => array('/store/attributeBackend/create')),
-);
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление'), 'url' => ['/store/attributeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить'), 'url' => ['/store/attributeBackend/create']],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -18,4 +18,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

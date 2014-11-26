@@ -7,7 +7,7 @@ class Hasher extends CApplicationComponent
         parent::init();
     }
 
-    public function hashPassword($password, array $params = array())
+    public function hashPassword($password, array $params = [])
     {
         return CPasswordHelper::hashPassword($password);
     }

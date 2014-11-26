@@ -51,17 +51,17 @@ class Menu extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('name, code, description', 'required', 'except' => 'search'),
-            array('status', 'numerical', 'integerOnly' => true),
-            array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, description', 'length', 'max' => 255),
-            array('code', 'length', 'max' => 100),
-            array('code', 'yupe\components\validators\YSLugValidator'),
-            array('code', 'unique'),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('id, name, code, description, status', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name, code, description', 'required', 'except' => 'search'],
+            ['status', 'numerical', 'integerOnly' => true],
+            ['name, code, description', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, description', 'length', 'max' => 255],
+            ['code', 'length', 'max' => 100],
+            ['code', 'yupe\components\validators\YSLugValidator'],
+            ['code', 'unique'],
+            ['status', 'in', 'range' => array_keys($this->statusList)],
+            ['id, name, code, description, status', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -71,9 +71,9 @@ class Menu extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'menuItems' => array(self::HAS_MANY, 'MenuItem', 'menu_id'),
-        );
+        return [
+            'menuItems' => [self::HAS_MANY, 'MenuItem', 'menu_id'],
+        ];
     }
 
     /**
@@ -81,13 +81,13 @@ class Menu extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'          => Yii::t('MenuModule.menu', 'Id'),
             'name'        => Yii::t('MenuModule.menu', 'Name'),
             'code'        => Yii::t('MenuModule.menu', 'Unified code'),
             'description' => Yii::t('MenuModule.menu', 'Description'),
             'status'      => Yii::t('MenuModule.menu', 'Status'),
-        );
+        ];
     }
 
     /**
@@ -95,7 +95,7 @@ class Menu extends yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id'          => Yii::t('MenuModule.menu', 'Menu Id'),
             'name'        => Yii::t('MenuModule.menu', 'Menu name'),
             'code'        => Yii::t(
@@ -107,7 +107,7 @@ class Menu extends yupe\models\YModel
                 'MenuModule.menu',
                 'Choose menu status: <br /><br /><span class="label label-success">active</span> &ndash; Will be visible on site.<br /><br /><span class="label label-warning">not active</span> &ndash; Will be hidden.'
             ),
-        );
+        ];
     }
 
     /**
@@ -128,23 +128,23 @@ class Menu extends yupe\models\YModel
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(
-            get_class($this), array(
+            get_class($this), [
                 'criteria' => $criteria,
-                'sort'     => array('defaultOrder' => 'status DESC, id'),
-            )
+                'sort'     => ['defaultOrder' => 'status DESC, id'],
+            ]
         );
     }
 
     public function scopes()
     {
-        return array(
-            'active' => array(
+        return [
+            'active' => [
                 'condition' => 'status = :status',
-                'params'    => array(
+                'params'    => [
                     ':status' => self::STATUS_ACTIVE
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     protected function afterSave()
@@ -163,10 +163,10 @@ class Menu extends yupe\models\YModel
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'not active'),
             self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'active'),
-        );
+        ];
     }
 
     public function getStatus()
@@ -185,20 +185,20 @@ class Menu extends yupe\models\YModel
         if ($items === false) {
             $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
             $results = self::model()->with(
-                array(
-                    'menuItems' => array(
+                [
+                    'menuItems' => [
                         'on'     => $alias . '.parent_id = :parent_id AND ' . $alias . '.status = 1',
-                        'params' => array('parent_id' => (int)$parent_id),
+                        'params' => ['parent_id' => (int)$parent_id],
                         'order'  => $alias . '.sort ASC, ' . $alias . '.id ASC',
-                    )
-                )
+                    ]
+                ]
             )->findByAttributes(
-                array(
+                [
                     'code' => $code
-                )
+                ]
             );
 
-            $items = array();
+            $items = [];
 
             if (empty($results)) {
                 return $items;
@@ -214,39 +214,39 @@ class Menu extends yupe\models\YModel
                     // если адрес надо параметризовать через роутер
                     if (!$result->regular_link) {
                         $url = $result->href;
-                        $param = array();
-                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
+                        $param = [];
+                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = [];
                         if ($param) {
                             parse_str($param, $param);
                         }
-                        $url = array('url' => (array)$url + $param, 'items' => $childItems);
+                        $url = ['url' => (array)$url + $param, 'items' => $childItems];
                     } else {
                         // если обычная ссылка
-                        $url = array('url' => $result->href, 'items' => $childItems);
+                        $url = ['url' => $result->href, 'items' => $childItems];
                     }
                 } elseif ($childItems) {
-                    $url = array('url' => array('#'), 'items' => $childItems);
+                    $url = ['url' => ['#'], 'items' => $childItems];
                 } else {
-                    $url = array();
+                    $url = [];
                 }
 
                 $class = (($childItems) ? ' submenuItem' : '') . (($result->class) ? ' ' . $result->class : '');
-                $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
-                $target = ($result->target && $url) ? array('target' => $result->target) : array();
-                $rel = ($result->rel && $url) ? array('rel' => $result->rel) : array();
+                $title_attr = ($result->title_attr) ? ['title' => $result->title_attr] : [];
+                $target = ($result->target && $url) ? ['target' => $result->target] : [];
+                $rel = ($result->rel && $url) ? ['rel' => $result->rel] : [];
 
-                $items[] = array(
+                $items[] = [
                         'label'       => $result->title,
                         'template'    => $result->before_link . '{menu}' . $result->after_link,
-                        'itemOptions' => array('class' => 'listItem' . $class),
-                        'linkOptions' => array(
+                        'itemOptions' => ['class' => 'listItem' . $class],
+                        'linkOptions' => [
                                 'class' => 'listItemLink',
-                            ) + $title_attr + $target + $rel,
+                            ] + $title_attr + $target + $rel,
                         'visible'     => MenuItem::model()->getConditionVisible(
                             $result->condition_name,
                             $result->condition_denial
                         ),
-                    ) + $url;
+                    ] + $url;
             }
 
             Yii::app()->cache->set(
@@ -284,7 +284,7 @@ class Menu extends yupe\models\YModel
         $menuItem->rel = '';
         $menuItem->regular_link = $regularLink;
         if ($menuItem->save()) {
-            Yii::app()->cache->clear(array('menu', $this->code));
+            Yii::app()->cache->clear(['menu', $this->code]);
 
             return true;
         }
@@ -303,7 +303,7 @@ class Menu extends yupe\models\YModel
      */
     public function changeItem($oldTitle, $newTitle, $href, $parentId, $regularLink = false)
     {
-        $menuItem = MenuItem::model()->findByAttributes(array("title" => $oldTitle));
+        $menuItem = MenuItem::model()->findByAttributes(["title" => $oldTitle]);
 
         if ($menuItem === null) {
             return $this->addItem($newTitle, $href, $parentId, $regularLink);
@@ -316,7 +316,7 @@ class Menu extends yupe\models\YModel
         $menuItem->regular_link = $regularLink;
 
         if ($menuItem->save()) {
-            Yii::app()->cache->clear(array('menu', $this->code));
+            Yii::app()->cache->clear(['menu', $this->code]);
 
             return true;
         }

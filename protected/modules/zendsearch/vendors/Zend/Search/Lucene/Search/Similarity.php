@@ -42,7 +42,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
      *
      * @var array
      */
-    private static $_normTable = array(
+    private static $_normTable = [
         0   => 0.0,
         1   => 5.820766E-10,
         2   => 6.9849193E-10,
@@ -299,7 +299,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
         253 => 5.3687091E9,
         254 => 6.4424509E9,
         255 => 7.5161928E9
-    );
+    ];
 
     /**
      * Set the default Similarity implementation used by indexing and search

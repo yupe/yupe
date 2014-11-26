@@ -14,16 +14,16 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Comment.CommentBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Comment.CommentBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Comment.CommentBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Comment.CommentBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Comment.CommentBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Comment.CommentBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Comment.CommentBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Comment.CommentBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Comment.CommentBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Comment.CommentBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actionInline()
@@ -40,7 +40,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             throw new CHttpException(404);
         }
 
-        if (!in_array($name, array('status'))) {
+        if (!in_array($name, ['status'])) {
             throw new CHttpException(404);
         }
 
@@ -65,7 +65,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -112,13 +112,13 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
 
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -145,12 +145,12 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -192,11 +192,11 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Comment',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

@@ -6,7 +6,7 @@ class m140812_170000_store_attribute_base extends yupe\components\DbMigration
     {
         $this->createTable(
             "{{store_attribute}}",
-            array(
+            [
                 "id" => "pk",
                 "group_id" => "integer null",
                 "name" => "varchar(250) not null",
@@ -14,7 +14,7 @@ class m140812_170000_store_attribute_base extends yupe\components\DbMigration
                 "type" => "tinyint(4) null default null",
                 "unit" => "varchar(30) null",
                 "required" => "boolean not null default '0'",
-            ),
+            ],
             $this->getOptions()
         );
 

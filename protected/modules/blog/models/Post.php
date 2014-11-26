@@ -128,47 +128,47 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('blog_id, slug,  title, content, status, publish_date', 'required', 'except' => 'search'),
-            array(
+        return [
+            ['blog_id, slug,  title, content, status, publish_date', 'required', 'except' => 'search'],
+            [
                 'blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, category_id',
                 'numerical',
                 'integerOnly' => true
-            ),
-            array(
+            ],
+            [
                 'blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type',
                 'length',
                 'max' => 11
-            ),
-            array('lang', 'length', 'max' => 2),
-            array('publish_date', 'length', 'max' => 20),
-            array('slug', 'length', 'max' => 150),
-            array('image', 'length', 'max' => 300),
-            array('create_user_ip', 'length', 'max' => 20),
-            array('description, title, link, keywords', 'length', 'max' => 250),
-            array('quote', 'length', 'max' => 500),
-            array('link', 'yupe\components\validators\YUrlValidator'),
-            array('comment_status', 'in', 'range' => array_keys($this->getCommentStatusList())),
-            array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array(
+            ],
+            ['lang', 'length', 'max' => 2],
+            ['publish_date', 'length', 'max' => 20],
+            ['slug', 'length', 'max' => 150],
+            ['image', 'length', 'max' => 300],
+            ['create_user_ip', 'length', 'max' => 20],
+            ['description, title, link, keywords', 'length', 'max' => 250],
+            ['quote', 'length', 'max' => 500],
+            ['link', 'yupe\components\validators\YUrlValidator'],
+            ['comment_status', 'in', 'range' => array_keys($this->getCommentStatusList())],
+            ['access_type', 'in', 'range' => array_keys($this->getAccessTypeList())],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('BlogModule.blog', 'Forbidden symbols in {attribute}')
-            ),
-            array(
+            ],
+            [
                 'title, slug, link, keywords, description, publish_date',
                 'filter',
-                'filter' => array($obj = new CHtmlPurifier(), 'purify')
-            ),
-            array('slug', 'unique'),
-            array('tags', 'safe'),
-            array(
+                'filter' => [$obj = new CHtmlPurifier(), 'purify']
+            ],
+            ['slug', 'unique'],
+            ['tags', 'safe'],
+            [
                 'id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -178,33 +178,33 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'blog' => array(self::BELONGS_TO, 'Blog', 'blog_id'),
-            'comments' => array(
+        return [
+            'createUser' => [self::BELONGS_TO, 'User', 'create_user_id'],
+            'updateUser' => [self::BELONGS_TO, 'User', 'update_user_id'],
+            'blog' => [self::BELONGS_TO, 'Blog', 'blog_id'],
+            'comments' => [
                 self::HAS_MANY,
                 'Comment',
                 'model_id',
                 'on' => 'model = :model AND comments.status = :status and level > 1',
-                'params' => array(
+                'params' => [
                     ':model' => 'Post',
                     ':status' => Comment::STATUS_APPROVED
-                ),
+                ],
                 'order' => 'comments.id'
-            ),
-            'commentsCount' => array(
+            ],
+            'commentsCount' => [
                 self::STAT,
                 'Comment',
                 'model_id',
                 'condition' => 'model = :model AND status = :status AND level > 1',
-                'params' => array(
+                'params' => [
                     ':model' => 'Post',
                     ':status' => Comment::STATUS_APPROVED
-                )
-            ),
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id')
-        );
+                ]
+            ],
+            'category' => [self::BELONGS_TO, 'Category', 'category_id']
+        ];
     }
 
     /**
@@ -212,23 +212,23 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 't.status = :status',
-                'params' => array(':status' => self::STATUS_PUBLISHED),
-            ),
-            'public' => array(
+                'params' => [':status' => self::STATUS_PUBLISHED],
+            ],
+            'public' => [
                 'condition' => 't.access_type = :access_type',
-                'params' => array(':access_type' => self::ACCESS_PUBLIC),
-            ),
-            'moderated' => array(
+                'params' => [':access_type' => self::ACCESS_PUBLIC],
+            ],
+            'moderated' => [
                 'condition' => 't.status = :status',
-                'params' => array(':status' => self::STATUS_MODERATED)
-            ),
-            'recent' => array(
+                'params' => [':status' => self::STATUS_MODERATED]
+            ],
+            'recent' => [
                 'order' => 'publish_date DESC'
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -241,9 +241,9 @@ class Post extends yupe\models\YModel implements ICommentable
     public function limit($count = null)
     {
         $this->getDbCriteria()->mergeWith(
-            array(
+            [
                 'limit' => $count,
-            )
+            ]
         );
 
         return $this;
@@ -259,9 +259,9 @@ class Post extends yupe\models\YModel implements ICommentable
     public function sortByPubDate($typeSort = 'ASC')
     {
         $this->getDbCriteria()->mergeWith(
-            array(
+            [
                 'order' => $this->getTableAlias() . '.publish_date ' . $typeSort,
-            )
+            ]
         );
 
         return $this;
@@ -272,7 +272,7 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('BlogModule.blog', 'id'),
             'blog_id' => Yii::t('BlogModule.blog', 'Blog'),
             'create_user_id' => Yii::t('BlogModule.blog', 'Created'),
@@ -293,7 +293,7 @@ class Post extends yupe\models\YModel implements ICommentable
             'tags' => Yii::t('BlogModule.blog', 'Tags'),
             'image' => Yii::t('BlogModule.blog', 'Image'),
             'category_id' => Yii::t('BlogModule.blog', 'Category')
-        );
+        ];
     }
 
     /**
@@ -326,15 +326,15 @@ class Post extends yupe\models\YModel implements ICommentable
         $criteria->compare('access_type', $this->access_type);
         $criteria->compare('t.category_id', $this->category_id, true);
 
-        $criteria->with = array('createUser', 'updateUser', 'blog');
+        $criteria->with = ['createUser', 'updateUser', 'blog'];
 
         return new CActiveDataProvider(
-            'Post', array(
+            'Post', [
                 'criteria' => $criteria,
-                'sort' => array(
+                'sort' => [
                     'defaultOrder' => 'publish_date DESC',
-                )
-            )
+                ]
+            ]
         );
     }
 
@@ -346,15 +346,15 @@ class Post extends yupe\models\YModel implements ICommentable
         $criteria = new CDbCriteria();
         $criteria->addCondition('t.status = :status');
         $criteria->addCondition('t.access_type = :access_type');
-        $criteria->params = array(
+        $criteria->params = [
             ':status' => self::STATUS_PUBLISHED,
             ':access_type' => self::ACCESS_PUBLIC
-        );
-        $criteria->with = array('blog', 'createUser', 'commentsCount');
+        ];
+        $criteria->with = ['blog', 'createUser', 'commentsCount'];
         $criteria->order = 'publish_date DESC';
 
         return new CActiveDataProvider(
-            'Post', array('criteria' => $criteria)
+            'Post', ['criteria' => $criteria]
         );
     }
 
@@ -365,14 +365,14 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         $module = Yii::app()->getModule('blog');
 
-        return array(
-            'CTimestampBehavior' => array(
+        return [
+            'CTimestampBehavior' => [
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
                 'createAttribute' => 'create_date',
                 'updateAttribute' => 'update_date',
-            ),
-            'tags' => array(
+            ],
+            'tags' => [
                 'class' => 'vendor.yiiext.taggable-behavior.EARTaggableBehavior',
                 'tagTable' => Yii::app()->db->tablePrefix . 'blog_tag',
                 'tagBindingTable' => Yii::app()->db->tablePrefix . 'blog_post_to_tag',
@@ -380,18 +380,18 @@ class Post extends yupe\models\YModel implements ICommentable
                 'modelTableFk' => 'post_id',
                 'tagBindingTableTagId' => 'tag_id',
                 'cacheID' => 'cache',
-            ),
-            'imageUpload' => array(
+            ],
+            'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+                'scenarios' => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath,
-                'fileName' => array($this, 'generateFileName'),
-            ),
-        );
+                'fileName' => [$this, 'generateFileName'],
+            ],
+        ];
     }
 
     /**
@@ -432,10 +432,10 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         Comment::model()->deleteAll(
             'model = :model AND model_id = :model_id',
-            array(
+            [
                 ':model' => 'Post',
                 ':model_id' => $this->id
-            )
+            ]
         );
 
         parent::afterDelete();
@@ -458,13 +458,13 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_DRAFT => Yii::t('BlogModule.blog', 'Draft'),
             self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Published'),
             self::STATUS_SCHEDULED => Yii::t('BlogModule.blog', 'Scheduled'),
             self::STATUS_MODERATED => Yii::t('BlogModule.blog', 'Moderated'),
             self::STATUS_DELETED   => Yii::t('BlogModule.blog', 'Deleted')
-        );
+        ];
     }
 
     /**
@@ -482,10 +482,10 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function getAccessTypeList()
     {
-        return array(
+        return [
             self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Private'),
             self::ACCESS_PUBLIC => Yii::t('BlogModule.blog', 'Public'),
-        );
+        ];
     }
 
     /**
@@ -516,10 +516,10 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function getCommentStatusList()
     {
-        return array(
+        return [
             self::COMMENT_NO => Yii::t('BlogModule.blog', 'Forbidden'),
             self::COMMENT_YES => Yii::t('BlogModule.blog', 'Allowed'),
-        );
+        ];
     }
 
     /**
@@ -562,9 +562,9 @@ class Post extends yupe\models\YModel implements ICommentable
 
             if ($blogId) {
                 $criteria->condition = 'blog_id = :blog_id';
-                $criteria->params = array(
+                $criteria->params = [
                     ':blog_id' => (int)$blogId
-                );
+                ];
             }
 
             $models = $this->public()->published()->recent()->findAll($criteria);
@@ -574,12 +574,12 @@ class Post extends yupe\models\YModel implements ICommentable
                     '.',
                     Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, 'medium', null)
                 );
-                $data[$year][$month][] = array(
+                $data[$year][$month][] = [
                     'title' => $model->title,
                     'slug' => $model->slug,
                     'publish_date' => $model->publish_date,
                     'quote' => $model->getQuote()
-                );
+                ];
             }
 
             Yii::app()->cache->set("Blog::Post::archive::{$blogId}", $data, (int)$cache);
@@ -604,11 +604,11 @@ class Post extends yupe\models\YModel implements ICommentable
                 ->join('{{blog_post}} p', 'c.model_id = p.id')
                 ->where(
                     'c.model = :model AND p.status = :status AND c.status = :commentstatus AND c.id <> c.root',
-                    array(
+                    [
                         ':model' => 'Post',
                         ':status' => Post::STATUS_PUBLISHED,
                         ':commentstatus' => Comment::STATUS_APPROVED
-                    )
+                    ]
                 )
                 ->group('c.model, c.model_id, p.title, p.slug')
                 ->order('comment_date DESC')
@@ -627,7 +627,7 @@ class Post extends yupe\models\YModel implements ICommentable
      * @param array $with
      * @return mixed
      */
-    public function get($id, array $with = array())
+    public function get($id, array $with = [])
     {
         if (is_int($id)) {
             return Post::model()->public()->published()->with($with)->findByPk($id);
@@ -635,9 +635,9 @@ class Post extends yupe\models\YModel implements ICommentable
 
         return Post::model()->public()->published()->with($with)->find(
             't.slug = :slug',
-            array(
+            [
                 ':slug' => $id
-            )
+            ]
         );
     }
 
@@ -646,7 +646,7 @@ class Post extends yupe\models\YModel implements ICommentable
      * @param array $with
      * @return mixed
      */
-    public function getByTag($tag, array $with = array('blog', 'createUser', 'commentsCount'))
+    public function getByTag($tag, array $with = ['blog', 'createUser', 'commentsCount'])
     {
         return Post::model()->with($with)
             ->published()
@@ -722,7 +722,7 @@ class Post extends yupe\models\YModel implements ICommentable
             return false;
         }
 
-        $blog = Blog::model()->get((int)$post['blog_id'], array());
+        $blog = Blog::model()->get((int)$post['blog_id'], []);
 
         if (null === $blog) {
             $this->addError('blog_id', Yii::t('BlogModule.blog', "You can't write in this blog!"));
@@ -772,11 +772,11 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         return $this->updateAll(['status' => self::STATUS_DELETED],
             'create_user_id = :userId AND id = :id AND status != :status',
-            array(
+            [
                 ':userId' => (int)$userId,
                 ':id' => (int)$postId,
                 ':status' => self::STATUS_PUBLISHED
-            )
+            ]
         );
     }
 
@@ -789,11 +789,11 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         return $this->find(
             'id = :id AND create_user_id = :userId AND status != :status',
-            array(
+            [
                 ':userId' => (int)$userId,
                 ':id' => (int)$postId,
                 ':status' => self::STATUS_PUBLISHED
-            )
+            ]
         );
     }
 
@@ -810,7 +810,7 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function getLink()
     {
-        return Yii::app()->createAbsoluteUrl('/blog/post/show/', array('slug' => $this->slug));
+        return Yii::app()->createAbsoluteUrl('/blog/post/show/', ['slug' => $this->slug]);
     }
 
     /**

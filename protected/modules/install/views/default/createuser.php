@@ -10,12 +10,12 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'createuser-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-    )
+    ]
 );
 
 Yii::app()->clientScript->registerScript(
@@ -50,16 +50,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'userName',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('userName'),
                         'data-content'        => $data['model']->getAttributeDescription('userName'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -69,16 +69,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'userEmail',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('userEmail'),
                         'data-content'        => $data['model']->getAttributeDescription('userEmail'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -88,16 +88,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->passwordFieldGroup(
             $data['model'],
             'userPassword',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('userPassword'),
                         'data-content'        => $data['model']->getAttributeDescription('userPassword'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -107,34 +107,34 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->passwordFieldGroup(
             $data['model'],
             'cPassword',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('cPassword'),
                         'data-content'        => $data['model']->getAttributeDescription('cPassword'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
 
 <?php echo CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
-    array('/install/default/modulesinstall'),
-    array('class' => 'btn btn-default')
+    ['/install/default/modulesinstall'],
+    ['class' => 'btn btn-default']
 ); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => Yii::t('InstallModule.install', 'Continue >'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

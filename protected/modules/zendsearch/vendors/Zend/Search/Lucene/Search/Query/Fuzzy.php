@@ -47,7 +47,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
      *
      * keys are integers representing a word size
      */
-    private $_maxDistances = array();
+    private $_maxDistances = [];
 
     /**
      * Base searching term.
@@ -187,15 +187,15 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
     {
-        $this->_matches = array();
-        $this->_scores = array();
-        $this->_termKeys = array();
+        $this->_matches = [];
+        $this->_scores = [];
+        $this->_termKeys = [];
 
         if ($this->_term->field === null) {
             // Search through all fields
             $fields = $index->getFieldNames(true /* indexed fields list */);
         } else {
-            $fields = array($this->_term->field);
+            $fields = [$this->_term->field];
         }
 
         require_once 'Zend/Search/Lucene/Index/Term.php';
@@ -435,7 +435,7 @@ class Zend_Search_Lucene_Search_Query_Fuzzy extends Zend_Search_Lucene_Search_Qu
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
-        $words = array();
+        $words = [];
 
         require_once 'Zend/Search/Lucene/Index/Term.php';
         $prefix = Zend_Search_Lucene_Index_Term::getPrefix($this->_term->text, $this->_prefixLength);

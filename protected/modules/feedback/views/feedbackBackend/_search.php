@@ -1,14 +1,14 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array(
+        'htmlOptions' => [
             'class' => 'well',
-        ),
-    )
+        ],
+    ]
 ); ?>
 
 <div class="row">
@@ -30,60 +30,60 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getTypeList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(
                             (int)Yii::app()->getModule('feedback')->mainCategory
                         ),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-3">
         <?php echo $form->datePickerGroup(
             $model,
             'creation_date',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
+            [
+                'widgetOptions' => [
+                    'options' => [
                         'format'    => 'yyyy-mm-dd',
                         'weekStart' => 1,
                         'autoclose' => true,
-                    ),
-                ),
+                    ],
+                ],
                 'prepend'       => '<i class="fa fa-calendar"></i>',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -96,17 +96,17 @@ $form = $this->beginWidget(
     <div class="col-sm-12">
         <?php $this->widget(
             'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget',
-            array(
+            [
                 'model'     => $model,
                 'attribute' => 'answer',
-            )
+            ]
         ); ?>
     </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
@@ -114,7 +114,7 @@ $form = $this->beginWidget(
                 'FeedbackModule.feedback',
                 'Find messages '
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

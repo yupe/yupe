@@ -4,7 +4,7 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model->id));
+$this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]);
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -17,7 +17,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model
                     <tr>
                         <td class="col-sm-5">
                             <div class="media">
-                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', array('name' => $position->product->alias)); ?>
+                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->alias]); ?>
                                 <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                     <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
                                 </a>

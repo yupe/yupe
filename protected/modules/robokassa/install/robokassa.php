@@ -1,16 +1,16 @@
 <?php
 
-return array(
-    'module' => array(
+return [
+    'module' => [
         'class' => 'application.modules.robokassa.RobokassaModule',
-    ),
-    'component' => array(
-        'paymentManager' => array(
-            'paymentSystems' => array(
-                'robokassa' => array(
+    ],
+    'component' => [
+        'paymentManager' => [
+            'paymentSystems' => [
+                'robokassa' => [
                     'class' => 'application.modules.robokassa.components.payments.RobokassaPaymentSystem',
-                )
-            ),
-        ),
-    ),
-);
+                ]
+            ],
+        ],
+    ],
+];

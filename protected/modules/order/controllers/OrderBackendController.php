@@ -4,35 +4,35 @@ class OrderBackendController extends yupe\components\controllers\BackController
 {
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Order',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'status',
                     'paid'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Order.OrderBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Order.OrderBackend.Delete'),),
-            array('allow', 'actions' => array('update', 'inline'), 'roles' => array('Order.OrderBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Order.OrderBackend.Index'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Order.OrderBackend.View'),),
-            array('allow', 'actions' => array('productRow'), 'roles' => array('Order.OrderBackend.Create', 'Order.OrderBackend.Update'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Order.OrderBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Order.OrderBackend.Delete'],],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Order.OrderBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Order.OrderBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Order.OrderBackend.View'],],
+            ['allow', 'actions' => ['productRow'], 'roles' => ['Order.OrderBackend.Create', 'Order.OrderBackend.Update'],],
+            ['deny',],
+        ];
     }
 
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     public function actionCreate()
@@ -52,14 +52,14 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
@@ -84,13 +84,13 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     public function actionDelete($id)
@@ -104,7 +104,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
             );
 
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t('OrderModule.order', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
@@ -118,7 +118,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
         if (isset($_GET['Order'])) {
             $model->attributes = $_GET['Order'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -148,6 +148,6 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $product = new OrderProduct();
         $product->product = Product::model()->findByPk($_GET['OrderProduct']['product_id']);
 
-        $this->renderPartial('_product_row', array('model' => $product));
+        $this->renderPartial('_product_row', ['model' => $product]);
     }
 }

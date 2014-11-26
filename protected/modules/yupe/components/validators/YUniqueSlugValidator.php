@@ -18,7 +18,7 @@ class YUniqueSlugValidator extends CUniqueValidator
 {
     protected function validateAttribute($object, $attribute)
     {
-        $this->criteria = array('condition' => 'lang = :lang', 'params' => array(':lang' => $object->lang));
+        $this->criteria = ['condition' => 'lang = :lang', 'params' => [':lang' => $object->lang]];
 
         return parent::validateAttribute($object, $attribute);
     }

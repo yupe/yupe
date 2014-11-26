@@ -23,6 +23,6 @@ class YPerformanceStatistic extends YWidget
         $dbStat = Yii::app()->db->getStats();
         $memory = round(Yii::getLogger()->memoryUsage / 1024 / 1024, 3);
         $time = round(Yii::getLogger()->executionTime, 3);
-        $this->render($this->view, array('dbStat' => $dbStat, 'time' => $time, 'memory' => $memory));
+        $this->render($this->view, ['dbStat' => $dbStat, 'time' => $time, 'memory' => $memory]);
     }
 }

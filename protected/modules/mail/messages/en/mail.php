@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '--choose--'                                                           => '',
     '--unknown--'                                                          => '',
     '0.1'                                                                  => '',
@@ -100,4 +100,4 @@ return array(
     'Menu items order'                                                     => '',
     'Template'                                                             => '',
     'Select {field}'                                                       => '',
-);
+];

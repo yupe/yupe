@@ -43,21 +43,21 @@ class MenuWidget extends yupe\widgets\YWidget
     /**
      * @var array особенные параметры передаваемые в layout
      */
-    public $layoutParams = array();
+    public $layoutParams = [];
     /**
      * @var array параметры виджета zii.widgets.CMenu
      */
-    public $params = array();
+    public $params = [];
 
     public function run()
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
         $this->render(
             $this->layout,
-            array(
+            [
                 'params'       => $this->params,
                 'layoutParams' => $this->layoutParams,
-            )
+            ]
         );
     }
 }
