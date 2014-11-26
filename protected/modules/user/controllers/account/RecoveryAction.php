@@ -17,14 +17,6 @@ class RecoveryAction extends CAction
 {
     public function run()
     {
-        // Незачем выполнять последующие действия
-        // для авторизованного пользователя:
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect(
-                Yii::app()->getUser()->getReturnUrl()
-            );
-        }
-
         $module = Yii::app()->getModule('user');
 
         // Если восстановление отключено - ошбочка ;)

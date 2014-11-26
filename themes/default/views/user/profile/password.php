@@ -3,7 +3,7 @@
 
 $this->pageTitle = Yii::t('UserModule.user', 'Change password');
 $this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'User profile') => array('/user/account/profile'),
+    Yii::t('UserModule.user', 'User profile') => array('/user/profile/profile'),
     Yii::t('UserModule.user', 'Change password')
 );
 
