@@ -52,7 +52,7 @@ $form = $this->beginWidget(
                         'class'    => Yii::app()->user->profile->getIsVerifyEmail() ? 'text-success' : ''
                     ],
                 ],
-                'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/account/profileEmail']),
+                'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/profile/email']),
             ]
         ); ?>
         <?php if (Yii::app()->user->profile->getIsVerifyEmail()): { ?>
@@ -162,7 +162,7 @@ $form = $this->beginWidget(
                 'label'      => Yii::t('UserModule.user', 'Save profile'),
             ]
         ); ?>
-        <?php echo CHtml::link(Yii::t('UserModule.user', 'Change password'), ['/user/account/profilePassword'], ['class' => 'btn btn-default']); ?>
+        <?php echo CHtml::link(Yii::t('UserModule.user', 'Change password'), ['/user/profile/password'], ['class' => 'btn btn-default']); ?>
     </div>
 </div>
 <?php $this->endWidget(); ?>

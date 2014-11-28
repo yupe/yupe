@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Контроллер, отвечающий за регистрацию, авторизацию и т.д. пользователя
+ * Контроллер, отвечающий за регистрацию, авторизацию и т.д. действия неавторизованного пользователя
  *
  * @category YupeComponents
  * @package  yupe.modules.user.controllers
@@ -16,7 +16,21 @@ class AccountController extends yupe\components\controllers\FrontController
     public function filters()
     {
         return [
-            ['yupe\filters\YFrontAccessControl + profile']
+            'accessControl',
+        ];
+    }
+
+    public function accessRules()
+    {
+        return [
+            ['allow',
+                'actions' => ['logout'],
+                'users' => ['*']
+            ],
+            ['deny',
+                'actions'=>[],
+                'users'=>['@']
+            ],
         ];
     }
 
@@ -31,15 +45,6 @@ class AccountController extends yupe\components\controllers\FrontController
             ],
             'registration'    => [
                 'class' => 'application.modules.user.controllers.account.RegistrationAction',
-            ],
-            'profile'         => [
-                'class' => 'application.modules.user.controllers.account.ProfileAction'
-            ],
-            'profilePassword' => [
-                'class' => 'application.modules.user.controllers.account.ProfilePasswordAction'
-            ],
-            'profileEmail'    => [
-                'class' => 'application.modules.user.controllers.account.ProfileEmailAction'
             ],
             'activate'        => [
                 'class' => 'application.modules.user.controllers.account.ActivateAction',

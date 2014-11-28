@@ -17,10 +17,6 @@ class ActivateAction extends CAction
 {
     public function run($token)
     {
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect(Url::redirectUrl(Yii::app()->getUser()->getReturnUrl()));
-        }
-
         $module = Yii::app()->getModule('user');
 
         // Пытаемся найти пользователя по токену,
