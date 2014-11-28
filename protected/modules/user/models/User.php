@@ -11,6 +11,7 @@
  * @property string  $last_name
  * @property string  $nick_name
  * @property string  $email
+ * @property string  $phone
  * @property integer $gender
  * @property string  $avatar
  * @property string  $password
@@ -18,6 +19,7 @@
  * @property integer $access_level
  * @property string  $last_visit
  * @property boolean $email_confirm
+ * @property boolean $phone_confirm
  * @property string  $registration_date
  *
  */
@@ -57,6 +59,15 @@ class User extends yupe\models\YModel
      *
      */
     const EMAIL_CONFIRM_YES = 1;
+
+    /**
+     *
+     */
+    const PHONE_CONFIRM_NO = 0;
+    /**
+     *
+     */
+    const PHONE_CONFIRM_YES = 1;
 
     /**
      *
@@ -107,17 +118,17 @@ class User extends yupe\models\YModel
 
         return [
             [
-                'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email',
+                'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email, phone',
                 'filter',
                 'filter' => 'trim'
             ],
             [
-                'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email',
+                'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email, phone',
                 'filter',
                 'filter' => [$obj = new CHtmlPurifier(), 'purify']
             ],
             ['nick_name, email, hash', 'required'],
-            ['first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50],
+            ['first_name, last_name, middle_name, nick_name, email, phone', 'length', 'max' => 50],
             ['hash', 'length', 'max' => 256],
             ['site', 'length', 'max' => 100],
             ['about', 'length', 'max' => 300],
@@ -131,6 +142,15 @@ class User extends yupe\models\YModel
                         'UserModule.user',
                         'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
                     )
+            ],
+            [
+                'phone',
+                'match',
+                'pattern' => '/^\+?[0-9]{10,50}$/',
+                'message' => Yii::t(
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". Phone number must be in international format +(country code)(phone number)'
+                )
             ],
             ['site', 'url', 'allowEmpty' => true],
             ['email', 'email'],
@@ -148,10 +168,11 @@ class User extends yupe\models\YModel
                 'allowEmpty' => true
             ],
             ['email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())],
+            ['phone_confirm', 'in', 'range' => array_keys($this->getPhoneConfirmStatusList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['registration_date', 'length', 'max' => 50],
             [
-                'id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, last_visit',
+                'id, change_date, middle_name, first_name, last_name, nick_name, email, phone, gender, avatar, status, access_level, last_visit',
                 'safe',
                 'on' => 'search'
             ],
@@ -194,6 +215,7 @@ class User extends yupe\models\YModel
             'nick_name'         => Yii::t('UserModule.user', 'Nick'),
             'email'             => Yii::t('UserModule.user', 'Email'),
             'gender'            => Yii::t('UserModule.user', 'Sex'),
+            'phone'             => Yii::t('UserModule.user', 'Phone'),
             'password'          => Yii::t('UserModule.user', 'Password'),
             'status'            => Yii::t('UserModule.user', 'Status'),
             'access_level'      => Yii::t('UserModule.user', 'Access'),
@@ -205,6 +227,7 @@ class User extends yupe\models\YModel
             'avatar'            => Yii::t('UserModule.user', 'Avatar'),
             'use_gravatar'      => Yii::t('UserModule.user', 'Gravatar'),
             'email_confirm'     => Yii::t('UserModule.user', 'Email was confirmed'),
+            'phone_confirm'     => Yii::t('UserModule.user', 'Phone was confirmed'),
             'birth_date'        => Yii::t('UserModule.user', 'Birthday'),
             'site'              => Yii::t('UserModule.user', 'Site/blog'),
             'location'          => Yii::t('UserModule.user', 'Location'),
@@ -223,6 +246,16 @@ class User extends yupe\models\YModel
     }
 
     /**
+     * Проверка верификации телефона:
+     *
+     * @return boolean
+     */
+    public function getIsVerifyPhone()
+    {
+        return $this->phone_confirm;
+    }
+
+    /**
      * Строковое значение верификации почты пользователя:
      *
      * @return string
@@ -230,6 +263,18 @@ class User extends yupe\models\YModel
     public function getIsVerifyEmailStatus()
     {
         return $this->getIsVerifyEmail()
+            ? Yii::t('UserModule.user', 'Yes')
+            : Yii::t('UserModule.user', 'No');
+    }
+
+    /**
+     * Строковое значение верификации телефона пользователя:
+     *
+     * @return string
+     */
+    public function getIsVerifyPhoneStatus()
+    {
+        return $this->getIsVerifyPhone()
             ? Yii::t('UserModule.user', 'Yes')
             : Yii::t('UserModule.user', 'No');
     }
@@ -249,10 +294,11 @@ class User extends yupe\models\YModel
             $criteria->compare('t.registration_date', date('Y-m-d', strtotime($this->registration_date)), true);
         }
         $criteria->compare('t.first_name', $this->first_name, true);
-        $criteria->compare('t.middle_name', $this->first_name, true);
+        $criteria->compare('t.middle_name', $this->middle_name, true);
         $criteria->compare('t.last_name', $this->last_name, true);
         $criteria->compare('t.nick_name', $this->nick_name, true);
         $criteria->compare('t.email', $this->email, true);
+        $criteria->compare('t.phone', $this->phone, true);
         $criteria->compare('t.gender', $this->gender);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('t.access_level', $this->access_level);
@@ -260,6 +306,7 @@ class User extends yupe\models\YModel
             $criteria->compare('t.last_visit', date('Y-m-d', strtotime($this->last_visit)), true);
         }
         $criteria->compare('t.email_confirm', $this->email_confirm);
+        $criteria->compare('t.phone_confirm', $this->phone_confirm);
 
         return new CActiveDataProvider(get_class($this), [
             'criteria'   => $criteria,
@@ -322,6 +369,12 @@ class User extends yupe\models\YModel
 
                 return false;
             }
+        }
+
+        if (!$this->phone) {
+            $this->phone = null;
+        } else {
+        $this->phone=str_replace('+','',$this->phone);
         }
 
         return parent::beforeSave();
@@ -448,6 +501,17 @@ class User extends yupe\models\YModel
     }
 
     /**
+     * @return array
+     */
+    public function getPhoneConfirmStatusList()
+    {
+        return [
+            self::PHONE_CONFIRM_YES => Yii::t('UserModule.user', 'Yes'),
+            self::PHONE_CONFIRM_NO  => Yii::t('UserModule.user', 'No'),
+        ];
+    }
+
+    /**
      * @return string
      */
     public function getEmailConfirmStatus()
@@ -455,6 +519,19 @@ class User extends yupe\models\YModel
         $data = $this->getEmailConfirmStatusList();
 
         return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t(
+            'UserModule.user',
+            '*unknown*'
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoneConfirmStatus()
+    {
+        $data = $this->getPhoneConfirmStatusList();
+
+        return isset($data[$this->phone_confirm]) ? $data[$this->phone_confirm] : Yii::t(
             'UserModule.user',
             '*unknown*'
         );

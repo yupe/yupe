@@ -31,6 +31,7 @@ class UserModule extends WebModule
     public $registrationDisabled = 0;
     public $minPasswordLength = 8;
     public $emailAccountVerification = 1;
+    public $phoneAccountVerification = 0;
     public $showCaptcha = 0;
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
@@ -123,6 +124,7 @@ class UserModule extends WebModule
             'registrationDisabled'     => Yii::t('UserModule.user', 'Disable registration'),
             'minPasswordLength'        => Yii::t('UserModule.user', 'Minimum password length'),
             'emailAccountVerification' => Yii::t('UserModule.user', 'Confirm account by Email'),
+            'phoneAccountVerification' => Yii::t('UserModule.user', 'Confirm account by Phone'),
             'showCaptcha'              => Yii::t('UserModule.user', 'Show captcha on registration'),
             'minCaptchaLength'         => Yii::t('UserModule.user', 'Minimum captcha length'),
             'maxCaptchaLength'         => Yii::t('UserModule.user', 'Maximum captcha length'),
@@ -167,6 +169,7 @@ class UserModule extends WebModule
             'sessionLifeTime',
             'usersPerPage',
             'emailAccountVerification' => $this->getChoice(),
+            'phoneAccountVerification' => $this->getChoice(),
             'badLoginCount'
         ];
     }
@@ -196,6 +199,7 @@ class UserModule extends WebModule
                     'registrationDisabled',
                     'recoveryDisabled',
                     'emailAccountVerification',
+                    'phoneAccountVerification',
                     'minPasswordLength',
                     'autoRecoveryPassword',
                     'recoveryDisabled',
