@@ -28,6 +28,7 @@ class UserToken extends yupe\models\YModel
     const TYPE_CHANGE_PASSWORD = 2;
     const TYPE_EMAIL_VERIFY = 3;
     const TYPE_COOKIE_AUTH = 4;
+    const TYPE_PHONE_VERIFY = 5;
 
     /**
      * Статусы токенов:
@@ -198,6 +199,7 @@ class UserToken extends yupe\models\YModel
             self::TYPE_CHANGE_PASSWORD => Yii::t('UserModule.user', 'Change/reset password'),
             self::TYPE_EMAIL_VERIFY    => Yii::t('UserModule.user', 'Email verification'),
             self::TYPE_COOKIE_AUTH     => Yii::t('UserModule.user', 'Cookie auth'),
+            self::TYPE_PHONE_VERIFY    => Yii::t('UserModule.user', 'Phone verification'),
         ];
     }
 

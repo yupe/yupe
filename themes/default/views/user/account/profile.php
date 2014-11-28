@@ -68,6 +68,33 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $user,
+            'phone',
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
+                        'disabled' => true,
+                        'class'    => Yii::app()->user->profile->getIsVerifyPhone() ? 'text-success' : ''
+                    ],
+                ],
+                'append'        => CHtml::link(Yii::t('UserModule.user', 'Change phone'), ['/profile/phone']).' - '.CHtml::link(Yii::t('UserModule.user', 'Verify phone'), ['/profile/phoneConfirm']),
+            ]
+        ); ?>
+        <?php if (Yii::app()->user->profile->getIsVerifyPhone()): { ?>
+            <p class="email-status-confirmed text-success">
+                <?php echo Yii::t('UserModule.user', 'Phone was verified'); ?>
+            </p>
+        <?php } else: { ?>
+            <p class="email-status-not-confirmed text-error">
+                <?php echo Yii::t('UserModule.user', 'Phone was not confirmed'); ?>
+            </p>
+        <?php } endif ?>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-xs-6">
         <?php echo $form->textFieldGroup($model, 'last_name') ?>
     </div>

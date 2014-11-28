@@ -363,4 +363,9 @@ return [
     'Email was updated.' => 'Email был изменен.',
     'Your password was changed successfully.' => 'Ваш пароль успешно изменен.',
     'Avatar extensions' => 'Расширения аватаров',
+    'Phone' => 'Телефон',
+    'Change phone' => 'Изменить телефон',
+    'Verify phone' => 'Подтвердить телефон',
+    'Phone was not confirmed' => 'Телефон не подтверждён',
+    'Verification code' => 'Проверочный код'
 ];
