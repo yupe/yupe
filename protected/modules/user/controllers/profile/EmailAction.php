@@ -11,21 +11,11 @@
  * @link     http://yupe.ru
  *
  **/
-class ProfileEmailAction extends CAction
+class EmailAction extends CAction
 {
     public function run()
     {
-        if (($user = Yii::app()->user->getProfile()) === null) {
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'User not found.')
-            );
-            Yii::app()->user->logout();
-            $this->controller->redirect(
-                ['/user/account/login']
-            );
-        }
-
+        $user = $this->controller->user;
         $form = new ProfileEmailForm();
         $module = Yii::app()->getModule('user');
 
@@ -55,9 +45,9 @@ class ProfileEmailAction extends CAction
                         Yii::t('UserModule.user', 'Email was updated.')
                     );
                 }
-                $this->controller->redirect(['/user/account/profile']);
+                $this->controller->redirect(['/user/profile/profile']);
             }
         }
-        $this->controller->render('profileEmail', ['model' => $form,]);
+        $this->controller->render('email', ['model' => $form,]);
     }
 }

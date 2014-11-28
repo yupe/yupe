@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle = Yii::t('UserModule.user', 'Change email');
 $this->breadcrumbs = [
-    Yii::t('UserModule.user', 'User profile') => ['/user/account/profile'],
+    Yii::t('UserModule.user', 'User profile') => ['/user/profile/profile'],
     Yii::t('UserModule.user', 'Change email')
 ];
 

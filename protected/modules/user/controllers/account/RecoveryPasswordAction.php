@@ -22,10 +22,6 @@ class RecoveryPasswordAction extends CAction
      */
     public function run($token)
     {
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect( Yii::app()->getUser()->getReturnUrl());
-        }
-
         $module = Yii::app()->getModule('user');
 
         // Если запрещено восстановление

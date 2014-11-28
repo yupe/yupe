@@ -11,23 +11,11 @@
  * @link     http://yupe.ru
  *
  **/
-class ProfilePasswordAction extends CAction
+class PasswordAction extends CAction
 {
     public function run()
     {
-        if (($user = Yii::app()->user->getProfile()) === null) {
-
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'User not found.')
-            );
-
-            Yii::app()->user->logout();
-
-            $this->controller->redirect(
-                ['/user/account/login']
-            );
-        }
+        $user = $this->controller->user;
         $form = new ProfilePasswordForm();
 
         if (($data = Yii::app()->getRequest()->getPost('ProfilePasswordForm')) !== null) {
@@ -39,10 +27,10 @@ class ProfilePasswordAction extends CAction
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('UserModule.user', 'Your password was changed successfully.')
                     );
-                    $this->controller->redirect(['/user/account/profile']);
+                    $this->controller->redirect(['/user/profile/profile']);
                 }
             }
         }
-        $this->controller->render('profilePassword', ['model' => $form]);
+        $this->controller->render('password', ['model' => $form]);
     }
 }

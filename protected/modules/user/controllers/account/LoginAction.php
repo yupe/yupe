@@ -17,10 +17,6 @@ class LoginAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect(Url::redirectUrl(Yii::app()->getUser()->getReturnUrl()));
-        }
-
         /**
          * Если было совершено больше 3х попыток входа
          * в систему, используем сценарий с капчей:
