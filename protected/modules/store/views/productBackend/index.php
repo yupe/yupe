@@ -27,6 +27,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
+        'actionsButtonsCopy'  => true,
         'columns' => array(
             array(
                 'type' => 'raw',

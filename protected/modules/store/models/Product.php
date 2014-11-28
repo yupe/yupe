@@ -662,4 +662,46 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->discount_price;
     }
 
+    public function copyModel($items) {
+
+        foreach ($items as $item) {
+
+            $loadModel = Product::model()->with('images')->findByPk($item);
+            if ($loadModel === null) {
+                throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            }
+
+            $newProduct = new Product();
+            $newProduct->attributes = $loadModel->attributes;
+
+            $EavAttributes = $loadModel->getEavAttributes();
+            if (!empty($EavAttributes)) {
+                $newProduct->setTypeAttributes($loadModel->getEavAttributes());
+            }
+
+            if ($variants = $loadModel->variants) {
+                $variantattributes = [];
+                foreach ($variants as $variant) {
+                    $variantattributes[] = $variant->attributes;
+                }
+                if (!empty($variantattributes)) {
+                    $newProduct->setProductVariants($variantattributes);
+                }
+            }
+
+            $newProduct->alias = $loadModel->alias . time();
+            $newProduct->save();
+
+            if ($categories = $loadModel->categories) {
+                $categoriesAttributes = [];
+                foreach ($categories as $categorie) {
+                    $categories[] = $categorie->attributes;
+                }
+                if (!empty($categoriesAttributes)) {
+                    $newProduct->setProductCategories($categories);
+                }
+            }
+        }
+
+    }
 }

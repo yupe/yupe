@@ -61,7 +61,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
                 $this->updateProductImages($model);
 
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was added!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('StoreModule.store', 'Record was added!'));
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
@@ -89,7 +90,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
                 $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
                 $this->updateProductImages($model);
-                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('StoreModule.store', 'Record was updated!'));
+                Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('StoreModule.store', 'Record was updated!'));
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));

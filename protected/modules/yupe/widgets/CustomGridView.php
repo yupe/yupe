@@ -94,6 +94,8 @@ class CustomGridView extends \TbExtendedGridView
 
     public $actionsButtons = true;
 
+    public $actionsButtonsCopy = false;
+
     public function renderBulkActions()
     {
         \Booster::getBooster()->registerAssetJs('jquery.saveselection.gridview.js');
@@ -182,11 +184,24 @@ class CustomGridView extends \TbExtendedGridView
                             'Do you really want to delete selected elements?'
                         ) . '")) return false; multiaction("delete", values); }',
                 ),
+
             ),
             'checkBoxColumnConfig' => array(
                 'name' => 'id'
             )
         ) : $this->bulkActions;
+
+        $this->actionsButtonsCopy?$this->bulkActions['actionButtons'][] = array(
+            'id'         => 'copy-' . strtolower($this->_modelName),
+            'buttonType' => 'button',
+            'context'    => 'warning',
+            'size'       => 'small',
+            'label'      => Yii::t('YupeModule.yupe', 'Copy'),
+            'click'      => 'js:function (values) { if(!confirm("' . Yii::t(
+                    'YupeModule.yupe',
+                    'Copy select element?'
+                ) . '")) return false; multiaction("copy", values); }',
+        ):null;
 
         $this->type = empty($this->type) ? 'striped condensed' : $this->type;
 
