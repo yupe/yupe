@@ -36,7 +36,7 @@ class ProfileController extends yupe\components\controllers\FrontController
             Yii::app()->user->logout();
 
             $this->controller->redirect(
-                array('/user/account/login')
+                ['/user/account/login']
             );
         }
 
