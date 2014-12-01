@@ -58,7 +58,7 @@
                         ),
                     'confirm_deactivate'       => Yii::t(
                             'YupeModule.yupe',
-                            'Do you really want to disable module?'
+                            'Do you really want to disable module? We disable all dependent modules!'
                         ),
                     'confirm_activate'         => Yii::t('YupeModule.yupe', 'Do you really want to enable module?'),
                     'confirm_uninstall'        => Yii::t(

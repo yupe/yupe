@@ -59,7 +59,7 @@ return [
     'Do you really want to clean cache and assets?' => 'Вы уверены, что хотите удалить весь кеш и все ресурсы (assets)?',
     'Do you really want to clean cache?' => 'Вы уверены, что хотите удалить весь кеш?',
     'Do you really want to delete module?' => 'Вы уверены, что хотите удалить модуль?',
-    'Do you really want to disable module?' => 'Вы уверены, что хотите отключить модуль?',
+    'Do you really want to disable module? We disable all dependent modules!' => 'Вы уверены, что хотите отключить модуль? Мы отключим все зависимые модули!',
     'Do you really want to enable module?' => 'Вы уверены, что хотите включить модуль?',
     'Do you really want to install module?' => 'Вы уверены, что хотите установить модуль?',
     'Do you really want to update configuration file?' => 'Вы уверены, что хотите обновить файл конфигурации?',

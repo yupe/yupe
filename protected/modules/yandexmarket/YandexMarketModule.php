@@ -82,8 +82,8 @@ class YandexMarketModule extends WebModule
 
         $this->setImport(
             [
-                'yandexmarket.models.*',
-                'store.models.*',
+                'application.modules.yandexmarket.models.*',
+                'application.modules.store.models.*',
             ]
         );
     }

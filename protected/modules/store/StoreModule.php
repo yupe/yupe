@@ -181,9 +181,9 @@ class StoreModule extends WebModule
 
         $this->setImport(
             [
-                'store.models.*',
-                'store.forms.*',
-                'store.components.*',
+                'application.modules.store.models.*',
+                'application.modules.store.forms.*',
+                'application.modules.store.components.*',
             ]
         );
     }

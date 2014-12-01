@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('store.models.*');
+Yii::import('application.modules.store.models.*');
 
 class CategoryTreeWidget extends yupe\widgets\YWidget
 {

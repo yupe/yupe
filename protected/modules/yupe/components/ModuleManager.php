@@ -389,7 +389,9 @@ class ModuleManager extends \CApplicationComponent
 
     public function getModulesConfigBack($module = '')
     {
-        return Yii::app()->getBasePath() . '/config/modulesBack/' . empty($module) ? $module : $module . '.php';
+        $path = Yii::app()->getBasePath() . '/config/modulesBack/';
+
+        return empty($module) ? $path : $path.$module.'.php';
     }
 
     /**

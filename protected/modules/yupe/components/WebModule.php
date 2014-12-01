@@ -719,7 +719,7 @@ abstract class WebModule extends CWebModule
         $fileModule = Yii::app()->moduleManager->getModulesConfigDefault($this->id);
         $fileConfig = Yii::app()->moduleManager->getModulesConfig($this->id);
         $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($this->id);
-        
+
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));
         } else {
@@ -728,13 +728,12 @@ abstract class WebModule extends CWebModule
                 $dependent = $this->getDependent();
                 if (!empty($dependent) && is_array($dependent)) {
                     foreach ($dependent as $dependen) {
-                        if (Yii::app()->getModule($dependen) != null) {
-                            throw new CException(
-                                Yii::t(
-                                    'YupeModule.yupe',
-                                    'Error. You have enabled modules which depends for this module. Disable it first!'
-                                )
-                            );
+                        $module = Yii::app()->getModule($dependen);
+                        if ($module != null) {
+                            if($module->getIsNoDisable()) {
+                                continue;
+                            }
+                            $module->getDeActivate();
                         }
                     }
                 }
@@ -746,7 +745,7 @@ abstract class WebModule extends CWebModule
                 throw new CException(
                     Yii::t(
                         'YupeModule.yupe',
-                        'Error when coping old configuration file in modulesBack folder!'
+                        "$fileConfig => $fileConfigBack "
                     )
                 );
             } elseif (!@unlink($fileConfig)) {
