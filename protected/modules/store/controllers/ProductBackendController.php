@@ -224,7 +224,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 if ($attr->type == Attribute::TYPE_DROPDOWN) {
                     $tmp[] = array_merge($attr->attributes, ['options' => $attr->options]);
                 } else {
-                    if (in_array($attr->type, [Attribute::TYPE_CHECKBOX, Attribute::TYPE_TEXT])) {
+                    if (in_array($attr->type, [Attribute::TYPE_CHECKBOX, Attribute::TYPE_SHORT_TEXT])) {
                         $tmp[] = array_merge($attr->attributes, ['options' => []]);
                     }
                 }
