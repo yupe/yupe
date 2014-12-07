@@ -21,6 +21,11 @@ class ProductVariant extends \yupe\models\YModel
     public $amount = 0;
 
     /**
+     * @var
+     */
+    public $attribute_option_id;
+
+    /**
      * @return string the associated database table name
      */
     public function tableName()
@@ -44,7 +49,7 @@ class ProductVariant extends \yupe\models\YModel
     {
         return [
             ['attribute_id, product_id, amount, type', 'required'],
-            ['id, attribute_id, product_id, type', 'numerical', 'integerOnly' => true],
+            ['id, attribute_id, product_id, type, attribute_option_id', 'numerical', 'integerOnly' => true],
             ['type', 'in', 'range' => [self::TYPE_SUM, self::TYPE_PERCENT, self::TYPE_BASE_PRICE]],
             ['amount', 'numerical'],
             ['sku', 'length', 'max' => 50],
@@ -57,6 +62,10 @@ class ProductVariant extends \yupe\models\YModel
 
     public function beforeValidate()
     {
+        if ($this->attribute_option_id) {
+            $option = AttributeOption::model()->findByPk($this->attribute_option_id);
+            $this->attribute_value = $option ? $option->value : null;
+        }
         if (!$this->attribute_value) {
             $this->addErrors(
                 [
@@ -107,9 +116,9 @@ class ProductVariant extends \yupe\models\YModel
                 $value = $this->attribute_value ? Yii::t('StoreModule.product', 'Да') : Yii::t('StoreModule.product', 'Нет');
                 break;
             case Attribute::TYPE_DROPDOWN:
-            case Attribute::TYPE_TEXT:
+            case Attribute::TYPE_SHORT_TEXT:
             case Attribute::TYPE_NUMBER:
-                $value = AttributeOption::model()->findByPk($this->attribute_value)->value;
+                $value = $this->attribute_value;
                 break;
         }
         if ($includeCost) {

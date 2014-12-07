@@ -409,6 +409,7 @@ $form = $this->beginWidget(
                 $.getJSON('/backend/store/product/typeAttributes/' + typeId, function (data) {
                     typeAttributes = data;
                     var select = $('#variants-type-attributes');
+                    select.html("");
                     $.each(data, function (key, value) {
                         select.append($("<option></option>")
                             .attr("value", value.id)

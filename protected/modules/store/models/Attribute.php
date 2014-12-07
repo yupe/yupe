@@ -19,7 +19,7 @@
 class Attribute extends \yupe\models\YModel
 {
     const TYPE_TEXT = 0;
-    const TYPE_TEXTAREA = 1;
+    const TYPE_SHORT_TEXT = 1;
     const TYPE_DROPDOWN = 2;
     const TYPE_CHECKBOX = 3;
     const TYPE_CHECKBOX_LIST = 4;
@@ -142,7 +142,7 @@ class Attribute extends \yupe\models\YModel
     public static function getTypesList()
     {
         return [
-            self::TYPE_TEXTAREA => Yii::t('StoreModule.store', 'Короткий текст (до 250 символов)'),
+            self::TYPE_SHORT_TEXT => Yii::t('StoreModule.store', 'Короткий текст (до 250 символов)'),
             self::TYPE_TEXT => Yii::t('StoreModule.store', 'Текст'),
             self::TYPE_DROPDOWN => Yii::t('StoreModule.store', 'Список'),
             //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Список чекбоксов'),
@@ -162,7 +162,7 @@ class Attribute extends \yupe\models\YModel
     {
         $name = $name ?: 'Attribute[' . $this->name . ']';
         switch ($this->type) {
-            case self::TYPE_TEXTAREA:
+            case self::TYPE_SHORT_TEXT:
                 return CHtml::textField($name, $value, $htmlOptions);
                 break;
             case self::TYPE_TEXT:
@@ -201,7 +201,7 @@ class Attribute extends \yupe\models\YModel
         $res = '';
         switch ($this->type) {
             case self::TYPE_TEXT:
-            case self::TYPE_TEXTAREA:
+            case self::TYPE_SHORT_TEXT:
             case self::TYPE_NUMBER:
                 $res = $value;
                 break;
