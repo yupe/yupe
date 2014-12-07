@@ -109,7 +109,7 @@ class ProductVariant extends \yupe\models\YModel
             case Attribute::TYPE_DROPDOWN:
             case Attribute::TYPE_TEXT:
             case Attribute::TYPE_NUMBER:
-                $value = $this->attribute_value;
+                $value = AttributeOption::model()->findByPk($this->attribute_value)->value;
                 break;
         }
         if ($includeCost) {
