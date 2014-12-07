@@ -100,7 +100,7 @@ $this->breadcrumbs = array_merge(
                                         'ProductVariant[]',
                                         null,
                                         CHtml::listData($variantsGroup, 'id', 'optionValue'),
-                                        ['empty' => '', 'class' => 'form-control']
+                                        ['empty' => '', 'class' => 'form-control', 'options' => $product->getVariantsOptions()]
                                     ); ?>
                                 </td>
                             </tr>

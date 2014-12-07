@@ -651,6 +651,28 @@ class Product extends yupe\models\YModel implements ICommentable
         return $variantsGroups;
     }
 
+    /**
+     * @var array кеш getVariantsOptions
+     */
+    private $_variantsOptions = false;
+
+    /**
+     * Функция для подготовки специфичных настроек элементов option в select при выводе вариантов, которые будут использоваться в js при работе с вариантами
+     * @return array
+     */
+    public function getVariantsOptions()
+    {
+        if ($this->_variantsOptions !== false) {
+            return $this->_variantsOptions;
+        }
+        $options = [];
+
+        foreach ((array)$this->variants as $variant) {
+            $options[$variant->id] = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
+        }
+        $this->_variantsOptions = $options;
+        return $this->_variantsOptions;
+    }
 
     public function getDiscountPrice()
     {
