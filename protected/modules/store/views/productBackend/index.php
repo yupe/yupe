@@ -30,7 +30,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
         'actionsButtons' => [
             'add' => CHtml::link(
                 Yii::t('StoreModule.store', 'Add'),
-                ['/order/orderBackend/create'],
+                ['/store/productBackend/create'],
                 ['class' => 'btn btn-sm btn-success pull-right']
             ),
             'copy' => CHtml::link(
