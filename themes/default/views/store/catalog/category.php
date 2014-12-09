@@ -1,6 +1,7 @@
 <?php
-Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-frontend.css');
-Yii::app()->getClientScript()->registerScriptFile($this->module->getAssetsUrl() . '/js/store.js');
+$mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
+Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 /* @var $category StoreCategory */
 
 $this->pageTitle =  $category->getMetaTile();
