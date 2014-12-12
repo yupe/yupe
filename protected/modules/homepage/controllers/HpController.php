@@ -24,10 +24,23 @@ class HpController extends yupe\components\controllers\FrontController
         $view = $data = null;
 
         if ($module->mode == HomepageModule::MODE_PAGE) {
-            $view = 'page';
+
+            $target = Page::model()->findByPk($module->target);
+            if (null === $target) {
+                throw new CHttpException('404', Yii::t('HomepageModule.page', 'Page was not found'));
+            }
+            $page = Page::model()->find(
+                    'slug = :slug AND lang = :lang',
+                    [
+                        ':slug'    => $target->slug,
+                        ':lang'    => Yii::app()->language,
+                    ]
+                );
+            $page = $page ?: $target;
+            $view = $page->view ?: 'page';
 
             $data = [
-                'page' => Page::model()->findByPk($module->target)
+                'page' => $page
             ];
         }
 
