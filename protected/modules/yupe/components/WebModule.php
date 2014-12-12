@@ -745,7 +745,7 @@ abstract class WebModule extends CWebModule
                 throw new CException(
                     Yii::t(
                         'YupeModule.yupe',
-                        "$fileConfig => $fileConfigBack "
+                        "Error when coping old configuration file in modulesBack folder!"
                     )
                 );
             } elseif (!@unlink($fileConfig)) {
@@ -983,8 +983,6 @@ abstract class WebModule extends CWebModule
     public function init()
     {
         parent::init();
-
-        //Yii::log("Init module '{$this->id}'...", CLogger::LEVEL_TRACE);
 
         $this->getSettings();
     }
