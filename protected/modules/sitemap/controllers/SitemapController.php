@@ -1,6 +1,6 @@
 <?php
 
-class SitemapController extends yupe\components\controllers\FrontController
+class SitemapController extends application\components\Controller
 {
     public $cacheKey = "sitemap::sitemap.xml";
     public $cacheKeyLock = "sitemap::lock";

@@ -1,7 +1,6 @@
 <?php
 namespace application\modules\social\controllers;
 
-use yupe\components\controllers\FrontController;
 use yupe\widgets\YFlashMessages;
 use application\modules\social\components\UserIdentity;
 use application\modules\social\models\SocialUser;
@@ -13,7 +12,7 @@ use User;
 use RegistrationForm;
 use LoginForm;
 
-class UserController extends FrontController
+class UserController extends \application\components\Controller
 {
     protected $service;
 

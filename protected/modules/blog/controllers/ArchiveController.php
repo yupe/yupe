@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-class ArchiveController extends yupe\components\controllers\FrontController
+class ArchiveController extends application\components\Controller
 {
     public function actionIndex()
     {

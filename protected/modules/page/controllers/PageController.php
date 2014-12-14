@@ -11,7 +11,7 @@
  * @since 0.1
  *
  */
-class PageController extends yupe\components\controllers\FrontController
+class PageController extends application\components\Controller
 {
     /**
      * Текущая просматриваемая страница

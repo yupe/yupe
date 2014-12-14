@@ -4,7 +4,7 @@
  * Class ExportController
  *
  */
-class ExportController extends yupe\components\controllers\FrontController
+class ExportController extends application\components\Controller
 {
     public $cacheKey = 'yandexmarket::export::';
 

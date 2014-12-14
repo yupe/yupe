@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class GalleryController extends yupe\components\controllers\FrontController
+class GalleryController extends application\components\Controller
 {
     const GALLERY_PER_PAGE = 10;
 
