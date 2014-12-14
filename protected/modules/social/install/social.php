@@ -9,10 +9,9 @@ return [
             'popup'    => false,
             'services' => [
                 'google'    => [
-                    'class'              => 'application\modules\social\components\services\Google',
-                    'requiredAttributes' => [
-                        'email' => ['email', 'contact/email'],
-                    ],
+                    'class'         => 'application\modules\social\components\services\Google',
+                    'client_id'     => '',
+                    'client_secret' => '',
                 ],
                 'twitter'   => [
                     // register your app here: https://dev.twitter.com/apps/new
