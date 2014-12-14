@@ -1,9 +1,7 @@
 <?php
 namespace application\modules\social\components\services;
 
-use \GoogleOpenIDService;
-
-class Google extends GoogleOpenIDService
+class Google extends \GoogleOAuthService
 {
     const AUTH_DATA_KEY = 'authData';
 
