@@ -1,7 +1,7 @@
 <?php
 /**
- * Controller is the customized base controller class.
- * All controller classes for this application should extend from this base class.
+ * Controller is the customized base front controller class.
+ * All front controllers in all modules extends from this base class.
  */
 namespace application\components;
 

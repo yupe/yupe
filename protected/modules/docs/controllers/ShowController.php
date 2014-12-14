@@ -11,7 +11,7 @@
  * @link     http://yupe.ru
  *
  **/
-class ShowController extends yupe\components\controllers\FrontController
+class ShowController extends application\components\Controller
 {
     /**
      * Инициализируем контроллер:

@@ -1,6 +1,6 @@
 <?php
 
-class OrderController extends yupe\components\controllers\FrontController
+class OrderController extends application\components\Controller
 {
     public function actionView($url = null)
     {

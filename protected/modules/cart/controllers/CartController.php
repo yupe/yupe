@@ -1,6 +1,6 @@
 <?php
 
-class CartController extends yupe\components\controllers\FrontController
+class CartController extends application\components\Controller
 {
     public function actionIndex()
     {
