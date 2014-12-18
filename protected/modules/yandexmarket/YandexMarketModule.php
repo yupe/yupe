@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class YandexMarketModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.1';
 
     public function getDependencies()
     {
@@ -25,7 +25,7 @@ class YandexMarketModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t('YandexMarketModule.default', 'Services');
+        return Yii::t('YandexMarketModule.default', 'Store');
     }
 
     public function getAdminPageLink()

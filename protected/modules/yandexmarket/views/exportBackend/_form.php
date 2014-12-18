@@ -87,7 +87,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo CHtml::activeLabel($model, 'categories'); ?>
+        <?php echo CHtml::activeLabel($model, Yii::t('YandexMarketModule.default', 'Categories')); ?>
         <?php $this->widget('store.widgets.CategoryTreeWidget', ['selectedCategories' => $model->categories, 'id' => 'category-tree']); ?>
         <?php echo CHtml::hiddenField('Export[categories]'); ?>
     </div>
