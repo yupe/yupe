@@ -59,7 +59,7 @@
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
-        "guzzlehttp/guzzle": "4.2.*"
+        "guzzlehttp/guzzle": "5.0.*"
     },
     "repositories": {
         "taggable": {
