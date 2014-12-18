@@ -85,7 +85,7 @@ $form = $this->beginWidget(
                     'category_id',
                     [
                         'widgetOptions' => [
-                            'data' => (new StoreCategory())->getTabList(),
+                            'data' => CHtml::listData(StoreCategory::model()->findAll(['order' => 'name DESC']), 'id', 'name'),
                             'htmlOptions' => [
                                 'empty' => '---',
                             ],
