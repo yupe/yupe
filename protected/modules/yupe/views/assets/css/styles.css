@@ -16,13 +16,6 @@
     text-decoration: none;
     background: #F3F3F3;
     background-color: #f8f8f8;
-    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eeeeee));
-    background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
     border: 1px solid #ddd;
     box-sizing: border-box;
     border-radius: 5px;
@@ -39,13 +32,7 @@
 .shortcuts .shortcut:hover {
     background: #E8E8E8;
     background-color: #f0f0f0;
-    background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#e1e1e1));
-    background-image: -webkit-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: -o-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: linear-gradient(to bottom, #fafafa, #e1e1e1);
     background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffafafa', endColorstr='#ffe1e1e1', GradientType=0);
 }
 
 .shortcuts .shortcut:hover .shortcut-icon {

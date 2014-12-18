@@ -28,7 +28,7 @@ class ExportController extends application\components\Controller
             $xml .= $this->getShopInfo(
                 $model->shop_name,
                 $model->shop_company,
-                $model->shop_url ?: Yii::app()->getBaseUrl(true),
+                $model->shop_url ? : Yii::app()->getBaseUrl(true),
                 $model->shop_platform,
                 $model->shop_version,
                 $model->shop_agency,
@@ -71,8 +71,16 @@ class ExportController extends application\components\Controller
      *
      * @return string
      */
-    private function getShopInfo($name, $company, $url, $platform = null, $version = null, $agency = null, $email = null, $cpa = null)
-    {
+    private function getShopInfo(
+        $name,
+        $company,
+        $url,
+        $platform = null,
+        $version = null,
+        $agency = null,
+        $email = null,
+        $cpa = null
+    ) {
         $res = '';
         $res .= CHtml::tag('name', [], $name);
         $res .= CHtml::tag('company', [], $company);
@@ -81,6 +89,7 @@ class ExportController extends application\components\Controller
         $res .= $version ? CHtml::tag('version', [], $version) : '';
         $res .= $agency ? CHtml::tag('agency', [], $agency) : '';
         $res .= $email ? CHtml::tag('email', [], $email) : '';
+
         //$res .= $cpa ? CHtml::tag('cpa', [], $cpa) : '';
 
         return $res;
@@ -102,6 +111,7 @@ class ExportController extends application\components\Controller
             $res .= CHtml::tag('currency', ['id' => $currency['id'], 'rate' => $currency['rate']]);
         }
         $res .= CHtml::closeTag('currencies');
+
         return $res;
     }
 
@@ -117,6 +127,7 @@ class ExportController extends application\components\Controller
         }
 
         $res .= CHtml::closeTag('categories');
+
         return $res;
     }
 
@@ -124,8 +135,16 @@ class ExportController extends application\components\Controller
     {
         $criteria = new CDbCriteria();
         $criteria->compare('t.status', Product::STATUS_ACTIVE);
-        $criteria->addInCondition('t.category_id', (array)$categories);
-        $criteria->addInCondition('t.producer_id', (array)$brands);
+        $categories = (array)$categories;
+        $brands = (array)$brands;
+
+        if (!empty($categories)) {
+            $criteria->addInCondition('t.category_id', (array)$categories);
+        }
+
+        if (!empty($brands)) {
+            $criteria->addInCondition('t.producer_id', (array)$brands);
+        }
 
         $dataProvider = new CActiveDataProvider('Product', ['criteria' => $criteria]);
         $iterator = new CDataProviderIterator($dataProvider, 100);
@@ -134,13 +153,17 @@ class ExportController extends application\components\Controller
         $res .= CHtml::openTag('offers');
         /* @var $model Product */
         foreach ($iterator as $model) {
-            $res .= CHtml::openTag('offer', ['id' => $model->id, 'type' => 'vendor.model', 'available' => ($model->in_stock ? 'true' : 'false')]);
+            $res .= CHtml::openTag(
+                'offer',
+                ['id' => $model->id, 'type' => 'vendor.model', 'available' => ($model->in_stock ? 'true' : 'false')]
+            );
             $res .= $this->getOfferInfo($model);
 
             $res .= CHtml::closeTag('offer');
         }
 
         $res .= CHtml::closeTag('offers');
+
         return $res;
     }
 

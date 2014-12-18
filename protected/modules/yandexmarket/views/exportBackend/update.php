@@ -3,7 +3,6 @@
 
 $this->breadcrumbs = [
     Yii::t('YandexMarketModule.default', 'Экспорт товаров') => ['/yandexmarket/exportBackend/index'],
-    $model->name => ['/yandexmarket/exportBackend/view', 'id' => $model->id],
     Yii::t('YandexMarketModule.default', 'Редактировать'),
 ];
 
@@ -18,14 +17,6 @@ $this->menu = [
         'label' => Yii::t('YandexMarketModule.default', 'Редактировать'),
         'url' => [
             '/yandexmarket/exportBackend/update',
-            'id' => $model->id
-        ]
-    ],
-    [
-        'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('YandexMarketModule.default', 'Просмотр'),
-        'url' => [
-            '/yandexmarket/exportBackend/view',
             'id' => $model->id
         ]
     ],
