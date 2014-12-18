@@ -65,6 +65,7 @@ $this->widget(
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'bulkActions'  => [false],
+        'actionsButtons' => false,
         'columns'      => [
             [
                 'name'   => 'user_id',

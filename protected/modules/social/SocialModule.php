@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class SocialModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.1';
 
     public $controllerNamespace = '\application\modules\social\controllers';
 
