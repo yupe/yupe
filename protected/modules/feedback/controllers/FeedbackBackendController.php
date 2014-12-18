@@ -261,7 +261,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                             Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
                         );
 
-                        $this->redirect(['/feedback/default/view/', 'id' => $model->id]);
+                        $this->redirect(['/feedback/feedbackBackend/view/', 'id' => $model->id]);
                     } else {
                         Yii::app()->ajax->success(
                             [
