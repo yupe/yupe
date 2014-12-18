@@ -91,6 +91,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ['status, is_special, producer_id, type_id, quantity, in_stock, category_id', 'numerical', 'integerOnly' => true],
             ['price, discount_price, discount, length, height, width, weight', 'store\components\validators\NumberValidator'],
             ['name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250],
+            ['discount_price, discount', 'default', 'value' => null],
             ['sku', 'length', 'max' => 100],
             ['alias', 'length', 'max' => 150],
             ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')],
