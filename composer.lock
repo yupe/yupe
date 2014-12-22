@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "121e1941b99775c96ba2d87453d726e1",
+    "hash": "40701a1a0665ec902459d4acd9c831b8",
     "packages": [
         {
             "name": "clevertech/yii-booster",
@@ -702,16 +702,16 @@
         },
         {
             "name": "yiisoft/yii",
-            "version": "1.1.15",
+            "version": "1.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii.git",
-                "reference": "022a51d34ad2c95db2b77b2075e98f5dd78b08e0"
+                "reference": "bca0420b6799b0b2a7966aa90bcd15cb4aa73563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii/zipball/022a51d34ad2c95db2b77b2075e98f5dd78b08e0",
-                "reference": "022a51d34ad2c95db2b77b2075e98f5dd78b08e0",
+                "url": "https://api.github.com/repos/yiisoft/yii/zipball/bca0420b6799b0b2a7966aa90bcd15cb4aa73563",
+                "reference": "bca0420b6799b0b2a7966aa90bcd15cb4aa73563",
                 "shasum": ""
             },
             "require": {
@@ -721,6 +721,12 @@
                 "framework/yiic"
             ],
             "type": "library",
+            "autoload": {
+                "classmap": [
+                    "framework/YiiBase.php",
+                    "framework/yii.php"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
@@ -782,7 +788,7 @@
                 "framework",
                 "yii"
             ],
-            "time": "2014-06-30 00:14:27"
+            "time": "2014-12-21 19:30:17"
         },
         {
             "name": "zhuravljov/yii2-debug",
@@ -826,16 +832,16 @@
     "packages-dev": [
         {
             "name": "codeception/codeception",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "0f9de6de9788912a289214a020193eac0a9a05e8"
+                "reference": "0094191ac0d6e87821fba41de002103ebe79a279"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/0f9de6de9788912a289214a020193eac0a9a05e8",
-                "reference": "0f9de6de9788912a289214a020193eac0a9a05e8",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/0094191ac0d6e87821fba41de002103ebe79a279",
+                "reference": "0094191ac0d6e87821fba41de002103ebe79a279",
                 "shasum": ""
             },
             "require": {
@@ -857,6 +863,7 @@
                 "codeception/specify": "~0.3",
                 "codegyre/robo-ci": "@dev",
                 "facebook/php-sdk": "~3.2",
+                "flow/jsonpath": "~0.1",
                 "monolog/monolog": "~1.8",
                 "pda/pheanstalk": "~2.0",
                 "phpseclib/phpseclib": "~0.3.6",
@@ -903,7 +910,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-11-18 00:48:50"
+            "time": "2014-12-19 23:54:20"
         },
         {
             "name": "doctrine/instantiator",

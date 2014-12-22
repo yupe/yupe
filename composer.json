@@ -47,7 +47,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": ">=1.1.15",
+        "yiisoft/yii": ">=1.1.16",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
