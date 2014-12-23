@@ -27,12 +27,12 @@ class UpdateManager extends CApplicationComponent
     /**
      * @var string
      */
-    protected $checkUpdateUrl = 'http://update.yupe.ru/update/check';
+    protected $checkUpdateUrl = 'http://yupe.ru/marketplace/check';
 
     /**
      * @var string
      */
-    protected $getModuleUrl = 'http://update.yupe.ru/update/module';
+    protected $getModuleUrl = 'http://promo.local/marketplace/module';
 
     // 8 часов
     /**
@@ -100,7 +100,7 @@ class UpdateManager extends CApplicationComponent
 
         try {
 
-            $data = Yii::app()->getCache()->get('yupe::update::info');
+            $data = false;//Yii::app()->getCache()->get('yupe::update::info');
 
             if (false === $data) {
 
@@ -118,7 +118,8 @@ class UpdateManager extends CApplicationComponent
                         'query' => [
                             'data' => \CJSON::encode($check),
                             'app' => Yii::app()->name,
-                            'url' => Yii::app()->getBaseUrl(true)
+                            'url' => Yii::app()->getBaseUrl(true),
+                            'version' => Yii::app()->getModule('yupe')->getVersion()
                         ]
                     ]
                 )->json();
@@ -137,28 +138,6 @@ class UpdateManager extends CApplicationComponent
 
             return false;
         }
-    }
-
-    /**
-     * @param array $modules
-     * @return array
-     */
-    public function getModulesUpdateList(array $modules)
-    {
-        Yii::log('Calc updates for modules...', \CLogger::LEVEL_INFO, static::LOG_CATEGORY);
-
-        $data = Yii::app()->getCache()->get('yupe::update::list');
-
-        if (false !== $data) {
-
-            return $data;
-        }
-
-        $data = $this->getModulesUpdateInfo($modules);
-
-        Yii::app()->getCache()->set('yupe::update::list', $data, $this->cacheTime);
-
-        return $data;
     }
 
     /**
@@ -187,6 +166,12 @@ class UpdateManager extends CApplicationComponent
 
             $moduleFilePath = $this->getUploadPathForModule($module, $this->escapeVersion($version));
 
+            Yii::log(
+                sprintf('Get remote file for module "%s"...', $module),
+                \CLogger::LEVEL_INFO,
+                static::LOG_CATEGORY
+            );
+
             // получить сам файл модуля
             $this->client->get(
                 $this->getModuleUrl,
@@ -200,13 +185,29 @@ class UpdateManager extends CApplicationComponent
                 ]
             );
 
+            if(!file_exists($moduleFilePath)) {
+                Yii::log(
+                    sprintf('Error save file for module "%s" to "%s"...', $module, $moduleFilePath),
+                    \CLogger::LEVEL_ERROR,
+                    static::LOG_CATEGORY
+                );
+
+                throw new \CException(sprintf('Error save file for module "%s" to "%s"...', $module, $md5FilePath));
+            }
+
             Yii::log(
-                sprintf('Success get module file for module "%s"...', $module),
+                sprintf('Success save module file "%s" for module "%s"...',$moduleFilePath,  $module),
                 \CLogger::LEVEL_INFO,
                 static::LOG_CATEGORY
             );
 
             $md5FilePath = $this->getUploadPathForModule($module, $this->escapeVersion($version), true);
+
+            Yii::log(
+                sprintf('Get remote md5 file for module "%s"...', $module),
+                \CLogger::LEVEL_INFO,
+                static::LOG_CATEGORY
+            );
 
             //получить md5-файл
             $this->client->get(
@@ -221,17 +222,23 @@ class UpdateManager extends CApplicationComponent
                 ]
             );
 
+            if(!file_exists($md5FilePath)) {
+                Yii::log(
+                    sprintf('Error save md5 file for module "%s" to "%s"...', $module, $md5FilePath),
+                    \CLogger::LEVEL_ERROR,
+                    static::LOG_CATEGORY
+                );
+
+                throw new \CException(sprintf('Error save md5 file for module "%s" to "%s"...', $module, $md5FilePath));
+            }
+
             Yii::log(
-                sprintf('Success get md5 file for module "%s"...', $module),
+                sprintf('Success save md5 file for module "%s" to "%s"...', $module, $md5FilePath),
                 \CLogger::LEVEL_INFO,
                 static::LOG_CATEGORY
             );
 
             //проверить md5
-            if (md5_file($moduleFilePath) != @file_get_contents($md5FilePath)) {
-                Yii::log(sprintf('MD5 error for module "%s"', $module), \CLogger::LEVEL_ERROR, static::LOG_CATEGORY);
-                throw new \CException(sprintf('MD5 error for module "%s"', $module));
-            }
 
             Yii::log(
                 sprintf('Success check md5 file for module "%s"...', $module),
@@ -239,11 +246,20 @@ class UpdateManager extends CApplicationComponent
                 static::LOG_CATEGORY
             );
 
+            $downloadedMd5 = md5_file($moduleFilePath);
+
+            $actualMd5 = @file_get_contents($md5FilePath);
+
+            if ($downloadedMd5 != $actualMd5) {
+                Yii::log(sprintf('MD5 error for module "%s"..."%s" vs "%s"', $module, $downloadedMd5, $actualMd5), \CLogger::LEVEL_ERROR, static::LOG_CATEGORY);
+                throw new \CException(sprintf('MD5 error for module "%s"..."%s" vs "%s"', $module, $downloadedMd5, $actualMd5));
+            }
+
             return true;
         } catch (\Exception $e) {
 
             Yii::log(
-                sprintf('Error download module file %e', $e->__toString()),
+                sprintf('Error download module file. %s', $e->__toString()),
                 \CLogger::LEVEL_ERROR,
                 static::LOG_CATEGORY
             );

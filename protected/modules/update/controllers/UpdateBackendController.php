@@ -20,30 +20,17 @@ class UpdateBackendController extends BackController
 
     public function actionIndex()
     {
-        if (Yii::app()->getRequest()->getIsPostRequest()) {
+        $modules = Yii::app()->moduleManager->getModules();
 
-            $modules = Yii::app()->moduleManager->getModules();
+        $updates = Yii::app()->updateManager->getModulesUpdateInfo(
+            $modules['modules']
+        );
 
-            $updates = Yii::app()->updateManager->getModulesUpdateList(
-                $modules['modules']
-            );
-
-            $success = is_array($updates);
-
-            Yii::app()->ajax->success(
-                $this->renderPartial(
-                    '_modules',
-                    [
-                        'success' => $success,
-                        'updates' => $updates,
-                        'modules' => $modules['modules']
-                    ],
-                    true
-                )
-            );
-        }
-
-        $this->render('index');
+        $this->render('index', [
+                'success' => is_array($updates),
+                'updates' => $updates,
+                'modules' => $modules['modules']
+            ]);
     }
 
     public function actionUpdate()

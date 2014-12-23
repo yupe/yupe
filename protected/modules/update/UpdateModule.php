@@ -5,11 +5,11 @@ use yupe\helpers\YFile;
 
 class UpdateModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.1';
 
     public $controllerNamespace = '\application\modules\update\controllers';
 
-    public $updateTmpPath;
+    public  $updateTmpPath;
 
     public function getCategory()
     {
