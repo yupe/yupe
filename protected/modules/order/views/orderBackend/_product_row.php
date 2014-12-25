@@ -17,19 +17,23 @@ $id = $model->id;
         <?php if (!$new): ?>
             <input type="hidden" name="OrderProduct[<?php echo $id; ?>][id]" value="<?php echo $id; ?>"/>
         <?php endif; ?>
-        <?php if ($product): ?>
+        <?php if ($productExists): ?>
             <input type="hidden" class="product-base-price" value="<?php echo $product->getResultPrice(); ?>"/>
             <input type="hidden" name="OrderProduct[<?php echo $id; ?>][product_id]" value="<?php echo $product->id; ?>"/>
             <img src="<?= $product->getImageUrl(40, 40); ?>" alt="" class="img-thumbnail"/>
         <?php endif; ?>
     </div>
     <div class="col-sm-3">
-        <?php echo CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
-        <br/>
-        [<?php echo $product->getResultPrice(); ?> <?php echo Yii::t("OrderModule.order", "руб."); ?>]
+        <?php if ($productExists): ?>
+            <?php echo CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
+            <br/>
+            [<?php echo $product->getResultPrice(); ?> <?php echo Yii::t("OrderModule.order", "руб."); ?>]
+        <?php else: ?>
+            <?php echo $model->product_name; ?>
+        <?php endif; ?>
     </div>
     <div class="col-sm-3">
-        <?php if ($product): ?>
+        <?php if ($productExists): ?>
             <div class="row">
                 <?php
                 $variantGroups = [];
@@ -79,7 +83,9 @@ $id = $model->id;
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <p class="muted"><?php echo Yii::t("OrderModule.order", "Продукт удален"); ?></p>
+            <div class="row">
+                <p class="text-muted"><?php echo Yii::t("OrderModule.order", "Продукт удален"); ?></p>
+            </div>
         <?php endif; ?>
     </div>
     <div class="col-sm-4">
