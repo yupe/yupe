@@ -252,7 +252,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             foreach ($model as $product) {
                 $data[] = [
                     'id' => $product->id,
-                    'name' => $product->name." ({$product->sku}) ".$product->getPrice(),
+                    'name' => $product->name . ($product->sku ? " ({$product->sku}) " : ' ') . $product->getPrice() . ' ' . Yii::t('StoreModule.product', 'руб.'),
                     'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
                 ];
             }
