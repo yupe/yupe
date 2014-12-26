@@ -209,4 +209,14 @@ class Delivery extends yupe\models\YModel
     {
         return count($this->paymentRelation);
     }
+
+    public function checkAvailable(Order $order)
+    {
+        return $order->getProductsCost() >= $this->available_from;
+    }
+
+    public function findById($id)
+    {
+        return $this->findByPk($id);
+    }
 }

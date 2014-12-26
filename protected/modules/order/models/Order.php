@@ -61,6 +61,9 @@ class Order extends yupe\models\YModel
     public $couponCodes = [];
     private $productsChanged = false; // менялся ли список продуктов в заказе
 
+
+    private $_validCoupons = null;
+
     /**
      * @return string the associated database table name
      */
@@ -82,8 +85,8 @@ class Order extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['status, delivery_id, payment_method_id', 'required'],
-            ['delivery_id, name, email', 'required', 'on' => self::SCENARIO_USER],
+            ['status, delivery_id', 'required'],
+            ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['name, email, address, phone', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
             ['delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true],
@@ -234,13 +237,12 @@ class Order extends yupe\models\YModel
     public function beforeValidate()
     {
         if ($this->getScenario() == self::SCENARIO_USER) {
-            if ($this->getProductsCost() <= $this->delivery->available_from) {
-                $this->addError('delivery_id', Yii::t('OrderModule.order', 'Выбранный способ доставки недоступен'));
-            }
+
             if (!$this->hasProducts) {
                 $this->addError('products', Yii::t('OrderModule.order', 'Не выбрано ни одного продукта'));
             }
         }
+
         return parent::beforeValidate();
     }
 
@@ -285,7 +287,6 @@ class Order extends yupe\models\YModel
         return $cost;
     }
 
-    private $_validCoupons = null;
 
     /**
      * Фильтрует переданные коды купонов и возвращает объекты купонов
