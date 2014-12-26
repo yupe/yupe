@@ -82,7 +82,7 @@ class Order extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['status', 'required'],
+            ['status, delivery_id, payment_method_id', 'required'],
             ['delivery_id, name, email', 'required', 'on' => self::SCENARIO_USER],
             ['name, email, address, phone', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
@@ -535,5 +535,10 @@ class Order extends yupe\models\YModel
         }
 
         return $result;
+    }
+
+    public function findByUrl($url)
+    {
+        return $this->findByAttributes(['url' => $url]);
     }
 }

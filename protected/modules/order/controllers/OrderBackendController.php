@@ -6,8 +6,8 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Order',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Order',
                 'validAttributes' => [
                     'status',
                     'paid'
@@ -25,7 +25,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Order.OrderBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Order.OrderBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Order.OrderBackend.View'],],
-            ['allow', 'actions' => ['productRow'], 'roles' => ['Order.OrderBackend.Create', 'Order.OrderBackend.Update'],],
+            [
+                'allow',
+                'actions' => ['productRow'],
+                'roles' => ['Order.OrderBackend.Create', 'Order.OrderBackend.Update'],
+            ],
             ['deny',],
         ];
     }
@@ -39,14 +43,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $model = new Order();
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Order'])) {
-            $model->attributes = $_POST['Order'];
-            $model->setOrderProducts(isset($_POST['OrderProduct']) ? $_POST['OrderProduct'] : null);
+        if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
+            $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('OrderModule.order', 'Запись добавлена!')
                 );
@@ -66,19 +67,17 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Order'])) {
-            $model->attributes = $_POST['Order'];
-            $model->setOrderProducts(isset($_POST['OrderProduct']) ? $_POST['OrderProduct'] : null);
+        if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
+            $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
 
             if ($model->save()) {
+
                 if (Yii::app()->request->getParam('notify_user', false)) {
                     //@TODO event
                 }
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('OrderModule.order', 'Запись обновлена!')
                 );
@@ -96,9 +95,10 @@ class OrderBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
+
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('OrderModule.order', 'Запись удалена!')
             );
@@ -107,7 +107,10 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t('OrderModule.order', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t(
+                'OrderModule.order',
+                'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'
+            ));
         }
     }
 
@@ -132,6 +135,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
         if ($model === null) {
             throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
         }
+
         return $model;
     }
 

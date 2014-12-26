@@ -138,7 +138,9 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                                         <?= CHtml::activeLabel($model, 'delivery_id'); ?>
                                     </td>
                                     <td>
-                                        <?= CHtml::encode($model->delivery->name); ?>
+                                        <?php if(!empty($model->delivery)):?>
+                                            <?= CHtml::encode($model->delivery->name); ?>
+                                        <?php endif;?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -186,7 +188,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                     </td>
 
                 </tr>
-                <?php if (!$model->paid && $model->delivery->hasPaymentMethods()): ?>
+                <?php if (!$model->paid  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">

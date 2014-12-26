@@ -46,7 +46,7 @@ $this->breadcrumbs = [
                 [
                     '{link}'       => CHtml::link(
                             Yii::t('YupeModule.yupe', 'official site'),
-                            'http://yupe.ru/?from=mlist',
+                            'http://yupe.ru/marketplace/?from=mlist',
                             ['target' => '_blank']
                         ),
                     '{order_link}' => CHtml::link(

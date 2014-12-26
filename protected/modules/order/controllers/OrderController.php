@@ -4,7 +4,7 @@ class OrderController extends application\components\Controller
 {
     public function actionView($url = null)
     {
-        $model = Order::model()->findByAttributes(['url' => $url]);
+        $model = Order::model()->findByUrl($url);
         if ($model === null) {
             throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
         }

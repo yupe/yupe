@@ -81,7 +81,10 @@ $this->menu = [
             [
                 'name' => 'user_id',
                 'type' => 'raw',
-                'value' => CHtml::link($model->user->nick_name, ['/user/userBackend/view', 'id' => $model->user_id]),
+                'value' => function($model) {
+                        return $model->user ?
+                            CHtml::link($model->user->nick_name, ['/user/userBackend/view', 'id' => $model->user_id]) : '---';
+                    },
             ],
             'name',
             'address',

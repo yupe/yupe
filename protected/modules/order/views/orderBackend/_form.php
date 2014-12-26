@@ -60,9 +60,9 @@ $form = $this->beginWidget(
                     [
                         'model' => $model,
                         'attribute' => 'user_id',
-                        'data' => CHtml::listData(User::model()->findAll(), 'id', 'email'),
+                        'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
                         'options' => [
-                            'placeholder' => Yii::t("OrderModule.order", 'E-mail пользователя'),
+                            'placeholder' => Yii::t("OrderModule.order", 'Пользователь'),
                             'width' => '100%',
                             'allowClear' => true,
                         ]

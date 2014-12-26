@@ -52,6 +52,7 @@
 ------
 * [Сообщество](http://yupe.ru/)
 * [Официальный сайт](http://yupe-project.ru/)
+* [Юпи! Market](http://yupe.ru/marketplace)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
@@ -64,6 +65,8 @@
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
 * [Разработка](http://yupe-project.ru/service/development) и [Поддержка](http://yupe-project.ru/service/support)
+
+[![Юпи! Market](http://yupe.ru/uploads/blogs/a0301fdec876e23050ff3d312d97ee88.png)](http://yupe.ru/marketplace)
 
 Возможности
 -----------

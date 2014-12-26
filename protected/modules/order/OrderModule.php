@@ -1,4 +1,4 @@
-<?php
++)<?php
 
 use yupe\components\WebModule;
 

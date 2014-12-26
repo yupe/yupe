@@ -33,7 +33,7 @@
             'style' => 'position:absolute;display:none;visibility:hidden;'
         ]); ?>
 
-    <?php if (!Yii::app()->user->isAuthenticated()) : { ?>
+    <?php if (!Yii::app()->getUser()->isAuthenticated()) : { ?>
         <div class='row'>
             <div class="col-sm-6">
                 <?php echo $form->textFieldGroup($model, 'name'); ?>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): { ?>
+    <?php if ($module->showCaptcha && !Yii::app()->getUser()->isAuthenticated()): { ?>
         <?php if (CCaptcha::checkRequirements()) : { ?>
             <div class="row">
                 <div class="col-sm-4 form-group">
