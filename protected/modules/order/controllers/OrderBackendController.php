@@ -44,7 +44,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
         if (isset($_POST['Order'])) {
             $model->attributes = $_POST['Order'];
-            $model->setOrderProducts($_POST['OrderProduct']);
+            $model->setOrderProducts(isset($_POST['OrderProduct']) ? $_POST['OrderProduct'] : null);
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -71,7 +71,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
         if (isset($_POST['Order'])) {
             $model->attributes = $_POST['Order'];
-            $model->setOrderProducts($_POST['OrderProduct']);
+            $model->setOrderProducts(isset($_POST['OrderProduct']) ? $_POST['OrderProduct'] : null);
 
             if ($model->save()) {
                 if (Yii::app()->request->getParam('notify_user', false)) {

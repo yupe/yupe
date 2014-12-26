@@ -422,7 +422,10 @@ class Order extends yupe\models\YModel
         $orderProductsObjectsArray = [];
         if (is_array($orderProducts)) {
             foreach ($orderProducts as $key => $op) {
-                $product = Product::model()->findByPk($op['product_id']);
+                $product = null;
+                if (isset($op['product_id'])) {
+                    $product = Product::model()->findByPk($op['product_id']);
+                }
                 $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : null;
                 if ($product) {
                     $this->hasProducts = true;
@@ -515,7 +518,7 @@ class Order extends yupe\models\YModel
 
     public function pay(Payment $payment)
     {
-        if($this->isPaid()) {
+        if ($this->isPaid()) {
             return true;
         }
 
@@ -525,9 +528,9 @@ class Order extends yupe\models\YModel
 
         $result = $this->save();
 
-        if($result) {
+        if ($result) {
             Yii::app()->eventManager->fire(OrderEvents::SUCCESS_PAID, new PayOrderEvent($this, $payment));
-        }else{
+        } else {
             Yii::app()->eventManager->fire(OrderEvents::FAILURE_PAID, new PayOrderEvent($this, $payment));
         }
 
