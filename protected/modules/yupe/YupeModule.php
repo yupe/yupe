@@ -210,9 +210,9 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'You have active " Install" module, you must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
-                    ),
+                    'YupeModule.yupe',
+                    'You have active " Install" module, you must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
+                ),
             ];
         }
 
@@ -220,9 +220,9 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Please, disable profiler (file /protected/config/db.php, parameter "enableProfiling")!'
-                    ),
+                    'YupeModule.yupe',
+                    'Please, disable profiler (file /protected/config/db.php, parameter "enableProfiling")!'
+                ),
             ];
         }
 
@@ -230,9 +230,9 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Please, disable logging (file /protected/config/db.php, parameter "enableParamLogging")!'
-                    ),
+                    'YupeModule.yupe',
+                    'Please, disable logging (file /protected/config/db.php, parameter "enableParamLogging")!'
+                ),
             ];
         }
 
@@ -240,9 +240,9 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'You have active "gii" module. You must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
-                    ),
+                    'YupeModule.yupe',
+                    'You have active "gii" module. You must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
+                ),
             ];
         }
 
@@ -252,16 +252,16 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Directory "{dir}" is not available for write! {link}',
-                        [
-                            '{dir}'  => $uploadPath,
-                            '{link}' => CHtml::link(
-                                    Yii::t('YupeModule.yupe', 'Change settings'),
-                                    ['/yupe/backend/modulesettings/', 'module' => 'yupe']
-                                ),
-                        ]
-                    ),
+                    'YupeModule.yupe',
+                    'Directory "{dir}" is not available for write! {link}',
+                    [
+                        '{dir}'  => $uploadPath,
+                        '{link}' => CHtml::link(
+                            Yii::t('YupeModule.yupe', 'Change settings'),
+                            ['/yupe/backend/modulesettings/', 'module' => 'yupe']
+                        ),
+                    ]
+                ),
             ];
         }
 
@@ -269,10 +269,10 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Directory "{dir}" is not available for write!',
-                        ['{dir}' => Yii::app()->runtimePath]
-                    ),
+                    'YupeModule.yupe',
+                    'Directory "{dir}" is not available for write!',
+                    ['{dir}' => Yii::app()->runtimePath]
+                ),
             ];
         }
 
@@ -280,10 +280,10 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Directory "{dir}" is not available for write!',
-                        ['{dir}' => Yii::app()->getAssetManager()->basePath]
-                    ),
+                    'YupeModule.yupe',
+                    'Directory "{dir}" is not available for write!',
+                    ['{dir}' => Yii::app()->getAssetManager()->basePath]
+                ),
             ];
         }
 
@@ -291,9 +291,9 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Yii is working in debug mode, please, disable it! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
-                    ),
+                    'YupeModule.yupe',
+                    'Yii is working in debug mode, please, disable it! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
+                ),
             ];
         }
 
@@ -301,9 +301,9 @@ class YupeModule extends WebModule
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'YupeModule.yupe',
-                        'Please, enable DB caching! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
-                    ),
+                    'YupeModule.yupe',
+                    'Please, enable DB caching! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
+                ),
             ];
         }
 
@@ -329,9 +329,9 @@ class YupeModule extends WebModule
             'editor'                 => Yii::t('YupeModule.yupe', 'Visual editor'),
             'email'                  => Yii::t('YupeModule.yupe', 'Admin Email'),
             'availableLanguages'     => Yii::t(
-                    'YupeModule.yupe',
-                    'List of available languages (for example. ru,en,de)'
-                ),
+                'YupeModule.yupe',
+                'List of available languages (for example. ru,en,de)'
+            ),
             'defaultLanguage'        => Yii::t('YupeModule.yupe', 'Default language'),
             'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Default backend language'),
             'allowedIp'              => Yii::t('YupeModule.yupe', 'Allowed IP'),
@@ -439,8 +439,8 @@ class YupeModule extends WebModule
                 'availableLanguages',
                 'filter',
                 'filter' => function ($str) {
-                        return preg_replace('/\s+/', '', $str);
-                    }
+                    return preg_replace('/\s+/', '', $str);
+                }
             ],
         ];
     }
@@ -726,13 +726,12 @@ class YupeModule extends WebModule
     public function getSubMenu($menu)
     {
         $items = [];
-        end($menu);
-        $endItemKey = key($menu);
+        $endItemKey = count($menu) ? array_reverse(array_keys($menu))[0] : '';
         foreach ($menu as $key => $item) {
             if ($key === '') {
                 continue;
             }
-            if (isset($item['items']) && is_array($item['items'])) {
+            if (isset($item['items']) && is_array($item['items']) && !empty($item['items'])) {
                 $subItems = $item['items'];
                 unset($item['items'], $item['icon'], $item['url']);
                 $items[] = $item;
@@ -856,8 +855,7 @@ class YupeModule extends WebModule
     {
         $data = [];
 
-        foreach (new GlobIterator(Yii::app()->getTheme(
-            )->basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . '*.php') as $item) {
+        foreach (new GlobIterator(Yii::app()->getTheme()->basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . '*.php') as $item) {
             $name = $item->getBaseName('.php');
             $data[$name] = $name;
         }
