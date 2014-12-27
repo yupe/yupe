@@ -1,27 +1,16 @@
+<?php
+/**
+ * @var $this \yupe\widgets\YShortCuts
+ * @var $modules \yupe\components\WebModule[]
+ * @var $updates array
+ */
+?>
 <div class="shortcuts">
     <?php foreach ($modules as $module): ?>
-        <?php if(!$module->getIsShowInAdminMenu() && !$module->getExtendedNavigation()):?>
-            <?php continue;?>
-        <?php endif;?>
-        <a class="shortcut" href="<?php echo Yii::app()->createAbsoluteUrl($module->getAdminPageLink()); ?>">
-            <div class="cn">
-                <i class="shortcut-icon <?php echo $module->getIcon(); ?>"></i>
-                <span class="shortcut-label"><?php echo $module->getName(); ?></span>
-                <?php if (Yii::app()->getUser()->isSuperUser()): ?>
-                    <?php if ($module->isConfigNeedUpdate()): ?>
-                        <span class='label label-warning config-update' data-module="<?php echo $module->getId(); ?>"
-                              data-toggle="tooltip" data-placement="top"
-                              title="<?php echo Yii::t('YupeModule.yupe', 'Apply new configuration'); ?>"><i
-                                class='fa fa-fw fa-refresh'></i></span>
-                    <?php endif; ?>
-                    <?php if (!empty($updates[$module->getId()])): ?>
-                        <span class='label label-danger' data-toggle="tooltip" data-placement="top"
-                              title="<?php echo Yii::t('YupeModule.yupe', 'Apply new migrations'); ?>"><i
-                                class='fa fa-fw fa-refresh'></i><?php echo count($updates[$module->getId()]); ?></span>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
-        </a>
+        <?php if (!$module->getIsShowInAdminMenu() && !$module->getExtendedNavigation()): ?>
+            <?php continue; ?>
+        <?php endif; ?>
+        <?php echo CHtml::link($this->render('_view', ['module' => $module, 'updates' => $updates], true), is_string($module->getAdminPageLink()) ? [$module->getAdminPageLink()] : $module->getAdminPageLink(), ['class' => 'shortcut']); ?>
     <?php endforeach; ?>
 </div>
 
@@ -38,7 +27,7 @@
                 if (response.result) {
                     $this.fadeOut();
                     $('#notifications').notify({
-                        message: { text: '<?php echo Yii::t('YupeModule.yupe','Successful');?>' },
+                        message: {text: '<?php echo Yii::t('YupeModule.yupe','Successful');?>'},
                         type: 'success'
                     }).show();
                 }

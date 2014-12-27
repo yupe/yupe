@@ -33,7 +33,7 @@ return [
         ],
     ],
     'rules'     => [
-        '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
+        '/admin/settings/<module:\w+>' => '/yupe/backend/modulesettings',
     ],
     'module'    => [
         'components'    => [

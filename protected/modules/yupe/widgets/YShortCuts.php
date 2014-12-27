@@ -28,7 +28,7 @@ class YShortCuts extends YWidget
     /**
      * @var string
      */
-    public $view = 'yupe.views.widgets.YShortCuts.shortcuts';
+    public $view = 'shortcuts';
 
     /**
      *
