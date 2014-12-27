@@ -21,7 +21,7 @@ class SitemapModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-cog';
+        return 'fa fa-fw fa-cog';
     }
 
     public function getCategory()
