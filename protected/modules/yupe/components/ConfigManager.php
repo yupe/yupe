@@ -342,8 +342,8 @@ class ConfigManager extends CComponent
         if (isset($this->_config['components']['urlManager']['rules'])) {
             // Фикс для настроек маршрутизации:
             $this->_config['components']['urlManager']['rules'] = CMap::mergeArray(
-                $this->_config['components']['urlManager']['rules'],
-                $settings['rules']
+                $settings['rules'],
+                $this->_config['components']['urlManager']['rules']
             );
         }
 
