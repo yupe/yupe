@@ -127,18 +127,18 @@ return [
             'cacheID'          => 'cache',
             'useStrictParsing' => true,
             'rules'            => [ // общие правила
-                '/'                                                          => '/site/index',
+                '/'                                                            => '/site/index',
                 // для корректной работы устновщика
-                '/install/default/<action:\w+>'                              => '/install/default/<action>',
-                '/admin'                                                     => '/yupe/backend/index',
-                '/admin/login'                                               => '/user/account/backendlogin',
-                '/admin/<action:\w+>'                                        => '/yupe/backend/<action>',
-                '/admin/<module:\w+>/<controller:\w+>'                       => '/<module>/<controller>Backend/index',
-                '/admin/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
-                '/admin/<module:\w+>/<controller:\w+>/<action:\w+>'          => '/<module>/<controller>Backend/<action>',
-                '/gii/<controller:\w+>/<action:\w+>'                         => 'gii/<controller>/<action>',
-                '/site/<action:\w+>'                                         => 'site/<action>',
-                '/debug/<controller:\w+>/<action:\w+>'                       => 'debug/<controller>/<action>',
+                '/install/default/<action:\w+>'                                => '/install/default/<action>',
+                '/backend'                                                     => '/yupe/backend/index',
+                '/backend/login'                                               => '/user/account/backendlogin',
+                '/backend/<action:\w+>'                                        => '/yupe/backend/<action>',
+                '/backend/<module:\w+>/<controller:\w+>'                       => '/<module>/<controller>Backend/index',
+                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
+                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'          => '/<module>/<controller>Backend/<action>',
+                '/gii/<controller:\w+>/<action:\w+>'                           => 'gii/<controller>/<action>',
+                '/site/<action:\w+>'                                           => 'site/<action>',
+                '/debug/<controller:\w+>/<action:\w+>'                         => 'debug/<controller>/<action>',
                 // Для  YiiDebugPanel
             ]
         ],
@@ -150,7 +150,7 @@ return [
             'enableCsrfValidation'   => true,
             'csrfCookie'             => ['httpOnly' => true,],
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => ['admin/AjaxImageUpload', 'admin/AjaxFileUpload'],
+            'noCsrfValidationRoutes' => ['backend/AjaxImageUpload', 'backend/AjaxFileUpload'],
             'enableCookieValidation' => true,
             // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ],
