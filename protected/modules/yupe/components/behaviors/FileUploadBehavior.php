@@ -86,6 +86,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
                     $this->attributeName,
                     [
                         'on' => $this->requiredOn,
+                        'safe' => false,
                     ]
                 );
                 $owner->validatorList->add($requiredValidator);
@@ -100,6 +101,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
                     'minSize' => $this->minSize,
                     'maxSize' => $this->maxSize,
                     'allowEmpty' => true,
+                    'safe' => false,
                 ]
             );
 
