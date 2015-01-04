@@ -69,4 +69,22 @@ class SitemapModule extends WebModule
     {
         return '/sitemap/sitemapBackend/settings';
     }
+
+    public function getAuthItems()
+    {
+        return [
+            [
+                'name'        => 'SitemapModule.SitemapManage',
+                'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => [
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'SitemapModule.SitemapBackend.manage',
+                        'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap')
+                    ],
+                ]
+            ]
+        ];
+    }
 }
