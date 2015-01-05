@@ -169,10 +169,16 @@ class LangUrlManager extends CUrlManager
         }
         
         // Приводим url route к формату смены языка ({lang}/{request})
-        if (isset($params[$this->langParam]) && $this->getAppLang() != $params[$this->langParam]) {
+	if (isset($params[$this->langParam]) && $this->getAppLang() != $params[$this->langParam]) {
+		if ($route{0} == '/') {
+		    $route = $params[$this->langParam] . $route;
+		}
+		else {
 		    $route = $params[$this->langParam] . '/' . $route;
-		    unset($params[$this->langParam]);
-	    }
+		}
+		
+		unset($params[$this->langParam]);
+	}
 
         return parent::createUrl($route, $params, $ampersand);
     }
