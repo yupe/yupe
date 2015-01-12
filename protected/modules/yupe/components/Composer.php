@@ -41,7 +41,7 @@ class Composer {
         if(!file_exists('protected/config/db.php')) {
             copy('protected/config/db.back.php', 'protected/config/db.php');
         }
-        
+
         self::makeWritable($extra);
     }
 
