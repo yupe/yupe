@@ -5,7 +5,7 @@
  * @property ProductRepository $productRepository
  *
  */
-class CatalogController extends application\components\Controller
+class CatalogController extends \yupe\components\controllers\FrontController
 {
     /**
      *

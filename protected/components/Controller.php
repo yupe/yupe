@@ -5,9 +5,9 @@
  */
 namespace application\components;
 
-use yupe\components\controllers\FrontController;
+use yupe\components\controllers\Controller as BaseController;
 
-class Controller extends FrontController
+class Controller extends BaseController
 {
     public $layout;
 

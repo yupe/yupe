@@ -2,7 +2,7 @@
 
 use yupe\components\controllers\FrontController;
 
-class PaymentController extends application\components\Controller
+class PaymentController extends \yupe\components\controllers\FrontController
 {
     public function actionProcess($id = null)
     {

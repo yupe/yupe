@@ -11,7 +11,7 @@
  * @link     http://yupe.ru
  *
  **/
-class PeopleController extends application\components\Controller
+class PeopleController extends \yupe\components\controllers\FrontController
 {
     // Вывод публичной страницы всех пользователей
     public function actionIndex()

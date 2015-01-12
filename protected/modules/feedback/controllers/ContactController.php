@@ -13,7 +13,7 @@
 
 use yupe\widgets\YFlashMessages;
 
-class ContactController extends application\components\Controller
+class ContactController extends \yupe\components\controllers\FrontController
 {
     public function actions()
     {

@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-class BlogController extends application\components\Controller
+class BlogController extends \yupe\components\controllers\FrontController
 {
     /**
      * Выводит список блогов

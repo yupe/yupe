@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends application\components\Controller
+class UserController extends \yupe\components\controllers\FrontController
 {
     public function filters()
     {

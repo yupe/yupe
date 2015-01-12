@@ -21,7 +21,6 @@ use yupe\events\YupeEvents;
 use yupe\widgets\YFlashMessages;
 use CHttpException;
 use CActiveRecord;
-use CDbCriteria;
 use Exception;
 use CLogger;
 

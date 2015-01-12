@@ -1,6 +1,6 @@
 <?php
 
-class NotifyController extends application\components\Controller
+class NotifyController extends \yupe\components\controllers\FrontController
 {
     public function filters()
     {

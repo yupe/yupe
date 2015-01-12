@@ -1,6 +1,6 @@
 <?php
 
-class PublisherController extends application\components\Controller
+class PublisherController extends \yupe\components\controllers\FrontController
 {
     public function filters()
     {

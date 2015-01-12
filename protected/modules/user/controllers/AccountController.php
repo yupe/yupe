@@ -11,7 +11,7 @@
  * @link     http://yupe.ru
  *
  **/
-class AccountController extends application\components\Controller
+class AccountController extends \yupe\components\controllers\FrontController
 {
     public function filters()
     {
