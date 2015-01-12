@@ -16,13 +16,6 @@ use application\components\Controller;
 
 class SiteController extends Controller
 {
-    const POST_PER_PAGE = 5;
-
-    public function actionModern()
-    {
-        $this->render('modern');
-    }
-
     /**
      * Отображение главной страницы
      *
@@ -55,21 +48,5 @@ class SiteController extends Controller
                 ]
             );
         }
-    }
-
-    public function actionMain()
-    {
-        $dataProvider = new \CActiveDataProvider('Post', [
-
-            'criteria' => new \CDbCriteria([
-                    'condition' => 't.status = :status',
-                    'params'    => [':status' => \Post::STATUS_PUBLISHED],
-                    'limit'     => self::POST_PER_PAGE,
-                    'order'     => 't.id DESC',
-                    'with'      => ['createUser', 'blog', 'commentsCount'],
-                ]),
-        ]);
-
-        $this->render('main', ['dataProvider' => $dataProvider]);
     }
 }
