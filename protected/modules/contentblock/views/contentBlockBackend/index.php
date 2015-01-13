@@ -109,25 +109,9 @@ $this->menu = [
                 'filter'   => CHtml::activeTextField($model, 'code', ['class' => 'form-control']),
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'description',
-                'editable' => [
-                    'url'       => $this->createUrl('/contentblock/contentBlockBackend/inline'),
-                    'title'     => Yii::t(
-                            'ContentBlockModule.contentblock',
-                            'Select {field}',
-                            ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
-                        ),
-                    'emptytext' => Yii::t(
-                            'ContentBlockModule.contentblock',
-                            'Select {field}',
-                            ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
-                        ),
-                    'params'    => [
-                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    ]
-                ],
-                'filter'   => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
+                'name' => 'description',
+                'type' => 'raw',
+                'value' => '$data->description',
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
