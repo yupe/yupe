@@ -7,7 +7,7 @@
 
 namespace yupe\components\image;
 
-use Imagine\Image\Palette\RGB;
+use Imagine\Image\Color;
 use Yii;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
@@ -157,7 +157,7 @@ class Imagine
         $img = $img->thumbnail($box, $mode);
 
         // create empty image to preserve aspect ratio of thumbnail
-        $thumb = static::getImagine()->create($box, (new RGB())->color('FFF', 100));
+        $thumb = static::getImagine()->create($box, new Color('FFF', 100));
 
         // calculate points
         $size = $img->getSize();
