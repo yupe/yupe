@@ -76,7 +76,11 @@ $this->menu = [
                 'value' => $model->getType(),
             ],
             'content',
-            'description',
+            [
+                'name' => 'description',
+                'type' => 'raw',
+                'value' => $model->description,
+            ]
         ],
     ]
 ); ?>
