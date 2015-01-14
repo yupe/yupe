@@ -20,14 +20,14 @@ class DbFeedbackSender implements IFeedbackSender
         $feedback = new FeedBack();
 
         $feedback->setAttributes(
-            array(
+            [
                 'name'  => $form->getName(),
                 'email' => $form->getEmail(),
                 'theme' => $form->getTheme(),
                 'text'  => $form->getText(),
                 'phone' => $form->getPhone(),
                 'type'  => $form->getType(),
-            )
+            ]
         );
 
         if ($feedback->save()) {
@@ -46,7 +46,7 @@ class DbFeedbackSender implements IFeedbackSender
     {
         $emailBody = Yii::app()->controller->renderPartial(
             'feedbackConfirmationEmail',
-            array('model' => $feedBack),
+            ['model' => $feedBack],
             true
         );
 
@@ -56,7 +56,7 @@ class DbFeedbackSender implements IFeedbackSender
             Yii::t(
                 'FeedbackModule.feedback',
                 'Your proposition on site "{site}" was received',
-                array('{site}' => Yii::app()->name)
+                ['{site}' => Yii::app()->name]
             ),
             $emailBody
         );

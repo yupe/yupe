@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CommentModule.comment', 'Comments') => ['/comment/commentBackend/index'],
     Yii::t('CommentModule.comment', 'Manage'),
-);
+];
 
 $this->pageTitle = Yii::t('CommentModule.comment', 'Comments - management');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CommentModule.comment', 'Comments list'),
-        'url'   => array('/comment/commentBackend/index')
-    ),
-    array(
+        'url'   => ['/comment/commentBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CommentModule.comment', 'Create comment'),
-        'url'   => array('/comment/commentBackend/create')
-    ),
-);
+        'url'   => ['/comment/commentBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -48,29 +48,29 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'comment-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'name'  => 'model',
                 'value' => '$data->getTargetTitleLink()',
                 'type'  => 'html'
-            ),
+            ],
             'model_id',
-            array(
+            [
                 'name'  => 'text',
                 'value' => 'yupe\helpers\YText::characterLimiter($data->text, 150)',
                 'type'  => 'html'
-            ),
-            array(
+            ],
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/comment/commentBackend/inline'),
@@ -81,16 +81,16 @@ $this->menu = array(
                     Comment::STATUS_NEED_CHECK => ['class' => 'label-warning'],
                     Comment::STATUS_SPAM       => ['class' => 'label-danger'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'name'  => 'creation_date',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
-            ),
+            ],
             'name',
             'email',
-            array(
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

@@ -4,29 +4,29 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 {
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'StoreCategory',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'status',
                     'alias'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Store.CategoryBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Store.CategoryBackend.Delete'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Store.CategoryBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Store.CategoryBackend.Index'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Store.CategoryBackend.View'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Store.CategoryBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Store.CategoryBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Store.CategoryBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Store.CategoryBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Store.CategoryBackend.View'],],
+            ['deny',],
+        ];
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -68,13 +68,13 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -106,10 +106,10 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id,
-                        )
+                        ]
                     )
                 );
             }
@@ -117,9 +117,9 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
         $this->render(
             'update',
-            array(
+            [
                 'model' => $model,
-            )
+            ]
         );
     }
 
@@ -179,7 +179,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             $model->attributes = $_GET['StoreCategory'];
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

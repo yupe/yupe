@@ -9,10 +9,10 @@ class RbacModule extends WebModule
     public function init()
     {
         $this->setImport(
-            array(
+            [
                 'rbac.models.*',
                 'rbac.components.*',
-            )
+            ]
         );
 
         parent::init();
@@ -25,25 +25,25 @@ class RbacModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('label' => Yii::t('RbacModule.rbac', 'Roles')),
-            array(
+        return [
+            ['label' => Yii::t('RbacModule.rbac', 'Roles')],
+            [
                 'icon'  => 'fa fa-fw fa-user',
                 'label' => Yii::t('RbacModule.rbac', 'Assign roles'),
-                'url'   => array('/rbac/rbacBackend/assign')
-            ),
-            array(
+                'url'   => ['/rbac/rbacBackend/assign']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-align-left',
                 'label' => Yii::t('RbacModule.rbac', 'Manage operations'),
-                'url'   => array('/rbac/rbacBackend/index')
-            ),
-            array('label' => Yii::t('RbacModule.rbac', 'RBAC')),
-            array(
+                'url'   => ['/rbac/rbacBackend/index']
+            ],
+            ['label' => Yii::t('RbacModule.rbac', 'RBAC')],
+            [
                 'icon'  => 'fa fa-fw fa-magnet',
                 'label' => Yii::t('RbacModule.rbac', 'Import RBAC'),
-                'url'   => array('/rbac/rbacBackend/import')
-            )
-        );
+                'url'   => ['/rbac/rbacBackend/import']
+            ]
+        ];
     }
 
     public function getName()
@@ -88,54 +88,54 @@ class RbacModule extends WebModule
 
     public function getDependencies()
     {
-        return array('user');
+        return ['user'];
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'Rbac.RbacManager',
                 'description' => Yii::t('RbacModule.rbac', 'Manage roles'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.Assign',
                         'description' => Yii::t('RbacModule.rbac', 'Assign Roles')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.Create',
                         'description' => Yii::t('RbacModule.rbac', 'Creating Roles')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.Delete',
                         'description' => Yii::t('RbacModule.rbac', 'Removing roles')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.Import',
                         'description' => Yii::t('RbacModule.rbac', 'Import Rules from modules')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.Index',
                         'description' => Yii::t('RbacModule.rbac', 'List of roles')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.Update',
                         'description' => Yii::t('RbacModule.rbac', 'Editing roles')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.View',
                         'description' => Yii::t('RbacModule.rbac', 'Viewing roles')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 }

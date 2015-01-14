@@ -34,7 +34,7 @@ class UploadManager extends \CApplicationComponent
                 Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not acceptable for write!',
-                    array('{dir}' => $path)
+                    ['{dir}' => $path]
                 )
             );
         }

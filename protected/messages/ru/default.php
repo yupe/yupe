@@ -10,7 +10,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 
-return array(
+return [
     'Links'                                                                             => 'Ресурсы',
     'Twitter'                                                                           => 'Твиттер',
     'Vk.com'                                                                            => 'ВКонтакте',
@@ -51,4 +51,4 @@ return array(
     'Finishing register'                                                                => 'Окончание регистрации',
     'Register'                                                                          => 'Зарегестрироваться',
     'Tag cloud'                                                                         => 'Облако меток',
-);
+];

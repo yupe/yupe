@@ -16,13 +16,6 @@ use application\components\Controller;
 
 class SiteController extends Controller
 {
-    const POST_PER_PAGE = 5;
-
-    public function actionModern()
-    {
-        $this->render('modern');
-    }
-
     /**
      * Отображение главной страницы
      *
@@ -43,33 +36,17 @@ class SiteController extends Controller
         $error = \Yii::app()->errorHandler->error;
 
         if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
-            $this->redirect(array('index'));
+            $this->redirect(['index']);
         }
 
         if (!\Yii::app()->getRequest()->getIsAjaxRequest()) {
 
             $this->render(
                 'error',
-                array(
+                [
                     'error' => $error
-                )
+                ]
             );
         }
-    }
-
-    public function actionMain()
-    {
-        $dataProvider = new \CActiveDataProvider('Post', array(
-
-            'criteria' => new \CDbCriteria(array(
-                    'condition' => 't.status = :status',
-                    'params'    => array(':status' => \Post::STATUS_PUBLISHED),
-                    'limit'     => self::POST_PER_PAGE,
-                    'order'     => 't.id DESC',
-                    'with'      => array('createUser', 'blog', 'commentsCount'),
-                )),
-        ));
-
-        $this->render('main', array('dataProvider' => $dataProvider));
     }
 }

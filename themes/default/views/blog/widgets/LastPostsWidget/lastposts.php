@@ -1,9 +1,9 @@
 <?php
 $this->beginWidget(
     'bootstrap.widgets.TbPanel',
-    array(
+    [
         'title' => Yii::t('BlogModule.blog', 'Latest posts'),
-    )
+    ]
 );
 ?>
 <ul class="list-unstyled">
@@ -11,7 +11,7 @@ $this->beginWidget(
         <li>
             <?php echo CHtml::link(
                 CHtml::encode($model->title),
-                array('/blog/post/show/', 'slug' => CHtml::encode($model->slug))
+                ['/blog/post/show/', 'slug' => CHtml::encode($model->slug)]
             ); ?>
             <nobr>
                 <i class="glyphicon glyphicon-comment"></i> <?php echo $model->getCommentCount(); ?>

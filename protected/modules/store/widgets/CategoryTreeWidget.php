@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('store.models.*');
+Yii::import('application.modules.store.models.*');
 
 class CategoryTreeWidget extends yupe\widgets\YWidget
 {
@@ -15,25 +15,24 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
      *  label - Name of none
      *  items - get children array
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * @var array jstree options
      */
-    public $options = array(
-        'plugins' => array('checkbox'),
-        'checkbox' => array(
-            'three_state' => false,
-            'keep_selected_style' => false
-        )
-    );
+    public $options = [
+        'plugins' => ['checkbox'],
+        'checkbox' => [
+            'keep_selected_style' => false,
+        ]
+    ];
 
     /**
      * @var CClientScript
      */
     protected $cs;
 
-    public $selectedCategories = array();
+    public $selectedCategories = [];
 
     public $view = 'store.views.widgets.CategoryTreeWidget';
 
@@ -44,7 +43,7 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
         Yii::app()->clientScript->registerCssFile($moduleAssets . '/js/jstree/themes/default/style.min.css');
 
         if (!is_array($this->selectedCategories)) {
-            $this->selectedCategories = array();
+            $this->selectedCategories = [];
         }
     }
 
@@ -54,9 +53,9 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
 
         echo CHtml::openTag(
             'div',
-            array(
+            [
                 'id' => $this->id,
-            )
+            ]
         );
         echo CHtml::openTag('ul');
         $this->createHtmlTree($data);
@@ -82,17 +81,17 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
         foreach ($data as $node) {
             echo CHtml::openTag(
                 'li',
-                array(
+                [
                     'id' => $this->id . 'Node_' . $node['id'],
-                )
+                ]
             );
             echo CHtml::link(
                 CHtml::encode($node['label']),
                 '#',
-                array(
+                [
                     'data-category-id' => $node['id'],
                     'class' => (in_array($node['id'], $this->selectedCategories) ? 'jstree-clicked' : '')
-                )
+                ]
             );
             if (count($node['items'])) {
                 echo CHtml::openTag('ul');

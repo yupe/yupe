@@ -1,12 +1,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <div class="row">
     <div class="col-sm-6">
@@ -31,16 +31,16 @@ $form = $this->beginWidget(
         <?php echo $form->datePickerGroup(
             $model,
             'registration_date',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
+            [
+                'widgetOptions' => [
+                    'options' => [
                         'format'    => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
-                    ),
-                ),
+                    ],
+                ],
                 'prepend'       => '<i class="fa fa-calendar"></i>',
-            )
+            ]
         );
         ?>
     </div>
@@ -49,16 +49,16 @@ $form = $this->beginWidget(
         <?php echo $form->datepickerGroup(
             $model,
             'last_visit',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
+            [
+                'widgetOptions' => [
+                    'options' => [
                         'format'    => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
-                    ),
-                ),
+                    ],
+                ],
                 'prepend'       => '<i class="fa fa-calendar"></i>',
-            )
+            ]
         );
         ?>
     </div>
@@ -66,14 +66,14 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'gender',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getGendersList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -83,28 +83,28 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-6">
         <?php echo $form->dropDownListGroup(
             $model,
             'access_level',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getAccessLevelsList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -112,22 +112,22 @@ $form = $this->beginWidget(
 <div class="form-actions">
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
             'icon'       => 'fa fa-search',
             'label'      => Yii::t('UserModule.user', 'Find user'),
-        )
+        ]
     ); ?>
 
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'reset',
             'context'    => 'danger',
             'icon'       => 'fa fa-times',
             'label'      => Yii::t('UserModule.user', 'Reset'),
-        )
+        ]
     ); ?>
 </div>
 

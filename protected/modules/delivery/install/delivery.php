@@ -1,10 +1,10 @@
 <?php
 
-return array(
-    'module' => array(
+return [
+    'module' => [
         'class' => 'application.modules.delivery.DeliveryModule',
-    ),
-    'import' => array(
+    ],
+    'import' => [
         'application.modules.delivery.models.*',
-    ),
-);
+    ],
+];

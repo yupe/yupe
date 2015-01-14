@@ -16,12 +16,12 @@ class EventManager extends CApplicationComponent
     /**
      * @var array
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * @var array
      */
-    public $subscribers = array();
+    public $subscribers = [];
 
     public function init()
     {

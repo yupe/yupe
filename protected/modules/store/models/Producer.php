@@ -37,36 +37,36 @@ class Producer extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name_short, name, slug, status', 'required'),
-            array('name_short, name, slug, short_description, description', 'filter', 'filter' => 'trim'),
-            array('order', 'numerical', 'integerOnly' => true),
-            array('name_short', 'length', 'max' => 150),
-            array('name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250),
-            array('short_description, description', 'safe'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array(
+        return [
+            ['name_short, name, slug, status', 'required'],
+            ['name_short, name, slug, short_description, description', 'filter', 'filter' => 'trim'],
+            ['order', 'numerical', 'integerOnly' => true],
+            ['name_short', 'length', 'max' => 150],
+            ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
+            ['short_description, description', 'safe'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
-            ),
-            array('slug', 'unique'),
-            array(
+            ],
+            ['slug', 'unique'],
+            [
                 'id, name_short, name, slug, status, order, image, short_description, description, meta_title, meta_keywords, meta_description',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
-            ),
-        );
+                'params' => [':status' => self::STATUS_ACTIVE],
+            ],
+        ];
     }
 
     /**
@@ -74,7 +74,7 @@ class Producer extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'ID'),
             'name_short' => Yii::t('StoreModule.store', 'Короткое название'),
             'name' => Yii::t('StoreModule.store', 'Полное название'),
@@ -87,7 +87,7 @@ class Producer extends yupe\models\YModel
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
-        );
+        ];
     }
 
     /**
@@ -119,9 +119,9 @@ class Producer extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-            )
+            ]
         );
     }
 
@@ -140,31 +140,31 @@ class Producer extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('store');
 
-        return array(
-            'imageUpload' => array(
+        return [
+            'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+                'scenarios' => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module !== null ? $module->uploadPath . '/producer' : null,
-                'resizeOptions' => array(
+                'resizeOptions' => [
                     'maxWidth' => 900,
                     'maxHeight' => 900,
-                ),
+                ],
                 'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
-            ),
-        );
+            ],
+        ];
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ZERO => 'Недоступен',
             self::STATUS_ACTIVE => 'Активен',
             self::STATUS_NOT_ACTIVE => 'Неактивен',
-        );
+        ];
     }
 
     public function getStatusTitle()
@@ -177,7 +177,7 @@ class Producer extends yupe\models\YModel
     public function getFormattedList()
     {
         $producers = Producer::model()->findAll();
-        $list = array();
+        $list = [];
         foreach ($producers as $key => $producer) {
             $list[$producer->id] = $producer->name_short;
         }

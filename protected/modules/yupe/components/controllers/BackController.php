@@ -19,9 +19,9 @@ use yupe\events\YupeBackendControllerInitEvent;
 use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
 use yupe\widgets\YFlashMessages;
+use application\components\Controller;
 use CHttpException;
 use CActiveRecord;
-use CDbCriteria;
 use Exception;
 use CLogger;
 
@@ -56,10 +56,10 @@ abstract class BackController extends Controller
      */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['deny']
+        ];
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class BackController extends Controller
          */
         if (($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
             && ($updates = Yii::app()->migrator->checkForUpdates(
-                array($this->module->getId() => $this->module)
+                [$this->module->getId() => $this->module]
             )) !== null
             && count($updates) > 0
         ) {
@@ -111,7 +111,7 @@ abstract class BackController extends Controller
                 Yii::t('YupeModule.yupe', 'You must install all migration before start working with module.')
             );
 
-            $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->getId()));
+            $this->redirect(['/yupe/backend/modupdate', 'name' => $this->module->getId()]);
         }
 
         return parent::beforeAction($action);
@@ -157,9 +157,9 @@ abstract class BackController extends Controller
                         Yii::t(
                             'YupeModule.yupe',
                             'Removed {count} records!',
-                            array(
+                            [
                                 '{count}' => $count
-                            )
+                            ]
                         )
                     );
                     break;
@@ -197,10 +197,10 @@ abstract class BackController extends Controller
         }
 
         $model->$statusField = $status;
-        $model->update(array($statusField));
+        $model->update([$statusField]);
 
         if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
         }
     }
 
@@ -226,20 +226,20 @@ abstract class BackController extends Controller
         }
 
         if ($direction === 'up') {
-            $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField - 1)));
+            $model_depends = $model_depends->findByAttributes([$sortField => ($model->$sortField - 1)]);
             $model_depends->$sortField++;
             $model->$sortField--; // example menu_order column in sql
         } else {
-            $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField + 1)));
+            $model_depends = $model_depends->findByAttributes([$sortField => ($model->$sortField + 1)]);
             $model_depends->$sortField--;
             $model->$sortField++;
         }
 
-        $model->update(array($sortField));
-        $model_depends->update(array($sortField));
+        $model->update([$sortField]);
+        $model_depends->update([$sortField]);
 
         if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
         }
     }
 }

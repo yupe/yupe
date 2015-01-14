@@ -1,11 +1,11 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
-        'htmlOptions' => array('class' => 'well search-form'),
-    )
+        'htmlOptions' => ['class' => 'well search-form'],
+    ]
 );
 ?>
 <fieldset>
@@ -20,12 +20,12 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'event_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -51,12 +51,12 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -64,12 +64,12 @@ $form = $this->beginWidget(
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType'  => 'submit',
                 'context'     => 'primary',
                 'encodeLabel' => false,
                 'label'       => '<i class="fa fa-search"></i> ' . Yii::t('MailModule.mail', 'Find')
-            )
+            ]
         );
         ?>
     </div>

@@ -10,7 +10,7 @@ class PaymentModule extends WebModule
 
     public function getDependencies()
     {
-        return array('store');
+        return ['store'];
     }
 
     public function getCategory()
@@ -20,10 +20,10 @@ class PaymentModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Список способов оплаты'), 'url' => array('/payment/paymentBackend/index')),
-            array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ'), 'url' => array('/payment/paymentBackend/create')),
-        );
+        return [
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Список способов оплаты'), 'url' => ['/payment/paymentBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ'), 'url' => ['/payment/paymentBackend/create']],
+        ];
     }
 
     public function getAdminPageLink()
@@ -38,7 +38,7 @@ class PaymentModule extends WebModule
 
     public function getEditableParams()
     {
-        return array();
+        return [];
     }
 
     public function getName()
@@ -76,29 +76,29 @@ class PaymentModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'payment.models.*',
                 'payment.components.payments.*',
                 'payment.listeners.*'
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Payment.PaymentBackend.Management',
                 'description' => Yii::t("StoreModule.store", 'Управление способами оплаты'),
-                'items' => array(
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Index', 'description' => Yii::t("PaymentModule.payment", 'Просмотр списка способов оплаты'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Create', 'description' => Yii::t("PaymentModule.payment", 'Создание способа оплаты'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Update', 'description' => Yii::t("PaymentModule.payment", 'Редактирование способа оплаты'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.View', 'description' => Yii::t("PaymentModule.payment", 'Просмотр способа оплаты'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Delete', 'description' => Yii::t("PaymentModule.payment", 'Удаление способа оплаты'),),
-                ),
-            ),
-        );
+                'items' => [
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Index', 'description' => Yii::t("PaymentModule.payment", 'Просмотр списка способов оплаты'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Create', 'description' => Yii::t("PaymentModule.payment", 'Создание способа оплаты'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Update', 'description' => Yii::t("PaymentModule.payment", 'Редактирование способа оплаты'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.View', 'description' => Yii::t("PaymentModule.payment", 'Просмотр способа оплаты'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Delete', 'description' => Yii::t("PaymentModule.payment", 'Удаление способа оплаты'),],
+                ],
+            ],
+        ];
     }
 }

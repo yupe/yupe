@@ -1,6 +1,6 @@
 <?php
 
-class SearchController extends yupe\components\controllers\FrontController
+class SearchController extends \yupe\components\controllers\FrontController
 {
     public function init()
     {

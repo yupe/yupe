@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Delete'                                                                                                                  => 'Удалить',
     'Do you really want to delete selected elements?'                                                                         => 'Вы уверены, что хотите удалить выбранные элементы?',
     '-unknown-'                                                                                                               => '-неизвестно-',
@@ -86,4 +86,4 @@ return array(
     'List of queue'                                                                                                           => 'Просмотр списка заданий очереди',
     'Editing queue'                                                                                                           => 'Редактирование задания очереди',
     'Viewing queue'                                                                                                           => 'Просмотр задания очереди',
-);
+];

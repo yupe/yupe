@@ -10,13 +10,13 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'image-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('GalleryModule.gallery', 'Fields with'); ?>
@@ -31,27 +31,27 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(
                             (int)Yii::app()->getModule('image')->mainCategory
                         ),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
-                    ),
-                )
-            )
+                    ],
+                ]
+            ]
         ); ?>
     </div>
     <div class='col-sm-2'>
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getTypeList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 
@@ -59,11 +59,11 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -89,14 +89,14 @@ $form = $this->beginWidget(
         <?php echo $form->fileFieldGroup(
             $model,
             'file',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
                         'style'    => 'background-color: inherit;',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -110,14 +110,14 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t(
                 'GalleryModule.gallery',
                 'Save image'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

@@ -17,7 +17,7 @@ class MigrateToNsTest extends \Codeception\TestCase\Test
         $this->codeGuy->createConsoleYiiApp();
         require_once MOCKED_DIR . 'Migrator.php';
         $this->codeGuy->setDbConnectionOptionsFromYiiConfig(APPLICATION_DIR . 'config/db-test.php');
-        $this->codeGuy->setDbDumpOptions(array('dump' => 'tests/_data/convert_to_ns.sql', 'populate' => true));
+        $this->codeGuy->setDbDumpOptions(['dump' => 'tests/_data/convert_to_ns.sql', 'populate' => true]);
 
         $this->command = new \MigrateToNestedSetsCommand('migratetonestedsets', null);
         $this->command->init();

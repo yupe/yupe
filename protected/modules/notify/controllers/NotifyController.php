@@ -1,14 +1,12 @@
 <?php
 
-use yupe\components\controllers\FrontController;
-
-class NotifyController extends FrontController
+class NotifyController extends \yupe\components\controllers\FrontController
 {
     public function filters()
     {
-        return array(
-            array('yupe\filters\YFrontAccessControl')
-        );
+        return [
+            ['yupe\filters\YFrontAccessControl']
+        ];
     }
 
     public function actionSettings()

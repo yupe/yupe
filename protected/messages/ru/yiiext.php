@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Cannot create more than one root in single root mode.'                              => 'Не возможно создать более одного корня в режиме "1 корень"',
     'Many roots mode is off.'                                                            => 'Режим с множеством корней отключен',
     'The node already is root node.'                                                     => 'Узел уже явлется коренным',
@@ -33,4 +33,4 @@ return array(
     'The target node should not be self.'                                                => 'Целевой узел не должен быть сам собой :)',
     'You should not use CActiveRecord::delete() method when NestedSetBehavior attached.' => 'Не стоит использовать CActiveRecord::delete() при испоьзовании NestedSetBehavior',
     'You should not use CActiveRecord::save() method when NestedSetBehavior attached.'   => 'Не стоит использовать CActiveRecord::save() при испоьзовании NestedSetBehavior',
-);
+];

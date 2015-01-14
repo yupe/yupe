@@ -8,6 +8,6 @@ class StreamWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view, array('data' => Post::model()->getStream($this->limit, $this->cacheTime)));
+        $this->render($this->view, ['data' => Post::model()->getStream($this->limit, $this->cacheTime)]);
     }
 }

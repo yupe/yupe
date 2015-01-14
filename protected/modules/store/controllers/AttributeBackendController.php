@@ -4,39 +4,39 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Store.AttributeBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Store.AttributeBackend.Delete'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Store.AttributeBackend.Update'),),
-            array('allow', 'actions' => array('groupSortable'), 'roles' => array('Store.AttributeBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Store.AttributeBackend.Index'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Store.AttributeBackend.View'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Store.AttributeBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Store.AttributeBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Store.AttributeBackend.Update'],],
+            ['allow', 'actions' => ['groupSortable'], 'roles' => ['Store.AttributeBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Store.AttributeBackend.Index'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Store.AttributeBackend.View'],],
+            ['deny',],
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inlineEditGroup' => array(
+        return [
+            'inlineEditGroup' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'AttributeGroup',
-                'validAttributes' => array('name'),
-            )
-        );
+                'validAttributes' => ['name'],
+            ]
+        ];
     }
 
     /**
      * Отображает атрибут по указанному идентификатору
      *
-     * @param integer $id Идинтификатор атрибута для отображения
+     * @param integer $id Идентификатор атрибута для отображения
      *
      * @return void
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -65,13 +65,13 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
 
@@ -94,10 +94,10 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id,
-                        )
+                        ]
                     )
                 );
             }
@@ -105,9 +105,9 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
 
         $this->render(
             'update',
-            array(
+            [
                 'model' => $model,
-            )
+            ]
         );
     }
 
@@ -153,7 +153,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             $model->attributes = $_GET['Attribute'];
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

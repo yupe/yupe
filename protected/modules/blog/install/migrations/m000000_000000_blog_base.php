@@ -24,7 +24,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         // blog
         $this->createTable(
             '{{blog_blog}}',
-            array(
+            [
                 'id'             => "pk",
                 'category_id'    => "integer DEFAULT NULL",
                 'name'           => "varchar(250) NOT NULL",
@@ -38,7 +38,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
                 'update_user_id' => "integer NOT NULL",
                 'create_date'    => "integer NOT NULL",
                 'update_date'    => "integer NOT NULL",
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -86,7 +86,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         // post
         $this->createTable(
             '{{blog_post}}',
-            array(
+            [
                 'id'             => "pk",
                 'blog_id'        => "integer NOT NULL",
                 'create_user_id' => "integer NOT NULL",
@@ -106,7 +106,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
                 'access_type'    => "integer NOT NULL DEFAULT '1'",
                 'keywords'       => "varchar(250) NOT NULL DEFAULT ''",
                 'description'    => "varchar(250) NOT NULL DEFAULT ''",
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -154,7 +154,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         // user to blog
         $this->createTable(
             '{{blog_user_to_blog}}',
-            array(
+            [
                 'id'          => "pk",
                 'user_id'     => "integer NOT NULL",
                 'blog_id'     => "integer NOT NULL",
@@ -163,7 +163,7 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
                 'role'        => "integer NOT NULL DEFAULT '1'",
                 'status'      => "integer NOT NULL DEFAULT '1'",
                 'note'        => "varchar(250) NOT NULL DEFAULT ''",
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -221,10 +221,10 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         // tags
         $this->createTable(
             '{{blog_tag}}',
-            array(
+            [
                 'id'   => 'pk',
                 'name' => 'varchar(255) NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -234,11 +234,11 @@ class m000000_000000_blog_base extends yupe\components\DbMigration
         // post to tag
         $this->createTable(
             '{{blog_post_to_tag}}',
-            array(
+            [
                 'post_id' => 'integer NOT NULL',
                 'tag_id'  => 'integer NOT NULL',
                 'PRIMARY KEY (post_id, tag_id)'
-            ),
+            ],
             $this->getOptions()
         );
 

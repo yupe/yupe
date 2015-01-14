@@ -24,45 +24,45 @@ class LoginForm extends yupe\models\YFormModel
     {
         $module = Yii::app()->getModule('user');
 
-        return array(
-            array('email, password', 'required'),
+        return [
+            ['email, password', 'required'],
 //            array('email', 'email'),
-            array('remember_me', 'boolean'),
-            array(
+            ['remember_me', 'boolean'],
+            [
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
                 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(),
                 'message'    => Yii::t('UserModule.user', 'Check code incorrect'),
                 'on'         => 'loginLimit'
-            ),
-            array(
+            ],
+            [
                 'verifyCode',
                 'captcha',
                 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(),
                 'on'         => self::LOGIN_LIMIT_SCENARIO
-            ),
-            array('verifyCode', 'emptyOnInvalid')
-        );
+            ],
+            ['verifyCode', 'emptyOnInvalid']
+        ];
     }
 
     public function attributeLabels()
     {
-        return array(
+        return [
             'email'       => Yii::t('UserModule.user', 'Email/Login'),
             'password'    => Yii::t('UserModule.user', 'Password'),
             'remember_me' => Yii::t('UserModule.user', 'Remember me'),
             'verifyCode'  => Yii::t('UserModule.user', 'Check code'),
-        );
+        ];
     }
 
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'email'       => Yii::t('UserModule.user', 'Email/Login'),
             'password'    => Yii::t('UserModule.user', 'Password'),
             'remember_me' => Yii::t('UserModule.user', 'Remember me'),
             'verifyCode'  => Yii::t('UserModule.user', 'Check code'),
-        );
+        ];
     }
 
     /**

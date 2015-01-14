@@ -33,98 +33,98 @@
     $brandTitle = Yii::t('InstallModule.install', 'Install') . ' ' . CHtml::encode(Yii::app()->name);
     $this->widget(
         'bootstrap.widgets.TbNavbar',
-        array(
+        [
             'fluid'    => true,
             'brand'    => CHtml::image(
                 $yupeAssets . "/img/logo.png",
                 $brandTitle,
-                array(
+                [
                     'width'  => '38',
                     'height' => '38',
                     'title'  => $brandTitle,
-                )
+                ]
             ),
             'brandUrl' => $this->createUrl('index'),
-            'items'    => array(
-                CHtml::tag('span', array('id' => 'stepName'), CHtml::encode($this->stepName)),
-                array(
+            'items'    => [
+                CHtml::tag('span', ['id' => 'stepName'], CHtml::encode($this->stepName)),
+                [
                     'class'       => 'bootstrap.widgets.TbMenu',
                     'type'        => 'navbar',
-                    'htmlOptions' => array('class' => 'navbar-right'),
+                    'htmlOptions' => ['class' => 'navbar-right'],
                     'items'       => array_merge(
-                        array(
-                            array(
+                        [
+                            [
                                 'icon'  => 'fa fa-fw fa-question-circle',
                                 'label' => Yii::t('YupeModule.yupe', 'Help'),
                                 'url'   => 'http://yupe.ru/docs/index.html?from=install',
-                                'items' => array(
-                                    array(
+                                'items' => [
+                                    [
                                         'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official site'),
                                         'url'         => 'http://yupe.ru?from=install',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-book',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official docs'),
                                         'url'         => 'http://yupe.ru/docs/index.html?from=install',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-th-large',
                                         'label'       => Yii::t('YupeModule.yupe', 'Additional modules'),
                                         'url'         => 'https://github.com/yupe/yupe-ext',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-comment',
                                         'label'       => Yii::t('YupeModule.yupe', 'Forum'),
                                         'url'         => 'http://yupe.ru/talk/?from=install',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Community on github'),
                                         'url'         => 'https://github.com/yupe/yupe',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-thumbs-up',
                                         'label'       => Yii::t('YupeModule.yupe', 'Order development and/or support'),
                                         'url'         => 'http://amylabs.ru/contact?from=install',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-warning',
                                         'label'       => Yii::t('YupeModule.yupe', 'Report a bug'),
                                         'url'         => 'http://yupe.ru/contacts?from=install',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                    array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                    [
                                         'icon'        => 'fa fa-fw fa-question-circle',
                                         'label'       => Yii::t('YupeModule.yupe', 'About Yupe!'),
                                         'url'         => 'http://yupe.ru/pages/about?from=install',
-                                        'linkOptions' => array('target' => '_blank'),
-                                    ),
-                                ),
-                            ),
-                            array(
+                                        'linkOptions' => ['target' => '_blank'],
+                                    ],
+                                ],
+                            ],
+                            [
                                 'label' => $this->yupe->getVersion(),
                                 'icon'  => 'fa fa-fw fa-thumbs-up',
                                 'url'   => 'http://yupe.ru/?from=install'
-                            ),
-                        ),
+                            ],
+                        ],
                         $this->yupe->getLanguageSelectorArray()
                     ),
-                ),
-            ),
-        )
+                ],
+            ],
+        ]
     );
     ?>
 
     <div class='installContentWrapper'>
         <?php if (count($this->breadcrumbs)) {
-            $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', ['links' => $this->breadcrumbs]);
         }
         ?>
         <!-- breadcrumbs -->

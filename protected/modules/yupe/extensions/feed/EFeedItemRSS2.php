@@ -114,7 +114,7 @@ class EFeedItemRSS2 extends EFeedItemAbstract
      */
     public function setEncloser($url, $length, $type)
     {
-        $attributes = array('url' => $url, 'length' => $length, 'type' => $type);
+        $attributes = ['url' => $url, 'length' => $length, 'type' => $type];
 
         $this->addTag('enclosure', '', $attributes);
     }

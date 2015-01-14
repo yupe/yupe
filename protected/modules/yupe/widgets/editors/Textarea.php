@@ -8,7 +8,7 @@ use CHtml;
 class Textarea extends \CInputWidget
 {
 
-    public $options = array();
+    public $options = [];
 
     public function run()
     {

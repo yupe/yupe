@@ -1,66 +1,66 @@
 <?php if (Yii::app()->getRequest()->getIsAjaxRequest() === false) : ?>
 
     <?php
-    $this->breadcrumbs = array(
-        Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/feedbackBackend/index'),
+    $this->breadcrumbs = [
+        Yii::t('FeedbackModule.feedback', 'Messages ') => ['/feedback/feedbackBackend/index'],
         $model->theme,
-    );
+    ];
 
     $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - view');
 
-    $this->menu = array(
-        array(
+    $this->menu = [
+        [
             'icon'  => 'fa fa-fw fa-list-alt',
             'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
-            'url'   => array('/feedback/feedbackBackend/index')
-        ),
-        array(
+            'url'   => ['/feedback/feedbackBackend/index']
+        ],
+        [
             'icon'  => 'fa fa-fw fa-plus-square',
             'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
-            'url'   => array('/feedback/feedbackBackend/create')
-        ),
-        array(
+            'url'   => ['/feedback/feedbackBackend/create']
+        ],
+        [
             'label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr(
                     $model->theme,
                     0,
                     32
                 ) . '»'
-        ),
-        array(
+        ],
+        [
             'icon'  => 'fa fa-fw fa-pencil',
             'label' => Yii::t('FeedbackModule.feedback', 'Edit message '),
-            'url'   => array(
+            'url'   => [
                 '/feedback/feedbackBackend/update',
                 'id' => $model->id
-            )
-        ),
-        array(
+            ]
+        ],
+        [
             'icon'  => 'fa fa-fw fa-eye',
             'label' => Yii::t('FeedbackModule.feedback', 'View message'),
-            'url'   => array(
+            'url'   => [
                 '/feedback/feedbackBackend/view',
                 'id' => $model->id
-            )
-        ),
-        array(
+            ]
+        ],
+        [
             'icon'  => 'fa fa-fw fa-envelope',
             'label' => Yii::t('FeedbackModule.feedback', 'Reply for message'),
-            'url'   => array(
+            'url'   => [
                 '/feedback/feedbackBackend/answer',
                 'id' => $model->id
-            )
-        ),
-        array(
+            ]
+        ],
+        [
             'icon'        => 'fa fa-fw fa-trash-o',
             'label'       => Yii::t('FeedbackModule.feedback', 'Remove message '),
             'url'         => '#',
-            'linkOptions' => array(
-                'submit'  => array('/feedback/feedbackBackend/delete', 'id' => $model->id),
-                'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'linkOptions' => [
+                'submit'  => ['/feedback/feedbackBackend/delete', 'id' => $model->id],
+                'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
                 'confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
-            )
-        ),
-    );
+            ]
+        ],
+    ];
     ?>
 
     <div class="page-header">
@@ -74,75 +74,75 @@
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data'       => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
-            array(
+            [
                 'name'  => 'creation_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'change_date',
                 'value' => Yii::app()->getDateFormatter()->formatDateTime($model->change_date, "short", "short"),
-            ),
+            ],
             'name',
             'email',
             'phone',
             'theme',
-            array(
+            [
                 'name' => 'text',
                 'type' => 'raw'
-            ),
-            array(
+            ],
+            [
                 'name'  => 'type',
                 'value' => $model->getType(),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'category_id',
                 'value' => $model->getCategory(),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'status',
                 'value' => $model->getStatus(),
-            ),
-            array(
+            ],
+            [
                 'name' => 'answer',
                 'type' => 'raw'
-            ),
-            array(
+            ],
+            [
                 'name'  => 'answer_user',
                 'value' => ($model->getAnsweredUser() instanceof User ? $model->getAnsweredUser()->getFullName(
                     ) : $model->getAnsweredUser()),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'answer_date',
                 'value' => ($model->answer_date != "0000-00-00 00:00:00")
                         ? Yii::app()->dateFormatter->formatDateTime($model->answer_date, 'short')
                         : "—",
-            ),
-            array(
+            ],
+            [
                 'name'  => 'is_faq',
                 'value' => $model->getIsFaq(),
-            ),
+            ],
             'ip',
-        ),
-    )
+        ],
+    ]
 ); ?>
 
 <?php if (Yii::app()->getRequest()->getIsAjaxRequest() === true) : ?>
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'context'     => 'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',
             'label'       => Yii::t('FeedbackModule.feedback', 'Ok'),
-            'htmlOptions' => array(
+            'htmlOptions' => [
                 'class'       => 'btn-block',
                 'data-toggle' => 'modal',
                 'data-target' => '.modal',
-            ),
-        )
+            ],
+        ]
     ); ?>
 <?php endif; ?>

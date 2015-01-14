@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     'class'                 => 'CDbConnection',
     'connectionString'      => 'mysql:host=127.0.0.1;port=3306;dbname=<db.name>',
     'username'              => '<db.user>',
@@ -10,4 +10,4 @@ return array(
     'enableProfiling'       => defined('YII_DEBUG') && YII_DEBUG ? true : 0,
     'schemaCachingDuration' => 108000,
     'tablePrefix'           => 'yupe_',
-);
+];

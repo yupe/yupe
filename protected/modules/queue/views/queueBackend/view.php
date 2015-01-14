@@ -1,50 +1,50 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('QueueModule.queue', 'Tasks') => array('/queue/queueBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('QueueModule.queue', 'Tasks') => ['/queue/queueBackend/index'],
     $model->id,
-);
+];
 
 $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - show');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('QueueModule.queue', 'Task list'),
-        'url'   => array('/queue/queueBackend/index')
-    ),
-    array(
+        'url'   => ['/queue/queueBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('QueueModule.queue', 'Create task'),
-        'url'   => array('/queue/queueBackend/create')
-    ),
-    array('label' => Yii::t('QueueModule.queue', 'Task') . ' «' . $model->id . '»'),
-    array(
+        'url'   => ['/queue/queueBackend/create']
+    ],
+    ['label' => Yii::t('QueueModule.queue', 'Task') . ' «' . $model->id . '»'],
+    [
         'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('QueueModule.queue', 'Edit task.'),
-        'url'   => array(
+        'url'   => [
             '/queue/queueBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('QueueModule.queue', 'Show task'),
-        'url'   => array(
+        'url'   => [
             '/queue/queueBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('QueueModule.queue', 'Remove task'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/queue/queueBackend/delete', 'id' => $model->id),
-            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit'  => ['/queue/queueBackend/delete', 'id' => $model->id],
+            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('QueueModule.queue', 'Do you really want to delete?'),
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -55,27 +55,27 @@ $this->menu = array(
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data'       => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
-            array(
+            [
                 'name'  => 'worker',
                 'value' => $model->getWorkerName()
-            ),
+            ],
             'create_time',
             'task',
             'start_time',
             'complete_time',
-            array(
+            [
                 'name'  => 'priority',
                 'value' => $model->getPriority()
-            ),
-            array(
+            ],
+            [
                 'name'  => 'status',
                 'value' => $model->getStatus()
-            ),
+            ],
             'notice',
-        ),
-    )
+        ],
+    ]
 ); ?>

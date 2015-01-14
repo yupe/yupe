@@ -6,7 +6,7 @@ class m140814_200000_store_order_base extends yupe\components\DbMigration
     {
         $this->createTable(
             "{{store_order}}",
-            array(
+            [
                 "id" => "pk",
                 "delivery_id" => "integer null",
                 "delivery_price" => "decimal(10, 2) not null default '0'",
@@ -31,7 +31,7 @@ class m140814_200000_store_order_base extends yupe\components\DbMigration
                 "url" => "varchar(255) null",
                 "note" => "varchar(1024) not null default ''",
                 "modified" => "datetime",
-            ),
+            ],
             $this->getOptions()
         );
         $this->createIndex("idx_{{store_order}}_user_id", "{{store_order}}", "user_id");
@@ -47,7 +47,7 @@ class m140814_200000_store_order_base extends yupe\components\DbMigration
 
         $this->createTable(
             "{{store_order_product}}",
-            array(
+            [
                 "id" => "pk",
                 "order_id" => "integer not null",
                 "product_id" => "integer null",
@@ -57,7 +57,7 @@ class m140814_200000_store_order_base extends yupe\components\DbMigration
                 "price" => "decimal(10, 2) not null default '0'",
                 "quantity" => "integer not null default '0'",
                 "sku" => "varchar(255) null",
-            ),
+            ],
             $this->getOptions()
         );
         $this->createIndex("idx_{{store_order_product}}_order_id", "{{store_order_product}}", "order_id");

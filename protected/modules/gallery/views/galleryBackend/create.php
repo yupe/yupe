@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/galleryBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/galleryBackend/index'],
     Yii::t('GalleryModule.gallery', 'Adding'),
-);
+];
 
 $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - create');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
-        'url'   => array('/gallery/galleryBackend/index')
-    ),
-    array(
+        'url'   => ['/gallery/galleryBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
-        'url'   => array('/gallery/galleryBackend/create')
-    ),
-);
+        'url'   => ['/gallery/galleryBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -26,4 +26,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

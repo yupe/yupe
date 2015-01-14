@@ -1,18 +1,18 @@
 <?php
 $this->pageTitle = Yii::t('UserModule.user', 'Password recovery');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
+$this->breadcrumbs = [Yii::t('UserModule.user', 'Password recovery')];
 ?>
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'          => 'registration-form',
         'type'        => 'vertical',
-        'htmlOptions' => array(
+        'htmlOptions' => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 ); ?>
 
 <?php echo $form->errorSummary($model); ?>
@@ -22,7 +22,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
         <?php echo $form->textFieldGroup(
             $model,
             'email',
-            array('hint' => Yii::t('UserModule.user', 'Enter an email you have used during signup'))
+            ['hint' => Yii::t('UserModule.user', 'Enter an email you have used during signup')]
         ); ?>
     </div>
 </div>
@@ -32,11 +32,11 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context'    => 'primary',
                 'label'      => Yii::t('UserModule.user', 'Recover password'),
-            )
+            ]
         ); ?>
     </div>
 </div>

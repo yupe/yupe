@@ -20,10 +20,10 @@ class LastPostsWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $criteria = array(
+        $criteria = [
             'limit' => $this->limit,
             'order' => 't.id DESC',
-        );
+        ];
 
         if (is_array($this->criteria) && !empty($this->criteria)) {
             $criteria = CMap::mergeArray($criteria, $this->criteria);
@@ -33,6 +33,6 @@ class LastPostsWidget extends yupe\widgets\YWidget
             $this->cacheTime
         )->findAll($criteria);
 
-        $this->render($this->view, array('models' => $posts));
+        $this->render($this->view, ['models' => $posts]);
     }
 }

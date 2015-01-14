@@ -37,23 +37,23 @@ class Type extends \yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name', 'required'),
-            array('name', 'unique'),
-            array('name', 'length', 'max' => 255),
-            array('main_category_id', 'numerical', 'integerOnly' => true),
-            array('categories', 'safe'),
-            array('id, name, main_category_id, categories', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name', 'required'],
+            ['name', 'unique'],
+            ['name', 'length', 'max' => 255],
+            ['main_category_id', 'numerical', 'integerOnly' => true],
+            ['categories', 'safe'],
+            ['id, name, main_category_id, categories', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function relations()
     {
-        return array(
-            'attributeRelation' => array(self::HAS_MANY, 'TypeAttribute', 'type_id'),
-            'typeAttributes' => array(self::HAS_MANY, 'Attribute', array('attribute_id' => 'id'), 'through' => 'attributeRelation', 'with' => 'group', 'order' => 'group.position ASC'),
-            'category' => array(self::BELONGS_TO, 'StoreCategory', 'main_category_id')
-        );
+        return [
+            'attributeRelation' => [self::HAS_MANY, 'TypeAttribute', 'type_id'],
+            'typeAttributes' => [self::HAS_MANY, 'Attribute', ['attribute_id' => 'id'], 'through' => 'attributeRelation', 'with' => 'group', 'order' => 'group.position ASC'],
+            'category' => [self::BELONGS_TO, 'StoreCategory', 'main_category_id']
+        ];
     }
 
     /**
@@ -61,12 +61,12 @@ class Type extends \yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.product', 'Id'),
             'name' => Yii::t('StoreModule.product', 'Название'),
             'main_category_id' => Yii::t('StoreModule.product', 'Категория'),
             'categories' => Yii::t('StoreModule.product', 'Дополнительные категории'),
-        );
+        ];
     }
 
     /**
@@ -74,12 +74,12 @@ class Type extends \yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.product', 'Id'),
             'name' => Yii::t('StoreModule.product', 'Название'),
             'main_category_id' => Yii::t('StoreModule.product', 'Главная категория'),
             'categories' => Yii::t('StoreModule.product', 'Дополнительные категории'),
-        );
+        ];
     }
 
     /**
@@ -94,15 +94,15 @@ class Type extends \yupe\models\YModel
         $criteria->compare('name', $this->name, true);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-            )
+            ]
         );
     }
 
     public function setTypeAttributes($attributes)
     {
-        TypeAttribute::model()->deleteAllByAttributes(array('type_id' => $this->id));
+        TypeAttribute::model()->deleteAllByAttributes(['type_id' => $this->id]);
 
         if (is_array($attributes)) {
             foreach ($attributes as $attribute_id) {
@@ -117,7 +117,7 @@ class Type extends \yupe\models\YModel
     public function getFormattedList()
     {
         $types = Type::model()->findAll();
-        $list = array();
+        $list = [];
         foreach ($types as $key => $type) {
             $list[$type->id] = $type->name;
         }

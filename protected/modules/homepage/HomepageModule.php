@@ -14,7 +14,7 @@ Yii::import('application.modules.blog.models.Post');
 
 class HomepageModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.1';
 
     const MODE_POSTS = 1;
 
@@ -28,15 +28,15 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getDependencies()
     {
-        return array(
+        return [
             'blog',
             'page'
-        );
+        ];
     }
 
     public function getModes()
     {
-        $modes = array();
+        $modes = [];
         if (Yii::app()->hasModule('blog')) {
             $modes[self::MODE_POSTS] = Yii::t('HomepageModule.homepage', 'Posts');
         }
@@ -60,7 +60,7 @@ class HomepageModule extends yupe\components\WebModule
             return CHtml::listData(Page::model()->public()->published()->findAll(), 'id', 'title');
         }
 
-        return array();
+        return [];
     }
 
     public function getName()
@@ -105,34 +105,34 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return '/yupe/backend/modulesettings';
+        return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => 'homepage']);
     }
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'mode'   => $this->getModes(),
             'target' => $this->getTargets(),
             'limit'
-        );
+        ];
     }
 
     public function getEditableParamsGroups()
     {
-        return array(
-            'main' => array(
+        return [
+            'main' => [
                 'label' => Yii::t('HomepageModule.homepage', 'Main settings'),
-            )
-        );
+            ]
+        ];
     }
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'mode'   => Yii::t('HomepageModule.homepage', 'Whats will be displayed'),
             'limit'  => Yii::t('HomepageModule.homepage', 'Pages count'),
             'target' => Yii::t('HomepageModule.homepage', 'Page or post')
-        );
+        ];
     }
 
     public function init()
@@ -147,19 +147,19 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'ManageHomePage',
                 'description' => Yii::t('HomepageModule.homepage', 'Manage home page'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Homepage.YupeBackend.Modulesettings',
                         'description' => Yii::t('HomepageModule.homepage', 'Manage home page')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 }

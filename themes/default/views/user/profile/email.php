@@ -1,20 +1,20 @@
 <?php
 $this->pageTitle = Yii::t('UserModule.user', 'Change email');
-$this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'User profile') => array('/user/account/profile'),
+$this->breadcrumbs = [
+    Yii::t('UserModule.user', 'User profile') => ['/user/profile/profile'],
     Yii::t('UserModule.user', 'Change email')
-);
+];
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'profile-email-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array(
+        'htmlOptions'            => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 );
 ?>
 
@@ -25,13 +25,13 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'email',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'autocomplete' => 'off',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -50,11 +50,11 @@ $form = $this->beginWidget(
     <div class="col-xs-12">
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context'    => 'primary',
                 'label'      => Yii::t('UserModule.user', 'Change email'),
-            )
+            ]
         ); ?>
     </div>
 </div>

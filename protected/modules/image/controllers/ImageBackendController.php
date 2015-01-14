@@ -14,31 +14,31 @@ class ImageBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Image.ImageBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Image.ImageBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Image.ImageBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Image.ImageBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Image.ImageBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Image.ImageBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Image.ImageBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Image.ImageBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Image.ImageBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Image.ImageBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Image.ImageBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Image.ImageBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'AjaxImageUpload' => array(
+        return [
+            'AjaxImageUpload' => [
                 'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
                 'maxSize'   => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
                 'types'     => $this->module->allowedExtensions
-            ),
-            'AjaxImageChoose' => array(
+            ],
+            'AjaxImageChoose' => [
                 'class' => 'yupe\components\actions\YAjaxImageChooseAction'
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -50,7 +50,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -92,7 +92,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
                     $this->redirect(
                         (array)Yii::app()->getRequest()->getPost(
                             'submit-type',
-                            array('create')
+                            ['create']
                         )
                     );
                 }
@@ -106,7 +106,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -134,13 +134,13 @@ class ImageBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -191,11 +191,11 @@ class ImageBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Image',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

@@ -1,27 +1,27 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/feedbackBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('FeedbackModule.feedback', 'Messages ') => ['/feedback/feedbackBackend/index'],
     Yii::t('FeedbackModule.feedback', 'adding'),
-);
+];
 
 $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - add');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('FeedbackModule.feedback', 'Messages management'),
-        'url'   => array('/feedback/feedbackBackend/index')
-    ),
-    array(
+        'url'   => ['/feedback/feedbackBackend/index']
+    ],
+    [
         'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('FeedbackModule.feedback', 'Create message '),
-        'url'   => array('/feedback/feedbackBackend/create')
-    ),
-);
+        'url'   => ['/feedback/feedbackBackend/create']
+    ],
+];
 ?>
 <h1>
     <?php echo Yii::t('FeedbackModule.feedback', 'Messages '); ?>
     <small><?php echo Yii::t('FeedbackModule.feedback', 'adding'); ?></small>
 </h1>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

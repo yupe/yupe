@@ -3,7 +3,7 @@
 </head>
 <body>
 <h1 style="font-weight:normal;">
-    Ваш заказ на сумму <?= Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', array($order->getTotalPrice()));?> в магазине "<?= Yii::app()->getModule('yupe')->siteName;?>".
+    Ваш заказ на сумму <?= Yii::t('OrderModule.order', '{n} рубль|{n} рубля|{n} рублей', [$order->getTotalPrice()]);?> в магазине "<?= Yii::app()->getModule('yupe')->siteName;?>".
 </h1>
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
     <tr>
@@ -89,7 +89,7 @@
     <?php foreach ($order->products as $orderProduct): ?>
         <?php $productUrl = Yii::app()->createAbsoluteUrl(
             '/store/catalog/show',
-            array('name' => $orderProduct->product->alias)
+            ['name' => $orderProduct->product->alias]
         ); ?>
         <tr>
             <td align="center"
@@ -162,8 +162,8 @@
 <br>
 Вы всегда можете проверить состояние заказа по ссылке:<br>
 <?= CHtml::link(
-    Yii::app()->createAbsoluteUrl('/order/order/view', array('url' => $order->url)),
-    Yii::app()->createAbsoluteUrl('/order/order/view', array('url' => $order->url))
+    Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url]),
+    Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url])
 ); ?>
 <br>
 

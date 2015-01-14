@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     '*unknown*' => '',
     '--choose--' => '',
     'Accepted extensions (separated by comma)' => '',
@@ -92,4 +92,4 @@ return array(
     'In stock' => '',
     'Not in stock' => '',
     'Stock status' => '',
-);
+];

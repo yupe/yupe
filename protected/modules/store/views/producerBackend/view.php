@@ -1,44 +1,44 @@
 <?php
 /* @var $model Producer */
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.producer', 'Производители') => array('/store/producerBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.producer', 'Производители') => ['/store/producerBackend/index'],
     $model->name,
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.producer', 'Производители - просмотр');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Управление производителями'), 'url' => array('/store/producerBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Добавить производителя'), 'url' => array('/store/producerBackend/create')),
-    array('label' => Yii::t('StoreModule.producer', 'Производитель') . ' «' . mb_substr($model->name_short, 0, 32) . '»'),
-    array(
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Управление производителями'), 'url' => ['/store/producerBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Добавить производителя'), 'url' => ['/store/producerBackend/create']],
+    ['label' => Yii::t('StoreModule.producer', 'Производитель') . ' «' . mb_substr($model->name_short, 0, 32) . '»'],
+    [
         'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('StoreModule.producer', 'Редактирование производителя'),
-        'url' => array(
+        'url' => [
             '/store/producerBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('StoreModule.producer', 'Просмотреть производителя'),
-        'url' => array(
+        'url' => [
             '/store/producerBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.producer', 'Удалить производителя'),
         'url' => '#',
-        'linkOptions' => array(
-            'submit' => array('/store/producerBackend/delete', 'id' => $model->id),
+        'linkOptions' => [
+            'submit' => ['/store/producerBackend/delete', 'id' => $model->id],
             'confirm' => Yii::t('StoreModule.producer', 'Вы уверены, что хотите удалить производителя?'),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'csrf' => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -49,36 +49,36 @@ $this->menu = array(
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data' => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
             'name_short',
             'name',
             'slug',
-            array(
+            [
                 'name' => 'status',
                 'value' => $model->getStatusTitle(),
-            ),
+            ],
             'order',
-            array(
+            [
                 'name' => 'image',
                 'type' => 'raw',
                 'value' => function($model){
                         return $model->image ? CHtml::image($model->getImageUrl()) : '';
                     },
-            ),
-            array(
+            ],
+            [
                 'name' => 'short_description',
                 'type' => 'html'
-            ),
-            array(
+            ],
+            [
                 'name' => 'description',
                 'type' => 'html'
-            ),
+            ],
             'meta_title',
             'meta_keywords',
             'meta_description'
-        ),
-    )
+        ],
+    ]
 ); ?>

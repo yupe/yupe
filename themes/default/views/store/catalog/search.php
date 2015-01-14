@@ -6,7 +6,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
 
-$this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => array('/store/catalog/index'));
+$this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/store/catalog/index']];
 
 ?>
 
@@ -42,27 +42,27 @@ $this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => ar
             <div class="grid">
                 <?php $this->widget(
                     'zii.widgets.CListView',
-                    array(
+                    [
                         'dataProvider' => $dataProvider,
                         'itemView' => '_view',
                         'summaryText' => '',
                         'enableHistory' => true,
                         'cssFile' => false,
-                        'pager' => array(
+                        'pager' => [
                             'cssFile' => false,
-                            'htmlOptions' => array('class' => 'pagination'),
+                            'htmlOptions' => ['class' => 'pagination'],
                             'header' => '',
                             'firstPageLabel' => '&lt;&lt;',
                             'lastPageLabel' => '&gt;&gt;',
                             'nextPageLabel' => '&gt;',
                             'prevPageLabel' => '&lt;',
-                        ),
-                        'sortableAttributes' => array(
+                        ],
+                        'sortableAttributes' => [
                             'sku',
                             'name',
                             'price'
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
         </section>

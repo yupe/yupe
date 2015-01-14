@@ -4,34 +4,34 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
 {
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Delivery',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'status'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin'),),
-            array('allow', 'actions' => array('create'), 'roles' => array('Delivery.DeliveryBackend.Create'),),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Delivery.DeliveryBackend.Delete'),),
-            array('allow', 'actions' => array('update'), 'roles' => array('Delivery.DeliveryBackend.Update'),),
-            array('allow', 'actions' => array('index'), 'roles' => array('Delivery.DeliveryBackend.Index'),),
-            array('allow', 'actions' => array('sortable'), 'roles' => array('Delivery.DeliveryBackend.Update'),),
-            array('allow', 'actions' => array('view'), 'roles' => array('Delivery.DeliveryBackend.View'),),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Delivery.DeliveryBackend.Create'],],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Delivery.DeliveryBackend.Delete'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Delivery.DeliveryBackend.Index'],],
+            ['allow', 'actions' => ['sortable'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
+            ['allow', 'actions' => ['view'], 'roles' => ['Delivery.DeliveryBackend.View'],],
+            ['deny',],
+        ];
     }
 
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
 
@@ -52,9 +52,9 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
@@ -86,9 +86,9 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
@@ -109,7 +109,7 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
             );
 
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t('DeliveryModule.delivery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
@@ -124,7 +124,7 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
         if (isset($_GET['Delivery'])) {
             $model->attributes = $_GET['Delivery'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
 

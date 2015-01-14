@@ -10,12 +10,12 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'dbsettings-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-    )
+    ]
 );
 
 Yii::app()->clientScript->registerScriptFile(
@@ -64,7 +64,7 @@ Yii::app()->clientScript->registerScript(
         <b><?php echo Yii::t(
                 'InstallModule.install',
                 'File {file} not exists or not accessible for write!',
-                array('{file}' => $data['file'])
+                ['{file}' => $data['file']]
             ); ?></b>
     </div>
 <?php } endif; ?>
@@ -82,16 +82,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->dropDownListGroup(
             $data['model'],
             'dbType',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $data['model']->getDbTypeNames(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbType'),
                         'data-content'        => $data['model']->getAttributeDescription('dbType')
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -101,16 +101,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'host',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('host'),
                         'data-content'        => $data['model']->getAttributeDescription('host'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -120,15 +120,15 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'port',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('port'),
                         'data-content'        => $data['model']->getAttributeDescription('port'),
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -138,16 +138,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'dbName',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbName'),
                         'data-content'        => $data['model']->getAttributeDescription('dbName'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -163,16 +163,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'tablePrefix',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('tablePrefix'),
                         'data-content'        => $data['model']->getAttributeDescription('tablePrefix'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -182,16 +182,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'dbUser',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbUser'),
                         'data-content'        => $data['model']->getAttributeDescription('dbUser'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -201,16 +201,16 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->passwordFieldGroup(
             $data['model'],
             'dbPassword',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('dbPassword'),
                         'data-content'        => $data['model']->getAttributeDescription('dbPassword'),
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -220,18 +220,18 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldGroup(
             $data['model'],
             'socket',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('socket'),
                         'data-content'        => $data['model']->getAttributeDescription(
                                 'socket'
                             ) . ' (обязательно только при подключении через сокет)',
                         'autocomplete'        => 'off',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
@@ -240,17 +240,17 @@ Yii::app()->clientScript->registerScript(
 
 <?php echo CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
-    array('/install/default/requirements'),
-    array('class' => 'btn btn-default')
+    ['/install/default/requirements'],
+    ['class' => 'btn btn-default']
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => Yii::t('InstallModule.install', 'Check connection and continue >'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

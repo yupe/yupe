@@ -4,7 +4,7 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model->id));
+$this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]);
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -17,7 +17,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model
                     <tr>
                         <td class="col-sm-5">
                             <div class="media">
-                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', array('name' => $position->product->alias)); ?>
+                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->alias]); ?>
                                 <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                     <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
                                 </a>
@@ -138,7 +138,9 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model
                                         <?= CHtml::activeLabel($model, 'delivery_id'); ?>
                                     </td>
                                     <td>
-                                        <?= CHtml::encode($model->delivery->name); ?>
+                                        <?php if(!empty($model->delivery)):?>
+                                            <?= CHtml::encode($model->delivery->name); ?>
+                                        <?php endif;?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -186,7 +188,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', array($model
                     </td>
 
                 </tr>
-                <?php if (!$model->paid && $model->delivery->hasPaymentMethods()): ?>
+                <?php if (!$model->paid  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">

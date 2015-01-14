@@ -47,7 +47,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": ">=1.1.15",
+        "yiisoft/yii": ">=1.1.16",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
@@ -59,7 +59,7 @@
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
-        "guzzlehttp/guzzle": "4.2.*"
+        "guzzlehttp/guzzle": "5.0.*"
     },
     "repositories": {
         "taggable": {

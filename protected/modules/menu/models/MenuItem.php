@@ -64,21 +64,21 @@ class MenuItem extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('parent_id, menu_id, title, href', 'required', 'except' => 'search'),
-            array('sort, status, condition_denial', 'numerical', 'integerOnly' => true),
-            array('parent_id, menu_id, rel, target', 'length', 'max' => 10),
-            array('title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255),
-            array('class', 'length', 'max' => 50),
-            array('regular_link', 'boolean'),
+        return [
+            ['parent_id, menu_id, title, href', 'required', 'except' => 'search'],
+            ['sort, status, condition_denial', 'numerical', 'integerOnly' => true],
+            ['parent_id, menu_id, rel, target', 'length', 'max' => 10],
+            ['title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255],
+            ['class', 'length', 'max' => 50],
+            ['regular_link', 'boolean'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array(
+            [
                 'id, parent_id, menu_id, title, href, sort, status, condition_name, condition_denial',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -88,10 +88,10 @@ class MenuItem extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'menu'   => array(self::BELONGS_TO, 'Menu', 'menu_id'),
-            'parent' => array(self::BELONGS_TO, 'MenuItem', 'parent_id')
-        );
+        return [
+            'menu'   => [self::BELONGS_TO, 'Menu', 'menu_id'],
+            'parent' => [self::BELONGS_TO, 'MenuItem', 'parent_id']
+        ];
     }
 
     /**
@@ -99,7 +99,7 @@ class MenuItem extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'               => Yii::t('MenuModule.menu', 'Id'),
             'parent_id'        => Yii::t('MenuModule.menu', 'Parent'),
             'menu_id'          => Yii::t('MenuModule.menu', 'Menu'),
@@ -116,7 +116,7 @@ class MenuItem extends yupe\models\YModel
             'sort'             => Yii::t('MenuModule.menu', 'Sorting'),
             'status'           => Yii::t('MenuModule.menu', 'Status'),
             'regular_link'     => Yii::t('MenuModule.menu', 'Regular link'),
-        );
+        ];
     }
 
     /**
@@ -124,7 +124,7 @@ class MenuItem extends yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id'               => Yii::t('MenuModule.menu', 'Menu item Id'),
             'parent_id'        => Yii::t('MenuModule.menu', 'Item parent. Check root if it is in root menu'),
             'menu_id'          => Yii::t('MenuModule.menu', 'For which one this item is attitude'),
@@ -144,7 +144,7 @@ class MenuItem extends yupe\models\YModel
                     'Choose menu item status: <br /><br /><span class="label label-success">activ</span> &ndash; Item and it descendants will be visible.<br /><br /><span class="label label-warning">not active</span> &ndash; Item and it descendants will be hidden.'
                 ),
             'regular_link'     => Yii::t('MenuModule.menu', 'Don\'t handle address to router'),
-        );
+        ];
     }
 
     /**
@@ -176,26 +176,26 @@ class MenuItem extends yupe\models\YModel
 
         $criteria->compare('t.sort', $this->sort);
         $criteria->compare('t.status', $this->status);
-        $criteria->with = array('menu', 'parent');
+        $criteria->with = ['menu', 'parent'];
 
         return new CActiveDataProvider(
-            get_class($this), array(
+            get_class($this), [
                 'criteria' => $criteria,
-                'sort'     => array('defaultOrder' => 't.sort')
-            )
+                'sort'     => ['defaultOrder' => 't.sort']
+            ]
         );
     }
 
     public function scopes()
     {
-        return array(
-            'public' => array(
+        return [
+            'public' => [
                 'condition' => 'status = :status',
-                'params'    => array(
+                'params'    => [
                     ':status' => self::STATUS_ACTIVE
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     protected function afterSave()
@@ -214,15 +214,15 @@ class MenuItem extends yupe\models\YModel
 
     public function getMenuList()
     {
-        return CHtml::listData(Menu::model()->findAll(array('select' => 'id, name')), 'id', 'name');
+        return CHtml::listData(Menu::model()->findAll(['select' => 'id, name']), 'id', 'name');
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'active'),
             self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'not active'),
-        );
+        ];
     }
 
     public function getStatus()
@@ -234,8 +234,8 @@ class MenuItem extends yupe\models\YModel
 
     public function getParentList()
     {
-        return array(0 => Yii::t('MenuModule.menu', 'Menu root')) + CHtml::listData(
-            $this->findAll(array('select' => 'id, title')),
+        return [0 => Yii::t('MenuModule.menu', 'Menu root')] + CHtml::listData(
+            $this->findAll(['select' => 'id, title']),
             'id',
             'title'
         );
@@ -243,36 +243,36 @@ class MenuItem extends yupe\models\YModel
 
     public function getParentTree()
     {
-        return array(0 => Yii::t('MenuModule.menu', 'Menu root')) + $this->parentTreeIterator;
+        return [0 => Yii::t('MenuModule.menu', 'Menu root')] + $this->parentTreeIterator;
     }
 
     public function getParentTreeIterator($parent_id = 0, $level = 1)
     {
         $results = $this->findAll(
-            array(
+            [
                 'order'     => 'sort',
                 'condition' => 'parent_id = :parent_id AND id <> :id AND menu_id = :menu_id',
-                'params'    => array(
+                'params'    => [
                     'parent_id' => (int)$parent_id,
                     'id'        => (int)$this->id,
                     'menu_id'   => (int)$this->menu_id,
-                ),
-            )
+                ],
+            ]
         );
 
-        $items = array();
+        $items = [];
         if (empty($results)) {
             return $items;
         }
 
         foreach ($results as $result) {
             $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
-            $items += array(
+            $items += [
                     $result->id => str_repeat(
                             '&nbsp;&nbsp;&nbsp;&nbsp;',
                             $level
                         ) . $result->title
-                ) + $childItems;
+                ] + $childItems;
         }
 
         return $items;
@@ -285,14 +285,14 @@ class MenuItem extends yupe\models\YModel
 
     public function getConditionList($condition = false)
     {
-        $conditions = array();
+        $conditions = [];
 
         foreach (Yii::app()->modules as $key => $value) {
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
             if (($module !== null) && ($module instanceof yupe\components\WebModule) && isset($module->conditions)) {
-                $conditionsList = array();
+                $conditionsList = [];
                 foreach ($module->conditions as $keyList => $valueList) {
                     $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
                 }
@@ -305,7 +305,7 @@ class MenuItem extends yupe\models\YModel
 
     public function getConditionName()
     {
-        $data = array('' => Yii::t('MenuModule.menu', 'Condition is not set')) + $this->getConditionList();
+        $data = ['' => Yii::t('MenuModule.menu', 'Condition is not set')] + $this->getConditionList();
 
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t(
             'MenuModule.menu',
@@ -326,10 +326,10 @@ class MenuItem extends yupe\models\YModel
 
     public function getConditionDenialList()
     {
-        return array(
+        return [
             self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'no'),
             self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'yes'),
-        );
+        ];
     }
 
     public function getConditionDenial()
@@ -378,7 +378,7 @@ class MenuItem extends yupe\models\YModel
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-            $this->deleteAll('parent_id = :id', array(':id' => $this->id));
+            $this->deleteAll('parent_id = :id', [':id' => $this->id]);
             $this->delete();
             $transaction->commit();
 

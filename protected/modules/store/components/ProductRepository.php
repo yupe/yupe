@@ -17,16 +17,16 @@ class ProductRepository extends CComponent
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
         return $dataProvider = new CActiveDataProvider(
-            Product::model(), array(
+            Product::model(), [
                 'criteria' => $criteria,
-                'pagination' => array(
+                'pagination' => [
                     'pageSize' => (int)$perPage,
                     'pageVar' => 'page',
-                ),
-                'sort' => array(
+                ],
+                'sort' => [
                     'sortVar' => 'sort',
-                ),
-            )
+                ],
+            ]
         );
     }
 
@@ -46,16 +46,16 @@ class ProductRepository extends CComponent
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
         return $dataProvider = new CActiveDataProvider(
-            Product::model(), array(
+            Product::model(), [
                 'criteria' => $criteria,
-                'pagination' => array(
+                'pagination' => [
                     'pageSize' => (int)$perPage,
                     'pageVar' => 'page',
-                ),
-                'sort' => array(
+                ],
+                'sort' => [
                     'sortVar' => 'sort',
-                ),
-            )
+                ],
+            ]
         );
     }
 
@@ -73,16 +73,16 @@ class ProductRepository extends CComponent
         }
 
         return $dataProvider = new CActiveDataProvider(
-            Product::model(), array(
+            Product::model(), [
                 'criteria' => $criteria,
-                'pagination' => array(
+                'pagination' => [
                     'pageSize' => (int)$perPage,
                     'pageVar' => 'page',
-                ),
-                'sort' => array(
+                ],
+                'sort' => [
                     'sortVar' => 'sort',
-                ),
-            )
+                ],
+            ]
         );
     }
 

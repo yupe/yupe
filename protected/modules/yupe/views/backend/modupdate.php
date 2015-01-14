@@ -3,19 +3,19 @@
     echo Yii::t(
         'YupeModule.yupe',
         'Migrations was founded for module "{moduleID}"',
-        array(
+        [
             '{moduleID}' => ucfirst($module->getId()),
-        )
+        ]
     );?> :
 </legend>
 <?php
-$newUpdates = array();
+$newUpdates = [];
 if (isset($updates[$module->getId()]) && ($updates = $updates[$module->getId()])) {
     foreach ($updates as $u) {
-        $newUpdates[] = array(
+        $newUpdates[] = [
             'id'       => count($newUpdates) + 1,
             'fileName' => $u,
-        );
+        ];
     }
 }
 ?>
@@ -26,36 +26,36 @@ if (isset($updates[$module->getId()]) && ($updates = $updates[$module->getId()])
             $gridDataProvider = new CArrayDataProvider($newUpdates);
             $this->widget(
                 'bootstrap.widgets.TbGridView',
-                array(
+                [
                     'template'     => '{items}{pager}',
                     'dataProvider' => $gridDataProvider,
-                    'columns'      => array(
-                        array(
+                    'columns'      => [
+                        [
                             'name'   => 'id',
                             'header' => 'ID',
-                        ),
-                        array(
+                        ],
+                        [
                             'name'   => 'fileName',
                             'header' => Yii::t('YupeModule.yupe', 'File'),
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );?>
             <?php
             $form = $this->beginWidget(
                 'bootstrap.widgets.TbActiveForm',
-                array(
+                [
                     'id'     => 'moduleUpdateForm',
                     'type'   => 'vertical',
                     'action' => '#',
-                )
+                ]
             );
             $this->widget(
                 'bootstrap.widgets.TbButton',
-                array(
+                [
                     'buttonType' => 'submit',
                     'label'      => Yii::t('YupeModule.yupe', 'Refresh'),
-                )
+                ]
             );
             $this->endWidget();
             ?>

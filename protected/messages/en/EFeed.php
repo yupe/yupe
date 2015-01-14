@@ -16,10 +16,10 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Feed version not supported'                                                                   => '',
     'For RSS 1.0 specifications link element should be add per item'                               => '',
     'Link Element is not set and it is required for RSS 1.0 to be used as about attribute of item' => '',
     'No feed items configured'                                                                     => '',
     'No items have been set'                                                                       => '',
-);
+];

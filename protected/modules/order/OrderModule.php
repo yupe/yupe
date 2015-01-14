@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.1';
 
     public $notifyEmailFrom;
     public $notifyEmailsTo;
@@ -13,36 +13,36 @@ class OrderModule extends WebModule
 
     public function getDependencies()
     {
-        return array('store', 'payment', 'delivery', 'mail');
+        return ['store', 'payment', 'delivery', 'mail'];
     }
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'notifyEmailFrom',
             'notifyEmailsTo',
-        );
+        ];
     }
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'notifyEmailFrom' => Yii::t('OrderModule.order', 'Email, от имени которого отправлять оповещения'),
             'notifyEmailsTo' => Yii::t('OrderModule.order', 'Получатели оповещений (через запятую)'),
-        );
+        ];
     }
 
     public function getEditableParamsGroups()
     {
-        return array(
-            '0.notify' => array(
+        return [
+            '0.notify' => [
                 'label' => Yii::t('OrderModule.order', 'Оповещения'),
-                'items' => array(
+                'items' => [
                     'notifyEmailFrom',
                     'notifyEmailsTo',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function getCategory()
@@ -52,9 +52,9 @@ class OrderModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Заказы'), 'url' => array('/order/orderBackend/index')),
-        );
+        return [
+            ['icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Заказы'), 'url' => ['/order/orderBackend/index']],
+        ];
     }
 
     public function getAdminPageLink()
@@ -102,28 +102,28 @@ class OrderModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'order.models.*'
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Order.OrderBackend.Management',
                 'description' => 'Управление заказами',
-                'items' => array(
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Index', 'description' => Yii::t("OrderModule.order", 'Просмотр списка заказов'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Create', 'description' => Yii::t("OrderModule.order", 'Создание заказа'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Update', 'description' => Yii::t("OrderModule.order", 'Редактирование заказа'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.View', 'description' => Yii::t("OrderModule.order", 'Просмотр заказа'),),
-                    array('type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Delete', 'description' => Yii::t("OrderModule.order", 'Удаление заказа'),),
-                ),
-            ),
-        );
+                'items' => [
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Index', 'description' => Yii::t("OrderModule.order", 'Просмотр списка заказов'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Create', 'description' => Yii::t("OrderModule.order", 'Создание заказа'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Update', 'description' => Yii::t("OrderModule.order", 'Редактирование заказа'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.View', 'description' => Yii::t("OrderModule.order", 'Просмотр заказа'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Delete', 'description' => Yii::t("OrderModule.order", 'Удаление заказа'),],
+                ],
+            ],
+        ];
     }
 
     public function getNotifyTo()

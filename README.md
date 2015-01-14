@@ -1,4 +1,4 @@
-Юпи! — CMS на [Yii Framework] (http://www.yiiframework.com/)
+Юпи!- CMS на Yii
 =================
 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
@@ -31,15 +31,18 @@
 
 Для успешной работы проекта на Юпи! вполне достаточно самого простого и дешевого хостинга, минимальные требования:
 
+
 * PHP >= 5.4
 * Composer
 * MySQL 5.x
 * Apaсhe/Nginx
+* Composer
 
 Ссылки
 ------
 * [Сообщество](http://yupe.ru/)
 * [Официальный сайт](http://yupe-project.ru/)
+* [Юпи! Market](http://yupe.ru/marketplace)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
@@ -52,6 +55,8 @@
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
 * [Разработка](http://yupe-project.ru/service/development) и [Поддержка](http://yupe-project.ru/service/support)
+
+[![Юпи! Market](http://yupe.ru/uploads/blogs/a0301fdec876e23050ff3d312d97ee88.png)](http://yupe.ru/marketplace)
 
 Возможности
 -----------
@@ -85,6 +90,7 @@
 
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe-project.ru](http://yupe-project.ru)
 
-&copy; 2012 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+
+(c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
 ![amyLabs](http://amylabs.ru/assets/8066f72d/images/logo1.png)

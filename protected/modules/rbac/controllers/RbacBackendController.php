@@ -4,42 +4,42 @@ class RbacBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array(AuthItem::ROLE_ADMIN)),
-            array('allow', 'actions' => array('assign'), 'roles' => array('Rbac.RbacBackend.Assign')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Rbac.RbacBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Rbac.RbacBackend.Delete')),
-            array('allow', 'actions' => array('import'), 'roles' => array('Rbac.RbacBackend.Import')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Rbac.RbacBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Rbac.RbacBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Rbac.RbacBackend.Update')),
-            array('allow', 'actions' => array('userList'), 'roles' => array('Rbac.RbacBackend.Assign')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Rbac.RbacBackend.View')),
-            array('deny',)
-        );
+        return [
+            ['allow', 'roles' => [AuthItem::ROLE_ADMIN]],
+            ['allow', 'actions' => ['assign'], 'roles' => ['Rbac.RbacBackend.Assign']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Rbac.RbacBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Rbac.RbacBackend.Delete']],
+            ['allow', 'actions' => ['import'], 'roles' => ['Rbac.RbacBackend.Import']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Rbac.RbacBackend.Index']],
+            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Rbac.RbacBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Rbac.RbacBackend.Update']],
+            ['allow', 'actions' => ['userList'], 'roles' => ['Rbac.RbacBackend.Assign']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Rbac.RbacBackend.View']],
+            ['deny',]
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inlineEdit' => array(
+        return [
+            'inlineEdit' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'AuthItem',
-                'validAttributes' => array('description', 'type'),
-            )
-        );
+                'validAttributes' => ['description', 'type'],
+            ]
+        ];
     }
 
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id),));
+        $this->render('view', ['model' => $this->loadModel($id),]);
     }
 
     public function actionAssign($id = null)
     {
         $user = User::model()->findByPk((int)$id);
         if (!$user) {
-            $this->redirect(array('userList'));
+            $this->redirect(['userList']);
         }
 
         if (Yii::app()->getRequest()->isPostRequest) {
@@ -49,7 +49,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                AuthAssignment::model()->deleteAll('userid = :userid', array(':userid' => (int)$user->id));
+                AuthAssignment::model()->deleteAll('userid = :userid', [':userid' => (int)$user->id]);
                 // убираем дубликаты и несуществующие роли
                 $roles = array_intersect(
                     array_unique((array)Yii::app()->getRequest()->getPost('AuthItem')),
@@ -58,10 +58,10 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 foreach ($roles as $op) {
                     $model = new AuthAssignment();
                     $model->setAttributes(
-                        array(
+                        [
                             'userid'   => $user->id,
                             'itemname' => $op
-                        )
+                        ]
                     );
 
                     if (!$model->save()) {
@@ -85,7 +85,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 /*сброс кеша прав*/
                 Yii::app()->getCache()->delete(Yii::app()->getUser()->rbacCacheNameSpace . $id);
 
-                $this->redirect(array('assign', 'id' => $user->id));
+                $this->redirect(['assign', 'id' => $user->id]);
             } catch (Exception $e) {
 
                 Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, $e->getMessage());
@@ -95,7 +95,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
         $rbacTree = new RbacTree($user);
         $tree = $rbacTree->getTreeRoles();
-        $this->render('assign', array('tree' => $tree, 'model' => $user));
+        $this->render('assign', ['tree' => $tree, 'model' => $user]);
     }
 
     public function actionCreate()
@@ -115,7 +115,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('RbacModule.rbac', 'The item is added!')
                     );
-                    $this->redirect(array('view', 'id' => $model->name));
+                    $this->redirect(['view', 'id' => $model->name]);
                 }
             } catch (Exception $e) {
                 Yii::app()->getUser()->setFlash('error', $e->getMessage());
@@ -126,12 +126,12 @@ class RbacBackendController extends yupe\components\controllers\BackController
         $rbacTree = new RbacTree();
         $this->render(
             'create',
-            array(
+            [
                 'model'      => $model,
                 'operations' => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
                 'tasks'      => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
                 'roles'      => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
-            )
+            ]
         );
     }
 
@@ -141,29 +141,29 @@ class RbacBackendController extends yupe\components\controllers\BackController
         // для операций доступны только операции, для задач - операции и задачи, для ролей - роли, задачи и операции
         $criteria->addInCondition(
             'type',
-            array_slice(array(AuthItem::TYPE_OPERATION, AuthItem::TYPE_TASK, AuthItem::TYPE_ROLE), 0, $item->type + 1)
+            array_slice([AuthItem::TYPE_OPERATION, AuthItem::TYPE_TASK, AuthItem::TYPE_ROLE], 0, $item->type + 1)
         );
         // не может наследовать себя
-        $criteria->addNotInCondition('name', array($item->name));
+        $criteria->addNotInCondition('name', [$item->name]);
 
         $availableChildren = AuthItem::model()->findAll($criteria);
         // названия ролей, которые могут бы потомками
         $availableChildrenName = array_keys(CHtml::listData($availableChildren, 'name', 'description'));
         // уберем те, которые не могут быть потомками
         $children = array_intersect(
-            Yii::app()->getRequest()->getPost('ChildAuthItems', array()),
+            Yii::app()->getRequest()->getPost('ChildAuthItems', []),
             $availableChildrenName
         );
 
-        AuthItemChild::model()->deleteAll('parent = :parent', array(':parent' => $item->name));
+        AuthItemChild::model()->deleteAll('parent = :parent', [':parent' => $item->name]);
 
         foreach ($children as $name) {
             $child = new AuthItemChild();
             $child->setAttributes(
-                array(
+                [
                     'parent' => $item->name,
                     'child'  => $name
-                )
+                ]
             );
 
             if (!$child->save()) {
@@ -177,7 +177,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
         /* @var $model AuthItem */
         $model = AuthItem::model()->findByPk($id);
 
-        $checkedList = array();
+        $checkedList = [];
         foreach ($model->children as $item) {
             $checkedList[$item->childItem->name] = true;
         }
@@ -195,7 +195,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('RbacModule.rbac', 'The item is changed!')
                     );
-                    $this->redirect(array('update', 'id' => $model->name));
+                    $this->redirect(['update', 'id' => $model->name]);
                 }
             } catch (Exception $e) {
                 Yii::app()->getUser()->setFlash('error', $e->getMessage());
@@ -206,14 +206,14 @@ class RbacBackendController extends yupe\components\controllers\BackController
         $rbacTree = new RbacTree();
         $this->render(
             'update',
-            array(
+            [
                 'model'       => $model,
                 'operations'  => $rbacTree->getItemsList(AuthItem::TYPE_OPERATION),
                 'tasks'       => $rbacTree->getItemsList(AuthItem::TYPE_TASK),
                 'roles'       => $rbacTree->getItemsList(AuthItem::TYPE_ROLE),
                 'checkedList' => $checkedList,
 
-            )
+            ]
         );
     }
 
@@ -229,7 +229,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
         }
 
         if (!isset($_GET['ajax'])) {
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
         }
     }
 
@@ -241,15 +241,15 @@ class RbacBackendController extends yupe\components\controllers\BackController
             $model->attributes = $_GET['AuthItem'];
         }
 
-        $this->render('index', array('model' => $model,));
+        $this->render('index', ['model' => $model,]);
     }
 
     public function actionUserList()
     {
         $model = new User('search');
         $model->unsetAttributes();
-        $model->setAttributes(Yii::app()->getRequest()->getParam('User', array()));
-        $this->render('userList', array('model' => $model));
+        $model->setAttributes(Yii::app()->getRequest()->getParam('User', []));
+        $this->render('userList', ['model' => $model]);
     }
 
     /**
@@ -260,15 +260,15 @@ class RbacBackendController extends yupe\components\controllers\BackController
      */
     private function getRulesList($rules, $parent = null)
     {
-        $items = array();
+        $items = [];
         foreach ($rules as $rule) {
-            $items[] = array(
+            $items[] = [
                 'name'        => $rule['name'],
                 'description' => $rule['description'],
                 'type'        => $rule['type'],
                 'bizrule'     => isset($rule['bizrule']) ? $rule['bizrule'] : null,
                 'parent'      => $parent ? $parent['name'] : '',
-            );
+            ];
             if (isset($rule['items']) && is_array($rule['items'])) {
                 $items = array_merge($items, $this->getRulesList($rule['items'], $rule));
             }
@@ -279,13 +279,13 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     private function getRulesParentsAndChildren($rulesList)
     {
-        $items = array();
+        $items = [];
         foreach ($rulesList as $rule) {
             if ($rule['parent']) {
-                $items[] = array(
+                $items[] = [
                     'parent' => $rule['parent'],
                     'child'  => $rule['name'],
-                );
+                ];
             }
         }
 
@@ -294,8 +294,8 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
     public function actionImport()
     {
-        $modulesList = array();
-        $modules = array();
+        $modulesList = [];
+        $modules = [];
         foreach (Yii::app()->getModules() as $key => $value) {
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
@@ -306,7 +306,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
         }
         if (Yii::app()->getRequest()->isPostRequest) {
             $importModules = array_intersect(
-                Yii::app()->getRequest()->getPost('modules', array()),
+                Yii::app()->getRequest()->getPost('modules', []),
                 array_keys($modules)
             );
             foreach ($importModules as $moduleName) {
@@ -340,7 +340,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 /* удаляем правила */
                 $criteria = new CDbCriteria();
                 $criteria->addCondition('name like :rule');
-                $criteria->params = array(':rule' => ucfirst($moduleName) . '.%');
+                $criteria->params = [':rule' => ucfirst($moduleName) . '.%'];
                 $criteria->addNotInCondition('name', $availableItems);
 
                 AuthItem::model()->deleteAll($criteria);
@@ -348,7 +348,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 /* создаем связи */
                 foreach ($parentsChildren as $pair) {
                     $model = AuthItemChild::model()->findByPk(
-                        array('parent' => $pair['parent'], 'child' => $pair['child'])
+                        ['parent' => $pair['parent'], 'child' => $pair['child']]
                     );
                     if (!$model) {
                         $model = new AuthItemChild();
@@ -362,9 +362,9 @@ class RbacBackendController extends yupe\components\controllers\BackController
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('RbacModule.rbac', 'Items successfully imported!')
             );
-            $this->redirect(array('import'));
+            $this->redirect(['import']);
         }
-        $this->render('import', array('modules' => $modulesList));
+        $this->render('import', ['modules' => $modulesList]);
     }
 
     /**

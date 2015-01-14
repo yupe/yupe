@@ -13,8 +13,8 @@ class UploadForm extends CFormModel
 
     public function rules()
     {
-        return array(
-            array('file', 'file', 'maxSize' => $this->maxSize, 'mimeTypes' => $this->mimeTypes, 'types' => $this->types)
-        );
+        return [
+            ['file', 'file', 'maxSize' => $this->maxSize, 'mimeTypes' => $this->mimeTypes, 'types' => $this->types]
+        ];
     }
 }

@@ -77,10 +77,10 @@ class Zend_Search_Lucene_Document_Pptx extends Zend_Search_Lucene_Document_OpenX
         }
 
         // Document data holders
-        $slides = array();
-        $slideNotes = array();
-        $documentBody = array();
-        $coreProperties = array();
+        $slides = [];
+        $slideNotes = [];
+        $documentBody = [];
+        $coreProperties = [];
 
         // Open OpenXML package
         $package = new ZipArchive();

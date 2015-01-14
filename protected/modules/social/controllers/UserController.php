@@ -1,7 +1,6 @@
 <?php
 namespace application\modules\social\controllers;
 
-use yupe\components\controllers\FrontController;
 use yupe\widgets\YFlashMessages;
 use application\modules\social\components\UserIdentity;
 use application\modules\social\models\SocialUser;
@@ -13,20 +12,20 @@ use User;
 use RegistrationForm;
 use LoginForm;
 
-class UserController extends FrontController
+class UserController extends \\yupe\components\controllers\FrontController
 {
     protected $service;
 
     public function actions()
     {
-        return array(
-            'captcha' => array(
+        return [
+            'captcha' => [
                 'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
-            ),
-        );
+            ],
+        ];
     }
 
     protected function beforeAction($action)
@@ -58,8 +57,8 @@ class UserController extends FrontController
                     $module = Yii::app()->getModule('user');
 
                     $redirect = (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess)
-                        ? array($module->loginAdminSuccess)
-                        : array($module->loginSuccess);
+                        ? [$module->loginAdminSuccess]
+                        : [$module->loginSuccess];
 
                     Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
@@ -79,7 +78,7 @@ class UserController extends FrontController
                         )
                     );
 
-                    $this->redirect(array('/social/connect', 'service' => $this->service->getServiceName()));
+                    $this->redirect(['/social/connect', 'service' => $this->service->getServiceName()]);
                 }
 
                 Yii::app()->getUser()->setFlash(
@@ -90,7 +89,7 @@ class UserController extends FrontController
                     )
                 );
 
-                $this->redirect(array('/social/register', 'service' => $this->service->getServiceName()));
+                $this->redirect(['/social/register', 'service' => $this->service->getServiceName()]);
             }
             $this->redirect('/login');
         } catch (EAuthException $e) {
@@ -131,17 +130,17 @@ class UserController extends FrontController
                     )
                 );
 
-                $this->redirect(array('/social/connect', 'service' => $this->service->getServiceName()));
+                $this->redirect(['/social/connect', 'service' => $this->service->getServiceName()]);
             }
 
             $password = Yii::app()->userManager->hasher->generateRandomPassword();
 
             $form->setAttributes(
-                array(
+                [
                     'password'   => $password,
                     'cPassword'  => $password,
                     'verifyCode' => null
-                )
+                ]
             );
 
             if ($form->validate()) {
@@ -161,7 +160,7 @@ class UserController extends FrontController
                             )
                         );
 
-                        $this->redirect(array($module->registrationSuccess));
+                        $this->redirect([$module->registrationSuccess]);
                     }
                 }
             }
@@ -169,7 +168,7 @@ class UserController extends FrontController
             $form->addError('', Yii::t('SocialModule.social', 'Error!'));
         }
 
-        $this->render('register', array('model' => $form, 'module' => $module));
+        $this->render('register', ['model' => $form, 'module' => $module]);
     }
 
     public function actionConnect()
@@ -214,8 +213,8 @@ class UserController extends FrontController
                     $module = Yii::app()->getModule('user');
 
                     $redirect = (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess)
-                        ? array($module->loginAdminSuccess)
-                        : array($module->loginSuccess);
+                        ? [$module->loginAdminSuccess]
+                        : [$module->loginSuccess];
 
                     Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
@@ -230,6 +229,6 @@ class UserController extends FrontController
             }
         }
 
-        $this->render('connect', array('authData' => $authData, 'model' => $form));
+        $this->render('connect', ['authData' => $authData, 'model' => $form]);
     }
 }

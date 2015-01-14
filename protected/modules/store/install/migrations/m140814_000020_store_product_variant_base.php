@@ -6,7 +6,7 @@ class m140814_000020_store_product_variant_base extends yupe\components\DbMigrat
     {
         $this->createTable(
             "{{store_product_variant}}",
-            array(
+            [
                 "id" => "pk",
                 "product_id" => "integer not null",
                 "attribute_id" => "integer not null",
@@ -14,7 +14,7 @@ class m140814_000020_store_product_variant_base extends yupe\components\DbMigrat
                 "amount" => "float null",
                 "type" => "tinyint not null",
                 "sku" => "varchar(50) null",
-            ),
+            ],
             $this->getOptions()
         );
         $this->createIndex("idx_{{store_product_variant}}_product", "{{store_product_variant}}", "product_id");

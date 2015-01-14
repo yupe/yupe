@@ -6,7 +6,7 @@ class m140815_190000_store_delivery_base extends yupe\components\DbMigration
     {
         $this->createTable(
             "{{store_delivery}}",
-            array(
+            [
                 "id" => "pk",
                 "name" => "varchar(255) not null",
                 "description" => "text null",
@@ -16,7 +16,7 @@ class m140815_190000_store_delivery_base extends yupe\components\DbMigration
                 "position" => "integer not null default '1'",
                 "status" => "tinyint not null default '1'",
                 "separate_payment" => "tinyint null default '0'",
-            ),
+            ],
             $this->getOptions()
         );
         $this->createIndex("idx_{{store_delivery}}_position", "{{store_delivery}}", "position");

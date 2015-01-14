@@ -1,15 +1,15 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('PaymentModule.payment', 'Способы оплаты') => array('/payment/paymentBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('PaymentModule.payment', 'Способы оплаты') => ['/payment/paymentBackend/index'],
     Yii::t('PaymentModule.payment', 'Управление'),
-);
+];
 
 $this->pageTitle = Yii::t('PaymentModule.payment', 'Способы оплаты - управление');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => array('/payment/paymentBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => array('/payment/paymentBackend/create')),
-);
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => ['/payment/paymentBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => ['/payment/paymentBackend/create']],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -21,7 +21,7 @@ $this->menu = array(
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id' => 'payment-grid',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
@@ -30,14 +30,14 @@ $this->widget(
         'sortableAjaxSave' => true,
         'sortableAttribute' => 'position',
         'sortableAction' => '/payment/paymentBackend/sortable',
-        'columns' => array(
-            array(
+        'columns' => [
+            [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => 'CHtml::link($data->name, array("/payment/paymentBackend/update", "id" => $data->id))',
-            ),
+            ],
             'module',
-            array(
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/payment/paymentBackend/inline'),
@@ -46,10 +46,10 @@ $this->widget(
                     Payment::STATUS_ACTIVE => ['class' => 'label-success'],
                     Payment::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

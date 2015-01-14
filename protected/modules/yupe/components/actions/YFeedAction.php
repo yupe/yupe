@@ -56,7 +56,7 @@ class YFeedAction extends CAction
 
     public $data;
     public $description;
-    public $itemFields = array(
+    public $itemFields = [
         // author_object, если не задан - у
         // item-елемента запросится author_nickname
         'author_object'   => null,
@@ -69,7 +69,7 @@ class YFeedAction extends CAction
         'title'           => null,
         'updated'         => null,
 
-    );
+    ];
     public $link;
     public $title;
 
@@ -184,7 +184,7 @@ class YFeedAction extends CAction
                  * Устанавливаем ссылку для $item
                  */
                 if (!empty($this->itemFields['link'])) {
-                    $link = array();
+                    $link = [];
                     foreach ($this->itemFields['linkParams'] as $key => $param) {
                         $link[$key] = $feedItem->$param;
                     }

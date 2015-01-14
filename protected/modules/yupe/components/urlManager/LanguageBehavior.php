@@ -34,7 +34,7 @@ class LanguageBehavior extends CBehavior
     public function attach($owner)
     {
         if (count(Yii::app()->urlManager->languages) > 1 && is_array(Yii::app()->urlManager->languages)) {
-            $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
+            $owner->attachEventHandler('onBeginRequest', [$this, 'handleLanguageBehavior']);
         }
     }
 
@@ -212,10 +212,10 @@ class LanguageBehavior extends CBehavior
                     Yii::app()->urlManager->langParam,
                     new CHttpCookie(
                         Yii::app()->urlManager->langParam,
-                        $language, array(
+                        $language, [
                             'expire'   => time() + (60 * 60 * 24 * 365),
                             'httpOnly' => true
-                        )
+                        ]
                     )
                 );
             }

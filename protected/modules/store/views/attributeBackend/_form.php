@@ -19,12 +19,12 @@
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id' => 'attribute-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('StoreModule.store', 'Fields with'); ?>
@@ -39,29 +39,29 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'group_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => AttributeGroup::model()->getFormattedList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getTypesList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
                         'id' => 'attribute-type',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -101,7 +101,7 @@ $form = $this->beginWidget(
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo CHtml::activeTextArea($model, 'rawOptions', array('rows' => 10, 'class' => 'form-control')); ?>
+                <?php echo CHtml::activeTextArea($model, 'rawOptions', ['rows' => 10, 'class' => 'form-control']); ?>
             </div>
         </div>
     </div>
@@ -124,20 +124,20 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Добавить и продолжить') : Yii::t('StoreModule.store', 'Сохранить и продолжить'),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Добавить и вернуться к списку') : Yii::t('StoreModule.store', 'Сохранить и вернуться к списку'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

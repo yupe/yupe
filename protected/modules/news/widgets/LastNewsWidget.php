@@ -38,6 +38,6 @@ class LastNewsWidget extends yupe\widgets\YWidget
             ? News::model()->published()->language(Yii::app()->language)->cache($this->cacheTime)->findAll($criteria)
             : News::model()->published()->cache($this->cacheTime)->findAll($criteria);
 
-        $this->render($this->view, array('models' => $news));
+        $this->render($this->view, ['models' => $news]);
     }
 }

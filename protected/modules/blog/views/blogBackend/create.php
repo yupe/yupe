@@ -8,60 +8,60 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blogBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blogBackend/index'],
     Yii::t('BlogModule.blog', 'Create'),
-);
+];
 
 $this->pageTitle = Yii::t('BlogModule.blog', 'Blogs - create');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('BlogModule.blog', 'Blogs'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
-                'url'   => array('/blog/blogBackend/index')
-            ),
-            array(
+                'url'   => ['/blog/blogBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a blog'),
-                'url'   => array('/blog/blogBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/blog/blogBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('BlogModule.blog', 'Posts'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage posts'),
-                'url'   => array('/blog/postBackend/index')
-            ),
-            array(
+                'url'   => ['/blog/postBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a post'),
-                'url'   => array('/blog/postBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/blog/postBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('BlogModule.blog', 'Members'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('BlogModule.blog', 'Manage members'),
-                'url'   => array('/blog/userToBlogBackend/index')
-            ),
-            array(
+                'url'   => ['/blog/userToBlogBackend/index']
+            ],
+            [
                 'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('BlogModule.blog', 'Add a member'),
-                'url'   => array('/blog/userToBlogBackend/create')
-            ),
-        )
-    ),
-);
+                'url'   => ['/blog/userToBlogBackend/create']
+            ],
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -70,4 +70,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

@@ -7,7 +7,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
+                <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId();?>-widget">
                     <i class="fa fa-fw fa-user"></i> <?php echo Yii::t('UserModule.user', 'Users'); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $usersCount; ?></span>
@@ -24,27 +24,27 @@
                     <div class="col-sm-8">
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
-                            array(
+                            [
                                 'id'           => 'user-grid',
                                 'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
                                 'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'htmlOptions'  => [
                                     'class' => false
-                                ),
-                                'columns'      => array(
-                                    array(
+                                ],
+                                'columns'      => [
+                                    [
                                         'name'  => 'nick_name',
                                         'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/update","id" => $data->id))',
                                         'type'  => 'html'
-                                    ),
+                                    ],
                                     'registration_date',
-                                    array(
+                                    [
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
-                                    ),
-                                ),
-                            )
+                                    ],
+                                ],
+                            ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">

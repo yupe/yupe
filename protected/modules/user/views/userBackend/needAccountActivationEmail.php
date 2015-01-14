@@ -6,7 +6,7 @@
 <?php echo Yii::t(
     'UserModule.user',
     'You successfully registered on "{site}" !',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 
 <br/><br/>
@@ -16,9 +16,9 @@
     Yii::t('UserModule.user', 'link'),
     $link = Yii::app()->createAbsoluteUrl(
         '/user/account/activate',
-        array(
+        [
             'key' => $model->reg->genActivateCode()
-        )
+        ]
     )
 ); ?>
 <br/><br/>
@@ -30,9 +30,9 @@
 <?php echo Yii::t(
     'UserModule.user',
     'Best regards, "{site}" administration!',
-    array(
+    [
         '{site}' => CHtml::encode(Yii::app()->name)
-    )
+    ]
 ); ?>
 </body>
 </html>

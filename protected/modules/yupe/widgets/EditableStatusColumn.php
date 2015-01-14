@@ -38,13 +38,13 @@ class EditableStatusColumn extends \TbEditableColumn
      * </pre>
      * @var array
      */
-    public $options = array();
+    public $options = [];
 
     /**
      * Список статусов в формате array(значение_атрибута => заголовок_статуса, ...)
      * @var array
      */
-    public $source = array();
+    public $source = [];
 
     public function init()
     {
@@ -64,15 +64,15 @@ class EditableStatusColumn extends \TbEditableColumn
 
         $this->editable = array_merge(
             $this->editable,
-            array(
+            [
                 'url'    => $this->url,
                 'type'   => 'select',
                 'mode'   => 'inline',
-                'params' => array(
+                'params' => [
                     Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                ),
+                ],
                 'source' => $this->source,
-            )
+            ]
         );
 
         // если filter принудительно не поставили в false и он пустой, то берем данные для него из source
@@ -81,7 +81,7 @@ class EditableStatusColumn extends \TbEditableColumn
         }
 
         if (is_array($this->filter)) {
-            $this->filter = CHtml::activeDropDownList($this->grid->filter, $this->name, $this->filter, array('id' => false, 'prompt' => '', 'class' => 'form-control'));
+            $this->filter = CHtml::activeDropDownList($this->grid->filter, $this->name, $this->filter, ['id' => false, 'prompt' => '', 'class' => 'form-control']);
         }
 
         parent::init();

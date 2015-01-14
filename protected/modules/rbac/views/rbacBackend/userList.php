@@ -1,21 +1,21 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+$this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'Actions') => ['index'],
     Yii::t('RbacModule.rbac', 'User list'),
-);
+];
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'fa fa-fw fa-user',
                 'label' => Yii::t('RbacModule.rbac', 'User list'),
-                'url'   => array('userList')
-            ),
-        )
-    ),
-);
+                'url'   => ['userList']
+            ],
+        ]
+    ],
+];
 
 ?>
 <div class="page-header">
@@ -58,38 +58,38 @@ $this->menu = array(
                });
            "
     );
-    $this->renderPartial('_searchUser', array('model' => $model)); ?>
+    $this->renderPartial('_searchUser', ['model' => $model]); ?>
 </div>
 
 <?php
 Yii::import('bootstrap.widgets.TbExtendedGridView');
 $this->widget(
     'TbExtendedGridView',
-    array(
+    [
         'id'           => 'user-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'name'  => 'nick_name',
                 'type'  => 'raw',
                 'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/view", "id" => $data->id))',
-            ),
-            array(
+            ],
+            [
                 'name'  => 'email',
                 'value' => '$data->email',
-            ),
-            array(
+            ],
+            [
                 'filter' => false,
                 'value'  => function ($data) {
                         echo CHtml::link(
                             Yii::t('RbacModule.rbac', 'Roles'),
-                            array('/rbac/rbacBackend/assign', 'id' => $data->id),
-                            array('class' => 'btn btn-default btn-small')
+                            ['/rbac/rbacBackend/assign', 'id' => $data->id],
+                            ['class' => 'btn btn-default btn-small']
                         );
                     }
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 );
 ?>

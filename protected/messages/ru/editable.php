@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Enter'                                                          => 'Введите',
     'Error while saving record!'                                     => 'Ошибка при сохранении записи',
     'Model {class} does not have attribute "{attr}"'                 => 'Модель {class} не имеет аттрибута "{attr}"',
@@ -25,4 +25,4 @@ return array(
     'Property "attribute" should be defined.'                        => 'Свойство "attribute" должно быть определено',
     'Property "primaryKey" should be defined.'                       => 'Свойство "primaryKey" должно быть определено',
     'You should provide modelClass in constructor of EditableSaver.' => 'Вы должны объявить modelClass в конструкторе EditableSaver.',
-);
+];

@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Page view'                                                                                                                                                                                                                                                                                                                                     => 'Представление (view)',
     'View'                                                                                                                                                                                                                                                                                                                                          => 'Представление (view)',
     'More options'                                                                                                                                                                                                                                                                                                                                  => 'Дополнительные параметры',
@@ -132,4 +132,4 @@ return array(
     'Editing pages'                                                                                                                                                                                                                                                                                                                                 => 'Редактирование страниц',
     'Viewing pages'                                                                                                                                                                                                                                                                                                                                 => 'Просмотр страниц',
 
-);
+];

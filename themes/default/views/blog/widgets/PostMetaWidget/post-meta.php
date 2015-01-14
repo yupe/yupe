@@ -7,7 +7,7 @@
 
             <?php foreach ((array)$post->getTags() as $tag): ?>
                 <span>
-                    <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))); ?>
+                    <?php echo CHtml::link(CHtml::encode($tag), ['/posts/', 'tag' => CHtml::encode($tag)]); ?>
                 </span>
             <?php endforeach; ?>
         </span>
@@ -16,9 +16,9 @@
             <i class="glyphicon glyphicon-user"></i>
             <?php $this->widget(
                 'application.modules.user.widgets.UserPopupInfoWidget',
-                array(
+                [
                     'model' => $post->createUser
-                )
+                ]
             ); ?>
         </span>
 
@@ -27,11 +27,11 @@
 
             <?php echo CHtml::link(
                 $post->getCommentCount(),
-                array(
+                [
                     '/blog/post/show/',
                     'slug' => CHtml::encode($post->slug),
                     '#'    => 'comments'
-                )
+                ]
             );?>
         </span>
     </div>

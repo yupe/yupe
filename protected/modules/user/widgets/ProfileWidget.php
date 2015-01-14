@@ -14,7 +14,7 @@ class ProfileWidget extends yupe\widgets\YWidget
     public function run()
     {
         if (Yii::app()->user->isAuthenticated()) {
-            $this->render($this->view, array('user' => Yii::app()->user->getProfile()));
+            $this->render($this->view, ['user' => Yii::app()->user->getProfile()]);
         }
     }
 }

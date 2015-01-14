@@ -7,11 +7,11 @@
                 <?php echo $this->label; ?> <?php echo count($comments); ?>
                 <?php echo CHtml::link(
                     CHtml::image(Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"),
-                    array(
+                    [
                         '/comment/commentRss/feed',
                         'model'   => $this->model,
                         'modelId' => $this->modelId
-                    )
+                    ]
                 );
                 ?>
             </small>
@@ -47,12 +47,12 @@
                             <?php echo CHtml::link(
                                 Yii::t('CommentModule.comment', 'reply'),
                                 'javascript:void(0);',
-                                array(
+                                [
                                     'rel'     => $comment->id,
                                     'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
                                     'class'   => 'reply',
                                     'title'   => Yii::t('CommentModule.comment', 'Reply')
-                                )
+                                ]
                             );
                             ?>
                         </div>

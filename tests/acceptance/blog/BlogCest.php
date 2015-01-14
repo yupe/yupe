@@ -22,7 +22,7 @@ class BlogCest
         $I->see('Участников нет =(');
 
         $I->seeLink('Первая публичная запись в опубликованном блоге');
-        $tags = array('тег', 'тег2', 'тег3');
+        $tags = ['тег', 'тег2', 'тег3'];
         foreach ($tags as $tag) {
             $I->seeLink($tag);
         }

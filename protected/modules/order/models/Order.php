@@ -52,14 +52,17 @@ class Order extends yupe\models\YModel
     /**
      * @var OrderProduct[]
      */
-    private $_orderProducts = array();
+    private $_orderProducts = [];
 
     private $hasProducts = false; // ставим в true, когда в сценарии front добавляем хотя бы один продукт
 
     protected $oldAttributes;
 
-    public $couponCodes = array();
+    public $couponCodes = [];
     private $productsChanged = false; // менялся ли список продуктов в заказе
+
+
+    private $_validCoupons = null;
 
     /**
      * @return string the associated database table name
@@ -81,48 +84,58 @@ class Order extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('status', 'required'),
-            array('delivery_id, name, email', 'required', 'on' => self::SCENARIO_USER),
-            array('name, email, address, phone', 'filter', 'filter' => 'trim'),
-            array('email', 'email'),
-            array('delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true),
-            array('delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'),
-            array('name, address, phone, email', 'length', 'max' => 255),
-            array('comment, note', 'length', 'max' => 1024),
+        return [
+            ['status, delivery_id', 'required'],
+            ['name, email', 'required', 'on' => self::SCENARIO_USER],
+            ['name, email, address, phone', 'filter', 'filter' => 'trim'],
+            ['email', 'email'],
+            ['delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true],
+            ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
+            ['name, address, phone, email', 'length', 'max' => 255],
+            ['comment, note', 'length', 'max' => 1024],
             //array('payment_details', 'safe'),
-            array('url', 'unique'),
-            array('user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status, date, ip, url, modified', 'unsafe', 'on' => self::SCENARIO_USER),
-            array('couponCodes', 'safe'), // сюда отправляется массив купонок, которые потом разбираются в beforeSave()
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array(
+            ['url', 'unique'],
+            ['user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status, date, ip, url, modified', 'unsafe', 'on' => self::SCENARIO_USER],
+            ['couponCodes', 'safe'], // сюда отправляется массив купонок, которые потом разбираются в beforeSave()
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            [
                 'id, delivery_id, delivery_price, payment_method_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, coupon_code, separate_delivery, status, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     public function relations()
     {
-        return array(
-            'products' => array(self::HAS_MANY, 'OrderProduct', 'order_id', 'order' => 'products.id ASC'),
-            'delivery' => array(self::BELONGS_TO, 'Delivery', 'delivery_id'),
-            'payment' => array(self::BELONGS_TO, 'Payment', 'payment_method_id'),
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'products' => [self::HAS_MANY, 'OrderProduct', 'order_id', 'order' => 'products.id ASC'],
+            'delivery' => [self::BELONGS_TO, 'Delivery', 'delivery_id'],
+            'payment' => [self::BELONGS_TO, 'Payment', 'payment_method_id'],
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
+    }
+
+    public function scopes()
+    {
+        return [
+            'new' => [
+                'condition' => 't.status = :status',
+                'params' => [':status' => self::STATUS_NEW],
+            ],
+        ];
     }
 
     public function behaviors()
     {
-        return array(
-            'CTimestampBehavior' => array(
+        return [
+            'CTimestampBehavior' => [
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
                 'createAttribute' => 'date',
                 'updateAttribute' => 'modified',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -130,7 +143,7 @@ class Order extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('OrderModule.order', 'Номер'),
             'delivery_id' => Yii::t('OrderModule.order', 'Способ доставки'),
             'delivery_price' => Yii::t('OrderModule.order', 'Стоимость доставки'),
@@ -155,7 +168,7 @@ class Order extends yupe\models\YModel
             'url' => Yii::t('OrderModule.order', 'Url'),
             'note' => Yii::t('OrderModule.order', 'Примечание'),
             'modified' => Yii::t('OrderModule.order', 'Дата изменения'),
-        );
+        ];
     }
 
 
@@ -191,21 +204,21 @@ class Order extends yupe\models\YModel
 
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-                'sort' => array('defaultOrder' => $this->getTableAlias() . '.id DESC'),
-            )
+                'sort' => ['defaultOrder' => $this->getTableAlias() . '.id DESC'],
+            ]
         );
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_NEW => Yii::t("OrderModule.order", 'Новый'),
             self::STATUS_ACCEPTED => Yii::t("OrderModule.order", 'Принят'),
             self::STATUS_FINISHED => Yii::t("OrderModule.order", 'Выполнен'),
             self::STATUS_DELETED => Yii::t("OrderModule.order", 'Удален'),
-        );
+        ];
     }
 
     public function getStatusTitle()
@@ -224,13 +237,12 @@ class Order extends yupe\models\YModel
     public function beforeValidate()
     {
         if ($this->getScenario() == self::SCENARIO_USER) {
-            if ($this->getProductsCost() <= $this->delivery->available_from) {
-                $this->addError('delivery_id', Yii::t('OrderModule.order', 'Выбранный способ доставки недоступен'));
-            }
+
             if (!$this->hasProducts) {
                 $this->addError('products', Yii::t('OrderModule.order', 'Не выбрано ни одного продукта'));
             }
         }
+
         return parent::beforeValidate();
     }
 
@@ -275,7 +287,6 @@ class Order extends yupe\models\YModel
         return $cost;
     }
 
-    private $_validCoupons = null;
 
     /**
      * Фильтрует переданные коды купонов и возвращает объекты купонов
@@ -288,7 +299,7 @@ class Order extends yupe\models\YModel
             return $this->_validCoupons;
         }
         $productsTotalPrice = $this->getProductsCost();
-        $validCoupons = array();
+        $validCoupons = [];
 
         /* @var $coupon Coupon */
         /* проверим купоны на валидность */
@@ -342,8 +353,8 @@ class Order extends yupe\models\YModel
             }
         }
 
-        $validCouponCodes = array();
-        $coupons = array();
+        $validCouponCodes = [];
+        $coupons = [];
 
         if ($this->isCouponsAvailable()) {
             /* количество купонов уменьшаем только при создании записи*/
@@ -377,10 +388,10 @@ class Order extends yupe\models\YModel
 
     public function getPaidStatusList()
     {
-        return array(
+        return [
             self::PAID_STATUS_PAID => Yii::t("OrderModule.order", 'Оплачен'),
             self::PAID_STATUS_NOT_PAID => Yii::t("OrderModule.order", 'Не оплачен'),
-        );
+        ];
     }
 
     public function getPaidStatus()
@@ -409,10 +420,13 @@ class Order extends yupe\models\YModel
     public function setOrderProducts($orderProducts)
     {
         $this->productsChanged = true;
-        $orderProductsObjectsArray = array();
+        $orderProductsObjectsArray = [];
         if (is_array($orderProducts)) {
             foreach ($orderProducts as $key => $op) {
-                $product = Product::model()->findByPk($op['product_id']);
+                $product = null;
+                if (isset($op['product_id'])) {
+                    $product = Product::model()->findByPk($op['product_id']);
+                }
                 $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : null;
                 if ($product) {
                     $this->hasProducts = true;
@@ -456,7 +470,7 @@ class Order extends yupe\models\YModel
             return;
         }
 
-        $validOrderProductIds = array();
+        $validOrderProductIds = [];
 
         foreach ($products as $var) {
             /* @var $var OrderProduct */
@@ -471,7 +485,7 @@ class Order extends yupe\models\YModel
 
         $criteria = new CDbCriteria();
         $criteria->addCondition('order_id = :order_id');
-        $criteria->params = array(':order_id' => $this->id);
+        $criteria->params = [':order_id' => $this->id];
         $criteria->addNotInCondition('id', $validOrderProductIds);
         OrderProduct::model()->deleteAll($criteria);
     }
@@ -505,7 +519,7 @@ class Order extends yupe\models\YModel
 
     public function pay(Payment $payment)
     {
-        if($this->isPaid()) {
+        if ($this->isPaid()) {
             return true;
         }
 
@@ -515,12 +529,17 @@ class Order extends yupe\models\YModel
 
         $result = $this->save();
 
-        if($result) {
+        if ($result) {
             Yii::app()->eventManager->fire(OrderEvents::SUCCESS_PAID, new PayOrderEvent($this, $payment));
-        }else{
+        } else {
             Yii::app()->eventManager->fire(OrderEvents::FAILURE_PAID, new PayOrderEvent($this, $payment));
         }
 
         return $result;
+    }
+
+    public function findByUrl($url)
+    {
+        return $this->findByAttributes(['url' => $url]);
     }
 }

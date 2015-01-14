@@ -20,7 +20,7 @@ class Delivery extends yupe\models\YModel
     const STATUS_NOT_ACTIVE = 0;
 
     /* сюда передаются id способов оплаты, доступные для этого способа доставки*/
-    public $payment_methods = array();
+    public $payment_methods = [];
 
     /**
      * @return string the associated database table name
@@ -42,42 +42,42 @@ class Delivery extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, price, position, status', 'required'),
-            array('name', 'filter', 'filter' => 'trim'),
-            array('position, separate_payment', 'numerical', 'integerOnly' => true),
-            array('price, free_from, available_from', 'store\components\validators\NumberValidator'),
-            array('name', 'length', 'max' => 255),
-            array('description, payment_methods', 'safe'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('id, name, status, position, description, price, free_from, available_from, separate_payment', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name, price, position, status', 'required'],
+            ['name', 'filter', 'filter' => 'trim'],
+            ['position, separate_payment', 'numerical', 'integerOnly' => true],
+            ['price, free_from, available_from', 'store\components\validators\NumberValidator'],
+            ['name', 'length', 'max' => 255],
+            ['description, payment_methods', 'safe'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['id, name, status, position, description, price, free_from, available_from, separate_payment', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function relations()
     {
-        return array(
-            'paymentRelation' => array(self::HAS_MANY, 'DeliveryPayment', 'delivery_id'),
-            'paymentMethods' => array(
+        return [
+            'paymentRelation' => [self::HAS_MANY, 'DeliveryPayment', 'delivery_id'],
+            'paymentMethods' => [
                 self::HAS_MANY,
                 'Payment',
-                array('payment_id' => 'id'),
+                ['payment_id' => 'id'],
                 'through' => 'paymentRelation',
                 'order' => 'paymentMethods.position ASC',
                 'condition' => 'paymentMethods.status = :status',
-                'params' => array(':status' => Payment::STATUS_ACTIVE)
-            ),
-        );
+                'params' => [':status' => Payment::STATUS_ACTIVE]
+            ],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
-            ),
-        );
+                'params' => [':status' => self::STATUS_ACTIVE],
+            ],
+        ];
     }
 
     /**
@@ -85,7 +85,7 @@ class Delivery extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('DeliveryModule.delivery', 'ID'),
             'name' => Yii::t('DeliveryModule.delivery', 'Название'),
             'description' => Yii::t('DeliveryModule.delivery', 'Описание'),
@@ -96,7 +96,7 @@ class Delivery extends yupe\models\YModel
             'available_from' => Yii::t('DeliveryModule.delivery', 'Доступна от'),
             'separate_payment' => Yii::t('DeliveryModule.delivery', 'Оплачивается отдельно'),
             'payment_methods' => Yii::t('DeliveryModule.delivery', 'Способы оплаты'),
-        );
+        ];
     }
 
     public function search()
@@ -116,19 +116,19 @@ class Delivery extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-                'sort' => array('defaultOrder' => 't.position')
-            )
+                'sort' => ['defaultOrder' => 't.position']
+            ]
         );
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE => Yii::t("DeliveryModule.delivery", 'Активен'),
             self::STATUS_NOT_ACTIVE => Yii::t("DeliveryModule.delivery", 'Неактивен'),
-        );
+        ];
     }
 
     public function getStatusTitle()
@@ -173,7 +173,7 @@ class Delivery extends yupe\models\YModel
 
     public function clearPaymentMethods()
     {
-        DeliveryPayment::model()->deleteAllByAttributes(array('delivery_id' => $this->id));
+        DeliveryPayment::model()->deleteAllByAttributes(['delivery_id' => $this->id]);
     }
 
     public function afterSave()
@@ -208,5 +208,15 @@ class Delivery extends yupe\models\YModel
     public function hasPaymentMethods()
     {
         return count($this->paymentRelation);
+    }
+
+    public function checkAvailable(Order $order)
+    {
+        return $order->getProductsCost() >= $this->available_from;
+    }
+
+    public function findById($id)
+    {
+        return $this->findByPk($id);
     }
 }

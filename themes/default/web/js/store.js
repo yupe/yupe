@@ -25,7 +25,7 @@ $(document).ready(function () {
     function updatePrice() {
         var _basePrice = basePrice;
         var variants = [];
-        var varElements = $('select[name="ProductVariant[]"');
+        var varElements = $('select[name="ProductVariant[]"]');
         /* выбираем вариант, меняющий базовую цену максимально*/
         var hasBasePriceVariant = false;
         $.each(varElements, function (index, elem) {
@@ -70,7 +70,7 @@ $(document).ready(function () {
         priceElement.html(parseFloat(newPrice.toFixed(2)));
     }
 
-    $('select[name="ProductVariant[]"').change(function () {
+    $('select[name="ProductVariant[]"]').change(function () {
         updatePrice();
     });
 

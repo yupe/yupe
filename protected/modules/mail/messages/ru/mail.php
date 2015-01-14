@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Delete'                                                               => 'Удалить',
     'Do you really want to delete selected elements?'                      => 'Вы уверены, что хотите удалить выбранные элементы?',
     '--choose--'                                                           => '--выберите--',
@@ -116,4 +116,4 @@ return array(
     'Editing mail event templates'                                         => 'Редактирование шаблона почтового события',
     'Editing mail event templates'                                         => 'Редактирование шаблона почтового события',
     'Viewing mail event templates'                                         => 'Просмотр шаблона почтового события'
-);
+];

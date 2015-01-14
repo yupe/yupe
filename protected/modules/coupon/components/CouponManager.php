@@ -2,7 +2,7 @@
 
 class CouponManager extends CComponent
 {
-    private $coupons = array();
+    private $coupons = [];
     private $couponStateKey = 'cart_coupons';
 
     public function __construct()
@@ -17,7 +17,7 @@ class CouponManager extends CComponent
 
     private function restoreFromSession()
     {
-        $this->coupons = Yii::app()->getUser()->getState($this->couponStateKey, array());
+        $this->coupons = Yii::app()->getUser()->getState($this->couponStateKey, []);
     }
 
     private function saveState()
@@ -33,34 +33,34 @@ class CouponManager extends CComponent
     {
         $code = strtoupper($code);
         if (in_array($code, $this->coupons)) {
-            return array(Yii::t("CouponManager.coupon", 'Купон уже добавлен'));
+            return [Yii::t("CouponManager.coupon", 'Купон уже добавлен')];
         }
         /* @var $coupon Coupon */
         $coupon = Coupon::model()->getCouponByCode($code);
         if ($coupon) {
             $price = Yii::app()->cart->getCost();
             if ($coupon->getIsAvailable($price)) {
-                $this->coupons = array_unique(array_merge($this->coupons, array($code)));
+                $this->coupons = array_unique(array_merge($this->coupons, [$code]));
                 $this->saveState();
                 return true;
             } else {
                 return $coupon->getCouponErrors($price);
             }
         } else {
-            return array(Yii::t("CouponManager.coupon", 'Купон не найден'));
+            return [Yii::t("CouponManager.coupon", 'Купон не найден')];
         }
     }
 
     public function remove($code)
     {
         $code = strtoupper($code);
-        $this->coupons = array_diff($this->coupons, array($code));
+        $this->coupons = array_diff($this->coupons, [$code]);
         $this->saveState();
     }
 
     public function clear()
     {
-        $this->coupons = array();
+        $this->coupons = [];
         $this->saveState();
     }
 

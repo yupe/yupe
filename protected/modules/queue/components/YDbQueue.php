@@ -38,7 +38,7 @@ class YDbQueue extends YQueue
         throw new CException(Yii::t(
             'QueueModule.queue',
             'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.',
-            array('{id}' => $id)
+            ['{id}' => $id]
         ));
     }
 

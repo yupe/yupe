@@ -1,44 +1,44 @@
 <?php
 /* @var $model Coupon */
-$this->breadcrumbs = array(
-    Yii::t('CouponModule.coupon', 'Купоны') => array('/coupon/couponBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CouponModule.coupon', 'Купоны') => ['/coupon/couponBackend/index'],
     $model->code,
-);
+];
 
 $this->pageTitle = Yii::t('CouponModule.coupon', 'Купоны - просмотр');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Управление купонами'), 'url' => array('/coupon/couponBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('CouponModule.coupon', 'Добавить купон'), 'url' => array('/coupon/couponBackend/create')),
-    array('label' => Yii::t('CouponModule.coupon', 'Купон') . ' «' . mb_substr($model->code, 0, 32) . '»'),
-    array(
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Управление купонами'), 'url' => ['/coupon/couponBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('CouponModule.coupon', 'Добавить купон'), 'url' => ['/coupon/couponBackend/create']],
+    ['label' => Yii::t('CouponModule.coupon', 'Купон') . ' «' . mb_substr($model->code, 0, 32) . '»'],
+    [
         'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CouponModule.coupon', 'Редактирование купона'),
-        'url' => array(
+        'url' => [
             '/coupon/couponBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('CouponModule.coupon', 'Просмотреть купон'),
-        'url' => array(
+        'url' => [
             '/coupon/couponBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('CouponModule.coupon', 'Удалить купон'),
         'url' => '#',
-        'linkOptions' => array(
-            'submit' => array('/coupon/couponBackend/delete', 'id' => $model->id),
+        'linkOptions' => [
+            'submit' => ['/coupon/couponBackend/delete', 'id' => $model->id],
             'confirm' => Yii::t('CouponModule.coupon', 'Вы уверены, что хотите удалить купон?'),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+            'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'csrf' => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -49,16 +49,16 @@ $this->menu = array(
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data' => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
             'name',
             'code',
-            array(
+            [
                 'name' => 'type',
                 'value' => $model->getTypeTitle(),
-            ),
+            ],
             'value',
             'min_order_price',
             'registered_user:boolean',
@@ -67,11 +67,11 @@ $this->menu = array(
             'date_end',
             'quantity',
             'quantity_per_user',
-            array(
+            [
                 'name' => 'status',
                 'value' => $model->statusTitle,
-            ),
+            ],
 
-        ),
-    )
+        ],
+    ]
 ); ?>

@@ -13,7 +13,7 @@ class NestedPDO extends \PDO
     protected function nestable()
     {
         return in_array(
-            $this->getAttribute(PDO::ATTR_DRIVER_NAME),
+            $this->getAttribute(\PDO::ATTR_DRIVER_NAME),
             self::$savepointTransactions
         );
     }

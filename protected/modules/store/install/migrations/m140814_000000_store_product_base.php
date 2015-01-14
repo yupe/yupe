@@ -6,7 +6,7 @@ class m140814_000000_store_product_base extends yupe\components\DbMigration
     {
         $this->createTable(
             "{{store_product}}",
-            array(
+            [
                 "id" => "pk",
                 "type_id" => "integer default null",
                 "producer_id" => "integer default null",
@@ -32,7 +32,7 @@ class m140814_000000_store_product_base extends yupe\components\DbMigration
                 "meta_title" => "varchar(250) default null",
                 "meta_keywords" => "varchar(250) default null",
                 "meta_description" => "varchar(250) default null",
-            ),
+            ],
             $this->getOptions()
         );
 

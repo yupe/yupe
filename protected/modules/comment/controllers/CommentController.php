@@ -37,7 +37,7 @@
  * @link     http://yupe.ru
  *
  **/
-class CommentController extends yupe\components\controllers\FrontController
+class CommentController extends \yupe\components\controllers\FrontController
 {
     /**
      * Объявляем действия:
@@ -46,13 +46,13 @@ class CommentController extends yupe\components\controllers\FrontController
      **/
     public function actions()
     {
-        return array(
-            'captcha' => array(
+        return [
+            'captcha' => [
                 'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -83,13 +83,13 @@ class CommentController extends yupe\components\controllers\FrontController
                     $commentContent = $comment->isApproved() ? $this->_renderComment($comment) : '';
 
                     Yii::app()->ajax->success(
-                        array(
+                        [
                             'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
-                            'comment' => array(
+                            'comment' => [
                                 'parent_id' => $comment->parent_id
-                            ),
+                            ],
                             'commentContent' => $commentContent
-                        )
+                        ]
                     );
                 }
 
@@ -105,9 +105,9 @@ class CommentController extends yupe\components\controllers\FrontController
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
                     Yii::app()->ajax->failure(
-                        array(
+                        [
                             'message' => Yii::t('CommentModule.comment', 'Record was not added!')
-                        )
+                        ]
                     );
                 }
 
@@ -122,9 +122,9 @@ class CommentController extends yupe\components\controllers\FrontController
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
                 Yii::app()->ajax->failure(
-                    array(
+                    [
                         'message' => Yii::t('CommentModule.comment', $e->getMessage())
-                    )
+                    ]
                 );
             }
 
@@ -148,6 +148,6 @@ class CommentController extends yupe\components\controllers\FrontController
     {
         $comment->refresh();
 
-        return $this->renderPartial('_comment', array('comment' => $comment, 'level' => $comment->getLevel()), true);
+        return $this->renderPartial('_comment', ['comment' => $comment, 'level' => $comment->getLevel()], true);
     }
 }

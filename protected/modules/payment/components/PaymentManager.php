@@ -5,7 +5,7 @@ class PaymentManager extends CComponent
     private $_paymentSystems = null;
     private $_formattedList = null;
 
-    public $paymentSystems = array();
+    public $paymentSystems = [];
 
     public function init()
     {
@@ -25,7 +25,7 @@ class PaymentManager extends CComponent
             return $this->_paymentSystems;
         }
 
-        $systems = array();
+        $systems = [];
         foreach ($this->paymentSystems as $id => $params) {
             $system = Yii::createComponent($params);
             $systems[$id] = $system;
@@ -43,7 +43,7 @@ class PaymentManager extends CComponent
         if ($this->_formattedList) {
             return $this->_formattedList;
         }
-        $list = array();
+        $list = [];
         foreach ($this->getPaymentSystems() as $id => $system) {
             $params = $system->getParameters();
             $list[$id] = $params['name'];

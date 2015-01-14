@@ -1,13 +1,13 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'user-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 
 <div class="alert alert-info">
@@ -56,18 +56,18 @@ $form = $this->beginWidget(
         <?php echo $form->datePickerGroup(
             $model,
             'birth_date',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
+            [
+                'widgetOptions' => [
+                    'options' => [
                         'format'      => 'yyyy-mm-dd',
                         'weekStart'   => 1,
                         'autoclose'   => true,
                         'orientation' => 'auto right',
                         'startView'   => 2,
-                    ),
-                ),
+                    ],
+                ],
                 'prepend'       => '<i class="fa fa-calendar"></i>',
-            )
+            ]
         );
         ?>
     </div>
@@ -78,10 +78,10 @@ $form = $this->beginWidget(
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
-            array(
+            [
                 'model'     => $model,
                 'attribute' => 'about',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -93,11 +93,11 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'gender',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getGendersList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -106,11 +106,11 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -120,11 +120,11 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'email_confirm',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getEmailConfirmStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -134,37 +134,37 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'access_level',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getAccessLevelsList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and continue') : Yii::t(
             'UserModule.user',
             'Save user and continue'
         ),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and close') : Yii::t(
             'UserModule.user',
             'Save user and close'
         ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

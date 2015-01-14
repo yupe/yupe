@@ -12,6 +12,16 @@
  **/
 class NotifyBackendController extends \yupe\components\controllers\BackController
 {
+
+    public function accessRules()
+    {
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'roles' => ['NotifyModule.NotifyManage.manage']],
+            ['deny']
+        ];
+    }
+
     /**
      * Отображает уведомление по указанному идентификатору
      *
@@ -21,7 +31,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -47,13 +57,13 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -80,13 +90,13 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -110,7 +120,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
 
 // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t(
@@ -132,7 +142,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
         if (isset($_GET['NotifySettings'])) {
             $model->attributes = $_GET['NotifySettings'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

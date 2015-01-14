@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     '*unknown*' => '',
     '--choose--' => '',
     '--no--' => '',
@@ -61,4 +61,4 @@ return array(
     'are required' => '',
     'manage' => '',
     'Data for SEO' => '',
-);
+];

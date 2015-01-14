@@ -10,13 +10,13 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'dictionary-data-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('DictionaryModule.dictionary', 'Fields with'); ?>
@@ -31,15 +31,15 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'group_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => CHtml::listData(
                             DictionaryGroup::model()->findAll(),
                             'id',
                             'name'
                         )
-                )
-            )
+                ]
+            ]
         ); ?>
 
     </div>
@@ -47,7 +47,7 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array('widgetOptions' => array('data' => $model->getStatusList()))
+            ['widgetOptions' => ['data' => $model->getStatusList()]]
         ); ?>
     </div>
 </div>
@@ -76,10 +76,10 @@ $form = $this->beginWidget(
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->yupe->getVisualEditor(),
-            array(
+            [
                 'model'     => $model,
                 'attribute' => 'description',
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -87,26 +87,26 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
                 'DictionaryModule.dictionary',
                 'Create item and continue'
             ) : Yii::t('DictionaryModule.dictionary', 'Save value and continue'),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Create item and close') : Yii::t(
                 'DictionaryModule.dictionary',
                 'Save value and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

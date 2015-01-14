@@ -3,25 +3,25 @@ use yupe\components\WebModule;
 
 class SocialModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.1';
 
     public $controllerNamespace = '\application\modules\social\controllers';
 
     public function getDependencies()
     {
-        return array(
+        return [
             'user',
-        );
+        ];
     }
 
     public function getEditableParams()
     {
-        return array();
+        return [];
     }
 
     public function getParamsLabels()
     {
-        return array();
+        return [];
     }
 
     public function getCategory()
@@ -71,14 +71,14 @@ class SocialModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('label' => Yii::t('SocialModule.social', 'Users')),
-            array(
+        return [
+            ['label' => Yii::t('SocialModule.social', 'Users')],
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('SocialModule.social', 'Accounts'),
-                'url'   => array('/social/socialBackend/index')
-            ),
-        );
+                'url'   => ['/social/socialBackend/index']
+            ],
+        ];
     }
 
     public function init()
@@ -88,29 +88,29 @@ class SocialModule extends WebModule
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'Social.SocialManager',
                 'description' => Yii::t('SocialModule.social', 'Manage social accounts'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Social.SocialBackend.Delete',
                         'description' => Yii::t('SocialModule.social', 'Removing social account')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Social.SocialBackend.Index',
                         'description' => Yii::t('SocialModule.social', 'List of social accounts')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Social.SocialBackend.View',
                         'description' => Yii::t('SocialModule.social', 'Viewing social account')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 }

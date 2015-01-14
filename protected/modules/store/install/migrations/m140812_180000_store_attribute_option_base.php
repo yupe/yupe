@@ -6,12 +6,12 @@ class m140812_180000_store_attribute_option_base extends yupe\components\DbMigra
     {
         $this->createTable(
             "{{store_attribute_option}}",
-            array(
+            [
                 "id" => "pk",
                 "attribute_id" => "int(11) null default null",
                 "position" => "tinyint(4) null default null",
                 "value" => "varchar(255) null default ''",
-            ),
+            ],
             $this->getOptions()
         );
 

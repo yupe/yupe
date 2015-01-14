@@ -37,7 +37,7 @@ class YShortCuts extends YWidget
     {
         $this->render(
             $this->view,
-            array('modules' => $this->modules, 'updates' => Yii::app()->migrator->checkForUpdates($this->modules))
+            ['modules' => $this->modules, 'updates' => Yii::app()->migrator->checkForUpdates($this->modules)]
         );
     }
 }

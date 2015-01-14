@@ -1,19 +1,19 @@
 <?php
 $this->pageTitle = Yii::t('UserModule.user', 'User profile');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'User profile'));
+$this->breadcrumbs = [Yii::t('UserModule.user', 'User profile')];
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'profile-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array(
+        'htmlOptions'            => [
             'class'   => 'well',
             'enctype' => 'multipart/form-data',
-        )
-    )
+        ]
+    ]
 );
 ?>
 
@@ -21,21 +21,21 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-3">
-        <?php $this->widget('AvatarWidget', array('user' => $user, 'noCache' => true)); ?>
+        <?php $this->widget('AvatarWidget', ['user' => $user, 'noCache' => true]); ?>
     </div>
     <div class="col-xs-9">
         <?php echo $form->checkBoxGroup(
             $model,
             'use_gravatar',
-            array(
+            [
                 'hint' => Yii::t('UserModule.user', 'If you do not use Gravatar feel free to upload your own.')
-            )
+            ]
         ); ?>
 
         <?php echo $form->fileFieldGroup(
             $model,
             'avatar',
-            array('widgetOptions' => array('htmlOptions' => array('style' => 'background: inherit;')))
+            ['widgetOptions' => ['htmlOptions' => ['style' => 'background: inherit;']]]
         ); ?>
     </div>
 </div>
@@ -45,15 +45,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $user,
             'email',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'disabled' => true,
                         'class'    => Yii::app()->user->profile->getIsVerifyEmail() ? 'text-success' : ''
-                    ),
-                ),
-                'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), array('/user/account/profileEmail')),
-            )
+                    ],
+                ],
+                'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/profile/email']),
+            ]
         ); ?>
         <?php if (Yii::app()->user->profile->getIsVerifyEmail()): { ?>
             <p class="email-status-confirmed text-success">
@@ -90,15 +90,15 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'gender',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => User::model()->getGendersList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'data-original-title' => $model->getAttributeLabel('gender'),
                         'data-content'        => User::model()->getAttributeDescription('gender')
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -108,14 +108,14 @@ $form = $this->beginWidget(
         <?php echo $form->datePickerGroup(
             $model,
             'birth_date',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
+            [
+                'widgetOptions' => [
+                    'options' => [
                         'format' => 'yyyy-mm-dd',
-                    ),
-                ),
+                    ],
+                ],
                 'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>'
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -137,7 +137,7 @@ $form = $this->beginWidget(
         <?php echo $form->textAreaGroup(
             $model,
             'about',
-            array('widgetOptions' => array('htmlOptions' => array('rows' => 7)))
+            ['widgetOptions' => ['htmlOptions' => ['rows' => 7]]]
         ); ?>
     </div>
 </div>
@@ -146,7 +146,7 @@ $form = $this->beginWidget(
     <div class="col-xs-12">
         <?php if (is_array($this->module->profiles) && count($this->module->profiles)): { ?>
             <?php foreach ($this->module->profiles as $k => $p): { ?>
-                <?php $this->renderPartial("//" . $k . "/" . $k . "_profile", array("model" => $p, "form" => $form)); ?>
+                <?php $this->renderPartial("//" . $k . "/" . $k . "_profile", ["model" => $p, "form" => $form]); ?>
             <?php } endforeach; ?>
         <?php } endif; ?>
     </div>
@@ -156,13 +156,13 @@ $form = $this->beginWidget(
     <div class="col-xs-12">
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context'    => 'primary',
                 'label'      => Yii::t('UserModule.user', 'Save profile'),
-            )
+            ]
         ); ?>
-        <?php echo CHtml::link(Yii::t('UserModule.user', 'Change password'), array('/user/account/profilePassword'), array('class' => 'btn btn-default')); ?>
+        <?php echo CHtml::link(Yii::t('UserModule.user', 'Change password'), ['/user/profile/password'], ['class' => 'btn btn-default']); ?>
     </div>
 </div>
 <?php $this->endWidget(); ?>

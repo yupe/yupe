@@ -10,40 +10,27 @@ class UpdateBackendController extends BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Update.UpdateBackend.index')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Update.UpdateBackend.update')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Update.UpdateBackend.index']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Update.UpdateBackend.update']],
+            ['deny']
+        ];
     }
 
     public function actionIndex()
     {
-        if (Yii::app()->getRequest()->getIsPostRequest()) {
+        $modules = Yii::app()->moduleManager->getModules();
 
-            $modules = Yii::app()->moduleManager->getModules();
+        $updates = Yii::app()->updateManager->getModulesUpdateInfo(
+            $modules['modules']
+        );
 
-            $updates = Yii::app()->updateManager->getModulesUpdateList(
-                $modules['modules']
-            );
-
-            $success = is_array($updates);
-
-            Yii::app()->ajax->success(
-                $this->renderPartial(
-                    '_modules',
-                    array(
-                        'success' => $success,
-                        'updates' => $updates,
-                        'modules' => $modules['modules']
-                    ),
-                    true
-                )
-            );
-        }
-
-        $this->render('index');
+        $this->render('index', [
+                'success' => is_array($updates),
+                'updates' => $updates,
+                'modules' => $modules['modules']
+            ]);
     }
 
     public function actionUpdate()

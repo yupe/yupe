@@ -1,22 +1,22 @@
 <?php
 $this->pageTitle = 'Настройки уведомлений';
 $this->breadcrumbs = [
-    'Профиль пользователя' => ['/user/account/profile'],
+    'Профиль пользователя' => ['/user/profile/profile'],
     'Настройки уведомлений'
 ];
 
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id' => 'notify-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
         'type' => 'vertical',
-        'htmlOptions' => array(
+        'htmlOptions' => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 );
 ?>
 
@@ -40,11 +40,11 @@ $form = $this->beginWidget(
         <div class="col-xs-12">
             <?php $this->widget(
                 'bootstrap.widgets.TbButton',
-                array(
+                [
                     'buttonType' => 'submit',
                     'context'    => 'primary',
                     'label'      => 'Сохранить',
-                )
+                ]
             ); ?>
         </div>
     </div>

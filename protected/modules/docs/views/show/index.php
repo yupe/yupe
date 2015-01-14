@@ -10,23 +10,23 @@
  * @link     http://yupe.ru
  *
  **/
-$this->breadcrumbs = array(
-    $this->module->name                                                              => array('index'),
-    empty($module) ? Yii::t('DocsModule.docs', 'Documentation') : $module->getName() => empty($module) ? null : array(
+$this->breadcrumbs = [
+    $this->module->name                                                              => ['index'],
+    empty($module) ? Yii::t('DocsModule.docs', 'Documentation') : $module->getName() => empty($module) ? null : [
             '/docs/show/index/',
             'moduleID' => $module->getId(),
             'file'     => 'index'
-        ),
+        ],
     $title
-);
+];
 ?>
 
 <?php echo $content; ?>
 
-<i><?php echo Yii::t('DocsModule.docs', 'Updated {mtime}', array('{mtime}' => $mtime)); ?></i>
+<i><?php echo Yii::t('DocsModule.docs', 'Updated {mtime}', ['{mtime}' => $mtime]); ?></i>
 
 <br/><br/>
 <?php $this->widget(
     "application.modules.contentblock.widgets.ContentBlockWidget",
-    array("code" => "DISQUS_COMMENTS", "silent" => true)
+    ["code" => "DISQUS_COMMENTS", "silent" => true]
 ); ?>

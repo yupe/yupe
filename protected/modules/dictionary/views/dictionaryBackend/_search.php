@@ -1,12 +1,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 
 <fieldset>
@@ -25,7 +25,7 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
@@ -33,7 +33,7 @@ $form = $this->beginWidget(
                 'DictionaryModule.dictionary',
                 'Find dictionary'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

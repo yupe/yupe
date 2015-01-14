@@ -6,10 +6,10 @@
 
 $this->layout = 'product';
 
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.store', 'Products') => array('/store/productBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.store', 'Products') => ['/store/productBackend/index'],
     Yii::t('StoreModule.store', 'Creating'),
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.store', 'Products - creating');
 ?>
@@ -20,4 +20,4 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - creating');
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

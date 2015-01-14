@@ -46,6 +46,7 @@
                     <span class="label label-info"><?php echo CHtml::encode($module->getVersion()); ?></span>
                 </td>
                 <td>
+
                     <span
                         class="<?php echo isset($updates[$module->getId()]) ? 'label label-success' : 'label label-info'; ?>"><?php echo CHtml::encode(
                             isset($updates[$module->getId()]) ? $updates[$module->getId()]['version'] : $module->getVersion()
@@ -56,7 +57,7 @@
                         <?php echo CHtml::link(
                             Yii::t('UpdateModule.update', 'Whats new ?'),
                             '#',
-                            array('class' => 'change-log', 'data-content' => $updates[$module->getId()]['change'])
+                            ['class' => 'change-log', 'data-content' => $updates[$module->getId()]['change']]
                         ); ?>
                     <?php endif; ?>
                 </td>
@@ -106,7 +107,7 @@
 
 <?php $this->beginWidget(
     'bootstrap.widgets.TbModal',
-    array('id' => 'change-log-popup')
+    ['id' => 'change-log-popup']
 ); ?>
 
     <div class="modal-header">
@@ -122,11 +123,11 @@
     <div class="modal-footer">
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'label' => Yii::t('UpdateModule.update', 'Close'),
                 'url' => '#',
-                'htmlOptions' => array('data-dismiss' => 'modal'),
-            )
+                'htmlOptions' => ['data-dismiss' => 'modal'],
+            ]
         ); ?>
     </div>
 
@@ -134,7 +135,7 @@
 
     <?php $this->beginWidget(
         'bootstrap.widgets.TbModal',
-        array('id' => 'wait-for-update')
+        ['id' => 'wait-for-update']
     ); ?>
 
     <div class="modal-header">

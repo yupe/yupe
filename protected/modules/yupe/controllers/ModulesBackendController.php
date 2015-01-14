@@ -8,10 +8,10 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('deny',),
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['deny',],
+        ];
     }
 
     /**
@@ -61,7 +61,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
         } /**
          * Если статус неизвестен - ошибка:
          **/
-        elseif (!isset($status) || !in_array($status, array(0, 1, 2))) {
+        elseif (!isset($status) || !in_array($status, [0, 1, 2])) {
             Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Status for handler is no set!'));
         }
 
@@ -111,7 +111,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
                         $message = Yii::t('YupeModule.yupe', 'Unknown action was checked!');
                         break;
                 }
-                if (in_array($status, array(0, 1, 2))) {
+                if (in_array($status, [0, 1, 2])) {
                     Yii::app()->getCache()->clear($name);
                 }
             } catch (Exception $e) {

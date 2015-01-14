@@ -13,17 +13,17 @@
 
 use yupe\widgets\YFlashMessages;
 
-class ContactController extends yupe\components\controllers\FrontController
+class ContactController extends \yupe\components\controllers\FrontController
 {
     public function actions()
     {
-        return array(
-            'captcha' => array(
+        return [
+            'captcha' => [
                 'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1
-            )
-        );
+            ]
+        ];
     }
 
     public function actionIndex($type = null)
@@ -76,7 +76,7 @@ class ContactController extends yupe\components\controllers\FrontController
                     );
 
                     $this->redirect(
-                        $module->successPage ? array($module->successPage) : array('/feedback/contact/index/')
+                        $module->successPage ? [$module->successPage] : ['/feedback/contact/index/']
                     );
                 } else {
 
@@ -99,26 +99,26 @@ class ContactController extends yupe\components\controllers\FrontController
             }
         }
 
-        $this->render('index', array('model' => $form, 'module' => $module));
+        $this->render('index', ['model' => $form, 'module' => $module]);
     }
 
     // отобразить сообщения   с признаком is_faq
     // @TODO CActiveDataProvider перенести в модуль
     public function actionFaq()
     {
-        $dataProvider = new CActiveDataProvider('FeedBack', array(
-            'criteria' => array(
+        $dataProvider = new CActiveDataProvider('FeedBack', [
+            'criteria' => [
                 'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
-                'params'    => array(
+                'params'    => [
                     ':is_faq'   => FeedBack::IS_FAQ,
                     ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
                     ':finished' => FeedBack::STATUS_FINISHED,
-                ),
+                ],
                 'order'     => 'id DESC',
-            )
-        ));
+            ]
+        ]);
 
-        $this->render('faq', array('dataProvider' => $dataProvider));
+        $this->render('faq', ['dataProvider' => $dataProvider]);
     }
 
     public function actionFaqView($id)
@@ -135,6 +135,6 @@ class ContactController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
         }
 
-        $this->render('faqView', array('model' => $model));
+        $this->render('faqView', ['model' => $model]);
     }
 }

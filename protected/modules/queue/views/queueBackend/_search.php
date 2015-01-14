@@ -1,12 +1,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <fieldset>
     <div class="row">
@@ -14,36 +14,36 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'worker',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => Yii::app()->getModule('queue')->getWorkerNamesMap(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'priority',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getPriorityList(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -53,16 +53,16 @@ $form = $this->beginWidget(
             <?php echo $form->datePickerGroup(
                 $model,
                 'create_time',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
+                        ],
+                    ],
                     'prepend'       => '<i class="fa fa-calendar"></i>',
-                )
+                ]
             );
             ?>
         </div>
@@ -70,16 +70,16 @@ $form = $this->beginWidget(
             <?php echo $form->datePickerGroup(
                 $model,
                 'start_time',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
+                        ],
+                    ],
                     'prepend'       => '<i class="fa fa-calendar"></i>',
-                )
+                ]
             );
             ?>
         </div>
@@ -87,16 +87,16 @@ $form = $this->beginWidget(
             <?php echo $form->datePickerGroup(
                 $model,
                 'complete_time',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
+                        ],
+                    ],
                     'prepend'       => '<i class="fa fa-calendar"></i>',
-                )
+                ]
             );
             ?>
         </div>
@@ -115,12 +115,12 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Find task'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

@@ -1,7 +1,7 @@
 <?php
-$this->breadcrumbs = array(
+$this->breadcrumbs = [
     Yii::t('StoreModule.store', 'Магазин'),
-);
+];
 $this->pageTitle = Yii::t('StoreModule.store', 'Магазин');
 ?>
 <div class="page-header">

@@ -1,44 +1,44 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('StoreModule.type', 'Типы товаров') => array('/store/typeBackend/index'),
-    $model->name => array('/store/typeBackend/view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('StoreModule.type', 'Типы товаров') => ['/store/typeBackend/index'],
+    $model->name => ['/store/typeBackend/view', 'id' => $model->id],
     Yii::t('StoreModule.type', 'Редактировать'),
-);
+];
 
 $this->pageTitle = Yii::t('StoreModule.type', 'Типы товаров - редактировать');
 
-$this->menu = array(
-    array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление'), 'url' => array('/store/typeBackend/index')),
-    array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Добавить'), 'url' => array('/store/typeBackend/create')),
-    array('label' => Yii::t('StoreModule.type', 'Тип товара') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-    array(
+$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление'), 'url' => ['/store/typeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Добавить'), 'url' => ['/store/typeBackend/create']],
+    ['label' => Yii::t('StoreModule.type', 'Тип товара') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    [
         'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('StoreModule.type', 'Редактировать'),
-        'url' => array(
+        'url' => [
             '/store/typeBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('StoreModule.type', 'Просмотр'),
-        'url' => array(
+        'url' => [
             '/store/typeBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.type', 'Удалить'),
         'url' => '#',
-        'linkOptions' => array(
-            'submit' => array('/store/typeBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit' => ['/store/typeBackend/delete', 'id' => $model->id],
+            'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('StoreModule.type', 'Удалить этот тип товара?'),
             'csrf' => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -47,4 +47,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'availableAttributes' => $availableAttributes)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model, 'availableAttributes' => $availableAttributes]); ?>

@@ -39,13 +39,13 @@
                 <?php
                 $this->widget(
                     'bootstrap.widgets.TbLabel',
-                    array(
+                    [
                         'context' => $requirement[2] ? 'success' : ($requirement[1] ? 'danger' : 'default'),
                         'label'   => $requirement[2] ? 'ОК' : ($requirement[1] ? Yii::t(
                                 'InstallModule.install',
                                 'Error'
                             ) : Yii::t('InstallModule.install', 'Warning')),
-                    )
+                    ]
                 ); ?>
             </td>
             <td><?php echo ($requirement[4] == '') ? '&nbsp;' : $requirement[4]; ?></td>
@@ -57,22 +57,22 @@
 
 <?php echo CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
-    array('/install/default/environment'),
-    array('class' => 'btn btn-default')
+    ['/install/default/environment'],
+    ['class' => 'btn btn-default']
 ); ?>
 
 <?php
 if ($data['result'] !== false) {
     echo CHtml::link(
         Yii::t('InstallModule.install', 'Continue >'),
-        array('/install/default/dbsettings'),
-        array('class' => 'btn btn-primary')
+        ['/install/default/dbsettings'],
+        ['class' => 'btn btn-primary']
     );
 } else {
     echo CHtml::link(
         Yii::t('InstallModule.install', 'Refresh'),
-        array('/install/default/requirements'),
-        array('class' => 'btn btn-primary')
+        ['/install/default/requirements'],
+        ['class' => 'btn btn-primary']
     );
 }
 ?>

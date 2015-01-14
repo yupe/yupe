@@ -16,11 +16,11 @@ class ManageBackendController extends yupe\components\controllers\BackController
 
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Zendsearch.ManageBackend.Create')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Zendsearch.ManageBackend.Create']],
+            ['deny']
+        ];
     }
 
     /**
@@ -70,7 +70,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
             Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
             $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $indexFiles), true);
 
-            $messages = array();
+            $messages = [];
 
             if (extension_loaded('iconv') === true) {
                 // Пробежаться по всем моделям и добавить их в индекс
@@ -82,7 +82,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
                         $messages[] = Yii::t(
                             'ZendSearchModule.zendsearch',
                             'Update config file or module, Module index not found for model "{model}"!',
-                            array('{model}' => $modelName)
+                            ['{model}' => $modelName]
                         );
                     } elseif (is_file(Yii::getPathOfAlias($model['path']) . '.php') && Yii::app()->hasModule(
                             $model['module']
@@ -127,7 +127,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
                         $messages[] = Yii::t(
                             'ZendSearchModule.zendsearch',
                             'Module "{module}" not installed!',
-                            array('{module}' => $model['module'])
+                            ['{module}' => $model['module']]
                         );
                     }
                 }

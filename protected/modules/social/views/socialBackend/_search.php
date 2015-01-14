@@ -10,12 +10,12 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 );
 ?>
 
@@ -25,12 +25,12 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'user_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => CHtml::listData(User::model()->findAll(), 'id', 'fullName'),
-                        'htmlOptions' => array('empty' => '---')
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---']
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
@@ -45,7 +45,7 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
@@ -53,7 +53,7 @@ $this->widget(
                 'SocialModule.social',
                 'Искать аккаунт'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

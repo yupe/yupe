@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Notify settings' => 'Настройки уведомлений',
     'Users (last day / all)' => 'Пользователей (за сутки /  всего)',
     'Not active' => 'Не прошли активацию',
@@ -363,4 +363,4 @@ return array(
     'Email was updated.' => 'Email был изменен.',
     'Your password was changed successfully.' => 'Ваш пароль успешно изменен.',
     'Avatar extensions' => 'Расширения аватаров',
-);
+];

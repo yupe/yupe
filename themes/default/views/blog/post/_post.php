@@ -2,7 +2,7 @@
     <div class="posts-list-block-header">
         <?php echo CHtml::link(
             CHtml::encode($data->title),
-            array('/blog/post/show/', 'slug' => CHtml::encode($data->slug))
+            ['/blog/post/show/', 'slug' => CHtml::encode($data->slug)]
         ); ?>
     </div>
 
@@ -11,9 +11,9 @@
 	            <i class="glyphicon glyphicon-user"></i>
                 <?php $this->widget(
                     'application.modules.user.widgets.UserPopupInfoWidget',
-                    array(
+                    [
                         'model' => $data->createUser
-                    )
+                    ]
                 ); ?>
 	        </span>
 
@@ -22,10 +22,10 @@
 
                 <?php echo CHtml::link(
                     CHtml::encode($data->blog->name),
-                    array(
+                    [
                         '/blog/blog/show/',
                         'slug' => CHtml::encode($data->blog->slug)
-                    )
+                    ]
                 ); ?>
 	        </span>
 
@@ -56,7 +56,7 @@
 
                 <?php foreach ((array)$data->getTags() as $tag): ?>
                     <span>
-	                    <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))); ?>
+	                    <?php echo CHtml::link(CHtml::encode($tag), ['/posts/', 'tag' => CHtml::encode($tag)]); ?>
 	                </span>
                 <?php endforeach; ?>
 	        </span>
@@ -66,11 +66,11 @@
 
                 <?php echo CHtml::link(
                     $data->getCommentCount(),
-                    array(
+                    [
                         '/blog/post/show/',
                         'slug' => CHtml::encode($data->slug),
                         '#'    => 'comments'
-                    )
+                    ]
                 );?>
 	        </span>
         </div>

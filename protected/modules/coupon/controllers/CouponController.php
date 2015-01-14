@@ -1,8 +1,6 @@
 <?php
 
-use yupe\components\controllers\FrontController;
-
-class CouponController extends FrontController
+class CouponController extends \yupe\components\controllers\FrontController
 {
     public function actionAdd()
     {
@@ -14,7 +12,7 @@ class CouponController extends FrontController
         $result = Yii::app()->cart->couponManager->add($code);
         if (true === $result) {
             Yii::app()->ajax->success(
-                Yii::t("CouponModule.coupon", "Купон «{code}» добавлен", array('{code}' => $code))
+                Yii::t("CouponModule.coupon", "Купон «{code}» добавлен", ['{code}' => $code])
             );
         } else {
             Yii::app()->ajax->failure($result);
@@ -30,7 +28,7 @@ class CouponController extends FrontController
         $code = strtoupper(Yii::app()->getRequest()->getParam('code'));
         if ($code) {
             Yii::app()->cart->couponManager->remove($code);
-            Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Купон «{code}» удален", array('{code}' => $code)));
+            Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Купон «{code}» удален", ['{code}' => $code]));
         } else {
             Yii::app()->ajax->failure(Yii::t("CouponModule.coupon", 'Купон не найден'));
         }

@@ -39,29 +39,29 @@ class Coupon extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, code, status, type', 'required'),
-            array('name, code', 'filter', 'filter' => 'trim'),
-            array('name, code', 'length', 'max' => 255),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('type', 'in', 'range' => array_keys($this->getTypeList())),
-            array('value, min_order_price', 'numerical'),
-            array('quantity, quantity_per_user', 'numerical', 'integerOnly' => true),
-            array('registered_user, free_shipping', 'in', 'range' => array(0, 1)),
-            array('date_start, date_end', 'date', 'format' => 'yyyy-MM-dd'),
-            array('code', 'unique'),
-            array('id, name, code, type, value, min_order_price, registered_user, free_shipping, date_start, date_end, quantity, quantity_per_user, status', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name, code, status, type', 'required'],
+            ['name, code', 'filter', 'filter' => 'trim'],
+            ['name, code', 'length', 'max' => 255],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['type', 'in', 'range' => array_keys($this->getTypeList())],
+            ['value, min_order_price', 'numerical'],
+            ['quantity, quantity_per_user', 'numerical', 'integerOnly' => true],
+            ['registered_user, free_shipping', 'in', 'range' => [0, 1]],
+            ['date_start, date_end', 'date', 'format' => 'yyyy-MM-dd'],
+            ['code', 'unique'],
+            ['id, name, code, type, value, min_order_price, registered_user, free_shipping, date_start, date_end, quantity, quantity_per_user, status', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'active' => array(
+        return [
+            'active' => [
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
-            ),
-        );
+                'params' => [':status' => self::STATUS_ACTIVE],
+            ],
+        ];
     }
 
     /**
@@ -69,7 +69,7 @@ class Coupon extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('CouponModule.coupon', 'ID'),
             'name' => Yii::t('CouponModule.coupon', 'Название'),
             'code' => Yii::t('CouponModule.coupon', 'Код'),
@@ -83,7 +83,7 @@ class Coupon extends yupe\models\YModel
             'quantity' => Yii::t('CouponModule.coupon', 'Количество купонов'),
             'quantity_per_user' => Yii::t('CouponModule.coupon', 'Кол-во на одного пользователя'),
             'status' => Yii::t('CouponModule.coupon', 'Статус'),
-        );
+        ];
     }
 
     public function search()
@@ -106,9 +106,9 @@ class Coupon extends yupe\models\YModel
 
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-            )
+            ]
         );
     }
 
@@ -139,10 +139,10 @@ class Coupon extends yupe\models\YModel
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE => Yii::t("CouponModule.coupon", 'Активен'),
             self::STATUS_NOT_ACTIVE => Yii::t("CouponModule.coupon", 'Неактивен'),
-        );
+        ];
     }
 
     public function getStatusTitle()
@@ -153,10 +153,10 @@ class Coupon extends yupe\models\YModel
 
     public function getTypeList()
     {
-        return array(
+        return [
             self::TYPE_SUM => Yii::t("CouponModule.coupon", 'Сумма'),
             self::TYPE_PERCENT => Yii::t("CouponModule.coupon", 'Процент'),
-        );
+        ];
     }
 
     public function getTypeTitle()
@@ -167,17 +167,17 @@ class Coupon extends yupe\models\YModel
 
     public function getCouponByCode($code)
     {
-        return $this->findByAttributes(array('code' => $code));
+        return $this->findByAttributes(['code' => $code]);
     }
 
     public function getCouponErrors($price = 0)
     {
-        $errors = array();
+        $errors = [];
         if ($this->status == self::STATUS_NOT_ACTIVE) {
             $errors[] = Yii::t('CouponModule.coupon', 'Купон неактивен');
         }
         if ($price < $this->min_order_price) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Минимальная стоимость заказа ') . Yii::t('CouponModule.coupon', '{n} рубль|{n} рубля|{n} рублей', array($this->min_order_price));
+            $errors[] = Yii::t('CouponModule.coupon', 'Минимальная стоимость заказа ') . Yii::t('CouponModule.coupon', '{n} рубль|{n} рубля|{n} рублей', [$this->min_order_price]);
         }
         if (!is_null($this->quantity) && $this->quantity <= 0) {
             $errors[] = Yii::t('CouponModule.coupon', 'Купоны закончились');
@@ -212,6 +212,6 @@ class Coupon extends yupe\models\YModel
 
     public function getNumberUsagesByUser()
     {
-        return Order::model()->count('coupon_code like :code and user_id = :user_id', array(':code' => '%' . $this->code . '%', 'user_id' => Yii::app()->user->id));
+        return Order::model()->count('coupon_code like :code and user_id = :user_id', [':code' => '%' . $this->code . '%', 'user_id' => Yii::app()->user->id]);
     }
 }

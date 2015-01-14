@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Community' => 'Сообщество',
     'forum' => 'форум',
     'Thank you!' => 'Спасибо!',
@@ -86,8 +86,8 @@ return array(
     'To use memcached, set the value of the property {useMemcachedLink} equal {code_true}.' => 'Для использования memcached установите значение свойства {useMemcachedLink} равным {code_true}.',
     'Updating module\'s tables to current state!' => 'Обновление таблиц модулей до актуального состояния',
     'Uploads folder' => 'Каталог загрузок',
-    'You need to set write permissions for the directory {folder}' => 'Необходимо установить права на запись для дитектории {folder}',
-    'You need to set write permissions for the directory {folder}assets' => 'Необходимо установить права на запись для дитектории {folder}assets',
+    'You need to set write permissions for the directory {folder}' => 'Необходимо установить права на запись для директории {folder}',
+    'You need to set write permissions for the directory {folder}assets' => 'Необходимо установить права на запись для директории {folder}assets',
     'You should copy {from file} to {to file} and give it permission to write' => 'Необходимо скопировать {from file} в {to file} и дать доступ для записи',
     'You should disable the directive safe_mode.' => 'Необходимо отключить директиву safe_mode',
     'http://yupe.ru' => 'http://yupe.ru',
@@ -233,4 +233,4 @@ return array(
     'Just good guys' => 'Просто отличные парни',
     'Please, select your language below for continue.' => 'Пожалуйста, выберите язык ниже для продолжения.',
     'This option is experiment. Only MySQL works stable.' => 'Это экспериментальная возможность. На данный момент гарантирована поддержка MySQL.',
-);
+];

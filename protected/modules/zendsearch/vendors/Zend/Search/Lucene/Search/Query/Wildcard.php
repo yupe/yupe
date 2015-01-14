@@ -125,20 +125,20 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
     {
-        $this->_matches = array();
+        $this->_matches = [];
 
         if ($this->_pattern->field === null) {
             // Search through all fields
             $fields = $index->getFieldNames(true /* indexed fields list */);
         } else {
-            $fields = array($this->_pattern->field);
+            $fields = [$this->_pattern->field];
         }
 
         $prefix = self::_getPrefix($this->_pattern->text);
         $prefixLength = strlen($prefix);
         $matchExpression = '/^' . str_replace(
-                array('\\?', '\\*'),
-                array('.', '.*'),
+                ['\\?', '\\*'],
+                ['.', '.*'],
                 preg_quote($this->_pattern->text, '/')
             ) . '$/';
 
@@ -316,11 +316,11 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
-        $words = array();
+        $words = [];
 
         $matchExpression = '/^' . str_replace(
-                array('\\?', '\\*'),
-                array('.', '.*'),
+                ['\\?', '\\*'],
+                ['.', '.*'],
                 preg_quote($this->_pattern->text, '/')
             ) . '$/';
         if (@preg_match('/\pL/u', 'a') == 1) {

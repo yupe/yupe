@@ -36,40 +36,40 @@ class ProductImage extends \yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('product_id', 'numerical', 'integerOnly' => true),
-            array('name, title', 'length', 'max' => 250),
-        );
+        return [
+            ['product_id', 'numerical', 'integerOnly' => true],
+            ['name, title', 'length', 'max' => 250],
+        ];
     }
 
 
     public function relations()
     {
-        return array(
-            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
-        );
+        return [
+            'product' => [self::BELONGS_TO, 'Product', 'product_id'],
+        ];
     }
 
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
 
-        return array(
-            'imageUpload' => array(
+        return [
+            'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+                'scenarios' => ['insert', 'update'],
                 'attributeName' => 'name',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath . '/product',
                 'resizeOnUpload' => true,
-                'resizeOptions' => array(
+                'resizeOptions' => [
                     'maxWidth' => 900,
                     'maxHeight' => 900,
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**
@@ -77,9 +77,9 @@ class ProductImage extends \yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'title' => Yii::t('StoreModule.product', 'Заголовок'),
-        );
+        ];
     }
 
     /**
@@ -87,8 +87,8 @@ class ProductImage extends \yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'title' => Yii::t('StoreModule.product', 'Заголовок'),
-        );
+        ];
     }
 }

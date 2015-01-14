@@ -2,12 +2,12 @@
 <div class="row">
     <div class="col-sm-9 well">
         <?php if (count($this->breadcrumbs)) {
-            $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', ['links' => $this->breadcrumbs]);
         }
         ?><!-- breadcrumbs -->
         <?php //$this->widget('yupe\widgets\YFlashMessages'); ?>
         <div id="content">
-            <?php echo $content; ?>
+            <?= $content; ?>
         </div>
         <!-- content -->
     </div>
@@ -16,23 +16,25 @@
             <?php
             $this->widget(
                 'bootstrap.widgets.TbMenu',
-                array(
+                [
                     'type' => 'list',
                     'items' => Yii::app()->controller->module->getInstallMenu(),
-                )
+                    'htmlOptions' => ['class' => 'well']
+                ]
             );?>
         </div>
         <div class="alert alert-warning">
-            <strong><?php echo Yii::app()->name; ?></strong> разрабатывается
+            <strong><?= Yii::app()->name; ?></strong> разрабатывается
             <a href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной
-            поддержке <?php echo CHtml::link(
+            поддержке <?= CHtml::link(
                 'amyLabs',
                 'http://amylabs.ru',
-                array('target' => '_blank')
+                ['target' => '_blank']
             ); ?>!
-            <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
+            <strong><?= CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
             проблем!
         </div>
+        
     </div>
 </div>
 <?php $this->endContent(); ?>

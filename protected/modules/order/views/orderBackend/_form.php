@@ -3,12 +3,12 @@ Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id' => 'order-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 );
 ?>
 
@@ -26,30 +26,30 @@ $form = $this->beginWidget(
                 <?php echo $form->dropDownListGroup(
                     $model,
                     'status',
-                    array(
-                        'widgetOptions' => array(
+                    [
+                        'widgetOptions' => [
                             'data' => $model->getStatusList(),
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
             <div class="col-sm-4">
                 <?php echo $form->datePickerGroup(
                     $model,
                     'date',
-                    array(
-                        'widgetOptions' => array(
-                            'options' => array(
+                    [
+                        'widgetOptions' => [
+                            'options' => [
                                 'format' => 'dd.mm.yyyy',
                                 'weekStart' => 1,
                                 'autoclose' => true,
 
-                            ),
-                            'htmlOptions' => array('id'=>'orderDate'),
-                        ),
+                            ],
+                            'htmlOptions' => ['id'=>'orderDate'],
+                        ],
 
                         'prepend' => '<i class="fa fa-calendar"></i>',
-                    )
+                    ]
                 );
                 ?>
             </div>
@@ -57,16 +57,16 @@ $form = $this->beginWidget(
                 <?php echo $form->labelEx($model, 'user_id'); ?>
                 <?php $this->widget(
                     'bootstrap.widgets.TbSelect2',
-                    array(
+                    [
                         'model' => $model,
                         'attribute' => 'user_id',
-                        'data' => CHtml::listData(User::model()->findAll(), 'id', 'email'),
-                        'options' => array(
-                            'placeholder' => Yii::t("OrderModule.order", 'E-mail пользователя'),
+                        'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
+                        'options' => [
+                            'placeholder' => Yii::t("OrderModule.order", 'Пользователь'),
                             'width' => '100%',
                             'allowClear' => true,
-                        )
-                    )
+                        ]
+                    ]
                 );?>
             </div>
         </div>
@@ -89,7 +89,7 @@ $form = $this->beginWidget(
                                 <?php $totalProductCost = 0; ?>
                                 <?php foreach ((array)$model->products as $orderProduct): ?>
                                     <?php $totalProductCost += $orderProduct->price * $orderProduct->quantity; ?>
-                                    <?php $this->renderPartial('_product_row', array('model' => $orderProduct)); ?>
+                                    <?php $this->renderPartial('_product_row', ['model' => $orderProduct]); ?>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -97,27 +97,27 @@ $form = $this->beginWidget(
                             <div class="col-sm-10">
                                 <?php $this->widget(
                                     'bootstrap.widgets.TbSelect2',
-                                    array(
+                                    [
                                         'name' => 'ProductSelect',
                                         'asDropDownList' => false,
-                                        'options' => array(
+                                        'options' => [
                                             'minimumInputLength' => 2,
                                             'placeholder' => 'Выберите товар для добавления',
                                             'width' => '100%',
                                             'allowClear' => true,
-                                            'ajax' => array(
+                                            'ajax' => [
                                                 'url' => Yii::app()->controller->createUrl('/store/productBackend/ajaxSearch'),
                                                 'dataType' => 'json',
                                                 'data' => 'js:function(term, page) { return {q: term }; }',
                                                 'results' => 'js:function(data) { return {results: data}; }',
-                                            ),
+                                            ],
                                             'formatResult' => 'js:productFormatResult',
                                             'formatSelection' => 'js:productFormatSelection',
-                                        ),
-                                        'htmlOptions' => array(
+                                        ],
+                                        'htmlOptions' => [
                                             'id' => 'product-select'
-                                        ),
-                                    )
+                                        ],
+                                    ]
                                 );?>
                             </div>
                             <div class="col-sm-2">
@@ -145,28 +145,28 @@ $form = $this->beginWidget(
                         <div class="row">
                             <div class="col-sm-4">
                                 <?php
-                                $options = array();
+                                $options = [];
                                 /* @var $delivery Delivery */
                                 foreach ((array)Delivery::model()->published()->findAll() as $delivery) {
-                                    $options[$delivery->id] = array(
+                                    $options[$delivery->id] = [
                                         'data-separate-payment' => $delivery->separate_payment,
                                         'data-price' => $delivery->price,
                                         'data-available-from' => $delivery->available_from
-                                    );
+                                    ];
                                 };?>
                                 <?php echo $form->dropDownListGroup(
                                     $model,
                                     'delivery_id',
-                                    array(
-                                        'widgetOptions' => array(
+                                    [
+                                        'widgetOptions' => [
                                             'data' => CHtml::listData(Delivery::model()->published()->findAll(), 'id', 'name'),
-                                            'htmlOptions' => array(
+                                            'htmlOptions' => [
                                                 'empty' => Yii::t("OrderModule.order", 'Не выбрано'),
                                                 'id' => 'delivery-type',
                                                 'options' => $options,
-                                            ),
-                                        ),
-                                    )
+                                            ],
+                                        ],
+                                    ]
                                 ); ?>
                             </div>
                             <div class="col-sm-4">
@@ -194,14 +194,14 @@ $form = $this->beginWidget(
                                 <?php echo $form->dropDownListGroup(
                                     $model,
                                     'payment_method_id',
-                                    array(
-                                        'widgetOptions' => array(
+                                    [
+                                        'widgetOptions' => [
                                             'data' => CHtml::listData(Payment::model()->published()->findAll(), 'id', 'name'),
-                                            'htmlOptions' => array(
+                                            'htmlOptions' => [
                                                 'empty' => 'Не выбрано',
-                                            ),
-                                        ),
-                                    )
+                                            ],
+                                        ],
+                                    ]
                                 ); ?>
                             </div>
                             <div class="col-sm-2">
@@ -260,7 +260,7 @@ $form = $this->beginWidget(
                 <?php if (!$model->isNewRecord): ?>
                     <div class="row">
                         <div class="col-sm-12">
-                            <?php echo CHtml::link(Yii::t("OrderModule.order", 'Ссылка на заказ'), array('/order/order/view', 'url' => $model->url)); ?>
+                            <?php echo CHtml::link(Yii::t("OrderModule.order", 'Ссылка на заказ'), ['/order/order/view', 'url' => $model->url]); ?>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -283,7 +283,7 @@ $form = $this->beginWidget(
                             ) : ''; ?>">
                                 <?php
                                 if ($coupon) {
-                                    echo CHtml::link($code, array('/coupon/couponBackend/view', 'id' => $coupon->id), array('title' => $coupon->name));
+                                    echo CHtml::link($code, ['/coupon/couponBackend/view', 'id' => $coupon->id], ['title' => $coupon->name]);
                                 } else {
                                     echo $code . ' ' . Yii::t("OrderModule.order", '[Удален]');
                                 }
@@ -302,21 +302,21 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => Yii::t('OrderModule.order', 'Сохранить и продолжить'),
-    )
+    ]
 );
 ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label' => Yii::t('OrderModule.order', 'Сохранить и вернуться к списку'),
-    )
+    ]
 );
 ?>
 

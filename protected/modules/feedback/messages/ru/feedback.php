@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Messages categories' => 'Категории сообщений',
     'continue' => ' продолжить ?',
     '*unknown*' => '*неизвестно*',
@@ -175,4 +175,4 @@ return array(
     'Answer feedback' => 'Ответ на сообщения обратной связи',
     'Feedback (last day / all)' => 'Обратная связь (за сутки / всего)',
     'Need answer' => 'Требует ответа'
-);
+];

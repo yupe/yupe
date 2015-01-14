@@ -1,13 +1,14 @@
 <?php
-Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-frontend.css');
-Yii::app()->getClientScript()->registerScriptFile($this->module->getAssetsUrl() . '/js/store.js');
+$mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
+Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 /* @var $category StoreCategory */
 
 $this->pageTitle =  $category->getMetaTile();
 $this->description = $category->getMetaDescription();
 $this->keywords =  $category->getMetaKeywords();
 
-$this->breadcrumbs = array(Yii::t("StoreModule.catalog", "Каталог") => array('/store/catalog/index'));
+$this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/store/catalog/index']];
 
 $this->breadcrumbs = array_merge(
     $this->breadcrumbs,
@@ -42,27 +43,27 @@ $this->breadcrumbs = array_merge(
             <div class="grid">
                 <?php $this->widget(
                     'zii.widgets.CListView',
-                    array(
+                    [
                         'dataProvider' => $dataProvider,
                         'itemView' => '_view',
                         'summaryText' => '',
                         'enableHistory' => true,
                         'cssFile' => false,
-                        'pager' => array(
+                        'pager' => [
                             'cssFile' => false,
-                            'htmlOptions' => array('class' => 'pagination'),
+                            'htmlOptions' => ['class' => 'pagination'],
                             'header' => '',
                             'firstPageLabel' => '&lt;&lt;',
                             'lastPageLabel' => '&gt;&gt;',
                             'nextPageLabel' => '&gt;',
                             'prevPageLabel' => '&lt;',
-                        ),
-                        'sortableAttributes' => array(
+                        ],
+                        'sortableAttributes' => [
                             'sku',
                             'name',
                             'price'
-                        ),
-                    )
+                        ],
+                    ]
                 ); ?>
             </div>
         </section>

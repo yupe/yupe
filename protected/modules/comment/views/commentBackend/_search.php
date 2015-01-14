@@ -1,12 +1,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 
 
@@ -16,14 +16,14 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => Yii::t('CommentModule.comment', '--choose--'),
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
 
@@ -58,16 +58,16 @@ $form = $this->beginWidget(
             <?php echo $form->datePickerGroup(
                 $model,
                 'creation_date',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'yyyy-mm-dd',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
+                        ],
+                    ],
                     'prepend'       => '<i class="fa fa-calendar"></i>',
-                )
+                ]
             );
             ?>
         </div>
@@ -86,7 +86,7 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
@@ -94,7 +94,7 @@ $form = $this->beginWidget(
                 'CommentModule.comment',
                 'Find comments'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

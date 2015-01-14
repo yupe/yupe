@@ -49,22 +49,22 @@ class StoreCategory extends \yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('name, description, short_description, alias, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'),
-            array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, alias', 'required'),
-            array('parent_id, status', 'numerical', 'integerOnly' => true),
-            array('parent_id, status', 'length', 'max' => 11),
-            array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('status', 'numerical', 'integerOnly' => true),
-            array('status', 'length', 'max' => 11),
-            array('name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250),
-            array('alias', 'length', 'max' => 150),
-            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Запрещенные символы в поле {attribute}')),
-            array('alias', 'unique'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name, description, short_description, alias, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'],
+            ['name, alias', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, alias', 'required'],
+            ['parent_id, status', 'numerical', 'integerOnly' => true],
+            ['parent_id, status', 'length', 'max' => 11],
+            ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
+            ['status', 'numerical', 'integerOnly' => true],
+            ['status', 'length', 'max' => 11],
+            ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
+            ['alias', 'length', 'max' => 150],
+            ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Запрещенные символы в поле {attribute}')],
+            ['alias', 'unique'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'],
+        ];
     }
 
 
@@ -72,17 +72,17 @@ class StoreCategory extends \yupe\models\YModel
     {
         $module = Yii::app()->getModule('store');
 
-        return array(
-            'imageUpload' => array(
+        return [
+            'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+                'scenarios' => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
-            ),
-            'CategoryTreeBehavior' => array(
+            ],
+            'CategoryTreeBehavior' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
                 'titleAttribute' => 'name',
                 'aliasAttribute' => 'alias',
@@ -90,14 +90,14 @@ class StoreCategory extends \yupe\models\YModel
                 'requestPathAttribute' => 'path',
                 'parentAttribute' => 'parent_id',
                 'parentRelation' => 'parent',
-                'defaultCriteria' => array(
+                'defaultCriteria' => [
                     'condition' => 'status = :status',
                     'params' => [':status' => self::STATUS_PUBLISHED],
                     'order' => 't.name ASC'
-                ),
+                ],
                 'useCache' => true,
-            ),
-        );
+            ],
+        ];
     }
 
     public function generateFileName()
@@ -107,24 +107,24 @@ class StoreCategory extends \yupe\models\YModel
 
     public function relations()
     {
-        return array(
-            'parent' => array(self::BELONGS_TO, 'StoreCategory', 'parent_id'),
-            'children' => array(self::HAS_MANY, 'StoreCategory', 'parent_id'),
+        return [
+            'parent' => [self::BELONGS_TO, 'StoreCategory', 'parent_id'],
+            'children' => [self::HAS_MANY, 'StoreCategory', 'parent_id'],
             'productCount' => [self::STAT, 'ProductCategory', 'category_id']
-        );
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_PUBLISHED),
-            ),
-            'roots' => array(
+                'params' => [':status' => self::STATUS_PUBLISHED],
+            ],
+            'roots' => [
                 'condition' => 'parent_id IS NULL',
-            ),
-        );
+            ],
+        ];
     }
 
     public function beforeValidate()
@@ -141,7 +141,7 @@ class StoreCategory extends \yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'Id'),
             'parent_id' => Yii::t('StoreModule.store', 'Parent'),
             'name' => Yii::t('StoreModule.store', 'Name'),
@@ -153,7 +153,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
-        );
+        ];
     }
 
     /**
@@ -161,7 +161,7 @@ class StoreCategory extends \yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'Id'),
             'parent_id' => Yii::t('StoreModule.store', 'Parent'),
             'name' => Yii::t('StoreModule.store', 'Title'),
@@ -173,7 +173,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
-        );
+        ];
     }
 
     /**
@@ -197,15 +197,15 @@ class StoreCategory extends \yupe\models\YModel
         $criteria->compare('meta_description', $this->alias, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_DRAFT => Yii::t('StoreModule.store', 'Draft'),
             self::STATUS_PUBLISHED => Yii::t('StoreModule.store', 'Published')
-        );
+        ];
     }
 
     public function getStatus()
@@ -217,8 +217,8 @@ class StoreCategory extends \yupe\models\YModel
     public function getAllCategoryList($selfId = false)
     {
         $conditionArray = ($selfId)
-            ? array('condition' => 'id != :id', 'params' => array(':id' => $selfId))
-            : array();
+            ? ['condition' => 'id != :id', 'params' => [':id' => $selfId]]
+            : [];
 
         $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);
 
@@ -227,9 +227,9 @@ class StoreCategory extends \yupe\models\YModel
 
     public function getFormattedList($parent_id = null, $level = 0)
     {
-        $categories = StoreCategory::model()->findAllByAttributes(array('parent_id' => $parent_id));
+        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id]);
 
-        $list = array();
+        $list = [];
 
         foreach ($categories as $key => $category) {
 
@@ -256,9 +256,9 @@ class StoreCategory extends \yupe\models\YModel
     {
         return self::model()->published()->find(
             'alias = :alias',
-            array(
+            [
                 ':alias' => $alias
-            )
+            ]
         );
     }
 

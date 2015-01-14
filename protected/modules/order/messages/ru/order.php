@@ -1,5 +1,9 @@
 <?php
 
-return array(
+return [
     'Store' => 'Магазин',
-);
+    'Orders' => 'Заказы',
+    'New' => 'Новые',
+    'Total' => 'Всего',
+    'Order #' => 'Заказ №',
+];

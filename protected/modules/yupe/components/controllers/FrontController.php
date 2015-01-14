@@ -15,6 +15,7 @@ namespace yupe\components\controllers;
 use Yii;
 use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
+use application\components\Controller;
 
 /**
  * Class FrontController

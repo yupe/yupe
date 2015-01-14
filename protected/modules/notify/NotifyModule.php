@@ -8,11 +8,11 @@ class NotifyModule extends WebModule
 
     public function getDependencies()
     {
-        return array(
+        return [
             'comment',
             'blog',
             'mail'
-        );
+        ];
     }
 
 	public function init()
@@ -72,12 +72,30 @@ class NotifyModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array(
+        return [
+            [
                 'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('NotifyModule.notify', 'Notify settings'),
-                'url'   => array('/notify/notifyBackend/index')
-            )
-        );
+                'url'   => ['/notify/notifyBackend/index']
+            ]
+        ];
+    }
+
+    public function getAuthItems()
+    {
+        return [
+            [
+                'name'        => 'NotifyModule.NotifyManage',
+                'description' => Yii::t('NotifyModule.notify', 'Manage notify'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => [
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'NotifyModule.NotifyManage.manage',
+                        'description' => Yii::t('NotifyModule.notify', 'Manage notify')
+                    ],
+                ]
+            ]
+        ];
     }
 }

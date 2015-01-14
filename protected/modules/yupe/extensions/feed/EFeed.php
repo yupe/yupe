@@ -50,7 +50,7 @@ class EFeed extends CComponent
      * Holds stylesheet associated to the feed
      * http://www.w3.org/TR/xml-stylesheet/#dt-xml-stylesheet
      */
-    private $stylesheets = array();
+    private $stylesheets = [];
     /**
      *
      * Type of Feed Format
@@ -79,7 +79,7 @@ class EFeed extends CComponent
         $this->addChannelTag('link', 'http://www.ramirezcobos.com/');
 
         // Tag elements that we need to CDATA encode
-        $this->feedElements->add('CDATAEncoded', array('description', 'content:encoded', 'summary'));
+        $this->feedElements->add('CDATAEncoded', ['description', 'content:encoded', 'summary']);
 
     }
 
@@ -242,7 +242,7 @@ class EFeed extends CComponent
             throw new CException(Yii::t('EFeed', $link . ' does not seem to be a valid URL'));
         }
 
-        $this->addChannelTag('image', array('title' => $title, 'link' => $link, 'url' => $url));
+        $this->addChannelTag('image', ['title' => $title, 'link' => $link, 'url' => $url]);
     }
 
     /**
@@ -351,23 +351,23 @@ class EFeed extends CComponent
         if ($this->type == self::RSS2) {
             $head .= CHtml::openTag(
                     'rss',
-                    array(
+                    [
                         "version"       => "2.0",
                         "xmlns:content" => "http://purl.org/rss/1.0/modules/content/",
                         "xmlns:wfw"     => "http://wellformedweb.org/CommentAPI/"
-                    )
+                    ]
                 ) . PHP_EOL;
         } elseif ($this->type == self::RSS1) {
             $head .= CHtml::openTag(
                     'rdf:RDF',
-                    array(
+                    [
                         "xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                         "xmlns"     => "http://purl.org/rss/1.0/",
                         "xmlns:dc"  => "http://purl.org/dc/elements/1.1/"
-                    )
+                    ]
                 ) . PHP_EOL;
         } elseif ($this->type == self::ATOM) {
-            $head .= CHtml::openTag('feed', array("xmlns" => "http://www.w3.org/2005/Atom")) . PHP_EOL;
+            $head .= CHtml::openTag('feed', ["xmlns" => "http://www.w3.org/2005/Atom"]) . PHP_EOL;
         }
         echo $head;
     }
@@ -403,9 +403,9 @@ class EFeed extends CComponent
                 break;
             case self::RSS1:
                 if (null !== $this->RSS1ChannelAbout) {
-                    echo CHtml::tag('channel', array('rdf:about' => $this->RSS1ChannelAbout));
+                    echo CHtml::tag('channel', ['rdf:about' => $this->RSS1ChannelAbout]);
                 } else {
-                    echo CHtml::tag('channel', array('rdf:about' => $this->link));
+                    echo CHtml::tag('channel', ['rdf:about' => $this->link]);
                 }
                 break;
         }
@@ -414,7 +414,7 @@ class EFeed extends CComponent
         foreach ($this->feedElements->itemAt('channels') as $key => $value) {
             if ($this->type == self::ATOM && $key == 'link') {
                 // ATOM prints link element as href attribute
-                echo $this->makeNode($key, '', array('href' => $value));
+                echo $this->makeNode($key, '', ['href' => $value]);
                 // And add the id for ATOM
                 echo $this->makeNode('id', $this->uuid($value, 'urn:uuid:'));
             } else {
@@ -441,7 +441,7 @@ class EFeed extends CComponent
                     ));
                 }
 
-                echo CHtml::tag('rdf:li', array('resource' => $tag->content), true) . PHP_EOL;
+                echo CHtml::tag('rdf:li', ['resource' => $tag->content], true) . PHP_EOL;
             }
             echo "</rdf:Seq>" . PHP_EOL . "</items>" . PHP_EOL;
         }
@@ -473,7 +473,7 @@ class EFeed extends CComponent
      * @param    array   Attributes(if any) in 'attrName' => 'attrValue' format
      * @return   string  formatted xml tag
      */
-    private function makeNode($tagName, $tagContent, $attributes = array())
+    private function makeNode($tagName, $tagContent, $attributes = [])
     {
         $node = '';
 

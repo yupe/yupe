@@ -100,7 +100,7 @@ $this->breadcrumbs = array_merge(
                                         'ProductVariant[]',
                                         null,
                                         CHtml::listData($variantsGroup, 'id', 'optionValue'),
-                                        array('empty' => '', 'class' => 'form-control')
+                                        ['empty' => '', 'class' => 'form-control', 'options' => $product->getVariantsOptions()]
                                     ); ?>
                                 </td>
                             </tr>
@@ -211,22 +211,22 @@ $this->breadcrumbs = array_merge(
         <?php
         $this->widget(
             'application.modules.comment.widgets.CommentsListWidget',
-            array(
+            [
                 'model' => $product,
                 'modelId' => $product->id,
                 'comments' => $product->comments
-            )
+            ]
         );
         ?>
 
         <?php
         $this->widget(
             'application.modules.comment.widgets.CommentFormWidget',
-            array(
-                'redirectTo' => $this->createUrl('/store/catalog/show/', array('name' => $product->name)),
+            [
+                'redirectTo' => $this->createUrl('/store/catalog/show/', ['name' => $product->name]),
                 'model' => $product,
                 'modelId' => $product->id,
-            )
+            ]
         );
         ?>
     </div>

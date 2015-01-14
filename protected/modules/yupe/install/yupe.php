@@ -10,34 +10,34 @@
  * @link     http://yupe.ru
  **/
 
-return array(
-    'import'    => array(
+return [
+    'import'    => [
         'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
         'application.modules.yupe.extensions.tagcache.*',
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
-    ),
-    'preload'   => array('log'),
-    'component' => array(
+    ],
+    'preload'   => ['log'],
+    'component' => [
         // Массив компонентов, которые требует данный модуль
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
-        'cache' => array(
+        'cache' => [
             'class'     => 'CFileCache',
-            'behaviors' => array(
-                'clear' => array(
+            'behaviors' => [
+                'clear' => [
                     'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
-                ),
-            ),
-        ),
-    ),
-    'rules'     => array(
+                ],
+            ],
+        ],
+    ],
+    'rules'     => [
         '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
-    ),
-    'module'    => array(
-        'components'    => array(
-            'bootstrap' => array(
+    ],
+    'module'    => [
+        'components'    => [
+            'bootstrap' => [
                 'class'            => 'vendor.clevertech.yii-booster.src.components.Booster',
                 'coreCss'          => true,
                 'responsiveCss'    => true,
@@ -46,8 +46,8 @@ return array(
                 'enableJS'         => true,
                 'fontAwesomeCss'   => true,
                 'enableNotifierJS' => false,
-            ),
-        ),
+            ],
+        ],
         'visualEditors' => [
             'redactor' => [
                 'class' => 'yupe\widgets\editors\Redactor',
@@ -59,5 +59,5 @@ return array(
                 'class' => 'yupe\widgets\editors\Textarea',
             ],
         ],
-    )
-);
+    ]
+];

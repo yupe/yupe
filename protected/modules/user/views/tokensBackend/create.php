@@ -1,44 +1,44 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'Users')  => array('/user/userBackend/index'),
-    Yii::t('UserModule.user', 'Tokens') => array('/user/tokensBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('UserModule.user', 'Users')  => ['/user/userBackend/index'],
+    Yii::t('UserModule.user', 'Tokens') => ['/user/tokensBackend/index'],
     Yii::t('UserModule.user', 'Create token'),
-);
+];
 
 $this->pageTitle = Yii::t('UserModule.user', 'Create token');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('UserModule.user', 'Users'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
-                'url'   => array('/user/userBackend/index')
-            ),
-            array(
+                'url'   => ['/user/userBackend/index']
+            ],
+            [
                 'icon'  => 'plus-sign',
                 'label' => Yii::t('UserModule.user', 'Create user'),
-                'url'   => array('/user/userBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/user/userBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('UserModule.user', 'Tokens'),
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'icon'  => 'list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
-                'url'   => array('/user/tokensBackend/index')
-            ),
-            array(
+                'url'   => ['/user/tokensBackend/index']
+            ],
+            [
                 'icon'  => 'plus-sign',
                 'label' => Yii::t('UserModule.user', 'Create token'),
-                'url'   => array('/user/tokensBackend/create')
-            ),
-        )
-    ),
-); ?>
+                'url'   => ['/user/tokensBackend/create']
+            ],
+        ]
+    ],
+]; ?>
 <div class="page-header">
     <h1>
         <?php echo Yii::t('UserModule.user', 'Tokens'); ?>
@@ -46,4 +46,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

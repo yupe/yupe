@@ -33,9 +33,9 @@ class TaggingCacheBehavior extends CBehavior
             Yii::t(
                 'YupeModule.yupe',
                 'Invalidated tags: {tags}',
-                array(
+                [
                     '{tags}' => implode(', ', (array)$tags)
-                )
+                ]
             )
         );
     }

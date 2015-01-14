@@ -8,7 +8,7 @@ class Redactor extends \CInputWidget
 {
     private $redactorWidgetClass = 'vendor.yiiext.imperavi-redactor-widget.ImperaviRedactorWidget';
 
-    public $options = array();
+    public $options = [];
 
     public function run()
     {
@@ -20,22 +20,22 @@ class Redactor extends \CInputWidget
                 'name'      => $this->name,
                 'options'   => \CMap::mergeArray($this->getOptions(), $this->options),
                 'plugins'   => [
-                    'video' => [
+                    'video'        => [
                         'js' => ['video.js']
                     ],
-                    'fullscreen' => [
+                    'fullscreen'   => [
                         'js' => ['fullscreen.js']
                     ],
-                    'table' => [
+                    'table'        => [
                         'js' => ['table.js']
                     ],
-                    'fontsize' => [
+                    'fontsize'     => [
                         'js' => ['fontsize.js']
                     ],
-                    'fontfamily' => [
+                    'fontfamily'   => [
                         'js' => ['fontfamily.js']
                     ],
-                    'fontcolor' => [
+                    'fontcolor'    => [
                         'js' => ['fontcolor.js']
                     ],
                     'imagemanager' => [
@@ -49,7 +49,7 @@ class Redactor extends \CInputWidget
 
     public function getOptions()
     {
-        return array(
+        return [
             'buttonSource'            => true,
             'imageUpload'             => Yii::app()->createUrl('/yupe/backend/AjaxImageUpload'),
             'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
@@ -61,7 +61,9 @@ class Redactor extends \CInputWidget
                     fadeOut: {delay: 5000}
                 }).show();
                 }',
-            'toolbarFixedTopOffset' => 53
-        );
+            'toolbarFixedTopOffset'   => 53,
+            'lang'                    => strtolower(substr(Yii::app()->language, -2)),
+            'minHeight'               => 150,
+        ];
     }
 }

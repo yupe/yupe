@@ -42,6 +42,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property ProductImage[] $images
  * @property ProductVariant[] $variants
  * @property Comment[] $comments
+ * @property StoreCategory[] $categories
  *
  */
 class Product extends yupe\models\YModel implements ICommentable
@@ -57,8 +58,8 @@ class Product extends yupe\models\YModel implements ICommentable
     const STATUS_IN_STOCK = 1;
 
     public $category;
-    public $selectedVariants = array();
-    private $_variants = array();
+    public $selectedVariants = [];
+    private $_variants = [];
     private $_eavAttributes = null;
 
     /**
@@ -84,24 +85,25 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function rules()
     {
-        return array(
-            array('name, alias', 'required', 'except' => 'search'),
-            array('name, description, short_description, alias, price, discount_price, discount, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('status, is_special, producer_id, type_id, quantity, in_stock, category_id', 'numerical', 'integerOnly' => true),
-            array('price, discount_price, discount, length, height, width, weight', 'store\components\validators\NumberValidator'),
-            array('name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250),
-            array('sku', 'length', 'max' => 100),
-            array('alias', 'length', 'max' => 150),
-            array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')),
-            array('alias', 'unique'),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('is_special', 'in', 'range' => array(0, 1)),
-            array(
+        return [
+            ['name, alias', 'required', 'except' => 'search'],
+            ['name, description, short_description, alias, price, discount_price, discount, data, status, is_special', 'filter', 'filter' => 'trim'],
+            ['status, is_special, producer_id, type_id, quantity, in_stock, category_id', 'numerical', 'integerOnly' => true],
+            ['price, discount_price, discount, length, height, width, weight', 'store\components\validators\NumberValidator'],
+            ['name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250],
+            ['discount_price, discount', 'default', 'value' => null],
+            ['sku', 'length', 'max' => 100],
+            ['alias', 'length', 'max' => 150],
+            ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')],
+            ['alias', 'unique'],
+            ['status', 'in', 'range' => array_keys($this->statusList)],
+            ['is_special', 'in', 'range' => [0, 1]],
+            [
                 'id, type_id, producer_id, sku, name, alias, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -111,40 +113,40 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'type' => array(self::BELONGS_TO, 'Type', 'type_id'),
-            'producer' => array(self::BELONGS_TO, 'Producer', 'producer_id'),
-            'categoryRelation' => array(self::HAS_MANY, 'ProductCategory', 'product_id'),
-            'categories' => array(self::HAS_MANY, 'StoreCategory', array('category_id' => 'id'), 'through' => 'categoryRelation'),
-            'mainCategory' => array(self::BELONGS_TO, 'StoreCategory', array('category_id' => 'id')),
-            'images' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
-            'variants' => array(self::HAS_MANY, 'ProductVariant', array('product_id'), 'with' => array('attribute'), 'order' => 'variants.attribute_id, variants.id'),
-            'comments' => array(
+        return [
+            'type' => [self::BELONGS_TO, 'Type', 'type_id'],
+            'producer' => [self::BELONGS_TO, 'Producer', 'producer_id'],
+            'categoryRelation' => [self::HAS_MANY, 'ProductCategory', 'product_id'],
+            'categories' => [self::HAS_MANY, 'StoreCategory', ['category_id' => 'id'], 'through' => 'categoryRelation'],
+            'mainCategory' => [self::BELONGS_TO, 'StoreCategory', ['category_id' => 'id']],
+            'images' => [self::HAS_MANY, 'ProductImage', 'product_id'],
+            'variants' => [self::HAS_MANY, 'ProductVariant', ['product_id'], 'with' => ['attribute'], 'order' => 'variants.attribute_id, variants.id'],
+            'comments' => [
                 self::HAS_MANY,
                 'Comment',
                 'model_id',
                 'on' => 'model = :model AND comments.status = :status',
-                'params' => array(
+                'params' => [
                     ':model' => __CLASS__,
                     ':status' => Comment::STATUS_APPROVED
-                ),
+                ],
                 'order' => 'comments.lft'
-            ),
-        );
+            ],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
-            ),
-            'specialOffer' => array(
+                'params' => [':status' => self::STATUS_ACTIVE],
+            ],
+            'specialOffer' => [
                 'condition' => 'is_special = :is_special',
-                'params' => array(':is_special' => self::SPECIAL_ACTIVE),
-            ),
-        );
+                'params' => [':is_special' => self::SPECIAL_ACTIVE],
+            ],
+        ];
     }
 
     /**
@@ -152,7 +154,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'ID'),
             'category_id' => Yii::t('StoreModule.store', 'Category'),
             'type_id' => Yii::t('StoreModule.store', 'Type'),
@@ -183,7 +185,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
-        );
+        ];
     }
 
     /**
@@ -191,7 +193,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id' => Yii::t('StoreModule.store', 'ID'),
             'category_id' => Yii::t('StoreModule.store', 'Category'),
             'name' => Yii::t('StoreModule.store', 'Title'),
@@ -214,7 +216,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
             'producer_id' => Yii::t('StoreModule.store', 'Producer'),
-        );
+        ];
     }
 
     /**
@@ -245,46 +247,46 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('category_id', $this->category_id);
 
         if ($this->category) {
-            $criteria->with = array('categoryRelation' => array('together' => true));
+            $criteria->with = ['categoryRelation' => ['together' => true]];
             $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
             $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category]);
         }
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
 
-        return array(
-            'CTimestampBehavior' => array(
+        return [
+            'CTimestampBehavior' => [
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
                 'createAttribute' => 'create_time',
                 'updateAttribute' => 'update_time',
-            ),
-            'eavAttr' => array(
+            ],
+            'eavAttr' => [
                 'class' => 'application.modules.store.components.behaviors.EEavBehavior',
                 'tableName' => '{{store_product_attribute_eav}}',
                 'entityField' => 'product_id',
-            ),
-            'imageUpload' => array(
+            ],
+            'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => array('insert', 'update'),
+                'scenarios' => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath . '/product',
                 'resizeOnUpload' => true,
-                'resizeOptions' => array(
+                'resizeOptions' => [
                     'maxWidth' => 900,
                     'maxHeight' => 900,
-                ),
+                ],
                 'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
-            ),
-        );
+            ],
+        ];
     }
 
     public function beforeValidate()
@@ -296,7 +298,7 @@ class Product extends yupe\models\YModel implements ICommentable
         foreach ((array)$this->_eavAttributes as $name => $value) {
             $model = Attribute::model()->getAttributeByName($name);
             if ($model->required && !$value) {
-                $this->addError('eav.' . $name, Yii::t("StoreModule.store", "Атрибут \"title\" обязателен", array('title' => $model->title)));
+                $this->addError('eav.' . $name, Yii::t("StoreModule.store", "Атрибут \"title\" обязателен", ['title' => $model->title]));
             }
         }
 
@@ -310,11 +312,11 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ZERO => Yii::t('StoreModule.store', 'Not available'),
             self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Active'),
             self::STATUS_NOT_ACTIVE => Yii::t('StoreModule.store', 'Not active'),
-        );
+        ];
     }
 
     public function getStatusTitle()
@@ -325,10 +327,10 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getSpecialList()
     {
-        return array(
+        return [
             self::SPECIAL_NOT_ACTIVE => Yii::t('StoreModule.store', 'No'),
             self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Yes'),
-        );
+        ];
     }
 
     public function getSpecial()
@@ -339,10 +341,10 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getInStockList()
     {
-        return array(
+        return [
             self::STATUS_IN_STOCK => Yii::t('StoreModule.store', 'In stock'),
             self::STATUS_NOT_IN_STOCK => Yii::t('StoreModule.store', 'Not in stock'),
-        );
+        ];
     }
 
     /**
@@ -353,14 +355,14 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getCategoryLink()
     {
         return $this->mainCategory instanceof StoreCategory
-            ? CHtml::link($this->mainCategory->name, array("/store/categoryBackend/view", "id" => $this->mainCategory->id))
+            ? CHtml::link($this->mainCategory->name, ["/store/categoryBackend/view", "id" => $this->mainCategory->id])
             : '---';
     }
 
     public function getProducerLink()
     {
         return $this->producer instanceof Producer
-            ? CHtml::link($this->producer->name_short, array("/store/producerBackend/view", "id" => $this->producer_id))
+            ? CHtml::link($this->producer->name_short, ["/store/producerBackend/view", "id" => $this->producer_id])
             : '---';
     }
 
@@ -376,10 +378,9 @@ class Product extends yupe\models\YModel implements ICommentable
         $categories = is_array($categories) ? $categories : (array)$categories;
         $categories = array_diff($categories, (array)$this->category_id);
 
-        try
-        {
+        try {
             foreach ($categories as $category_id) {
-                $model = ProductCategory::model()->findByAttributes(array('product_id' => $this->id, 'category_id' => $category_id));
+                $model = ProductCategory::model()->findByAttributes(['product_id' => $this->id, 'category_id' => $category_id]);
                 if (!$model) {
                     $model = new ProductCategory();
                     $model->category_id = $category_id;
@@ -390,14 +391,12 @@ class Product extends yupe\models\YModel implements ICommentable
 
             $criteria = new CDbCriteria();
             $criteria->addCondition('product_id = :product_id');
-            $criteria->params = array(':product_id' => $this->id);
+            $criteria->params = [':product_id' => $this->id];
             $criteria->addNotInCondition('category_id', $categories);
             ProductCategory::model()->deleteAll($criteria);
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -405,8 +404,8 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getCategoriesIdList()
     {
-        $cats = ProductCategory::model()->findAllByAttributes(array('product_id' => $this->id));
-        $list = array();
+        $cats = ProductCategory::model()->findAllByAttributes(['product_id' => $this->id]);
+        $list = [];
         foreach ($cats as $key => $cat) {
             $list[] = $cat->category_id;
         }
@@ -426,7 +425,7 @@ class Product extends yupe\models\YModel implements ICommentable
         if (!is_array($attributes)) {
             return;
         }
-        $this->deleteEavAttributes(array(), true);
+        $this->deleteEavAttributes([], true);
 
         $attributes = array_filter($attributes, 'strlen');
         $this->setEavAttributes($attributes, true);
@@ -464,9 +463,8 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        try
-        {
-            $productVariants = array();
+        try {
+            $productVariants = [];
             foreach ($variants as $var) {
                 $variant = null;
                 if (isset($var['id'])) {
@@ -482,14 +480,12 @@ class Product extends yupe\models\YModel implements ICommentable
 
             $criteria = new CDbCriteria();
             $criteria->addCondition('product_id = :product_id');
-            $criteria->params = array(':product_id' => $this->id);
+            $criteria->params = [':product_id' => $this->id];
             $criteria->addNotInCondition('id', $productVariants);
             ProductVariant::model()->deleteAll($criteria);
             $transaction->commit();
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -524,9 +520,9 @@ class Product extends yupe\models\YModel implements ICommentable
      * @param array $variantsIds
      * @return float|mixed
      */
-    public function getPrice($variantsIds = array())
+    public function getPrice($variantsIds = [])
     {
-        $variants = array();
+        $variants = [];
         $variantsIds = (array)$variantsIds;
         if ($variantsIds) {
             $criteria = new CDbCriteria();
@@ -573,7 +569,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getLink()
     {
-        return Yii::app()->createUrl('/store/catalog/show', array('name' => $this->alias));
+        return Yii::app()->createUrl('/store/catalog/show', ['name' => $this->alias]);
     }
 
     public function getMainCategoryId()
@@ -656,10 +652,91 @@ class Product extends yupe\models\YModel implements ICommentable
         return $variantsGroups;
     }
 
+    /**
+     * @var array кеш getVariantsOptions
+     */
+    private $_variantsOptions = false;
+
+    /**
+     * Функция для подготовки специфичных настроек элементов option в select при выводе вариантов, которые будут использоваться в js при работе с вариантами
+     * @return array
+     */
+    public function getVariantsOptions()
+    {
+        if ($this->_variantsOptions !== false) {
+            return $this->_variantsOptions;
+        }
+        $options = [];
+
+        foreach ((array)$this->variants as $variant) {
+            $options[$variant->id] = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
+        }
+        $this->_variantsOptions = $options;
+        return $this->_variantsOptions;
+    }
 
     public function getDiscountPrice()
     {
         return $this->discount_price;
     }
 
+    /**
+     * @return null|Product
+     * @throws CDbException
+     */
+    public function copy()
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        $model = new Product();
+        try {
+            $model->attributes = $this->attributes;
+            $model->image = null;
+            $model->alias = null;
+
+            $similarNamesCount = Yii::app()->db->createCommand()
+                ->select('count(*)')
+                ->from($this->tableName())
+                ->where("name like :name", [':name' => $this->name . ' [%]'])
+                ->queryScalar();
+
+            $model->name  = $this->name . ' [' . ($similarNamesCount + 1) . ']';
+
+            if ($eavAttributes = $this->getEavAttributes()) {
+                $model->setTypeAttributes($eavAttributes);
+            }
+
+            if ($variants = $this->variants) {
+                $variantAttributes = [];
+                foreach ($variants as $variant) {
+                    $variantAttributes[] = $variant->getAttributes(['attribute_id', 'attribute_value', 'amount', 'type', 'sku']);
+                }
+                $model->setProductVariants($variantAttributes);
+            }
+
+            if ($model->save()) {
+                if ($categories = $this->categories) {
+                    $categoriesIds = [];
+                    foreach ($categories as $category) {
+                        $categoriesIds[] = $category->id;
+                    }
+                    $model->setProductCategories($categoriesIds);
+                }
+            }
+
+            $transaction->commit();
+
+            return $model;
+        } catch (Exception $e) {
+            $transaction->rollback();
+        }
+
+        return null;
+    }
+
+    public function getUrl($absolute = false)
+    {
+        return $absolute ?
+            Yii::app()->createAbsoluteUrl('/store/catalog/show', ['name' => $this->alias]) :
+            Yii::app()->createUrl('/store/catalog/show', ['name' => $this->alias]);
+    }
 }

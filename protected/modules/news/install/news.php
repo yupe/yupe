@@ -8,14 +8,14 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.news.NewsModule',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'import'    => [],
+    'component' => [],
+    'rules'     => [
         '/news/'        => 'news/news/index',
         '/news/<alias>' => 'news/news/show',
-    ),
-);
+    ],
+];

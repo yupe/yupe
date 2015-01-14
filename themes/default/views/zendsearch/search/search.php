@@ -1,21 +1,21 @@
 <?php
 $this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term);
-$this->breadcrumbs = array(
+$this->breadcrumbs = [
     Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term),
-);
+];
 ?>
 <h1><?php echo Yii::t('ZendSearchModule.zendsearch', 'Search by request: '); ?> "<?php echo CHtml::encode($term); ?>
     "</h1>
 
-<?php echo CHtml::beginForm(array('/zendsearch/search/search'), 'get', array('class' => 'form-inline')); ?>
+<?php echo CHtml::beginForm(['/zendsearch/search/search'], 'get', ['class' => 'form-inline']); ?>
 <?php echo CHtml::textField(
     'q',
     CHtml::encode($term),
-    array('placeholder' => Yii::t('ZendSearchModule.zendsearch', 'Search...'), 'class' => 'form-control')
+    ['placeholder' => Yii::t('ZendSearchModule.zendsearch', 'Search...'), 'class' => 'form-control']
 ); ?>
 <?php echo CHtml::submitButton(
     Yii::t('ZendSearchModule.zendsearch', 'Find!'),
-    array('class' => 'btn btn-default', 'name' => '')
+    ['class' => 'btn btn-default', 'name' => '']
 ); ?>
 <?php echo CHtml::endForm(); ?>
 
@@ -25,7 +25,7 @@ $this->breadcrumbs = array(
     <?php foreach ($results as $result): ?>
         <?php
         $resultLink = '/';
-        $paramsArray = array();
+        $paramsArray = [];
 
         $linkArray = explode('?', $result->link);
         if (isset($linkArray[0])) {

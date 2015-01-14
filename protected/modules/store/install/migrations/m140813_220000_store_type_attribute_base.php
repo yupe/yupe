@@ -6,10 +6,10 @@ class m140813_220000_store_type_attribute_base extends yupe\components\DbMigrati
     {
         $this->createTable(
             "{{store_type_attribute}}",
-            array(
+            [
                 "type_id" => "int(11) not null",
                 "attribute_id" => "int(11) not null",
-            ),
+            ],
             $this->getOptions()
         );
         $this->addPrimaryKey("pk_{{store_type_attribute}}", "{{store_type_attribute}}", "type_id, attribute_id");
