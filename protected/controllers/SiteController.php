@@ -12,9 +12,9 @@
  **/
 namespace application\controllers;
 
-use application\components\Controller;
+use yupe\components\controllers\FrontController;
 
-class SiteController extends Controller
+class SiteController extends FrontController
 {
     /**
      * Отображение главной страницы
