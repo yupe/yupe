@@ -79,13 +79,13 @@ class InstallForm extends yupe\models\YFormModel
             ['host, port, dbName, dbUser, dbType', 'required', 'on' => 'dbSettings'],
             ['dbPassword', 'length', 'min' => 0, 'max' => 32],
             ['port, dbType', 'numerical', 'integerOnly' => true],
-            ['dbName, dbUser', 'length', 'min' => 0, 'max' => 256],
+            ['dbName, dbUser', 'length', 'min' => 0, 'max' => 255],
             ['socket, createDb, tablePrefix', 'safe'],
             /**
              * Для начальной настройки сайта:
              **/
             ['siteName, siteDescription, siteKeyWords, siteEmail, theme', 'required', 'on' => 'siteSettings'],
-            ['siteName', 'length', 'max' => 30],
+            ['siteName', 'length', 'max' => 255],
             ['siteDescription, siteKeyWords, theme, backendTheme', 'length', 'max' => 180],
             ['siteEmail', 'email'],
             /**

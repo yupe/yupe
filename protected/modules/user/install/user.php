@@ -21,7 +21,7 @@ return [
         // компонент Yii::app()->user, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.auth
         'user'                  => [
             'class'          => 'application.modules.user.components.YWebUser',
-            'loginUrl'       => '/user/account/login/',
+            'loginUrl'       => ['/user/account/login'],
             'identityCookie' => [
                 'httpOnly' => true,
             ],

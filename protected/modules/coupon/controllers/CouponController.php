@@ -1,6 +1,6 @@
 <?php
 
-class CouponController extends application\components\Controller
+class CouponController extends \yupe\components\controllers\FrontController
 {
     public function actionAdd()
     {

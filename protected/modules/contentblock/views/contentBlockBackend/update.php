@@ -46,7 +46,7 @@ $this->menu = [
     ],
     [
         'icon'        => 'fa fa-fw fa-trash-o',
-        'label'       => Yii::t('ContentBlockModule.contentblock', 'Remove Content block'),
+        'label'       => Yii::t('ContentBlockModule.contentblock', 'Remove content block'),
         'url'         => '#',
         'linkOptions' => [
             'submit'  => ['/contentblock/contentBlockBackend/delete', 'id' => $model->id],

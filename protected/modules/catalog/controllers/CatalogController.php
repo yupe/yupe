@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-class CatalogController extends application\components\Controller
+class CatalogController extends \yupe\components\controllers\FrontController
 {
     const GOOD_PER_PAGE = 10;
 

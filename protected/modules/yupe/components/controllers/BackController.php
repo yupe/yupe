@@ -19,9 +19,9 @@ use yupe\events\YupeBackendControllerInitEvent;
 use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
 use yupe\widgets\YFlashMessages;
+use application\components\Controller;
 use CHttpException;
 use CActiveRecord;
-use CDbCriteria;
 use Exception;
 use CLogger;
 

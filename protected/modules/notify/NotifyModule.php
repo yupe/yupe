@@ -80,4 +80,22 @@ class NotifyModule extends WebModule
             ]
         ];
     }
+
+    public function getAuthItems()
+    {
+        return [
+            [
+                'name'        => 'NotifyModule.NotifyManage',
+                'description' => Yii::t('NotifyModule.notify', 'Manage notify'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => [
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'NotifyModule.NotifyManage.manage',
+                        'description' => Yii::t('NotifyModule.notify', 'Manage notify')
+                    ],
+                ]
+            ]
+        ];
+    }
 }

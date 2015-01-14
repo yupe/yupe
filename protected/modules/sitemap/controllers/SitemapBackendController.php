@@ -6,8 +6,7 @@ class SitemapBackendController extends \yupe\components\controllers\BackControll
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['settings'], 'roles' => ['Sitemap.SitemapBackend.Settings']],
-            ['allow', 'actions' => ['inlineModel', 'inlinePage'], 'roles' => ['Sitemap.SitemapBackend.Update']],
+            ['allow', 'roles' => ['SitemapModule.SitemapBackend.manage']],
             ['deny']
         ];
     }

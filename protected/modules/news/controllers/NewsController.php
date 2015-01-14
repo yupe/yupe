@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-class NewsController extends application\components\Controller
+class NewsController extends \yupe\components\controllers\FrontController
 {
     public function actionShow($alias)
     {

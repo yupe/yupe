@@ -12,6 +12,16 @@
  **/
 class NotifyBackendController extends \yupe\components\controllers\BackController
 {
+
+    public function accessRules()
+    {
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'roles' => ['NotifyModule.NotifyManage.manage']],
+            ['deny']
+        ];
+    }
+
     /**
      * Отображает уведомление по указанному идентификатору
      *

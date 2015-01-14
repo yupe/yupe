@@ -37,7 +37,11 @@ class Composer {
     public static function prepare(Event $event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
-        copy('protected/config/db.back.php', 'protected/config/db.php');
+
+        if(!file_exists('protected/config/db.php')) {
+            copy('protected/config/db.back.php', 'protected/config/db.php');
+        }
+
         self::makeWritable($extra);
     }
 

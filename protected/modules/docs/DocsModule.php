@@ -623,4 +623,5 @@ class DocsModule extends yupe\components\WebModule
     {
         return '/docs/docsBackend/index';
     }
+
 }

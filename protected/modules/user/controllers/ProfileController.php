@@ -12,7 +12,7 @@
  * @link     http://yupe.ru
  *
  **/
-class ProfileController extends application\components\Controller
+class ProfileController extends \yupe\components\controllers\FrontController
 {
     public $user = null;
 

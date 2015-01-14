@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class HpController extends application\components\Controller
+class HpController extends \yupe\components\controllers\FrontController
 {
     /**
      * Index action:

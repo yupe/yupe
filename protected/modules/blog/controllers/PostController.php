@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-class PostController extends application\components\Controller
+class PostController extends \yupe\components\controllers\FrontController
 {
 
     public function actionIndex()
