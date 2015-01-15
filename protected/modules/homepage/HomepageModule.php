@@ -105,7 +105,7 @@ class HomepageModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => 'homepage']);
+        return ['/yupe/backend/modulesettings', 'module' => 'homepage'];
     }
 
     public function getEditableParams()

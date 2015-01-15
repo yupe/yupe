@@ -23,7 +23,7 @@ Yii::setPathOfAlias('application', dirname(__FILE__) . '/../');
 Yii::setPathOfAlias('public', dirname($_SERVER['SCRIPT_FILENAME']));
 Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
 Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
-Yii::setPathOfAlias('themes','/../../themes/');
+Yii::setPathOfAlias('themes', '/../../themes/');
 
 return [
     'basePath'            => dirname(__FILE__) . '/..',
@@ -39,8 +39,8 @@ return [
     'charset'             => 'UTF-8',
     'controllerNamespace' => 'application\controllers',
     'preload'             => defined('YII_DEBUG')
-        && YII_DEBUG
-            ? ['debug'] : [],
+    && YII_DEBUG
+        ? ['debug'] : [],
     'aliases'             => [
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
     ],
@@ -130,12 +130,12 @@ return [
                 '/'                                                            => '/site/index',
                 // для корректной работы устновщика
                 '/install/default/<action:\w+>'                                => '/install/default/<action>',
-                '/backend'                                                     => 'yupe/backend/index',
-                '/backend/login'                                               => 'user/account/backendlogin',
-                '/backend/<action:\w+>'                                        => 'yupe/backend/<action>',
-                '/backend/<module:\w+>/<controller:\w+>'                       => '<module>/<controller>Backend/index',
-                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>Backend/<action>',
-                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>Backend/<action>',
+                '/backend'                                                     => '/yupe/backend/index',
+                '/backend/login'                                               => '/user/account/backendlogin',
+                '/backend/<action:\w+>'                                        => '/yupe/backend/<action>',
+                '/backend/<module:\w+>/<controller:\w+>'                       => '/<module>/<controller>Backend/index',
+                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
+                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'          => '/<module>/<controller>Backend/<action>',
                 '/gii/<controller:\w+>/<action:\w+>'                           => 'gii/<controller>/<action>',
                 '/site/<action:\w+>'                                           => 'site/<action>',
                 '/debug/<controller:\w+>/<action:\w+>'                         => 'debug/<controller>/<action>',

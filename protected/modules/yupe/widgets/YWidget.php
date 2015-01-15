@@ -71,8 +71,18 @@ abstract class YWidget extends CWidget
                 $path[0] . DIRECTORY_SEPARATOR .
                 'widgets' . DIRECTORY_SEPARATOR .
                 $reflection->getShortName();
+
+            if ($themeView && file_exists($themeView)) {
+                return $themeView;
+            }
+
+            $themeView = implode(DIRECTORY_SEPARATOR, [Yii::app()->getModulePath(), $path[0], 'views', 'widgets', $reflection->getShortName()]);
+
+            if ($themeView && file_exists($themeView)) {
+                return $themeView;
+            }
         }
 
-        return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
+        return parent::getViewPath($checkTheme);
     }
 }

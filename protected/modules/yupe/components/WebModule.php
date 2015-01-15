@@ -1130,7 +1130,7 @@ abstract class WebModule extends CWebModule
      */
     public function getSettingsUrl()
     {
-        return Yii::app()->createUrl('/yupe/backend/modulesettings', ['module' => $this->getId()]);
+        return ['/yupe/backend/modulesettings', 'module' => $this->getId()];
     }
 
     /**

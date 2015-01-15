@@ -32,9 +32,7 @@ return [
             ],
         ],
     ],
-    'rules'     => [
-        '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
-    ],
+    'rules'     => [],
     'module'    => [
         'components'    => [
             'bootstrap' => [
