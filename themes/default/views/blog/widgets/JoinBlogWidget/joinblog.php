@@ -7,7 +7,7 @@
                     'Join blog'
                 ); ?></a>
         <?php elseif ($inBlog == UserToBlog::STATUS_CONFIRMATION): ?>
-            <p class="pull-right"><?php echo Yii::t('BlogModule.blog', 'Wait for confirmation'); ?></p>
+            <button type="button" class="btn btn-info disabled"><?php echo Yii::t('BlogModule.blog', 'Wait for confirmation'); ?></button>
         <?php
         else: ?>
             <a class="btn btn-warning btn-sm leave-blog" href="<?php echo $blog->id; ?>"
