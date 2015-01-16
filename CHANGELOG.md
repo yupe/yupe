@@ -5,6 +5,7 @@
 -------------------------------------
 - #1806: Отображать или нет публичную карточку заказа теперь настраивается (@yupe)
 - #1807: JoinBlogWidget: small fix (@apexwire)
+- #1809: UserToBlogBackendController: small fix (@apexwire)
 
 
 
