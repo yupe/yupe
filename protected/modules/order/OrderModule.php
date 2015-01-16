@@ -7,6 +7,7 @@ class OrderModule extends WebModule
     const VERSION = '0.9.2';
 
     public $notifyEmailFrom;
+
     public $notifyEmailsTo;
 
     public $assetsPath = "order.views.assets";

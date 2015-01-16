@@ -44,8 +44,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $model = new Order();
 
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
+
             $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
+
             $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
+
             if ($model->save()) {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -68,12 +71,14 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
+
             $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
+
             $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
 
             if ($model->save()) {
 
-                if (Yii::app()->request->getParam('notify_user', false)) {
+                if (Yii::app()->getRequest()->getParam('notify_user', false)) {
                     //@TODO event
                 }
 
@@ -118,8 +123,8 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $model = new Order('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Order'])) {
-            $model->attributes = $_GET['Order'];
+        if (Yii::app()->getRequest()->getQuery('Order')) {
+            $model->setAttributes(Yii::app()->getRequest()->getQuery('Order'));
         }
         $this->render('index', ['model' => $model]);
     }
