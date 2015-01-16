@@ -78,7 +78,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 Yii::t('BlogModule.blog', 'Cannot add user to the blog. Please make sure he is not a member already.')
             );
 
-            $this->redirect(['admin']);
+            $this->redirect(['create']);
         }
 
         $this->render('create', ['model' => $model]);
