@@ -4,12 +4,14 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.2';
 
     public $notifyEmailFrom;
     public $notifyEmailsTo;
 
     public $assetsPath = "order.views.assets";
+
+    public $showOrder = 1;
 
     public function getDependencies()
     {
@@ -21,6 +23,7 @@ class OrderModule extends WebModule
         return [
             'notifyEmailFrom',
             'notifyEmailsTo',
+            'showOrder' => $this->getChoice()
         ];
     }
 
@@ -29,13 +32,20 @@ class OrderModule extends WebModule
         return [
             'notifyEmailFrom' => Yii::t('OrderModule.order', 'Email, от имени которого отправлять оповещения'),
             'notifyEmailsTo' => Yii::t('OrderModule.order', 'Получатели оповещений (через запятую)'),
+            'showOrder'  => Yii::t('OrderModule.order', 'Отображать публичную страницу заказа'),
         ];
     }
 
     public function getEditableParamsGroups()
     {
         return [
-            '0.notify' => [
+            '0.main' => [
+                'label' => Yii::t('OrderModule.order', 'Настройки зазказов'),
+                'items' => [
+                    'showOrder'
+                ]
+            ],
+            '1.notify' => [
                 'label' => Yii::t('OrderModule.order', 'Оповещения'),
                 'items' => [
                     'notifyEmailFrom',
