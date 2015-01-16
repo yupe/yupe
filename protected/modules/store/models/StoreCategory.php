@@ -110,7 +110,7 @@ class StoreCategory extends \yupe\models\YModel
         return [
             'parent' => [self::BELONGS_TO, 'StoreCategory', 'parent_id'],
             'children' => [self::HAS_MANY, 'StoreCategory', 'parent_id'],
-            'productCount' => [self::STAT, 'ProductCategory', 'category_id']
+            'productCount' => [self::STAT, 'Product', 'category_id']
         ];
     }
 

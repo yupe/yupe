@@ -11,7 +11,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 'validAttributes' => [
                     'status',
                     'in_stock',
-                    'price'
+                    'price',
+                    'quantity',
+                    'sku'
                 ]
             ]
         ];

@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class StoreModule extends WebModule
 {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.2';
 
     public $uploadPath = 'store';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -43,7 +43,7 @@ class StoreModule extends WebModule
     {
         return [
             'uploadPath',
-            'editor' => Yii::app()->getModule('yupe')->editors,
+            'editor'    => Yii::app()->getModule('yupe')->editors
         ];
     }
 
@@ -51,7 +51,7 @@ class StoreModule extends WebModule
     {
         return [
             'uploadPath' => Yii::t('StoreModule.store', 'Каталог для загрузок файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
-            'editor'     => Yii::t('StoreModule.store', 'Визуальный редактор'),
+            'editor'     => Yii::t('StoreModule.store', 'Визуальный редактор')
         ];
     }
 

@@ -69,6 +69,13 @@ class Producer extends yupe\models\YModel
         ];
     }
 
+    public function relations()
+    {
+        return [
+            'productCount' => [self::STAT, 'Product', 'producer_id']
+        ];
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */

@@ -229,7 +229,7 @@ class Order extends yupe\models\YModel
 
     public function afterFind()
     {
-        $this->oldAttributes = $this->attributes;
+        $this->oldAttributes = $this->getAttributes();
         $this->couponCodes = preg_split('/,/', $this->coupon_code);
         parent::afterFind();
     }

@@ -10,13 +10,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
 [![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
-
-
 ![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
-
-**Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 
-
-**Юпи! — простая и быстрая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
@@ -27,23 +21,19 @@
 * [интернет-магазины](http://yupe-project.ru/ecommerce)
 
 
-**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe-project.ru/pages/friends)**
+На Юпи! работает более 500 проектов, Юпи! активно используют [студии и команды разработчиков](http://yupe-project.ru/pages/friends).
 
-Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x
+Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
 [Процесс установки](http://yupe.ru/docs/install.html) очень прост и занимает не более 5 минут!
 
 Удобная и простая панель управления позволяет управлять контентом сайта даже домохозяйке!
 
-Для успешной работы проекта на Юпи! вполне достаточно самого простого (и дешевого) хостинга, минимальные требования:
+Для успешной работы проекта на Юпи! вполне достаточно самого простого и дешевого хостинга, минимальные требования:
 
 
 * PHP >= 5.4
-* Yiiframework >= 1.1.15
-* YiiBooster >= 4.x
-* Nested Set Behavior
-* Imperavi Redactor Widget
-* Yii2-debug
+* Composer
 * MySQL 5.x
 * Apaсhe/Nginx
 * Composer
@@ -71,8 +61,7 @@
 Возможности
 -----------
 
-Из коробки Вы получаете каркас Yii-приложения, со следующим уже готовым
-функционалом (всё разделено на модули - используйте только то, что необходимо):
+Из коробки Вы получаете каркас Yii-приложения, со следующим функционалом (всё разделено на модули - используйте только то, что необходимо):
 
 * [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
@@ -99,7 +88,7 @@
 
 Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
-Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
+Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe-project.ru](http://yupe-project.ru)
 
 
 (c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
