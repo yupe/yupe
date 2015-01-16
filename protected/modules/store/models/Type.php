@@ -52,7 +52,8 @@ class Type extends \yupe\models\YModel
         return [
             'attributeRelation' => [self::HAS_MANY, 'TypeAttribute', 'type_id'],
             'typeAttributes' => [self::HAS_MANY, 'Attribute', ['attribute_id' => 'id'], 'through' => 'attributeRelation', 'with' => 'group', 'order' => 'group.position ASC'],
-            'category' => [self::BELONGS_TO, 'StoreCategory', 'main_category_id']
+            'category' => [self::BELONGS_TO, 'StoreCategory', 'main_category_id'],
+            'productCount' => [self::STAT, 'Product', 'type_id']
         ];
     }
 

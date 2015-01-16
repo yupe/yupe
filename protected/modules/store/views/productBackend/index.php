@@ -46,16 +46,30 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                     return CHtml::image($data->getImageUrl(40, 40, true), "", ["class" => "img-thumbnail"]);
                 },
             ],
-            'sku',
             [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::link($data->name, ["/store/productBackend/update", "id" => $data->id]);
-                },
+                        return CHtml::link($data->name, ["/store/productBackend/update", "id" => $data->id]);
+                    },
             ],
             [
-                'name' => 'mainCategory.name',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'sku',
+                'editable' => [
+                    'url' => $this->createUrl('/store/productBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => [
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'sku', ['class' => 'form-control']),
+            ],
+            [
+                'name'  => 'category_id',
+                'value' => function($data){
+                        return $data->mainCategory->name;
+                    },
                 'header' => Yii::t('StoreModule.store', 'Категория'),
                 'type' => 'raw',
                 'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
@@ -78,6 +92,28 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'in_stock',
+                'url' => $this->createUrl('/store/productBackend/inline'),
+                'source' => $model->getInStockList(),
+                'options' => [
+                    Product::STATUS_IN_STOCK => ['class' => 'label-success'],
+                    Product::STATUS_NOT_IN_STOCK => ['class' => 'label-danger']
+                ],
+            ],
+            [
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'quantity',
+                'editable' => [
+                    'url' => $this->createUrl('/store/productBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => [
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'quantity', ['class' => 'form-control']),
+            ],
+            [
+                'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'status',
                 'url' => $this->createUrl('/store/productBackend/inline'),
                 'source' => $model->getStatusList(),
@@ -87,17 +123,6 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                     Product::STATUS_ZERO => ['class' => 'label-default'],
                 ],
             ],
-            [
-                'class' => 'yupe\widgets\EditableStatusColumn',
-                'name' => 'in_stock',
-                'url' => $this->createUrl('/store/productBackend/inline'),
-                'source' => $model->getInStockList(),
-                'options' => [
-                    Product::STATUS_IN_STOCK => ['class' => 'label-success'],
-                    Product::STATUS_NOT_IN_STOCK => ['class' => 'label-danger']
-                ],
-            ],
-            'quantity',
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
             ],

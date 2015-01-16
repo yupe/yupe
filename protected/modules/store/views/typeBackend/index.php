@@ -39,6 +39,13 @@ $this->menu = [
                 'filter' => false
             ],
             [
+                'header' => Yii::t('StoreModule.store', 'Products'),
+                'value' => function($data) {
+                        return CHtml::link($data->productCount, ['/store/productBackend/index', "Product[type_id]" => $data->id], ['class' => 'badge']);
+                    },
+                'type' => 'raw'
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
             ],
         ],

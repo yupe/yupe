@@ -171,5 +171,6 @@ return [
     'Stock status' => 'На складе',
     'Record was updated!' => 'Запись изменена!',
     'Add'  => 'Добавить',
-    'Copy' => 'Копировать'
+    'Copy' => 'Копировать',
+    'Products' => 'Товары'
 ];
