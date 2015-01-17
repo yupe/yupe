@@ -138,7 +138,7 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      */
     public function actionUpdate($modules = null, $interactive = true)
     {
-        return $this->actionUpdateConfig($modules, $interactive) || $this->actionUpdateMigrations($modules, $interactive);
+        return $this->actionUpdateConfig($modules, $interactive) & $this->actionUpdateMigrations($modules, $interactive);
     }
 
     /**
@@ -188,6 +188,6 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      */
     public function actionFlush()
     {
-        return $this->actionFlushCache() || $this->actionFlushAssets();
+        return $this->actionFlushCache() & $this->actionFlushAssets();
     }
 }
