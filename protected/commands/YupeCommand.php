@@ -39,7 +39,7 @@ class YupeCommand extends \yupe\components\ConsoleCommand
             if ($interactive) {
                 if (!$this->confirm("Are you sure you want to do this?")) {
                     $this->log("ABORTING!");
-                    exit;
+                    return true;
                 }
             }
 
@@ -99,7 +99,7 @@ class YupeCommand extends \yupe\components\ConsoleCommand
             if ($interactive) {
                 if (!$this->confirm("Are you sure you want to do this?")) {
                     $this->log("ABORTING!");
-                    exit;
+                    return true;
                 }
             }
 
