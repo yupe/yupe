@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $this PageBackendController
+ * @var $model Page
+ * @var $form TbActiveForm
+ */
+?>
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#page-form').liTranslit({
@@ -23,7 +30,7 @@
                             }
                             $('#parent_id').append(new Option(element, index, option));
                         })
-                        if(current) {
+                        if (current) {
                             $('#parent_id').val(current);
                         }
                         $('#parent_id').removeAttr('disabled');
@@ -143,9 +150,9 @@ $form = $this->beginWidget(
                         'data-original-title' => $model->getAttributeLabel('slug'),
                         'data-content'        => $model->getAttributeDescription('slug'),
                         'placeholder'         => Yii::t(
-                                'PageModule.page',
-                                'For automatic generation leave this field empty'
-                            ),
+                            'PageModule.page',
+                            'For automatic generation leave this field empty'
+                        ),
                     ],
                 ],
             ]
@@ -188,230 +195,231 @@ $form = $this->beginWidget(
 <br/>
 
 <div class="row">
-<div class="col-sm-12">
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
-<div class="panel-group" id="extended-options">
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
-                <?php echo Yii::t('PageModule.page', 'More options'); ?>
-            </a>
-        </div>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-        <div class="panel-body">
-            <div class="row">
-                <?php if (count($languages) > 1) : { ?>
-                    <div class="col-sm-4">
-                        <?php echo $form->dropDownListGroup(
-                            $model,
-                            'lang',
-                            [
-                                'widgetOptions' => [
-                                    'data'        => $languages,
-                                    'htmlOptions' => [
-                                        'class' => 'popover-help',
-                                        'empty' => Yii::t('PageModule.page', '--choose--')
-                                    ],
-                                ],
-                            ]
-                        ); ?>
+    <div class="col-sm-12">
+        <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+        <div class="panel-group" id="extended-options">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
+                            <?php echo Yii::t('PageModule.page', 'More options'); ?>
+                        </a>
                     </div>
-                    <div class="col-sm-4">
-                        <br/>
-                        <?php if (!$model->isNewRecord) : { ?>
-                            <?php foreach ($languages as $k => $v) : { ?>
-                                <?php if ($k !== $model->lang) : { ?>
-                                    <?php if (empty($langModels[$k])) : { ?>
-                                        <a href="<?php echo $this->createUrl(
-                                            '/page/pageBackend/create',
-                                            ['id' => $model->id, 'lang' => $k]
-                                        ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>"
-                                                  title="<?php echo Yii::t(
-                                                      'PageModule.page',
-                                                      'Add translation for {lang}',
-                                                      ['{lang}' => $v]
-                                                  ); ?>"></i></a>
-                                    <?php } else : { ?>
-                                        <a href="<?php echo $this->createUrl(
-                                            '/page/pageBackend/update',
-                                            ['id' => $langModels[$k]]
-                                        ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>"
-                                                  title="<?php echo Yii::t(
-                                                      'PageModule.page',
-                                                      'Edit translation for {lang} language',
-                                                      ['{lang}' => $v]
-                                                  ); ?>"></i></a>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <?php if (count($languages) > 1) : { ?>
+                                <div class="col-sm-4">
+                                    <?php echo $form->dropDownListGroup(
+                                        $model,
+                                        'lang',
+                                        [
+                                            'widgetOptions' => [
+                                                'data'        => $languages,
+                                                'htmlOptions' => [
+                                                    'class' => 'popover-help',
+                                                    'empty' => Yii::t('PageModule.page', '--choose--')
+                                                ],
+                                            ],
+                                        ]
+                                    ); ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <br/>
+                                    <?php if (!$model->isNewRecord) : { ?>
+                                        <?php foreach ($languages as $k => $v) : { ?>
+                                            <?php if ($k !== $model->lang) : { ?>
+                                                <?php if (empty($langModels[$k])) : { ?>
+                                                    <a href="<?php echo $this->createUrl(
+                                                        '/page/pageBackend/create',
+                                                        ['id' => $model->id, 'lang' => $k]
+                                                    ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>"
+                                                              title="<?php echo Yii::t(
+                                                                  'PageModule.page',
+                                                                  'Add translation for {lang}',
+                                                                  ['{lang}' => $v]
+                                                              ); ?>"></i></a>
+                                                <?php } else : { ?>
+                                                    <a href="<?php echo $this->createUrl(
+                                                        '/page/pageBackend/update',
+                                                        ['id' => $langModels[$k]]
+                                                    ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>"
+                                                              title="<?php echo Yii::t(
+                                                                  'PageModule.page',
+                                                                  'Edit translation for {lang} language',
+                                                                  ['{lang}' => $v]
+                                                              ); ?>"></i></a>
+                                                <?php } endif; ?>
+                                            <?php } endif; ?>
+                                        <?php } endforeach; ?>
                                     <?php } endif; ?>
-                                <?php } endif; ?>
-                            <?php } endforeach; ?>
-                        <?php } endif; ?>
+                                </div>
+                            <?php } else : { ?>
+                                <?php echo $form->hiddenField($model, 'lang'); ?>
+                            <?php } endif; ?>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <?php echo $form->dropDownListGroup(
+                                    $model,
+                                    'layout',
+                                    [
+                                        'widgetOptions' => [
+                                            'data'        => Yii::app()->getModule('yupe')->getLayoutsList(),
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'empty'               => Yii::t('PageModule.page', '--choose--'),
+                                                'data-original-title' => $model->getAttributeLabel('layout'),
+                                                'data-content'        => $model->getAttributeDescription('layout'),
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <?php echo $form->textFieldGroup(
+                                    $model,
+                                    'view',
+                                    [
+                                        'widgetOptions' => [
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'data-original-title' => $model->getAttributeLabel('view'),
+                                                'data-content'        => $model->getAttributeDescription('view'),
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <?php echo $form->dropDownListGroup(
+                                    $model,
+                                    'category_id',
+                                    [
+                                        'widgetOptions' => [
+                                            'data'        => Category::model()->getFormattedList(),
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'empty'               => Yii::t('PageModule.page', '--choose--'),
+                                                'data-original-title' => $model->getAttributeLabel('category_id'),
+                                                'data-content'        => $model->getAttributeDescription('category_id'),
+                                                'encode'              => false
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <?php echo $form->dropDownListGroup(
+                                    $model,
+                                    'parent_id',
+                                    [
+                                        'widgetOptions' => [
+                                            'data'        => $pages,
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'empty'               => Yii::t('PageModule.page', '--choose--'),
+                                                'data-original-title' => $model->getAttributeLabel('parent_id'),
+                                                'data-content'        => $model->getAttributeDescription('parent_id'),
+                                                'encode'              => false,
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <?php echo $form->dropDownListGroup(
+                                    $model,
+                                    'status',
+                                    [
+                                        'widgetOptions' => [
+                                            'data'        => $model->statusList,
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'empty'               => Yii::t('PageModule.page', '--choose--'),
+                                                'data-original-title' => $model->getAttributeLabel('status'),
+                                                'data-content'        => $model->getAttributeDescription('status'),
+                                                'data-container'      => 'body',
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                            <div class="col-sm-1">
+                                <?php echo $form->textFieldGroup(
+                                    $model,
+                                    'order',
+                                    [
+                                        'widgetOptions' => [
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'data-original-title' => $model->getAttributeLabel('order'),
+                                                'data-content'        => $model->getAttributeDescription('order'),
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                        </div>
                     </div>
-                <?php } else : { ?>
-                    <?php echo $form->hiddenField($model, 'lang'); ?>
-                <?php } endif; ?>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownListGroup(
-                        $model,
-                        'layout',
-                        [
-                            'widgetOptions' => [
-                                'data'        => Yii::app()->getModule('yupe')->getLayoutsList(),
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'empty'               => Yii::t('PageModule.page', '--choose--'),
-                                    'data-original-title' => $model->getAttributeLabel('layout'),
-                                    'data-content'        => $model->getAttributeDescription('layout'),
-                                ],
-                            ],
-                        ]
-                    ); ?>
-                </div>
-                <div class="col-sm-4">
-                    <?php echo $form->textFieldGroup(
-                        $model,
-                        'view',
-                        [
-                            'widgetOptions' => [
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'data-original-title' => $model->getAttributeLabel('view'),
-                                    'data-content'        => $model->getAttributeDescription('view'),
-                                ],
-                            ],
-                        ]
-                    ); ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownListGroup(
-                        $model,
-                        'category_id',
-                        [
-                            'widgetOptions' => [
-                                'data'        => Category::model()->getFormattedList(),
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'empty'               => Yii::t('PageModule.page', '--choose--'),
-                                    'data-original-title' => $model->getAttributeLabel('category_id'),
-                                    'data-content'        => $model->getAttributeDescription('category_id'),
-                                    'encode'              => false
-                                ],
-                            ],
-                        ]
-                    ); ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" data-parent="#extended-options" href="#collapseTwo">
+                            <?php echo Yii::t('PageModule.page', 'Data for SEO'); ?>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownListGroup(
-                        $model,
-                        'parent_id',
-                        [
-                            'widgetOptions' => [
-                                'data'        => $pages,
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'empty'               => Yii::t('PageModule.page', '--choose--'),
-                                    'data-original-title' => $model->getAttributeLabel('parent_id'),
-                                    'data-content'        => $model->getAttributeDescription('parent_id'),
-                                ],
-                            ],
-                        ]
-                    ); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownListGroup(
-                        $model,
-                        'status',
-                        [
-                            'widgetOptions' => [
-                                'data'        => $model->statusList,
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'empty'               => Yii::t('PageModule.page', '--choose--'),
-                                    'data-original-title' => $model->getAttributeLabel('status'),
-                                    'data-content'        => $model->getAttributeDescription('status'),
-                                    'data-container'      => 'body',
-                                ],
-                            ],
-                        ]
-                    ); ?>
-                </div>
-                <div class="col-sm-1">
-                    <?php echo $form->textFieldGroup(
-                        $model,
-                        'order',
-                        [
-                            'widgetOptions' => [
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'data-original-title' => $model->getAttributeLabel('order'),
-                                    'data-content'        => $model->getAttributeDescription('order'),
-                                ],
-                            ],
-                        ]
-                    ); ?>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <?php echo $form->textFieldGroup(
+                                    $model,
+                                    'keywords',
+                                    [
+                                        'widgetOptions' => [
+                                            'htmlOptions' => [
+                                                'class'               => 'popover-help',
+                                                'data-original-title' => $model->getAttributeLabel('keywords'),
+                                                'data-content'        => $model->getAttributeDescription('keywords'),
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <?php echo $form->textAreaGroup(
+                                    $model,
+                                    'description',
+                                    [
+                                        'widgetOptions' => [
+                                            'htmlOptions' => [
+                                                'rows'                => 8,
+                                                'class'               => 'popover-help',
+                                                'data-original-title' => $model->getAttributeLabel('description'),
+                                                'data-content'        => $model->getAttributeDescription('description'),
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <?php $this->endWidget(); ?>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a data-toggle="collapse" data-parent="#extended-options" href="#collapseTwo">
-                <?php echo Yii::t('PageModule.page', 'Data for SEO'); ?>
-            </a>
-        </div>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-7">
-                    <?php echo $form->textFieldGroup(
-                        $model,
-                        'keywords',
-                        [
-                            'widgetOptions' => [
-                                'htmlOptions' => [
-                                    'class'               => 'popover-help',
-                                    'data-original-title' => $model->getAttributeLabel('keywords'),
-                                    'data-content'        => $model->getAttributeDescription('keywords'),
-                                ],
-                            ],
-                        ]
-                    ); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7">
-                    <?php echo $form->textAreaGroup(
-                        $model,
-                        'description',
-                        [
-                            'widgetOptions' => [
-                                'htmlOptions' => [
-                                    'rows'                => 8,
-                                    'class'               => 'popover-help',
-                                    'data-original-title' => $model->getAttributeLabel('description'),
-                                    'data-content'        => $model->getAttributeDescription('description'),
-                                ],
-                            ],
-                        ]
-                    ); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<?php $this->endWidget(); ?>
-</div>
 </div>
 
 <br/><br/>
@@ -423,9 +431,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Create page and continue') : Yii::t(
-                'PageModule.page',
-                'Save page and continue'
-            ),
+            'PageModule.page',
+            'Save page and continue'
+        ),
     ]
 ); ?>
 
@@ -436,9 +444,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('PageModule.page', 'Create page and close') : Yii::t(
-                'PageModule.page',
-                'Save page and close'
-            ),
+            'PageModule.page',
+            'Save page and close'
+        ),
     ]
 ); ?>
 

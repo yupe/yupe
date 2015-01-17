@@ -111,9 +111,10 @@ $this->menu = [
                 'value' => '$this->grid->getUpDownButtons($data)',
             ],
             [
-                'name'   => 'lang',
-                'value'  => '$data->lang',
-                'filter' => $this->yupe->getLanguagesList()
+                'name'    => 'lang',
+                'value'   => '$data->lang',
+                'filter'  => $this->yupe->getLanguagesList(),
+                'visible' => count($this->yupe->getLanguagesList()) > 1,
             ],
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',

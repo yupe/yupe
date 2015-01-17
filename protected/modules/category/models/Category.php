@@ -61,8 +61,8 @@ class Category extends yupe\models\YModel
         // will receive user inputs.
         return [
             ['name, description, short_description, alias', 'filter', 'filter' => 'trim'],
-            ['name, alias', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
-            ['name, description, alias, lang', 'required'],
+            ['name, alias', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, alias, lang', 'required'],
             ['parent_id, status', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
@@ -266,7 +266,7 @@ class Category extends yupe\models\YModel
 
             $list[$category->id] = $category->name;
 
-            $list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1));
+            $list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1, $criteria));
         }
 
         return $list;

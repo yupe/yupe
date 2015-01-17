@@ -168,7 +168,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             'create',
             [
                 'model'        => $model,
-                'pages'        => Page::model()->getAllPagesList(),
+                'pages'        => Page::model()->getFormattedList(),
                 'languages'    => $languages,
                 'menuId'       => $menuId,
                 'menuParentId' => $menuParentId
@@ -265,7 +265,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             [
                 'langModels'   => CHtml::listData($langModels, 'lang', 'id'),
                 'model'        => $model,
-                'pages'        => Page::model()->getAllPagesList($model->id),
+                'pages'        => Page::model()->getFormattedList(null, 0, ['condition' => 'id != :id', 'params' => [':id' => $model->id]]),
                 'languages'    => $this->yupe->getLanguagesList(),
                 'menuId'       => $menuId,
                 'menuParentId' => $menuParentId
