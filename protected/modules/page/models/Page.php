@@ -45,8 +45,8 @@ class Page extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param  string $className
-     * @return Page   the static model class
+     * @param string $className
+     * @return Page the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -68,26 +68,17 @@ class Page extends yupe\models\YModel
     {
         return [
             ['title, slug, body, lang', 'required', 'on' => ['update', 'insert']],
-            [
-                'status, is_protected, parent_id, order, category_id',
-                'numerical',
-                'integerOnly' => true,
-                'on'          => ['update', 'insert']
-            ],
-            ['parent_id', 'length', 'max' => 45],
+            ['status, is_protected, order', 'numerical', 'integerOnly' => true, 'on' => ['update', 'insert']],
+            ['parent_id, category_id', 'numerical', 'integerOnly' => true, 'allowEmpty' => true],
+            ['parent_id, category_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['lang', 'length', 'max' => 2],
             ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
-            ['category_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['title, title_short, slug, keywords, description, layout, view', 'length', 'max' => 150],
             ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())],
             ['title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'],
-            [
-                'title, title_short, slug, description, keywords',
-                'filter',
-                'filter' => [$obj = new CHtmlPurifier(), 'purify']
-            ],
+            ['title, title_short, slug, description, keywords', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
             ['slug', 'yupe\components\validators\YSLugValidator'],
             [
                 'lang',
@@ -99,6 +90,18 @@ class Page extends yupe\models\YModel
                 'lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang',
                 'safe',
                 'on' => 'search'
+            ],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'CTimestampBehavior' => [
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+                'createAttribute'   => 'creation_date',
+                'updateAttribute'   => 'change_date',
             ],
         ];
     }
@@ -206,11 +209,9 @@ class Page extends yupe\models\YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('now()');
         $this->change_user_id = Yii::app()->user->getId();
 
         if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
             $this->user_id = $this->change_user_id;
         }
 
@@ -355,5 +356,35 @@ class Page extends yupe\models\YModel
     public function getUrl($absolute = false)
     {
         return $absolute ? Yii::app()->createAbsoluteUrl('/page/page/show/', ['slug' => $this->slug]) : Yii::app()->createUrl('/page/page/show/', ['slug' => $this->slug]);
+    }
+
+    /**
+     * Возвращает отформатированный список в соответствии со вложенность страниц.
+     *
+     * @param null|int $parent_id
+     * @param int $level
+     * @param null|array|CDbCriteria $criteria
+     * @return array
+     */
+    public function getFormattedList($parent_id = null, $level = 0, $criteria = null)
+    {
+        if (empty($parent_id)) {
+            $parent_id = null;
+        }
+
+        $models = $this->findAllByAttributes(['parent_id' => $parent_id], $criteria);
+
+        $list = [];
+
+        foreach ($models as $model) {
+
+            $model->title = str_repeat('&emsp;', $level) . $model->title;
+
+            $list[$model->id] = $model->title;
+
+            $list = CMap::mergeArray($list, $this->getFormattedList($model->id, $level + 1, $criteria));
+        }
+
+        return $list;
     }
 }

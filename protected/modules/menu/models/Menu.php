@@ -22,6 +22,8 @@
  *
  * The followings are the available model relations:
  * @property MenuItem[] $menuItems
+ *
+ * @method Menu active()
  */
 class Menu extends yupe\models\YModel
 {

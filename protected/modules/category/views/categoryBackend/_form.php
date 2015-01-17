@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $this CategoryBackendController
+ * @var $form TbActiveForm
+ * @var $model Category
+ */
+?>
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#category-form').liTranslit({

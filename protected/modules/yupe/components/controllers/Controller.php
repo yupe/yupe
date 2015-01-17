@@ -22,7 +22,7 @@ use yupe\widgets\YWidget;
 abstract class Controller extends \CController
 {
     /**
-     * @var
+     * @var \YupeModule
      */
     public $yupe;
 
