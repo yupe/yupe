@@ -33,17 +33,19 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Good',
                 'validAttributes' => ['name', 'alias', 'price', 'article', 'status', 'category_id', 'is_special']
-            ]
+            ],
+            'view'   => [
+                'class'        => '\yupe\components\actions\ViewAction',
+                'modelClass'   => 'Good',
+                'errorMessage' => Yii::t('CatalogModule.catalog', 'Page was not found!'),
+            ],
+            'update' => [
+                'class'          => '\yupe\components\actions\UpdateAction',
+                'modelClass'     => 'Good',
+                'successMessage' => Yii::t('CatalogModule.catalog', 'Record was updated!'),
+                'errorMessage'   => Yii::t('CatalogModule.catalog', 'Page was not found!'),
+            ],
         ];
-    }
-
-    /**
-     * Отображает товар по указанному идентификатору
-     * @param integer $id Идинтификатор товар для отображения
-     */
-    public function actionView($id)
-    {
-        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -78,7 +80,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      * Редактирование товара.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id)
+    /*public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
 
@@ -99,7 +101,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             }
         }
         $this->render('update', ['model' => $model]);
-    }
+    }*/
 
     /**
      * Удаяет модель товара из базы.
