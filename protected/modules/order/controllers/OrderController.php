@@ -4,7 +4,7 @@ class OrderController extends \yupe\components\controllers\FrontController
 {
     public function actionView($url = null)
     {
-        if (!Yii::app()->getModule('order')->showOrder) {
+        if (!Yii::app()->getModule('order')->showOrder && !Yii::app()->getUser()->isAuthenticated()) {
             throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
         }
 
