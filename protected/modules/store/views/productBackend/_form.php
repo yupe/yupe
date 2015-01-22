@@ -459,8 +459,10 @@ $form = $this->beginWidget(
             return false;
         });
 
+        $(this).closest('.product-image').remove();
+
         $('#product-images').on('click', '.button-delete-image', function () {
-            $(this).parent().remove();
+            $(this).closest('.row').remove();
         });
 
         $('.product-delete-image').click(function (event) {
