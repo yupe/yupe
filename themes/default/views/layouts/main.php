@@ -127,6 +127,10 @@
                 ); ?>
             </div>
 
+            <div class="widget">
+                <a href="https://www.jetbrains.com/phpstorm/" target="_blank"><?= CHtml::image($mainAssets.'/images/logo_phpstorm.png');?></a>
+            </div>
+
             <?php if (Yii::app()->user->isAuthenticated()): ?>
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>

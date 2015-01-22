@@ -137,7 +137,7 @@ $form = $this->beginWidget(
             <div class="col-sm-7">
                 <div class="form-group">
                     <?php echo CHtml::label(Yii::t("StoreModule.store", 'Дополнительные категории'), null, ['class' => 'control-label']); ?>
-                    <?php        $this->widget(
+                    <?php $this->widget(
                         'store.widgets.CategoryTreeWidget',
                         [
                             'selectedCategories' => $model->getCategoriesIdList(),
@@ -152,11 +152,11 @@ $form = $this->beginWidget(
             <div class="col-sm-7">
                 <?php
                 echo CHtml::image(
-                    !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+                    !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
                     $model->name,
                     [
                         'class' => 'preview-image img-thumbnail',
-                        'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                        'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
                     ]
                 ); ?>
                 <?php echo $form->fileFieldGroup(
@@ -221,10 +221,22 @@ $form = $this->beginWidget(
 
     <div class="tab-pane" id="stock">
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <?php echo $form->textFieldGroup($model, 'sku'); ?>
             </div>
+            <div class="col-sm-3">
+                <?php echo $form->dropDownListGroup(
+                    $model,
+                    'in_stock',
+                    [
+                        'widgetOptions' => [
+                            'data' => $model->getInStockList(),
+                        ],
+                    ]
+                ); ?>
+            </div>
         </div>
+
         <div class="row">
             <div class="col-sm-2">
                 <?php echo $form->textFieldGroup($model, 'length'); ?>
@@ -236,27 +248,17 @@ $form = $this->beginWidget(
                 <?php echo $form->textFieldGroup($model, 'height'); ?>
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm-2">
                 <?php echo $form->textFieldGroup($model, 'weight'); ?>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <?php echo $form->dropDownListGroup(
-                    $model,
-                    'in_stock',
-                    [
-                        'widgetOptions' => [
-                            'data' => $model->getInStockList(),
-                        ],
-                    ]
-                ); ?>
-            </div>
+
             <div class="col-sm-2">
                 <?php echo $form->numberFieldGroup($model, 'quantity'); ?>
             </div>
         </div>
+
     </div>
 
     <div class="tab-pane" id="images">
@@ -377,7 +379,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Add product and continue') : Yii::t('StoreModule.store', 'Save product and continue'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and continue') : Yii::t('StoreModule.store', 'Save product and continue'),
     ]
 ); ?>
 
@@ -386,7 +388,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Add product and close') : Yii::t('StoreModule.store', 'Save product and close'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and close') : Yii::t('StoreModule.store', 'Save product and close'),
     ]
 ); ?>
 

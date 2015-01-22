@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.2';
 
     public $defaultCommentStatus;
     public $autoApprove = true;
@@ -188,8 +188,6 @@ class CommentModule extends WebModule
 
     public function init()
     {
-        parent::init();
-
         $import = ['application.modules.comment.models.*'];
 
         foreach (Yii::app()->getModules() as $module => $data) {
@@ -203,6 +201,8 @@ class CommentModule extends WebModule
         }
 
         $this->defaultCommentStatus = Comment::STATUS_NEED_CHECK;
+
+        parent::init();
     }
 
     public function getAuthItems()
