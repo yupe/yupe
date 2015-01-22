@@ -3,6 +3,7 @@
     border: 1px solid #E1E1E1;
     border-radius: 5px;
     background: #FFF;
+    overflow: hidden;
 }
 
 .col-item .photo {
@@ -74,12 +75,12 @@
     margin-right: 5px;
 }
 
-.col-item .btn-add {
+.col-item p.btn-add {
     width: 50%;
     float: left;
 }
 
-.col-item .btn-add {
+.col-item p.btn-add {
     border-right: 1px solid #E1E1E1;
 }
 
@@ -87,6 +88,10 @@
     /*width: 50%;*/
     float: left;
     padding-left: 10px;
+}
+
+.col-item .btn-add {
+    margin-top: 10px;
 }
 
 /*---*/
@@ -122,15 +127,25 @@ span.title {
     margin-bottom: 0;
 }
 
+.product-feature .table>thead>tr>th,
+.product-feature .table>tbody>tr>th,
+.product-feature .table>tfoot>tr>th,
+.product-feature .table>thead>tr>td,
+.product-feature .table>tbody>tr>td,
+.product-feature .table>tfoot>tr>td {
+    vertical-align: middle;
+}
+
 /*product-info-images*/
 
 .image-preview {
     max-width: 300px;
-    max-height: 300px;;
+    /*max-height: 300px;*/
     text-align: center;
     vertical-align: middle;
     /* display: inline-block; */
     line-height: 300px;
+    margin-bottom: 10px;
 }
 
 .image-preview > img {
