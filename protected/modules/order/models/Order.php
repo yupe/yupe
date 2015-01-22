@@ -35,6 +35,7 @@
 Yii::import('application.modules.order.OrderModule');
 Yii::import('application.modules.order.events.OrderEvents');
 Yii::import('application.modules.order.events.PayOrderEvent');
+Yii::import('application.modules.order.events.OrderChangeStatusEvent');
 
 class Order extends yupe\models\YModel
 {
@@ -541,5 +542,17 @@ class Order extends yupe\models\YModel
     public function findByUrl($url)
     {
         return $this->findByAttributes(['url' => $url]);
+    }
+
+    public function isStatusChanged()
+    {
+        if($this->oldAttributes['status'] != $this->status) {
+
+            Yii::app()->eventManager->fire(OrderEvents::STATUS_CHANGED, new OrderChangeStatusEvent($this));
+
+            return true;
+        }
+
+        return false;
     }
 }

@@ -20,7 +20,11 @@ return [
                     ['PayOrderListener', 'onSuccessPay']
                 ],
             ]
-        ]
+        ],
+        'orderNotifyService' => [
+            'class' => 'application.modules.order.components.OrderNotifyService',
+            'mail'  => 'mail'
+        ],
     ],
     'rules' => [
         '/order/<url:\w+>' => 'order/order/view',

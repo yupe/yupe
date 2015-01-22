@@ -81,6 +81,7 @@
             </td>
         </tr>
     <?php endif; ?>
+
 </table>
 
 <h1 style="font-weight:normal;">Покупатель заказал:</h1>

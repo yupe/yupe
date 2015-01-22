@@ -78,14 +78,21 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                if (Yii::app()->getRequest()->getParam('notify_user', false)) {
-                    //@TODO event
-                }
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('OrderModule.order', 'Запись обновлена!')
                 );
+
+                // отправить уведомление о смене статуса заказа
+                if (Yii::app()->getRequest()->getParam('notify_user', false)) {
+
+                    Yii::app()->orderNotifyService->sendOrderChangesNotify($model);
+
+                    Yii::app()->getUser()->setFlash(
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t('OrderModule.order', 'Запись обновлена! Уведомление отправлено!')
+                    );
+                }
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(['update', 'id' => $model->id]);

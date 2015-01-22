@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class PaymentModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.2';
 
     public $pathAssets = 'payment.views.assets';
 

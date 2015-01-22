@@ -37,9 +37,17 @@ class OrderController extends \yupe\components\controllers\FrontController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('OrderModule.order', 'Заказ размещён!')
                     );
+
                     if (Yii::app()->hasModule('cart')) {
                         Yii::app()->getModule('cart')->clearCart();
                     }
+
+                    //отправить уведомления
+                    Yii::app()->orderNotifyService->sendOrderCreatedAdminNotify($model);
+
+                    Yii::app()->orderNotifyService->sendOrderCreatedUserNotify($model);
+
+
                     if (Yii::app()->getModule('order')->showOrder) {
                         $this->redirect(['/order/order/view', 'url' => $model->url]);
                     }
