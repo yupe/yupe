@@ -68,7 +68,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
             [
                 'name'  => 'category_id',
                 'value' => function($data){
-                        return $data->mainCategory->name;
+                        return isset($data->mainCategory) ? $data->mainCategory->name : '---';
                     },
                 'header' => Yii::t('StoreModule.store', 'Категория'),
                 'type' => 'raw',

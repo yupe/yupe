@@ -284,6 +284,7 @@ class Product extends yupe\models\YModel implements ICommentable
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 ],
+                //@TODO убрать
                 'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
             ],
         ];
