@@ -281,3 +281,9 @@ input.form-control[type="file"] {
 .pager-container .pagination {
     margin: 26px 0 0 0;
 }
+
+/* Override redactor styles */
+
+.redactor-toolbar-tooltip {
+    z-index: 1055;
+}
