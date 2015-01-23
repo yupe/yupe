@@ -104,6 +104,10 @@ body {
     border-bottom: 2px solid #FF9600;
 }
 
+.navbar-fixed-top, .navbar-fixed-bottom {
+    z-index: 1055;
+}
+
 footer {
     clear: both;
     text-align: center;
@@ -276,4 +280,18 @@ input.form-control[type="file"] {
 
 .pager-container .pagination {
     margin: 26px 0 0 0;
+}
+
+/* Override redactor styles */
+
+.redactor-toolbar-tooltip {
+    z-index: 1055;
+}
+
+/* Modal */
+.modal-backdrop {
+    z-index: 1057;
+}
+.modal {
+    z-index: 1058;
 }

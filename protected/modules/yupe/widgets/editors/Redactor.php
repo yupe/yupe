@@ -50,6 +50,7 @@ class Redactor extends \CInputWidget
     public function getOptions()
     {
         return [
+            'toolbarFixed'            => true,
             'buttonSource'            => true,
             'imageUpload'             => Yii::app()->createUrl('/yupe/backend/AjaxImageUpload'),
             'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
