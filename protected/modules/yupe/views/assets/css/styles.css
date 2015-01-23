@@ -104,6 +104,10 @@ body {
     border-bottom: 2px solid #FF9600;
 }
 
+.navbar-fixed-top, .navbar-fixed-bottom {
+    z-index: 1055;
+}
+
 footer {
     clear: both;
     text-align: center;
