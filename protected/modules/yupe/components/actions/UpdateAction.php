@@ -83,7 +83,9 @@ class UpdateAction extends CAction
                     Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, $this->getSuccessMessage());
 
                     if (!isset($_POST['submit-type'])) {
+                        /* if returnUrl is null set them to current url */
                         $returnUrl = $this->returnUrl ?: Yii::app()->request->requestUri;
+                        /* If this is callable, call it. */
                         $returnUrl = is_callable($returnUrl) ? call_user_func($returnUrl, $model) : $returnUrl;
 
                         $controller->redirect($returnUrl);

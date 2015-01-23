@@ -45,6 +45,10 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 'successMessage' => Yii::t('CatalogModule.catalog', 'Record was updated!'),
                 'errorMessage'   => Yii::t('CatalogModule.catalog', 'Page was not found!'),
             ],
+            'index'  => [
+                'class'      => '\yupe\components\actions\IndexAction',
+                'modelClass' => 'Good',
+            ],
         ];
     }
 
@@ -131,7 +135,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
     /**
      * Управление товарами.
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $model = new Good('search');
         $model->unsetAttributes(); // clear any default values
@@ -139,7 +143,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             $model->attributes = $_GET['Good'];
         }
         $this->render('index', ['model' => $model]);
-    }
+    }*/
 
     /**
      * Возвращает модель по указанному идентификатору
