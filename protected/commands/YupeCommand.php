@@ -7,20 +7,21 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      *
      * Examples:
      *
-     * yiic yupe update_config
-     * yiic yupe update_config --module=yupe
-     * yiic yupe update_config --module=yupe,comment,blog
-     * yiic yupe update_config --module=yupe --interactive=0
+     * yiic yupe updateConfig
+     * yiic yupe updateConfig --modules=yupe
+     * yiic yupe updateConfig --modules=yupe,comment,blog
+     * yiic yupe updateConfig --modules=yupe --interactive=0
      *
-     * @param string|null $module Module name to update or module names separated by comma.
+     * @param string|null $modules Module name to update or module names separated by comma.
      * @param bool $interactive Ask before update?
      *
-     * @return int
+     * @return bool
      */
-    public function actionUpdate_config($module = null, $interactive = true)
+    public function actionUpdateConfig($modules = null, $interactive = true)
     {
+        $filter = $modules === null ? null : array_map('trim', explode(',', $modules));
+
         $modules = [];
-        $filter = $module === null ? null : array_map('trim', explode(',', $module));
 
         foreach (Yii::app()->getModules() as $key => $value) {
             $module = Yii::app()->getModule($key);
@@ -30,15 +31,15 @@ class YupeCommand extends \yupe\components\ConsoleCommand
         }
 
         if (empty($modules)) {
-            $this->log("There is no modules to update.");
-            return 0;
+            $this->log("There is no modules to update config.");
+            return true;
         } else {
             $this->log('The following modules have update for config files: ' . implode(',', array_keys($modules)) . '.');
 
             if ($interactive) {
                 if (!$this->confirm("Are you sure you want to do this?")) {
                     $this->log("ABORTING!");
-                    exit;
+                    return true;
                 }
             }
 
@@ -53,11 +54,11 @@ class YupeCommand extends \yupe\components\ConsoleCommand
                     $this->log('Module "' . $key . '" successfully updated!');
                 } else {
                     $this->log('An error occurred while updating the module "' . $key . '"', CLogger::LEVEL_ERROR);
-                    return 1;
+                    return false;
                 }
             }
 
-            return 0;
+            return true;
         }
     }
 
@@ -66,19 +67,19 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      *
      * Examples:
      *
-     * yiic yupe update_migrations
-     * yiic yupe update_migrations --module=yupe
-     * yiic yupe update_migrations --module=yupe,comment,blog
-     * yiic yupe update_migrations --module=yupe --interactive=0
+     * yiic yupe updateMigrations
+     * yiic yupe updateMigrations --modules=yupe
+     * yiic yupe updateMigrations --modules=yupe,comment,blog
+     * yiic yupe updateMigrations --modules=yupe --interactive=0
      *
-     * @param string|null $module Module name(s)
+     * @param string|null $modules Module(s) name(s)
      * @param bool $interactive
-     * @return int
+     * @return bool
      */
-    public function actionUpdate_migrations($module = null, $interactive = true)
+    public function actionUpdateMigrations($modules = null, $interactive = true)
     {
+        $filter = $modules === null ? null : array_map('trim', explode(',', $modules));
         $modules = [];
-        $filter = $module === null ? null : array_map('trim', explode(',', $module));
 
         foreach (Yii::app()->getModules() as $key => $value) {
             if ($filter === null || in_array($key, $filter)) {
@@ -90,15 +91,15 @@ class YupeCommand extends \yupe\components\ConsoleCommand
         }
 
         if (empty($modules)) {
-            $this->log("There is no modules to update.");
-            return 0;
+            $this->log("There is no modules to update migrations.");
+            return true;
         } else {
             $this->log('The following modules have new migrations: ' . implode(',', array_keys($modules)) . '.');
 
             if ($interactive) {
                 if (!$this->confirm("Are you sure you want to do this?")) {
                     $this->log("ABORTING!");
-                    exit;
+                    return true;
                 }
             }
 
@@ -113,11 +114,11 @@ class YupeCommand extends \yupe\components\ConsoleCommand
                     $this->log('Module "' . $key . '" successfully updated!');
                 } else {
                     $this->log('An error occurred while updating the module "' . $key . '"', CLogger::LEVEL_ERROR);
-                    return 1;
+                    return false;
                 }
             }
 
-            return 0;
+            return true;
         }
     }
 
@@ -127,16 +128,66 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      * Examples:
      *
      * yiic yupe update
-     * yiic yupe update --module=comment
-     * yiic yupe update --module=comment,blog,catalog
-     * yiic yupe update --module=comment --interactive=0
+     * yiic yupe update --modules=comment
+     * yiic yupe update --modules=comment,blog,catalog
+     * yiic yupe update --modules=comment --interactive=0
      *
-     * @param string|null $module
+     * @param string|null $modules
      * @param bool $interactive
      * @return bool
      */
-    public function actionUpdate($module = null, $interactive = true)
+    public function actionUpdate($modules = null, $interactive = true)
     {
-        return $this->actionUpdate_config($module, $interactive) || $this->actionUpdate_migrations($module, $interactive);
+        return $this->actionUpdateConfig($modules, $interactive) & $this->actionUpdateMigrations($modules, $interactive);
+    }
+
+    /**
+     * Команда для очистки кэша.
+     *
+     * Examples:
+     *
+     * yiic yupe flushCache
+     *
+     * @return bool
+     */
+    public function actionFlushCache()
+    {
+        return Yii::app()->cache->flush();
+    }
+
+    /**
+     * Команда для очистки папки assets.
+     *
+     * Examples:
+     *
+     * yiic yupe flushAssets
+     *
+     * @return bool
+     */
+    public function actionFlushAssets()
+    {
+        $dirs = glob(Yii::getPathOfAlias('webroot.assets') . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+
+        foreach ($dirs as $value) {
+            if (!\yupe\helpers\YFile::rmDir($value)) {
+                $this->log('Failed to remove directory "' . $value . '"', CLogger::LEVEL_ERROR);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Команда для очистки кэша и assets.
+     *
+     * Usage:
+     *
+     * yiic yupe flush
+     *
+     * @return bool
+     */
+    public function actionFlush()
+    {
+        return $this->actionFlushCache() & $this->actionFlushAssets();
     }
 }
