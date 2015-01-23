@@ -33,14 +33,20 @@ $this->breadcrumbs = array_merge(
                     <div class="image-preview">
                         <img src="<?= $product->getImageUrl(); ?>" alt="" class="" id="main-image">
                     </div>
-                    <a href="<?= $product->getImageUrl(); ?>">
-                        <img src="<?= $product->getImageUrl(50, 50); ?>"/>
-                    </a>
-                    <?php foreach ($product->getImages() as $key => $image): { ?>
-                        <a href="<?= $image->getImageUrl(); ?>">
-                            <img src="<?= $image->getImageUrl(50, 50); ?>"/>
-                        </a>
-                    <?php } endforeach; ?>
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">
+                            <a href="<?= $product->getImageUrl(); ?>" class="thumbnail">
+                                <img src="<?= $product->getImageUrl(50, 50); ?>"/>
+                            </a>
+                        </div>
+                        <?php foreach ($product->getImages() as $key => $image): { ?>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="<?= $image->getImageUrl(); ?>" class="thumbnail">
+                                    <img src="<?= $image->getImageUrl(50, 50); ?>"/>
+                                </a>
+                            </div>
+                        <?php } endforeach; ?>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-8">
