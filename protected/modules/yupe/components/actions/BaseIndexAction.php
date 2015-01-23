@@ -41,12 +41,12 @@ class BaseIndexAction extends CAction
     public $dataProviderConfig = [];
 
     /**
-     * @var string the name of the view to be rendered.
+     * @var string|callable the name of the view to be rendered.
      */
     public $view = 'index';
 
     /**
-     * @var string the name of the layout to be applied to the views.
+     * @var string|callable the name of the layout to be applied to the views.
      * This will be assigned to {@link CController::layout} before the view is rendered.
      * Defaults to null, meaning the controller's layout will be used.
      * If false, no layout will be applied.
@@ -59,7 +59,7 @@ class BaseIndexAction extends CAction
 
         if ($this->layout !== null) {
             $layout = $controller->layout;
-            $controller->layout = $this->layout;
+            $controller->layout = is_callable($this->layout) ? call_user_func($this->layout) : $this->layout;
         }
 
         $this->onBeforeRender($event = new CEvent($this));
@@ -68,7 +68,7 @@ class BaseIndexAction extends CAction
 
             $dataProvider = new $dataProviderClass($this->modelClass, CMap::mergeArray(['criteria' => $this->criteria], $this->dataProviderConfig));
 
-            $controller->render($this->view, ['dataProvider' => $dataProvider]);
+            $controller->render(is_callable($this->view) ? call_user_func($this->view) : $this->view, ['dataProvider' => $dataProvider]);
             $this->onAfterRender(new CEvent($this));
         }
 
