@@ -49,6 +49,11 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 'class'      => '\yupe\components\actions\IndexAction',
                 'modelClass' => 'Good',
             ],
+            'create' => [
+                'class'          => '\yupe\components\actions\CreateAction',
+                'modelClass'     => 'Good',
+                'successMessage' => Yii::t('CatalogModule.catalog', 'Record was added!'),
+            ],
         ];
     }
 
@@ -56,7 +61,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      * Создает новую модель товара.
      * Если создание прошло успешно - перенаправляет на просмотр.
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
         $model = new Good();
 
@@ -78,7 +83,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             }
         }
         $this->render('create', ['model' => $model]);
-    }
+    }*/
 
     /**
      * Редактирование товара.
