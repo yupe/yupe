@@ -463,7 +463,7 @@ class Post extends yupe\models\YModel implements ICommentable
             self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Published'),
             self::STATUS_SCHEDULED => Yii::t('BlogModule.blog', 'Scheduled'),
             self::STATUS_MODERATED => Yii::t('BlogModule.blog', 'Moderated'),
-            self::STATUS_DELETED   => Yii::t('BlogModule.blog', 'Deleted')
+            self::STATUS_DELETED => Yii::t('BlogModule.blog', 'Deleted')
         ];
     }
 
@@ -554,7 +554,7 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function getArchive($blogId = null, $cache = 3600)
     {
-        $data = Yii::app()->cache->get("Blog::Post::archive::{$blogId}");
+        $data = Yii::app()->getCache()->get("Blog::Post::archive::{$blogId}");
 
         if (false === $data) {
 
@@ -569,20 +569,24 @@ class Post extends yupe\models\YModel implements ICommentable
 
             $models = $this->public()->published()->recent()->findAll($criteria);
 
-            foreach ($models as $model) {
-                list($day, $month, $year) = explode(
-                    '.',
-                    Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, 'medium', null)
-                );
-                $data[$year][$month][] = [
-                    'title' => $model->title,
-                    'slug' => $model->slug,
-                    'publish_date' => $model->publish_date,
-                    'quote' => $model->getQuote()
-                ];
+            if (!empty($models)) {
+
+                foreach ($models as $model) {
+
+                    list($day, $month, $year) = explode('-', date('d-m-Y', strtotime($model->publish_date)));
+
+                    $data[$year][$month][] = [
+                        'title' => $model->title,
+                        'slug' => $model->slug,
+                        'publish_date' => $model->publish_date,
+                        'quote' => $model->getQuote()
+                    ];
+                }
+            } else {
+                $data = [];
             }
 
-            Yii::app()->cache->set("Blog::Post::archive::{$blogId}", $data, (int)$cache);
+            Yii::app()->getCache()->set("Blog::Post::archive::{$blogId}", $data, (int)$cache);
         }
 
         return $data;
@@ -770,7 +774,8 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function deleteUserPost($postId, $userId)
     {
-        return $this->updateAll(['status' => self::STATUS_DELETED],
+        return $this->updateAll(
+            ['status' => self::STATUS_DELETED],
             'create_user_id = :userId AND id = :id AND status != :status',
             [
                 ':userId' => (int)$userId,
