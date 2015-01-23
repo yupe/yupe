@@ -287,3 +287,11 @@ input.form-control[type="file"] {
 .redactor-toolbar-tooltip {
     z-index: 1055;
 }
+
+/* Modal */
+.modal-backdrop {
+    z-index: 1057;
+}
+.modal {
+    z-index: 1058;
+}
