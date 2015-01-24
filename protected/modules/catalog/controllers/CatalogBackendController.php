@@ -26,6 +26,13 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
         ];
     }
 
+    public function filters()
+    {
+        return [
+            'postOnly + delete',
+        ];
+    }
+
     public function actions()
     {
         return [
@@ -53,6 +60,12 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 'class'          => '\yupe\components\actions\CreateAction',
                 'modelClass'     => 'Good',
                 'successMessage' => Yii::t('CatalogModule.catalog', 'Record was added!'),
+            ],
+            'delete' => [
+                'class'          => '\yupe\components\actions\DeleteAction',
+                'modelClass'     => 'Good',
+                'successMessage' => Yii::t('CatalogModule.catalog', 'Record was removed!'),
+                'errorMessage'   => Yii::t('CatalogModule.catalog', 'Page was not found!'),
             ],
         ];
     }
@@ -117,25 +130,20 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      * Если удаление прошло успешно - возвращется в index
      * @param integer $id идентификатор товара, который нужно удалить
      */
-    public function actionDelete($id)
+    /*public function actionDelete($id)
     {
-        if (Yii::app()->getRequest()->getIsPostRequest()) {
-            // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
+        $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('CatalogModule.catalog', 'Record was removed!')
-            );
+        Yii::app()->user->setFlash(
+            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+            Yii::t('CatalogModule.catalog', 'Record was removed!')
+        );
 
-            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
-            }
-        } else {
-            throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Unknown request. Don\'t repeat it please!'));
+        // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+        if (!isset($_GET['ajax'])) {
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
         }
-    }
+    }*/
 
     /**
      * Управление товарами.
