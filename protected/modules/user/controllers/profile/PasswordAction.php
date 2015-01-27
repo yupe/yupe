@@ -23,14 +23,14 @@ class PasswordAction extends CAction
             if ($form->validate()) {
                 $user->hash = Yii::app()->userManager->hasher->hashPassword($form->password);
                 if ($user->save()) {
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('UserModule.user', 'Your password was changed successfully.')
                     );
-                    $this->controller->redirect(['/user/profile/profile']);
+                    $this->getController()->redirect(['/user/profile/profile']);
                 }
             }
         }
-        $this->controller->render('password', ['model' => $form]);
+        $this->getController()->render('password', ['model' => $form]);
     }
 }

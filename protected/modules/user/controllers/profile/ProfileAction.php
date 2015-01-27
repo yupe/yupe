@@ -15,7 +15,7 @@ class ProfileAction extends CAction
 {
     public function run()
     {
-        $user = $this->controller->user;
+        $user = $this->getController()->user;
         $form = new ProfileForm();
 
         $formAttributes = $form->getAttributes();
@@ -29,7 +29,7 @@ class ProfileAction extends CAction
         // Если у нас есть данные из POST - получаем их:
         if (($data = Yii::app()->getRequest()->getPost('ProfileForm')) !== null) {
 
-            $transaction = Yii::app()->db->beginTransaction();
+            $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
 
@@ -48,7 +48,7 @@ class ProfileAction extends CAction
                     }
 
                     // Если у нас есть дополнительные профили - проверим их
-                    foreach ((array)$this->controller->module->profiles as $p) {
+                    foreach ((array)$this->getController()->module->profiles as $p) {
                         $p->validate() || $form->addErrors($p->getErrors());
                     }
 
@@ -68,7 +68,7 @@ class ProfileAction extends CAction
                             UserModule::$logCategory
                         );
 
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
@@ -83,20 +83,20 @@ class ProfileAction extends CAction
                         $user->save();
 
                         // И дополнительные профили, если они есть
-                        if (is_array($this->controller->module->profiles)) {
-                            foreach ($this->controller->module->profiles as $k => $p) {
+                        if (is_array($this->getController()->module->profiles)) {
+                            foreach ($this->getController()->module->profiles as $k => $p) {
                                 $p->save(false);
                             }
                         }
 
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Profile was updated')
                         );
 
                         $transaction->commit();
 
-                        $this->controller->redirect(['/user/profile/profile']);
+                        $this->getController()->redirect(['/user/profile/profile']);
 
                     } else {
 
@@ -112,14 +112,14 @@ class ProfileAction extends CAction
 
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
             }
         }
 
-        $this->controller->render(
+        $this->getController()->render(
             'profile',
             [
                 'model'  => $form,

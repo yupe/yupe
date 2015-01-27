@@ -23,19 +23,20 @@ class ProfileController extends \yupe\components\controllers\FrontController
         ];
     }
 
-    public function beforeAction()
+    public function beforeAction($action)
     {
-        $this->user = Yii::app()->user->getProfile();
+        $this->user = Yii::app()->getUser()->getProfile();
+
         if ( $this->user === null ) {
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('UserModule.user', 'User not found.')
             );
 
-            Yii::app()->user->logout();
+            Yii::app()->getUser()->logout();
 
-            $this->controller->redirect(
+            $this->redirect(
                 ['/user/account/login']
             );
         }

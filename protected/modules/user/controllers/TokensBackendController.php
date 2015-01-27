@@ -65,7 +65,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
                 );
@@ -98,7 +98,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Record was removed!')
             );
