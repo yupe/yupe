@@ -34,6 +34,7 @@ return [
     'Blocks list'                                                                           => 'Список блоков',
     'Code'                                                                                  => 'Код',
     'Category'                                                                              => 'Категория',
+    'Status'                                                                                => 'Статус',
     'Content'                                                                               => 'Контент',
     'Content block'                                                                         => 'Блок контента',
     'Content block "{code}" was not found !'                                                => 'Контент блок "{code}" не найден !',
@@ -88,5 +89,9 @@ return [
     '--choose--'                                                                            => '--выберите--',
     '--not selected--'                                                                      => '--не выбрана--',
     'Category "{category}" does not exist, please enter the unsettled category'             => 'Категория "{category}" не существует, введите пожалуйста сушествующую категорию',
-    'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>' => 'Описание параметров:<br><ul><li>category - код категории. Обязательный парамерт;</li><li>limit - какое количество блоков выводить. Не обязательный парамерт;</li><li>cacheTime - время жизни кэша (как часто обновляется кэш). Не обязательный парамерт;</li><li>rand - определяет как выводить блоки, рандомно или нет. (по умолчанию "false").</li></ul>'
+    'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>' => 'Описание параметров:<br><ul><li>category - код категории. Обязательный парамерт;</li><li>limit - какое количество блоков выводить. Не обязательный парамерт;</li><li>cacheTime - время жизни кэша (как часто обновляется кэш). Не обязательный парамерт;</li><li>rand - определяет как выводить блоки, рандомно или нет. (по умолчанию "false").</li></ul>',
+    'Enabled'  => 'Включен',
+    'Disabled' => 'Выключен',
+    'Turn on'  => 'Включить',
+    'Turn off' => 'Выключить',
 ];
