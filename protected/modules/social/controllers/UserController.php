@@ -12,7 +12,7 @@ use User;
 use RegistrationForm;
 use LoginForm;
 
-class UserController extends \\yupe\components\controllers\FrontController
+class UserController extends \yupe\components\controllers\FrontController
 {
     protected $service;
 
