@@ -210,7 +210,7 @@ class Delivery extends yupe\models\YModel
     public function getCost($totalPrice)
     {
         if (null === $this->free_from) {
-            return $totalPrice;
+            return $this->price;
         }
 
         return $this->free_from < $totalPrice ? 0 : $this->price;
