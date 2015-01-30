@@ -500,7 +500,7 @@ class Order extends yupe\models\YModel
 
     public function getTotalPrice()
     {
-        return (float)$this->total_price - ($this->separate_delivery ? 0 : $this->delivery_price);
+        return (float)$this->total_price - (!$this->separate_delivery ? 0 : $this->getDeliveryPrice());
     }
 
     public function getDeliveryPrice()
