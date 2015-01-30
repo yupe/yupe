@@ -6,7 +6,7 @@ use CHtml;
 
 Yii::import('booster.widgets.TbToggleColumn');
 
-class YToggleColumn extends \TbToggleColumn
+class ToggleColumn extends \TbToggleColumn
 {
     /**
      * @var string the glyph icon toggle button "checked" state.

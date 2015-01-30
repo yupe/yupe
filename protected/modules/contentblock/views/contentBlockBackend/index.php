@@ -118,7 +118,7 @@ $this->menu = [
                 'value' => '$data->description',
             ],
             [
-                'class'                => '\yupe\widgets\YToggleColumn',
+                'class'                => '\yupe\widgets\ToggleColumn',
                 'name'                 => 'status',
                 'checkedButtonLabel'   => Yii::t('ContentBlockModule.contentblock', 'Turn off'),
                 'uncheckedButtonLabel' => Yii::t('ContentBlockModule.contentblock', 'Turn on'),
