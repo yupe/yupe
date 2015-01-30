@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $model ContentBlock
+ * @var $this ContentBlockBackendController
+ * @var $form TbActiveForm
+ */
+?>
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#content-block-form').liTranslit({
@@ -8,7 +15,6 @@
 </script>
 
 <?php
-/* @var $model ContentBlock */
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -55,7 +61,7 @@ $form = $this->beginWidget(
                 'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(),
                     'htmlOptions' => [
-                        'empty'               => Yii::t('ContentBlockModule.contentblock','--choose--'),
+                        'empty'               => Yii::t('ContentBlockModule.contentblock', '--choose--'),
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('category_id'),
                         'data-content'        => $model->getAttributeDescription('category_id'),
@@ -100,6 +106,11 @@ $form = $this->beginWidget(
         <?php echo $form->error($model, 'description'); ?>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <?php echo $form->dropDownListGroup($model, 'status', ['widgetOptions' => ['data' => $model->getStatusList()]]); ?>
+    </div>
+</div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
@@ -107,9 +118,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
-                'ContentBlockModule.contentblock',
-                'Add block and continue'
-            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
+            'ContentBlockModule.contentblock',
+            'Add block and continue'
+        ) : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
     ]
 ); ?>
 
@@ -119,9 +130,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t(
-                'ContentBlockModule.contentblock',
-                'Add block and close'
-            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
+            'ContentBlockModule.contentblock',
+            'Add block and close'
+        ) : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
     ]
 ); ?>
 
