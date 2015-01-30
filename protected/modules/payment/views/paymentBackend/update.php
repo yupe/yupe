@@ -2,7 +2,7 @@
 $this->breadcrumbs = [
     Yii::t('PaymentModule.payment', 'Способы оплаты') => ['/payment/paymentBackend/index'],
     $model->name => ['/payment/paymentBackend/view', 'id' => $model->id],
-    Yii::t('PaymentModule.payment', 'Редактирование'),
+    Yii::t('PaymentModule.payment', 'Редактирование')
 ];
 
 $this->pageTitle = Yii::t('PaymentModule.payment', 'Способы оплаты - редактирование');
@@ -27,9 +27,9 @@ $this->menu = [
             'submit' => ['/payment/paymentBackend/delete', 'id' => $model->id],
             'confirm' => Yii::t('PaymentModule.payment', 'Вы уверены, что хотите удалить способ оплаты?'),
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
-            'csrf' => true,
+            'csrf' => true
         ]
-    ],
+    ]
 ];
 ?>
 <div class="page-header">

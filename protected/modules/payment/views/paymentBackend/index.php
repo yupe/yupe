@@ -1,14 +1,14 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('PaymentModule.payment', 'Способы оплаты') => ['/payment/paymentBackend/index'],
-    Yii::t('PaymentModule.payment', 'Управление'),
+    Yii::t('PaymentModule.payment', 'Управление')
 ];
 
 $this->pageTitle = Yii::t('PaymentModule.payment', 'Способы оплаты - управление');
 
 $this->menu = [
     ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Управление способами оплаты'), 'url' => ['/payment/paymentBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => ['/payment/paymentBackend/create']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ оплаты'), 'url' => ['/payment/paymentBackend/create']]
 ];
 ?>
 <div class="page-header">
@@ -34,7 +34,7 @@ $this->widget(
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->name, array("/payment/paymentBackend/update", "id" => $data->id))',
+                'value' => 'CHtml::link($data->name, array("/payment/paymentBackend/update", "id" => $data->id))'
             ],
             'module',
             [
@@ -44,12 +44,12 @@ $this->widget(
                 'source'  => $model->getStatusList(),
                 'options' => [
                     Payment::STATUS_ACTIVE => ['class' => 'label-success'],
-                    Payment::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
-                ],
+                    Payment::STATUS_NOT_ACTIVE => ['class' => 'label-default']
+                ]
             ],
             [
-                'class' => 'yupe\widgets\CustomButtonColumn',
-            ],
-        ],
+                'class' => 'yupe\widgets\CustomButtonColumn'
+            ]
+        ]
     ]
 ); ?>

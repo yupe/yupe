@@ -1,7 +1,5 @@
 <?php
 
-use yupe\components\controllers\FrontController;
-
 class PaymentController extends \yupe\components\controllers\FrontController
 {
     public function actionProcess($id = null)

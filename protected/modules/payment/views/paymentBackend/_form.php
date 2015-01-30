@@ -6,7 +6,7 @@ $form = $this->beginWidget(
         'id' => 'payment-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions' => ['class' => 'well'],
+        'htmlOptions' => ['class' => 'well']
     ]
 );
 ?>
@@ -32,8 +32,8 @@ $form = $this->beginWidget(
             'status',
             [
                 'widgetOptions' => [
-                    'data' => $model->getStatusList(),
-                ],
+                    'data' => $model->getStatusList()
+                ]
             ]
         ); ?>
     </div>
@@ -46,9 +46,9 @@ $form = $this->beginWidget(
                     'data' => Yii::app()->paymentManager->getSystemsFormattedList(),
                     'htmlOptions' => [
                         'id' => 'payment-system',
-                        'empty' => Yii::t("PaymentModule.payment", 'Ручная обработка'),
-                    ],
-                ],
+                        'empty' => Yii::t("PaymentModule.payment", 'Ручная обработка')
+                    ]
+                ]
             ]
         ); ?>
     </div>
@@ -65,7 +65,7 @@ $form = $this->beginWidget(
                     '_payment_system_settings',
                     [
                         'paymentSystem' => $model->module,
-                        'paymentSettings' => $model->getPaymentSystemSettings(),
+                        'paymentSettings' => $model->getPaymentSystemSettings()
                     ]
                 ); ?>
             </div>
@@ -119,7 +119,7 @@ $form = $this->beginWidget(
             $this->module->getVisualEditor(),
             [
                 'model' => $model,
-                'attribute' => 'description',
+                'attribute' => 'description'
             ]
         ); ?>
         <p class="help-block"></p>
@@ -133,7 +133,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => Yii::t('PaymentModule.payment', 'Сохранить и продолжить'),
+        'label' => Yii::t('PaymentModule.payment', 'Сохранить и продолжить')
     ]
 );
 ?>
@@ -143,7 +143,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => Yii::t('PaymentModule.payment', 'Сохранить и вернуться к списку'),
+        'label' => Yii::t('PaymentModule.payment', 'Сохранить и вернуться к списку')
     ]
 );
 ?>
