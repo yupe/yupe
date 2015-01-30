@@ -222,7 +222,7 @@ table .button-column {
     white-space: nowrap;
 }
 
-.button-column a {
+.button-column a, td.toggle-column a {
     color: #333;
     text-decoration: none;
 }

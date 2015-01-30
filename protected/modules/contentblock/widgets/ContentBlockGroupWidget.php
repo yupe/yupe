@@ -16,10 +16,10 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
 {
     public $category;
     public $limit;
-    public $silent    = true;
+    public $silent = true;
     public $cacheTime = 60;
-    public $rand      = false;
-    public $view      = 'contentblockgroup';
+    public $rand = false;
+    public $view = 'contentblockgroup';
 
     public function init()
     {
@@ -28,9 +28,8 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                 'ContentBlockModule.contentblock',
                 'Insert group content block title for ContentBlockGroupWidget!'
             ));
-        }else {
-
-            $category = Category::model()->find('alias = :category', [':category' => $this->category]);
+        } else {
+            $category = Category::model()->findByAttributes(['alias' => $this->category]);
 
             if (null === $category) {
                 throw new CException(Yii::t(
@@ -42,9 +41,9 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                 ));
             }
         }
-        $this->silent    = (bool)$this->silent;
+        $this->silent = (bool)$this->silent;
         $this->cacheTime = (int)$this->cacheTime;
-        $this->rand      = (int)$this->rand;
+        $this->rand = (int)$this->rand;
     }
 
     public function run()
@@ -55,18 +54,20 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
 
         if ($blocks === false) {
 
-            $category = Category::model()->find('alias = :category', [':category' => $this->category]);
+            $category = Category::model()->findByAttributes(['alias' => $this->category]);
 
-            $criteria = new CDbCriteria;
+            $criteria = new CDbCriteria([
+                'scopes' => ['active'],
+            ]);
             $criteria->addCondition('category_id = :category_id');
             $criteria->params[':category_id'] = $category->id;
 
-            if ( $this->rand ) {
+            if ($this->rand) {
                 $criteria->order = 'RAND()';
             }
 
-            if ( $this->limit ) {
-                $criteria->limit  = (int)$this->limit;
+            if ($this->limit) {
+                $criteria->limit = (int)$this->limit;
             }
 
             $blocks = ContentBlock::model()->findAll($criteria);
@@ -83,7 +84,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                 );
             }
 
-            Yii::app()->cache->set($cacheName, $blocks,$this->cacheTime);
+            Yii::app()->cache->set($cacheName, $blocks, $this->cacheTime);
         }
 
         $this->render($this->view, ['blocks' => $blocks]);
