@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class DeliveryModule extends WebModule
 {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.2';
 
     public function getDependencies()
     {

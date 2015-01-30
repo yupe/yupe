@@ -50,7 +50,11 @@ class Delivery extends yupe\models\YModel
             ['name', 'length', 'max' => 255],
             ['description, payment_methods', 'safe'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['id, name, status, position, description, price, free_from, available_from, separate_payment', 'safe', 'on' => 'search'],
+            [
+                'id, name, status, position, description, price, free_from, available_from, separate_payment',
+                'safe',
+                'on' => 'search'
+            ],
         ];
     }
 
@@ -134,6 +138,7 @@ class Delivery extends yupe\models\YModel
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("DeliveryModule.delivery", '*неизвестен*');
     }
 
@@ -153,9 +158,11 @@ class Delivery extends yupe\models\YModel
                 }
             }
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -197,12 +204,16 @@ class Delivery extends yupe\models\YModel
     }
 
     /**
-     * @param $total_price float - Сумма заказа
+     * @param $totalPrice float - Сумма заказа
      * @return float
      */
-    public function getCost($total_price)
+    public function getCost($totalPrice)
     {
-        return $this->free_from < $total_price ? 0 : $this->price;
+        if (null === $this->free_from) {
+            return $totalPrice;
+        }
+
+        return $this->free_from < $totalPrice ? 0 : $this->price;
     }
 
     public function hasPaymentMethods()
