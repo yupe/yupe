@@ -555,4 +555,9 @@ class Order extends yupe\models\YModel
 
         return false;
     }
+
+    public function findByNumber($number)
+    {
+        return $this->findByPk($number);
+    }
 }

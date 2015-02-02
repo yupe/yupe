@@ -14,6 +14,8 @@ class OrderModule extends WebModule
 
     public $showOrder = 1;
 
+    public $enableCheck = 1;
+
     public function getDependencies()
     {
         return ['store', 'payment', 'delivery', 'mail'];
@@ -24,7 +26,8 @@ class OrderModule extends WebModule
         return [
             'notifyEmailFrom',
             'notifyEmailsTo',
-            'showOrder' => $this->getChoice()
+            'showOrder'   => $this->getChoice(),
+            'enableCheck' => $this->getChoice()
         ];
     }
 
@@ -32,8 +35,9 @@ class OrderModule extends WebModule
     {
         return [
             'notifyEmailFrom' => Yii::t('OrderModule.order', 'Email, от имени которого отправлять оповещения'),
-            'notifyEmailsTo' => Yii::t('OrderModule.order', 'Получатели оповещений (через запятую)'),
-            'showOrder'  => Yii::t('OrderModule.order', 'Отображать публичную страницу заказа'),
+            'notifyEmailsTo'  => Yii::t('OrderModule.order', 'Получатели оповещений (через запятую)'),
+            'showOrder'       => Yii::t('OrderModule.order', 'Отображать публичную страницу заказа'),
+            'enableCheck'     => Yii::t('OrderModule.order', 'Разрешить проверку заказа по номеру'),
         ];
     }
 
@@ -43,7 +47,8 @@ class OrderModule extends WebModule
             '0.main' => [
                 'label' => Yii::t('OrderModule.order', 'Настройки зазказов'),
                 'items' => [
-                    'showOrder'
+                    'showOrder',
+                    'enableCheck'
                 ]
             ],
             '1.notify' => [
@@ -114,7 +119,8 @@ class OrderModule extends WebModule
 
         $this->setImport(
             [
-                'order.models.*'
+                'order.models.*',
+                'order.forms.*'
             ]
         );
     }

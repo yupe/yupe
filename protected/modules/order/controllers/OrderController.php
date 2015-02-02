@@ -65,4 +65,28 @@ class OrderController extends \yupe\components\controllers\FrontController
 
         $this->redirect(Yii::app()->getUser()->getReturnUrl($_SERVER['HTTP_REFERER']));
     }
+
+    public function actionCheck()
+    {
+        if(!Yii::app()->getModule('order')->enableCheck) {
+            throw new CHttpException(404);
+        }
+
+        $form = new CheckOrderForm();
+
+        $order = null;
+
+        if(Yii::app()->getRequest()->getIsPostRequest()) {
+
+            $form->setAttributes(
+                Yii::app()->getRequest()->getPost('CheckOrderForm')
+            );
+
+            if($form->validate()) {
+                $order = Order::model()->findByNumber($form->number);
+            }
+        }
+
+        $this->render('check', ['model' => $form, 'order' => $order]);
+    }
 }
