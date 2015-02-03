@@ -275,7 +275,7 @@ $form = $this->beginWidget(
                 </div>
                 <div class="panel-body coupons">
                     <?php if ($model->coupon_code): ?>
-                        <?php foreach ($model->couponCodes as $code): ?>
+                        <?php foreach ($model->getCouponsCodes() as $code): ?>
                             <?php $coupon = Coupon::model()->getCouponByCode($code); ?>
                             <span class="label alert alert-<?php echo $coupon ? 'info' : 'error'; ?> coupon" title="<?php echo !$coupon ? Yii::t(
                                 "OrderModule.order",

@@ -50,7 +50,11 @@ class Coupon extends yupe\models\YModel
             ['registered_user, free_shipping', 'in', 'range' => [0, 1]],
             ['date_start, date_end', 'date', 'format' => 'yyyy-MM-dd'],
             ['code', 'unique'],
-            ['id, name, code, type, value, min_order_price, registered_user, free_shipping, date_start, date_end, quantity, quantity_per_user, status', 'safe', 'on' => 'search'],
+            [
+                'id, name, code, type, value, min_order_price, registered_user, free_shipping, date_start, date_end, quantity, quantity_per_user, status',
+                'safe',
+                'on' => 'search'
+            ],
         ];
     }
 
@@ -132,8 +136,9 @@ class Coupon extends yupe\models\YModel
 
     public function beforeSave()
     {
-        $this->date_start = $this->date_start ?: null;
-        $this->date_end = $this->date_end ?: null;
+        $this->date_start = $this->date_start ? : null;
+        $this->date_end = $this->date_end ? : null;
+
         return parent::beforeSave();
     }
 
@@ -148,6 +153,7 @@ class Coupon extends yupe\models\YModel
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*неизвестен*');
     }
 
@@ -162,30 +168,38 @@ class Coupon extends yupe\models\YModel
     public function getTypeTitle()
     {
         $data = $this->getTypeList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*неизвестен*');
     }
 
     public function getCouponByCode($code)
     {
-        return $this->findByAttributes(['code' => $code]);
+        return $this->active()->findByAttributes(['code' => $code]);
     }
 
     public function getCouponErrors($price = 0)
     {
         $errors = [];
+
         if ($this->status == self::STATUS_NOT_ACTIVE) {
             $errors[] = Yii::t('CouponModule.coupon', 'Купон неактивен');
         }
         if ($price < $this->min_order_price) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Минимальная стоимость заказа ') . Yii::t('CouponModule.coupon', '{n} рубль|{n} рубля|{n} рублей', [$this->min_order_price]);
+            $errors[] = Yii::t('CouponModule.coupon', 'Минимальная стоимость заказа ') . Yii::t(
+                    'CouponModule.coupon',
+                    '{n} рубль|{n} рубля|{n} рублей',
+                    [$this->min_order_price]
+                );
         }
         if (!is_null($this->quantity) && $this->quantity <= 0) {
             $errors[] = Yii::t('CouponModule.coupon', 'Купоны закончились');
         }
-        if (!is_null($this->quantity_per_user) && !Yii::app()->user->isGuest && ($this->getNumberUsagesByUser() >= $this->quantity_per_user)) {
+        if (!is_null($this->quantity_per_user) && !Yii::app()->getUser()->isGuest && ($this->getNumberUsagesByUser(
+                ) >= $this->quantity_per_user)
+        ) {
             $errors[] = Yii::t('CouponModule.coupon', 'Вы использовали все свои купоны');
         }
-        if ($this->registered_user && Yii::app()->user->isGuest) {
+        if ($this->registered_user && Yii::app()->getUser()->getIsGuest()) {
             $errors[] = Yii::t('CouponModule.coupon', 'Купон доступен только для зарегистрированных пользователей');
         }
         if ($this->date_start && (time() < strtotime($this->date_start))) {
@@ -194,12 +208,33 @@ class Coupon extends yupe\models\YModel
         if ($this->date_end && (time() > strtotime($this->date_end))) {
             $errors[] = Yii::t('CouponModule.coupon', 'Купон просрочен');
         }
+
         return $errors;
     }
 
     public function getIsAvailable($price = 0)
     {
         return !$this->getCouponErrors($price);
+    }
+
+    public function getDiscount($price)
+    {
+        $discount = 0.00;
+
+        if(!$this->getIsAvailable($price)) {
+            return $discount;
+        }
+
+        switch ($this->type) {
+            case self::TYPE_SUM:
+                $discount += $this->value;
+                break;
+            case self::TYPE_PERCENT:
+                $discount += ($this->value / 100) * $price;
+                break;
+        }
+
+        return $discount;
     }
 
     public function decreaseQuantity()
@@ -212,6 +247,9 @@ class Coupon extends yupe\models\YModel
 
     public function getNumberUsagesByUser()
     {
-        return Order::model()->count('coupon_code like :code and user_id = :user_id', [':code' => '%' . $this->code . '%', 'user_id' => Yii::app()->user->id]);
+        return Order::model()->count(
+            'coupon_code like :code and user_id = :user_id',
+            [':code' => '%' . $this->code . '%', 'user_id' => Yii::app()->getUser()->getId()]
+        );
     }
 }
