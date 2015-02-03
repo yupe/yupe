@@ -7,7 +7,7 @@ $this->breadcrumbs = [
 ?>
 <div class="row">
     <div class='col-xs-3'>
-        <?php $this->widget('AvatarWidget', ['user' => $user]); ?>
+        <?php $this->widget('AvatarWidget', ['user' => $user, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]]); ?>
     </div>
 
     <div class='col-xs-6'>

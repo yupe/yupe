@@ -12,7 +12,7 @@
                 <?php echo CHtml::link(
                     $this->widget(
                         'application.modules.user.widgets.AvatarWidget',
-                        ['user' => $user, 'noCache' => true],
+                        ['user' => $user, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]],
                         true
                     ),
                     ['/user/people/userInfo/', 'username' => $user->nick_name],

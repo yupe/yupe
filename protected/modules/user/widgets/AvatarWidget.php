@@ -36,6 +36,8 @@ class AvatarWidget extends CWidget
 
     public $htmlOptions = [];
 
+    public $imageHtmlOptions = [];
+
     /**
      * Модель пользователя
      * @var User
@@ -70,6 +72,8 @@ class AvatarWidget extends CWidget
             'style' => 'width: ' . $this->width . '; height: ' . $this->height . '; background-color: ' . $this->backgroundColor . ';',
         ];
 
+        //var_dump($htmlOptions);die();
+
         if (isset($this->htmlOptions['class'])) {
             $class = $this->htmlOptions['class'];
             unset($this->htmlOptions['class']);
@@ -89,7 +93,7 @@ class AvatarWidget extends CWidget
         echo CHtml::tag(
             'div',
             $htmlOptions,
-            CHtml::image($this->imageSrc . ($this->noCache ? '?' . microtime(true) : ''), $this->imageAlt)
+            CHtml::image($this->imageSrc . ($this->noCache ? '?' . microtime(true) : ''), $this->imageAlt, $this->imageHtmlOptions)
         );
     }
 }

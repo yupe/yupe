@@ -29,6 +29,7 @@ Yii::app()->clientScript->registerScript(
                         [
                             'user' => $model,
                             'size' => '40',
+                            'imageHtmlOptions' => ['width' => 40, 'height' => 40]
                         ],
                         true
                     ) . "<span>" . $model->getFullName() . "</span>",

@@ -81,7 +81,7 @@ $this->breadcrumbs = [
                     <?php echo CHtml::link(
                         $this->widget(
                             'application.modules.user.widgets.AvatarWidget',
-                            ['user' => $post->createUser, 'noCache' => true],
+                            ['user' => $post->createUser, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]],
                             true
                         ),
                         ['/user/people/userInfo/', 'username' => $post->createUser->nick_name]
