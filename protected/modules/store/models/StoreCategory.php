@@ -265,7 +265,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl . '/catalog/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
         }
         return $this->_url;
     }

@@ -13,10 +13,10 @@ return [
         ],
     ],
     'rules' => [
-        '/catalog' => 'store/catalog/index',
-        '/catalog/search' => 'store/catalog/search',
-        '/catalog/show/<name:[\w_\/-]+>' => 'store/catalog/show',
-        '/catalog/<path:[\w_\/-]+>' => 'store/catalog/category',
+        '/store' => 'store/catalog/index',
+        '/store/search' => 'store/catalog/search',
+        '/store/show/<name:[\w_\/-]+>' => 'store/catalog/show',
+        '/store/<path:[\w_\/-]+>' => 'store/catalog/category',
         '/store/catalog/autocomplete' => 'store/catalog/autocomplete'
     ],
 ];
