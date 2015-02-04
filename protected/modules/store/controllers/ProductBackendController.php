@@ -67,11 +67,13 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $model = new Product();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
-            $model->setAttributes(Yii::app()->getRequest()->getPost('Product'));
-            $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
-            $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
-            if ($model->save()) {
-                $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
+
+            $attributes = Yii::app()->getRequest()->getPost('Product');
+            $typeAttributes = Yii::app()->getRequest()->getPost('Attribute', []);
+            $variants = Yii::app()->getRequest()->getPost('ProductVariant', []);
+            $categories = Yii::app()->getRequest()->getPost('categories', []);
+
+            if ($model->saveData($attributes, $typeAttributes, $variants, $categories)) {
 
                 $this->updateProductImages($model);
 
@@ -100,12 +102,16 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $model = $this->loadModel($id);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
-            $model->setAttributes(Yii::app()->getRequest()->getPost('Product'));
-            $model->setTypeAttributes(Yii::app()->getRequest()->getPost('Attribute', []));
-            $model->setProductVariants(Yii::app()->getRequest()->getPost('ProductVariant', []));
-            if ($model->save()) {
-                $model->setProductCategories(Yii::app()->getRequest()->getPost('categories', []));
+
+            $attributes = Yii::app()->getRequest()->getPost('Product');
+            $typeAttributes = Yii::app()->getRequest()->getPost('Attribute', []);
+            $variants = Yii::app()->getRequest()->getPost('ProductVariant', []);
+            $categories = Yii::app()->getRequest()->getPost('categories', []);
+
+            if ($model->saveData($attributes, $typeAttributes, $variants, $categories)) {
+
                 $this->updateProductImages($model);
+
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Record was updated!')
