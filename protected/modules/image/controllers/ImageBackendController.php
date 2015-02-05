@@ -19,7 +19,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['Image.ImageBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Image.ImageBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Image.ImageBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Image.ImageBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Image.ImageBackend.View']],
             ['deny']

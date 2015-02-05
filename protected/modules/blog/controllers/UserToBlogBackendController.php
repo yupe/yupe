@@ -19,7 +19,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
             ['allow', 'actions' => ['create'], 'roles' => ['Blog.UserToBlogBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Blog.UserToBlogBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Blog.UserToBlogBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Blog.UserToBlogBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Blog.UserToBlogBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Blog.UserToBlogBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Blog.UserToBlogBackend.View']],
             ['deny']

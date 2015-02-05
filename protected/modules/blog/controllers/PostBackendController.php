@@ -19,7 +19,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['Blog.PostBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Blog.PostBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Blog.PostBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Blog.PostBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Blog.PostBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Blog.PostBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Blog.PostBackend.View']],
             ['deny']

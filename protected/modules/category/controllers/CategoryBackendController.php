@@ -19,7 +19,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['create'], 'roles' => ['Category.CategoryBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Category.CategoryBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Category.CategoryBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Category.CategoryBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Category.CategoryBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Category.CategoryBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Category.CategoryBackend.View']],
             ['deny']

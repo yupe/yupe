@@ -20,7 +20,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['delete'], 'roles' => ['User.TokensBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['User.TokensBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['User.TokensBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['User.TokensBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.TokensBackend.View']],
             ['deny']

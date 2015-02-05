@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class ImageModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.2';
 
     public $uploadPath = 'image';
     public $documentRoot;

@@ -20,7 +20,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['User.UserBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['User.UserBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['User.UserBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['User.UserBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['User.UserBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['User.UserBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.View']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.Changepassword']],

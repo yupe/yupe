@@ -12,12 +12,12 @@
  */
 class DictionaryModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.2';
 
     public function getDependencies()
     {
         return [
-            'user',
+            'user'
         ];
     }
 

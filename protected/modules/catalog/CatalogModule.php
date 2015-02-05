@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CatalogModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.2';
 
     public $uploadPath = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';

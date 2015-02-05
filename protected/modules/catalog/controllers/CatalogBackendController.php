@@ -19,7 +19,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['create'], 'roles' => ['Catalog.CatalogBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Catalog.CatalogBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Catalog.CatalogBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Catalog.CatalogBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Catalog.CatalogBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Catalog.CatalogBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Catalog.CatalogBackend.View']],
             ['deny']
