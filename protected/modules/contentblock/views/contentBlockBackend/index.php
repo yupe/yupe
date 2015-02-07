@@ -18,7 +18,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
         'url'   => ['/contentblock/contentBlockBackend/create']
     ],
 ];
