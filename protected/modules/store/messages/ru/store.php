@@ -125,7 +125,7 @@ return [
     'Price' => 'Цена',
     'Products' => 'Товары',
     'Product show' => 'Просмотр товара',
-    'Product was not found!' => 'ТОвар не найден!',
+    'Product was not found!' => 'Товар не найден!',
     'Manage products' => 'Товары - управление',
     'Products - creating' => 'Товары - добавление',
     'Products - edition' => 'Товары - редактирование',
