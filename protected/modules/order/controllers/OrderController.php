@@ -33,6 +33,7 @@ class OrderController extends \yupe\components\controllers\FrontController
                 $delivery = Delivery::model()->findById($model->delivery_id);
 
                 if ($model->save()) {
+
                     Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('OrderModule.order', 'Заказ размещён!')
@@ -60,6 +61,11 @@ class OrderController extends \yupe\components\controllers\FrontController
                         CHtml::errorSummary($model)
                     );
                 }
+            }else{
+                 Yii::app()->getUser()->setFlash(
+                        yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                        CHtml::errorSummary($model)
+                    );
             }
         }
 

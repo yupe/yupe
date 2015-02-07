@@ -179,6 +179,7 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                     <?php endif; ?>
                     <tr>
                         <td colspan="5">
+                        <?php if(!empty($deliveryTypes)):?>
                             <fieldset>
                                 <div class="form-group">
                                     <label class="control-label" for="radios">
@@ -209,6 +210,11 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                                     </div>
                                 </div>
                             </fieldset>
+                        <?php else:?>
+                            <div class="alert alert-danger">
+                                Не задано ни одного способа доставки ! Оформление заказа невозможно !
+                            </div>    
+                        <?php endif;?>   
                         </td>
                     </tr>
                     <tr>

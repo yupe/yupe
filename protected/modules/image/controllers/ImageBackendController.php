@@ -16,10 +16,9 @@ class ImageBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Image.ImageBackend.Create']],
+            ['allow', 'actions' => ['create','AjaxImageUpload','AjaxImageChoose'], 'roles' => ['Image.ImageBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Image.ImageBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Image.ImageBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Image.ImageBackend.View']],
             ['deny']
