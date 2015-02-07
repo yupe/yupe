@@ -446,7 +446,7 @@ class Order extends yupe\models\YModel
                 if (isset($op['product_id'])) {
                     $product = Product::model()->findByPk($op['product_id']);
                 }
-                $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : null;
+                $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : [];
                 if ($product) {
                     $this->hasProducts = true;
                 }
