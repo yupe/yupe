@@ -30,7 +30,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Edit content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks'),
         'url'   => [
             '/contentblock/contentBlockBackend/update',
             'id' => $model->id

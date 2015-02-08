@@ -29,7 +29,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-eye',
-        'label' => Yii::t('NewsModule.news', 'Viewing news'),
+        'label' => Yii::t('NewsModule.news', 'View news article'),
         'url'   => [
             '/news/newsBackend/view',
             'id' => $model->id
@@ -37,7 +37,7 @@ $this->menu = [
     ],
     [
         'icon'        => 'fa fa-fw fa-trash-o',
-        'label'       => Yii::t('NewsModule.news', 'Removing news'),
+        'label'       => Yii::t('NewsModule.news', 'Remove news'),
         'url'         => '#',
         'linkOptions' => [
             'submit'  => ['/news/newsBackend/delete', 'id' => $model->id],

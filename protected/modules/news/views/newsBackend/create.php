@@ -14,7 +14,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('NewsModule.news', 'Create article'),
+        'label' => Yii::t('NewsModule.news', 'Creating news'),
         'url'   => ['/news/newsBackend/create']
     ],
 ];

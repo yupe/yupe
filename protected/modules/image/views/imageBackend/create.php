@@ -14,7 +14,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('ImageModule.image', 'Add image'),
+        'label' => Yii::t('ImageModule.image', 'Creating image'),
         'url'   => ['/image/imageBackend/create']
     ],
 ];
