@@ -16,6 +16,7 @@ class ProfileAction extends CAction
     public function run()
     {
         $user = $this->getController()->user;
+
         $form = new ProfileForm();
 
         $formAttributes = $form->getAttributes();
@@ -23,8 +24,6 @@ class ProfileAction extends CAction
         unset($formAttributes['avatar'], $formAttributes['verifyCode']);
 
         $form->setAttributes($user->getAttributes(array_keys($formAttributes)));
-
-        $module = Yii::app()->getModule('user');
 
         // Если у нас есть данные из POST - получаем их:
         if (($data = Yii::app()->getRequest()->getPost('ProfileForm')) !== null) {
@@ -60,7 +59,7 @@ class ProfileAction extends CAction
                                 'UserModule.user',
                                 'Profile for #{id}-{nick_name} was changed',
                                 [
-                                    '{id}'        => $user->id,
+                                    '{id}' => $user->id,
                                     '{nick_name}' => $user->nick_name,
                                 ]
                             ),
@@ -74,12 +73,12 @@ class ProfileAction extends CAction
                         );
 
                         if ($form->use_gravatar) {
-                            $user->avatar = null;
+                            $user->removeOldAvatar();
                         } elseif (($uploadedFile = CUploadedFile::getInstance($form, 'avatar')) !== null) {
                             $user->changeAvatar($uploadedFile);
-                        }
+                        };
 
-                        // Сохраняем профиль
+
                         $user->save();
 
                         // И дополнительные профили, если они есть
@@ -122,9 +121,9 @@ class ProfileAction extends CAction
         $this->getController()->render(
             'profile',
             [
-                'model'  => $form,
-                'module' => $module,
-                'user'   => $user
+                'model' => $form,
+                'module' => Yii::app()->getModule('user'),
+                'user' => $user
             ]
         );
     }

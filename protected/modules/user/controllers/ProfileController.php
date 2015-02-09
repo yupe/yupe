@@ -27,7 +27,7 @@ class ProfileController extends \yupe\components\controllers\FrontController
     {
         $this->user = Yii::app()->getUser()->getProfile();
 
-        if ( $this->user === null ) {
+        if ($this->user === null) {
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
@@ -53,7 +53,7 @@ class ProfileController extends \yupe\components\controllers\FrontController
             'password' => [
                 'class' => 'application.modules.user.controllers.profile.PasswordAction'
             ],
-            'email'    => [
+            'email' => [
                 'class' => 'application.modules.user.controllers.profile.EmailAction'
             ],
         ];
