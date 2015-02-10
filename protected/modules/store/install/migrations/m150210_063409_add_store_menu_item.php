@@ -13,13 +13,19 @@ class m150210_063409_add_store_menu_item extends CDbMigration
             $menu = Menu::model()->find(['order' => 'id ASC', 'limit' => 1]);
 
             if(null !== $menu) {
-                $item = new MenuItem();
-                $item->menu_id = $menu->id;
-                $item->title   = 'Магазин';
-                $item->href    = '/store/catalog/index';
-                $item->parent_id = 0;
-                $item->condition_name = null;
-                $item->save();
+
+                $item = MenuItem::model()->find('href = :href', [':href' => '/store/catalog/index']);
+
+                if(null != $item) {
+
+                    $item = new MenuItem();
+                    $item->menu_id = $menu->id;
+                    $item->title   = 'Магазин';
+                    $item->href    = '/store/catalog/index';
+                    $item->parent_id = 0;
+                    $item->condition_name = null;
+                    $item->save();
+                }
             }
         }
 	}

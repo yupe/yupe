@@ -25,8 +25,8 @@
             [
                 '{twitter}' => CHtml::link('twitter', 'http://twitter.com/yupecms', ['target' => '_blank']),
                 '{link}'    => CHtml::link(
-                        'http://yupe.ru',
-                        'http://yupe.ru?from=install',
+                        'http://yupe-project.ru',
+                        'http://yupe-project.ru?from=install',
                         ['target' => '_blank']
                     ),
                 '{forum}'   => CHtml::link(

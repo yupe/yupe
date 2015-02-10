@@ -87,6 +87,7 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
             ],
             [0, 1, 'FAQ', '/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1, 0],
             [0, 1, 'Контакты', '/contacts', '', 'Контакты', '', '', '', '', '', 0, 7, 1, 0],
+            [0, 1, 'Магазин', '/store/catalog/index', '', 'Магазин', '', '', '', '', '', 0, 1, 1, 0],
         ];
 
         $columns = array_shift($items);
