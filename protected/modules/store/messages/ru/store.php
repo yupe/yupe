@@ -172,5 +172,9 @@ return [
     'Record was updated!' => 'Запись изменена!',
     'Add'  => 'Добавить',
     'Copy' => 'Копировать',
-    'Products' => 'Товары'
+    'Purchase price' => 'Цена закупк',
+    'Average price' => 'Среднерыночная цена',
+    'Recommended price' => 'Рекомендованная  цена',
+    'Additional price' => 'Дополнительные цены'
+
 ];
