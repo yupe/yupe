@@ -137,6 +137,37 @@ $form = $this->beginWidget(
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="panel-group" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion_price" href="#collapse_price">
+                            <?= Yii::t("StoreModule.store", 'Additional price');?>
+                        </a>
+                    </div>
+                    <div id="collapse_price" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <?php echo $form->textFieldGroup($model, 'purchase_price'); ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <?php echo $form->textFieldGroup($model, 'average_price'); ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <?php echo $form->textFieldGroup($model, 'recommended_price'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <div class='row'>
+          <div class="col-sm-12">&nbsp;</div>
+    </div>
     <div class='row'>
         <div class="col-sm-7">
             <div class="form-group">
@@ -155,6 +186,9 @@ $form = $this->beginWidget(
             </div>
         </div>
     </div>
+
+
+
 
     <div class='row'>
         <div class="col-sm-7">
