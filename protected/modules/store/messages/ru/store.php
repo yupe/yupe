@@ -175,6 +175,7 @@ return [
     'Purchase price' => 'Цена закупки',
     'Average price' => 'Среднерыночная цена',
     'Recommended price' => 'Рекомендованная  цена',
-    'Additional price' => 'Дополнительные цены'
+    'Additional price' => 'Дополнительные цены',
+    'Order' => 'Порядок сортировки'
 
 ];
