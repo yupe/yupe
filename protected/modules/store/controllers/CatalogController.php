@@ -82,7 +82,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
                 $this->render(
                     'search',
                     [
-                        'category'   => $category,
+                        'category' => $category,
                         'searchForm' => $form,
                         'dataProvider' => $this->productRepository->search($form->q, $form->category)
                     ]
