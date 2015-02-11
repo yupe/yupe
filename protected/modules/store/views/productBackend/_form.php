@@ -10,12 +10,12 @@
 </script>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#common" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Общие"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Склад"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Изображения"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
-    <li><a href="#variants" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "Варианты"); ?></a></li>
-    <li><a href="#seo" data-toggle="tab"><?php echo Yii::t("StoreModule.store", "SEO"); ?></a></li>
+    <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Общие"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Склад"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Изображения"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
+    <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Варианты"); ?></a></li>
+    <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
 </ul>
 
 
@@ -35,19 +35,19 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.store', 'Fields marked with'); ?>
+    <?= Yii::t('StoreModule.store', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.store', 'are required.'); ?>
+    <?= Yii::t('StoreModule.store', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 
 <div class="tab-content">
 <div class="tab-pane active" id="common">
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -59,12 +59,12 @@ $form = $this->beginWidget(
         </div>
         <div class="col-sm-3">
             <br/>
-            <?php echo $form->checkBoxGroup($model, 'is_special'); ?>
+            <?= $form->checkBoxGroup($model, 'is_special'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'type_id',
                 [
@@ -80,7 +80,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-4">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'category_id',
                 [
@@ -100,7 +100,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'producer_id',
                 [
@@ -117,23 +117,23 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?= $form->textFieldGroup($model, 'name'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'alias'); ?>
+            <?= $form->textFieldGroup($model, 'alias'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'price'); ?>
+            <?= $form->textFieldGroup($model, 'price'); ?>
         </div>
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'discount_price'); ?>
+            <?= $form->textFieldGroup($model, 'discount_price'); ?>
         </div>
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'discount'); ?>
+            <?= $form->textFieldGroup($model, 'discount'); ?>
         </div>
     </div>
 
@@ -150,13 +150,13 @@ $form = $this->beginWidget(
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <?php echo $form->textFieldGroup($model, 'purchase_price'); ?>
+                                    <?= $form->textFieldGroup($model, 'purchase_price'); ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <?php echo $form->textFieldGroup($model, 'average_price'); ?>
+                                    <?= $form->textFieldGroup($model, 'average_price'); ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <?php echo $form->textFieldGroup($model, 'recommended_price'); ?>
+                                    <?= $form->textFieldGroup($model, 'recommended_price'); ?>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@ $form = $this->beginWidget(
     <div class='row'>
         <div class="col-sm-7">
             <div class="form-group">
-                <?php echo CHtml::label(
+                <?= CHtml::label(
                     Yii::t("StoreModule.store", 'Дополнительные категории'),
                     null,
                     ['class' => 'control-label']
@@ -201,7 +201,7 @@ $form = $this->beginWidget(
                     'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
                 ]
             ); ?>
-            <?php echo $form->fileFieldGroup(
+            <?= $form->fileFieldGroup(
                 $model,
                 'image',
                 [
@@ -216,8 +216,8 @@ $form = $this->beginWidget(
     </div>
 
     <div class='row'>
-        <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
-            <?php echo $form->labelEx($model, 'description'); ?>
+        <div class="col-sm-12 <?= $model->hasErrors('description') ? 'has-error' : ''; ?>">
+            <?= $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
@@ -226,13 +226,13 @@ $form = $this->beginWidget(
                 ]
             ); ?>
             <p class="help-block"></p>
-            <?php echo $form->error($model, 'description'); ?>
+            <?= $form->error($model, 'description'); ?>
         </div>
     </div>
 
     <div class='row'>
-        <div class="col-sm-12 <?php echo $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
-            <?php echo $form->labelEx($model, 'short_description'); ?>
+        <div class="col-sm-12 <?= $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
+            <?= $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
@@ -241,13 +241,13 @@ $form = $this->beginWidget(
                 ]
             ); ?>
             <p class="help-block"></p>
-            <?php echo $form->error($model, 'short_description'); ?>
+            <?= $form->error($model, 'short_description'); ?>
         </div>
     </div>
 
     <div class='row'>
-        <div class="col-sm-12 <?php echo $model->hasErrors('data') ? 'has-error' : ''; ?>">
-            <?php echo $form->labelEx($model, 'data'); ?>
+        <div class="col-sm-12 <?= $model->hasErrors('data') ? 'has-error' : ''; ?>">
+            <?= $form->labelEx($model, 'data'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
@@ -256,7 +256,7 @@ $form = $this->beginWidget(
                 ]
             ); ?>
             <p class="help-block"></p>
-            <?php echo $form->error($model, 'data'); ?>
+            <?= $form->error($model, 'data'); ?>
         </div>
     </div>
 </div>
@@ -264,10 +264,10 @@ $form = $this->beginWidget(
 <div class="tab-pane" id="stock">
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'sku'); ?>
+            <?= $form->textFieldGroup($model, 'sku'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'in_stock',
                 [
@@ -281,23 +281,23 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'length'); ?>
+            <?= $form->textFieldGroup($model, 'length'); ?>
         </div>
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'width'); ?>
+            <?= $form->textFieldGroup($model, 'width'); ?>
         </div>
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'height'); ?>
+            <?= $form->textFieldGroup($model, 'height'); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($model, 'weight'); ?>
+            <?= $form->textFieldGroup($model, 'weight'); ?>
         </div>
 
         <div class="col-sm-2">
-            <?php echo $form->numberFieldGroup($model, 'quantity'); ?>
+            <?= $form->numberFieldGroup($model, 'quantity'); ?>
         </div>
     </div>
 
@@ -306,7 +306,7 @@ $form = $this->beginWidget(
 <div class="tab-pane" id="images">
     <div class="row form-group">
         <div class="col-sm-2">
-            <?php echo Yii::t("StoreModule.store", "Изображения"); ?>
+            <?= Yii::t("StoreModule.store", "Изображения"); ?>
         </div>
         <div class="col-sm-2">
             <button id="button-add-image" type="button" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>
@@ -319,11 +319,11 @@ $form = $this->beginWidget(
             <div class="image-template hidden form-group">
                 <div class="row">
                     <div class="col-sm-3">
-                        <label for=""><?php echo Yii::t("StoreModule.store", "Файл"); ?></label>
+                        <label for=""><?= Yii::t("StoreModule.store", "Файл"); ?></label>
                         <input type="file" class="image-file"/>
                     </div>
                     <div class="col-sm-2">
-                        <label for=""><?php echo Yii::t("StoreModule.store", "Заголовок"); ?></label>
+                        <label for=""><?= Yii::t("StoreModule.store", "Заголовок"); ?></label>
                         <input type="text" class="image-title form-control"/>
                     </div>
                     <div class="col-sm-1" style="padding-top: 24px">
@@ -339,10 +339,10 @@ $form = $this->beginWidget(
 
                 <div class="product-image">
                     <div>
-                        <img src="<?php echo $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
+                        <img src="<?= $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
                     </div>
                     <div>
-                        <a data-id="<?= $image->id; ?>" href="<?php echo Yii::app()->createUrl(
+                        <a data-id="<?= $image->id; ?>" href="<?= Yii::app()->createUrl(
                             '/store/productBackend/deleteImage',
                             ['id' => $image->id]
                         ); ?>" class="pull-right product-delete-image"><i class="fa fa-fw fa-times"></i></a>
@@ -363,17 +363,17 @@ $form = $this->beginWidget(
 <div class="tab-pane" id="seo">
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'meta_title'); ?>
+            <?= $form->textFieldGroup($model, 'meta_title'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'meta_keywords'); ?>
+            <?= $form->textFieldGroup($model, 'meta_keywords'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textAreaGroup($model, 'meta_description'); ?>
+            <?= $form->textAreaGroup($model, 'meta_description'); ?>
         </div>
     </div>
 </div>
@@ -381,12 +381,12 @@ $form = $this->beginWidget(
 <div class="tab-pane" id="variants">
     <div class="row">
         <div class="col-sm-12 form-group">
-            <label class="control-label" for=""><?php echo Yii::t("StoreModule.store", "Атрибут"); ?></label>
+            <label class="control-label" for=""><?= Yii::t("StoreModule.store", "Атрибут"); ?></label>
 
             <div class="form-inline">
                 <div class="form-group">
                     <select id="variants-type-attributes" class="form-control"></select>
-                    <a href="#" class="btn btn-default" id="add-product-variant"><?php echo Yii::t(
+                    <a href="#" class="btn btn-default" id="add-product-variant"><?= Yii::t(
                             "StoreModule.store",
                             "Добавить"
                         ); ?></a>
@@ -400,11 +400,12 @@ $form = $this->beginWidget(
                 <table>
                     <thead>
                     <tr>
-                        <td><?php echo Yii::t("StoreModule.store", "Атрибут"); ?></td>
-                        <td><?php echo Yii::t("StoreModule.store", "Значение"); ?></td>
-                        <td><?php echo Yii::t("StoreModule.store", "Тип стоимости"); ?></td>
-                        <td><?php echo Yii::t("StoreModule.store", "Стоимость"); ?></td>
-                        <td><?php echo Yii::t("StoreModule.store", "Артикул"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Атрибут"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Значение"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Тип стоимости"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Стоимость"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Артикул"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Порядок"); ?></td>
                         <td></td>
                     </tr>
                     </thead>

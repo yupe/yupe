@@ -143,7 +143,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'ProductVariant',
                 ['product_id'],
                 'with' => ['attribute'],
-                'order' => 'variants.attribute_id, variants.id'
+                'order' => 'variants.position ASC'
             ],
             'comments' => [
                 self::HAS_MANY,
