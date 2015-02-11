@@ -167,6 +167,18 @@ class LangUrlManager extends CUrlManager
         if (($this->getAppLang() == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language)) {
             unset($params[$this->langParam]);
         }
+        
+        // Приводим url route к формату смены языка ({lang}/{request})
+	if (isset($params[$this->langParam]) && $this->getAppLang() != $params[$this->langParam]) {
+		if ($route{0} == '/') {
+		    $route = $params[$this->langParam] . $route;
+		}
+		else {
+		    $route = $params[$this->langParam] . '/' . $route;
+		}
+		
+		unset($params[$this->langParam]);
+	}
 
         return parent::createUrl($route, $params, $ampersand);
     }
