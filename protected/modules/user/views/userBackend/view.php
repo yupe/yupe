@@ -82,7 +82,10 @@ $this->menu = [
         'data'       => $model,
         'attributes' => [
             'id',
-            'full_name',
+            [
+                'name'  => 'full_name',
+                'value' => $model->getFullName()
+            ],
             'nick_name',
             'email',
             'location',
