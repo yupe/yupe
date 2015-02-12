@@ -4,7 +4,7 @@ namespace yupe\widgets\editors;
 use Yii;
 use CInputWidget;
 
-class WysiBB extends \CInputWidget
+class WysiBB extends CInputWidget
 {
     private $editorWidgetClass = 'vendor.brussens.wysibb-yii.WysiBBWidget';
 
