@@ -31,6 +31,9 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $meta_description
  * @property string $meta_keywords
  * @property string $image
+ * @property double $average_price
+ * @property double $purchase_price
+ * @property double $recommended_price
  *
  * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true, $options = [])
  *
@@ -98,7 +101,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'integerOnly' => true
             ],
             [
-                'price, discount_price, discount, length, height, width, weight',
+                'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
                 'store\components\validators\NumberValidator'
             ],
             ['name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250],
@@ -140,7 +143,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'ProductVariant',
                 ['product_id'],
                 'with' => ['attribute'],
-                'order' => 'variants.attribute_id, variants.id'
+                'order' => 'variants.position ASC'
             ],
             'comments' => [
                 self::HAS_MANY,
@@ -206,6 +209,9 @@ class Product extends yupe\models\YModel implements ICommentable
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
+            'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
+            'average_price' => Yii::t('StoreModule.store', 'Average price'),
+            'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
         ];
     }
 
@@ -237,6 +243,9 @@ class Product extends yupe\models\YModel implements ICommentable
             'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
             'producer_id' => Yii::t('StoreModule.store', 'Producer'),
+            'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
+            'average_price' => Yii::t('StoreModule.store', 'Average price'),
+            'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
         ];
     }
 
@@ -266,6 +275,9 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('producer_id', $this->producer_id);
         $criteria->compare('category_id', $this->category_id);
+        $criteria->compare('purchase_price', $this->purchase_price);
+        $criteria->compare('average_price', $this->average_price);
+        $criteria->compare('recommended_price', $this->average_price);
 
         if ($this->category) {
             $criteria->with = ['categoryRelation' => ['together' => true]];

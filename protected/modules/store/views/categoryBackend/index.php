@@ -22,6 +22,10 @@ $this->menu = [
     'yupe\widgets\CustomGridView',
     [
         'id' => 'category-grid',
+        'sortableRows'      => true,
+        'sortableAjaxSave'  => true,
+        'sortableAttribute' => 'sort',
+        'sortableAction'    => '/store/categoryBackend/sortable',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
