@@ -7,11 +7,11 @@ if (!$variant->id) {
 } ?>
 <tr>
     <?php if (!$new): ?>
-        <input type="hidden" name="ProductVariant[<?php echo $variant->id; ?>][id]" value="<?php echo $variant->id; ?>"/>
+        <input type="hidden" name="ProductVariant[<?= $variant->id; ?>][id]" value="<?= $variant->id; ?>"/>
     <?php endif; ?>
     <td>
-        <?php echo $variant->attribute->title; ?>
-        <input type="hidden" value="<?php echo $variant->attribute_id; ?>" name="ProductVariant[<?php echo $variant->id; ?>][attribute_id]"/>
+        <?= $variant->attribute->title; ?>
+        <input type="hidden" value="<?= $variant->attribute_id; ?>" name="ProductVariant[<?= $variant->id; ?>][attribute_id]"/>
     </td>
     <td>
         <?php if ($variant->attribute->type == Attribute::TYPE_DROPDOWN): ?>
@@ -20,13 +20,14 @@ if (!$variant->id) {
             echo $variant->attribute->renderField(($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attribute_option_id]');
             ?>
         <?php else: ?>
-            <?php echo $variant->attribute->renderField($variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
+            <?= $variant->attribute->renderField($variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
         <?php endif; ?>
     </td>
     <td>
-        <?php echo CHtml::dropDownList('ProductVariant[' . $variant->id . '][type]', $variant->type, $variant->getTypeList(), ['class' => 'form-control']); ?>
+        <?= CHtml::dropDownList('ProductVariant[' . $variant->id . '][type]', $variant->type, $variant->getTypeList(), ['class' => 'form-control']); ?>
     </td>
-    <td><input class="form-control" type="text" name="ProductVariant[<?php echo $variant->id; ?>][amount]" value="<?php echo $variant->amount; ?>"></td>
-    <td><input class="form-control" type="text" name="ProductVariant[<?php echo $variant->id; ?>][sku]" value="<?php echo $variant->sku; ?>"></td>
+    <td><input class="form-control" type="text" name="ProductVariant[<?= $variant->id; ?>][amount]" value="<?= $variant->amount; ?>"></td>
+    <td><input class="form-control" type="text" name="ProductVariant[<?= $variant->id; ?>][sku]" value="<?= $variant->sku; ?>"></td>
+    <td><input class="form-control" type="text" name="ProductVariant[<?= $variant->id; ?>][position]" value="<?= $variant->position; ?>"></td>
     <td><a href="#" class="btn btn-danger btn-sm remove-variant">Удалить</a></td>
 </tr>

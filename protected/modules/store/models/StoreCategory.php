@@ -10,6 +10,7 @@
  * @property string $alias
  * @property integer $status
  * @property integer $parent_id
+ * @property integer $sort
  *
  * @property-read StoreCategory $parent
  * @property-read StoreCategory[] $children
@@ -53,7 +54,7 @@ class StoreCategory extends \yupe\models\YModel
             ['name, description, short_description, alias, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'],
             ['name, alias', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['name, alias', 'required'],
-            ['parent_id, status', 'numerical', 'integerOnly' => true],
+            ['parent_id, status, sort', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
@@ -63,7 +64,7 @@ class StoreCategory extends \yupe\models\YModel
             ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Запрещенные символы в поле {attribute}')],
             ['alias', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'],
+            ['id, parent_id, name, description, sort, short_description, alias, status', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -153,6 +154,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
+            'sort' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
@@ -173,6 +175,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
+            'sort' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
@@ -196,8 +199,15 @@ class StoreCategory extends \yupe\models\YModel
         $criteria->compare('meta_keywords', $this->alias, true);
         $criteria->compare('meta_description', $this->alias, true);
         $criteria->compare('status', $this->status);
+        $criteria->compare('sort', $this->status);
 
-        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
+        return new CActiveDataProvider(
+            get_class($this),
+            [
+                'criteria' => $criteria,
+                'sort' => ['defaultOrder' => 't.sort']
+            ]
+        );
     }
 
     public function getStatusList()
@@ -284,4 +294,45 @@ class StoreCategory extends \yupe\models\YModel
     {
         return $this->meta_keywords;
     }
+
+
+    /**
+     * Сортировака пунктов меню
+     * @param array $items
+     * @return bool
+     */
+    public function sort(array $items)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            foreach ($items as $id => $priority) {
+                $model = $this->findByPk($id);
+                if (null === $model) {
+                    continue;
+                }
+                $model->sort = (int)$priority;
+                if (!$model->update('sort')) {
+                    throw new CDbException('Error sort menu items!');
+                }
+            }
+            $transaction->commit();
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+            return false;
+        }
+    }
+
+
+    public function beforeSave()
+    {
+        if ($this->getIsNewRecord()) {
+            $position = Yii::app()->getDb()->createCommand("select max(sort) from {$this->tableName()}")->queryScalar();
+            $this->sort = (int)$position + 1;
+        }
+
+        return parent::beforeSave();
+    }
+
+
 }

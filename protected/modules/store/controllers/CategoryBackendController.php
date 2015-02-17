@@ -215,4 +215,21 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             Yii::app()->end();
         }
     }
+
+
+    public function actionSortable()
+    {
+        $sortOrder = Yii::app()->request->getPost('sortOrder');
+
+        if (empty($sortOrder)) {
+            throw new CHttpException(404);
+        }
+
+        if (StoreCategory::model()->sort($sortOrder)) {
+            Yii::app()->ajax->success();
+        }
+
+        Yii::app()->ajax->failure();
+    }
+
 }
