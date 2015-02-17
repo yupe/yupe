@@ -48,9 +48,10 @@ $form = $this->beginWidget(
             'main_category_id',
             [
                 'widgetOptions' => [
-                    'data' => (new StoreCategory())->getTabList(),
+                    'data' => StoreCategory::model()->getFormattedList(),
                     'htmlOptions' => [
                         'empty' => '---',
+                        'encode' => false,
                         'id' => 'main_category_id',
                     ],
                 ],
