@@ -237,7 +237,7 @@ class StoreCategory extends \yupe\models\YModel
 
     public function getFormattedList($parent_id = null, $level = 0)
     {
-        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id]);
+        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id], ['order' => 'name']);
 
         $list = [];
 

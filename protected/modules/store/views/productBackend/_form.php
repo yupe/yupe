@@ -85,13 +85,10 @@ $form = $this->beginWidget(
                 'category_id',
                 [
                     'widgetOptions' => [
-                        'data' => CHtml::listData(
-                                StoreCategory::model()->findAll(['order' => 'name DESC']),
-                                'id',
-                                'name'
-                            ),
+                        'data' => StoreCategory::model()->getFormattedList(),
                         'htmlOptions' => [
                             'empty' => '---',
+                            'encode' => false,
                         ],
                     ],
                 ]
