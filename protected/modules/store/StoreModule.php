@@ -114,11 +114,11 @@ class StoreModule extends WebModule
                     ],
                     [
                         'icon'  => 'fa fa-fw fa-folder-open',
-                        'label' => Yii::t('StoreModule.store', 'Categories'),
+                        'label' => Yii::t('StoreModule.category', 'Categories'),
                         'url'   => ['/store/categoryBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Categories list'), 'url' => ['/store/categoryBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Create category'), 'url' => ['/store/categoryBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.category', 'Categories list'), 'url' => ['/store/categoryBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.category', 'Create category'), 'url' => ['/store/categoryBackend/create']],
                         ],
                     ],
                     [

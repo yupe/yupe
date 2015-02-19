@@ -1,14 +1,12 @@
 <?php
 return [
-    'Create product' => 'Добавить товар',
     'Add product and close' => 'Добавить товар и закрыть',
     'Add product and continue' => 'Добавить товар и продолжить',
+    'Create product' => 'Добавить товар',
     'Delete product' => 'Удалить товар',
     'Do you really want to remove product?' => 'Вы уверены, что хотите удалить товар?',
-    'Find a product' => 'Найти товар',
-    'Find products' => 'Поиск товаров',
     'Main category of products' => 'Главная категория каталога товаров',
-    'Product admin' => 'Управление товарами',
+    'Manage products' => 'Управление товарами',
     'Product catalog' => 'Каталог товаров',
     'Product list' => 'Список товаров',
     'Product was not found!' => 'Товар не найден!',
@@ -17,11 +15,9 @@ return [
     'Products - edition' => 'Товары - редактирование',
     'Products - manage' => 'Товары - управление',
     'Products - view' => 'Товары - просмотр',
-    'Manage products' => 'Управление товарами',
     'Products' => 'Товары',
     'Save product and close' => 'Сохранить товар и закрыть',
     'Save product and continue' => 'Сохранить товар и продолжить',
-    'View product' => 'Просмотр товара',
     'Update product' => 'Редактировать товар',
-
+    'View product' => 'Просмотр товара',
 ];

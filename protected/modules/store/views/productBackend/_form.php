@@ -169,7 +169,7 @@ $form = $this->beginWidget(
         <div class="col-sm-7">
             <div class="form-group">
                 <?= CHtml::label(
-                    Yii::t("StoreModule.store", 'Additional categories'),
+                    Yii::t("StoreModule.category", 'Additional categories'),
                     null,
                     ['class' => 'control-label']
                 ); ?>

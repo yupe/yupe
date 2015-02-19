@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Categories') => ['/store/categoryBackend/index'],
+    Yii::t('StoreModule.category', 'Categories') => ['/store/categoryBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.store', 'Categories - manage');
+$this->pageTitle = Yii::t('StoreModule.category', 'Categories - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Category manage'), 'url' => ['/store/categoryBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Create category'), 'url' => ['/store/categoryBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.category', 'Manage categories'), 'url' => ['/store/categoryBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.category', 'Create category'), 'url' => ['/store/categoryBackend/create']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Categories'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'manage'); ?></small>
+        <?php echo Yii::t('StoreModule.category', 'Categories'); ?>
+        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 
@@ -69,7 +69,7 @@ $this->menu = [
                 ],
             ],
             [
-                'header' => Yii::t('StoreModule.store', 'Products'),
+                'header' => Yii::t('StoreModule.product', 'Products'),
                 'value' => function($data) {
                         return CHtml::link($data->productCount, ['/store/productBackend/index', "Product[category_id]" => $data->id], ['class' => 'badge']);
                     },

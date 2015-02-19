@@ -66,7 +66,7 @@ class Type extends \yupe\models\YModel
             'id' => Yii::t('StoreModule.store', 'Id'),
             'name' => Yii::t('StoreModule.store', 'Name'),
             'main_category_id' => Yii::t('StoreModule.store', 'Category'),
-            'categories' => Yii::t('StoreModule.store', 'Additional categories'),
+            'categories' => Yii::t('StoreModule.category', 'Additional categories'),
         ];
     }
 
@@ -79,7 +79,7 @@ class Type extends \yupe\models\YModel
             'id' => Yii::t('StoreModule.store', 'Id'),
             'name' => Yii::t('StoreModule.store', 'Name'),
             'main_category_id' => Yii::t('StoreModule.store', 'Category'),
-            'categories' => Yii::t('StoreModule.store', 'Additional categories'),
+            'categories' => Yii::t('StoreModule.category', 'Additional categories'),
         ];
     }
 

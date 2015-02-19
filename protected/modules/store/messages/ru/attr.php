@@ -1,7 +1,7 @@
 <?php
 return [
-    'Add attribute and close' => 'Добавить тип и закрыть',
-    'Add attribute and continue' => 'Добавить тип и продолжить',
+    'Add attribute and close' => 'Добавить атрибут и закрыть',
+    'Add attribute and continue' => 'Добавить атрибут и продолжить',
     'Attribute groups' => 'Группы атрибутов',
     'Attribute' => 'Атрибут',
     'Attributes - creating' => 'Атрибуты - добавление',
@@ -20,8 +20,8 @@ return [
     'Manage attributes' => 'Управление атрибутами',
     'Name' => 'Идентификатор',
     'Required' => 'Обязательный',
-    'Save attribute and close' => 'Сохранить тип и закрыть',
-    'Save attribute and continue' => 'Сохранить тип и продолжить',
+    'Save attribute and close' => 'Сохранить атрибут и закрыть',
+    'Save attribute and continue' => 'Сохранить атрибут и продолжить',
     'Short text (up to 250 characters)' => 'Короткий текст (до 250 символов)',
     'Text' => 'Текст',
     'The name can contain only letters, numbers and underscores.' => 'Название может содержать только буквы, цифры и подчеркивания.',
