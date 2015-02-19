@@ -33,7 +33,7 @@ $this->menu = [
         'linkOptions' => [
             'submit' => ['/store/categoryBackend/delete', 'id' => $model->id],
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
-            'confirm' => Yii::t('StoreModule.category', 'Do you really want to remove the category?'),
+            'confirm' => Yii::t('StoreModule.category', 'Do you really want to remove category?'),
             'csrf' => true,
         ]
     ],

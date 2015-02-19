@@ -91,7 +91,7 @@ class StoreModule extends WebModule
                         'url'   => ['/store/productBackend/index'],
                         'items' => [
                             ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.product', 'Product list'), 'url' => ['/store/productBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.product', 'Add a product'), 'url' => ['/store/productBackend/create']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.product', 'Create product'), 'url' => ['/store/productBackend/create']],
                         ],
                     ],
                     [

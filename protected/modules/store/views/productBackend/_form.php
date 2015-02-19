@@ -11,7 +11,7 @@
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Stock"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.product", "Stock"); ?></a></li>
     <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.attr", "Attributes"); ?></a></li>
     <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Variants"); ?></a></li>
@@ -140,7 +140,7 @@ $form = $this->beginWidget(
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <a class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion_price" href="#collapse_price">
-                            <?= Yii::t("StoreModule.store", 'Additional price');?>
+                            <?= Yii::t("StoreModule.product", 'Additional price');?>
                         </a>
                     </div>
                     <div id="collapse_price" class="panel-collapse collapse" style="height: 0px;">
@@ -399,9 +399,9 @@ $form = $this->beginWidget(
                     <tr>
                         <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
                         <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Price type"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Price"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "SKU"); ?></td>
+                        <td><?= Yii::t("StoreModule.product", "Price type"); ?></td>
+                        <td><?= Yii::t("StoreModule.product", "Price"); ?></td>
+                        <td><?= Yii::t("StoreModule.product", "SKU"); ?></td>
                         <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
                         <td></td>
                     </tr>

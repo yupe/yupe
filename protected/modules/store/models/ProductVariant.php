@@ -95,9 +95,9 @@ class ProductVariant extends \yupe\models\YModel
             'product_id' => Yii::t('StoreModule.product', 'Product'),
             'attribute_id' => Yii::t('StoreModule.attr', 'Attribute'),
             'attribute_value' => Yii::t('StoreModule.product', 'Attribute value'),
-            'type' => Yii::t('StoreModule.store', 'Price type'),
-            'amount' => Yii::t('StoreModule.store', 'Price'),
-            'sku' => Yii::t('StoreModule.store', 'SKU'),
+            'type' => Yii::t('StoreModule.product', 'Price type'),
+            'amount' => Yii::t('StoreModule.product', 'Price'),
+            'sku' => Yii::t('StoreModule.product', 'SKU'),
             'position' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
