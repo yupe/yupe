@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.attribute', 'Типы товаров') => ['index'],
+    Yii::t('StoreModule.type', 'Product types') => ['index'],
     $model->name,
 ];
 
-$this->pageTitle = Yii::t('StoreModule.attribute', 'Типы товаров - просмотр');
+$this->pageTitle = Yii::t('StoreModule.type', 'Product types - view');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.attribute', 'Управление'), 'url' => ['/store/typeBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.attribute', 'Добавить'), 'url' => ['/store/typeBackend/create']],
-    ['label' => Yii::t('StoreModule.attribute', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Type manage'), 'url' => ['/store/typeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Create type'), 'url' => ['/store/typeBackend/create']],
+    ['label' => Yii::t('StoreModule.type', 'Product type') . ' «' . mb_substr($model->name, 0, 32) . '»'],
     [
         'icon' => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('StoreModule.attribute', 'Редактировать'),
+        'label' => Yii::t('StoreModule.type', 'Update type'),
         'url' => [
             '/store/typeBackend/update',
             'id' => $model->id
@@ -20,7 +20,7 @@ $this->menu = [
     ],
     [
         'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('StoreModule.attribute', 'Просмотр'),
+        'label' => Yii::t('StoreModule.type', 'View type'),
         'url' => [
             '/store/typeBackend/view',
             'id' => $model->id
@@ -28,7 +28,7 @@ $this->menu = [
     ],
     [
         'icon' => 'fa fa-fw fa-trash-o',
-        'label' => Yii::t('StoreModule.attribute', 'Удалить'),
+        'label' => Yii::t('StoreModule.type', 'Delete type'),
         'url' => '#',
         'linkOptions' => [
             'submit' => ['/store/typeBackend/delete', 'id' => $model->id],
@@ -41,7 +41,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.attribute', 'Просмотр типа'); ?><br/>
+        <?php echo Yii::t('StoreModule.type', 'View type'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
