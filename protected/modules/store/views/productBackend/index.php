@@ -7,15 +7,15 @@
 $this->layout = 'product';
 
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Products') => ['/store/productBackend/index'],
+    Yii::t('StoreModule.product', 'Products') => ['/store/productBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
+$this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Products'); ?>
+        <?php echo Yii::t('StoreModule.product', 'Products'); ?>
         <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
@@ -70,7 +70,6 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                 'value' => function($data){
                         return isset($data->mainCategory) ? $data->mainCategory->name : '---';
                     },
-                'header' => Yii::t('StoreModule.store', 'Категория'),
                 'type' => 'raw',
                 'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
                 'htmlOptions' => ['width' => '220px'],

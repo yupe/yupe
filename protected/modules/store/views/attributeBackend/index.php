@@ -1,27 +1,27 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Атрибуты') => ['/store/attributeBackend/index'],
-    Yii::t('StoreModule.store', 'Управление'),
+    Yii::t('StoreModule.attr', 'Attributes') => ['/store/attributeBackend/index'],
+    Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.store', 'Атрибуты - управление');
+$this->pageTitle = Yii::t('StoreModule.attr', 'Attributes - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление атрибутами'), 'url' => ['/store/attributeBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить атрибут'), 'url' => ['/store/attributeBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.attr', 'Manage attributes'), 'url' => ['/store/attributeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.attr', 'Create attribute'), 'url' => ['/store/attributeBackend/create']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Атрибуты'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'управление'); ?></small>
+        <?php echo Yii::t('StoreModule.attr', 'Attributes'); ?>
+        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 
 <div class="row">
     <div class="col-sm-3">
         <fieldset>
-            <legend>Группы атрибутов</legend>
+            <legend><?php echo Yii::t("StoreModule.attr", "Attribute groups"); ?></legend>
             <script type="text/javascript">
                 $(document).ready(function () {
                     var $container = $('body');
@@ -38,7 +38,7 @@ $this->menu = [
 
                     $container.on('click', '#add-attribute-group', function (e) {
                         e.preventDefault();
-                        var name = prompt('<?php echo Yii::t("StoreModule.store", "Название"); ?>');
+                        var name = prompt('<?php echo Yii::t("StoreModule.store", "Title"); ?>');
                         if (name) {
                             var data = {name: name};
                             data["<?php echo Yii::app()->getRequest()->csrfTokenName?>"] = "<?php echo Yii::app()->getRequest()->csrfToken?>";
@@ -85,7 +85,7 @@ $this->menu = [
                 'sortableAction' => '/store/attributeBackend/groupSortable',
                 'actionsButtons' => [
                     'clear' => CHtml::link(
-                        Yii::t("StoreModule.store", "Без групп"),
+                        Yii::t("StoreModule.store", "Without a group"),
                         '#',
                         ['id' => 'clear-attribute-group-filter', 'class' => 'btn btn-sm btn-default']
                     ),
@@ -104,7 +104,7 @@ $this->menu = [
                         'editable' => [
                             'type' => 'text',
                             'url' => ['/store/attributeBackend/inlineEditGroup'],
-                            'title' => Yii::t('StoreModule.store', 'Введите {field}', ['{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name'))]),
+                            'title' => Yii::t('StoreModule.store', 'Enter {field}', ['{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name'))]),
                             'params' => [
                                 Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                             ],

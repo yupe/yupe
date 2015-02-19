@@ -63,10 +63,10 @@ class Type extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.product', 'Id'),
-            'name' => Yii::t('StoreModule.product', 'Название'),
-            'main_category_id' => Yii::t('StoreModule.product', 'Категория'),
-            'categories' => Yii::t('StoreModule.product', 'Дополнительные категории'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'name' => Yii::t('StoreModule.store', 'Name'),
+            'main_category_id' => Yii::t('StoreModule.store', 'Category'),
+            'categories' => Yii::t('StoreModule.store', 'Additional categories'),
         ];
     }
 
@@ -76,10 +76,10 @@ class Type extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'id' => Yii::t('StoreModule.product', 'Id'),
-            'name' => Yii::t('StoreModule.product', 'Название'),
-            'main_category_id' => Yii::t('StoreModule.product', 'Главная категория'),
-            'categories' => Yii::t('StoreModule.product', 'Дополнительные категории'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'name' => Yii::t('StoreModule.store', 'Name'),
+            'main_category_id' => Yii::t('StoreModule.store', 'Category'),
+            'categories' => Yii::t('StoreModule.store', 'Additional categories'),
         ];
     }
 

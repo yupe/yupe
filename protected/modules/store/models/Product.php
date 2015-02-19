@@ -181,7 +181,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
             'category_id' => Yii::t('StoreModule.store', 'Category'),
-            'type_id' => Yii::t('StoreModule.store', 'Type'),
+            'type_id' => Yii::t('StoreModule.type', 'Type'),
             'name' => Yii::t('StoreModule.store', 'Title'),
             'price' => Yii::t('StoreModule.store', 'Price'),
             'discount_price' => Yii::t('StoreModule.store', 'Discount price'),

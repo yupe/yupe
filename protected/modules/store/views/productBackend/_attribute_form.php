@@ -18,7 +18,7 @@ if (!isset($type)) {
                 if ($attribute->group) {
                     $attributeGroups[$attribute->group->name][] = $attribute;
                 } else {
-                    $attributeGroups[Yii::t('StoreModule.attribute', 'Без группы')][] = $attribute;
+                    $attributeGroups[Yii::t('StoreModule.attribute', 'Without a group')][] = $attribute;
                 }
             }
             ?>
