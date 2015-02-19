@@ -21,6 +21,7 @@ return [
     'Module for categories/sections management' => 'Модуль для управления категориями/разделами сайта',
     'Save category and close' => 'Сохранить категорию и закрыть',
     'Save category and continue' => 'Сохранить категорию и продолжить',
+    'Search in category "{category}"' => 'Поиск в категории "{category}"',
     'Targeting category was not found!' => 'Целевая категория не найдена!',
     'This section describes category management' => 'В данном разделе представлены средства управления категориями',
     'Update category' => 'Редактировать категорию',
