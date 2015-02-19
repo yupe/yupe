@@ -7,7 +7,7 @@ return [
     'Do you really want to remove this type?' => 'Вы уверены, что хотите удалить этот тип товара?',
     'Product type' => 'Тип товара',
     'Product types - create' => 'Типы товаров - добавить',
-    'Product types - edition' => 'Типы товаров - редактировать',
+    'Product types - edition' => 'Типы товаров - редактирование',
     'Product types - manage' => 'Типы товаров - управление',
     'Product types - view' => 'Типы товаров - просмотр',
     'Product types' => 'Типы товаров',

@@ -180,7 +180,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'category_id' => Yii::t('StoreModule.store', 'Category'),
+            'category_id' => Yii::t('StoreModule.category', 'Category'),
             'type_id' => Yii::t('StoreModule.type', 'Type'),
             'name' => Yii::t('StoreModule.store', 'Title'),
             'price' => Yii::t('StoreModule.store', 'Price'),
@@ -203,9 +203,9 @@ class Product extends yupe\models\YModel implements ICommentable
             'width' => Yii::t('StoreModule.store', 'Width, m.'),
             'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
-            'producer_id' => Yii::t('StoreModule.store', 'Producer'),
+            'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
             'in_stock' => Yii::t('StoreModule.store', 'Stock status'),
-            'category' => Yii::t('StoreModule.store', 'Category'),
+            'category' => Yii::t('StoreModule.category', 'Category'),
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
@@ -222,7 +222,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'category_id' => Yii::t('StoreModule.store', 'Category'),
+            'category_id' => Yii::t('StoreModule.category', 'Category'),
             'name' => Yii::t('StoreModule.store', 'Title'),
             'price' => Yii::t('StoreModule.store', 'Price'),
             'sku' => Yii::t('StoreModule.store', 'SKU'),
@@ -242,7 +242,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'width' => Yii::t('StoreModule.store', 'Width, m.'),
             'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
-            'producer_id' => Yii::t('StoreModule.store', 'Producer'),
+            'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
             'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
             'average_price' => Yii::t('StoreModule.store', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
@@ -334,7 +334,7 @@ class Product extends yupe\models\YModel implements ICommentable
             if ($model->required && !$value) {
                 $this->addError(
                     'eav.' . $name,
-                    Yii::t("StoreModule.store", "Атрибут \"title\" обязателен", ['title' => $model->title])
+                    Yii::t("StoreModule.product", "{title} attribute is required", ['title' => $model->title])
                 );
             }
         }
@@ -698,7 +698,7 @@ class Product extends yupe\models\YModel implements ICommentable
             if ($attribute->group) {
                 $attributeGroups[$attribute->group->name][] = $attribute;
             } else {
-                $attributeGroups[Yii::t('StoreModule.attribute', 'Без группы')][] = $attribute;
+                $attributeGroups[Yii::t('StoreModule.store', 'Without a group')][] = $attribute;
             }
         }
 

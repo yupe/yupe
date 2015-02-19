@@ -50,9 +50,9 @@ class AttributeGroup extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.attribute', 'ID'),
-            'name' => Yii::t('StoreModule.attribute', 'Название группы'),
-            'position' => Yii::t('StoreModule.attribute', 'Позиция'),
+            'id' => Yii::t('StoreModule.store', 'ID'),
+            'name' => Yii::t('StoreModule.attr', 'Group title'),
+            'position' => Yii::t('StoreModule.attr', 'Position'),
         ];
     }
 

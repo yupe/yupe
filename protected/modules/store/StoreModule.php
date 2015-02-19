@@ -123,11 +123,11 @@ class StoreModule extends WebModule
                     ],
                     [
                         'icon'  => 'fa fa-fw fa-plane',
-                        'label' => Yii::t('StoreModule.store', 'Producers'),
+                        'label' => Yii::t('StoreModule.producer', 'Producers'),
                         'url'   => ['/store/producerBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Producers list'), 'url' => ['/store/producerBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Create producer'), 'url' => ['/store/producerBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Producers list'), 'url' => ['/store/producerBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Create producer'), 'url' => ['/store/producerBackend/create']],
                         ],
                     ],
                 ],

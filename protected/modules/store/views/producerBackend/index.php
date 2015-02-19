@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Производители') => ['/store/producerBackend/index'],
-    Yii::t('StoreModule.store', 'Управление'),
+    Yii::t('StoreModule.producer', 'Producers') => ['/store/producerBackend/index'],
+    Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.store', 'Производители - управление');
+$this->pageTitle = Yii::t('StoreModule.producer', 'Producers - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление производителями'), 'url' => ['/store/producerBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить производителя'), 'url' => ['/store/producerBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Manage producers'), 'url' => ['/store/producerBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Create producer'), 'url' => ['/store/producerBackend/create']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Производители'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'управление'); ?></small>
+        <?php echo Yii::t('StoreModule.producer', 'Producers'); ?>
+        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 
@@ -67,7 +67,7 @@ $this->widget(
                 ],
             ],
             [
-                'header' => Yii::t('StoreModule.store', 'Products'),
+                'header' => Yii::t('StoreModule.product', 'Products'),
                 'value'  => function($data) {
                         return CHtml::link($data->productCount, ['/store/productBackend/index', "Product[producer_id]" => $data->id], ['class' => 'badge']);
                     },

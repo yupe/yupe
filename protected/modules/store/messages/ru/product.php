@@ -20,4 +20,13 @@ return [
     'Save product and continue' => 'Сохранить товар и продолжить',
     'Update product' => 'Редактировать товар',
     'View product' => 'Просмотр товара',
+    '{title} attribute is required' => 'Атрибут "{title}" обязателен',
+    'You must specify the attribute value' => 'Необходимо указать значение атрибута',
+    'Increase in the amount of' => 'Увеличить на сумму',
+    'Increase in %' => 'Увеличить на %',
+    'Changing base rates' => 'Изменение базовой цены',
+    '% to the price' => '% к цене',
+    'RUB' => 'руб',
+    'RUB to the price' => 'руб. к цене',
+    'price' => 'цена',
 ];
