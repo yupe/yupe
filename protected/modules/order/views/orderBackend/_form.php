@@ -13,9 +13,9 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info hidden">
-    <?php echo Yii::t('OrderModule.order', 'Поля, отмеченные'); ?>
+    <?php echo Yii::t('OrderModule.order', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('OrderModule.order', 'обязательны.'); ?>
+    <?php echo Yii::t('OrderModule.order', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -62,7 +62,7 @@ $form = $this->beginWidget(
                         'attribute' => 'user_id',
                         'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
                         'options' => [
-                            'placeholder' => Yii::t("OrderModule.order", 'Пользователь'),
+                            'placeholder' => Yii::t("OrderModule.order", 'User'),
                             'width' => '100%',
                             'allowClear' => true,
                         ]
@@ -73,7 +73,7 @@ $form = $this->beginWidget(
         <div class="row">
             <div class="col-sm-12">
                 <label class="checkbox">
-                    <input class="" name="notify_user" value="1" type="checkbox"><?php echo Yii::t("OrderModule.deliveorderry", "Оповестить покупателя о состоянии заказа"); ?>
+                    <input class="" name="notify_user" value="1" type="checkbox"><?php echo Yii::t("OrderModule.order", "Inform buyer about order status"); ?>
                 </label>
             </div>
         </div>
@@ -81,7 +81,7 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", 'Товары'); ?></span>
+                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", 'Products'); ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -102,7 +102,7 @@ $form = $this->beginWidget(
                                         'asDropDownList' => false,
                                         'options' => [
                                             'minimumInputLength' => 2,
-                                            'placeholder' => 'Выберите товар для добавления',
+                                            'placeholder' => 'Select product',
                                             'width' => '100%',
                                             'allowClear' => true,
                                             'ajax' => [
@@ -121,14 +121,14 @@ $form = $this->beginWidget(
                                 );?>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-default btn-sm" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Добавить"); ?></a>
+                                <a class="btn btn-default btn-sm" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Add"); ?></a>
                             </div>
                         </div>
                         <div class="text-right">
                             <h4>
-                                <?php echo Yii::t("OrderModule.order", "Всего"); ?>:
+                                <?php echo Yii::t("OrderModule.order", "Total"); ?>:
                                 <span id="total-product-cost"><?php echo $totalProductCost; ?></span>
-                                <?php echo Yii::t("OrderModule.order", "руб."); ?>
+                                <?php echo Yii::t("OrderModule.order", "RUB"); ?>
                             </h4>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Доставка"); ?></span>
+                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Delivery"); ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -161,7 +161,7 @@ $form = $this->beginWidget(
                                         'widgetOptions' => [
                                             'data' => CHtml::listData(Delivery::model()->published()->findAll(), 'id', 'name'),
                                             'htmlOptions' => [
-                                                'empty' => Yii::t("OrderModule.order", 'Не выбрано'),
+                                                'empty' => Yii::t("OrderModule.order", 'Not selected'),
                                                 'id' => 'delivery-type',
                                                 'options' => $options,
                                             ],
@@ -186,7 +186,7 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title">Оплата</span>
+                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", 'Payment') ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -198,7 +198,7 @@ $form = $this->beginWidget(
                                         'widgetOptions' => [
                                             'data' => CHtml::listData(Payment::model()->published()->findAll(), 'id', 'name'),
                                             'htmlOptions' => [
-                                                'empty' => 'Не выбрано',
+                                                'empty' => Yii::t("OrderModule.order", 'Not selected'),
                                             ],
                                         ],
                                     ]
@@ -211,7 +211,7 @@ $form = $this->beginWidget(
                             <div class="col-sm-6 text-right">
                                 <br/>
                                 <h4>
-                                    <?php echo Yii::t("OrderModule.order", "Итого"); ?>: <?php echo $model->total_price; ?> <?php echo Yii::t("OrderModule.order", "руб."); ?>
+                                    <?php echo Yii::t("OrderModule.order", "Total"); ?>: <?php echo $model->total_price; ?> <?php echo Yii::t("OrderModule.order", "RUB"); ?>
                                 </h4>
                             </div>
                         </div>
@@ -229,7 +229,7 @@ $form = $this->beginWidget(
     <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title">Детали заказа</span>
+                <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Order details"); ?></span>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -260,7 +260,7 @@ $form = $this->beginWidget(
                 <?php if (!$model->isNewRecord): ?>
                     <div class="row">
                         <div class="col-sm-12">
-                            <?php echo CHtml::link(Yii::t("OrderModule.order", 'Ссылка на заказ'), ['/order/order/view', 'url' => $model->url]); ?>
+                            <?php echo CHtml::link(Yii::t("OrderModule.order", 'Link to order'), ['/order/order/view', 'url' => $model->url]); ?>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -271,7 +271,7 @@ $form = $this->beginWidget(
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Купоны"); ?></span>
+                    <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Coupons"); ?></span>
                 </div>
                 <div class="panel-body coupons">
                     <?php if ($model->coupon_code): ?>
@@ -279,13 +279,13 @@ $form = $this->beginWidget(
                             <?php $coupon = Coupon::model()->getCouponByCode($code); ?>
                             <span class="label alert alert-<?php echo $coupon ? 'info' : 'error'; ?> coupon" title="<?php echo !$coupon ? Yii::t(
                                 "OrderModule.order",
-                                'При сохранении купон будет удален'
+                                'Coupon will be deleted after save'
                             ) : ''; ?>">
                                 <?php
                                 if ($coupon) {
                                     echo CHtml::link($code, ['/coupon/couponBackend/view', 'id' => $coupon->id], ['title' => $coupon->name]);
                                 } else {
-                                    echo $code . ' ' . Yii::t("OrderModule.order", '[Удален]');
+                                    echo $code . ' ' . Yii::t("OrderModule.order", '[Deleted]');
                                 }
                                 ?>
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -299,26 +299,23 @@ $form = $this->beginWidget(
     <?php endif; ?>
 </div>
 
-
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => Yii::t('OrderModule.order', 'Сохранить и продолжить'),
+        'label' => $model->getIsNewRecord() ? Yii::t('OrderModule.order', 'Add order and continue') : Yii::t('OrderModule.order', 'Save order and continue'),
     ]
-);
-?>
+); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => Yii::t('OrderModule.order', 'Сохранить и вернуться к списку'),
+        'label' => $model->getIsNewRecord() ? Yii::t('OrderModule.order', 'Add order and close') : Yii::t('OrderModule.order', 'Save order and close'),
     ]
-);
-?>
+); ?>
 
 <?php $this->endWidget(); ?>
 
