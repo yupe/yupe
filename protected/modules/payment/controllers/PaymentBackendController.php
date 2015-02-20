@@ -45,7 +45,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('PaymentModule.payment', 'Запись добавлена!')
+                    Yii::t('PaymentModule.payment', 'Record was created!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -75,7 +75,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('PaymentModule.payment', 'Запись обновлена!')
+                    Yii::t('PaymentModule.payment', 'Record was updated!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -95,14 +95,14 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('PaymentModule.payment', 'Запись удалена!')
+                Yii::t('PaymentModule.payment', 'Record was removed!')
             );
 
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t('PaymentModule.payment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('PaymentModule.payment', 'Unknown request. Don\'t repeat it please!'));
         }
     }
 
@@ -127,7 +127,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
     {
         $model = Payment::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('PaymentModule.payment', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('PaymentModule.payment', 'Page not found!'));
         }
         return $model;
     }
