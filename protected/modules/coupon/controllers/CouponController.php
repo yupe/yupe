@@ -12,7 +12,7 @@ class CouponController extends \yupe\components\controllers\FrontController
         $result = Yii::app()->cart->couponManager->add($code);
         if (true === $result) {
             Yii::app()->ajax->success(
-                Yii::t("CouponModule.coupon", "Купон «{code}» добавлен", ['{code}' => $code])
+                Yii::t("CouponModule.coupon", "Coupon «{code}» added", ['{code}' => $code])
             );
         } else {
             Yii::app()->ajax->failure($result);
@@ -28,9 +28,9 @@ class CouponController extends \yupe\components\controllers\FrontController
         $code = strtoupper(Yii::app()->getRequest()->getParam('code'));
         if ($code) {
             Yii::app()->cart->couponManager->remove($code);
-            Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Купон «{code}» удален", ['{code}' => $code]));
+            Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Coupon «{code}» deleted", ['{code}' => $code]));
         } else {
-            Yii::app()->ajax->failure(Yii::t("CouponModule.coupon", 'Купон не найден'));
+            Yii::app()->ajax->failure(Yii::t("CouponModule.coupon", 'Coupon not found'));
         }
     }
 
@@ -41,7 +41,7 @@ class CouponController extends \yupe\components\controllers\FrontController
         }
 
         Yii::app()->cart->couponManager->clear();
-        Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Купоны удалены"));
+        Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Coupons are deleted"));
     }
 
     public function actionCoupons()
