@@ -14,7 +14,7 @@ class CheckOrderForm extends CFormModel
     public function attributeLabels()
     {
         return [
-            'number' =>  Yii::t('OrderModule.order', 'Номер заказа'),
+            'number' =>  Yii::t('OrderModule.order', 'Order #'),
         ];
     }
 } 

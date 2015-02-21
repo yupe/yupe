@@ -27,7 +27,7 @@ $id = $model->id;
         <?php if ($productExists): ?>
             <?php echo CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
             <br/>
-            [<?php echo $product->getResultPrice(); ?> <?php echo Yii::t("OrderModule.order", "руб."); ?>]
+            [<?php echo $product->getResultPrice(); ?> <?php echo Yii::t("OrderModule.order", "RUB"); ?>]
         <?php else: ?>
             <?php echo $model->product_name; ?>
         <?php endif; ?>
@@ -84,7 +84,7 @@ $id = $model->id;
             </div>
         <?php else: ?>
             <div class="row">
-                <p class="text-muted"><?php echo Yii::t("OrderModule.order", "Продукт удален"); ?></p>
+                <p class="text-muted"><?php echo Yii::t("OrderModule.order", "Product deleted"); ?></p>
             </div>
         <?php endif; ?>
     </div>
@@ -94,7 +94,7 @@ $id = $model->id;
                 <div class="input-group">
                     <?php echo CHtml::activeTextField($model, 'price', ['class' => 'form-control product-price', 'name' => 'OrderProduct[' . $id . '][price]']); ?>
                     <span class="input-group-addon">
-                        <?php echo Yii::t("OrderModule.order", "руб."); ?>
+                        <?php echo Yii::t("OrderModule.order", "RUB"); ?>
                     </span>
                 </div>
             </div>
@@ -102,7 +102,7 @@ $id = $model->id;
                 <div class="input-group">
                     <?php echo CHtml::activeTextField($model, 'quantity', ['class' => 'form-control product-quantity', 'name' => 'OrderProduct[' . $id . '][quantity]']); ?>
                     <span class="input-group-addon">
-                        <?php echo Yii::t("OrderModule.order", "шт."); ?>
+                        <?php echo Yii::t("OrderModule.order", "PCs"); ?>
                     </span>
                 </div>
             </div>

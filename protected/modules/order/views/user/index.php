@@ -4,16 +4,16 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Личный кабинет');
+$this->pageTitle = Yii::t('OrderModule.order', 'Personal account');
 ?>
 
-<h1><?php echo Yii::t('OrderModule.order', 'История заказов'); ?></h1>
+<h1><?php echo Yii::t('OrderModule.order', 'Orders history'); ?></h1>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th class="col-sm-3"><?php echo Yii::t("OrderModule.order", "Дата");?></th>
-            <th class="col-sm-7"><?php echo Yii::t("OrderModule.order", "Номер");?></th>
-            <th class="col-sm-2"><?php echo Yii::t("OrderModule.order", "Статус");?></th>
+            <th class="col-sm-3"><?php echo Yii::t("OrderModule.order", "Date");?></th>
+            <th class="col-sm-7"><?php echo Yii::t("OrderModule.order", "Order #");?></th>
+            <th class="col-sm-2"><?php echo Yii::t("OrderModule.order", "Status");?></th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +24,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Личный кабинет');
                 </td>
                 <td>
                     <?php echo CHtml::link(
-                            Yii::t('OrderModule.order', 'Заказ №{n}', [$order->id]),
+                            Yii::t('OrderModule.order', 'Order #{n}', [$order->id]),
                             ['/order/order/view', 'url' => $order->url]
                         ) . ($order->paid ? ' - ' . $order->getPaidStatus() : ''); ?>
                 </td>

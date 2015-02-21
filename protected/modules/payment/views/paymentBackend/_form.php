@@ -12,9 +12,9 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('PaymentModule.payment', 'Поля, отмеченные'); ?>
+    <?= Yii::t('PaymentModule.payment', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('PaymentModule.payment', 'обязательны.'); ?>
+    <?= Yii::t('PaymentModule.payment', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -46,7 +46,7 @@ $form = $this->beginWidget(
                     'data' => Yii::app()->paymentManager->getSystemsFormattedList(),
                     'htmlOptions' => [
                         'id' => 'payment-system',
-                        'empty' => Yii::t("PaymentModule.payment", 'Ручная обработка')
+                        'empty' => Yii::t("PaymentModule.payment", 'Manual processing')
                     ]
                 ]
             ]
@@ -58,7 +58,7 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?php echo Yii::t("PaymentModule.payment", "Настройки платежной системы"); ?></span>
+                <span class="panel-title"><?php echo Yii::t("PaymentModule.payment", "Payment system settings"); ?></span>
             </div>
             <div class="panel-body" id="payment-system-settings">
                 <?php $this->renderPartial(
@@ -101,7 +101,7 @@ $form = $this->beginWidget(
     <div class="row">
         <div class="col-sm-7">
             <div class="form-group">
-                <?php echo CHtml::label(Yii::t("PaymentModule.payment", 'Ссылка для HTTP уведомлений платежной системы'), null, ['class' => 'control-label']); ?>
+                <?php echo CHtml::label(Yii::t("PaymentModule.payment", 'Payment system notifications HTTP link'), null, ['class' => 'control-label']); ?>
                 <?php echo CHtml::textField(
                     'PaymentProcessUrl',
                     Yii::app()->createAbsoluteUrl('/payment/payment/process', ['id' => $model->id]),
@@ -133,20 +133,19 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => Yii::t('PaymentModule.payment', 'Сохранить и продолжить')
+        'label' => $model->getIsNewRecord() ? Yii::t('PaymentModule.payment', 'Add payment and continue') : Yii::t('PaymentModule.payment', 'Save payment and continue'),
     ]
-);
-?>
+); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => Yii::t('PaymentModule.payment', 'Сохранить и вернуться к списку')
+        'label' => $model->getIsNewRecord() ? Yii::t('PaymentModule.payment', 'Add payment and close') : Yii::t('PaymentModule.payment', 'Save payment and close'),
     ]
-);
-?>
+); ?>
+
 
 <?php $this->endWidget(); ?>
 
