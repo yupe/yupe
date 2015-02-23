@@ -2,7 +2,7 @@
 $this->breadcrumbs = [
     Yii::t('NewsModule.news', 'News') => ['/news/newsBackend/index'],
     $model->title                     => ['/news/newsBackend/view', 'id' => $model->id],
-    Yii::t('NewsModule.news', 'Edit'),
+    Yii::t('NewsModule.news', 'Edit news article'),
 ];
 
 $this->pageTitle = Yii::t('NewsModule.news', 'News - edit');
