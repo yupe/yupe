@@ -16,7 +16,6 @@
         ]
     ); ?>
 
-
     <?php echo $form->errorSummary($model); ?>
 
     <?php echo $form->hiddenField($model, 'model'); ?>
@@ -55,7 +54,19 @@
 
     <div class='row'>
         <div class="col-sm-12">
-            <?php echo $form->textAreaGroup($model, 'text'); ?>
+            <div class="form-group">
+                <?php echo $form->labelEx($model, 'text')?>
+                <?php $this->widget(
+                    $module->getVisualEditor(),
+                    [
+                        'model'     => $model,
+                        'attribute' => 'text',
+                        'options' => [
+                            'rows'  => '3',
+                        ]
+                    ]
+                ); ?>
+            </div>
         </div>
     </div>
 
@@ -115,10 +126,8 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $(document).on('click', '#Comment_text', function(){
-           $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
+        $(document).on('click', '#Comment_text, div.wysibb-text-editor.wysibb-body', function(){
+            $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
         })
     });
 </script>
-
-

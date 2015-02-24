@@ -1144,8 +1144,19 @@ abstract class WebModule extends CWebModule
         if ($this->visualEditor === null) {
             $yupe = Yii::app()->getModule('yupe');
             $editor = $this->editor ?: $yupe->editor;
-            $this->visualEditor = $yupe->visualEditors[$editor]['class'];
+            $this->visualEditor = $this->visualEditors[$editor]['class'] ?: $yupe->visualEditors[$editor]['class'];
         }
         return $this->visualEditor;
+    }
+
+    /**
+     * Метод возвращает список доступных для использования в панели управления визуальных редакторов
+     *
+     * @since 0.4
+     * @return array
+     */
+    public function getEditors()
+    {
+        return array_combine(array_keys($this->visualEditors), array_keys($this->visualEditors));
     }
 }

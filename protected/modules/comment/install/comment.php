@@ -42,7 +42,12 @@ return [
                     ['NewCommentListener', 'onAfterSaveComment']
                 ]
             ]
-        ]
+        ],
+        'decoda' => [
+            'class' => 'vendor.fantgeass.yiidecoda.YiiDecoda',
+            'vendorPath' => 'vendor.fantgeass.yiidecoda.vendors.decoda',
+            'defaults' => true,
+        ],
     ],
     'rules'     => [
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',

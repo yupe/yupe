@@ -28,6 +28,19 @@ class CommentModule extends WebModule
     public $antiSpamInterval = 3;
     public $allowedTags;
     public $allowGuestComment = 0;
+    public $visualEditors = [
+        'textarea' => [
+            'class' => 'yupe\widgets\editors\Textarea',
+        ],
+        'wysibb' => [
+            'class' => 'yupe\widgets\editors\WysiBB',
+        ],
+    ];
+
+    /**
+     * @var string - id редактора
+     */
+    public $editor = 'textarea';
 
     public function getDependencies()
     {
@@ -50,7 +63,8 @@ class CommentModule extends WebModule
             'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
             'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
             'antiSpamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
-            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?')
+            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?'),
+            'editor'               => Yii::t('YupeModule.yupe', 'Visual editor')
         ];
     }
 
@@ -68,7 +82,8 @@ class CommentModule extends WebModule
             'maxCaptchaLength',
             'rssCount',
             'allowedTags',
-            'antiSpamInterval'
+            'antiSpamInterval',
+            'editor'               => $this->editors
         ];
     }
 
@@ -91,6 +106,12 @@ class CommentModule extends WebModule
                     'showCaptcha',
                     'minCaptchaLength',
                     'maxCaptchaLength'
+                ]
+            ],
+            'editor' => [
+                'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
+                'items' => [
+                    'editor',
                 ]
             ],
         ];

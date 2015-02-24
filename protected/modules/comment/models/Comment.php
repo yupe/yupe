@@ -323,7 +323,7 @@ class Comment extends yupe\models\YModel
 
     public function getText()
     {
-        return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
+        return Yii::app()->decoda->parse(strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags));
     }
 
     /**

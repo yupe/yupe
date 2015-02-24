@@ -666,17 +666,6 @@ class YupeModule extends WebModule
     }
 
     /**
-     * Метод возвращает список доступных для использования в панели управления визуальных редакторов
-     *
-     * @since 0.4
-     * @return array
-     */
-    public function getEditors()
-    {
-        return array_combine(array_keys($this->visualEditors), array_keys($this->visualEditors));
-    }
-
-    /**
      * Метод возвращает доступные темы оформления
      *
      * Для добавления новой темы необходимо:
