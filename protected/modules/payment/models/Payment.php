@@ -66,13 +66,13 @@ class Payment extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('PaymentModule.payment', 'ID'),
-            'name' => Yii::t('PaymentModule.payment', 'Название'),
-            'description' => Yii::t('PaymentModule.payment', 'Описание'),
-            'status' => Yii::t('PaymentModule.payment', 'Статус'),
-            'position' => Yii::t('PaymentModule.payment', 'Позиция'),
-            'module' => Yii::t('PaymentModule.payment', 'Платежная система'),
-            'currency_id' => Yii::t('PaymentModule.payment', 'Валюта'),
-            'settings' => Yii::t('PaymentModule.payment', 'Настройки платежной системы'),
+            'name' => Yii::t('PaymentModule.payment', 'Title'),
+            'description' => Yii::t('PaymentModule.payment', 'Description'),
+            'status' => Yii::t('PaymentModule.payment', 'Status'),
+            'position' => Yii::t('PaymentModule.payment', 'Position'),
+            'module' => Yii::t('PaymentModule.payment', 'Payment system'),
+            'currency_id' => Yii::t('PaymentModule.payment', 'Currency'),
+            'settings' => Yii::t('PaymentModule.payment', 'Payment system settings'),
         ];
     }
 
@@ -100,15 +100,15 @@ class Payment extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_ACTIVE => Yii::t("PaymentModule.payment", 'Активен'),
-            self::STATUS_NOT_ACTIVE => Yii::t("PaymentModule.payment", 'Неактивен'),
+            self::STATUS_ACTIVE => Yii::t("PaymentModule.payment", 'Active'),
+            self::STATUS_NOT_ACTIVE => Yii::t("PaymentModule.payment", 'Not active'),
         ];
     }
 
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("PaymentModule.payment", '*неизвестен*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("PaymentModule.payment", '*unknown*');
     }
 
     public function sort(array $items)

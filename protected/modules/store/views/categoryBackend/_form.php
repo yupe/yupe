@@ -159,7 +159,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Create category and continue') : Yii::t('StoreModule.store', 'Save category and continue'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.category', 'Create category and continue') : Yii::t('StoreModule.category', 'Save category and continue'),
     ]
 ); ?>
 
@@ -168,7 +168,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Create category and close') : Yii::t('StoreModule.store', 'Save category and close'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.category', 'Create category and close') : Yii::t('StoreModule.category', 'Save category and close'),
     ]
 ); ?>
 

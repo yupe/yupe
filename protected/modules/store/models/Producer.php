@@ -83,14 +83,14 @@ class Producer extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'name_short' => Yii::t('StoreModule.store', 'Короткое название'),
-            'name' => Yii::t('StoreModule.store', 'Полное название'),
+            'name_short' => Yii::t('StoreModule.store', 'Short title'),
+            'name' => Yii::t('StoreModule.store', 'Title'),
             'slug' => Yii::t('StoreModule.store', 'URL'),
-            'status' => Yii::t('StoreModule.store', 'Статус'),
-            'order' => Yii::t('StoreModule.store', 'Порядок в меню'),
-            'image' => Yii::t('StoreModule.store', 'Изображение'),
-            'short_description' => Yii::t('StoreModule.store', 'Короткое описание'),
-            'description' => Yii::t('StoreModule.store', 'Описание'),
+            'status' => Yii::t('StoreModule.store', 'Status'),
+            'order' => Yii::t('StoreModule.store', 'Order'),
+            'image' => Yii::t('StoreModule.store', 'Image'),
+            'short_description' => Yii::t('StoreModule.store', 'Short description'),
+            'description' => Yii::t('StoreModule.store', 'Description'),
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
@@ -168,9 +168,9 @@ class Producer extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_ZERO => 'Недоступен',
-            self::STATUS_ACTIVE => 'Активен',
-            self::STATUS_NOT_ACTIVE => 'Неактивен',
+            self::STATUS_ZERO => Yii::t('StoreModule.store', 'Not available'),
+            self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Active'),
+            self::STATUS_NOT_ACTIVE => Yii::t('StoreModule.store', 'Not active'),
         ];
     }
 
@@ -178,7 +178,7 @@ class Producer extends yupe\models\YModel
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : '*неизвестен*';
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
     public function getFormattedList()

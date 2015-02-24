@@ -1,19 +1,19 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('OrderModule.order', 'Заказы') => ['/order/orderBackend/index'],
-    Yii::t('OrderModule.order', 'Заказ №' . $model->id) => ['/order/orderBackend/view', 'id' => $model->id],
-    Yii::t('OrderModule.order', 'Редактирование'),
+    Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
+    Yii::t('OrderModule.order', 'Order #' . $model->id) => ['/order/orderBackend/view', 'id' => $model->id],
+    Yii::t('OrderModule.order', 'Edition'),
 ];
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Заказы - редактирование');
+$this->pageTitle = Yii::t('OrderModule.order', 'Orders - edition');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Управление заказами'), 'url' => ['/order/orderBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Добавить заказ'), 'url' => ['/order/orderBackend/create']],
-    ['label' => Yii::t('OrderModule.order', 'Заказ') . ' «' . $model->id . '»'],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage orders'), 'url' => ['/order/orderBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create order'), 'url' => ['/order/orderBackend/create']],
+    ['label' => Yii::t('OrderModule.order', 'Order #') . ' «' . $model->id . '»'],
     [
         'icon' => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('OrderModule.order', 'Редактирование заказа'),
+        'label' => Yii::t('OrderModule.order', 'Update order'),
         'url' => [
             '/order/orderBackend/update',
             'id' => $model->id
@@ -21,7 +21,7 @@ $this->menu = [
     ],
     [
         'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('OrderModule.order', 'Просмотреть заказ'),
+        'label' => Yii::t('OrderModule.order', 'View order'),
         'url' => [
             '/order/orderBackend/view',
             'id' => $model->id
@@ -29,11 +29,11 @@ $this->menu = [
     ],
     [
         'icon' => 'fa fa-fw fa-trash-o',
-        'label' => Yii::t('OrderModule.order', 'Удалить заказ'),
+        'label' => Yii::t('OrderModule.order', 'Delete order'),
         'url' => '#',
         'linkOptions' => [
             'submit' => ['/order/orderBackend/delete', 'id' => $model->id],
-            'confirm' => Yii::t('OrderModule.order', 'Вы уверены, что хотите удалить заказ?'),
+            'confirm' => Yii::t('OrderModule.order', 'Do you really want to remove this order?'),
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'csrf' => true,
         ]
@@ -42,8 +42,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Редактирование') . ' ' . Yii::t('OrderModule.order', 'заказа'); ?>
-        <small>&laquo;№<?php echo $model->id; ?>&raquo;</small>
+        <?php echo Yii::t('OrderModule.order', 'Update order'); ?>
+        <small>&laquo;<?php echo Yii::t('OrderModule.order', '#'); ?><?php echo $model->id; ?>&raquo;</small>
     </h1>
 </div>
 

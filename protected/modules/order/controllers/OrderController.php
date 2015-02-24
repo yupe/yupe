@@ -5,13 +5,13 @@ class OrderController extends \yupe\components\controllers\FrontController
     public function actionView($url = null)
     {
         if (!Yii::app()->getModule('order')->showOrder && !Yii::app()->getUser()->isAuthenticated()) {
-            throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('OrderModule.order', 'Page not found!'));
         }
 
         $model = Order::model()->findByUrl($url);
 
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('OrderModule.order', 'Page not found!'));
         }
 
         $this->render('view', ['model' => $model]);
@@ -36,7 +36,7 @@ class OrderController extends \yupe\components\controllers\FrontController
 
                     Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('OrderModule.order', 'Заказ размещён!')
+                        Yii::t('OrderModule.order', 'The order created')
                     );
 
                     if (Yii::app()->hasModule('cart')) {

@@ -11,9 +11,9 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('DeliveryModule.delivery', 'Поля, отмеченные'); ?>
+    <?php echo Yii::t('DeliveryModule.delivery', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('DeliveryModule.delivery', 'обязательны.'); ?>
+    <?php echo Yii::t('DeliveryModule.delivery', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -91,19 +91,17 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => Yii::t('DeliveryModule.delivery', 'Сохранить и продолжить'),
+        'label' => $model->getIsNewRecord() ? Yii::t('DeliveryModule.delivery', 'Add delivery and continue') : Yii::t('DeliveryModule.delivery', 'Save delivery and continue'),
     ]
-);
-?>
+); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => Yii::t('DeliveryModule.delivery', 'Сохранить и вернуться к списку'),
+        'label' => $model->getIsNewRecord() ? Yii::t('DeliveryModule.delivery', 'Add delivery and close') : Yii::t('DeliveryModule.delivery', 'Save delivery and close'),
     ]
-);
-?>
+); ?>
 
 <?php $this->endWidget(); ?>

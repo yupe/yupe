@@ -1,14 +1,14 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Магазин'),
+    Yii::t('StoreModule.store', 'Store'),
 ];
-$this->pageTitle = Yii::t('StoreModule.store', 'Магазин');
+$this->pageTitle = Yii::t('StoreModule.store', 'Store');
 ?>
 <div class="page-header">
     <h1>
         <?php echo Yii::t(
             'StoreModule.store',
-            'Добро пожаловать в магазин "{app}"!',
+            'Welcome to "{app}" store!',
             ['{app}' => CHtml::encode(Yii::app()->name)]
         ); ?>
 
@@ -16,7 +16,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Магазин');
 </div>
 
 
-<h1><small><?php echo Yii::t('StoreModule.store', 'Управление каталогом'); ?></small></h1>
+<h1><small><?php echo Yii::t('StoreModule.store', 'Catalog manage'); ?></small></h1>
 <div class="shortcuts">
     <?php $navigation = $storeModule->getExtendedNavigation();?>
     <?php foreach ($navigation[0]['items'] as $item): ?>

@@ -70,7 +70,7 @@ class ProductVariant extends \yupe\models\YModel
         if (!$this->attribute_value) {
             $this->addErrors(
                 [
-                    'attribute_value' => Yii::t('StoreModule.product', 'Необходимо указать значение атрибута')
+                    'attribute_value' => Yii::t('StoreModule.product', 'You must specify the attribute value')
                 ]
             );
         }
@@ -92,22 +92,22 @@ class ProductVariant extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.product', 'Id'),
-            'product_id' => Yii::t('StoreModule.product', 'Продукт'),
-            'attribute_id' => Yii::t('StoreModule.product', 'Атрибут'),
-            'attribute_value' => Yii::t('StoreModule.product', 'Значение атрибута'),
-            'type' => Yii::t('StoreModule.product', 'Тип стоимости'),
-            'amount' => Yii::t('StoreModule.product', 'Стоимость'),
-            'sku' => Yii::t('StoreModule.product', 'Артикул'),
-            'position' => Yii::t('StoreModule.product', 'Порядок'),
+            'product_id' => Yii::t('StoreModule.product', 'Product'),
+            'attribute_id' => Yii::t('StoreModule.attr', 'Attribute'),
+            'attribute_value' => Yii::t('StoreModule.product', 'Attribute value'),
+            'type' => Yii::t('StoreModule.product', 'Price type'),
+            'amount' => Yii::t('StoreModule.product', 'Price'),
+            'sku' => Yii::t('StoreModule.product', 'SKU'),
+            'position' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
     public function getTypeList()
     {
         return [
-            self::TYPE_SUM => Yii::t('StoreModule.product', 'Увеличение на сумму'),
-            self::TYPE_PERCENT => Yii::t('StoreModule.product', 'Увеличение на процент'),
-            self::TYPE_BASE_PRICE => Yii::t('StoreModule.product', 'Изменение базой цены'),
+            self::TYPE_SUM => Yii::t('StoreModule.product', 'Increase in the amount of'),
+            self::TYPE_PERCENT => Yii::t('StoreModule.product', 'Increase in %'),
+            self::TYPE_BASE_PRICE => Yii::t('StoreModule.product', 'Changing base rates'),
         ];
     }
 
@@ -116,9 +116,9 @@ class ProductVariant extends \yupe\models\YModel
         $value = "";
         switch ($this->attribute->type) {
             case Attribute::TYPE_CHECKBOX:
-                $value = $this->attribute_value ? Yii::t('StoreModule.product', 'Да') : Yii::t(
-                    'StoreModule.product',
-                    'Нет'
+                $value = $this->attribute_value ? Yii::t('StoreModule.store', 'Yes') : Yii::t(
+                    'StoreModule.store',
+                    'No'
                 );
                 break;
             case Attribute::TYPE_DROPDOWN:
@@ -132,19 +132,19 @@ class ProductVariant extends \yupe\models\YModel
                 case self::TYPE_SUM:
                     $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . ' ' . Yii::t(
                             "StoreModule.product",
-                            'руб. к цене'
+                            'RUB to the price'
                         ) . ')';
                     break;
                 case self::TYPE_PERCENT:
                     $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . Yii::t(
                             "StoreModule.product",
-                            '% к цене'
+                            '% to the price'
                         ) . ')';
                     break;
                 case self::TYPE_BASE_PRICE:
-                    $value .= ' (' . Yii::t("StoreModule.product", 'цена') . ': ' . $this->amount . ' ' . Yii::t(
+                    $value .= ' (' . Yii::t("StoreModule.product", 'price') . ': ' . $this->amount . ' ' . Yii::t(
                             "StoreModule.product",
-                            'руб'
+                            'RUB'
                         ) . '.)';
                     break;
             }

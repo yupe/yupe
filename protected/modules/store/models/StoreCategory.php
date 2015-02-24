@@ -61,7 +61,7 @@ class StoreCategory extends \yupe\models\YModel
             ['status', 'length', 'max' => 11],
             ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
             ['alias', 'length', 'max' => 150],
-            ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Запрещенные символы в поле {attribute}')],
+            ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Bad characters in {attribute} field')],
             ['alias', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['id, parent_id, name, description, sort, short_description, alias, status', 'safe', 'on' => 'search'],
@@ -237,7 +237,7 @@ class StoreCategory extends \yupe\models\YModel
 
     public function getFormattedList($parent_id = null, $level = 0)
     {
-        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id]);
+        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id], ['order' => 'name']);
 
         $list = [];
 

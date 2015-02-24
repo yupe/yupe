@@ -10,11 +10,11 @@
 </script>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Общие"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Склад"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Изображения"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.store", "Атрибуты"); ?></a></li>
-    <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Варианты"); ?></a></li>
+    <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.product", "Stock"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.attr", "Attributes"); ?></a></li>
+    <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Variants"); ?></a></li>
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
 </ul>
 
@@ -35,9 +35,9 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?= Yii::t('StoreModule.store', 'Fields marked with'); ?>
+    <?= Yii::t('StoreModule.store', 'Fields with'); ?>
     <span class="required">*</span>
-    <?= Yii::t('StoreModule.store', 'are required.'); ?>
+    <?= Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
 <?= $form->errorSummary($model); ?>
@@ -85,13 +85,10 @@ $form = $this->beginWidget(
                 'category_id',
                 [
                     'widgetOptions' => [
-                        'data' => CHtml::listData(
-                                StoreCategory::model()->findAll(['order' => 'name DESC']),
-                                'id',
-                                'name'
-                            ),
+                        'data' => StoreCategory::model()->getFormattedList(),
                         'htmlOptions' => [
                             'empty' => '---',
+                            'encode' => false,
                         ],
                     ],
                 ]
@@ -143,7 +140,7 @@ $form = $this->beginWidget(
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <a class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion_price" href="#collapse_price">
-                            <?= Yii::t("StoreModule.store", 'Additional price');?>
+                            <?= Yii::t("StoreModule.product", 'Additional price');?>
                         </a>
                     </div>
                     <div id="collapse_price" class="panel-collapse collapse" style="height: 0px;">
@@ -172,7 +169,7 @@ $form = $this->beginWidget(
         <div class="col-sm-7">
             <div class="form-group">
                 <?= CHtml::label(
-                    Yii::t("StoreModule.store", 'Дополнительные категории'),
+                    Yii::t("StoreModule.category", 'Additional categories'),
                     null,
                     ['class' => 'control-label']
                 ); ?>
@@ -306,7 +303,7 @@ $form = $this->beginWidget(
 <div class="tab-pane" id="images">
     <div class="row form-group">
         <div class="col-sm-2">
-            <?= Yii::t("StoreModule.store", "Изображения"); ?>
+            <?= Yii::t("StoreModule.store", "Image"); ?>
         </div>
         <div class="col-sm-2">
             <button id="button-add-image" type="button" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>
@@ -319,11 +316,11 @@ $form = $this->beginWidget(
             <div class="image-template hidden form-group">
                 <div class="row">
                     <div class="col-sm-3">
-                        <label for=""><?= Yii::t("StoreModule.store", "Файл"); ?></label>
+                        <label for=""><?= Yii::t("StoreModule.store", "File"); ?></label>
                         <input type="file" class="image-file"/>
                     </div>
                     <div class="col-sm-2">
-                        <label for=""><?= Yii::t("StoreModule.store", "Заголовок"); ?></label>
+                        <label for=""><?= Yii::t("StoreModule.store", "Title"); ?></label>
                         <input type="text" class="image-title form-control"/>
                     </div>
                     <div class="col-sm-1" style="padding-top: 24px">
@@ -381,14 +378,14 @@ $form = $this->beginWidget(
 <div class="tab-pane" id="variants">
     <div class="row">
         <div class="col-sm-12 form-group">
-            <label class="control-label" for=""><?= Yii::t("StoreModule.store", "Атрибут"); ?></label>
+            <label class="control-label" for=""><?= Yii::t("StoreModule.attr", "Attribute"); ?></label>
 
             <div class="form-inline">
                 <div class="form-group">
                     <select id="variants-type-attributes" class="form-control"></select>
                     <a href="#" class="btn btn-default" id="add-product-variant"><?= Yii::t(
                             "StoreModule.store",
-                            "Добавить"
+                            "Add"
                         ); ?></a>
                 </div>
             </div>
@@ -400,12 +397,12 @@ $form = $this->beginWidget(
                 <table>
                     <thead>
                     <tr>
-                        <td><?= Yii::t("StoreModule.store", "Атрибут"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Значение"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Тип стоимости"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Стоимость"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Артикул"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Порядок"); ?></td>
+                        <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
+                        <td><?= Yii::t("StoreModule.product", "Price type"); ?></td>
+                        <td><?= Yii::t("StoreModule.product", "Price"); ?></td>
+                        <td><?= Yii::t("StoreModule.product", "SKU"); ?></td>
+                        <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
                         <td></td>
                     </tr>
                     </thead>
@@ -428,8 +425,8 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and continue') : Yii::t(
-                'StoreModule.store',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and continue') : Yii::t(
+                'StoreModule.product',
                 'Save product and continue'
             ),
     ]
@@ -440,8 +437,8 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and close') : Yii::t(
-                'StoreModule.store',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and close') : Yii::t(
+                'StoreModule.product',
                 'Save product and close'
             ),
     ]

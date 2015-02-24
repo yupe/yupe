@@ -13,7 +13,7 @@
                         <a href="<?= $productUrl; ?>"><?= CHtml::encode($data->getName()); ?></a>
                     </h5>
                     <h5 class="price-text-color">
-                        <?= floor($data->getResultPrice()); ?> <i class="fa fa-rub"></i>
+                        <?= $data->getResultPrice(); ?> <i class="fa fa-rub"></i>
                     </h5>
                 </div>
             </div>

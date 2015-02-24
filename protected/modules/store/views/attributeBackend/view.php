@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Атрибуты') => ['index'],
+    Yii::t('StoreModule.attr', 'Attributes') => ['index'],
     $model->name,
 ];
 
-$this->pageTitle = Yii::t('StoreModule.store', 'Атрибуты - просмотр');
+$this->pageTitle = Yii::t('StoreModule.attr', 'Attributes - view');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Управление'), 'url' => ['/store/attributeBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить'), 'url' => ['/store/attributeBackend/create']],
-    ['label' => Yii::t('StoreModule.store', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.attr', 'Manage attributes'), 'url' => ['/store/attributeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.attr', 'Create attribute'), 'url' => ['/store/attributeBackend/create']],
+    ['label' => Yii::t('StoreModule.attr', 'Attribute') . ' «' . mb_substr($model->name, 0, 32) . '»'],
     [
         'icon' => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('StoreModule.store', 'Редактировать'),
+        'label' => Yii::t('StoreModule.attr', 'Update attribute'),
         'url' => [
             '/store/attributeBackend/update',
             'id' => $model->id
@@ -20,7 +20,7 @@ $this->menu = [
     ],
     [
         'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('StoreModule.store', 'Просмотр'),
+        'label' => Yii::t('StoreModule.attr', 'View attribute'),
         'url' => [
             '/store/attributeBackend/view',
             'id' => $model->id
@@ -28,12 +28,12 @@ $this->menu = [
     ],
     [
         'icon' => 'fa fa-fw fa-trash-o',
-        'label' => Yii::t('StoreModule.store', 'Удалить'),
+        'label' => Yii::t('StoreModule.attr', 'Delete attribute'),
         'url' => '#',
         'linkOptions' => [
             'submit' => ['/store/attributeBackend/delete', 'id' => $model->id],
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
-            'confirm' => Yii::t('StoreModule.store', 'Do you really want to remove attribute?'),
+            'confirm' => Yii::t('StoreModule.attr', 'Do you really want to remove attribute?'),
             'csrf' => true,
         ]
     ],
@@ -41,7 +41,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Просмотр атрибута'); ?><br/>
+        <?php echo Yii::t('StoreModule.attr', 'View attribute'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
@@ -61,7 +61,7 @@ $this->menu = [
             ],
             [
                 'name' => 'required',
-                'value' => $model->required ? Yii::t("StoreModule.store", 'Да') : Yii::t("StoreModule.store", 'Нет'),
+                'value' => $model->required ? Yii::t("StoreModule.store", 'Yes') : Yii::t("StoreModule.store", 'No'),
             ],
         ],
     ]
