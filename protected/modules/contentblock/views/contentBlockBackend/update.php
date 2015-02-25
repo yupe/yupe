@@ -13,7 +13,7 @@ $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - e
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks managment'),
         'url'   => ['/contentblock/contentBlockBackend/index']
     ],
     [

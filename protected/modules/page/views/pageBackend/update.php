@@ -10,7 +10,7 @@ $this->pageTitle = Yii::t('PageModule.page', 'Pages - edit');
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('PageModule.page', 'Pages list'),
+        'label' => Yii::t('PageModule.page', 'Pages managment'),
         'url'   => ['/page/pageBackend/index']
     ],
     [
@@ -18,7 +18,7 @@ $this->menu = [
         'label' => Yii::t('PageModule.page', 'Create page'),
         'url'   => ['/page/pageBackend/create']
     ],
-    ['label' => Yii::t('PageModule.page', 'Article') . ' «' . mb_substr($model->title, 0, 32) . '»'],
+    ['label' => Yii::t('PageModule.page', 'Page') . ' «' . mb_substr($model->title, 0, 32) . '»'],
     [
         'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('PageModule.page', 'Edit page'),
