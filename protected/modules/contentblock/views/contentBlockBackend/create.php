@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
-    Yii::t('ContentBlockModule.contentblock', 'Adding new content block'),
+    Yii::t('ContentBlockModule.contentblock', 'Create content block'),
 ];
 
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - add');
@@ -9,12 +9,12 @@ $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - a
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks managment'),
         'url'   => ['/contentblock/contentBlockBackend/index']
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Create content block'),
         'url'   => ['/contentblock/contentBlockBackend/create']
     ],
 ];

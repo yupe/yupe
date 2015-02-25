@@ -26,7 +26,7 @@ $this->menu = [
             ],
             [
                 'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a blog'),
+                'label' => Yii::t('BlogModule.blog', 'Creating blog'),
                 'url'   => ['/blog/blogBackend/create']
             ],
         ]

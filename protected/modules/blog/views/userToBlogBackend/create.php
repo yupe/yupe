@@ -56,7 +56,7 @@ $this->menu = [
             ],
             [
                 'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a member'),
+                'label' => Yii::t('BlogModule.blog', 'Creating member'),
                 'url'   => ['/blog/userToBlogBackend/create']
             ],
         ]

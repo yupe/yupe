@@ -93,7 +93,7 @@ return [
     'Public URL'                                                       => 'Публичный урл',
     'Accepted extensions (separated by comma)'                         => 'Разрешенные расширения (перечислите через запятую)',
     'Edit'                                                             => 'Редактирование',
-    'Edit news article'                                                => 'Редактирование новости',
+    'Edit news article'                                                => 'Редактировать новость',
     'Edit translation in to {lang} language'                           => 'Редактировать перевод на {lang} язык',
     'Save news article and close'                                      => 'Сохранить новость и закрыть',
     'Save news article and continue'                                   => 'Сохранить новость и продолжить',
