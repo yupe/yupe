@@ -150,7 +150,6 @@ return [
             'enableCsrfValidation'   => true,
             'csrfCookie'             => ['httpOnly' => true,],
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => ['backend/AjaxImageUpload', 'backend/AjaxFileUpload'],
             'enableCookieValidation' => true,
             // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ],
