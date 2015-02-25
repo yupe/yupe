@@ -315,6 +315,15 @@ class ConfigManager extends CComponent
                             ? $settings['component']
                             : []
                     ),
+                // Алиасы
+                'aliases' => CMap::mergeArray(
+                    isset($this->_config['aliases'])
+                        ? $this->_config['aliases']
+                        : [],
+                    isset($settings['aliases'])
+                        ? $settings['aliases']
+                        : []
+                ),
                 // Консольные команды:
                 'commandMap' => CMap::mergeArray(
                         isset($this->_config['commandMap'])
