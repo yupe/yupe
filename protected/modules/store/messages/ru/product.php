@@ -8,7 +8,7 @@ return [
     'Changing base rates' => 'Изменение базовой цены',
     'Create product' => 'Добавить товар',
     'Delete product' => 'Удалить товар',
-    'Discount price' => 'Цена со скидкой',
+    'Discount price' => 'Скидка',
     'Discount' => 'Скидка',
     'Discount, %' => 'Скидка, %',
     'Do you really want to remove product?' => 'Вы уверены, что хотите удалить товар?',
