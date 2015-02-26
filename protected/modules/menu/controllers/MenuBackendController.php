@@ -19,7 +19,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Menu.MenuBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Menu.MenuBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Menu.MenuBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuBackend.View']],
             ['deny']

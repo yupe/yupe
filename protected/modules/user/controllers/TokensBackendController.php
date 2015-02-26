@@ -20,7 +20,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['delete'], 'roles' => ['User.TokensBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['User.TokensBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['User.TokensBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['User.TokensBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.TokensBackend.View']],
             ['deny']
@@ -65,7 +64,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
                 );
@@ -98,7 +97,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Record was removed!')
             );

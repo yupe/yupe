@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CouponModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.2';
 
     public function getDependencies()
     {
@@ -21,12 +21,12 @@ class CouponModule extends WebModule
         return [
             [
                 'icon' => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('CouponModule.coupon', 'Список купонов'),
+                'label' => Yii::t('CouponModule.coupon', 'Coupons list'),
                 'url' => ['/coupon/couponBackend/index']
             ],
             [
                 'icon' => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('CouponModule.coupon', 'Добавить купон'),
+                'label' => Yii::t('CouponModule.coupon', 'Create coupon'),
                 'url' => ['/coupon/couponBackend/create']
             ],
 
@@ -50,12 +50,12 @@ class CouponModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('CouponModule.coupon', 'Купоны');
+        return Yii::t('CouponModule.coupon', 'Coupons');
     }
 
     public function getDescription()
     {
-        return Yii::t('CouponModule.coupon', 'Купоны для заказов в интернет-магазине');
+        return Yii::t('CouponModule.coupon', 'Store coupon module');
     }
 
     public function getAuthor()

@@ -8,7 +8,7 @@ $this->pageTitle =  $category->getMetaTile();
 $this->description = $category->getMetaDescription();
 $this->keywords =  $category->getMetaKeywords();
 
-$this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/store/catalog/index']];
+$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
 
 $this->breadcrumbs = array_merge(
     $this->breadcrumbs,
@@ -19,7 +19,7 @@ $this->breadcrumbs = array_merge(
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?php echo Yii::t("StoreModule.catalog", "Товары в категории '{category}'", ['{category}' => CHtml::encode($category->name)]); ?></h2>
+        <h2><?php echo Yii::t('StoreModule.product', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
     </div>
 </div>
 
@@ -29,7 +29,7 @@ $this->breadcrumbs = array_merge(
 <div class="row">
     <div class="col-sm-3">
         <h3>
-            <span><?php echo Yii::t("StoreModule.catalog", "Категории"); ?></span>
+            <span><?php echo Yii::t("StoreModule.category", "Categories"); ?></span>
         </h3>
         <div class="category-tree">
             <?php

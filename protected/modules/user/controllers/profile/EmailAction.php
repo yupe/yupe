@@ -15,7 +15,7 @@ class EmailAction extends CAction
 {
     public function run()
     {
-        $user = $this->controller->user;
+        $user = $this->getController()->user;
         $form = new ProfileEmailForm();
         $module = Yii::app()->getModule('user');
 
@@ -29,7 +29,7 @@ class EmailAction extends CAction
                     // Вернуть старый email на время проверки
                     $user->email = $oldEmail;
                     if (Yii::app()->userManager->changeUserEmail($user, $form->email)) {
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t(
                                 'UserModule.user',
@@ -40,14 +40,14 @@ class EmailAction extends CAction
                 } else {
                     $user->email = $form->email;
                     $user->save();
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('UserModule.user', 'Email was updated.')
                     );
                 }
-                $this->controller->redirect(['/user/profile/profile']);
+                $this->getController()->redirect(['/user/profile/profile']);
             }
         }
-        $this->controller->render('email', ['model' => $form,]);
+        $this->getController()->render('email', ['model' => $form,]);
     }
 }

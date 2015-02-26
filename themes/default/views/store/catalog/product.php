@@ -13,7 +13,7 @@ Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssets
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->getTheme()->getAssetsUrl() . '/js/store.js');
 
 $this->breadcrumbs = array_merge(
-    [Yii::t("StoreModule.catalog", 'Каталог') => ['/store/catalog/index']],
+    [Yii::t("StoreModule.store", 'Catalog') => ['/store/catalog/index']],
     $product->mainCategory ? $product->mainCategory->getBreadcrumbs(true) : [],
     [CHtml::encode($product->name)]
 );
@@ -33,23 +33,29 @@ $this->breadcrumbs = array_merge(
                     <div class="image-preview">
                         <img src="<?= $product->getImageUrl(); ?>" alt="" class="" id="main-image">
                     </div>
-                    <a href="<?= $product->getImageUrl(); ?>">
-                        <img src="<?= $product->getImageUrl(50, 50); ?>"/>
-                    </a>
-                    <?php foreach ($product->getImages() as $key => $image): { ?>
-                        <a href="<?= $image->getImageUrl(); ?>">
-                            <img src="<?= $image->getImageUrl(50, 50); ?>"/>
-                        </a>
-                    <?php } endforeach; ?>
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">
+                            <a href="<?= $product->getImageUrl(); ?>" class="thumbnail">
+                                <img src="<?= $product->getImageUrl(50, 50); ?>"/>
+                            </a>
+                        </div>
+                        <?php foreach ($product->getImages() as $key => $image): { ?>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="<?= $image->getImageUrl(); ?>" class="thumbnail">
+                                    <img src="<?= $image->getImageUrl(50, 50); ?>"/>
+                                </a>
+                            </div>
+                        <?php } endforeach; ?>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-8">
-                <?= $product->isInStock() ? Yii::t("StoreModule.catalog", "В наличии") : Yii::t(
-                    "StoreModule.catalog",
-                    "Нет в наличии"
+                <?= $product->isInStock() ? Yii::t("StoreModule.product", "In stock") : Yii::t(
+                    "StoreModule.product",
+                    "Not in stock"
                 ); ?>
                 <br/>
-                <?= $product->quantity; ?> <?= Yii::t("StoreModule.catalog", "в наличии"); ?>
+                <?= $product->quantity; ?> <?= Yii::t("StoreModule.product", "in stock"); ?>
                 <br/>
                 <br/>
 
@@ -77,10 +83,10 @@ $this->breadcrumbs = array_merge(
                     <?php } endforeach; ?>
                 </div>
                 <br/>
-                <h4><?= Yii::t("StoreModule.catalog", "Описание"); ?></h4>
+                <h4><?= Yii::t("StoreModule.store", "Description"); ?></h4>
                 <?= $product->short_description; ?>
                 <hr>
-                <h4><?= Yii::t("StoreModule.catalog", "Варианты"); ?></h4>
+                <h4><?= Yii::t("StoreModule.store", "Variants"); ?></h4>
 
                 <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
                     <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
@@ -110,24 +116,24 @@ $this->breadcrumbs = array_merge(
                         <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
 
                         <p>
-                            <?= Yii::t("StoreModule.catalog", "Цена"); ?>
-                            : <?= round($product->getBasePrice(), 2); ?> <?= Yii::t("StoreModule.catalog", "руб."); ?>
+                            <?= Yii::t("StoreModule.product", "Price"); ?>
+                            : <?= round($product->getBasePrice(), 2); ?> <?= Yii::t("StoreModule.product", "RUB"); ?>
                         </p>
 
                         <p>
-                            <?= Yii::t("StoreModule.catalog", "Фиксированная цена со скидкой"); ?>
+                            <?= Yii::t("StoreModule.product", "Fix price with discount"); ?>
                             : <?= round($product->getDiscountPrice(), 2); ?>
-                            <?= Yii::t("StoreModule.catalog", "руб."); ?>
+                            <?= Yii::t("StoreModule.product", "RUB"); ?>
                         </p>
 
                         <p>
-                            <?= Yii::t("StoreModule.catalog", "Скидка"); ?>: <?= round($product->discount); ?>%
+                            <?= Yii::t("StoreModule.product", "Discount"); ?>: <?= round($product->discount); ?>%
                         </p>
 
                         <p>
-                            <?= Yii::t("StoreModule.catalog", "Итоговая цена"); ?>: <span
+                            <?= Yii::t("StoreModule.product", "Total price"); ?>: <span
                                 id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <?= Yii::t("StoreModule.catalog", "руб."); ?>
+                            <?= Yii::t("StoreModule.product", "RUB"); ?>
                         </p>
                     </div>
 
@@ -150,8 +156,8 @@ $this->breadcrumbs = array_merge(
                             </div>
                             <div class="col-sm-6">
                                 <button class="btn btn-success pull-left" id="add-product-to-cart"
-                                        data-loading-text="Добавляем">
-                                    <?= Yii::t("StoreModule.cart", "Добавить в корзину"); ?>
+                                        data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">
+                                    <?= Yii::t("StoreModule.store", "Add to cart"); ?>
                                 </button>
                             </div>
                         </div>
@@ -165,11 +171,11 @@ $this->breadcrumbs = array_merge(
 </div>
 <div class="clearfix"></div>
 <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#description" data-toggle="tab"><?= Yii::t("StoreModule.catalog", "Описание"); ?></a>
+    <li class="active"><a href="#description" data-toggle="tab"><?= Yii::t("StoreModule.store", "Description"); ?></a>
     </li>
-    <li><a href="#data" data-toggle="tab"><?= Yii::t("StoreModule.catalog", "Данные"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.catalog", "Характеристики"); ?></a></li>
-    <li><a href="#comments-tab" data-toggle="tab"><?= Yii::t("StoreModule.catalog", "Комментарии"); ?></a></li>
+    <li><a href="#data" data-toggle="tab"><?= Yii::t("StoreModule.store", "Data"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a></li>
+    <li><a href="#comments-tab" data-toggle="tab"><?= Yii::t("StoreModule.store", "Comments"); ?></a></li>
 </ul>
 
 <div class="tab-content">
@@ -182,28 +188,28 @@ $this->breadcrumbs = array_merge(
     <div class="tab-pane" id="attributes">
         <table>
             <tr>
-                <td><b><?= Yii::t("StoreModule.catalog", "Производитель"); ?>:</b></td>
+                <td><b><?= Yii::t("StoreModule.producer", "Producer"); ?>:</b></td>
                 <td><?= CHtml::encode($product->getProducerName()); ?></td>
             </tr>
             <tr>
-                <td><b><?= Yii::t("StoreModule.catalog", "Артикул"); ?>:</b></td>
+                <td><b><?= Yii::t("StoreModule.product", "SKU"); ?>:</b></td>
                 <td><?= CHtml::encode($product->sku); ?></td>
             </tr>
             <tr>
-                <td><b><?= Yii::t("StoreModule.catalog", "Длина"); ?>:</b></td>
-                <td><?= round($product->length, 2); ?> <?= Yii::t("StoreModule.catalog", "м"); ?></td>
+                <td><b><?= Yii::t("StoreModule.product", "Length"); ?>:</b></td>
+                <td><?= round($product->length, 2); ?> <?= Yii::t("StoreModule.product", "m"); ?></td>
             </tr>
             <tr>
-                <td><b><?= Yii::t("StoreModule.catalog", "Ширина"); ?>:</b></td>
-                <td><?= round($product->width, 2); ?> <?= Yii::t("StoreModule.catalog", "м"); ?></td>
+                <td><b><?= Yii::t("StoreModule.product", "Width"); ?>:</b></td>
+                <td><?= round($product->width, 2); ?> <?= Yii::t("StoreModule.product", "m"); ?></td>
             </tr>
             <tr>
-                <td><b><?= Yii::t("StoreModule.catalog", "Высота"); ?>:</b></td>
-                <td><?= round($product->height, 2); ?> <?= Yii::t("StoreModule.catalog", "м"); ?></td>
+                <td><b><?= Yii::t("StoreModule.product", "Height"); ?>:</b></td>
+                <td><?= round($product->height, 2); ?> <?= Yii::t("StoreModule.product", "m"); ?></td>
             </tr>
             <tr>
-                <td><b><?= Yii::t("StoreModule.catalog", "Вес"); ?>:</b></td>
-                <td><?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.catalog", "кг"); ?></td>
+                <td><b><?= Yii::t("StoreModule.product", "Weight"); ?>:</b></td>
+                <td><?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.product", "kg"); ?></td>
             </tr>
         </table>
     </div>

@@ -67,12 +67,12 @@ class ProductRepository extends CComponent
         $criteria->params['status'] = Product::STATUS_ACTIVE;
         $criteria->addSearchCondition('name', $query, true);
 
-        if(null !== $category) {
+        if($category) {
             $criteria->addCondition('category_id = :category');
             $criteria->params[':category'] = (int)$category;
         }
 
-        return $dataProvider = new CActiveDataProvider(
+        return new CActiveDataProvider(
             Product::model(), [
                 'criteria' => $criteria,
                 'pagination' => [

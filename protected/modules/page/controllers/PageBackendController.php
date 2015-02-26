@@ -21,7 +21,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['Page.PageBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Page.PageBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Page.PageBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Page.PageBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Page.PageBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Page.PageBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Page.PageBackend.View']],
             ['deny']

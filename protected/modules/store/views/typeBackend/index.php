@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.type', 'Типы товаров') => ['/store/typeBackend/index'],
-    Yii::t('StoreModule.type', 'Управление'),
+    Yii::t('StoreModule.type', 'Product types') => ['/store/typeBackend/index'],
+    Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.type', 'Типы товаров - управление');
+$this->pageTitle = Yii::t('StoreModule.type', 'Product types - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Управление типами'), 'url' => ['/store/typeBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Добавить тип'), 'url' => ['/store/typeBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Type manage'), 'url' => ['/store/typeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Create type'), 'url' => ['/store/typeBackend/create']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.type', 'Типы товаров'); ?>
-        <small><?php echo Yii::t('StoreModule.type', 'управление'); ?></small>
+        <?php echo Yii::t('StoreModule.type', 'Product types'); ?>
+        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 

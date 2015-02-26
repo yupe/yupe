@@ -7,15 +7,15 @@
 $this->layout = 'product';
 
 $this->breadcrumbs = [
-    Yii::t('StoreModule.store', 'Products') => ['/store/productBackend/index'],
+    Yii::t('StoreModule.product', 'Products') => ['/store/productBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
+$this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Products'); ?>
+        <?php echo Yii::t('StoreModule.product', 'Products'); ?>
         <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
@@ -24,6 +24,10 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
     'yupe\widgets\CustomGridView',
     [
         'id' => 'product-grid',
+        'sortableRows'      => true,
+        'sortableAjaxSave'  => true,
+        'sortableAttribute' => 'position',
+        'sortableAction'    => '/store/productBackend/sortable',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
@@ -57,10 +61,11 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'sku',
                 'editable' => [
+                    'emptytext' => '---',
                     'url' => $this->createUrl('/store/productBackend/inline'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter' => CHtml::activeTextField($model, 'sku', ['class' => 'form-control']),
@@ -68,9 +73,8 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
             [
                 'name'  => 'category_id',
                 'value' => function($data){
-                        return $data->mainCategory->name;
+                        return isset($data->mainCategory) ? $data->mainCategory->name : '---';
                     },
-                'header' => Yii::t('StoreModule.store', 'Категория'),
                 'type' => 'raw',
                 'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
                 'htmlOptions' => ['width' => '220px'],
@@ -85,10 +89,36 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                     'url' => $this->createUrl('/store/productBackend/inline'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter' => CHtml::activeTextField($model, 'price', ['class' => 'form-control']),
+            ],
+            [
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'discount',
+                'editable' => [
+                    'emptytext' => '---',
+                    'url' => $this->createUrl('/store/productBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => [
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'discount', ['class' => 'form-control']),
+            ],
+            [
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'discount_price',
+                'editable' => [
+                    'emptytext' => '---',
+                    'url' => $this->createUrl('/store/productBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => [
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'discount_price', ['class' => 'form-control']),
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
@@ -99,18 +129,6 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Manage products');
                     Product::STATUS_IN_STOCK => ['class' => 'label-success'],
                     Product::STATUS_NOT_IN_STOCK => ['class' => 'label-danger']
                 ],
-            ],
-            [
-                'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name' => 'quantity',
-                'editable' => [
-                    'url' => $this->createUrl('/store/productBackend/inline'),
-                    'mode' => 'inline',
-                    'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ]
-                ],
-                'filter' => CHtml::activeTextField($model, 'quantity', ['class' => 'form-control']),
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',

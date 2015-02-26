@@ -50,7 +50,11 @@ class Delivery extends yupe\models\YModel
             ['name', 'length', 'max' => 255],
             ['description, payment_methods', 'safe'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['id, name, status, position, description, price, free_from, available_from, separate_payment', 'safe', 'on' => 'search'],
+            [
+                'id, name, status, position, description, price, free_from, available_from, separate_payment',
+                'safe',
+                'on' => 'search'
+            ],
         ];
     }
 
@@ -87,15 +91,15 @@ class Delivery extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('DeliveryModule.delivery', 'ID'),
-            'name' => Yii::t('DeliveryModule.delivery', 'Название'),
-            'description' => Yii::t('DeliveryModule.delivery', 'Описание'),
-            'status' => Yii::t('DeliveryModule.delivery', 'Статус'),
-            'position' => Yii::t('DeliveryModule.delivery', 'Позиция'),
-            'price' => Yii::t('DeliveryModule.delivery', 'Стоимость'),
-            'free_from' => Yii::t('DeliveryModule.delivery', 'Бесплатна от'),
-            'available_from' => Yii::t('DeliveryModule.delivery', 'Доступна от'),
-            'separate_payment' => Yii::t('DeliveryModule.delivery', 'Оплачивается отдельно'),
-            'payment_methods' => Yii::t('DeliveryModule.delivery', 'Способы оплаты'),
+            'name' => Yii::t('DeliveryModule.delivery', 'Title'),
+            'description' => Yii::t('DeliveryModule.delivery', 'Description'),
+            'status' => Yii::t('DeliveryModule.delivery', 'Status'),
+            'position' => Yii::t('DeliveryModule.delivery', 'Position'),
+            'price' => Yii::t('DeliveryModule.delivery', 'Price'),
+            'free_from' => Yii::t('DeliveryModule.delivery', 'Free from'),
+            'available_from' => Yii::t('DeliveryModule.delivery', 'Available from'),
+            'separate_payment' => Yii::t('DeliveryModule.delivery', 'Separate payment'),
+            'payment_methods' => Yii::t('DeliveryModule.delivery', 'Payment methods'),
         ];
     }
 
@@ -126,38 +130,16 @@ class Delivery extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_ACTIVE => Yii::t("DeliveryModule.delivery", 'Активен'),
-            self::STATUS_NOT_ACTIVE => Yii::t("DeliveryModule.delivery", 'Неактивен'),
+            self::STATUS_ACTIVE => Yii::t("DeliveryModule.delivery", 'Active'),
+            self::STATUS_NOT_ACTIVE => Yii::t("DeliveryModule.delivery", 'Not active'),
         ];
     }
 
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("DeliveryModule.delivery", '*неизвестен*');
-    }
 
-    public function sort(array $items)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            foreach ($items as $id => $priority) {
-                $model = $this->findByPk($id);
-                if (null === $model) {
-                    continue;
-                }
-                $model->position = (int)$priority;
-
-                if (!$model->update('sort')) {
-                    throw new CDbException('Error sort menu items!');
-                }
-            }
-            $transaction->commit();
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollback();
-            return false;
-        }
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("DeliveryModule.delivery", '*unknown*');
     }
 
     public function afterFind()
@@ -197,12 +179,16 @@ class Delivery extends yupe\models\YModel
     }
 
     /**
-     * @param $total_price float - Сумма заказа
+     * @param $totalPrice float - Сумма заказа
      * @return float
      */
-    public function getCost($total_price)
+    public function getCost($totalPrice)
     {
-        return $this->free_from < $total_price ? 0 : $this->price;
+        if (null === $this->free_from) {
+            return $this->price;
+        }
+
+        return $this->free_from < $totalPrice ? 0 : $this->price;
     }
 
     public function hasPaymentMethods()

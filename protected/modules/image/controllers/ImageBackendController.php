@@ -16,10 +16,9 @@ class ImageBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Image.ImageBackend.Create']],
+            ['allow', 'actions' => ['create','AjaxImageUpload','AjaxImageChoose'], 'roles' => ['Image.ImageBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Image.ImageBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Image.ImageBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Image.ImageBackend.View']],
             ['deny']
@@ -37,6 +36,11 @@ class ImageBackendController extends yupe\components\controllers\BackController
             ],
             'AjaxImageChoose' => [
                 'class' => 'yupe\components\actions\YAjaxImageChooseAction'
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Image',
+                'attribute' => 'sort'
             ]
         ];
     }

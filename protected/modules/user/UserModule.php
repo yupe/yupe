@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.3';
 
     public $accountActivationSuccess = '/user/account/login';
     public $accountActivationFailure = '/user/account/registration';
@@ -38,7 +38,7 @@ class UserModule extends WebModule
     public $avatarsDir = 'avatars';
     public $avatarMaxSize = 10000;
     public $defaultAvatarPath = 'images/avatar.png';
-    public $avatarExtensions = 'jpg,png,gif';
+    public $avatarExtensions = 'jpg,png,gif,jpeg';
     public $usersPerPage = 20;
     public $badLoginCount = 3;
 

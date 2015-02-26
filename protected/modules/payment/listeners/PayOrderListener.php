@@ -15,7 +15,7 @@ class PayOrderListener
         //администратору
         $to = $module->getNotifyTo();
 
-        $body = Yii::app()->getController()->renderPartial('/email/newOrderAdmin', ['order' => $order], true);
+        $body = Yii::app()->getController()->renderPartial('//payment/email/newOrderAdmin', ['order' => $order], true);
 
         foreach ($to as $email) {
             $email = trim($email);
@@ -37,7 +37,7 @@ class PayOrderListener
         //пользователю
         $to = $order->email;
 
-        $body = Yii::app()->getController()->renderPartial('/email/newOrderUser', ['order' => $order], true);
+        $body = Yii::app()->getController()->renderPartial('//payment/email/newOrderUser', ['order' => $order], true);
 
         Yii::app()->mail->send(
             $from,

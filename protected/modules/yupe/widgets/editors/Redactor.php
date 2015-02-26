@@ -50,6 +50,7 @@ class Redactor extends \CInputWidget
     public function getOptions()
     {
         return [
+            'toolbarFixed'            => true,
             'buttonSource'            => true,
             'imageUpload'             => Yii::app()->createUrl('/yupe/backend/AjaxImageUpload'),
             'fileUpload'              => Yii::app()->createUrl('/yupe/backend/AjaxFileUpload'),
@@ -64,6 +65,9 @@ class Redactor extends \CInputWidget
             'toolbarFixedTopOffset'   => 53,
             'lang'                    => strtolower(substr(Yii::app()->language, -2)),
             'minHeight'               => 150,
+            'uploadImageFields' => [
+                Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
+            ]
         ];
     }
 }

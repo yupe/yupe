@@ -81,14 +81,6 @@
             </td>
         </tr>
     <?php endif; ?>
-    <tr>
-        <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
-            Дата
-        </td>
-        <td style="padding:6px; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">
-            <?= Yii::app()->getDateFormatter()->formatDateTime($order->date, "long", "short"); ?>
-        </td>
-    </tr>
 </table>
 
 <h1 style="font-weight:normal;">Покупатель заказал:</h1>

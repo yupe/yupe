@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.3';
 
     public $notifyEmailFrom;
 
@@ -13,6 +13,8 @@ class OrderModule extends WebModule
     public $assetsPath = "order.views.assets";
 
     public $showOrder = 1;
+
+    public $enableCheck = 1;
 
     public function getDependencies()
     {
@@ -24,16 +26,18 @@ class OrderModule extends WebModule
         return [
             'notifyEmailFrom',
             'notifyEmailsTo',
-            'showOrder' => $this->getChoice()
+            'showOrder'   => $this->getChoice(),
+            'enableCheck' => $this->getChoice()
         ];
     }
 
     public function getParamsLabels()
     {
         return [
-            'notifyEmailFrom' => Yii::t('OrderModule.order', 'Email, от имени которого отправлять оповещения'),
-            'notifyEmailsTo' => Yii::t('OrderModule.order', 'Получатели оповещений (через запятую)'),
-            'showOrder'  => Yii::t('OrderModule.order', 'Отображать публичную страницу заказа'),
+            'notifyEmailFrom' => Yii::t('OrderModule.order', 'Notification email'),
+            'notifyEmailsTo'  => Yii::t('OrderModule.order', 'Recipients of notifications (comma separated)'),
+            'showOrder'       => Yii::t('OrderModule.order', 'Public ordering page'),
+            'enableCheck'     => Yii::t('OrderModule.order', 'Allow orders validation by number'),
         ];
     }
 
@@ -41,13 +45,14 @@ class OrderModule extends WebModule
     {
         return [
             '0.main' => [
-                'label' => Yii::t('OrderModule.order', 'Настройки зазказов'),
+                'label' => Yii::t('OrderModule.order', 'Orders settings'),
                 'items' => [
-                    'showOrder'
+                    'showOrder',
+                    'enableCheck'
                 ]
             ],
             '1.notify' => [
-                'label' => Yii::t('OrderModule.order', 'Оповещения'),
+                'label' => Yii::t('OrderModule.order', 'Notifications'),
                 'items' => [
                     'notifyEmailFrom',
                     'notifyEmailsTo',
@@ -64,7 +69,7 @@ class OrderModule extends WebModule
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Заказы'), 'url' => ['/order/orderBackend/index']],
+            ['icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Orders'), 'url' => ['/order/orderBackend/index']],
         ];
     }
 
@@ -80,12 +85,12 @@ class OrderModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('OrderModule.order', 'Заказы');
+        return Yii::t('OrderModule.order', 'Orders');
     }
 
     public function getDescription()
     {
-        return Yii::t('OrderModule.order', 'Модуль для управления заказами');
+        return Yii::t('OrderModule.order', 'Orders manage module');
     }
 
     public function getAuthor()
@@ -114,7 +119,8 @@ class OrderModule extends WebModule
 
         $this->setImport(
             [
-                'order.models.*'
+                'order.models.*',
+                'order.forms.*'
             ]
         );
     }

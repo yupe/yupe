@@ -1,21 +1,21 @@
 <?php
 /* @var $model Export */
 $this->breadcrumbs = [
-    Yii::t('YandexMarketModule.default', 'Экспорт товаров') => ['/yandexmarket/exportBackend/index'],
-    Yii::t('YandexMarketModule.default', 'Управление'),
+    Yii::t('YandexMarketModule.default', 'Products export') => ['/yandexmarket/exportBackend/index'],
+    Yii::t('YandexMarketModule.default', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('YandexMarketModule.default', 'Экспорт товаров - управление');
+$this->pageTitle = Yii::t('YandexMarketModule.default', 'Products export - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Управление экспортом'), 'url' => ['/yandexmarket/exportBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YandexMarketModule.default', 'Добавить выгрузку'), 'url' => ['/yandexmarket/exportBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Manage export lists'), 'url' => ['/yandexmarket/exportBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YandexMarketModule.default', 'Create export list'), 'url' => ['/yandexmarket/exportBackend/create']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('YandexMarketModule.default', 'Выгрузки товаров'); ?>
-        <small><?php echo Yii::t('YandexMarketModule.default', 'управление'); ?></small>
+        <?php echo Yii::t('YandexMarketModule.default', 'Products export'); ?>
+        <small><?php echo Yii::t('YandexMarketModule.default', 'administration'); ?></small>
     </h1>
 </div>
 

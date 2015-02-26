@@ -19,7 +19,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
             ['allow', 'actions' => ['create'], 'roles' => ['Dictionary.DictionaryBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Dictionary.DictionaryBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Dictionary.DictionaryBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Dictionary.DictionaryBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Dictionary.DictionaryBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Dictionary.DictionaryBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Dictionary.DictionaryBackend.View']],
             ['deny']

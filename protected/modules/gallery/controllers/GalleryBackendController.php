@@ -19,7 +19,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Gallery.GalleryBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Gallery.GalleryBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Gallery.GalleryBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Gallery.GalleryBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Gallery.GalleryBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Gallery.GalleryBackend.View']],
             ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
@@ -191,7 +191,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 'criteria' => [
                     'condition' => 't.gallery_id = :gallery_id',
                     'params'    => [':gallery_id' => $gallery->id],
-                    'order'     => 't.creation_date DESC',
+                    'order'     => 'image.sort',
                     'with'      => 'image',
                 ],
             ]

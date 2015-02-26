@@ -36,7 +36,6 @@
 * Composer
 * MySQL 5.x
 * Apaсhe/Nginx
-* Composer
 
 Ссылки
 ------

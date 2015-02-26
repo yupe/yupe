@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var $this ContentBlockBackendController
+ * @var $model ContentBlock
+ */
 $this->breadcrumbs = [
     Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
     Yii::t('ContentBlockModule.contentblock', 'Administration'),
@@ -14,7 +18,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
         'url'   => ['/contentblock/contentBlockBackend/create']
     ],
 ];
@@ -77,10 +81,10 @@ $this->menu = [
                     'url'    => $this->createUrl('/contentblock/contentBlockBackend/inline'),
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'ContentBlockModule.contentblock',
-                            'Select {field}',
-                            ['{field}' => mb_strtolower($model->getAttributeLabel('type'))]
-                        ),
+                        'ContentBlockModule.contentblock',
+                        'Select {field}',
+                        ['{field}' => mb_strtolower($model->getAttributeLabel('type'))]
+                    ),
                     'source' => $model->getTypes(),
                     'params' => [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
@@ -90,11 +94,11 @@ $this->menu = [
                 'type'     => 'raw',
                 'value'    => '$data->getType()',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'type',
-                        $model->getTypes(),
-                        ['class' => 'form-control', 'empty' => '']
-                    ),
+                    $model,
+                    'type',
+                    $model->getTypes(),
+                    ['class' => 'form-control', 'empty' => '']
+                ),
             ],
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -109,9 +113,16 @@ $this->menu = [
                 'filter'   => CHtml::activeTextField($model, 'code', ['class' => 'form-control']),
             ],
             [
-                'name' => 'description',
-                'type' => 'raw',
+                'name'  => 'description',
+                'type'  => 'raw',
                 'value' => '$data->description',
+            ],
+            [
+                'class'                => '\yupe\widgets\ToggleColumn',
+                'name'                 => 'status',
+                'checkedButtonLabel'   => Yii::t('ContentBlockModule.contentblock', 'Turn off'),
+                'uncheckedButtonLabel' => Yii::t('ContentBlockModule.contentblock', 'Turn on'),
+                'filter'               => $model->getStatusList(),
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

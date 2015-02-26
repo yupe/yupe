@@ -20,7 +20,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['Queue.QueueBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Queue.QueueBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Queue.QueueBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Queue.QueueBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Queue.QueueBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Queue.QueueBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Queue.QueueBackend.View']],
             ['deny']

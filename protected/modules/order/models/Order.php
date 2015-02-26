@@ -35,6 +35,7 @@
 Yii::import('application.modules.order.OrderModule');
 Yii::import('application.modules.order.events.OrderEvents');
 Yii::import('application.modules.order.events.PayOrderEvent');
+Yii::import('application.modules.order.events.OrderChangeStatusEvent');
 
 class Order extends yupe\models\YModel
 {
@@ -58,7 +59,8 @@ class Order extends yupe\models\YModel
 
     protected $oldAttributes;
 
-    public $couponCodes = [];
+    protected $couponCodes = [];
+
     private $productsChanged = false; // менялся ли список продуктов в заказе
 
 
@@ -95,7 +97,11 @@ class Order extends yupe\models\YModel
             ['comment, note', 'length', 'max' => 1024],
             //array('payment_details', 'safe'),
             ['url', 'unique'],
-            ['user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status, date, ip, url, modified', 'unsafe', 'on' => self::SCENARIO_USER],
+            [
+                'user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status, date, ip, url, modified',
+                'unsafe',
+                'on' => self::SCENARIO_USER
+            ],
             ['couponCodes', 'safe'], // сюда отправляется массив купонок, которые потом разбираются в beforeSave()
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             [
@@ -144,30 +150,30 @@ class Order extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('OrderModule.order', 'Номер'),
-            'delivery_id' => Yii::t('OrderModule.order', 'Способ доставки'),
-            'delivery_price' => Yii::t('OrderModule.order', 'Стоимость доставки'),
-            'payment_method_id' => Yii::t('OrderModule.order', 'Способ оплаты'),
-            'paid' => Yii::t('OrderModule.order', 'Оплачено'),
-            'payment_date' => Yii::t('OrderModule.order', 'Дата оплаты'),
-            'payment_details' => Yii::t('OrderModule.order', 'Детали платежа'),
-            'total_price' => Yii::t('OrderModule.order', 'Полная стоимость'),
-            'discount' => Yii::t('OrderModule.order', 'Скидка (%)'),
-            'coupon_discount' => Yii::t('OrderModule.order', 'Скидка с купона'),
-            'coupon_code' => Yii::t('OrderModule.order', 'Код купона'),
-            'separate_delivery' => Yii::t('OrderModule.order', 'Доставка оплачивается отдельно'),
-            'status' => Yii::t('OrderModule.order', 'Статус'),
-            'date' => Yii::t('OrderModule.order', 'Дата'),
-            'user_id' => Yii::t('OrderModule.order', 'Пользователь'),
-            'name' => Yii::t('OrderModule.order', 'Клиент'),
-            'address' => Yii::t('OrderModule.order', 'Адрес'),
-            'phone' => Yii::t('OrderModule.order', 'Телефон'),
+            'id' => Yii::t('OrderModule.order', '#'),
+            'delivery_id' => Yii::t('OrderModule.order', 'Delivery'),
+            'delivery_price' => Yii::t('OrderModule.order', 'Delivery price'),
+            'payment_method_id' => Yii::t('OrderModule.order', 'Payment'),
+            'paid' => Yii::t('OrderModule.order', 'Paid'),
+            'payment_date' => Yii::t('OrderModule.order', 'Paid date'),
+            'payment_details' => Yii::t('OrderModule.order', 'Payment details'),
+            'total_price' => Yii::t('OrderModule.order', 'Total price'),
+            'discount' => Yii::t('OrderModule.order', 'Discount (%)'),
+            'coupon_discount' => Yii::t('OrderModule.order', 'Discount coupon'),
+            'coupon_code' => Yii::t('OrderModule.order', 'Coupon code'),
+            'separate_delivery' => Yii::t('OrderModule.order', 'Separate delivery payment'),
+            'status' => Yii::t('OrderModule.order', 'Status'),
+            'date' => Yii::t('OrderModule.order', 'Date'),
+            'user_id' => Yii::t('OrderModule.order', 'User'),
+            'name' => Yii::t('OrderModule.order', 'Client'),
+            'address' => Yii::t('OrderModule.order', 'Address'),
+            'phone' => Yii::t('OrderModule.order', 'Phone'),
             'email' => Yii::t('OrderModule.order', 'Email'),
-            'comment' => Yii::t('OrderModule.order', 'Комментарий'),
+            'comment' => Yii::t('OrderModule.order', 'Comment'),
             'ip' => Yii::t('OrderModule.order', 'IP'),
             'url' => Yii::t('OrderModule.order', 'Url'),
-            'note' => Yii::t('OrderModule.order', 'Примечание'),
-            'modified' => Yii::t('OrderModule.order', 'Дата изменения'),
+            'note' => Yii::t('OrderModule.order', 'Note'),
+            'modified' => Yii::t('OrderModule.order', 'Update date'),
         ];
     }
 
@@ -214,17 +220,18 @@ class Order extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_NEW => Yii::t("OrderModule.order", 'Новый'),
-            self::STATUS_ACCEPTED => Yii::t("OrderModule.order", 'Принят'),
-            self::STATUS_FINISHED => Yii::t("OrderModule.order", 'Выполнен'),
-            self::STATUS_DELETED => Yii::t("OrderModule.order", 'Удален'),
+            self::STATUS_NEW => Yii::t("OrderModule.order", 'New'),
+            self::STATUS_ACCEPTED => Yii::t("OrderModule.order", 'Accepted'),
+            self::STATUS_FINISHED => Yii::t("OrderModule.order", 'Completed'),
+            self::STATUS_DELETED => Yii::t("OrderModule.order", 'Deleted'),
         ];
     }
 
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("OrderModule.order", '*неизвестен*');
+
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("OrderModule.order", '*unknown*');
     }
 
     public function afterFind()
@@ -239,7 +246,7 @@ class Order extends yupe\models\YModel
         if ($this->getScenario() == self::SCENARIO_USER) {
 
             if (!$this->hasProducts) {
-                $this->addError('products', Yii::t('OrderModule.order', 'Не выбрано ни одного продукта'));
+                $this->addError('products', Yii::t('OrderModule.order', 'There are no selected products'));
             }
         }
 
@@ -268,22 +275,28 @@ class Order extends yupe\models\YModel
         return !empty($this->coupon_code);
     }
 
-    public function getCoupons()
+    public function getCouponsCodes()
     {
         return $this->couponCodes;
+    }
+
+    public function setCouponsCodes(array $coupons)
+    {
+        $this->couponCodes = $coupons;
     }
 
     public function getDeliveryCost()
     {
         $cost = $this->delivery_price;
         if ($this->isCouponsAvailable()) {
-            $validCoupons = $this->getValidCoupons($this->couponCodes);
+            $validCoupons = $this->getValidCoupons($this->getCouponsCodes());
             foreach ($validCoupons as $coupon) {
                 if ($coupon->free_shipping) {
                     $cost = 0;
                 }
             }
         }
+
         return $cost;
     }
 
@@ -298,18 +311,22 @@ class Order extends yupe\models\YModel
         if ($this->_validCoupons !== null) {
             return $this->_validCoupons;
         }
+
         $productsTotalPrice = $this->getProductsCost();
+
         $validCoupons = [];
 
         /* @var $coupon Coupon */
         /* проверим купоны на валидность */
         foreach ($codes as $code) {
+
             $coupon = Coupon::model()->getCouponByCode($code);
 
-            if ($coupon && $coupon->getIsAvailable($productsTotalPrice)) {
+            if (null !== $coupon && $coupon->getIsAvailable($productsTotalPrice)) {
                 $validCoupons[] = $coupon;
             }
         }
+
         return $validCoupons;
     }
 
@@ -325,7 +342,6 @@ class Order extends yupe\models\YModel
         /* посчитаем скидку */
         if ($this->isCouponsAvailable()) {
             foreach ($coupons as $coupon) {
-                $validCouponCodes[] = $coupon->code;
                 switch ($coupon->type) {
                     case Coupon::TYPE_SUM:
                         $delta += $coupon->value;
@@ -336,6 +352,7 @@ class Order extends yupe\models\YModel
                 }
             }
         }
+
         return $delta;
     }
 
@@ -358,7 +375,7 @@ class Order extends yupe\models\YModel
 
         if ($this->isCouponsAvailable()) {
             /* количество купонов уменьшаем только при создании записи*/
-            $coupons = $this->getValidCoupons($this->couponCodes);;
+            $coupons = $this->getValidCoupons($this->getCouponsCodes());
             foreach ($coupons as $coupon) {
                 $validCouponCodes[] = $coupon->code;
                 if ($this->getIsNewRecord()) {
@@ -370,6 +387,7 @@ class Order extends yupe\models\YModel
         $this->coupon_code = join(',', $validCouponCodes);
 
         $this->coupon_discount = $this->getCouponDiscount($coupons);
+
         $this->delivery_price = $this->getDeliveryCost();
 
         /* итоговая цена получается из стоимости доставки (если доставка не оплачивается отдельно) + стоимость всех продуктов - скидка по купонам */
@@ -389,15 +407,16 @@ class Order extends yupe\models\YModel
     public function getPaidStatusList()
     {
         return [
-            self::PAID_STATUS_PAID => Yii::t("OrderModule.order", 'Оплачен'),
-            self::PAID_STATUS_NOT_PAID => Yii::t("OrderModule.order", 'Не оплачен'),
+            self::PAID_STATUS_PAID => Yii::t("OrderModule.order", 'Paid'),
+            self::PAID_STATUS_NOT_PAID => Yii::t("OrderModule.order", 'Not paid'),
         ];
     }
 
     public function getPaidStatus()
     {
         $data = $this->getPaidStatusList();
-        return isset($data[$this->paid]) ? $data[$this->paid] : Yii::t("OrderModule.order", '*неизвестен*');
+
+        return isset($data[$this->paid]) ? $data[$this->paid] : Yii::t("OrderModule.order", '*unknown*');
     }
 
 
@@ -427,7 +446,7 @@ class Order extends yupe\models\YModel
                 if (isset($op['product_id'])) {
                     $product = Product::model()->findByPk($op['product_id']);
                 }
-                $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : null;
+                $variantIds = isset($op['variant_ids']) ? $op['variant_ids'] : [];
                 if ($product) {
                     $this->hasProducts = true;
                 }
@@ -499,7 +518,7 @@ class Order extends yupe\models\YModel
 
     public function getTotalPrice()
     {
-        return (float)$this->total_price - ($this->separate_delivery ? 0 : $this->delivery_price);
+        return (float)$this->total_price - (!$this->separate_delivery ? 0 : $this->getDeliveryPrice());
     }
 
     public function getDeliveryPrice()
@@ -541,5 +560,22 @@ class Order extends yupe\models\YModel
     public function findByUrl($url)
     {
         return $this->findByAttributes(['url' => $url]);
+    }
+
+    public function isStatusChanged()
+    {
+        if ($this->oldAttributes['status'] != $this->status) {
+
+            Yii::app()->eventManager->fire(OrderEvents::STATUS_CHANGED, new OrderChangeStatusEvent($this));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function findByNumber($number)
+    {
+        return $this->findByPk($number);
     }
 }

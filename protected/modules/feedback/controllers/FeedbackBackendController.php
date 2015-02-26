@@ -19,7 +19,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['create'], 'roles' => ['Feedback.FeedbackBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Feedback.FeedbackBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Feedback.FeedbackBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Feedback.FeedbackBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Feedback.FeedbackBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Feedback.FeedbackBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Feedback.FeedbackBackend.View']],
             ['allow', 'actions' => ['answer'], 'roles' => ['Feedback.FeedbackBackend.Answer']],

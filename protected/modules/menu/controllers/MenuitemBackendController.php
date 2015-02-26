@@ -19,7 +19,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuitemBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['Menu.MenuitemBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuitemBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Menu.MenuitemBackend.Update']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
             ['deny']
@@ -33,23 +33,13 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'MenuItem',
                 'validAttributes' => ['title', 'href', 'status', 'menu_id', 'sort']
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'MenuItem',
+                'attribute' => 'sort'
             ]
         ];
-    }
-
-    public function actionSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-
-        if (MenuItem::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
     }
 
     /**

@@ -30,9 +30,9 @@ class PeopleController extends \yupe\components\controllers\FrontController
     // Вывод публичной страницы пользователя
     public function actionUserInfo($username)
     {
-        $user = User::model()->findByAttributes(["nick_name" => $username]);
+        $user = User::model()->active()->findByAttributes(["nick_name" => $username]);
 
-        if (!$user) {
+        if (null === $user) {
             throw new CHttpException(404, Yii::t('UserModule.user', 'User was not found'));
         }
 

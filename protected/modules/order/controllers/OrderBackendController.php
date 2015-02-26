@@ -52,7 +52,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('OrderModule.order', 'Запись добавлена!')
+                    Yii::t('OrderModule.order', 'Record created!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -78,14 +78,21 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                if (Yii::app()->getRequest()->getParam('notify_user', false)) {
-                    //@TODO event
-                }
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('OrderModule.order', 'Запись обновлена!')
+                    Yii::t('OrderModule.order', 'Record updated!')
                 );
+
+                // отправить уведомление о смене статуса заказа
+                if (Yii::app()->getRequest()->getParam('notify_user', false)) {
+
+                    Yii::app()->orderNotifyService->sendOrderChangesNotify($model);
+
+                    Yii::app()->getUser()->setFlash(
+                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t('OrderModule.order', 'Record updated! Notification is sent!')
+                    );
+                }
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(['update', 'id' => $model->id]);
@@ -105,7 +112,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('OrderModule.order', 'Запись удалена!')
+                Yii::t('OrderModule.order', 'Record removed!')
             );
 
             if (!isset($_GET['ajax'])) {
@@ -114,7 +121,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(400, Yii::t(
                 'OrderModule.order',
-                'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'
+                'Unknown request. Don\'t repeat it please!'
             ));
         }
     }
@@ -138,7 +145,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $model = Order::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('OrderModule.order', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('OrderModule.order', 'Page not found!'));
         }
 
         return $model;

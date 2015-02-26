@@ -45,7 +45,7 @@ $this->widget(
         'columns'      => [
             [
                 'header' => false,
-                'value'  => 'CHtml::link(CHtml::image($data->getAvatar(90)), array("/user/people/userInfo","username" => $data->nick_name))',
+                'value'  => 'CHtml::link(CHtml::image($data->getAvatar(90), $data->getFullName(), array("width" => 90, "height" => 90)), array("/user/people/userInfo","username" => $data->nick_name))',
                 'type'   => 'html'
             ],
             [

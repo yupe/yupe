@@ -19,12 +19,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
             ['allow', 'actions' => ['delete'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['ContentBlock.ContentblockBackend.Index']],
-            [
-                'allow',
-                'actions' => ['inlineEdit'],
-                'roles'   => ['ContentBlock.ContentblockBackend.Update']
-            ],
-            ['allow', 'actions' => ['update'], 'roles' => ['ContentBlock.ContentblockBackend.Update']],
+            ['allow', 'actions' => ['update', 'toggle', 'inline'], 'roles' => ['ContentBlock.ContentblockBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['ContentBlock.ContentblockBackend.View']],
             ['deny']
         ];
@@ -37,7 +32,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'ContentBlock',
                 'validAttributes' => ['name', 'code', 'type', 'description']
-            ]
+            ],
+            'toggle' => [
+                'class'     => 'booster.actions.TbToggleAction',
+                'modelName' => 'ContentBlock',
+            ],
         ];
     }
 
@@ -53,7 +52,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $model = $this->loadModel($id);
 
         $code = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockWidget\",\n\tarray(\"code\" => \"{$model->code}\"));\n?>";
-        $codeCategory          = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockGroupWidget\",\n\tarray(\"category\" => \"{$model->getCategoryAlias()}\"));\n?>";
+        $codeCategory = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockGroupWidget\",\n\tarray(\"category\" => \"{$model->getCategoryAlias()}\"));\n?>";
 
         $highlighter = new CTextHighlighter();
         $highlighter->language = 'PHP';
@@ -63,8 +62,8 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $this->render(
             'view',
             [
-                'model'   => $model,
-                'example' => $example,
+                'model'           => $model,
+                'example'         => $example,
                 'exampleCategory' => $exampleCategory
             ]
         );

@@ -218,7 +218,7 @@ class BackendController extends yupe\components\controllers\BackController
             }
 
             if ($this->saveParamsSetting($moduleId, $module->getEditableParamsKey())) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'YupeModule.yupe',
@@ -230,7 +230,7 @@ class BackendController extends yupe\components\controllers\BackController
                 );
                 $module->getSettings(true);
             } else {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
@@ -249,13 +249,13 @@ class BackendController extends yupe\components\controllers\BackController
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             if ($this->saveParamsSetting($this->yupe->coreModuleId, ['theme', 'backendTheme'])) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Themes settings saved successfully!')
                 );
                 Yii::app()->getCache()->clear('yupe');
             } else {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
@@ -324,11 +324,14 @@ class BackendController extends yupe\components\controllers\BackController
             }
 
             if ($module->getIsInstalled()) {
+
                 $updates = Yii::app()->migrator->checkForUpdates([$name => $module]);
+
                 if (Yii::app()->getRequest()->getIsPostRequest()) {
+
                     Yii::app()->migrator->updateToLatest($name);
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('YupeModule.yupe', 'Module was updated their migrations!')
                     );
@@ -337,13 +340,13 @@ class BackendController extends yupe\components\controllers\BackController
                     $this->render('modupdate', ['updates' => $updates, 'module' => $module]);
                 }
             } else {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Module doesn\'t installed!')
                 );
             }
         } else {
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('YupeModule.yupe', 'Module name is not set!')
             );

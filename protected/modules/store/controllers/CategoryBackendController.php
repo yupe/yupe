@@ -12,6 +12,11 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                     'status',
                     'alias'
                 ]
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'StoreCategory',
+                'attribute' => 'sort'
             ]
         ];
     }
@@ -215,4 +220,5 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             Yii::app()->end();
         }
     }
+
 }

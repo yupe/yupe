@@ -21,7 +21,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-3">
-        <?php $this->widget('AvatarWidget', ['user' => $user, 'noCache' => true]); ?>
+        <?php $this->widget('AvatarWidget', ['user' => $user, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]]); ?>
     </div>
     <div class="col-xs-9">
         <?php echo $form->checkBoxGroup(
