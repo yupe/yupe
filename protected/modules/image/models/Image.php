@@ -98,6 +98,10 @@ class Image extends yupe\models\YModel
                 'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
             ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort'
+            ]
         ];
     }
 
@@ -177,7 +181,10 @@ class Image extends yupe\models\YModel
             $criteria->together = true;
         }
 
-        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $criteria,
+            'sort' => ['defaultOrder' => 't.sort']
+        ]);
     }
 
     public function beforeValidate()
@@ -188,6 +195,16 @@ class Image extends yupe\models\YModel
         }
 
         return parent::beforeValidate();
+    }
+
+    public function beforeSave()
+    {
+        if ($this->getIsNewRecord()) {
+            $position = Yii::app()->getDb()->createCommand("select max(sort) from {$this->tableName()}")->queryScalar();
+            $this->sort = (int)$position + 1;
+        }
+
+        return parent::beforeSave();
     }
 
     public function getStatusList()
