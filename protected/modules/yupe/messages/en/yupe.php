@@ -321,4 +321,8 @@ return [
     'Mime types'                                                                                                                                                                                                                 => '',
     'Minimum size (in bytes)'                                                                                                                                                                                                    => '',
     'Maximum size (in bytes)'                                                                                                                                                                                                    => '',
+    'Record was updated!'                                                                                                                                                                                                        => '',
+    'Record was created!'                                                                                                                                                                                                        => '',
+    'Record was deleted!'                                                                                                                                                                                                        => '',
+    'Record was not found!'                                                                                                                                                                                                      => '',
 ];

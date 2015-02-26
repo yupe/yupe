@@ -4,6 +4,7 @@
  *
  * @category Actions
  * @package yupe.components.actions
+ * @since 0.9.4
  */
 namespace yupe\components\actions;
 
@@ -94,7 +95,7 @@ class CreateAction extends CAction
 
     protected function getSuccessMessage()
     {
-        return $this->successMessage ?: "{$this->modelClass} was successfully created!";
+        return $this->successMessage ?: Yii::t('YupeModule.yupe', 'Record was created!');
     }
 
     /**

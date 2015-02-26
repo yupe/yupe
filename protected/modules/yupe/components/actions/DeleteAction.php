@@ -4,6 +4,7 @@
  *
  * @category Actions
  * @package yupe.components.actions
+ * @since 0.9.4
  */
 
 namespace yupe\components\actions;
@@ -87,12 +88,12 @@ class DeleteAction extends CAction
 
     protected function getSuccessMessage()
     {
-        return $this->successMessage ?: "{$this->modelClass} was successfully deleted!";
+        return $this->successMessage ?: Yii::t('YupeModule.yupe', 'Record was deleted!');
     }
 
     protected function getErrorMessage()
     {
-        return $this->errorMessage ?: "{$this->modelClass} not found!";
+        return $this->errorMessage ?: Yii::t('YupeModule.yupe', 'Record was not found!');
     }
 
     /**

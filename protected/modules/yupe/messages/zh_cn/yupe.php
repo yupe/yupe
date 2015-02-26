@@ -322,4 +322,8 @@ return [
     'zh'                                                                                                                                                                                                                         => '中文',
     'en'                                                                                                                                                                                                                         => '英语',
     'zh_cn'                                                                                                                                                                                                                      => '简体中文',
+    'Record was updated!'                                                                                                                                                                                                        => '',
+    'Record was created!'                                                                                                                                                                                                        => '',
+    'Record was deleted!'                                                                                                                                                                                                        => '',
+    'Record was not found!'                                                                                                                                                                                                      => '',
 ];
