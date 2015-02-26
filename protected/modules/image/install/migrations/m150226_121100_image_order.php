@@ -6,14 +6,7 @@ class m150226_121100_image_order extends CDbMigration
 	{
         $this->addColumn('{{image_image}}', 'sort', "integer NOT NULL DEFAULT '1'");
 
-        $items = Image::model()->findAll();
-
-        if ($items) {
-            foreach ($items as $item) {
-                $item->sort = $item->id;
-                $item->update('sort');
-            }
-        }
+        Yii::app()->getDb()->createCommand("UPDATE {{image_image}} SET sort = id")->execute();
 	}
 
 	public function safeDown()
