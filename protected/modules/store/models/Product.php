@@ -34,6 +34,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property double $average_price
  * @property double $purchase_price
  * @property double $recommended_price
+ * @property integer $position
  *
  * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true, $options = [])
  *
@@ -212,6 +213,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'purchase_price' => Yii::t('StoreModule.product', 'Purchase price'),
             'average_price' => Yii::t('StoreModule.product', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.product', 'Recommended price'),
+            'position' => Yii::t('StoreModule.product', 'Position')
         ];
     }
 
@@ -285,7 +287,10 @@ class Product extends yupe\models\YModel implements ICommentable
             $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category]);
         }
 
-        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $criteria,
+            'sort' => ['defaultOrder' => 't.position']
+        ]);
     }
 
     public function behaviors()
@@ -320,6 +325,9 @@ class Product extends yupe\models\YModel implements ICommentable
                 //@TODO убрать
                 'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
             ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior'
+            ]
         ];
     }
 

@@ -82,7 +82,7 @@ $this->menu = [
                 'sortableRows' => true,
                 'sortableAjaxSave' => true,
                 'sortableAttribute' => 'position',
-                'sortableAction' => '/store/attributeBackend/groupSortable',
+                'sortableAction' => '/store/attributeBackend/sortable',
                 'actionsButtons' => [
                     'clear' => CHtml::link(
                         Yii::t("StoreModule.store", "Without a group"),

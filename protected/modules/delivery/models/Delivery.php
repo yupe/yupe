@@ -142,31 +142,6 @@ class Delivery extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("DeliveryModule.delivery", '*unknown*');
     }
 
-    public function sort(array $items)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            foreach ($items as $id => $priority) {
-                $model = $this->findByPk($id);
-                if (null === $model) {
-                    continue;
-                }
-                $model->position = (int)$priority;
-
-                if (!$model->update('sort')) {
-                    throw new CDbException('Error sort menu items!');
-                }
-            }
-            $transaction->commit();
-
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollback();
-
-            return false;
-        }
-    }
-
     public function afterFind()
     {
         $this->payment_methods = array_map(

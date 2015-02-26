@@ -102,6 +102,15 @@ class ProductVariant extends \yupe\models\YModel
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior'
+            ]
+        ];
+    }
+
     public function getTypeList()
     {
         return [
@@ -151,15 +160,5 @@ class ProductVariant extends \yupe\models\YModel
         }
 
         return $value;
-    }
-
-    public function beforeSave()
-    {
-        if ($this->getIsNewRecord()) {
-            $position = Yii::app()->getDb()->createCommand("select max(position) from {$this->tableName()}")->queryScalar();
-            $this->position = (int)$position + 1;
-        }
-
-        return parent::beforeSave();
     }
 }

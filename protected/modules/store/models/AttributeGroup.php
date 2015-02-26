@@ -56,6 +56,15 @@ class AttributeGroup extends yupe\models\YModel
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior'
+            ]
+        ];
+    }
+
 
     public function search()
     {
@@ -73,29 +82,6 @@ class AttributeGroup extends yupe\models\YModel
         );
     }
 
-    public function sort(array $items)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            foreach ($items as $id => $priority) {
-                $model = $this->findByPk($id);
-                if (null === $model) {
-                    continue;
-                }
-                $model->position = (int)$priority;
-
-                if (!$model->update('sort')) {
-                    throw new CDbException('Error sort menu items!');
-                }
-            }
-            $transaction->commit();
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollback();
-            return false;
-        }
-    }
-
     public function getFormattedList()
     {
         $groups = $this->findAll(['order' => 'name ASC']);
@@ -104,15 +90,5 @@ class AttributeGroup extends yupe\models\YModel
             $list[$group->id] = $group->name;
         }
         return $list;
-    }
-
-    public function beforeSave()
-    {
-        if ($this->getIsNewRecord()) {
-            $position = Yii::app()->getDb()->createCommand("select max(position) from {$this->tableName()}")->queryScalar();
-            $this->position = (int)$position + 1;
-        }
-
-        return parent::beforeSave();
     }
 }

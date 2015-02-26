@@ -12,6 +12,11 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                     'status',
                     'alias'
                 ]
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'StoreCategory',
+                'attribute' => 'sort'
             ]
         ];
     }
@@ -214,22 +219,6 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-
-    public function actionSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-
-        if (StoreCategory::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
     }
 
 }

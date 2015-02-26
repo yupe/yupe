@@ -111,29 +111,6 @@ class Payment extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("PaymentModule.payment", '*unknown*');
     }
 
-    public function sort(array $items)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            foreach ($items as $id => $priority) {
-                $model = $this->findByPk($id);
-                if (null === $model) {
-                    continue;
-                }
-                $model->position = (int)$priority;
-
-                if (!$model->update('sort')) {
-                    throw new CDbException('Error sort menu items!');
-                }
-            }
-            $transaction->commit();
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollback();
-            return false;
-        }
-    }
-
     public function beforeSave()
     {
         $this->settings = serialize($this->_paymentSettings);

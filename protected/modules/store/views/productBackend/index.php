@@ -24,6 +24,10 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
     'yupe\widgets\CustomGridView',
     [
         'id' => 'product-grid',
+        'sortableRows'      => true,
+        'sortableAjaxSave'  => true,
+        'sortableAttribute' => 'position',
+        'sortableAction'    => '/store/productBackend/sortable',
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,

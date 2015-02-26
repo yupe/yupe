@@ -51,7 +51,11 @@ class StoreCategory extends \yupe\models\YModel
     public function rules()
     {
         return [
-            ['name, description, short_description, alias, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'],
+            [
+                'name, description, short_description, alias, meta_title, meta_keywords, meta_description',
+                'filter',
+                'filter' => 'trim'
+            ],
             ['name, alias', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['name, alias', 'required'],
             ['parent_id, status, sort', 'numerical', 'integerOnly' => true],
@@ -61,7 +65,11 @@ class StoreCategory extends \yupe\models\YModel
             ['status', 'length', 'max' => 11],
             ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
             ['alias', 'length', 'max' => 150],
-            ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Bad characters in {attribute} field')],
+            [
+                'alias',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t('StoreModule.store', 'Bad characters in {attribute} field')
+            ],
             ['alias', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['id, parent_id, name, description, sort, short_description, alias, status', 'safe', 'on' => 'search'],
@@ -98,6 +106,10 @@ class StoreCategory extends \yupe\models\YModel
                 ],
                 'useCache' => true,
             ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort'
+            ]
         ];
     }
 
@@ -221,6 +233,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
@@ -275,14 +288,16 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager(
+                )->urlSuffix;
         }
+
         return $this->_url;
     }
 
     public function getMetaTile()
     {
-        return $this->meta_title ?: $this->name;
+        return $this->meta_title ? : $this->name;
     }
 
     public function getMetaDescription()
@@ -294,45 +309,4 @@ class StoreCategory extends \yupe\models\YModel
     {
         return $this->meta_keywords;
     }
-
-
-    /**
-     * Сортировака пунктов меню
-     * @param array $items
-     * @return bool
-     */
-    public function sort(array $items)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            foreach ($items as $id => $priority) {
-                $model = $this->findByPk($id);
-                if (null === $model) {
-                    continue;
-                }
-                $model->sort = (int)$priority;
-                if (!$model->update('sort')) {
-                    throw new CDbException('Error sort menu items!');
-                }
-            }
-            $transaction->commit();
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollback();
-            return false;
-        }
-    }
-
-
-    public function beforeSave()
-    {
-        if ($this->getIsNewRecord()) {
-            $position = Yii::app()->getDb()->createCommand("select max(sort) from {$this->tableName()}")->queryScalar();
-            $this->sort = (int)$position + 1;
-        }
-
-        return parent::beforeSave();
-    }
-
-
 }

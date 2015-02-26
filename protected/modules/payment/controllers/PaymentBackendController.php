@@ -11,6 +11,10 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
                 'validAttributes' => [
                     'status'
                 ]
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Payment'
             ]
         ];
     }
@@ -139,21 +143,6 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-    public function actionSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-
-        if (Payment::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
     }
 
     public function actionPaymentSystemSettings()
