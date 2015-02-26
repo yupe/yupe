@@ -815,4 +815,15 @@ class Product extends yupe\models\YModel implements ICommentable
             Yii::app()->createAbsoluteUrl('/store/catalog/show', ['name' => $this->alias]) :
             Yii::app()->createUrl('/store/catalog/show', ['name' => $this->alias]);
     }
+
+    public function getCategoriesList()
+    {
+        $categoryList = '<span class="label label-primary">'. (isset($this->mainCategory) ? $this->mainCategory->name : '---') . '</span>';
+
+        foreach ($this->categories as $category) {
+            $categoryList .= '<br>' . $category->name;
+        }
+
+        return $categoryList;
+    }
 }
