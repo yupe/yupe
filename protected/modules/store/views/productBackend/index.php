@@ -73,8 +73,14 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
             [
                 'name'  => 'category_id',
                 'value' => function($data){
-                        return $data->getCategoriesList();
-                    },
+                    $categoryList = '<span class="label label-primary">'. (isset($data->mainCategory) ? $data->mainCategory->name : '---') . '</span>';
+
+                    foreach ($data->categories as $category) {
+                        $categoryList .= '<br>' . $category->name;
+                    }
+
+                    return $categoryList;
+                },
                 'type' => 'raw',
                 'filter' => CHtml::activeDropDownList($model, 'category', StoreCategory::model()->getFormattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
                 'htmlOptions' => ['width' => '220px'],
