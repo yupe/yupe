@@ -14,7 +14,7 @@ $this->pageTitle = Yii::t('CatalogModule.catalog', 'Manage products');
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('CatalogModule.catalog', 'Manage products'),
+        'label' => Yii::t('CatalogModule.catalog', 'Products administration'),
         'url'   => ['/catalog/catalogBackend/index']
     ],
     [
