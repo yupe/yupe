@@ -197,16 +197,6 @@ class Image extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
-    public function beforeSave()
-    {
-        if ($this->getIsNewRecord()) {
-            $position = Yii::app()->getDb()->createCommand("select max(sort) from {$this->tableName()}")->queryScalar();
-            $this->sort = (int)$position + 1;
-        }
-
-        return parent::beforeSave();
-    }
-
     public function getStatusList()
     {
         return [
