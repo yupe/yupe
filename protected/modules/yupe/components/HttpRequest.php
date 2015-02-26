@@ -14,6 +14,7 @@
 namespace yupe\components;
 
 use CHttpRequest;
+use CHttpException;
 use Yii;
 
 /**
@@ -33,7 +34,12 @@ class HttpRequest extends CHttpRequest
 
         if ($this->enableCsrfValidation && !empty($this->noCsrfValidationRoutes)) {
             // for fixing csrf validation disabling
-            $url = Yii::app()->getUrlManager()->parseUrl($this);
+
+            try {
+                $url = Yii::app()->getUrlManager()->parseUrl($this);
+            } catch (CHttpException $e) {
+                return false;
+            }
 
             foreach ($this->noCsrfValidationRoutes as $route) {
                 if (strpos($url, trim($route, '/')) === 0) {
