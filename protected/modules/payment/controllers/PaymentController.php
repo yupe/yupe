@@ -11,7 +11,7 @@ class PaymentController extends \yupe\components\controllers\FrontController
             if ($paymentSystem) {
                 $paymentSystem->processCheckout($payment, Yii::app()->getRequest());
             }
-        }else{
+        } else {
             throw new CHttpException(404);
         }
     }
