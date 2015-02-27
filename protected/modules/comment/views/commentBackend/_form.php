@@ -43,7 +43,7 @@ $form = $this->beginWidget(
     </div>
 </div>
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-12">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),

@@ -17,6 +17,14 @@ return [
                 'limit' => 5
             ]
         ],
+        'visualEditors' => [
+            'redactor' => [
+                'class' => 'yupe\widgets\editors\Redactor',
+            ],
+            'textarea' => [
+                'class' => 'yupe\widgets\editors\Textarea',
+            ],
+        ],
     ],
     'import'    => [
         'application.modules.comment.models.*',
@@ -42,12 +50,7 @@ return [
                     ['NewCommentListener', 'onAfterSaveComment']
                 ]
             ]
-        ],
-        'decoda' => [
-            'class' => 'vendor.fantgeass.yiidecoda.YiiDecoda',
-            'vendorPath' => 'vendor.fantgeass.yiidecoda.vendors.decoda',
-            'defaults' => true,
-        ],
+        ]
     ],
     'rules'     => [
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',

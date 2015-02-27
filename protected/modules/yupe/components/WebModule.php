@@ -84,6 +84,15 @@ abstract class WebModule extends CWebModule
     private $visualEditor = null;
 
     /**
+     * @var array - массив редакторов
+     */
+    public $visualEditors = [
+        'redactor' => [
+            'class' => 'yupe\widgets\editors\RedactorEditor',
+        ],
+    ];
+
+    /**
      * @var bool | string
      *
      * Имя модели, которая является профилем пользователя для конкретного модуля
@@ -1144,7 +1153,7 @@ abstract class WebModule extends CWebModule
         if ($this->visualEditor === null) {
             $yupe = Yii::app()->getModule('yupe');
             $editor = $this->editor ?: $yupe->editor;
-            $this->visualEditor = $this->visualEditors[$editor]['class'] ?: $yupe->visualEditors[$editor]['class'];
+            $this->visualEditor = $yupe->visualEditors[$editor]['class'];
         }
         return $this->visualEditor;
     }

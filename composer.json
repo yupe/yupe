@@ -60,8 +60,7 @@
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
         "guzzlehttp/guzzle": "5.0.*",
-        "brussens/wysibb-yii": "dev-master",
-        "fantgeass/yiidecoda": "dev-master"
+        "brussens/wysibb-yii": "dev-master"
     },
     "repositories": {
         "taggable": {
@@ -96,18 +95,6 @@
                 "source": {
                     "type": "git",
                     "url": "https://github.com/brussens/wysibb-yii",
-                    "reference": "master"
-                }
-            }
-        },
-        "yiidecoda": {
-            "type": "package",
-            "package": {
-                "name": "fantgeass/yiidecoda",
-                "version": "master",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/fantgeass/yiidecoda",
                     "reference": "master"
                 }
             }

@@ -129,12 +129,6 @@ class YupeModule extends WebModule
      */
     protected $backEndFilters = [['yupe\filters\YBackAccessControl - error']];
 
-    public $visualEditors = [
-        'redactor' => [
-            'class' => 'yupe\widgets\editors\RedactorEditor',
-        ],
-    ];
-
     /**
      * @return array
      * @since 0.8
