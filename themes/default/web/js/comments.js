@@ -48,7 +48,7 @@ $(document).ready(function () {
             }
             if(response.result) {
                 $('#Comment_text').val('');
-                $('div.wysibb-text-editor.wysibb-body').html('');
+                $('div.redactor-editor').html('');
             }
 
             if ($container.attr('id') != 'comments') {

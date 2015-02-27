@@ -126,7 +126,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $(document).on('click', '#Comment_text, div.wysibb-text-editor.wysibb-body', function(){
+        $(document).on('click', '#Comment_text, div.redactor-editor', function(){
             $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
         })
     });
