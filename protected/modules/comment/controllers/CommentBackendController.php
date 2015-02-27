@@ -211,18 +211,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->ajax->success();
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
-
-        try {
-            $items = array_filter($items, 'intval');
-            $models = Comment::model()->findAllByPk($items);
-            $count = 0;
-
-            foreach ($models as $model) {
-                $count += (int)$model->deleteNode();
-            }
-
-            $transaction->commit();
+        if ($count = Comment::model()->multiDelete($items)) {
             Yii::app()->ajax->success(
                 Yii::t(
                     'YupeModule.yupe',
@@ -232,10 +221,10 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                     ]
                 )
             );
-        } catch (Exception $e) {
-            $transaction->rollback();
-            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            Yii::app()->ajax->failure($e->getMessage());
+        } else {
+            Yii::app()->ajax->failure(
+                Yii::t('YupeModule.yupe', 'There was an error when processing the request')
+            );
         }
     }
 

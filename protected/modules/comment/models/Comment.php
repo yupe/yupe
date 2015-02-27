@@ -438,4 +438,26 @@ class Comment extends yupe\models\YModel
     {
         return $this->cache((int)$cache)->findByPk($this->parent_id);
     }
+
+    public function multiDelete(array $items)
+    {
+        $count = 0;
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try {
+            $items = array_filter($items, 'intval');
+            $models = $this->findAllByPk($items);
+
+            foreach ($models as $model) {
+                $count += (int)$model->deleteNode();
+            }
+            $transaction->commit();
+
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+        }
+
+        return $count;
+    }
 }
