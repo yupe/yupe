@@ -46,7 +46,12 @@ $form = $this->beginWidget(
                 [
                     'widgetOptions' => [
                         'data'        => $model->galleryList(),
-                        'htmlOptions' => ['empty' => Yii::t('ImageModule.image', '--choose--')],
+                        'htmlOptions' => [
+                            'empty' => Yii::t('ImageModule.image', '--choose--'),
+                            'options' => [
+                                $model->gallery ? $model->gallery->id : 0 => ['selected' => true]
+                            ]
+                        ],
                     ],
                 ]
             ); ?>
