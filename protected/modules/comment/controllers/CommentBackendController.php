@@ -199,6 +199,46 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         $this->render('index', ['model' => $model]);
     }
 
+    public function actionMultiaction()
+    {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        $items = Yii::app()->getRequest()->getPost('items');
+
+        if (!is_array($items) || empty($items)) {
+            Yii::app()->ajax->success();
+        }
+
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try {
+            $items = array_filter($items, 'intval');
+            $models = Comment::model()->findAllByPk($items);
+            $count = 0;
+
+            foreach ($models as $model) {
+                $count += (int)$model->deleteNode();
+            }
+
+            $transaction->commit();
+            Yii::app()->ajax->success(
+                Yii::t(
+                    'YupeModule.yupe',
+                    'Removed {count} records!',
+                    [
+                        '{count}' => $count
+                    ]
+                )
+            );
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            Yii::app()->ajax->failure($e->getMessage());
+        }
+    }
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.

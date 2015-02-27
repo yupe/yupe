@@ -438,14 +438,4 @@ class Comment extends yupe\models\YModel
     {
         return $this->cache((int)$cache)->findByPk($this->parent_id);
     }
-
-    /**
-     * Удаляем напрямую через NestedSetBehavior, вместо CActiveRecord
-     *
-     * @return bool
-     */
-    public function delete()
-    {
-        return $this->NestedSetBehavior->delete();
-    }
 }
