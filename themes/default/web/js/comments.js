@@ -37,7 +37,7 @@ $(document).ready(function () {
             $('#notifications').notify({ message: { text: 'Комментарий пуст =(' }, 'type': 'danger' }).show();
             return false;
         }
-        console.log($form.serialize());
+
         $.post($form.attr('action'), $form.serialize(), function (response) {
             var type = response.result ? 'success' : 'danger';
             $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();

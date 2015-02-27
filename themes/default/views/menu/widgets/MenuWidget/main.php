@@ -4,26 +4,26 @@ $this->widget(
     'bootstrap.widgets.TbNavbar',
     [
         'collapse' => true,
-        'brand'    => CHtml::image(
-                Yii::app()->getTheme()->getAssetsUrl() . '/images/logo.png',
-                Yii::app()->name,
-                [
-                    'width'  => '38',
-                    'height' => '38',
-                    'title'  => Yii::app()->name,
-                ]
-            ),
-        'brandUrl' => '/',
-        'items'    => [
+        'brand' => CHtml::image(
+            Yii::app()->getTheme()->getAssetsUrl() . '/images/logo.png',
+            Yii::app()->name,
+            [
+                'width' => '38',
+                'height' => '38',
+                'title' => Yii::app()->name,
+            ]
+        ),
+        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/homepage/hp/index'] : ['site/index'],
+        'items' => [
             [
                 'class' => 'YMenu',
-                'type'  => 'navbar',
+                'type' => 'navbar',
                 'items' => $this->params['items'],
             ],
             [
-                'class'       => 'bootstrap.widgets.TbMenu',
-                'type'        => 'navbar',
-                'items'       => $this->controller->yupe->getLanguageSelectorArray(),
+                'class' => 'bootstrap.widgets.TbMenu',
+                'type' => 'navbar',
+                'items' => $this->controller->yupe->getLanguageSelectorArray(),
                 'htmlOptions' => [
                     'class' => 'pull-right',
                 ],
