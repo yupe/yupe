@@ -36,6 +36,8 @@
  */
 class MenuItem extends yupe\models\YModel
 {
+    public $regular_link = true;
+
     const STATUS_DISABLED = 0;
     const STATUS_ACTIVE = 1;
 
