@@ -115,12 +115,8 @@ return [
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => [
             'class' => 'yupe\components\urlManager\LangUrlManager',
-            //comment this if if multilingual unnecessary
-            //'class'          => 'CUrlManager', // default yii UrlManager
             'languageInPath' => true,
-            //comment this if if multilingual unnecessary
             'langParam' => 'language',
-            //comment this if if multilingual unnecessary
             'urlFormat' => 'path',
             'showScriptName' => false,
             // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
