@@ -84,6 +84,15 @@ abstract class WebModule extends CWebModule
     private $visualEditor = null;
 
     /**
+     * @var array - массив редакторов
+     */
+    public $visualEditors = [
+        'redactor' => [
+            'class' => 'yupe\widgets\editors\RedactorEditor',
+        ],
+    ];
+
+    /**
      * @var bool | string
      *
      * Имя модели, которая является профилем пользователя для конкретного модуля
@@ -1147,5 +1156,16 @@ abstract class WebModule extends CWebModule
             $this->visualEditor = $yupe->visualEditors[$editor]['class'];
         }
         return $this->visualEditor;
+    }
+
+    /**
+     * Метод возвращает список доступных для использования в панели управления визуальных редакторов
+     *
+     * @since 0.4
+     * @return array
+     */
+    public function getEditors()
+    {
+        return array_combine(array_keys($this->visualEditors), array_keys($this->visualEditors));
     }
 }

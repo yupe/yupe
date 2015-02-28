@@ -129,12 +129,6 @@ class YupeModule extends WebModule
      */
     protected $backEndFilters = [['yupe\filters\YBackAccessControl - error']];
 
-    public $visualEditors = [
-        'redactor' => [
-            'class' => 'yupe\widgets\editors\RedactorEditor',
-        ],
-    ];
-
     /**
      * @return array
      * @since 0.8
@@ -663,17 +657,6 @@ class YupeModule extends WebModule
         } else {
             return 'application.modules.yupe.views.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
         }
-    }
-
-    /**
-     * Метод возвращает список доступных для использования в панели управления визуальных редакторов
-     *
-     * @since 0.4
-     * @return array
-     */
-    public function getEditors()
-    {
-        return array_combine(array_keys($this->visualEditors), array_keys($this->visualEditors));
     }
 
     /**

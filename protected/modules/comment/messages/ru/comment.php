@@ -124,5 +124,6 @@ return [
     'Removing comment'                                            => 'Удаление комментария',
     'List of comments'                                            => 'Просмотр списка комментариев',
     'Editing comments'                                            => 'Редактирование комментариев',
-    'Viewing comments'                                            => 'Просмотр комментариев'
+    'Viewing comments'                                            => 'Просмотр комментариев',
+    'Remove tags in the derivation comment using strip_tags() ?'  => 'Удалять теги при выводе комментария, используя strip_tags() ?'
 ];
