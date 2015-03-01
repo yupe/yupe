@@ -48,6 +48,8 @@ $(document).ready(function () {
             }
             if(response.result) {
                 $('#Comment_text').val('');
+            } else {
+                $('#captcha-refresh').trigger('click');
             }
 
             if ($container.attr('id') != 'comments') {

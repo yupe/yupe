@@ -10,6 +10,7 @@
             'action'      => Yii::app()->createUrl('/comment/add/'),
             'id'          => 'comment-form',
             'type'        => 'vertical',
+            'enableAjaxValidation' => true,
             'htmlOptions' => [
                 'class' => 'well',
             ]
@@ -73,6 +74,7 @@
                             ],
                             'buttonOptions'     => [
                                 'class' => 'btn btn-info',
+                                'id' => 'captcha-refresh'
                             ],
                             'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
                             'captchaAction'     => '/comment/comment/captcha'
@@ -115,7 +117,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $(document).on('click', '#Comment_text', function(){
+        $(document).on('focus', '#Comment_text', function(){
            $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
         })
     });
