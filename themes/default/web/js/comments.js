@@ -50,6 +50,8 @@ $(document).ready(function () {
                 $('#Comment_text').val('');
             }
 
+            $('#captcha-refresh').trigger('click');
+
             if ($container.attr('id') != 'comments') {
                 $container.after(response.data.commentContent);
             } else {
