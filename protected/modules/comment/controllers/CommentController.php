@@ -50,7 +50,6 @@ class CommentController extends \yupe\components\controllers\FrontController
             'captcha' => [
                 'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
-                'testLimit' => 0
             ],
         ];
     }
