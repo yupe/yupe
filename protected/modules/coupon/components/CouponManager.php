@@ -33,7 +33,7 @@ class CouponManager extends CComponent
     {
         $code = strtoupper($code);
         if (in_array($code, $this->coupons)) {
-            return [Yii::t("CouponManager.coupon", 'Купон уже добавлен')];
+            return [Yii::t("CouponManager.coupon", 'Coupon already added')];
         }
         /* @var $coupon Coupon */
         $coupon = Coupon::model()->getCouponByCode($code);
@@ -47,7 +47,7 @@ class CouponManager extends CComponent
                 return $coupon->getCouponErrors($price);
             }
         } else {
-            return [Yii::t("CouponManager.coupon", 'Купон не найден')];
+            return [Yii::t("CouponManager.coupon", 'Coupon not found')];
         }
     }
 

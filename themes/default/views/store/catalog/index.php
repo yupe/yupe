@@ -6,13 +6,13 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
 
-$this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/store/catalog/index']];
+$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
 
 ?>
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?= Yii::t("StoreModule.catalog", "Каталог продукции"); ?></h2>
+        <h2><?= Yii::t("StoreModule.product", "Product catalog"); ?></h2>
     </div>
 </div>
 
@@ -22,7 +22,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/stor
 <div class="row">
     <div class="col-sm-3">
         <h3>
-            <span><?= Yii::t("StoreModule.catalog", "Категории"); ?></span>
+            <span><?= Yii::t("StoreModule.category", "Categories"); ?></span>
         </h3>
         <div class="category-tree">
             <?php

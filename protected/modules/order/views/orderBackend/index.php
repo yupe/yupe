@@ -2,21 +2,21 @@
 Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
 
 $this->breadcrumbs = [
-    Yii::t('OrderModule.order', 'Заказы') => ['/order/orderBackend/index'],
-    Yii::t('OrderModule.order', 'Управление'),
+    Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
+    Yii::t('OrderModule.order', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Заказы - управление');
+$this->pageTitle = Yii::t('OrderModule.order', 'Orders - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Управление заказами'), 'url' => ['/order/orderBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Добавить заказ'), 'url' => ['/order/orderBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage orders'), 'url' => ['/order/orderBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create order'), 'url' => ['/order/orderBackend/create']],
 ];
 ?>
 <div class="">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Заказы'); ?>
-        <small><?php echo Yii::t('OrderModule.order', 'управление'); ?></small>
+        <?php echo Yii::t('OrderModule.order', 'Orders'); ?>
+        <small><?php echo Yii::t('OrderModule.order', 'manage'); ?></small>
     </h1>
 </div>
 
@@ -35,7 +35,7 @@ $this->widget(
                 'name' => 'id',
                 'htmlOptions' => ['width' => '90px'],
                 'type' => 'raw',
-                'value' => 'CHtml::link("Заказ №".$data->id, array("/order/orderBackend/update", "id" => $data->id))',
+                'value' => 'CHtml::link(Yii::t("OrderModule.order", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id))',
             ],
             [
                 'name' => 'date'

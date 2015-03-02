@@ -6,7 +6,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
 
-$this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/store/catalog/index']];
+$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
 
 ?>
 
@@ -15,9 +15,9 @@ $this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/stor
     <div class="col-xs-12">
         <h2>
             <?php if($category):?>
-                <?= Yii::t("StoreModule.catalog", "Поиск в категории '{category}'", ['{category}' => $category->name]); ?>
+                <?= Yii::t('StoreModule.catalog', 'Search in category "{category}"', ['{category}' => $category->name]); ?>
             <?php else:?>
-                <?= Yii::t("StoreModule.catalog", "Поиск"); ?>
+                <?= Yii::t("StoreModule.store", "Search"); ?>
             <?php endif;?>
         </h2>
     </div>
@@ -29,7 +29,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.catalog", "Каталог") => ['/stor
 <div class="row">
     <div class="col-sm-3">
         <h3>
-            <span><?= Yii::t("StoreModule.catalog", "Категории"); ?></span>
+            <span><?= Yii::t("StoreModule.category", "Categories"); ?></span>
         </h3>
         <div class="category-tree">
             <?php

@@ -1,24 +1,24 @@
 <?php
 
 return [
-    'module' => [
+    'module'    => [
         'class' => 'application.modules.payment.PaymentModule',
     ],
-    'import' => [
+    'import'    => [
         'application.modules.payment.models.*',
         'application.modules.payment.components.*',
     ],
     'component' => [
-        'request' => [
+        'request'        => [
             'noCsrfValidationRoutes' => [
-                'payment/process',
+                '/payment/payment/process',
             ],
         ],
         'paymentManager' => [
             'class' => 'application.modules.payment.components.PaymentManager'
         ],
     ],
-    'rules' => [
+    'rules'     => [
         '/payment/process/<id:\w+>' => 'payment/payment/process',
     ],
 ];

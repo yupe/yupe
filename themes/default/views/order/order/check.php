@@ -4,7 +4,7 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Проверка заказа');
+$this->pageTitle = Yii::t('OrderModule.order', 'Check order');
 ?>
 
 
@@ -26,13 +26,13 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Проверка заказа');
 <?php if($order):?>
 
     <div class="alert alert-success">
-        Статус заказа: <strong><?= $order->getStatusTitle();?></strong>
+        <?php echo Yii::t('OrderModule.order', 'Status') ?>: <strong><?= $order->getStatusTitle();?></strong>
     </div>
 
 <?php elseif(!$model->hasErrors()): ?>
 
     <div class="alert alert-danger">
-        Заказ не найден!
+        <?php echo Yii::t('OrderModule.order', 'Order not found!') ?>
     </div>
 
 <?php endif;?>
@@ -52,7 +52,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Проверка заказа');
                 'buttonType'  => 'submit',
                 'context'     => 'primary',
                 'icon'        => 'glyphicon glyphicon-signin',
-                'label'       => 'Проверить'
+                'label'       => Yii::t('OrderModule.order', 'Check')
             ]
         ); ?>
 

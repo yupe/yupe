@@ -29,7 +29,7 @@ class OrderNotifyService extends CApplicationComponent
 
         $theme = Yii::t(
             'OrderModule.order',
-            'Новый заказ №{n} в магазине {site}',
+            'New order #{n} in {site} store',
             ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
         );
 
@@ -48,7 +48,7 @@ class OrderNotifyService extends CApplicationComponent
     {
         $theme = Yii::t(
             'OrderModule.order',
-            'Новый заказ №{n} в магазине {site}',
+            'New order #{n} in {site} store',
             ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
         );
 
@@ -63,7 +63,7 @@ class OrderNotifyService extends CApplicationComponent
     {
         $theme = Yii::t(
             'OrderModule.order',
-            'Изменение заказа №{n} в магазине {site}',
+            'Order #{n} in {site} store is changed',
             ['{n}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]
         );
 

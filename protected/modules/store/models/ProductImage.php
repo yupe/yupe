@@ -78,7 +78,7 @@ class ProductImage extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'title' => Yii::t('StoreModule.product', 'Заголовок'),
+            'title' => Yii::t('StoreModule.store', 'Title'),
         ];
     }
 
@@ -88,7 +88,7 @@ class ProductImage extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'title' => Yii::t('StoreModule.product', 'Заголовок'),
+            'title' => Yii::t('StoreModule.store', 'Title'),
         ];
     }
 }

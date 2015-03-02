@@ -26,7 +26,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YandexMarketModule.default', 'Выгрузка товаров создана.')
+                    Yii::t('YandexMarketModule.default', 'Record was created!')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['create']));
@@ -48,7 +48,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YandexMarketModule.default', 'Выгрузка товаров обновлена.')
+                    Yii::t('YandexMarketModule.default', 'Record was updated!')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['update', 'id' => $model->id,]));
@@ -78,7 +78,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('YandexMarketModule.default', 'Bad request. Please don\'t use similar requests anymore')
+                Yii::t('YandexMarketModule.default', 'Unknown request. Don\'t repeat it please!')
             );
         }
     }
@@ -105,7 +105,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
     {
         $model = Export::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('YandexMarketModule.default', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('YandexMarketModule.default', 'Page not found!'));
         }
         return $model;
     }
