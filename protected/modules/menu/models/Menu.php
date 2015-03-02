@@ -224,7 +224,7 @@ class Menu extends yupe\models\YModel
                         $url = ['url' => (array)$url + $param, 'items' => $childItems];
                     } else {
                         // если обычная ссылка
-                        $url = ['url' => $result->href, 'items' => $childItems];
+                        $url = ['url' => ($result->href === '/' ? Yii::app()->getHomeUrl() : trim($result->href, '/')), 'items' => $childItems];
                     }
                 } elseif ($childItems) {
                     $url = ['url' => ['#'], 'items' => $childItems];
