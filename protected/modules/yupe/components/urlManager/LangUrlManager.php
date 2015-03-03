@@ -114,7 +114,7 @@ class LangUrlManager extends CUrlManager
                 unset($params[$this->langParam]);
             } else {
                 if (trim($route, '/') == "") {;
-                    return Yii::app()->getHomeUrl() . $params[$this->langParam];
+                    return '/' . $params[$this->langParam];
                 }
             }
         }
