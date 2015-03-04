@@ -71,11 +71,6 @@ class CommentController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') == 'comment-form') {
-            echo CActiveForm::validate(new Comment());
-            Yii::app()->end();
-        }
-
         try {
 
             $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());

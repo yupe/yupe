@@ -29,6 +29,7 @@ class CommentModule extends WebModule
     public $allowedTags;
     public $allowGuestComment = 0;
     public $stripTags = 1;
+    public $assetsPath = "application.modules.comment.views.assets";
 
     /**
      * @var string - id редактора

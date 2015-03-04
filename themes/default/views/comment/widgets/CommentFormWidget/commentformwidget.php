@@ -1,3 +1,14 @@
+<?php
+Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('comment')->getAssetsUrl().'/js/comments.js');
+Yii::app()->clientScript->registerScript(
+    'spam-field',
+    "$(document).ready(function(){
+        $(document).on('focus', '#Comment_text, div.redactor-editor', function(){
+            $('#$spamField').val('$spamFieldValue');
+        })
+    });"
+); ?>
+
 <a href='#' id='wcml' style="display: none;"><?php echo Yii::t("CommentModule.comment", 'WRITE COMMENT'); ?></a>
 
 <div id='comment-form-wrap' class='comment-form-wrap'>
@@ -123,11 +134,3 @@
     </div>
     <?php $this->endWidget(); ?>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(document).on('click', '#Comment_text, div.redactor-editor', function(){
-            $('#<?= $spamField; ?>').val('<?= $spamFieldValue; ?>');
-        })
-    });
-</script>
