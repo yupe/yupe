@@ -9,8 +9,8 @@ Yii::app()->getClientScript()->registerCssFile(
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('CartModule.cart', 'Корзина');
-$this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
+$this->pageTitle = Yii::t('CartModule.cart', 'Cart');
+$this->breadcrumbs = [Yii::t("CartModule.cart", 'Cart')];
 ?>
 
 
@@ -23,8 +23,8 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
 <div class="row">
     <div class="col-sm-12">
         <?php if (Yii::app()->cart->isEmpty()): ?>
-            <h1><?php echo Yii::t("CartModule.cart", "Корзина пуста"); ?></h1>
-            <?php echo Yii::t("CartModule.cart", "В корзине нет товаров"); ?>
+            <h1><?php echo Yii::t("CartModule.cart", "Cart is empty"); ?></h1>
+            <?php echo Yii::t("CartModule.cart", "There are no products in cart"); ?>
         <?php else: ?>
             <?php
             $form = $this->beginWidget(
@@ -51,10 +51,10 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
             <table class="table">
                 <thead>
                     <tr>
-                        <th><?php echo Yii::t("CartModule.cart", "Продукт"); ?></th>
-                        <th><?php echo Yii::t("CartModule.cart", "Количество"); ?></th>
-                        <th class="text-center"><?php echo Yii::t("CartModule.cart", "Цена"); ?></th>
-                        <th class="text-center"><?php echo Yii::t("CartModule.cart", "Сумма"); ?></th>
+                        <th><?php echo Yii::t("CartModule.cart", "Product"); ?></th>
+                        <th><?php echo Yii::t("CartModule.cart", "Amount"); ?></th>
+                        <th class="text-center"><?php echo Yii::t("CartModule.cart", "Price"); ?></th>
+                        <th class="text-center"><?php echo Yii::t("CartModule.cart", "Sum"); ?></th>
                         <th> </th>
                     </tr>
                 </thead>
@@ -81,10 +81,10 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                                             <?php echo CHtml::hiddenField('OrderProduct[' . $positionId . '][variant_ids][]', $variant->id); ?>
                                         <?php endforeach; ?>
                                         <span>
-                                            <?php echo Yii::t("CartModule.cart", "Статус"); ?>:
+                                            <?php echo Yii::t("CartModule.cart", "Status"); ?>:
                                         </span>
                                         <span class="text-<?php echo $position->in_stock ? "success" : "warning"; ?>">
-                                            <strong><?php echo $position->in_stock ? Yii::t("CartModule.cart", "В наличии") : Yii::t("CartModule.cart", "Нет в наличии"); ?></strong>
+                                            <strong><?php echo $position->in_stock ? Yii::t("CartModule.cart", "In stock") : Yii::t("CartModule.cart", "Not in stock"); ?></strong>
                                         </span>
                                     </div>
                                 </div>
@@ -107,13 +107,13 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                             <td class="col-sm-2 text-center">
                                 <strong>
                                     <span class="position-price"><?php echo $position->getPrice(); ?></span>
-                                    <?php echo Yii::t("CartModule.cart", "руб."); ?>
+                                    <?php echo Yii::t("CartModule.cart", "RUB"); ?>
                                 </strong>
                             </td>
                             <td class="col-sm-2 text-center">
                                 <strong>
                                     <span class="position-sum-price"><?php echo $position->getSumPrice(); ?></span>
-                                    <?php echo Yii::t("CartModule.cart", "руб."); ?>
+                                    <?php echo Yii::t("CartModule.cart", "RUB"); ?>
                                 </strong>
                             </td>
                             <td class="col-sm-1 text-right">
@@ -126,14 +126,14 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                     <tr>
                         <td>  </td>
                         <td colspan="2">
-                            <h5><?php echo Yii::t("CartModule.cart", "Промежуточный итог"); ?></h5>
+                            <h5><?php echo Yii::t("CartModule.cart", "Subtotal"); ?></h5>
                         </td>
                         <td colspan="2" style="text-align: right;">
                             <h4>
                                 <strong id="cart-full-cost">
                                     <?php echo Yii::app()->cart->getCost(); ?>
                                 </strong>
-                                <?php echo Yii::t("CartModule.cart", "руб."); ?>
+                                <?php echo Yii::t("CartModule.cart", "RUB"); ?>
                             </h4>
                         </td>
                     </tr>
@@ -141,14 +141,14 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                         <tr>
                             <td colspan="5" class="coupons">
                                 <p>
-                                    <b><?php echo Yii::t("CartModule.cart", "Купоны"); ?></b>
+                                    <b><?php echo Yii::t("CartModule.cart", "Coupons"); ?></b>
                                 </p>
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="input-group">
                                             <input id="coupon-code" type="text" class="form-control">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-default" type="button" id="add-coupon-code"><?php echo Yii::t("CartModule.cart", "Добавить купон"); ?></button>
+                                                <button class="btn btn-default" type="button" id="add-coupon-code"><?php echo Yii::t("CartModule.cart", "Add coupon"); ?></button>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +183,7 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                             <fieldset>
                                 <div class="form-group">
                                     <label class="control-label" for="radios">
-                                        <b><?php echo Yii::t("CartModule.cart", "Способ доставки"); ?></b>
+                                        <b><?php echo Yii::t("CartModule.cart", "Delivery method"); ?></b>
                                     </label>
                                     <div class="controls">
                                         <?php foreach ($deliveryTypes as $key => $delivery): ?>
@@ -195,13 +195,13 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                                                        data-available-from="<?php echo $delivery->available_from; ?>"
                                                        data-separate-payment="<?php echo $delivery->separate_payment; ?>">
                                                 <?php echo $delivery->name; ?> - <?php echo $delivery->price; ?>
-                                                <?php echo Yii::t("CartModule.cart", "руб."); ?>(
-                                                <?php echo Yii::t("CartModule.cart", "доступно от"); ?>
+                                                <?php echo Yii::t("CartModule.cart", "RUB"); ?>(
+                                                <?php echo Yii::t("CartModule.cart", "available from"); ?>
                                                 <?php echo $delivery->available_from; ?>
-                                                <?php echo Yii::t("CartModule.cart", "руб."); ?>;
-                                                <?php echo Yii::t("CartModule.cart", "бесплатно от"); ?> <?php echo $delivery->free_from; ?>
-                                                <?php echo Yii::t("CartModule.cart", "руб."); ?>; )
-                                                <?php echo($delivery->separate_payment ? Yii::t("CartModule.cart", "Оплачивается отдельно") : ""); ?>
+                                                <?php echo Yii::t("CartModule.cart", "RUB"); ?>;
+                                                <?php echo Yii::t("CartModule.cart", "free from"); ?> <?php echo $delivery->free_from; ?>
+                                                <?php echo Yii::t("CartModule.cart", "RUB"); ?>; )
+                                                <?php echo($delivery->separate_payment ? Yii::t("CartModule.cart", "Pay separately") : ""); ?>
                                             </label>
                                             <div class="text-muted">
                                                 <?php echo $delivery->description; ?>
@@ -212,8 +212,8 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                             </fieldset>
                         <?php else:?>
                             <div class="alert alert-danger">
-                                Не задано ни одного способа доставки ! Оформление заказа невозможно !
-                            </div>    
+                                <?php echo Yii::t("CartModule.cart", "Delivery method aren\'t selected! The ordering is impossible!") ?>
+                            </div>
                         <?php endif;?>   
                         </td>
                     </tr>
@@ -221,18 +221,18 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                         <td>  </td>
                         <td colspan="2">
                             <h5>
-                                <?php echo Yii::t("CartModule.cart", "Стоимость доставки"); ?>
+                                <?php echo Yii::t("CartModule.cart", "Delivery price"); ?>
                             </h5>
                         </td>
                         <td colspan="2" style="text-align: right;">
-                            <h4><strong id="cart-shipping-cost">0</strong> <?php echo Yii::t("CartModule.cart", "руб."); ?></h4>
+                            <h4><strong id="cart-shipping-cost">0</strong> <?php echo Yii::t("CartModule.cart", "RUB"); ?></h4>
                         </td>
                     </tr>
                     <tr>
                         <td>  </td>
-                        <td colspan="2"><h4><?php echo Yii::t("CartModule.cart", "Всего"); ?></h4></td>
+                        <td colspan="2"><h4><?php echo Yii::t("CartModule.cart", "Total"); ?></h4></td>
                         <td colspan="2" style="text-align: right;">
-                            <h4><strong id="cart-full-cost-with-shipping">0</strong> <?php echo Yii::t("CartModule.cart", "руб."); ?></h4>
+                            <h4><strong id="cart-full-cost-with-shipping">0</strong> <?php echo Yii::t("CartModule.cart", "RUB"); ?></h4>
                         </td>
                     </tr>
                     <tr>
@@ -241,7 +241,7 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                                 <thead>
                                     <tr>
                                         <th>
-                                            <?php echo Yii::t("CartModule.cart", "Адрес получателя"); ?>
+                                            <?php echo Yii::t("CartModule.cart", "Address"); ?>
                                         </th>
                                     </tr>
                                 </thead>
@@ -304,10 +304,10 @@ $this->breadcrumbs = [Yii::t("CartModule.cart", 'Корзина')];
                         <td colspan="5" style="text-align: right;">
                             <a href="<?php echo Yii::app()->createUrl('store/catalog/index'); ?>" class="btn btn-default">
                                 <span class="glyphicon glyphicon-shopping-cart"></span>
-                                <?php echo Yii::t("CartModule.cart", "Вернуться к каталогу"); ?>
+                                <?php echo Yii::t("CartModule.cart", "Back to catalog"); ?>
                             </a>
                             <button type="submit" class="btn btn-success">
-                                <?php echo Yii::t("CartModule.cart", "Создать заказ и перейти к оплате"); ?>
+                                <?php echo Yii::t("CartModule.cart", "Create order and proceed to payment"); ?>
                                 <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </td>
