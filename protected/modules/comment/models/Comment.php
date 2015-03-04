@@ -226,6 +226,13 @@ class Comment extends yupe\models\YModel
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
 
+        $module = Yii::app()->getModule('comment');
+        $p = new CHtmlPurifier;
+        $p->options = array(
+            'HTML.Allowed' => $module->allowedTags,
+        );
+        $this->text = $p->purify($this->text);
+
         return parent::beforeSave();
     }
 
