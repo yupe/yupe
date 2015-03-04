@@ -10,31 +10,31 @@
  **/
 $this->breadcrumbs = [
     Yii::app()->getModule('social')->getCategory() => [],
-    Yii::t('SocialModule.social', 'Аккаунты')      => ['/social/socialBackend/index'],
-    Yii::t('SocialModule.social', 'Управление'),
+    Yii::t('SocialModule.social', 'Accounts')      => ['/social/socialBackend/index'],
+    Yii::t('SocialModule.social', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('SocialModule.social', 'Аккаунты - управление');
+$this->pageTitle = Yii::t('SocialModule.social', 'Accounts - manage');
 
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
+        'label' => Yii::t('SocialModule.social', 'Manage social accounts'),
         'url'   => ['/social/socialBackend/index']
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('SocialModule.social', 'Аккаунты'); ?>
-        <small><?php echo Yii::t('SocialModule.social', 'управление'); ?></small>
+        <?php echo Yii::t('SocialModule.social', 'Accounts'); ?>
+        <small><?php echo Yii::t('SocialModule.social', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('SocialModule.social', 'Поиск аккаунтов'); ?>
+        <?php echo Yii::t('SocialModule.social', 'Account search'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

@@ -51,7 +51,7 @@ class UserController extends \yupe\components\controllers\FrontController
 
                     Yii::app()->getUser()->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('SocialModule.social', 'Вы успешно вошли!')
+                        Yii::t('SocialModule.social', 'You successfully logged in!')
                     );
 
                     $module = Yii::app()->getModule('user');
@@ -74,7 +74,7 @@ class UserController extends \yupe\components\controllers\FrontController
                         YFlashMessages::INFO_MESSAGE,
                         Yii::t(
                             'SocialModule.social',
-                            'Аккаунт с таким адресом уже существует! Войдите если хотите присоединить эту социальную сеть к своему аккаунту.'
+                            'Account with this email address already exists!  Please, login if you want to join this social network to your account.'
                         )
                     );
 
@@ -85,7 +85,7 @@ class UserController extends \yupe\components\controllers\FrontController
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'SocialModule.social',
-                        'Вы успешно авторизовались, пожалуйста, завершите регистрацию!'
+                        'You\'ve successfully logged in, please complete the registration!'
                     )
                 );
 
@@ -109,7 +109,7 @@ class UserController extends \yupe\components\controllers\FrontController
         $module = Yii::app()->getModule('user');
 
         if ($module->registrationDisabled) {
-            throw new CHttpException(404, Yii::t('SocialModule.social', 'requested page was not found!'));
+            throw new CHttpException(404, Yii::t('SocialModule.social', 'Page not found!'));
         }
 
         $form = new RegistrationForm();
@@ -126,7 +126,7 @@ class UserController extends \yupe\components\controllers\FrontController
                     YFlashMessages::INFO_MESSAGE,
                     Yii::t(
                         'SocialModule.social',
-                        'Аккаунт с таким адресом уже существует! Войдите если хотите присоединить эту социальную сеть к своему аккаунту.'
+                        'Account with this email address already exists!  Please, login if you want to join this social network to your account.'
                     )
                 );
 
@@ -156,7 +156,7 @@ class UserController extends \yupe\components\controllers\FrontController
                             YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t(
                                 'SocialModule.social',
-                                'Регистрация прошла успешно!'
+                                'Registration is successful!'
                             )
                         );
 
@@ -206,7 +206,7 @@ class UserController extends \yupe\components\controllers\FrontController
                         YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t(
                             'SocialModule.social',
-                            'Социальная сеть подключена к вашему аккаунту, теперь вы можете использовать ее для входа.'
+                            'Social network successfully attached to your account, you can use it to log in now.'
                         )
                     );
 
@@ -222,7 +222,7 @@ class UserController extends \yupe\components\controllers\FrontController
                 }
             } else {
 
-                $form->addError('hash', Yii::t('SocialModule.social', 'Email or password was typed wrong!'));
+                $form->addError('hash', Yii::t('SocialModule.social', 'Wrong email or password!'));
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), $badLoginCount + 1);
 
