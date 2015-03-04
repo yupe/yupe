@@ -448,13 +448,25 @@ class Comment extends yupe\models\YModel
         return $this->cache((int)$cache)->findByPk($this->parent_id);
     }
 
-    /**
-     * Удаляем напрямую через NestedSetBehavior, вместо CActiveRecord
-     *
-     * @return bool
-     */
-    public function delete()
+    public function multiDelete(array $items)
     {
-        return $this->NestedSetBehavior->delete();
+        $count = 0;
+        $transaction = Yii::app()->db->beginTransaction();
+
+        try {
+            $items = array_filter($items, 'intval');
+            $models = $this->findAllByPk($items);
+
+            foreach ($models as $model) {
+                $count += (int)$model->deleteNode();
+            }
+            $transaction->commit();
+
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+        }
+
+        return $count;
     }
 }
