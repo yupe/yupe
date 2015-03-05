@@ -1,5 +1,7 @@
 <?php
 
+use yupe\models\YModel;
+
 class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user, $request = null)
@@ -23,6 +25,11 @@ class CommentManager extends CApplicationComponent
 
         if ($module->autoApprove && $user->isAuthenticated()) {
             $comment->status = Comment::STATUS_APPROVED;
+        }
+
+        $model = !YModel::model($comment->model);
+        if ( ($model instanceof YModel) && !$model->commitValidation() ) {
+            throw new CDbException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
         }
 
         $transaction = Yii::app()->getDb()->beginTransaction();

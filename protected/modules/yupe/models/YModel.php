@@ -169,4 +169,16 @@ abstract class YModel extends CActiveRecord
 
         return parent::cache($duration, $chain, $queryCount);
     }
+
+    /**
+     * Общий метод для проверки прав на возможность добавления комментария.
+     * По умолчанию комментарии разрешены для всех моделей.
+     * Чтобы добавить свою проверку, нужно переопределить данную функцию в классе потомке
+     *
+     * @return boolean описания атрибутов
+     **/
+    public function commitValidation()
+    {
+        return true;
+    }
 }

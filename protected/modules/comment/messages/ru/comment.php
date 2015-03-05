@@ -125,5 +125,6 @@ return [
     'List of comments'                                            => 'Просмотр списка комментариев',
     'Editing comments'                                            => 'Редактирование комментариев',
     'Viewing comments'                                            => 'Просмотр комментариев',
-    'Remove tags in the derivation comment using strip_tags() ?'  => 'Удалять теги при выводе комментария, используя strip_tags() ?'
+    'Remove tags in the derivation comment using strip_tags() ?'  => 'Удалять теги при выводе комментария, используя strip_tags() ?',
+    'Not have permission to add a comment!'                       => 'Недостаточно прав для добавления комментария!'
 ];

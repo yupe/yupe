@@ -108,4 +108,5 @@ return [
     'WRITE COMMENT'                                               => '',
     'From user'                                                   => '',
     'Insert symbols you see on picture'                           => '',
+    'Not have permission to add a comment!'                       => ''
 ];
