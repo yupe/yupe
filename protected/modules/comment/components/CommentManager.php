@@ -27,8 +27,13 @@ class CommentManager extends CApplicationComponent
             $comment->status = Comment::STATUS_APPROVED;
         }
 
-        $model = !YModel::model($comment->model);
-        if ( ($model instanceof YModel) && !$model->commitValidation() ) {
+        /**
+         * Реализована проверка прав на возможность добавления комментария в конкретную модель
+         * Для того чтобы осушествить проверку у модели должен быть public метод: commitValidation()
+         * Если метод вернет значение: false, то предполагается что для данной сушности добавление комментария запрещено
+         **/
+        $model = YModel::model($comment->model);
+        if ( method_exists($model, 'commitValidation') && $model->commitValidation() === false ) {
             throw new CDbException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
         }
 
