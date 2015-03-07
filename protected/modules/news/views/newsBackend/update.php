@@ -21,7 +21,7 @@ $this->menu = [
     ['label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'],
     [
         'icon'  => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('NewsModule.news', 'Edit news article'),
+        'label' => Yii::t('NewsModule.news', 'Edit news'),
         'url'   => [
             '/news/newsBackend/update/',
             'id' => $model->id
@@ -29,7 +29,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-eye',
-        'label' => Yii::t('NewsModule.news', 'Viewing news'),
+        'label' => Yii::t('NewsModule.news', 'View news article'),
         'url'   => [
             '/news/newsBackend/view',
             'id' => $model->id
