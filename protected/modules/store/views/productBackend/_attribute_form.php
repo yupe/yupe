@@ -39,7 +39,7 @@ if (!isset($type)) {
                                     <?php } endif; ?>
                                 </label>
                             </div>
-                            <div class="col-sm-2 <?php echo $hasError ? "has-error" : ""; ?>">
+                            <div class="col-sm-<?php echo $attribute->type == Attribute::TYPE_TEXT ? 9 : 2; ?> <?php echo $hasError ? "has-error" : ""; ?>">
                                 <?php echo $attribute->renderField(isset($model) ? $model->attr($attribute->name) : null); ?>
                             </div>
                         </div>
