@@ -18,6 +18,7 @@ class Redactor extends \CInputWidget
                 'model'     => $this->model,
                 'attribute' => $this->attribute,
                 'name'      => $this->name,
+                'value'     => $this->value,
                 'options'   => \CMap::mergeArray($this->getOptions(), $this->options),
                 'plugins'   => [
                     'video'        => [
