@@ -86,7 +86,7 @@ return [
     'View comment'                                                => 'Просмотреть комментарий',
     'Accepted tags'                                               => 'Разрешенные теги',
     'Edit'                                                        => 'Редактирование',
-    'Edit comment'                                                => 'Редактирование комментария',
+    'Edit comment'                                                => 'Редактировать комментарий',
     'Parent'                                                      => 'Родитель',
     'Site'                                                        => 'Сайт',
     'Save comment and close'                                      => 'Сохранить комментарий и закрыть',
@@ -123,6 +123,6 @@ return [
     'Creating comment'                                            => 'Создание комментария',
     'Removing comment'                                            => 'Удаление комментария',
     'List of comments'                                            => 'Просмотр списка комментариев',
-    'Editing comments'                                            => 'Редактирование комментариев',
+    'Editing comment'                                             => 'Редактирование комментария',
     'Viewing comments'                                            => 'Просмотр комментариев'
 ];
