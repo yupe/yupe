@@ -92,7 +92,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'View post'); ?><br/>
+        <?php echo Yii::t('BlogModule.blog', 'Viewing post'); ?><br/>
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>

@@ -19,7 +19,7 @@ class RobokassaPaymentSystem extends PaymentSystem
 
         $invId = $order->id;
 
-        $invDesc = Yii::t('RobokassaModule.robokassa', 'Оплата заказа №{id} на сайте "{site}"', ['{id}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]);
+        $invDesc = Yii::t('RobokassaModule.robokassa', 'Payment order #{id} on "{site}" website', ['{id}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]);
 
         $outSum = Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id);
 
@@ -32,7 +32,7 @@ class RobokassaPaymentSystem extends PaymentSystem
         $form .= CHtml::hiddenField('Desc', $invDesc);
         $form .= CHtml::hiddenField('SignatureValue', $crc);
         $form .= CHtml::hiddenField('Culture', $culture);
-        $form .= CHtml::submitButton(Yii::t('RobokassaModule.robokassa','Заплатить'));
+        $form .= CHtml::submitButton(Yii::t('RobokassaModule.robokassa','Pay'));
         $form .= CHtml::endForm();
 
         if ($return) {
