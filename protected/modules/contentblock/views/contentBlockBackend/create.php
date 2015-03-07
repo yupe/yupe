@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
-    Yii::t('ContentBlockModule.contentblock', 'Adding new content block'),
+    Yii::t('ContentBlockModule.contentblock', 'Create'),
 ];
 
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - add');
@@ -21,7 +21,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Content blocks'); ?>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'Content block'); ?>
         <small><?php echo Yii::t('ContentBlockModule.contentblock', 'add'); ?></small>
     </h1>
 </div>
