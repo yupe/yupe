@@ -42,7 +42,6 @@ return [
     'Page was not found!' => 'Запрошенная страница не найдена!',
     'Change settings' => 'Изменить настройки',
     'Image' => 'Изображение',
-    'Find category' => 'Искать категорию',
     'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)' => 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)',
     'Categories' => 'Категории',
     'Categories - show' => 'Категории - просмотр',
@@ -65,7 +64,7 @@ return [
     'Show category' => 'Просмотр категории',
     'View category' => 'Просмотреть категорию',
     'Change' => 'Редактирование',
-    'Change category' => 'Редактирование категории',
+    'Change category' => 'Редактировать категорию',
     'Change translation in to {lang}' => 'Редактировать перевод на {lang} язык',
     'Parent' => 'Родитель',
     'Save category and close' => 'Сохранить категорию и закрыть',
@@ -89,5 +88,6 @@ return [
     'Removing category' => 'Удаление категории',
     'List of categories' => 'Просмотр списка категорий',
     'Editing categories' => 'Редактирование категорий',
+    'Editing category' => 'Редактирование категории',
     'Viewing categories' => 'Просмотр категорий',
 ];
