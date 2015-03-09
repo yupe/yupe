@@ -85,13 +85,13 @@ class DeliveryModule extends WebModule
             [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Delivery.DeliveryBackend.Management',
-                'description' => Yii::t("StoreModule.store", 'Управление способами доставки'),
+                'description' => Yii::t("StoreModule.delivery", 'Manage delivery methods'),
                 'items' => [
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Index', 'description' => Yii::t("DeliveryModule.delivery", 'Просмотр списка способов доставки'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Create', 'description' => Yii::t("DeliveryModule.delivery", 'Создание способа доставки'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Update', 'description' => Yii::t("DeliveryModule.delivery", 'Редактирование способа доставки'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.View', 'description' => Yii::t("DeliveryModule.delivery", 'Просмотр способа доставки'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Delete', 'description' => Yii::t("DeliveryModule.delivery", 'Удаление способа доставки'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Index', 'description' => Yii::t("DeliveryModule.delivery", 'Delivery lists'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Create', 'description' => Yii::t("DeliveryModule.delivery", 'Create delivery'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Update', 'description' => Yii::t("DeliveryModule.delivery", 'Update delivery'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.View', 'description' => Yii::t("DeliveryModule.delivery", 'View delivery'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Delivery.DeliveryBackend.Delete', 'description' => Yii::t("DeliveryModule.delivery", 'Delete delivery'),],
                 ],
             ],
         ];

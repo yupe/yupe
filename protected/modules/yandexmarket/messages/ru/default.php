@@ -14,7 +14,7 @@ return [
     'creating' => 'добавление',
     'Delete export list' => 'Удалить выгрузку',
     'Do you really want to remove this export list?' => 'Вы уверены, что хотите удалить выгрузку?',
-    'Edition' => 'Изменение',
+    'Edition' => 'Редактирование',
     'Export list' => 'Выгрузка товаров',
     'Export lists' => 'Список выгрузок',
     'Fields with' => 'Поля, отмеченные',
@@ -43,5 +43,7 @@ return [
     'To participate in the "Buy at Market" program' => 'Участие товарных предложений в программе «Покупка на Маркете»',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Update export list' => 'Редактировать выгрузку',
+    'Updating export list' => 'Редактирование выгрузки',
+    'View export list' => 'Просмотреть выгрузку',
     'Yandex.Market' => 'Яндекс.Маркет',
 ];

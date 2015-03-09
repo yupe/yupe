@@ -90,13 +90,13 @@ class PaymentModule extends WebModule
             [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Payment.PaymentBackend.Management',
-                'description' => Yii::t("StoreModule.store", 'Управление способами оплаты'),
+                'description' => Yii::t("StoreModule.payment", 'Manage payment methods'),
                 'items' => [
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Index', 'description' => Yii::t("PaymentModule.payment", 'Просмотр списка способов оплаты'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Create', 'description' => Yii::t("PaymentModule.payment", 'Создание способа оплаты'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Update', 'description' => Yii::t("PaymentModule.payment", 'Редактирование способа оплаты'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.View', 'description' => Yii::t("PaymentModule.payment", 'Просмотр способа оплаты'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Delete', 'description' => Yii::t("PaymentModule.payment", 'Удаление способа оплаты'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Index', 'description' => Yii::t("PaymentModule.payment", 'Payment methods list'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Create', 'description' => Yii::t("PaymentModule.payment", 'Create payment'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Update', 'description' => Yii::t("PaymentModule.payment", 'Update payment'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.View', 'description' => Yii::t("PaymentModule.payment", 'View payment'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Delete', 'description' => Yii::t("PaymentModule.payment", 'Delete payment'),],
                 ],
             ],
         ];
