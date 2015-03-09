@@ -14,7 +14,7 @@ return [
     'Delete payment' => 'Удалить способ оплаты',
     'Description' => 'Описание',
     'Do you really want to remove this payment method?' => 'Вы уверены, что хотите удалить способ оплаты?',
-    'Edition' => 'Изменение',
+    'Edition' => 'Редактирование',
     'Fields with' => 'Поля, отмеченные',
     'Manage payment methods' => 'Управление способами оплаты',
     'Manage' => 'Управление',
@@ -44,5 +44,7 @@ return [
     'Title' => 'Название',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Update payment' => 'Редактировать способ оплаты',
-    'View payment' => 'Просмотр способа оплаты',
+    'Updating payment' => 'Редактирование способа оплаты',
+    'View payment' => 'Просмотреть способ оплаты',
+    'Viewing payment' => 'Просмотр способа оплаты',
 ];

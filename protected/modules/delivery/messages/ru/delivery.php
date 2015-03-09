@@ -22,7 +22,7 @@ return [
     'Delivery' => 'Доставка',
     'Description' => 'Описание',
     'Do you really want to remove this delivery?' => 'Вы уверены, что хотите удалить способ доставки?',
-    'Edition' => 'Изменение',
+    'Edition' => 'Редактирование',
     'Fields with' => 'Поля, отмеченные',
     'Free from' => 'Бесплатна от',
     'Manage delivery methods' => 'Управление способами доставки',
@@ -44,5 +44,7 @@ return [
     'Title' => 'Название',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Update delivery' => 'Редактировать способ доставки',
-    'View delivery' => 'Просмотр способа доставки',
+    'Updating delivery' => 'Редактирование способа доставки',
+    'View delivery' => 'Просмотреть способ доставки',
+    'Viewing delivery' => 'Просмотр способа доставки',
 ];

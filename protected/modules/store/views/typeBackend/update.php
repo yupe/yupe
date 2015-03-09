@@ -42,7 +42,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.type', 'Update type'); ?><br/>
+        <?php echo Yii::t('StoreModule.type', 'Updating type'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

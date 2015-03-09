@@ -16,5 +16,8 @@ return [
     'Save producer and close' => 'Сохранить производителя и закрыть',
     'Save producer and continue' => 'Сохранить производителя и продолжить',
     'Update producer' => 'Редактировать производителя',
-    'View producer' => 'Просмотр производителя',
+    'Updating producer' => 'Редактирование производителя',
+    'View producer list' => 'Просмотреть список производителей',
+    'View producer' => 'Просмотреть производителя',
+    'Viewing producer' => 'Просмотр производителя',
 ];

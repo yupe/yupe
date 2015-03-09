@@ -42,7 +42,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('PaymentModule.payment', 'View payment'); ?><br/>
+        <?php echo Yii::t('PaymentModule.payment', 'Viewing payment'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

@@ -42,7 +42,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Update order'); ?>
+        <?php echo Yii::t('OrderModule.order', 'Updating order'); ?>
         <small>&laquo;<?php echo Yii::t('OrderModule.order', '#'); ?><?php echo $model->id; ?>&raquo;</small>
     </h1>
 </div>
