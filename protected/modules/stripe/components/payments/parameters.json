@@ -1,0 +1,35 @@
+{
+    "name": "Stripe",
+    "settings": [
+        {
+            "variable": "secret_key_test",
+            "name": "Секретный ключ вашего аккаунта (Тест)"
+        },
+        {
+            "variable": "public_key_test",
+            "name": "Публичный ключ вашего аккаунта (Тест)"
+        },
+        {
+            "variable": "secret_key_live",
+            "name": "Секретный ключ вашего аккаунта"
+        },
+        {
+            "variable": "public_key_live",
+            "name": "Публичный ключ вашего аккаунта"
+        },
+        {
+            "variable": "testmode",
+            "name": "Режим оплаты",
+            "options": [
+                {
+                    "name": "Тестовый режим",
+                    "value": "1"
+                },
+                {
+                    "name": "Рабочий режим",
+                    "value": "0"
+                }
+            ]
+        }
+    ]
+}
