@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('FeedbackModule.feedback', 'Messages ') => ['/feedback/feedbackBackend/index'],
-    Yii::t('FeedbackModule.feedback', 'adding'),
+    Yii::t('FeedbackModule.feedback', 'Creating'),
 ];
 
 $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - add');

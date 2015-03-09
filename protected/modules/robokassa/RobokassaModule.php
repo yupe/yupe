@@ -38,12 +38,12 @@ class RobokassaModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('RobokassaModule.robokassa', 'Робокасса');
+        return Yii::t('RobokassaModule.robokassa', 'Robokassa');
     }
 
     public function getDescription()
     {
-        return Yii::t('RobokassaModule.robokassa', 'Модуль для приемы оплаты через Робокассу');
+        return Yii::t('RobokassaModule.robokassa', 'Robokassa payment module');
     }
 
     public function getAuthor()

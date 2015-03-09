@@ -20,7 +20,7 @@ $this->menu = [
     ['label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'],
     [
         'icon'  => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('NewsModule.news', 'Edit news article'),
+        'label' => Yii::t('NewsModule.news', 'Edit news'),
         'url'   => [
             '/news/newsBackend/update',
             'id' => $model->id

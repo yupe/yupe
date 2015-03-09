@@ -66,7 +66,7 @@ $this->menu = [
 ];
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('MailModule.mail', 'View mail event'); ?><br/>
+    <h1><?php echo Yii::t('MailModule.mail', 'Viewing mail event'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
