@@ -58,7 +58,7 @@ class SocialBackendController extends BackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('social', 'Запись удалена!')
+                Yii::t('SocialModule.social', 'Record removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -67,8 +67,8 @@ class SocialBackendController extends BackController
             }
         } else {
             throw new CHttpException(400, Yii::t(
-                'social',
-                'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'
+                'SocialModule.social',
+                'Unknown request. Don\'t repeat it please!'
             ));
         }
     }
@@ -100,7 +100,7 @@ class SocialBackendController extends BackController
     {
         $model = SocialUser::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('social', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('SocialModule.social', 'Page not found!'));
         }
 
         return $model;

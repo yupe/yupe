@@ -96,7 +96,7 @@ $form = $this->beginWidget(
     <div id="options" class="<?php echo !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
         <div class="row form-group">
             <div class="col-sm-12">
-                <?php echo Yii::t("StoreModule.store", "Опции, каждое значение с новой строки"); ?>
+                <?php echo Yii::t("StoreModule.attr", "Each option value must be on a new line."); ?>
             </div>
         </div>
         <div class="row">
@@ -127,7 +127,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Добавить и продолжить') : Yii::t('StoreModule.store', 'Сохранить и продолжить'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.attr', 'Add attribute and continue') : Yii::t('StoreModule.attr', 'Save attribute and continue'),
     ]
 ); ?>
 
@@ -136,7 +136,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.store', 'Добавить и вернуться к списку') : Yii::t('StoreModule.store', 'Сохранить и вернуться к списку'),
+        'label' => $model->isNewRecord ? Yii::t('StoreModule.attr', 'Add attribute and close') : Yii::t('StoreModule.attr', 'Save attribute and close'),
     ]
 ); ?>
 

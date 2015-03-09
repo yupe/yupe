@@ -51,7 +51,7 @@ $this->widget(
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'SocialModule.social',
-                'Искать аккаунт'
+                'Search'
             ),
     ]
 ); ?>

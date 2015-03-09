@@ -46,7 +46,7 @@ class CouponBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CouponModule.coupon', 'Запись добавлена!')
+                    Yii::t('CouponModule.coupon', 'Record created!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -72,7 +72,7 @@ class CouponBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CouponModule.coupon', 'Запись обновлена!')
+                    Yii::t('CouponModule.coupon', 'Record updated!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -92,14 +92,14 @@ class CouponBackendController extends yupe\components\controllers\BackController
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('CouponModule.coupon', 'Запись удалена!')
+                Yii::t('CouponModule.coupon', 'Record removed!')
             );
 
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t('CouponModule.coupon', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('CouponModule.coupon', 'Unknown request. Don\'t repeat it please!'));
         }
     }
 
@@ -119,7 +119,7 @@ class CouponBackendController extends yupe\components\controllers\BackController
     {
         $model = Coupon::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('CouponModule.coupon', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('CouponModule.coupon', 'Page not found!'));
         }
         return $model;
     }

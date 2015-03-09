@@ -36,6 +36,8 @@
  */
 class MenuItem extends yupe\models\YModel
 {
+    public $regular_link = true;
+
     const STATUS_DISABLED = 0;
     const STATUS_ACTIVE = 1;
 
@@ -200,14 +202,14 @@ class MenuItem extends yupe\models\YModel
 
     protected function afterSave()
     {
-        Yii::app()->cache->clear($this->menu->code);
+        Yii::app()->getCache()->clear($this->menu->code);
 
         return parent::afterSave();
     }
 
     protected function afterDelete()
     {
-        Yii::app()->cache->clear($this->menu->code);
+        Yii::app()->getCache()->clear($this->menu->code);
 
         return parent::afterDelete();
     }
@@ -227,7 +229,7 @@ class MenuItem extends yupe\models\YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
 
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*unknown*');
     }
@@ -287,7 +289,7 @@ class MenuItem extends yupe\models\YModel
     {
         $conditions = [];
 
-        foreach (Yii::app()->modules as $key => $value) {
+        foreach (Yii::app()->getModules() as $key => $value) {
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
@@ -315,7 +317,7 @@ class MenuItem extends yupe\models\YModel
 
     public function getConditionVisible($name, $condition_denial)
     {
-        if ($name == '') {
+        if (empty($name)) {
             return true;
         }
 
@@ -342,37 +344,6 @@ class MenuItem extends yupe\models\YModel
             ) . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*unknown*');
     }
 
-    public function sort(array $items)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-
-        try {
-
-            foreach ($items as $id => $priority) {
-
-                $model = $this->findByPk($id);
-
-                if (null === $model) {
-                    continue;
-                }
-
-                $model->sort = (int)$priority;
-
-                if (!$model->update('sort')) {
-                    throw new CDbException('Error sort menu items!');
-                }
-            }
-
-            $transaction->commit();
-
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollback();
-
-            return false;
-        }
-    }
-
     public function deleteWithChild()
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -386,9 +357,7 @@ class MenuItem extends yupe\models\YModel
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-
             return false;
         }
-
     }
 }

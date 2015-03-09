@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class PaymentModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.4';
 
     public $pathAssets = 'payment.views.assets';
 
@@ -21,8 +21,8 @@ class PaymentModule extends WebModule
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Список способов оплаты'), 'url' => ['/payment/paymentBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Добавить способ'), 'url' => ['/payment/paymentBackend/create']],
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Payment methods list'), 'url' => ['/payment/paymentBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Create payment'), 'url' => ['/payment/paymentBackend/create']],
         ];
     }
 
@@ -43,12 +43,12 @@ class PaymentModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('PaymentModule.payment', 'Оплата');
+        return Yii::t('PaymentModule.payment', 'Payment');
     }
 
     public function getDescription()
     {
-        return Yii::t('PaymentModule.payment', 'Модуль для приемы оплаты заказов');
+        return Yii::t('PaymentModule.payment', 'Payment orders module');
     }
 
     public function getAuthor()

@@ -36,8 +36,8 @@ class YandexMarketModule extends WebModule
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Список выгрузок'), 'url' => ['/yandexmarket/exportBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YandexMarketModule.default', 'Добавить выгрузку'), 'url' => ['/yandexmarket/exportBackend/create']]
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Export lists'), 'url' => ['/yandexmarket/exportBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YandexMarketModule.default', 'Create export list'), 'url' => ['/yandexmarket/exportBackend/create']]
         ];
     }
 
@@ -53,7 +53,7 @@ class YandexMarketModule extends WebModule
 
     public function getDescription()
     {
-        return Yii::t('YandexMarketModule.default', 'Модуль для создания выгрузок товаров интернет-магазина в YML');
+        return Yii::t('YandexMarketModule.default', 'Module to export products in the yml file');
     }
 
     public function getAuthor()

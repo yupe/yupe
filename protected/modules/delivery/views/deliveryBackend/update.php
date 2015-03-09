@@ -1,31 +1,39 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('DeliveryModule.delivery', 'Способы доставки') => ['/delivery/deliveryBackend/index'],
+    Yii::t('DeliveryModule.delivery', 'Delivery methods') => ['/delivery/deliveryBackend/index'],
     $model->name => ['/delivery/deliveryBackend/view', 'id' => $model->id],
-    Yii::t('DeliveryModule.delivery', 'Редактирование'),
+    Yii::t('DeliveryModule.delivery', 'Edition'),
 ];
 
-$this->pageTitle = Yii::t('DeliveryModule.delivery', 'Способы доставки - редактирование');
+$this->pageTitle = Yii::t('DeliveryModule.delivery', 'Delivery methods - edition');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Управление способами доставки'), 'url' => ['/delivery/deliveryBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ доставки'), 'url' => ['/delivery/deliveryBackend/create']],
-    ['label' => Yii::t('DeliveryModule.delivery', 'Способ доставки') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Manage delivery methods'), 'url' => ['/delivery/deliveryBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Create delivery'), 'url' => ['/delivery/deliveryBackend/create']],
+    ['label' => Yii::t('DeliveryModule.delivery', 'Delivery method') . ' «' . mb_substr($model->name, 0, 32) . '»'],
     [
         'icon' => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('DeliveryModule.delivery', 'Редактирование способ доставки'),
+        'label' => Yii::t('DeliveryModule.delivery', 'Update delivery'),
         'url' => [
             '/delivery/deliveryBackend/update',
             'id' => $model->id
         ]
     ],
     [
+        'icon' => 'fa fa-fw fa-eye',
+        'label' => Yii::t('DeliveryModule.delivery', 'View delivery'),
+        'url' => [
+            '/delivery/deliveryBackend/view',
+            'id' => $model->id
+        ]
+    ],
+    [
         'icon' => 'fa fa-fw fa-trash-o',
-        'label' => Yii::t('DeliveryModule.delivery', 'Удалить способ доставки'),
+        'label' => Yii::t('DeliveryModule.delivery', 'Delete delivery'),
         'url' => '#',
         'linkOptions' => [
             'submit' => ['/delivery/deliveryBackend/delete', 'id' => $model->id],
-            'confirm' => Yii::t('DeliveryModule.delivery', 'Вы уверены, что хотите удалить способ доставки?'),
+            'confirm' => Yii::t('DeliveryModule.delivery', 'Do you really want to remove this delivery?'),
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'csrf' => true,
         ]
@@ -34,7 +42,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('DeliveryModule.delivery', 'Редактирование') . ' ' . Yii::t('DeliveryModule.delivery', 'способа доставки'); ?><br/>
+        <?php echo Yii::t('DeliveryModule.delivery', 'Update delivery'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
