@@ -4,11 +4,11 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]);
+$this->pageTitle = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
 ?>
 <div class="row">
     <div class="col-sm-12">
-        <h1><?= Yii::t("OrderModule.order", "Заказ №"); ?><?= $model->id; ?>
+        <h1><?= Yii::t("OrderModule.order", "Order #"); ?><?= $model->id; ?>
             <small>[<?= $model->getStatusTitle(); ?>]</small>
         </h1>
         <table class="table">
@@ -29,10 +29,10 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                                     <?php foreach ($position->variantsArray as $variant): ?>
                                         <h6><?= $variant['attribute_title']; ?>: <?= $variant['optionValue']; ?></h6>
                                     <?php endforeach; ?>
-                                    <span><?= Yii::t("OrderModule.order", "Статус"); ?>:</span>
+                                    <span><?= Yii::t("OrderModule.order", "Status"); ?>:</span>
                                     <span class="text-<?= $position->product->isInStock() ? "success" : "warning"; ?>">
                                         <strong>
-                                            <?= $position->product->isInStock() ? Yii::t("OrderModule.order", "В наличии") : Yii::t("OrderModule.order", "Нет в наличии"); ?>
+                                            <?= $position->product->isInStock() ? Yii::t("OrderModule.order", "In stock") : Yii::t("OrderModule.order", "Not in stock"); ?>
                                         </strong>
                                     </span>
                                 </div>
@@ -42,16 +42,16 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                             <p class="text-right lead">
                                 <strong>
                                     <span class=""><?= $position->price; ?></span>
-                                    <?= Yii::t("OrderModule.order", "руб."); ?>
+                                    <?= Yii::t("OrderModule.order", "RUB"); ?>
                                     ×
-                                    <?= $position->quantity; ?> <?= Yii::t("OrderModule.order", "шт."); ?>
+                                    <?= $position->quantity; ?> <?= Yii::t("OrderModule.order", "PCs"); ?>
                                 </strong>
                             </p>
                         </td>
                         <td class="col-sm-3 text-center">
                             <p class="text-right lead">
                                 <strong>
-                                    <span class=""><?= $position->getTotalPrice(); ?></span> <?= Yii::t("OrderModule.order", "руб."); ?>
+                                    <span class=""><?= $position->getTotalPrice(); ?></span> <?= Yii::t("OrderModule.order", "RUB"); ?>
                                 </strong>
                             </p>
                         </td>
@@ -60,7 +60,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                 <?php if($model->hasCoupon()):?>
                 <tr>
                     <td colspan="2">
-                        <h4><?= Yii::t("OrderModule.order", "Купоны"); ?></h4>
+                        <h4><?= Yii::t("OrderModule.order", "Coupons"); ?></h4>
                     </td>
                     <td>
                         <p class="text-right lead">
@@ -75,14 +75,14 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                 <?php endif;?>
                 <tr>
                     <td colspan="2">
-                        <h4><?= Yii::t("OrderModule.order", "Итого"); ?></h4>
+                        <h4><?= Yii::t("OrderModule.order", "Total"); ?></h4>
                     </td>
                     <td>
                         <p class="text-right lead">
                             <strong>
                                 <small>
                                     <?= $model->getTotalPrice(); ?>
-                                    <?= Yii::t("OrderModule.order", "руб."); ?>
+                                    <?= Yii::t("OrderModule.order", "RUB"); ?>
                                 </small>
                             </strong>
                         </p>
@@ -90,27 +90,27 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <h4><?= Yii::t("OrderModule.order", "Стоимость доставки"); ?>
+                        <h4><?= Yii::t("OrderModule.order", "Delivery price"); ?>
                             <small>
-                                <?= $model->separate_delivery ? Yii::t("OrderModule.order", '(оплачивается отдельно)') : ''; ?>
+                                <?= $model->separate_delivery ? Yii::t("OrderModule.order", '(paid separately)') : ''; ?>
                             </small>
                         </h4>
                     </td>
                     <td>
                         <p class="text-right lead">
                             <strong>
-                                <small><?= $model->getDeliveryPrice();?>  <?= Yii::t("OrderModule.order", "руб."); ?></small>
+                                <small><?= $model->getDeliveryPrice();?>  <?= Yii::t("OrderModule.order", "RUB"); ?></small>
                             </strong>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <h4><?= Yii::t("OrderModule.order", "Всего"); ?></h4>
+                        <h4><?= Yii::t("OrderModule.order", "Total"); ?></h4>
                     </td>
                     <td>
                         <p class="text-right lead">
-                            <strong><?= $model->getTotalPriceWithDelivery(); ?></strong> <?= Yii::t("OrderModule.order", "руб."); ?>
+                            <strong><?= $model->getTotalPriceWithDelivery(); ?></strong> <?= Yii::t("OrderModule.order", "RUB"); ?>
                         </p>
                     </td>
                 </tr>
@@ -120,7 +120,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                             <thead>
                                 <tr>
                                     <th colspan="2">
-                                        <?= Yii::t("OrderModule.order", "Детали заказа"); ?>
+                                        <?= Yii::t("OrderModule.order", "Order details"); ?>
                                     </th>
                                 </tr>
                             </thead>
@@ -217,7 +217,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Заказ №{n}', [$model->id]
                         <td colspan="3">
                             <p class="text-right">
                                 <button type="submit" class="btn btn-success" id="start-payment">
-                                    <?= Yii::t("OrderModule.order", "Оплатить"); ?>
+                                    <?= Yii::t("OrderModule.order", "Pay"); ?>
                                     <span class="glyphicon glyphicon-play"></span>
                                 </button>
                             </p>

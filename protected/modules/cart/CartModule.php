@@ -40,12 +40,12 @@ class CartModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('CartModule.cart', 'Корзина');
+        return Yii::t('CartModule.cart', 'Cart');
     }
 
     public function getDescription()
     {
-        return Yii::t('CartModule.cart', 'Корзина покупок в интернет-магазине');
+        return Yii::t('CartModule.cart', 'Shopping cart in online store');
     }
 
     public function getAuthor()

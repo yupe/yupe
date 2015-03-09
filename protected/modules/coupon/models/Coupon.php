@@ -75,18 +75,18 @@ class Coupon extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('CouponModule.coupon', 'ID'),
-            'name' => Yii::t('CouponModule.coupon', 'Название'),
-            'code' => Yii::t('CouponModule.coupon', 'Код'),
-            'value' => Yii::t('CouponModule.coupon', 'Величина скидки'),
-            'min_order_price' => Yii::t('CouponModule.coupon', 'Минимальная сумма заказа'),
-            'type' => Yii::t('CouponModule.coupon', 'Тип'),
-            'registered_user' => Yii::t('CouponModule.coupon', 'Только для клиентов'),
-            'free_shipping' => Yii::t('CouponModule.coupon', 'Бесплатная доставка'),
-            'date_start' => Yii::t('CouponModule.coupon', 'Дата начала'),
-            'date_end' => Yii::t('CouponModule.coupon', 'Дата конца'),
-            'quantity' => Yii::t('CouponModule.coupon', 'Количество купонов'),
-            'quantity_per_user' => Yii::t('CouponModule.coupon', 'Кол-во на одного пользователя'),
-            'status' => Yii::t('CouponModule.coupon', 'Статус'),
+            'name' => Yii::t('CouponModule.coupon', 'Title'),
+            'code' => Yii::t('CouponModule.coupon', 'Code'),
+            'value' => Yii::t('CouponModule.coupon', 'Discount value'),
+            'min_order_price' => Yii::t('CouponModule.coupon', 'Min order price'),
+            'type' => Yii::t('CouponModule.coupon', 'Type'),
+            'registered_user' => Yii::t('CouponModule.coupon', 'Clients only'),
+            'free_shipping' => Yii::t('CouponModule.coupon', 'Free delivery'),
+            'date_start' => Yii::t('CouponModule.coupon', 'Start date'),
+            'date_end' => Yii::t('CouponModule.coupon', 'End date'),
+            'quantity' => Yii::t('CouponModule.coupon', 'Coupons amount'),
+            'quantity_per_user' => Yii::t('CouponModule.coupon', 'Qty per user'),
+            'status' => Yii::t('CouponModule.coupon', 'Status'),
         ];
     }
 
@@ -145,8 +145,8 @@ class Coupon extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_ACTIVE => Yii::t("CouponModule.coupon", 'Активен'),
-            self::STATUS_NOT_ACTIVE => Yii::t("CouponModule.coupon", 'Неактивен'),
+            self::STATUS_ACTIVE => Yii::t("CouponModule.coupon", 'Active'),
+            self::STATUS_NOT_ACTIVE => Yii::t("CouponModule.coupon", 'Not active'),
         ];
     }
 
@@ -154,14 +154,14 @@ class Coupon extends yupe\models\YModel
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*неизвестен*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*unknown*');
     }
 
     public function getTypeList()
     {
         return [
-            self::TYPE_SUM => Yii::t("CouponModule.coupon", 'Сумма'),
-            self::TYPE_PERCENT => Yii::t("CouponModule.coupon", 'Процент'),
+            self::TYPE_SUM => Yii::t("CouponModule.coupon", 'Sum'),
+            self::TYPE_PERCENT => Yii::t("CouponModule.coupon", 'Percent'),
         ];
     }
 
@@ -169,7 +169,7 @@ class Coupon extends yupe\models\YModel
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*неизвестен*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*unknown*');
     }
 
     public function getCouponByCode($code)
@@ -182,31 +182,31 @@ class Coupon extends yupe\models\YModel
         $errors = [];
 
         if ($this->status == self::STATUS_NOT_ACTIVE) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Купон неактивен');
+            $errors[] = Yii::t('CouponModule.coupon', 'Not active');
         }
         if ($price < $this->min_order_price) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Минимальная стоимость заказа ') . Yii::t(
+            $errors[] = Yii::t('CouponModule.coupon', 'Min order price') . Yii::t(
                     'CouponModule.coupon',
-                    '{n} рубль|{n} рубля|{n} рублей',
+                    '{n} RUB|{n} RUB|{n} RUB',
                     [$this->min_order_price]
                 );
         }
         if (!is_null($this->quantity) && $this->quantity <= 0) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Купоны закончились');
+            $errors[] = Yii::t('CouponModule.coupon', 'Coupons are ended');
         }
         if (!is_null($this->quantity_per_user) && !Yii::app()->getUser()->isGuest && ($this->getNumberUsagesByUser(
                 ) >= $this->quantity_per_user)
         ) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Вы использовали все свои купоны');
+            $errors[] = Yii::t('CouponModule.coupon', 'You\'ve used up all your coupons');
         }
         if ($this->registered_user && Yii::app()->getUser()->getIsGuest()) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Купон доступен только для зарегистрированных пользователей');
+            $errors[] = Yii::t('CouponModule.coupon', 'Coupon is available only for registered users');
         }
         if ($this->date_start && (time() < strtotime($this->date_start))) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Время действия купона еще не началось');
+            $errors[] = Yii::t('CouponModule.coupon', 'Coupon start date not yet come');
         }
         if ($this->date_end && (time() > strtotime($this->date_end))) {
-            $errors[] = Yii::t('CouponModule.coupon', 'Купон просрочен');
+            $errors[] = Yii::t('CouponModule.coupon', 'Coupon expired');
         }
 
         return $errors;

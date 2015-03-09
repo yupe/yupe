@@ -6,11 +6,15 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Delivery',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Delivery',
                 'validAttributes' => [
                     'status'
                 ]
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Delivery'
             ]
         ];
     }
@@ -48,7 +52,7 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('DeliveryModule.delivery', 'Запись добавлена!')
+                    Yii::t('DeliveryModule.delivery', 'Record created!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -82,7 +86,7 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('DeliveryModule.delivery', 'Запись обновлена!')
+                    Yii::t('DeliveryModule.delivery', 'Record updated!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -105,14 +109,17 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('DeliveryModule.delivery', 'Запись удалена!')
+                Yii::t('DeliveryModule.delivery', 'Record removed!')
             );
 
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t('DeliveryModule.delivery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t(
+                'DeliveryModule.delivery',
+                'Unknown request. Don\'t repeat it please!'
+            ));
         }
     }
 
@@ -132,8 +139,9 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
     {
         $model = Delivery::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('DeliveryModule.delivery', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('DeliveryModule.delivery', 'Page not found!'));
         }
+
         return $model;
     }
 
@@ -144,20 +152,5 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-    public function actionSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-
-        if (Delivery::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
     }
 }

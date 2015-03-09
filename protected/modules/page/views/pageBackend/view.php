@@ -36,7 +36,7 @@ $this->menu = [
     ],
     [
         'icon'        => 'fa fa-fw fa-trash-o',
-        'label'       => Yii::t('PageModule.page', 'Remove this page'),
+        'label'       => Yii::t('PageModule.page', 'Remove page'),
         'url'         => '#',
         'linkOptions' => [
             'submit'  => ['/page/pageBackend/delete', 'id' => $model->id],

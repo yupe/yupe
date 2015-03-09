@@ -36,6 +36,11 @@ class ImageBackendController extends yupe\components\controllers\BackController
             ],
             'AjaxImageChoose' => [
                 'class' => 'yupe\components\actions\YAjaxImageChooseAction'
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Image',
+                'attribute' => 'sort'
             ]
         ];
     }

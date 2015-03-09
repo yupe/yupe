@@ -70,18 +70,18 @@ class Export extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('YandexMarketModule.default', 'Id'),
-            'name' => Yii::t('YandexMarketModule.default', 'Название выгрузки'),
+            'name' => Yii::t('YandexMarketModule.default', 'Title'),
             'settings' => Yii::t('YandexMarketModule.default', 'Settings'),
-            'brands' => Yii::t('YandexMarketModule.default', 'Бренды'),
+            'brands' => Yii::t('YandexMarketModule.default', 'Brands'),
             'categories' => Yii::t('YandexMarketModule.default', 'Categories'),
-            'shop_name' => Yii::t('YandexMarketModule.default', 'Короткое название магазина'),
-            'shop_company' => Yii::t('YandexMarketModule.default', 'Полное наименование компании, владеющей магазином'),
-            'shop_url' => Yii::t('YandexMarketModule.default', 'URL-адрес главной страницы магазина'),
-            'shop_platform' => Yii::t('YandexMarketModule.default', 'Система управления контентом, на основе которой работает магазин (CMS)'),
-            'shop_version' => Yii::t('YandexMarketModule.default', 'Версия CMS'),
-            'shop_agency' => Yii::t('YandexMarketModule.default', 'Наименование агентства, которое оказывает техническую поддержку интернет-магазину и отвечает за работоспособность сайта'),
-            'shop_email' => Yii::t('YandexMarketModule.default', 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку'),
-            'shop_cpa' => Yii::t('YandexMarketModule.default', 'Участие товарных предложений в программе «Покупка на Маркете»'),
+            'shop_name' => Yii::t('YandexMarketModule.default', 'Store short title'),
+            'shop_company' => Yii::t('YandexMarketModule.default', 'Company name'),
+            'shop_url' => Yii::t('YandexMarketModule.default', 'Store URL'),
+            'shop_platform' => Yii::t('YandexMarketModule.default', 'Store CMS'),
+            'shop_version' => Yii::t('YandexMarketModule.default', 'CMS version'),
+            'shop_agency' => Yii::t('YandexMarketModule.default', 'The name of the Agency which provides technical support to the online store and is responsible for the performance of the website'),
+            'shop_email' => Yii::t('YandexMarketModule.default', 'Contact the developers of CMS or tech support agency'),
+            'shop_cpa' => Yii::t('YandexMarketModule.default', 'To participate in the "Buy at Market" program'),
         ];
     }
 

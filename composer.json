@@ -25,7 +25,7 @@
         },
         {
             "name": "Maxim Timashov",
-            "email": "apexwire@gmail.com",
+            "email": "apexwire@amylabs.com",
             "role": "Developer"
         },
         {
@@ -59,7 +59,8 @@
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
-        "guzzlehttp/guzzle": "5.0.*"
+        "guzzlehttp/guzzle": "5.0.*",
+        "brussens/wysibb-yii": "dev-master"
     },
     "repositories": {
         "taggable": {
@@ -83,6 +84,18 @@
                     "type": "git",
                     "url": "https://github.com/yiiext/twig-renderer",
                     "reference": "v1.1.15"
+                }
+            }
+        },
+        "wysibb-yii": {
+            "type": "package",
+            "package": {
+                "name": "brussens/wysibb-yii",
+                "version": "master",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/brussens/wysibb-yii",
+                    "reference": "master"
                 }
             }
         }

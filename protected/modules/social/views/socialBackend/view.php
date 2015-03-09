@@ -10,21 +10,21 @@
  **/
 $this->breadcrumbs = [
     Yii::app()->getModule('social')->getCategory() => [],
-    Yii::t('SocialModule.social', 'Аккаунты')      => ['/social/socialBackend/index'],
+    Yii::t('SocialModule.social', 'Accounts')      => ['/social/socialBackend/index'],
     $model->id,
 ];
 
-$this->pageTitle = Yii::t('social', 'Аккаунты - просмотр');
+$this->pageTitle = Yii::t('social', 'Accounts - view');
 
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
+        'label' => Yii::t('SocialModule.social', 'Manage social accounts'),
         'url'   => ['/social/socialBackend/index']
     ],
     [
         'icon'  => 'fa fa-fw fa-eye',
-        'label' => Yii::t('SocialModule.social', 'Просмотреть аккаунт'),
+        'label' => Yii::t('SocialModule.social', 'Viewing social account'),
         'url'   => [
             '/social/socialBackend/view',
             'id' => $model->id
@@ -32,11 +32,11 @@ $this->menu = [
     ],
     [
         'icon'        => 'fa fa-fw fa-trash-o',
-        'label'       => Yii::t('SocialModule.social', 'Удалить аккаунт'),
+        'label'       => Yii::t('SocialModule.social', 'Removing social account'),
         'url'         => '#',
         'linkOptions' => [
             'submit'  => ['/social/socialBackend/delete', 'id' => $model->id],
-            'confirm' => Yii::t('SocialModule.social', 'Вы уверены, что хотите удалить аккаунт?'),
+            'confirm' => Yii::t('SocialModule.social', 'Do you really want to remove this account?'),
             'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
         ]
     ],
@@ -44,7 +44,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('SocialModule.social', 'Просмотр') . ' ' . Yii::t('SocialModule.social', 'аккаунта'); ?><br/>
+        <?php echo Yii::t('SocialModule.social', 'Viewing social account'); ?><br/>
         <small>&laquo;<?php echo $model->provider; ?>&raquo; <?php echo $model->user->getFullName(); ?></small>
     </h1>
 </div>

@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class StoreModule extends WebModule
 {
-    const VERSION = '0.9.3';
+    const VERSION = '0.9.4';
 
     public $uploadPath = 'store';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -50,8 +50,8 @@ class StoreModule extends WebModule
     public function getParamsLabels()
     {
         return [
-            'uploadPath' => Yii::t('StoreModule.store', 'Каталог для загрузок файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
-            'editor'     => Yii::t('StoreModule.store', 'Визуальный редактор')
+            'uploadPath' => Yii::t('StoreModule.store', 'File uploads directory (relative to Yii::app()->getModule("yupe")->uploadPath)'),
+            'editor'     => Yii::t('StoreModule.store', 'Visual editor')
         ];
     }
 
@@ -59,7 +59,7 @@ class StoreModule extends WebModule
     {
         return [
             '0.main' => [
-                'label' => Yii::t('StoreModule.store', 'Настройки визуальных редакторов'),
+                'label' => Yii::t('StoreModule.store', 'Visual editor settings'),
                 'items' => [
                     'uploadPath',
                     'editor'
@@ -87,47 +87,47 @@ class StoreModule extends WebModule
                 'items' => [
                     [
                         'icon'  => 'fa fa-fw fa-shopping-cart',
-                        'label' => Yii::t('StoreModule.store', 'Товары'),
+                        'label' => Yii::t('StoreModule.product', 'Products'),
                         'url'   => ['/store/productBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список товаров'), 'url' => ['/store/productBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить товар'), 'url' => ['/store/productBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.product', 'Product list'), 'url' => ['/store/productBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.product', 'Create product'), 'url' => ['/store/productBackend/create']],
                         ],
                     ],
                     [
                         'icon'  => 'fa fa-fw fa-list-alt',
-                        'label' => Yii::t('StoreModule.store', 'Типы товаров'),
+                        'label' => Yii::t('StoreModule.type', 'Types'),
                         'url'   => ['/store/typeBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список типов'), 'url' => ['/store/typeBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить тип'), 'url' => ['/store/typeBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.type', 'Types list'), 'url' => ['/store/typeBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.type', 'Create type'), 'url' => ['/store/typeBackend/create']],
                         ],
                     ],
                     [
                         'icon'  => 'fa fa-fw fa-pencil-square-o',
-                        'label' => Yii::t('StoreModule.storeibute', 'Атрибуты'),
+                        'label' => Yii::t('StoreModule.attr', 'Attributes'),
                         'url'   => ['/store/attributeBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.storeibute', 'Список атрибутов'), 'url' => ['/store/attributeBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.storeibute', 'Добавить атрибут'), 'url' => ['/store/attributeBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.attr', 'Attributes list'), 'url' => ['/store/attributeBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.attr', 'Create attribute'), 'url' => ['/store/attributeBackend/create']],
                         ],
                     ],
                     [
                         'icon'  => 'fa fa-fw fa-folder-open',
-                        'label' => Yii::t('StoreModule.storegory', 'Категории'),
+                        'label' => Yii::t('StoreModule.category', 'Categories'),
                         'url'   => ['/store/categoryBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.storegory', 'Список категорий'), 'url' => ['/store/categoryBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.storegory', 'Добавить категорию'), 'url' => ['/store/categoryBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.category', 'Categories list'), 'url' => ['/store/categoryBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.category', 'Create category'), 'url' => ['/store/categoryBackend/create']],
                         ],
                     ],
                     [
                         'icon'  => 'fa fa-fw fa-plane',
-                        'label' => Yii::t('StoreModule.store', 'Производители'),
+                        'label' => Yii::t('StoreModule.producer', 'Producers'),
                         'url'   => ['/store/producerBackend/index'],
                         'items' => [
-                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Список производителей'), 'url' => ['/store/producerBackend/index']],
-                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Добавить производителя'), 'url' => ['/store/producerBackend/create']],
+                            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.producer', 'Producers list'), 'url' => ['/store/producerBackend/index']],
+                            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.producer', 'Create producer'), 'url' => ['/store/producerBackend/create']],
                         ],
                     ],
                 ],
@@ -152,7 +152,7 @@ class StoreModule extends WebModule
 
     public function getDescription()
     {
-        return Yii::t('StoreModule.store', 'Модуль для создания интернет-магазина');
+        return Yii::t('StoreModule.store', 'Store module');
     }
 
     public function getAuthor()

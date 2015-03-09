@@ -57,6 +57,10 @@ $this->widget(
     'yupe\widgets\CustomGridView',
     [
         'id'           => 'image-grid',
+        'sortableRows'      => true,
+        'sortableAjaxSave'  => true,
+        'sortableAttribute' => 'sort',
+        'sortableAction'    => '/image/imageBackend/sortable',
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => [

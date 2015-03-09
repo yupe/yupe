@@ -10,6 +10,7 @@
  * @property string $alias
  * @property integer $status
  * @property integer $parent_id
+ * @property integer $sort
  *
  * @property-read StoreCategory $parent
  * @property-read StoreCategory[] $children
@@ -50,20 +51,28 @@ class StoreCategory extends \yupe\models\YModel
     public function rules()
     {
         return [
-            ['name, description, short_description, alias, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'],
+            [
+                'name, description, short_description, alias, meta_title, meta_keywords, meta_description',
+                'filter',
+                'filter' => 'trim'
+            ],
             ['name, alias', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['name, alias', 'required'],
-            ['parent_id, status', 'numerical', 'integerOnly' => true],
+            ['parent_id, status, sort', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
             ['status', 'length', 'max' => 11],
             ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
             ['alias', 'length', 'max' => 150],
-            ['alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('StoreModule.store', 'Запрещенные символы в поле {attribute}')],
+            [
+                'alias',
+                'yupe\components\validators\YSLugValidator',
+                'message' => Yii::t('StoreModule.store', 'Bad characters in {attribute} field')
+            ],
             ['alias', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'],
+            ['id, parent_id, name, description, sort, short_description, alias, status', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -97,6 +106,10 @@ class StoreCategory extends \yupe\models\YModel
                 ],
                 'useCache' => true,
             ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort'
+            ]
         ];
     }
 
@@ -153,6 +166,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
+            'sort' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
@@ -173,6 +187,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
+            'sort' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
@@ -196,8 +211,15 @@ class StoreCategory extends \yupe\models\YModel
         $criteria->compare('meta_keywords', $this->alias, true);
         $criteria->compare('meta_description', $this->alias, true);
         $criteria->compare('status', $this->status);
+        $criteria->compare('sort', $this->status);
 
-        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
+        return new CActiveDataProvider(
+            get_class($this),
+            [
+                'criteria' => $criteria,
+                'sort' => ['defaultOrder' => 't.sort']
+            ]
+        );
     }
 
     public function getStatusList()
@@ -211,6 +233,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getStatus()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
@@ -227,7 +250,7 @@ class StoreCategory extends \yupe\models\YModel
 
     public function getFormattedList($parent_id = null, $level = 0)
     {
-        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id]);
+        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id], ['order' => 'name']);
 
         $list = [];
 
@@ -265,14 +288,16 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager(
+                )->urlSuffix;
         }
+
         return $this->_url;
     }
 
     public function getMetaTile()
     {
-        return $this->meta_title ?: $this->name;
+        return $this->meta_title ? : $this->name;
     }
 
     public function getMetaDescription()

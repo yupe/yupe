@@ -50,7 +50,6 @@ class CommentController extends \yupe\components\controllers\FrontController
             'captcha' => [
                 'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
-                'testLimit' => 1
             ],
         ];
     }
@@ -70,6 +69,11 @@ class CommentController extends \yupe\components\controllers\FrontController
 
         if (!$module->allowGuestComment && !Yii::app()->getUser()->isAuthenticated()) {
             throw new CHttpException(404);
+        }
+
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') == 'comment-form') {
+            echo CActiveForm::validate(new Comment());
+            Yii::app()->end();
         }
 
         try {

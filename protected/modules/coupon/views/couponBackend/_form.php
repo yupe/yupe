@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#coupon" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "Купон"); ?></a></li>
+    <li class="active"><a href="#coupon" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "Coupon"); ?></a></li>
     <?php if(!$model->getIsNewRecord()):?>
-        <li><a href="#history" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "История покупок"); ?></a></li>
+        <li><a href="#history" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "Purchasing history"); ?></a></li>
     <?php endif;?>
 </ul>
 
@@ -20,9 +20,9 @@
         );
         ?>
         <div class="alert alert-info">
-            <?php echo Yii::t('CouponModule.coupon', 'Поля, отмеченные'); ?>
+            <?php echo Yii::t('CouponModule.coupon', 'Fields with'); ?>
             <span class="required">*</span>
-            <?php echo Yii::t('CouponModule.coupon', 'обязательны.'); ?>
+            <?php echo Yii::t('CouponModule.coupon', 'are required'); ?>
         </div>
 
         <?php echo $form->errorSummary($model); ?>
@@ -148,20 +148,18 @@
             [
                 'buttonType' => 'submit',
                 'context' => 'primary',
-                'label' => Yii::t('CouponModule.coupon', 'Сохранить и продолжить'),
+                'label' => $model->getIsNewRecord() ? Yii::t('CouponModule.coupon', 'Add coupon and continue') : Yii::t('CouponModule.coupon', 'Save coupon and continue'),
             ]
-        );
-        ?>
+        ); ?>
 
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
             [
                 'buttonType' => 'submit',
                 'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-                'label' => Yii::t('CouponModule.coupon', 'Сохранить и вернуться к списку'),
+                'label' => $model->getIsNewRecord() ? Yii::t('CouponModule.coupon', 'Add coupon and close') : Yii::t('CouponModule.coupon', 'Save coupon and close'),
             ]
-        );
-        ?>
+        ); ?>
 
         <?php $this->endWidget(); ?>
     </div>
@@ -189,7 +187,7 @@
                             'name' => 'id',
                             'htmlOptions' => ['width' => '90px'],
                             'type' => 'raw',
-                            'value' => 'CHtml::link("Заказ №".$data->id, array("/order/orderBackend/update", "id" => $data->id))',
+                            'value' => 'CHtml::link(Yii::t("CouponModule.coupon", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id))',
                         ],
                         [
                             'name' => 'name',

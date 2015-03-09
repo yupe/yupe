@@ -14,7 +14,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('PageModule.page', 'Add page'),
+        'label' => Yii::t('PageModule.page', 'Create page'),
         'url'   => ['/page/pageBackend/create']
     ],
 ];

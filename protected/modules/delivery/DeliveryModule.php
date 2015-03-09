@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class DeliveryModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.4';
 
     public function getDependencies()
     {
@@ -23,8 +23,8 @@ class DeliveryModule extends WebModule
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Список способов доставки'), 'url' => ['/delivery/deliveryBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Добавить способ'), 'url' => ['/delivery/deliveryBackend/create']],
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Delivery lists'), 'url' => ['/delivery/deliveryBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Create delivery'), 'url' => ['/delivery/deliveryBackend/create']],
         ];
     }
 
@@ -40,12 +40,12 @@ class DeliveryModule extends WebModule
 
     public function getName()
     {
-        return Yii::t('DeliveryModule.delivery', 'Доставка');
+        return Yii::t('DeliveryModule.delivery', 'Delivery');
     }
 
     public function getDescription()
     {
-        return Yii::t('DeliveryModule.delivery', 'Модуль для создания способов доставки в интернет-магазине');
+        return Yii::t('DeliveryModule.delivery', 'Delivery module');
     }
 
     public function getAuthor()
