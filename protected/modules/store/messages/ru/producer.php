@@ -1,0 +1,20 @@
+<?php
+return [
+    'Add producer and close' => 'Добавить производителя и закрыть',
+    'Add producer and continue' => 'Добавить производителя и продолжить',
+    'Create producer' => 'Добавить производителя',
+    'Delete producer' => 'Удалить производителя',
+    'Do you really want to remove this producer?' => 'Вы уверены, что хотите удалить производителя?',
+    'Manage producers' => 'Управление производителями',
+    'Producer' => 'Производитель',
+    'Producers - create' => 'Производители - добавить',
+    'Producers - edition' => 'Производители - редактирование',
+    'Producers - manage' => 'Производители - управление',
+    'Producers - view' => 'Производители - просмотр',
+    'Producers list' => 'Список производителей',
+    'Producers' => 'Производители',
+    'Save producer and close' => 'Сохранить производителя и закрыть',
+    'Save producer and continue' => 'Сохранить производителя и продолжить',
+    'Update producer' => 'Редактировать производителя',
+    'View producer' => 'Просмотр производителя',
+];

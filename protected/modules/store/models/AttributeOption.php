@@ -56,9 +56,9 @@ class AttributeOption extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.attribute', 'Id'),
-            'position' => Yii::t('StoreModule.attribute', 'Позиция'),
-            'value' => Yii::t('StoreModule.attribute', 'Значение'),
+            'id' => Yii::t('StoreModule.store', 'ID'),
+            'position' => Yii::t('StoreModule.attr', 'Position'),
+            'value' => Yii::t('StoreModule.store', 'Value'),
         ];
     }
 
@@ -68,9 +68,9 @@ class AttributeOption extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'id' => Yii::t('StoreModule.attribute', 'Id'),
-            'position' => Yii::t('StoreModule.attribute', 'Позиция'),
-            'value' => Yii::t('StoreModule.attribute', 'Значение'),
+            'id' => Yii::t('StoreModule.store', 'ID'),
+            'position' => Yii::t('StoreModule.attr', 'Position'),
+            'value' => Yii::t('StoreModule.store', 'Value'),
         ];
     }
 }

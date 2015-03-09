@@ -345,4 +345,8 @@ return [
     'Mime types' => 'MIME-типы',
     'Minimum size (in bytes)' => 'Минимальный размер (в байтах)',
     'Maximum size (in bytes)' => 'Максимальный размер (в байтах)',
+    'Record was updated!'   => 'Запись успешно обновлена!',
+    'Record was created!'   => 'Запись успешно создана!',
+    'Record was deleted!'   => 'Запись успешно удалена!',
+    'Record was not found!' => 'Запись не найдена!',
 ];

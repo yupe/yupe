@@ -9,7 +9,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             ['allow', 'actions' => ['create'], 'roles' => ['Store.AttributeBackend.Create'],],
             ['allow', 'actions' => ['delete'], 'roles' => ['Store.AttributeBackend.Delete'],],
             ['allow', 'actions' => ['update'], 'roles' => ['Store.AttributeBackend.Update'],],
-            ['allow', 'actions' => ['groupSortable'], 'roles' => ['Store.AttributeBackend.Update'],],
+            ['allow', 'actions' => ['sortable'], 'roles' => ['Store.AttributeBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.AttributeBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.AttributeBackend.View'],],
             ['deny',],
@@ -23,6 +23,10 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'AttributeGroup',
                 'validAttributes' => ['name'],
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'AttributeGroup'
             ]
         ];
     }
@@ -188,18 +192,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-    public function actionGroupSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-        if (AttributeGroup::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-        Yii::app()->ajax->failure();
     }
 
     public function actionGroupCreate()

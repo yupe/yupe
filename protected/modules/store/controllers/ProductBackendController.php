@@ -12,9 +12,14 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                     'status',
                     'in_stock',
                     'price',
-                    'quantity',
+                    'discount',
+                    'discount_price',
                     'sku'
                 ]
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Product'
             ]
         ];
     }

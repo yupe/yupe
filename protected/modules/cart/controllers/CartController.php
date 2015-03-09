@@ -61,7 +61,7 @@ class CartController extends \yupe\components\controllers\FrontController
         $model->selectedVariants = $variants;
         $quantity = isset($product['quantity']) ? (int)$product['quantity'] : 1;
         Yii::app()->cart->put($model, $quantity ? : 1);
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Товар успешно добавлен в корзину'));
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product successfully added to your basket'));
     }
 
     public function actionUpdate()
@@ -73,7 +73,7 @@ class CartController extends \yupe\components\controllers\FrontController
         $position = Yii::app()->cart->itemAt(Yii::app()->getRequest()->getPost('id'));
         $quantity  = (int)Yii::app()->getRequest()->getPost('quantity');
         Yii::app()->cart->update($position, $quantity);
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Количество изменено'));
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Quantity changed'));
     }
 
     public function actionDelete()
@@ -83,7 +83,7 @@ class CartController extends \yupe\components\controllers\FrontController
         }
 
         Yii::app()->cart->remove(Yii::app()->getRequest()->getPost('id'));
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Товар удален из корзины'));
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product removed from cart'));
     }
 
     public function actionClear()
@@ -93,7 +93,7 @@ class CartController extends \yupe\components\controllers\FrontController
         }
 
         Yii::app()->cart->clear();
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Корзина очищена'));
+        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Cart is cleared'));
     }
 
     public function actionWidget()

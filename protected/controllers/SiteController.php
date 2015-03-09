@@ -23,7 +23,7 @@ class SiteController extends FrontController
      */
     public function actionIndex()
     {
-        $this->render('welcome');
+        $this->render('index');
     }
 
     /**

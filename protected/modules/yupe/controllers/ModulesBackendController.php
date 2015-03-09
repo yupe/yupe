@@ -102,7 +102,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
                                 'There is en error when trying to update "{n}" file module!',
                                 $name
                             );
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                             $message
                         );

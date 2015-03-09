@@ -98,6 +98,10 @@ class Image extends yupe\models\YModel
                 'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
             ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort'
+            ]
         ];
     }
 
@@ -177,7 +181,10 @@ class Image extends yupe\models\YModel
             $criteria->together = true;
         }
 
-        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $criteria,
+            'sort' => ['defaultOrder' => 't.sort']
+        ]);
     }
 
     public function beforeValidate()

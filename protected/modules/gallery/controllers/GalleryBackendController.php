@@ -191,7 +191,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 'criteria' => [
                     'condition' => 't.gallery_id = :gallery_id',
                     'params'    => [':gallery_id' => $gallery->id],
-                    'order'     => 't.creation_date DESC',
+                    'order'     => 'image.sort',
                     'with'      => 'image',
                 ],
             ]

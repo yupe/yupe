@@ -20,9 +20,9 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.store', 'Поля, отмеченные'); ?>
+    <?= Yii::t('StoreModule.store', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.store', 'обязательны.'); ?>
+    <?= Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -152,19 +152,17 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => Yii::t('StoreModule.store', 'Сохранить и продолжить'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.producer', 'Add producer and continue') : Yii::t('StoreModule.producer', 'Save producer and continue'),
     ]
-);
-?>
+); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => Yii::t('StoreModule.store', 'Сохранить и вернуться к списку'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.producer', 'Add producer and close') : Yii::t('StoreModule.producer', 'Save producer and close'),
     ]
-);
-?>
+); ?>
 
 <?php $this->endWidget(); ?>

@@ -56,6 +56,11 @@ class Migrator extends \CApplicationComponent
     public function updateToLatest($module)
     {
         if (($newMigrations = $this->getNewMigrations($module)) !== []) {
+
+            if(Yii::app()->hasComponent('cache')) {
+                Yii::app()->getComponent('cache')->flush();
+            }
+
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
@@ -63,11 +68,17 @@ class Migrator extends \CApplicationComponent
                     ['{module}' => $module]
                 )
             );
+
             foreach ($newMigrations as $migration) {
                 if ($this->migrateUp($module, $migration) === false) {
                     return false;
                 }
             }
+
+            if(Yii::app()->hasComponent('cache')) {
+                Yii::app()->getComponent('cache')->flush();
+            }
+
         } else {
             Yii::log(
                 Yii::t(
