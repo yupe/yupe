@@ -32,7 +32,7 @@ class CommentManager extends CApplicationComponent
          * Для того чтобы осушествить проверку у модели должен быть public метод: commitValidation()
          * Если метод вернет значение: false, то предполагается что для данной сушности добавление комментария запрещено
          **/
-        $model = yupe\models\YModel::model($comment->model)->findByPk($comment->model_id);
+        $model = YModel::model($comment->model)->findByPk($comment->model_id);
         if ( ($model instanceof ICommentAllowed) && $model->isCommentAllowed() === false ) {
             throw new CException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
         }
