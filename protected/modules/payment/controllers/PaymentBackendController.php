@@ -30,6 +30,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['index'], 'roles' => ['Payment.PaymentBackend.Index'],],
             ['allow', 'actions' => ['sortable'], 'roles' => ['Payment.PaymentBackend.Update'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Payment.PaymentBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Payment.PaymentBackend.Multiaction'],],
             ['deny',],
         ];
     }

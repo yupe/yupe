@@ -206,6 +206,7 @@ class StoreModule extends WebModule
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Update', 'description' => Yii::t("StoreModule.attr", 'Update attribute'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.View', 'description' => Yii::t("StoreModule.attr", 'View attribute'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Delete', 'description' => Yii::t("StoreModule.attr", 'Delete attribute'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.AttributeBackend.Multiaction', 'description' => Yii::t("StoreModule.attr", 'Batch delete'),],
                         ],
                     ],
                     [
@@ -218,6 +219,7 @@ class StoreModule extends WebModule
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Update', 'description' => Yii::t("StoreModule.category", 'Update category'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.View', 'description' => Yii::t("StoreModule.category", 'View category'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Delete', 'description' => Yii::t("StoreModule.category", 'Delete category'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.CategoryBackend.Multiaction', 'description' => Yii::t("StoreModule.category", 'Batch delete'),],
                         ],
                     ],
                     [
@@ -230,6 +232,7 @@ class StoreModule extends WebModule
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Update', 'description' => Yii::t("StoreModule.producer", 'Update producer'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.View', 'description' => Yii::t("StoreModule.producer", 'View producer'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Delete', 'description' => Yii::t("StoreModule.producer", 'Delete producer'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProducerBackend.Multiaction', 'description' => Yii::t("StoreModule.producer", 'Batch delete'),],
                         ],
                     ],
                     [
@@ -242,6 +245,7 @@ class StoreModule extends WebModule
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Update', 'description' => Yii::t("StoreModule.product", 'Update product'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.View', 'description' => Yii::t("StoreModule.product", 'View product'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Delete', 'description' => Yii::t("StoreModule.product", 'Delete product'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.ProductBackend.Multiaction', 'description' => Yii::t("StoreModule.product", 'Batch delete'),],
                         ],
                     ],
                     [
@@ -254,6 +258,7 @@ class StoreModule extends WebModule
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Update', 'description' => Yii::t("StoreModule.type", 'Update type'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.View', 'description' => Yii::t("StoreModule.type", 'View type'),],
                             ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Delete', 'description' => Yii::t("StoreModule.type", 'Delete type'),],
+                            ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Store.TypeBackend.Multiaction', 'description' => Yii::t("StoreModule.type", 'Batch delete'),],
                         ],
                     ],
                 ],

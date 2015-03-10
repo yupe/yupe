@@ -6,6 +6,7 @@ return [
     'Add coupon and close' => 'Добавить купон и закрыть',
     'Add coupon and continue' => 'Добавить купон и продолжить',
     'are required' => 'обязательны.',
+    'Batch delete' => 'Массовое удаление купонов',
     'Clients only' => 'Только для клиентов',
     'Code' => 'Код',
     'Coupon already added' => 'Купон уже добавлен',

@@ -1,6 +1,7 @@
 <?php
 return [
     'Additional categories' => 'Дополнительные категории',
+    'Batch delete' => 'Массовое удаление категорий',
     'Categories - create' => 'Категория - добавление',
     'Categories - edition' => 'Категории - редактирование',
     'Categories - manage' => 'Категории - управление',

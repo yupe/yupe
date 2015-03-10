@@ -122,6 +122,11 @@ class CouponModule extends WebModule
                         'name' => 'Coupon.CouponBackend.Delete',
                         'description' => Yii::t("CouponModule.coupon", 'Delete coupon'),
                     ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Coupon.CouponBackend.Multiaction',
+                        'description' => Yii::t("CouponModule.coupon", 'Batch delete'),
+                    ],
                 ],
             ],
         ];
