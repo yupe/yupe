@@ -33,8 +33,8 @@ class CommentManager extends CApplicationComponent
          * Если метод вернет значение: false, то предполагается что для данной сушности добавление комментария запрещено
          **/
         $model = YModel::model($comment->model);
-        if ( method_exists($model, 'commitValidation') && $model->commitValidation() === false ) {
-            throw new CDbException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
+        if ( method_exists($model, 'commentValidation') && $model->commentValidation($comment->model_id) === false ) {
+            throw new CException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
         }
 
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -56,14 +56,14 @@ class CommentManager extends CApplicationComponent
                 $root = Comment::model()->approved()->findByPk($parentId);
 
                 if (null === $root) {
-                    throw new CDbException(Yii::t('CommentModule.comment', 'Root comment not found!'));
+                    throw new CException(Yii::t('CommentModule.comment', 'Root comment not found!'));
                 }
             } else { // Иначе если parent_id не указан...
 
                 $root = $comment->createRootOfCommentsIfNotExists($comment->model, $comment->model_id);
 
                 if (null === $root) {
-                    throw new CDbException(Yii::t('CommentModule.comment', 'Root comment not created!'));
+                    throw new CException(Yii::t('CommentModule.comment', 'Root comment not created!'));
                 }
             }
 
@@ -79,7 +79,7 @@ class CommentManager extends CApplicationComponent
                 return $comment;
             }
 
-            throw new CDbException(Yii::t('CommentModule.comment', 'Error append comment to root!'));
+            throw new CException(Yii::t('CommentModule.comment', 'Error append comment to root!'));
 
         } catch (Exception $e) {
 
