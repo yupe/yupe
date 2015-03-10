@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
+    <title><?= CHtml::encode(Yii::app()->name); ?> <?= CHtml::encode($this->pageTitle); ?></title>
     <?php
     $mainAssets = Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
@@ -83,7 +83,7 @@
         CClientScript::POS_BEGIN
     );
     ?>
-    <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
+    <link rel="shortcut icon" href="<?= $mainAssets; ?>/img/favicon.ico"/>
 
 </head>
 
@@ -92,16 +92,16 @@
     <!-- mainmenu -->
     <?php
     $this->widget('yupe\widgets\YAdminPanel'); ?>
-    <div class="container-fluid" id="page"><?php echo $content; ?></div>
+    <div class="container-fluid" id="page"><?= $content; ?></div>
     <div id="footer-guard"></div>
 </div>
 
 <div class='notifications top-right' id="notifications"></div>
 
 <footer>
-    &copy; 2012 - <?php echo date('Y'); ?>
-    <?php echo $this->yupe->poweredBy(); ?>
-    <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
+    &copy; 2012 - <?= date('Y'); ?>
+    <?= $this->yupe->poweredBy(); ?>
+    <small class="label label-info"><?= $this->yupe->getVersion(); ?></small>
     <?php $this->widget('yupe\widgets\YPerformanceStatistic'); ?>
 </footer>
 </body>

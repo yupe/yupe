@@ -774,7 +774,7 @@ class YupeModule extends WebModule
 
         if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
             Yii::log(
-                'For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager',
+                'For use multi lang, please, enable "yupe\components\urlManager\LangUrlManager" as default UrlManager',
                 CLogger::LEVEL_WARNING
             );
 
@@ -782,9 +782,9 @@ class YupeModule extends WebModule
         }
 
         $items = [];
-        $currentLanguage = Yii::app()->language;
+        $currentLanguage = Yii::app()->getLanguage();
 
-        $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
+        $homeUrl = Yii::app()->getHomeUrl() . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
         $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url);
 
         foreach ($langs as $lang) {
