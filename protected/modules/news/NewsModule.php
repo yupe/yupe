@@ -264,6 +264,11 @@ class NewsModule extends WebModule
                         'name'        => 'News.NewsBackend.View',
                         'description' => Yii::t('NewsModule.news', 'Viewing news')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'News.NewsBackend.Multiaction',
+                        'description' => Yii::t('NewsModule.news', 'Batch delete')
+                    ],
                 ]
             ]
         ];

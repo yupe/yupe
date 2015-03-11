@@ -22,6 +22,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['inline'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Menu.MenuitemBackend.Multiaction']],
             ['deny']
         ];
     }

@@ -221,6 +221,11 @@ class MailModule extends yupe\components\WebModule
                         'name'        => 'Mail.EventBackend.View',
                         'description' => Yii::t('MailModule.mail', 'Viewing mail events')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Mail.EventBackend.Multiaction',
+                        'description' => Yii::t('MailModule.mail', 'Batch delete mail events')
+                    ],
                     //mail templates
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
@@ -251,6 +256,11 @@ class MailModule extends yupe\components\WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Mail.TemplateBackend.View',
                         'description' => Yii::t('MailModule.mail', 'Viewing mail event templates')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Mail.TemplateBackend.Multiaction',
+                        'description' => Yii::t('MailModule.mail', 'Batch delete mail event templates')
                     ],
                 ]
             ]

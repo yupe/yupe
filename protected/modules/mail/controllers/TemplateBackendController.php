@@ -21,6 +21,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['inline'], 'roles' => ['Mail.TemplateBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Mail.TemplateBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Mail.TemplateBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Mail.TemplateBackend.Multiaction']],
             ['deny']
         ];
     }
