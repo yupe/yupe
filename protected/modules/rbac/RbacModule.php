@@ -134,6 +134,11 @@ class RbacModule extends WebModule
                         'name'        => 'Rbac.RbacBackend.View',
                         'description' => Yii::t('RbacModule.rbac', 'Viewing roles')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Rbac.RbacBackend.Multiaction',
+                        'description' => Yii::t('RbacModule.rbac', 'Batch delete')
+                    ],
                 ]
             ]
         ];

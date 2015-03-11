@@ -15,6 +15,7 @@ class RbacBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['update'], 'roles' => ['Rbac.RbacBackend.Update']],
             ['allow', 'actions' => ['userList'], 'roles' => ['Rbac.RbacBackend.Assign']],
             ['allow', 'actions' => ['view'], 'roles' => ['Rbac.RbacBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Rbac.RbacBackend.Multiaction']],
             ['deny',]
         ];
     }

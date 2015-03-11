@@ -171,6 +171,11 @@ class PageModule extends yupe\components\WebModule
                         'name'        => 'Page.PageBackend.View',
                         'description' => Yii::t('PageModule.page', 'Viewing pages')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Page.PageBackend.Multiaction',
+                        'description' => Yii::t('PageModule.page', 'Batch delete')
+                    ],
                 ]
             ]
         ];
