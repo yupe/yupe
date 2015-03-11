@@ -196,6 +196,11 @@ class CategoryModule extends WebModule
                         'name'        => 'Category.CategoryBackend.View',
                         'description' => Yii::t('CategoryModule.category', 'Viewing categories')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Multiaction',
+                        'description' => Yii::t('CategoryModule.category', 'Batch delete')
+                    ],
                 ]
             ]
         ];

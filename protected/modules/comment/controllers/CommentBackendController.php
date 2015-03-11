@@ -22,6 +22,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['inline'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Comment.CommentBackend.Multiaction']],
             ['deny']
         ];
     }

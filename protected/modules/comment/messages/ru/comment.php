@@ -124,5 +124,6 @@ return [
     'Removing comment'                                            => 'Удаление комментария',
     'List of comments'                                            => 'Просмотр списка комментариев',
     'Editing comment'                                             => 'Редактирование комментария',
-    'Viewing comments'                                            => 'Просмотр комментариев'
+    'Viewing comments'                                            => 'Просмотр комментариев',
+    'Batch delete'                                                => 'Массовое удаление комментариев',
 ];
