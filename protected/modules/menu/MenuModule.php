@@ -146,6 +146,11 @@ class MenuModule extends yupe\components\WebModule
                         'name'        => 'Menu.MenuBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Menu.MenuBackend.Multiaction',
+                        'description' => Yii::t('MenuModule.menu', 'Batch delete menu')
+                    ],
                     //menu items
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
@@ -176,6 +181,11 @@ class MenuModule extends yupe\components\WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu items')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Menu.MenuitemBackend.Multiaction',
+                        'description' => Yii::t('MenuModule.menu', 'Batch delete menu items')
                     ],
                 ]
             ]

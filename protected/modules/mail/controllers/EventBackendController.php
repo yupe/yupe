@@ -21,6 +21,7 @@ class EventBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['inline'], 'roles' => ['Mail.EventBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Mail.EventBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Mail.EventBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Mail.EventBackend.Multiaction']],
             ['deny']
         ];
     }

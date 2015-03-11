@@ -5,6 +5,7 @@ return [
     'Add product and continue' => 'Добавить товар и продолжить',
     'Additional price' => 'Дополнительные цены',
     'Average price' => 'Среднерыночная цена',
+    'Batch delete' => 'Массовое удаление товаров',
     'Changing base rates' => 'Изменение базовой цены',
     'Create product' => 'Добавить товар',
     'Delete product' => 'Удалить товар',

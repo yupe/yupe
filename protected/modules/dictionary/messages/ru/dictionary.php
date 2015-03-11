@@ -25,6 +25,8 @@ return [
     'team@yupe.ru'                                                => 'team@yupe.ru',
     'yupe team'                                                   => 'yupe team',
     'Active'                                                      => 'Активно',
+    'Batch delete dictionary'                                     => 'Массовое удаление справочников',
+    'Batch delete dictionary data'                                => 'Массовое удаление значений справочников',
     'This section describes dictionary items management'          => 'В данном разделе представлены средства управления значениями справочников',
     'This section describes dictionary management'                => 'В данном разделе представлены средства управления справочниками',
     'Do you really want do delete dictionary item?'               => 'Вы уверены, что хотите удалить значение справочника?',

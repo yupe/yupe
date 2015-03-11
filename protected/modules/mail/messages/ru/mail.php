@@ -109,12 +109,12 @@ return [
     'Removing mail event'                                                  => 'Удаление почтового события',
     'List of mail events'                                                  => 'Просмотр списка почтовых событий',
     'Editing mail events'                                                  => 'Редактирование почтовых событий',
-    'Editing mail events'                                                  => 'Редактирование почтовых событий',
     'Viewing mail events'                                                  => 'Просмотр постовых событий',
     'Creating mail event template'                                         => 'Создание шаблона для почтового события',
     'Removing mail event template'                                         => 'Удаление шаблона почтового события',
     'List of mail event templates'                                         => 'Просмотр списка шаблонов почтовых событий',
     'Editing mail event templates'                                         => 'Редактирование шаблона почтового события',
-    'Editing mail event templates'                                         => 'Редактирование шаблона почтового события',
-    'Viewing mail event templates'                                         => 'Просмотр шаблона почтового события'
+    'Viewing mail event templates'                                         => 'Просмотр шаблона почтового события',
+    'Batch delete mail events'                                             => 'Массовое удаление почтовых событий',
+    'Batch delete mail event templates'                                    => 'Массовое удаление шаблонов почтовых событий',
 ];

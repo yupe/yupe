@@ -22,6 +22,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['inline'], 'roles' => ['News.NewsBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['News.NewsBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['News.NewsBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['News.NewsBackend.Multiaction']],
             ['deny']
         ];
     }

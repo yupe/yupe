@@ -26,6 +26,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
             ],
             ['allow', 'actions' => ['update'], 'roles' => ['Dictionary.DictionaryDataBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Dictionary.DictionaryDataBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Dictionary.DictionaryDataBackend.Multiaction']],
             ['deny']
         ];
     }

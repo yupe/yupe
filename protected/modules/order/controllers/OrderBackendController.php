@@ -25,6 +25,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Order.OrderBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Order.OrderBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Order.OrderBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Order.OrderBackend.Multiaction'],],
             [
                 'allow',
                 'actions' => ['productRow'],
