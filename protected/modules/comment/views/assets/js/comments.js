@@ -48,6 +48,7 @@ $(document).ready(function () {
             }
             if(response.result) {
                 $('#Comment_text').val('');
+                $('div.redactor-editor').html('');
             }
 
             $('#captcha-refresh').trigger('click');

@@ -17,6 +17,14 @@ return [
                 'limit' => 5
             ]
         ],
+        'visualEditors' => [
+            'redactor' => [
+                'class' => 'yupe\widgets\editors\Redactor',
+            ],
+            'textarea' => [
+                'class' => 'yupe\widgets\editors\Textarea',
+            ],
+        ],
     ],
     'import'    => [
         'application.modules.comment.models.*',

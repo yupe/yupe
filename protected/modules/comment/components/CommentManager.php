@@ -1,5 +1,7 @@
 <?php
 
+use yupe\models\YModel;
+
 class CommentManager extends CApplicationComponent
 {
     public function create($params, $module, $user, $request = null)
@@ -25,6 +27,16 @@ class CommentManager extends CApplicationComponent
             $comment->status = Comment::STATUS_APPROVED;
         }
 
+        /**
+        * Реализована проверка прав на возможность добавления комментария в конкретную модель
+        * Для того чтобы осушествить проверку у модели должен быть public метод: commitValidation()
+        * Если метод вернет значение: false, то предполагается что для данной сушности добавление комментария запрещено
+        **/
+        $model = YModel::model($comment->model)->findByPk($comment->model_id);
+        if ( ($model instanceof ICommentAllowed) && $model->isCommentAllowed() === false ) {
+            throw new CException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
+        }
+
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
@@ -44,14 +56,14 @@ class CommentManager extends CApplicationComponent
                 $root = Comment::model()->approved()->findByPk($parentId);
 
                 if (null === $root) {
-                    throw new CDbException(Yii::t('CommentModule.comment', 'Root comment not found!'));
+                    throw new CException(Yii::t('CommentModule.comment', 'Root comment not found!'));
                 }
             } else { // Иначе если parent_id не указан...
 
                 $root = $comment->createRootOfCommentsIfNotExists($comment->model, $comment->model_id);
 
                 if (null === $root) {
-                    throw new CDbException(Yii::t('CommentModule.comment', 'Root comment not created!'));
+                    throw new CException(Yii::t('CommentModule.comment', 'Root comment not created!'));
                 }
             }
 
@@ -67,7 +79,7 @@ class CommentManager extends CApplicationComponent
                 return $comment;
             }
 
-            throw new CDbException(Yii::t('CommentModule.comment', 'Error append comment to root!'));
+            throw new CException(Yii::t('CommentModule.comment', 'Error append comment to root!'));
 
         } catch (Exception $e) {
 
