@@ -1,0 +1,27 @@
+{
+    "name": "PayPal",
+    "settings": [
+        {
+            "variable": "clientId",
+            "name": "Client ID token"
+        },
+        {
+            "variable": "clientSecret",
+            "name": "Client Secret token"
+        },
+        {
+            "variable": "testmode",
+            "name": "Режим оплаты",
+            "options": [
+                {
+                    "name": "Тестовый режим",
+                    "value": "1"
+                },
+                {
+                    "name": "Рабочий режим",
+                    "value": "0"
+                }
+            ]
+        }
+    ]
+}

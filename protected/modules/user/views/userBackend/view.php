@@ -87,7 +87,7 @@ $this->menu = [
             'id',
             [
                 'name'  => 'full_name',
-                'value' => $model->getFullName(),
+                'value' => $model->getFullName()
             ],
             'nick_name',
             'email',

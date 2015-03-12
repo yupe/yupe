@@ -60,7 +60,9 @@
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
         "guzzlehttp/guzzle": "5.0.*",
-        "brussens/wysibb-yii": "dev-master"
+        "brussens/wysibb-yii": "dev-master",
+        "stripe/stripe-php": "1.*",
+        "paypal/rest-api-sdk-php" : "*"
     },
     "repositories": {
         "taggable": {
