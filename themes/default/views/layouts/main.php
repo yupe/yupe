@@ -18,7 +18,6 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/blog.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/comments.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';

@@ -28,6 +28,13 @@ class CommentModule extends WebModule
     public $antiSpamInterval = 3;
     public $allowedTags;
     public $allowGuestComment = 0;
+    public $stripTags = 1;
+    public $assetsPath = "application.modules.comment.views.assets";
+
+    /**
+    * @var string - id редактора
+    */
+    public $editor = 'textarea';
 
     public function getDependencies()
     {
@@ -50,7 +57,9 @@ class CommentModule extends WebModule
             'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
             'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
             'antiSpamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
-            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?')
+            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?'),
+            'editor'               => Yii::t('YupeModule.yupe', 'Visual editor'),
+            'stripTags'            => Yii::t('CommentModule.comment', 'Remove tags in the derivation comment using strip_tags() ?'),
         ];
     }
 
@@ -68,7 +77,9 @@ class CommentModule extends WebModule
             'maxCaptchaLength',
             'rssCount',
             'allowedTags',
-            'antiSpamInterval'
+            'antiSpamInterval',
+            'stripTags' => $this->getChoice(),
+            'editor' => $this->editors,
         ];
     }
 
@@ -91,6 +102,12 @@ class CommentModule extends WebModule
                     'showCaptcha',
                     'minCaptchaLength',
                     'maxCaptchaLength'
+                ]
+            ],
+            'editor' => [
+                'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
+                'items' => [
+                    'editor',
                 ]
             ],
         ];

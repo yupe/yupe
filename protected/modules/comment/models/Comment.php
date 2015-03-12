@@ -226,6 +226,13 @@ class Comment extends yupe\models\YModel
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
 
+        $module = Yii::app()->getModule('comment');
+        $p = new CHtmlPurifier;
+        $p->options = [
+            'HTML.Allowed' => $module->allowedTags,
+        ];
+        $this->text = $p->purify($this->text);
+
         return parent::beforeSave();
     }
 
@@ -323,7 +330,9 @@ class Comment extends yupe\models\YModel
 
     public function getText()
     {
-        return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
+        return ( Yii::app()->getModule('comment')->stripTags )
+            ? strip_tags($this->text)
+            : $this->text;
     }
 
     /**

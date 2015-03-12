@@ -67,7 +67,7 @@ $this->menu = [
             'model_id',
             [
                 'name'  => 'text',
-                'value' => 'yupe\helpers\YText::characterLimiter($data->text, 150)',
+                'value' => 'yupe\helpers\YText::characterLimiter($data->getText(), 150)',
                 'type'  => 'html'
             ],
             [
