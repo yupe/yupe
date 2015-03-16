@@ -24,6 +24,7 @@ class UserBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['update'], 'roles' => ['User.UserBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.View']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.Changepassword']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['User.UserBackend.Multiaction']],
             ['deny']
         ];
     }

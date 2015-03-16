@@ -12,6 +12,7 @@ return [
     'Address' => 'Адрес',
     'Allow orders validation by number' => 'Разрешить проверку заказа по номеру',
     'are required' => 'обязательны.',
+    'Batch delete' => 'Массовое удаление заказов',
     'Check order' => 'Проверка заказа',
     'Check' => 'Проверить',
     'Client' => 'Клиент',

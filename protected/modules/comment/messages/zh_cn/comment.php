@@ -108,4 +108,12 @@ return [
     'WRITE COMMENT'                                               => '',
     'From user'                                                   => '',
     'Insert symbols you see on picture'                           => '',
+    'Creating comment'                                            => '',
+    'Removing comment'                                            => '',
+    'List of comments'                                            => '',
+    'Editing comment'                                             => '',
+    'Viewing comments'                                            => '',
+    'Batch delete'                                                => '',
+    'Remove tags in the derivation comment using strip_tags() ?'  => '',
+    'Not have permission to add a comment!'                       => ''
 ];

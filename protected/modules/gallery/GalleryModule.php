@@ -164,6 +164,11 @@ class GalleryModule extends yupe\components\WebModule
                         'name'        => 'Gallery.GalleryBackend.Addimages',
                         'description' => Yii::t('GalleryModule.gallery', 'Add image')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Gallery.GalleryBackend.Multiaction',
+                        'description' => Yii::t('GalleryModule.gallery', 'Batch delete')
+                    ],
                 ]
             ]
         ];

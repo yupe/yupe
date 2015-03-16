@@ -136,6 +136,11 @@ class ContentBlockModule extends yupe\components\WebModule
                         'name'        => 'ContentBlock.ContentblockBackend.View',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Viewing blocks')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'ContentBlock.ContentblockBackend.Multiaction',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Batch delete')
+                    ],
                 ]
             ]
         ];

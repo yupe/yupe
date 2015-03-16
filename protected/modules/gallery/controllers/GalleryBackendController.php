@@ -25,6 +25,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
             ['allow', 'actions' => ['deleteImage'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
             ['allow', 'actions' => ['addimages'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Gallery.GalleryBackend.Multiaction']],
             ['deny']
         ];
     }

@@ -35,6 +35,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['update'], 'roles' => ['Store.ProductBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.ProductBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProductBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.ProductBackend.Multiaction'],],
             [
                 'allow',
                 'actions' => ['typeAttributes'],

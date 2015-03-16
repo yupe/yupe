@@ -292,6 +292,11 @@ class ImageModule extends WebModule
                         'name'        => 'Image.ImageBackend.View',
                         'description' => Yii::t('ImageModule.image', 'Viewing images')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Image.ImageBackend.Multiaction',
+                        'description' => Yii::t('ImageModule.image', 'Batch delete')
+                    ],
                 ]
             ]
         ];

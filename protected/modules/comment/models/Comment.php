@@ -83,7 +83,8 @@ class Comment extends yupe\models\YModel
 
         return [
             ['model, name, email, text, url', 'filter', 'filter' => 'trim'],
-            ['model, name, email, text, url', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['model, name, email, url', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['text', 'purifyText'],
             ['model, model_id, name, email, text', 'required'],
             ['status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true],
             ['name, email, url, comment', 'length', 'max' => 150],
@@ -108,6 +109,16 @@ class Comment extends yupe\models\YModel
                 'on' => 'search'
             ],
         ];
+    }
+
+    public function purifyText($attribute, $params)
+    {
+        $module = Yii::app()->getModule('comment');
+        $p = new CHtmlPurifier();
+        $p->options = [
+            'HTML.Allowed' => $module->allowedTags,
+        ];
+        $this->$attribute = $p->purify($this->$attribute);
     }
 
     /**
@@ -323,7 +334,9 @@ class Comment extends yupe\models\YModel
 
     public function getText()
     {
-        return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
+        return ( Yii::app()->getModule('comment')->stripTags )
+            ? strip_tags($this->text)
+            : $this->text;
     }
 
     /**

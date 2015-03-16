@@ -25,6 +25,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['update'], 'roles' => ['Store.ProducerBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.ProducerBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProducerBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.ProducerBackend.Multiaction'],],
             ['deny',],
         ];
     }

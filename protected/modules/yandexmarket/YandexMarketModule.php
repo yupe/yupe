@@ -101,6 +101,7 @@ class YandexMarketModule extends WebModule
                     ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Update', 'description' => Yii::t("YandexMarketModule.default", 'Update export list'),],
                     ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.View', 'description' => Yii::t("YandexMarketModule.default", 'View export list'),],
                     ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Delete', 'description' => Yii::t("YandexMarketModule.default", 'Delete export list'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Multiaction', 'description' => Yii::t("YandexMarketModule.default", 'Batch delete'),],
                 ],
             ],
         ];

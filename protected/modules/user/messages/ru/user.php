@@ -363,4 +363,6 @@ return [
     'Email was updated.' => 'Email был изменен.',
     'Your password was changed successfully.' => 'Ваш пароль успешно изменен.',
     'Avatar extensions' => 'Расширения аватаров',
+    'Batch delete users' => 'Массовое удаление пользователей',
+    'Batch delete user tokens' => 'Массовое удаление токенов пользователей',
 ];

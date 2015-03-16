@@ -51,6 +51,9 @@ $this->menu = [
         ],
         'columns'      => [
             [
+                'class'=>'CCheckBoxColumn',
+            ],
+            [
                 'name'  => 'name',
                 'value' => 'CHtml::link($data->name, array("/rbac/rbacBackend/update", "id" => $data->name))',
                 'type'  => 'html'

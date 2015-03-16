@@ -30,6 +30,7 @@ return [
     'Add product and close'                                => 'Добавить товар и закрыть',
     'Add product and continue'                             => 'Добавить товар и продолжить',
     'Added'                                                => 'Добавлено',
+    'Batch delete'                                         => 'Массовое удаление товаров',
     'Manage'                                               => 'Управление',
     'Alias'                                                => 'Алиас',
     'Do you really want to remove product?'                => 'Вы уверены, что хотите удалить товар?',

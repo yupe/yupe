@@ -314,6 +314,11 @@ class FeedbackModule extends WebModule
                         'name'        => 'Feedback.FeedbackBackend.Answer',
                         'description' => Yii::t('FeedbackModule.feedback', 'Answer feedback')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Feedback.FeedbackBackend.Multiaction',
+                        'description' => Yii::t('FeedbackModule.feedback', 'Batch delete')
+                    ],
                 ]
             ]
         ];

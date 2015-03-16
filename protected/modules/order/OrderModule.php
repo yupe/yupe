@@ -138,6 +138,7 @@ class OrderModule extends WebModule
                     ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Update', 'description' => Yii::t("OrderModule.order", 'Update order'),],
                     ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.View', 'description' => Yii::t("OrderModule.order", 'View order'),],
                     ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Delete', 'description' => Yii::t("OrderModule.order", 'Delete order'),],
+                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Multiaction', 'description' => Yii::t("OrderModule.order", 'Batch delete'),],
                 ],
             ],
         ];

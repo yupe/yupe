@@ -147,6 +147,11 @@ class DictionaryModule extends yupe\components\WebModule
                         'name'        => 'Dictionary.DictionaryBackend.View',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Viewing dictionary')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryBackend.Multiaction',
+                        'description' => Yii::t('DictionaryModule.dictionary', 'Batch delete dictionary')
+                    ],
                     //data
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
@@ -177,6 +182,11 @@ class DictionaryModule extends yupe\components\WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Dictionary.DictionaryDataBackend.View',
                         'description' => Yii::t('DictionaryModule.dictionary', 'Viewing dictionary data')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Dictionary.DictionaryDataBackend.Multiaction',
+                        'description' => Yii::t('DictionaryModule.dictionary', 'Batch delete dictionary data')
                     ],
                 ]
             ]

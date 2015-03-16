@@ -29,6 +29,7 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['index'], 'roles' => ['Delivery.DeliveryBackend.Index'],],
             ['allow', 'actions' => ['sortable'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Delivery.DeliveryBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Delivery.DeliveryBackend.Multiaction'],],
             ['deny',],
         ];
     }

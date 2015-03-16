@@ -11,6 +11,7 @@ return [
     'Attributes - view' => 'Атрибуты - просмотр',
     'Attributes list' => 'Список атрибутов',
     'Attributes' => 'Атрибуты',
+    'Batch delete' => 'Массовое удаление атрибутов',
     'Checkbox' => 'Чекбокс',
     'Create attribute' => 'Добавить атрибут',
     'Delete attribute' => 'Удалить атрибут',

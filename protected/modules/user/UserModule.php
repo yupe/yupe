@@ -376,6 +376,11 @@ class UserModule extends WebModule
                         'name'        => 'User.UserBackend.Changepassword',
                         'description' => Yii::t('UserModule.user', 'Change password')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'User.UserBackend.Multiaction',
+                        'description' => Yii::t('UserModule.user', 'Batch delete users')
+                    ],
                     //tokens
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
@@ -401,6 +406,11 @@ class UserModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing user tokens')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'User.TokensBackend.Multiaction',
+                        'description' => Yii::t('UserModule.user', 'Batch delete user tokens')
                     ],
                 ]
             ]

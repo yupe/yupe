@@ -137,6 +137,11 @@ class QueueModule extends yupe\components\WebModule
                         'name'        => 'Queue.QueueBackend.View',
                         'description' => Yii::t('QueueModule.queue', 'Viewing queue')
                     ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Queue.QueueBackend.Multiaction',
+                        'description' => Yii::t('QueueModule.queue', 'Batch delete')
+                    ],
                 ]
             ]
         ];
