@@ -173,34 +173,6 @@ abstract class BackController extends Controller
     /**
      * @throws \CHttpException
      */
-    public function actionActivate()
-    {
-        $status = (int)Yii::app()->getRequest()->getQuery('status');
-        $id = (int)Yii::app()->getRequest()->getQuery('id');
-        $modelClass = Yii::app()->getRequest()->getQuery('model');
-        $statusField = Yii::app()->getRequest()->getQuery('statusField');
-
-        if (!isset($modelClass, $id, $status, $statusField)) {
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
-        }
-
-        $model = new $modelClass();
-        $model = $model->resetScope()->findByPk($id);
-        if (!$model) {
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
-        }
-
-        $model->$statusField = $status;
-        $model->update([$statusField]);
-
-        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
-        }
-    }
-
-    /**
-     * @throws \CHttpException
-     */
     public function actionSort()
     {
         $id = (int)Yii::app()->getRequest()->getQuery('id');
