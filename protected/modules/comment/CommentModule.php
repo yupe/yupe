@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.4';
 
     public $defaultCommentStatus;
     public $autoApprove = true;

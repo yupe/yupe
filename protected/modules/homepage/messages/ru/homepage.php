@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Store' => 'Интернет-магазин',
     'Manage home page' => 'Управление главной страницей',
     'Please activate "Blogs" or/and "Pages" module' => 'Активируйте модуль "блоги" и/или "страницы"',
     'Andrey Opeykin' => 'Андрей Опейкин',

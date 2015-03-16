@@ -9,4 +9,6 @@ class CommentEvents
     const ERROR_ADD_COMMENT = 'comment.add.error';
 
     const AFTER_SAVE_COMMENT = 'comment.after.save';
+
+    const AFTER_DELETE_COMMENT = 'comment.after.delete';
 }

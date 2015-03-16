@@ -30,14 +30,14 @@ class HpController extends \yupe\components\controllers\FrontController
                 throw new CHttpException('404', Yii::t('HomepageModule.page', 'Page was not found'));
             }
             $page = Page::model()->find(
-                    'slug = :slug AND lang = :lang',
-                    [
-                        ':slug'    => $target->slug,
-                        ':lang'    => Yii::app()->language,
-                    ]
-                );
-            $page = $page ?: $target;
-            $view = $page->view ?: 'page';
+                'slug = :slug AND lang = :lang',
+                [
+                    ':slug' => $target->slug,
+                    ':lang' => Yii::app()->getLanguage(),
+                ]
+            );
+            $page = $page ? : $target;
+            $view = $page->view ? : 'page';
 
             $data = [
                 'page' => $page
@@ -52,10 +52,10 @@ class HpController extends \yupe\components\controllers\FrontController
                     'criteria' => new CDbCriteria(
                             [
                                 'condition' => 't.status = :status',
-                                'params'    => [':status' => Post::STATUS_PUBLISHED],
-                                'limit'     => $module->limit,
-                                'order'     => 't.publish_date DESC',
-                                'with'      => ['createUser', 'blog', 'commentsCount'],
+                                'params' => [':status' => Post::STATUS_PUBLISHED],
+                                'limit' => $module->limit,
+                                'order' => 't.publish_date DESC',
+                                'with' => ['createUser', 'blog', 'commentsCount'],
                             ]
                         ),
                 ]

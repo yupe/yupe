@@ -9,6 +9,13 @@ class NewCommentListener
         }
     }
 
+    public static function onAfterDeleteComment(CommentEvent $event)
+    {
+        if ($cache = Yii::app()->getCache()) {
+            $cache->delete("Comment{$event->getComment()->model}{$event->getComment()->model_id}");
+        }
+    }
+
     public static function onBeforeAddComment(CommentEvent $event)
     {
         // проверка на таймаут добавления нового комментария
