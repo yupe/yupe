@@ -144,7 +144,12 @@ abstract class BackController extends Controller
         try {
             switch ($action) {
                 case self::BULK_DELETE:
-                    $count = CActiveRecord::model($modelClass)->deleteByPk($items);
+                    $models = CActiveRecord::model($modelClass)->findAllByPk($items);
+                    $count = 0;
+
+                    foreach ($models as $model) {
+                        $count += (int)$model->delete();
+                    }
 
                     $transaction->commit();
                     Yii::app()->ajax->success(
