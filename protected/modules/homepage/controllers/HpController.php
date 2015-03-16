@@ -29,7 +29,7 @@ class HpController extends \yupe\components\controllers\FrontController
             if (null === $target) {
                 throw new CHttpException('404', Yii::t('HomepageModule.page', 'Page was not found'));
             }
-            $page = Page::model()->find(
+            $page = Page::model()->published()->find(
                 'slug = :slug AND lang = :lang',
                 [
                     ':slug' => $target->slug,
@@ -64,6 +64,18 @@ class HpController extends \yupe\components\controllers\FrontController
             $data = [
                 'dataProvider' => $dataProvider
             ];
+        }
+
+        if($module->mode == HomepageModule::MODE_STORE) {
+
+            $view = 'store';
+
+            Yii::import('application.modules.store.components.ProductRepository');
+
+            $data = [
+                'dataProvider' => (new ProductRepository())->getListForIndexPage()
+            ];
+
         }
 
         $this->render($view, $data);

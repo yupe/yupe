@@ -472,7 +472,7 @@ class Comment extends yupe\models\YModel
                     CommentEvents::AFTER_DELETE_COMMENT,
                     new CommentEvent($model, Yii::app()->getUser(), Yii::app()->getModule('comment'))
                 );
-                
+
                 if(!$model->getIsDeletedRecord()) {
                     $count += (int)$model->deleteNode();
                 }

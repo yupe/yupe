@@ -11,6 +11,7 @@
 - #1822: Исправлены переводы (@sabian)
 - #1825: Redactor-виджет самостоятельно передает csrf-токены, нет необходимости в Request.noCsrfValidationRoutes (@chemezov, @yupe)
 - #1827: В HttpRequest->noCsrfValidationRoutes теперь передаются роуты, а не урлы (@vv3d0x, @chemezov)
+- #1831: В модуле homepage теперь можно выбрать "Интернет-магазин" (@yupe, @chemezov, @hello-omny)
 - #1832: Добавлена возможность упорядочивания вариантов товара (@yupe)
 - #1839: Для товара добавлено еще три стоимости: purchase_price, recommended_price, average_price (@vis-ural)
 - #1840: Добавлена возможность сортировки категорий каталога товаров (@vis-ural)
