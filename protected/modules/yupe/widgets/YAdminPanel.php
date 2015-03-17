@@ -20,7 +20,7 @@ use TagsCache;
 
 class YAdminPanel extends YWidget
 {
-    public $view = 'application.modules.yupe.views.widgets.YAdminPanel.adminpanel';
+    public $view = 'adminpanel';
 
     public function run()
     {
