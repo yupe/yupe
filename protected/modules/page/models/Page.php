@@ -103,6 +103,11 @@ class Page extends yupe\models\YModel
                 'createAttribute'   => 'creation_date',
                 'updateAttribute'   => 'change_date',
             ],
+            'seo'                => [
+                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/page/page/view',
+                'params' => ['slug' => $this->slug],
+            ],
         ];
     }
 
@@ -347,15 +352,6 @@ class Page extends yupe\models\YModel
     public function isProtected()
     {
         return $this->is_protected == self::PROTECTED_YES;
-    }
-
-    /**
-     * @param bool $absolute
-     * @return string
-     */
-    public function getUrl($absolute = false)
-    {
-        return $absolute ? Yii::app()->createAbsoluteUrl('/page/page/show/', ['slug' => $this->slug]) : Yii::app()->createUrl('/page/page/show/', ['slug' => $this->slug]);
     }
 
     /**

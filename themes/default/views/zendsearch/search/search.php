@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term);
+$this->title = Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term);
 $this->breadcrumbs = [
     Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term),
 ];

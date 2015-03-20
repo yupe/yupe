@@ -27,10 +27,11 @@
  * @property integer $is_protected
  * @property string  $link
  * @property string  $image
+ * @property string $description
+ * @property string $keywords
  */
 class News extends yupe\models\YModel
 {
-
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
     const STATUS_MODERATION = 2;
@@ -103,6 +104,11 @@ class News extends yupe\models\YModel
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
                 'fileName'      => [$this, 'generateFileName'],
+            ],
+            'seo'         => [
+                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/news/news/view/',
+                'params' => ['alias' => $this->alias],
             ],
         ];
     }
@@ -272,11 +278,6 @@ class News extends yupe\models\YModel
             'criteria' => $criteria,
             'sort'     => ['defaultOrder' => 'date DESC'],
         ]);
-    }
-
-    public function getPermaLink()
-    {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', ['alias' => $this->alias]);
     }
 
     public function getStatusList()

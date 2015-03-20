@@ -48,7 +48,7 @@ class DefaultController extends yupe\components\controllers\BackController
         }
         $this->session['InstallForm'] = Yii::app()->session['InstallForm'];
 
-        $this->setPageTitle(Yii::t('InstallModule.install', 'installation of Yupe!'));
+        $this->pageTitle = Yii::t('InstallModule.install', 'installation of Yupe!');
 
         $this->layout = 'application.modules.install.views.layouts.column2';
     }

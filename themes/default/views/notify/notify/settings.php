@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Настройки уведомлений';
+$this->title = 'Настройки уведомлений';
 $this->breadcrumbs = [
     'Профиль пользователя' => ['/user/profile/profile'],
     'Настройки уведомлений'

@@ -1,4 +1,12 @@
-<?php $this->pageTitle = Yii::t('UserModule.user', 'Changing password'); ?>
+<?php
+/**
+ * @var $this AccountController
+ * @var $model ChangePasswordForm
+ * @var $form TbActiveForm
+ */
+
+$this->title = Yii::t('UserModule.user', 'Changing password');
+?>
 
 <h1><?php echo Yii::t('UserModule.user', 'Password recovery.'); ?></h1>
 

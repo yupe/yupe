@@ -74,20 +74,17 @@ $this->menu = [
                 <?php echo $model->short_text; ?>
             </p>
             <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->getPermaLink(),
-                $model->getPermaLink()
+                $model->createAbsoluteUrl(),
+                $model->createAbsoluteUrl()
             ); ?>
         </div>
     </div>
     <div id="full" class="tab-pane fade">
         <div style="margin-bottom: 20px;">
-            <h3><?php echo CHtml::link(
-                    CHtml::encode($model->title),
-                    ['/news/news/show', 'alias' => $model->alias]
-                ); ?></h3>
-            <?php if ($model->image): { ?>
+            <h3><?php echo CHtml::link(CHtml::encode($model->title), $model->createUrl()); ?></h3>
+            <?php if ($model->image): ?>
                 <?php echo CHtml::image($model->getImageUrl(), $model->title); ?>
-            <?php } endif; ?>
+            <?php endif; ?>
             <p><?php echo $model->full_text; ?></p>
             <span class="label label-info"><?php echo $model->date; ?></span>
             <i class="fa fa-fw fa-user"></i><?php echo CHtml::link(
@@ -95,8 +92,8 @@ $this->menu = [
                 ['/user/people/' . $model->user->nick_name]
             ); ?>
             <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->getPermaLink(),
-                $model->getPermaLink()
+                $model->createAbsoluteUrl(),
+                $model->createAbsoluteUrl()
             ); ?>
         </div>
     </div>

@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
-<head prefix="og: http://ogp.me/ns#
-    fb: http://ogp.me/ns/fb#
-    article: http://ogp.me/ns/article#">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
-    <meta charset="<?php echo Yii::app()->charset; ?>"/>
-    <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
-    <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
-    <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
-    <meta property="og:description" content="<?php echo CHtml::encode($this->description); ?>"/>
+<head>
+
+    <?php Yii::app()->controller->widget(
+        'vendor.crisu83.yii-seo.widgets.SeoHead',
+        array(
+            'httpEquivs'         => array(
+                'Content-Type'     => 'text/html; charset=utf-8',
+                'X-UA-Compatible'  => 'IE=edge,chrome=1',
+                'Content-Language' => 'ru-RU'
+            ),
+            'defaultTitle'       => Yii::app()->getModule('yupe')->siteName,
+            'defaultDescription' => Yii::app()->getModule('yupe')->siteDescription,
+            'defaultKeywords'    => Yii::app()->getModule('yupe')->siteKeyWords,
+        )
+    ); ?>
+
     <?php
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
@@ -23,7 +30,6 @@
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
         var yupeToken = '<?php echo Yii::app()->getRequest()->csrfToken;?>';
     </script>
-    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->

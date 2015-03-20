@@ -1,10 +1,14 @@
 <?php
-/* @var $model Order */
+/**
+ * @var $this OrderController
+ * @var $model Order
+ */
+
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Check order');
+$this->title = [Yii::t('OrderModule.order', 'Check order'), Yii::app()->getModule('yupe')->siteName];
 ?>
 
 

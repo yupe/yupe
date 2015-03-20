@@ -1,4 +1,5 @@
 <?php
+/* @var $this CartController */
 /* @var $positions Product[] */
 /* @var $order Order */
 /* @var $coupons Coupon[] */
@@ -9,7 +10,7 @@ Yii::app()->getClientScript()->registerCssFile(
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('CartModule.cart', 'Cart');
+$this->title = Yii::t('CartModule.cart', 'Cart');
 $this->breadcrumbs = [Yii::t("CartModule.cart", 'Cart')];
 ?>
 

@@ -72,9 +72,9 @@ abstract class BackController extends Controller
         $this->yupe->getComponent('bootstrap');
         $this->layout = $this->yupe->getBackendLayoutAlias();
         $backendTheme = $this->yupe->backendTheme;
-        $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
+        $this->pageTitle = Yii::t('YupeModule.yupe', 'Yupe control panel!');
 
-        if($this->yupe->hidePanelUrls == WebModule::CHOICE_NO) {
+        if ($this->yupe->hidePanelUrls == WebModule::CHOICE_NO) {
             Yii::app()->getErrorHandler()->errorAction = '/yupe/backend/error';
         }
 

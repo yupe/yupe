@@ -14,7 +14,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
 {
     const GALLERY_PER_PAGE = 10;
 
-    public function actionList()
+    public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider(
             'Gallery', [
@@ -24,10 +24,10 @@ class GalleryController extends \yupe\components\controllers\FrontController
             ]
         );
 
-        $this->render('list', ['dataProvider' => $dataProvider]);
+        $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
-    public function actionShow($id)
+    public function actionView($id)
     {
         if (($gallery = Gallery::model()->published()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
@@ -62,7 +62,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
         }
 
         $this->render(
-            'show',
+            'view',
             [
                 'image' => $image,
                 'model' => $gallery,

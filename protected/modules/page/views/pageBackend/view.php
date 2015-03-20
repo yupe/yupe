@@ -68,4 +68,4 @@ $this->menu = [
 <br/>
 
 <li class="fa fa-fw fa-globe"></li>
-<?php echo CHtml::link($model->getUrl(true), $model->getUrl()); ?>
+<?php echo CHtml::link($model->createAbsoluteUrl(), $model->createAbsoluteUrl()); ?>

@@ -16,6 +16,6 @@ return [
     'component' => [],
     'rules'     => [
         '/news/'        => 'news/news/index',
-        '/news/<alias>' => 'news/news/show',
+        '/news/<alias>' => 'news/news/view',
     ],
 ];

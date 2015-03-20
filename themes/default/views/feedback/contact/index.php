@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::t('FeedbackModule.feedback', 'Contacts');
+$this->title = [Yii::t('FeedbackModule.feedback', 'Contacts'), Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [Yii::t('FeedbackModule.feedback', 'Contacts')];
 Yii::import('application.modules.feedback.FeedbackModule');
 Yii::import('application.modules.install.InstallModule');
@@ -127,9 +127,9 @@ Yii::import('application.modules.install.InstallModule');
                             'widgetOptions' => [
                                 'htmlOptions' => [
                                     'placeholder' => Yii::t(
-                                            'FeedbackModule.feedback',
-                                            'Insert symbols you see on image'
-                                        )
+                                        'FeedbackModule.feedback',
+                                        'Insert symbols you see on image'
+                                    )
                                 ],
                             ],
                         ]

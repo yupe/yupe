@@ -16,7 +16,7 @@ return [
     'import'    => [],
     'component' => [],
     'rules'     => [
-        '/catalog'        => 'catalog/catalog/index',
-        '/catalog/<name>' => 'catalog/catalog/show',
+        '/catalog'         => 'catalog/catalog/index',
+        '/catalog/<alias>' => 'catalog/catalog/view',
     ],
 ];

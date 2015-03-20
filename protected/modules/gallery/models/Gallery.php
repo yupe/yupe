@@ -63,6 +63,17 @@ class Gallery extends yupe\models\YModel
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'seo' => [
+                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/gallery/gallery/view',
+                'params' => ['id' => $this->id],
+            ],
+        ];
+    }
+
     /**
      * @return array relational rules.
      */

@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = CHtml::encode($user->nick_name);
+$this->title = [CHtml::encode($user->nick_name), Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [
     Yii::t('UserModule.user', 'Users') => ['/user/people/index/'],
     CHtml::encode($user->getfullName()),
@@ -13,27 +13,27 @@ $this->breadcrumbs = [
     <div class='col-xs-6'>
         <i class="glyphicon glyphicon-user"></i> <?php echo CHtml::link(CHtml::encode($user->getFullName()), ['/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name)]); ?>
         <br/>
-        <?php if ($user->last_visit): { ?>
+        <?php if ($user->last_visit): ?>
             <i class="glyphicon glyphicon-time"></i> <?php echo Yii::t(
                 'UserModule.user',
                 'Last visit {last_visit}',
                 [
                     "{last_visit}" => Yii::app()->dateFormatter->formatDateTime($user->last_visit, 'long', null)
                 ]
-            );?><br/>
-        <?php } endif; ?>
+            ); ?><br/>
+        <?php endif; ?>
 
-        <?php if ($user->location): { ?>
+        <?php if ($user->location): ?>
             <i class="glyphicon glyphicon-map-marker"></i> <?php echo CHtml::encode($user->location); ?><br/>
-        <?php } endif; ?>
+        <?php endif; ?>
 
-        <?php if ($user->site): { ?>
+        <?php if ($user->site): ?>
             <i class="glyphicon glyphicon-globe"></i> <?php echo CHtml::link(
                 $user->site,
                 $user->site,
                 ['rel' => 'nofollow', 'target' => '_blank']
             ); ?><br/>
-        <?php } endif; ?>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -69,10 +69,10 @@ $this->breadcrumbs = [
                     <?php $this->widget(
                         'application.modules.blog.widgets.LastPostsWidget',
                         [
-                            'view' => 'lastuserposts',
+                            'view'     => 'lastuserposts',
                             'criteria' => [
                                 'condition' => 't.create_user_id = :user_id',
-                                'params' => [
+                                'params'    => [
                                     ':user_id' => $user->id
                                 ]
                             ]

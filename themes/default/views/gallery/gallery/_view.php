@@ -7,19 +7,22 @@
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
+ *
+ * @var $this GalleryController
+ * @var $data Gallery
  **/
 ?>
 <div class="media">
     <?php echo CHtml::link(
         CHtml::image($data->previewImage(300, 300), $data->name, ['class' => 'thumbnail media-object']),
-        ['/gallery/gallery/show/', 'id' => $data->id],
+        $data->createUrl(),
         ['class' => 'pull-left']
     ); ?>
 
     <div class="media-body">
 
         <h3 class="media-heading">
-            <?php echo CHtml::link(CHtml::encode($data->name), ['/gallery/gallery/show/', 'id' => $data->id]); ?>
+            <?php echo CHtml::link(CHtml::encode($data->name), $data->createUrl()); ?>
         </h3>
 
         <?php echo $data->description; ?>

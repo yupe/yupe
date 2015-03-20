@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cc21089b633b8b91c5163084e5e438d2",
+    "hash": "1586294ee02cc258e6ff247ad33966e7",
     "packages": [
         {
             "name": "brussens/wysibb-yii",
@@ -77,6 +77,38 @@
                 "yii"
             ],
             "time": "2014-06-06 19:38:18"
+        },
+        {
+            "name": "crisu83/yii-seo",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crisu83/yii-seo.git",
+                "reference": "ef1b1e1d97954ec8f33f6102780118a4825761e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crisu83/yii-seo/zipball/ef1b1e1d97954ec8f33f6102780118a4825761e8",
+                "reference": "ef1b1e1d97954ec8f33f6102780118a4825761e8",
+                "shasum": ""
+            },
+            "type": "yii-extension",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Christoffer Niska",
+                    "email": "christoffer.niska@gmail.com",
+                    "homepage": "http://www.cniska.net/"
+                }
+            ],
+            "description": "Search engine optimization for the Yii PHP framework.",
+            "keywords": [
+                "seo"
+            ],
+            "time": "2015-03-03 14:23:57"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2185,7 +2217,8 @@
         "zhuravljov/yii2-debug": 20,
         "phpmailer/phpmailer": 20,
         "nodge/yii-eauth": 20,
-        "brussens/wysibb-yii": 20
+        "brussens/wysibb-yii": 20,
+        "crisu83/yii-seo": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,7 +1,11 @@
 <?php
-$this->pageTitle = $post->title;
-$this->description = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
-$this->keywords = !empty($post->keywords) ? $post->keywords : implode(', ', $post->getTags());
+/**
+ * @var $this PostController
+ */
+
+$this->title = [$post->title, Yii::app()->getModule('yupe')->siteName];
+$this->metaDescription = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
+$this->metaKeywords = !empty($post->keywords) ? $post->keywords : implode(', ', $post->getTags());
 
 Yii::app()->clientScript->registerScript(
     "ajaxBlogToken",
@@ -13,7 +17,7 @@ Yii::app()->clientScript->registerScript(
 
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
-    CHtml::encode($post->blog->name)   => ['/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)],
+    CHtml::encode($post->blog->name)   => $post->blog->createUrl(),
     $post->title,
 ];
 ?>
@@ -28,10 +32,7 @@ $this->breadcrumbs = [
                     <i class="glyphicon glyphicon-pencil"></i>
                     <?php echo CHtml::link(
                         CHtml::encode($post->blog->name),
-                        [
-                            '/blog/blog/show/',
-                            'slug' => Chtml::encode($post->blog->slug)
-                        ]
+                        $post->blog->createUrl()
                     ); ?>
                 </span>
                 <span>
@@ -89,6 +90,7 @@ $this->breadcrumbs = [
                 </div>
                 <div class="col-sm-10">
                     <h4><?= Yii::t('BlogModule.blog', 'About author'); ?></h4>
+
                     <p>
                         <strong><?= $post->createUser->getFullName(); ?></strong>
                     </p>
@@ -113,8 +115,8 @@ $this->breadcrumbs = [
     $this->widget(
         'application.modules.comment.widgets.CommentsListWidget',
         [
-            'model'    => $post,
-            'modelId'  => $post->id
+            'model'   => $post,
+            'modelId' => $post->id
         ]
     );
     ?>
@@ -133,20 +135,22 @@ $this->breadcrumbs = [
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#post img').addClass('img-responsive');
-        $('pre').each(function(i, block) {
+        $('pre').each(function (i, block) {
             hljs.highlightBlock(block);
         });
     });
 </script>
 
-<?php $this->widget('application.modules.image.widgets.colorbox.ColorBoxWidget', ['targets' => [
+<?php $this->widget('application.modules.image.widgets.colorbox.ColorBoxWidget', [
+    'targets' => [
         '#post img' => [
-          'maxWidth' => 1200,
-          'maxHeight' => 800,
-          'href' => new CJavaScriptExpression("js:function(){
+            'maxWidth'  => 1200,
+            'maxHeight' => 800,
+            'href'      => new CJavaScriptExpression("js:function(){
                     return $(this).prop('src');
                 }")
-            ]
-    ]]);?>
+        ]
+    ]
+]); ?>
