@@ -139,14 +139,10 @@ abstract class BackController extends Controller
             Yii::app()->ajax->success();
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
-
         try {
             switch ($action) {
                 case self::BULK_DELETE:
                     $count = CActiveRecord::model($modelClass)->deleteByPk($items);
-
-                    $transaction->commit();
                     Yii::app()->ajax->success(
                         Yii::t(
                             'YupeModule.yupe',
@@ -164,7 +160,6 @@ abstract class BackController extends Controller
             }
 
         } catch (Exception $e) {
-            $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             Yii::app()->ajax->failure($e->getMessage());
         }

@@ -14,11 +14,13 @@ Yii::import('application.modules.blog.models.Post');
 
 class HomepageModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.4';
 
     const MODE_POSTS = 1;
 
     const MODE_PAGE = 2;
+
+    const MODE_STORE = 3;
 
     public $mode = 1;
 
@@ -42,6 +44,9 @@ class HomepageModule extends yupe\components\WebModule
         }
         if (Yii::app()->hasModule('page')) {
             $modes[self::MODE_PAGE] = Yii::t('HomepageModule.homepage', 'Page');
+        }
+        if (Yii::app()->hasModule('store')) {
+            $modes[self::MODE_STORE] = Yii::t('HomepageModule.homepage', 'Store');
         }
         if (empty($modes)) {
             $modes[null] = Yii::t('HomepageModule.homepage', 'Please activate "Blogs" or/and "Pages" module');
@@ -120,8 +125,13 @@ class HomepageModule extends yupe\components\WebModule
     public function getEditableParamsGroups()
     {
         return [
-            'main' => [
+            '0.main' => [
                 'label' => Yii::t('HomepageModule.homepage', 'Main settings'),
+                'items' => [
+                    'mode',
+                    'target',
+                    'limit'
+                ]
             ]
         ];
     }

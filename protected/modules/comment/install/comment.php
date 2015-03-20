@@ -48,6 +48,9 @@ return [
                 ],
                 'comment.after.save' => [
                     ['NewCommentListener', 'onAfterSaveComment']
+                ],
+                'comment.after.delete' => [
+                    ['NewCommentListener', 'onAfterDeleteComment']
                 ]
             ]
         ]

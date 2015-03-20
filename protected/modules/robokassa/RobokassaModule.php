@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class RobokassaModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.4';
 
     public function getDependencies()
     {
@@ -34,6 +34,11 @@ class RobokassaModule extends WebModule
     public function getEditableParams()
     {
         return [];
+    }
+
+    public function getCategory()
+    {
+        return Yii::t('RobokassaModule.robokassa', 'Store');
     }
 
     public function getName()
