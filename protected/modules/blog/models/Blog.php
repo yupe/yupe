@@ -334,13 +334,11 @@ class Blog extends yupe\models\YModel
         return [
             'imageUpload'        => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'icon',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => [$this, 'generateFileName'],
                 'defaultImage'  => Yii::app()->getTheme()->getAssetsUrl() . '/images/blog-default.jpg',
             ],
             'CTimestampBehavior' => [
@@ -350,14 +348,6 @@ class Blog extends yupe\models\YModel
                 'updateAttribute'   => 'update_date',
             ],
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function generateFileName()
-    {
-        return md5($this->name . microtime(true) . uniqid());
     }
 
     /**

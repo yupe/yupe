@@ -8,7 +8,7 @@
  * @property string $title
  *
  * @property-read Product $product
- * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
+ * @method getImageUrl($width = 0, $height = 0, $options = [])
  */
 class ProductImage extends \yupe\models\YModel
 {
@@ -56,16 +56,15 @@ class ProductImage extends \yupe\models\YModel
 
         return [
             'imageUpload' => [
-                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => ['insert', 'update'],
-                'attributeName' => 'name',
-                'minSize' => $module->minSize,
-                'maxSize' => $module->maxSize,
-                'types' => $module->allowedExtensions,
-                'uploadPath' => $module->uploadPath . '/product',
+                'class'          => 'yupe\components\behaviors\ImageUploadBehavior',
+                'attributeName'  => 'name',
+                'minSize'        => $module->minSize,
+                'maxSize'        => $module->maxSize,
+                'types'          => $module->allowedExtensions,
+                'uploadPath'     => $module->uploadPath . '/product',
                 'resizeOnUpload' => true,
-                'resizeOptions' => [
-                    'maxWidth' => 900,
+                'resizeOptions'  => [
+                    'maxWidth'  => 900,
                     'maxHeight' => 900,
                 ]
             ],

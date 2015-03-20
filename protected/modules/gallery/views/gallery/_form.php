@@ -27,11 +27,11 @@
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php if ($model->file !== null) : { ?>
+    <?php if ($model->file !== null): ?>
         <div class="row">
-            <?php echo CHtml::image($model->getImageUrl(190), $model->alt); ?>
+            <?php echo CHtml::image($model->getImageUrl(190, 190), $model->alt); ?>
         </div>
-    <?php } endif; ?>
+    <?php endif; ?>
 
     <div class='row'>
         <div class="col-sm-7">
