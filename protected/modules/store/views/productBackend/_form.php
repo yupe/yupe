@@ -336,7 +336,7 @@ $form = $this->beginWidget(
 
                 <div class="product-image">
                     <div>
-                        <img src="<?= $image->getImageUrl(150, 150, true); ?>" alt="" class="img-thumbnail"/>
+                        <img src="<?= $image->getImageUrl(150, 150); ?>" alt="" class="img-thumbnail"/>
                     </div>
                     <div>
                         <a data-id="<?= $image->id; ?>" href="<?= Yii::app()->createUrl(

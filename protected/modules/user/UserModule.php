@@ -36,7 +36,7 @@ class UserModule extends WebModule
     public $maxCaptchaLength = 6;
     public $documentRoot;
     public $avatarsDir = 'avatars';
-    public $avatarMaxSize = 10000;
+    public $avatarMaxSize = 5242880; // 5 MB
     public $defaultAvatarPath = 'images/avatar.png';
     public $avatarExtensions = 'jpg,png,gif,jpeg';
     public $usersPerPage = 20;

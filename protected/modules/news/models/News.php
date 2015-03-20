@@ -96,20 +96,13 @@ class News extends yupe\models\YModel
         return [
             'imageUpload' => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => [$this, 'generateFileName'],
             ],
         ];
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->title . microtime(true) . uniqid());
     }
 
     /**

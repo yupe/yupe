@@ -14,7 +14,7 @@
  * @property string $meta_description
  * @property string $meta_keywords
  *
- * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
+ * @method getImageUrl($width = 0, $height = 0, $options = [])
  */
 class Producer extends yupe\models\YModel
 {
@@ -64,7 +64,7 @@ class Producer extends yupe\models\YModel
         return [
             'published' => [
                 'condition' => 'status = :status',
-                'params' => [':status' => self::STATUS_ACTIVE],
+                'params'    => [':status' => self::STATUS_ACTIVE],
             ],
         ];
     }
@@ -82,18 +82,18 @@ class Producer extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.store', 'ID'),
-            'name_short' => Yii::t('StoreModule.store', 'Short title'),
-            'name' => Yii::t('StoreModule.store', 'Title'),
-            'slug' => Yii::t('StoreModule.store', 'URL'),
-            'status' => Yii::t('StoreModule.store', 'Status'),
-            'order' => Yii::t('StoreModule.store', 'Order'),
-            'image' => Yii::t('StoreModule.store', 'Image'),
+            'id'                => Yii::t('StoreModule.store', 'ID'),
+            'name_short'        => Yii::t('StoreModule.store', 'Short title'),
+            'name'              => Yii::t('StoreModule.store', 'Title'),
+            'slug'              => Yii::t('StoreModule.store', 'URL'),
+            'status'            => Yii::t('StoreModule.store', 'Status'),
+            'order'             => Yii::t('StoreModule.store', 'Order'),
+            'image'             => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
-            'description' => Yii::t('StoreModule.store', 'Description'),
-            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
-            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
-            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
+            'description'       => Yii::t('StoreModule.store', 'Description'),
+            'meta_title'        => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords'     => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description'  => Yii::t('StoreModule.store', 'Meta description'),
         ];
     }
 
@@ -149,18 +149,17 @@ class Producer extends yupe\models\YModel
 
         return [
             'imageUpload' => [
-                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => ['insert', 'update'],
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'image',
-                'minSize' => $module->minSize,
-                'maxSize' => $module->maxSize,
-                'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath . '/producer' : null,
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module !== null ? $module->uploadPath . '/producer' : null,
                 'resizeOptions' => [
-                    'maxWidth' => 900,
+                    'maxWidth'  => 900,
                     'maxHeight' => 900,
                 ],
-                'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
+                'defaultImage'  => $module->getAssetsUrl() . '/img/nophoto.jpg',
             ],
         ];
     }
@@ -168,8 +167,8 @@ class Producer extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_ZERO => Yii::t('StoreModule.store', 'Not available'),
-            self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Active'),
+            self::STATUS_ZERO       => Yii::t('StoreModule.store', 'Not available'),
+            self::STATUS_ACTIVE     => Yii::t('StoreModule.store', 'Active'),
             self::STATUS_NOT_ACTIVE => Yii::t('StoreModule.store', 'Not active'),
         ];
     }
@@ -183,12 +182,6 @@ class Producer extends yupe\models\YModel
 
     public function getFormattedList()
     {
-        $producers = Producer::model()->findAll();
-        $list = [];
-        foreach ($producers as $key => $producer) {
-            $list[$producer->id] = $producer->name_short;
-        }
-
-        return $list;
+        return CHtml::listData(Producer::model()->findAll(), 'id', 'name_short');
     }
 }

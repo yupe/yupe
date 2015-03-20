@@ -72,7 +72,7 @@ $this->menu = [
             [
                 'name'  => 'file',
                 'type'  => 'raw',
-                'value' => CHtml::image($model->getImageUrl(100), $model->alt),
+                'value' => CHtml::image($model->getImageUrl(100, 100), $model->alt),
             ],
             'creation_date',
             [

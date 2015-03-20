@@ -221,20 +221,13 @@ class Good extends yupe\models\YModel
             ],
             'imageUpload'        => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => [$this, 'generateFileName'],
             ],
         ];
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function beforeValidate()
