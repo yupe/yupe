@@ -47,7 +47,7 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
             [
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::image($data->getImageUrl(40, 40, true), "", ["class" => "img-thumbnail"]);
+                    return CHtml::image($data->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]);
                 },
             ],
             [

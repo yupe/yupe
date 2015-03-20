@@ -38,9 +38,9 @@
 </head>
 
 <body>
-<?php if (Yii::app()->hasModule('menu')): { ?>
+<?php if (Yii::app()->hasModule('menu')): ?>
     <?php $this->widget('application.modules.menu.widgets.MenuWidget', ['name' => 'top-menu']); ?>
-<?php } endif; ?>
+<?php endif; ?>
 <!-- container -->
 <div class='container'>
     <!-- flashMessages -->
@@ -187,11 +187,11 @@
 </div>
 <div class='notifications top-right' id="notifications"></div>
 <!-- container end -->
-<?php if (Yii::app()->hasModule('contentblock')): { ?>
+<?php if (Yii::app()->hasModule('contentblock')): ?>
     <?php $this->widget(
         "application.modules.contentblock.widgets.ContentBlockWidget",
         ["code" => "STAT", "silent" => true]
     ); ?>
-<?php } endif; ?>
+<?php endif; ?>
 </body>
 </html>

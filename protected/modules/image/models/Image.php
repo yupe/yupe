@@ -90,7 +90,6 @@ class Image extends yupe\models\YModel
         return [
             'imageUpload' => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'file',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
@@ -108,13 +107,6 @@ class Image extends yupe\models\YModel
                 'params' => ['id' => $this->id],
             ],
         ];
-    }
-
-    public function afterDelete()
-    {
-        @unlink(Yii::app()->getModule('image')->getUploadPath() . '/' . $this->file);
-
-        return parent::afterDelete();
     }
 
     /**

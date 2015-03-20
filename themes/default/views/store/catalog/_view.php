@@ -3,7 +3,7 @@
     <div class="col-item">
         <div class="photo">
             <a href="<?= $productUrl; ?>">
-                <img src="<?= $data->getImageUrl(190, 190, true); ?>"/>
+                <img src="<?= $data->getImageUrl(190, 190); ?>"/>
             </a>
         </div>
         <div class="info separator">

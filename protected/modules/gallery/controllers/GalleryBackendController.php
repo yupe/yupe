@@ -205,8 +205,8 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 'image'        => $image,
                 'model'        => $gallery,
                 'tab'          => !($errors = $image->getErrors())
-                        ? '_images_show'
-                        : '_image_add'
+                    ? '_images_show'
+                    : '_image_add'
             ]
         );
     }
@@ -274,8 +274,8 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             [
                 '{id}'     => $id,
                 '{result}' => ($result = $image->delete())
-                        ? Yii::t('GalleryModule.gallery', 'success')
-                        : Yii::t('GalleryModule.gallery', 'not')
+                    ? Yii::t('GalleryModule.gallery', 'success')
+                    : Yii::t('GalleryModule.gallery', 'not')
             ]
         );
 
@@ -328,14 +328,14 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                     'type'          => $_FILES['Image']['type']['file'],
                     'size'          => $_FILES['Image']['size']['file'],
                     'url'           => $image->getImageUrl(),
-                    'thumbnail_url' => $image->getImageUrl(80),
+                    'thumbnail_url' => $image->getImageUrl(80, 80),
                     'delete_url'    => $this->createUrl(
-                            '/gallery/galleryBackend/deleteImage',
-                            [
-                                'id'     => $image->id,
-                                'method' => 'uploader'
-                            ]
-                        ),
+                        '/gallery/galleryBackend/deleteImage',
+                        [
+                            'id'     => $image->id,
+                            'method' => 'uploader'
+                        ]
+                    ),
                     'delete_type'   => 'GET'
                 ];
             }

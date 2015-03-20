@@ -17,7 +17,7 @@
  *
  * @method StoreCategory published()
  * @method StoreCategory roots()
- * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true)
+ * @method getImageUrl($width = 0, $height = 0, $options = [])
  *
  */
 class StoreCategory extends \yupe\models\YModel
@@ -82,47 +82,41 @@ class StoreCategory extends \yupe\models\YModel
         $module = Yii::app()->getModule('store');
 
         return [
-            'imageUpload' => [
-                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => ['insert', 'update'],
+            'imageUpload'          => [
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'image',
-                'minSize' => $module->minSize,
-                'maxSize' => $module->maxSize,
-                'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module !== null ? $module->uploadPath . '/category' : null,
             ],
             'CategoryTreeBehavior' => [
-                'class' => 'store\components\behaviors\DCategoryTreeBehavior',
-                'titleAttribute' => 'name',
-                'aliasAttribute' => 'alias',
-                'urlAttribute' => 'url',
+                'class'                => 'store\components\behaviors\DCategoryTreeBehavior',
+                'titleAttribute'       => 'name',
+                'aliasAttribute'       => 'alias',
+                'urlAttribute'         => 'url',
                 'requestPathAttribute' => 'path',
-                'parentAttribute' => 'parent_id',
-                'parentRelation' => 'parent',
-                'defaultCriteria' => [
+                'parentAttribute'      => 'parent_id',
+                'parentRelation'       => 'parent',
+                'defaultCriteria'      => [
                     'condition' => 'status = :status',
-                    'params' => [':status' => self::STATUS_PUBLISHED],
-                    'order' => 't.name ASC'
+                    'params'    => [':status' => self::STATUS_PUBLISHED],
+                    'order'     => 't.name ASC'
                 ],
-                'useCache' => true,
+                'useCache'             => true,
             ],
-            'sortable' => [
-                'class' => 'yupe\components\behaviors\SortableBehavior',
+            'sortable'             => [
+                'class'         => 'yupe\components\behaviors\SortableBehavior',
                 'attributeName' => 'sort'
             ]
         ];
     }
 
-    public function generateFileName()
-    {
-        return md5($this->name . time());
-    }
-
     public function relations()
     {
         return [
-            'parent' => [self::BELONGS_TO, 'StoreCategory', 'parent_id'],
-            'children' => [self::HAS_MANY, 'StoreCategory', 'parent_id'],
+            'parent'       => [self::BELONGS_TO, 'StoreCategory', 'parent_id'],
+            'children'     => [self::HAS_MANY, 'StoreCategory', 'parent_id'],
             'productCount' => [self::STAT, 'Product', 'category_id']
         ];
     }
@@ -132,9 +126,9 @@ class StoreCategory extends \yupe\models\YModel
         return [
             'published' => [
                 'condition' => 'status = :status',
-                'params' => [':status' => self::STATUS_PUBLISHED],
+                'params'    => [':status' => self::STATUS_PUBLISHED],
             ],
-            'roots' => [
+            'roots'     => [
                 'condition' => 'parent_id IS NULL',
             ],
         ];
@@ -155,18 +149,18 @@ class StoreCategory extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.store', 'Id'),
-            'parent_id' => Yii::t('StoreModule.store', 'Parent'),
-            'name' => Yii::t('StoreModule.store', 'Name'),
-            'image' => Yii::t('StoreModule.store', 'Image'),
+            'id'                => Yii::t('StoreModule.store', 'Id'),
+            'parent_id'         => Yii::t('StoreModule.store', 'Parent'),
+            'name'              => Yii::t('StoreModule.store', 'Name'),
+            'image'             => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
-            'description' => Yii::t('StoreModule.store', 'Description'),
-            'alias' => Yii::t('StoreModule.store', 'Alias'),
-            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
-            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
-            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
-            'status' => Yii::t('StoreModule.store', 'Status'),
-            'sort' => Yii::t('StoreModule.store', 'Order'),
+            'description'       => Yii::t('StoreModule.store', 'Description'),
+            'alias'             => Yii::t('StoreModule.store', 'Alias'),
+            'meta_title'        => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords'     => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description'  => Yii::t('StoreModule.store', 'Meta description'),
+            'status'            => Yii::t('StoreModule.store', 'Status'),
+            'sort'              => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
@@ -176,18 +170,18 @@ class StoreCategory extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'id' => Yii::t('StoreModule.store', 'Id'),
-            'parent_id' => Yii::t('StoreModule.store', 'Parent'),
-            'name' => Yii::t('StoreModule.store', 'Title'),
-            'image' => Yii::t('StoreModule.store', 'Image'),
+            'id'                => Yii::t('StoreModule.store', 'Id'),
+            'parent_id'         => Yii::t('StoreModule.store', 'Parent'),
+            'name'              => Yii::t('StoreModule.store', 'Title'),
+            'image'             => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
-            'description' => Yii::t('StoreModule.store', 'Description'),
-            'alias' => Yii::t('StoreModule.store', 'Alias'),
-            'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
-            'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
-            'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
-            'status' => Yii::t('StoreModule.store', 'Status'),
-            'sort' => Yii::t('StoreModule.store', 'Order'),
+            'description'       => Yii::t('StoreModule.store', 'Description'),
+            'alias'             => Yii::t('StoreModule.store', 'Alias'),
+            'meta_title'        => Yii::t('StoreModule.store', 'Meta title'),
+            'meta_keywords'     => Yii::t('StoreModule.store', 'Meta keywords'),
+            'meta_description'  => Yii::t('StoreModule.store', 'Meta description'),
+            'status'            => Yii::t('StoreModule.store', 'Status'),
+            'sort'              => Yii::t('StoreModule.store', 'Order'),
         ];
     }
 
@@ -217,7 +211,7 @@ class StoreCategory extends \yupe\models\YModel
             get_class($this),
             [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => 't.sort']
+                'sort'     => ['defaultOrder' => 't.sort']
             ]
         );
     }
@@ -225,7 +219,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_DRAFT => Yii::t('StoreModule.store', 'Draft'),
+            self::STATUS_DRAFT     => Yii::t('StoreModule.store', 'Draft'),
             self::STATUS_PUBLISHED => Yii::t('StoreModule.store', 'Published')
         ];
     }
@@ -288,8 +282,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager(
-                )->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
         }
 
         return $this->_url;
@@ -297,7 +290,7 @@ class StoreCategory extends \yupe\models\YModel
 
     public function getMetaTile()
     {
-        return $this->meta_title ? : $this->name;
+        return $this->meta_title ?: $this->name;
     }
 
     public function getMetaDescription()

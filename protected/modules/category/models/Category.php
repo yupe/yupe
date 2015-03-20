@@ -89,17 +89,10 @@ class Category extends yupe\models\YModel
         return [
             'imageUpload' => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'image',
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => [$this, 'generateFileName'],
             ],
         ];
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function relations()
