@@ -125,7 +125,7 @@ $this->breadcrumbs = [
     $this->widget(
         'application.modules.comment.widgets.CommentFormWidget',
         [
-            'redirectTo' => $this->createUrl('/blog/post/show/', ['slug' => $post->slug]),
+            'redirectTo' => $post->getUrl(),
             'model'      => $post,
             'modelId'    => $post->id,
         ]
