@@ -29,7 +29,7 @@ $this->breadcrumbs = [
         <br/>
         <?php echo CHtml::link(
             Yii::t('CatalogModule.catalog', 'Constant link'),
-            $model->createUrl()
+            $model->getUrl()
         ); ?>
     </div>
 </div>
@@ -48,5 +48,5 @@ $this->breadcrumbs = [
 
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
-    ['redirectTo' => $model->createUrl(), 'model' => $model, 'modelId' => $model->id]
+    ['redirectTo' => $model->getUrl(), 'model' => $model, 'modelId' => $model->id]
 ); ?>

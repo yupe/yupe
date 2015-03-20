@@ -11,7 +11,7 @@
 $this->title = [Yii::t('GalleryModule.gallery', 'Gallery'), Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/list'],
-    $model->gallery->name                        => $model->gallery->createUrl(),
+    $model->gallery->name                        => $model->gallery->getUrl(),
     Yii::t(
         'GalleryModule.gallery',
         'Edit message #{id}',

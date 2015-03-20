@@ -84,7 +84,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                         if ($menu) {
                             if (!$menu->addItem(
                                 $model->title,
-                                $model->createUrl(),
+                                $model->getUrl(),
                                 $parentId,
                                 true
                             )
@@ -211,7 +211,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                         if (!$menu->changeItem(
                             $oldTitle,
                             $model->title,
-                            $model->createUrl(),
+                            $model->getUrl(),
                             $parentId,
                             true
                         )

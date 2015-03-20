@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript(
 
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
-    CHtml::encode($post->blog->name)   => $post->blog->createUrl(),
+    CHtml::encode($post->blog->name)   => $post->blog->getUrl(),
     $post->title,
 ];
 ?>
@@ -32,7 +32,7 @@ $this->breadcrumbs = [
                     <i class="glyphicon glyphicon-pencil"></i>
                     <?php echo CHtml::link(
                         CHtml::encode($post->blog->name),
-                        $post->blog->createUrl()
+                        $post->blog->getUrl()
                     ); ?>
                 </span>
                 <span>

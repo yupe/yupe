@@ -11,7 +11,7 @@
             </p>
             <?php echo CHtml::link(
                 Yii::t('GalleryModule.gallery', 'More...'),
-                $data->image->createUrl(),
+                $data->image->getUrl(),
                 ['class' => 'btn btn-success btn-block']
             ); ?>
         </div>

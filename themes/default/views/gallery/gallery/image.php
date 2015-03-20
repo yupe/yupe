@@ -15,7 +15,7 @@
 $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
 <?php $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
-    $model->gallery->name                        => $model->gallery->createUrl(),
+    $model->gallery->name                        => $model->gallery->getUrl(),
     $model->name
 ];
 ?>
@@ -47,7 +47,7 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
     [
-        'redirectTo' => $model->gallery->createUrl(),
+        'redirectTo' => $model->gallery->getUrl(),
         'model'      => $model,
         'modelId'    => $model->id
     ]

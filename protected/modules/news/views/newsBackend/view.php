@@ -74,14 +74,14 @@ $this->menu = [
                 <?php echo $model->short_text; ?>
             </p>
             <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->createAbsoluteUrl(),
-                $model->createAbsoluteUrl()
+                $model->getAbsoluteUrl(),
+                $model->getAbsoluteUrl()
             ); ?>
         </div>
     </div>
     <div id="full" class="tab-pane fade">
         <div style="margin-bottom: 20px;">
-            <h3><?php echo CHtml::link(CHtml::encode($model->title), $model->createUrl()); ?></h3>
+            <h3><?php echo CHtml::link(CHtml::encode($model->title), $model->getUrl()); ?></h3>
             <?php if ($model->image): ?>
                 <?php echo CHtml::image($model->getImageUrl(), $model->title); ?>
             <?php endif; ?>
@@ -92,8 +92,8 @@ $this->menu = [
                 ['/user/people/' . $model->user->nick_name]
             ); ?>
             <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->createAbsoluteUrl(),
-                $model->createAbsoluteUrl()
+                $model->getAbsoluteUrl(),
+                $model->getAbsoluteUrl()
             ); ?>
         </div>
     </div>

@@ -6,7 +6,7 @@
 ?>
 <div class="post">
     <div class="title">
-        <?php echo CHtml::link(CHtml::encode($data->name), $data->createUrl()); ?>
+        <?php echo CHtml::link(CHtml::encode($data->name), $data->getUrl()); ?>
     </div>
     <br/>
 
@@ -19,7 +19,7 @@
         <br/>
         <?php echo CHtml::link(
             Yii::t('CatalogModule.catalog', 'Constant link'),
-            $data->createUrl()
+            $data->getUrl()
         ); ?>
     </div>
 </div>

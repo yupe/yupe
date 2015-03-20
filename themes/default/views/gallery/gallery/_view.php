@@ -15,14 +15,14 @@
 <div class="media">
     <?php echo CHtml::link(
         CHtml::image($data->previewImage(300, 300), $data->name, ['class' => 'thumbnail media-object']),
-        $data->createUrl(),
+        $data->getUrl(),
         ['class' => 'pull-left']
     ); ?>
 
     <div class="media-body">
 
         <h3 class="media-heading">
-            <?php echo CHtml::link(CHtml::encode($data->name), $data->createUrl()); ?>
+            <?php echo CHtml::link(CHtml::encode($data->name), $data->getUrl()); ?>
         </h3>
 
         <?php echo $data->description; ?>
