@@ -3,7 +3,7 @@
 <head>
 
     <?php Yii::app()->controller->widget(
-        'vendor.crisu83.yii-seo.widgets.SeoHead',
+        'vendor.chemezov.yii-seo.widgets.SeoHead',
         array(
             'httpEquivs'         => array(
                 'Content-Type'     => 'text/html; charset=utf-8',

@@ -104,7 +104,7 @@ class Page extends yupe\models\YModel
                 'updateAttribute'   => 'change_date',
             ],
             'seo'                => [
-                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/page/page/view',
                 'params' => ['slug' => $this->slug],
             ],

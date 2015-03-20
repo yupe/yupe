@@ -60,7 +60,7 @@ abstract class Controller extends \CController
     public function behaviors()
     {
         return array(
-            'seo' => array('class' => 'vendor.crisu83.yii-seo.behaviors.SeoBehavior'),
+            'seo' => array('class' => 'vendor.chemezov.yii-seo.behaviors.SeoBehavior'),
         );
     }
 

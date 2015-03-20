@@ -231,7 +231,7 @@ class Good extends yupe\models\YModel
                 'fileName'      => [$this, 'generateFileName'],
             ],
             'seo'                => [
-                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/catalog/catalog/view',
                 'params' => ['alias' => $this->alias],
             ],

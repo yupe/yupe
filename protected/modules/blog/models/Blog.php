@@ -350,7 +350,7 @@ class Blog extends yupe\models\YModel
                 'updateAttribute'   => 'update_date',
             ],
             'seo'                => [
-                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/blog/blog/show',
                 'params' => ['slug' => $this->slug],
             ],

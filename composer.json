@@ -61,7 +61,7 @@
         "yiiext/twig-renderer": "1.1.*",
         "guzzlehttp/guzzle": "5.0.*",
         "brussens/wysibb-yii": "dev-master",
-        "crisu83/yii-seo": "dev-master"
+        "chemezov/yii-seo": "1.0.*"
     },
     "repositories": {
         "taggable": {

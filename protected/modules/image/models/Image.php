@@ -103,7 +103,7 @@ class Image extends yupe\models\YModel
                 'attributeName' => 'sort'
             ],
             'seo'         => [
-                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/gallery/gallery/image',
                 'params' => ['id' => $this->id],
             ],

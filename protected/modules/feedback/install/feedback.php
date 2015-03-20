@@ -25,9 +25,9 @@ return [
     ],
     'component' => [],
     'rules'     => [
-        '/contacts'                             => 'feedback/contact/index',
-        '/faq'                                  => 'feedback/contact/faq',
-        '/faq/<id:\d+>'                         => 'feedback/contact/faqView',
+        '/contacts'                             => '/feedback/contact/index',
+        '/faq'                                  => '/feedback/contact/faq',
+        '/faq/<id:\d+>'                         => '/feedback/contact/faqView',
         '/feedback/contact/captcha/refresh/<v>' => '/feedback/contact/captcha/refresh',
         '/feedback/contact/captcha/<v>'         => '/feedback/contact/captcha/'
     ],

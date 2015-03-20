@@ -106,7 +106,7 @@ class News extends yupe\models\YModel
                 'fileName'      => [$this, 'generateFileName'],
             ],
             'seo'         => [
-                'class'  => 'vendor.crisu83.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/news/news/view/',
                 'params' => ['alias' => $this->alias],
             ],
