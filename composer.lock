@@ -19,16 +19,16 @@
         },
         {
             "name": "chemezov/yii-seo",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chemezov/yii-seo.git",
-                "reference": "df0e7c649839b1fc2acfab7960590e016c18a1d8"
+                "reference": "07f38e77f90ea79300cb61dcf97bf122208d6fc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chemezov/yii-seo/zipball/df0e7c649839b1fc2acfab7960590e016c18a1d8",
-                "reference": "df0e7c649839b1fc2acfab7960590e016c18a1d8",
+                "url": "https://api.github.com/repos/chemezov/yii-seo/zipball/07f38e77f90ea79300cb61dcf97bf122208d6fc7",
+                "reference": "07f38e77f90ea79300cb61dcf97bf122208d6fc7",
                 "shasum": ""
             },
             "type": "yii-extension",
@@ -53,7 +53,7 @@
                 "seo",
                 "yii"
             ],
-            "time": "2015-03-20 14:56:28"
+            "time": "2015-03-22 19:26:01"
         },
         {
             "name": "clevertech/yii-booster",

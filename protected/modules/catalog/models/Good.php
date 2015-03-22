@@ -230,8 +230,8 @@ class Good extends yupe\models\YModel
             ],
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/catalog/catalog/view',
-                'params' => ['alias' => $this->alias],
+                'route'  => '/catalog/catalog/show',
+                'params' => ['name' => $this->alias],
             ],
         ];
     }
@@ -295,5 +295,16 @@ class Good extends yupe\models\YModel
         return $this->category instanceof Category
             ? CHtml::link($this->category->name, ["/category/default/view", "id" => $this->category_id])
             : '---';
+    }
+
+    /**
+     * Return url of this model
+     *
+     * @deprecated
+     * @return string
+     */
+    public function getPermaLink()
+    {
+        return $this->getUrl();
     }
 }

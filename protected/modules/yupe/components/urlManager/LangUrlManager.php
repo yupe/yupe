@@ -18,7 +18,7 @@ namespace yupe\components\urlManager;
 use CUrlManager;
 use Yii;
 
-class LangUrlManager extends EDbUrlManager
+class LangUrlManager extends CUrlManager
 {
     public $languages;
     public $langs;

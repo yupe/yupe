@@ -105,7 +105,7 @@ class News extends yupe\models\YModel
             ],
             'seo'         => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/news/news/view/',
+                'route'  => '/news/news/show',
                 'params' => ['alias' => $this->alias],
             ],
         ];
@@ -312,5 +312,14 @@ class News extends yupe\models\YModel
     public function getFlag()
     {
         return yupe\helpers\YText::langToflag($this->lang);
+    }
+
+    /**
+     * @deprecated
+     * @return mixed
+     */
+    public function getPermaLink()
+    {
+        return $this->getUrl();
     }
 }

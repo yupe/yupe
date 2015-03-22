@@ -12,7 +12,7 @@
  */
 class NewsController extends \yupe\components\controllers\FrontController
 {
-    public function actionView($alias)
+    public function actionShow($alias)
     {
         $model = News::model()->published();
 
@@ -34,7 +34,7 @@ class NewsController extends \yupe\components\controllers\FrontController
             $this->redirect([Yii::app()->getModule('user')->accountActivationSuccess]);
         }
 
-        $this->render('view', ['model' => $model]);
+        $this->render('show', ['model' => $model]);
     }
 
     public function actionIndex()

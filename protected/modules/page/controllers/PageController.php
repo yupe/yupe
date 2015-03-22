@@ -21,7 +21,7 @@ class PageController extends \yupe\components\controllers\FrontController
     /**
      * экшн для отображения конкретной страницы, отображает опубликованные страницы и превью
      */
-    public function actionView($slug)
+    public function actionShow($slug)
     {
         $model = null;
         // превью
@@ -58,7 +58,7 @@ class PageController extends \yupe\components\controllers\FrontController
 
         $this->currentPage = $model;
 
-        $view = $model->view ? $model->view : 'view';
+        $view = $model->view ? $model->view : 'show';
 
         $this->render($view, ['model' => $model]);
     }

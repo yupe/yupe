@@ -20,16 +20,6 @@ return [
     'import'    => [],
     'component' => [],
     'rules'     => [
-        '/<slug:[\w-]+>' => array(
-            '/page/page/view',
-            'type'   => 'db',
-            'fields' => array(
-                'slug' => array(
-                    'table' => '{{page_page}}',
-                    'field' => 'slug',
-                ),
-            )
-        ),
-
+        '/pages/<slug>' => 'page/page/show',
     ],
 ];

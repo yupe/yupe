@@ -105,7 +105,7 @@ class Page extends yupe\models\YModel
             ],
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/page/page/view',
+                'route'  => '/page/page/show',
                 'params' => ['slug' => $this->slug],
             ],
         ];
