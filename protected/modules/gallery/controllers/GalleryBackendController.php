@@ -12,6 +12,13 @@
  **/
 class GalleryBackendController extends yupe\components\controllers\BackController
 {
+    public function filters()
+    {
+        return [
+            'postOnly + delete, addImages',
+        ];
+    }
+
     public function accessRules()
     {
         return [
@@ -306,19 +313,15 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
      *
      * @throws CHttpException
      **/
-    public function actionAddimages($id)
+    public function actionAddImages($id)
     {
-        if (($gallery = Gallery::model()->findByPk($id)) === null) {
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
-        }
+        $gallery = $this->loadModel($id);
 
         $image = new Image();
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost(
-                'Image'
-            )) !== null
-        ) {
+        if (($imageData = Yii::app()->getRequest()->getPost('Image')) !== null) {
             $imageData = $imageData[$_FILES['Image']['name']['file']];
+
             $this->_addImage($image, $imageData, $gallery);
             if ($image->hasErrors()) {
                 $data[] = ['error' => $image->getErrors()];

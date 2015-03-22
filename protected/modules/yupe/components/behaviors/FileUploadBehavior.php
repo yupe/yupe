@@ -69,19 +69,6 @@ class FileUploadBehavior extends CActiveRecordBehavior
         parent::attach($owner);
 
         if ($this->checkScenario()) {
-            if ($this->requiredOn) {
-                $requiredValidator = CValidator::createValidator(
-                    'required',
-                    $owner,
-                    $this->attributeName,
-                    [
-                        'on'   => $this->requiredOn,
-                        'safe' => false,
-                    ]
-                );
-                $owner->validatorList->add($requiredValidator);
-            }
-
             $fileValidator = CValidator::createValidator(
                 'file',
                 $owner,
@@ -90,7 +77,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
                     'types'      => $this->types,
                     'minSize'    => $this->minSize,
                     'maxSize'    => $this->maxSize,
-                    'allowEmpty' => true,
+                    'allowEmpty' => !in_array($this->owner->scenario, (array)$this->requiredOn),
                     'safe'       => false,
                 ]
             );
