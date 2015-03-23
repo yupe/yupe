@@ -517,8 +517,7 @@ class User extends yupe\models\YModel
             $path . $avatar,
             $userModule->avatarsDir,
             $size,
-            $size,
-            \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+            $size
         );
     }
 
