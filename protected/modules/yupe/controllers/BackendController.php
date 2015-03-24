@@ -488,4 +488,11 @@ class BackendController extends yupe\components\controllers\BackController
             $this->render('error', ['error' => $error]);
         }
     }
+
+    public function actionTransliterate()
+    {
+        $data = Yii::app()->request->getParam('data') ?: Yii::app()->request->getPost('data');
+
+        echo \yupe\helpers\YText::translit($data);
+    }
 }

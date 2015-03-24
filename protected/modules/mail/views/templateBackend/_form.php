@@ -1,15 +1,11 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#mail-template-form').liTranslit({
-            elName: '#MailTemplate_name',
-            elAlias: '#MailTemplate_code'
-        });
-    })
-</script>
-
 <?php
+/**
+ * @var $this TemplateBackendController
+ * @var $model MailTemplate
+ * @var $form \yupe\widgets\ActiveForm
+ */
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id'                     => 'mail-template-form',
         'enableAjaxValidation'   => false,
@@ -48,7 +44,7 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'code'); ?>
+        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>
@@ -113,9 +109,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and continue') : Yii::t(
-                'MailModule.mail',
-                'Save template and continue'
-            ),
+            'MailModule.mail',
+            'Save template and continue'
+        ),
     ]
 ); ?>
 
@@ -125,9 +121,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and close') : Yii::t(
-                'MailModule.mail',
-                'Save template and close'
-            ),
+            'MailModule.mail',
+            'Save template and close'
+        ),
     ]
 ); ?>
 

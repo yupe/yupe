@@ -1,15 +1,12 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#attribute-form').liTranslit({
-            elName: '#Attribute_title',
-            elAlias:'#Attribute_name'
-        });
-    })
-</script>
-
-
 <?php
-  Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/jquery-sortable.js');
+/**
+ * @var $this AttributeBackendController
+ * @var $model Attribute
+ * @var $form \yupe\widgets\ActiveForm
+ */
+?>
+<?php
+Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/jquery-sortable.js');
 ?>
 
 <?php
@@ -18,12 +15,12 @@
  */
 
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
-        'id' => 'attribute-form',
-        'enableAjaxValidation' => false,
+        'id'                     => 'attribute-form',
+        'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions' => ['class' => 'well'],
+        'htmlOptions'            => ['class' => 'well'],
     ]
 ); ?>
 <div class="alert alert-info">
@@ -41,7 +38,7 @@ $form = $this->beginWidget(
             'group_id',
             [
                 'widgetOptions' => [
-                    'data' => AttributeGroup::model()->getFormattedList(),
+                    'data'        => AttributeGroup::model()->getFormattedList(),
                     'htmlOptions' => [
                         'empty' => '---',
                     ],
@@ -55,10 +52,10 @@ $form = $this->beginWidget(
             'type',
             [
                 'widgetOptions' => [
-                    'data' => $model->getTypesList(),
+                    'data'        => $model->getTypesList(),
                     'htmlOptions' => [
                         'empty' => '---',
-                        'id' => 'attribute-type',
+                        'id'    => 'attribute-type',
                     ],
                 ],
             ]
@@ -75,7 +72,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?php echo $form->slugFieldGroup($model, 'name', ['sourceAttribute' => 'title']); ?>
     </div>
 </div>
 
@@ -126,17 +123,17 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.attr', 'Add attribute and continue') : Yii::t('StoreModule.attr', 'Save attribute and continue'),
+        'context'    => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('StoreModule.attr', 'Add attribute and continue') : Yii::t('StoreModule.attr', 'Save attribute and continue'),
     ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->isNewRecord ? Yii::t('StoreModule.attr', 'Add attribute and close') : Yii::t('StoreModule.attr', 'Save attribute and close'),
+        'label'       => $model->isNewRecord ? Yii::t('StoreModule.attr', 'Add attribute and close') : Yii::t('StoreModule.attr', 'Save attribute and close'),
     ]
 ); ?>
 
