@@ -10,6 +10,7 @@ return [
     'Add translate in to {lang}' => 'Добавить перевод на {lang} язык',
     'Add'  => 'Добавить',
     'Added' => 'Добавлено',
+    'Record was added' => 'Запись успешно добавлена!',
     'Adding' => 'Добавление',
     'administration' => 'управление',
     'Alias' => 'Алиас',
@@ -102,4 +103,5 @@ return [
     'Yes' => 'Да',
     'You are adding translate in to {lang}!' => 'Вы добавляете перевод на {lang} язык!',
     'yupe team' => 'yupe team',
+    'Failed to save product!' => 'Не удалось сохранить товар!',
 ];

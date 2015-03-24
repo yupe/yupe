@@ -94,6 +94,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                         ['create']
                     )
                 );
+            } else {
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('StoreModule.store', 'Failed to save product!')
+                );
             }
         }
         $this->render('create', ['model' => $model]);
