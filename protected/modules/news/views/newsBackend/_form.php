@@ -1,15 +1,11 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#news-form').liTranslit({
-            elName: '#News_title',
-            elAlias: '#News_alias'
-        });
-    })
-</script>
-
 <?php
+/**
+ * @var $this NewsBackendController
+ * @var $model News
+ * @var $form \yupe\widgets\ActiveForm
+ */
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id'                     => 'news-form',
         'enableAjaxValidation'   => false,
@@ -112,8 +108,8 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(
-                            (int)Yii::app()->getModule('news')->mainCategory
-                        ),
+                        (int)Yii::app()->getModule('news')->mainCategory
+                    ),
                     'htmlOptions' => [
                         'empty'  => Yii::t('NewsModule.news', '--choose--'),
                         'encode' => false
@@ -132,7 +128,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'alias'); ?>
+        <?php echo $form->slugFieldGroup($model, 'alias', ['sourceAttribute' => 'title']); ?>
     </div>
 </div>
 
@@ -250,9 +246,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and continue') : Yii::t(
-                'NewsModule.news',
-                'Save news article and continue'
-            ),
+            'NewsModule.news',
+            'Save news article and continue'
+        ),
     ]
 ); ?>
 
@@ -262,9 +258,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and close') : Yii::t(
-                'NewsModule.news',
-                'Save news article and close'
-            ),
+            'NewsModule.news',
+            'Save news article and close'
+        ),
     ]
 ); ?>
 

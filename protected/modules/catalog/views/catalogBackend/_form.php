@@ -1,16 +1,12 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#good-form').liTranslit({
-            elName: '#Good_name',
-            elAlias: '#Good_alias'
-        });
-    })
-</script>
-
-
 <?php
+/**
+ * @var $form \yupe\widgets\ActiveForm
+ * @var $model Good
+ * @var $this CatalogBackendController
+ */
+
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'good-form',
         'enableAjaxValidation'   => false,
@@ -101,11 +97,12 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?php echo $form->slugFieldGroup(
             $model,
             'alias',
             [
-                'widgetOptions' => [
+                'sourceAttribute' => 'name',
+                'widgetOptions'   => [
                     'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('alias'),
@@ -231,9 +228,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and continue') : Yii::t(
-                'CatalogModule.catalog',
-                'Save product and continue'
-            ),
+            'CatalogModule.catalog',
+            'Save product and continue'
+        ),
     ]
 ); ?>
 
@@ -243,9 +240,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and close') : Yii::t(
-                'CatalogModule.catalog',
-                'Save product and close'
-            ),
+            'CatalogModule.catalog',
+            'Save product and close'
+        ),
     ]
 ); ?>
 
