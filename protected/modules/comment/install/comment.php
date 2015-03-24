@@ -19,7 +19,7 @@ return [
         ],
         'visualEditors' => [
             'redactor' => [
-                'class' => 'yupe\widgets\editors\Redactor',
+                'class' => 'comment\widgets\editors\CommentRedactor',
             ],
             'textarea' => [
                 'class' => 'yupe\widgets\editors\Textarea',
@@ -59,6 +59,7 @@ return [
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',
         '/comment/comment/captcha/<v>'         => 'comment/comment/captcha/',
         '/comment/add/'                        => 'comment/comment/add/',
-        '/comments/rss/<model>/<modelId>'      => 'comment/commentRss/feed'
+        '/comments/rss/<model>/<modelId>'      => 'comment/commentRss/feed',
+        '/comment/ajaxImageUpload'             => 'comment/comment/ajaxImageUpload',
     ],
 ];
