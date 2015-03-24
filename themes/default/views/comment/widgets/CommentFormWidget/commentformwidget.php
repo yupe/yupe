@@ -67,7 +67,7 @@ Yii::app()->clientScript->registerScript(
     <div class='row'>
         <div class="col-sm-12">
             <div class="form-group">
-                <?php echo $form->labelEx($model, 'text')?>
+                <?php echo $form->labelEx($model, 'text'); ?>
                 <?php $this->widget(
                     $module->getVisualEditor(),
                     [
