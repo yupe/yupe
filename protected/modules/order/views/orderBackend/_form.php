@@ -25,10 +25,10 @@ $form = $this->beginWidget(
             <div class="col-sm-4">
                 <?php echo $form->dropDownListGroup(
                     $model,
-                    'status',
+                    'status_id',
                     [
                         'widgetOptions' => [
-                            'data' => $model->getStatusList(),
+                            'data' => OrderStatus::model()->getList(),
                         ],
                     ]
                 ); ?>

@@ -9,7 +9,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
 <div class="row">
     <div class="col-sm-12">
         <h1><?= Yii::t("OrderModule.order", "Order #"); ?><?= $model->id; ?>
-            <small>[<?= $model->getStatusTitle(); ?>]</small>
+            <small>[<?= $model->status->getTitle(); ?>]</small>
         </h1>
         <table class="table">
             <tbody>

@@ -26,7 +26,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Check order');
 <?php if($order):?>
 
     <div class="alert alert-success">
-        <?php echo Yii::t('OrderModule.order', 'Status') ?>: <strong><?= $order->getStatusTitle();?></strong>
+        <?php echo Yii::t('OrderModule.order', 'Status') ?>: <strong><?= $order->status->getTitle();?></strong>
     </div>
 
 <?php elseif(!$model->hasErrors()): ?>

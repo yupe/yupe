@@ -13,7 +13,7 @@
  * @property double $coupon_discount
  * @property string $coupon_code
  * @property integer $separate_delivery
- * @property integer $status
+ * @property integer $status_id
  * @property string $date
  * @property integer $user_id
  * @property string $name
@@ -30,6 +30,7 @@
  * @property Delivery $delivery
  * @property Payment $payment
  * @property User $user
+ * @property OrderStatus $status
  *
  */
 Yii::import('application.modules.order.OrderModule');
@@ -39,11 +40,6 @@ Yii::import('application.modules.order.events.OrderChangeStatusEvent');
 
 class Order extends yupe\models\YModel
 {
-    const STATUS_NEW = 0;
-    const STATUS_ACCEPTED = 1;
-    const STATUS_FINISHED = 2;
-    const STATUS_DELETED = 3;
-
     const PAID_STATUS_NOT_PAID = 0;
     const PAID_STATUS_PAID = 1;
 
@@ -87,7 +83,7 @@ class Order extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['status, delivery_id', 'required'],
+            ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['name, email, address, phone', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
@@ -98,14 +94,13 @@ class Order extends yupe\models\YModel
             //array('payment_details', 'safe'),
             ['url', 'unique'],
             [
-                'user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status, date, ip, url, modified',
+                'user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
                 'unsafe',
                 'on' => self::SCENARIO_USER
             ],
             ['couponCodes', 'safe'], // сюда отправляется массив купонок, которые потом разбираются в beforeSave()
-            ['status', 'in', 'range' => array_keys($this->getStatusList())],
             [
-                'id, delivery_id, delivery_price, payment_method_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, coupon_code, separate_delivery, status, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
+                'id, delivery_id, delivery_price, payment_method_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, coupon_code, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
                 'safe',
                 'on' => 'search'
             ],
@@ -118,6 +113,7 @@ class Order extends yupe\models\YModel
             'products' => [self::HAS_MANY, 'OrderProduct', 'order_id', 'order' => 'products.id ASC'],
             'delivery' => [self::BELONGS_TO, 'Delivery', 'delivery_id'],
             'payment' => [self::BELONGS_TO, 'Payment', 'payment_method_id'],
+            'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
             'user' => [self::BELONGS_TO, 'User', 'user_id'],
         ];
     }
@@ -126,8 +122,8 @@ class Order extends yupe\models\YModel
     {
         return [
             'new' => [
-                'condition' => 't.status = :status',
-                'params' => [':status' => self::STATUS_NEW],
+                'condition' => 't.status_id = :status_id',
+                'params' => [':status_id' => OrderStatus::STATUS_NEW],
             ],
         ];
     }
@@ -162,7 +158,7 @@ class Order extends yupe\models\YModel
             'coupon_discount' => Yii::t('OrderModule.order', 'Discount coupon'),
             'coupon_code' => Yii::t('OrderModule.order', 'Coupon code'),
             'separate_delivery' => Yii::t('OrderModule.order', 'Separate delivery payment'),
-            'status' => Yii::t('OrderModule.order', 'Status'),
+            'status_id' => Yii::t('OrderModule.order', 'Status'),
             'date' => Yii::t('OrderModule.order', 'Date'),
             'user_id' => Yii::t('OrderModule.order', 'User'),
             'name' => Yii::t('OrderModule.order', 'Client'),
@@ -195,7 +191,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('coupon_discount', $this->coupon_discount, false);
         $criteria->compare('coupon_code', $this->coupon_code, true);
         $criteria->compare('separate_delivery', $this->separate_delivery, false);
-        $criteria->compare('status', $this->status, false);
+        $criteria->compare('status_id', $this->status_id, false);
         $criteria->compare('date', $this->date, true);
         $criteria->compare('user_id', $this->user_id, false);
         $criteria->compare('name', $this->name, true);
@@ -217,23 +213,6 @@ class Order extends yupe\models\YModel
         );
     }
 
-    public function getStatusList()
-    {
-        return [
-            self::STATUS_NEW => Yii::t("OrderModule.order", 'New'),
-            self::STATUS_ACCEPTED => Yii::t("OrderModule.order", 'Accepted'),
-            self::STATUS_FINISHED => Yii::t("OrderModule.order", 'Completed'),
-            self::STATUS_DELETED => Yii::t("OrderModule.order", 'Deleted'),
-        ];
-    }
-
-    public function getStatusTitle()
-    {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("OrderModule.order", '*unknown*');
-    }
-
     public function afterFind()
     {
         $this->oldAttributes = $this->getAttributes();
@@ -244,6 +223,8 @@ class Order extends yupe\models\YModel
     public function beforeValidate()
     {
         if ($this->getScenario() == self::SCENARIO_USER) {
+
+            $this->status_id = OrderStatus::STATUS_NEW;
 
             if (!$this->hasProducts) {
                 $this->addError('products', Yii::t('OrderModule.order', 'There are no selected products'));
@@ -564,7 +545,7 @@ class Order extends yupe\models\YModel
 
     public function isStatusChanged()
     {
-        if ($this->oldAttributes['status'] != $this->status) {
+        if ($this->oldAttributes['status_id'] != $this->status_id) {
 
             Yii::app()->eventManager->fire(OrderEvents::STATUS_CHANGED, new OrderChangeStatusEvent($this));
 

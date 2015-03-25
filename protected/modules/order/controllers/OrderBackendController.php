@@ -9,7 +9,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Order',
                 'validAttributes' => [
-                    'status',
+                    'status_id',
                     'paid'
                 ]
             ]
