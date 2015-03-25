@@ -158,8 +158,18 @@ class User extends yupe\models\YModel
                 'on' => 'search'
             ],
             ['birth_date', 'default', 'setOnEmpty' => true, 'value' => null],
-            ['registration_date', 'default', 'value' => new CDbExpression('NOW()'), 'on' => 'insert'],
-            ['change_date', 'default', 'value' => new CDbExpression('NOW()'), 'on' => 'update']
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'CTimestampBehavior' => [
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+                'createAttribute'   => 'registration_date',
+                'updateAttribute'   => 'change_date',
+            ],
         ];
     }
 
@@ -287,7 +297,7 @@ class User extends yupe\models\YModel
         // включаем граватар:
         $this->use_gravatar = empty($this->avatar);
 
-        return parent::afterFind();
+        parent::afterFind();
     }
 
 

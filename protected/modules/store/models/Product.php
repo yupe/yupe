@@ -116,7 +116,8 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             ['alias', 'unique'],
             ['status', 'in', 'range' => array_keys($this->statusList)],
-            ['is_special', 'in', 'range' => [0, 1]],
+            ['is_special', 'boolean'],
+            ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
             [
                 'id, type_id, producer_id, sku, name, alias, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category',
                 'safe',
