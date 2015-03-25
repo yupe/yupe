@@ -32,6 +32,9 @@ class BackendController extends yupe\components\controllers\BackController
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['index']],
             ['allow', 'actions' => ['error']],
+            ['allow', 'actions' => ['AjaxFileUpload']],
+            ['allow', 'actions' => ['AjaxImageUpload']],
+            ['allow', 'actions' => ['transliterate']],
             ['deny',],
         ];
     }
