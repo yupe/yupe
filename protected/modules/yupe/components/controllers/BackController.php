@@ -106,7 +106,7 @@ abstract class BackController extends Controller
             )) !== null
             && count($updates) > 0
         ) {
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('YupeModule.yupe', 'You must install all migration before start working with module.')
             );
@@ -139,15 +139,21 @@ abstract class BackController extends Controller
             Yii::app()->ajax->success();
         }
 
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
         try {
             switch ($action) {
                 case self::BULK_DELETE:
+
                     $models = CActiveRecord::model($modelClass)->findAllByPk($items);
+
                     $count = 0;
 
                     foreach ($models as $model) {
                         $count += (int)$model->delete();
                     }
+
+                    $transaction->commit();
 
                     Yii::app()->ajax->success(
                         Yii::t(
@@ -164,8 +170,8 @@ abstract class BackController extends Controller
                     throw new CHttpException(404);
                     break;
             }
-
         } catch (Exception $e) {
+            $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             Yii::app()->ajax->failure($e->getMessage());
         }

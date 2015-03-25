@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60984f9b9b954b5e389bf0bf03136848",
+    "hash": "c4709665f91b716eaae236f6bcb7a316",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -481,12 +481,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "95bd39a09454bcda430c1a63796747c1ff0a2bf0"
+                "reference": "947415c73ad4ce9e7cbc1c7188f22bfc100c90ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/95bd39a09454bcda430c1a63796747c1ff0a2bf0",
-                "reference": "95bd39a09454bcda430c1a63796747c1ff0a2bf0",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/947415c73ad4ce9e7cbc1c7188f22bfc100c90ba",
+                "reference": "947415c73ad4ce9e7cbc1c7188f22bfc100c90ba",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +526,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2015-03-22 14:59:12"
+            "time": "2015-03-25 10:05:42"
         },
         {
             "name": "react/promise",
