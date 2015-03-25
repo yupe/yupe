@@ -26,10 +26,17 @@ class CommentModule extends WebModule
     public $maxCaptchaLength = 6;
     public $rssCount = 10;
     public $antiSpamInterval = 3;
-    public $allowedTags;
+    public $allowedTags = 'p,br,strong,img[src|style],a[href]';
     public $allowGuestComment = 0;
     public $stripTags = 1;
     public $assetsPath = "application.modules.comment.views.assets";
+
+    /**
+     * параметры для загрузки изображений
+     */
+    public $allowedExtensions = 'jpg,jpeg,png,gif';
+    public $minSize = 0;
+    public $maxSize = 5368709120;
 
     /**
     * @var string - id редактора
@@ -40,6 +47,7 @@ class CommentModule extends WebModule
     {
         return [
             'user',
+            'image'
         ];
     }
 

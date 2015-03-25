@@ -1,13 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#blog-form').liTranslit({
-            elName: '#Blog_name',
-            elAlias: '#Blog_slug'
-        });
-    })
-</script>
-
-
 <?php
 /**
  * Отображение для BlogBackend/_form:
@@ -17,9 +7,13 @@
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
+ *
+ * @var $form \yupe\widgets\ActiveForm
+ * @var $model Blog
+ * @var $this BlogBackendController
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'blog-form',
         'enableAjaxValidation'   => false,
@@ -46,8 +40,8 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(
-                            (int)Yii::app()->getModule('blog')->mainCategory
-                        ),
+                        (int)Yii::app()->getModule('blog')->mainCategory
+                    ),
                     'htmlOptions' => [
                         'empty'               => Yii::t('BlogModule.blog', '--choose--'),
                         'class'               => 'popover-help',
@@ -152,11 +146,12 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?php echo $form->slugFieldGroup(
             $model,
             'slug',
             [
-                'widgetOptions' => [
+                'sourceAttribute' => 'name',
+                'widgetOptions'   => [
                     'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
@@ -218,9 +213,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create blog and continue') : Yii::t(
-                'BlogModule.blog',
-                'Save blog and continue'
-            ),
+            'BlogModule.blog',
+            'Save blog and continue'
+        ),
     ]
 ); ?>
 
@@ -231,9 +226,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create blog and close') : Yii::t(
-                'BlogModule.blog',
-                'Save blog and close'
-            ),
+            'BlogModule.blog',
+            'Save blog and close'
+        ),
     ]
 ); ?>
 

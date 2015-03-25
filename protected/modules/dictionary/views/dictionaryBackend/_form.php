@@ -1,16 +1,11 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#dictionary-form').liTranslit({
-            elName: '#DictionaryGroup_name',
-            elAlias: '#DictionaryGroup_code'
-        });
-    })
-</script>
-
-
 <?php
+/**
+ * @var $this DictionaryBackendController
+ * @var $model DictionaryGroup
+ * @var $form \yupe\widgets\ActiveForm
+ */
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'dictionary-form',
         'enableAjaxValidation'   => false,
@@ -36,7 +31,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'code'); ?>
+        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 
@@ -60,9 +55,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
-                'DictionaryModule.dictionary',
-                'Create dictionary and continue'
-            ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and continue'),
+            'DictionaryModule.dictionary',
+            'Create dictionary and continue'
+        ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and continue'),
     ]
 ); ?>
 
@@ -72,9 +67,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t(
-                'DictionaryModule.dictionary',
-                'Create dictionary and close'
-            ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and close'),
+            'DictionaryModule.dictionary',
+            'Create dictionary and close'
+        ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and close'),
     ]
 ); ?>
 

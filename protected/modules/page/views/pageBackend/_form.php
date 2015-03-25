@@ -2,16 +2,11 @@
 /**
  * @var $this PageBackendController
  * @var $model Page
- * @var $form TbActiveForm
+ * @var $form \yupe\widgets\ActiveForm
  */
 ?>
 <script type='text/javascript'>
     $(document).ready(function () {
-        $('#page-form').liTranslit({
-            elName: '#Page_title',
-            elAlias: '#Page_slug'
-        });
-
         $('#menu_id').change(function () {
             var menuId = parseInt($(this).val());
             if (menuId) {
@@ -57,7 +52,7 @@
  * @link     http://yupe.ru
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'page-form',
         'enableAjaxValidation'   => false,
@@ -140,11 +135,12 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?php echo $form->slugFieldGroup(
             $model,
             'slug',
             [
-                'widgetOptions' => [
+                'sourceAttribute' => 'title',
+                'widgetOptions'   => [
                     'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),

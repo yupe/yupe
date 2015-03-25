@@ -1,12 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#mail-event-form').liTranslit({
-            elName: '#MailEvent_name',
-            elAlias: '#MailEvent_code'
-        });
-    })
-</script>
-
 <?php
 /**
  * Отображение для _form:
@@ -16,9 +7,13 @@
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
+ *
+ * @var $this EventBackendController
+ * @var $model MailEvent
+ * @var $form \yupe\widgets\ActiveForm
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id'                     => 'mail-event-form',
         'enableAjaxValidation'   => false,
@@ -44,7 +39,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'code'); ?>
+        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 
@@ -61,9 +56,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and continue') : Yii::t(
-                'MailModule.mail',
-                'Save event and continue'
-            ),
+            'MailModule.mail',
+            'Save event and continue'
+        ),
     ]
 ); ?>
 
@@ -74,9 +69,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and close') : Yii::t(
-                'MailModule.mail',
-                'Save event and close'
-            ),
+            'MailModule.mail',
+            'Save event and close'
+        ),
     ]
 ); ?>
 

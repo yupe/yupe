@@ -10,4 +10,5 @@ return [
     'enableProfiling'       => defined('YII_DEBUG') && YII_DEBUG ? true : 0,
     'schemaCachingDuration' => 108000,
     'tablePrefix'           => 'yupe_',
+    'pdoClass'              => 'yupe\extensions\NestedPDO',
 ];

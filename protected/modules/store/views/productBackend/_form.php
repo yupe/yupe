@@ -1,13 +1,11 @@
+<?php
+/**
+ * @var $this ProductBackendController
+ * @var $model Product
+ * @var $form \yupe\widgets\ActiveForm
+ */
+?>
 <?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-backend.css'); ?>
-
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#product-form').liTranslit({
-            elName: '#Product_name',
-            elAlias: '#Product_alias'
-        });
-    })
-</script>
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
@@ -390,28 +388,28 @@ $form = $this->beginWidget(
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="variant-template variant form-inline">
-                <table>
-                    <thead>
-                    <tr>
-                        <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
-                        <td><?= Yii::t("StoreModule.product", "Price type"); ?></td>
-                        <td><?= Yii::t("StoreModule.product", "Price"); ?></td>
-                        <td><?= Yii::t("StoreModule.product", "SKU"); ?></td>
-                        <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody id="product-variants">
-                    <?php foreach ((array)$model->variants as $variant): ?>
-                        <?php $this->renderPartial('_variant_row', ['variant' => $variant]); ?>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="variant-template variant form-inline">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
+                            <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
+                            <td><?= Yii::t("StoreModule.product", "Price type"); ?></td>
+                            <td><?= Yii::t("StoreModule.product", "Price"); ?></td>
+                            <td><?= Yii::t("StoreModule.product", "SKU"); ?></td>
+                            <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tbody id="product-variants">
+                        <?php foreach ((array)$model->variants as $variant): ?>
+                            <?php $this->renderPartial('_variant_row', ['variant' => $variant]); ?>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -424,23 +422,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and continue') : Yii::t(
-                'StoreModule.product',
-                'Save product and continue'
-            ),
+        'context'    => 'primary',
+        'label'      => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and continue') : Yii::t(
+            'StoreModule.product',
+            'Save product and continue'
+        ),
     ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType' => 'submit',
+        'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and close') : Yii::t(
-                'StoreModule.product',
-                'Save product and close'
-            ),
+        'label'       => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and close') : Yii::t(
+            'StoreModule.product',
+            'Save product and close'
+        ),
     ]
 ); ?>
 

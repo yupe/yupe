@@ -162,10 +162,7 @@
                 </div>
 
                 <div class="widget tags-cloud-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.TagCloudWidget',
-                        ['cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50]
-                    ); ?>
+                    <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', ['limit' => 50]); ?>
                 </div>
             <?php endif; ?>
 

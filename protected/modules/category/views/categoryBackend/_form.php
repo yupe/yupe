@@ -1,23 +1,12 @@
 <?php
 /**
  * @var $this CategoryBackendController
- * @var $form TbActiveForm
+ * @var $form \yupe\widgets\ActiveForm
  * @var $model Category
  */
-?>
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#category-form').liTranslit({
-            elName: '#Category_name',
-            elAlias: '#Category_alias'
-        });
-    })
-</script>
 
-
-<?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id'                     => 'category-form',
         'enableAjaxValidation'   => false,
@@ -121,7 +110,7 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'alias'); ?>
+        <?php echo $form->slugFieldGroup($model, 'alias', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>
@@ -189,12 +178,12 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
-                'CategoryModule.category',
-                'Create category and continue'
-            ) : Yii::t(
-                'CategoryModule.category',
-                'Save category and continue'
-            ),
+            'CategoryModule.category',
+            'Create category and continue'
+        ) : Yii::t(
+            'CategoryModule.category',
+            'Save category and continue'
+        ),
     ]
 ); ?>
 
@@ -204,9 +193,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t(
-                'CategoryModule.category',
-                'Save category and close'
-            ),
+            'CategoryModule.category',
+            'Save category and close'
+        ),
     ]
 ); ?>
 
