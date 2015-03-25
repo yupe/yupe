@@ -53,9 +53,9 @@
                                     ],
                                     'total_price',
                                     [
-                                        'name' => 'status',
+                                        'name' => 'status_id',
                                         'value' => function ($data) {
-                                            return $data->getStatusTitle();
+                                            return $data->status->getTitle();
                                         },
                                     ],
                                     [
