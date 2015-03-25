@@ -44,7 +44,6 @@ class NewsController extends \yupe\components\controllers\FrontController
             'params'    => [
                 ':status' => News::STATUS_PUBLISHED,
             ],
-            'limit'     => $this->module->perPage,
             'order'     => 't.creation_date DESC',
             'with'      => ['user'],
         ]);
@@ -69,7 +68,12 @@ class NewsController extends \yupe\components\controllers\FrontController
             );
         }
 
-        $dataProvider = new CActiveDataProvider('News', ['criteria' => $dbCriteria]);
+        $dataProvider = new CActiveDataProvider('News', [
+            'criteria' => $dbCriteria,
+            'pagination' => [
+                'pageSize' => $this->module->perPage
+            ]
+        ]);
         $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

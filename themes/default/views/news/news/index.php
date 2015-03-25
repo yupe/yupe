@@ -6,7 +6,7 @@ $this->breadcrumbs = [Yii::t('NewsModule.news', 'News')];
 <h1>Новости</h1>
 
 <?php $this->widget(
-    'zii.widgets.CListView',
+    'bootstrap.widgets.TbListView',
     [
         'dataProvider' => $dataProvider,
         'itemView'     => '_view',
