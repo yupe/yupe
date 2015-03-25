@@ -1,10 +1,15 @@
 <?php
+/**
+ * @var OrderStatus $model
+ */
+
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
+    Yii::t('OrderModule.order', 'Order statuses') => ['/order/statusBackend/index'],
     Yii::t('OrderModule.order', 'Creating'),
 ];
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Orders - creating');
+$this->pageTitle = Yii::t('OrderModule.order', 'Order statuses - creating');
 
 $this->menu = [
     [
@@ -25,7 +30,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Orders'); ?>
+        <?php echo Yii::t('OrderModule.order', 'Order statuses'); ?>
         <small><?php echo Yii::t('OrderModule.order', 'creating'); ?></small>
     </h1>
 </div>
