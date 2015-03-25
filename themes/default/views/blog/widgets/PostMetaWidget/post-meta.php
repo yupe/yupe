@@ -27,12 +27,8 @@
 
             <?php echo CHtml::link(
                 $post->getCommentCount(),
-                [
-                    '/blog/post/show/',
-                    'slug' => CHtml::encode($post->slug),
-                    '#'    => 'comments'
-                ]
-            );?>
+                $post->getUrl(['#' => 'comments'])
+            ); ?>
         </span>
     </div>
 </div>

@@ -1,15 +1,11 @@
 <?php
-$this->pageTitle = Yii::t(
-    'BlogModule.blog',
-    'Posts of "{category}" category',
-    ['{category}' => CHtml::encode($target->name)]
-);
-$this->description = Yii::t(
-    'BlogModule.blog',
-    'Posts of "{category}" category',
-    ['{category}' => CHtml::encode($target->name)]
-);
-$this->keywords = $target->name;
+/**
+ * @var $this PostController
+ */
+
+$this->title = [Yii::t('BlogModule.blog', 'Posts of "{category}" category', ['{category}' => CHtml::encode($target->name)]), Yii::app()->getModule('yupe')->siteName];
+$this->metaDescription = Yii::t('BlogModule.blog', 'Posts of "{category}" category', ['{category}' => CHtml::encode($target->name)]);
+$this->metaKeywords = $target->name;
 ?>
 
 <?php

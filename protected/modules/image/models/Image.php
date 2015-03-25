@@ -97,10 +97,15 @@ class Image extends yupe\models\YModel
                 'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
             ],
-            'sortable' => [
-                'class' => 'yupe\components\behaviors\SortableBehavior',
+            'sortable'    => [
+                'class'         => 'yupe\components\behaviors\SortableBehavior',
                 'attributeName' => 'sort'
-            ]
+            ],
+            'seo'         => [
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/gallery/gallery/image',
+                'params' => ['id' => $this->id],
+            ],
         ];
     }
 
@@ -175,7 +180,7 @@ class Image extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort' => ['defaultOrder' => 't.sort']
+            'sort'     => ['defaultOrder' => 't.sort']
         ]);
     }
 

@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::t('NewsModule.news', 'News');
+$this->title = [Yii::t('NewsModule.news', 'News'), Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [Yii::t('NewsModule.news', 'News')];
 ?>
 

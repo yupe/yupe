@@ -1,11 +1,16 @@
+<?php
+/**
+ * @var $this GalleryController
+ * @var $model Gallery
+ */
+
+$this->title = [Yii::t('GalleryModule.gallery', 'Gallery'), Yii::app()->getModule('yupe')->siteName];
+$this->breadcrumbs = [
+    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
+    $model->name
+];
+?>
 <div class="gallery-show">
-
-    <?php $this->pageTitle = Yii::t('GalleryModule.gallery', 'Gallery'); ?>
-
-    <?php $this->breadcrumbs = [
-        Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/list'],
-        $model->name
-    ]; ?>
 
     <h1 class="page-header"><?php echo CHtml::encode($model->name); ?></h1>
 

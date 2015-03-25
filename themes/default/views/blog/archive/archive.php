@@ -1,4 +1,4 @@
-<?php $this->pageTitle = Yii::t('BlogModule.blog', 'Posts archive'); ?>
+<?php $this->title = Yii::t('BlogModule.blog', 'Posts archive'); ?>
 
 <?php $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Posts') => ['/blog/blog/index/'],

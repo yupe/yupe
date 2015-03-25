@@ -19,6 +19,16 @@ use CException;
 use CHttpException;
 use yupe\widgets\YWidget;
 
+/**
+ * Class Controller
+ * @package yupe\components\controllers
+ *
+ * @property string|array $title
+ * @property string $metaDescription
+ * @property string $metaKeywords
+ * @property array $metaProperties
+ * @property string $canonical
+ */
 abstract class Controller extends \CController
 {
     /**
@@ -37,16 +47,6 @@ abstract class Controller extends \CController
     public $breadcrumbs = [];
 
     /**
-     * Описание сайта, меняется в админке
-     */
-    public $description;
-
-    /**
-     * Ключевые слова сайта, меняется в админке
-     */
-    public $keywords;
-
-    /**
      * Contains data for "CMenu" widget (provides view for menu on the site)
      */
     public $menu = [];
@@ -57,23 +57,39 @@ abstract class Controller extends \CController
      */
     public $headerTypeId = ContentType::TYPE_HTML;
 
-    /**
-     * Устанавливает заголовок страниц
-     * @param string $title заголовок
-     */
-    public function setPageTitle($title, $savePrev = false, $separator = '|')
+    public function behaviors()
     {
-        if ($savePrev) {
-            $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
-        } else {
-            $this->pageTitle = CHtml::encode($title);
-        }
+        return array(
+            'seo' => array('class' => 'vendor.chemezov.yii-seo.behaviors.SeoBehavior'),
+        );
+    }
+
+    /**
+     * For backward capability
+     *
+     * @deprecated
+     * @param string $value
+     */
+    public function setDescription($value)
+    {
+        $this->metaDescription = $value;
+    }
+
+    /**
+     * For backward capability
+     *
+     * @deprecated
+     * @param string $value
+     */
+    public function setKeywords($value)
+    {
+        $this->metaKeywords = $value;
     }
 
     /**
      * Функци определяющая мультиязычность:
      *
-     * @return bool isMultilang
+     * @return bool
      **/
     public function isMultilang()
     {
@@ -193,7 +209,7 @@ abstract class Controller extends \CController
         // Если сообщение не установленно - выставляем
         // дефолтное
         $message = $message
-            ? : Yii::t(
+            ?: Yii::t(
                 'YupeModule.yupe',
                 'Bad request. Please don\'t use similar requests anymore!'
             );

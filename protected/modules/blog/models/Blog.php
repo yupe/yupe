@@ -246,26 +246,26 @@ class Blog extends yupe\models\YModel
         return [
             'id'          => Yii::t('BlogModule.blog', 'Post id.'),
             'name'        => Yii::t(
-                    'BlogModule.blog',
-                    'Please enter a title of the blog. For example: <span class="label label-default">My travel notes</span>.'
-                ),
+                'BlogModule.blog',
+                'Please enter a title of the blog. For example: <span class="label label-default">My travel notes</span>.'
+            ),
             'description' => Yii::t(
-                    'BlogModule.blog',
-                    'Please enter a short description of the blog. For example:<br /><br /> <pre>Notes on my travel there and back again. Illustrated.</pre>'
-                ),
+                'BlogModule.blog',
+                'Please enter a short description of the blog. For example:<br /><br /> <pre>Notes on my travel there and back again. Illustrated.</pre>'
+            ),
             'icon'        => Yii::t('BlogModule.blog', 'Please choose an icon for the blog.'),
             'slug'        => Yii::t(
-                    'BlogModule.blog',
-                    'Please enter an URL-friendly name for the blog.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label label-default">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'
-                ),
+                'BlogModule.blog',
+                'Please enter an URL-friendly name for the blog.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label label-default">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'
+            ),
             'type'        => Yii::t(
-                    'BlogModule.blog',
-                    'Please choose a type of the blog:<br /><br /><span class="label label-success">public</span> &ndash; anyone can create posts<br /><br /><span class="label label-info">private</span> &ndash; only you can create posts'
-                ),
+                'BlogModule.blog',
+                'Please choose a type of the blog:<br /><br /><span class="label label-success">public</span> &ndash; anyone can create posts<br /><br /><span class="label label-info">private</span> &ndash; only you can create posts'
+            ),
             'status'      => Yii::t(
-                    'BlogModule.blog',
-                    'Please choose a status of the blog:<br /><br /><span class="label label-success">active</span> &ndash; The blog will be visible and it will be possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will be visible but it would not be possible to create new records<br /><br /><span class="label label-danger">removed</span> &ndash; The blog will be invisible'
-                ),
+                'BlogModule.blog',
+                'Please choose a status of the blog:<br /><br /><span class="label label-success">active</span> &ndash; The blog will be visible and it will be possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will be visible but it would not be possible to create new records<br /><br /><span class="label label-danger">removed</span> &ndash; The blog will be invisible'
+            ),
         ];
     }
 
@@ -346,6 +346,11 @@ class Blog extends yupe\models\YModel
                 'setUpdateOnCreate' => true,
                 'createAttribute'   => 'create_date',
                 'updateAttribute'   => 'update_date',
+            ],
+            'seo'                => [
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/blog/blog/show',
+                'params' => ['slug' => $this->slug],
             ],
         ];
     }
@@ -669,9 +674,9 @@ class Blog extends yupe\models\YModel
     public function getPrivateBlogsForUser($userId)
     {
         return $this->published()->findAll('create_user_id = :id AND type = :type', [
-                ':id'   => (int)$userId,
-                ':type' => self::TYPE_PRIVATE
-            ]);
+            ':id'   => (int)$userId,
+            ':type' => self::TYPE_PRIVATE
+        ]);
     }
 
     public function getListForUser($userId)

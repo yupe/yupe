@@ -35,6 +35,8 @@
  * @property User $changeUser
  * @property Category $category
  * @property User $user
+ *
+ * @method Good published()
  */
 class Good extends yupe\models\YModel
 {
@@ -209,7 +211,6 @@ class Good extends yupe\models\YModel
 
     public function behaviors()
     {
-
         $module = Yii::app()->getModule('catalog');
 
         return [
@@ -227,6 +228,11 @@ class Good extends yupe\models\YModel
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
             ],
+            'seo'                => [
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/catalog/catalog/show',
+                'params' => ['name' => $this->alias],
+            ],
         ];
     }
 
@@ -243,11 +249,6 @@ class Good extends yupe\models\YModel
         }
 
         return parent::beforeValidate();
-    }
-
-    public function getPermaLink()
-    {
-        return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', ['name' => $this->alias]);
     }
 
     public function getStatusList()
@@ -294,5 +295,16 @@ class Good extends yupe\models\YModel
         return $this->category instanceof Category
             ? CHtml::link($this->category->name, ["/category/default/view", "id" => $this->category_id])
             : '---';
+    }
+
+    /**
+     * Return url of this model
+     *
+     * @deprecated
+     * @return string
+     */
+    public function getPermaLink()
+    {
+        return $this->getUrl();
     }
 }

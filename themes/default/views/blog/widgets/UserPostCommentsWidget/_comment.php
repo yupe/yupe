@@ -5,7 +5,7 @@
             <div class="post-link">
                 <?= CHtml::link($comment->post->title, $comment->post->getLink()); ?>
                 <span class="count">
-                    <?= $comment->post->commentCount;?>
+                    <?= $comment->post->commentCount; ?>
                 </span>
             </div>
         </div>
@@ -24,7 +24,7 @@
                                 </time>
                             </span>
                             <span class="comment-link">
-                                <?= CHtml::link('#', ['/blog/post/show', 'slug' => $comment->post->slug, '#' => 'comment-' . $comment->id]) ?>
+                                <?= CHtml::link('#', $comment->post->getUrl(['#' => 'comment-' . $comment->id])) ?>
                             </span>
                         </div>
                     </div>

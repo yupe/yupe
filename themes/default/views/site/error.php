@@ -1,4 +1,4 @@
-<?php $this->pageTitle = Yii::t('default', 'Error') . ' ' . $error['code'] . ' - ' . $this->yupe->siteName; ?>
+<?php $this->title = [Yii::t('default', 'Error') . ' ' . $error['code'], Yii::app()->getModule('yupe')->siteName]; ?>
 
 <h2><?php echo Yii::t('default', 'Error') . ' ' . $error['code']; ?>!</h2>
 
@@ -10,13 +10,13 @@ switch ($error['code']) {
             'Page you try to request, was not found. You can go out from this page and {link}.',
             [
                 '{link}' => CHtml::link(
-                        Yii::t('default', 'go to home page'),
-                        $this->createUrl("/" . Yii::app()->defaultController . '/index'),
-                        [
-                            'title' => Yii::t('default', 'go to home page'),
-                            'alt'   => Yii::t('default', 'go to home page'),
-                        ]
-                    ),
+                    Yii::t('default', 'go to home page'),
+                    $this->createUrl("/" . Yii::app()->defaultController . '/index'),
+                    [
+                        'title' => Yii::t('default', 'go to home page'),
+                        'alt'   => Yii::t('default', 'go to home page'),
+                    ]
+                ),
 
             ]
         );

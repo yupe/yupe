@@ -1,6 +1,12 @@
+<?php
+/**
+ * @var $this CatalogController
+ * @var $data Good
+ */
+?>
 <div class="post">
     <div class="title">
-        <?php echo CHtml::link(CHtml::encode($data->name), ['/catalog/catalog/show', 'name' => $data->alias]); ?>
+        <?php echo CHtml::link(CHtml::encode($data->name), $data->getUrl()); ?>
     </div>
     <br/>
 
@@ -13,7 +19,7 @@
         <br/>
         <?php echo CHtml::link(
             Yii::t('CatalogModule.catalog', 'Constant link'),
-            ['/catalog/catalog/show', 'name' => $data->alias]
+            $data->getUrl()
         ); ?>
     </div>
 </div>

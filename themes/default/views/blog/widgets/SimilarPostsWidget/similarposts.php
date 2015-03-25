@@ -9,7 +9,7 @@
                 <?php foreach ($posts as $post): ?>
                     <li><?php echo CHtml::link(
                             CHtml::encode($post->title),
-                            ['/blog/post/show/', 'slug' => CHtml::encode($post->slug)]
+                            $post->getUrl()
                         ); ?></li>
                 <?php endforeach; ?>
             </ul>

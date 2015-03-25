@@ -4,7 +4,7 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Personal account');
+$this->title = Yii::t('OrderModule.order', 'Personal account');
 ?>
 
 <h1><?php echo Yii::t('OrderModule.order', 'Orders history'); ?></h1>

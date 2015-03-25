@@ -1,7 +1,11 @@
 <?php
-$this->pageTitle = CHtml::encode($blog->name);
-$this->description = CHtml::encode($blog->name);
-$this->keywords = CHtml::encode($blog->name);
+/**
+ * @var $this BlogController
+ * @var $blog Blog
+ */
+$this->title = [CHtml::encode($blog->name), Yii::app()->getModule('yupe')->siteName];
+$this->metaDescription = CHtml::encode($blog->name);
+$this->metaKeywords = CHtml::encode($blog->name);
 ?>
 
 <?php

@@ -4,7 +4,7 @@ return [
     'page' => [
         'Page' => [
             'getUrl' => function ($model) {
-                return $model->getUrl(true);
+                return $model->getAbsoluteUrl();
             },
             'getDataProvider' => function () {
                 return new CActiveDataProvider(CActiveRecord::model('Page')->published(), []);
@@ -19,7 +19,7 @@ return [
     'news' => [
         'News' => [
             'getUrl' => function ($model) {
-                return Yii::app()->createAbsoluteUrl('news/news/show', ['alias' => $model->alias]);
+                return $model->getAbsoluteUrl();
             },
             'getDataProvider' => function () {
                 return new CActiveDataProvider(CActiveRecord::model('News')->published(), []);
@@ -34,7 +34,7 @@ return [
     'blog' => [
         'Blog' => [
             'getUrl' => function ($model) {
-                return Yii::app()->createAbsoluteUrl('blog/blog/show', ['slug' => $model->slug]);
+                return $model->getAbsoluteUrl();
             },
             'getDataProvider' => function () {
                 return new CActiveDataProvider(CActiveRecord::model('Blog')->published(), []);
@@ -47,7 +47,7 @@ return [
         ],
         'Post' => [
             'getUrl' => function ($model) {
-                return Yii::app()->createAbsoluteUrl('blog/post/show', ['slug' => $model->slug]);
+                return $model->getAbsoluteUrl();
             },
             'getDataProvider' => function () {
                 return new CActiveDataProvider(CActiveRecord::model('Post')->published(), []);

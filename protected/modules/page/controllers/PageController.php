@@ -23,9 +23,9 @@ class PageController extends \yupe\components\controllers\FrontController
      */
     public function actionShow($slug)
     {
-        $page = null;
+        $model = null;
         // превью
-        $page = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+        $model = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
             ? Page::model()->find(
                 'slug = :slug AND (lang=:lang OR (lang IS NULL))',
                 [
@@ -42,12 +42,12 @@ class PageController extends \yupe\components\controllers\FrontController
                 ]
             );
 
-        if (null === $page) {
+        if (null === $model) {
             throw new CHttpException('404', Yii::t('PageModule.page', 'Page was not found'));
         }
 
         // проверим что пользователь может просматривать эту страницу
-        if ($page->isProtected() && !Yii::app()->user->isAuthenticated()) {
+        if ($model->isProtected() && !Yii::app()->user->isAuthenticated()) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
@@ -56,11 +56,11 @@ class PageController extends \yupe\components\controllers\FrontController
             $this->redirect([Yii::app()->getModule('user')->accountActivationSuccess]);
         }
 
-        $this->currentPage = $page;
+        $this->currentPage = $model;
 
-        $view = $page->view ? $page->view : 'page';
+        $view = $model->view ? $model->view : 'show';
 
-        $this->render($view, ['page' => $page]);
+        $this->render($view, ['model' => $model]);
     }
 
     /**
