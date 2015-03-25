@@ -94,12 +94,7 @@ class Post extends yupe\models\YModel implements ICommentable
     const COMMENT_NO = 0;
 
     /**
-     * @var
-     */
-    public $tagsItems;
-
-    /**
-     * @var
+     * @var  string|array tags list
      */
     public $tags;
 
@@ -163,6 +158,7 @@ class Post extends yupe\models\YModel implements ICommentable
             ],
             ['slug', 'unique'],
             ['tags', 'safe'],
+            ['tags', 'default', 'value' => []],
             [
                 'id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang',
                 'safe',
@@ -411,11 +407,7 @@ class Post extends yupe\models\YModel implements ICommentable
             $this->create_user_ip = Yii::app()->getRequest()->userHostAddress;
         }
 
-        if (!$this->tags) {
-            $this->removeAllTags();
-        } else {
-            $this->setTags($this->tags);
-        }
+        $this->setTags($this->tags);
 
         return parent::beforeSave();
     }
@@ -518,15 +510,14 @@ class Post extends yupe\models\YModel implements ICommentable
     }
 
     /**
-     * after find event:
-     *
-     * @return parent::afterFind()
-     **/
+     * @inheritdoc
+     */
     public function afterFind()
     {
+        $this->tags = $this->getTags();
         $this->publish_date = date('d-m-Y H:i', $this->publish_date);
 
-        return parent::afterFind();
+        parent::afterFind();
     }
 
     /**

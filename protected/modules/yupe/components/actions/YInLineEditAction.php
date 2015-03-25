@@ -27,8 +27,6 @@ class YInLineEditAction extends CAction
      */
     public function init()
     {
-        parent::init();
-
         if (!$this->model || empty($this->validAttributes)) {
             throw new CHttpException(500);
         }
