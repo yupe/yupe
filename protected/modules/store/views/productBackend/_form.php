@@ -189,8 +189,7 @@ $form = $this->beginWidget(
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php
-            echo CHtml::image(
+            <?= CHtml::image(
                 !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
                 $model->name,
                 [
@@ -350,6 +349,7 @@ $form = $this->beginWidget(
         <?php endif; ?>
     </div>
 </div>
+
 
 <div class="tab-pane" id="attributes">
     <div id="attributes-panel">
