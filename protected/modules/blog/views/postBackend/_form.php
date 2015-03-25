@@ -1,12 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#post-form').liTranslit({
-            elName: '#Post_title',
-            elAlias: '#Post_slug'
-        });
-    })
-</script>
-
 <?php
 /**
  * Отображение для postBackend/_form:
@@ -16,9 +7,13 @@
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
+ *
+ * @var $form \yupe\widgets\ActiveForm
+ * @var $model Post
+ * @var $this PostController
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id'                     => 'post-form',
         'enableAjaxValidation'   => false,
@@ -44,10 +39,10 @@ $form = $this->beginWidget(
             'blog_id',
             [
                 'widgetOptions' => [
-                    'data' => ['' => '---'] +  CHtml::listData(Blog::model()->getList(), 'id', 'name'),
+                    'data' => ['' => '---'] + CHtml::listData(Blog::model()->getList(), 'id', 'name'),
                 ]
             ]
-        );?>
+        ); ?>
     </div>
     <div class="col-sm-3">
         <?php echo $form->dropDownListGroup(
@@ -107,11 +102,12 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?php echo $form->slugFieldGroup(
             $model,
             'slug',
             [
-                'widgetOptions' => [
+                'sourceAttribute' => 'title',
+                'widgetOptions'   => [
                     'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
@@ -240,8 +236,8 @@ $form = $this->beginWidget(
                                 [
                                     'widgetOptions' => [
                                         'data'        => Category::model()->getFormattedList(
-                                                (int)Yii::app()->getModule('blog')->mainPostCategory
-                                            ),
+                                            (int)Yii::app()->getModule('blog')->mainPostCategory
+                                        ),
                                         'htmlOptions' => [
                                             'empty'               => Yii::t('BlogModule.blog', '--choose--'),
                                             'class'               => 'popover-help',
@@ -374,9 +370,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create post and continue') : Yii::t(
-                'BlogModule.blog',
-                'Save post and continue'
-            ),
+            'BlogModule.blog',
+            'Save post and continue'
+        ),
     ]
 ); ?>
 
@@ -387,9 +383,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create post and close') : Yii::t(
-                'BlogModule.blog',
-                'Save post and close'
-            ),
+            'BlogModule.blog',
+            'Save post and close'
+        ),
     ]
 ); ?>
 

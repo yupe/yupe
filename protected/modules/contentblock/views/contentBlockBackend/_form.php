@@ -2,21 +2,12 @@
 /**
  * @var $model ContentBlock
  * @var $this ContentBlockBackendController
- * @var $form TbActiveForm
+ * @var $form \yupe\widgets\ActiveForm
  */
 ?>
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#content-block-form').liTranslit({
-            elName: '#ContentBlock_name',
-            elAlias: '#ContentBlock_code'
-        });
-    })
-</script>
-
 <?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'content-block-form',
         'enableAjaxValidation'   => false,
@@ -49,7 +40,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'code'); ?>
+        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class="row">
