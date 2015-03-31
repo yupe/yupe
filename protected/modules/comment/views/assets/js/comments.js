@@ -1,64 +1,84 @@
-$(document).ready(function () {
-    // нажатите "ответить"
-    $(document).on("click", "a.reply", function () {
-        $this = $(this);
-        if($this.attr("rel") != $("#Comment_parent_id").val()) {
-            $('#wcml').show();
-            $("div.comment-form").remove();
-            var htmlForm = $("#comment-form-wrap").clone();
-            htmlForm.addClass("comment-form").show();
-            $("#comment-form-wrap").hide();
-            $this.parents("div.comments-item").after(htmlForm);
-            $("#Comment_level").val(
-                parseInt($this.parents("div.well").parent("div").attr('level'), 0) + 1
-            );
-            $("#Comment_parent_id").val($this.attr("rel"));
-        }
-    });
+(function ($) {
+    $(function () {
+        var $widget = $('.comments-widget'),
+            $formWrap = $('.comment-form-wrap'),
+            $form = $formWrap.find('form'),
+            $pid = $form.find('#Comment_parent_id'),
+            $text = $form.find('#Comment_text'),
+            $notifications = $('#notifications');
 
-    $(document).on("click", '#wcml', function (event) {
-        event.preventDefault();
-        $("div.comment-form").remove();
-        $("#comment-form-wrap").show();
-        $(this).hide();
-    });
-
-    $(document).on('keyup', '#comment-form textarea, #comment-form input[type=text]', function (event) {
-        if (event.ctrlKey && event.keyCode == 13) {
-            $(this).parents('#comment-form').submit();
-        }
-    });
-
-    $(document).on('submit', '#comment-form', function (event) {
-        event.preventDefault();
-        var $form = $(this);
-        var $container = $('#comments');
-        if(!$('#Comment_text').val()){
-            $('#notifications').notify({ message: { text: 'Комментарий пуст =(' }, 'type': 'danger' }).show();
-            return false;
-        }
-
-        $.post($form.attr('action'), $form.serialize(), function (response) {
-            var type = response.result ? 'success' : 'danger';
-            $('#notifications').notify({ message: { text: response.data.message }, 'type': type }).show();
-            if (response.data.commentContent) {
-                if (response.data.comment.parent_id > 0) {
-                    $container = $('#comment-' + response.data.comment.parent_id).parents('.comments-item');
-                }
+        function clearForm() {
+            if ($.fn.redactor !== undefined) {
+                $text.redactor('insert.set', '');
             }
-            if(response.result) {
-                $('#Comment_text').val('');
-                $('div.redactor-editor').html('');
+            $text.val('');
+            $pid.val('');
+        }
+
+        function insertComment(pid, content) {
+            if (!pid) {
+                $widget.append(content);
+                return;
             }
 
-            $('#captcha-refresh').trigger('click');
+            var $parent = $widget.find('[data-id="' + pid + '"]'),
+                $lastChild = $widget.find('[data-pid="' + pid + '"]:last');
 
-            if ($container.attr('id') != 'comments') {
-                $container.after(response.data.commentContent);
+            if ($lastChild.length > 0) {
+                $lastChild.after(content);
             } else {
-                $container.append(response.data.commentContent);
+                $parent.after(content);
             }
-        }, 'json');
-        return false;
+        }
+
+        $widget.on('click', 'a.reply', function (event) {
+            var $this = $(this),
+                $item = $this.parents('.comments-item');
+
+            event.preventDefault();
+            if ($this.attr('rel') != $pid.val()) {
+                clearForm();
+                $item.after($formWrap);
+                $form.find('#close-comment').show();
+                $pid.val($this.attr('rel'));
+            }
+        });
+
+        $widget.on('keyup', 'textarea, input[type=text]', function (event) {
+            if (event.ctrlKey && event.keyCode == 13) {
+                $form.submit();
+            }
+        });
+
+        $form.on('click', '#close-comment', function () {
+            $(this).hide();
+            clearForm();
+            $widget.append($formWrap);
+        });
+
+        $form.on('submit', function (event) {
+            event.preventDefault();
+
+            if (!$text.val()) {
+                $notifications.notify({message: {text: 'Комментарий пуст =('}, 'type': 'danger'}).show();
+                return;
+            }
+
+            $.post($form.attr('action'), $form.serialize(), function (response) {
+                $notifications.notify({
+                    message: {text: response.data.message},
+                    'type': response.result ? 'success' : 'danger'
+                }).show();
+
+                $('#captcha-refresh').trigger('click');
+
+                if (response.result) {
+                    insertComment(response.data.comment.parent_id, response.data.commentContent);
+                    clearForm();
+                    $widget.append($formWrap);
+                    $form.find('#close-comment').hide();
+                }
+            }, 'json');
+        });
     });
-});
+})(jQuery);

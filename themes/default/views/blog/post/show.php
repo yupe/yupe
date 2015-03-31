@@ -111,26 +111,10 @@ $this->breadcrumbs = [
 
 <div class="comments-section">
 
-    <?php
-    $this->widget(
-        'application.modules.comment.widgets.CommentsListWidget',
-        [
-            'model'   => $post,
-            'modelId' => $post->id
-        ]
-    );
-    ?>
-
-    <?php
-    $this->widget(
-        'application.modules.comment.widgets.CommentFormWidget',
-        [
-            'redirectTo' => $post->getUrl(),
-            'model'      => $post,
-            'modelId'    => $post->id,
-        ]
-    );
-    ?>
+    <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+        'redirectTo' => $post->getUrl(),
+        'model' => $post,
+    ]); ?>
 
 </div>
 
