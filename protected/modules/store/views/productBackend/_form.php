@@ -182,9 +182,6 @@ $form = $this->beginWidget(
         </div>
     </div>
 
-
-
-
     <div class='row'>
         <div class="col-sm-7">
             <?php
@@ -196,6 +193,15 @@ $form = $this->beginWidget(
                     'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
                 ]
             ); ?>
+
+            <?php if (!$model->isNewRecord && $model->image): ?>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>
+                    </label>
+                </div>
+            <?php endif; ?>
+
             <?= $form->fileFieldGroup(
                 $model,
                 'image',
