@@ -37,6 +37,11 @@
             "name": "Mihail Chemezov",
             "homepage": "http://vk.com/m.chemezov",
             "role": "Developer"
+        },
+        {
+            "name": "Oleg Filimonov",
+            "email": "olegsabian@gmail.com",
+            "role": "Developer"
         }
     ],
     "support": {
