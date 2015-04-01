@@ -65,6 +65,19 @@
         "chemezov/yii-seo": "1.0.*"
     },
     "repositories": {
+         "wysibb-yii": {
+            "type": "package",
+            "package": {
+                "name": "brussens/wysibb-yii",
+                "version": "master",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/brussens/wysibb-yii",
+                    "reference": "master"
+                }
+            }
+        },
+
         "taggable": {
             "type": "package",
             "package": {

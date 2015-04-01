@@ -33,7 +33,6 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
         }
 
         $image = new Image();
-        $image->setScenario('insert');
         $image->addFileInstanceName('file');
         $image->setAttribute('name', $this->uploadedFile->getName());
         $image->setAttribute('alt', $this->uploadedFile->getName());
@@ -46,6 +45,8 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
 
             return true;
         }
+
+        var_dump($image->getErrors());die();
 
         return false;
     }
