@@ -23,7 +23,7 @@ class Type extends \yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @return Attribute the static model class
+     * @return Type the static model class
      */
     public static function model($className = __CLASS__)
     {

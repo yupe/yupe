@@ -19,7 +19,7 @@
 
 <?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id' => 'product-form',
         'enableAjaxValidation' => false,
@@ -117,7 +117,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?= $form->textFieldGroup($model, 'alias'); ?>
+            <?= $form->slugFieldGroup($model, 'alias', ['sourceAttribute' => 'name']); ?>
         </div>
     </div>
     <div class="row">
