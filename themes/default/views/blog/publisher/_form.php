@@ -139,6 +139,22 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
+    <div class="col-sm-12 form-group popover-help"
+         data-original-title='<?php echo $model->getAttributeLabel('quote'); ?>'
+         data-content='<?php echo $model->getAttributeDescription('quote'); ?>'>
+        <?php echo $form->labelEx($model, 'quote'); ?>
+        <?php
+        $this->widget(
+            $this->module->getVisualEditor(),
+            [
+                'model'     => $model,
+                'attribute' => 'quote',
+            ]
+        ); ?>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-sm-12">
         <div class="form-group">
             <?php echo $form->labelEx($model, 'tags', ['control-label']); ?>
