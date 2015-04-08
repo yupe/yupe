@@ -84,7 +84,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                         if ($menu) {
                             if (!$menu->addItem(
                                 $model->title,
-                                $model->getUrl(),
+                                $model->getUrl(['slug' => $model->slug]),
                                 $parentId,
                                 true
                             )
