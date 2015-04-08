@@ -200,6 +200,21 @@ class MenuItem extends yupe\models\YModel
         ];
     }
 
+    protected function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $criteria = new CDbCriteria();
+
+            $criteria->select = new CDbExpression('MAX(sort) as sort');
+
+            $max = self::model()->find($criteria);
+
+            $this->sort = $max->sort + 1;
+        }
+
+        return parent::beforeSave();
+    }
+
     protected function afterSave()
     {
         Yii::app()->getCache()->clear($this->menu->code);
