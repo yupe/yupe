@@ -203,13 +203,12 @@ class MenuItem extends yupe\models\YModel
     protected function beforeSave()
     {
         if ($this->isNewRecord) {
-            $criteria = new CDbCriteria();
+            $sort = Yii::app()->db->createCommand()
+                ->select('MAX(sort) + 1')
+                ->from($this->tableName())
+                ->queryScalar();
 
-            $criteria->select = new CDbExpression('MAX(sort) as sort');
-
-            $max = self::model()->find($criteria);
-
-            $this->sort = $max->sort + 1;
+            $this->sort = $sort;
         }
 
         return parent::beforeSave();
