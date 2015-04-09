@@ -95,9 +95,6 @@ class ImageUploadBehavior extends FileUploadBehavior
     {
         $file = $this->getFilePath();
         $defaultImagePath = Yii::getPathOfAlias('webroot') . $this->defaultImage;
-
-        \Yii::log($defaultImagePath.'!!!!!!!!!!', \CLogger::LEVEL_ERROR);
-
         $fileUploaded = is_file($file);
 
         if (!$fileUploaded) {
