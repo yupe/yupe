@@ -101,7 +101,7 @@ class StoreCategory extends \yupe\models\YModel
                 'defaultCriteria'      => [
                     'condition' => 'status = :status',
                     'params'    => [':status' => self::STATUS_PUBLISHED],
-                    'order'     => 't.name ASC'
+                    'order'     => 't.sort'
                 ],
                 'useCache'             => true,
             ],
