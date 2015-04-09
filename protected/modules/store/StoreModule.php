@@ -12,6 +12,7 @@ class StoreModule extends WebModule
     public $maxSize;
     public $maxFiles = 1;
     public $assetsPath = "application.modules.store.views.assets";
+    public $defaultImage = '/images/nophoto.jpg';
 
     public function getDependencies()
     {
@@ -54,9 +55,10 @@ class StoreModule extends WebModule
         return [
             'uploadPath' => Yii::t(
                     'StoreModule.store',
-                    'File uploads directory (relative to Yii::app()->getModule("yupe")->uploadPath)'
+                    'File uploads directory (relative to "{path}")', ['{path}' => Yii::getPathOfAlias('webroot').'/'.Yii::app()->getModule("yupe")->uploadPath]
                 ),
-            'editor' => Yii::t('StoreModule.store', 'Visual editor')
+            'editor' => Yii::t('StoreModule.store', 'Visual editor'),
+            'defaultImage' => Yii::t('StoreModule.store', 'Default image')
         ];
     }
 
@@ -64,9 +66,15 @@ class StoreModule extends WebModule
     {
         return [
             '0.main' => [
-                'label' => Yii::t('StoreModule.store', 'Visual editor settings'),
+                'label' => Yii::t('StoreModule.store', 'Images'),
                 'items' => [
                     'uploadPath',
+                    'defaultImage'
+                ]
+            ],
+            '1.main' => [
+                'label' => Yii::t('StoreModule.store', 'Visual editor settings'),
+                'items' => [
                     'editor'
                 ]
             ],

@@ -94,7 +94,10 @@ class ImageUploadBehavior extends FileUploadBehavior
     public function getImageUrl($width = 0, $height = 0, $options = ['jpeg_quality' => 90, 'png_compression_level' => 8])
     {
         $file = $this->getFilePath();
-        $defaultImagePath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $this->defaultImage;
+        $defaultImagePath = Yii::getPathOfAlias('webroot') . $this->defaultImage;
+
+        \Yii::log($defaultImagePath.'!!!!!!!!!!', \CLogger::LEVEL_ERROR);
+
         $fileUploaded = is_file($file);
 
         if (!$fileUploaded) {
