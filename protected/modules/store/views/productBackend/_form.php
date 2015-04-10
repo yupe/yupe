@@ -174,7 +174,7 @@ $form = $this->beginWidget(
                 <?php $this->widget(
                     'store.widgets.CategoryTreeWidget',
                     [
-                        'selectedCategories' => $model->getCategoriesIdList(),
+                        'selectedCategories' => $model->getCategoriesId(),
                         'id' => 'category-tree'
                     ]
                 ); ?>
