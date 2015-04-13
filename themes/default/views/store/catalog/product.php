@@ -214,27 +214,10 @@ $this->breadcrumbs = array_merge(
         </table>
     </div>
     <div class="tab-pane" id="comments-tab">
-        <?php
-        $this->widget(
-            'application.modules.comment.widgets.CommentsListWidget',
-            [
-                'model' => $product,
-                'modelId' => $product->id,
-                'comments' => $product->comments
-            ]
-        );
-        ?>
-
-        <?php
-        $this->widget(
-            'application.modules.comment.widgets.CommentFormWidget',
-            [
-                'redirectTo' => $this->createUrl('/store/catalog/show/', ['name' => $product->name]),
-                'model' => $product,
-                'modelId' => $product->id,
-            ]
-        );
-        ?>
+        <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+            'redirectTo' => $product->getUrl(),
+            'model' => $product,
+        ]); ?>
     </div>
 </div>
 </div>
