@@ -9,12 +9,12 @@ $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - v
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks managment'),
         'url'   => ['/contentblock/contentBlockBackend/index']
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
+        'label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'),
         'url'   => ['/contentblock/contentBlockBackend/create']
     ],
     [

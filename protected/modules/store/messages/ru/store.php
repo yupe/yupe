@@ -1,5 +1,7 @@
 <?php
 return [
+    'Default image' => 'Картинка по умолчанию',
+    'Record was added!' => 'Товар добавлен!',
     'Attributes are not added.' => 'Атрибуты не добавлены.',
     'Add them ?' => 'Добавить ?',
     '*unknown*' => '*неизвестно*',
@@ -48,7 +50,7 @@ return [
     'Editor' => 'Изменил',
     'Enter {field}' => 'Введите {field}',
     'Fields with' => 'Поля, отмеченные',
-    'File uploads directory (relative to Yii::app()->getModule("yupe")->uploadPath)' => 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)',
+    'File uploads directory (relative to "{path}")' => 'Каталог для загрузки файлов относительно "{path}"',
     'File' => 'Файл',
     'http://yupe.ru' => 'http://yupe.ru',
     'Id' => 'Id',

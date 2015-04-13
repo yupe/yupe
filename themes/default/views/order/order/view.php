@@ -188,7 +188,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     </td>
 
                 </tr>
-                <?php if (!$model->paid  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
+                <?php if (!$model->isPaid()  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">
@@ -228,7 +228,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     <tr>
                         <td colspan="3">
                             <p class="text-right">
-                                <?= $model->getPaidStatus() . ' - ' . date('d.m.Y H:i', strtotime($model->payment_date)); ?>
+                                <span class="aler alert-warning"><?= $model->getPaidStatus(); ?></span>
                             </p>
                         </td>
                     </tr>

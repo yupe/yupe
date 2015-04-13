@@ -19,7 +19,7 @@
 
 <?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    '\yupe\widgets\ActiveForm',
     [
         'id' => 'product-form',
         'enableAjaxValidation' => false,
@@ -117,7 +117,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?= $form->textFieldGroup($model, 'alias'); ?>
+            <?= $form->slugFieldGroup($model, 'alias', ['sourceAttribute' => 'name']); ?>
         </div>
     </div>
     <div class="row">
@@ -174,16 +174,13 @@ $form = $this->beginWidget(
                 <?php $this->widget(
                     'store.widgets.CategoryTreeWidget',
                     [
-                        'selectedCategories' => $model->getCategoriesIdList(),
+                        'selectedCategories' => $model->getCategoriesId(),
                         'id' => 'category-tree'
                     ]
                 ); ?>
             </div>
         </div>
     </div>
-
-
-
 
     <div class='row'>
         <div class="col-sm-7">
@@ -196,6 +193,15 @@ $form = $this->beginWidget(
                     'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
                 ]
             ); ?>
+
+            <?php if (!$model->isNewRecord && $model->image): ?>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>
+                    </label>
+                </div>
+            <?php endif; ?>
+
             <?= $form->fileFieldGroup(
                 $model,
                 'image',

@@ -42,6 +42,7 @@ $this->widget(
         'itemView'      => '_image',
         'template'      => "{items}\n{pager}",
         'itemsCssClass' => 'row gallery-thumbnails thumbnails',
-        'itemsTagName'  => 'ul'
+        'itemsTagName'  => 'ul',
+        'afterAjaxUpdate' => '$.fn.colorbox.init()'
     ]
 ); ?>

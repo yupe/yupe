@@ -17,8 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
-    'Plaksunov Yuri'=> 'Плаксунов Юрий',
-    'Mihail Chemezov'=> 'Чемезов Михаил',
+    'Plaksunov Yuri' => 'Плаксунов Юрий',
+    'Mihail Chemezov' => 'Чемезов Михаил',
     'Community' => 'Сообщество',
     'Yupe panel' => 'Панель управления Юпи! Главная страница',
     'Display on' => 'Выводить по',
@@ -345,8 +345,9 @@ return [
     'Mime types' => 'MIME-типы',
     'Minimum size (in bytes)' => 'Минимальный размер (в байтах)',
     'Maximum size (in bytes)' => 'Максимальный размер (в байтах)',
-    'Record was updated!'   => 'Запись успешно обновлена!',
-    'Record was created!'   => 'Запись успешно создана!',
-    'Record was deleted!'   => 'Запись успешно удалена!',
+    'Record was updated!' => 'Запись успешно обновлена!',
+    'Record was created!' => 'Запись успешно создана!',
+    'Record was deleted!' => 'Запись успешно удалена!',
     'Record was not found!' => 'Запись не найдена!',
+    'Delete the file' => 'Удалить файл',
 ];

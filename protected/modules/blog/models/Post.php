@@ -141,7 +141,7 @@ class Post extends yupe\models\YModel implements ICommentable
             ['image', 'length', 'max' => 300],
             ['create_user_ip', 'length', 'max' => 20],
             ['description, title, link, keywords', 'length', 'max' => 250],
-            ['quote', 'length', 'max' => 500],
+            ['quote', 'filter', 'filter' => 'trim'],
             ['link', 'yupe\components\validators\YUrlValidator'],
             ['comment_status', 'in', 'range' => array_keys($this->getCommentStatusList())],
             ['access_type', 'in', 'range' => array_keys($this->getAccessTypeList())],

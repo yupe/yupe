@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('PageModule.page', 'Pages') => ['/page/pageBackend/index'],
-    Yii::t('PageModule.page', 'Add page'),
+    Yii::t('PageModule.page', 'Create page'),
 ];
 
-$this->pageTitle = Yii::t('PageModule.page', 'Add page');
+$this->pageTitle = Yii::t('PageModule.page', 'Pages - create');
 
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('PageModule.page', 'Pages list'),
+        'label' => Yii::t('PageModule.page', 'Pages managment'),
         'url'   => ['/page/pageBackend/index']
     ],
     [

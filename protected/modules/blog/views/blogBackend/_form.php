@@ -173,6 +173,15 @@ $form = $this->beginWidget(
                 'class' => 'preview-image',
             ]
         ); ?>
+
+        <?php if (!$model->isNewRecord && $model->icon): ?>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>
+                </label>
+            </div>
+        <?php endif; ?>
+
         <?php echo $form->fileFieldGroup(
             $model,
             'icon',
