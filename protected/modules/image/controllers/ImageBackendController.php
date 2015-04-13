@@ -21,6 +21,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['index'], 'roles' => ['Image.ImageBackend.Index']],
             ['allow', 'actions' => ['update'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Image.ImageBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Image.ImageBackend.Multiaction']],
             ['deny']
         ];
     }

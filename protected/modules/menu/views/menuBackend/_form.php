@@ -1,12 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#menu-form').liTranslit({
-            elName: '#Menu_name',
-            elAlias: '#Menu_code'
-        });
-    })
-</script>
-
 <?php
 /**
  * Файл представления menu/_form:
@@ -18,9 +9,12 @@
  * @version  0.1
  * @link     http://yupe.ru
  *
+ * @var $this MenuBackendController
+ * @var $model Menu
+ * @var $form \yupe\widgets\ActiveForm
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'menu-form',
         'enableAjaxValidation'   => false,
@@ -55,11 +49,12 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?php echo $form->slugFieldGroup(
             $model,
             'code',
             [
-                'widgetOptions' => [
+                'sourceAttribute' => 'name',
+                'widgetOptions'   => [
                     'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('code'),
@@ -114,9 +109,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
-                'MenuModule.menu',
-                'Save menu and continue'
-            ),
+            'MenuModule.menu',
+            'Save menu and continue'
+        ),
     ]
 ); ?>
 
@@ -127,9 +122,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
-                'MenuModule.menu',
-                'Save menu and close'
-            ),
+            'MenuModule.menu',
+            'Save menu and close'
+        ),
     ]
 ); ?>
 

@@ -123,7 +123,7 @@ class RbacTree
      */
     private function getTextItem($item)
     {
-        return Chtml::tag(
+        return CHtml::tag(
             'div',
             ['class' => 'checkbox'],
             CHtml::label(

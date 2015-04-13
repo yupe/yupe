@@ -47,7 +47,7 @@ return [
     'Creating' => 'Добавление',
     'Created' => 'Добавлено',
     'Requested page was not found!' => 'Запрошенная страница не найдена!',
-    'Reference value' => 'Значение справочника',
+    'Reference value' => 'Сообщение',
     'Identifier' => 'Идентификатор',
     'Updated' => 'Изменено',
     'Change module settings' => 'Изменить настройки модуля',
@@ -95,8 +95,8 @@ return [
     'View message' => 'Просмотреть сообщение  ',
     'Other...' => 'Прочее..',
     'Edit' => 'Редактирование',
-    'Edit message ' => 'Редактирование сообщения  ',
-    'Change message ' => 'Редактировать сообщение   ',
+    'Edit message ' => 'Редактировать сообщение',
+    'Change message ' => 'Редактирование сообщения',
     'Truly yours {site} administration!' => 'С уважением, администрация сайта {site} !',
     'Services' => 'Сервисы',
     'Message in handle' => 'Сообщение в обработке',
@@ -174,5 +174,6 @@ return [
     'Viewing feedback' => 'Просмотр сообщения обратной связи',
     'Answer feedback' => 'Ответ на сообщения обратной связи',
     'Feedback (last day / all)' => 'Обратная связь (за сутки / всего)',
-    'Need answer' => 'Требует ответа'
+    'Need answer' => 'Требует ответа',
+    'Batch delete' => 'Массовое удаление сообщений',
 ];

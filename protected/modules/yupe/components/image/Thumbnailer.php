@@ -1,49 +1,43 @@
 <?php
 namespace yupe\components\image;
 
-use Imagine\Image\ImageInterface;
 use Yii;
-use CHttpException;
+use CException;
 use yupe\helpers\YFile;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
+use CApplicationComponent;
 
-class Thumbnailer extends \CApplicationComponent
+class Thumbnailer extends CApplicationComponent
 {
-    public $cachePrefix = 'thumbs::cache::';
     public $thumbDir = 'thumbs';
 
     private $_basePath;
     private $_baseUrl;
 
     /**
-     * @param $file string Полный путь к исходному файлу в файловой системе
-     * @param $uploadDir string Подпапка в папке с миниатюрами куда надо поместить изображение
-     * @param $width
-     * @param $height
-     * @param string $mode
+     * @param string $file Полный путь к исходному файлу в файловой системе
+     * @param string $uploadDir Подпапка в папке с миниатюрами куда надо поместить изображение
+     * @param int $width Ширина изображения. Если не указана - будет вычислена из высоты
+     * @param int $height Высота изображения. Если не указана - будет вычислена из ширины
      * @param array $options
-     * @return mixed|string
-     * @throws CHttpException
+     * @return string
+     * @throws CException
      */
-    public function thumbnail(
-        $file,
-        $uploadDir,
-        $width,
-        $height,
-        $mode = ImageInterface::THUMBNAIL_OUTBOUND,
-        $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
-    ) {
-        $name = $width . 'x' . $height . '_' . $mode . '_' . basename($file);
-        $cacheId = $this->cachePrefix . '::' . $file . '::' . $name;
+    public function thumbnail($file, $uploadDir, $width = 0, $height = 0, $options = ['jpeg_quality' => 90, 'png_compression_level' => 8])
+    {
+        if (!$width && !$height) {
+            throw new CException("Incorrect width/height");
+        }
 
-        $url = Yii::app()->cache->get($cacheId);
+        $name = $width . 'x' . $height . '_' . basename($file);
+        $uploadPath = $this->getBasePath() . DIRECTORY_SEPARATOR . $uploadDir;
+        $thumbFile = $uploadPath . DIRECTORY_SEPARATOR . $name;
 
-        if (false === $url) {
-
-            $uploadPath = $this->getBasePath() . DIRECTORY_SEPARATOR . $uploadDir;
+        if (!file_exists($thumbFile)) {
 
             if (false === YFile::checkPath($uploadPath)) {
-                throw new CHttpException(
-                    500,
+                throw new CException(
                     Yii::t(
                         'YupeModule.yupe',
                         'Directory "{dir}" is not acceptable for write!',
@@ -52,20 +46,29 @@ class Thumbnailer extends \CApplicationComponent
                 );
             }
 
-            $thumbFile = $uploadPath . DIRECTORY_SEPARATOR . $name;
+            $img = Imagine::getImagine()->open($file);
 
-            if (!file_exists($thumbFile)) {
-                Imagine::thumbnail(
-                    $file,
-                    $width,
-                    $height,
-                    $mode
-                )->save($thumbFile, $options);
+            $originalWidth = $img->getSize()->getWidth();
+            $originalHeight = $img->getSize()->getHeight();
+
+            if (!$width) {
+                $width = $height / $originalHeight * $originalWidth;
             }
 
-            $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;
-            Yii::app()->cache->set($cacheId, $url);
+            if (!$height) {
+                $height = $width / $originalWidth * $originalHeight;
+            }
+
+            if ($width / $originalWidth > $height / $originalHeight) {
+                $box = new Box($width, $originalHeight * $width / $originalWidth);
+            } else {
+                $box = new Box($originalWidth * $height / $originalHeight, $height);
+            }
+
+            $img->resize($box)->crop(new Point(($box->getWidth() - $width) / 2, ($box->getHeight() - $height) / 2), new Box($width, $height))->save($thumbFile, $options);
         }
+
+        $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;
 
         return $url;
     }

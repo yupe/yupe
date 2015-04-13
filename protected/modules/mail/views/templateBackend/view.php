@@ -28,7 +28,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-eye',
-        'label' => Yii::t('MailModule.mail', 'View mail template'),
+        'label' => Yii::t('MailModule.mail', 'View template'),
         'url'   => [
             '/mail/templateBackend/view',
             'id' => $model->id

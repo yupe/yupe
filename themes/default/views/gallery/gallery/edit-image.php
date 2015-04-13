@@ -8,10 +8,10 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-$this->pageTitle = Yii::t('GalleryModule.gallery', 'Gallery');
+$this->title = [Yii::t('GalleryModule.gallery', 'Gallery'), Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/list'],
-    $model->gallery->name                        => ['/gallery/gallery/show', 'id' => $model->gallery->id],
+    $model->gallery->name                        => $model->gallery->getUrl(),
     Yii::t(
         'GalleryModule.gallery',
         'Edit message #{id}',

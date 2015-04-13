@@ -4,7 +4,7 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Personal account');
+$this->title = Yii::t('OrderModule.order', 'Personal account');
 ?>
 
 <h1><?php echo Yii::t('OrderModule.order', 'Orders history'); ?></h1>
@@ -29,7 +29,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Personal account');
                         ) . ($order->paid ? ' - ' . $order->getPaidStatus() : ''); ?>
                 </td>
                 <td>
-                    <?php echo $order->getStatusTitle(); ?>
+                    <?php echo $order->status->getTitle(); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

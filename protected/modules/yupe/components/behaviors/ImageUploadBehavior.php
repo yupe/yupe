@@ -12,6 +12,15 @@ class ImageUploadBehavior extends FileUploadBehavior
     public $resizeOnUpload = true;
     public $resizeOptions = [];
 
+    protected $defaultResizeOptions = [
+        'width'   => 950,
+        'height'  => 950,
+        'quality' => [
+            'jpegQuality'         => 75,
+            'pngCompressionLevel' => 7
+        ],
+    ];
+
     /**
      * @var null|string Полный путь к изображению по умолчанию в публичной папке
      */
@@ -23,14 +32,7 @@ class ImageUploadBehavior extends FileUploadBehavior
 
         if ($this->resizeOnUpload) {
             $this->resizeOptions = array_merge(
-                [
-                    'width' => 950,
-                    'height' => 950,
-                    'quality' => [
-                        'jpegQuality' => 75,
-                        'pngCompressionLevel' => 7
-                    ],
-                ],
+                $this->defaultResizeOptions,
                 $this->resizeOptions
             );
         }
@@ -44,7 +46,7 @@ class ImageUploadBehavior extends FileUploadBehavior
 
     protected function removeThumbs()
     {
-        $filename = pathinfo($this->_prevFile, PATHINFO_BASENAME);
+        $filename = pathinfo($this->getFilePath(), PATHINFO_BASENAME);
 
         $iterator = new \GlobIterator(
             Yii::app()->thumbnailer->getBasePath() . '/' . $this->uploadPath . '/' . '*_' . $filename
@@ -62,7 +64,7 @@ class ImageUploadBehavior extends FileUploadBehavior
             return;
         }
 
-        $newFileName = $this->getFileName();
+        $newFileName = $this->generateFilename();
         $path = Yii::app()->uploadManager->getFilePath($newFileName, $this->getUploadPath());
 
 
@@ -77,26 +79,23 @@ class ImageUploadBehavior extends FileUploadBehavior
             );
         }
 
-        $image = Imagine::resize(
-            $this->_currentFile->getTempName(),
+        Imagine::resize(
+            $this->getUploadedFileInstance()->getTempName(),
             $this->resizeOptions['width'],
             $this->resizeOptions['height']
-        );
-
-        $image->save(
+        )->save(
             $path,
             $this->resizeOptions['quality']
         );
 
-        $this->getOwner()->{$this->attributeName} = $newFileName;
-        $this->_prevFile = $this->getPrevFile();
+        $this->owner->setAttribute($this->attributeName, $newFileName);
     }
 
-    public function getImageUrl($width = 0, $height = 0, $isAdaptive = true, $options = [])
+    public function getImageUrl($width = 0, $height = 0, $options = ['jpeg_quality' => 90, 'png_compression_level' => 8])
     {
-        $file = $this->_prevFile;
-        $defaultImagePath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $this->defaultImage;
-        $fileUploaded = is_file($this->_prevFile);
+        $file = $this->getFilePath();
+        $defaultImagePath = Yii::getPathOfAlias('webroot') . $this->defaultImage;
+        $fileUploaded = is_file($file);
 
         if (!$fileUploaded) {
             if (is_file($defaultImagePath)) {
@@ -107,15 +106,12 @@ class ImageUploadBehavior extends FileUploadBehavior
         }
 
         if ($width || $height) {
-            $width = $width === 0 ? $height : $width;
-            $height = $height === 0 ? $width : $height;
 
             return Yii::app()->thumbnailer->thumbnail(
                 $file,
                 $this->uploadPath,
                 $width,
                 $height,
-                $isAdaptive ? ImageInterface::THUMBNAIL_OUTBOUND : ImageInterface::THUMBNAIL_INSET,
                 $options
             );
 

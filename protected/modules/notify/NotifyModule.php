@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class NotifyModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.4';
 
     public function getDependencies()
     {

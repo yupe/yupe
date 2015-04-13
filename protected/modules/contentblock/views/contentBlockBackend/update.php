@@ -5,7 +5,7 @@ $this->breadcrumbs = [
         '/contentblock/contentBlockBackend/view',
         'id' => $model->id
     ],
-    Yii::t('ContentBlockModule.contentblock', 'Edit content block'),
+    Yii::t('ContentBlockModule.contentblock', 'Editing'),
 ];
 
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - edit');
@@ -58,7 +58,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Edit content block'); ?><br/>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'Editing blocks'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

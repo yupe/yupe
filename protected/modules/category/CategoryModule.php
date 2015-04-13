@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CategoryModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public $uploadPath = 'category';
 
@@ -195,6 +195,11 @@ class CategoryModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Category.CategoryBackend.View',
                         'description' => Yii::t('CategoryModule.category', 'Viewing categories')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Category.CategoryBackend.Multiaction',
+                        'description' => Yii::t('CategoryModule.category', 'Batch delete')
                     ],
                 ]
             ]

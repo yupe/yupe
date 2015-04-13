@@ -1,13 +1,13 @@
 <?php
-$this->pageTitle = $page->title;
+$this->title = [$page->title, Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [
     Yii::t('HomepageModule.homepage', 'Pages'),
     $page->title
 ];
-$this->description = !empty($page->description) ? $page->description : $this->description;
-$this->keywords = !empty($page->keywords) ? $page->keywords : $this->keywords
+$this->metaDescription = !empty($page->description) ? $page->description : $this->description;
+$this->metaKeywords = !empty($page->keywords) ? $page->keywords : $this->keywords
 ?>
 
-<h3><?php echo $page->title; ?></h3>
+<h1><?php echo $page->title; ?></h1>
 
-<p><?php echo $page->body; ?></p>
+<?php echo $page->body; ?>

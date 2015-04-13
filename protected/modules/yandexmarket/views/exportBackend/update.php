@@ -35,7 +35,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('YandexMarketModule.default', 'Update export list'); ?><br/>
+        <?php echo Yii::t('YandexMarketModule.default', 'Updating export list'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

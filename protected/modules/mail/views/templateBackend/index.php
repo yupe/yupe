@@ -81,7 +81,7 @@ $this->widget(
             [
                 'name'        => 'id',
                 'type'        => 'raw',
-                'value'       => 'Chtml::link($data->id, array("/mail/templateBackend/update", "id" => $data->id))',
+                'value'       => 'CHtml::link($data->id, array("/mail/templateBackend/update", "id" => $data->id))',
                 'htmlOptions' => ['style' => 'width:20px'],
             ],
             [

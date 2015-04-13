@@ -1,28 +1,35 @@
-<?php $this->pageTitle = $good->name; ?>
+<?php
+/**
+ * @var $this CatalogController
+ * @var $model Good
+ */
+
+$this->title = [$model->name, $model->category->name, Yii::app()->getModule('yupe')->siteName];
+?>
 
 <?php
 $this->breadcrumbs = [
     Yii::t('CatalogModule.catalog', 'Products') => ['/catalog/catalog/index/'],
-    CHtml::encode($good->name)
+    $model->name
 ];
 ?>
 
 <div class="post">
     <div class="title">
-        <?php echo $good->name; ?>
+        <?php echo $model->name; ?>
     </div>
     <br/>
 
     <div class="content">
-        <p><?php echo $good->description; ?></p>
+        <p><?php echo $model->description; ?></p>
     </div>
     <div class="nav">
         <?php echo Yii::t('CatalogModule.catalog', 'Price') . ': ';
-        echo $good->price; ?>
+        echo $model->price; ?>
         <br/>
         <?php echo CHtml::link(
             Yii::t('CatalogModule.catalog', 'Constant link'),
-            ['/catalog/catalog/show', 'name' => $good->alias]
+            $model->getUrl()
         ); ?>
     </div>
 </div>
@@ -32,7 +39,7 @@ $this->breadcrumbs = [
 
 <?php $this->widget(
     'application.modules.comment.widgets.CommentsListWidget',
-    ['model' => $good, 'modelId' => $good->id, 'label' => 'Отзывов']
+    ['model' => $model, 'modelId' => $model->id, 'label' => 'Отзывов']
 ); ?>
 
 <br/>
@@ -41,5 +48,5 @@ $this->breadcrumbs = [
 
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
-    ['redirectTo' => $good->getPermaLink(), 'model' => $good, 'modelId' => $good->id]
+    ['redirectTo' => $model->getUrl(), 'model' => $model, 'modelId' => $model->id]
 ); ?>

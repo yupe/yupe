@@ -83,7 +83,8 @@ class Comment extends yupe\models\YModel
 
         return [
             ['model, name, email, text, url', 'filter', 'filter' => 'trim'],
-            ['model, name, email, text, url', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['model, name, email, url', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['text', 'purifyText'],
             ['model, model_id, name, email, text', 'required'],
             ['status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true],
             ['name, email, url, comment', 'length', 'max' => 150],
@@ -110,6 +111,16 @@ class Comment extends yupe\models\YModel
         ];
     }
 
+    public function purifyText($attribute, $params)
+    {
+        $module = Yii::app()->getModule('comment');
+        $p = new CHtmlPurifier();
+        $p->options = [
+            'HTML.Allowed' => $module->allowedTags,
+        ];
+        $this->$attribute = $p->purify($this->$attribute);
+    }
+
     /**
      * Список атрибутов для меток формы:
      *
@@ -118,18 +129,18 @@ class Comment extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('CommentModule.comment', 'ID'),
-            'model'         => Yii::t('CommentModule.comment', 'Model type'),
-            'model_id'      => Yii::t('CommentModule.comment', 'Model'),
+            'id' => Yii::t('CommentModule.comment', 'ID'),
+            'model' => Yii::t('CommentModule.comment', 'Model type'),
+            'model_id' => Yii::t('CommentModule.comment', 'Model'),
             'creation_date' => Yii::t('CommentModule.comment', 'Created at'),
-            'name'          => Yii::t('CommentModule.comment', 'Name'),
-            'email'         => Yii::t('CommentModule.comment', 'Email'),
-            'url'           => Yii::t('CommentModule.comment', 'Site'),
-            'text'          => Yii::t('CommentModule.comment', 'Comment'),
-            'status'        => Yii::t('CommentModule.comment', 'Status'),
-            'verifyCode'    => Yii::t('CommentModule.comment', 'Verification code'),
-            'ip'            => Yii::t('CommentModule.comment', 'IP address'),
-            'parent_id'     => Yii::t('CommentModule.comment', 'Parent'),
+            'name' => Yii::t('CommentModule.comment', 'Name'),
+            'email' => Yii::t('CommentModule.comment', 'Email'),
+            'url' => Yii::t('CommentModule.comment', 'Site'),
+            'text' => Yii::t('CommentModule.comment', 'Comment'),
+            'status' => Yii::t('CommentModule.comment', 'Status'),
+            'verifyCode' => Yii::t('CommentModule.comment', 'Verification code'),
+            'ip' => Yii::t('CommentModule.comment', 'IP address'),
+            'parent_id' => Yii::t('CommentModule.comment', 'Parent'),
         ];
     }
 
@@ -153,19 +164,19 @@ class Comment extends yupe\models\YModel
     public function scopes()
     {
         return [
-            'new'      => [
+            'new' => [
                 'condition' => 't.status = :status',
-                'params'    => [':status' => self::STATUS_NEED_CHECK],
+                'params' => [':status' => self::STATUS_NEED_CHECK],
             ],
             'approved' => [
                 'condition' => 't.status = :status',
-                'params'    => [':status' => self::STATUS_APPROVED],
-                'order'     => 't.creation_date DESC',
+                'params' => [':status' => self::STATUS_APPROVED],
+                'order' => 't.creation_date DESC',
             ],
             'authored' => [
                 'condition' => 't.user_id is not null',
             ],
-            'all'      => [
+            'all' => [
                 'condition' => 'level <> 1'
             ]
         ];
@@ -175,7 +186,7 @@ class Comment extends yupe\models\YModel
     {
         return [
             'NestedSetBehavior' => [
-                'class'        => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
+                'class' => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
                 'hasManyRoots' => true,
             ]
         ];
@@ -208,7 +219,7 @@ class Comment extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => [
+            'sort' => [
                 'defaultOrder' => 'id DESC',
             ]
         ]);
@@ -221,7 +232,7 @@ class Comment extends yupe\models\YModel
      **/
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->creation_date = new CDbExpression('NOW()');
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
@@ -236,7 +247,10 @@ class Comment extends yupe\models\YModel
      **/
     public function afterSave()
     {
-        Yii::app()->eventManager->fire(CommentEvents::AFTER_SAVE_COMMENT, new CommentEvent($this, Yii::app()->getUser(), Yii::app()->getModule('comment')));
+        Yii::app()->eventManager->fire(
+            CommentEvents::AFTER_SAVE_COMMENT,
+            new CommentEvent($this, Yii::app()->getUser(), Yii::app()->getModule('comment'))
+        );
 
         return parent::afterSave();
     }
@@ -249,10 +263,10 @@ class Comment extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_APPROVED   => Yii::t('CommentModule.comment', 'Accepted'),
-            self::STATUS_DELETED    => Yii::t('CommentModule.comment', 'Deleted'),
+            self::STATUS_APPROVED => Yii::t('CommentModule.comment', 'Accepted'),
+            self::STATUS_DELETED => Yii::t('CommentModule.comment', 'Deleted'),
             self::STATUS_NEED_CHECK => Yii::t('CommentModule.comment', 'Check'),
-            self::STATUS_SPAM       => Yii::t('CommentModule.comment', 'Spam'),
+            self::STATUS_SPAM => Yii::t('CommentModule.comment', 'Spam'),
         ];
     }
 
@@ -323,7 +337,9 @@ class Comment extends yupe\models\YModel
 
     public function getText()
     {
-        return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
+        return (Yii::app()->getModule('comment')->stripTags)
+            ? strip_tags($this->text)
+            : $this->text;
     }
 
     /**
@@ -336,7 +352,7 @@ class Comment extends yupe\models\YModel
     {
         return self::model()->findByAttributes(
             [
-                "model"    => $model,
+                "model" => $model,
                 "model_id" => $model_id,
             ],
             "id=root"
@@ -350,15 +366,15 @@ class Comment extends yupe\models\YModel
         if ($rootNode === null) {
 
             $rootAttributes = [
-                "user_id"  => Yii::app()->getUser()->getId(),
-                "model"    => $model,
+                "user_id" => Yii::app()->getUser()->getId(),
+                "model" => $model,
                 "model_id" => $model_id,
-                "url"      => "",
-                "name"     => "",
-                "email"    => "",
-                "text"     => "",
-                "status"   => self::STATUS_APPROVED,
-                "ip"       => Yii::app()->getRequest()->userHostAddress
+                "url" => "",
+                "name" => "",
+                "email" => "",
+                "text" => "",
+                "status" => self::STATUS_APPROVED,
+                "ip" => Yii::app()->getRequest()->userHostAddress
             ];
 
             $rootNode = new Comment();
@@ -442,20 +458,32 @@ class Comment extends yupe\models\YModel
     public function multiDelete(array $items)
     {
         $count = 0;
-        $transaction = Yii::app()->db->beginTransaction();
+
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
             $items = array_filter($items, 'intval');
+
             $models = $this->findAllByPk($items);
 
             foreach ($models as $model) {
-                $count += (int)$model->deleteNode();
+
+                Yii::app()->eventManager->fire(
+                    CommentEvents::AFTER_DELETE_COMMENT,
+                    new CommentEvent($model, Yii::app()->getUser(), Yii::app()->getModule('comment'))
+                );
+
+                if(!$model->getIsDeletedRecord()) {
+                    $count += (int)$model->deleteNode();
+                }
             }
+
             $transaction->commit();
 
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            var_dump($e);die();
         }
 
         return $count;

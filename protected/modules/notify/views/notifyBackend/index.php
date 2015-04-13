@@ -10,36 +10,36 @@
  **/
 $this->breadcrumbs = [
     Yii::app()->getModule('notify')->getCategory() => [],
-    Yii::t('notify', 'Уведомления') => ['/notify/notifyBackend/index'],
-    Yii::t('notify', 'Управление'),
+    Yii::t('NotifyModule.notify', 'Notify') => ['/notify/notifyBackend/index'],
+    Yii::t('NotifyModule.notify', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('notify', 'Уведомления - управление');
+$this->pageTitle = Yii::t('NotifyModule.notify', 'Notify - manage');
 
 $this->menu = [
     [
         'icon' => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('notify', 'Управление уведомлением'),
+        'label' => Yii::t('NotifyModule.notify', 'Manage notify'),
         'url' => ['/notify/notifyBackend/index']
     ],
     [
         'icon' => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('notify', 'Добавить уведомление'),
+        'label' => Yii::t('NotifyModule.notify', 'Create notify'),
         'url' => ['/notify/notifyBackend/create']
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('notify', 'Уведомления'); ?>
-        <small><?php echo Yii::t('notify', 'управление'); ?></small>
+        <?php echo Yii::t('NotifyModule.notify', 'Notify'); ?>
+        <small><?php echo Yii::t('NotifyModule.notify', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('notify', 'Поиск увеломления'); ?>
+        <?php echo Yii::t('NotifyModule.notify', 'Search notify'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -64,7 +64,7 @@ $this->menu = [
 
 <br/>
 
-<p> <?php echo Yii::t('notify', 'В данном разделе представлены средства управления уведомлением'); ?>
+<p> <?php echo Yii::t('NotifyModule.notify', 'This section presents notification management tools.'); ?>
 </p>
 
 <?php

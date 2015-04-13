@@ -18,31 +18,9 @@ class Redactor extends \CInputWidget
                 'model'     => $this->model,
                 'attribute' => $this->attribute,
                 'name'      => $this->name,
+                'value'     => $this->value,
                 'options'   => \CMap::mergeArray($this->getOptions(), $this->options),
-                'plugins'   => [
-                    'video'        => [
-                        'js' => ['video.js']
-                    ],
-                    'fullscreen'   => [
-                        'js' => ['fullscreen.js']
-                    ],
-                    'table'        => [
-                        'js' => ['table.js']
-                    ],
-                    'fontsize'     => [
-                        'js' => ['fontsize.js']
-                    ],
-                    'fontfamily'   => [
-                        'js' => ['fontfamily.js']
-                    ],
-                    'fontcolor'    => [
-                        'js' => ['fontcolor.js']
-                    ],
-                    'imagemanager' => [
-                        'js' => ['imagemanager.js'],
-
-                    ]
-                ]
+                'plugins'   => $this->getPlugins()
             ]
         );
     }
@@ -67,6 +45,34 @@ class Redactor extends \CInputWidget
             'minHeight'               => 150,
             'uploadImageFields' => [
                 Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
+            ]
+        ];
+    }
+
+    public function getPlugins()
+    {
+        return [
+            'video'        => [
+                'js' => ['video.js']
+            ],
+            'fullscreen'   => [
+                'js' => ['fullscreen.js']
+            ],
+            'table'        => [
+                'js' => ['table.js']
+            ],
+            'fontsize'     => [
+                'js' => ['fontsize.js']
+            ],
+            'fontfamily'   => [
+                'js' => ['fontfamily.js']
+            ],
+            'fontcolor'    => [
+                'js' => ['fontcolor.js']
+            ],
+            'imagemanager' => [
+                'js' => ['imagemanager.js'],
+
             ]
         ];
     }

@@ -93,7 +93,8 @@ return [
     'Public URL'                                                       => 'Публичный урл',
     'Accepted extensions (separated by comma)'                         => 'Разрешенные расширения (перечислите через запятую)',
     'Edit'                                                             => 'Редактирование',
-    'Edit news article'                                                => 'Редактировать новость',
+    'Edit news'                                                        => 'Редактировать новость',
+    'Edit news article'                                                => 'Редактирование новости',
     'Edit translation in to {lang} language'                           => 'Редактировать перевод на {lang} язык',
     'Save news article and close'                                      => 'Сохранить новость и закрыть',
     'Save news article and continue'                                   => 'Сохранить новость и продолжить',
@@ -120,5 +121,5 @@ return [
     'List of news'                                                     => 'Просмотр списка новостей',
     'Editing news'                                                     => 'Редактирование новостей',
     'Viewing news'                                                     => 'Просмотр новости',
-
+    'Batch delete'                                                     => 'Массовое удаление новостей',
 ];

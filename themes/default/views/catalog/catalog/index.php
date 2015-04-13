@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::t('CatalogModule.catalog', 'Products');
+$this->title = [Yii::t('CatalogModule.catalog', 'Products'), Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [Yii::t('CatalogModule.catalog', 'Products')];
 ?>
 

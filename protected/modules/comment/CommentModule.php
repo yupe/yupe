@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public $defaultCommentStatus;
     public $autoApprove = true;
@@ -26,13 +26,28 @@ class CommentModule extends WebModule
     public $maxCaptchaLength = 6;
     public $rssCount = 10;
     public $antiSpamInterval = 3;
-    public $allowedTags;
+    public $allowedTags = 'p,br,strong,img[src|style],a[href]';
     public $allowGuestComment = 0;
+    public $stripTags = 1;
+    public $assetsPath = "application.modules.comment.views.assets";
+
+    /**
+     * параметры для загрузки изображений
+     */
+    public $allowedExtensions = 'jpg,jpeg,png,gif';
+    public $minSize = 0;
+    public $maxSize = 5368709120;
+
+    /**
+    * @var string - id редактора
+    */
+    public $editor = 'textarea';
 
     public function getDependencies()
     {
         return [
             'user',
+            'image'
         ];
     }
 
@@ -50,7 +65,9 @@ class CommentModule extends WebModule
             'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
             'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
             'antiSpamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
-            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?')
+            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?'),
+            'editor'               => Yii::t('YupeModule.yupe', 'Visual editor'),
+            'stripTags'            => Yii::t('CommentModule.comment', 'Remove tags in the derivation comment using strip_tags() ?'),
         ];
     }
 
@@ -68,7 +85,9 @@ class CommentModule extends WebModule
             'maxCaptchaLength',
             'rssCount',
             'allowedTags',
-            'antiSpamInterval'
+            'antiSpamInterval',
+            'stripTags' => $this->getChoice(),
+            'editor' => $this->editors,
         ];
     }
 
@@ -91,6 +110,12 @@ class CommentModule extends WebModule
                     'showCaptcha',
                     'minCaptchaLength',
                     'maxCaptchaLength'
+                ]
+            ],
+            'editor' => [
+                'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
+                'items' => [
+                    'editor',
                 ]
             ],
         ];
@@ -231,17 +256,22 @@ class CommentModule extends WebModule
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Comment.CommentBackend.Update',
-                        'description' => Yii::t('CommentModule.comment', 'Editing comments')
+                        'description' => Yii::t('CommentModule.comment', 'Editing comment')
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Comment.CommentBackend.Inline',
-                        'description' => Yii::t('CommentModule.comment', 'Editing comments')
+                        'description' => Yii::t('CommentModule.comment', 'Editing comment')
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Comment.CommentBackend.View',
                         'description' => Yii::t('CommentModule.comment', 'Viewing comments')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Comment.CommentBackend.Multiaction',
+                        'description' => Yii::t('CommentModule.comment', 'Batch delete')
                     ],
                 ]
             ]

@@ -50,7 +50,12 @@ class CommentController extends \yupe\components\controllers\FrontController
             'captcha' => [
                 'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
-                'testLimit' => 0
+            ],
+            'ajaxImageUpload' => [
+                'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize'   => $this->module->maxSize,
+                'mimeTypes' => $this->module->mimeTypes,
+                'types'     => $this->module->allowedExtensions
             ],
         ];
     }

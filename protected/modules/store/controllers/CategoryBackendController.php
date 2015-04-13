@@ -30,6 +30,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['update'], 'roles' => ['Store.CategoryBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.CategoryBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.CategoryBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.CategoryBackend.Multiaction'],],
             ['deny',],
         ];
     }

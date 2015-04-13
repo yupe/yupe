@@ -1,15 +1,11 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#dictionary-data-form').liTranslit({
-            elName: '#DictionaryData_name',
-            elAlias: '#DictionaryData_code'
-        });
-    })
-</script>
-
 <?php
+/**
+ * @var $this DictionaryDataBackendController
+ * @var $model DictionaryData
+ * @var $form \yupe\widgets\ActiveForm
+ */
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id'                     => 'dictionary-data-form',
         'enableAjaxValidation'   => false,
@@ -33,11 +29,7 @@ $form = $this->beginWidget(
             'group_id',
             [
                 'widgetOptions' => [
-                    'data' => CHtml::listData(
-                            DictionaryGroup::model()->findAll(),
-                            'id',
-                            'name'
-                        )
+                    'data' => CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')
                 ]
             ]
         ); ?>
@@ -60,7 +52,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'code'); ?>
+        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 
@@ -91,9 +83,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
-                'DictionaryModule.dictionary',
-                'Create item and continue'
-            ) : Yii::t('DictionaryModule.dictionary', 'Save value and continue'),
+            'DictionaryModule.dictionary',
+            'Create item and continue'
+        ) : Yii::t('DictionaryModule.dictionary', 'Save value and continue'),
     ]
 ); ?>
 
@@ -103,9 +95,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Create item and close') : Yii::t(
-                'DictionaryModule.dictionary',
-                'Save value and close'
-            ),
+            'DictionaryModule.dictionary',
+            'Save value and close'
+        ),
     ]
 ); ?>
 

@@ -32,6 +32,9 @@ class BackendController extends yupe\components\controllers\BackController
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['index']],
             ['allow', 'actions' => ['error']],
+            ['allow', 'actions' => ['AjaxFileUpload']],
+            ['allow', 'actions' => ['AjaxImageUpload']],
+            ['allow', 'actions' => ['transliterate']],
             ['deny',],
         ];
     }
@@ -487,5 +490,12 @@ class BackendController extends yupe\components\controllers\BackController
         if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
             $this->render('error', ['error' => $error]);
         }
+    }
+
+    public function actionTransliterate()
+    {
+        $data = Yii::app()->request->getParam('data') ?: Yii::app()->request->getPost('data');
+
+        echo \yupe\helpers\YText::translit($data);
     }
 }

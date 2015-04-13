@@ -94,7 +94,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'View member'); ?><br/>
+        <?php echo Yii::t('BlogModule.blog', 'Viewing member'); ?><br/>
         <small>&laquo;<?php echo $model->user->nick_name; ?>&raquo;</small>
     </h1>
 </div>

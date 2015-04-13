@@ -37,6 +37,11 @@
             "name": "Mihail Chemezov",
             "homepage": "http://vk.com/m.chemezov",
             "role": "Developer"
+        },
+        {
+            "name": "Oleg Filimonov",
+            "email": "olegsabian@gmail.com",
+            "role": "Developer"
         }
     ],
     "support": {
@@ -55,14 +60,17 @@
         "phpmailer/phpmailer": "dev-master",
         "yiiext/taggable-behavior": "1.5.*",
         "nodge/yii-eauth": "dev-master",
-        "imagine/imagine": "v0.6.1",
+        "imagine/imagine": "0.6.*",
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
         "guzzlehttp/guzzle": "5.0.*",
-        "brussens/wysibb-yii": "dev-master"
+        "brussens/wysibb-yii": "dev-master",
+        "2amigos/transliterator-helper": "dev-master",
+        "chemezov/yii-seo": "1.0.*"
     },
     "repositories": {
+        
         "taggable": {
             "type": "package",
             "package": {
@@ -101,7 +109,7 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "2.*"
+        "codeception/codeception": "2.0.*"
     },
     "minimum-stability": "stable",
     "autoload": {

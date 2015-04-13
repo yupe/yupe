@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class NewsModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public $uploadPath = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -263,6 +263,11 @@ class NewsModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'News.NewsBackend.View',
                         'description' => Yii::t('NewsModule.news', 'Viewing news')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'News.NewsBackend.Multiaction',
+                        'description' => Yii::t('NewsModule.news', 'Batch delete')
                     ],
                 ]
             ]

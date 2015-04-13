@@ -3,16 +3,19 @@
  * Отображение для gallery/image:
  *
  * @category YupeView
- * @package  YupeCMS
+ * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
+ *
+ * @var $this GalleryController
+ * @var $model Image
  **/
 
-$this->pageTitle = $model->name; ?>
+$this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
 <?php $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/list'],
-    $model->gallery->name                        => ['/gallery/gallery/show', 'id' => $model->gallery->id],
+    $model->gallery->name => $model->gallery->getUrl(),
     $model->name
 ];
 ?>
@@ -26,7 +29,7 @@ $this->pageTitle = $model->name; ?>
         $model->user->nick_name,
         ['/user/people/userInfo', 'username' => $model->user->nick_name]
     ); ?>
-    <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
+    <i class="fa fa-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
         'dd MMMM yyyy г., hh:mm',
         $model->creation_date
     ); ?>
@@ -44,7 +47,7 @@ $this->pageTitle = $model->name; ?>
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
     [
-        'redirectTo' => $this->createUrl('/gallery/gallery/image/', ['id' => $model->id]),
+        'redirectTo' => $model->gallery->getUrl(),
         'model'      => $model,
         'modelId'    => $model->id
     ]

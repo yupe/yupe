@@ -12,10 +12,7 @@
                 <div class="posts-list-block-header">
                     <?php echo CHtml::link(
                         CHtml::encode($post->title),
-                        [
-                            '/blog/post/show/',
-                            'slug' => CHtml::encode($post->slug)
-                        ]
+                        $post->getUrl()
                     ); ?>
                 </div>
 
@@ -56,7 +53,7 @@
 
                 <div class="posts-list-block-text">
                     <p>
-                        <?php echo $post->getImageUrl() ? CHtml::image($post->getImageUrl(), CHtml::encode($post->title)) : "";?>
+                        <?php echo $post->getImageUrl() ? CHtml::image($post->getImageUrl(), CHtml::encode($post->title)) : ""; ?>
                     </p>
                     <?php echo strip_tags($post->getQuote()); ?>
                 </div>
@@ -83,12 +80,8 @@
 
                             <?php echo CHtml::link(
                                 $post->getCommentCount(),
-                                [
-                                    '/blog/post/show/',
-                                    'slug' => CHtml::encode($post->slug),
-                                    '#'    => 'comments'
-                                ]
-                            );?>
+                                $post->getUrl(['#' => 'comments'])
+                            ); ?>
                         </span>
                     </div>
                 </div>

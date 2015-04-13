@@ -22,6 +22,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['inline'], 'roles' => ['Blog.BlogBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Blog.BlogBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Blog.BlogBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Blog.BlogBackend.Multiaction']],
             ['deny']
         ];
     }

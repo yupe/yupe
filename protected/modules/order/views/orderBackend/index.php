@@ -9,8 +9,20 @@ $this->breadcrumbs = [
 $this->pageTitle = Yii::t('OrderModule.order', 'Orders - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage orders'), 'url' => ['/order/orderBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create order'), 'url' => ['/order/orderBackend/create']],
+    [
+        'label' => Yii::t('OrderModule.order', 'Orders'),
+        'items' => [
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage orders'), 'url' => ['/order/orderBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create order'), 'url' => ['/order/orderBackend/create']],
+        ]
+    ],
+    [
+        'label' => Yii::t('OrderModule.order', 'Order statuses'),
+        'items' => [
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage statuses'), 'url' => ['/order/statusBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create status'), 'url' => ['/order/statusBackend/create']],
+        ]
+    ],
 ];
 ?>
 <div class="">
@@ -49,15 +61,10 @@ $this->widget(
             'total_price',
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
+                'name'    => 'status_id',
                 'url'     => $this->createUrl('/order/orderBackend/inline'),
-                'source'  => $model->getStatusList(),
-                'options' => [
-                    Order::STATUS_FINISHED => ['class' => 'label-success'],
-                    Order::STATUS_ACCEPTED => ['class' => 'label-info'],
-                    Order::STATUS_NEW => ['class' => 'label-default'],
-                    Order::STATUS_DELETED => ['class' => 'label-danger'],
-                ],
+                'source'  => OrderStatus::model()->getList(),
+                'options' => OrderStatus::model()->getLabels(),
             ],
             [
                 'class'=> 'yupe\widgets\EditableStatusColumn',

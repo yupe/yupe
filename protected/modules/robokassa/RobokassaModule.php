@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class RobokassaModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.4';
 
     public function getDependencies()
     {
@@ -36,14 +36,19 @@ class RobokassaModule extends WebModule
         return [];
     }
 
+    public function getCategory()
+    {
+        return Yii::t('RobokassaModule.robokassa', 'Store');
+    }
+
     public function getName()
     {
-        return Yii::t('RobokassaModule.robokassa', 'Робокасса');
+        return Yii::t('RobokassaModule.robokassa', 'Robokassa');
     }
 
     public function getDescription()
     {
-        return Yii::t('RobokassaModule.robokassa', 'Модуль для приемы оплаты через Робокассу');
+        return Yii::t('RobokassaModule.robokassa', 'Robokassa payment module');
     }
 
     public function getAuthor()

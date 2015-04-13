@@ -22,6 +22,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['inline'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Comment.CommentBackend.Multiaction']],
             ['deny']
         ];
     }
@@ -102,9 +103,9 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
 
             if ($saveStatus) {
 
-                Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+                Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CommentModule.comment', 'Comment was created!')
                 );
@@ -130,14 +131,14 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         $model = $this->loadModel($id);
 
-        Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+        Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
 
             $model->setAttributes($data);
 
             if ($model->saveNode()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CommentModule.comment', 'Comment was updated!')
                 );
@@ -165,7 +166,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             // we only allow deletion via POST request
             $model = $this->loadModel($id);
 
-            Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+            Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
             $model->deleteNode();
 
@@ -212,6 +213,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         }
 
         if ($count = Comment::model()->multiDelete($items)) {
+
             Yii::app()->ajax->success(
                 Yii::t(
                     'YupeModule.yupe',

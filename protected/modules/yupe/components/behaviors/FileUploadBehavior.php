@@ -57,19 +57,14 @@ class FileUploadBehavior extends CActiveRecordBehavior
     public $fileName;
 
     /**
-     * @var mixed path of the upload directory. Callback or string.
+     * @var callable|string path of the upload directory.
      */
     public $uploadPath;
 
     /**
-     * @var CUploadedFile new uploaded file instance.
+     * @var string
      */
-    protected $_currentFile;
-
-    /**
-     * @var CUploadedFile previous uploaded file instance.
-     */
-    protected $_prevFile;
+    public $deleteFileKey = 'delete-file';
 
     /**
      * @param \CComponent $owner
@@ -109,36 +104,22 @@ class FileUploadBehavior extends CActiveRecordBehavior
         }
     }
 
-    /**
-     * @param \CEvent $event
-     */
-    public function afterFind($event)
+    protected function getUploadedFileInstance()
     {
-        $this->_prevFile = $this->getPrevFile();
-
-        return parent::afterFind($event);
+        return $this->fileInstanceName === null
+            ? CUploadedFile::getInstance($this->owner, $this->attributeName)
+            : CUploadedFile::getInstanceByName($this->fileInstanceName);
     }
-
-    protected function getPrevFile()
-    {
-        return Yii::app()->uploadManager->getFilePath(
-            $this->getOwner()->{$this->attributeName},
-            $this->getUploadPath()
-        );
-    }
-
 
     /**
      * @param \CModelEvent $event
      */
     public function beforeValidate($event)
     {
-        $this->_currentFile = $this->fileInstanceName === null
-            ? CUploadedFile::getInstance($this->owner, $this->attributeName)
-            : CUploadedFile::getInstanceByName($this->fileInstanceName);
+        $instance = $this->getUploadedFileInstance();
 
-        if ($this->checkScenario() && $this->_currentFile) {
-            $this->owner->{$this->attributeName} = $this->_currentFile;
+        if ($this->checkScenario() && $instance) {
+            $this->owner->{$this->attributeName} = $instance;
         }
     }
 
@@ -148,12 +129,16 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function beforeSave($event)
     {
-        if ($this->checkScenario() && $this->_currentFile instanceof CUploadedFile) {
+        if ($this->checkScenario() && $this->getUploadedFileInstance() instanceof CUploadedFile) {
             $this->removeFile();
             $this->saveFile();
         }
 
-        return parent::beforeSave($event);
+        if ($this->checkScenario() && Yii::app()->getRequest()->getPost($this->deleteFileKey)) {
+            $this->removeFile();
+            $this->owner->{$this->attributeName} = null;
+        }
+        parent::beforeSave($event);
     }
 
     /**
@@ -163,7 +148,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
     {
         $this->removeFile();
 
-        return parent::beforeDelete($event);
+        parent::beforeDelete($event);
     }
 
     /**
@@ -172,8 +157,8 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     protected function removeFile()
     {
-        if (@is_file($this->_prevFile)) {
-            @unlink($this->_prevFile);
+        if (@is_file($this->getFilePath())) {
+            @unlink($this->getFilePath());
         }
     }
 
@@ -192,10 +177,9 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function saveFile()
     {
-        $newFileName = $this->getFileName();
-        Yii::app()->uploadManager->save($this->_currentFile, $this->getUploadPath(), $newFileName);
-        $this->owner->{$this->attributeName} = $newFileName;
-        $this->_prevFile = $this->getPrevFile();
+        $newFileName = $this->generateFilename();
+        Yii::app()->uploadManager->save($this->getUploadedFileInstance(), $this->getUploadPath(), $newFileName);
+        $this->owner->setAttribute($this->attributeName, $newFileName);
     }
 
     /**
@@ -209,14 +193,14 @@ class FileUploadBehavior extends CActiveRecordBehavior
     /**
      * @return string generated file name.
      */
-    public function getFileName()
+    public function generateFilename()
     {
         if (is_callable($this->fileName)) {
             $name = call_user_func($this->fileName);
         } else {
             $name = md5(uniqid($this->getOwner()->{$this->attributeName}));
         }
-        $name .= '.' . $this->_currentFile->getExtensionName();
+        $name .= '.' . $this->getUploadedFileInstance()->getExtensionName();
 
         return $name;
     }
@@ -236,6 +220,11 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function getFileUrl()
     {
-        return Yii::app()->uploadManager->getFileUrl($this->getOwner()->{$this->attributeName}, $this->uploadPath);
+        return Yii::app()->uploadManager->getFileUrl($this->getOwner()->{$this->attributeName}, $this->getUploadPath());
+    }
+
+    public function getFilePath()
+    {
+        return Yii::app()->uploadManager->getFilePath($this->getOwner()->{$this->attributeName}, $this->getUploadPath());
     }
 }

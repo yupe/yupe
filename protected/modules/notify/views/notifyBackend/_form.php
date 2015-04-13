@@ -23,9 +23,9 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('notify', 'Поля, отмеченные'); ?>
+    <?php echo Yii::t('NotifyModule.notify', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('notify', 'обязательны.'); ?>
+    <?php echo Yii::t('NotifyModule.notify', 'are required'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -51,7 +51,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
             'context'    => 'primary',
-            'label'      => Yii::t('notify', 'Сохранить уведомление и продолжить'),
+            'label' => $model->getIsNewRecord() ? Yii::t('NotifyModule.notify', 'Create notification and continue') : Yii::t('NotifyModule.notify', 'Save notification and continue'),
         ]
     ); ?>
     <?php
@@ -59,7 +59,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
             'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
-            'label'      => Yii::t('notify', 'Сохранить уведомление и закрыть'),
+            'label' => $model->getIsNewRecord() ? Yii::t('NotifyModule.notify', 'Create notification and close') : Yii::t('NotifyModule.notify', 'Save notification and close'),
         ]
     ); ?>
 

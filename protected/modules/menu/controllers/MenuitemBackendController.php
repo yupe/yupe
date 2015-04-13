@@ -22,6 +22,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['inline'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['Menu.MenuitemBackend.Multiaction']],
             ['deny']
         ];
     }
@@ -121,14 +122,6 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 );
             }
         }
-
-        $criteria = new CDbCriteria();
-
-        $criteria->select = new CDbExpression('MAX(sort) as sort');
-
-        $max = $model->find($criteria);
-
-        $model->sort = $max->sort + 1; // Set sort in Adding Form as ma x+ 1
 
         $this->render('create', ['model' => $model]);
     }

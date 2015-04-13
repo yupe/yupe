@@ -2,7 +2,7 @@
     <div class="gallery-thumbnail">
         <?php echo CHtml::link(
             CHtml::image(
-                $data->image->getImageUrl(190),
+                $data->image->getImageUrl(190, 190),
                 $data->image->alt
             ),
             $data->image->getImageUrl(),

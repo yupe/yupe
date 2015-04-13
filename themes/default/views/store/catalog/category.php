@@ -4,9 +4,9 @@ Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-fronten
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 /* @var $category StoreCategory */
 
-$this->pageTitle =  $category->getMetaTile();
-$this->description = $category->getMetaDescription();
-$this->keywords =  $category->getMetaKeywords();
+$this->title =  $category->getMetaTile();
+$this->metaDescription = $category->getMetaDescription();
+$this->metaKeywords =  $category->getMetaKeywords();
 
 $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
 

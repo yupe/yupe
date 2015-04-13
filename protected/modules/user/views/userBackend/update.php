@@ -70,7 +70,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Edit user'); ?><br/>
+        <?php echo Yii::t('UserModule.user', 'Editing users'); ?><br/>
         <small>&laquo;<?php echo $model->nick_name; ?>&raquo;</small>
     </h1>
 </div>

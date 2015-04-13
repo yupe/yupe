@@ -42,7 +42,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CouponModule.coupon', 'View coupon'); ?><br/>
+        <?php echo Yii::t('CouponModule.coupon', 'Viewing coupon'); ?><br/>
         <small>&laquo;<?php echo $model->code; ?>&raquo;</small>
     </h1>
 </div>

@@ -54,5 +54,6 @@ return [
     'Find users'                                     => 'Поиск пользователей',
     'Permissions'                                    => 'Права',
     'View action'                                    => 'Просмотр действия',
-    'Operations'                                     => 'Операции'
+    'Operations'                                     => 'Операции',
+    'Batch delete'                                   => 'Массовое удаление действий',
 ];

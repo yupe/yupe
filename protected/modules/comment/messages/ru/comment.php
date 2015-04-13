@@ -86,7 +86,7 @@ return [
     'View comment'                                                => 'Просмотреть комментарий',
     'Accepted tags'                                               => 'Разрешенные теги',
     'Edit'                                                        => 'Редактирование',
-    'Edit comment'                                                => 'Редактирование комментария',
+    'Edit comment'                                                => 'Редактировать комментарий',
     'Parent'                                                      => 'Родитель',
     'Site'                                                        => 'Сайт',
     'Save comment and close'                                      => 'Сохранить комментарий и закрыть',
@@ -119,10 +119,12 @@ return [
     'WRITE COMMENT'                                               => ' НАПИСАТЬ КОММЕНТАРИЙ',
     'From user'                                                   => 'От имени',
     'Insert symbols you see on picture'                           => 'Введите цифры указанные на картинке',
-    'Manage comments'                                             => 'Управление комментариями',
     'Creating comment'                                            => 'Создание комментария',
     'Removing comment'                                            => 'Удаление комментария',
     'List of comments'                                            => 'Просмотр списка комментариев',
-    'Editing comments'                                            => 'Редактирование комментариев',
-    'Viewing comments'                                            => 'Просмотр комментариев'
+    'Editing comment'                                             => 'Редактирование комментария',
+    'Viewing comments'                                            => 'Просмотр комментариев',
+    'Batch delete'                                                => 'Массовое удаление комментариев',
+    'Remove tags in the derivation comment using strip_tags() ?'  => 'Удалять теги при выводе комментария, используя strip_tags() ?',
+    'Not have permission to add a comment!'                       => 'Недостаточно прав для добавления комментария!'
 ];

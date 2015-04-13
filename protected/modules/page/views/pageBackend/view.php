@@ -36,7 +36,7 @@ $this->menu = [
     ],
     [
         'icon'        => 'fa fa-fw fa-trash-o',
-        'label'       => Yii::t('PageModule.page', 'Remove this page'),
+        'label'       => Yii::t('PageModule.page', 'Remove page'),
         'url'         => '#',
         'linkOptions' => [
             'submit'  => ['/page/pageBackend/delete', 'id' => $model->id],
@@ -68,4 +68,4 @@ $this->menu = [
 <br/>
 
 <li class="fa fa-fw fa-globe"></li>
-<?php echo CHtml::link($model->getUrl(true), $model->getUrl()); ?>
+<?php echo CHtml::link($model->getAbsoluteUrl(), $model->getAbsoluteUrl()); ?>

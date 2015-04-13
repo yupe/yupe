@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Store' => 'Интернет-магазин',
     'Community' => 'Сообщество',
     'forum' => 'форум',
     'Thank you!' => 'Спасибо!',

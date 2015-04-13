@@ -47,7 +47,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('GalleryModule.gallery', 'Edit gallery'); ?><br/>
+        <?php echo Yii::t('GalleryModule.gallery', 'Update gallery'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

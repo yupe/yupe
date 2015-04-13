@@ -35,6 +35,8 @@
  * @property User $changeUser
  * @property Category $category
  * @property User $user
+ *
+ * @method Good published()
  */
 class Good extends yupe\models\YModel
 {
@@ -209,7 +211,6 @@ class Good extends yupe\models\YModel
 
     public function behaviors()
     {
-
         $module = Yii::app()->getModule('catalog');
 
         return [
@@ -221,20 +222,18 @@ class Good extends yupe\models\YModel
             ],
             'imageUpload'        => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => [$this, 'generateFileName'],
+            ],
+            'seo'                => [
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/catalog/catalog/show',
+                'params' => ['name' => $this->alias],
             ],
         ];
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->name . microtime(true) . uniqid());
     }
 
     public function beforeValidate()
@@ -250,11 +249,6 @@ class Good extends yupe\models\YModel
         }
 
         return parent::beforeValidate();
-    }
-
-    public function getPermaLink()
-    {
-        return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', ['name' => $this->alias]);
     }
 
     public function getStatusList()
@@ -301,5 +295,16 @@ class Good extends yupe\models\YModel
         return $this->category instanceof Category
             ? CHtml::link($this->category->name, ["/category/default/view", "id" => $this->category_id])
             : '---';
+    }
+
+    /**
+     * Return url of this model
+     *
+     * @deprecated
+     * @return string
+     */
+    public function getPermaLink()
+    {
+        return $this->getUrl();
     }
 }

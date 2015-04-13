@@ -41,7 +41,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.attr', 'View attribute'); ?><br/>
+        <?php echo Yii::t('StoreModule.attr', 'Viewing attribute'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

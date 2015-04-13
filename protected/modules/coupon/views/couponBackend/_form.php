@@ -211,7 +211,7 @@
                         [
                             'name' => 'status',
                             'type' => 'raw',
-                            'filter' => $order->getStatusList()
+                            'filter' => OrderStatus::model()->getList()
                         ],
                         [
                             'class' => 'bootstrap.widgets.TbButtonColumn',

@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
-<head prefix="og: http://ogp.me/ns#
-    fb: http://ogp.me/ns/fb#
-    article: http://ogp.me/ns/article#">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
-    <meta charset="<?php echo Yii::app()->charset; ?>"/>
-    <meta name="keywords" content="<?php echo CHtml::encode($this->keywords); ?>"/>
-    <meta name="description" content="<?php echo CHtml::encode($this->description); ?>"/>
-    <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
-    <meta property="og:description" content="<?php echo CHtml::encode($this->description); ?>"/>
+<head>
+
+    <?php Yii::app()->controller->widget(
+        'vendor.chemezov.yii-seo.widgets.SeoHead',
+        array(
+            'httpEquivs'         => array(
+                'Content-Type'     => 'text/html; charset=utf-8',
+                'X-UA-Compatible'  => 'IE=edge,chrome=1',
+                'Content-Language' => 'ru-RU'
+            ),
+            'defaultTitle'       => Yii::app()->getModule('yupe')->siteName,
+            'defaultDescription' => Yii::app()->getModule('yupe')->siteDescription,
+            'defaultKeywords'    => Yii::app()->getModule('yupe')->siteKeyWords,
+        )
+    ); ?>
+
     <?php
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
@@ -18,13 +25,11 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/blog.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/comments.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
         var yupeToken = '<?php echo Yii::app()->getRequest()->csrfToken;?>';
     </script>
-    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -33,9 +38,9 @@
 </head>
 
 <body>
-<?php if (Yii::app()->hasModule('menu')): { ?>
+<?php if (Yii::app()->hasModule('menu')): ?>
     <?php $this->widget('application.modules.menu.widgets.MenuWidget', ['name' => 'top-menu']); ?>
-<?php } endif; ?>
+<?php endif; ?>
 <!-- container -->
 <div class='container'>
     <!-- flashMessages -->
@@ -157,10 +162,7 @@
                 </div>
 
                 <div class="widget tags-cloud-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.TagCloudWidget',
-                        ['cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50]
-                    ); ?>
+                    <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', ['limit' => 50]); ?>
                 </div>
             <?php endif; ?>
 
@@ -182,11 +184,11 @@
 </div>
 <div class='notifications top-right' id="notifications"></div>
 <!-- container end -->
-<?php if (Yii::app()->hasModule('contentblock')): { ?>
+<?php if (Yii::app()->hasModule('contentblock')): ?>
     <?php $this->widget(
         "application.modules.contentblock.widgets.ContentBlockWidget",
         ["code" => "STAT", "silent" => true]
     ); ?>
-<?php } endif; ?>
+<?php endif; ?>
 </body>
 </html>

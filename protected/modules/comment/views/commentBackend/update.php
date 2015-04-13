@@ -49,7 +49,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CommentModule.comment', 'Edit comment'); ?><br/>
+        <?php echo Yii::t('CommentModule.comment', 'Editing comment'); ?><br/>
         <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
     </h1>
 </div>

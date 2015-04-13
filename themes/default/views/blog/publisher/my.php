@@ -24,7 +24,7 @@
             ],
             [
                 'name'  => 'title',
-                'value' => 'CHtml::link($data->title, array("/blog/post/show", "slug" => $data->slug))',
+                'value' => 'CHtml::link($data->title, $data->url)',
                 'type'  => 'html'
             ],
             [

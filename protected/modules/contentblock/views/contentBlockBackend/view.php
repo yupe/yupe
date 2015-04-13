@@ -54,7 +54,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'View content block'); ?><br/>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'Viewing content block'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

@@ -70,8 +70,8 @@ $this->menu = [
                 'name'  => 'image',
                 'type'  => 'raw',
                 'value' => $model->image
-                        ? CHtml::image($model->getImageUrl(), $model->name, ['width' => 300, 'height' => 300])
-                        : '---',
+                    ? CHtml::image($model->getImageUrl(300, 300), $model->name)
+                    : '---',
             ],
             [
                 'name' => 'description',

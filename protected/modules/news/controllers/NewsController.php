@@ -14,18 +14,18 @@ class NewsController extends \yupe\components\controllers\FrontController
 {
     public function actionShow($alias)
     {
-        $news = News::model()->published();
+        $model = News::model()->published();
 
-        $news = ($this->isMultilang())
-            ? $news->language(Yii::app()->language)->find('alias = :alias', [':alias' => $alias])
-            : $news->find('alias = :alias', [':alias' => $alias]);
+        $model = ($this->isMultilang())
+            ? $model->language(Yii::app()->language)->find('alias = :alias', [':alias' => $alias])
+            : $model->find('alias = :alias', [':alias' => $alias]);
 
-        if (!$news) {
+        if (!$model) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'News article was not found!'));
         }
 
         // проверим что пользователь может просматривать эту новость
-        if ($news->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
+        if ($model->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
@@ -34,7 +34,7 @@ class NewsController extends \yupe\components\controllers\FrontController
             $this->redirect([Yii::app()->getModule('user')->accountActivationSuccess]);
         }
 
-        $this->render('show', ['news' => $news]);
+        $this->render('show', ['model' => $model]);
     }
 
     public function actionIndex()
@@ -44,7 +44,6 @@ class NewsController extends \yupe\components\controllers\FrontController
             'params'    => [
                 ':status' => News::STATUS_PUBLISHED,
             ],
-            'limit'     => $this->module->perPage,
             'order'     => 't.creation_date DESC',
             'with'      => ['user'],
         ]);
@@ -69,7 +68,12 @@ class NewsController extends \yupe\components\controllers\FrontController
             );
         }
 
-        $dataProvider = new CActiveDataProvider('News', ['criteria' => $dbCriteria]);
+        $dataProvider = new CActiveDataProvider('News', [
+            'criteria' => $dbCriteria,
+            'pagination' => [
+                'pageSize' => $this->module->perPage
+            ]
+        ]);
         $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

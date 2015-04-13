@@ -29,7 +29,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-eye',
-        'label' => Yii::t('MailModule.mail', 'View mail template'),
+        'label' => Yii::t('MailModule.mail', 'View template'),
         'url'   => [
             '/mail/templateBackend/view',
             'id' => $model->id
@@ -59,7 +59,7 @@ $this->menu = [
 ];
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('MailModule.mail', 'Edit template'); ?><br/>
+    <h1><?php echo Yii::t('MailModule.mail', 'Updating template'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

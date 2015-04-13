@@ -72,9 +72,9 @@ abstract class BackController extends Controller
         $this->yupe->getComponent('bootstrap');
         $this->layout = $this->yupe->getBackendLayoutAlias();
         $backendTheme = $this->yupe->backendTheme;
-        $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
+        $this->pageTitle = Yii::t('YupeModule.yupe', 'Yupe control panel!');
 
-        if($this->yupe->hidePanelUrls == WebModule::CHOICE_NO) {
+        if ($this->yupe->hidePanelUrls == WebModule::CHOICE_NO) {
             Yii::app()->getErrorHandler()->errorAction = '/yupe/backend/error';
         }
 
@@ -106,7 +106,7 @@ abstract class BackController extends Controller
             )) !== null
             && count($updates) > 0
         ) {
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('YupeModule.yupe', 'You must install all migration before start working with module.')
             );
@@ -139,13 +139,14 @@ abstract class BackController extends Controller
             Yii::app()->ajax->success();
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
             switch ($action) {
                 case self::BULK_DELETE:
-                    $items = array_filter($items, 'intval');
+
                     $models = CActiveRecord::model($modelClass)->findAllByPk($items);
+
                     $count = 0;
 
                     foreach ($models as $model) {
@@ -153,6 +154,7 @@ abstract class BackController extends Controller
                     }
 
                     $transaction->commit();
+
                     Yii::app()->ajax->success(
                         Yii::t(
                             'YupeModule.yupe',
@@ -168,39 +170,10 @@ abstract class BackController extends Controller
                     throw new CHttpException(404);
                     break;
             }
-
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             Yii::app()->ajax->failure($e->getMessage());
-        }
-    }
-
-    /**
-     * @throws \CHttpException
-     */
-    public function actionActivate()
-    {
-        $status = (int)Yii::app()->getRequest()->getQuery('status');
-        $id = (int)Yii::app()->getRequest()->getQuery('id');
-        $modelClass = Yii::app()->getRequest()->getQuery('model');
-        $statusField = Yii::app()->getRequest()->getQuery('statusField');
-
-        if (!isset($modelClass, $id, $status, $statusField)) {
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
-        }
-
-        $model = new $modelClass();
-        $model = $model->resetScope()->findByPk($id);
-        if (!$model) {
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
-        }
-
-        $model->$statusField = $status;
-        $model->update([$statusField]);
-
-        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
         }
     }
 

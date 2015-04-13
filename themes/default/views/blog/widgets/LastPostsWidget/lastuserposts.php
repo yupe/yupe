@@ -8,10 +8,7 @@
                         <div class="posts-list-block-header">
                             <?php echo CHtml::link(
                                 CHtml::encode($post->title),
-                                [
-                                    '/blog/post/show/',
-                                    'slug' => CHtml::encode($post->slug)
-                                ]
+                                $post->getUrl()
                             ); ?>
                         </div>
 
@@ -76,12 +73,8 @@
 
                             <?php echo CHtml::link(
                                 $post->getCommentCount(),
-                                [
-                                    '/blog/post/show/',
-                                    'slug' => CHtml::encode($post->slug),
-                                    '#'    => 'comments'
-                                ]
-                            );?>
+                                $post->getUrl(['#' => 'comments'])
+                            ); ?>
                         </span>
                             </div>
                         </div>

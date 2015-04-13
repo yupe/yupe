@@ -4,12 +4,12 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->pageTitle = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
+$this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::app()->getModule('yupe')->siteName];
 ?>
 <div class="row">
     <div class="col-sm-12">
         <h1><?= Yii::t("OrderModule.order", "Order #"); ?><?= $model->id; ?>
-            <small>[<?= $model->getStatusTitle(); ?>]</small>
+            <small>[<?= $model->status->getTitle(); ?>]</small>
         </h1>
         <table class="table">
             <tbody>
@@ -19,7 +19,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                             <div class="media">
                                 <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->alias]); ?>
                                 <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
-                                    <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>" style="width: 72px; height: 72px;">
+                                    <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>">
                                 </a>
 
                                 <div class="media-body">
@@ -188,7 +188,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                     </td>
 
                 </tr>
-                <?php if (!$model->paid  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
+                <?php if (!$model->isPaid()  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">
@@ -228,7 +228,7 @@ $this->pageTitle = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                     <tr>
                         <td colspan="3">
                             <p class="text-right">
-                                <?= $model->getPaidStatus() . ' - ' . date('d.m.Y H:i', strtotime($model->payment_date)); ?>
+                                <span class="aler alert-warning"><?= $model->getPaidStatus(); ?></span>
                             </p>
                         </td>
                     </tr>

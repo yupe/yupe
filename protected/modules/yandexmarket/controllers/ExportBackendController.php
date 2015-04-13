@@ -11,6 +11,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['update'], 'roles' => ['YandexMarket.ExportBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['YandexMarket.ExportBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['YandexMarket.ExportBackend.View'],],
+            ['allow', 'actions' => ['multiaction'], 'roles' => ['YandexMarket.ExportBackend.Multiaction'],],
             ['deny',],
         ];
     }

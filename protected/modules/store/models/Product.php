@@ -36,7 +36,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property double $recommended_price
  * @property integer $position
  *
- * @method getImageUrl($width = 0, $height = 0, $adaptiveResize = true, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $options = [])
  *
  * The followings are the available model relations:
  * @property Type $type
@@ -116,7 +116,8 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             ['alias', 'unique'],
             ['status', 'in', 'range' => array_keys($this->statusList)],
-            ['is_special', 'in', 'range' => [0, 1]],
+            ['is_special', 'boolean'],
+            ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
             [
                 'id, type_id, producer_id, sku, name, alias, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category',
                 'safe',
@@ -311,7 +312,6 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios' => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
@@ -322,8 +322,7 @@ class Product extends yupe\models\YModel implements ICommentable
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 ],
-                //@TODO убрать
-                'defaultImage' => $module->getAssetsUrl() . '/img/nophoto.jpg',
+                'defaultImage' => Yii::app()->getTheme()->getAssetsUrl() . $module->defaultImage,
             ],
             'sortable' => [
                 'class' => 'yupe\components\behaviors\SortableBehavior'
@@ -413,49 +412,47 @@ class Product extends yupe\models\YModel implements ICommentable
      * @param $categories - список id категорий
      * @return bool
      */
-    public function saveCategories($categories)
+    public function saveCategories(array $categoriesId)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        $categories = is_array($categories) ? $categories : (array)$categories;
-        $categories = array_diff($categories, (array)$this->category_id);
+        $categoriesId = array_diff($categoriesId, (array)$this->category_id);
 
         try {
-            foreach ($categories as $category_id) {
-                $model = ProductCategory::model()->findByAttributes(
-                    ['product_id' => $this->id, 'category_id' => $category_id]
-                );
-                if (!$model) {
-                    $model = new ProductCategory();
-                    $model->category_id = $category_id;
-                    $model->product_id = $this->id;
-                }
-                $model->save();
+
+            Yii::app()->getDb()->createCommand()
+                ->delete('{{store_product_category}}', 'product_id = :id', [':id' => $this->id]);
+
+            $data = [];
+
+            foreach ($categoriesId as $id) {
+                $data[] = [
+                    'product_id' => $this->id,
+                    'category_id' => (int)$id
+                ];
             }
 
-            $criteria = new CDbCriteria();
-            $criteria->addCondition('product_id = :product_id');
-            $criteria->params = [':product_id' => $this->id];
-            $criteria->addNotInCondition('category_id', $categories);
-            ProductCategory::model()->deleteAll($criteria);
+            Yii::app()->getDb()->commandBuilder
+                ->createMultipleInsertCommand('{{store_product_category}}', $data)
+                ->execute();
+
             $transaction->commit();
 
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
 
-    public function getCategoriesIdList()
+    public function getCategoriesId()
     {
-        $cats = ProductCategory::model()->findAllByAttributes(['product_id' => $this->id]);
-        $list = [];
-        foreach ($cats as $key => $cat) {
-            $list[] = $cat->category_id;
-        }
-
-        return $list;
+       return  Yii::app()->getDb()->createCommand()
+            ->select('category_id')
+            ->from('{{store_product_category}}')
+            ->where('product_id = :id', [':id' => $this->id])
+            ->queryColumn();
     }
 
     public function setTypeAttributes(array $attributes)
@@ -498,30 +495,29 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
-        try
-        {
+        try {
             $this->setAttributes($attributes);
             $this->setTypeAttributes($typeAttributes);
             $this->setProductVariants($variants);
 
-            if($this->save()) {
+            if ($this->save()) {
 
                 $this->updateEavAttributes($this->_eavAttributes);
                 $this->updateVariants($this->_variants);
 
-                if(!empty($categories)) {
+                if (!empty($categories)) {
                     $this->saveCategories($categories);
                 }
 
                 $transaction->commit();
+
                 return true;
             }
 
             return false;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -556,9 +552,11 @@ class Product extends yupe\models\YModel implements ICommentable
             $criteria->addNotInCondition('id', $productVariants);
             ProductVariant::model()->deleteAll($criteria);
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -760,14 +758,14 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function copy()
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
         $model = new Product();
         try {
             $model->attributes = $this->attributes;
             $model->image = null;
             $model->alias = null;
 
-            $similarNamesCount = Yii::app()->db->createCommand()
+            $similarNamesCount = Yii::app()->getDb()->createCommand()
                 ->select('count(*)')
                 ->from($this->tableName())
                 ->where("name like :name", [':name' => $this->name . ' [%]'])

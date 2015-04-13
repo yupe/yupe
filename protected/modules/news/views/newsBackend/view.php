@@ -20,7 +20,7 @@ $this->menu = [
     ['label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'],
     [
         'icon'  => 'fa fa-fw fa-pencil',
-        'label' => Yii::t('NewsModule.news', 'Edit news article'),
+        'label' => Yii::t('NewsModule.news', 'Edit news'),
         'url'   => [
             '/news/newsBackend/update',
             'id' => $model->id
@@ -74,20 +74,17 @@ $this->menu = [
                 <?php echo $model->short_text; ?>
             </p>
             <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->getPermaLink(),
-                $model->getPermaLink()
+                $model->getAbsoluteUrl(),
+                $model->getAbsoluteUrl()
             ); ?>
         </div>
     </div>
     <div id="full" class="tab-pane fade">
         <div style="margin-bottom: 20px;">
-            <h3><?php echo CHtml::link(
-                    CHtml::encode($model->title),
-                    ['/news/news/show', 'alias' => $model->alias]
-                ); ?></h3>
-            <?php if ($model->image): { ?>
+            <h3><?php echo CHtml::link(CHtml::encode($model->title), $model->getUrl()); ?></h3>
+            <?php if ($model->image): ?>
                 <?php echo CHtml::image($model->getImageUrl(), $model->title); ?>
-            <?php } endif; ?>
+            <?php endif; ?>
             <p><?php echo $model->full_text; ?></p>
             <span class="label label-info"><?php echo $model->date; ?></span>
             <i class="fa fa-fw fa-user"></i><?php echo CHtml::link(
@@ -95,8 +92,8 @@ $this->menu = [
                 ['/user/people/' . $model->user->nick_name]
             ); ?>
             <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->getPermaLink(),
-                $model->getPermaLink()
+                $model->getAbsoluteUrl(),
+                $model->getAbsoluteUrl()
             ); ?>
         </div>
     </div>

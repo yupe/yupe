@@ -53,7 +53,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('notify', 'Запись добавлена!')
+                    Yii::t('notify', 'Record created!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -86,7 +86,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('notify', 'Запись обновлена!')
+                    Yii::t('notify', 'Record updated!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -115,7 +115,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('notify', 'Запись удалена!')
+                Yii::t('notify', 'Record removed!')
             );
 
 // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -125,7 +125,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
         } else {
             throw new CHttpException(400, Yii::t(
                 'notify',
-                'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'
+                'Unknown request. Don\'t repeat it please!'
             ));
         }
     }
@@ -157,7 +157,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
     {
         $model = NotifySettings::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('notify', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('notify', 'Page not found!'));
         }
 
         return $model;

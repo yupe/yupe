@@ -48,7 +48,7 @@ class DefaultController extends yupe\components\controllers\BackController
         }
         $this->session['InstallForm'] = Yii::app()->session['InstallForm'];
 
-        $this->setPageTitle(Yii::t('InstallModule.install', 'installation of Yupe!'));
+        $this->pageTitle = Yii::t('InstallModule.install', 'installation of Yupe!');
 
         $this->layout = 'application.modules.install.views.layouts.column2';
     }
@@ -769,7 +769,7 @@ class DefaultController extends yupe\components\controllers\BackController
         $error = false;
 
         $modules = Yii::app()->moduleManager->getModulesDisabled();
-        // Не выводить модуль install и yupe
+        // Не выводить модуль install
         unset($modules['install']);
 
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -787,6 +787,7 @@ class DefaultController extends yupe\components\controllers\BackController
         }
 
         if ((isset($this->session['InstallForm']['moduleToInstall'])) && ($this->session['InstallForm']['modulesInstallStep'] === true) && ($_POST = $this->session['InstallForm']['moduleToInstall'])) {
+
             $this->session['InstallForm'] = array_merge(
                 $this->session['InstallForm'],
                 [
@@ -810,7 +811,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 if (!empty($deps)) {
                     foreach ($deps as $dep) {
                         if (!isset($toInstall[$dep])) {
-                            Yii::app()->user->setFlash(
+                            Yii::app()->getUser()->setFlash(
                                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                                 Yii::t(
                                     'InstallModule.install',
@@ -850,7 +851,7 @@ class DefaultController extends yupe\components\controllers\BackController
                                         )) && !@copy($fileConfig, $fileConfigBack)) || !@unlink($fileConfig))
                     ) {
                         $error = true;
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                             Yii::t(
                                 'InstallModule.install',
@@ -967,7 +968,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
         if (($data = Yii::app()->getRequest()->getPost('InstallForm')) !== null) {
             // Сбрасываем сессию текущего пользователя, может поменяться id
-            Yii::app()->user->clearStates();
+            Yii::app()->getUser()->clearStates();
 
             $model->setAttributes($data);
 
@@ -1009,7 +1010,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
                     Yii::app()->authenticationManager->login($login, Yii::app()->user, Yii::app()->request);
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('InstallModule.install', 'The administrator has successfully created!')
                     );
@@ -1105,7 +1106,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('InstallModule.install', 'Site settings saved successfully!')
                     );
@@ -1131,7 +1132,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 } catch (CDbException $e) {
                     $transaction->rollback();
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                         $e->__toString()
                     );
@@ -1165,7 +1166,7 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         try {
             Yii::app()->getModule('install')->getDeActivate();
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'InstallModule.install',
@@ -1176,7 +1177,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 )
             );
         } catch (Exception $e) {
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );

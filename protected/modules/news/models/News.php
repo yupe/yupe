@@ -27,10 +27,11 @@
  * @property integer $is_protected
  * @property string  $link
  * @property string  $image
+ * @property string $description
+ * @property string $keywords
  */
 class News extends yupe\models\YModel
 {
-
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
     const STATUS_MODERATION = 2;
@@ -96,20 +97,18 @@ class News extends yupe\models\YModel
         return [
             'imageUpload' => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => [$this, 'generateFileName'],
+            ],
+            'seo'         => [
+                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
+                'route'  => '/news/news/show',
+                'params' => ['alias' => $this->alias],
             ],
         ];
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->title . microtime(true) . uniqid());
     }
 
     /**
@@ -274,11 +273,6 @@ class News extends yupe\models\YModel
         ]);
     }
 
-    public function getPermaLink()
-    {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', ['alias' => $this->alias]);
-    }
-
     public function getStatusList()
     {
         return [
@@ -318,5 +312,14 @@ class News extends yupe\models\YModel
     public function getFlag()
     {
         return yupe\helpers\YText::langToflag($this->lang);
+    }
+
+    /**
+     * @deprecated
+     * @return mixed
+     */
+    public function getPermaLink()
+    {
+        return $this->getUrl();
     }
 }

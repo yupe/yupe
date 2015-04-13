@@ -25,7 +25,7 @@ class YupeModule extends WebModule
     /**
      *
      */
-    const VERSION = '0.9.4';
+    const VERSION = '0.9.5-dev';
 
     /**
      * @var
@@ -128,12 +128,6 @@ class YupeModule extends WebModule
      * Массив фильтров для контроллеров панели управления
      */
     protected $backEndFilters = [['yupe\filters\YBackAccessControl - error']];
-
-    public $visualEditors = [
-        'redactor' => [
-            'class' => 'yupe\widgets\editors\RedactorEditor',
-        ],
-    ];
 
     /**
      * @return array
@@ -666,17 +660,6 @@ class YupeModule extends WebModule
     }
 
     /**
-     * Метод возвращает список доступных для использования в панели управления визуальных редакторов
-     *
-     * @since 0.4
-     * @return array
-     */
-    public function getEditors()
-    {
-        return array_combine(array_keys($this->visualEditors), array_keys($this->visualEditors));
-    }
-
-    /**
      * Метод возвращает доступные темы оформления
      *
      * Для добавления новой темы необходимо:
@@ -774,7 +757,7 @@ class YupeModule extends WebModule
 
         if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
             Yii::log(
-                'For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager',
+                'For use multi lang, please, enable "yupe\components\urlManager\LangUrlManager" as default UrlManager',
                 CLogger::LEVEL_WARNING
             );
 
@@ -782,9 +765,9 @@ class YupeModule extends WebModule
         }
 
         $items = [];
-        $currentLanguage = Yii::app()->language;
+        $currentLanguage = Yii::app()->getLanguage();
 
-        $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
+        $homeUrl = Yii::app()->getHomeUrl() . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
         $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url);
 
         foreach ($langs as $lang) {

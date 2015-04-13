@@ -30,7 +30,7 @@ class NotifyNewCommentListener
                         Yii::t(
                             'NotifyModule.notify',
                             'Reply to your comment on the website "{app}"!',
-                            ['{app}' => Chtml::encode(Yii::app()->name)]
+                            ['{app}' => CHtml::encode(Yii::app()->name)]
                         ),
                         Yii::app()->getController()->renderPartial(
                             'comment-reply-notify-email',
@@ -62,7 +62,7 @@ class NotifyNewCommentListener
                             Yii::t(
                                 'NotifyModule.notify',
                                 'New comment to your post on website "{app}"!',
-                                ['{app}' => Chtml::encode(Yii::app()->name)]
+                                ['{app}' => CHtml::encode(Yii::app()->name)]
                             ),
                             Yii::app()->getController()->renderPartial(
                                 'comment-new-notify-email',

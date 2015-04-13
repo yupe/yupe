@@ -7,6 +7,16 @@ namespace application\components;
 
 use yupe\components\controllers\Controller as BaseController;
 
+/**
+ * Class Controller
+ * @package application\components
+ *
+ * @property string|array $title
+ * @property string $metaDescription
+ * @property string $metaKeywords
+ * @property array $metaProperties
+ * @property string $canonical
+ */
 class Controller extends BaseController
 {
     public $layout;
