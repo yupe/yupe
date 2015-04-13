@@ -10,6 +10,7 @@
             'action'      => Yii::app()->createUrl('/comment/add/'),
             'id'          => 'comment-form',
             'type'        => 'vertical',
+            'enableAjaxValidation' => true,
             'htmlOptions' => [
                 'class' => 'well',
             ]
@@ -73,6 +74,7 @@
                             ],
                             'buttonOptions'     => [
                                 'class' => 'btn btn-info',
+                                'id' => 'captcha-refresh'
                             ],
                             'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
                             'captchaAction'     => '/comment/comment/captcha'

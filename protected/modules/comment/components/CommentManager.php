@@ -55,7 +55,7 @@ class CommentManager extends CApplicationComponent
                 }
             }
 
-            if ($comment->appendTo($root, false)) {
+            if ($comment->appendTo($root)) {
 
                 Yii::app()->eventManager->fire(
                     CommentEvents::SUCCESS_ADD_COMMENT,
