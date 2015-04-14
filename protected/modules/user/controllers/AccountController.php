@@ -13,58 +13,37 @@
  **/
 class AccountController extends \yupe\components\controllers\FrontController
 {
-    public function filters()
-    {
-        return [
-            'accessControl',
-        ];
-    }
-
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'actions' => ['logout'],
-                'users' => ['*']
-            ],
-            ['deny',
-                'actions'=>[],
-                'users'=>['@']
-            ],
-        ];
-    }
-
     public function actions()
     {
         return [
-            'captcha'         => [
-                'class'     => 'yupe\components\actions\YCaptchaAction',
+            'captcha' => [
+                'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
             ],
-            'registration'    => [
+            'registration' => [
                 'class' => 'application.modules.user.controllers.account.RegistrationAction',
             ],
-            'activate'        => [
+            'activate' => [
                 'class' => 'application.modules.user.controllers.account.ActivateAction',
             ],
-            'login'           => [
+            'login' => [
                 'class' => 'application.modules.user.controllers.account.LoginAction',
             ],
-            'backendlogin'    => [
+            'backendlogin' => [
                 'class' => 'application.modules.user.controllers.account.LoginAction',
             ],
-            'logout'          => [
+            'logout' => [
                 'class' => 'application.modules.user.controllers.account.LogOutAction',
             ],
-            'recovery'        => [
+            'recovery' => [
                 'class' => 'application.modules.user.controllers.account.RecoveryAction',
             ],
-            'restore'         => [
+            'restore' => [
                 'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction',
             ],
-            'confirm'         => [
+            'confirm' => [
                 'class' => 'application.modules.user.controllers.account.EmailConfirmAction',
             ],
         ];
