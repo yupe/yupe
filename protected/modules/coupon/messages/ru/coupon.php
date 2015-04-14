@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Orders' => 'Заказы',
     '*unknown*' => '*неизвестно*',
     'Active' => 'Активен',
     'Add coupon and close' => 'Добавить купон и закрыть',

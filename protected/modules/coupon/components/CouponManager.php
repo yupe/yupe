@@ -31,13 +31,13 @@ class CouponManager extends CComponent
      */
     public function add($code)
     {
-        $code = strtoupper($code);
+        $code = strtoupper(trim($code));
         if (in_array($code, $this->coupons)) {
             return [Yii::t("CouponManager.coupon", 'Coupon already added')];
         }
         /* @var $coupon Coupon */
         $coupon = Coupon::model()->getCouponByCode($code);
-        if ($coupon) {
+        if (null !== $coupon) {
             $price = Yii::app()->cart->getCost();
             if ($coupon->getIsAvailable($price)) {
                 $this->coupons = array_unique(array_merge($this->coupons, [$code]));
@@ -46,14 +46,14 @@ class CouponManager extends CComponent
             } else {
                 return $coupon->getCouponErrors($price);
             }
-        } else {
-            return [Yii::t("CouponManager.coupon", 'Coupon not found')];
         }
+
+        return false;
     }
 
     public function remove($code)
     {
-        $code = strtoupper($code);
+        $code = $code = strtoupper(trim($code));
         $this->coupons = array_diff($this->coupons, [$code]);
         $this->saveState();
     }

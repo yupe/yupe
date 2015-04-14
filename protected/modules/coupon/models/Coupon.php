@@ -68,6 +68,13 @@ class Coupon extends yupe\models\YModel
         ];
     }
 
+    public function relations()
+    {
+        return [
+            'ordersCount' => [self::STAT, 'OrderCoupon', 'coupon_id']
+        ];
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -221,7 +228,7 @@ class Coupon extends yupe\models\YModel
     {
         $discount = 0.00;
 
-        if(!$this->getIsAvailable($price)) {
+        if (!$this->getIsAvailable($price)) {
             return $discount;
         }
 

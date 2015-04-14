@@ -164,13 +164,12 @@
         <?php $this->endWidget(); ?>
     </div>
 
+    <?php  if (!$model->getIsNewRecord()):?>
     <div class="tab-pane panel-body" id="history">
         <?php
-        if (!$model->getIsNewRecord()) {
             Yii::app()->getModule('order');
             $order = new Order('search');
             $order->unsetAttributes();
-            $order->coupon_code = $model->code;
             $this->widget(
                 'yupe\widgets\CustomGridView',
                 [
@@ -205,12 +204,11 @@
                             'name' => 'date'
                         ],
                         [
-                            'name' => 'coupon_code',
-                            'visible' => true,
-                        ],
-                        [
-                            'name' => 'status',
-                            'type' => 'raw',
+                            'name'  => 'status',
+                            'type'  => 'raw',
+                            'value' => function($data) {
+                                  return $data->status->getTitle();
+                                },
                             'filter' => OrderStatus::model()->getList()
                         ],
                         [
@@ -222,7 +220,7 @@
                     ],
                 ]
             );
-        }
         ?>
     </div>
+    <?php endif;?>
 </div>

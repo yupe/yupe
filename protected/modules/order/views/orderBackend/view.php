@@ -83,7 +83,6 @@ $this->menu = [
             'total_price',
             'discount',
             'coupon_discount',
-            'coupon_code',
             'separate_delivery',
             [
                 'name' => 'status_id',

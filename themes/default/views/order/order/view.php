@@ -57,14 +57,14 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                         </td>
                     </tr>
                 <?php endforeach; ?>
-                <?php if($model->hasCoupon()):?>
+                <?php if($model->hasCoupons()):?>
                 <tr>
                     <td colspan="2">
                         <h4><?= Yii::t("OrderModule.order", "Coupons"); ?></h4>
                     </td>
                     <td>
                         <p class="text-right lead">
-                            <?php foreach ($model->getCoupons() as $code): ?>
+                            <?php foreach ($model->getCouponsCodes() as $code): ?>
                                 <span class="label alert alert-info coupon">
                                     <?= CHtml::encode($code); ?>
                                 </span>

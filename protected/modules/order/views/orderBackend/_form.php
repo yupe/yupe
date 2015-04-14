@@ -13,17 +13,17 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info hidden">
-    <?php echo Yii::t('OrderModule.order', 'Fields with'); ?>
+    <?= Yii::t('OrderModule.order', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('OrderModule.order', 'are required'); ?>
+    <?= Yii::t('OrderModule.order', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 <div class="row">
     <div class="col-sm-8">
         <div class="row">
             <div class="col-sm-4">
-                <?php echo $form->dropDownListGroup(
+                <?= $form->dropDownListGroup(
                     $model,
                     'status_id',
                     [
@@ -34,7 +34,7 @@ $form = $this->beginWidget(
                 ); ?>
             </div>
             <div class="col-sm-4">
-                <?php echo $form->datePickerGroup(
+                <?= $form->datePickerGroup(
                     $model,
                     'date',
                     [
@@ -54,7 +54,7 @@ $form = $this->beginWidget(
                 ?>
             </div>
             <div class="col-sm-4">
-                <?php echo $form->labelEx($model, 'user_id'); ?>
+                <?= $form->labelEx($model, 'user_id'); ?>
                 <?php $this->widget(
                     'bootstrap.widgets.TbSelect2',
                     [
@@ -73,7 +73,7 @@ $form = $this->beginWidget(
         <div class="row">
             <div class="col-sm-12">
                 <label class="checkbox">
-                    <input class="" name="notify_user" value="1" type="checkbox"><?php echo Yii::t("OrderModule.order", "Inform buyer about order status"); ?>
+                    <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t("OrderModule.order", "Inform buyer about order status"); ?>
                 </label>
             </div>
         </div>
@@ -81,7 +81,7 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", 'Products'); ?></span>
+                        <span class="panel-title"><?= Yii::t("OrderModule.order", 'Products'); ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -121,14 +121,14 @@ $form = $this->beginWidget(
                                 );?>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-default btn-sm" href="#" id="add-product"><?php echo Yii::t("OrderModule.order", "Add"); ?></a>
+                                <a class="btn btn-default btn-sm" href="#" id="add-product"><?= Yii::t("OrderModule.order", "Add"); ?></a>
                             </div>
                         </div>
                         <div class="text-right">
                             <h4>
-                                <?php echo Yii::t("OrderModule.order", "Total"); ?>:
-                                <span id="total-product-cost"><?php echo $totalProductCost; ?></span>
-                                <?php echo Yii::t("OrderModule.order", "RUB"); ?>
+                                <?= Yii::t("OrderModule.order", "Total"); ?>:
+                                <span id="total-product-cost"><?= $totalProductCost; ?></span>
+                                <?= Yii::t("OrderModule.order", "RUB"); ?>
                             </h4>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Delivery"); ?></span>
+                        <span class="panel-title"><?= Yii::t("OrderModule.order", "Delivery"); ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -154,7 +154,7 @@ $form = $this->beginWidget(
                                         'data-available-from' => $delivery->available_from
                                     ];
                                 };?>
-                                <?php echo $form->dropDownListGroup(
+                                <?= $form->dropDownListGroup(
                                     $model,
                                     'delivery_id',
                                     [
@@ -170,11 +170,11 @@ $form = $this->beginWidget(
                                 ); ?>
                             </div>
                             <div class="col-sm-4">
-                                <?php echo $form->textFieldGroup($model, 'delivery_price'); ?>
+                                <?= $form->textFieldGroup($model, 'delivery_price'); ?>
                             </div>
                             <div class="col-sm-4">
                                 <br/>
-                                <?php echo $form->checkBoxGroup($model, 'separate_delivery'); ?>
+                                <?= $form->checkBoxGroup($model, 'separate_delivery'); ?>
                             </div>
                         </div>
                     </div>
@@ -186,12 +186,12 @@ $form = $this->beginWidget(
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo Yii::t("OrderModule.order", 'Payment') ?></span>
+                        <span class="panel-title"><?= Yii::t("OrderModule.order", 'Payment') ?></span>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <?php echo $form->dropDownListGroup(
+                                <?= $form->dropDownListGroup(
                                     $model,
                                     'payment_method_id',
                                     [
@@ -206,12 +206,12 @@ $form = $this->beginWidget(
                             </div>
                             <div class="col-sm-2">
                                 <br/>
-                                <?php echo $form->checkBoxGroup($model, 'paid'); ?>
+                                <?= $form->checkBoxGroup($model, 'paid'); ?>
                             </div>
                             <div class="col-sm-6 text-right">
                                 <br/>
                                 <h4>
-                                    <?php echo Yii::t("OrderModule.order", "Total"); ?>: <?php echo $model->total_price; ?> <?php echo Yii::t("OrderModule.order", "RUB"); ?>
+                                    <?= Yii::t("OrderModule.order", "Total"); ?>: <?= $model->total_price; ?> <?= Yii::t("OrderModule.order", "RUB"); ?>
                                 </h4>
                             </div>
                         </div>
@@ -221,7 +221,7 @@ $form = $this->beginWidget(
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo $form->textAreaGroup($model, 'note'); ?>
+                <?= $form->textAreaGroup($model, 'note'); ?>
             </div>
         </div>
     </div>
@@ -229,38 +229,38 @@ $form = $this->beginWidget(
     <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Order details"); ?></span>
+                <span class="panel-title"><?= Yii::t("OrderModule.order", "Order details"); ?></span>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <?php echo $form->textFieldGroup($model, 'name'); ?>
+                        <?= $form->textFieldGroup($model, 'name'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <?php echo $form->textFieldGroup($model, 'phone'); ?>
+                        <?= $form->textFieldGroup($model, 'phone'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <?php echo $form->textFieldGroup($model, 'email'); ?>
+                        <?= $form->textFieldGroup($model, 'email'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <?php echo $form->textFieldGroup($model, 'address'); ?>
+                        <?= $form->textFieldGroup($model, 'address'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <?php echo $form->textAreaGroup($model, 'comment'); ?>
+                        <?= $form->textAreaGroup($model, 'comment'); ?>
                     </div>
                 </div>
                 <?php if (!$model->isNewRecord): ?>
                     <div class="row">
                         <div class="col-sm-12">
-                            <?php echo CHtml::link(Yii::t("OrderModule.order", 'Link to order'), ['/order/order/view', 'url' => $model->url]); ?>
+                            <?= CHtml::link(Yii::t("OrderModule.order", 'Link to order'), ['/order/order/view', 'url' => $model->url]); ?>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -271,25 +271,23 @@ $form = $this->beginWidget(
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span class="panel-title"><?php echo Yii::t("OrderModule.order", "Coupons"); ?></span>
+                    <span class="panel-title"><?= Yii::t("OrderModule.order", "Coupons"); ?></span>
                 </div>
                 <div class="panel-body coupons">
-                    <?php if ($model->coupon_code): ?>
-                        <?php foreach ($model->getCouponsCodes() as $code): ?>
-                            <?php $coupon = Coupon::model()->getCouponByCode($code); ?>
-                            <span class="label alert alert-<?php echo $coupon ? 'info' : 'error'; ?> coupon" title="<?php echo !$coupon ? Yii::t(
+                    <?php if ($model->hasCoupons()): ?>
+                        <?php foreach ($model->getCoupons() as $coupon): ?>
+                            <span class="label alert alert-<?= $coupon ? 'info' : 'error'; ?> coupon" title="<?= !$coupon ? Yii::t(
                                 "OrderModule.order",
                                 'Coupon will be deleted after save'
                             ) : ''; ?>">
-                                <?php
-                                if ($coupon) {
-                                    echo CHtml::link($code, ['/coupon/couponBackend/view', 'id' => $coupon->id], ['title' => $coupon->name]);
-                                } else {
-                                    echo $code . ' ' . Yii::t("OrderModule.order", '[Deleted]');
-                                }
-                                ?>
+                                <?php if ($coupon):?>
+                                    <?= CHtml::link($coupon->code, ['/coupon/couponBackend/update', 'id' => $coupon->id], ['title' => $coupon->name]); ?>
+                                <?php else:?>
+                                    <?= $coupon->code . ' ' . Yii::t("OrderModule.order", '[Deleted]');?>
+                                <?php endif;?>
+
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <?php echo CHtml::hiddenField("Order[couponCodes][{$coupon->code}]", $coupon->code); ?>
+                                <?= CHtml::hiddenField("Order[couponCodes][{$coupon->code}]", $coupon->code); ?>
                             </span>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -398,7 +396,7 @@ $form = $this->beginWidget(
             var productId = $("#product-select").select2("val");
             if (productId) {
                 $.ajax({
-                    url: '<?php echo Yii::app()->controller->createUrl('/order/orderBackend/productRow')?>',
+                    url: '<?= Yii::app()->controller->createUrl('/order/orderBackend/productRow')?>',
                     type: 'get',
                     data: {
                         'OrderProduct[product_id]': productId
