@@ -63,7 +63,7 @@ $form = $this->beginWidget(
     <div class="col-sm-3">
         <?php echo $form->dateTimePickerGroup(
             $model,
-            'publish_date',
+            'publish_time',
             [
                 'widgetOptions' => [
                     'options'     => [
@@ -73,8 +73,8 @@ $form = $this->beginWidget(
                     ],
                     'htmlOptions' => [
                         'class'               => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('publish_date'),
-                        'data-content'        => $model->getAttributeDescription('publish_date'),
+                        'data-original-title' => $model->getAttributeLabel('publish_time'),
+                        'data-content'        => $model->getAttributeDescription('publish_time'),
                     ],
                 ],
                 'prepend'       => '<i class="fa fa-calendar"></i>',

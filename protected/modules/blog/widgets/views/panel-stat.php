@@ -49,8 +49,8 @@
                                         'type'  => 'html'
                                     ],
                                     [
-                                        'name'   => 'create_date',
-                                        'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+                                        'name'   => 'create_time',
+                                        'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
                                         'filter' => false
                                     ],
                                     [
