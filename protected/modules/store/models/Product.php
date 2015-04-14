@@ -409,32 +409,47 @@ class Product extends yupe\models\YModel implements ICommentable
 
     /**
      * Устанавливает дополнительные категории товара
-     * @param $categories - список id категорий
+     *
+     * @param array $categories - список id категорий
      * @return bool
+     *
      */
     public function saveCategories(array $categoriesId)
     {
-        $transaction = Yii::app()->getDb()->beginTransaction();
-
         $categoriesId = array_diff($categoriesId, (array)$this->category_id);
+
+        $currentCategories = Yii::app()->getDb()->createCommand()
+            ->select('category_id')
+            ->from('{{store_product_category}}')
+            ->where('product_id = :id', [':id' => $this->id])
+            ->queryColumn();
+
+        if ($categoriesId == $currentCategories) {
+            return true;
+        }
+
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
 
             Yii::app()->getDb()->createCommand()
                 ->delete('{{store_product_category}}', 'product_id = :id', [':id' => $this->id]);
 
-            $data = [];
+            if (!empty($categoriesId)) {
 
-            foreach ($categoriesId as $id) {
-                $data[] = [
-                    'product_id' => $this->id,
-                    'category_id' => (int)$id
-                ];
+                $data = [];
+
+                foreach ($categoriesId as $id) {
+                    $data[] = [
+                        'product_id' => $this->id,
+                        'category_id' => (int)$id
+                    ];
+                }
+
+                Yii::app()->getDb()->commandBuilder
+                    ->createMultipleInsertCommand('{{store_product_category}}', $data)
+                    ->execute();
             }
-
-            Yii::app()->getDb()->commandBuilder
-                ->createMultipleInsertCommand('{{store_product_category}}', $data)
-                ->execute();
 
             $transaction->commit();
 
@@ -448,7 +463,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getCategoriesId()
     {
-       return  Yii::app()->getDb()->createCommand()
+        return Yii::app()->getDb()->createCommand()
             ->select('category_id')
             ->from('{{store_product_category}}')
             ->where('product_id = :id', [':id' => $this->id])
@@ -504,10 +519,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
                 $this->updateEavAttributes($this->_eavAttributes);
                 $this->updateVariants($this->_variants);
-
-                if (!empty($categories)) {
-                    $this->saveCategories($categories);
-                }
+                $this->saveCategories($categories);
 
                 $transaction->commit();
 
