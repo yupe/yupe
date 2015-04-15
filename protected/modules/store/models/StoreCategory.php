@@ -196,16 +196,16 @@ class StoreCategory extends \yupe\models\YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('alias', $this->alias, true);
-        $criteria->compare('meta_title', $this->alias, true);
-        $criteria->compare('meta_keywords', $this->alias, true);
-        $criteria->compare('meta_description', $this->alias, true);
+        $criteria->compare('meta_title', $this->meta_title, true);
+        $criteria->compare('meta_keywords', $this->meta_keywords, true);
+        $criteria->compare('meta_description', $this->meta_description, true);
         $criteria->compare('status', $this->status);
-        $criteria->compare('sort', $this->status);
+        $criteria->compare('sort', $this->sort);
 
         return new CActiveDataProvider(
             get_class($this),
