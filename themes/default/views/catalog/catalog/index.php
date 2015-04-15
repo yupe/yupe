@@ -6,9 +6,21 @@ $this->breadcrumbs = [Yii::t('CatalogModule.catalog', 'Products')];
 <h1><?php echo Yii::t('CatalogModule.catalog', 'Products'); ?></h1>
 
 <?php $this->widget(
-    'zii.widgets.CListView',
+    'bootstrap.widgets.TbListView',
     [
         'dataProvider' => $dataProvider,
-        'itemView'     => '_view',
+        'itemView' => '_view',
+        'summaryText' => '',
+        'enableHistory' => true,
+        'cssFile' => false,
+        'pager' => [
+            'cssFile' => false,
+            'htmlOptions' => ['class' => 'pagination'],
+            'header' => '',
+            'firstPageLabel' => '&lt;&lt;',
+            'lastPageLabel' => '&gt;&gt;',
+            'nextPageLabel' => '&gt;',
+            'prevPageLabel' => '&lt;',
+        ],
     ]
 ); ?>
