@@ -76,7 +76,7 @@ $this->menu = [
                 'name' => 'description',
                 'type' => 'raw'
             ],
-            'alias',
+            'slug',
             [
                 'name' => 'data',
                 'type' => 'raw'

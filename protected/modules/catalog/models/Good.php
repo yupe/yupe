@@ -23,7 +23,7 @@
  * @property string $image
  * @property string $short_description
  * @property string $description
- * @property string $alias
+ * @property string $slug
  * @property string $data
  * @property integer $status
  * @property string $create_time
@@ -71,14 +71,14 @@ class Good extends yupe\models\YModel
     public function rules()
     {
         return [
-            ['category_id, name, description, alias', 'required', 'except' => 'search'],
+            ['category_id, name, description, slug', 'required', 'except' => 'search'],
             [
-                'name, description, short_description, image, alias, price, article, data, status, is_special',
+                'name, description, short_description, image, slug, price, article, data, status, is_special',
                 'filter',
                 'filter' => 'trim'
             ],
             [
-                'name, alias, price, article, data, status, is_special',
+                'name, slug, price, article, data, status, is_special',
                 'filter',
                 'filter' => [$obj = new CHtmlPurifier(), 'purify']
             ],
@@ -87,17 +87,17 @@ class Good extends yupe\models\YModel
             ['price', 'numerical'],
             ['name, image', 'length', 'max' => 250],
             ['article', 'length', 'max' => 100],
-            ['alias', 'length', 'max' => 150],
+            ['slug', 'length', 'max' => 150],
             ['status', 'in', 'range' => array_keys($this->statusList)],
             ['is_special', 'in', 'range' => [0, 1]],
             [
-                'alias',
+                'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('CatalogModule.catalog', 'Illegal characters in {attribute}')
             ],
-            ['alias', 'unique'],
+            ['slug', 'unique'],
             [
-                'id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special',
+                'id, category_id, name, price, article, short_description, description, slug, data, status, create_time, update_time, user_id, change_user_id, is_special',
                 'safe',
                 'on' => 'search'
             ],
@@ -142,7 +142,7 @@ class Good extends yupe\models\YModel
             'image'             => Yii::t('CatalogModule.catalog', 'Image'),
             'short_description' => Yii::t('CatalogModule.catalog', 'Short description'),
             'description'       => Yii::t('CatalogModule.catalog', 'Description'),
-            'alias'             => Yii::t('CatalogModule.catalog', 'Alias'),
+            'slug'             => Yii::t('CatalogModule.catalog', 'Alias'),
             'data'              => Yii::t('CatalogModule.catalog', 'Data'),
             'status'            => Yii::t('CatalogModule.catalog', 'Status'),
             'create_time'       => Yii::t('CatalogModule.catalog', 'Added'),
@@ -167,7 +167,7 @@ class Good extends yupe\models\YModel
             'image'             => Yii::t('CatalogModule.catalog', 'Image'),
             'short_description' => Yii::t('CatalogModule.catalog', 'Short description'),
             'description'       => Yii::t('CatalogModule.catalog', 'Description'),
-            'alias'             => Yii::t('CatalogModule.catalog', 'Alias'),
+            'slug'             => Yii::t('CatalogModule.catalog', 'Alias'),
             'data'              => Yii::t('CatalogModule.catalog', 'Data'),
             'status'            => Yii::t('CatalogModule.catalog', 'Status'),
             'create_time'       => Yii::t('CatalogModule.catalog', 'Added'),
@@ -197,7 +197,7 @@ class Good extends yupe\models\YModel
         $criteria->compare('image', $this->image, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('slug', $this->slug, true);
         $criteria->compare('data', $this->data, true);
         $criteria->compare('is_special', $this->is_special, true);
         $criteria->compare('status', $this->status);
@@ -231,7 +231,7 @@ class Good extends yupe\models\YModel
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/catalog/catalog/show',
-                'params' => ['name' => $this->alias],
+                'params' => ['name' => $this->slug],
             ],
         ];
     }
@@ -244,8 +244,8 @@ class Good extends yupe\models\YModel
             $this->user_id = $this->change_user_id;
         }
 
-        if (!$this->alias) {
-            $this->alias = yupe\helpers\YText::translit($this->name);
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
         return parent::beforeValidate();
