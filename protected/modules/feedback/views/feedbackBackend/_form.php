@@ -123,7 +123,7 @@ $form = $this->beginWidget(
             <label><?php echo Yii::t('FeedbackModule.feedback', 'Ответил'); ?> <?php echo CHtml::link(
                     $model->getAnsweredUser()->nick_name,
                     ['/user/userBackend/view', 'id' => $model->answer_user]
-                ); ?> (<?php echo $model->answer_date; ?>)</label>
+                ); ?> (<?php echo $model->answer_time; ?>)</label>
             <?php echo $model->answer; ?>
         </div>
     </div>

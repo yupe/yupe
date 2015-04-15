@@ -22,7 +22,7 @@ $this->breadcrumbs = [
     [
         'data'       => $model,
         'attributes' => [
-            'creation_date',
+            'create_time',
             'name',
             'theme',
             [
@@ -38,7 +38,7 @@ $this->breadcrumbs = [
                 'name'  => 'answer_user',
                 'value' => $model->getAnsweredUser()->getFullName()
             ],
-            'answer_date',
+            'answer_time',
             [
                 'name' => 'answer',
                 'type' => 'raw'
