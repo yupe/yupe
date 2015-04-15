@@ -34,8 +34,8 @@ $this->widget(
                 'value' => 'CHtml::link($data->name, array("/coupon/couponBackend/update", "id" => $data->id))',
             ],
             'code',
-            'date_start',
-            'date_end',
+            'start_time',
+            'end_time',
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',

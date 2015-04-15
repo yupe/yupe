@@ -63,8 +63,8 @@ $this->menu = [
             'min_order_price',
             'registered_user:boolean',
             'free_shipping:boolean',
-            'date_start',
-            'date_end',
+            'start_time',
+            'end_time',
             'quantity',
             'quantity_per_user',
             [

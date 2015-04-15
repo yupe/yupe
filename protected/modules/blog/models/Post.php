@@ -587,7 +587,7 @@ class Post extends yupe\models\YModel implements ICommentable
 
         if (false === $data) {
             $data = Yii::app()->db->createCommand()
-                ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
+                ->select('p.title, p.slug, max(c.create_time) comment_date, count(c.id) as commentsCount')
                 ->from('{{comment_comment}} c')
                 ->join('{{blog_post}} p', 'c.model_id = p.id')
                 ->where(
