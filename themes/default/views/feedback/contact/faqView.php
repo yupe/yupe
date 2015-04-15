@@ -49,20 +49,8 @@ $this->breadcrumbs = [
 
 <br/><br/>
 
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentsListWidget',
-    ['label' => Yii::t('FeedbackModule.feedback', 'Opinions'), 'model' => $model, 'modelId' => $model->id]
-); ?>
-
-<br/>
-
 <h3><?php echo Yii::t('FeedbackModule.feedback', 'Do you have your own opinions for this question?'); ?></h3>
 
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentFormWidget',
-    [
-        'redirectTo' => $this->createUrl('/feedback/contact/faqView/', ['id' => $model->id]),
-        'model'      => $model,
-        'modelId'    => $model->id
-    ]
-); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+    'model' => $model,
+]);
