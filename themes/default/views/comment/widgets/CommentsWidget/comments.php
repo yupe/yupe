@@ -19,7 +19,7 @@ Yii::app()->clientScript
     );
 ?>
 
-<div class="comments-widget">
+<div class="comments-widget" id="comments">
 
     <?php if ($this->showComments): ?>
         <?php if (empty($comments)): ?>
