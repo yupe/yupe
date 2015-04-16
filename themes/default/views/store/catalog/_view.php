@@ -1,6 +1,6 @@
 <?php $productUrl = Yii::app()->createUrl('/store/catalog/show', ['name' => CHtml::encode($data->alias)]); ?>
-<div class="col-sm-4">
-    <div class="col-item col-item-block">
+<div class="col-sm-4 col-item-block">
+    <div class="col-item">
         <div class="photo">
             <a href="<?= $productUrl; ?>">
                 <img src="<?= $data->getImageUrl(190, 190); ?>"/>
