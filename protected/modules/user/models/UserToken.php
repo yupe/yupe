@@ -9,10 +9,10 @@
  * @property string $token
  * @property integer $type
  * @property integer $status
- * @property string $created
- * @property string $updated
+ * @property string $create_time
+ * @property string $update_time
  * @property string $ip
- * @property string $expire
+ * @property string $expire_time
  */
 class UserToken extends yupe\models\YModel
 {
@@ -63,13 +63,13 @@ class UserToken extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['user_id, type, ip, token, expire', 'required'],
+            ['user_id, type, ip, token, expire_time', 'required'],
             ['user_id, type, status', 'numerical', 'integerOnly' => true],
             ['token, ip', 'length', 'max' => 255],
-            ['updated', 'safe'],
+            ['update_time', 'safe'],
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            ['id, user_id, token, type, status, created, updated, ip', 'safe', 'on' => 'search'],
+            ['id, user_id, token, type, status, create_time, update_time, ip', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -96,10 +96,10 @@ class UserToken extends yupe\models\YModel
             'token'   => Yii::t('UserModule.user', 'Token'),
             'type'    => Yii::t('UserModule.user', 'Type'),
             'status'  => Yii::t('UserModule.user', 'Status'),
-            'created' => Yii::t('UserModule.user', 'Created'),
-            'updated' => Yii::t('UserModule.user', 'Updated'),
+            'create_time' => Yii::t('UserModule.user', 'Created'),
+            'update_time' => Yii::t('UserModule.user', 'Updated'),
             'ip'      => Yii::t('UserModule.user', 'Ip'),
-            'expire'  => Yii::t('UserModule.user', 'Expire')
+            'expire_time'  => Yii::t('UserModule.user', 'Expire')
         ];
     }
 
@@ -130,21 +130,21 @@ class UserToken extends yupe\models\YModel
         $criteria->compare('t.status', $this->status);
 
         // Критерия для поля "Дата создания":
-        if (!empty($this->created) && strlen($this->created) == 10) {
-            $criteria->addBetweenCondition('t.created', $this->created . ' 00:00:00', $this->created . ' 23:59:59');
+        if (!empty($this->create_time) && strlen($this->create_time) == 10) {
+            $criteria->addBetweenCondition('t.create_time', $this->create_time . ' 00:00:00', $this->create_time . ' 23:59:59');
         } else {
-            $criteria->compare('t.created', $this->created, true);
+            $criteria->compare('t.create_time', $this->create_time, true);
         }
 
         // Критерия для поля "Дата изменения":
-        if (!empty($this->updated) && strlen($this->updated) == 10) {
-            $criteria->addBetweenCondition('t.updated', $this->updated . ' 00:00:00', $this->updated . ' 23:59:59');
+        if (!empty($this->update_time) && strlen($this->update_time) == 10) {
+            $criteria->addBetweenCondition('t.update_time', $this->update_time . ' 00:00:00', $this->update_time . ' 23:59:59');
         } else {
-            $criteria->compare('t.updated', $this->updated, true);
+            $criteria->compare('t.update_time', $this->update_time, true);
         }
 
         $criteria->compare('t.ip', $this->ip, true);
-        $criteria->compare('t.expire', $this->expire, true);
+        $criteria->compare('t.expire_time', $this->expire_time, true);
 
         return new CActiveDataProvider(
             $this, [
@@ -208,7 +208,7 @@ class UserToken extends yupe\models\YModel
      *
      * @return array
      */
-    public static function getDateList($dateField = 'created')
+    public static function getDateList($dateField = 'create_time')
     {
         $sql = 'left(' . $dateField . ', 10)';
 
@@ -279,10 +279,10 @@ class UserToken extends yupe\models\YModel
     public function beforeSave()
     {
         if ($this->getIsNewRecord()) {
-            $this->created = new CDbExpression('NOW()');
+            $this->create_time = new CDbExpression('NOW()');
         }
 
-        $this->updated = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }

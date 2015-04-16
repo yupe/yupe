@@ -15,7 +15,7 @@
             <?php foreach ($posts as $post): ?>
                 <li>
                     <span><?= Yii::app()->getDateFormatter()->formatDateTime(
-                            $post['publish_date'],
+                            $post['publish_time'],
                             'long',
                             false
                         ); ?></span>

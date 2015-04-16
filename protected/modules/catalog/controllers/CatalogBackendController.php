@@ -40,7 +40,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
             'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Good',
-                'validAttributes' => ['name', 'alias', 'price', 'article', 'status', 'category_id', 'is_special']
+                'validAttributes' => ['name', 'slug', 'price', 'article', 'status', 'category_id', 'is_special']
             ],
             'view'   => [
                 'class'        => '\yupe\components\actions\ViewAction',

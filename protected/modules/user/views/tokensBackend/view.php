@@ -87,12 +87,12 @@ $this->menu = [
                 'value' => $model->getStatus(),
             ],
             [
-                'name'  => 'created',
-                'value' => $model->beautifyDate($model->created),
+                'name'  => 'create_time',
+                'value' => $model->beautifyDate($model->create_time),
             ],
             [
-                'name'  => 'updated',
-                'value' => $model->beautifyDate($model->updated),
+                'name'  => 'update_time',
+                'value' => $model->beautifyDate($model->update_time),
             ],
             'ip'
         ],

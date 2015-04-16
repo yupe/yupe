@@ -76,7 +76,7 @@ $this->widget(
                     Order::PAID_STATUS_PAID => ['class' => 'label-success']
                 ],
             ],
-            'payment_date',
+            'payment_time',
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
             ],

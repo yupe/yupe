@@ -17,7 +17,7 @@
  * @property string $id
  * @property string $model
  * @property string $model_id
- * @property string $creation_date
+ * @property string $create_time
  * @property string $name
  * @property string $email
  * @property string $url
@@ -104,7 +104,7 @@ class Comment extends yupe\models\YModel
                 'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated()
             ],
             [
-                'id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id',
+                'id, model, model_id, create_time, name, email, url, text, status, ip, parent_id',
                 'safe',
                 'on' => 'search'
             ],
@@ -132,7 +132,7 @@ class Comment extends yupe\models\YModel
             'id' => Yii::t('CommentModule.comment', 'ID'),
             'model' => Yii::t('CommentModule.comment', 'Model type'),
             'model_id' => Yii::t('CommentModule.comment', 'Model'),
-            'creation_date' => Yii::t('CommentModule.comment', 'Created at'),
+            'create_time' => Yii::t('CommentModule.comment', 'Created at'),
             'name' => Yii::t('CommentModule.comment', 'Name'),
             'email' => Yii::t('CommentModule.comment', 'Email'),
             'url' => Yii::t('CommentModule.comment', 'Site'),
@@ -171,7 +171,7 @@ class Comment extends yupe\models\YModel
             'approved' => [
                 'condition' => 't.status = :status',
                 'params' => [':status' => self::STATUS_APPROVED],
-                'order' => 't.creation_date DESC',
+                'order' => 't.create_time DESC',
             ],
             'authored' => [
                 'condition' => 't.user_id is not null',
@@ -208,7 +208,7 @@ class Comment extends yupe\models\YModel
         $criteria->compare('model', $this->model, true);
         $criteria->compare('model_id', $this->model_id);
         $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('url', $this->url, true);
@@ -233,7 +233,7 @@ class Comment extends yupe\models\YModel
     public function beforeSave()
     {
         if ($this->getIsNewRecord()) {
-            $this->creation_date = new CDbExpression('NOW()');
+            $this->create_time = new CDbExpression('NOW()');
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
 

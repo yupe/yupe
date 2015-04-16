@@ -27,8 +27,8 @@
  * @property integer $status
  * @property string  $create_user_id
  * @property string  $update_user_id
- * @property integer $create_date
- * @property integer $update_date
+ * @property integer $create_time
+ * @property integer $update_time
  * @property integer $category_id
  * @property string  $lang
  * @property integer $member_status
@@ -90,14 +90,14 @@ class Blog extends yupe\models\YModel
             ['name, description, slug', 'required', 'except' => 'search'],
             ['name, description, slug', 'required', 'on' => ['update', 'insert']],
             [
-                'type, status, create_user_id, update_user_id, create_date, update_date, category_id, member_status, post_status',
+                'type, status, create_user_id, update_user_id, create_time, update_time, category_id, member_status, post_status',
                 'numerical',
                 'integerOnly' => true
             ],
             ['name, icon', 'length', 'max' => 250],
             ['slug', 'length', 'max' => 150],
             ['lang', 'length', 'max' => 2],
-            ['create_user_id, update_user_id, create_date, update_date, status', 'length', 'max' => 11],
+            ['create_user_id, update_user_id, create_time, update_time, status', 'length', 'max' => 11],
             [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
@@ -110,7 +110,7 @@ class Blog extends yupe\models\YModel
             ['name, slug, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
             ['slug', 'unique'],
             [
-                'id, name, description, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id',
+                'id, name, description, slug, type, status, create_user_id, update_user_id, create_time, update_time, lang, category_id',
                 'safe',
                 'on' => 'search'
             ],
@@ -230,8 +230,8 @@ class Blog extends yupe\models\YModel
             'status'         => Yii::t('BlogModule.blog', 'Status'),
             'create_user_id' => Yii::t('BlogModule.blog', 'Created'),
             'update_user_id' => Yii::t('BlogModule.blog', 'Updated'),
-            'create_date'    => Yii::t('BlogModule.blog', 'Created at'),
-            'update_date'    => Yii::t('BlogModule.blog', 'Updated at'),
+            'create_time'    => Yii::t('BlogModule.blog', 'Created at'),
+            'update_time'    => Yii::t('BlogModule.blog', 'Updated at'),
             'category_id'    => Yii::t('BlogModule.blog', 'Category'),
             'member_status'  => Yii::t('BlogModule.blog', 'User status'),
             'post_status'    => Yii::t('BlogModule.blog', 'Post status'),
@@ -293,8 +293,8 @@ class Blog extends yupe\models\YModel
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('category_id', $this->category_id, true);
-        $criteria->compare('create_date', $this->create_date);
-        $criteria->compare('update_date', $this->update_date);
+        $criteria->compare('create_time', $this->create_time);
+        $criteria->compare('update_time', $this->update_time);
 
         $criteria->with = ['createUser', 'updateUser', 'postsCount', 'membersCount'];
 
@@ -344,8 +344,6 @@ class Blog extends yupe\models\YModel
             'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute'   => 'create_date',
-                'updateAttribute'   => 'update_date',
             ],
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
@@ -571,7 +569,7 @@ class Blog extends yupe\models\YModel
         return UserToBlog::model()->updateAll(
             [
                 'status'      => UserToBlog::STATUS_DELETED,
-                'update_date' => new CDbExpression('NOW()')
+                'update_time' => new CDbExpression('NOW()')
             ],
             'user_id = :userId AND blog_id = :blogId',
             [

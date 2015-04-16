@@ -28,7 +28,7 @@
                 'type'  => 'html'
             ],
             [
-                'name' => 'publish_date',
+                'name' => 'publish_time',
             ],
             [
                 'name'   => 'status',

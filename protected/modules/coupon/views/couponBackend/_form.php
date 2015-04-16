@@ -100,7 +100,7 @@
             <div class="col-sm-4">
                 <?php echo $form->datePickerGroup(
                     $model,
-                    'date_start',
+                    'start_time',
                     [
                         'widgetOptions' => [
                             'options' => [
@@ -117,7 +117,7 @@
             <div class="col-sm-3">
                 <?php echo $form->datePickerGroup(
                     $model,
-                    'date_end',
+                    'end_time',
                     [
                         'widgetOptions' => [
                             'options' => [

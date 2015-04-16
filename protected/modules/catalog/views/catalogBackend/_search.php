@@ -95,13 +95,13 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?php echo $form->textFieldGroup(
                 $model,
-                'alias',
+                'slug',
                 [
                     'widgetOptions' => [
                         'htmlOptions' => [
                             'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('alias'),
-                            'data-content'        => $model->getAttributeDescription('aliase')
+                            'data-original-title' => $model->getAttributeLabel('slug'),
+                            'data-content'        => $model->getAttributeDescription('slug')
                         ],
                     ],
                 ]

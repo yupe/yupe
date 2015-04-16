@@ -19,7 +19,7 @@ class BlogRssController extends yupe\components\controllers\RssController
         }
 
         $criteria = new CDbCriteria();
-        $criteria->order = 'publish_date DESC';
+        $criteria->order = 'publish_time DESC';
         $criteria->params = [];
         $criteria->limit = $limit;
 
@@ -76,11 +76,11 @@ class BlogRssController extends yupe\components\controllers\RssController
                     'author_object'   => 'createUser',
                     'author_nickname' => 'nick_name',
                     'content'         => 'content',
-                    'datetime'        => 'create_date',
+                    'datetime'        => 'create_time',
                     'link'            => '/blog/post/show',
                     'linkParams'      => ['slug' => 'slug'],
                     'title'           => 'title',
-                    'updated'         => 'update_date',
+                    'updated'         => 'update_time',
                 ],
             ],
         ];

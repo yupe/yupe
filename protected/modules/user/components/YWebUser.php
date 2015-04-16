@@ -253,8 +253,8 @@ class YWebUser extends CWebUser
                 $this->setState(self::STATE_NICK_NAME, $user->nick_name);
 
                 //дата входа
-                $user->last_visit = new CDbExpression('NOW()');
-                $user->update(['last_visit']);
+                $user->visit_time = new CDbExpression('NOW()');
+                $user->update(['visit_time']);
 
                 $transaction->commit();
 

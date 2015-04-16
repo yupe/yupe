@@ -18,8 +18,8 @@
  * @property string $code
  * @property string $name
  * @property string $description
- * @property string $creation_date
- * @property string $update_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $create_user_id
  * @property string $update_user_id
  *
@@ -65,7 +65,7 @@ class DictionaryGroup extends yupe\models\YModel
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             [
-                'id, code, name, description, creation_date, update_date, create_user_id, update_user_id',
+                'id, code, name, description, create_time, update_time, create_user_id, update_user_id',
                 'safe',
                 'on' => 'search'
             ],
@@ -97,8 +97,8 @@ class DictionaryGroup extends yupe\models\YModel
             'code'           => Yii::t('DictionaryModule.dictionary', 'Code'),
             'name'           => Yii::t('DictionaryModule.dictionary', 'Title'),
             'description'    => Yii::t('DictionaryModule.dictionary', 'Description'),
-            'creation_date'  => Yii::t('DictionaryModule.dictionary', 'Created at'),
-            'update_date'    => Yii::t('DictionaryModule.dictionary', 'Updated at'),
+            'create_time'  => Yii::t('DictionaryModule.dictionary', 'Created at'),
+            'update_time'    => Yii::t('DictionaryModule.dictionary', 'Updated at'),
             'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Created by.'),
             'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Updated by'),
         ];
@@ -119,8 +119,8 @@ class DictionaryGroup extends yupe\models\YModel
         $criteria->compare('code', $this->code, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('update_date', $this->update_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
 
@@ -130,11 +130,11 @@ class DictionaryGroup extends yupe\models\YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
         if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
-            $this->creation_date = $this->update_date;
+            $this->create_time = $this->update_time;
         }
 
         return parent::beforeSave();

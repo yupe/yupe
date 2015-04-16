@@ -23,7 +23,7 @@
         <p>
             <i class="glyphicon glyphicon-user"></i> <?php echo CHtml::link($data->createUser->nick_name, ['/user/people/userInfo', 'username' => $data->createUser->nick_name]); ?>
             | <i class="glyphicon glyphicon-pencil"></i> <?php echo CHtml::link(CHtml::encode($data->blog->name), $data->blog->getUrl()); ?>
-            | <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short"); ?>
+            | <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_time, "short", "short"); ?>
             | <i class="glyphicon glyphicon-comment"></i>  <?php echo CHtml::link($data->commentsCount, $data->getUrl(['#' => 'comments'])); ?>
             | <i class="glyphicon glyphicon-tags"></i>
             <?php if (($tags = $data->getTags()) != []) : ?>

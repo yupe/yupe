@@ -20,10 +20,10 @@
  * @property string $blog_id
  * @property string $create_user_id
  * @property string $update_user_id
- * @property integer $create_date
- * @property integer $update_date
+ * @property integer $create_time
+ * @property integer $update_time
  * @property string $slug
- * @property string $publish_date
+ * @property string $publish_time
  * @property string $title
  * @property string $quote
  * @property string $content
@@ -124,19 +124,19 @@ class Post extends yupe\models\YModel implements ICommentable
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['blog_id, slug,  title, content, status, publish_date', 'required', 'except' => 'search'],
+            ['blog_id, slug,  title, content, status, publish_time', 'required', 'except' => 'search'],
             [
-                'blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, category_id',
+                'blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_time, update_time, category_id',
                 'numerical',
                 'integerOnly' => true
             ],
             [
-                'blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type',
+                'blog_id, create_user_id, update_user_id, create_time, update_time, status, comment_status, access_type',
                 'length',
                 'max' => 11
             ],
             ['lang', 'length', 'max' => 2],
-            ['publish_date', 'length', 'max' => 20],
+            ['publish_time', 'length', 'max' => 20],
             ['slug', 'length', 'max' => 150],
             ['image', 'length', 'max' => 300],
             ['create_user_ip', 'length', 'max' => 20],
@@ -152,7 +152,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 'message' => Yii::t('BlogModule.blog', 'Forbidden symbols in {attribute}')
             ],
             [
-                'title, slug, link, keywords, description, publish_date',
+                'title, slug, link, keywords, description, publish_time',
                 'filter',
                 'filter' => [$obj = new CHtmlPurifier(), 'purify']
             ],
@@ -160,7 +160,7 @@ class Post extends yupe\models\YModel implements ICommentable
             ['tags', 'safe'],
             ['tags', 'default', 'value' => []],
             [
-                'id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang',
+                'id, blog_id, create_user_id, update_user_id, create_time, update_time, slug, publish_time, title, quote, content, link, status, comment_status, access_type, keywords, description, lang',
                 'safe',
                 'on' => 'search'
             ],
@@ -222,7 +222,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 'params'    => [':status' => self::STATUS_MODERATED]
             ],
             'recent'    => [
-                'order' => 'publish_date DESC'
+                'order' => 'publish_time DESC'
             ]
         ];
     }
@@ -256,7 +256,7 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         $this->getDbCriteria()->mergeWith(
             [
-                'order' => $this->getTableAlias() . '.publish_date ' . $typeSort,
+                'order' => $this->getTableAlias() . '.publish_time ' . $typeSort,
             ]
         );
 
@@ -273,9 +273,9 @@ class Post extends yupe\models\YModel implements ICommentable
             'blog_id'        => Yii::t('BlogModule.blog', 'Blog'),
             'create_user_id' => Yii::t('BlogModule.blog', 'Created'),
             'update_user_id' => Yii::t('BlogModule.blog', 'Update user'),
-            'create_date'    => Yii::t('BlogModule.blog', 'Created at'),
-            'update_date'    => Yii::t('BlogModule.blog', 'Updated at'),
-            'publish_date'   => Yii::t('BlogModule.blog', 'Date'),
+            'create_time'    => Yii::t('BlogModule.blog', 'Created at'),
+            'update_time'    => Yii::t('BlogModule.blog', 'Updated at'),
+            'publish_time'   => Yii::t('BlogModule.blog', 'Date'),
             'slug'           => Yii::t('BlogModule.blog', 'Url'),
             'title'          => Yii::t('BlogModule.blog', 'Title'),
             'quote'          => Yii::t('BlogModule.blog', 'Quote'),
@@ -307,11 +307,11 @@ class Post extends yupe\models\YModel implements ICommentable
         $criteria->compare('blog_id', $this->blog_id);
         $criteria->compare('t.create_user_id', $this->create_user_id, true);
         $criteria->compare('t.update_user_id', $this->update_user_id, true);
-        $criteria->compare('t.create_date', $this->create_date);
-        $criteria->compare('t.update_date', $this->update_date);
+        $criteria->compare('t.create_time', $this->create_time);
+        $criteria->compare('t.update_time', $this->update_time);
         $criteria->compare('t.slug', $this->slug, true);
-        if ($this->publish_date) {
-            $criteria->compare('DATE(from_unixtime(publish_date))', date('Y-m-d', strtotime($this->publish_date)));
+        if ($this->publish_time) {
+            $criteria->compare('DATE(from_unixtime(publish_time))', date('Y-m-d', strtotime($this->publish_time)));
         }
         $criteria->compare('title', $this->title, true);
         $criteria->compare('quote', $this->quote, true);
@@ -328,7 +328,7 @@ class Post extends yupe\models\YModel implements ICommentable
             'Post', [
                 'criteria' => $criteria,
                 'sort'     => [
-                    'defaultOrder' => 'publish_date DESC',
+                    'defaultOrder' => 'publish_time DESC',
                 ]
             ]
         );
@@ -347,7 +347,7 @@ class Post extends yupe\models\YModel implements ICommentable
             ':access_type' => self::ACCESS_PUBLIC
         ];
         $criteria->with = ['blog', 'createUser', 'commentsCount'];
-        $criteria->order = 'publish_date DESC';
+        $criteria->order = 'publish_time DESC';
 
         return new CActiveDataProvider(
             'Post', ['criteria' => $criteria]
@@ -365,8 +365,6 @@ class Post extends yupe\models\YModel implements ICommentable
             'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute'   => 'create_date',
-                'updateAttribute'   => 'update_date',
             ],
             'tags'               => [
                 'class'                => 'vendor.yiiext.taggable-behavior.EARTaggableBehavior',
@@ -398,7 +396,7 @@ class Post extends yupe\models\YModel implements ICommentable
      */
     public function beforeSave()
     {
-        $this->publish_date = strtotime($this->publish_date);
+        $this->publish_time = strtotime($this->publish_time);
 
         $this->update_user_id = Yii::app()->user->getId();
 
@@ -515,7 +513,7 @@ class Post extends yupe\models\YModel implements ICommentable
     public function afterFind()
     {
         $this->tags = $this->getTags();
-        $this->publish_date = date('d-m-Y H:i', $this->publish_date);
+        $this->publish_time = date('d-m-Y H:i', $this->publish_time);
 
         parent::afterFind();
     }
@@ -559,12 +557,12 @@ class Post extends yupe\models\YModel implements ICommentable
 
                 foreach ($models as $model) {
 
-                    list($day, $month, $year) = explode('-', date('d-m-Y', strtotime($model->publish_date)));
+                    list($day, $month, $year) = explode('-', date('d-m-Y', strtotime($model->publish_time)));
 
                     $data[$year][$month][] = [
                         'title'        => $model->title,
                         'slug'         => $model->slug,
-                        'publish_date' => $model->publish_date,
+                        'publish_time' => $model->publish_time,
                         'quote'        => $model->getQuote()
                     ];
                 }
@@ -589,7 +587,7 @@ class Post extends yupe\models\YModel implements ICommentable
 
         if (false === $data) {
             $data = Yii::app()->db->createCommand()
-                ->select('p.title, p.slug, max(c.creation_date) comment_date, count(c.id) as commentsCount')
+                ->select('p.title, p.slug, max(c.create_time) comment_date, count(c.id) as commentsCount')
                 ->from('{{comment_comment}} c')
                 ->join('{{blog_post}} p', 'c.model_id = p.id')
                 ->where(
@@ -734,7 +732,7 @@ class Post extends yupe\models\YModel implements ICommentable
 
         $this->setAttributes($post);
         $this->setTags($post['tags']);
-        $this->publish_date = date('d-m-Y h:i');
+        $this->publish_time = date('d-m-Y h:i');
         $this->status = $post['status'] == self::STATUS_DRAFT ? self::STATUS_DRAFT : $blog->post_status;
 
         return $this->save();
@@ -829,7 +827,7 @@ class Post extends yupe\models\YModel implements ICommentable
 
         try {
             $this->status = self::STATUS_PUBLISHED;
-            $this->publish_date = date('d-m-Y h:i');
+            $this->publish_time = date('d-m-Y h:i');
             if ($this->save()) {
                 Yii::app()->eventManager->fire(
                     BlogEvents::POST_PUBLISH,

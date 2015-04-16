@@ -16,7 +16,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
 
     public function actionShow($name)
     {
-        $model = Good::model()->published()->findByAttributes(['alias' => $name]);
+        $model = Good::model()->published()->findByAttributes(['slug' => $name]);
 
         if (!$model) {
             throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Product was not found!'));

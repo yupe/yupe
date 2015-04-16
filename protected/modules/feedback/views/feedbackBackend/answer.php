@@ -86,7 +86,7 @@ $this->menu = [
     [
         'data' => $model,
         'attributes' => [
-            'creation_date',
+            'create_time',
             'name',
             'email',
             'phone',

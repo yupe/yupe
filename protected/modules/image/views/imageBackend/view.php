@@ -74,7 +74,7 @@ $this->menu = [
                 'type'  => 'raw',
                 'value' => CHtml::image($model->getImageUrl(100, 100), $model->alt),
             ],
-            'creation_date',
+            'create_time',
             [
                 'name'  => 'user_id',
                 'value' => $model->userName,
