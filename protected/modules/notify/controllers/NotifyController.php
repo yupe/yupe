@@ -16,11 +16,10 @@ class NotifyController extends \yupe\components\controllers\FrontController
         $model = NotifySettings::model()->getForUser($profile->id);
 
         if (null === $model) {
-
-            $model = NotifySettings::model()->create($profile->id);
+            $model = new NotifySettings();
+            $model->create($profile->id);
 
             if (null === $model) {
-
                 throw new CHttpException(404);
             }
         }
