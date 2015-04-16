@@ -14,7 +14,7 @@ $form = $this->beginWidget(
             <?php echo $form->textFieldGroup($model, 'name'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'alias'); ?>
+            <?php echo $form->textFieldGroup($model, 'slug'); ?>
         </div>
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(

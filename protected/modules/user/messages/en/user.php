@@ -256,7 +256,7 @@ return [
     'Edit profile'                                                                                                    => '',
     // I am so tired. I want to green tea, and fall a sleep like a baby. o_O.
     // Do you see this message? I think in this case you are sleeping. ;)
-    'Last visit {last_visit}'                                                                                         => '',
+    'Last visit {visit_time}'                                                                                         => '',
     'Opinions'                                                                                                        => '',
     'sign in'                                                                                                         => '',
     'sign up'                                                                                                         => '',

@@ -86,7 +86,7 @@ class Gallery extends yupe\models\YModel
             'images'      => [self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'],
             'imagesCount' => [self::STAT, 'ImageToGallery', 'gallery_id'],
             'user'        => [self::BELONGS_TO, 'User', 'owner'],
-            'lastUpdated' => [self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(creation_date)']
+            'lastUpdated' => [self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(create_time)']
         ];
     }
 

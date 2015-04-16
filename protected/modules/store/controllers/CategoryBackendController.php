@@ -10,7 +10,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 'model'           => 'StoreCategory',
                 'validAttributes' => [
                     'status',
-                    'alias'
+                    'slug'
                 ]
             ],
             'sortable' => [

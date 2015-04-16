@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{user_user}}':
  * @property integer $id
- * @property string  $change_date
+ * @property string  $update_time
  * @property string  $first_name
  * @property string  $middle_name
  * @property string  $last_name
@@ -16,9 +16,9 @@
  * @property string  $password
  * @property integer $status
  * @property integer $access_level
- * @property string  $last_visit
+ * @property string  $visit_time
  * @property boolean $email_confirm
- * @property string  $registration_date
+ * @property string  $create_time
  *
  */
 class User extends yupe\models\YModel
@@ -151,9 +151,9 @@ class User extends yupe\models\YModel
             ],
             ['email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['registration_date', 'length', 'max' => 50],
+            ['create_time', 'length', 'max' => 50],
             [
-                'id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, last_visit',
+                'id, update_time, create_time, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, visit_time',
                 'safe',
                 'on' => 'search'
             ],
@@ -167,8 +167,6 @@ class User extends yupe\models\YModel
             'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute'   => 'registration_date',
-                'updateAttribute'   => 'change_date',
             ],
         ];
     }
@@ -198,7 +196,7 @@ class User extends yupe\models\YModel
         return [
             'id' => Yii::t('UserModule.user', 'Id'),
             'creation_date' => Yii::t('UserModule.user', 'Activated at'),
-            'change_date' => Yii::t('UserModule.user', 'Updated at'),
+            'update_time' => Yii::t('UserModule.user', 'Updated at'),
             'first_name' => Yii::t('UserModule.user', 'Name'),
             'last_name' => Yii::t('UserModule.user', 'Last name'),
             'middle_name' => Yii::t('UserModule.user', 'Family name'),
@@ -209,8 +207,8 @@ class User extends yupe\models\YModel
             'password' => Yii::t('UserModule.user', 'Password'),
             'status' => Yii::t('UserModule.user', 'Status'),
             'access_level' => Yii::t('UserModule.user', 'Access'),
-            'last_visit' => Yii::t('UserModule.user', 'Last visit'),
-            'registration_date' => Yii::t('UserModule.user', 'Register date'),
+            'visit_time' => Yii::t('UserModule.user', 'Last visit'),
+            'create_time' => Yii::t('UserModule.user', 'Register date'),
             'registration_ip' => Yii::t('UserModule.user', 'Register Ip'),
             'activation_ip' => Yii::t('UserModule.user', 'Activation Ip'),
             'activate_key' => Yii::t('UserModule.user', 'Activation code'),
@@ -256,9 +254,9 @@ class User extends yupe\models\YModel
         $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
-        $criteria->compare('t.change_date', $this->change_date, true);
-        if ($this->registration_date) {
-            $criteria->compare('t.registration_date', date('Y-m-d', strtotime($this->registration_date)), true);
+        $criteria->compare('t.update_time', $this->update_time, true);
+        if ($this->create_time) {
+            $criteria->compare('t.create_time', date('Y-m-d', strtotime($this->create_time)), true);
         }
         $criteria->compare('t.first_name', $this->first_name, true);
         $criteria->compare('t.middle_name', $this->first_name, true);
@@ -268,8 +266,8 @@ class User extends yupe\models\YModel
         $criteria->compare('t.gender', $this->gender);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('t.access_level', $this->access_level);
-        if ($this->last_visit) {
-            $criteria->compare('t.last_visit', date('Y-m-d', strtotime($this->last_visit)), true);
+        if ($this->visit_time) {
+            $criteria->compare('t.visit_time', date('Y-m-d', strtotime($this->visit_time)), true);
         }
         $criteria->compare('t.email_confirm', $this->email_confirm);
 
@@ -279,7 +277,7 @@ class User extends yupe\models\YModel
                 'pageSize' => $pageSize,
             ],
             'sort' => [
-                'defaultOrder' => 'last_visit DESC',
+                'defaultOrder' => 'visit_time DESC',
             ]
         ]);
     }

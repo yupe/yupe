@@ -79,12 +79,12 @@
         'attributes' => [
             'id',
             [
-                'name'  => 'creation_date',
-                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"),
+                'name'  => 'create_time',
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_time, "short", "short"),
             ],
             [
-                'name'  => 'change_date',
-                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->change_date, "short", "short"),
+                'name'  => 'update_time',
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_time, "short", "short"),
             ],
             'name',
             'email',
@@ -116,9 +116,9 @@
                     ) : $model->getAnsweredUser()),
             ],
             [
-                'name'  => 'answer_date',
-                'value' => ($model->answer_date != "0000-00-00 00:00:00")
-                        ? Yii::app()->dateFormatter->formatDateTime($model->answer_date, 'short')
+                'name'  => 'answer_time',
+                'value' => ($model->answer_time != "0000-00-00 00:00:00")
+                        ? Yii::app()->dateFormatter->formatDateTime($model->answer_time, 'short')
                         : "—",
             ],
             [

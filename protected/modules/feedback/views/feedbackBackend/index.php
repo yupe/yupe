@@ -174,8 +174,8 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     ['class' => 'form-control', 'empty' => '']
                 ),
             ],
-            'creation_date',
-            'answer_date',
+            'create_time',
+            'answer_time',
             [
                 'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{answer}{view}{update}{delete}',

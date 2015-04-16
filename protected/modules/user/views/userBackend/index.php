@@ -166,11 +166,11 @@ $this->menu = [
                 ),
             ],
             [
-                'name'   => 'registration_date',
+                'name'   => 'create_time',
                 'filter' => false
             ],
             [
-                'name'   => 'last_visit',
+                'name'   => 'visit_time',
                 'filter' => false
             ],
             [

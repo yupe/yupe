@@ -33,7 +33,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'News',
-                'validAttributes' => ['title', 'alias', 'date', 'status']
+                'validAttributes' => ['title', 'slug', 'date', 'status']
             ]
         ];
     }
@@ -119,7 +119,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             );
 
             $model->lang = $lang;
-            $model->alias = $news->alias;
+            $model->slug = $news->slug;
             $model->date = $news->date;
             $model->category_id = $news->category_id;
             $model->title = $news->title;
@@ -135,7 +135,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
-     * @param null $alias
+     * @param null $slug
      * @param integer $id the ID of the model to be updated
      *
      * @throws CHttpException
@@ -168,11 +168,11 @@ class NewsBackendController extends yupe\components\controllers\BackController
             }
         }
 
-        // найти по alias страницы на других языках
+        // найти по slug страницы на других языках
         $langModels = News::model()->findAll(
-            'alias = :alias AND id != :id',
+            'slug = :slug AND id != :id',
             [
-                ':alias' => $model->alias,
+                ':slug' => $model->slug,
                 ':id'    => $model->id
             ]
         );
@@ -191,7 +191,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @param null $alias
+     * @param null $slug
      * @param integer $id the ID of the model to be deleted
      *
      * @throws CHttpException

@@ -14,7 +14,7 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup($model, 'title'); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->textFieldGroup($model, 'alias'); ?>
+        <?php echo $form->textFieldGroup($model, 'slug'); ?>
     </div>
     <div class="col-sm-4">
         <?php echo $form->datePickerGroup(

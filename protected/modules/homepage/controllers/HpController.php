@@ -54,7 +54,7 @@ class HpController extends \yupe\components\controllers\FrontController
                                 'condition' => 't.status = :status',
                                 'params' => [':status' => Post::STATUS_PUBLISHED],
                                 'limit' => $module->limit,
-                                'order' => 't.publish_date DESC',
+                                'order' => 't.publish_time DESC',
                                 'with' => ['createUser', 'blog', 'commentsCount'],
                             ]
                         ),

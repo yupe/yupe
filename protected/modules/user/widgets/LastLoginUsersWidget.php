@@ -13,7 +13,7 @@ class LastLoginUsersWidget extends yupe\widgets\YWidget
         $models = User::model()->active()->findAll(
             [
                 'limit' => $this->limit,
-                'order' => 'last_visit DESC',
+                'order' => 'visit_time DESC',
             ]
         );
         $this->render($this->view, ['models' => $models]);

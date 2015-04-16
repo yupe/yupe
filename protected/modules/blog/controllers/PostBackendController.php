@@ -36,7 +36,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                 'validAttributes' => [
                     'title',
                     'slug',
-                    'publish_date',
+                    'publish_time',
                     'status',
                     'comment_status',
                     'blog_id',
@@ -74,7 +74,7 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         $model = new Post();
 
-        $model->publish_date = date('d-m-Y h:i');
+        $model->publish_time = date('d-m-Y h:i');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(

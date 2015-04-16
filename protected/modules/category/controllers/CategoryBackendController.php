@@ -33,7 +33,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Category',
-                'validAttributes' => ['name', 'description', 'alias', 'status']
+                'validAttributes' => ['name', 'description', 'slug', 'status']
             ]
         ];
     }
@@ -118,7 +118,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             );
 
             $model->lang = $lang;
-            $model->alias = $category->alias;
+            $model->slug = $category->slug;
             $model->parent_id = $category->parent_id;
             $model->name = $category->name;
         } else {
@@ -163,11 +163,11 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             }
         }
 
-        // найти по alias страницы на других языках
+        // найти по slug страницы на других языках
         $langModels = Category::model()->findAll(
-            'alias = :alias AND id != :id',
+            'slug = :slug AND id != :id',
             [
-                ':alias' => $model->alias,
+                ':slug' => $model->slug,
                 ':id'    => $model->id
             ]
         );

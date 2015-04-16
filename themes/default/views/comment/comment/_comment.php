@@ -17,9 +17,9 @@ $level = $comment->getLevel()
             <div class="comments-item-author">
                 <?php echo $comment->getAuthorLink(); ?>
                 <span class='comments-item-date'>
-                    <time datetime="<?php echo str_replace(' ', '_', $comment->creation_date); ?>">
+                    <time datetime="<?php echo str_replace(' ', '_', $comment->create_time); ?>">
                         <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-                            $comment->creation_date,
+                            $comment->create_time,
                             'long',
                             'short'
                         ); ?>
@@ -35,7 +35,7 @@ $level = $comment->getLevel()
                     '#',
                     [
                         'rel' => $comment->id,
-                        'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
+                        'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->create_time),
                         'class' => 'reply',
                         'title' => Yii::t('CommentModule.comment', 'Reply')
                     ]

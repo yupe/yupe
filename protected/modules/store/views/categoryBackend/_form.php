@@ -58,7 +58,7 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'alias', ['sourceAttribute' => 'name']); ?>
+        <?php echo $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>

@@ -17,7 +17,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     <tr>
                         <td class="col-sm-5">
                             <div class="media">
-                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->alias]); ?>
+                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->slug]); ?>
                                 <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                     <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>">
                                 </a>

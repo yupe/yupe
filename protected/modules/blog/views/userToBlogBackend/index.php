@@ -180,12 +180,12 @@ $this->menu = [
                 'filter'   => CHtml::activeTextField($model, 'note', ['class' => 'form-control']),
             ],
             [
-                'name'  => 'create_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "medium", "short")',
+                'name'  => 'create_time',
+                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "medium", "short")',
             ],
             [
-                'name'  => 'update_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "medium", "short")',
+                'name'  => 'update_time',
+                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_time, "medium", "short")',
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

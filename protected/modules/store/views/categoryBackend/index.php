@@ -49,9 +49,9 @@ $this->menu = [
                 'value' => 'CHtml::link($data->name, array("/store/categoryBackend/update", "id" => $data->id))',
             ],
             [
-                'name' => 'alias',
+                'name' => 'slug',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->alias, array("/store/categoryBackend/update", "id" => $data->id))',
+                'value' => 'CHtml::link($data->slug, array("/store/categoryBackend/update", "id" => $data->id))',
             ],
             [
                 'name' => 'parent_id',

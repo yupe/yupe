@@ -111,9 +111,9 @@ $this->menu = [
                 'name'  => 'email_confirm',
                 'value' => $model->getEmailConfirmStatus(),
             ],
-            'last_visit',
-            'registration_date',
-            'change_date'
+            'visit_time',
+            'create_time',
+            'update_time'
         ],
     ]
 ); ?>
