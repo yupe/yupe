@@ -39,16 +39,8 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
     <p><?php echo CHtml::encode($model->description); ?></p>
 </blockquote>
 
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentsListWidget',
-    ['model' => $model, 'modelId' => $model->id]
-); ?>
-
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentFormWidget',
-    [
-        'redirectTo' => $model->gallery->getUrl(),
-        'model'      => $model,
-        'modelId'    => $model->id
-    ]
-); ?>
+<?php
+$this->widget('application.modules.comment.widgets.CommentsWidget', [
+    'redirectTo' => $model->gallery->getUrl(),
+    'model' => $model,
+]);
