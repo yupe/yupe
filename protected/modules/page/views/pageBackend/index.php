@@ -15,7 +15,7 @@ $this->pageTitle = Yii::t('PageModule.page', 'Pages list');
 $this->menu = [
     [
         'icon'  => 'fa fa-fw fa-list-alt',
-        'label' => Yii::t('PageModule.page', 'Pages list'),
+        'label' => Yii::t('PageModule.page', 'Pages managment'),
         'url'   => ['/page/pageBackend/index']
     ],
     [

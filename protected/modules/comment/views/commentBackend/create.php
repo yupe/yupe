@@ -14,7 +14,7 @@ $this->menu = [
     ],
     [
         'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('CommentModule.comment', 'Create comment'),
+        'label' => Yii::t('CommentModule.comment', 'Creating comment'),
         'url'   => ['/comment/commentBackend/create']
     ],
 ];

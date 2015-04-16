@@ -1,4 +1,9 @@
 /* товар */
+
+.col-item-block {
+    padding-right: 0;
+}
+
 .col-item {
     border: 1px solid #E1E1E1;
     border-radius: 5px;
