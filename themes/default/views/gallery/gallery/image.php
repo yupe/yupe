@@ -31,7 +31,7 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
     ); ?>
     <i class="fa fa-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
         'dd MMMM yyyy г., hh:mm',
-        $model->creation_date
+        $model->create_time
     ); ?>
 </p>
 

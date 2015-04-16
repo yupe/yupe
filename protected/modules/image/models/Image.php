@@ -19,7 +19,7 @@
  * @property string $name
  * @property string $description
  * @property string $file
- * @property string $creation_date
+ * @property string $create_time
  * @property string $user_id
  * @property string $alt
  * @property integer $status
@@ -79,7 +79,7 @@ class Image extends yupe\models\YModel
             ['alt, name, file', 'length', 'max' => 250],
             ['type', 'in', 'range' => array_keys($this->getTypeList())],
             ['category_id', 'default', 'setOnEmpty' => true, 'value' => null],
-            ['id, name, description, creation_date, user_id, alt, status, galleryId', 'safe', 'on' => 'search'],
+            ['id, name, description, create_time, user_id, alt, status, galleryId', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -142,7 +142,7 @@ class Image extends yupe\models\YModel
             'name'          => Yii::t('ImageModule.image', 'Title'),
             'description'   => Yii::t('ImageModule.image', 'Description'),
             'file'          => Yii::t('ImageModule.image', 'File'),
-            'creation_date' => Yii::t('ImageModule.image', 'Created at'),
+            'create_time' => Yii::t('ImageModule.image', 'Created at'),
             'user_id'       => Yii::t('ImageModule.image', 'Creator'),
             'alt'           => Yii::t('ImageModule.image', 'Alternative text'),
             'status'        => Yii::t('ImageModule.image', 'Status'),
@@ -167,7 +167,7 @@ class Image extends yupe\models\YModel
         $criteria->compare('t.name', $this->name, true);
         $criteria->compare('t.description', $this->description, true);
         $criteria->compare('t.file', $this->file, true);
-        $criteria->compare('t.creation_date', $this->creation_date, true);
+        $criteria->compare('t.create_time', $this->create_time, true);
         $criteria->compare('t.user_id', $this->user_id, true);
         $criteria->compare('t.alt', $this->alt, true);
         $criteria->compare('t.status', $this->status);
@@ -187,7 +187,7 @@ class Image extends yupe\models\YModel
     public function beforeValidate()
     {
         if ($this->getIsNewRecord()) {
-            $this->creation_date = new CDbExpression('NOW()');
+            $this->create_time = new CDbExpression('NOW()');
             $this->user_id = Yii::app()->user->getId();
         }
 
