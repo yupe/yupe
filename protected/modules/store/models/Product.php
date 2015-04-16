@@ -10,7 +10,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property integer $category_id
  * @property string $sku
  * @property string $name
- * @property string $alias
+ * @property string $slug
  * @property double $price
  * @property double $discount_price
  * @property double $discount
@@ -90,9 +90,9 @@ class Product extends yupe\models\YModel implements ICommentable
     public function rules()
     {
         return [
-            ['name, alias', 'required', 'except' => 'search'],
+            ['name, slug', 'required', 'except' => 'search'],
             [
-                'name, description, short_description, alias, price, discount_price, discount, data, status, is_special',
+                'name, description, short_description, slug, price, discount_price, discount, data, status, is_special',
                 'filter',
                 'filter' => 'trim'
             ],
@@ -108,18 +108,18 @@ class Product extends yupe\models\YModel implements ICommentable
             ['name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250],
             ['discount_price, discount', 'default', 'value' => null],
             ['sku', 'length', 'max' => 100],
-            ['alias', 'length', 'max' => 150],
+            ['slug', 'length', 'max' => 150],
             [
-                'alias',
+                'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
             ],
-            ['alias', 'unique'],
+            ['slug', 'unique'],
             ['status', 'in', 'range' => array_keys($this->statusList)],
             ['is_special', 'boolean'],
             ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
             [
-                'id, type_id, producer_id, sku, name, alias, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category',
+                'id, type_id, producer_id, sku, name, slug, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category',
                 'safe',
                 'on' => 'search'
             ],
@@ -192,7 +192,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'image' => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description' => Yii::t('StoreModule.store', 'Description'),
-            'alias' => Yii::t('StoreModule.store', 'Alias'),
+            'slug' => Yii::t('StoreModule.store', 'Alias'),
             'data' => Yii::t('StoreModule.store', 'Data'),
             'status' => Yii::t('StoreModule.store', 'Status'),
             'create_time' => Yii::t('StoreModule.store', 'Added'),
@@ -232,7 +232,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'image' => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description' => Yii::t('StoreModule.store', 'Description'),
-            'alias' => Yii::t('StoreModule.store', 'Alias'),
+            'slug' => Yii::t('StoreModule.store', 'Alias'),
             'data' => Yii::t('StoreModule.store', 'Data'),
             'status' => Yii::t('StoreModule.store', 'Status'),
             'create_time' => Yii::t('StoreModule.store', 'Added'),
@@ -270,7 +270,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('sku', $this->sku, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('slug', $this->slug, true);
         $criteria->compare('data', $this->data, true);
         $criteria->compare('is_special', $this->is_special, true);
         $criteria->compare('status', $this->status);
@@ -332,8 +332,8 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function beforeValidate()
     {
-        if (!$this->alias) {
-            $this->alias = yupe\helpers\YText::translit($this->name);
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
         foreach ((array)$this->_eavAttributes as $name => $value) {
@@ -652,7 +652,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getLink()
     {
-        return Yii::app()->createUrl('/store/catalog/show', ['name' => $this->alias]);
+        return Yii::app()->createUrl('/store/catalog/show', ['name' => $this->slug]);
     }
 
     public function getMainCategoryId()
@@ -775,7 +775,7 @@ class Product extends yupe\models\YModel implements ICommentable
         try {
             $model->attributes = $this->attributes;
             $model->image = null;
-            $model->alias = null;
+            $model->slug = null;
 
             $similarNamesCount = Yii::app()->getDb()->createCommand()
                 ->select('count(*)')
@@ -822,7 +822,7 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getUrl($absolute = false)
     {
         return $absolute ?
-            Yii::app()->createAbsoluteUrl('/store/catalog/show', ['name' => $this->alias]) :
-            Yii::app()->createUrl('/store/catalog/show', ['name' => $this->alias]);
+            Yii::app()->createAbsoluteUrl('/store/catalog/show', ['name' => $this->slug]) :
+            Yii::app()->createUrl('/store/catalog/show', ['name' => $this->slug]);
     }
 }

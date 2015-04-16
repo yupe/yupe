@@ -7,7 +7,7 @@
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
- * @property string $alias
+ * @property string $slug
  * @property integer $status
  * @property integer $parent_id
  * @property integer $sort
@@ -52,27 +52,27 @@ class StoreCategory extends \yupe\models\YModel
     {
         return [
             [
-                'name, description, short_description, alias, meta_title, meta_keywords, meta_description',
+                'name, description, short_description, slug, meta_title, meta_keywords, meta_description',
                 'filter',
                 'filter' => 'trim'
             ],
-            ['name, alias', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
-            ['name, alias', 'required'],
+            ['name, slug', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, slug', 'required'],
             ['parent_id, status, sort', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
             ['status', 'length', 'max' => 11],
             ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
-            ['alias', 'length', 'max' => 150],
+            ['slug', 'length', 'max' => 150],
             [
-                'alias',
+                'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('StoreModule.store', 'Bad characters in {attribute} field')
             ],
-            ['alias', 'unique'],
+            ['slug', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['id, parent_id, name, description, sort, short_description, alias, status', 'safe', 'on' => 'search'],
+            ['id, parent_id, name, description, sort, short_description, slug, status', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -93,7 +93,7 @@ class StoreCategory extends \yupe\models\YModel
             'CategoryTreeBehavior' => [
                 'class'                => 'store\components\behaviors\DCategoryTreeBehavior',
                 'titleAttribute'       => 'name',
-                'aliasAttribute'       => 'alias',
+                'aliasAttribute'       => 'slug',
                 'urlAttribute'         => 'url',
                 'requestPathAttribute' => 'path',
                 'parentAttribute'      => 'parent_id',
@@ -136,8 +136,8 @@ class StoreCategory extends \yupe\models\YModel
 
     public function beforeValidate()
     {
-        if (!$this->alias) {
-            $this->alias = yupe\helpers\YText::translit($this->name);
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
         return parent::beforeValidate();
@@ -155,7 +155,7 @@ class StoreCategory extends \yupe\models\YModel
             'image'             => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description'       => Yii::t('StoreModule.store', 'Description'),
-            'alias'             => Yii::t('StoreModule.store', 'Alias'),
+            'slug'             => Yii::t('StoreModule.store', 'Alias'),
             'meta_title'        => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords'     => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description'  => Yii::t('StoreModule.store', 'Meta description'),
@@ -176,7 +176,7 @@ class StoreCategory extends \yupe\models\YModel
             'image'             => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description'       => Yii::t('StoreModule.store', 'Description'),
-            'alias'             => Yii::t('StoreModule.store', 'Alias'),
+            'slug'             => Yii::t('StoreModule.store', 'Alias'),
             'meta_title'        => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords'     => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description'  => Yii::t('StoreModule.store', 'Meta description'),
@@ -200,7 +200,7 @@ class StoreCategory extends \yupe\models\YModel
         $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('slug', $this->slug, true);
         $criteria->compare('meta_title', $this->meta_title, true);
         $criteria->compare('meta_keywords', $this->meta_keywords, true);
         $criteria->compare('meta_description', $this->meta_description, true);
@@ -269,12 +269,12 @@ class StoreCategory extends \yupe\models\YModel
         return '---';
     }
 
-    public function getByAlias($alias)
+    public function getByAlias($slug)
     {
         return self::model()->published()->find(
-            'alias = :alias',
+            'slug = :slug',
             [
-                ':alias' => $alias
+                ':slug' => $slug
             ]
         );
     }
