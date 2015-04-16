@@ -47,8 +47,8 @@ class OrderCoupon extends \yupe\models\YModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'coupon' => array(self::BELONGS_TO, 'StoreCoupon', 'coupon_id'),
-			'order' => array(self::BELONGS_TO, 'StoreOrder', 'order_id'),
+			'coupon' => array(self::BELONGS_TO, 'Coupon', 'coupon_id'),
+			'order' => array(self::BELONGS_TO, 'Order', 'order_id'),
 		);
 	}
 
@@ -60,8 +60,8 @@ class OrderCoupon extends \yupe\models\YModel
 		return array(
 			'id' => 'ID',
 			'order_id' => 'Order',
-			'coupon_id' => 'Coupon',
-			'create_time' => 'Create Time',
+			'coupon_id' =>  Yii::t('CouponModule.coupon', 'Code'),
+			'create_time' =>  Yii::t('CouponModule.coupon', 'Create time')
 		);
 	}
 

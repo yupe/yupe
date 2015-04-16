@@ -211,6 +211,21 @@ class Order extends yupe\models\YModel
         );
     }
 
+    public function searchCoupons()
+    {
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('t.order_id', $this->id);
+
+        $criteria->with = ['coupon'];
+
+        return new CActiveDataProvider(
+            OrderCoupon::_CLASS_(), [
+                'criteria' => $criteria,
+            ]
+        );
+    }
+
     public function afterFind()
     {
         $this->oldAttributes = $this->getAttributes();

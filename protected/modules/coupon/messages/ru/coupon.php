@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Create time' => 'Добавлен',
     'Orders' => 'Заказы',
     '*unknown*' => '*неизвестно*',
     'Active' => 'Активен',
