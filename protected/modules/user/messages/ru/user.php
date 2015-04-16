@@ -266,7 +266,7 @@ return [
     'Recovery password key was not found! Please try one more!' => 'Ключ сброса пароля не найден!',
     'My profile' => 'Мой профиль',
     'Edit profile' => 'Редактировать профиль',
-    'Last visit {last_visit}' => 'Был на сайте {last_visit}',
+    'Last visit {visit_time}' => 'Был на сайте {visit_time}',
     'Opinions' => 'Мнений',
     'sign in' => 'авторизуйтесь',
     'sign up' => 'зарегестрируйтесь',

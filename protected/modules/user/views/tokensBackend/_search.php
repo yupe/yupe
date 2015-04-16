@@ -83,7 +83,7 @@
         <div class="col-sm-6">
             <?php echo $form->dropDownListGroup(
                 $model,
-                'created',
+                'create_time',
                 [
                     'widgetOptions' => [
                         'data'        => $model->getDateList(),
