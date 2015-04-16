@@ -79,7 +79,7 @@ $this->menu = [
                 }
             ],
             'paid',
-            'payment_date',
+            'payment_time',
             'total_price',
             'discount',
             'coupon_discount',

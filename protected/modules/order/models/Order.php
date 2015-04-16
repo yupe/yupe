@@ -6,7 +6,7 @@
  * @property double  $delivery_price
  * @property integer  $payment_method_id
  * @property integer  $paid
- * @property string  $payment_date
+ * @property string  $payment_time
  * @property string $payment_details
  * @property double $total_price
  * @property double $discount
@@ -93,12 +93,12 @@ class Order extends yupe\models\YModel
             //array('payment_details', 'safe'),
             ['url', 'unique'],
             [
-                'user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
+                'user_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
                 'unsafe',
                 'on' => self::SCENARIO_USER
             ],
             [
-                'id, delivery_id, delivery_price, payment_method_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
+                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
                 'safe',
                 'on' => 'search'
             ],
@@ -151,7 +151,7 @@ class Order extends yupe\models\YModel
             'delivery_price' => Yii::t('OrderModule.order', 'Delivery price'),
             'payment_method_id' => Yii::t('OrderModule.order', 'Payment'),
             'paid' => Yii::t('OrderModule.order', 'Paid'),
-            'payment_date' => Yii::t('OrderModule.order', 'Paid date'),
+            'payment_time' => Yii::t('OrderModule.order', 'Paid date'),
             'payment_details' => Yii::t('OrderModule.order', 'Payment details'),
             'total_price' => Yii::t('OrderModule.order', 'Total price'),
             'discount' => Yii::t('OrderModule.order', 'Discount (%)'),
@@ -183,7 +183,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('delivery_price', $this->delivery_price, false);
         $criteria->compare('payment_method_id', $this->payment_method_id, false);
         $criteria->compare('paid', $this->paid, false);
-        $criteria->compare('payment_date', $this->payment_date, true);
+        $criteria->compare('payment_time', $this->payment_time, true);
         $criteria->compare('payment_details', $this->payment_details, true);
         $criteria->compare('total_price', $this->total_price, false);
         $criteria->compare('discount', $this->discount, false);
@@ -573,7 +573,7 @@ class Order extends yupe\models\YModel
 
         $this->paid = static::PAID_STATUS_PAID;
         $this->payment_method_id = $payment->id;
-        $this->payment_date = new CDbExpression('now()');
+        $this->payment_time = new CDbExpression('now()');
 
         $result = $this->save();
 
