@@ -17,8 +17,8 @@
  * @property integer $id
  * @property string $parent_id
  * @property integer $category_id
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $title
  * @property string $title_short
  * @property string $slug
@@ -87,7 +87,7 @@ class Page extends yupe\models\YModel
                 'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field')
             ],
             [
-                'lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang',
+                'lang, id, parent_id, create_time, update_time, title, title_short, slug, body, keywords, description, status, order, lang',
                 'safe',
                 'on' => 'search'
             ],
@@ -100,8 +100,6 @@ class Page extends yupe\models\YModel
             'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute'   => 'creation_date',
-                'updateAttribute'   => 'change_date',
             ],
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
@@ -134,8 +132,8 @@ class Page extends yupe\models\YModel
             'id'             => Yii::t('PageModule.page', 'Id'),
             'parent_id'      => Yii::t('PageModule.page', 'Parent'),
             'category_id'    => Yii::t('PageModule.page', 'Category'),
-            'creation_date'  => Yii::t('PageModule.page', 'Created at'),
-            'change_date'    => Yii::t('PageModule.page', 'Changed'),
+            'create_time'  => Yii::t('PageModule.page', 'Created at'),
+            'update_time'    => Yii::t('PageModule.page', 'Changed'),
             'title'          => Yii::t('PageModule.page', 'Title'),
             'title_short'    => Yii::t('PageModule.page', 'Short title'),
             'slug'           => Yii::t('PageModule.page', 'Url'),
@@ -162,8 +160,8 @@ class Page extends yupe\models\YModel
             'id'             => Yii::t('PageModule.page', 'Page Id.'),
             'parent_id'      => Yii::t('PageModule.page', 'Parent page.'),
             'category_id'    => Yii::t('PageModule.page', 'Category which page connected'),
-            'creation_date'  => Yii::t('PageModule.page', 'Created at'),
-            'change_date'    => Yii::t('PageModule.page', 'Updated at'),
+            'create_time'  => Yii::t('PageModule.page', 'Created at'),
+            'update_time'    => Yii::t('PageModule.page', 'Updated at'),
             'title'          => Yii::t(
                 'PageModule.page',
                 'Full page title which will be displayed in page header.<br/><br />For example:<pre>Contact information and road map.</pre>'
@@ -258,8 +256,8 @@ class Page extends yupe\models\YModel
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('creation_date', $this->creation_date);
-        $criteria->compare('change_date', $this->change_date);
+        $criteria->compare('create_time', $this->create_time);
+        $criteria->compare('update_time', $this->update_time);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('title_short', $this->title_short, true);
         $criteria->compare('slug', $this->slug, true);
@@ -275,7 +273,7 @@ class Page extends yupe\models\YModel
         return new CActiveDataProvider(
             get_class($this), [
                 'criteria' => $criteria,
-                'sort'     => ['defaultOrder' => 't.order DESC, t.creation_date DESC'],
+                'sort'     => ['defaultOrder' => 't.order DESC, t.create_time DESC'],
             ]
         );
     }
@@ -314,7 +312,7 @@ class Page extends yupe\models\YModel
     public function getAllPagesList($selfId = false)
     {
         $criteria = new CDbCriteria();
-        $criteria->order = "{$this->tableAlias}.order DESC, {$this->tableAlias}.creation_date DESC";
+        $criteria->order = "{$this->tableAlias}.order DESC, {$this->tableAlias}.create_time DESC";
         if ($selfId) {
             $otherCriteria = new CDbCriteria();
             $otherCriteria->addNotInCondition('id', (array)$selfId);
@@ -327,7 +325,7 @@ class Page extends yupe\models\YModel
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $params = ['order' => 't.order DESC, t.creation_date DESC'];
+        $params = ['order' => 't.order DESC, t.create_time DESC'];
         if ($slug) {
             $params += [
                 'condition' => 'slug != :slug',
