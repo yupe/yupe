@@ -113,6 +113,11 @@ class StoreModule extends WebModule
                                 'label' => Yii::t('StoreModule.product', 'Create product'),
                                 'url' => ['/store/productBackend/create']
                             ],
+                            [
+                                'icon' => 'fa fa-fw fa-link',
+                                'label' => Yii::t('StoreModule.product', 'Link types'),
+                                'url' => ['/store/linkBackend/typeIndex']
+                            ],
                         ],
                     ],
                     [
