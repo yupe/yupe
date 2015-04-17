@@ -41,7 +41,8 @@ $this->widget(
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
-        'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
+        'datePickers'=> ['Order_date'],
+        'afterAjaxUpdate' => 'reinstallDatePicker',
         'columns' => [
             [
                 'name' => 'id',
@@ -50,7 +51,17 @@ $this->widget(
                 'value' => 'CHtml::link(Yii::t("OrderModule.order", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id))',
             ],
             [
-                'name' => 'date'
+                'name'   => 'date',
+                'filter' => $this->widget('booster.widgets.TbDatePicker', [
+                            'model'=>$model,
+                            'attribute'=>'date',
+                            'options' => [
+                                'format' => 'yyyy-mm-dd'
+                            ],
+                            'htmlOptions' => [
+                                'class' => 'form-control',
+                            ],
+                        ], true)
             ],
             [
                 'name' => 'name',
@@ -76,7 +87,19 @@ $this->widget(
                     Order::PAID_STATUS_PAID => ['class' => 'label-success']
                 ],
             ],
-            'payment_time',
+            [
+                'name'   => 'payment_time',
+                'filter' => $this->widget('booster.widgets.TbDatePicker', [
+                            'model'=>$model,
+                            'attribute'=>'payment_time',
+                            'options' => [
+                                'format' => 'yyyy-mm-dd'
+                            ],
+                            'htmlOptions' => [
+                                'class' => 'form-control',
+                            ],
+                        ], true)
+            ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
             ],

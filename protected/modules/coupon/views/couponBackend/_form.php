@@ -166,6 +166,7 @@
 
     <?php  if (!$model->getIsNewRecord()):?>
     <div class="tab-pane panel-body" id="history">
+
         <?php
             Yii::app()->getModule('order');
             $order = new Order('search');
@@ -175,7 +176,7 @@
                 [
                     'id' => 'order-grid',
                     'type' => 'condensed',
-                    'dataProvider' => $order->search(),
+                    'dataProvider' => $order->search($model->id),
                     'filter' => $order,
                     'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
                     'ajaxUrl' => Yii::app()->createUrl('/order/orderBackend/index'),
@@ -210,12 +211,6 @@
                                   return $data->status->getTitle();
                                 },
                             'filter' => OrderStatus::model()->getList()
-                        ],
-                        [
-                            'class' => 'bootstrap.widgets.TbButtonColumn',
-                            'viewButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/view",array("id"=>$data->primaryKey))',
-                            'updateButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/update",array("id"=>$data->primaryKey))',
-                            'deleteButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/delete",array("id"=>$data->primaryKey))',
                         ],
                     ],
                 ]

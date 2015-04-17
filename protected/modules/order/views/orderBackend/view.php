@@ -2,7 +2,7 @@
 /* @var $model Order */
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
-    $model->id,
+    Yii::t("OrderModule.order", "Order #").$model->id,
 ];
 
 $this->pageTitle = Yii::t('OrderModule.order', 'Orders - view');

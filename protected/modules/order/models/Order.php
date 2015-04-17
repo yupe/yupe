@@ -54,10 +54,7 @@ class Order extends yupe\models\YModel
 
     protected $oldAttributes;
 
-    protected $couponCodes = [];
-
     private $productsChanged = false; // менялся ли список продуктов в заказе
-
 
     private $_validCoupons = null;
 
@@ -173,7 +170,7 @@ class Order extends yupe\models\YModel
     }
 
 
-    public function search()
+    public function search($couponId = null)
     {
         $criteria = new CDbCriteria;
 
@@ -202,6 +199,11 @@ class Order extends yupe\models\YModel
         $criteria->compare('note', $this->note, true);
         $criteria->compare('modified', $this->modified, true);
 
+        if(null !== $couponId) {
+            $criteria->with = ['couponsIds' => ['together' => true]];
+            $criteria->addCondition('couponsIds.coupon_id = :id');
+            $criteria->params = CMap::mergeArray($criteria->params, [':id' => (int)$couponId]);
+        }
 
         return new CActiveDataProvider(
             $this, [
