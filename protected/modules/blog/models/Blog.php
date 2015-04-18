@@ -348,7 +348,11 @@ class Blog extends yupe\models\YModel
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/blog/blog/show',
-                'params' => ['slug' => $this->slug],
+                'params' => [
+                    'slug' => function ($data) {
+                        return $data->slug;
+                    }
+                ],
             ],
         ];
     }
