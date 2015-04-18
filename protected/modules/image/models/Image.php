@@ -104,7 +104,11 @@ class Image extends yupe\models\YModel
             'seo'         => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/gallery/gallery/image',
-                'params' => ['id' => $this->id],
+                'params' => [
+                    'id' => function ($data) {
+                        return $data->id;
+                    }
+                ],
             ],
         ];
     }
