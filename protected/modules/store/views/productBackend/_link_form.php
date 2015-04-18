@@ -77,7 +77,7 @@ $linkTypes = ProductLinkType::getFormattedList();
                             'buttons' => [
                                 'delete' => [
                                     'url' => function ($data) {
-                                        return Yii::app()->createUrl('/store/link/delete', ['id' => $data->id]);
+                                        return Yii::app()->createUrl('/store/linkBackend/delete', ['id' => $data->id]);
                                     }
                                 ]
                             ]

@@ -839,17 +839,38 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
     /**
+     * @param null|string $type_code
+     * @return CDbCriteria
+     */
+    public function getLinkedProductsCriteria($type_code = null)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->with = ['linkedProductsRelation', 'linkedProductsRelation.type'];
+        $criteria->together = true;
+        $criteria->compare('type.code', $type_code);
+        $criteria->compare('linkedProductsRelation.product_id', $this->id);
+
+        return $criteria;
+    }
+
+    /**
      * Список связанных с продуктом продуктов
      * @param null|string $type_code
      * @return Product[]
      */
     public function getLinkedProducts($type_code = null)
     {
-        $criteria = new CDbCriteria();
-        $criteria->with = ['linkedProductsRelation', 'linkedProductsRelation.type'];
-        $criteria->compare('type.code', $type_code);
-        $criteria->compare('linkedProductsRelation.product_id', $this->id);
+        return Product::model()->findAll($this->getLinkedProductsCriteria($type_code));
+    }
 
-        return Product::model()->findAll($criteria);
+    /**
+     * @param null|string $type_code
+     * @return CActiveDataProvider
+     */
+    public function getLinkedProductsDataProvider($type_code = null)
+    {
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $this->getLinkedProductsCriteria($type_code),
+        ]);
     }
 }
