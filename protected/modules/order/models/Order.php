@@ -199,7 +199,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('note', $this->note, true);
         $criteria->compare('modified', $this->modified, true);
 
-        if(null !== $couponId) {
+        if (null !== $couponId) {
             $criteria->with = ['couponsIds' => ['together' => true]];
             $criteria->addCondition('couponsIds.coupon_id = :id');
             $criteria->params = CMap::mergeArray($criteria->params, [':id' => (int)$couponId]);
@@ -236,9 +236,7 @@ class Order extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if ($this->getScenario() == self::SCENARIO_USER) {
-
-            $this->status_id = OrderStatus::STATUS_NEW;
+        if ($this->getScenario() === self::SCENARIO_USER) {
 
             if (!$this->hasProducts) {
                 $this->addError('products', Yii::t('OrderModule.order', 'There are no selected products'));
@@ -357,12 +355,13 @@ class Order extends yupe\models\YModel
         return $delta;
     }
 
-    public function saveData(array $attributes, array $products, array $coupons = [])
+    public function saveData(array $attributes, array $products, array $coupons = [], $status = OrderStatus::STATUS_NEW)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
 
+            $this->status_id = (int)$status;
             $this->setAttributes($attributes);
             $this->setProducts($products);
 

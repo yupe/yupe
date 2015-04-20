@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Default order status' => 'Статус заказа по умолчанию',
     'Order #{id}' => '№{id}',
     '#' => '№',
     '(paid separately)' => '(оплачивается отдельно)',
