@@ -27,8 +27,8 @@ $this->menu = [
 ?>
 <div class="">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Orders'); ?>
-        <small><?php echo Yii::t('OrderModule.order', 'manage'); ?></small>
+        <?= Yii::t('OrderModule.order', 'Orders'); ?>
+        <small><?= Yii::t('OrderModule.order', 'manage'); ?></small>
     </h1>
 </div>
 

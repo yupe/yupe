@@ -1,5 +1,7 @@
 <?php
 return [
+    'Link products' => 'Связать товары',
+    'Products related with "{name}"' => 'Товары, связанные с "{name}"',
     'Default image' => 'Картинка по умолчанию',
     'Record was added!' => 'Товар добавлен!',
     'Attributes are not added.' => 'Атрибуты не добавлены.',

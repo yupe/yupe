@@ -14,6 +14,7 @@ $linkTypes = ProductLinkType::getFormattedList();
 <?php if (isset($product)): ?>
     <div class="row">
         <div class="col-sm-12">
+            <h3><?= Yii::t('StoreModule.store', 'Products related with "{name}"', ['{name}' => $product->name]);?></h3>
             <?php
             $linked = new ProductLink('search');
             $linked->setAttributes(Yii::app()->getRequest()->getParam('ProductLink'));
@@ -25,21 +26,15 @@ $linkTypes = ProductLinkType::getFormattedList();
                     'type' => 'condensed',
                     'dataProvider' => $linked->search(),
                     'filter' => $linked,
-                    'hideBulkActions' => true,
+                    'actionsButtons' => false,
+                    'bulkActions' => [false],
                     'ajaxUrl' => ['/store/productBackend/update', 'id' => $product->id],
                     'columns' => [
                         [
-                            'name' => 'id',
-                            'value' => function ($data) {
-                                return $data->linkedProduct->id;
-                            },
-                            'filter' => false,
-                        ],
-                        [
                             'type' => 'raw',
                             'value' => function ($data) {
-                                return CHtml::image($data->linkedProduct->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]);
-                            },
+                                    return CHtml::link(CHtml::image($data->linkedProduct->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]),["/store/productBackend/update", "id" => $data->linkedProduct->id]);
+                                },
                         ],
                         [
                             'header' => Yii::t('StoreModule.store', 'Name'),
@@ -92,6 +87,7 @@ $linkTypes = ProductLinkType::getFormattedList();
 
 <div class="row">
     <div class="col-sm-12">
+        <h3><?= Yii::t('StoreModule.store', 'Link products');?></h3>
         <?php
 
         $this->widget(
@@ -101,13 +97,14 @@ $linkTypes = ProductLinkType::getFormattedList();
                 'type' => 'condensed',
                 'dataProvider' => $searchModel->search(),
                 'filter' => $searchModel,
-                'hideBulkActions' => true,
+                'actionsButtons' => false,
+                'bulkActions' => [false],
                 'ajaxUrl' => ['/store/linkBackend/index'],
                 'columns' => [
                     [
                         'type' => 'raw',
                         'value' => function ($data) {
-                            return CHtml::image($data->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]);
+                            return CHtml::link(CHtml::image($data->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]),["/store/productBackend/update", "id" => $data->id]);
                         },
                     ],
                     [
