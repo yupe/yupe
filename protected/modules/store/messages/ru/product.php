@@ -63,4 +63,13 @@ return [
     'Width, m.' => 'Ширина, м.',
     'You must specify the attribute value' => 'Необходимо указать значение атрибута',
     '{title} attribute is required' => 'Атрибут "{title}" обязателен',
+    'First you need to save the product.' => 'Сначала нужно сохранить товар.',
+    'Linked products' => 'Связанные товары',
+    'Link type' => 'Тип связи',
+    'Link types' => 'Типы связей',
+    'Add in' => 'Добавить в',
+    'Link types - manage' => 'Типы связей - управление',
+    'Manage link types' => 'Управление типами связей',
+    'Code' => 'Код',
+    'Title' => 'Заголовок',
 ];

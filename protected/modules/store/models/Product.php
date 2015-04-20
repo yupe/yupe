@@ -131,8 +131,6 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'type' => [self::BELONGS_TO, 'Type', 'type_id'],
             'producer' => [self::BELONGS_TO, 'Producer', 'producer_id'],
@@ -158,6 +156,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 ],
                 'order' => 'comments.lft'
             ],
+            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'linked_product_id'],
         ];
     }
 
@@ -258,9 +257,6 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
@@ -550,7 +546,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 if (isset($var['id'])) {
                     $variant = ProductVariant::model()->findByPk($var['id']);
                 }
-                $variant = $variant ? : new ProductVariant();
+                $variant = $variant ?: new ProductVariant();
                 $variant->attributes = $var;
                 $variant->product_id = $this->id;
                 if ($variant->save()) {
@@ -580,7 +576,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getResultPrice()
     {
-        return (float)$this->discount_price ? : (float)$this->price * (1 - ((float)$this->discount ? : 0) / 100);
+        return (float)$this->discount_price ?: (float)$this->price * (1 - ((float)$this->discount ?: 0) / 100);
     }
 
     /**
@@ -690,7 +686,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getMetaTitle()
     {
-        return $this->meta_title ? : $this->name;
+        return $this->meta_title ?: $this->name;
     }
 
     public function getMetaDescription()
@@ -824,5 +820,57 @@ class Product extends yupe\models\YModel implements ICommentable
         return $absolute ?
             Yii::app()->createAbsoluteUrl('/store/catalog/show', ['name' => $this->slug]) :
             Yii::app()->createUrl('/store/catalog/show', ['name' => $this->slug]);
+    }
+
+    /**
+     * Связывает продукты
+     * @param $product Product|int Ид продукта или продукт
+     * @param null $type_id Тип связи
+     * @return bool
+     */
+    public function link($product, $type_id = null)
+    {
+        $link = new ProductLink();
+        $link->product_id = $this->id;
+        $link->linked_product_id = ($product instanceof Product ? $product->id : $product);
+        $link->type_id = $type_id;
+
+        return $link->save();
+    }
+
+    /**
+     * @param null|string $type_code
+     * @return CDbCriteria
+     */
+    public function getLinkedProductsCriteria($type_code = null)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->with = ['linkedProductsRelation', 'linkedProductsRelation.type'];
+        $criteria->together = true;
+        $criteria->compare('type.code', $type_code);
+        $criteria->compare('linkedProductsRelation.product_id', $this->id);
+
+        return $criteria;
+    }
+
+    /**
+     * Список связанных с продуктом продуктов
+     * @param null|string $type_code
+     * @return Product[]
+     */
+    public function getLinkedProducts($type_code = null)
+    {
+        return Product::model()->findAll($this->getLinkedProductsCriteria($type_code));
+    }
+
+    /**
+     * @param null|string $type_code
+     * @return CActiveDataProvider
+     */
+    public function getLinkedProductsDataProvider($type_code = null)
+    {
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $this->getLinkedProductsCriteria($type_code),
+        ]);
     }
 }
