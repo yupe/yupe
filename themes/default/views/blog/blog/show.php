@@ -18,7 +18,7 @@ $this->breadcrumbs = [
     <div class="col-sm-12">
         <div class="blog-logo pull-left">
             <?php echo CHtml::image(
-                $blog->getImageUrl(),
+                $blog->getImageUrl(109, 109),
                 CHtml::encode($blog->name),
                 [
                     'width'  => 109,

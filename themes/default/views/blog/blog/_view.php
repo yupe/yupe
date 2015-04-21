@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-2">
         <?php echo CHtml::image(
-            $data->getImageUrl(),
+            $data->getImageUrl(64, 64),
             CHtml::encode($data->name),
             ['width' => 64, 'height' => 64, 'class' => 'thumbnail']
         ); ?>
