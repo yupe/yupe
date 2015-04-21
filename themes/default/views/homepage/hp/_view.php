@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-sm-12">
         <p>
-            <?php echo $data->getImageUrl() ? CHtml::image($data->getImageUrl(), CHtml::encode($data->title)) : ""; ?>
+            <?php echo $data->getImageUrl() ? CHtml::image($data->getImageUrl(), CHtml::encode($data->title), ['class' => 'img-responsive']) : ''; ?>
         </p>
 
         <p><?php echo strip_tags($data->getQuote()); ?></p>
