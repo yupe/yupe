@@ -58,13 +58,13 @@ $this->widget(
             ],
             [
                 'header' => Yii::t('BlogModule.blog', 'Last visit'),
-                'name'   => 'last_visit',
-                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->last_visit, "long", false)'
+                'name'   => 'visit_time',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->visit_time, "long", false)'
             ],
             [
                 'header' => Yii::t('BlogModule.blog', 'Joined'),
-                'name'   => 'registration_date',
-                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->registration_date, "long", false)'
+                'name'   => 'create_time',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->user->create_time, "long", false)'
             ]
         ]
     ]
