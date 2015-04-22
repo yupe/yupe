@@ -295,7 +295,7 @@ class StoreCategory extends \yupe\models\YModel
 
     public function getMetaDescription()
     {
-        return $this->description;
+        return $this->meta_description;
     }
 
     public function getMetaKeywords()
