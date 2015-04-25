@@ -47,11 +47,6 @@ class UserModule extends WebModule
 
     private $defaultAvatar;
 
-    public function getDependencies()
-    {
-        return ['rbac'];
-    }
-
     public function getUploadPath()
     {
         return Yii::getPathOfAlias('webroot') . '/' .
