@@ -58,15 +58,17 @@ class Mail extends CApplicationComponent
                     $this->_mailer->SMTPAuth = true;
                     $this->_mailer->Username = $this->smtp['username'];
                     $this->_mailer->Password = $this->smtp['password'];
-                    if (isset($this->smtp['port'])) {
-                        $this->_mailer->Port = $this->smtp['port'];
-                    }
-                    if (isset($this->smtp['secure'])) {
-                        $this->_mailer->SMTPSecure = $this->smtp['secure'];
-                    }
-                    if (isset($this->smtp['debug'])) {
-                        $this->_mailer->SMTPDebug = (int)$this->smtp['debug'];
-                    }
+                } else {
+                    $this->_mailer->SMTPAuth = false;
+                }
+                if (isset($this->smtp['port'])) {
+                    $this->_mailer->Port = $this->smtp['port'];
+                }
+                if (isset($this->smtp['secure'])) {
+                    $this->_mailer->SMTPSecure = $this->smtp['secure'];
+                }
+                if (isset($this->smtp['debug'])) {
+                    $this->_mailer->SMTPDebug = (int)$this->smtp['debug'];
                 }
                 break;
             case 'sendmail':
@@ -117,7 +119,7 @@ class Mail extends CApplicationComponent
      * Функция отправки сообщения:
      *
      * @param string $from - адрес отправителя
-     * @param string $to - адрес получателя
+     * @param string|array $to - адрес(-а) получателя
      * @param string $theme - тема письма
      * @param string $body - тело письма
      * @param bool $isText - является ли тело письма текстом
@@ -129,7 +131,15 @@ class Mail extends CApplicationComponent
         $this->_mailer->clearAllRecipients();
 
         $this->setFrom($from);
-        $this->addAddress($to);
+
+        if (is_array($to)) {
+            foreach ($to as $email) {
+                $this->addAddress($email);
+            }
+        } else {
+            $this->addAddress($to);
+        }
+
         $this->setSubject($theme);
 
         if ($isText) {
