@@ -13,40 +13,32 @@ $this->breadcrumbs = [
     $model->name
 ];
 ?>
-
-<div class="post">
-    <div class="title">
-        <?php echo $model->name; ?>
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="title"> <?php echo $model->name; ?></h1>
     </div>
-    <br/>
-
-    <div class="content">
-        <p><?php echo $model->description; ?></p>
+</div>
+<div class="row form-group">
+    <?= CHtml::image($model->getImageUrl(), $model->name, ['class' => 'col-sm-9']); ?>
+</div>
+<div class="row form-group">
+    <div class="col-sm-12">
+        <?php echo $model->description; ?>
     </div>
-    <div class="nav">
-        <?php echo Yii::t('CatalogModule.catalog', 'Price') . ': ';
-        echo $model->price; ?>
-        <br/>
-        <?php echo CHtml::link(
-            Yii::t('CatalogModule.catalog', 'Constant link'),
-            $model->getUrl()
-        ); ?>
+</div>
+<div class="row form-group">
+    <div class="col-sm-2">
+        <?= Yii::t('CatalogModule.catalog', 'Price') . ': ' . number_format($model->price, 2, ',', ' '); ?> <i class="fa fa-rub"></i>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h3><?= Yii::t('CatalogModule.catalog', 'Comments') ?></h3>
+        <hr/>
+        <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+            'redirectTo' => $model->getUrl(),
+            'model' => $model,
+        ]); ?>
     </div>
 </div>
 
-
-<br/><br/><br/>
-
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentsListWidget',
-    ['model' => $model, 'modelId' => $model->id, 'label' => 'Отзывов']
-); ?>
-
-<br/>
-
-<h3>Оставить отзыв</h3>
-
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentFormWidget',
-    ['redirectTo' => $model->getUrl(), 'model' => $model, 'modelId' => $model->id]
-); ?>

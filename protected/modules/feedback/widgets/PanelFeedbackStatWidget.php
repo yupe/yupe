@@ -19,7 +19,7 @@ class PanelFeedbackStatWidget extends \yupe\widgets\YWidget
             'panel-feedback-stat',
             [
                 'feedbackCount'    => FeedBack::model()->cache($cacheTime)->count(
-                        'creation_date >= :time',
+                        'create_time >= :time',
                         [':time' => time() - 24 * 60 * 60]
                     ),
                 'allFeedbackCount' => FeedBack::model()->cache($cacheTime)->count(),

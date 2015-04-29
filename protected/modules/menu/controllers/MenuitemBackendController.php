@@ -123,14 +123,6 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             }
         }
 
-        $criteria = new CDbCriteria();
-
-        $criteria->select = new CDbExpression('MAX(sort) as sort');
-
-        $max = $model->find($criteria);
-
-        $model->sort = $max->sort + 1; // Set sort in Adding Form as ma x+ 1
-
         $this->render('create', ['model' => $model]);
     }
 

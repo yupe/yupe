@@ -23,7 +23,7 @@ class PanelCommentStatWidget extends \yupe\widgets\YWidget
             'panel-stat',
             [
                 'commentsCount'  => Comment::model()->cache($cacheTime)->count(
-                        'creation_date >= :time AND level <> 1',
+                        'create_time >= :time AND level <> 1',
                         [':time' => time() - 24 * 60 * 60]
                     ),
                 'allCommentsCnt' => Comment::model()->cache($cacheTime)->all()->count(),

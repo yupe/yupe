@@ -60,13 +60,13 @@ $this->widget(
             ],
             [
                 'header' => 'Был на сайте',
-                'name'   => 'last_visit',
-                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->last_visit, "long", false)'
+                'name'   => 'visit_time',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->visit_time, "long", false)'
             ],
             [
                 'header' => 'Присоеденился',
-                'name'   => 'registration_date',
-                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->registration_date, "long", false)'
+                'name'   => 'create_time',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "long", false)'
             ]
         ]
     ]

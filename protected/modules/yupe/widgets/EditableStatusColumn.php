@@ -80,7 +80,7 @@ class EditableStatusColumn extends \TbEditableColumn
             $this->filter = $this->source;
         }
 
-        if (is_array($this->filter)) {
+        if (is_array($this->filter) && $this->grid->filter) {
             $this->filter = CHtml::activeDropDownList($this->grid->filter, $this->name, $this->filter, ['id' => false, 'prompt' => '', 'class' => 'form-control']);
         }
 

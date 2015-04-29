@@ -123,7 +123,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
                     "email"         => "",
                     "text"          => "root",
                     "ip"            => "",
-                    "creation_date" => "1970-01-01 00:00:00"
+                    "create_time" => "1970-01-01 00:00:00"
                 ];
                 $db->createCommand()->insert("{{comment_comment}}", $insert);
             }

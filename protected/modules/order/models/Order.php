@@ -6,12 +6,11 @@
  * @property double  $delivery_price
  * @property integer  $payment_method_id
  * @property integer  $paid
- * @property string  $payment_date
+ * @property string  $payment_time
  * @property string $payment_details
  * @property double $total_price
  * @property double $discount
  * @property double $coupon_discount
- * @property string $coupon_code
  * @property integer $separate_delivery
  * @property integer $status_id
  * @property string $date
@@ -55,10 +54,7 @@ class Order extends yupe\models\YModel
 
     protected $oldAttributes;
 
-    protected $couponCodes = [];
-
     private $productsChanged = false; // менялся ли список продуктов в заказе
-
 
     private $_validCoupons = null;
 
@@ -94,13 +90,12 @@ class Order extends yupe\models\YModel
             //array('payment_details', 'safe'),
             ['url', 'unique'],
             [
-                'user_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
+                'user_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
                 'unsafe',
                 'on' => self::SCENARIO_USER
             ],
-            ['couponCodes', 'safe'], // сюда отправляется массив купонок, которые потом разбираются в beforeSave()
             [
-                'id, delivery_id, delivery_price, payment_method_id, paid, payment_date, payment_details, total_price, discount, coupon_discount, coupon_code, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
+                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
                 'safe',
                 'on' => 'search'
             ],
@@ -115,6 +110,8 @@ class Order extends yupe\models\YModel
             'payment' => [self::BELONGS_TO, 'Payment', 'payment_method_id'],
             'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
             'user' => [self::BELONGS_TO, 'User', 'user_id'],
+            'couponsIds' => [self::HAS_MANY, 'OrderCoupon', 'order_id'],
+            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds']
         ];
     }
 
@@ -151,12 +148,11 @@ class Order extends yupe\models\YModel
             'delivery_price' => Yii::t('OrderModule.order', 'Delivery price'),
             'payment_method_id' => Yii::t('OrderModule.order', 'Payment'),
             'paid' => Yii::t('OrderModule.order', 'Paid'),
-            'payment_date' => Yii::t('OrderModule.order', 'Paid date'),
+            'payment_time' => Yii::t('OrderModule.order', 'Paid date'),
             'payment_details' => Yii::t('OrderModule.order', 'Payment details'),
             'total_price' => Yii::t('OrderModule.order', 'Total price'),
             'discount' => Yii::t('OrderModule.order', 'Discount (%)'),
             'coupon_discount' => Yii::t('OrderModule.order', 'Discount coupon'),
-            'coupon_code' => Yii::t('OrderModule.order', 'Coupon code'),
             'separate_delivery' => Yii::t('OrderModule.order', 'Separate delivery payment'),
             'status_id' => Yii::t('OrderModule.order', 'Status'),
             'date' => Yii::t('OrderModule.order', 'Date'),
@@ -174,7 +170,7 @@ class Order extends yupe\models\YModel
     }
 
 
-    public function search()
+    public function search($couponId = null)
     {
         $criteria = new CDbCriteria;
 
@@ -184,12 +180,11 @@ class Order extends yupe\models\YModel
         $criteria->compare('delivery_price', $this->delivery_price, false);
         $criteria->compare('payment_method_id', $this->payment_method_id, false);
         $criteria->compare('paid', $this->paid, false);
-        $criteria->compare('payment_date', $this->payment_date, true);
+        $criteria->compare('payment_time', $this->payment_time, true);
         $criteria->compare('payment_details', $this->payment_details, true);
         $criteria->compare('total_price', $this->total_price, false);
         $criteria->compare('discount', $this->discount, false);
         $criteria->compare('coupon_discount', $this->coupon_discount, false);
-        $criteria->compare('coupon_code', $this->coupon_code, true);
         $criteria->compare('separate_delivery', $this->separate_delivery, false);
         $criteria->compare('status_id', $this->status_id, false);
         $criteria->compare('date', $this->date, true);
@@ -204,6 +199,11 @@ class Order extends yupe\models\YModel
         $criteria->compare('note', $this->note, true);
         $criteria->compare('modified', $this->modified, true);
 
+        if (null !== $couponId) {
+            $criteria->with = ['couponsIds' => ['together' => true]];
+            $criteria->addCondition('couponsIds.coupon_id = :id');
+            $criteria->params = CMap::mergeArray($criteria->params, [':id' => (int)$couponId]);
+        }
 
         return new CActiveDataProvider(
             $this, [
@@ -213,18 +213,30 @@ class Order extends yupe\models\YModel
         );
     }
 
+    public function searchCoupons()
+    {
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('t.order_id', $this->id);
+
+        $criteria->with = ['coupon'];
+
+        return new CActiveDataProvider(
+            OrderCoupon::_CLASS_(), [
+                'criteria' => $criteria,
+            ]
+        );
+    }
+
     public function afterFind()
     {
         $this->oldAttributes = $this->getAttributes();
-        $this->couponCodes = preg_split('/,/', $this->coupon_code);
         parent::afterFind();
     }
 
     public function beforeValidate()
     {
-        if ($this->getScenario() == self::SCENARIO_USER) {
-
-            $this->status_id = OrderStatus::STATUS_NEW;
+        if ($this->getScenario() === self::SCENARIO_USER) {
 
             if (!$this->hasProducts) {
                 $this->addError('products', Yii::t('OrderModule.order', 'There are no selected products'));
@@ -251,19 +263,25 @@ class Order extends yupe\models\YModel
         return Yii::app()->hasModule('coupon');
     }
 
-    public function hasCoupon()
+    public function hasCoupons()
     {
-        return !empty($this->coupon_code);
+        return !empty($this->couponsIds);
     }
 
     public function getCouponsCodes()
     {
-        return $this->couponCodes;
+        $codes = [];
+
+        foreach ($this->coupons as $coupon) {
+            $codes[] = $coupon->code;
+        }
+
+        return $codes;
     }
 
-    public function setCouponsCodes(array $coupons)
+    public function getCoupons()
     {
-        $this->couponCodes = $coupons;
+        return $this->coupons;
     }
 
     public function getDeliveryCost()
@@ -316,7 +334,7 @@ class Order extends yupe\models\YModel
      * @param $coupons Coupon[]
      * @return float - скидка
      */
-    public function getCouponDiscount($coupons)
+    public function getCouponDiscount(array $coupons)
     {
         $productsTotalPrice = $this->getProductsCost();
         $delta = 0.00; // суммарная скидка по купонам
@@ -337,6 +355,70 @@ class Order extends yupe\models\YModel
         return $delta;
     }
 
+    public function saveData(array $attributes, array $products, array $coupons = [], $status = OrderStatus::STATUS_NEW)
+    {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+
+            $this->status_id = (int)$status;
+            $this->setAttributes($attributes);
+            $this->setProducts($products);
+
+            if (!$this->save()) {
+                return false;
+            }
+
+            if (!empty($coupons)) {
+                if (!$this->applyCoupons($coupons)) {
+                    return false;
+                }
+            }
+
+            $transaction->commit();
+
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    public function applyCoupons(array $coupons)
+    {
+        if (!$this->isCouponsAvailable()) {
+            return true;
+        }
+
+        $coupons = $this->getValidCoupons($coupons);
+
+        foreach ($coupons as $coupon) {
+
+            $model = new OrderCoupon();
+
+            $model->setAttributes(
+                [
+                    'order_id' => $this->id,
+                    'coupon_id' => $coupon->id,
+                    'create_time' => new CDbExpression('NOW()')
+                ]
+            );
+
+            $model->save();
+
+            if ($this->getIsNewRecord()) {
+                $coupon->decreaseQuantity();
+            }
+        }
+
+        $this->coupon_discount = $this->getCouponDiscount($coupons);
+
+        $this->delivery_price = $this->getDeliveryCost();
+
+        return true;
+    }
+
     public function beforeSave()
     {
         $productsCost = $this->getProductsCost();
@@ -344,30 +426,12 @@ class Order extends yupe\models\YModel
         if ($this->getIsNewRecord()) {
             $this->url = md5(uniqid(time(), true));
             $this->ip = Yii::app()->getRequest()->userHostAddress;
-            if ($this->getScenario() == self::SCENARIO_USER) {
+            if ($this->getScenario() === self::SCENARIO_USER) {
                 $this->user_id = Yii::app()->getUser()->getId();
                 $this->delivery_price = $this->delivery ? $this->delivery->getCost($productsCost) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
         }
-
-        $validCouponCodes = [];
-        $coupons = [];
-
-        if ($this->isCouponsAvailable()) {
-            /* количество купонов уменьшаем только при создании записи*/
-            $coupons = $this->getValidCoupons($this->getCouponsCodes());
-            foreach ($coupons as $coupon) {
-                $validCouponCodes[] = $coupon->code;
-                if ($this->getIsNewRecord()) {
-                    $coupon->decreaseQuantity();
-                }
-            }
-        }
-
-        $this->coupon_code = join(',', $validCouponCodes);
-
-        $this->coupon_discount = $this->getCouponDiscount($coupons);
 
         $this->delivery_price = $this->getDeliveryCost();
 
@@ -417,7 +481,7 @@ class Order extends yupe\models\YModel
      * </pre>
      * @param $orderProducts Array
      */
-    public function setOrderProducts($orderProducts)
+    public function setProducts($orderProducts)
     {
         $this->productsChanged = true;
         $orderProductsObjectsArray = [];
@@ -525,7 +589,7 @@ class Order extends yupe\models\YModel
 
         $this->paid = static::PAID_STATUS_PAID;
         $this->payment_method_id = $payment->id;
-        $this->payment_date = new CDbExpression('now()');
+        $this->payment_time = new CDbExpression('now()');
 
         $result = $this->save();
 

@@ -67,8 +67,7 @@
                             [
                                 'icon'        => 'fa fa-fw fa-home',
                                 'label'       => Yii::t('DocsModule.docs', 'Go home'),
-                                'linkOptions' => ['target' => '_blank'],
-                                'url'         => ['/' . Yii::app()->defaultController . '/index/'],
+                                'url'         => Yii::app()->createAbsoluteUrl('/'),
                             ],
                             [
                                 'label' => $this->yupe->getVersion(),

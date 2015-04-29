@@ -113,25 +113,25 @@ SCRIPT;
                 ],
             ],
             [
-                'name'        => 'created',
-                'value'       => '$data->beautifyDate($data->created)',
+                'name'        => 'create_time',
+                'value'       => '$data->beautifyDate($data->create_time)',
                 'filter'      => false,
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]
             ],
             [
-                'name'        => 'updated',
+                'name'        => 'update_time',
                 'filter'      => false,
-                'value'       => '$data->beautifyDate($data->updated)',
+                'value'       => '$data->beautifyDate($data->update_time)',
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]
             ],
             [
-                'name'        => 'expire',
+                'name'        => 'expire_time',
                 'filter'      => false,
-                'value'       => '$data->beautifyDate($data->expire)',
+                'value'       => '$data->beautifyDate($data->expire_time)',
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]

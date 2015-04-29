@@ -19,7 +19,7 @@ class CommentRssController extends yupe\components\controllers\RssController
         }
 
         $criteria = new CDbCriteria();
-        $criteria->order = 't.creation_date DESC';
+        $criteria->order = 't.create_time DESC';
         $criteria->params = [];
         $criteria->limit = $limit;
 
@@ -59,11 +59,11 @@ class CommentRssController extends yupe\components\controllers\RssController
                     'author_object'   => false,
                     'author_nickname' => false,
                     'content'         => 'text',
-                    'datetime'        => 'creation_date',
+                    'datetime'        => 'create_time',
                     'link'            => false,
                     'linkParams'      => ['title' => 'alias'],
                     'title'           => false,
-                    'updated'         => 'creation_date',
+                    'updated'         => 'create_time',
                 ],
             ],
         ];

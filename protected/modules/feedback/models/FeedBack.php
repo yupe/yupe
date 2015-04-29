@@ -15,8 +15,8 @@
  *
  * The followings are the available columns in table '{{FeedBack}}':
  * @property integer $id
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $name
  * @property string $email
  * @property string $theme
@@ -74,11 +74,11 @@ class FeedBack extends yupe\models\YModel
             ['name, email, phone', 'length', 'max' => 150],
             ['theme', 'length', 'max' => 250],
             ['ip', 'length', 'max' => 20],
-            ['answer_date', 'length', 'max' => 100],
+            ['answer_time', 'length', 'max' => 100],
             ['email', 'email'],
             ['answer', 'filter', 'filter' => 'trim'],
             [
-                'id, creation_date, change_date, name, email, theme, text, type, status, ip',
+                'id, create_time, update_time, name, email, theme, text, type, status, ip',
                 'safe',
                 'on' => 'search'
             ],
@@ -92,8 +92,8 @@ class FeedBack extends yupe\models\YModel
     {
         return [
             'id'            => Yii::t('FeedbackModule.feedback', 'ID'),
-            'creation_date' => Yii::t('FeedbackModule.feedback', 'Created'),
-            'change_date'   => Yii::t('FeedbackModule.feedback', 'Updated'),
+            'create_time' => Yii::t('FeedbackModule.feedback', 'Created'),
+            'update_time'   => Yii::t('FeedbackModule.feedback', 'Updated'),
             'name'          => Yii::t('FeedbackModule.feedback', 'Name'),
             'email'         => Yii::t('FeedbackModule.feedback', 'Email'),
             'phone'         => Yii::t('FeedbackModule.feedback', 'Phone'),
@@ -101,7 +101,7 @@ class FeedBack extends yupe\models\YModel
             'text'          => Yii::t('FeedbackModule.feedback', 'Text'),
             'type'          => Yii::t('FeedbackModule.feedback', 'Type'),
             'answer'        => Yii::t('FeedbackModule.feedback', 'Reply'),
-            'answer_date'   => Yii::t('FeedbackModule.feedback', 'Reply time'),
+            'answer_time'   => Yii::t('FeedbackModule.feedback', 'Reply time'),
             'answer_user'   => Yii::t('FeedbackModule.feedback', 'Replied'),
             'is_faq'        => Yii::t('FeedbackModule.feedback', 'In FAQ'),
             'status'        => Yii::t('FeedbackModule.feedback', 'Status'),
@@ -120,16 +120,16 @@ class FeedBack extends yupe\models\YModel
 
         $criteria->compare('id', $this->id);
 
-        if (!empty($this->creation_date)) {
+        if (!empty($this->create_time)) {
             $criteria->addBetweenCondition(
-                'creation_date',
-                $this->creation_date . ' 00:00:00',
-                $this->creation_date . ' 23:59:59',
+                'create_time',
+                $this->create_time . ' 00:00:00',
+                $this->create_time . ' 23:59:59',
                 'AND'
             );
         }
 
-        $criteria->compare('change_date', $this->change_date, true);
+        $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('theme', $this->theme, true);
@@ -142,7 +142,7 @@ class FeedBack extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => ['defaultOrder' => 'creation_date DESC, status ASC'],
+            'sort'     => ['defaultOrder' => 'create_time DESC, status ASC'],
         ]);
     }
 
@@ -154,10 +154,10 @@ class FeedBack extends yupe\models\YModel
      */
     public function beforeValidate()
     {
-        $this->change_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
         if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
+            $this->create_time = $this->update_time;
             $this->ip = Yii::app()->getRequest()->userHostAddress;
 
             if (!$this->type) {

@@ -66,8 +66,8 @@ $this->menu = [
             ],
             'model_id',
             [
-                'name'  => 'creation_date',
-                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"),
+                'name'  => 'create_time',
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_time, "short", "short"),
             ],
             'name',
             'email',

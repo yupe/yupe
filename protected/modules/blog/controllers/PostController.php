@@ -67,9 +67,9 @@ class PostController extends \yupe\components\controllers\FrontController
         $this->render('blog-post', ['target' => $blog, 'posts' => $blog->getPosts()]);
     }
 
-    public function actionCategory($alias)
+    public function actionCategory($slug)
     {
-        $category = Category::model()->getByAlias($alias);
+        $category = Category::model()->getByAlias($slug);
 
         if (null === $category) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));

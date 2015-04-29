@@ -24,7 +24,7 @@ class PeopleController extends \yupe\components\controllers\FrontController
             $users->nick_name = CHtml::encode($_GET['User']['nick_name']);
         }
 
-        $this->render('index', ['users' => $users,'provider' => $users->search((int)$this->module->usersPerPage)]);
+        $this->render('index', ['users' => $users, 'provider' => $users->search((int)$this->module->usersPerPage)]);
     }
 
     // Вывод публичной страницы пользователя

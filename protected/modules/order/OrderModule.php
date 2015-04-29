@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.9.4';
+    const VERSION = '0.9.5';
 
     public $notifyEmailFrom;
 
@@ -15,6 +15,8 @@ class OrderModule extends WebModule
     public $showOrder = 1;
 
     public $enableCheck = 1;
+
+    public $defaultStatus = 1;
 
     public function getDependencies()
     {
@@ -27,7 +29,8 @@ class OrderModule extends WebModule
             'notifyEmailFrom',
             'notifyEmailsTo',
             'showOrder'   => $this->getChoice(),
-            'enableCheck' => $this->getChoice()
+            'enableCheck' => $this->getChoice(),
+            'defaultStatus' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name')
         ];
     }
 
@@ -38,6 +41,7 @@ class OrderModule extends WebModule
             'notifyEmailsTo'  => Yii::t('OrderModule.order', 'Recipients of notifications (comma separated)'),
             'showOrder'       => Yii::t('OrderModule.order', 'Public ordering page'),
             'enableCheck'     => Yii::t('OrderModule.order', 'Allow orders validation by number'),
+            'defaultStatus'   => Yii::t('OrderModule.order', 'Default order status')
         ];
     }
 
@@ -47,6 +51,7 @@ class OrderModule extends WebModule
             '0.main' => [
                 'label' => Yii::t('OrderModule.order', 'Orders settings'),
                 'items' => [
+                    'defaultStatus',
                     'showOrder',
                     'enableCheck'
                 ]

@@ -2,7 +2,7 @@
 /* @var $model Order */
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
-    $model->id,
+    Yii::t("OrderModule.order", "Order #").$model->id,
 ];
 
 $this->pageTitle = Yii::t('OrderModule.order', 'Orders - view');
@@ -79,11 +79,10 @@ $this->menu = [
                 }
             ],
             'paid',
-            'payment_date',
+            'payment_time',
             'total_price',
             'discount',
             'coupon_discount',
-            'coupon_code',
             'separate_delivery',
             [
                 'name' => 'status_id',

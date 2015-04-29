@@ -64,7 +64,7 @@
                                             return $data->getPaidStatus();
                                         },
                                     ],
-                                    'payment_date',
+                                    'payment_time',
                                 ],
                             ]
                         ); ?>

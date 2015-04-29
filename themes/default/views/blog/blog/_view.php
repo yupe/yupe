@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-2">
         <?php echo CHtml::image(
-            $data->getImageUrl(),
+            $data->getImageUrl(64, 64),
             CHtml::encode($data->name),
             ['width' => 64, 'height' => 64, 'class' => 'thumbnail']
         ); ?>
@@ -20,7 +20,7 @@
             ['/user/people/userInfo', 'username' => CHtml::encode($data->createUser->nick_name)]
         ); ?> </span>
         <span> <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-                $data->create_date,
+                $data->create_time,
                 "long",
                 false
             ); ?> </span>

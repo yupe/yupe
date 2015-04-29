@@ -20,8 +20,8 @@
  * @property string $id
  * @property string $user_id
  * @property string $blog_id
- * @property string $create_date
- * @property string $update_date
+ * @property string $create_time
+ * @property string $update_time
  * @property integer $role
  * @property integer $status
  * @property string $note
@@ -68,13 +68,13 @@ class UserToBlog extends yupe\models\YModel
         // will receive user inputs.
         return [
             ['user_id, blog_id', 'required', 'except' => 'search'],
-            ['role, status, user_id, blog_id, create_date, update_date', 'numerical', 'integerOnly' => true],
-            ['user_id, blog_id, create_date, update_date, role, status', 'length', 'max' => 11],
+            ['role, status, user_id, blog_id, create_time, update_time', 'numerical', 'integerOnly' => true],
+            ['user_id, blog_id, create_time, update_time, role, status', 'length', 'max' => 11],
             ['note', 'length', 'max' => 250],
             ['role', 'in', 'range' => array_keys($this->getRoleList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['note', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
-            ['id, user_id, blog_id, create_date, update_date, role, status, note', 'safe', 'on' => 'search'],
+            ['id, user_id, blog_id, create_time, update_time, role, status, note', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -114,8 +114,8 @@ class UserToBlog extends yupe\models\YModel
             'id'          => Yii::t('BlogModule.blog', 'id'),
             'user_id'     => Yii::t('BlogModule.blog', 'User'),
             'blog_id'     => Yii::t('BlogModule.blog', 'Blog'),
-            'create_date' => Yii::t('BlogModule.blog', 'Created at'),
-            'update_date' => Yii::t('BlogModule.blog', 'Updated at'),
+            'create_time' => Yii::t('BlogModule.blog', 'Created at'),
+            'update_time' => Yii::t('BlogModule.blog', 'Updated at'),
             'role'        => Yii::t('BlogModule.blog', 'Role'),
             'status'      => Yii::t('BlogModule.blog', 'Status'),
             'note'        => Yii::t('BlogModule.blog', 'Notice'),
@@ -157,10 +157,10 @@ class UserToBlog extends yupe\models\YModel
         $criteria->compare('t.id', $this->id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('blog_id', $this->blog_id);
-        if ($this->create_date) {
-            $criteria->compare('DATE(from_unixtime(t.create_date))', date('Y-m-d', strtotime($this->create_date)));
+        if ($this->create_time) {
+            $criteria->compare('DATE(from_unixtime(t.create_time))', date('Y-m-d', strtotime($this->create_time)));
         }
-        $criteria->compare('update_date', $this->update_date);
+        $criteria->compare('update_time', $this->update_time);
         $criteria->compare('role', $this->role);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('note', $this->note);
@@ -181,8 +181,6 @@ class UserToBlog extends yupe\models\YModel
             'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute'   => 'create_date',
-                'updateAttribute'   => 'update_date',
             ],
         ];
     }

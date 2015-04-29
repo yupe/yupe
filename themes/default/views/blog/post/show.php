@@ -38,7 +38,7 @@ $this->breadcrumbs = [
                 <span>
                     <i class="glyphicon glyphicon-calendar"></i>
                     <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-                        $post->publish_date,
+                        $post->publish_time,
                         "long",
                         "short"
                     ); ?>

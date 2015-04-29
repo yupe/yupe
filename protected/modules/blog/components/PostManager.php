@@ -6,7 +6,7 @@ class PostManager extends CApplicationComponent
     {
         $criteria = new CDbCriteria();
         $criteria->limit = $limit;
-        $criteria->order = 'publish_date DESC';
+        $criteria->order = 'publish_time DESC';
 
         $criteria->addNotInCondition('t.id', [$post->id]);
 
