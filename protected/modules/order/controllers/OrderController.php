@@ -23,49 +23,40 @@ class OrderController extends \yupe\components\controllers\FrontController
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Order')) {
 
-            $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
+            $order = Yii::app()->getRequest()->getPost('Order');
 
-            $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct'));
+            $products = Yii::app()->getRequest()->getPost('OrderProduct');
 
-            if ($model->validate()) {
+            $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-                //@TODOпроверить возможность доставки
-                $delivery = Delivery::model()->findById($model->delivery_id);
+            if ($model->saveData($order, $products, $coupons, (int)Yii::app()->getModule('order')->defaultStatus)) {
 
-                if ($model->save()) {
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('OrderModule.order', 'The order created')
+                );
 
-                    Yii::app()->getUser()->setFlash(
-                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('OrderModule.order', 'The order created')
-                    );
-
-                    if (Yii::app()->hasModule('cart')) {
-                        Yii::app()->getModule('cart')->clearCart();
-                    }
-
-                    //отправить уведомления
-                    Yii::app()->orderNotifyService->sendOrderCreatedAdminNotify($model);
-
-                    Yii::app()->orderNotifyService->sendOrderCreatedUserNotify($model);
-
-
-                    if (Yii::app()->getModule('order')->showOrder) {
-                        $this->redirect(['/order/order/view', 'url' => $model->url]);
-                    }
-
-                    $this->redirect(['/store/catalog/index']);
-
-                } else {
-                    Yii::app()->getUser()->setFlash(
-                        yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                        CHtml::errorSummary($model)
-                    );
+                if (Yii::app()->hasModule('cart')) {
+                    Yii::app()->getModule('cart')->clearCart();
                 }
-            }else{
-                 Yii::app()->getUser()->setFlash(
-                        yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                        CHtml::errorSummary($model)
-                    );
+
+                //отправить уведомления
+                Yii::app()->orderNotifyService->sendOrderCreatedAdminNotify($model);
+
+                Yii::app()->orderNotifyService->sendOrderCreatedUserNotify($model);
+
+
+                if (Yii::app()->getModule('order')->showOrder) {
+                    $this->redirect(['/order/order/view', 'url' => $model->url]);
+                }
+
+                $this->redirect(['/store/catalog/index']);
+
+            } else {
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    CHtml::errorSummary($model)
+                );
             }
         }
 
@@ -74,7 +65,7 @@ class OrderController extends \yupe\components\controllers\FrontController
 
     public function actionCheck()
     {
-        if(!Yii::app()->getModule('order')->enableCheck) {
+        if (!Yii::app()->getModule('order')->enableCheck) {
             throw new CHttpException(404);
         }
 
@@ -82,13 +73,13 @@ class OrderController extends \yupe\components\controllers\FrontController
 
         $order = null;
 
-        if(Yii::app()->getRequest()->getIsPostRequest()) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
 
             $form->setAttributes(
                 Yii::app()->getRequest()->getPost('CheckOrderForm')
             );
 
-            if($form->validate()) {
+            if ($form->validate()) {
                 $order = Order::model()->findByNumber($form->number);
             }
         }

@@ -116,16 +116,16 @@ $this->menu = [
                 'value' => $model->updateUser->getFullName(),
             ],
             [
-                'name'  => 'publish_date',
-                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, "short", "short"),
+                'name'  => 'publish_time',
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->publish_time, "short", "short"),
             ],
             [
-                'name'  => 'create_date',
-                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_date, "short", "short"),
+                'name'  => 'create_time',
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_time, "short", "short"),
             ],
             [
-                'name'  => 'update_date',
-                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
+                'name'  => 'update_time',
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_time, "short", "short"),
             ],
             'slug',
             'title',

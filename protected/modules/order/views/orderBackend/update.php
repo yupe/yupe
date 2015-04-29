@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
-    Yii::t('OrderModule.order', 'Order #' . $model->id) => ['/order/orderBackend/view', 'id' => $model->id],
+    Yii::t('OrderModule.order', 'Order #{id}', ['{id}' => $model->id]) => ['/order/orderBackend/view', 'id' => $model->id],
     Yii::t('OrderModule.order', 'Edition'),
 ];
 

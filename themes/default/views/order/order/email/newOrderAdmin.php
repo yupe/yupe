@@ -91,7 +91,7 @@
     <?php foreach ($order->products as $orderProduct): ?>
         <?php $productUrl = Yii::app()->createAbsoluteUrl(
             '/store/catalog/show',
-            ['name' => $orderProduct->product->alias]
+            ['name' => $orderProduct->product->slug]
         ); ?>
         <tr>
             <td align="center"
@@ -123,11 +123,11 @@
     <?php endforeach; ?>
 
 
-    <?php if ($order->coupon_code): ?>
+    <?php if ($order->hasCoupons()): ?>
         <tr>
             <td style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;"></td>
             <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
-                Купон <?= CHtml::encode($order->coupon_code); ?>
+                Купон <?= CHtml::encode(implode(', ', $order->getCouponsCodes())); ?>
             </td>
             <td align=right
                 style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;">

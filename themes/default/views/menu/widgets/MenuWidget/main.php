@@ -15,11 +15,14 @@ $this->widget(
         ),
         'brandUrl' => Yii::app()->hasModule('homepage') ? ['/homepage/hp/index'] : ['site/index'],
         'items' => [
-            [
-                'class' => 'YMenu',
-                'type' => 'navbar',
-                'items' => $this->params['items'],
-            ],
+            CMap::mergeArray(
+                [
+                    'class' => 'YMenu',
+                    'type' => 'navbar',
+                    'items' => $this->params['items'],
+                ],
+                $layoutParams
+            ),
             [
                 'class' => 'bootstrap.widgets.TbMenu',
                 'type' => 'navbar',

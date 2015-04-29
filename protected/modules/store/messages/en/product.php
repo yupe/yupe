@@ -92,4 +92,12 @@ return [
     'In stock' => '',
     'Not in stock' => '',
     'Stock status' => '',
+    'First you need to save the product.' => '',
+    'Linked products' => '',
+    'Link type' => '',
+    'Link types' => '',
+    'Add in' => '',
+    'Link types - manage' => '',
+    'Manage link types' => '',
+    'Code' => '',
 ];

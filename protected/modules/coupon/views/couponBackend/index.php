@@ -34,8 +34,8 @@ $this->widget(
                 'value' => 'CHtml::link($data->name, array("/coupon/couponBackend/update", "id" => $data->id))',
             ],
             'code',
-            'date_start',
-            'date_end',
+            'start_time',
+            'end_time',
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
@@ -45,6 +45,13 @@ $this->widget(
                     Coupon::STATUS_ACTIVE => ['class' => 'label-success'],
                     Coupon::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
+            ],
+            [
+                'header' => Yii::t('CouponModule.coupon', 'Orders'),
+                'value'  => function($data) {
+                        return CHtml::link($data->ordersCount,[], ['class' => 'badge']);
+                    },
+                'type' => 'raw'
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

@@ -1,3 +1,5 @@
+<?php $this->pageTitle = Yii::app()->getModule('yupe')->siteName;?>
+
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <h1>Поздравляем!</h1>

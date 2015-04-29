@@ -15,7 +15,7 @@ class PagesWidget extends yupe\widgets\YWidget
 {
     public $pageStatus;
     public $topLevelOnly = false;
-    public $order = 't.order ASC, t.creation_date ASC';
+    public $order = 't.order ASC, t.create_time ASC';
     public $parent_id;
     public $view = 'pageswidget';
     public $visible = true;

@@ -18,7 +18,7 @@
  * @property string $id
  * @property string $name
  * @property string $description
- * @property string $alias
+ * @property string $slug
  * @property integer $status
  * @property string $lang
  * @property integer $parent_id
@@ -60,25 +60,25 @@ class Category extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['name, description, short_description, alias', 'filter', 'filter' => 'trim'],
-            ['name, alias', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
-            ['name, alias, lang', 'required'],
+            ['name, description, short_description, slug', 'filter', 'filter' => 'trim'],
+            ['name, slug', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, slug, lang', 'required'],
             ['parent_id, status', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
             ['status', 'length', 'max' => 11],
             ['name, image', 'length', 'max' => 250],
-            ['alias', 'length', 'max' => 150],
+            ['slug', 'length', 'max' => 150],
             ['lang', 'length', 'max' => 2],
             [
-                'alias',
+                'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')
             ],
-            ['alias', 'yupe\components\validators\YUniqueSlugValidator'],
+            ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
             ['status', 'in', 'range' => array_keys($this->statusList)],
-            ['id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'],
+            ['id, parent_id, name, description, short_description, slug, status, lang', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -118,8 +118,8 @@ class Category extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if (!$this->alias) {
-            $this->alias = yupe\helpers\YText::translit($this->name);
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
         if (!$this->lang) {
@@ -142,7 +142,7 @@ class Category extends yupe\models\YModel
             'image'             => Yii::t('CategoryModule.category', 'Image'),
             'short_description' => Yii::t('CategoryModule.category', 'Short description'),
             'description'       => Yii::t('CategoryModule.category', 'Description'),
-            'alias'             => Yii::t('CategoryModule.category', 'Alias'),
+            'slug'             => Yii::t('CategoryModule.category', 'Alias'),
             'status'            => Yii::t('CategoryModule.category', 'Status'),
         ];
     }
@@ -160,7 +160,7 @@ class Category extends yupe\models\YModel
             'image'             => Yii::t('CategoryModule.category', 'Image'),
             'short_description' => Yii::t('CategoryModule.category', 'Short description'),
             'description'       => Yii::t('CategoryModule.category', 'Description'),
-            'alias'             => Yii::t('CategoryModule.category', 'Alias'),
+            'slug'             => Yii::t('CategoryModule.category', 'Alias'),
             'status'            => Yii::t('CategoryModule.category', 'Status'),
         ];
     }
@@ -180,7 +180,7 @@ class Category extends yupe\models\YModel
         $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('slug', $this->slug, true);
         $criteria->compare('lang', $this->lang);
         $criteria->compare('status', $this->status);
 
@@ -274,12 +274,12 @@ class Category extends yupe\models\YModel
         return '---';
     }
 
-    public function getByAlias($alias)
+    public function getByAlias($slug)
     {
         return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find(
-            'alias = :alias',
+            'slug = :slug',
             [
-                ':alias' => $alias
+                ':slug' => $slug
             ]
         );
     }

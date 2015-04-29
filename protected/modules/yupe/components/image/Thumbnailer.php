@@ -1,16 +1,14 @@
 <?php
 namespace yupe\components\image;
 
-use Imagine\Image\ImageInterface;
 use Yii;
 use CException;
 use yupe\helpers\YFile;
 use Imagine\Image\Box;
-use Imagine\Image\ImagineInterface;
-use Imagine\Image\ManipulatorInterface;
 use Imagine\Image\Point;
+use CApplicationComponent;
 
-class Thumbnailer extends \CApplicationComponent
+class Thumbnailer extends CApplicationComponent
 {
     public $thumbDir = 'thumbs';
 

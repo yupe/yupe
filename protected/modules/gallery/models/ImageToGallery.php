@@ -17,7 +17,7 @@
  * @property string $id
  * @property string $image_id
  * @property string $gallery_id
- * @property string $creation_date
+ * @property string $create_time
  *
  * The followings are the available model relations:
  * @property Gallery $gallery
@@ -51,7 +51,7 @@ class ImageToGallery extends yupe\models\YModel
         return [
             ['image_id, gallery_id', 'required'],
             ['image_id, gallery_id', 'numerical', 'integerOnly' => true],
-            ['id, image_id, gallery_id, creation_date', 'safe', 'on' => 'search'],
+            ['id, image_id, gallery_id, create_time', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -77,7 +77,7 @@ class ImageToGallery extends yupe\models\YModel
             'id'            => Yii::t('GalleryModule.gallery', 'id'),
             'image_id'      => Yii::t('GalleryModule.gallery', 'Image'),
             'gallery_id'    => Yii::t('GalleryModule.gallery', 'Gallery'),
-            'creation_date' => Yii::t('GalleryModule.gallery', 'Created at'),
+            'create_time' => Yii::t('GalleryModule.gallery', 'Created at'),
         ];
     }
 
@@ -95,7 +95,7 @@ class ImageToGallery extends yupe\models\YModel
         $criteria->compare('id', $this->id, true);
         $criteria->compare('image_id', $this->image_id, true);
         $criteria->compare('gallery_id', $this->gallery_id, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
 
         return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
@@ -103,7 +103,7 @@ class ImageToGallery extends yupe\models\YModel
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->creation_date = new CDbExpression('NOW()');
+            $this->create_time = new CDbExpression('NOW()');
         }
 
         return parent::beforeSave();

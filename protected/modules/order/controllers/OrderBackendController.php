@@ -48,7 +48,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
 
-            $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
+            $model->setProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
 
             if ($model->save()) {
                 Yii::app()->getUser()->setFlash(
@@ -73,11 +73,13 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
 
-            $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
+            $order = Yii::app()->getRequest()->getPost('Order');
 
-            $model->setOrderProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
+            $products = Yii::app()->getRequest()->getPost('OrderProduct');
 
-            if ($model->save()) {
+            $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
+
+            if ($model->saveData($order, $products, $coupons)) {
 
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -164,7 +166,6 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $product = new OrderProduct();
         $product->product = Product::model()->findByPk($_GET['OrderProduct']['product_id']);
-
         $this->renderPartial('_product_row', ['model' => $product]);
     }
 }

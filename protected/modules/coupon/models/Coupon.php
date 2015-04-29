@@ -9,8 +9,8 @@ Yii::import('coupon.CouponModule'); // при вызове из корзины �
  * @property integer $type
  * @property integer $registered_user
  * @property integer $free_shipping
- * @property string $date_start
- * @property string $date_end
+ * @property string $start_time
+ * @property string $end_time
  * @property integer $quantity
  * @property integer $quantity_per_user
  * @property integer $status
@@ -48,10 +48,10 @@ class Coupon extends yupe\models\YModel
             ['value, min_order_price', 'numerical'],
             ['quantity, quantity_per_user', 'numerical', 'integerOnly' => true],
             ['registered_user, free_shipping', 'in', 'range' => [0, 1]],
-            ['date_start, date_end', 'date', 'format' => 'yyyy-MM-dd'],
+            ['start_time, end_time', 'date', 'format' => 'yyyy-MM-dd'],
             ['code', 'unique'],
             [
-                'id, name, code, type, value, min_order_price, registered_user, free_shipping, date_start, date_end, quantity, quantity_per_user, status',
+                'id, name, code, type, value, min_order_price, registered_user, free_shipping, start_time, end_time, quantity, quantity_per_user, status',
                 'safe',
                 'on' => 'search'
             ],
@@ -65,6 +65,13 @@ class Coupon extends yupe\models\YModel
                 'condition' => 'status = :status',
                 'params' => [':status' => self::STATUS_ACTIVE],
             ],
+        ];
+    }
+
+    public function relations()
+    {
+        return [
+            'ordersCount' => [self::STAT, 'OrderCoupon', 'coupon_id']
         ];
     }
 
@@ -82,8 +89,8 @@ class Coupon extends yupe\models\YModel
             'type' => Yii::t('CouponModule.coupon', 'Type'),
             'registered_user' => Yii::t('CouponModule.coupon', 'Clients only'),
             'free_shipping' => Yii::t('CouponModule.coupon', 'Free delivery'),
-            'date_start' => Yii::t('CouponModule.coupon', 'Start date'),
-            'date_end' => Yii::t('CouponModule.coupon', 'End date'),
+            'start_time' => Yii::t('CouponModule.coupon', 'Start date'),
+            'end_time' => Yii::t('CouponModule.coupon', 'End date'),
             'quantity' => Yii::t('CouponModule.coupon', 'Coupons amount'),
             'quantity_per_user' => Yii::t('CouponModule.coupon', 'Qty per user'),
             'status' => Yii::t('CouponModule.coupon', 'Status'),
@@ -102,8 +109,8 @@ class Coupon extends yupe\models\YModel
         $criteria->compare('type', $this->type);
         $criteria->compare('registered_user', $this->registered_user);
         $criteria->compare('free_shipping', $this->free_shipping);
-        $criteria->compare('date_start', $this->date_start, true);
-        $criteria->compare('date_end', $this->date_end, true);
+        $criteria->compare('start_time', $this->start_time, true);
+        $criteria->compare('end_time', $this->end_time, true);
         $criteria->compare('quantity', $this->quantity);
         $criteria->compare('quantity_per_user', $this->quantity_per_user);
         $criteria->compare('status', $this->status);
@@ -115,6 +122,7 @@ class Coupon extends yupe\models\YModel
             ]
         );
     }
+
 
     /**
      * Returns the static model of the specified AR class.
@@ -129,15 +137,15 @@ class Coupon extends yupe\models\YModel
 
     public function afterFind()
     {
-        $this->date_start = !$this->date_start ? '' : date('Y-m-d', strtotime($this->date_start));
-        $this->date_end = !$this->date_end ? '' : date('Y-m-d', strtotime($this->date_end));
+        $this->start_time = !$this->start_time ? '' : date('Y-m-d', strtotime($this->start_time));
+        $this->end_time = !$this->end_time ? '' : date('Y-m-d', strtotime($this->end_time));
         parent::afterFind();
     }
 
     public function beforeSave()
     {
-        $this->date_start = $this->date_start ? : null;
-        $this->date_end = $this->date_end ? : null;
+        $this->start_time = $this->start_time ? : null;
+        $this->end_time = $this->end_time ? : null;
 
         return parent::beforeSave();
     }
@@ -202,10 +210,10 @@ class Coupon extends yupe\models\YModel
         if ($this->registered_user && Yii::app()->getUser()->getIsGuest()) {
             $errors[] = Yii::t('CouponModule.coupon', 'Coupon is available only for registered users');
         }
-        if ($this->date_start && (time() < strtotime($this->date_start))) {
+        if ($this->start_time && (time() < strtotime($this->start_time))) {
             $errors[] = Yii::t('CouponModule.coupon', 'Coupon start date not yet come');
         }
-        if ($this->date_end && (time() > strtotime($this->date_end))) {
+        if ($this->end_time && (time() > strtotime($this->end_time))) {
             $errors[] = Yii::t('CouponModule.coupon', 'Coupon expired');
         }
 
@@ -221,7 +229,7 @@ class Coupon extends yupe\models\YModel
     {
         $discount = 0.00;
 
-        if(!$this->getIsAvailable($price)) {
+        if (!$this->getIsAvailable($price)) {
             return $discount;
         }
 

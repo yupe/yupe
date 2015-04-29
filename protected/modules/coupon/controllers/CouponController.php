@@ -4,18 +4,20 @@ class CouponController extends \yupe\components\controllers\FrontController
 {
     public function actionAdd()
     {
-        if (!Yii::app()->getRequest()->getIsPostRequest()) {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getParam('code')) {
             throw new CHttpException(404);
         }
 
-        $code = strtoupper(Yii::app()->getRequest()->getParam('code'));;
-        $result = Yii::app()->cart->couponManager->add($code);
-        if (true === $result) {
+        $code = Yii::app()->getRequest()->getParam('code');
+
+        if (true === Yii::app()->cart->couponManager->add($code)) {
             Yii::app()->ajax->success(
                 Yii::t("CouponModule.coupon", "Coupon «{code}» added", ['{code}' => $code])
             );
-        } else {
-            Yii::app()->ajax->failure($result);
+        }
+
+        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+            Yii::app()->ajax->failure([Yii::t("CouponModule.coupon", 'Coupon not found')]);
         }
     }
 

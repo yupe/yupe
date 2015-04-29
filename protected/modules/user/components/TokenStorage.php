@@ -18,7 +18,7 @@ class TokenStorage extends CApplicationComponent
         $model->token = Yii::app()->userManager->hasher->generateRandomToken();
         $model->ip = Yii::app()->getRequest()->getUserHostAddress();
         $model->status = UserToken::STATUS_NEW;
-        $model->expire = new CDbExpression("DATE_ADD(NOW(), INTERVAL {$expire} SECOND)");
+        $model->expire_time = new CDbExpression("DATE_ADD(NOW(), INTERVAL {$expire} SECOND)");
         if ($model->save()) {
             return $model;
         }

@@ -159,7 +159,7 @@ class Producer extends yupe\models\YModel
                     'maxWidth'  => 900,
                     'maxHeight' => 900,
                 ],
-                'defaultImage'  => $module->getAssetsUrl() . '/img/nophoto.jpg',
+                'defaultImage'   => Yii::app()->getTheme()->getAssetsUrl() . $module->defaultImage,
             ],
         ];
     }

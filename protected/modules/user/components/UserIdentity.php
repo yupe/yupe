@@ -73,8 +73,8 @@ class UserIdentity extends CUserIdentity
         }
 
         // зафиксируем время входа
-        $user->last_visit = new CDbExpression('NOW()');
-        $user->update(['last_visit']);
+        $user->visit_time = new CDbExpression('NOW()');
+        $user->update(['visit_time']);
         $this->errorCode = self::ERROR_NONE;
 
         return true;

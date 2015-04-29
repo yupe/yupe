@@ -14,8 +14,8 @@
 
 $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
 <?php $this->breadcrumbs = [
-    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
-    $model->gallery->name                        => $model->gallery->getUrl(),
+    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/list'],
+    $model->gallery->name => $model->gallery->getUrl(),
     $model->name
 ];
 ?>
@@ -31,7 +31,7 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
     ); ?>
     <i class="fa fa-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
         'dd MMMM yyyy г., hh:mm',
-        $model->creation_date
+        $model->create_time
     ); ?>
 </p>
 
@@ -39,16 +39,8 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
     <p><?php echo CHtml::encode($model->description); ?></p>
 </blockquote>
 
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentsListWidget',
-    ['model' => $model, 'modelId' => $model->id]
-); ?>
-
-<?php $this->widget(
-    'application.modules.comment.widgets.CommentFormWidget',
-    [
-        'redirectTo' => $model->gallery->getUrl(),
-        'model'      => $model,
-        'modelId'    => $model->id
-    ]
-); ?>
+<?php
+$this->widget('application.modules.comment.widgets.CommentsWidget', [
+    'redirectTo' => $model->gallery->getUrl(),
+    'model' => $model,
+]);

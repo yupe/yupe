@@ -14,8 +14,8 @@
  * @property string $module_id
  * @property string $param_name
  * @property string $param_value
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $user_id
  *
  * The followings are the available model relations:
@@ -75,7 +75,7 @@ class Settings extends YModel
                 //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
                 //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
                 [
-                    'id, module_id, param_name, param_value, creation_date, change_date, user_id',
+                    'id, module_id, param_name, param_value, create_time, update_time, user_id',
                     'safe',
                     'on' => 'search'
                 ],
@@ -86,10 +86,10 @@ class Settings extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
         if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
+            $this->create_time = $this->update_time;
         }
 
         // Пользователя можно получить только для веб-приложения
@@ -120,8 +120,8 @@ class Settings extends YModel
             'module_id'     => Yii::t('YupeModule.yupe', 'Module'),
             'param_name'    => Yii::t('YupeModule.yupe', 'Parameter name'),
             'param_value'   => Yii::t('YupeModule.yupe', 'Parameter value'),
-            'creation_date' => Yii::t('YupeModule.yupe', 'Creation date'),
-            'change_date'   => Yii::t('YupeModule.yupe', 'Change date'),
+            'create_time' => Yii::t('YupeModule.yupe', 'Creation date'),
+            'update_time'   => Yii::t('YupeModule.yupe', 'Change date'),
             'user_id'       => Yii::t('YupeModule.yupe', 'User'),
         ];
     }
@@ -141,8 +141,8 @@ class Settings extends YModel
         $criteria->compare('module_id', $this->module_id, true);
         $criteria->compare('param_name', $this->param_name, true);
         $criteria->compare('param_value', $this->param_value, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('user_id', $this->user_id, true);
 
         return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);

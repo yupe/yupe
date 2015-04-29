@@ -73,18 +73,18 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->labelEx($model, 'created'); ?>
+        <?php echo $form->labelEx($model, 'create_time'); ?>
         <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
             <?php $this->widget(
                 'bootstrap.widgets.TbDateTimePicker',
                 [
                     'model'       => $model,
-                    'attribute'   => 'created',
+                    'attribute'   => 'create_time',
                     'htmlOptions' => [
                         'class' => 'span11',
-                        'value' => !empty($model->created)
-                                ? $model->beautifyDate($model->created, 'yyyy-MM-dd HH:mm')
+                        'value' => !empty($model->create_time)
+                                ? $model->beautifyDate($model->create_time, 'yyyy-MM-dd HH:mm')
                                 : date('Y-m-d H:i')
                     ],
                 ]
@@ -93,18 +93,18 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-6">
-        <?php echo $form->labelEx($model, 'updated'); ?>
+        <?php echo $form->labelEx($model, 'update_time'); ?>
         <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
             <?php $this->widget(
                 'bootstrap.widgets.TbDateTimePicker',
                 [
                     'model'       => $model,
-                    'attribute'   => 'updated',
+                    'attribute'   => 'update_time',
                     'htmlOptions' => [
                         'class' => 'span11',
-                        'value' => !empty($model->updated)
-                                ? $model->beautifyDate($model->updated, 'yyyy-MM-dd HH:mm')
+                        'value' => !empty($model->update_time)
+                                ? $model->beautifyDate($model->update_time, 'yyyy-MM-dd HH:mm')
                                 : date('Y-m-d H:i')
                     ],
                 ]

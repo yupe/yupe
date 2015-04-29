@@ -110,7 +110,7 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'alias', ['sourceAttribute' => 'name']); ?>
+        <?php echo $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>
@@ -124,6 +124,15 @@ $form = $this->beginWidget(
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             ]
         ); ?>
+
+        <?php if (!$model->isNewRecord && $model->image): ?>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>
+                </label>
+            </div>
+        <?php endif; ?>
+
         <?php echo $form->fileFieldGroup(
             $model,
             'image',

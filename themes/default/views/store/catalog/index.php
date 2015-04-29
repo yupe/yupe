@@ -34,7 +34,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
         <section>
             <div class="grid">
                 <?php $this->widget(
-                    'zii.widgets.CListView',
+                    'bootstrap.widgets.TbListView',
                     [
                         'dataProvider' => $dataProvider,
                         'itemView' => '_view',

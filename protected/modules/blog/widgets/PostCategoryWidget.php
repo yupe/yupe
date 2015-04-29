@@ -17,7 +17,7 @@ class PostCategoryWidget extends yupe\widgets\YWidget
     public function run()
     {
         $data = Yii::app()->db->cache($this->cacheTime)->createCommand()
-            ->select('c.id, c.name, c.alias , count(p.id) postCnt')
+            ->select('c.id, c.name, c.slug , count(p.id) postCnt')
             ->from('{{blog_post}} p')
             ->join('{{category_category}} c', 'p.category_id = c.id')
             ->order('postCnt DESC')

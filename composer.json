@@ -60,7 +60,7 @@
         "phpmailer/phpmailer": "dev-master",
         "yiiext/taggable-behavior": "1.5.*",
         "nodge/yii-eauth": "dev-master",
-        "imagine/imagine": "v0.6.1",
+        "imagine/imagine": "0.6.*",
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
@@ -109,7 +109,7 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "2.*"
+        "codeception/codeception": "2.0.*"
     },
     "minimum-stability": "stable",
     "autoload": {

@@ -100,17 +100,17 @@ class ProductRepository extends CComponent
         $models = Product::model()->findAll($criteria);
         $result = [];
         foreach ($models as $model) {
-            $result[] = CHtml::link($model->name, ['/store/catalog/show', 'name' => $model->alias]);
+            $result[] = CHtml::link($model->name, ['/store/catalog/show', 'name' => $model->slug]);
         }
         return $result;
     }
 
     /**
-     * @param $alias
+     * @param $slug
      * @return mixed
      */
-    public function getByAlias($alias)
+    public function getByAlias($slug)
     {
-        return Product::model()->published()->find('alias = :alias', [':alias' => $alias]);
+        return Product::model()->published()->find('slug = :slug', [':slug' => $slug]);
     }
 } 

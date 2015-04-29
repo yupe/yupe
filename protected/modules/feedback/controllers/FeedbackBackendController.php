@@ -89,7 +89,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
-                $model->answer_date = new CDbExpression('NOW()');
+                $model->answer_time = new CDbExpression('NOW()');
             }
 
             if ($model->save()) {
@@ -128,7 +128,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
-                $model->answer_date = new CDbExpression('NOW()');
+                $model->answer_time = new CDbExpression('NOW()');
             }
 
             if ($model->save()) {
@@ -240,7 +240,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                         'answer'      => $form->answer,
                         'is_faq'      => $form->is_faq,
                         'answer_user' => Yii::app()->user->getId(),
-                        'answer_date' => new CDbExpression('NOW()'),
+                        'answer_time' => new CDbExpression('NOW()'),
                         'status'      => FeedBack::STATUS_ANSWER_SENDED,
                     ]
                 );

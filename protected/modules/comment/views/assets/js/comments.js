@@ -8,11 +8,10 @@
             $notifications = $('#notifications');
 
         function clearForm() {
+            $form[0].reset();
             if ($.fn.redactor !== undefined) {
                 $text.redactor('insert.set', '');
             }
-            $text.val('');
-            $pid.val('');
         }
 
         function insertComment(pid, content) {

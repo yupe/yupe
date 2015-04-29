@@ -200,6 +200,18 @@ class MenuItem extends yupe\models\YModel
         ];
     }
 
+    protected function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $this->sort = Yii::app()->db->createCommand()
+                ->select('MAX(sort) + 1')
+                ->from($this->tableName())
+                ->queryScalar();
+        }
+
+        return parent::beforeSave();
+    }
+
     protected function afterSave()
     {
         Yii::app()->getCache()->clear($this->menu->code);
