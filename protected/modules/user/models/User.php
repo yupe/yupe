@@ -261,7 +261,7 @@ class User extends yupe\models\YModel
             $criteria->compare('t.registration_date', date('Y-m-d', strtotime($this->registration_date)), true);
         }
         $criteria->compare('t.first_name', $this->first_name, true);
-        $criteria->compare('t.middle_name', $this->first_name, true);
+        $criteria->compare('t.middle_name', $this->middle_name, true);
         $criteria->compare('t.last_name', $this->last_name, true);
         $criteria->compare('t.nick_name', $this->nick_name, true);
         $criteria->compare('t.email', $this->email, true);
