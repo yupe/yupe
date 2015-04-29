@@ -22,6 +22,7 @@ use TagsCache;
 use CCacheDependency;
 use CChainedCacheDependency;
 use Yii;
+use yupe\components\FilterState;
 
 abstract class YModel extends CActiveRecord
 {
@@ -62,6 +63,16 @@ abstract class YModel extends CActiveRecord
     public static function _CLASS_()
     {
         return get_called_class();
+    }
+
+    public function afterConstruct()
+    {
+        if ($this->scenario === 'search') {
+            $filter = new FilterState($this);
+            $filter->run();
+        }
+
+        parent::afterConstruct();
     }
 
     /**

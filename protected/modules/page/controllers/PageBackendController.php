@@ -328,15 +328,6 @@ class PageBackendController extends yupe\components\controllers\BackController
     {
         $model = new Page('search');
 
-        $model->unsetAttributes();
-
-        $model->setAttributes(
-            Yii::app()->getRequest()->getParam(
-                'Page',
-                []
-            )
-        );
-
         $this->render(
             'index',
             [
