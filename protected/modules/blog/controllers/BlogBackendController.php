@@ -16,13 +16,11 @@ class BlogBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Blog.BlogBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Blog.BlogBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Blog.BlogBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Blog.BlogBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Blog.BlogBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Blog.BlogBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Blog.BlogBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Blog.BlogBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Blog.BlogBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Blog.BlogBackend.Delete']],
             ['deny']
         ];
     }
