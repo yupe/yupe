@@ -5,7 +5,7 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu.controllers
  * @since 0.1
  *
@@ -16,13 +16,11 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuitemBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Menu.MenuitemBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuitemBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Menu.MenuitemBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Menu.MenuitemBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuitemBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'sortable'], 'roles' => ['Menu.MenuitemBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Menu.MenuitemBackend.Delete']],
             ['deny']
         ];
     }
