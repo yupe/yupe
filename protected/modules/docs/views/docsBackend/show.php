@@ -16,7 +16,7 @@
  */
 Yii::app()->clientScript->registerCssFile(
     Yii::app()->assetManager->publish(
-        Yii::getPathOfAlias('application.modules.docs.views.assets') . '/css/main.css'
+        Yii::getPathOfAlias('application.modules.docs.views.assets') . '/css/docs.css'
     )
 );
 
