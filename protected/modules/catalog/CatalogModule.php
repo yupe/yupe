@@ -206,18 +206,8 @@ class CatalogModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Catalog.CatalogBackend.Inline',
-                        'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.View',
                         'description' => Yii::t('CatalogModule.catalog', 'Viewing goods')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Catalog.CatalogBackend.Multiaction',
-                        'description' => Yii::t('CatalogModule.catalog', 'Batch delete')
                     ],
                 ]
             ]
