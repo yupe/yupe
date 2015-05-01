@@ -284,15 +284,15 @@ class Blog extends yupe\models\YModel
                             LEFT JOIN {{blog_user_to_blog}} member ON member.blog_id = t.id';
         $criteria->group = 't.id';
 
-        $criteria->compare('t.id', $this->id, true);
+        $criteria->compare('t.id', $this->id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('type', $this->type);
         $criteria->compare('t.status', $this->status);
-        $criteria->compare('create_user_id', $this->create_user_id, true);
-        $criteria->compare('update_user_id', $this->update_user_id, true);
-        $criteria->compare('category_id', $this->category_id, true);
+        $criteria->compare('t.create_user_id', $this->create_user_id);
+        $criteria->compare('t.update_user_id', $this->update_user_id);
+        $criteria->compare('category_id', $this->category_id);
         $criteria->compare('create_time', $this->create_time);
         $criteria->compare('update_time', $this->update_time);
 
