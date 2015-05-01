@@ -124,7 +124,6 @@ return [
     'List of comments'                                            => 'Просмотр списка комментариев',
     'Editing comment'                                             => 'Редактирование комментария',
     'Viewing comments'                                            => 'Просмотр комментариев',
-    'Batch delete'                                                => 'Массовое удаление комментариев',
     'Remove tags in the derivation comment using strip_tags() ?'  => 'Удалять теги при выводе комментария, используя strip_tags() ?',
     'Not have permission to add a comment!'                       => 'Недостаточно прав для добавления комментария!'
 ];
