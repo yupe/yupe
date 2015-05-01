@@ -23,13 +23,11 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Delivery.DeliveryBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Delivery.DeliveryBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Delivery.DeliveryBackend.Index'],],
-            ['allow', 'actions' => ['sortable'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Delivery.DeliveryBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Delivery.DeliveryBackend.Multiaction'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Delivery.DeliveryBackend.Create'],],
+            ['allow', 'actions' => ['update', 'sortable', 'inline'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Delivery.DeliveryBackend.Delete'],],
             ['deny',],
         ];
     }
