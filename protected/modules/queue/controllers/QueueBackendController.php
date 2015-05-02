@@ -5,7 +5,7 @@
  *
  * @author    yupe team <team@yupe.ru>
  * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.queue.controllers
  * @license   BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version   0.6
@@ -17,13 +17,11 @@ class QueueBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Queue.QueueBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Queue.QueueBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Queue.QueueBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Queue.QueueBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Queue.QueueBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Queue.QueueBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Queue.QueueBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Queue.QueueBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Queue.QueueBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Queue.QueueBackend.Delete']],
             ['deny']
         ];
     }
@@ -189,7 +187,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
         $this->redirect(
             ($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null
                 ? $referrer
-                : ["/yupe/backend/index"]
+                : ['/yupe/backend/index']
         );
     }
 

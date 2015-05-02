@@ -6,16 +6,13 @@ class RbacBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => [AuthItem::ROLE_ADMIN]],
-            ['allow', 'actions' => ['assign'], 'roles' => ['Rbac.RbacBackend.Assign']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Rbac.RbacBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Rbac.RbacBackend.Delete']],
-            ['allow', 'actions' => ['import'], 'roles' => ['Rbac.RbacBackend.Import']],
             ['allow', 'actions' => ['index'], 'roles' => ['Rbac.RbacBackend.Index']],
-            ['allow', 'actions' => ['inlineEdit'], 'roles' => ['Rbac.RbacBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Rbac.RbacBackend.Update']],
-            ['allow', 'actions' => ['userList'], 'roles' => ['Rbac.RbacBackend.Assign']],
             ['allow', 'actions' => ['view'], 'roles' => ['Rbac.RbacBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Rbac.RbacBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Rbac.RbacBackend.Create']],
+            ['allow', 'actions' => ['update', 'inlineEdit'], 'roles' => ['Rbac.RbacBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Rbac.RbacBackend.Delete']],
+            ['allow', 'actions' => ['assign', 'userList'], 'roles' => ['Rbac.RbacBackend.Assign']],
+            ['allow', 'actions' => ['import'], 'roles' => ['Rbac.RbacBackend.Import']],
             ['deny',]
         ];
     }
