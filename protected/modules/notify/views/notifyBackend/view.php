@@ -10,11 +10,11 @@
  **/
     $this->breadcrumbs = [
         Yii::app()->getModule('notify')->getCategory() => [],
-        Yii::t('notify', 'Notify') => ['/notify/notifyBackend/index'],
+        Yii::t('NotifyModule.notify', 'Notify') => ['/notify/notifyBackend/index'],
         $model->id,
     ];
 
-    $this->pageTitle = Yii::t('notify', 'Notify - view');
+    $this->pageTitle = Yii::t('NotifyModule.notify', 'Notify - view');
 
 $this->menu = [
     ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('NotifyModule.notify', 'Manage notify'), 'url' => ['/notify/notifyBackend/index']],
@@ -37,7 +37,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('notify', 'View notify'); ?><br/>
+        <?php echo Yii::t('NotifyModule.notify', 'View notify'); ?><br/>
         <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
     </h1>
 </div>
