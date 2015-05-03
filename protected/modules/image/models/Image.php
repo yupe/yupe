@@ -175,6 +175,7 @@ class Image extends yupe\models\YModel
         $criteria->compare('t.user_id', $this->user_id, true);
         $criteria->compare('t.alt', $this->alt, true);
         $criteria->compare('t.status', $this->status);
+        $criteria->compare('t.category_id', $this->category_id);
 
         if (Yii::app()->hasModule('gallery')) {
             $criteria->with = ['gallery', 'image'];
