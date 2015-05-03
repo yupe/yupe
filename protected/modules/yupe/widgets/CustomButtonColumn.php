@@ -28,4 +28,15 @@ class CustomButtonColumn extends \TbButtonColumn
      * @var string the delete button icon (defaults to 'trash').
      */
     public $deleteButtonIcon = 'fa fa-fw fa-trash-o';
+
+    public function renderFilterCell()
+    {
+        echo '<td class="button-column">';
+        $this->renderButton('clear', [
+            'label' => Yii::t('YupeModule.yupe', 'Clear Filters'),
+            'icon' => 'fa fa-fw fa-undo',
+            'url' => 'Yii::app()->controller->createUrl(Yii::app()->controller->action->ID,array("clearFilters"=>1))'
+        ],[],[]);
+        echo '</td>';
+    }
 }

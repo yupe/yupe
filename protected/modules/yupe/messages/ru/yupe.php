@@ -350,4 +350,5 @@ return [
     'Record was deleted!' => 'Запись успешно удалена!',
     'Record was not found!' => 'Запись не найдена!',
     'Delete the file' => 'Удалить файл',
+    'Clear Filters' => 'Очистить фильтр',
 ];
