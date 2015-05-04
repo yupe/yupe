@@ -54,7 +54,7 @@ $confirmMessage = CJavaScript::encode(
     Yii::t('UserModule.user', 'Are you sure you want to compromise this token?')
 );
 $compromiseJS = <<<SCRIPT
-    function () {
+    function (event) {
         event.preventDefault();
 
         if(!confirm($confirmMessage)) return false;
@@ -156,7 +156,7 @@ SCRIPT;
             [
                 'header'      => Yii::t('UserModule.user', 'Management'),
                 'class'       => 'yupe\widgets\CustomButtonColumn',
-                'template'    => "{fail} &emsp; {view} {update} {delete}",
+                'template'    => '{fail} &emsp; {view} {update} {delete}',
                 'buttons'     => [
                     'fail' => [
                         'icon'    => 'fa fa-fw fa-times',
@@ -167,7 +167,7 @@ SCRIPT;
                     ],
                 ],
                 'htmlOptions' => [
-                    'style' => 'width: 90px; text-align: right; white-space: nowrap;'
+                    'class' => 'button-column'
                 ]
             ],
         ],
