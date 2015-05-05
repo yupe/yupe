@@ -12,7 +12,7 @@
  */
 class MailModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public function getParamsLabels()
     {
@@ -213,18 +213,8 @@ class MailModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.Inline',
-                        'description' => Yii::t('MailModule.mail', 'Editing mail events')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Mail.EventBackend.View',
                         'description' => Yii::t('MailModule.mail', 'Viewing mail events')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.Multiaction',
-                        'description' => Yii::t('MailModule.mail', 'Batch delete mail events')
                     ],
                     //mail templates
                     [
@@ -249,18 +239,8 @@ class MailModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.Inline',
-                        'description' => Yii::t('MailModule.mail', 'Editing mail event templates')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Mail.TemplateBackend.View',
                         'description' => Yii::t('MailModule.mail', 'Viewing mail event templates')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.Multiaction',
-                        'description' => Yii::t('MailModule.mail', 'Batch delete mail event templates')
                     ],
                 ]
             ]

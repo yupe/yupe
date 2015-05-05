@@ -5,7 +5,7 @@
  *
  * @author    yupe team <team@yupe.ru>
  * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.news.controllers
  * @version   0.6
  *
@@ -16,13 +16,11 @@ class NewsBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['News.NewsBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['News.NewsBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['News.NewsBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['News.NewsBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['News.NewsBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['News.NewsBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['News.NewsBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['News.NewsBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['News.NewsBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['News.NewsBackend.Delete']],
             ['deny']
         ];
     }

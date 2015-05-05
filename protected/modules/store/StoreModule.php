@@ -11,7 +11,7 @@ class StoreModule extends WebModule
     public $minSize = 0;
     public $maxSize;
     public $maxFiles = 1;
-    public $assetsPath = "application.modules.store.views.assets";
+    public $assetsPath = 'application.modules.store.views.assets';
     public $defaultImage = '/images/nophoto.jpg';
 
     public function getDependencies()
@@ -257,190 +257,165 @@ class StoreModule extends WebModule
             [
                 'type' => AuthItem::TYPE_ROLE,
                 'name' => 'Store.Manager',
-                'description' => Yii::t("StoreModule.store", 'Catalog manager'),
+                'description' => Yii::t('StoreModule.store', 'Catalog manager'),
                 'items' => [
                     [
                         'type' => AuthItem::TYPE_TASK,
                         'name' => 'Store.AttributeBackend.Management',
-                        'description' => Yii::t("StoreModule.attr", 'Manage product attributes'),
+                        'description' => Yii::t('StoreModule.attr', 'Manage product attributes'),
                         'items' => [
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.AttributeBackend.Index',
-                                'description' => Yii::t("StoreModule.attr", 'View attribute list'),
+                                'description' => Yii::t('StoreModule.attr', 'View attribute list'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.AttributeBackend.Create',
-                                'description' => Yii::t("StoreModule.attr", 'Create attribute'),
+                                'description' => Yii::t('StoreModule.attr', 'Create attribute'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.AttributeBackend.Update',
-                                'description' => Yii::t("StoreModule.attr", 'Update attribute'),
+                                'description' => Yii::t('StoreModule.attr', 'Update attribute'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.AttributeBackend.View',
-                                'description' => Yii::t("StoreModule.attr", 'View attribute'),
+                                'description' => Yii::t('StoreModule.attr', 'View attribute'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.AttributeBackend.Delete',
-                                'description' => Yii::t("StoreModule.attr", 'Delete attribute'),
-                            ],
-                            [
-                                'type' => AuthItem::TYPE_OPERATION,
-                                'name' => 'Store.AttributeBackend.Multiaction',
-                                'description' => Yii::t("StoreModule.attr", 'Batch delete'),
+                                'description' => Yii::t('StoreModule.attr', 'Delete attribute'),
                             ],
                         ],
                     ],
                     [
                         'type' => AuthItem::TYPE_TASK,
                         'name' => 'Store.CategoryBackend.Management',
-                        'description' => Yii::t("StoreModule.category", 'Manage product categories'),
+                        'description' => Yii::t('StoreModule.category', 'Manage product categories'),
                         'items' => [
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.CategoryBackend.Index',
-                                'description' => Yii::t("StoreModule.category", 'List of categories'),
+                                'description' => Yii::t('StoreModule.category', 'List of categories'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.CategoryBackend.Create',
-                                'description' => Yii::t("StoreModule.category", 'Create category'),
+                                'description' => Yii::t('StoreModule.category', 'Create category'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.CategoryBackend.Update',
-                                'description' => Yii::t("StoreModule.category", 'Update category'),
+                                'description' => Yii::t('StoreModule.category', 'Update category'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.CategoryBackend.View',
-                                'description' => Yii::t("StoreModule.category", 'View category'),
+                                'description' => Yii::t('StoreModule.category', 'View category'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.CategoryBackend.Delete',
-                                'description' => Yii::t("StoreModule.category", 'Delete category'),
-                            ],
-                            [
-                                'type' => AuthItem::TYPE_OPERATION,
-                                'name' => 'Store.CategoryBackend.Multiaction',
-                                'description' => Yii::t("StoreModule.category", 'Batch delete'),
+                                'description' => Yii::t('StoreModule.category', 'Delete category'),
                             ],
                         ],
                     ],
                     [
                         'type' => AuthItem::TYPE_TASK,
                         'name' => 'Store.ProducerBackend.Management',
-                        'description' => Yii::t("StoreModule.producer", 'Manage producers'),
+                        'description' => Yii::t('StoreModule.producer', 'Manage producers'),
                         'items' => [
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProducerBackend.Index',
-                                'description' => Yii::t("StoreModule.producer", 'View producer list'),
+                                'description' => Yii::t('StoreModule.producer', 'View producer list'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProducerBackend.Create',
-                                'description' => Yii::t("StoreModule.producer", 'Create producer'),
+                                'description' => Yii::t('StoreModule.producer', 'Create producer'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProducerBackend.Update',
-                                'description' => Yii::t("StoreModule.producer", 'Update producer'),
+                                'description' => Yii::t('StoreModule.producer', 'Update producer'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProducerBackend.View',
-                                'description' => Yii::t("StoreModule.producer", 'View producer'),
+                                'description' => Yii::t('StoreModule.producer', 'View producer'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProducerBackend.Delete',
-                                'description' => Yii::t("StoreModule.producer", 'Delete producer'),
-                            ],
-                            [
-                                'type' => AuthItem::TYPE_OPERATION,
-                                'name' => 'Store.ProducerBackend.Multiaction',
-                                'description' => Yii::t("StoreModule.producer", 'Batch delete'),
+                                'description' => Yii::t('StoreModule.producer', 'Delete producer'),
                             ],
                         ],
                     ],
                     [
                         'type' => AuthItem::TYPE_TASK,
                         'name' => 'Store.ProductBackend.Management',
-                        'description' => Yii::t("StoreModule.product", 'Manage products'),
+                        'description' => Yii::t('StoreModule.product', 'Manage products'),
                         'items' => [
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Index',
-                                'description' => Yii::t("StoreModule.product", 'View product list'),
+                                'description' => Yii::t('StoreModule.product', 'View product list'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Create',
-                                'description' => Yii::t("StoreModule.product", 'Create product'),
+                                'description' => Yii::t('StoreModule.product', 'Create product'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Update',
-                                'description' => Yii::t("StoreModule.product", 'Update product'),
+                                'description' => Yii::t('StoreModule.product', 'Update product'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.View',
-                                'description' => Yii::t("StoreModule.product", 'View product'),
+                                'description' => Yii::t('StoreModule.product', 'View product'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Delete',
-                                'description' => Yii::t("StoreModule.product", 'Delete product'),
-                            ],
-                            [
-                                'type' => AuthItem::TYPE_OPERATION,
-                                'name' => 'Store.ProductBackend.Multiaction',
-                                'description' => Yii::t("StoreModule.product", 'Batch delete'),
+                                'description' => Yii::t('StoreModule.product', 'Delete product'),
                             ],
                         ],
                     ],
                     [
                         'type' => AuthItem::TYPE_TASK,
                         'name' => 'Store.TypeBackend.Management',
-                        'description' => Yii::t("StoreModule.type", 'Manage product types'),
+                        'description' => Yii::t('StoreModule.type', 'Manage product types'),
                         'items' => [
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.TypeBackend.Index',
-                                'description' => Yii::t("StoreModule.type", 'Types list'),
+                                'description' => Yii::t('StoreModule.type', 'Types list'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.TypeBackend.Create',
-                                'description' => Yii::t("StoreModule.type", 'Types list'),
+                                'description' => Yii::t('StoreModule.type', 'Types list'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.TypeBackend.Update',
-                                'description' => Yii::t("StoreModule.type", 'Update type'),
+                                'description' => Yii::t('StoreModule.type', 'Update type'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.TypeBackend.View',
-                                'description' => Yii::t("StoreModule.type", 'View type'),
+                                'description' => Yii::t('StoreModule.type', 'View type'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.TypeBackend.Delete',
-                                'description' => Yii::t("StoreModule.type", 'Delete type'),
-                            ],
-                            [
-                                'type' => AuthItem::TYPE_OPERATION,
-                                'name' => 'Store.TypeBackend.Multiaction',
-                                'description' => Yii::t("StoreModule.type", 'Batch delete'),
+                                'description' => Yii::t('StoreModule.type', 'Delete type'),
                             ],
                         ],
                     ],

@@ -362,11 +362,6 @@ class UserModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.UserBackend.Inline',
-                        'description' => Yii::t('UserModule.user', 'Editing users')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing users')
                     ],
@@ -374,11 +369,6 @@ class UserModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Changepassword',
                         'description' => Yii::t('UserModule.user', 'Change password')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.UserBackend.Multiaction',
-                        'description' => Yii::t('UserModule.user', 'Batch delete users')
                     ],
                     //tokens
                     [
@@ -398,18 +388,8 @@ class UserModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.TokensBackend.Inline',
-                        'description' => Yii::t('UserModule.user', 'Editing user tokens')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing user tokens')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.TokensBackend.Multiaction',
-                        'description' => Yii::t('UserModule.user', 'Batch delete user tokens')
                     ],
                 ]
             ]

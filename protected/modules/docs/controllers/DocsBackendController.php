@@ -36,6 +36,15 @@ class DocsBackendController extends yupe\components\controllers\BackController
         return parent::init();
     }
 
+    public function accessRules()
+    {
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index', 'show']],
+            ['deny',],
+        ];
+    }
+
     /**
      * Экшен главной страницы:
      *

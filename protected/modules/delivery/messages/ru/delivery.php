@@ -7,7 +7,6 @@ return [
     'Add delivery and continue' => 'Добавить доставку и продолжить',
     'are required' => 'обязательны.',
     'Available from' => 'Доступна от',
-    'Batch delete' => 'Массовое удаление способов доставки',
     'Create delivery' => 'Добавить способ доставки',
     'Creating' => 'Добавление',
     'creating' => 'добавление',

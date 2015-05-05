@@ -5,7 +5,7 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.news
  * @since 0.1
  *
@@ -181,7 +181,7 @@ class NewsModule extends WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-bullhorn";
+        return 'fa fa-fw fa-bullhorn';
     }
 
     public function getAdminPageLink()
@@ -256,18 +256,8 @@ class NewsModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Inline',
-                        'description' => Yii::t('NewsModule.news', 'Editing news')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'News.NewsBackend.View',
                         'description' => Yii::t('NewsModule.news', 'Viewing news')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Multiaction',
-                        'description' => Yii::t('NewsModule.news', 'Batch delete')
                     ],
                 ]
             ]

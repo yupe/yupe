@@ -12,7 +12,7 @@
  */
 class ContentBlockModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public function getDependencies()
     {
@@ -128,18 +128,8 @@ class ContentBlockModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Inline',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'ContentBlock.ContentblockBackend.View',
                         'description' => Yii::t('ContentBlockModule.contentblock', 'Viewing blocks')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Multiaction',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Batch delete')
                     ],
                 ]
             ]

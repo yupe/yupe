@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class PaymentModule extends WebModule
 {
-    const VERSION = '0.9.4';
+    const VERSION = '0.9.5';
 
     public $pathAssets = 'payment.views.assets';
 
@@ -90,14 +90,33 @@ class PaymentModule extends WebModule
             [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Payment.PaymentBackend.Management',
-                'description' => Yii::t("PaymentModule.payment", 'Manage payment methods'),
+                'description' => Yii::t('PaymentModule.payment', 'Manage payment methods'),
                 'items' => [
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Index', 'description' => Yii::t("PaymentModule.payment", 'Payment methods list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Create', 'description' => Yii::t("PaymentModule.payment", 'Create payment'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Update', 'description' => Yii::t("PaymentModule.payment", 'Update payment'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.View', 'description' => Yii::t("PaymentModule.payment", 'View payment'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Delete', 'description' => Yii::t("PaymentModule.payment", 'Delete payment'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Payment.PaymentBackend.Multiaction', 'description' => Yii::t("PaymentModule.payment", 'Batch delete'),],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Payment.PaymentBackend.Index',
+                        'description' => Yii::t('PaymentModule.payment', 'Payment methods list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Payment.PaymentBackend.Create',
+                        'description' => Yii::t('PaymentModule.payment', 'Create payment'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Payment.PaymentBackend.Update',
+                        'description' => Yii::t('PaymentModule.payment', 'Update payment'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Payment.PaymentBackend.View',
+                        'description' => Yii::t('PaymentModule.payment', 'View payment'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Payment.PaymentBackend.Delete',
+                        'description' => Yii::t('PaymentModule.payment', 'Delete payment'),
+                    ],
                 ],
             ],
         ];

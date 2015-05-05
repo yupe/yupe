@@ -5,14 +5,14 @@
  *
  * @author    yupe team <team@yupe.ru>
  * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.queue
  * @version   0.6
  *
  */
 class QueueModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public $workerNamesMap;
 
@@ -129,18 +129,8 @@ class QueueModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Queue.QueueBackend.Inline',
-                        'description' => Yii::t('QueueModule.queue', 'Editing queue')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Queue.QueueBackend.View',
                         'description' => Yii::t('QueueModule.queue', 'Viewing queue')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Queue.QueueBackend.Multiaction',
-                        'description' => Yii::t('QueueModule.queue', 'Batch delete')
                     ],
                 ]
             ]

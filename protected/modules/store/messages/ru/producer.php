@@ -2,7 +2,6 @@
 return [
     'Add producer and close' => 'Добавить производителя и закрыть',
     'Add producer and continue' => 'Добавить производителя и продолжить',
-    'Batch delete' => 'Массовое удаление производителей',
     'Create producer' => 'Добавить производителя',
     'Delete producer' => 'Удалить производителя',
     'Do you really want to remove this producer?' => 'Вы уверены, что хотите удалить производителя?',

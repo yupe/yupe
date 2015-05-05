@@ -6,12 +6,11 @@ class ExportBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['YandexMarket.ExportBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['YandexMarket.ExportBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['YandexMarket.ExportBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['YandexMarket.ExportBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['YandexMarket.ExportBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['YandexMarket.ExportBackend.Multiaction'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['YandexMarket.ExportBackend.Create'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['YandexMarket.ExportBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['YandexMarket.ExportBackend.Delete'],],
             ['deny',],
         ];
     }

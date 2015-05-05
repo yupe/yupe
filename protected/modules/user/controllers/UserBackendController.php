@@ -17,14 +17,12 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['User.UserBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['User.UserBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['User.UserBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['User.UserBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['User.UserBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.View']],
-            ['allow', 'actions' => ['view'], 'roles' => ['User.UserBackend.Changepassword']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['User.UserBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['User.UserBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'sendactivation'], 'roles' => ['User.UserBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['User.UserBackend.Delete']],
+            ['allow', 'actions' => ['changepassword'], 'roles' => ['User.UserBackend.Changepassword']],
             ['deny']
         ];
     }

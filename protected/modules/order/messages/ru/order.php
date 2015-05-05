@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'Default order status' => 'Статус заказа по умолчанию',
-    'Order #{id}' => '№{id}',
     '#' => '№',
     '(paid separately)' => '(оплачивается отдельно)',
     '*unknown*' => '*неизвестно*',
@@ -16,8 +14,6 @@ return [
     'Address' => 'Адрес',
     'Allow orders validation by number' => 'Разрешить проверку заказа по номеру',
     'are required' => 'обязательны.',
-    'Batch delete' => 'Массовое удаление заказов',
-    'Batch status delete' => 'Массовое удаление статусов',
     'Check order' => 'Проверка заказа',
     'Check' => 'Проверить',
     'Client' => 'Клиент',
@@ -31,6 +27,7 @@ return [
     'Creating' => 'Добавление',
     'creating' => 'добавление',
     'Date' => 'Дата',
+    'Default order status' => 'Статус заказа по умолчанию',
     'Delete order' => 'Удалить заказ',
     'Delete status' => 'Удалить статус',
     'Deleted' => 'Удален',
@@ -59,6 +56,7 @@ return [
     'Notification email' => 'Email, от имени которого отправлять оповещения',
     'Notifications' => 'Оповещения',
     'Order #' => 'Заказ №',
+    'Order #{id}' => '№{id}',
     'Order #{n} in {site} store is changed' => 'Изменение заказа №{n} в магазине {site}',
     'Order #{n}' => 'Заказ №{n}',
     'Order details' => 'Детали заказа',

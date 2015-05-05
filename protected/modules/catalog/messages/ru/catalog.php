@@ -30,7 +30,6 @@ return [
     'Alias' => 'Алиас',
     'are required.' => 'обязательны для запонения',
     'Article' => 'Артикул',
-    'Batch delete' => 'Массовое удаление товаров',
     'Catalog' => 'Каталог',
     'Category' => 'Категория',
     'Change settings' => 'Изменить настройки',
