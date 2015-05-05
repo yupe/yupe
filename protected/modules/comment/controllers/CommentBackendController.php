@@ -235,8 +235,11 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         }
 
         if ($items = Yii::app()->getRequest()->getPost('items')) {
-            Yii::app()->commentManager->multiApprove($items);
-            Yii::app()->ajax->success();
+            if (Yii::app()->commentManager->multiApprove($items)) {
+                Yii::app()->ajax->success();
+            } else {
+                Yii::app()->ajax->failure();
+            }
         }
     }
 

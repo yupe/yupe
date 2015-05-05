@@ -124,11 +124,14 @@ class CommentManager extends CApplicationComponent
 
             $transaction->commit();
 
+            return true;
+
         } catch (Exception $e) {
             $transaction->rollback();
 
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            die();
+
+            return false;
         }
     }
 }
