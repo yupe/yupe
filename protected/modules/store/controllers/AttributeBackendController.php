@@ -6,13 +6,11 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Store.AttributeBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Store.AttributeBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Store.AttributeBackend.Update'],],
-            ['allow', 'actions' => ['sortable'], 'roles' => ['Store.AttributeBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.AttributeBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.AttributeBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.AttributeBackend.Multiaction'],],
+            ['allow', 'actions' => ['create', 'groupCreate'], 'roles' => ['Store.AttributeBackend.Create'],],
+            ['allow', 'actions' => ['update', 'sortable', 'inlineEditGroup', 'groupCreate'], 'roles' => ['Store.AttributeBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.AttributeBackend.Delete'],],
             ['deny',],
         ];
     }

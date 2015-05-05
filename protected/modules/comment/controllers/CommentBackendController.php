@@ -16,13 +16,11 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Comment.CommentBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Comment.CommentBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Comment.CommentBackend.Update']],
-            ['allow', 'actions' => ['update', 'approve'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Comment.CommentBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'approve'], 'roles' => ['Comment.CommentBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Comment.CommentBackend.Delete']],
             ['deny']
         ];
     }

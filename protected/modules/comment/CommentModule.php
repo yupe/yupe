@@ -260,18 +260,8 @@ class CommentModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.Inline',
-                        'description' => Yii::t('CommentModule.comment', 'Editing comment')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Comment.CommentBackend.View',
                         'description' => Yii::t('CommentModule.comment', 'Viewing comments')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.Multiaction',
-                        'description' => Yii::t('CommentModule.comment', 'Batch delete')
                     ],
                 ]
             ]

@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class RbacModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.5';
 
     public function init()
     {
@@ -133,11 +133,6 @@ class RbacModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Rbac.RbacBackend.View',
                         'description' => Yii::t('RbacModule.rbac', 'Viewing roles')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Rbac.RbacBackend.Multiaction',
-                        'description' => Yii::t('RbacModule.rbac', 'Batch delete')
                     ],
                 ]
             ]

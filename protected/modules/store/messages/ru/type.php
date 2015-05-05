@@ -2,7 +2,6 @@
 return [
     'Add type and close' => 'Добавить тип и закрыть',
     'Add type and continue' => 'Добавить тип и продолжить',
-    'Batch delete' => 'Массовое удаление типов товаров',
     'Create type' => 'Добавить тип',
     'Delete type' => 'Удалить тип',
     'Do you really want to remove this type?' => 'Вы уверены, что хотите удалить этот тип товара?',

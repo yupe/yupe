@@ -7,7 +7,6 @@ return [
     'Add payment and continue' => 'Добавить способ оплаты и продолжить',
     'administration' => 'управление',
     'are required' => 'обязательны.',
-    'Batch delete' => 'Массовое удаление способов оплаты',
     'Create payment' => 'Добавить способ оплаты',
     'Creating' => 'Добавление',
     'creating' => 'добавление',

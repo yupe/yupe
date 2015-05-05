@@ -301,11 +301,6 @@ class FeedbackModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Feedback.FeedbackBackend.Inline',
-                        'description' => Yii::t('FeedbackModule.feedback', 'Editing feedback')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.View',
                         'description' => Yii::t('FeedbackModule.feedback', 'Viewing feedback')
                     ],
@@ -313,11 +308,6 @@ class FeedbackModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Answer',
                         'description' => Yii::t('FeedbackModule.feedback', 'Answer feedback')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Feedback.FeedbackBackend.Multiaction',
-                        'description' => Yii::t('FeedbackModule.feedback', 'Batch delete')
                     ],
                 ]
             ]

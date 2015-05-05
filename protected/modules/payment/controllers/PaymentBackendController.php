@@ -23,14 +23,11 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Payment.PaymentBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Payment.PaymentBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Payment.PaymentBackend.Update'],],
-            ['allow', 'actions' => ['paymentSystemSettings'], 'roles' => ['Payment.PaymentBackend.Create', 'Payment.PaymentBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Payment.PaymentBackend.Index'],],
-            ['allow', 'actions' => ['sortable'], 'roles' => ['Payment.PaymentBackend.Update'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Payment.PaymentBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Payment.PaymentBackend.Multiaction'],],
+            ['allow', 'actions' => ['create', 'paymentSystemSettings'], 'roles' => ['Payment.PaymentBackend.Create'],],
+            ['allow', 'actions' => ['update', 'sortable', 'inline', 'paymentSystemSettings'], 'roles' => ['Payment.PaymentBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Payment.PaymentBackend.Delete'],],
             ['deny',],
         ];
     }

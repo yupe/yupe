@@ -20,17 +20,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Order.OrderBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Order.OrderBackend.Delete'],],
-            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Order.OrderBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Order.OrderBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Order.OrderBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Order.OrderBackend.Multiaction'],],
-            [
-                'allow',
-                'actions' => ['productRow'],
-                'roles' => ['Order.OrderBackend.Create', 'Order.OrderBackend.Update'],
-            ],
+            ['allow', 'actions' => ['create', 'productRow'], 'roles' => ['Order.OrderBackend.Create'],],
+            ['allow', 'actions' => ['update', 'inline', 'productRow'], 'roles' => ['Order.OrderBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Order.OrderBackend.Delete'],],
             ['deny',],
         ];
     }

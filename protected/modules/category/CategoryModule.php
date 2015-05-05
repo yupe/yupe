@@ -188,18 +188,8 @@ class CategoryModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Category.CategoryBackend.Inline',
-                        'description' => Yii::t('CategoryModule.category', 'Editing categories')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Category.CategoryBackend.View',
                         'description' => Yii::t('CategoryModule.category', 'Viewing categories')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Category.CategoryBackend.Multiaction',
-                        'description' => Yii::t('CategoryModule.category', 'Batch delete')
                     ],
                 ]
             ]

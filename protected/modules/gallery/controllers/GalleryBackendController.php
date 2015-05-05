@@ -23,16 +23,14 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Gallery.GalleryBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Gallery.GalleryBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Gallery.GalleryBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Gallery.GalleryBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Gallery.GalleryBackend.View']],
             ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
-            ['allow', 'actions' => ['deleteImage'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
             ['allow', 'actions' => ['addimages'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Gallery.GalleryBackend.Multiaction']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Gallery.GalleryBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Gallery.GalleryBackend.Delete']],
+            ['allow', 'actions' => ['deleteImage'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
             ['deny']
         ];
     }

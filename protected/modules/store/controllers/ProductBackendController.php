@@ -28,14 +28,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['ajaxSearch'], 'roles' => ['Store.ProductBackend.Index'],],
-            ['allow', 'actions' => ['create', 'copy'], 'roles' => ['Store.ProductBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Store.ProductBackend.Delete'],],
-            ['allow', 'actions' => ['deleteImage'], 'roles' => ['Store.ProductBackend.Update'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Store.ProductBackend.Update'],],
-            ['allow', 'actions' => ['index'], 'roles' => ['Store.ProductBackend.Index'],],
+            ['allow', 'actions' => ['index', 'ajaxSearch'], 'roles' => ['Store.ProductBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProductBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.ProductBackend.Multiaction'],],
+            ['allow', 'actions' => ['create', 'copy'], 'roles' => ['Store.ProductBackend.Create'],],
+            ['allow', 'actions' => ['update', 'inline', 'sortable', 'deleteImage'], 'roles' => ['Store.ProductBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.ProductBackend.Delete'],],
             [
                 'allow',
                 'actions' => ['typeAttributes'],

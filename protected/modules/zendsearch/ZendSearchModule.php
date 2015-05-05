@@ -5,14 +5,14 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.zendsearch
  * @since 0.1
  *
  */
 class ZendSearchModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.5';
 
     public $indexFiles = 'runtime.search';
 
@@ -93,7 +93,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-search";
+        return 'fa fa-fw fa-search';
     }
 
     public function getAdminPageLink()

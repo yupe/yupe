@@ -15,14 +15,13 @@ use yupe\components\WebModule;
 
 class ImageModule extends WebModule
 {
-    const VERSION = '0.9.3';
+    const VERSION = '0.9.5';
 
     public $uploadPath = 'image';
     public $documentRoot;
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize = 0;
-    public $maxSize = 5242880 /* 5 MB */
-    ;
+    public $maxSize = 5242880; /* 5 MB */
     public $maxFiles = 1;
     public $types;
     public $mimeTypes = 'image/gif, image/jpeg, image/png';
@@ -55,7 +54,7 @@ class ImageModule extends WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-picture-o";
+        return 'fa fa-fw fa-picture-o';
     }
 
     public function getParamsLabels()
@@ -284,18 +283,8 @@ class ImageModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Inline',
-                        'description' => Yii::t('ImageModule.image', 'Editing images')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Image.ImageBackend.View',
                         'description' => Yii::t('ImageModule.image', 'Viewing images')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Multiaction',
-                        'description' => Yii::t('ImageModule.image', 'Batch delete')
                     ],
                 ]
             ]
