@@ -492,6 +492,6 @@ class Comment extends yupe\models\YModel
     public function approve()
     {
         $this->status = self::STATUS_APPROVED;
-        $this->saveNode();
+        return $this->saveNode();
     }
 }
