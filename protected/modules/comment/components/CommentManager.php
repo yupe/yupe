@@ -110,4 +110,25 @@ class CommentManager extends CApplicationComponent
              ]
          );
     }
+
+    public function multiApprove(array $items)
+    {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+            $models = Comment::model()->findAllByPk($items);
+
+            foreach ($models as $model) {
+                $model->approve();
+            }
+
+            $transaction->commit();
+
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            die();
+        }
+    }
 }
