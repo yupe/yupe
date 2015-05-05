@@ -19,7 +19,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['index'], 'roles' => ['Comment.CommentBackend.Index']],
             ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
             ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
-            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Comment.CommentBackend.Update']],
+            ['allow', 'actions' => ['update', 'inline', 'approve'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Comment.CommentBackend.Delete']],
             ['deny']
         ];
@@ -225,6 +225,24 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->ajax->failure(
                 Yii::t('YupeModule.yupe', 'There was an error when processing the request')
             );
+        }
+    }
+
+    public function actionApprove()
+    {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        if ($data = Yii::app()->getRequest()->getPost('items')) {
+            foreach ($data as $id) {
+                if ($model = $this->loadModel($id)) {
+                    $model->status = Comment::STATUS_APPROVED;
+                    $model->saveNode();
+                }
+            }
+
+            Yii::app()->ajax->success();
         }
     }
 

@@ -58,6 +58,19 @@ $this->menu = [
         'id'           => 'comment-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
+        'actionsButtons' => [
+            'approve' => CHtml::link(Yii::t('CommentModule.comment', 'Approve'), '#', [
+                    'id' => 'approve-comments',
+                    'class' => 'btn btn-sm btn-info pull-right disabled bulk-actions-btn',
+                    'style' => 'margin-left: 4px;'
+                ]
+            ),
+            'add' => CHtml::link(
+                Yii::t('CommentModule.comment', 'Add'),
+                ['/comment/commentBackend/create'],
+                ['class' => 'btn btn-sm btn-success pull-right']
+            ),
+        ],
         'columns'      => [
             [
                 'name'  => 'model',
@@ -93,4 +106,47 @@ $this->menu = [
             ],
         ],
     ]
-); ?>
+);
+
+$url = Yii::app()->createUrl('/comment/commentBackend/approve');
+$tokenName = Yii::app()->getRequest()->csrfTokenName;
+$token = Yii::app()->getRequest()->csrfToken;
+$confirmMessage = Yii::t('CommentModule.comment', 'Do you really want to approve selected elements?');
+$noCheckedMessage = Yii::t('CommentModule.comment', 'No items are checked');
+$errorMessage = Yii::t('CommentModule.comment', 'Error!');
+
+Yii::app()->getClientScript()->registerScript(
+    __FILE__,
+    <<<JS
+    $('body').on('click', '#approve-comments', function (e) {
+        e.preventDefault();
+        var checked = $.fn.yiiGridView.getCheckedRowsIds('comment-grid');
+        if (!checked.length) {
+            alert("$noCheckedMessage");
+            return false;
+        }
+        var url = "$url";
+        var data = {};
+        data['$tokenName'] = "$token";
+        data['items'] = checked;
+        if(confirm("$confirmMessage")){
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function (data) {
+                    if (data.result) {
+                        $.fn.yiiGridView.update("comment-grid");
+                    } else {
+                        alert(data.data);
+                    }
+                },
+                error: function (data) {alert("$errorMessage")}
+            });
+        }
+    });
+JS
+, CClientScript::POS_READY
+);
+
