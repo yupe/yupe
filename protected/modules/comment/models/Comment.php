@@ -483,9 +483,32 @@ class Comment extends yupe\models\YModel
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            var_dump($e);die();
+            die();
         }
 
         return $count;
+    }
+
+    public function multiApprove($items)
+    {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+            $items = array_filter($items, 'intval');
+
+            $models = $this->findAllByPk($items);
+
+            foreach ($models as $model) {
+                $model->status = self::STATUS_APPROVED;
+                $model->saveNode();
+            }
+
+            $transaction->commit();
+
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+            die();
+        }
     }
 }

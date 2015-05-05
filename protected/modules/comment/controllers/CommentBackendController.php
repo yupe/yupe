@@ -234,14 +234,8 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             throw new CHttpException(404);
         }
 
-        if ($data = Yii::app()->getRequest()->getPost('items')) {
-            foreach ($data as $id) {
-                if ($model = $this->loadModel($id)) {
-                    $model->status = Comment::STATUS_APPROVED;
-                    $model->saveNode();
-                }
-            }
-
+        if ($items = Yii::app()->getRequest()->getPost('items')) {
+            Comment::model()->multiApprove($items);
             Yii::app()->ajax->success();
         }
     }
