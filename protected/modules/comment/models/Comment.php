@@ -483,9 +483,15 @@ class Comment extends yupe\models\YModel
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            var_dump($e);die();
+            die();
         }
 
         return $count;
+    }
+
+    public function approve()
+    {
+        $this->status = self::STATUS_APPROVED;
+        return $this->saveNode();
     }
 }
