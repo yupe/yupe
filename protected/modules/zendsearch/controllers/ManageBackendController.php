@@ -18,7 +18,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Zendsearch.ManageBackend.Create']],
+            ['allow', 'actions' => ['index', 'create'], 'roles' => ['Zendsearch.ManageBackend.Create']],
             ['deny']
         ];
     }

@@ -45,7 +45,10 @@ class Redactor extends \CInputWidget
             'minHeight'               => 150,
             'uploadImageFields' => [
                 Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-            ]
+            ],
+            'uploadFileFields' => [
+                Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
+            ],
         ];
     }
 

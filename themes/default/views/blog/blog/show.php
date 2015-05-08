@@ -18,7 +18,7 @@ $this->breadcrumbs = [
     <div class="col-sm-12">
         <div class="blog-logo pull-left">
             <?php echo CHtml::image(
-                $blog->getImageUrl(),
+                $blog->getImageUrl(109, 109),
                 CHtml::encode($blog->name),
                 [
                     'width'  => 109,
@@ -83,7 +83,7 @@ $this->breadcrumbs = [
 
             <span class="blog-description-datetime">
                 <i class="glyphicon glyphicon-calendar"></i>
-                <?php echo Yii::app()->getDateFormatter()->formatDateTime($blog->create_date, "short", "short"); ?>
+                <?php echo Yii::app()->getDateFormatter()->formatDateTime($blog->create_time, "short", "short"); ?>
             </span>
 
             <span class="blog-description-posts">

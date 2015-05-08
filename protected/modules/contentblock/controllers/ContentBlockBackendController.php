@@ -16,12 +16,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['ContentBlock.ContentblockBackend.Index']],
-            ['allow', 'actions' => ['update', 'toggle', 'inline'], 'roles' => ['ContentBlock.ContentblockBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['ContentBlock.ContentblockBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['ContentBlock.ContentblockBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
+            ['allow', 'actions' => ['update', 'toggle', 'inline'], 'roles' => ['ContentBlock.ContentblockBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
             ['deny']
         ];
     }

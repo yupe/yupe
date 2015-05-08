@@ -57,7 +57,7 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?php echo $form->datePickerGroup(
                 $model,
-                'creation_date',
+                'create_time',
                 [
                     'widgetOptions' => [
                         'options' => [

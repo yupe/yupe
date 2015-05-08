@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CartModule extends WebModule
 {
-    const VERSION = '0.9';
+    const VERSION = '0.9.5';
 
     public $assetsPath = 'cart.views.assets';
 

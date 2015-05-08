@@ -16,13 +16,11 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Category.CategoryBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Category.CategoryBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Category.CategoryBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Category.CategoryBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Category.CategoryBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Category.CategoryBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Category.CategoryBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Category.CategoryBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Category.CategoryBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Category.CategoryBackend.Delete']],
             ['deny']
         ];
     }
@@ -33,7 +31,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Category',
-                'validAttributes' => ['name', 'description', 'alias', 'status']
+                'validAttributes' => ['name', 'description', 'slug', 'status']
             ]
         ];
     }
@@ -118,7 +116,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             );
 
             $model->lang = $lang;
-            $model->alias = $category->alias;
+            $model->slug = $category->slug;
             $model->parent_id = $category->parent_id;
             $model->name = $category->name;
         } else {
@@ -163,11 +161,11 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             }
         }
 
-        // найти по alias страницы на других языках
+        // найти по slug страницы на других языках
         $langModels = Category::model()->findAll(
-            'alias = :alias AND id != :id',
+            'slug = :slug AND id != :id',
             [
-                ':alias' => $model->alias,
+                ':slug' => $model->slug,
                 ':id'    => $model->id
             ]
         );

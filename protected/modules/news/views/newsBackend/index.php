@@ -79,7 +79,7 @@ $this->menu = [
             ],
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'alias',
+                'name'     => 'slug',
                 'editable' => [
                     'url'    => $this->createUrl('/news/newsBackend/inline'),
                     'mode'   => 'inline',
@@ -87,7 +87,7 @@ $this->menu = [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'filter'   => CHtml::activeTextField($model, 'alias', ['class' => 'form-control']),
+                'filter'   => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
             ],
             'date',
             [

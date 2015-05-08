@@ -67,7 +67,7 @@ class Thumbnailer extends \CApplicationComponent
                 $box = new Box($originalWidth * $height / $originalHeight, $height);
             }
 
-            $img->resize($box)->crop(new Point(($box->getWidth() - $width) / 2, ($box->getHeight() - $height) / 2), new Box($width, $height))->save($thumbFile, $options);
+            $img->resize($box)->crop(new Point(max(0, round(($box->getWidth() - $width) / 2)), max(0, round(($box->getHeight() - $height) / 2))), new Box($width, $height))->save($thumbFile, $options);
         }
 
         $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;

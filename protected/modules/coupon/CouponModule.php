@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class CouponModule extends WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public function getDependencies()
     {
@@ -95,37 +95,32 @@ class CouponModule extends WebModule
             [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'Coupon.CouponBackend.Management',
-                'description' => Yii::t("CouponModule.coupon", 'Manage coupons'),
+                'description' => Yii::t('CouponModule.coupon', 'Manage coupons'),
                 'items' => [
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Coupon.CouponBackend.Index',
-                        'description' => Yii::t("CouponModule.coupon", 'Coupons list'),
+                        'description' => Yii::t('CouponModule.coupon', 'Coupons list'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Coupon.CouponBackend.Create',
-                        'description' => Yii::t("CouponModule.coupon", 'Create coupon'),
+                        'description' => Yii::t('CouponModule.coupon', 'Create coupon'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Coupon.CouponBackend.Update',
-                        'description' => Yii::t("CouponModule.coupon", 'Update coupon'),
+                        'description' => Yii::t('CouponModule.coupon', 'Update coupon'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Coupon.CouponBackend.View',
-                        'description' => Yii::t("CouponModule.coupon", 'View coupon'),
+                        'description' => Yii::t('CouponModule.coupon', 'View coupon'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Coupon.CouponBackend.Delete',
-                        'description' => Yii::t("CouponModule.coupon", 'Delete coupon'),
-                    ],
-                    [
-                        'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Coupon.CouponBackend.Multiaction',
-                        'description' => Yii::t("CouponModule.coupon", 'Batch delete'),
+                        'description' => Yii::t('CouponModule.coupon', 'Delete coupon'),
                     ],
                 ],
             ],

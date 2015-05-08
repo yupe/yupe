@@ -34,7 +34,7 @@
                 <i class="glyphicon glyphicon-calendar"></i>
 
                 <?php echo Yii::app()->getDateFormatter()->formatDateTime(
-                    $data->publish_date,
+                    $data->publish_time,
                     "long",
                     "short"
                 ); ?>

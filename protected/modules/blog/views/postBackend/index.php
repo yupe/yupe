@@ -152,7 +152,7 @@ $this->menu = [
             ],
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'publish_date',
+                'name'     => 'publish_time',
                 'editable' => [
                     'url'        => $this->createUrl('/blog/postBackend/inline'),
                     //'mode' => 'inline',
@@ -172,8 +172,8 @@ $this->menu = [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'value'    => '$data->publish_date',
-                'filter'   => CHtml::activeTextField($model, 'publish_date', ['class' => 'form-control']),
+                'value'    => '$data->publish_time',
+                'filter'   => CHtml::activeTextField($model, 'publish_time', ['class' => 'form-control']),
             ],
             [
                 'name'   => 'create_user_id',

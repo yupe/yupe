@@ -19,12 +19,11 @@ class CouponBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Coupon.CouponBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Coupon.CouponBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Coupon.CouponBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Coupon.CouponBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Coupon.CouponBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Coupon.CouponBackend.Multiaction'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Coupon.CouponBackend.Create'],],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Coupon.CouponBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Coupon.CouponBackend.Delete'],],
             ['deny',],
         ];
     }

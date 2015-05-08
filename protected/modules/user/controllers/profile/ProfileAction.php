@@ -72,12 +72,11 @@ class ProfileAction extends CAction
                             Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
 
-                        if ($form->use_gravatar) {
-                            $user->removeOldAvatar();
-                        } elseif (($uploadedFile = CUploadedFile::getInstance($form, 'avatar')) !== null) {
+                        if (($uploadedFile = CUploadedFile::getInstance($form, 'avatar')) !== null) {
                             $user->changeAvatar($uploadedFile);
+                        } elseif ($form->use_gravatar) {
+                            $user->removeOldAvatar();
                         };
-
 
                         $user->save();
 

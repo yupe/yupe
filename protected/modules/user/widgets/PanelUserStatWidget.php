@@ -19,7 +19,7 @@ class PanelUserStatWidget extends \yupe\widgets\YWidget
             'panel-stat',
             [
                 'usersCount'    => User::model()->cache($cacheTime)->count(
-                        'registration_date >= :time AND registration_date < NOW()',
+                        'create_time >= :time AND create_time < NOW()',
                         [':time' => time() - 24 * 60 * 60]
                     ),
                 'allUsersCnt'   => User::model()->cache($cacheTime)->count(),

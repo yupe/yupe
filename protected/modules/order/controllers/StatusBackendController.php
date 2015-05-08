@@ -9,8 +9,7 @@ class StatusBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['index'], 'roles' => ['Order.StatusBackend.Index'],],
             ['allow', 'actions' => ['create'], 'roles' => ['Order.StatusBackend.Create'],],
             ['allow', 'actions' => ['update'], 'roles' => ['Order.StatusBackend.Update'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Order.StatusBackend.Delete'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Order.StatusBackend.Multiaction'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Order.StatusBackend.Delete'],],
             ['deny',],
         ];
     }

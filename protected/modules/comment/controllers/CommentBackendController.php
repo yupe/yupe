@@ -16,13 +16,11 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Comment.CommentBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Comment.CommentBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Comment.CommentBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Comment.CommentBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Comment.CommentBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'approve'], 'roles' => ['Comment.CommentBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Comment.CommentBackend.Delete']],
             ['deny']
         ];
     }
@@ -227,6 +225,21 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->ajax->failure(
                 Yii::t('YupeModule.yupe', 'There was an error when processing the request')
             );
+        }
+    }
+
+    public function actionApprove()
+    {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        if ($items = Yii::app()->getRequest()->getPost('items')) {
+            if (Yii::app()->commentManager->multiApprove($items)) {
+                Yii::app()->ajax->success();
+            } else {
+                Yii::app()->ajax->failure();
+            }
         }
     }
 

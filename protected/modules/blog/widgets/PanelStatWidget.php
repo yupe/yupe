@@ -19,7 +19,7 @@ class PanelStatWidget extends \yupe\widgets\YWidget
             'panel-stat',
             [
                 'postsCount'    => Post::model()->cache($cacheTime)->count(
-                        'create_date >= :time',
+                        'create_time >= :time',
                         [':time' => time() - 24 * 60 * 60]
                     ),
                 'allPostsCnt'   => Post::model()->cache($cacheTime)->count(),

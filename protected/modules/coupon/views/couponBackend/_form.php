@@ -100,7 +100,7 @@
             <div class="col-sm-4">
                 <?php echo $form->datePickerGroup(
                     $model,
-                    'date_start',
+                    'start_time',
                     [
                         'widgetOptions' => [
                             'options' => [
@@ -117,7 +117,7 @@
             <div class="col-sm-3">
                 <?php echo $form->datePickerGroup(
                     $model,
-                    'date_end',
+                    'end_time',
                     [
                         'widgetOptions' => [
                             'options' => [
@@ -164,19 +164,19 @@
         <?php $this->endWidget(); ?>
     </div>
 
+    <?php  if (!$model->getIsNewRecord()):?>
     <div class="tab-pane panel-body" id="history">
+
         <?php
-        if (!$model->getIsNewRecord()) {
             Yii::app()->getModule('order');
             $order = new Order('search');
             $order->unsetAttributes();
-            $order->coupon_code = $model->code;
             $this->widget(
                 'yupe\widgets\CustomGridView',
                 [
                     'id' => 'order-grid',
                     'type' => 'condensed',
-                    'dataProvider' => $order->search(),
+                    'dataProvider' => $order->search($model->id),
                     'filter' => $order,
                     'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
                     'ajaxUrl' => Yii::app()->createUrl('/order/orderBackend/index'),
@@ -205,24 +205,17 @@
                             'name' => 'date'
                         ],
                         [
-                            'name' => 'coupon_code',
-                            'visible' => true,
-                        ],
-                        [
-                            'name' => 'status',
-                            'type' => 'raw',
+                            'name'  => 'status',
+                            'type'  => 'raw',
+                            'value' => function($data) {
+                                  return $data->status->getTitle();
+                                },
                             'filter' => OrderStatus::model()->getList()
-                        ],
-                        [
-                            'class' => 'bootstrap.widgets.TbButtonColumn',
-                            'viewButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/view",array("id"=>$data->primaryKey))',
-                            'updateButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/update",array("id"=>$data->primaryKey))',
-                            'deleteButtonUrl' => 'Yii::app()->createUrl("order/orderBackend/delete",array("id"=>$data->primaryKey))',
                         ],
                     ],
                 ]
             );
-        }
         ?>
     </div>
+    <?php endif;?>
 </div>

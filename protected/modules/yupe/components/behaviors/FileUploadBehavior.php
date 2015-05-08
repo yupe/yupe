@@ -62,6 +62,11 @@ class FileUploadBehavior extends CActiveRecordBehavior
     public $uploadPath;
 
     /**
+     * @var string
+     */
+    public $deleteFileKey = 'delete-file';
+
+    /**
      * @param \CComponent $owner
      */
     public function attach($owner)
@@ -75,7 +80,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
                     $owner,
                     $this->attributeName,
                     [
-                        'on'   => $this->requiredOn,
+                        'on' => $this->requiredOn,
                         'safe' => false,
                     ]
                 );
@@ -87,11 +92,11 @@ class FileUploadBehavior extends CActiveRecordBehavior
                 $owner,
                 $this->attributeName,
                 [
-                    'types'      => $this->types,
-                    'minSize'    => $this->minSize,
-                    'maxSize'    => $this->maxSize,
+                    'types' => $this->types,
+                    'minSize' => $this->minSize,
+                    'maxSize' => $this->maxSize,
                     'allowEmpty' => true,
-                    'safe'       => false,
+                    'safe' => false,
                 ]
             );
 
@@ -129,6 +134,10 @@ class FileUploadBehavior extends CActiveRecordBehavior
             $this->saveFile();
         }
 
+        if ($this->checkScenario() && Yii::app()->getRequest()->getPost($this->deleteFileKey)) {
+            $this->removeFile();
+            $this->owner->{$this->attributeName} = null;
+        }
         parent::beforeSave($event);
     }
 

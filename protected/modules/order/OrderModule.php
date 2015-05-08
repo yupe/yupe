@@ -4,17 +4,19 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.9.4';
+    const VERSION = '0.9.5';
 
     public $notifyEmailFrom;
 
     public $notifyEmailsTo;
 
-    public $assetsPath = "order.views.assets";
+    public $assetsPath = 'order.views.assets';
 
     public $showOrder = 1;
 
     public $enableCheck = 1;
+
+    public $defaultStatus = 1;
 
     public function getDependencies()
     {
@@ -27,7 +29,8 @@ class OrderModule extends WebModule
             'notifyEmailFrom',
             'notifyEmailsTo',
             'showOrder'   => $this->getChoice(),
-            'enableCheck' => $this->getChoice()
+            'enableCheck' => $this->getChoice(),
+            'defaultStatus' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name')
         ];
     }
 
@@ -38,6 +41,7 @@ class OrderModule extends WebModule
             'notifyEmailsTo'  => Yii::t('OrderModule.order', 'Recipients of notifications (comma separated)'),
             'showOrder'       => Yii::t('OrderModule.order', 'Public ordering page'),
             'enableCheck'     => Yii::t('OrderModule.order', 'Allow orders validation by number'),
+            'defaultStatus'   => Yii::t('OrderModule.order', 'Default order status')
         ];
     }
 
@@ -47,6 +51,7 @@ class OrderModule extends WebModule
             '0.main' => [
                 'label' => Yii::t('OrderModule.order', 'Orders settings'),
                 'items' => [
+                    'defaultStatus',
                     'showOrder',
                     'enableCheck'
                 ]
@@ -133,12 +138,31 @@ class OrderModule extends WebModule
                 'name' => 'Order.OrderBackend.Management',
                 'description' => Yii::t('OrderModule.order', 'Manage orders'),
                 'items' => [
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Index', 'description' => Yii::t('OrderModule.order', 'View order list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Create', 'description' => Yii::t('OrderModule.order', 'Create order'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Update', 'description' => Yii::t('OrderModule.order', 'Update order'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.View', 'description' => Yii::t('OrderModule.order', 'View order'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Delete', 'description' => Yii::t('OrderModule.order', 'Delete order'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.OrderBackend.Multiaction', 'description' => Yii::t('OrderModule.order', 'Batch delete'),],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.OrderBackend.Index',
+                        'description' => Yii::t('OrderModule.order', 'View order list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.OrderBackend.Create',
+                        'description' => Yii::t('OrderModule.order', 'Create order'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.OrderBackend.Update',
+                        'description' => Yii::t('OrderModule.order', 'Update order'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.OrderBackend.View',
+                        'description' => Yii::t('OrderModule.order', 'View order'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.OrderBackend.Delete',
+                        'description' => Yii::t('OrderModule.order', 'Delete order'),
+                    ],
                 ],
             ],
             [
@@ -146,11 +170,26 @@ class OrderModule extends WebModule
                 'name' => 'Order.StatusBackend.Management',
                 'description' => Yii::t('OrderModule.order', 'Manage statuses'),
                 'items' => [
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.StatusBackend.Index', 'description' => Yii::t('OrderModule.order', 'View status list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.StatusBackend.Create', 'description' => Yii::t('OrderModule.order', 'Create status'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.StatusBackend.Update', 'description' => Yii::t('OrderModule.order', 'Update status'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.StatusBackend.Delete', 'description' => Yii::t('OrderModule.order', 'Delete status'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'Order.StatusBackend.Multiaction', 'description' => Yii::t('OrderModule.order', 'Batch status delete'),],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.StatusBackend.Index',
+                        'description' => Yii::t('OrderModule.order', 'View status list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.StatusBackend.Create',
+                        'description' => Yii::t('OrderModule.order', 'Create status'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.StatusBackend.Update',
+                        'description' => Yii::t('OrderModule.order', 'Update status'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Order.StatusBackend.Delete',
+                        'description' => Yii::t('OrderModule.order', 'Delete status'),
+                    ],
                 ],
             ],
         ];

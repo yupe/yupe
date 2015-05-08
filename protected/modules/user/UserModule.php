@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
-    const VERSION = '0.9.3';
+    const VERSION = '0.9.5';
 
     public $accountActivationSuccess = '/user/account/login';
     public $accountActivationFailure = '/user/account/registration';
@@ -307,11 +307,11 @@ class UserModule extends WebModule
         return [
             'isAuthenticated' => [
                 'name'      => Yii::t('UserModule.user', 'Authorized'),
-                'condition' => Yii::app()->user->isAuthenticated(),
+                'condition' => Yii::app()->getUser()->isAuthenticated(),
             ],
             'isSuperUser'     => [
                 'name'      => Yii::t('UserModule.user', 'Administrator'),
-                'condition' => Yii::app()->user->isSuperUser(),
+                'condition' => Yii::app()->getUser()->isSuperUser(),
             ],
         ];
     }
@@ -340,7 +340,6 @@ class UserModule extends WebModule
                 'description' => Yii::t('UserModule.user', 'Manage users'),
                 'type'        => AuthItem::TYPE_TASK,
                 'items'       => [
-                    //users
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Create',
@@ -363,11 +362,6 @@ class UserModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.UserBackend.Inline',
-                        'description' => Yii::t('UserModule.user', 'Editing users')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing users')
                     ],
@@ -375,11 +369,6 @@ class UserModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Changepassword',
                         'description' => Yii::t('UserModule.user', 'Change password')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.UserBackend.Multiaction',
-                        'description' => Yii::t('UserModule.user', 'Batch delete users')
                     ],
                     //tokens
                     [
@@ -399,18 +388,8 @@ class UserModule extends WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.TokensBackend.Inline',
-                        'description' => Yii::t('UserModule.user', 'Editing user tokens')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing user tokens')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'User.TokensBackend.Multiaction',
-                        'description' => Yii::t('UserModule.user', 'Batch delete user tokens')
                     ],
                 ]
             ]

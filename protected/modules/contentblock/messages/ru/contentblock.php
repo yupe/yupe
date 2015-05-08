@@ -29,7 +29,6 @@ return [
     'Add new content block'                                                                 => 'Добавить новый блок контента',
     'Adding new content block'                                                              => 'Добавление нового блока контента',
     'Administration'                                                                        => 'Управление',
-    'Batch delete'                                                                          => 'Массовое удаление блоков контента',
     'Do you really want to delete content block?'                                           => 'Вы уверены, что хотите удалить блок контента?',
     'Do you really want to remove content block?'                                           => 'Вы уверены, что хотите удалить блок контента?',
     'Blocks list'                                                                           => 'Список блоков',

@@ -28,7 +28,6 @@ return [
     'team@yupe.ru' => 'team@yupe.ru',
     'yupe team' => 'yupe team',
     'Alias' => 'Алиас',
-    'Batch delete' => 'Массовое удаление категорий',
     'This section describes category management' => 'В данном разделе представлены средства управления категориями',
     'You are adding translate in to {lang}!' => 'Вы добавляете перевод на {lang} язык!',
     'Do you really want to remove category?' => 'Вы уверены, что хотите удалить категорию?',

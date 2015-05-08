@@ -4,7 +4,6 @@ return [
     'Add list and continue' => 'Добавить выгрузку и продолжить',
     'administration' => 'управление',
     'are required' => 'обязательны.',
-    'Batch delete' => 'Массовое удаление выгрузок',
     'Brands' => 'Бренды',
     'Categories' => 'Категории',
     'CMS version' => 'Версия CMS',

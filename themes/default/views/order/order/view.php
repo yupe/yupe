@@ -17,7 +17,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     <tr>
                         <td class="col-sm-5">
                             <div class="media">
-                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->alias]); ?>
+                                <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->product->slug]); ?>
                                 <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                     <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>">
                                 </a>
@@ -57,14 +57,14 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                         </td>
                     </tr>
                 <?php endforeach; ?>
-                <?php if($model->hasCoupon()):?>
+                <?php if($model->hasCoupons()):?>
                 <tr>
                     <td colspan="2">
                         <h4><?= Yii::t("OrderModule.order", "Coupons"); ?></h4>
                     </td>
                     <td>
                         <p class="text-right lead">
-                            <?php foreach ($model->getCoupons() as $code): ?>
+                            <?php foreach ($model->getCouponsCodes() as $code): ?>
                                 <span class="label alert alert-info coupon">
                                     <?= CHtml::encode($code); ?>
                                 </span>
@@ -188,7 +188,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     </td>
 
                 </tr>
-                <?php if (!$model->paid  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
+                <?php if (!$model->isPaid()  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">
@@ -228,7 +228,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     <tr>
                         <td colspan="3">
                             <p class="text-right">
-                                <?= $model->getPaidStatus() . ' - ' . date('d.m.Y H:i', strtotime($model->payment_date)); ?>
+                                <span class="aler alert-warning"><?= $model->getPaidStatus(); ?></span>
                             </p>
                         </td>
                     </tr>

@@ -58,4 +58,13 @@ return [
             ],
         ],
     ]
+    ,
+    'commandMap' => [
+        'yupe' => [
+            'class' => 'application.modules.yupe.commands.YupeCommand',
+        ],
+        'testenv' => [
+            'class' => 'application.modules.yupe.commands.TestEnvCommand'
+        ]
+    ]
 ];

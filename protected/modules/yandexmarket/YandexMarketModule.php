@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class YandexMarketModule extends WebModule
 {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.5';
 
     public function getDependencies()
     {
@@ -94,14 +94,33 @@ class YandexMarketModule extends WebModule
             [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'YandexMarket.ExportBackend.Management',
-                'description' => Yii::t("YandexMarketModule.default", 'Manage export lists'),
+                'description' => Yii::t('YandexMarketModule.default', 'Manage export lists'),
                 'items' => [
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Index', 'description' => Yii::t("YandexMarketModule.default", 'Export lists'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Create', 'description' => Yii::t("YandexMarketModule.default", 'Create export list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Update', 'description' => Yii::t("YandexMarketModule.default", 'Update export list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.View', 'description' => Yii::t("YandexMarketModule.default", 'View export list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Delete', 'description' => Yii::t("YandexMarketModule.default", 'Delete export list'),],
-                    ['type' => AuthItem::TYPE_OPERATION, 'name' => 'YandexMarket.ExportBackend.Multiaction', 'description' => Yii::t("YandexMarketModule.default", 'Batch delete'),],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'YandexMarket.ExportBackend.Index',
+                        'description' => Yii::t('YandexMarketModule.default', 'Export lists'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'YandexMarket.ExportBackend.Create',
+                        'description' => Yii::t('YandexMarketModule.default', 'Create export list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'YandexMarket.ExportBackend.Update',
+                        'description' => Yii::t('YandexMarketModule.default', 'Update export list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'YandexMarket.ExportBackend.View',
+                        'description' => Yii::t('YandexMarketModule.default', 'View export list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'YandexMarket.ExportBackend.Delete',
+                        'description' => Yii::t('YandexMarketModule.default', 'Delete export list'),
+                    ],
                 ],
             ],
         ];

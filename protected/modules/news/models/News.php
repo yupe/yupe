@@ -15,11 +15,11 @@
  *
  * The followings are the available columns in table 'News':
  * @property integer $id
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $date
  * @property string $title
- * @property string $alias
+ * @property string $slug
  * @property string $short_text
  * @property string $full_text
  * @property integer $user_id
@@ -63,27 +63,27 @@ class News extends yupe\models\YModel
     public function rules()
     {
         return [
-            ['title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'],
-            ['title, alias, keywords, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
-            ['date, title, alias, full_text', 'required', 'on' => ['update', 'insert']],
+            ['title, slug, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'],
+            ['title, slug, keywords, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['date, title, slug, full_text', 'required', 'on' => ['update', 'insert']],
             ['status, is_protected, category_id', 'numerical', 'integerOnly' => true],
-            ['title, alias, keywords', 'length', 'max' => 150],
+            ['title, slug, keywords', 'length', 'max' => 150],
             ['lang', 'length', 'max' => 2],
             ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
             ['lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['alias', 'yupe\components\validators\YUniqueSlugValidator'],
+            ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
             ['description', 'length', 'max' => 250],
             ['link', 'length', 'max' => 250],
             ['link', 'yupe\components\validators\YUrlValidator'],
             [
-                'alias',
+                'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('NewsModule.news', 'Bad characters in {attribute} field')
             ],
             ['category_id', 'default', 'setOnEmpty' => true, 'value' => null],
             [
-                'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected, lang',
+                'id, keywords, description, create_time, update_time, date, title, slug, short_text, full_text, user_id, status, is_protected, lang',
                 'safe',
                 'on' => 'search'
             ],
@@ -106,7 +106,11 @@ class News extends yupe\models\YModel
             'seo'         => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
                 'route'  => '/news/news/show',
-                'params' => ['alias' => $this->alias],
+                'params' => [
+                    'slug' => function ($data) {
+                        return $data->slug;
+                    }
+                ],
             ],
         ];
     }
@@ -138,7 +142,7 @@ class News extends yupe\models\YModel
                 'params'    => [':is_protected' => self::PROTECTED_NO],
             ],
             'recent'    => [
-                'order' => 'creation_date DESC',
+                'order' => 'create_time DESC',
                 'limit' => 5,
             ]
         ];
@@ -188,11 +192,11 @@ class News extends yupe\models\YModel
         return [
             'id'            => Yii::t('NewsModule.news', 'Id'),
             'category_id'   => Yii::t('NewsModule.news', 'Category'),
-            'creation_date' => Yii::t('NewsModule.news', 'Created at'),
-            'change_date'   => Yii::t('NewsModule.news', 'Updated at'),
+            'create_time' => Yii::t('NewsModule.news', 'Created at'),
+            'update_time'   => Yii::t('NewsModule.news', 'Updated at'),
             'date'          => Yii::t('NewsModule.news', 'Date'),
             'title'         => Yii::t('NewsModule.news', 'Title'),
-            'alias'         => Yii::t('NewsModule.news', 'Alias'),
+            'slug'         => Yii::t('NewsModule.news', 'Alias'),
             'image'         => Yii::t('NewsModule.news', 'Image'),
             'link'          => Yii::t('NewsModule.news', 'Link'),
             'lang'          => Yii::t('NewsModule.news', 'Language'),
@@ -208,8 +212,8 @@ class News extends yupe\models\YModel
 
     public function beforeValidate()
     {
-        if (!$this->alias) {
-            $this->alias = yupe\helpers\YText::translit($this->title);
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->title);
         }
 
         if (!$this->lang) {
@@ -221,11 +225,11 @@ class News extends yupe\models\YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
         $this->date = date('Y-m-d', strtotime($this->date));
 
         if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
+            $this->create_time = $this->update_time;
             $this->user_id = Yii::app()->getUser()->getId();
         }
 
@@ -251,13 +255,13 @@ class News extends yupe\models\YModel
         $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('update_time', $this->update_time, true);
         if ($this->date) {
             $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
         }
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('t.alias', $this->alias, true);
+        $criteria->compare('t.slug', $this->slug, true);
         $criteria->compare('short_text', $this->short_text, true);
         $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);

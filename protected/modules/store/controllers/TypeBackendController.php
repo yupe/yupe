@@ -6,12 +6,11 @@ class TypeBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Store.TypeBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Store.TypeBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Store.TypeBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.TypeBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.TypeBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.TypeBackend.Multiaction'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Store.TypeBackend.Create'],],
+            ['allow', 'actions' => ['update'], 'roles' => ['Store.TypeBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.TypeBackend.Delete'],],
             ['deny',],
         ];
     }

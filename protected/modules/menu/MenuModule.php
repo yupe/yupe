@@ -5,14 +5,14 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu
  * @since 0.1
  *
  */
 class MenuModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.4';
+    const VERSION = '0.9.5';
 
     public $defaultController = 'menu';
 
@@ -60,7 +60,7 @@ class MenuModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-list";
+        return 'fa fa-fw fa-list';
     }
 
     public function getAdminPageLink()
@@ -138,18 +138,8 @@ class MenuModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Menu.MenuBackend.Inline',
-                        'description' => Yii::t('MenuModule.menu', 'Editing menu')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Menu.MenuBackend.Multiaction',
-                        'description' => Yii::t('MenuModule.menu', 'Batch delete menu')
                     ],
                     //menu items
                     [
@@ -174,18 +164,8 @@ class MenuModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Menu.MenuitemBackend.Inline',
-                        'description' => Yii::t('MenuModule.menu', 'Editing menu')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Menu.MenuitemBackend.View',
                         'description' => Yii::t('MenuModule.menu', 'Viewing menu items')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Menu.MenuitemBackend.Multiaction',
-                        'description' => Yii::t('MenuModule.menu', 'Batch delete menu items')
                     ],
                 ]
             ]

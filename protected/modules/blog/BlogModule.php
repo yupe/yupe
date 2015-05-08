@@ -13,7 +13,7 @@ use yupe\components\WebModule;
 
 class BlogModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public $mainPostCategory;
     public $minSize = 0;
@@ -282,18 +282,8 @@ class BlogModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Blog.BlogBackend.Inline',
-                        'description' => Yii::t('BlogModule.blog', 'Editing blog')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.BlogBackend.View',
                         'description' => Yii::t('BlogModule.blog', 'Viewing blogs')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Blog.BlogBackend.Multiaction',
-                        'description' => Yii::t('BlogModule.blog', 'Batch delete blogs')
                     ],
                     //posts
 
@@ -319,18 +309,8 @@ class BlogModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Blog.PostBackend.Inline',
-                        'description' => Yii::t('BlogModule.blog', 'Editing post')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.PostBackend.View',
                         'description' => Yii::t('BlogModule.blog', 'Viewing post')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Blog.PostBackend.Multiaction',
-                        'description' => Yii::t('BlogModule.blog', 'Batch delete posts')
                     ],
                     //members
 
@@ -356,18 +336,8 @@ class BlogModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Blog.UserToBlogBackend.Inline',
-                        'description' => Yii::t('BlogModule.blog', 'Editing member')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Blog.UserToBlogBackend.View',
                         'description' => Yii::t('BlogModule.blog', 'Viewing member')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Blog.UserToBlogBackend.Multiaction',
-                        'description' => Yii::t('BlogModule.blog', 'Batch delete members')
                     ],
                 ]
             ]

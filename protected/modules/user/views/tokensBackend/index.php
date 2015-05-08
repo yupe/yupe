@@ -54,7 +54,7 @@ $confirmMessage = CJavaScript::encode(
     Yii::t('UserModule.user', 'Are you sure you want to compromise this token?')
 );
 $compromiseJS = <<<SCRIPT
-    function () {
+    function (event) {
         event.preventDefault();
 
         if(!confirm($confirmMessage)) return false;
@@ -113,25 +113,25 @@ SCRIPT;
                 ],
             ],
             [
-                'name'        => 'created',
-                'value'       => '$data->beautifyDate($data->created)',
+                'name'        => 'create_time',
+                'value'       => '$data->beautifyDate($data->create_time)',
                 'filter'      => false,
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]
             ],
             [
-                'name'        => 'updated',
+                'name'        => 'update_time',
                 'filter'      => false,
-                'value'       => '$data->beautifyDate($data->updated)',
+                'value'       => '$data->beautifyDate($data->update_time)',
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]
             ],
             [
-                'name'        => 'expire',
+                'name'        => 'expire_time',
                 'filter'      => false,
-                'value'       => '$data->beautifyDate($data->expire)',
+                'value'       => '$data->beautifyDate($data->expire_time)',
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]
@@ -156,7 +156,7 @@ SCRIPT;
             [
                 'header'      => Yii::t('UserModule.user', 'Management'),
                 'class'       => 'yupe\widgets\CustomButtonColumn',
-                'template'    => "{fail} &emsp; {view} {update} {delete}",
+                'template'    => '{fail} &emsp; {view} {update} {delete}',
                 'buttons'     => [
                     'fail' => [
                         'icon'    => 'fa fa-fw fa-times',
@@ -167,7 +167,7 @@ SCRIPT;
                     ],
                 ],
                 'htmlOptions' => [
-                    'style' => 'width: 90px; text-align: right; white-space: nowrap;'
+                    'class' => 'button-column'
                 ]
             ],
         ],

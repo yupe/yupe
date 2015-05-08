@@ -16,13 +16,11 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Blog.PostBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Blog.PostBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Blog.PostBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Blog.PostBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Blog.PostBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Blog.PostBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Blog.PostBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Blog.PostBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Blog.PostBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Blog.PostBackend.Delete']],
             ['deny']
         ];
     }
@@ -36,7 +34,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                 'validAttributes' => [
                     'title',
                     'slug',
-                    'publish_date',
+                    'publish_time',
                     'status',
                     'comment_status',
                     'blog_id',
@@ -74,7 +72,7 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         $model = new Post();
 
-        $model->publish_date = date('d-m-Y h:i');
+        $model->publish_time = date('d-m-Y h:i');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(

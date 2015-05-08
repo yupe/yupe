@@ -16,14 +16,12 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Feedback.FeedbackBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Feedback.FeedbackBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Feedback.FeedbackBackend.Index']],
-            ['allow', 'actions' => ['inline'], 'roles' => ['Feedback.FeedbackBackend.Update']],
-            ['allow', 'actions' => ['update'], 'roles' => ['Feedback.FeedbackBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Feedback.FeedbackBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Feedback.FeedbackBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Feedback.FeedbackBackend.Update']],
             ['allow', 'actions' => ['answer'], 'roles' => ['Feedback.FeedbackBackend.Answer']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Feedback.FeedbackBackend.Multiaction']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Feedback.FeedbackBackend.Delete']],
             ['deny']
         ];
     }
@@ -89,7 +87,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
-                $model->answer_date = new CDbExpression('NOW()');
+                $model->answer_time = new CDbExpression('NOW()');
             }
 
             if ($model->save()) {
@@ -128,7 +126,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
             if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
-                $model->answer_date = new CDbExpression('NOW()');
+                $model->answer_time = new CDbExpression('NOW()');
             }
 
             if ($model->save()) {
@@ -240,7 +238,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                         'answer'      => $form->answer,
                         'is_faq'      => $form->is_faq,
                         'answer_user' => Yii::app()->user->getId(),
-                        'answer_date' => new CDbExpression('NOW()'),
+                        'answer_time' => new CDbExpression('NOW()'),
                         'status'      => FeedBack::STATUS_ANSWER_SENDED,
                     ]
                 );

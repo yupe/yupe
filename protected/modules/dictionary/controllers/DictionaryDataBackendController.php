@@ -5,7 +5,7 @@
  *
  * @author    yupe team <team@yupe.ru>
  * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.dictionary
  * @since     0.6
  *
@@ -16,17 +16,11 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['create'], 'roles' => ['Dictionary.DictionaryDataBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Dictionary.DictionaryDataBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['Dictionary.DictionaryDataBackend.Index']],
-            [
-                'allow',
-                'actions' => ['inline'],
-                'roles'   => ['Dictionary.DictionaryDataBackend.Update']
-            ],
-            ['allow', 'actions' => ['update'], 'roles' => ['Dictionary.DictionaryDataBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['Dictionary.DictionaryDataBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Dictionary.DictionaryDataBackend.Multiaction']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Dictionary.DictionaryDataBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Dictionary.DictionaryDataBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Dictionary.DictionaryDataBackend.Delete']],
             ['deny']
         ];
     }

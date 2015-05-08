@@ -123,25 +123,50 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-12 form-group popover-help"
+    <div class="col-sm-12 form-group popover-help <?php echo $model->hasErrors('content') ? 'has-error' : ''; ?>"
          data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
          data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
-        <?php echo $form->labelEx($model, 'content'); ?>
         <?php
+        echo $form->labelEx($model, 'content', ['class' => 'control-label']);
+
         $this->widget(
             $this->module->getVisualEditor(),
             [
                 'model'     => $model,
                 'attribute' => 'content',
             ]
-        ); ?>
+        );
+
+        echo $form->error($model, 'content', ['class' => 'help-block error']);
+        ?>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 form-group popover-help <?php echo $model->hasErrors('quote') ? 'has-error' : ''; ?>"
+         data-original-title='<?php echo $model->getAttributeLabel('quote'); ?>'
+         data-content='<?php echo $model->getAttributeDescription('quote'); ?>'>
+        <?php
+        echo $form->labelEx($model, 'quote', ['class' => 'control-label']);
+
+        $this->widget(
+            $this->module->getVisualEditor(),
+            [
+                'model'     => $model,
+                'attribute' => 'quote',
+            ]
+        );
+
+        echo $form->error($model, 'quote', ['class' => 'help-block error']);
+        ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'tags', ['control-label']); ?>
+            <?php echo $form->labelEx($model, 'tags', ['class' => 'control-label']); ?>
             <?php
             $this->widget(
                 'booster.widgets.TbSelect2',

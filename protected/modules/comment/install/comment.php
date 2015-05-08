@@ -55,6 +55,11 @@ return [
             ]
         ]
     ],
+    'commandMap' => [
+        'comments-migrate-to-ns' => [
+            'class' => 'application.modules.comment.commands.MigrateToNestedSets'
+        ]
+    ],
     'rules'     => [
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',
         '/comment/comment/captcha/<v>'         => 'comment/comment/captcha/',

@@ -18,11 +18,10 @@ class TokensBackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['User.TokensBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['User.TokensBackend.Index']],
-            ['allow', 'actions' => ['update'], 'roles' => ['User.TokensBackend.Update']],
             ['allow', 'actions' => ['view'], 'roles' => ['User.TokensBackend.View']],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['User.TokensBackend.Multiaction']],
+            ['allow', 'actions' => ['update', 'compromise'], 'roles' => ['User.TokensBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['User.TokensBackend.Delete']],
             ['deny']
         ];
     }

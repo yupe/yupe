@@ -20,12 +20,11 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['create'], 'roles' => ['Store.ProducerBackend.Create'],],
-            ['allow', 'actions' => ['delete'], 'roles' => ['Store.ProducerBackend.Delete'],],
-            ['allow', 'actions' => ['update'], 'roles' => ['Store.ProducerBackend.Update'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.ProducerBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProducerBackend.View'],],
-            ['allow', 'actions' => ['multiaction'], 'roles' => ['Store.ProducerBackend.Multiaction'],],
+            ['allow', 'actions' => ['create'], 'roles' => ['Store.ProducerBackend.Create'],],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Store.ProducerBackend.Update'],],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.ProducerBackend.Delete'],],
             ['deny',],
         ];
     }

@@ -58,9 +58,9 @@ class NewsRssController extends yupe\components\controllers\RssController
                     'content'         => 'short_text',
                     'datetime'        => 'date',
                     'link'            => '/news/news/show',
-                    'linkParams'      => ['title' => 'alias'],
+                    'linkParams'      => ['title' => 'slug'],
                     'title'           => 'title',
-                    'updated'         => 'change_date',
+                    'updated'         => 'update_time',
                 ],
             ],
         ];

@@ -5,14 +5,14 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.page
  * @since 0.1
  *
  */
 class PageModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.5';
 
     public function getDependencies()
     {
@@ -82,7 +82,7 @@ class PageModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "fa fa-fw fa-file";
+        return 'fa fa-fw fa-file';
     }
 
     public function init()
@@ -163,18 +163,8 @@ class PageModule extends yupe\components\WebModule
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Page.PageBackend.Inline',
-                        'description' => Yii::t('PageModule.page', 'Editing pages')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Page.PageBackend.View',
                         'description' => Yii::t('PageModule.page', 'Viewing pages')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Page.PageBackend.Multiaction',
-                        'description' => Yii::t('PageModule.page', 'Batch delete')
                     ],
                 ]
             ]

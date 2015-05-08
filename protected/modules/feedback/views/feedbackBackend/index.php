@@ -91,7 +91,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     'url'    => $this->createUrl('/feedback/feedbackBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'theme', ['class' => 'form-control']),
@@ -103,7 +103,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     'url'    => $this->createUrl('/feedback/feedbackBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
@@ -115,7 +115,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     'url'    => $this->createUrl('/feedback/feedbackBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'email', ['class' => 'form-control']),
@@ -128,7 +128,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     'type'   => 'select',
                     'source' => $model->getTypeList(),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'name'     => 'type',
@@ -161,7 +161,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     'type'   => 'select',
                     'source' => $model->getIsFaqList(),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'name'     => 'is_faq',
@@ -174,8 +174,8 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     ['class' => 'form-control', 'empty' => '']
                 ),
             ],
-            'creation_date',
-            'answer_date',
+            'create_time',
+            'answer_time',
             [
                 'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{answer}{view}{update}{delete}',

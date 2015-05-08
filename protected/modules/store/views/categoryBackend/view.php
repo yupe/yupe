@@ -57,7 +57,7 @@ $this->menu = [
                 'value' => $model->getParentName(),
             ],
             'name',
-            'alias',
+            'slug',
             [
                 'name' => 'image',
                 'type' => 'raw',
