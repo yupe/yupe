@@ -25,7 +25,7 @@ class YupeModule extends WebModule
     /**
      *
      */
-    const VERSION = '0.9.5-dev';
+    const VERSION = '0.9.5';
 
     /**
      * @var

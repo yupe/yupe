@@ -89,7 +89,7 @@
                 <?php if ($orderProduct->product): ?>
                     <a href="<?= $productUrl; ?>">
                         <?php if ($orderProduct->product->image): ?>
-                            <img border="0" src="<?= Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(
+                            <img border="0" src="<?= $orderProduct->product->getImageUrl(
                                 50,
                                 50
                             ); ?>">

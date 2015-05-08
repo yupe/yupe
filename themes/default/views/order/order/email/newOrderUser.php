@@ -89,7 +89,7 @@
                 <?php if ($orderProduct->product): ?>
                     <a href="<?= $productUrl; ?>">
                         <?php if ($orderProduct->product->image): ?>
-                            <img border="0" src="<?= Yii::app()->getBaseUrl(true) . $orderProduct->product->getImageUrl(
+                            <img border="0" src="<?= $orderProduct->product->getImageUrl(
                                 50,
                                 50
                             ); ?>">
@@ -151,13 +151,13 @@
     </tr>
 </table>
 
-<br>
+<br/>
 Вы всегда можете проверить состояние заказа по ссылке:<br>
 <?= CHtml::link(
     Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url]),
     Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url])
 ); ?>
-<br>
+<br/>
 
 </body>
 </html>
