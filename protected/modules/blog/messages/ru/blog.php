@@ -127,7 +127,7 @@ return [
     'In this category located post administration functions' => 'В данном разделе представлены средства управления записями',
     'It will be interesting' => 'Будет интересно',
     'Join blog' => 'Вступить в блог',
-    'Joined' => 'Присоеденился',
+    'Joined' => 'Присоединился',
     'Keywords for post categorization, for example:<br /><span class="label label-default">sea</span>' => 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label label-default">море</span>',
     'Keywords' => 'Ключевые слова',
     'Last blog posts' => 'Последние записи блога',
