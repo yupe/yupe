@@ -27,14 +27,17 @@ class UserManager extends CApplicationComponent
 
     public function createUser(RegistrationForm $form)
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-            $user = new User();
-            $data = $form->getAttributes();
-            unset($data['cPassword'], $data['verifyCode']);
-            $user->setAttributes($data);
-            $user->hash = $this->hasher->hashPassword($form->password);
+            
+            $user = new User;
+            $user->setAttributes([
+                'email' => $form->email,
+                'nick_name' => $form->nick_name,
+                'hash' => $this->hasher->hashPassword($form->password)
+            ]);
+
             if ($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
 
                 Yii::app()->eventManager->fire(
@@ -77,7 +80,7 @@ class UserManager extends CApplicationComponent
 
     public function activateUser($token)
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
             $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_ACTIVATE);
@@ -98,8 +101,7 @@ class UserManager extends CApplicationComponent
                 return false;
             }
 
-            $userModel->status = User::STATUS_ACTIVE;
-            $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
+            $userModel->activate();
 
             if ($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
 
@@ -155,7 +157,7 @@ class UserManager extends CApplicationComponent
             return false;
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
             if (($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
@@ -210,7 +212,7 @@ class UserManager extends CApplicationComponent
             return false;
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
 
@@ -251,7 +253,7 @@ class UserManager extends CApplicationComponent
             return true;
         }
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
 
@@ -283,7 +285,7 @@ class UserManager extends CApplicationComponent
 
     public function verifyEmail($token)
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
             $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_EMAIL_VERIFY);
@@ -321,7 +323,7 @@ class UserManager extends CApplicationComponent
                         'Email with activate_key = {activate_key}, id = {id} was activated!',
                         [
                             '{activate_key}' => $token,
-                            '{id}'           => $userModel->id,
+                            '{id}' => $userModel->id,
                         ]
                     ),
                     CLogger::LEVEL_INFO,

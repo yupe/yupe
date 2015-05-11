@@ -25,8 +25,6 @@ use Yii;
 
 abstract class YModel extends CActiveRecord
 {
-    public $cacheKey = false;
-
     /**
      * Получение ссылки на объект модели
      * Это позволяет не писать каждый раз publiс static model в моделях Yii.
@@ -146,7 +144,7 @@ abstract class YModel extends CActiveRecord
         $model = strtolower(get_class($this));
         $module = $model === 'settings' && !empty($this->module_id)
             ? $this->module_id
-            : strtolower($this->moduleID);
+            : strtolower($this->getModuleID());
 
         /**
          * Если не указана зависимость,

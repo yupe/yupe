@@ -13,7 +13,7 @@
  * @property string  $email
  * @property integer $gender
  * @property string  $avatar
- * @property string  $password
+ * @property string  $hash
  * @property integer $status
  * @property integer $access_level
  * @property string  $visit_time
@@ -204,14 +204,10 @@ class User extends yupe\models\YModel
             'nick_name' => Yii::t('UserModule.user', 'Nick'),
             'email' => Yii::t('UserModule.user', 'Email'),
             'gender' => Yii::t('UserModule.user', 'Sex'),
-            'password' => Yii::t('UserModule.user', 'Password'),
             'status' => Yii::t('UserModule.user', 'Status'),
             'access_level' => Yii::t('UserModule.user', 'Access'),
             'visit_time' => Yii::t('UserModule.user', 'Last visit'),
             'create_time' => Yii::t('UserModule.user', 'Register date'),
-            'registration_ip' => Yii::t('UserModule.user', 'Register Ip'),
-            'activation_ip' => Yii::t('UserModule.user', 'Activation Ip'),
-            'activate_key' => Yii::t('UserModule.user', 'Activation code'),
             'avatar' => Yii::t('UserModule.user', 'Avatar'),
             'use_gravatar' => Yii::t('UserModule.user', 'Gravatar'),
             'email_confirm' => Yii::t('UserModule.user', 'Email was confirmed'),
@@ -610,4 +606,12 @@ class User extends yupe\models\YModel
     {
         return (int)$this->status === self::STATUS_ACTIVE;
     }
+
+    public function activate()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirm = self::EMAIL_CONFIRM_YES;
+        return $this;
+    }
+
 }
