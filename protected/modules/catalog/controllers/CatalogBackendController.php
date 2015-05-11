@@ -27,9 +27,12 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
 
     public function filters()
     {
-        return [
-            'postOnly + delete',
-        ];
+        return CMap::mergeArray(
+            parent::filters(),
+            [
+                'postOnly + delete',
+            ]
+        );
     }
 
     public function actions()

@@ -14,9 +14,12 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 {
     public function filters()
     {
-        return [
-            'postOnly + delete, addImages',
-        ];
+        return CMap::mergeArray(
+            parent::filters(),
+            [
+                'postOnly + delete, addImages',
+            ]
+        );
     }
 
     public function accessRules()
