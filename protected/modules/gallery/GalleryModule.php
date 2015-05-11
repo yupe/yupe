@@ -12,7 +12,7 @@
  */
 class GalleryModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.6';
 
     public function getDependencies()
     {

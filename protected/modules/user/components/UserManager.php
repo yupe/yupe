@@ -32,11 +32,16 @@ class UserManager extends CApplicationComponent
         try {
             
             $user = new User;
-            $user->setAttributes([
-                'email' => $form->email,
-                'nick_name' => $form->nick_name,
-                'hash' => $this->hasher->hashPassword($form->password)
-            ]);
+
+            $userData = $form->getAttributes();
+
+            foreach(['cPassword', 'password', 'verifyCode','disableCaptcha'] as $attribute) {
+                unset($userData[$attribute]);
+            }
+
+            $user->setAttributes($userData);
+
+            $user->setAttribute('hash', $this->hasher->hashPassword($form->password));
 
             if ($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
 
