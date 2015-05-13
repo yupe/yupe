@@ -6,8 +6,8 @@
                 <div class="row">
                     <?php foreach ($dataProvider->getData() as $data): ?>
                         <div class="col-sm-3">
-                            <a href="<?php echo $data->image->getUrl(); ?>" class="thumbnail">
-                                <?php echo CHtml::image(
+                            <a href="<?= $data->image->getUrl(); ?>" class="thumbnail">
+                                <?= CHtml::image(
                                     $data->image->getImageUrl(250, 250),
                                     $data->image->alt,
                                     [

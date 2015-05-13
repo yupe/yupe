@@ -17,7 +17,7 @@ $this->breadcrumbs = [
 <div class="row">
     <div class="col-sm-12">
         <div class="blog-logo pull-left">
-            <?php echo CHtml::image(
+            <?= CHtml::image(
                 $blog->getImageUrl(109, 109),
                 CHtml::encode($blog->name),
                 [
@@ -29,12 +29,12 @@ $this->breadcrumbs = [
         <div class="blog-description">
             <div class="blog-description-name">
 
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     CHtml::encode($blog->name),
                     ['/blog/post/blog/', 'slug' => CHtml::encode($blog->slug)]
                 ); ?>
 
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     CHtml::image(
                         Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png",
                         Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
@@ -57,7 +57,7 @@ $this->breadcrumbs = [
                         ['user' => Yii::app()->user, 'blog' => $blog]
                     ); ?>
                     <?php
-                    if ($blog->userIn(Yii::app()->user->getId())) {
+                    if ($blog->userIn(Yii::app()->gerUser()->getId())) {
                         echo CHtml::link(Yii::t('BlogModule.blog', 'Add a post'), ['/blog/publisher/write', 'blog-id' => $blog->id], ['class' => 'btn btn-success btn-sm']);
                     }
                     ?>
@@ -70,7 +70,7 @@ $this->breadcrumbs = [
 
             <span class="blog-description-owner">
                 <i class="glyphicon glyphicon-user"></i>
-                <?php echo Yii::t('BlogModule.blog', 'Created'); ?>:
+                <?= Yii::t('BlogModule.blog', 'Created'); ?>:
                 <strong>
                     <?php $this->widget(
                         'application.modules.user.widgets.UserPopupInfoWidget',
@@ -83,12 +83,12 @@ $this->breadcrumbs = [
 
             <span class="blog-description-datetime">
                 <i class="glyphicon glyphicon-calendar"></i>
-                <?php echo Yii::app()->getDateFormatter()->formatDateTime($blog->create_time, "short", "short"); ?>
+                <?= Yii::app()->getDateFormatter()->formatDateTime($blog->create_time, "short", "short"); ?>
             </span>
 
             <span class="blog-description-posts">
                 <i class="glyphicon glyphicon-pencil"></i>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     count($blog->posts),
                     ['/blog/post/blog/', 'slug' => CHtml::encode($blog->slug)]
                 ); ?>
@@ -98,7 +98,7 @@ $this->breadcrumbs = [
 
             <?php if ($blog->description) : ?>
                 <div class="blog-description-text">
-                    <?php echo strip_tags($blog->description); ?>
+                    <?= strip_tags($blog->description); ?>
                 </div>
             <?php endif; ?>
 
@@ -112,7 +112,7 @@ $this->breadcrumbs = [
 
 <br/>
 
-<?php echo CHtml::link(
+<?= CHtml::link(
     Yii::t('BlogModule.blog', 'All entries for blog "{blog}"', ['{blog}' => CHtml::encode($blog->name)]),
     ['/blog/post/blog/', 'slug' => $blog->slug],
     ['class' => 'btn btn-default']

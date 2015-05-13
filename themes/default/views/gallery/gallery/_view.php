@@ -13,7 +13,7 @@
  **/
 ?>
 <div class="media">
-    <?php echo CHtml::link(
+    <?= CHtml::link(
         CHtml::image($data->previewImage(300, 300), $data->name, ['class' => 'thumbnail media-object']),
         $data->getUrl(),
         ['class' => 'pull-left']
@@ -22,20 +22,20 @@
     <div class="media-body">
 
         <h3 class="media-heading">
-            <?php echo CHtml::link(CHtml::encode($data->name), $data->getUrl()); ?>
+            <?= CHtml::link(CHtml::encode($data->name), $data->getUrl()); ?>
         </h3>
 
-        <?php echo $data->description; ?>
+        <?= $data->description; ?>
 
         <div class="well well-sm">
             <?php if ($data->imagesCount): ?>
                 <ul class="list-inline">
                     <li>
-                        <?php echo Yii::t('GalleryModule.gallery', 'Messages summary:'); ?> <span
-                            class="badge alert-info"><?php echo $data->imagesCount; ?></span>
+                        <?= Yii::t('GalleryModule.gallery', 'Messages summary:'); ?> <span
+                            class="badge alert-info"><?= $data->imagesCount; ?></span>
                     </li>
                     <li>
-                        <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
+                        <i class="glyphicon glyphicon-calendar"></i> <?= Yii::app()->dateFormatter->format(
                             'dd MMMM yyyy г., hh:mm',
                             $data->lastUpdated
                         ); ?>

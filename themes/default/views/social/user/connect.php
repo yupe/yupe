@@ -16,29 +16,29 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
     ]
 ); ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?= $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-6">
-        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+        <?= $form->passwordFieldGroup($model, 'password'); ?>
     </div>
 </div>
 
 <?php if (Yii::app()->getModule('user')->sessionLifeTime > 0): { ?>
     <div class='row'>
         <div class="col-sm-6">
-            <?php echo $form->checkBoxGroup($model, 'remember_me'); ?>
+            <?= $form->checkBoxGroup($model, 'remember_me'); ?>
         </div>
     </div>
 <?php } endif; ?>
 
-<?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3 && CCaptcha::checkRequirements('gd')): { ?>
+<?php if (Yii::app()->gerUser()->getState('badLoginCount', 0) >= 3 && CCaptcha::checkRequirements('gd')): { ?>
     <?php $this->widget(
         'CCaptcha',
         [
@@ -55,7 +55,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 
     <div class='row'>
         <div class="col-sm-6">
-            <?php echo $form->textFieldGroup(
+            <?= $form->textFieldGroup(
                 $model,
                 'verifyCode',
                 ['hint' => Yii::t('UserModule.user', 'Please enter the text from the image')]
@@ -87,6 +87,6 @@ $this->widget(
     ]
 ); ?>
 
-<?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), ['/user/account/recovery']) ?>
+<?= CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), ['/user/account/recovery']) ?>
 
 <?php $this->endWidget(); ?>

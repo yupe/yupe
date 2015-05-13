@@ -8,6 +8,6 @@ $this->metaDescription = !empty($page->description) ? $page->description : $this
 $this->metaKeywords = !empty($page->keywords) ? $page->keywords : $this->keywords
 ?>
 
-<h1><?php echo $page->title; ?></h1>
+<h1><?= $page->title; ?></h1>
 
-<?php echo $page->body; ?>
+<?= $page->body; ?>

@@ -5,7 +5,7 @@ $this->breadcrumbs = [
 ];
 ?>
 
-<h1><?php echo Yii::t('UserModule.user', 'Users'); ?></h1>
+<h1><?= Yii::t('UserModule.user', 'Users'); ?></h1>
 
 <?php
 $form = $this->beginWidget(
@@ -20,7 +20,7 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12">
         <div class="input-group">
-            <?php echo $form->textField(
+            <?= $form->textField(
                 $users,
                 'nick_name',
                 ['class' => 'form-control', 'placeholder' => 'поиск по нику',]

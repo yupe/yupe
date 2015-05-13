@@ -3,11 +3,11 @@
         <span class="posts-list-block-tags-block">
             <i class="glyphicon glyphicon-tags"></i>
 
-            <?php echo Yii::t('BlogModule.blog', 'Tags'); ?>:
+            <?= Yii::t('BlogModule.blog', 'Tags'); ?>:
 
             <?php foreach ((array)$post->getTags() as $tag): ?>
                 <span>
-                    <?php echo CHtml::link(CHtml::encode($tag), ['/posts/', 'tag' => CHtml::encode($tag)]); ?>
+                    <?= CHtml::link(CHtml::encode($tag), ['/posts/', 'tag' => CHtml::encode($tag)]); ?>
                 </span>
             <?php endforeach; ?>
         </span>
@@ -25,7 +25,7 @@
         <span class="posts-list-block-tags-comments">
             <i class="glyphicon glyphicon-comment"></i>
 
-            <?php echo CHtml::link(
+            <?= CHtml::link(
                 $post->getCommentCount(),
                 $post->getUrl(['#' => 'comments'])
             ); ?>

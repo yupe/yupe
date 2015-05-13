@@ -32,7 +32,7 @@ abstract class ConsoleCommand extends CConsoleCommand
         }
 
         if (!Yii::app()->hasComponent($this->cache)) {
-            throw new CException('Please set valid "cache" component!');
+            throw new \CException('Please set valid "cache" component!');
         }
 
         $this->cache = Yii::app()->getComponent($this->cache);
@@ -76,7 +76,7 @@ abstract class ConsoleCommand extends CConsoleCommand
             $this->log($message, CLogger::LEVEL_ERROR);
         }
 
-        die;
+        Yii::app()->end();
     }
 
     /**

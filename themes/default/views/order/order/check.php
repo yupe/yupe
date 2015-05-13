@@ -30,13 +30,13 @@ $this->title = [Yii::t('OrderModule.order', 'Check order'), Yii::app()->getModul
 <?php if($order):?>
 
     <div class="alert alert-success">
-        <?php echo Yii::t('OrderModule.order', 'Status') ?>: <strong><?= $order->status->getTitle();?></strong>
+        <?= Yii::t('OrderModule.order', 'Status') ?>: <strong><?= $order->status->getTitle();?></strong>
     </div>
 
 <?php elseif(!$model->hasErrors()): ?>
 
     <div class="alert alert-danger">
-        <?php echo Yii::t('OrderModule.order', 'Order not found!') ?>
+        <?= Yii::t('OrderModule.order', 'Order not found!') ?>
     </div>
 
 <?php endif;?>

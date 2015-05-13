@@ -18,11 +18,11 @@ $form = $this->beginWidget(
 );
 ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'email',
             [
@@ -38,9 +38,9 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-12">
-        <?php if (Yii::app()->user->profile->getIsVerifyEmail()) : { ?>
+        <?php if (Yii::app()->gerUser()->profile->getIsVerifyEmail()) : { ?>
             <p class="alert alert-warning">
-                <?php echo Yii::t(
+                <?= Yii::t(
                     'UserModule.user',
                     'Warning! After changing your e-mail you will receive a message explaining how to verify it'
                 ); ?>

@@ -10,7 +10,7 @@ $this->title = [Yii::t('BlogModule.blog', 'Posts list with tag "{tag}"', ['{tag}
     Yii::t('BlogModule.blog', 'Posts list'),
 ]; ?>
 
-<p><?php echo Yii::t('BlogModule.blog', 'Posts with tag'); ?> <strong><?php echo CHtml::encode($tag); ?></strong>...</p>
+<p><?= Yii::t('BlogModule.blog', 'Posts with tag'); ?> <strong><?= CHtml::encode($tag); ?></strong>...</p>
 
 <?php foreach ($posts as $post): ?>
     <?php $this->renderPartial('_post', ['data' => $post]); ?>

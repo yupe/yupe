@@ -5,6 +5,7 @@ class PanelOrderStatWidget extends \yupe\widgets\YWidget
     public function run()
     {
         $criteria = new CDbCriteria();
+        $criteria->with = ['status'];
 
         $dataProvider = new CActiveDataProvider(
             'Order', [
@@ -18,7 +19,7 @@ class PanelOrderStatWidget extends \yupe\widgets\YWidget
             ]
         );
 
-        $cacheTime = Yii::app()->controller->yupe->coreCacheTime;
+        $cacheTime = Yii::app()->getController()->yupe->coreCacheTime;
         $model = Order::model();
         $dependency = new CDbCacheDependency('select max(modified) from ' . $model->tableName());
 

@@ -15,7 +15,7 @@ $this->breadcrumbs = [
 ?>
 <div class="row">
     <div class="col-sm-12">
-        <h1 class="title"> <?php echo $model->name; ?></h1>
+        <h1 class="title"> <?= $model->name; ?></h1>
     </div>
 </div>
 <div class="row form-group">
@@ -23,7 +23,7 @@ $this->breadcrumbs = [
 </div>
 <div class="row form-group">
     <div class="col-sm-12">
-        <?php echo $model->description; ?>
+        <?= $model->description; ?>
     </div>
 </div>
 <div class="row form-group">

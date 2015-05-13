@@ -1,8 +1,8 @@
 <?php if (!empty($models)): ?>
-    <?php echo Yii::t('BlogModule.blog', 'Member of :'); ?>
+    <?= Yii::t('BlogModule.blog', 'Member of :'); ?>
     <div>
         <?php foreach ($models as $model): ?>
-            <?php echo CHtml::link(
+            <?= CHtml::link(
                 CHtml::encode($model->name),
                 ['/blog/blog/show', 'slug' => CHtml::encode($model->slug)]
             ); ?>

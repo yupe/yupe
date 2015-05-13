@@ -13,7 +13,7 @@ if ($city_id && ($city = GeoCity::model()->with('country')->findByPk($city_id)))
 
 ?>
 <div class="list">
-    <div class="name"><?php echo Yii::t('default', 'City:'); ?></div>
+    <div class="name"><?= Yii::t('default', 'City:'); ?></div>
     <div class="form">
         <?php
         $form->widget(

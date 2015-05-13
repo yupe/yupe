@@ -1,11 +1,11 @@
 <html>
 
 <head>
-    <title><?php echo Yii::t('UserModule.user', 'Activation successed!'); ?></title>
+    <title><?= Yii::t('UserModule.user', 'Activation successed!'); ?></title>
 </head>
 
 <body>
-<?php echo Yii::t(
+<?= Yii::t(
     'UserModule.user',
     'You was successfully registered on "{site}" !',
     [
@@ -17,7 +17,7 @@
 
 <br/><br/>
 
-<?php echo Yii::t('UserModule.user', 'To activate your account please go to ') . CHtml::link(
+<?= Yii::t('UserModule.user', 'To activate your account please go to ') . CHtml::link(
         Yii::t('UserModule.user', 'link'),
         $link = Yii::app()->createAbsoluteUrl(
             '/user/account/activate',
@@ -29,11 +29,11 @@
 
 <br/><br/>
 
-<?php echo $link; ?>
+<?= $link; ?>
 
 <br/><br/>
 
-<?php echo Yii::t(
+<?= Yii::t(
     'UserModule.user',
     'Truly yours, administration of "{site}" !',
     [

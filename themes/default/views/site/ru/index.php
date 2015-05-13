@@ -25,8 +25,8 @@
 
 <p> Начните доработку Вашего сайта с правки <code>SiteController</code> (/protected/controllers/SiteController)</p>
 <P> Мы подготовили для Вас некоторые заготовки, например, список постов (модуль "блог") можно посмотреть
-    вот <?php echo CHtml::link('здесь', ['/site/main']) ?> (SiteController/actionMain)</P>
-<p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link(
+    вот <?= CHtml::link('здесь', ['/site/main']) ?> (SiteController/actionMain)</P>
+<p> Для управления сайтом, пожалуйста, перейдите в <?= CHtml::link(
         'панель управления',
         ['/backend/']
     ); ?></p>

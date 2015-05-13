@@ -23,11 +23,11 @@
 <?php endif; ?>
 
 <p> You can start to edit you site from <code>SiteController</code> edition (/protected/controllers/SiteController)</p>
-<P> We made some blanks for you, for example, list of posts (from "Blog" module) you can find <?php echo CHtml::link(
+<P> We made some blanks for you, for example, list of posts (from "Blog" module) you can find <?= CHtml::link(
         'here',
         ['/site/main']
     ) ?> (SiteController/actionMain)</P>
-<p> For site management, please go to <?php echo CHtml::link('Control Panel', ['/yupe/backend/']); ?></p>
+<p> For site management, please go to <?= CHtml::link('Control Panel', ['/yupe/backend/']); ?></p>
 
 <p> If you have questions or problems - review this sources:
 <ul>

@@ -30,11 +30,11 @@ $form = $this->beginWidget(
 );
 ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup(
+        <?= $form->passwordFieldGroup(
             $model,
             'password',
             ['widgetOptions' => ['htmlOptions' => ['autocomplete' => 'off']]]
@@ -44,7 +44,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup(
+        <?= $form->passwordFieldGroup(
             $model,
             'cPassword',
             ['widgetOptions' => ['htmlOptions' => ['autocomplete' => 'off']]]
@@ -54,7 +54,7 @@ $form = $this->beginWidget(
     <div class="col-xs-6">
         <br/>
         <label class="checkbox">
-            <input type="checkbox" value="1" id="show_pass"> <?php echo Yii::t('UserModule.user', 'show password') ?>
+            <input type="checkbox" value="1" id="show_pass"> <?= Yii::t('UserModule.user', 'show password') ?>
         </label>
     </div>
 </div>

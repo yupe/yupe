@@ -31,7 +31,7 @@ class YLanguageSelector extends YWidget
         if (!Yii::app()->getUrlManager() instanceof \yupe\components\urlManager\LangUrlManager) {
             Yii::log(
                 'For use multi lang, please, enable "upe\components\urlManager\LangUrlManager" as default UrlManager',
-                CLogger::LEVEL_WARNING
+                \CLogger::LEVEL_WARNING
             );
 
             return false;

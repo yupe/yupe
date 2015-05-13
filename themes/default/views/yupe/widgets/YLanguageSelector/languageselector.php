@@ -6,9 +6,9 @@
         $icon = ($this->enableFlag) ? '<i class="iconflags iconflags-' . $lang . '"></i>' : '';
         ?>
         <?php if ($currentLanguage == $lang): ?>
-            <span><?php echo $icon . strtoupper(Yii::t('default', $lang)); ?></span>
+            <span><?= $icon . strtoupper(Yii::t('default', $lang)); ?></span>
         <?php else: ?>
-            <?php echo CHtml::link(
+            <?= CHtml::link(
                 $icon . strtoupper(Yii::t('default', $lang)),
                 $homeUrl . Yii::app()->urlManager->replaceLangUrl($cleanUrl, $lang)
             ); ?>

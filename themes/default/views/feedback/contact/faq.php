@@ -8,8 +8,8 @@ $this->breadcrumbs = [
 ?>
 
 <h1>
-    <?php echo Yii::t('FeedbackModule.feedback', 'FAQ') ?>
-    <?php echo CHtml::link(
+    <?= Yii::t('FeedbackModule.feedback', 'FAQ') ?>
+    <?= CHtml::link(
         Yii::t('FeedbackModule.feedback', 'Add question ?'),
         Yii::app()->createUrl('/feedback/contact/index/'),
         ['class' => 'btn btn-info']

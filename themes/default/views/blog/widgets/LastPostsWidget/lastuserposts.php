@@ -6,7 +6,7 @@
                 <?php foreach ($models as $post): ?>
                     <div class="posts-list-block">
                         <div class="posts-list-block-header">
-                            <?php echo CHtml::link(
+                            <?= CHtml::link(
                                 CHtml::encode($post->title),
                                 $post->getUrl()
                             ); ?>
@@ -27,7 +27,7 @@
                     <span>
                         <i class="glyphicon glyphicon-pencil"></i>
 
-                        <?php echo CHtml::link(
+                        <?= CHtml::link(
                             CHtml::encode($post->blog->name),
                             [
                                 '/blog/blog/show/',
@@ -39,7 +39,7 @@
                     <span>
                         <i class="glyphicon glyphicon-calendar"></i>
 
-                        <?php echo Yii::app()->getDateFormatter()->formatDateTime(
+                        <?= Yii::app()->getDateFormatter()->formatDateTime(
                             $post->publish_time,
                             "long",
                             "short"
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="posts-list-block-text">
-                            <?php echo strip_tags($post->getQuote()); ?>
+                            <?= strip_tags($post->getQuote()); ?>
                         </div>
 
                         <div class="posts-list-block-tags">
@@ -56,11 +56,11 @@
                         <span class="posts-list-block-tags-block">
                             <i class="glyphicon glyphicon-tags"></i>
 
-                            <?php echo Yii::t('BlogModule.blog', 'Tags'); ?>:
+                            <?= Yii::t('BlogModule.blog', 'Tags'); ?>:
 
                             <?php foreach ((array)$post->getTags() as $tag): ?>
                                 <span>
-                                    <?php echo CHtml::link(
+                                    <?= CHtml::link(
                                         CHtml::encode($tag),
                                         ['/posts/', 'tag' => CHtml::encode($tag)]
                                     ); ?>
@@ -71,7 +71,7 @@
                         <span class="posts-list-block-tags-comments">
                             <i class="glyphicon glyphicon-comment"></i>
 
-                            <?php echo CHtml::link(
+                            <?= CHtml::link(
                                 $post->getCommentCount(),
                                 $post->getUrl(['#' => 'comments'])
                             ); ?>

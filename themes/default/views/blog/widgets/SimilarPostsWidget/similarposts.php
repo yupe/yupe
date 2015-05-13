@@ -2,12 +2,12 @@
 
 <?php if (count($posts)): ?>
     <div class=" alert alert-warning">
-        <h4><?php echo Yii::t('BlogModule.blog', 'It will be interesting'); ?>:</h4>
+        <h4><?= Yii::t('BlogModule.blog', 'It will be interesting'); ?>:</h4>
 
         <div>
             <ul class="list-unstyled">
                 <?php foreach ($posts as $post): ?>
-                    <li><?php echo CHtml::link(
+                    <li><?= CHtml::link(
                             CHtml::encode($post->title),
                             $post->getUrl()
                         ); ?></li>

@@ -3,6 +3,6 @@
         <h3 class="panel-title">Интересно</h3>
     </div>
     <div class="panel-body">
-        <?php echo $item; ?>
+        <?= $item; ?>
     </div>
 </div>

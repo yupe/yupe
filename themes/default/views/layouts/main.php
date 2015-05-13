@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="<?php echo Yii::app()->language; ?>">
+<html lang="<?= Yii::app()->language; ?>">
 <head>
 
-    <?php Yii::app()->controller->widget(
+    <?php Yii::app()->getController()->widget(
         'vendor.chemezov.yii-seo.widgets.SeoHead',
         array(
-            'httpEquivs'         => array(
-                'Content-Type'     => 'text/html; charset=utf-8',
-                'X-UA-Compatible'  => 'IE=edge,chrome=1',
+            'httpEquivs' => array(
+                'Content-Type' => 'text/html; charset=utf-8',
+                'X-UA-Compatible' => 'IE=edge,chrome=1',
                 'Content-Language' => 'ru-RU'
             ),
-            'defaultTitle'       => Yii::app()->getModule('yupe')->siteName,
-            'defaultDescription' => Yii::app()->getModule('yupe')->siteDescription,
-            'defaultKeywords'    => Yii::app()->getModule('yupe')->siteKeyWords,
+            'defaultTitle' => $this->yupe->siteName,
+            'defaultDescription' => $this->yupe->siteDescription,
+            'defaultKeywords' => $this->yupe->siteKeyWords,
         )
     ); ?>
 
@@ -27,8 +27,8 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     ?>
     <script type="text/javascript">
-        var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
-        var yupeToken = '<?php echo Yii::app()->getRequest()->csrfToken;?>';
+        var yupeTokenName = '<?= Yii::app()->getRequest()->csrfTokenName;?>';
+        var yupeToken = '<?= Yii::app()->getRequest()->getCsrfToken();?>';
     </script>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -55,19 +55,21 @@
     <div class="row">
         <!-- content -->
         <section class="col-sm-9 content">
-            <?php echo $content; ?>
+            <?= $content; ?>
         </section>
         <!-- content end-->
 
         <!-- sidebar -->
         <aside class="col-sm-3 sidebar">
             <?php if (Yii::app()->hasModule('blog')): ?>
-                <?php Yii::import('application.modules.blog.BlogModule');?>
+                <?php Yii::import('application.modules.blog.BlogModule'); ?>
                 <p>
-                    <?= CHtml::link(
+                    <?=
+                    CHtml::link(
                         "<i class='glyphicon glyphicon-pencil'></i> " . Yii::t('BlogModule.blog', 'Add a post'),
                         ['/blog/publisher/write'],
-                        ['class' => 'btn btn-success', 'style' => 'width: 100%;']);
+                        ['class' => 'btn btn-success', 'style' => 'width: 100%;']
+                    );
                     ?>
                 </p>
             <?php endif; ?>
@@ -98,7 +100,10 @@
                                     ['style' => 'width: 100%']
                                 ),
                                 'http://yupe-project.ru/ecommerce?from=yupe-business',
-                                ['title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"', 'target' => '_blank']
+                                [
+                                    'title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"',
+                                    'target' => '_blank'
+                                ]
                             )
                         ]
                     ]
@@ -106,10 +111,12 @@
             </div>
 
             <div class="widget">
-                <a href="https://www.jetbrains.com/phpstorm/" target="_blank"><?= CHtml::image($mainAssets.'/images/logo_phpstorm.png');?></a>
+                <a href="https://www.jetbrains.com/phpstorm/" target="_blank"><?= CHtml::image(
+                        $mainAssets . '/images/logo_phpstorm.png'
+                    ); ?></a>
             </div>
 
-            <?php if (Yii::app()->user->isAuthenticated()): ?>
+            <?php if (Yii::app()->getUser()->isAuthenticated()): ?>
                 <div class="widget last-login-users-widget">
                     <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
                 </div>

@@ -33,11 +33,11 @@ $form = $this->beginWidget(
     Вы можете писать только в блоги, подписчиком которых являетесь...
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-2">
-        <?php echo $form->select2Group(
+        <?= $form->select2Group(
             $model,
             'blog_id',
             [
@@ -54,7 +54,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'title',
             [
@@ -72,7 +72,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'slug',
             [
@@ -91,7 +91,7 @@ $form = $this->beginWidget(
 <div class="row">
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#tags").val('<?php echo join(',',$model->getTags());?>');
+            $("#tags").val('<?= join(',',$model->getTags());?>');
         });
     </script>
 </div>
@@ -107,7 +107,7 @@ $form = $this->beginWidget(
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             ]
         ); ?>
-        <?php echo $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'image',
             [
@@ -123,9 +123,9 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-12 form-group popover-help <?php echo $model->hasErrors('content') ? 'has-error' : ''; ?>"
-         data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
+    <div class="col-sm-12 form-group popover-help <?= $model->hasErrors('content') ? 'has-error' : ''; ?>"
+         data-original-title='<?= $model->getAttributeLabel('content'); ?>'
+         data-content='<?= $model->getAttributeDescription('content'); ?>'>
         <?php
         echo $form->labelEx($model, 'content', ['class' => 'control-label']);
 
@@ -144,9 +144,9 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-12 form-group popover-help <?php echo $model->hasErrors('quote') ? 'has-error' : ''; ?>"
-         data-original-title='<?php echo $model->getAttributeLabel('quote'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('quote'); ?>'>
+    <div class="col-sm-12 form-group popover-help <?= $model->hasErrors('quote') ? 'has-error' : ''; ?>"
+         data-original-title='<?= $model->getAttributeLabel('quote'); ?>'
+         data-content='<?= $model->getAttributeDescription('quote'); ?>'>
         <?php
         echo $form->labelEx($model, 'quote', ['class' => 'control-label']);
 
@@ -166,7 +166,7 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'tags', ['class' => 'control-label']); ?>
+            <?= $form->labelEx($model, 'tags', ['class' => 'control-label']); ?>
             <?php
             $this->widget(
                 'booster.widgets.TbSelect2',
@@ -191,7 +191,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'link',
             [

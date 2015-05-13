@@ -21,7 +21,7 @@ $this->breadcrumbs = [
     )
 ]; ?>
 <h1 class="page-header">
-    <?php echo Yii::t(
+    <?= Yii::t(
         'GalleryModule.gallery',
         'Edit message #{id}',
         ['{id}' => $model->id]
