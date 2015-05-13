@@ -11,7 +11,7 @@ class PanelOrderStatWidget extends \yupe\widgets\YWidget
             'Order', [
                 'criteria' => $criteria,
                 'sort' => [
-                    'defaultOrder' => 'id DESC',
+                    'defaultOrder' => 't.id DESC',
                 ],
                 'pagination' => [
                     'pageSize' => (int)$this->limit,
