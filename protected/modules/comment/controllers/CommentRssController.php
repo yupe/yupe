@@ -14,19 +14,11 @@ class CommentRssController extends yupe\components\controllers\RssController
 {
     public function loadData()
     {
-        if (!($limit = (int)Yii::app()->getModule('comment')->rssCount)) {
+        $module = Yii::app()->getModule('comment');
+
+        if (!($limit = (int)$module->rssCount)) {
             throw new CHttpException(404);
         }
-
-        $criteria = new CDbCriteria();
-        $criteria->order = 't.create_time DESC';
-        $criteria->params = [];
-        $criteria->limit = $limit;
-
-        $yupe = Yii::app()->getModule('yupe');
-
-        $this->title = $yupe->siteName;
-        $this->description = $yupe->siteDescription;
 
         $model = Yii::app()->getRequest()->getQuery('model');
         $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
@@ -35,35 +27,35 @@ class CommentRssController extends yupe\components\controllers\RssController
             throw new CHttpException(404);
         }
 
-        $criteria->addCondition('model = :model')
-            ->addCondition('model_id = :modelId')
-            ->addCondition('t.id<>t.root');
+        $models = $module->getModelsAvailableForRss();
 
-        $criteria->params = [
-            ':model'   => $model,
-            ':modelId' => $modelId,
-        ];
+        if(empty($models) || !in_array($model, $models)) {
+            throw new CHttpException(404);
+        }
 
-        $this->data = Comment::model()->cache($yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);
+        $this->title = $this->yupe->siteName;
+        $this->description = $this->yupe->siteDescription;
+
+        $this->data = Yii::app()->commentManager->getCommentsForModel($model, $modelId);
     }
 
     public function actions()
     {
         return [
             'feed' => [
-                'class'       => 'yupe\components\actions\YFeedAction',
-                'data'        => $this->data,
-                'title'       => $this->title,
+                'class' => 'yupe\components\actions\YFeedAction',
+                'data' => $this->data,
+                'title' => $this->title,
                 'description' => $this->description,
-                'itemFields'  => [
-                    'author_object'   => false,
+                'itemFields' => [
+                    'author_object' => false,
                     'author_nickname' => false,
-                    'content'         => 'text',
-                    'datetime'        => 'create_time',
-                    'link'            => false,
-                    'linkParams'      => ['title' => 'alias'],
-                    'title'           => false,
-                    'updated'         => 'create_time',
+                    'content' => 'text',
+                    'datetime' => 'create_time',
+                    'link' => false,
+                    'linkParams' => ['title' => 'alias'],
+                    'title' => false,
+                    'updated' => 'create_time',
                 ],
             ],
         ];

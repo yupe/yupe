@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class OrderModule extends WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $notifyEmailFrom;
 
@@ -18,6 +18,8 @@ class OrderModule extends WebModule
 
     public $defaultStatus = 1;
 
+    public $enableComments = 1;
+
     public function getDependencies()
     {
         return ['store', 'payment', 'delivery', 'mail'];
@@ -30,7 +32,8 @@ class OrderModule extends WebModule
             'notifyEmailsTo',
             'showOrder'   => $this->getChoice(),
             'enableCheck' => $this->getChoice(),
-            'defaultStatus' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name')
+            'defaultStatus' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name'),
+            'enableComments' => $this->getChoice()
         ];
     }
 
@@ -41,7 +44,8 @@ class OrderModule extends WebModule
             'notifyEmailsTo'  => Yii::t('OrderModule.order', 'Recipients of notifications (comma separated)'),
             'showOrder'       => Yii::t('OrderModule.order', 'Public ordering page'),
             'enableCheck'     => Yii::t('OrderModule.order', 'Allow orders validation by number'),
-            'defaultStatus'   => Yii::t('OrderModule.order', 'Default order status')
+            'defaultStatus'   => Yii::t('OrderModule.order', 'Default order status'),
+            'enableComments'  => Yii::t('OrderModule.order', 'Allow order comments in admin panel')
         ];
     }
 
@@ -53,7 +57,8 @@ class OrderModule extends WebModule
                 'items' => [
                     'defaultStatus',
                     'showOrder',
-                    'enableCheck'
+                    'enableCheck',
+                    'enableComments'
                 ]
             ],
             '1.notify' => [
