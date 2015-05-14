@@ -38,7 +38,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
     </div>
 <?php } endif; ?>
 
-<?php if (Yii::app()->gerUser()->getState('badLoginCount', 0) >= 3 && CCaptcha::checkRequirements('gd')): { ?>
+<?php if (Yii::app()->getUser()->getState('badLoginCount', 0) >= 3 && CCaptcha::checkRequirements('gd')): { ?>
     <div class="row">
         <div class="col-xs-4">
             <?= $form->textFieldGroup(
