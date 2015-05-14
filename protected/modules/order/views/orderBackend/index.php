@@ -69,7 +69,10 @@ $this->widget(
                 'value' => '$data->name . ($data->note ? "<br><div class=\"note\">$data->note</div>" : "")',
                 'htmlOptions' => ['width' => '400px'],
             ],
-            'total_price',
+            [
+                'name' => 'total_price',
+                'value' => 'Yii::app()->numberFormatter->formatCurrency($data->getTotalPriceWithDelivery(), "RUB")'
+            ],
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status_id',
