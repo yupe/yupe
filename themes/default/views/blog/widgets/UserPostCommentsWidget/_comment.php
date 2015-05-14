@@ -19,8 +19,8 @@
                         <div class="comments-item-author">
                             <?= $comment->getAuthorLink(); ?>
                             <span class='comments-item-date'>
-                                <time datetime="<?= str_replace(' ', '_', $comment->creation_date); ?>">
-                                    <?= Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?>
+                                <time datetime="<?= str_replace(' ', '_', $comment->create_time); ?>">
+                                    <?= Yii::app()->getDateFormatter()->formatDateTime($comment->create_time, "long", "short"); ?>
                                 </time>
                             </span>
                             <span class="comment-link">
