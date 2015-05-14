@@ -1,4 +1,9 @@
 <?php
+/**
+ * @var $model Order
+ * @var $form TbActiveForm
+ */
+
 Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
 
 $form = $this->beginWidget(
@@ -63,7 +68,7 @@ $form = $this->beginWidget(
                 'attribute' => 'user_id',
                 'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
                 'options' => [
-                    'placeholder' => Yii::t("OrderModule.order", 'User'),
+                    'placeholder' => Yii::t('OrderModule.order', 'User'),
                     'width' => '100%',
                     'allowClear' => true,
                 ]
@@ -75,8 +80,8 @@ $form = $this->beginWidget(
     <div class="col-sm-12">
         <label class="checkbox">
             <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t(
-                "OrderModule.order",
-                "Inform buyer about order status"
+                'OrderModule.order',
+                'Inform buyer about order status'
             ); ?>
         </label>
     </div>
@@ -85,7 +90,7 @@ $form = $this->beginWidget(
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t("OrderModule.order", 'Products'); ?></span>
+                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Products'); ?></span>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -126,16 +131,16 @@ $form = $this->beginWidget(
                     </div>
                     <div class="col-sm-2">
                         <a class="btn btn-default btn-sm" href="#" id="add-product"><?= Yii::t(
-                                "OrderModule.order",
-                                "Add"
+                                'OrderModule.order',
+                                'Add'
                             ); ?></a>
                     </div>
                 </div>
                 <div class="text-right">
                     <h4>
-                        <?= Yii::t("OrderModule.order", "Total"); ?>:
+                        <?= Yii::t('OrderModule.order', 'Total'); ?>:
                         <span id="total-product-cost"><?= $totalProductCost; ?></span>
-                        <?= Yii::t("OrderModule.order", "RUB"); ?>
+                        <?= Yii::t('OrderModule.order', 'RUB'); ?>
                     </h4>
                 </div>
             </div>
@@ -146,7 +151,7 @@ $form = $this->beginWidget(
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t("OrderModule.order", "Delivery"); ?></span>
+                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Delivery'); ?></span>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -169,7 +174,7 @@ $form = $this->beginWidget(
                                 'widgetOptions' => [
                                     'data' => CHtml::listData(Delivery::model()->published()->findAll(), 'id', 'name'),
                                     'htmlOptions' => [
-                                        'empty' => Yii::t("OrderModule.order", 'Not selected'),
+                                        'empty' => Yii::t('OrderModule.order', 'Not selected'),
                                         'id' => 'delivery-type',
                                         'options' => $options,
                                     ],
@@ -194,7 +199,7 @@ $form = $this->beginWidget(
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t("OrderModule.order", 'Payment') ?></span>
+                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Payment') ?></span>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -207,7 +212,7 @@ $form = $this->beginWidget(
                                 'widgetOptions' => [
                                     'data' => CHtml::listData(Payment::model()->published()->findAll(), 'id', 'name'),
                                     'htmlOptions' => [
-                                        'empty' => Yii::t("OrderModule.order", 'Not selected'),
+                                        'empty' => Yii::t('OrderModule.order', 'Not selected'),
                                     ],
                                 ],
                             ]
@@ -220,9 +225,9 @@ $form = $this->beginWidget(
                     <div class="col-sm-6 text-right">
                         <br/>
                         <h4>
-                            <?= Yii::t("OrderModule.order", "Total"); ?>: <?= $model->total_price; ?> <?= Yii::t(
-                                "OrderModule.order",
-                                "RUB"
+                            <?= Yii::t('OrderModule.order', 'Total'); ?>: <?= $model->getTotalPriceWithDelivery(); ?> <?= Yii::t(
+                                'OrderModule.order',
+                                'RUB'
                             ); ?>
                         </h4>
                     </div>
@@ -241,7 +246,7 @@ $form = $this->beginWidget(
 <div class="col-sm-4">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span class="panel-title"><?= Yii::t("OrderModule.order", "Order details"); ?></span>
+            <span class="panel-title"><?= Yii::t('OrderModule.order', 'Order details'); ?></span>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -273,7 +278,7 @@ $form = $this->beginWidget(
                 <div class="row">
                     <div class="col-sm-12">
                         <?= CHtml::link(
-                            Yii::t("OrderModule.order", 'Link to order'),
+                            Yii::t('OrderModule.order', 'Link to order'),
                             ['/order/order/view', 'url' => $model->url]
                         ); ?>
                     </div>
@@ -286,7 +291,7 @@ $form = $this->beginWidget(
     <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t("OrderModule.order", "Coupons"); ?></span>
+                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Coupons'); ?></span>
             </div>
             <div class="panel-body coupons">
                 <?php if ($model->hasCoupons()): ?>

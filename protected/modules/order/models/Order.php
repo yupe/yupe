@@ -435,8 +435,8 @@ class Order extends yupe\models\YModel
 
         $this->delivery_price = $this->getDeliveryCost();
 
-        /* итоговая цена получается из стоимости доставки (если доставка не оплачивается отдельно) + стоимость всех продуктов - скидка по купонам */
-        $this->total_price = ($this->separate_delivery ? 0 : $this->delivery_price) + $productsCost - $this->coupon_discount;
+        /* итоговая цена получается из стоимости всех продуктов - скидка по купонам */
+        $this->total_price = $productsCost - $this->coupon_discount;
 
         return parent::beforeSave();
     }
@@ -563,7 +563,7 @@ class Order extends yupe\models\YModel
 
     public function getTotalPrice()
     {
-        return (float)$this->total_price - (!$this->separate_delivery ? 0 : $this->getDeliveryPrice());
+        return (float)$this->total_price;
     }
 
     public function getDeliveryPrice()
@@ -573,7 +573,13 @@ class Order extends yupe\models\YModel
 
     public function getTotalPriceWithDelivery()
     {
-        return $this->getTotalPrice() + $this->getDeliveryPrice();
+        $price = $this->getTotalPrice();
+
+        if (!$this->separate_delivery) {
+            $price += $this->getDeliveryPrice();
+        }
+
+        return $price;
     }
 
     public function isPaid()
