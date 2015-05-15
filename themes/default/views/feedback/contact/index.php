@@ -103,7 +103,7 @@ Yii::import('application.modules.install.InstallModule');
         </div>
     </div>
 
-    <?php if ($module->showCaptcha && !Yii::app()->gerUser()->isAuthenticated()): ?>
+    <?php if ($module->showCaptcha && !Yii::app()->getUser()->isAuthenticated()): ?>
         <?php if (CCaptcha::checkRequirements()): ?>
             <?php $this->widget(
                 'CCaptcha',

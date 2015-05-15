@@ -21,7 +21,7 @@ $this->breadcrumbs = [
         ['galleryId' => $model->id, 'gallery' => $model, 'limit' => 30]
     ); ?>
 
-    <?php if (Yii::app()->gerUser()->isAuthenticated()) : ?>
+    <?php if (Yii::app()->getUser()->isAuthenticated()) : ?>
         <?php if ($model->canAddPhoto) : ?>
             <?php $this->renderPartial('_form', ['model' => $image, 'gallery' => $model]); ?>
         <?php endif ?>

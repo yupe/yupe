@@ -49,13 +49,13 @@ $form = $this->beginWidget(
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'disabled' => true,
-                        'class'    => Yii::app()->gerUser()->profile->getIsVerifyEmail() ? 'text-success' : ''
+                        'class'    => Yii::app()->getUser()->profile->getIsVerifyEmail() ? 'text-success' : ''
                     ],
                 ],
                 'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/profile/email']),
             ]
         ); ?>
-        <?php if (Yii::app()->gerUser()->profile->getIsVerifyEmail()): { ?>
+        <?php if (Yii::app()->getUser()->profile->getIsVerifyEmail()): { ?>
             <p class="email-status-confirmed text-success">
                 <?= Yii::t('UserModule.user', 'E-mail was verified'); ?>
             </p>

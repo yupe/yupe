@@ -57,7 +57,7 @@ $this->breadcrumbs = [
                         ['user' => Yii::app()->user, 'blog' => $blog]
                     ); ?>
                     <?php
-                    if ($blog->userIn(Yii::app()->gerUser()->getId())) {
+                    if ($blog->userIn(Yii::app()->getUser()->getId())) {
                         echo CHtml::link(Yii::t('BlogModule.blog', 'Add a post'), ['/blog/publisher/write', 'blog-id' => $blog->id], ['class' => 'btn btn-success btn-sm']);
                     }
                     ?>

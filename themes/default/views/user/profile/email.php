@@ -38,7 +38,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-12">
-        <?php if (Yii::app()->gerUser()->profile->getIsVerifyEmail()) : { ?>
+        <?php if (Yii::app()->getUser()->profile->getIsVerifyEmail()) : { ?>
             <p class="alert alert-warning">
                 <?= Yii::t(
                     'UserModule.user',
