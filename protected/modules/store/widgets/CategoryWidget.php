@@ -13,6 +13,8 @@ Yii::import('application.modules.store.models.StoreCategory');
  */
 class CategoryWidget extends yupe\widgets\YWidget
 {
+    public $parent = 0;
+
     public $depth = 1;
 
     public $view = 'category-widget';
@@ -21,6 +23,9 @@ class CategoryWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view,  ['tree' => (new StoreCategory())->getMenuList($this->depth), 'htmlOptions' => $this->htmlOptions ]);
+        $this->render($this->view,  [
+            'tree' => (new StoreCategory())->getMenuList($this->depth, $this->parent),
+            'htmlOptions' => $this->htmlOptions
+        ]);
     }
 }
