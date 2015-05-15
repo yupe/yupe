@@ -83,9 +83,8 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
     </div>
 </div>
 
-<hr/>
-
 <?php if (Yii::app()->hasModule('social')): { ?>
+    <hr/>
     <div class="row">
         <div class="col-xs-12">
             <?php
