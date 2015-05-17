@@ -19,6 +19,7 @@ return [
         'application.modules.yupe.models.*',
         'application.modules.yupe.widgets.*',
         'application.modules.yupe.controllers.*',
+        'application.modules.yupe.components.*',
     ],
     'preload' => ['log'],
     'component' => [
@@ -32,6 +33,16 @@ return [
                     'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
                 ],
             ],
+        ],
+
+        'eventManager'   => [
+            'class'  => 'yupe\components\EventManager',
+            'events' => [
+                'template.body.end' => [
+                    ['yupe\components\TestTemplateEvent', 'onBodyEnd']
+                ],
+
+            ]
         ],
 
         // Работа с миграциями, обновление БД модулей

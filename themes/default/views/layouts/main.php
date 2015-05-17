@@ -170,5 +170,8 @@
         ["code" => "STAT", "silent" => true]
     ); ?>
 <?php endif; ?>
+
+<?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::BODY_END);?>
+
 </body>
 </html>
