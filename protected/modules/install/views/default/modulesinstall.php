@@ -96,7 +96,21 @@ $this->widget(
         'basic' => [],
         'store' => []
     ];
-    $storeModules = ['store', 'order', 'payment', 'cart', 'coupon', 'delivery', 'robokassa', 'yandexmarket', 'mail', 'comment', 'menu'];
+    $storeModules = [
+        'store',
+        'order',
+        'payment',
+        'cart',
+        'coupon',
+        'delivery',
+        'robokassa',
+        'yandexmarket',
+        'mail',
+        'comment',
+        'menu',
+        'image',
+        'category'
+    ];
     foreach ($data['modules'] as $module) : {
         if (!is_object($module)) {
             continue;
