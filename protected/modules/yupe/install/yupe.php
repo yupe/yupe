@@ -33,9 +33,7 @@ return [
                 ],
             ],
         ],
-        'eventManager' => ['class' => 'yupe\components\EventManager'],
-        'configManager' => ['class' => 'yupe\components\ConfigManager'],
-        'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
+
         // Работа с миграциями, обновление БД модулей
         'migrator' => ['class' => 'yupe\components\Migrator'],
         // DAO simple wrapper:
@@ -43,12 +41,7 @@ return [
         'thumbnailer' => ['class' => 'yupe\components\image\Thumbnailer'],
         'uploadManager' => ['class' => 'yupe\components\UploadManager'],
         // подключение компонента для генерации ajax-ответов
-        'ajax' => ['class' => 'yupe\components\AsyncResponse'],
-        'bootstrap' => [
-            'class' => 'bootstrap.components.Booster',
-            'responsiveCss' => true,
-            'fontAwesomeCss' => true
-        ],
+        'ajax' => ['class' => 'yupe\components\AsyncResponse']
     ],
     'rules'     => [],
     'module'    => [

@@ -44,6 +44,9 @@ return [
     'aliases' => [
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src')
     ],
+    'import' => [
+        'application.modules.yupe.extensions.tagcache.*',
+    ],
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => [
@@ -82,7 +85,14 @@ return [
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
         'db' => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : [],
-
+        'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
+        'eventManager' => ['class' => 'yupe\components\EventManager'],
+        'configManager' => ['class' => 'yupe\components\ConfigManager'],
+        'bootstrap' => [
+            'class' => 'bootstrap.components.Booster',
+            'responsiveCss' => true,
+            'fontAwesomeCss' => true
+        ],
         'themeManager' => [
             'class' => 'CThemeManager',
             'basePath' => dirname(__DIR__) . '/../themes',
