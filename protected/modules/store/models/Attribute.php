@@ -155,6 +155,7 @@ class Attribute extends \yupe\models\YModel
     public static function getTypeTitle($type)
     {
         $list = self::getTypesList();
+
         return $list[$type];
     }
 
@@ -177,10 +178,12 @@ class Attribute extends \yupe\models\YModel
                 break;
             case self::TYPE_DROPDOWN:
                 $data = CHtml::listData($this->options, 'id', 'value');
+
                 return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, ($this->required ? [] : ['empty' => '---'])));
                 break;
             case self::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($this->options, 'id', 'value');
+
                 return CHtml::checkBoxList($name . '[]', $value, $data, $htmlOptions);
                 break;
             case self::TYPE_CHECKBOX:
@@ -193,6 +196,8 @@ class Attribute extends \yupe\models\YModel
                 return CHtml::fileField($name, null, $htmlOptions);
                 break;
         }
+
+        return null;
     }
 
     public function renderValue($value)
@@ -215,6 +220,7 @@ class Attribute extends \yupe\models\YModel
                 $res = $value ? Yii::t("StoreModule.store", "Yes") : Yii::t("StoreModule.store", "No");
                 break;
         }
+
         return $res . $unit;
     }
 
@@ -257,23 +263,45 @@ class Attribute extends \yupe\models\YModel
 
     public function afterSave()
     {
-        // удаляем старые значения
-        AttributeOption::model()->deleteAllByAttributes(['attribute_id' => $this->id]);
-
-        if (in_array($this->type, [Attribute::TYPE_DROPDOWN])) {
-            $newOptions = explode("\n", $this->rawOptions);
-            $newOptions = array_filter(
-                $newOptions,
-                function ($x) {
-                    return strlen(trim($x));
-                }
+        if ($this->type == Attribute::TYPE_DROPDOWN) {
+            // список новых значений опций атрибута, не пустые, без лишних пробелов по бокам, уникальные
+            $newOptions = array_unique(
+                array_filter(
+                    array_map('trim', explode("\n", $this->rawOptions))
+                )
             );
 
-            foreach (array_values((array)$newOptions) as $key => $op) {
+            // в нижнем регистре, чтобы не надо было переназначать привязку атрибутов в товарах
+            $newOptionsLower = array_map(
+                function ($x) {
+                    return mb_strtolower($x, 'utf-8');
+                },
+                $newOptions
+            );
+
+            $oldOptionsLower = []; // список имен опций, которые уже сохранены
+
+            // удалим те из них, которых нет, в остальных обновим значение и позицию
+            foreach ((array)$this->options as $option) {
+                /* @var $option AttributeOption */
+                $position = array_search(mb_strtolower($option->value), $newOptionsLower);
+                // опция была удалена
+                if ($position === false) {
+                    $option->delete();
+                } else {
+                    $oldOptionsLower[] = mb_strtolower($option->value, 'utf-8');
+                    $option->value = $newOptions[$position]; // если поменяли регистр опции
+                    $option->position = $position;
+                    $option->save();
+                }
+            }
+
+            // добавим оставшиеся
+            foreach (array_diff($newOptionsLower, $oldOptionsLower) as $position => $value) {
                 $option = new AttributeOption();
                 $option->attribute_id = $this->id;
-                $option->value = trim($op);
-                $option->position = $key;
+                $option->value = $newOptions[$position];
+                $option->position = $position;
                 $option->save();
             }
         }
