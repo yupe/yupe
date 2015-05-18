@@ -148,7 +148,7 @@ class Attribute extends \yupe\models\YModel
             //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Список чекбоксов'),
             self::TYPE_CHECKBOX => Yii::t('StoreModule.attr', 'Checkbox'),
             //self::TYPE_IMAGE => Yii::t('StoreModule.store', 'Изображение'),
-            //self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
+            self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
         ];
     }
 
@@ -184,7 +184,7 @@ class Attribute extends \yupe\models\YModel
                 return CHtml::checkBoxList($name . '[]', $value, $data, $htmlOptions);
                 break;
             case self::TYPE_CHECKBOX:
-                return CHtml::checkBox($name, $value, $htmlOptions);
+                return CHtml::checkBox($name, $value, CMap::mergeArray(['uncheckValue' => 0], $htmlOptions));
                 break;
             case self::TYPE_NUMBER:
                 return CHtml::numberField($name, $value, $htmlOptions);

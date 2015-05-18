@@ -11,13 +11,22 @@ class ProductRepository extends CComponent
      */
     public function getListForIndexPage($perPage = 20)
     {
+        $model = Product::model();
+        $filter = new AttributeFilter();
+
         $criteria = new CDbCriteria();
+        $criteria->select = 't.*';
         $criteria->params = [];
         $criteria->addCondition('status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
+        $eavCriteria = $model->getFilterByEavAttributesCriteria($filter->getAttributesFromQuery());
+
+        $criteria->mergeWith($eavCriteria);
+
         return $dataProvider = new CActiveDataProvider(
-            Product::model(), [
+            $model,
+            [
                 'criteria' => $criteria,
                 'pagination' => [
                     'pageSize' => (int)$perPage,
@@ -37,16 +46,25 @@ class ProductRepository extends CComponent
      */
     public function getListForCategory(StoreCategory $category, $perPage = 20)
     {
+        $model = Product::model();
+        $filter = new AttributeFilter();
+
         $criteria = new CDbCriteria();
 
+        $criteria->select = 't.*';
         $criteria->with = ['categoryRelation' => ['together' => true]];
         $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
         $criteria->addCondition('status = :status');
         $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $category->id]);
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
+        $eavCriteria = $model->getFilterByEavAttributesCriteria($filter->getAttributesFromQuery());
+
+        $criteria->mergeWith($eavCriteria);
+
         return $dataProvider = new CActiveDataProvider(
-            Product::model(), [
+            $model,
+            [
                 'criteria' => $criteria,
                 'pagination' => [
                     'pageSize' => (int)$perPage,
@@ -67,7 +85,7 @@ class ProductRepository extends CComponent
         $criteria->params['status'] = Product::STATUS_ACTIVE;
         $criteria->addSearchCondition('name', $query, true);
 
-        if($category) {
+        if ($category) {
             $criteria->addCondition('category_id = :category');
             $criteria->params[':category'] = (int)$category;
         }
