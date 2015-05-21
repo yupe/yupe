@@ -9,7 +9,16 @@ return [
     'basePath' => dirname(__DIR__),
     'name' => 'Cron',
     'preload' => ['log'],
-    'commandMap' => [],
+    'commandMap' => [
+        'migrate' => [
+            'class' => 'vendor.yiiext.migrate-command.EMigrateCommand',
+            'migrationPath' => 'application.modules.yupe.install.migrations',
+            'migrationTable' => '{{migrations}}',
+            'applicationModuleName' => 'yupe',
+            'migrationSubPath' => 'install.migrations',
+            'connectionID'=>'db',
+        ],
+    ],
     'import' => [
         'application.commands.*',
         'application.components.*',
