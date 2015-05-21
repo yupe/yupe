@@ -156,7 +156,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 ],
                 'order' => 'comments.lft'
             ],
-            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'linked_product_id'],
+            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id'],
         ];
     }
 
