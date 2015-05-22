@@ -60,7 +60,7 @@ class CustomGridView extends \TbExtendedGridView
     /**
      * @var array Page sizes available to set for web-user.
      */
-    public $pageSizes = [5, 10, 15, 20, 50, 100];
+    public $pageSizes = [5, 10, 15, 20, 50, 100, 500];
 
     /**
      * @var string A name for query parameter, that stores page size specified by web-user.
