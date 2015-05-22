@@ -60,7 +60,7 @@ class CustomGridView extends \TbExtendedGridView
     /**
      * @var array Page sizes available to set for web-user.
      */
-    public $pageSizes = [5, 10, 15, 20, 50, 100];
+    public $pageSizes = [5, 10, 15, 20, 50, 100, 500];
 
     /**
      * @var string A name for query parameter, that stores page size specified by web-user.
@@ -250,7 +250,7 @@ class CustomGridView extends \TbExtendedGridView
             if (($pageSizeFromRequest = Yii::app()->getRequest()->getParam($this->pageSizeVarName)) !== null) {
                 $pageSizeFromRequest = (int)$pageSizeFromRequest;
                 // Check whether given page size is valid or use default value
-                if (in_array($pageSizeFromRequest, $this->pageSizes) || $pageSizeFromRequest === (int)$this->dataProvider->getTotalItemCount()) {
+                if (in_array($pageSizeFromRequest, $this->pageSizes)) {
                     $pagination->pageSize = $pageSizeFromRequest;
                 }
                 $this->_updatePageSize();
@@ -396,16 +396,6 @@ class CustomGridView extends \TbExtendedGridView
                 'url' => '#',
             ];
         }
-
-        $buttons[] = [
-            'label' => Yii::t('YupeModule.yupe', 'All'),
-            'active' => $this->dataProvider->getTotalItemCount() == $currentPageSize,
-            'htmlOptions' => [
-                'class' => 'pageSize',
-                'rel' => $this->dataProvider->getTotalItemCount(),
-            ],
-            'url' => '#',
-        ];
 
         echo Yii::t('YupeModule.yupe', 'Display on');
 
