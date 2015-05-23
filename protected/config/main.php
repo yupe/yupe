@@ -46,6 +46,7 @@ return [
     ],
     'import' => [
         'application.modules.yupe.extensions.tagcache.*',
+        'vendor.yiiext.migrate-command.EDbMigration'
     ],
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
