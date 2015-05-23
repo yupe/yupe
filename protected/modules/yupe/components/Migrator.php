@@ -555,4 +555,20 @@ class Migrator extends \CApplicationComponent
 
         return $modules;
     }
+
+    /**
+     * Return installed modules id
+     *
+     * @return array
+     */
+    public function getInstalledModulesList()
+    {
+        $modules = [];
+
+        foreach (Yii::app()->getModules() as $id => $config) {
+            $modules[] = $id;
+        }
+
+        return $modules;
+    }
 }
