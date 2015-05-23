@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc6e78ed72b8bbeeb48b698634a27bb0",
+    "hash": "b2ae2bba8af01f1d58ddf06a37db4106",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -156,26 +156,26 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "5.0.3",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "6c72627de1d66832e4270e36e56acdb0d1d8f282"
+                "reference": "f3c8c22471cb55475105c14769644a49c3262b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6c72627de1d66832e4270e36e56acdb0d1d8f282",
-                "reference": "6c72627de1d66832e4270e36e56acdb0d1d8f282",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f3c8c22471cb55475105c14769644a49c3262b93",
+                "reference": "f3c8c22471cb55475105c14769644a49c3262b93",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/ringphp": "~1.0",
+                "guzzlehttp/ringphp": "^1.1",
                 "php": ">=5.4.0"
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "~4.0",
-                "psr/log": "~1.0"
+                "phpunit/phpunit": "^4.0",
+                "psr/log": "^1.0"
             },
             "type": "library",
             "extra": {
@@ -210,7 +210,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-11-04 07:09:15"
+            "time": "2015-05-20 03:47:55"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -477,16 +477,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "dev-master",
+            "version": "v5.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "199bd9698b9b2b2c6b09e046fd12118fd10a7f73"
+                "reference": "07005ecbb80d11ec8c0f067bb37e8909cc7fcbb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/199bd9698b9b2b2c6b09e046fd12118fd10a7f73",
-                "reference": "199bd9698b9b2b2c6b09e046fd12118fd10a7f73",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/07005ecbb80d11ec8c0f067bb37e8909cc7fcbb7",
+                "reference": "07005ecbb80d11ec8c0f067bb37e8909cc7fcbb7",
                 "shasum": ""
             },
             "require": {
@@ -528,7 +528,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2015-05-21 15:05:57"
+            "time": "2015-05-04 12:37:21"
         },
         {
             "name": "react/promise",
@@ -692,7 +692,7 @@
         },
         {
             "name": "yiiext/imperavi-redactor-widget",
-            "version": "dev-master",
+            "version": "v1.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
@@ -728,44 +728,6 @@
                 "yii"
             ],
             "time": "2015-05-13 10:18:17"
-        },
-        {
-            "name": "yiiext/migrate-command",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiiext/migrate-command.git",
-                "reference": "9191b9b6624620c3c6a41f0867e06f22e2c77004"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiiext/migrate-command/zipball/9191b9b6624620c3c6a41f0867e06f22e2c77004",
-                "reference": "9191b9b6624620c3c6a41f0867e06f22e2c77004",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.1.0",
-                "yiisoft/yii": "1.1.*"
-            },
-            "type": "yii-extension",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Carsten Brandt",
-                    "email": "mail@cebe.cc"
-                }
-            ],
-            "description": "This is an enhanced version of the Yii Database Migration Tool that adds module support and many more usefull features.",
-            "homepage": "https://github.com/yiiext/migrate-command",
-            "keywords": [
-                "database-migration",
-                "extension",
-                "yii"
-            ],
-            "time": "2014-12-01 16:44:09"
         },
         {
             "name": "yiiext/nested-set-behavior",
@@ -921,7 +883,7 @@
         },
         {
             "name": "zhuravljov/yii2-debug",
-            "version": "dev-master",
+            "version": "v1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zhuravljov/yii2-debug.git",
@@ -2314,13 +2276,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "yiiext/nested-set-behavior": 20,
-        "yiiext/imperavi-redactor-widget": 20,
-        "zhuravljov/yii2-debug": 20,
-        "phpmailer/phpmailer": 20,
         "nodge/yii-eauth": 20,
         "brussens/wysibb-yii": 20,
-        "2amigos/transliterator-helper": 20,
-        "yiiext/migrate-command": 20
+        "2amigos/transliterator-helper": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
