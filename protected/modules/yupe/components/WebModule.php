@@ -586,7 +586,7 @@ abstract class WebModule extends CWebModule
 
         if ($modulesInstalled === false) {
 
-            $modulesInstalled = Yii::app()->migrator->getModulesWithDBInstalled();
+            $modulesInstalled = Yii::app()->migrator->getInstalledModulesList();
 
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
