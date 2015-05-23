@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7719f34cbd3fa2105e30022b57fb79f3",
+    "hash": "b2ae2bba8af01f1d58ddf06a37db4106",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -156,26 +156,26 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "5.0.3",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "6c72627de1d66832e4270e36e56acdb0d1d8f282"
+                "reference": "f3c8c22471cb55475105c14769644a49c3262b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6c72627de1d66832e4270e36e56acdb0d1d8f282",
-                "reference": "6c72627de1d66832e4270e36e56acdb0d1d8f282",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f3c8c22471cb55475105c14769644a49c3262b93",
+                "reference": "f3c8c22471cb55475105c14769644a49c3262b93",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/ringphp": "~1.0",
+                "guzzlehttp/ringphp": "^1.1",
                 "php": ">=5.4.0"
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "~4.0",
-                "psr/log": "~1.0"
+                "phpunit/phpunit": "^4.0",
+                "psr/log": "^1.0"
             },
             "type": "library",
             "extra": {
@@ -210,7 +210,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-11-04 07:09:15"
+            "time": "2015-05-20 03:47:55"
         },
         {
             "name": "guzzlehttp/ringphp",
