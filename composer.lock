@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b2ae2bba8af01f1d58ddf06a37db4106",
+    "hash": "d58e5c4dae245940f62ec7ce7b2b2323",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -728,6 +728,44 @@
                 "yii"
             ],
             "time": "2015-05-13 10:18:17"
+        },
+        {
+            "name": "yiiext/migrate-command",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiiext/migrate-command.git",
+                "reference": "9191b9b6624620c3c6a41f0867e06f22e2c77004"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiiext/migrate-command/zipball/9191b9b6624620c3c6a41f0867e06f22e2c77004",
+                "reference": "9191b9b6624620c3c6a41f0867e06f22e2c77004",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0",
+                "yiisoft/yii": "1.1.*"
+            },
+            "type": "yii-extension",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc"
+                }
+            ],
+            "description": "This is an enhanced version of the Yii Database Migration Tool that adds module support and many more usefull features.",
+            "homepage": "https://github.com/yiiext/migrate-command",
+            "keywords": [
+                "database-migration",
+                "extension",
+                "yii"
+            ],
+            "time": "2014-12-01 16:44:09"
         },
         {
             "name": "yiiext/nested-set-behavior",
@@ -2278,7 +2316,8 @@
         "yiiext/nested-set-behavior": 20,
         "nodge/yii-eauth": 20,
         "brussens/wysibb-yii": 20,
-        "2amigos/transliterator-helper": 20
+        "2amigos/transliterator-helper": 20,
+        "yiiext/migrate-command": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
