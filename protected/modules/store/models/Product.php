@@ -156,7 +156,8 @@ class Product extends yupe\models\YModel implements ICommentable
                 ],
                 'order' => 'comments.lft'
             ],
-            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id'],
+            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id', 'joinType' => 'INNER JOIN'],
+            'linkedProducts' => [self::HAS_MANY, 'Product', ['linked_product_id' => 'id'], 'through' => 'linkedProductsRelation', 'joinType' => 'INNER JOIN'],
         ];
     }
 
@@ -846,10 +847,13 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getLinkedProductsCriteria($type_code = null)
     {
         $criteria = new CDbCriteria();
-        $criteria->with = ['linkedProductsRelation', 'linkedProductsRelation.type'];
-        $criteria->together = true;
-        $criteria->compare('type.code', $type_code);
-        $criteria->compare('linkedProductsRelation.product_id', $this->id);
+
+        $criteria->join .= ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
+        $criteria->compare('linked.product_id', $this->id);
+        if ($type_code) {
+            $criteria->join .= ' JOIN {{store_product_link_type}} type ON type.id = linked.type_id';
+            $criteria->compare('type.code', $type_code);
+        }
 
         return $criteria;
     }
