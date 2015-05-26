@@ -29,6 +29,8 @@ return [
     ],
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => [
+        'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
+        'configManager' => ['class' => 'yupe\components\ConfigManager'],
         'themeManager' => [
             'class' => 'CThemeManager',
             'basePath' => dirname(__DIR__) . '/../themes',
