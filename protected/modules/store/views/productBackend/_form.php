@@ -358,7 +358,7 @@ $form = $this->beginWidget(
 
     <div class="tab-pane" id="attributes">
         <div id="attributes-panel">
-            <?php $this->renderPartial('_attribute_form', ['model' => $model]); ?>
+            <?php $this->renderPartial('_attribute_form', ['type' => $model->type, 'model' => $model]); ?>
         </div>
     </div>
 
@@ -423,7 +423,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="linked">
-        <?php if ($model->isNewRecord): ?>
+        <?php if ($model->getIsNewRecord()): ?>
             <?= Yii::t("StoreModule.product", "First you need to save the product."); ?>
         <?php else: ?>
             <?= $this->renderPartial('_link_form', ['product' => $model]) ?>
@@ -504,7 +504,8 @@ $form = $this->beginWidget(
             e.preventDefault();
             $(this).closest('tr').remove();
         });
-        $('#product-type').change(function () {
+
+        $('#product-type').on('change',function () {
             var typeId = $(this).val();
             if (typeId) {
                 $('#attributes-panel').load('<?= Yii::app()->createUrl('/store/productBackend/typeAttributesForm');?>/' + typeId);
@@ -516,7 +517,7 @@ $form = $this->beginWidget(
             }
         });
 
-        $('#button-add-image').click(function () {
+        $('#button-add-image').on('click',function () {
             var newImage = $("#product-images .image-template").clone().removeClass('image-template').removeClass('hidden');
             newImage.appendTo("#product-images");
             newImage.find(".image-file").attr('name', 'ProductImage[][name]');
@@ -530,7 +531,7 @@ $form = $this->beginWidget(
             $(this).closest('.row').remove();
         });
 
-        $('.product-delete-image').click(function (event) {
+        $('.product-delete-image').on('click', function (event) {
             event.preventDefault();
             var deleteUrl = $(this).attr('href');
             var blockForDelete = $(this).closest('.product-image');

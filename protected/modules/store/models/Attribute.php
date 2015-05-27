@@ -159,7 +159,7 @@ class Attribute extends \yupe\models\YModel
         return $list[$type];
     }
 
-    public function renderField($value = null, $name = null, $htmlOptions = ['class' => 'form-control'])
+    public function renderField($value = null, $name = null, $htmlOptions = [])
     {
         $name = $name ?: 'Attribute[' . $this->name . ']';
         switch ($this->type) {
@@ -178,12 +178,10 @@ class Attribute extends \yupe\models\YModel
                 break;
             case self::TYPE_DROPDOWN:
                 $data = CHtml::listData($this->options, 'id', 'value');
-
                 return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, ($this->required ? [] : ['empty' => '---'])));
                 break;
             case self::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($this->options, 'id', 'value');
-
                 return CHtml::checkBoxList($name . '[]', $value, $data, $htmlOptions);
                 break;
             case self::TYPE_CHECKBOX:
@@ -226,10 +224,8 @@ class Attribute extends \yupe\models\YModel
 
     public function afterDelete()
     {
-        $conn = $this->getDbConnection();
         /* удаляем привязанные к товару атрибуты */
-        $command = $conn->createCommand("DELETE FROM {{store_product_attribute_eav}} WHERE `attribute`='{$this->name}'");
-        $command->execute();
+        $this->getDbConnection()->createCommand("DELETE FROM {{store_product_attribute_eav}} WHERE `attribute`='{$this->name}'")->execute();
 
         parent::afterDelete();
     }
@@ -307,5 +303,10 @@ class Attribute extends \yupe\models\YModel
         }
 
         parent::afterSave();
+    }
+
+    public function isType($type)
+    {
+        return $type == $this->type;
     }
 }

@@ -115,7 +115,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
             ],
             ['slug', 'unique'],
-            ['status', 'in', 'range' => array_keys($this->statusList)],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_special', 'boolean'],
             ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
             [
@@ -444,7 +444,7 @@ class Product extends yupe\models\YModel implements ICommentable
                     ];
                 }
 
-                Yii::app()->getDb()->commandBuilder
+                Yii::app()->getDb()->getCommandBuilder()
                     ->createMultipleInsertCommand('{{store_product_category}}', $data)
                     ->execute();
             }
@@ -860,22 +860,29 @@ class Product extends yupe\models\YModel implements ICommentable
 
     /**
      * Список связанных с продуктом продуктов
-     * @param null|string $type_code
+     * @param null|string $typeCode
      * @return Product[]
      */
-    public function getLinkedProducts($type_code = null)
+    public function getLinkedProducts($typeCode = null)
     {
-        return Product::model()->findAll($this->getLinkedProductsCriteria($type_code));
+        return Product::model()->findAll($this->getLinkedProductsCriteria($typeCode));
     }
 
     /**
-     * @param null|string $type_code
+     * @param null|string $typeCode
      * @return CActiveDataProvider
      */
-    public function getLinkedProductsDataProvider($type_code = null)
+    public function getLinkedProductsDataProvider($typeCode = null)
     {
         return new CActiveDataProvider(get_class($this), [
-            'criteria' => $this->getLinkedProductsCriteria($type_code),
+            'criteria' => $this->getLinkedProductsCriteria($typeCode),
         ]);
+    }
+
+    public function searchByName($name)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addSearchCondition('name', $name);
+        return $this->findAll($criteria);
     }
 }
