@@ -20,7 +20,7 @@
                 ?>
                 <?php foreach ($attributeGroups as $groupName => $items): ?>
                     <fieldset>
-                        <legend><?= $groupName; ?></legend>
+                        <legend><?= CHtml::encode($groupName); ?></legend>
                         <?php foreach ($items as $attribute): ?>
                             <?php /* @var $attribute Attribute */ ?>
                             <?php $hasError = $model->hasErrors('eav.' . $attribute->name); ?>

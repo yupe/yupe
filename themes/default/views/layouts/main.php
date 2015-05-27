@@ -124,25 +124,37 @@
 
             <?php if (Yii::app()->hasModule('blog')): ?>
                 <div class="widget stream-widget">
-                    <?php $this->widget('application.modules.blog.widgets.StreamWidget', ['cacheTime' => 300]); ?>
+                    <?php if($this->beginCache('application.modules.blog.widgets.StreamWidget', ['duration' => $this->yupe->coreCacheTime])):?>
+                        <?php $this->widget('application.modules.blog.widgets.StreamWidget', ['cacheTime' => 300]); ?>
+                        <?php $this->endCache();?>
+                    <?php endif;?>
                 </div>
 
                 <div class="widget last-posts-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.LastPostsWidget',
-                        ['cacheTime' => $this->yupe->coreCacheTime]
-                    ); ?>
+                    <?php if($this->beginCache('application.modules.blog.widgets.LastPostsWidget', ['duration' => $this->yupe->coreCacheTime])):?>
+                        <?php $this->widget(
+                            'application.modules.blog.widgets.LastPostsWidget',
+                            ['cacheTime' => $this->yupe->coreCacheTime]
+                        ); ?>
+                        <?php $this->endCache();?>
+                    <?php endif;?>
                 </div>
 
                 <div class="widget blogs-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.BlogsWidget',
-                        ['cacheTime' => $this->yupe->coreCacheTime]
-                    ); ?>
+                    <?php if($this->beginCache('application.modules.blog.widgets.BlogsWidget', ['duration' => $this->yupe->coreCacheTime])):?>
+                        <?php $this->widget(
+                            'application.modules.blog.widgets.BlogsWidget',
+                            ['cacheTime' => $this->yupe->coreCacheTime]
+                        ); ?>
+                    <?php $this->endCache();?>
+                    <?php endif;?>
                 </div>
 
                 <div class="widget tags-cloud-widget">
-                    <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', ['limit' => 50]); ?>
+                    <?php if($this->beginCache('application.modules.blog.widgets.TagCloudWidget', ['duration' => $this->yupe->coreCacheTime])):?>
+                        <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', ['limit' => 50]); ?>
+                    <?php $this->endCache();?>
+                    <?php endif;?>
                 </div>
             <?php endif; ?>
 
