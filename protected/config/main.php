@@ -89,6 +89,8 @@ return [
         'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
         'eventManager' => ['class' => 'yupe\components\EventManager'],
         'configManager' => ['class' => 'yupe\components\ConfigManager'],
+        // Работа с миграциями, обновление БД модулей
+        'migrator' => ['class' => 'yupe\components\Migrator'],
         'bootstrap' => [
             'class' => 'bootstrap.components.Booster',
             'responsiveCss' => true,

@@ -31,6 +31,8 @@ return [
     'components' => [
         'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
         'configManager' => ['class' => 'yupe\components\ConfigManager'],
+        // Работа с миграциями, обновление БД модулей
+        'migrator' => ['class' => 'yupe\components\Migrator'],
         'themeManager' => [
             'class' => 'CThemeManager',
             'basePath' => dirname(__DIR__) . '/../themes',

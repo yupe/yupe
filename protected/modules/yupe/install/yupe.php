@@ -45,8 +45,6 @@ return [
             ]
         ],
 
-        // Работа с миграциями, обновление БД модулей
-        'migrator' => ['class' => 'yupe\components\Migrator'],
         // DAO simple wrapper:
         'dao' => ['class' => 'yupe\components\DAO'],
         'thumbnailer' => ['class' => 'yupe\components\image\Thumbnailer'],
