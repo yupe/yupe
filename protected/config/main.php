@@ -91,6 +91,7 @@ return [
         'configManager' => ['class' => 'yupe\components\ConfigManager'],
         // Работа с миграциями, обновление БД модулей
         'migrator' => ['class' => 'yupe\components\Migrator'],
+        'uploadManager' => ['class' => 'yupe\components\UploadManager'],
         'bootstrap' => [
             'class' => 'bootstrap.components.Booster',
             'responsiveCss' => true,
