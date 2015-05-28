@@ -426,7 +426,7 @@ $form = $this->beginWidget(
         <?php if ($model->getIsNewRecord()): ?>
             <?= Yii::t("StoreModule.product", "First you need to save the product."); ?>
         <?php else: ?>
-            <?= $this->renderPartial('_link_form', ['product' => $model]) ?>
+            <?= $this->renderPartial('_link_form', ['product' => $model, 'searchModel' => $searchModel]);?>
         <?php endif; ?>
     </div>
 </div>

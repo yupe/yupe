@@ -6,7 +6,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
 
-$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
+$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
 
 ?>
 

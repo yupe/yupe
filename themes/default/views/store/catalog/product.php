@@ -18,7 +18,7 @@ $this->breadcrumbs = array_merge(
     [CHtml::encode($product->name)]
 );
 ?>
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-sm-12">
         <div class="row">
             <div class="col-sm-12">
@@ -50,14 +50,16 @@ $this->breadcrumbs = array_merge(
                         </div>
                     </div>
                     <div class="col-sm-8">
-                        <?= $product->isInStock() ? Yii::t("StoreModule.product", "In stock") : Yii::t(
-                            "StoreModule.product",
-                            "Not in stock"
-                        ); ?>
-                        <br/>
-                        <?= $product->quantity; ?> <?= Yii::t("StoreModule.product", "in stock"); ?>
-                        <br/>
-                        <br/>
+
+                        <?php if($product->isInStock()):?>
+                            <span class="label label-success"><?= Yii::t("StoreModule.product", "In stock");?></span>
+                            <?php if($product->quantity):?>
+                                <span></span><?= $product->quantity; ?> <?= Yii::t("StoreModule.product", "in stock"); ?></span>
+                            <?php endif;?>
+                        <?php else:?>
+                            <span class="label label-danger"><?= Yii::t("StoreModule.product", "Not in stock");?></span>
+                        <?php endif;?>
+
 
                         <div class="properties">
                             <?php foreach ($product->getAttributeGroups() as $groupName => $items): { ?>

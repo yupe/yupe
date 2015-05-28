@@ -32,7 +32,7 @@ class LinkBackendController extends yupe\components\controllers\BackController
         $model = new ProductSearch('search');
         $model->unsetAttributes();
         $model->attributes = Yii::app()->getRequest()->getParam('ProductSearch');
-        $this->render('/productBackend/_link_form', ['searchModel' => $model]);
+        $this->render('/productBackend/_link_form', ['searchModel' => $model, 'product' => new Product()]);
     }
 
     public function actionDelete($id)

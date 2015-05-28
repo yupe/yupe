@@ -136,7 +136,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 }
             }
         }
-        $this->render('update', ['model' => $model]);
+
+        $searchModel = new ProductSearch('search');
+        $searchModel->unsetAttributes();
+
+        $this->render('update', ['model' => $model, 'searchModel' => $searchModel]);
     }
 
     public function updateProductImages(Product $product)
