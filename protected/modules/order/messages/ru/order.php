@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Statuses' => 'Статусы',
     'Allow order comments in admin panel' => 'Разрешить комментирование заказов в панели управления',
     '#' => '№',
     '(paid separately)' => '(оплачивается отдельно)',

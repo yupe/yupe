@@ -149,6 +149,13 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                                return $data->status == Product::STATUS_ACTIVE;
+                            }
+                    ]
+                ]
             ],
         ],
     ]

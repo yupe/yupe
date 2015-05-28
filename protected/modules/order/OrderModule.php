@@ -80,6 +80,7 @@ class OrderModule extends WebModule
     {
         return [
             ['icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Orders'), 'url' => ['/order/orderBackend/index']],
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Statuses'), 'url' => ['/order/statusBackend/index']]
         ];
     }
 
