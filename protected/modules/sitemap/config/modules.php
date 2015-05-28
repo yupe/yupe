@@ -10,7 +10,7 @@ return [
                 return new CActiveDataProvider(CActiveRecord::model('Page')->published(), []);
             },
             'getLastMod' => function ($model) {
-                return $model->change_date;
+                return $model->update_time;
             },
             'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
             'priority' => 0.5,
@@ -25,7 +25,7 @@ return [
                 return new CActiveDataProvider(CActiveRecord::model('News')->published(), []);
             },
             'getLastMod' => function ($model) {
-                return $model->change_date;
+                return $model->update_time;
             },
             'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
             'priority' => 0.5,
@@ -40,7 +40,7 @@ return [
                 return new CActiveDataProvider(CActiveRecord::model('Blog')->published(), []);
             },
             'getLastMod' => function ($model) {
-                return date('d-m-Y H:i', $model->update_date);
+                return date('d-m-Y H:i', $model->update_time);
             },
             'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
             'priority' => 0.5,
@@ -53,7 +53,7 @@ return [
                 return new CActiveDataProvider(CActiveRecord::model('Post')->published(), []);
             },
             'getLastMod' => function ($model) {
-                return date('d-m-Y H:i', $model->update_date);
+                return date('d-m-Y H:i', $model->update_time);
             },
             'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
             'priority' => 0.5,
