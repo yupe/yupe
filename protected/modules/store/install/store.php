@@ -11,6 +11,14 @@ return [
         'money' => [
             'class' => 'application.modules.store.components.Money',
         ],
+        'productRepository' => [
+            'class' => 'application.modules.store.components.ProductRepository'
+        ],
+        'session' => [
+            'class'   => 'CHttpSession',
+            'timeout' => 86400,
+            'cookieParams' => ['httponly' => true]
+        ]
     ],
     'rules' => [
         '/store' => 'store/catalog/index',

@@ -5,6 +5,12 @@
  */
 class ProductRepository extends CComponent
 {
+    public function init()
+    {
+
+    }
+
+
     /**
      * @param int $perPage
      * @return CActiveDataProvider
@@ -127,8 +133,8 @@ class ProductRepository extends CComponent
      * @param $slug
      * @return mixed
      */
-    public function getByAlias($slug)
+    public function getBySlug($slug)
     {
-        return Product::model()->published()->find('slug = :slug', [':slug' => $slug]);
+        return Product::model()->published()->with(['type.typeAttributes', 'images'])->find('slug = :slug', [':slug' => $slug]);
     }
 } 

@@ -308,7 +308,7 @@ $form = $this->beginWidget(
     <div class="tab-pane" id="images">
         <div class="row form-group">
             <div class="col-sm-2">
-                <?= Yii::t("StoreModule.store", "Image"); ?>
+                <?= Yii::t("StoreModule.store", "Images"); ?>
             </div>
             <div class="col-sm-2">
                 <button id="button-add-image" type="button" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>

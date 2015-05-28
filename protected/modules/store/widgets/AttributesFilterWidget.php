@@ -6,8 +6,14 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
 
     public function run()
     {
-        foreach ($this->attributes as $name) {
-            $model = Attribute::model()->findByAttributes(['name' => $name]);
+        if('*' === $this->attributes) {
+            $this->attributes = Attribute::model()->findAll();
+        }
+
+        foreach ($this->attributes as $attribute) {
+
+            $model = is_string($attribute) ? Attribute::model()->findByAttributes(['name' => $attribute]) : $attribute;
+
             if ($model) {
                 switch ($model->type) {
                     case Attribute::TYPE_DROPDOWN:

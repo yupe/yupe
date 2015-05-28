@@ -29,6 +29,9 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
                 $this->widget('application.modules.store.widgets.CategoryWidget');
             ?>
         </div>
+        <div>
+            <?php $this->widget('application.modules.store.widgets.FilterBlockWidget', ['attributes' => '*']);?>
+        </div>
     </div>
     <div class="col-sm-9">
         <section>

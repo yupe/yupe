@@ -18,7 +18,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     public function init()
     {
-        $this->productRepository = new ProductRepository();
+        $this->productRepository = Yii::app()->getComponent('productRepository');
 
         parent::init();
     }
@@ -29,7 +29,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     public function actionShow($name)
     {
-        $product = $this->productRepository->getByAlias($name);
+        $product = $this->productRepository->getBySlug($name);
 
         if (null === $product) {
             throw new CHttpException(404, Yii::t('StoreModule.catalog', 'Product was not found!'));

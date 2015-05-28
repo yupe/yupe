@@ -26,7 +26,7 @@ class AttributeFilter extends CComponent
 
     public function getIsDropdownOptionChecked(AttributeOption $option)
     {
-        return Yii::app()->request->getParam($this->getDropdownOptionName($option), false);
+        return Yii::app()->getRequest()->getParam($this->getDropdownOptionName($option), false);
     }
 
     public function getCheckboxName(Attribute $attribute)
@@ -45,7 +45,7 @@ class AttributeFilter extends CComponent
      */
     public function getIsCheckboxChecked(Attribute $attribute, $value = null)
     {
-        return Yii::app()->request->getParam($this->getCheckboxName($attribute), -1) == $value;
+        return Yii::app()->getRequest()->getParam($this->getCheckboxName($attribute), -1) == $value;
     }
 
     public function getNumberName(Attribute $attribute, $mode = 'from')
@@ -59,7 +59,7 @@ class AttributeFilter extends CComponent
 
     public function getNumberValue(Attribute $attribute, $mode = 'from')
     {
-        return Yii::app()->request->getParam($this->getNumberName($attribute, $mode), null);
+        return Yii::app()->getRequest()->getParam($this->getNumberName($attribute, $mode), null);
     }
 
     /**
@@ -71,7 +71,8 @@ class AttributeFilter extends CComponent
         $res = [];
 
         $params = [];
-        parse_str(Yii::app()->request->getQueryString(), $params);
+        parse_str(Yii::app()->getRequest()->getQueryString(), $params);
+
 
         foreach ($params as $param => $value) {
             if (is_string($param)) {
@@ -94,17 +95,17 @@ class AttributeFilter extends CComponent
                             break;
                     }
                 } elseif (preg_match($this->numberParseTemplate, $param, $matches)) {
-                    if ($value == '') {
+                    if ($value === '') {
                         continue;
                     }
                     $attribute = $matches[1];
                     $mode = $matches[2];
                     switch ($mode) {
                         case 'from':
-                            $res[] = ['>=', $attribute, floatval($value)];
+                            $res[] = ['>=', $attribute, (float)$value];
                             break;
                         case 'to':
-                            $res[] = ['<=', $attribute, floatval($value)];
+                            $res[] = ['<=', $attribute, (float)$value];
                             break;
                     }
                 }

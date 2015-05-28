@@ -95,7 +95,7 @@ $linkTypes = ProductLinkType::getFormattedList();
             [
                 'id' => 'product-grid',
                 'type' => 'condensed',
-                'dataProvider' => $searchModel->search(),
+                'dataProvider' => $searchModel->searchNotFor($product->id),
                 'filter' => $searchModel,
                 'actionsButtons' => false,
                 'bulkActions' => [false],

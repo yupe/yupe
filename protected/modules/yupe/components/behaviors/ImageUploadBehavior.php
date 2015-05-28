@@ -5,7 +5,6 @@ namespace yupe\components\behaviors;
 use Yii;
 use yupe\components\image\Imagine;
 use yupe\helpers\YFile;
-use Imagine\Image\ImageInterface;
 
 class ImageUploadBehavior extends FileUploadBehavior
 {

@@ -309,4 +309,9 @@ class Attribute extends \yupe\models\YModel
     {
         return $type == $this->type;
     }
+
+    public function isRequired()
+    {
+        return $this->required;
+    }
 }

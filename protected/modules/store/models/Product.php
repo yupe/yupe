@@ -336,7 +336,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
         foreach ((array)$this->_eavAttributes as $name => $value) {
             $model = Attribute::model()->getAttributeByName($name);
-            if ($model->required && !$value) {
+            if (!$model->isType(Attribute::TYPE_CHECKBOX) && $model->isRequired() && !$value) {
                 $this->addError(
                     'eav.' . $name,
                     Yii::t("StoreModule.product", "{title} attribute is required", ['title' => $model->title])
