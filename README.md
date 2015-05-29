@@ -35,6 +35,9 @@
 * MySQL 5.x
 * Apaсhe/Nginx
 
+![Юпи!](http://amylabs.ru/web/images/shop/yupe-shop.png)
+
+
 Ссылки
 ------
 * [Сообщество](http://yupe.ru/)

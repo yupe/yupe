@@ -12,7 +12,7 @@
  */
 class MenuModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $defaultController = 'menu';
 

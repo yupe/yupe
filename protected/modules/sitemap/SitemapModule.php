@@ -4,6 +4,7 @@ use yupe\components\WebModule;
 
 class SitemapModule extends WebModule
 {
+    const VERSION = '0.9.7';
     /**
      * @var int - Время кеширования sitemap в часах
      */
@@ -45,7 +46,7 @@ class SitemapModule extends WebModule
 
     public function getVersion()
     {
-        return '0.1';
+        return self::VERSION;
     }
 
     public function init()
