@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Download settings' => 'Настройки загрузки',
+    'Resize settings'   => 'Настройки ресайза',
+    'Image width' => 'Ширина изображения',
+    'Image height' => 'Высота изображения',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',
     '0.4' => '0.4',
