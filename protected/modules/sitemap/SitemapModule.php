@@ -4,6 +4,8 @@ use yupe\components\WebModule;
 
 class SitemapModule extends WebModule
 {
+    public $data;
+
     const VERSION = '0.9.7';
     /**
      * @var int - Время кеширования sitemap в часах
