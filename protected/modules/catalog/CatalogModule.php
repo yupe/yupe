@@ -96,6 +96,27 @@ class CatalogModule extends WebModule
         ];
     }
 
+    public function getEditableParamsGroups()
+    {
+        return [
+            '0.main' => [
+                'label' => Yii::t('CatalogModule.catalog', 'Images'),
+                'items' => [
+                    'uploadPath',
+                    'allowedExtensions',
+                    'minSize',
+                    'maxSize'
+                ]
+            ],
+            '1.main' => [
+                'label' => Yii::t('CatalogModule.catalog', 'Visual editor settings'),
+                'items' => [
+                    'editor'
+                ]
+            ],
+        ];
+    }
+
     public function getNavigation()
     {
         return [

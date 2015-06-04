@@ -42,7 +42,7 @@ return [
     'Page was not found!' => 'Запрошенная страница не найдена!',
     'Change settings' => 'Изменить настройки',
     'Image' => 'Изображение',
-    'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)' => 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)',
+    'File uploading catalog (uploads)' => 'Каталог для загрузки файлов (относительно uploads)',
     'Categories' => 'Категории',
     'Categories - show' => 'Категории - просмотр',
     'Categories - edit' => 'Категории - редактирование',

@@ -68,7 +68,7 @@ class CategoryModule extends WebModule
         return [
             'uploadPath'     => Yii::t(
                     'CategoryModule.category',
-                    'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)'
+                    'File uploading catalog (uploads)'
                 ),
         ];
     }

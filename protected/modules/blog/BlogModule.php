@@ -128,6 +128,35 @@ class BlogModule extends yupe\components\WebModule
         ];
     }
 
+
+    public function getEditableParamsGroups()
+    {
+        return [
+            '0.category' => [
+                'label' => Yii::t('BlogModule.blog', 'Categories'),
+                'items' => [
+                    'mainPostCategory',
+                    'mainCategory'
+                ]
+            ],
+            '1.images' => [
+                'label' => Yii::t('BlogModule.blog', 'Images'),
+                'items' => [
+                    'uploadPath',
+                    'allowedExtensions',
+                    'minSize',
+                    'maxSize'
+                ]
+            ],
+            '2.editor' => [
+                'label' => Yii::t('BlogModule.blog', 'Visual editor settings'),
+                'items' => [
+                    'editor'
+                ]
+            ],
+        ];
+    }
+
     public function getCategoryListForPost()
     {
         return $this->getCategoryList();

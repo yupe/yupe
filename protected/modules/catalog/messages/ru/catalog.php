@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Images' => 'Изображения',
+    'Visual editor settings' => 'Настройки визуальных редакторов',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',
     '0.2' => '0.2',
