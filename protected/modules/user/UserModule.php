@@ -112,7 +112,6 @@ class UserModule extends WebModule
     public function getParamsLabels()
     {
         return [
-            'adminMenuOrder'           => Yii::t('UserModule.user', 'Menu items order'),
             'accountActivationSuccess' => Yii::t('UserModule.user', 'Page after account activation'),
             'accountActivationFailure' => Yii::t('UserModule.user', 'Page after activation error'),
             'loginSuccess'             => Yii::t('UserModule.user', 'Page after authorization'),
@@ -159,7 +158,6 @@ class UserModule extends WebModule
             'notifyEmailFrom',
             'logoutSuccess',
             'loginSuccess',
-            'adminMenuOrder',
             'accountActivationSuccess',
             'accountActivationFailure',
             'loginAdminSuccess',
@@ -177,7 +175,6 @@ class UserModule extends WebModule
             'main'      => [
                 'label' => Yii::t('UserModule.user', 'General module settings'),
                 'items' => [
-                    'adminMenuOrder',
                     'sessionLifeTime'
                 ]
             ],

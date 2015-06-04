@@ -12,19 +12,12 @@
  */
 class DictionaryModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public function getDependencies()
     {
         return [
             'user'
-        ];
-    }
-
-    public function getParamsLabels()
-    {
-        return [
-            'adminMenuOrder' => Yii::t('DictionaryModule.dictionary', 'Menu items order'),
         ];
     }
 

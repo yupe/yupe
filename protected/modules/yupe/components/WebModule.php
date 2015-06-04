@@ -316,6 +316,21 @@ abstract class WebModule extends CWebModule
 
     }
 
+
+    /**
+     * массив лейблов для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     *
+     * @return array
+     */
+    public function getDefaultParamsLabels()
+    {
+        return [
+            'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
+            'coreCacheTime'  => Yii::t('YupeModule.yupe', 'Cache time')
+        ];
+
+    }
+
     /**
      * массив параметров модуля, которые можно редактировать через панель управления (GUI)
      *
@@ -377,7 +392,8 @@ abstract class WebModule extends CWebModule
             'main' => [
                 'label' => Yii::t('YupeModule.yupe', 'Main module settings'),
                 'items' => [
-                    'adminMenuOrder'
+                    'adminMenuOrder',
+                    'coreCacheTime'
                 ]
             ],
         ];

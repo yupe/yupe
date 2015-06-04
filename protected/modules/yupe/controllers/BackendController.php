@@ -133,7 +133,7 @@ class BackendController extends yupe\components\controllers\BackController
     private function getModuleParamRow(\yupe\components\WebModule $module, $param)
     {
         $editableParams = $module->getEditableParams();
-        $moduleParamsLabels = $module->getParamsLabels();
+        $moduleParamsLabels = CMap::mergeArray($module->getParamsLabels(), $module->getDefaultParamsLabels());
 
         $res = CHtml::label($moduleParamsLabels[$param], $param);
 

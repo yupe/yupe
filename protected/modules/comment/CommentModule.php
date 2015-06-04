@@ -66,7 +66,6 @@ class CommentModule extends WebModule
             'autoApprove' => Yii::t('CommentModule.comment', 'Automatic comment confirmation'),
             'notify' => Yii::t('CommentModule.comment', 'Notify about comment?'),
             'email' => Yii::t('CommentModule.comment', 'Email for notifications'),
-            'adminMenuOrder' => Yii::t('CommentModule.comment', 'Menu items order'),
             'showCaptcha' => Yii::t('CommentModule.comment', 'Show captcha for guests'),
             'minCaptchaLength' => Yii::t('CommentModule.comment', 'Minimum captcha length'),
             'maxCaptchaLength' => Yii::t('CommentModule.comment', 'Maximum captcha length'),
@@ -94,7 +93,6 @@ class CommentModule extends WebModule
             'autoApprove' => $this->getChoice(),
             'notify' => $this->getChoice(),
             'email',
-            'adminMenuOrder',
             'showCaptcha' => $this->getChoice(),
             'minCaptchaLength',
             'maxCaptchaLength',
@@ -116,8 +114,7 @@ class CommentModule extends WebModule
                     'defaultCommentStatus',
                     'autoApprove',
                     'notify',
-                    'email',
-                    'adminMenuOrder',
+                    'email'
                 ]
             ],
             'captcha' => [

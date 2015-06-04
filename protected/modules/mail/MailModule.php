@@ -12,12 +12,11 @@
  */
 class MailModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public function getParamsLabels()
     {
         return [
-            'adminMenuOrder' => Yii::t('MailModule.mail', 'Menu items order'),
             'editor'         => Yii::t('MailModule.mail', 'Visual editor'),
         ];
     }
@@ -25,7 +24,6 @@ class MailModule extends yupe\components\WebModule
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
         ];
     }

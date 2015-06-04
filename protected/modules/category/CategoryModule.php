@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CategoryModule extends WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $uploadPath = 'category';
 
@@ -59,15 +59,13 @@ class CategoryModule extends WebModule
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
-            'uploadPath',
+            'uploadPath'
         ];
     }
 
     public function getParamsLabels()
     {
         return [
-            'adminMenuOrder' => Yii::t('CategoryModule.category', 'Menu items order'),
             'uploadPath'     => Yii::t(
                     'CategoryModule.category',
                     'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)'

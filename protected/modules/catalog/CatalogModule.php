@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CatalogModule extends WebModule
 {
-    const VERSION = '0.9.6';
+    const VERSION = '0.9.7';
 
     public $uploadPath = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -73,7 +73,6 @@ class CatalogModule extends WebModule
         return [
             'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'uploadPath',
-            'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->editors,
             'allowedExtensions',
             'minSize',
@@ -85,7 +84,6 @@ class CatalogModule extends WebModule
     {
         return [
             'mainCategory'      => Yii::t('CatalogModule.catalog', 'Main category of products'),
-            'adminMenuOrder'    => Yii::t('CatalogModule.catalog', 'Menu items order'),
             'uploadPath'        => Yii::t(
                     'CatalogModule.catalog',
                     'File uploads directory (relative to {dir})',

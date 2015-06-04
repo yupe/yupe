@@ -13,7 +13,7 @@ use yupe\components\WebModule;
 
 class BlogModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $mainPostCategory;
     public $minSize = 0;
@@ -97,7 +97,6 @@ class BlogModule extends yupe\components\WebModule
         return [
             'mainCategory'      => Yii::t('BlogModule.blog', 'Main blog category'),
             'mainPostCategory'  => Yii::t('BlogModule.blog', 'Main posts category'),
-            'adminMenuOrder'    => Yii::t('BlogModule.blog', 'Menu items order'),
             'editor'            => Yii::t('BlogModule.blog', 'Visual editor'),
             'uploadPath'        => Yii::t(
                     'BlogModule.blog',
@@ -118,7 +117,6 @@ class BlogModule extends yupe\components\WebModule
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
             'editor'           => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory'     => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'mainPostCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
