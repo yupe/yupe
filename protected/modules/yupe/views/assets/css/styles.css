@@ -272,7 +272,6 @@ input.form-control[type="file"] {
     margin: 0;
 }
 
-
 /* постраничная навигация в гридах */
 .pager-container {
     position: absolute;
@@ -292,6 +291,13 @@ input.form-control[type="file"] {
 .modal-backdrop {
     z-index: 1057;
 }
+
 .modal {
     z-index: 1058;
+}
+
+/* грид */
+
+.grid-toolbar {
+    height: 40px;
 }
