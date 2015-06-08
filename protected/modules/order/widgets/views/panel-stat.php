@@ -6,7 +6,11 @@
  */
 ?>
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbCollapse'
+    'bootstrap.widgets.TbCollapse', [
+        'htmlOptions' => [
+            'id' => 'panel-order-stat'
+        ]
+    ]
 );?>
 
 <div class="panel-group" id="accordion">
