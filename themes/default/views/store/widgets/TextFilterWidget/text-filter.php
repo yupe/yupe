@@ -1,7 +1,4 @@
-<?php
-/* @var $attribute Attribute */
-$filter = new AttributeFilter();
-?>
+<?php $filter = Yii::app()->getComponent('attributesFilter');?>
 <div class="filter-block-checkbox-list">
     <div class="filter-block-header">
         <strong><?= $attribute->title ?></strong>

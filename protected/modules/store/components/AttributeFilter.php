@@ -2,6 +2,9 @@
 
 class AttributeFilter extends CComponent
 {
+    const MAIN_SEARCH_PARAM_PRODUCER = 'brand';
+    const MAIN_SEARCH_PARAM_CATEGORY = 'category';
+
     public $dropdownTemplate = 'fd-%s-%s';
     public $checkboxTemplate = 'fc-%s';
     public $numberTemplate = 'fn-%s-%s';
@@ -13,6 +16,21 @@ class AttributeFilter extends CComponent
     public function init()
     {
 
+    }
+
+    public function isMainSearchParamChecked($paramName, $value, CHttpRequest $request)
+    {
+        $data = $request->getQuery($paramName);
+
+        return !empty($data) && in_array($value, $data);
+    }
+
+    public function getMainSearchParams()
+    {
+        return [
+            self::MAIN_SEARCH_PARAM_CATEGORY => 'category_id',
+            self::MAIN_SEARCH_PARAM_PRODUCER => 'producer_id'
+        ];
     }
 
     public function getDropdownOptionName(AttributeOption $option)
@@ -62,56 +80,70 @@ class AttributeFilter extends CComponent
         return Yii::app()->getRequest()->getParam($this->getNumberName($attribute, $mode), null);
     }
 
+    public function getMainAttributesForSearchFromQuery(CHttpRequest $request)
+    {
+        $result = [];
+
+        foreach ($this->getMainSearchParams() as $param => $field) {
+            if ($request->getQuery($param)) {
+                $result[$param] = $request->getQuery($param);
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * Формирует список атрибутов для передачи в EEavBehavior->getFilterByEavAttributesCriteria
      * @return array
      */
-    public function getAttributesFromQuery()
+    public function getEavAttributesForSearchFromQuery(CHttpRequest $request)
     {
-        $res = [];
+        $result = $params = [];
 
-        $params = [];
-        parse_str(Yii::app()->getRequest()->getQueryString(), $params);
-
+        parse_str($request->getQueryString(), $params);
 
         foreach ($params as $param => $value) {
-            if (is_string($param)) {
-                $matches = null;
-                if (preg_match($this->dropdownParseTemplate, $param, $matches)) {
-                    $attribute = $matches[1];
-                    $option = $matches[2];
-                    if (!isset($res[$attribute])) {
-                        $res[$attribute] = [];
-                    }
-                    $res[$attribute][] = $option;
-                } elseif (preg_match($this->checkboxParseTemplate, $param, $matches)) {
-                    $attribute = $matches[1];
-                    switch ($value) {
-                        case 1:
-                            $res[$attribute] = [1];
-                            break;
-                        case 0:
-                            $res[$attribute] = [0];
-                            break;
-                    }
-                } elseif (preg_match($this->numberParseTemplate, $param, $matches)) {
-                    if ($value === '') {
-                        continue;
-                    }
-                    $attribute = $matches[1];
-                    $mode = $matches[2];
-                    switch ($mode) {
-                        case 'from':
-                            $res[] = ['>=', $attribute, (float)$value];
-                            break;
-                        case 'to':
-                            $res[] = ['<=', $attribute, (float)$value];
-                            break;
-                    }
+
+            if (!is_string($param)) {
+                continue;
+            }
+
+            $matches = null;
+            if (preg_match($this->dropdownParseTemplate, $param, $matches)) {
+                $attribute = $matches[1];
+                $option = $matches[2];
+                if (!isset($result[$attribute])) {
+                    $result[$attribute] = [];
+                }
+                $result[$attribute][] = $option;
+            } elseif (preg_match($this->checkboxParseTemplate, $param, $matches)) {
+                $attribute = $matches[1];
+                switch ($value) {
+                    case 1:
+                        $result[$attribute] = [1];
+                        break;
+                    case 0:
+                        $result[$attribute] = [0];
+                        break;
+                }
+            } elseif (preg_match($this->numberParseTemplate, $param, $matches)) {
+                if ($value === '') {
+                    continue;
+                }
+                $attribute = $matches[1];
+                $mode = $matches[2];
+                switch ($mode) {
+                    case 'from':
+                        $result[] = ['>=', $attribute, (float)$value];
+                        break;
+                    case 'to':
+                        $result[] = ['<=', $attribute, (float)$value];
+                        break;
                 }
             }
         }
 
-        return $res;
+        return $result;
     }
 }

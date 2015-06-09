@@ -14,6 +14,9 @@ return [
         'productRepository' => [
             'class' => 'application.modules.store.components.ProductRepository'
         ],
+        'attributesFilter' => [
+            'class' => 'application.modules.store.components.AttributeFilter'
+        ],
         'session' => [
             'class'   => 'CHttpSession',
             'timeout' => 86400,

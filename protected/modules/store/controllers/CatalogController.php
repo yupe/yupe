@@ -13,12 +13,16 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     protected $productRepository;
 
+    protected $attributeFilter;
+
     /**
      *
      */
     public function init()
     {
         $this->productRepository = Yii::app()->getComponent('productRepository');
+
+        $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
 
         parent::init();
     }
@@ -43,7 +47,12 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     public function actionIndex()
     {
-        $this->render('index', ['dataProvider' => $this->productRepository->getListForIndexPage()]);
+        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
+            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest()),
+            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+        ) : $this->productRepository->getListForIndexPage();
+
+        $this->render('index', ['dataProvider' => $data]);
     }
 
     /**

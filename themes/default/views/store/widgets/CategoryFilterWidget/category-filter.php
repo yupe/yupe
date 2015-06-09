@@ -6,7 +6,7 @@
         <div class="filter-block-body">
             <?php foreach($categories as $category):?>
                 <div class="checkbox">
-                    <?= CHtml::checkBox('category[]',false,['value' => $category->id, 'id' => 'category_'. $category->id]);?>
+                    <?= CHtml::checkBox('category[]',Yii::app()->attributesFilter->isMainSearchParamChecked(AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY, $category->id, Yii::app()->getRequest()),['value' => $category->id, 'id' => 'category_'. $category->id]);?>
                     <?= CHtml::label($category->name, 'category[]');?>
                 </div>
             <?php endforeach;?>

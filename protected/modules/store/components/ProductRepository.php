@@ -5,9 +5,46 @@
  */
 class ProductRepository extends CComponent
 {
+    protected $attributeFilter;
+
     public function init()
     {
+        $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
+    }
 
+    public function getByFilter(array $mainSearchAttributes, array $eavSearchAttributes, $perPage = 20)
+    {
+        $model = Product::model();
+
+        $criteria = new CDbCriteria();
+        $criteria->select = 't.*';
+        $criteria->params = [];
+        $criteria->addCondition('status = :status');
+        $criteria->params['status'] = Product::STATUS_ACTIVE;
+
+        foreach($this->attributeFilter->getMainSearchParams() as $param => $field) {
+            if(!empty($mainSearchAttributes[$param])) {
+                $criteria->addInCondition($field, $mainSearchAttributes[$param]);
+            }
+        }
+
+        $eavCriteria = $model->getFilterByEavAttributesCriteria($eavSearchAttributes);
+
+        $criteria->mergeWith($eavCriteria);
+
+        return new CActiveDataProvider(
+            $model,
+            [
+                'criteria' => $criteria,
+                'pagination' => [
+                    'pageSize' => (int)$perPage,
+                    'pageVar' => 'page',
+                ],
+                'sort' => [
+                    'sortVar' => 'sort',
+                ],
+            ]
+        );
     }
 
 
@@ -17,21 +54,14 @@ class ProductRepository extends CComponent
      */
     public function getListForIndexPage($perPage = 20)
     {
-        $model = Product::model();
-        $filter = new AttributeFilter();
-
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
         $criteria->params = [];
         $criteria->addCondition('status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
-        $eavCriteria = $model->getFilterByEavAttributesCriteria($filter->getAttributesFromQuery());
-
-        $criteria->mergeWith($eavCriteria);
-
-        return $dataProvider = new CActiveDataProvider(
-            $model,
+        return new CActiveDataProvider(
+            Product::model(),
             [
                 'criteria' => $criteria,
                 'pagination' => [
@@ -52,11 +82,7 @@ class ProductRepository extends CComponent
      */
     public function getListForCategory(StoreCategory $category, $perPage = 20)
     {
-        $model = Product::model();
-        $filter = new AttributeFilter();
-
         $criteria = new CDbCriteria();
-
         $criteria->select = 't.*';
         $criteria->with = ['categoryRelation' => ['together' => true]];
         $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
@@ -64,12 +90,8 @@ class ProductRepository extends CComponent
         $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $category->id]);
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
-        $eavCriteria = $model->getFilterByEavAttributesCriteria($filter->getAttributesFromQuery());
-
-        $criteria->mergeWith($eavCriteria);
-
-        return $dataProvider = new CActiveDataProvider(
-            $model,
+        return  new CActiveDataProvider(
+            Product::model(),
             [
                 'criteria' => $criteria,
                 'pagination' => [
