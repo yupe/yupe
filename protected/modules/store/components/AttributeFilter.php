@@ -80,7 +80,7 @@ class AttributeFilter extends CComponent
         return Yii::app()->getRequest()->getParam($this->getNumberName($attribute, $mode), null);
     }
 
-    public function getMainAttributesForSearchFromQuery(CHttpRequest $request)
+    public function getMainAttributesForSearchFromQuery(CHttpRequest $request, array $append = [])
     {
         $result = [];
 
@@ -88,6 +88,10 @@ class AttributeFilter extends CComponent
             if ($request->getQuery($param)) {
                 $result[$param] = $request->getQuery($param);
             }
+        }
+
+        if(!empty($append)) {
+            $result = CMap::mergeArray($append, $result);
         }
 
         return $result;

@@ -67,10 +67,16 @@ class CatalogController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
+        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
+            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]),
+            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+        ) : $this->productRepository->getListForCategory($category);
+
+
         $this->render(
             'category',
             [
-                'dataProvider' => $this->productRepository->getListForCategory($category),
+                'dataProvider' => $data,
                 'category' => $category
             ]
         );

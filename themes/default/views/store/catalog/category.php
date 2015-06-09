@@ -30,9 +30,6 @@ $this->breadcrumbs = array_merge(
     <form>
         <div class="col-sm-3">
             <div>
-                <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
-            </div>
-            <div>
                 <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
             </div>
             <div>
