@@ -1,5 +1,7 @@
 <?php
 return [
+    'Categories' => 'Категории',
+    'Producers' => 'Производители',
     'Category' => 'Категория',
     'Products' => 'Товары',
     '*unknown*' => '*неизвестно*',

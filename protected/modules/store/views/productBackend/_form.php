@@ -5,14 +5,14 @@
  * @var $form \yupe\widgets\ActiveForm
  */
 ?>
-<?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-backend.css'); ?>
+<?php Yii::app()->getClientScript()->registerCssFile($this->getModule()->getAssetsUrl() . '/css/store-backend.css'); ?>
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.product", "Stock"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.attr", "Attributes"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Variants"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.product", "Stock"); ?></a></li>
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
     <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.product", "Linked products"); ?></a></li>
 </ul>

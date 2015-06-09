@@ -3,6 +3,7 @@
 class FilterBlockWidget extends \yupe\widgets\YWidget
 {
     public $view = 'filter-block';
+
     public $attributes;
 
     public function run()

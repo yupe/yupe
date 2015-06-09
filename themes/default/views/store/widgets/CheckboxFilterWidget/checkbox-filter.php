@@ -4,7 +4,7 @@ $filter = new AttributeFilter();
 ?>
 <div class="filter-block-checkbox-list">
     <div class="filter-block-header">
-        <?= $attribute->title ?>
+        <strong><?= $attribute->title ?></strong>
     </div>
     <div class="filter-block-body">
         <div class="radio">
@@ -27,3 +27,4 @@ $filter = new AttributeFilter();
         </div>
     </div>
 </div>
+<hr/>

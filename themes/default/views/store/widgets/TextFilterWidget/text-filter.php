@@ -8,11 +8,8 @@ $filter = new AttributeFilter();
     </div>
     <div class="filter-block-body">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <?= CHtml::textField($filter->getNumberName($attribute, 'from'), $filter->getNumberValue($attribute, 'from'), ['class' => 'form-control']) ?>
-            </div>
-            <div class="col-xs-6">
-                <?= CHtml::textField($filter->getNumberName($attribute, 'to'), $filter->getNumberValue($attribute, 'to'), ['class' => 'form-control']) ?>
             </div>
         </div>
     </div>

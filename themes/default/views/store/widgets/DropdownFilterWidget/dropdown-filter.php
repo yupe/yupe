@@ -4,7 +4,7 @@ $filter = new AttributeFilter();
 ?>
 <div class="filter-block-checkbox-list">
     <div class="filter-block-header">
-        <?= $attribute->title ?>
+        <strong><?= $attribute->title ?></strong>
     </div>
     <div class="filter-block-body">
         <?php foreach ($attribute->options as $option): ?>
@@ -17,3 +17,4 @@ $filter = new AttributeFilter();
         <?php endforeach; ?>
     </div>
 </div>
+<hr/>

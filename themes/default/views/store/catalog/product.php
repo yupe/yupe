@@ -87,8 +87,10 @@ $this->breadcrumbs = array_merge(
                         <br/>
                         <h4><?= Yii::t("StoreModule.store", "Description"); ?></h4>
                         <?= $product->short_description; ?>
-                        <hr>
-                        <h4><?= Yii::t("StoreModule.store", "Variants"); ?></h4>
+                        <?php if($product->getVariantsGroup()):?>
+                            <hr/>
+                            <h4><?= Yii::t("StoreModule.store", "Variants"); ?></h4>
+                        <?php endif;?>
 
                         <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
                             <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>

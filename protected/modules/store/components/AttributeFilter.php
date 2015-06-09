@@ -17,7 +17,7 @@ class AttributeFilter extends CComponent
 
     public function getDropdownOptionName(AttributeOption $option)
     {
-        if ($option->parent->type == Attribute::TYPE_DROPDOWN) {
+        if ((int)$option->parent->type === Attribute::TYPE_DROPDOWN) {
             return sprintf($this->dropdownTemplate, $option->parent->name, $option->id);
         }
 
@@ -31,7 +31,7 @@ class AttributeFilter extends CComponent
 
     public function getCheckboxName(Attribute $attribute)
     {
-        if ($attribute->type == Attribute::TYPE_CHECKBOX) {
+        if ((int)$attribute->type === Attribute::TYPE_CHECKBOX) {
             return sprintf($this->checkboxTemplate, $attribute->name);
         }
 
@@ -50,7 +50,7 @@ class AttributeFilter extends CComponent
 
     public function getNumberName(Attribute $attribute, $mode = 'from')
     {
-        if ($attribute->type == Attribute::TYPE_NUMBER) {
+        if ((int)$attribute->type === Attribute::TYPE_NUMBER) {
             return sprintf($this->numberTemplate, $attribute->name, $mode);
         }
 
