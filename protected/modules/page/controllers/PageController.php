@@ -1,5 +1,7 @@
 <?php
 
+use yupe\components\controllers\FrontController;
+
 /**
  * PageController публичный контроллер для работы со страницами
  *
@@ -11,7 +13,7 @@
  * @since 0.1
  *
  */
-class PageController extends \yupe\components\controllers\FrontController
+class PageController extends FrontController
 {
     /**
      * Текущая просматриваемая страница
@@ -23,9 +25,7 @@ class PageController extends \yupe\components\controllers\FrontController
      */
     public function actionShow($slug)
     {
-        $model = null;
-        // превью
-        $model = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+        $model = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->getUser()->isSuperUser())
             ? Page::model()->find(
                 'slug = :slug AND (lang=:lang OR (lang IS NULL))',
                 [
@@ -36,19 +36,19 @@ class PageController extends \yupe\components\controllers\FrontController
             : Page::model()->published()->find(
                 'slug = :slug AND (lang = :lang OR (lang = :deflang))',
                 [
-                    ':slug'    => $slug,
-                    ':lang'    => Yii::app()->language,
+                    ':slug' => $slug,
+                    ':lang' => Yii::app()->language,
                     ':deflang' => $this->yupe->defaultLanguage,
                 ]
             );
 
         if (null === $model) {
-            throw new CHttpException('404', Yii::t('PageModule.page', 'Page was not found'));
+            throw new CHttpException(404, Yii::t('PageModule.page', 'Page was not found'));
         }
 
         // проверим что пользователь может просматривать эту страницу
-        if ($model->isProtected() && !Yii::app()->user->isAuthenticated()) {
-            Yii::app()->user->setFlash(
+        if ($model->isProtected() && !Yii::app()->getUser()->isAuthenticated()) {
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
             );

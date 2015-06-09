@@ -129,6 +129,13 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                                return $data->status == Page::STATUS_PUBLISHED;
+                            }
+                    ]
+                ]
             ],
         ],
     ]
