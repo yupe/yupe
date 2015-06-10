@@ -45,8 +45,8 @@ class UserIdentity extends CBaseUserIdentity
         Yii::app()->getUser()->setState(YWebUser::STATE_ACCESS_LEVEL, $storage->user->access_level);
         Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $storage->user->nick_name);
 
-        $storage->user->last_visit = new CDbExpression('NOW()');
-        $storage->user->update(['last_visit']);
+        $storage->user->visit_time = new CDbExpression('NOW()');
+        $storage->user->update(['visit_time']);
         $this->errorCode = self::ERROR_NONE;
 
         return true;
