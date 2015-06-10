@@ -71,6 +71,12 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
                 'filter' => CHtml::activeTextField($model, 'sku', ['class' => 'form-control']),
             ],
             [
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'type_id',
+                'url' => $this->createUrl('/store/productBackend/inline'),
+                'source' => Type::model()->getFormattedList()
+            ],
+            [
                 'name'  => 'category_id',
                 'value' => function($data){
                     $categoryList = '<span class="label label-primary">'. (isset($data->mainCategory) ? $data->mainCategory->name : '---') . '</span>';

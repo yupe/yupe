@@ -20,7 +20,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
     <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
 </div>
 <div class="row">
-    <form>
+    <form id="store-filter" name="store-filter">
         <div class="col-sm-3">
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>

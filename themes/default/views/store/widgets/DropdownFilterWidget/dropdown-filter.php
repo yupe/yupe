@@ -7,7 +7,7 @@
         <?php foreach ($attribute->options as $option): ?>
             <div class="checkbox">
                 <label>
-                    <?= CHtml::checkBox($filter->getDropdownOptionName($option), $filter->getIsDropdownOptionChecked($option)) ?>
+                    <?= CHtml::checkBox($filter->getDropdownOptionName($option), $filter->getIsDropdownOptionChecked($option, $option->id), ['value' => $option->id]) ?>
                     <?= $option->value ?>
                 </label>
             </div>

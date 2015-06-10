@@ -6,7 +6,7 @@
     <div class="filter-block-body">
         <div class="row">
             <div class="col-xs-12">
-                <?= CHtml::textField($filter->getNumberName($attribute, 'from'), $filter->getNumberValue($attribute, 'from'), ['class' => 'form-control']) ?>
+                <?= CHtml::textField($filter->getFieldName($attribute), $filter->getFieldValue($attribute), ['class' => 'form-control']) ?>
             </div>
         </div>
     </div>

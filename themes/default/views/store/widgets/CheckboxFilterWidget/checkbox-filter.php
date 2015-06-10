@@ -1,26 +1,16 @@
-<?php $filter = Yii::app()->getComponent('attributesFilter');?>
+<?php $filter = Yii::app()->getComponent('attributesFilter'); ?>
 <div class="filter-block-checkbox-list">
     <div class="filter-block-header">
         <strong><?= $attribute->title ?></strong>
     </div>
     <div class="filter-block-body">
-        <div class="radio">
-            <label>
-                <?= CHtml::radioButton($filter->getCheckboxName($attribute), $filter->getIsCheckboxChecked($attribute, 1), ['value' => 1]) ?>
-                Да
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <?= CHtml::radioButton($filter->getCheckboxName($attribute), $filter->getIsCheckboxChecked($attribute, 0), ['value' => 0]) ?>
-                Нет
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <?= CHtml::radioButton($filter->getCheckboxName($attribute), $filter->getIsCheckboxChecked($attribute, -1), ['value' => -1]) ?>
-                Неважно
-            </label>
+        <div class="checkbox">
+            <?= CHtml::checkBox(
+                $filter->getFieldName($attribute),
+                $filter->isFieldChecked($attribute, 1),
+                ['value' => 1]
+            ) ?>
+            <?= CHtml::label('да/нет', $filter->getFieldName($attribute)); ?>
         </div>
     </div>
 </div>

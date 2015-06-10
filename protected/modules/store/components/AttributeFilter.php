@@ -1,23 +1,51 @@
 <?php
 
+/**
+ * Class AttributeFilter
+ */
 class AttributeFilter extends CComponent
 {
+    /**
+     *
+     */
     const MAIN_SEARCH_PARAM_PRODUCER = 'brand';
+    /**
+     *
+     */
     const MAIN_SEARCH_PARAM_CATEGORY = 'category';
 
-    public $dropdownTemplate = 'fd-%s-%s';
-    public $checkboxTemplate = 'fc-%s';
-    public $numberTemplate = 'fn-%s-%s';
+    /**
+     * @var string
+     */
+    public $dropdownTemplate = '%s[]';
+    /**
+     * @var string
+     */
+    public $checkboxTemplate = '%s';
+    /**
+     * @var string
+     */
+    public $numberTemplate = '%s[%s]';
 
-    public $dropdownParseTemplate = '/fd-([\w_\*]+)-([\w_\*]+)/';
-    public $checkboxParseTemplate = '/fc-([\w_\*]+)/';
-    public $numberParseTemplate = '/fn-([\w_\*]+)-([\w_\*]+)/';
+    /**
+     * @var string
+     */
+    public $stringTemplate = '%s';
 
+    /**
+     *
+     */
     public function init()
     {
 
     }
 
+    /**
+     * @param $paramName
+     * @param $value
+     * @param CHttpRequest $request
+     * @return bool
+     */
     public function isMainSearchParamChecked($paramName, $value, CHttpRequest $request)
     {
         $data = $request->getQuery($paramName);
@@ -25,6 +53,9 @@ class AttributeFilter extends CComponent
         return !empty($data) && in_array($value, $data);
     }
 
+    /**
+     * @return array
+     */
     public function getMainSearchParams()
     {
         return [
@@ -33,6 +64,60 @@ class AttributeFilter extends CComponent
         ];
     }
 
+    /**
+     * @param Attribute $attribute
+     * @param null $mode
+     * @return null|string
+     */
+    public function getFieldName(Attribute $attribute, $mode = null)
+    {
+        $type = (int)$attribute->type;
+
+        if ($type === Attribute::TYPE_SHORT_TEXT) {
+            return sprintf($this->stringTemplate, $attribute->name);
+        }
+
+        if ($type === Attribute::TYPE_CHECKBOX) {
+            return sprintf($this->checkboxTemplate, $attribute->name);
+        }
+
+        if ($type === Attribute::TYPE_NUMBER) {
+            return sprintf($this->numberTemplate, $attribute->name, $mode);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Attribute $attribute
+     * @param null $mode
+     * @return mixed
+     */
+    public function getFieldValue(Attribute $attribute, $mode = null)
+    {
+        if(null !== $mode) {
+            $data = Yii::app()->getRequest()->getParam($attribute->name);
+            return is_array($data) && array_key_exists($mode, $data) ? $data[$mode] : null;
+        }
+
+        return Yii::app()->getRequest()->getParam($this->getFieldName($attribute, $mode), null);
+    }
+
+    /**
+     * @param Attribute $attribute
+     * @param null $value
+     * @return bool
+     */
+    public function isFieldChecked(Attribute $attribute, $value = null)
+    {
+        return Yii::app()->getRequest()->getParam($this->getFieldName($attribute), -1) == $value;
+    }
+
+
+    /**
+     * @param AttributeOption $option
+     * @return null|string
+     */
     public function getDropdownOptionName(AttributeOption $option)
     {
         if ((int)$option->parent->type === Attribute::TYPE_DROPDOWN) {
@@ -42,44 +127,23 @@ class AttributeFilter extends CComponent
         return null;
     }
 
-    public function getIsDropdownOptionChecked(AttributeOption $option)
+    /**
+     * @param AttributeOption $option
+     * @param mixed $value
+     * @return mixed
+     */
+    public function getIsDropdownOptionChecked(AttributeOption $option, $value)
     {
-        return Yii::app()->getRequest()->getParam($this->getDropdownOptionName($option), false);
-    }
+        $data = Yii::app()->getRequest()->getQuery($option->parent->name, false);
 
-    public function getCheckboxName(Attribute $attribute)
-    {
-        if ((int)$attribute->type === Attribute::TYPE_CHECKBOX) {
-            return sprintf($this->checkboxTemplate, $attribute->name);
-        }
-
-        return null;
+        return is_array($data) && in_array($value, $data);
     }
 
     /**
-     * @param Attribute $attribute
-     * @param $value int - 1 - да, 0 - нет, -1 - неважно
-     * @return bool
+     * @param CHttpRequest $request
+     * @param array $append
+     * @return array|mixed
      */
-    public function getIsCheckboxChecked(Attribute $attribute, $value = null)
-    {
-        return Yii::app()->getRequest()->getParam($this->getCheckboxName($attribute), -1) == $value;
-    }
-
-    public function getNumberName(Attribute $attribute, $mode = 'from')
-    {
-        if ((int)$attribute->type === Attribute::TYPE_NUMBER) {
-            return sprintf($this->numberTemplate, $attribute->name, $mode);
-        }
-
-        return null;
-    }
-
-    public function getNumberValue(Attribute $attribute, $mode = 'from')
-    {
-        return Yii::app()->getRequest()->getParam($this->getNumberName($attribute, $mode), null);
-    }
-
     public function getMainAttributesForSearchFromQuery(CHttpRequest $request, array $append = [])
     {
         $result = [];
@@ -90,61 +154,53 @@ class AttributeFilter extends CComponent
             }
         }
 
-        if(!empty($append)) {
+        if (!empty($append)) {
             $result = CMap::mergeArray($append, $result);
         }
 
         return $result;
     }
 
+
     /**
-     * Формирует список атрибутов для передачи в EEavBehavior->getFilterByEavAttributesCriteria
+     * @param CHttpRequest $request
      * @return array
      */
     public function getEavAttributesForSearchFromQuery(CHttpRequest $request)
     {
         $result = $params = [];
 
-        parse_str($request->getQueryString(), $params);
+        $attributes = Attribute::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(
+            ['select' => ['name']]
+        );
 
-        foreach ($params as $param => $value) {
+        foreach ($attributes as $attribute) {
 
-            if (!is_string($param)) {
-                continue;
-            }
+            if ($request->getQuery($attribute->name)) {
 
-            $matches = null;
-            if (preg_match($this->dropdownParseTemplate, $param, $matches)) {
-                $attribute = $matches[1];
-                $option = $matches[2];
-                if (!isset($result[$attribute])) {
-                    $result[$attribute] = [];
-                }
-                $result[$attribute][] = $option;
-            } elseif (preg_match($this->checkboxParseTemplate, $param, $matches)) {
-                $attribute = $matches[1];
-                switch ($value) {
-                    case 1:
-                        $result[$attribute] = [1];
-                        break;
-                    case 0:
-                        $result[$attribute] = [0];
-                        break;
-                }
-            } elseif (preg_match($this->numberParseTemplate, $param, $matches)) {
-                if ($value === '') {
+                $searchParams = $request->getQuery($attribute->name);
+
+                if (!is_array($searchParams)) {
+                    $result[$attribute->name] = $searchParams;
                     continue;
                 }
-                $attribute = $matches[1];
-                $mode = $matches[2];
-                switch ($mode) {
-                    case 'from':
-                        $result[] = ['>=', $attribute, (float)$value];
-                        break;
-                    case 'to':
-                        $result[] = ['<=', $attribute, (float)$value];
-                        break;
+
+                $isFrom = array_key_exists('from', $searchParams);
+                $isTo = array_key_exists('to', $searchParams);
+
+                if (false === $isFrom && false === $isTo) {
+                    $result[$attribute->name] = $searchParams;
+                    continue;
                 }
+
+                if (true === $isFrom && !empty($searchParams['from'])) {
+                    $result[] = ['>=', $attribute->name, (float)$searchParams['from']];
+                }
+
+                if (true === $isTo && !empty($searchParams['to'])) {
+                    $result[] = ['<=', $attribute->name, (float)$searchParams['to']];
+                }
+
             }
         }
 

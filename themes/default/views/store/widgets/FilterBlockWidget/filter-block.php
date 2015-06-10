@@ -12,6 +12,7 @@
     <br/>
 
     <div>
-        <input type="submit" value="Подобрать" class="btn btn-default"/>
+        <input type="submit" value="Подобрать" class="btn btn-primary"/>
+        <input type="reset" value="Очистить" class="btn btn-default" onclick="$('#store-filter').reset();"/>
     </div>
 </div>
