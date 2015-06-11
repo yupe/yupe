@@ -153,10 +153,11 @@ class ProductRepository extends CComponent
 
     /**
      * @param $slug
+     * @param array $with
      * @return mixed
      */
-    public function getBySlug($slug)
+    public function getBySlug($slug, array $with = ['producer','type.typeAttributes', 'images', 'mainCategory', 'variants'])
     {
-        return Product::model()->published()->with(['type.typeAttributes', 'images'])->find('slug = :slug', [':slug' => $slug]);
+        return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
     }
 } 

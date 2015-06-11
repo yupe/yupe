@@ -103,7 +103,7 @@ class LanguageBehavior extends CBehavior
 
         // язык передан в url, но он равен дефолтному языку
         if ($this->getUrlLang() !== null && $this->lang === false) {
-            Yii::app()->getRequest()->redirect(Yii::app()->homeUrl . $this->lm->getCleanUrl(Yii::app()->getRequest()->url));
+            Yii::app()->getRequest()->redirect(Yii::app()->getHomeUrl() . $this->lm->getCleanUrl(Yii::app()->getRequest()->url));
         }
     }
 
@@ -115,9 +115,9 @@ class LanguageBehavior extends CBehavior
     protected function setLanguage($language)
     {
         // Устанавливаем состояние языка:
-        Yii::app()->user->setState($this->lm->langParam, $language);
+        Yii::app()->getUser()->setState($this->lm->langParam, $language);
 
-        Yii::app()->request->cookies[$this->lm->langParam] = new CHttpCookie($this->lm->langParam, $language);
+        Yii::app()->getRequest()->cookies[$this->lm->langParam] = new CHttpCookie($this->lm->langParam, $language);
 
         // И наконец, выставляем язык приложения:
         Yii::app()->language = $language;

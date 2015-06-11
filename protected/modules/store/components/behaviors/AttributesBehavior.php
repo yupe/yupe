@@ -11,7 +11,7 @@
  *
  * @version 0.5
  */
-class EEavBehavior extends CActiveRecordBehavior
+class AttributesBehavior extends CActiveRecordBehavior
 {
     /**
      * @access public
@@ -219,30 +219,9 @@ class EEavBehavior extends CActiveRecordBehavior
      * @return void
      */
     public function attach($owner)
-    {
-        // Check required property tableName.
-        if (!is_string($this->tableName) || empty($this->tableName)) {
-            throw new CException(
-                self::t(
-                    'yii',
-                    'Property "{class}.{property}" is not defined.',
-                    ['{class}' => get_class($this), '{property}' => 'tableName']
-                )
-            );
-        }
-        // Prepare translate component for behavior messages.
-        if (!Yii::app()->hasComponent(__CLASS__ . 'Messages')) {
-            Yii::app()->setComponents(
-                [
-                    __CLASS__ . 'Messages' => [
-                        'class' => 'CPhpMessageSource',
-                        'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'messages',
-                    ]
-                ]
-            );
-        }
-        // Prepare cache component.
+    {   // Prepare cache component.
         $this->cache = Yii::app()->getComponent($this->cacheId);
+
         if (!($this->cache instanceof ICache)) {
             // If not set cache component, use dummy cache.
             $this->cache = new CDummyCache;
@@ -337,6 +316,7 @@ class EEavBehavior extends CActiveRecordBehavior
     {
         // If exists cache, return it.
         $data = $this->cache->get($this->getCacheKey());
+
         if ($data !== false) {
             $this->attributes->mergeWith($data, false);
             return $this->getOwner();
@@ -438,6 +418,7 @@ class EEavBehavior extends CActiveRecordBehavior
         }
         // If array for loaded not empty, load attributes.
         if (!$this->preload && $loadQueue->count() > 0) {
+
             $this->loadEavAttributes($loadQueue->toArray());
             foreach ($loadQueue as $attribute) {
                 $values[$attribute] = $this->attributes->itemAt($attribute);

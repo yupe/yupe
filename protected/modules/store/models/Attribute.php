@@ -248,14 +248,7 @@ class Attribute extends \yupe\models\YModel
         return $this->group instanceof AttributeGroup ? $this->group->name : '---';
     }
 
-    public function afterFind()
-    {
-        $tmp = '';
-        foreach ((array)$this->options as $option) {
-            $tmp .= $option->value . "\n";
-        }
-        $this->rawOptions = $tmp;
-    }
+
 
     public function afterSave()
     {

@@ -7,7 +7,7 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
     public function run()
     {
         if('*' === $this->attributes) {
-            $this->attributes = Attribute::model()->cache($this->cacheTime)->findAll();
+            $this->attributes = Attribute::model()->with(['options.parent'])->cache($this->cacheTime)->findAll();
         }
 
         foreach ($this->attributes as $attribute) {

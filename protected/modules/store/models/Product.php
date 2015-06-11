@@ -165,11 +165,11 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             'published' => [
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params' => [':status' => self::STATUS_ACTIVE],
             ],
             'specialOffer' => [
-                'condition' => 'is_special = :is_special',
+                'condition' => 't.is_special = :is_special',
                 'params' => [':is_special' => self::SPECIAL_ACTIVE],
             ],
         ];
@@ -304,9 +304,11 @@ class Product extends yupe\models\YModel implements ICommentable
                 'updateAttribute' => 'update_time',
             ],
             'eavAttr' => [
-                'class' => 'application.modules.store.components.behaviors.EEavBehavior',
+                'class' => 'application.modules.store.components.behaviors.AttributesBehavior',
                 'tableName' => '{{store_product_attribute_eav}}',
                 'entityField' => 'product_id',
+                'preload' => false,
+                //'cacheId' => 'cache'
             ],
             'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
@@ -771,8 +773,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $transaction = Yii::app()->getDb()->beginTransaction();
         $model = new Product();
         try {
-            $model->attributes = $this->attributes;
-            $model->image = null;
+            $model->setAttributes($this->getAttributes());
             $model->slug = null;
 
             $similarNamesCount = Yii::app()->getDb()->createCommand()
@@ -783,28 +784,28 @@ class Product extends yupe\models\YModel implements ICommentable
 
             $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
 
-            if ($eavAttributes = $this->getEavAttributes()) {
-                $model->setTypeAttributes($eavAttributes);
-            }
+            $attributes = $model->attributes;
+            $typeAttributes =  $this->getEavAttributes();
+            $variantAttributes = [];
+            $categoriesIds = [];
+
 
             if ($variants = $this->variants) {
-                $variantAttributes = [];
                 foreach ($variants as $variant) {
                     $variantAttributes[] = $variant->getAttributes(
                         ['attribute_id', 'attribute_value', 'amount', 'type', 'sku']
                     );
                 }
-                $model->setProductVariants($variantAttributes);
             }
 
-            if ($model->save()) {
-                if ($categories = $this->categories) {
-                    $categoriesIds = [];
-                    foreach ($categories as $category) {
-                        $categoriesIds[] = $category->id;
-                    }
-                    $model->saveCategories($categoriesIds);
+            if ($categories = $this->categories) {
+                foreach ($categories as $category) {
+                    $categoriesIds[] = $category->id;
                 }
+            }
+
+            if(!$model->saveData($attributes, $typeAttributes, $variantAttributes, $categoriesIds)) {
+                throw new CDbException('Error copy product!');
             }
 
             $transaction->commit();
