@@ -28,6 +28,10 @@ class ProductRepository extends CComponent
             }
         }
 
+        if(!empty($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME])) {
+            $criteria->addSearchCondition('name', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true);
+        }
+
         $eavCriteria = $model->getFilterByEavAttributesCriteria($eavSearchAttributes);
 
         $criteria->mergeWith($eavCriteria);
@@ -105,50 +109,18 @@ class ProductRepository extends CComponent
         );
     }
 
-    public function search($query, $category = null, $perPage = 20)
-    {
-        $criteria = new CDbCriteria();
-        $criteria->params = [];
-        $criteria->addCondition('status = :status');
-        $criteria->params['status'] = Product::STATUS_ACTIVE;
-        $criteria->addSearchCondition('name', $query, true);
-
-        if ($category) {
-            $criteria->addCondition('category_id = :category');
-            $criteria->params[':category'] = (int)$category;
-        }
-
-        return new CActiveDataProvider(
-            Product::model(), [
-                'criteria' => $criteria,
-                'pagination' => [
-                    'pageSize' => (int)$perPage,
-                    'pageVar' => 'page',
-                ],
-                'sort' => [
-                    'sortVar' => 'sort',
-                ],
-            ]
-        );
-    }
-
     /**
      * @param $query
      * @return array
      */
-    public function searchLite($query)
+    public function search($query)
     {
         $criteria = new CDbCriteria();
         $criteria->params = [];
         $criteria->addCondition('status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
         $criteria->addSearchCondition('name', $query, true);
-        $models = Product::model()->findAll($criteria);
-        $result = [];
-        foreach ($models as $model) {
-            $result[] = CHtml::link($model->name, ['/store/catalog/show', 'name' => $model->slug]);
-        }
-        return $result;
+        return Product::model()->findAll($criteria);
     }
 
     /**

@@ -84,26 +84,29 @@ class CatalogController extends \yupe\components\controllers\FrontController
 
     public function actionSearch()
     {
-        if (Yii::app()->getRequest()->getQuery('SearchForm')) {
+        if (!Yii::app()->getRequest()->getQuery('SearchForm')) {
+            throw new CHttpException(404);
+        }
 
-            $form = new SearchForm();
+        $form = new SearchForm();
 
-            $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
+        $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
 
-            if ($form->validate()) {
+        if ($form->validate()) {
 
-                $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
+            $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
 
-                $this->render(
-                    'search',
-                    [
-                        'category' => $category,
-                        'searchForm' => $form,
-                        'dataProvider' => $this->productRepository->search($form->q, $form->category)
-                    ]
-                );
-
-            }
+            $this->render(
+                'search',
+                [
+                    'category' => $category,
+                    'searchForm' => $form,
+                    'dataProvider' => $this->productRepository->getByFilter(
+                            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]),
+                            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+                        )
+                ]
+            );
         }
     }
 
@@ -117,7 +120,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
         $result = [];
 
         if (strlen($query) > 2) {
-            $result = $this->productRepository->searchLite($query);
+            $result = $this->productRepository->search($query);
         }
 
         Yii::app()->ajax->raw($result);

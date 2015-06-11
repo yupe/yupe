@@ -12,7 +12,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?= Yii::t("StoreModule.product", "Product catalog"); ?></h2>
+        <h2><?= Yii::t("StoreModule.store", "Product catalog"); ?></h2>
     </div>
 </div>
 

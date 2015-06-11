@@ -100,22 +100,22 @@ class StoreModule extends WebModule
                 'items' => [
                     [
                         'icon' => 'fa fa-fw fa-shopping-cart',
-                        'label' => Yii::t('StoreModule.product', 'Products'),
+                        'label' => Yii::t('StoreModule.store', 'Products'),
                         'url' => ['/store/productBackend/index'],
                         'items' => [
                             [
                                 'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.product', 'Product list'),
+                                'label' => Yii::t('StoreModule.store', 'Product list'),
                                 'url' => ['/store/productBackend/index']
                             ],
                             [
                                 'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.product', 'Create product'),
+                                'label' => Yii::t('StoreModule.store', 'Create product'),
                                 'url' => ['/store/productBackend/create']
                             ],
                             [
                                 'icon' => 'fa fa-fw fa-link',
-                                'label' => Yii::t('StoreModule.product', 'Link types'),
+                                'label' => Yii::t('StoreModule.store', 'Link types'),
                                 'url' => ['/store/linkBackend/typeIndex']
                             ],
                         ],
@@ -358,32 +358,32 @@ class StoreModule extends WebModule
                     [
                         'type' => AuthItem::TYPE_TASK,
                         'name' => 'Store.ProductBackend.Management',
-                        'description' => Yii::t('StoreModule.product', 'Manage products'),
+                        'description' => Yii::t('StoreModule.store', 'Manage products'),
                         'items' => [
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Index',
-                                'description' => Yii::t('StoreModule.product', 'View product list'),
+                                'description' => Yii::t('StoreModule.store', 'View product list'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Create',
-                                'description' => Yii::t('StoreModule.product', 'Create product'),
+                                'description' => Yii::t('StoreModule.store', 'Create product'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Update',
-                                'description' => Yii::t('StoreModule.product', 'Update product'),
+                                'description' => Yii::t('StoreModule.store', 'Update product'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.View',
-                                'description' => Yii::t('StoreModule.product', 'View product'),
+                                'description' => Yii::t('StoreModule.store', 'View product'),
                             ],
                             [
                                 'type' => AuthItem::TYPE_OPERATION,
                                 'name' => 'Store.ProductBackend.Delete',
-                                'description' => Yii::t('StoreModule.product', 'Delete product'),
+                                'description' => Yii::t('StoreModule.store', 'Delete product'),
                             ],
                         ],
                     ],

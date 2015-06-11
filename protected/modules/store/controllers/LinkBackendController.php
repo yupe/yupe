@@ -77,7 +77,7 @@ class LinkBackendController extends yupe\components\controllers\BackController
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.product', 'Record was added!')
+                    Yii::t('StoreModule.store', 'Record was added!')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['typeIndex']));

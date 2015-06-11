@@ -1,6 +1,6 @@
 <?php /* @var $dataProvider CActiveDataProvider */ ?>
 <h3>
-    <?= Yii::t('StoreModule.product', 'Linked products') ?>
+    <?= Yii::t('StoreModule.store', 'Linked products') ?>
 </h3>
 
 <?php $this->widget(

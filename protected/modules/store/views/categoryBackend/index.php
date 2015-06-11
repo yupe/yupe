@@ -69,7 +69,7 @@ $this->menu = [
                 ],
             ],
             [
-                'header' => Yii::t('StoreModule.product', 'Products'),
+                'header' => Yii::t('StoreModule.store', 'Products'),
                 'value' => function($data) {
                         return CHtml::link($data->productCount, ['/store/productBackend/index', "Product[category_id]" => $data->id], ['class' => 'badge']);
                     },

@@ -15,7 +15,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
     <div class="col-xs-12">
         <h2>
             <?php if($category):?>
-                <?= Yii::t('StoreModule.catalog', 'Search in category "{category}"', ['{category}' => $category->name]); ?>
+                <?= Yii::t('StoreModule.store', 'Search in category "{category}"', ['{category}' => $category->name]); ?>
             <?php else:?>
                 <?= Yii::t("StoreModule.store", "Search"); ?>
             <?php endif;?>
@@ -29,9 +29,11 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
 <div class="row">
     <form id="store-filter" name="store-filter">
         <div class="col-sm-3">
-            <div>
-                <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
-            </div>
+            <?php if(null === $category):?>
+                <div>
+                    <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
+                </div>
+            <?php endif;?>
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
             </div>
@@ -44,7 +46,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
         <section>
             <div class="grid">
                 <?php $this->widget(
-                    'zii.widgets.CListView',
+                    'bootstrap.widgets.TbListView',
                     [
                         'dataProvider' => $dataProvider,
                         'itemView' => '_view',
@@ -63,7 +65,8 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
                         'sortableAttributes' => [
                             'sku',
                             'name',
-                            'price'
+                            'price',
+                            'update_time'
                         ],
                     ]
                 ); ?>

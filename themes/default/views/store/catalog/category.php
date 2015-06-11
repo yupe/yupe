@@ -19,7 +19,7 @@ $this->breadcrumbs = array_merge(
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?= Yii::t('StoreModule.product', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
+        <h2><?= Yii::t('StoreModule.store', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
     </div>
 </div>
 
@@ -27,7 +27,7 @@ $this->breadcrumbs = array_merge(
     <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['category' => $category->id]); ?>
 </div>
 <div class="row">
-    <form id="store-filter" name="store-filter">
+    <form id="store-filter" name="store-filter" method="get">
         <div class="col-sm-3">
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>

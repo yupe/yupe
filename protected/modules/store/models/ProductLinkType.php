@@ -33,8 +33,8 @@ class ProductLinkType extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'code' => Yii::t('StoreModule.product', 'Code'),
-            'title' => Yii::t('StoreModule.product', 'Title'),
+            'code' => Yii::t('StoreModule.store', 'Code'),
+            'title' => Yii::t('StoreModule.store', 'Title'),
         ];
     }
 

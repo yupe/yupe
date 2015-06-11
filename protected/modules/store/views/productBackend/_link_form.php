@@ -48,7 +48,7 @@ $linkTypes = ProductLinkType::getFormattedList();
                             },
                     ],
                     [
-                        'header' => Yii::t('StoreModule.product', 'SKU'),
+                        'header' => Yii::t('StoreModule.store', 'SKU'),
                         'type' => 'raw',
                         'value' => function ($data) {
                                 return CHtml::link(
@@ -58,7 +58,7 @@ $linkTypes = ProductLinkType::getFormattedList();
                             },
                     ],
                     [
-                        'header' => Yii::t('StoreModule.product', 'Price'),
+                        'header' => Yii::t('StoreModule.store', 'Price'),
                         'type' => 'raw',
                         'value' => function ($data) {
                                 return $data->linkedProduct->price;
@@ -192,7 +192,7 @@ $linkTypes = ProductLinkType::getFormattedList();
                                     [
                                         'buttons' => [
                                             [
-                                                'label' => Yii::t('StoreModule.product', 'Add in'),
+                                                'label' => Yii::t('StoreModule.store', 'Add in'),
                                                 'items' => $links,
                                             ]
                                         ],

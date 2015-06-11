@@ -222,7 +222,7 @@ class AttributesBehavior extends CActiveRecordBehavior
     {   // Prepare cache component.
         $this->cache = Yii::app()->getComponent($this->cacheId);
 
-        if (!($this->cache instanceof ICache)) {
+        if (empty($this->cache)) {
             // If not set cache component, use dummy cache.
             $this->cache = new CDummyCache;
         }
@@ -402,6 +402,8 @@ class AttributesBehavior extends CActiveRecordBehavior
         if (empty($attributes)) {
             $attributes = $this->getSafeAttributesArray();
         }
+
+
         // Values array.
         $values = [];
         // Queue for load.
@@ -409,6 +411,7 @@ class AttributesBehavior extends CActiveRecordBehavior
         foreach ($attributes as $attribute) {
             // Check is safe.
             if ($this->hasSafeAttribute($attribute)) {
+
                 $values[$attribute] = $this->attributes->itemAt($attribute);
                 // If attribute not set and not load, prepare array for loaded.
                 if (!$this->preload && $values[$attribute] === null) {
@@ -418,7 +421,6 @@ class AttributesBehavior extends CActiveRecordBehavior
         }
         // If array for loaded not empty, load attributes.
         if (!$this->preload && $loadQueue->count() > 0) {
-
             $this->loadEavAttributes($loadQueue->toArray());
             foreach ($loadQueue as $attribute) {
                 $values[$attribute] = $this->attributes->itemAt($attribute);
@@ -436,7 +438,7 @@ class AttributesBehavior extends CActiveRecordBehavior
      */
     public function getEavAttribute($attribute)
     {
-        $values = $this->getEavAttributes([$attribute]);
+        $this->getEavAttributes([$attribute]);
         return $this->attributes->itemAt($attribute);
     }
 

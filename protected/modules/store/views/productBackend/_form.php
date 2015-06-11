@@ -12,9 +12,9 @@
     <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.attr", "Attributes"); ?></a></li>
     <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Variants"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.product", "Stock"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Stock"); ?></a></li>
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
-    <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.product", "Linked products"); ?></a></li>
+    <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.store", "Linked products"); ?></a></li>
 </ul>
 
 
@@ -139,7 +139,7 @@ $form = $this->beginWidget(
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion_price" href="#collapse_price">
-                                <?= Yii::t("StoreModule.product", 'Additional price'); ?>
+                                <?= Yii::t("StoreModule.store", 'Additional price'); ?>
                             </a>
                         </div>
                         <div id="collapse_price" class="panel-collapse collapse" style="height: 0px;">
@@ -403,9 +403,9 @@ $form = $this->beginWidget(
                                 <tr>
                                     <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
-                                    <td><?= Yii::t("StoreModule.product", "Price type"); ?></td>
-                                    <td><?= Yii::t("StoreModule.product", "Price"); ?></td>
-                                    <td><?= Yii::t("StoreModule.product", "SKU"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "Price type"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "Price"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "SKU"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
                                     <td></td>
                                 </tr>
@@ -424,7 +424,7 @@ $form = $this->beginWidget(
 
     <div class="tab-pane" id="linked">
         <?php if ($model->getIsNewRecord()): ?>
-            <?= Yii::t("StoreModule.product", "First you need to save the product."); ?>
+            <?= Yii::t("StoreModule.store", "First you need to save the product."); ?>
         <?php else: ?>
             <?= $this->renderPartial('_link_form', ['product' => $model, 'searchModel' => $searchModel]);?>
         <?php endif; ?>
@@ -438,8 +438,8 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and continue') : Yii::t(
-            'StoreModule.product',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and continue') : Yii::t(
+            'StoreModule.store',
             'Save product and continue'
         ),
     ]
@@ -450,8 +450,8 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and close') : Yii::t(
-            'StoreModule.product',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and close') : Yii::t(
+            'StoreModule.store',
             'Save product and close'
         ),
     ]

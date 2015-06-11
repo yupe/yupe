@@ -7,15 +7,15 @@
 $this->layout = 'product';
 
 $this->breadcrumbs = [
-    Yii::t('StoreModule.product', 'Products') => ['/store/productBackend/index'],
+    Yii::t('StoreModule.store', 'Products') => ['/store/productBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
+$this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.product', 'Products'); ?>
+        <?php echo Yii::t('StoreModule.store', 'Products'); ?>
         <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>

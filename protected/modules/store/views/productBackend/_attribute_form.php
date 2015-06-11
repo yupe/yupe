@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-sm-<?= $attribute->isType(Attribute::TYPE_TEXT) ? 9 : 2; ?> <?= $hasError ? "has-error" : ""; ?>">
                                     <?php $htmlOptions = $attribute->isType(Attribute::TYPE_CHECKBOX) ? [] : ['class' => 'form-control']; ?>
-                                    <?= $attribute->renderField($model->attr($attribute->name), null, $htmlOptions); ?>
+                                    <?= $attribute->renderField($model->attribute($attribute->name), null, $htmlOptions); ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>

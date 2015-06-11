@@ -14,6 +14,8 @@ class AttributeFilter extends CComponent
      */
     const MAIN_SEARCH_PARAM_CATEGORY = 'category';
 
+    const MAIN_SEARCH_PARAM_NAME = 'name';
+
     /**
      * @var string
      */

@@ -70,7 +70,7 @@ class ProductVariant extends \yupe\models\YModel
         if (!$this->attribute_value) {
             $this->addErrors(
                 [
-                    'attribute_value' => Yii::t('StoreModule.product', 'You must specify the attribute value')
+                    'attribute_value' => Yii::t('StoreModule.store', 'You must specify the attribute value')
                 ]
             );
         }
@@ -91,13 +91,13 @@ class ProductVariant extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('StoreModule.product', 'Id'),
-            'product_id' => Yii::t('StoreModule.product', 'Product'),
+            'id' => Yii::t('StoreModule.store', 'Id'),
+            'product_id' => Yii::t('StoreModule.store', 'Product'),
             'attribute_id' => Yii::t('StoreModule.attr', 'Attribute'),
-            'attribute_value' => Yii::t('StoreModule.product', 'Attribute value'),
-            'type' => Yii::t('StoreModule.product', 'Price type'),
-            'amount' => Yii::t('StoreModule.product', 'Price'),
-            'sku' => Yii::t('StoreModule.product', 'SKU'),
+            'attribute_value' => Yii::t('StoreModule.store', 'Attribute value'),
+            'type' => Yii::t('StoreModule.store', 'Price type'),
+            'amount' => Yii::t('StoreModule.store', 'Price'),
+            'sku' => Yii::t('StoreModule.store', 'SKU'),
             'position' => Yii::t('StoreModule.store', 'Order'),
         ];
     }
@@ -114,9 +114,9 @@ class ProductVariant extends \yupe\models\YModel
     public function getTypeList()
     {
         return [
-            self::TYPE_SUM => Yii::t('StoreModule.product', 'Increase in the amount of'),
-            self::TYPE_PERCENT => Yii::t('StoreModule.product', 'Increase in %'),
-            self::TYPE_BASE_PRICE => Yii::t('StoreModule.product', 'Changing base rates'),
+            self::TYPE_SUM => Yii::t('StoreModule.store', 'Increase in the amount of'),
+            self::TYPE_PERCENT => Yii::t('StoreModule.store', 'Increase in %'),
+            self::TYPE_BASE_PRICE => Yii::t('StoreModule.store', 'Changing base rates'),
         ];
     }
 
@@ -140,19 +140,19 @@ class ProductVariant extends \yupe\models\YModel
             switch ($this->type) {
                 case self::TYPE_SUM:
                     $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . ' ' . Yii::t(
-                            "StoreModule.product",
+                            "StoreModule.store",
                             'RUB to the price'
                         ) . ')';
                     break;
                 case self::TYPE_PERCENT:
                     $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . Yii::t(
-                            "StoreModule.product",
+                            "StoreModule.store",
                             '% to the price'
                         ) . ')';
                     break;
                 case self::TYPE_BASE_PRICE:
-                    $value .= ' (' . Yii::t("StoreModule.product", 'price') . ': ' . $this->amount . ' ' . Yii::t(
-                            "StoreModule.product",
+                    $value .= ' (' . Yii::t("StoreModule.store", 'price') . ': ' . $this->amount . ' ' . Yii::t(
+                            "StoreModule.store",
                             'RUB'
                         ) . '.)';
                     break;

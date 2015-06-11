@@ -5,19 +5,19 @@
  */
 
 $this->breadcrumbs = [
-    Yii::t('StoreModule.product', 'Link types') => ['/store/linkBackend/typeIndex'],
+    Yii::t('StoreModule.store', 'Link types') => ['/store/linkBackend/typeIndex'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.product', 'Link types - manage');
+$this->pageTitle = Yii::t('StoreModule.store', 'Link types - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.product', 'Manage link types'), 'url' => ['/store/linkBackend/typeIndex']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Manage link types'), 'url' => ['/store/linkBackend/typeIndex']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?= Yii::t('StoreModule.product', 'Link types') ?>
+        <?= Yii::t('StoreModule.store', 'Link types') ?>
         <small><?= Yii::t('StoreModule.store', 'manage') ?></small>
     </h1>
 </div>
