@@ -215,12 +215,6 @@ $this->widget(
                     ) . '</span>'
                     : ''
                 ?>
-                <span class="badge alert-warning dependents" style="display: none; font-size: 11px;">
-                            <?= Yii::t(
-                                'InstallModule.install',
-                                'Disable depends modules,<br/>which you would not like to install.'
-                            ); ?>
-                        </span>
             </td>
         </tr>
     <?php } endforeach; ?>
@@ -229,10 +223,13 @@ $this->widget(
 
 <?php
 $dependencies = $module->getDependenciesAll();
-$keyDependencies = implode(', #module_', array_keys($dependencies));
+$dependents = $module->getDependents();
+$keyDependencies = implode(', #module_', array_keys(
+    CMap::mergeArray($dependencies, $dependents)
+));
 
 $jsArray = CJavaScript::encode($dependencies);
-$jsArrayRevert = CJavaScript::encode($module->getDependents());
+$jsArrayRevert = CJavaScript::encode($dependents);
 $jsArrayNoDisable = CJavaScript::encode($module->getModulesNoDisable());
 
 $modulesSelection['recom'] = implode(', ', $modulesSelection['recom']);
@@ -241,89 +238,110 @@ $modulesSelection['basic'] = implode(', ', $modulesSelection['basic']);
 $modulesSelection['store'] = implode(', ', $modulesSelection['store']);
 
 $js = <<<EOF
-        var array          = {$jsArray},
-            arrayRevert    = {$jsArrayRevert},
-            arrayNoDisable = {$jsArrayNoDisable};
+    var array          = {$jsArray},
+        arrayRevert    = {$jsArrayRevert},
+        arrayNoDisable = {$jsArrayNoDisable};
 
-        function checkedCount()
-        {
-            $('.checked-count').text($('#module-list').find("input:checked").length);
+    checkedCount();
+
+    $.each(arrayRevert, function (i, val) {
+        if ($.inArray(i, arrayNoDisable) == -1) {
+            $.each(val, function (iRevert, valRevert) {
+                if ($('#module_' + valRevert).is(':checked')) {
+                    $('#module_' + i).prop('checked', true);
+                    $('#module_' + i).parent().siblings('.check-label').find('.dependents').show();
+
+                    return false;
+                }
+            });
+        }
+    });
+
+    $(document).on('change', '#module_{$keyDependencies}', function () {
+        checkedCount();
+        var id = $(this).attr('id').replace('module_', '');
+
+        if ($(this).is(':checked')) {
+            enableModule(id);
+        } else {
+            disableModule(id);
+        }
+    });
+
+    $(document).on('click', '#recom-check, #all-check, #basic-check, #store-check', function () {
+        $("{$modulesSelection['all']}").prop('checked', false);
+        switch ($(this).attr('id')) {
+            case 'recom-check':
+                $("{$modulesSelection['recom']}").prop('checked', true);
+                $('{$modulesSelection['recom']}').change();
+                break;
+            case 'all-check':
+                $("{$modulesSelection['all']}").prop('checked', true);
+                break;
+            case 'store-check':
+                $("{$modulesSelection['basic']}").prop('checked', true);
+                $("{$modulesSelection['store']}").prop('checked', true);
+                $('#module_{$keyDependencies}').change();
+                break;
+            case 'basic-check':
+                $("{$modulesSelection['basic']}").prop('checked', true);
+                $('{$modulesSelection['basic']}').change();
+                break;
         }
         checkedCount();
+    });
 
-        $.each(arrayRevert, function (i, val) {
-            if ($.inArray(i, arrayNoDisable) == -1) {
-                $.each(val, function (iRevert, valRevert) {
-                    if ($('#module_' + valRevert).attr('checked')) {
-                        $('#module_' + i).attr('checked', true).attr('onclick', "this.checked=true");
-                        $('#module_' + i).parent().siblings('.check-label').find('.dependents').show();
-
-                        return false;
-                    }
-                });
-            }
+    $(document).on('show.bs.modal', '#modules-modal', function () {
+        $('#modules-modal-list').find("i").each(function () {
+            $(this).removeClass("fa fa-fw fa-check").addClass("fa fa-fw fa-minus");
         });
-
-        $(document).on('change', '#module_{$keyDependencies}', function () {
-            checkedCount();
-            var id = $(this).attr('id').replace('module_', '');
-            if ($(this).attr('checked')) {
-                $.each(array[id], function (i, val) {
-                    $('#module_' + val).attr('checked', true).attr('onclick', "this.checked=true");
-                });
-            } else {
-                $.each(array[id], function (i, val) {
-                    if ($.inArray(val, arrayNoDisable) == -1) {
-                        var all = false;
-                        $.each(arrayRevert[val], function (iRevert, valRevert) {
-                            if ($('#module_' + valRevert).attr('checked')) {
-                                all = true;
-
-                                return false;
-                            }
-                        });
-                        if (!all)
-                            $('#module_' + val).attr('onclick', '');
-                    }
-                });
-            }
+        $('#module-list').find("input:checked").each(function () {
+            var id = $(this).attr('id').replace('module_', 'modal_');
+            $('#' + id + ' i').removeClass("fa fa-fw fa-minus").addClass("fa fa-fw fa-check");
         });
+    });
 
-        $(document).on('click', '#recom-check, #all-check, #basic-check, #store-check', function () {
-            $("{$modulesSelection['all']}").prop('checked', false);
-            switch ($(this).attr('id')) {
-                case 'recom-check':
-                    $("{$modulesSelection['recom']}").prop('checked', true);
-                    $('#module_{$keyDependencies}').change();
-                    break;
-                case 'all-check':
-                    $("{$modulesSelection['all']}").prop('checked', true);
-                    $('#module_{$keyDependencies}').change();
-                    break;
-                case 'store-check':
-                    $("{$modulesSelection['basic']}").prop('checked', true);
-                    $("{$modulesSelection['store']}").prop('checked', true);
-                    $('#module_{$keyDependencies}').change();
-                    break;
-                case 'basic-check':
-                    $("{$modulesSelection['basic']}").prop('checked', true);
-                    $('#module_{$keyDependencies}').change();
-                    break;
-            }
-            checkedCount();
-        });
-        $(document).on('show.bs.modal', '#modules-modal', function () {
-            $('#modules-modal-list').find("i").each(function () {
-                $(this).removeClass("fa fa-fw fa-check").addClass("fa fa-fw fa-minus");
+    $(document).on('click', '#modal-confirm', function () {
+        $('#modulesinstall-form').submit();
+    });
+
+    function checkedCount()
+    {
+        $('.checked-count').text($('#module-list').find("input:checked").length);
+    }
+
+    function enableModule(id)
+    {
+        moduleManager(id, array, true);
+    }
+
+    function disableModule(id)
+    {
+        moduleManager(id, arrayRevert, false);
+    }
+
+    /**
+    * Управление модулем и зависимостями
+    *
+    * @param {string} id
+    * @param {object) deps Массив с зависимостями модуля для включения или отключения
+    * @param {boolean} flag Вкл/выкл модуль
+    */
+    function moduleManager(id, deps, flag)
+    {
+        if ($.inArray(id, arrayNoDisable) !== -1) {
+            return false;
+        }
+
+        if (id in deps) {
+            $.each(deps[id], function (i, val) {
+                $('#module_' + val).prop('checked', flag);
+                $('#module_' + val).change();
             });
-            $('#module-list').find("input:checked").each(function () {
-                var id = $(this).attr('id').replace('module_', 'modal_');
-                $('#' + id + ' i').removeClass("fa fa-fw fa-minus").addClass("fa fa-fw fa-check");
-            });
-        });
-        $(document).on('click', '#modal-confirm', function () {
-            $('#modulesinstall-form').submit();
-        });
+        } else {
+            $('#module_' + id).prop('checked', flag);
+        }
+    }
 EOF;
 Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClientScript::POS_END);
 ?>
