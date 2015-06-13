@@ -12,7 +12,7 @@
  */
 class PageModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public function getDependencies()
     {
@@ -25,9 +25,8 @@ class PageModule extends yupe\components\WebModule
     public function getParamsLabels()
     {
         return [
-            'adminMenuOrder' => Yii::t('PageModule.page', 'Menu items order'),
             'editor'         => Yii::t('PageModule.page', 'Visual editor'),
-            'mainCategory'   => Yii::t('PageModule.page', 'Main pages category'),
+            'mainCategory'   => Yii::t('PageModule.page', 'Main pages category')
         ];
     }
 
@@ -39,9 +38,8 @@ class PageModule extends yupe\components\WebModule
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->editors,
-            'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
+            'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name')
         ];
     }
 

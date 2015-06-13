@@ -19,7 +19,7 @@ $this->breadcrumbs = array_merge(
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?php echo Yii::t('StoreModule.product', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
+        <h2><?= Yii::t('StoreModule.store', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
     </div>
 </div>
 
@@ -27,16 +27,16 @@ $this->breadcrumbs = array_merge(
     <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['category' => $category->id]); ?>
 </div>
 <div class="row">
-    <div class="col-sm-3">
-        <h3>
-            <span><?php echo Yii::t("StoreModule.category", "Categories"); ?></span>
-        </h3>
-        <div class="category-tree">
-            <?php
-                $this->widget('application.modules.store.widgets.CategoryWidget');
-            ?>
+    <form id="store-filter" name="store-filter" method="get">
+        <div class="col-sm-3">
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+            </div>
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
+            </div>
         </div>
-    </div>
+    </form>
     <div class="col-sm-9">
         <section>
 
@@ -61,7 +61,8 @@ $this->breadcrumbs = array_merge(
                         'sortableAttributes' => [
                             'sku',
                             'name',
-                            'price'
+                            'price',
+                            'update_time'
                         ],
                     ]
                 ); ?>

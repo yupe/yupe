@@ -22,14 +22,14 @@ class ColorBoxWidget extends YWidget
      */
     public function init()
     {
-        $this->assetsUrl = Yii::app()->getAssetManager()->publish(__DIR__ . DIRECTORY_SEPARATOR . 'assets');
+        $this->assetsUrl = Yii::app()->getAssetManager()->publish(__DIR__ . '/assets');
 
         Yii::app()->getClientScript()->registerScriptFile(
-            $this->assetsUrl . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'jquery.colorbox-min.js'
+            $this->assetsUrl . '/js/jquery.colorbox-min.js'
         );
 
         Yii::app()->getClientScript()->registerCssFile(
-            $this->assetsUrl . DIRECTORY_SEPARATOR . 'colorbox.css'
+            $this->assetsUrl . '/colorbox.css'
         );
 
         parent::init();

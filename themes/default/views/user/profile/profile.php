@@ -17,14 +17,14 @@ $form = $this->beginWidget(
 );
 ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-xs-3">
         <?php $this->widget('AvatarWidget', ['user' => $user, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]]); ?>
     </div>
     <div class="col-xs-9">
-        <?php echo $form->checkBoxGroup(
+        <?= $form->checkBoxGroup(
             $model,
             'use_gravatar',
             [
@@ -32,7 +32,7 @@ $form = $this->beginWidget(
             ]
         ); ?>
 
-        <?php echo $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'avatar',
             ['widgetOptions' => ['htmlOptions' => ['style' => 'background: inherit;']]]
@@ -42,26 +42,26 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $user,
             'email',
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'disabled' => true,
-                        'class'    => Yii::app()->user->profile->getIsVerifyEmail() ? 'text-success' : ''
+                        'class'    => Yii::app()->getUser()->profile->getIsVerifyEmail() ? 'text-success' : ''
                     ],
                 ],
                 'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/profile/email']),
             ]
         ); ?>
-        <?php if (Yii::app()->user->profile->getIsVerifyEmail()): { ?>
+        <?php if (Yii::app()->getUser()->profile->getIsVerifyEmail()): { ?>
             <p class="email-status-confirmed text-success">
-                <?php echo Yii::t('UserModule.user', 'E-mail was verified'); ?>
+                <?= Yii::t('UserModule.user', 'E-mail was verified'); ?>
             </p>
         <?php } else: { ?>
             <p class="email-status-not-confirmed text-error">
-                <?php echo Yii::t('UserModule.user', 'e-mail was not confirmed, please check you mail!'); ?>
+                <?= Yii::t('UserModule.user', 'e-mail was not confirmed, please check you mail!'); ?>
             </p>
         <?php } endif ?>
     </div>
@@ -69,25 +69,25 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'last_name') ?>
+        <?= $form->textFieldGroup($model, 'last_name') ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'first_name') ?>
+        <?= $form->textFieldGroup($model, 'first_name') ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'middle_name') ?>
+        <?= $form->textFieldGroup($model, 'middle_name') ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-6">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'gender',
             [
@@ -105,7 +105,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-3">
-        <?php echo $form->datePickerGroup(
+        <?= $form->datePickerGroup(
             $model,
             'birth_date',
             [
@@ -122,19 +122,19 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-8">
-        <?php echo $form->textFieldGroup($model, 'location') ?>
+        <?= $form->textFieldGroup($model, 'location') ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-8">
-        <?php echo $form->textFieldGroup($model, 'site') ?>
+        <?= $form->textFieldGroup($model, 'site') ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
-        <?php echo $form->textAreaGroup(
+        <?= $form->textAreaGroup(
             $model,
             'about',
             ['widgetOptions' => ['htmlOptions' => ['rows' => 7]]]
@@ -162,7 +162,7 @@ $form = $this->beginWidget(
                 'label'      => Yii::t('UserModule.user', 'Save profile'),
             ]
         ); ?>
-        <?php echo CHtml::link(Yii::t('UserModule.user', 'Change password'), ['/user/profile/password'], ['class' => 'btn btn-default']); ?>
+        <?= CHtml::link(Yii::t('UserModule.user', 'Change password'), ['/user/profile/password'], ['class' => 'btn btn-default']); ?>
     </div>
 </div>
 <?php $this->endWidget(); ?>

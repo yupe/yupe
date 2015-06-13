@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'Statuses' => 'Статусы',
+    'Allow order comments in admin panel' => 'Разрешить комментирование заказов в панели управления',
     '#' => '№',
     '(paid separately)' => '(оплачивается отдельно)',
     '*unknown*' => '*неизвестно*',
@@ -73,7 +75,7 @@ return [
     'Orders - view' => 'Заказы - просмотр',
     'Orders history' => 'История заказов',
     'Orders manage module' => 'Модуль для управления заказами',
-    'Orders settings' => 'Настройки зазказов',
+    'Orders settings' => 'Настройки заказов',
     'Orders' => 'Заказы',
     'Page not found!' => 'Запрошенная страница не найдена!',
     'Paid date' => 'Дата оплаты',

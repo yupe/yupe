@@ -13,12 +13,16 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     protected $productRepository;
 
+    protected $attributeFilter;
+
     /**
      *
      */
     public function init()
     {
-        $this->productRepository = new ProductRepository();
+        $this->productRepository = Yii::app()->getComponent('productRepository');
+
+        $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
 
         parent::init();
     }
@@ -29,7 +33,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     public function actionShow($name)
     {
-        $product = $this->productRepository->getByAlias($name);
+        $product = $this->productRepository->getBySlug($name);
 
         if (null === $product) {
             throw new CHttpException(404, Yii::t('StoreModule.catalog', 'Product was not found!'));
@@ -43,7 +47,12 @@ class CatalogController extends \yupe\components\controllers\FrontController
      */
     public function actionIndex()
     {
-        $this->render('index', ['dataProvider' => $this->productRepository->getListForIndexPage()]);
+        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
+            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest()),
+            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+        ) : $this->productRepository->getListForIndexPage();
+
+        $this->render('index', ['dataProvider' => $data]);
     }
 
     /**
@@ -58,10 +67,16 @@ class CatalogController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
+        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
+            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]),
+            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+        ) : $this->productRepository->getListForCategory($category);
+
+
         $this->render(
             'category',
             [
-                'dataProvider' => $this->productRepository->getListForCategory($category),
+                'dataProvider' => $data,
                 'category' => $category
             ]
         );
@@ -69,26 +84,29 @@ class CatalogController extends \yupe\components\controllers\FrontController
 
     public function actionSearch()
     {
-        if (Yii::app()->getRequest()->getQuery('SearchForm')) {
+        if (!Yii::app()->getRequest()->getQuery('SearchForm')) {
+            throw new CHttpException(404);
+        }
 
-            $form = new SearchForm();
+        $form = new SearchForm();
 
-            $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
+        $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
 
-            if ($form->validate()) {
+        if ($form->validate()) {
 
-                $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
+            $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
 
-                $this->render(
-                    'search',
-                    [
-                        'category' => $category,
-                        'searchForm' => $form,
-                        'dataProvider' => $this->productRepository->search($form->q, $form->category)
-                    ]
-                );
-
-            }
+            $this->render(
+                'search',
+                [
+                    'category' => $category,
+                    'searchForm' => $form,
+                    'dataProvider' => $this->productRepository->getByFilter(
+                            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]),
+                            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+                        )
+                ]
+            );
         }
     }
 
@@ -102,7 +120,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
         $result = [];
 
         if (strlen($query) > 2) {
-            $result = $this->productRepository->searchLite($query);
+            $result = $this->productRepository->search($query);
         }
 
         Yii::app()->ajax->raw($result);

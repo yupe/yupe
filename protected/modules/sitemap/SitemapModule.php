@@ -4,6 +4,42 @@ use yupe\components\WebModule;
 
 class SitemapModule extends WebModule
 {
+    /* $data =  [
+    'page' => [
+    'Page' => [
+    'getUrl' => function ($model) {
+        return $model->getAbsoluteUrl();
+    },
+    'getDataProvider' => function () {
+        return new CActiveDataProvider(CActiveRecord::model('Page')->published(), []);
+    },
+    'getLastMod' => function ($model) {
+        return $model->update_time;
+    },
+    'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
+    'priority' => 0.5,
+    ]
+    ],
+    'news' => [
+    'News' => [
+    'getUrl' => function ($model) {
+        return $model->getAbsoluteUrl();
+    },
+    'getDataProvider' => function () {
+        return new CActiveDataProvider(CActiveRecord::model('News')->published(), []);
+    },
+    'getLastMod' => function ($model) {
+        return $model->update_time;
+    },
+    'changeFreq' => SitemapHelper::FREQUENCY_WEEKLY,
+    'priority' => 0.5,
+    ]
+    ],
+        ]*/
+
+    public $data;
+
+    const VERSION = '0.9.7';
     /**
      * @var int - Время кеширования sitemap в часах
      */
@@ -45,7 +81,7 @@ class SitemapModule extends WebModule
 
     public function getVersion()
     {
-        return '0.1';
+        return self::VERSION;
     }
 
     public function init()
@@ -74,13 +110,13 @@ class SitemapModule extends WebModule
     {
         return [
             [
-                'name'        => 'SitemapModule.SitemapManage',
+                'name' => 'SitemapModule.SitemapManage',
                 'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => [
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'SitemapModule.SitemapBackend.manage',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'SitemapModule.SitemapBackend.manage',
                         'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap')
                     ],
                 ]

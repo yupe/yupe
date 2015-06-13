@@ -28,15 +28,15 @@ $this->breadcrumbs = [
 <div class="post">
     <div class="row">
         <div class="col-sm-12">
-            <h4><strong><?php echo CHtml::encode($model->title); ?></strong></h4>
+            <h4><strong><?= CHtml::encode($model->title); ?></strong></h4>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <?php if ($model->image): ?>
-                <?php echo CHtml::image($model->getImageUrl(), $model->title); ?>
+                <?= CHtml::image($model->getImageUrl(), $model->title); ?>
             <?php endif; ?>
-            <p> <?php echo $model->full_text; ?></p>
+            <p> <?= $model->full_text; ?></p>
         </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ $this->widget(
                 'title' => Yii::app()->name,
             ]
         ),
-        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/homepage/hp/index'] : ['site/index'],
+        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/homepage/hp/index'] : ['/site/index'],
         'items' => [
             CMap::mergeArray(
                 [

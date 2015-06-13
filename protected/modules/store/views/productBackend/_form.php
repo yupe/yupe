@@ -5,16 +5,16 @@
  * @var $form \yupe\widgets\ActiveForm
  */
 ?>
-<?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/store-backend.css'); ?>
+<?php Yii::app()->getClientScript()->registerCssFile($this->getModule()->getAssetsUrl() . '/css/store-backend.css'); ?>
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
-    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.product", "Stock"); ?></a></li>
-    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.attr", "Attributes"); ?></a></li>
+    <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Variants"); ?></a></li>
+    <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Stock"); ?></a></li>
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
-    <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.product", "Linked products"); ?></a></li>
+    <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.store", "Linked products"); ?></a></li>
 </ul>
 
 
@@ -139,7 +139,7 @@ $form = $this->beginWidget(
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion_price" href="#collapse_price">
-                                <?= Yii::t("StoreModule.product", 'Additional price'); ?>
+                                <?= Yii::t("StoreModule.store", 'Additional price'); ?>
                             </a>
                         </div>
                         <div id="collapse_price" class="panel-collapse collapse" style="height: 0px;">
@@ -308,7 +308,7 @@ $form = $this->beginWidget(
     <div class="tab-pane" id="images">
         <div class="row form-group">
             <div class="col-sm-2">
-                <?= Yii::t("StoreModule.store", "Image"); ?>
+                <?= Yii::t("StoreModule.store", "Images"); ?>
             </div>
             <div class="col-sm-2">
                 <button id="button-add-image" type="button" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>
@@ -358,7 +358,7 @@ $form = $this->beginWidget(
 
     <div class="tab-pane" id="attributes">
         <div id="attributes-panel">
-            <?php $this->renderPartial('_attribute_form', ['model' => $model]); ?>
+            <?php $this->renderPartial('_attribute_form', ['type' => $model->type, 'model' => $model]); ?>
         </div>
     </div>
 
@@ -403,9 +403,9 @@ $form = $this->beginWidget(
                                 <tr>
                                     <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
-                                    <td><?= Yii::t("StoreModule.product", "Price type"); ?></td>
-                                    <td><?= Yii::t("StoreModule.product", "Price"); ?></td>
-                                    <td><?= Yii::t("StoreModule.product", "SKU"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "Price type"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "Price"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "SKU"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
                                     <td></td>
                                 </tr>
@@ -423,10 +423,10 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="linked">
-        <?php if ($model->isNewRecord): ?>
-            <?= Yii::t("StoreModule.product", "First you need to save the product."); ?>
+        <?php if ($model->getIsNewRecord()): ?>
+            <?= Yii::t("StoreModule.store", "First you need to save the product."); ?>
         <?php else: ?>
-            <?= $this->renderPartial('_link_form', ['product' => $model]) ?>
+            <?= $this->renderPartial('_link_form', ['product' => $model, 'searchModel' => $searchModel]);?>
         <?php endif; ?>
     </div>
 </div>
@@ -438,8 +438,8 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and continue') : Yii::t(
-            'StoreModule.product',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and continue') : Yii::t(
+            'StoreModule.store',
             'Save product and continue'
         ),
     ]
@@ -450,8 +450,8 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.product', 'Add product and close') : Yii::t(
-            'StoreModule.product',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add product and close') : Yii::t(
+            'StoreModule.store',
             'Save product and close'
         ),
     ]
@@ -504,7 +504,8 @@ $form = $this->beginWidget(
             e.preventDefault();
             $(this).closest('tr').remove();
         });
-        $('#product-type').change(function () {
+
+        $('#product-type').on('change',function () {
             var typeId = $(this).val();
             if (typeId) {
                 $('#attributes-panel').load('<?= Yii::app()->createUrl('/store/productBackend/typeAttributesForm');?>/' + typeId);
@@ -516,7 +517,7 @@ $form = $this->beginWidget(
             }
         });
 
-        $('#button-add-image').click(function () {
+        $('#button-add-image').on('click',function () {
             var newImage = $("#product-images .image-template").clone().removeClass('image-template').removeClass('hidden');
             newImage.appendTo("#product-images");
             newImage.find(".image-file").attr('name', 'ProductImage[][name]');
@@ -530,7 +531,7 @@ $form = $this->beginWidget(
             $(this).closest('.row').remove();
         });
 
-        $('.product-delete-image').click(function (event) {
+        $('.product-delete-image').on('click', function (event) {
             event.preventDefault();
             var deleteUrl = $(this).attr('href');
             var blockForDelete = $(this).closest('.product-image');

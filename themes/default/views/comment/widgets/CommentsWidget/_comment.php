@@ -3,22 +3,22 @@
 $level = $comment->getLevel()
 ?>
 
-<div class="comments-item <?php echo $level > 0 ? 'comments-item-child' : '' ?>"
-     data-level="<?php echo $level; ?>"
-     data-pid="<?php echo $comment->parent_id; ?>"
-     data-id="<?php echo $comment->id; ?>"
-     style="margin-left: <?php echo(30 * $level); ?>px;">
+<div class="comments-item <?= $level > 0 ? 'comments-item-child' : '' ?>"
+     data-level="<?= $level; ?>"
+     data-pid="<?= $comment->parent_id; ?>"
+     data-id="<?= $comment->id; ?>"
+     style="margin-left: <?=(30 * $level); ?>px;">
 
     <div class="comments-item-main">
         <div class="comments-item-avatar">
-            <a href="<?php echo $comment->getAuthorUrl() ?>"><?php echo $comment->getAuthorAvatar(); ?></a>
+            <a href="<?= $comment->getAuthorUrl() ?>"><?= $comment->getAuthorAvatar(); ?></a>
         </div>
         <div class="comments-item-top">
             <div class="comments-item-author">
-                <?php echo $comment->getAuthorLink(); ?>
+                <?= $comment->getAuthorLink(); ?>
                 <span class='comments-item-date'>
-                    <time datetime="<?php echo str_replace(' ', '_', $comment->create_time); ?>">
-                        <?php echo Yii::app()->getDateFormatter()->formatDateTime(
+                    <time datetime="<?= str_replace(' ', '_', $comment->create_time); ?>">
+                        <?= Yii::app()->getDateFormatter()->formatDateTime(
                             $comment->create_time,
                             'long',
                             'short'
@@ -28,10 +28,10 @@ $level = $comment->getLevel()
             </div>
         </div>
         <div class="comments-item-message">
-            <?php echo trim($comment->getText()); ?>
+            <?= trim($comment->getText()); ?>
             <?php if ($this->showForm): ?>
                 <div>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     Yii::t('CommentModule.comment', 'reply'),
                     '#',
                     [

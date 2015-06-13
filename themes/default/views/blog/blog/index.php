@@ -24,13 +24,13 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12">
         <div class="input-group">
-            <?php echo $form->textField(
+            <?= $form->textField(
                 $blogs,
                 'name',
                 ['placeholder' => Yii::t('BlogModule.blog', 'Search by blog name'), 'class' => 'form-control']
             ); ?>
             <span class="input-group-btn">
-        <button class="btn btn-default" type="submit"><?php echo Yii::t('BlogModule.blog', 'search'); ?></button>
+        <button class="btn btn-default" type="submit"><?= Yii::t('BlogModule.blog', 'search'); ?></button>
       </span>
         </div>
     </div>
@@ -40,11 +40,11 @@ $form = $this->beginWidget(
 
 <h1>
     <small>
-        <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?> <a
-            href="<?php echo Yii::app()->createUrl('/blog/blogRss/feed/'); ?>"><img
-                src="<?php echo Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"; ?>"
-                alt="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"
-                title="<?php echo Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"></a>
+        <?= Yii::t('BlogModule.blog', 'Blogs'); ?> <a
+            href="<?= Yii::app()->createUrl('/blog/blogRss/feed/'); ?>"><img
+                src="<?= Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"; ?>"
+                alt="<?= Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"
+                title="<?= Yii::t('BlogModule.blog', 'Subscribe for updates') ?>"></a>
     </small>
 </h1>
 

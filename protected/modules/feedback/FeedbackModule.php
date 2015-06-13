@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class FeedbackModule extends WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $backEnd = ['DbFeedbackSender', 'EmailFeedbackSender'];
     public $emails;
@@ -48,7 +48,6 @@ class FeedbackModule extends WebModule
             'showCaptcha'      => Yii::t('FeedbackModule.feedback', 'Show captcha'),
             'emails'           => Yii::t('FeedbackModule.feedback', 'Message receivers (email, separated by comma)'),
             'notifyEmailFrom'  => Yii::t('FeedbackModule.feedback', 'Email message will be send from'),
-            'adminMenuOrder'   => Yii::t('FeedbackModule.feedback', 'Menu item order'),
             'sendConfirmation' => Yii::t('FeedbackModule.feedback', 'Send notification'),
             'successPage'      => Yii::t('FeedbackModule.feedback', 'Page after form was sent'),
             'cacheTime'        => Yii::t('FeedbackModule.feedback', 'Counter caching time (seconds)'),
@@ -65,7 +64,6 @@ class FeedbackModule extends WebModule
             'sendConfirmation' => $this->getChoice(),
             'notifyEmailFrom',
             'emails',
-            'adminMenuOrder',
             'successPage',
             'cacheTime',
             'mainCategory'     => CHtml::listData($this->getCategoryList(), 'id', 'name'),
@@ -83,7 +81,6 @@ class FeedbackModule extends WebModule
                     'sendConfirmation',
                     'notifyEmailFrom',
                     'emails',
-                    'adminMenuOrder',
                     'successPage',
                     'cacheTime',
                     'mainCategory'

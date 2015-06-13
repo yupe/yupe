@@ -55,9 +55,9 @@ class ProductLink extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'product_id' => Yii::t('StoreModule.product', 'Product'),
-            'linked_product_id' => Yii::t('StoreModule.product', 'Linked product'),
-            'type_id' => Yii::t('StoreModule.product', 'Link type'),
+            'product_id' => Yii::t('StoreModule.store', 'Product'),
+            'linked_product_id' => Yii::t('StoreModule.store', 'Linked product'),
+            'type_id' => Yii::t('StoreModule.store', 'Link type'),
         ];
     }
 

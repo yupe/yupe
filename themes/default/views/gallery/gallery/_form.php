@@ -20,22 +20,22 @@
     ); ?>
 
     <legend>
-        <?php echo $model->getIsNewRecord()
+        <?= $model->getIsNewRecord()
             ? Yii::t('GalleryModule.gallery', 'Image creation')
             : Yii::t('GalleryModule.gallery', 'Image edition'); ?>
     </legend>
 
-    <?php echo $form->errorSummary($model); ?>
+    <?= $form->errorSummary($model); ?>
 
     <?php if ($model->file !== null): ?>
         <div class="row">
-            <?php echo CHtml::image($model->getImageUrl(190, 190), $model->alt); ?>
+            <?= CHtml::image($model->getImageUrl(190, 190), $model->alt); ?>
         </div>
     <?php endif; ?>
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->fileFieldGroup(
+            <?= $form->fileFieldGroup(
                 $model,
                 'file',
                 [
@@ -49,13 +49,13 @@
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?= $form->textFieldGroup($model, 'name'); ?>
         </div>
     </div>
 
     <div class='row'>
         <div class="col-sm-12">
-            <?php echo $form->textAreaGroup(
+            <?= $form->textAreaGroup(
                 $model,
                 'description',
                 [
@@ -71,7 +71,7 @@
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'alt'); ?>
+            <?= $form->textFieldGroup($model, 'alt'); ?>
         </div>
     </div>
 

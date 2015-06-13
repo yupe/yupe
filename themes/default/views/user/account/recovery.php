@@ -15,11 +15,11 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Password recovery')];
     ]
 ); ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'email',
             ['hint' => Yii::t('UserModule.user', 'Enter an email you have used during signup')]

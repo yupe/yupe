@@ -6,13 +6,13 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
 
-$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
+$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
 
 ?>
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?= Yii::t("StoreModule.product", "Product catalog"); ?></h2>
+        <h2><?= Yii::t("StoreModule.store", "Product catalog"); ?></h2>
     </div>
 </div>
 
@@ -20,16 +20,19 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
     <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
 </div>
 <div class="row">
-    <div class="col-sm-3">
-        <h3>
-            <span><?= Yii::t("StoreModule.category", "Categories"); ?></span>
-        </h3>
-        <div class="category-tree">
-            <?php
-                $this->widget('application.modules.store.widgets.CategoryWidget');
-            ?>
+    <form id="store-filter" name="store-filter" method="get">
+        <div class="col-sm-3">
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
+            </div>
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+            </div>
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
+            </div>
         </div>
-    </div>
+    </form>
     <div class="col-sm-9">
         <section>
             <div class="grid">
@@ -53,7 +56,8 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
                         'sortableAttributes' => [
                             'sku',
                             'name',
-                            'price'
+                            'price',
+                            'update_time'
                         ],
                     ]
                 ); ?>

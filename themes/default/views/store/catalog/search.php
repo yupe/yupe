@@ -15,7 +15,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
     <div class="col-xs-12">
         <h2>
             <?php if($category):?>
-                <?= Yii::t('StoreModule.catalog', 'Search in category "{category}"', ['{category}' => $category->name]); ?>
+                <?= Yii::t('StoreModule.store', 'Search in category "{category}"', ['{category}' => $category->name]); ?>
             <?php else:?>
                 <?= Yii::t("StoreModule.store", "Search"); ?>
             <?php endif;?>
@@ -27,21 +27,26 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
     <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['query' => $searchForm->q, 'category' => $searchForm->category]); ?>
 </div>
 <div class="row">
-    <div class="col-sm-3">
-        <h3>
-            <span><?= Yii::t("StoreModule.category", "Categories"); ?></span>
-        </h3>
-        <div class="category-tree">
-            <?php
-            $this->widget('application.modules.store.widgets.CategoryWidget');
-            ?>
+    <form id="store-filter" name="store-filter">
+        <div class="col-sm-3">
+            <?php if(null === $category):?>
+                <div>
+                    <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
+                </div>
+            <?php endif;?>
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+            </div>
+            <div>
+                <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
+            </div>
         </div>
-    </div>
+    </form>
     <div class="col-sm-9">
         <section>
             <div class="grid">
                 <?php $this->widget(
-                    'zii.widgets.CListView',
+                    'bootstrap.widgets.TbListView',
                     [
                         'dataProvider' => $dataProvider,
                         'itemView' => '_view',
@@ -60,7 +65,8 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
                         'sortableAttributes' => [
                             'sku',
                             'name',
-                            'price'
+                            'price',
+                            'update_time'
                         ],
                     ]
                 ); ?>

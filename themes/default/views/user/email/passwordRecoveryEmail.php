@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        <?php echo Yii::t(
+        <?= Yii::t(
             'UserModule.user',
             'Reset password for site "{site}"',
             [
@@ -14,7 +14,7 @@
 </head>
 <body>
 <p>
-    <?php echo Yii::t(
+    <?= Yii::t(
         'UserModule.user',
         'Reset password for site "{site}"',
         [
@@ -24,7 +24,7 @@
 </p>
 
 <p>
-    <?php echo Yii::t(
+    <?= Yii::t(
         'UserModule.user',
         'Somewho, maybe you request password recovery for "{site}"',
         [
@@ -34,14 +34,14 @@
 </p>
 
 <p>
-    <?php echo Yii::t(
+    <?= Yii::t(
         'UserModule.user',
         'Just remove this letter if it addressed not for you.'
     ); ?>
 </p>
 
 <p>
-    <?php echo Yii::t(
+    <?= Yii::t(
         'UserModule.user',
         'For password recovery, please follow this :link',
         [
@@ -58,11 +58,11 @@
     ); ?>
 </p>
 
-<p><?php echo $link; ?></p>
+<p><?= $link; ?></p>
 
 <hr/>
 
-<?php echo Yii::t(
+<?= Yii::t(
     'UserModule.user',
     'Best regards, "{site}" administration!',
     [

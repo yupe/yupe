@@ -9,12 +9,12 @@ $this->beginWidget(
 <ul class="list-unstyled">
     <?php foreach ($models as $model): ?>
         <li>
-            <?php echo CHtml::link(
+            <?= CHtml::link(
                 CHtml::encode($model->title),
                 $model->getUrl()
             ); ?>
             <nobr>
-                <i class="glyphicon glyphicon-comment"></i> <?php echo $model->getCommentCount(); ?>
+                <i class="glyphicon glyphicon-comment"></i> <?= $model->getCommentCount(); ?>
             </nobr>
             <hr/>
         </li>

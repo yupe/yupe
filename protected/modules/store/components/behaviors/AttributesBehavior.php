@@ -11,7 +11,7 @@
  *
  * @version 0.5
  */
-class EEavBehavior extends CActiveRecordBehavior
+class AttributesBehavior extends CActiveRecordBehavior
 {
     /**
      * @access public
@@ -119,7 +119,7 @@ class EEavBehavior extends CActiveRecordBehavior
 
     /**
      * Set owner model FK name.
-     * @param string owner model FK name.
+     * @param string $modelTableFk owner model FK name.
      * @return void
      */
     public function setModelTableFk($modelTableFk)
@@ -171,7 +171,7 @@ class EEavBehavior extends CActiveRecordBehavior
 
     /**
      * Set safe attributes array.
-     * @param array safe attributes.
+     * @param array $safeAttributes safe attributes.
      * @return void
      */
     public function setSafeAttributes($safeAttributes)
@@ -202,9 +202,6 @@ class EEavBehavior extends CActiveRecordBehavior
         return true;
     }
 
-    /**
-     * @return void
-     */
     public function __construct()
     {
         // Prepare attributes collection.
@@ -222,31 +219,10 @@ class EEavBehavior extends CActiveRecordBehavior
      * @return void
      */
     public function attach($owner)
-    {
-        // Check required property tableName.
-        if (!is_string($this->tableName) || empty($this->tableName)) {
-            throw new CException(
-                self::t(
-                    'yii',
-                    'Property "{class}.{property}" is not defined.',
-                    ['{class}' => get_class($this), '{property}' => 'tableName']
-                )
-            );
-        }
-        // Prepare translate component for behavior messages.
-        if (!Yii::app()->hasComponent(__CLASS__ . 'Messages')) {
-            Yii::app()->setComponents(
-                [
-                    __CLASS__ . 'Messages' => [
-                        'class' => 'CPhpMessageSource',
-                        'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'messages',
-                    ]
-                ]
-            );
-        }
-        // Prepare cache component.
+    {   // Prepare cache component.
         $this->cache = Yii::app()->getComponent($this->cacheId);
-        if (!($this->cache instanceof ICache)) {
+
+        if (empty($this->cache)) {
             // If not set cache component, use dummy cache.
             $this->cache = new CDummyCache;
         }
@@ -340,6 +316,7 @@ class EEavBehavior extends CActiveRecordBehavior
     {
         // If exists cache, return it.
         $data = $this->cache->get($this->getCacheKey());
+
         if ($data !== false) {
             $this->attributes->mergeWith($data, false);
             return $this->getOwner();
@@ -425,6 +402,8 @@ class EEavBehavior extends CActiveRecordBehavior
         if (empty($attributes)) {
             $attributes = $this->getSafeAttributesArray();
         }
+
+
         // Values array.
         $values = [];
         // Queue for load.
@@ -432,6 +411,7 @@ class EEavBehavior extends CActiveRecordBehavior
         foreach ($attributes as $attribute) {
             // Check is safe.
             if ($this->hasSafeAttribute($attribute)) {
+
                 $values[$attribute] = $this->attributes->itemAt($attribute);
                 // If attribute not set and not load, prepare array for loaded.
                 if (!$this->preload && $values[$attribute] === null) {
@@ -458,7 +438,7 @@ class EEavBehavior extends CActiveRecordBehavior
      */
     public function getEavAttribute($attribute)
     {
-        $values = $this->getEavAttributes([$attribute]);
+        $this->getEavAttributes([$attribute]);
         return $this->attributes->itemAt($attribute);
     }
 
@@ -586,6 +566,44 @@ class EEavBehavior extends CActiveRecordBehavior
         }
         $criteria->distinct = true;
         $criteria->group .= "t.{$pk}";
+        return $criteria;
+    }
+
+    /**
+     * Атрибуты для фильтрации в виде ['color' => [1,2], 'new', ['>=', 'weight', 10]] - параметр color должен быть 1 или 2, значение new должно быть привязано к записи, weight >= 10
+     * @param $attributes array
+     * @return CDbCriteria
+     * @throws CException
+     */
+    public function getFilterByEavAttributesCriteria($attributes)
+    {
+        $criteria = new CDbCriteria();
+        $pk = $this->getModelTableFk();
+        $conn = $this->getOwner()->getDbConnection();
+
+        $i = 0;
+        foreach ($attributes as $attribute => $values) {
+            $criteria->join .= "\nJOIN {$this->tableName} eavb$i" . " ON t.{$pk} = eavb$i.{$this->entityField}";
+            if (is_string($attribute)) {
+                $criteria->addColumnCondition(["eavb$i.{$this->attributeField}" => $attribute]);
+                $criteria->addInCondition("eavb$i.{$this->valueField}", (array)$values);
+            } elseif (is_int($attribute)) {
+                if (is_array($values)) {
+                    if (isset($values[0], $values[1], $values[2])) {
+                        list($operator, $attribute, $value) = $values;
+                        $value = $conn->quoteValue($value);
+                        $criteria->addColumnCondition(["eavb$i.{$this->attributeField}" => $attribute]);
+                        $criteria->addCondition("eavb$i.{$this->valueField} $operator $value");
+                    }
+                } else {
+                    $criteria->addColumnCondition(["eavb$i.{$this->attributeField}" => $values]);
+                }
+            }
+            $i++;
+        }
+        $criteria->distinct = true;
+        $criteria->group .= "t.{$pk}";
+
         return $criteria;
     }
 }

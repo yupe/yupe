@@ -15,7 +15,7 @@ $this->breadcrumbs = [
 ];
 ?>
 
-<h1><?php echo Yii::t(
+<h1><?= Yii::t(
         'BlogModule.blog',
         'Members of "{blog}" blog',
         ['{blog}' => CHtml::encode($blog->name)]

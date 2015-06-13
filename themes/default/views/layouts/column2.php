@@ -2,7 +2,7 @@
 <div class="container">
     <div class="span-19">
         <div id="content">
-            <?php echo $content; ?>
+            <?= $content; ?>
         </div>
         <!-- content -->
     </div>

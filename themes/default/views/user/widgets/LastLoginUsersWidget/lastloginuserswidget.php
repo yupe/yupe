@@ -1,7 +1,7 @@
 <div class="yupe-widget-header">
     <i class="glyphicon glyphicon-user"></i>
 
-    <h3><?php echo Yii::t('UserModule.user', 'Users'); ?></h3>
+    <h3><?= Yii::t('UserModule.user', 'Users'); ?></h3>
 </div>
 
 <div class="yupe-widget-content" id="users-widget">
@@ -10,7 +10,7 @@
         $i = 0; ?>
         <?php foreach ($models as $model): { ?>
             <li>
-                <?php echo CHtml::image(
+                <?= CHtml::image(
                     $model->getAvatar($this->avatarSize),
                     $model->nick_name,
                     [
@@ -18,7 +18,7 @@
                         'height' => $this->avatarSize,
                     ]
                 );?>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     $model->getFullName(),
                     ['/user/people/userInfo/', 'username' => $model->nick_name]
                 ); ?>

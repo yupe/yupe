@@ -208,7 +208,7 @@ class Page extends yupe\models\YModel
         }
 
         if (!$this->lang) {
-            $this->lang = Yii::app()->language;
+            $this->lang = Yii::app()->getLanguage();
         }
 
         return parent::beforeValidate();
@@ -216,9 +216,9 @@ class Page extends yupe\models\YModel
 
     public function beforeSave()
     {
-        $this->change_user_id = Yii::app()->user->getId();
+        $this->change_user_id = Yii::app()->getUser()->getId();
 
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->user_id = $this->change_user_id;
         }
 
@@ -353,24 +353,24 @@ class Page extends yupe\models\YModel
 
     public function isProtected()
     {
-        return $this->is_protected == self::PROTECTED_YES;
+        return (int)$this->is_protected === self::PROTECTED_YES;
     }
 
     /**
      * Возвращает отформатированный список в соответствии со вложенность страниц.
      *
-     * @param null|int $parent_id
+     * @param null|int $parentId
      * @param int $level
      * @param null|array|CDbCriteria $criteria
      * @return array
      */
-    public function getFormattedList($parent_id = null, $level = 0, $criteria = null)
+    public function getFormattedList($parentId = null, $level = 0, $criteria = null)
     {
-        if (empty($parent_id)) {
-            $parent_id = null;
+        if (empty($parentId)) {
+            $parentId = null;
         }
 
-        $models = $this->findAllByAttributes(['parent_id' => $parent_id], $criteria);
+        $models = $this->findAllByAttributes(['parent_id' => $parentId], $criteria);
 
         $list = [];
 

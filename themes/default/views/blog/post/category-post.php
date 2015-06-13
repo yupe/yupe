@@ -16,7 +16,7 @@ $this->breadcrumbs = [
 ];
 ?>
 
-<p><?php echo Yii::t(
+<p><?= Yii::t(
         'BlogModule.blog',
         'Posts of "{category}" category',
         ['{category}' => CHtml::encode($target->name)]

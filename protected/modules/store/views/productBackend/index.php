@@ -7,15 +7,15 @@
 $this->layout = 'product';
 
 $this->breadcrumbs = [
-    Yii::t('StoreModule.product', 'Products') => ['/store/productBackend/index'],
+    Yii::t('StoreModule.store', 'Products') => ['/store/productBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
+$this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.product', 'Products'); ?>
+        <?php echo Yii::t('StoreModule.store', 'Products'); ?>
         <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
@@ -69,6 +69,12 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
                     ]
                 ],
                 'filter' => CHtml::activeTextField($model, 'sku', ['class' => 'form-control']),
+            ],
+            [
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'type_id',
+                'url' => $this->createUrl('/store/productBackend/inline'),
+                'source' => Type::model()->getFormattedList()
             ],
             [
                 'name'  => 'category_id',
@@ -149,6 +155,13 @@ $this->pageTitle = Yii::t('StoreModule.product', 'Products - manage');
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                                return $data->status == Product::STATUS_ACTIVE;
+                            }
+                    ]
+                ]
             ],
         ],
     ]

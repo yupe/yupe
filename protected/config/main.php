@@ -45,11 +45,8 @@ return [
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src')
     ],
     'import' => [
-        // подключение основых путей
-        'application.modules.yupe.models.*',
-        'application.modules.yupe.widgets.*',
-        'application.modules.yupe.controllers.*',
-        'application.modules.yupe.extensions.tagcache.*'
+        'application.modules.yupe.extensions.tagcache.*',
+        'vendor.yiiext.migrate-command.EDbMigration'
     ],
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
@@ -89,20 +86,17 @@ return [
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
         'db' => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : [],
+        'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
+        'eventManager' => ['class' => 'yupe\components\EventManager'],
+        'configManager' => ['class' => 'yupe\components\ConfigManager'],
+        // Работа с миграциями, обновление БД модулей
+        'migrator' => ['class' => 'yupe\components\Migrator'],
+        'uploadManager' => ['class' => 'yupe\components\UploadManager'],
         'bootstrap' => [
             'class' => 'bootstrap.components.Booster',
             'responsiveCss' => true,
             'fontAwesomeCss' => true
         ],
-        'eventManager' => ['class' => 'yupe\components\EventManager'],
-        'configManager' => ['class' => 'yupe\components\ConfigManager'],
-        'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
-        // Работа с миграциями, обновление БД модулей
-        'migrator' => ['class' => 'yupe\components\Migrator'],
-        // DAO simple wrapper:
-        'dao' => ['class' => 'yupe\components\DAO'],
-        'thumbnailer' => ['class' => 'yupe\components\image\Thumbnailer'],
-        'uploadManager' => ['class' => 'yupe\components\UploadManager'],
         'themeManager' => [
             'class' => 'CThemeManager',
             'basePath' => dirname(__DIR__) . '/../themes',
@@ -149,8 +143,6 @@ return [
             // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ],
         'session' => ['cookieParams' => ['httponly' => true]],
-        // подключение компонента для генерации ajax-ответов
-        'ajax' => ['class' => 'yupe\components\AsyncResponse'],
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
         'log' => [
             'class' => 'CLogRouter',

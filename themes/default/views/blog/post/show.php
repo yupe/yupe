@@ -25,19 +25,19 @@ $this->breadcrumbs = [
 <div class="post">
     <div class="row">
         <div class="col-sm-12">
-            <h4><strong><?php echo CHtml::encode($post->title); ?></strong></h4>
+            <h4><strong><?= CHtml::encode($post->title); ?></strong></h4>
 
             <div class="posts-list-block-meta">
                 <span>
                     <i class="glyphicon glyphicon-pencil"></i>
-                    <?php echo CHtml::link(
+                    <?= CHtml::link(
                         CHtml::encode($post->blog->name),
                         $post->blog->getUrl()
                     ); ?>
                 </span>
                 <span>
                     <i class="glyphicon glyphicon-calendar"></i>
-                    <?php echo Yii::app()->getDateFormatter()->formatDateTime(
+                    <?= Yii::app()->getDateFormatter()->formatDateTime(
                         $post->publish_time,
                         "long",
                         "short"
@@ -50,17 +50,17 @@ $this->breadcrumbs = [
         <div class="col-sm-12" id="post">
             <p>
                 <?php if ($post->image): ?>
-                    <?php echo CHtml::image($post->getImageUrl()); ?>
+                    <?= CHtml::image($post->getImageUrl()); ?>
                 <?php endif; ?>
 
-                <?php echo $post->content; ?>
+                <?= $post->content; ?>
             </p>
         </div>
     </div>
 
     <?php if ($post->link): ?>
         <div>
-            <i class='glyphicon glyphicon-globe'></i> <?php echo CHtml::link(
+            <i class='glyphicon glyphicon-globe'></i> <?= CHtml::link(
                 $post->link,
                 $post->link,
                 ['target' => '_blank', 'rel' => 'nofollow']
@@ -79,7 +79,7 @@ $this->breadcrumbs = [
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-2">
-                    <?php echo CHtml::link(
+                    <?= CHtml::link(
                         $this->widget(
                             'application.modules.user.widgets.AvatarWidget',
                             ['user' => $post->createUser, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]],

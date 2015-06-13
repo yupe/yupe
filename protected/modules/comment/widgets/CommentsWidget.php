@@ -18,7 +18,6 @@ class CommentsWidget extends yupe\widgets\YWidget
      */
     public $model;
     public $redirectTo;
-    public $title;
     public $status;
     public $showComments = true;
     public $showForm = true;
@@ -46,10 +45,6 @@ class CommentsWidget extends yupe\widgets\YWidget
                     'Nothing to show. Please, set "showForm" or "showComments" property to true.'
                 )
             );
-        }
-
-        if (null === $this->title) {
-            $this->title = Yii::t('CommentModule.comment', 'Comments');
         }
 
         if (null === $this->status) {

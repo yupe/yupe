@@ -19,7 +19,7 @@ $this->breadcrumbs = [Yii::t('GalleryModule.gallery', 'Image galleries')];
 <div class="gallery-list">
 
     <h1 class="page-header">
-        <?php echo Yii::t('GalleryModule.gallery', 'Image galleries'); ?>
+        <?= Yii::t('GalleryModule.gallery', 'Image galleries'); ?>
     </h1>
 
     <?php

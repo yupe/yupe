@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'RSS settings' => 'Настройки RSS',
+    'Models available for rss export (for example: Post, Blog etc.)' => 'Модели доступные для экспорта в RSS (например: Post, Blog и тд.)',
     '--choose--' => '--выберите--',
     '0.5' => '0.5',
     'Accepted tags' => 'Разрешенные теги',

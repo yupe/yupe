@@ -132,7 +132,7 @@ return [
     'Multibyte strings' => 'Многобайтные строки',
     'Module for system installation' => 'Модуль для установки системы',
     'Multilanguage module' => 'Модуль мультиязычный',
-    'System module. (Can\'t disable)' => 'Модуль не отключаемый',
+    'System module. (Can\'t disable)' => 'Модуль неотключаемый',
     'We working with it' => 'Мы активно ее пишем =)',
     'We always happy to see you on our site {link}. We also have {twitter} and {forum}!' => 'Мы всегда рады видеть Вас на нашем сайте {link}, а еще у нас есть {twitter} и {forum} !',
     'On this step Yupe trying to install modules you checked. This process can take several minutes...' => 'На данном этапе Юпи! постарается установить выбранные вами модули. Установка может занять некоторое время...',

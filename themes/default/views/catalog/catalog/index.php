@@ -3,7 +3,7 @@ $this->title = [Yii::t('CatalogModule.catalog', 'Products'), Yii::app()->getModu
 $this->breadcrumbs = [Yii::t('CatalogModule.catalog', 'Products')];
 ?>
 
-<h1><?php echo Yii::t('CatalogModule.catalog', 'Products'); ?></h1>
+<h1><?= Yii::t('CatalogModule.catalog', 'Products'); ?></h1>
 
 <?php $this->widget(
     'bootstrap.widgets.TbListView',

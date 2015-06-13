@@ -483,7 +483,6 @@ class Comment extends yupe\models\YModel
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            die();
         }
 
         return $count;

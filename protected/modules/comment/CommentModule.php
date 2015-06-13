@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $defaultCommentStatus;
     public $autoApprove = true;
@@ -31,6 +31,8 @@ class CommentModule extends WebModule
     public $stripTags = 1;
     public $assetsPath = "application.modules.comment.views.assets";
 
+    public $modelsAvailableForRss;
+
     /**
      * параметры для загрузки изображений
      */
@@ -39,8 +41,8 @@ class CommentModule extends WebModule
     public $maxSize = 5368709120;
 
     /**
-    * @var string - id редактора
-    */
+     * @var string - id редактора
+     */
     public $editor = 'textarea';
 
     public function getDependencies()
@@ -51,57 +53,68 @@ class CommentModule extends WebModule
         ];
     }
 
+    public function getModelsAvailableForRss()
+    {
+        return empty($this->modelsAvailableForRss) ? [] : explode(',', $this->modelsAvailableForRss);
+    }
+
+
     public function getParamsLabels()
     {
         return [
             'defaultCommentStatus' => Yii::t('CommentModule.comment', 'Default comments status'),
-            'autoApprove'          => Yii::t('CommentModule.comment', 'Automatic comment confirmation'),
-            'notify'               => Yii::t('CommentModule.comment', 'Notify about comment?'),
-            'email'                => Yii::t('CommentModule.comment', 'Email for notifications'),
-            'adminMenuOrder'       => Yii::t('CommentModule.comment', 'Menu items order'),
-            'showCaptcha'          => Yii::t('CommentModule.comment', 'Show captcha for guests'),
-            'minCaptchaLength'     => Yii::t('CommentModule.comment', 'Minimum captcha length'),
-            'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Maximum captcha length'),
-            'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
-            'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
-            'antiSpamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval'),
-            'allowGuestComment'    => Yii::t('CommentModule.comment', 'Guest can comment ?'),
-            'editor'               => Yii::t('YupeModule.yupe', 'Visual editor'),
-            'stripTags'            => Yii::t('CommentModule.comment', 'Remove tags in the derivation comment using strip_tags() ?'),
+            'autoApprove' => Yii::t('CommentModule.comment', 'Automatic comment confirmation'),
+            'notify' => Yii::t('CommentModule.comment', 'Notify about comment?'),
+            'email' => Yii::t('CommentModule.comment', 'Email for notifications'),
+            'showCaptcha' => Yii::t('CommentModule.comment', 'Show captcha for guests'),
+            'minCaptchaLength' => Yii::t('CommentModule.comment', 'Minimum captcha length'),
+            'maxCaptchaLength' => Yii::t('CommentModule.comment', 'Maximum captcha length'),
+            'rssCount' => Yii::t('CommentModule.comment', 'RSS records count'),
+            'allowedTags' => Yii::t('CommentModule.comment', 'Accepted tags'),
+            'antiSpamInterval' => Yii::t('CommentModule.comment', 'Antispam interval'),
+            'allowGuestComment' => Yii::t('CommentModule.comment', 'Guest can comment ?'),
+            'editor' => Yii::t('YupeModule.yupe', 'Visual editor'),
+            'stripTags' => Yii::t(
+                    'CommentModule.comment',
+                    'Remove tags in the derivation comment using strip_tags() ?'
+                ),
+            'modelsAvailableForRss' => Yii::t(
+                    'CommentModule.comment',
+                    'Models available for rss export (for example: Post, Blog etc.)'
+                )
         ];
     }
 
     public function getEditableParams()
     {
         return [
-            'allowGuestComment'    => $this->getChoice(),
+            'allowGuestComment' => $this->getChoice(),
             'defaultCommentStatus' => Comment::model()->getStatusList(),
-            'autoApprove'          => $this->getChoice(),
-            'notify'               => $this->getChoice(),
+            'autoApprove' => $this->getChoice(),
+            'notify' => $this->getChoice(),
             'email',
-            'adminMenuOrder',
-            'showCaptcha'          => $this->getChoice(),
+            'showCaptcha' => $this->getChoice(),
             'minCaptchaLength',
             'maxCaptchaLength',
             'rssCount',
             'allowedTags',
             'antiSpamInterval',
             'stripTags' => $this->getChoice(),
-            'editor' => $this->editors,
+            'editor' => $this->getEditors(),
+            'modelsAvailableForRss'
         ];
     }
 
     public function getEditableParamsGroups()
     {
         return [
-            'main'    => [
+            'main' => [
                 'label' => Yii::t('CommentModule.comment', 'Module general settings'),
                 'items' => [
                     'defaultCommentStatus',
                     'autoApprove',
                     'notify',
-                    'email',
-                    'adminMenuOrder',
+                    'email'
                 ]
             ],
             'captcha' => [
@@ -116,6 +129,13 @@ class CommentModule extends WebModule
                 'label' => Yii::t('YupeModule.yupe', 'Visual editors settings'),
                 'items' => [
                     'editor',
+                ]
+            ],
+            'rss' => [
+                'label' => Yii::t('CommentModule.comment', 'RSS settings'),
+                'items' => [
+                    'modelsAvailableForRss',
+                    'rssCount'
                 ]
             ],
         ];
@@ -139,21 +159,21 @@ class CommentModule extends WebModule
 
         if ($count) {
             $messages[WebModule::CHECK_NOTICE][] = [
-                'type'    => WebModule::CHECK_NOTICE,
+                'type' => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
-                    'CommentModule.comment',
-                    'You have {{count}} new comments. {{link}}',
-                    [
-                        '{{count}}' => $count,
-                        '{{link}}'  => CHtml::link(
-                            Yii::t('CommentModule.comment', 'Comments moderation'),
-                            [
-                                '/comment/commentBackend/index',
-                                'Comment[status]' => Comment::STATUS_NEED_CHECK,
-                            ]
-                        ),
-                    ]
-                ),
+                        'CommentModule.comment',
+                        'You have {{count}} new comments. {{link}}',
+                        [
+                            '{{count}}' => $count,
+                            '{{link}}' => CHtml::link(
+                                    Yii::t('CommentModule.comment', 'Comments moderation'),
+                                    [
+                                        '/comment/commentBackend/index',
+                                        'Comment[status]' => Comment::STATUS_NEED_CHECK,
+                                    ]
+                                ),
+                        ]
+                    ),
             ];
         }
 
@@ -194,14 +214,14 @@ class CommentModule extends WebModule
     {
         return [
             [
-                'icon'  => 'fa fa-fw fa-list-alt',
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('CommentModule.comment', 'Comments list'),
-                'url'   => ['/comment/commentBackend/index']
+                'url' => ['/comment/commentBackend/index']
             ],
             [
-                'icon'  => 'fa fa-fw fa-plus-square',
+                'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('CommentModule.comment', 'Create comment'),
-                'url'   => ['/comment/commentBackend/create']
+                'url' => ['/comment/commentBackend/create']
             ],
         ];
     }
@@ -234,33 +254,33 @@ class CommentModule extends WebModule
     {
         return [
             [
-                'name'        => 'Comment.CommentManager',
+                'name' => 'Comment.CommentManager',
                 'description' => Yii::t('CommentModule.comment', 'Manage comments'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => [
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.Create',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Create',
                         'description' => Yii::t('CommentModule.comment', 'Creating comment')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.Delete',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Delete',
                         'description' => Yii::t('CommentModule.comment', 'Removing comment')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.Index',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Index',
                         'description' => Yii::t('CommentModule.comment', 'List of comments')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.Update',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.Update',
                         'description' => Yii::t('CommentModule.comment', 'Editing comment')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Comment.CommentBackend.View',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Comment.CommentBackend.View',
                         'description' => Yii::t('CommentModule.comment', 'Viewing comments')
                     ],
                 ]

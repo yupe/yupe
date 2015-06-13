@@ -52,14 +52,6 @@ $this->beginContent("docs.views.layouts.docs");
                 ]
             ); ?>
         </div>
-        <div class="panel panel-default" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
-        <div class="alert alert-warning">
-            <strong><?php echo Yii::app()->name; ?></strong> разрабатывается <a
-                href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной
-            поддержке <?php echo CHtml::link('amyLabs', 'http://amylabs.ru', ['target' => '_blank']); ?>!
-            <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
-            проблем!
-        </div>
         <div>
             <?php $this->widget(
                 'yupe\widgets\RandomDataWidget',
@@ -76,43 +68,27 @@ $this->beginContent("docs.views.layouts.docs");
                         ),
                         CHtml::link(
                             CHtml::image(
-                                $mainAssets . '/images/yupe-shop.png',
+                                $mainAssets . '/images/yupe-business.jpg',
                                 'Разработка и запуск интернет магазина на Yii и "Юпи!"',
                                 ['style' => 'width: 100%']
                             ),
-                            'http://yupe-project.ru/ecommerce?from=yupe-rb',
-                            ['title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"', 'target' => '_blank']
-                        ),
-                        CHtml::link(
-                            CHtml::image(
-                                $mainAssets . '/images/marketplace.png',
-                                'Каталог модулей и расширений на Yii для "Юпи!"',
-                                ['style' => 'width: 100%']
-                            ),
-                            'http://yupe.ru/marketplace?from=mb1',
-                            ['title' => 'Каталог модулей и расширений на Yii для "Юпи!"', 'target' => '_blank']
-                        ),
-                        CHtml::link(
-                            CHtml::image(
-                                $mainAssets . '/images/marketplace2.png',
-                                'Каталог модулей и расширений на Yii для "Юпи!"',
-                                ['style' => 'width: 100%']
-                            ),
-                            'http://yupe.ru/marketplace?from=mb2',
-                            ['title' => 'Каталог модулей и расширений на Yii для "Юпи!"', 'target' => '_blank']
-                        ),
-                        CHtml::link(
-                            CHtml::image(
-                                $mainAssets . '/images/marketool.png',
-                                'СИСТЕМА АВТОМАТИЧЕСКОГО УПРАВЛЕНИЯ СТАВКАМИ В ЯНДЕКС.МАРКЕТ',
-                                ['style' => 'width: 100%']
-                            ),
-                            'http://marketool.ru?from=yupe-banner',
-                            ['title' => 'СИСТЕМА АВТОМАТИЧЕСКОГО УПРАВЛЕНИЯ СТАВКАМИ В ЯНДЕКС.МАРКЕТ', 'target' => '_blank']
-                        ),
+                            'http://yupe-project.ru/ecommerce?from=yupe-business',
+                            [
+                                'title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"',
+                                'target' => '_blank'
+                            ]
+                        )
                     ]
                 ]
             ); ?>
+        </div>
+        <div class="panel panel-default" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
+        <div class="alert alert-warning">
+            <strong><?php echo Yii::app()->name; ?></strong> разрабатывается <a
+                href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной
+            поддержке <?php echo CHtml::link('amyLabs', 'http://amylabs.ru', ['target' => '_blank']); ?>!
+            <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
+            проблем!
         </div>
     </div>
 </div>

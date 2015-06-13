@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class NewsModule extends WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $uploadPath = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -75,7 +75,6 @@ class NewsModule extends WebModule
     {
         return [
             'mainCategory'      => Yii::t('NewsModule.news', 'Main news category'),
-            'adminMenuOrder'    => Yii::t('NewsModule.news', 'Menu items order'),
             'editor'            => Yii::t('NewsModule.news', 'Visual Editor'),
             'uploadPath'        => Yii::t(
                     'NewsModule.news',
@@ -97,7 +96,6 @@ class NewsModule extends WebModule
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'uploadPath',
@@ -115,7 +113,6 @@ class NewsModule extends WebModule
             'main'   => [
                 'label' => Yii::t('NewsModule.news', 'General module settings'),
                 'items' => [
-                    'adminMenuOrder',
                     'editor',
                     'mainCategory'
                 ]

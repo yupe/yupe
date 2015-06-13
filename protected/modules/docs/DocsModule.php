@@ -12,7 +12,7 @@
  */
 class DocsModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $categorySort = 9999;
     public $docFolder = 'application.modules.docs.guide';

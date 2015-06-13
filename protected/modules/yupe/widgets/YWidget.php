@@ -85,4 +85,14 @@ abstract class YWidget extends CWidget
 
         return parent::getViewPath($checkTheme);
     }
+
+    public function init()
+    {
+        if(!$this->cacheTime && $this->cacheTime !== 0) {
+            $this->cacheTime = (int)Yii::app()->getModule('yupe')->coreCacheTime;
+        }
+
+        parent::init();
+    }
+
 }

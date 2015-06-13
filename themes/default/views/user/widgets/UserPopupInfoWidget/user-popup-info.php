@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerScript(
 ?>
 
 <span class="user-popup-info-widget">
-	<?php echo CHtml::link(
+	<?= CHtml::link(
         $model->nick_name,
         [
             '/user/people/userInfo/',

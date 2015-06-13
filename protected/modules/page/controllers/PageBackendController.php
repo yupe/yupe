@@ -31,8 +31,8 @@ class PageBackendController extends yupe\components\controllers\BackController
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Page',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Page',
                 'validAttributes' => ['title', 'slug', 'status', 'title_short']
             ]
         ];
@@ -94,7 +94,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                         }
                     }
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('PageModule.page', 'Page was created')
                     );
@@ -123,7 +123,7 @@ class PageBackendController extends yupe\components\controllers\BackController
         if (!empty($id) && !empty($lang)) {
             $page = Page::model()->findByPk($id);
             if (null === $page) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('PageModule.page', 'Targeting page was not found!')
                 );
@@ -132,7 +132,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             }
 
             if (!array_key_exists($lang, $languages)) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('PageModule.page', 'Language was not found!')
                 );
@@ -140,7 +140,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                 $this->redirect(['index']);
             }
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'PageModule.page',
@@ -160,16 +160,16 @@ class PageBackendController extends yupe\components\controllers\BackController
             $model->order = $page->order;
             $model->layout = $page->layout;
         } else {
-            $model->lang = Yii::app()->language;
+            $model->lang = Yii::app()->getLanguage();
         }
 
         $this->render(
             'create',
             [
-                'model'        => $model,
-                'pages'        => Page::model()->getFormattedList(),
-                'languages'    => $languages,
-                'menuId'       => $menuId,
+                'model' => $model,
+                'pages' => Page::model()->getFormattedList(),
+                'languages' => $languages,
+                'menuId' => $menuId,
                 'menuParentId' => $menuParentId
             ]
         );
@@ -221,7 +221,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     }
                 }
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('PageModule.page', 'Page was updated!')
                 );
@@ -255,18 +255,22 @@ class PageBackendController extends yupe\components\controllers\BackController
             'slug = :slug AND id != :id',
             [
                 ':slug' => $model->slug,
-                ':id'   => $model->id
+                ':id' => $model->id
             ]
         );
 
         $this->render(
             'update',
             [
-                'langModels'   => CHtml::listData($langModels, 'lang', 'id'),
-                'model'        => $model,
-                'pages'        => Page::model()->getFormattedList(null, 0, ['condition' => 'id != :id', 'params' => [':id' => $model->id]]),
-                'languages'    => $this->yupe->getLanguagesList(),
-                'menuId'       => $menuId,
+                'langModels' => CHtml::listData($langModels, 'lang', 'id'),
+                'model' => $model,
+                'pages' => Page::model()->getFormattedList(
+                        null,
+                        0,
+                        ['condition' => 'id != :id', 'params' => [':id' => $model->id]]
+                    ),
+                'languages' => $this->yupe->getLanguagesList(),
+                'menuId' => $menuId,
                 'menuParentId' => $menuParentId
             ]
         );
@@ -300,7 +304,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             // we only allow deletion via POST request
             $model->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('PageModule.page', 'Record was removed!')
             );

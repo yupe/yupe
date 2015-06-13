@@ -54,9 +54,17 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Updating order'); ?>
-        <small>&laquo;<?php echo Yii::t('OrderModule.order', '#'); ?><?php echo $model->id; ?>&raquo;</small>
+        <?= Yii::t('OrderModule.order', 'Updating order'); ?>
+        <small>&laquo;<?= Yii::t('OrderModule.order', '#'); ?><?= $model->id; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?= $this->renderPartial('_form', ['model' => $model]); ?>
+
+<?php if(Yii::app()->getModule('order')->enableComments):?>
+    <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+            'redirectTo' => Yii::app()->createUrl('/order/orderBackendUpdate', ['id' => $model->id]),
+            'model' => $model,
+        ]); ?>
+
+<?php endif;?>

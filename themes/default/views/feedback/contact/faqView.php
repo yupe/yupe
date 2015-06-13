@@ -9,8 +9,8 @@ $this->breadcrumbs = [
 ?>
 
 <h1>
-    <?php echo $model->theme; ?> #<?php echo $model->id; ?>
-    <?php echo CHtml::link(
+    <?= $model->theme; ?> #<?= $model->id; ?>
+    <?= CHtml::link(
         Yii::t('FeedbackModule.feedback', 'Add question ?'),
         Yii::app()->createUrl('/feedback/contact/index/'),
         ['class' => 'btn btn-info']
@@ -49,7 +49,7 @@ $this->breadcrumbs = [
 
 <br/><br/>
 
-<h3><?php echo Yii::t('FeedbackModule.feedback', 'Do you have your own opinions for this question?'); ?></h3>
+<h3><?= Yii::t('FeedbackModule.feedback', 'Do you have your own opinions for this question?'); ?></h3>
 
 <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
     'model' => $model,

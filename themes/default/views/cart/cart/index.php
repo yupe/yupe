@@ -11,7 +11,10 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 $this->title = Yii::t('CartModule.cart', 'Cart');
-$this->breadcrumbs = [Yii::t("CartModule.cart", 'Cart')];
+$this->breadcrumbs = [
+    Yii::t("CartModule.cart", 'Catalog') => ['/store/catalog/index'],
+    Yii::t("CartModule.cart", 'Cart')
+];
 ?>
 
 

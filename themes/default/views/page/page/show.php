@@ -13,6 +13,6 @@ $this->description = $model->description ?: Yii::app()->getModule('yupe')->siteD
 $this->keywords = $model->keywords ?: Yii::app()->getModule('yupe')->siteKeyWords;
 ?>
 
-<h1><?php echo $model->title; ?></h1>
+<h1><?= $model->title; ?></h1>
 
-<?php echo $model->body; ?>
+<?= $model->body; ?>

@@ -1,3 +1,3 @@
 <?php foreach ($blocks as $block): ?>
-<?php echo $block->getContent(); ?>
+<?= $block->getContent(); ?>
 <?php endforeach; ?>

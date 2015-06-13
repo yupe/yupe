@@ -20,7 +20,7 @@ class SitemapController extends \yupe\components\controllers\FrontController
                 $urls = [];
                 $cacheTime = $this->getModule()->cacheTime * 3600 + 1;
 
-                $modules = require_once(Yii::getPathOfAlias('sitemap.config') . DIRECTORY_SEPARATOR . 'modules.php');
+                $modules = Yii::app()->getModule('sitemap')->data;
 
                 foreach ($modules as $name => $moduleModels) {
                     $module = Yii::app()->getModule($name);

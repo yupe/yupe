@@ -115,7 +115,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
             ],
             ['slug', 'unique'],
-            ['status', 'in', 'range' => array_keys($this->statusList)],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_special', 'boolean'],
             ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
             [
@@ -156,7 +156,8 @@ class Product extends yupe\models\YModel implements ICommentable
                 ],
                 'order' => 'comments.lft'
             ],
-            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'linked_product_id'],
+            'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id', 'joinType' => 'INNER JOIN'],
+            'linkedProducts' => [self::HAS_MANY, 'Product', ['linked_product_id' => 'id'], 'through' => 'linkedProductsRelation', 'joinType' => 'INNER JOIN'],
         ];
     }
 
@@ -164,11 +165,11 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             'published' => [
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params' => [':status' => self::STATUS_ACTIVE],
             ],
             'specialOffer' => [
-                'condition' => 'is_special = :is_special',
+                'condition' => 't.is_special = :is_special',
                 'params' => [':is_special' => self::SPECIAL_ACTIVE],
             ],
         ];
@@ -184,10 +185,10 @@ class Product extends yupe\models\YModel implements ICommentable
             'category_id' => Yii::t('StoreModule.category', 'Category'),
             'type_id' => Yii::t('StoreModule.type', 'Type'),
             'name' => Yii::t('StoreModule.store', 'Title'),
-            'price' => Yii::t('StoreModule.product', 'Price'),
-            'discount_price' => Yii::t('StoreModule.product', 'Discount price'),
-            'discount' => Yii::t('StoreModule.product', 'Discount, %'),
-            'sku' => Yii::t('StoreModule.product', 'SKU'),
+            'price' => Yii::t('StoreModule.store', 'Price'),
+            'discount_price' => Yii::t('StoreModule.store', 'Discount price'),
+            'discount' => Yii::t('StoreModule.store', 'Discount, %'),
+            'sku' => Yii::t('StoreModule.store', 'SKU'),
             'image' => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description' => Yii::t('StoreModule.store', 'Description'),
@@ -198,22 +199,22 @@ class Product extends yupe\models\YModel implements ICommentable
             'update_time' => Yii::t('StoreModule.store', 'Updated'),
             'user_id' => Yii::t('StoreModule.store', 'User'),
             'change_user_id' => Yii::t('StoreModule.store', 'Editor'),
-            'is_special' => Yii::t('StoreModule.product', 'Special'),
-            'length' => Yii::t('StoreModule.product', 'Length, m.'),
-            'height' => Yii::t('StoreModule.product', 'Height, m.'),
-            'width' => Yii::t('StoreModule.product', 'Width, m.'),
-            'weight' => Yii::t('StoreModule.product', 'Weight, kg.'),
-            'quantity' => Yii::t('StoreModule.product', 'Quantity'),
+            'is_special' => Yii::t('StoreModule.store', 'Special'),
+            'length' => Yii::t('StoreModule.store', 'Length, m.'),
+            'height' => Yii::t('StoreModule.store', 'Height, m.'),
+            'width' => Yii::t('StoreModule.store', 'Width, m.'),
+            'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
+            'quantity' => Yii::t('StoreModule.store', 'Quantity'),
             'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
-            'in_stock' => Yii::t('StoreModule.product', 'Stock status'),
+            'in_stock' => Yii::t('StoreModule.store', 'Stock status'),
             'category' => Yii::t('StoreModule.category', 'Category'),
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
-            'purchase_price' => Yii::t('StoreModule.product', 'Purchase price'),
-            'average_price' => Yii::t('StoreModule.product', 'Average price'),
-            'recommended_price' => Yii::t('StoreModule.product', 'Recommended price'),
-            'position' => Yii::t('StoreModule.product', 'Position')
+            'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
+            'average_price' => Yii::t('StoreModule.store', 'Average price'),
+            'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
+            'position' => Yii::t('StoreModule.store', 'Position')
         ];
     }
 
@@ -226,8 +227,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'id' => Yii::t('StoreModule.store', 'ID'),
             'category_id' => Yii::t('StoreModule.category', 'Category'),
             'name' => Yii::t('StoreModule.store', 'Title'),
-            'price' => Yii::t('StoreModule.product', 'Price'),
-            'sku' => Yii::t('StoreModule.product', 'SKU'),
+            'price' => Yii::t('StoreModule.store', 'Price'),
+            'sku' => Yii::t('StoreModule.store', 'SKU'),
             'image' => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description' => Yii::t('StoreModule.store', 'Description'),
@@ -238,16 +239,16 @@ class Product extends yupe\models\YModel implements ICommentable
             'update_time' => Yii::t('StoreModule.store', 'Edited'),
             'user_id' => Yii::t('StoreModule.store', 'User'),
             'change_user_id' => Yii::t('StoreModule.store', 'Editor'),
-            'is_special' => Yii::t('StoreModule.product', 'Special'),
-            'length' => Yii::t('StoreModule.product', 'Length, m.'),
-            'height' => Yii::t('StoreModule.product', 'Height, m.'),
-            'width' => Yii::t('StoreModule.product', 'Width, m.'),
-            'weight' => Yii::t('StoreModule.product', 'Weight, kg.'),
-            'quantity' => Yii::t('StoreModule.product', 'Quantity'),
+            'is_special' => Yii::t('StoreModule.store', 'Special'),
+            'length' => Yii::t('StoreModule.store', 'Length, m.'),
+            'height' => Yii::t('StoreModule.store', 'Height, m.'),
+            'width' => Yii::t('StoreModule.store', 'Width, m.'),
+            'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
+            'quantity' => Yii::t('StoreModule.store', 'Quantity'),
             'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
-            'purchase_price' => Yii::t('StoreModule.product', 'Purchase price'),
-            'average_price' => Yii::t('StoreModule.product', 'Average price'),
-            'recommended_price' => Yii::t('StoreModule.product', 'Recommended price'),
+            'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
+            'average_price' => Yii::t('StoreModule.store', 'Average price'),
+            'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
         ];
     }
 
@@ -303,9 +304,11 @@ class Product extends yupe\models\YModel implements ICommentable
                 'updateAttribute' => 'update_time',
             ],
             'eavAttr' => [
-                'class' => 'application.modules.store.components.behaviors.EEavBehavior',
+                'class' => 'application.modules.store.components.behaviors.AttributesBehavior',
                 'tableName' => '{{store_product_attribute_eav}}',
                 'entityField' => 'product_id',
+                'preload' => false,
+                //'cacheId' => 'cache'
             ],
             'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
@@ -335,10 +338,10 @@ class Product extends yupe\models\YModel implements ICommentable
 
         foreach ((array)$this->_eavAttributes as $name => $value) {
             $model = Attribute::model()->getAttributeByName($name);
-            if ($model->required && !$value) {
+            if (!$model->isType(Attribute::TYPE_CHECKBOX) && $model->isRequired() && !$value) {
                 $this->addError(
                     'eav.' . $name,
-                    Yii::t("StoreModule.product", "{title} attribute is required", ['title' => $model->title])
+                    Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $model->title])
                 );
             }
         }
@@ -380,8 +383,8 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getInStockList()
     {
         return [
-            self::STATUS_IN_STOCK => Yii::t('StoreModule.product', 'In stock'),
-            self::STATUS_NOT_IN_STOCK => Yii::t('StoreModule.product', 'Not in stock'),
+            self::STATUS_IN_STOCK => Yii::t('StoreModule.store', 'In stock'),
+            self::STATUS_NOT_IN_STOCK => Yii::t('StoreModule.store', 'Not in stock'),
         ];
     }
 
@@ -443,7 +446,7 @@ class Product extends yupe\models\YModel implements ICommentable
                     ];
                 }
 
-                Yii::app()->getDb()->commandBuilder
+                Yii::app()->getDb()->getCommandBuilder()
                     ->createMultipleInsertCommand('{{store_product_category}}', $data)
                     ->execute();
             }
@@ -486,7 +489,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $this->setEavAttributes($attributes, true);
     }
 
-    public function attr($attribute)
+    public function attribute($attribute)
     {
         return isset($this->_eavAttributes[$attribute]) ? $this->_eavAttributes[$attribute] : $this->getEavAttribute(
             $attribute
@@ -770,8 +773,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $transaction = Yii::app()->getDb()->beginTransaction();
         $model = new Product();
         try {
-            $model->attributes = $this->attributes;
-            $model->image = null;
+            $model->setAttributes($this->getAttributes());
             $model->slug = null;
 
             $similarNamesCount = Yii::app()->getDb()->createCommand()
@@ -782,28 +784,28 @@ class Product extends yupe\models\YModel implements ICommentable
 
             $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
 
-            if ($eavAttributes = $this->getEavAttributes()) {
-                $model->setTypeAttributes($eavAttributes);
-            }
+            $attributes = $model->attributes;
+            $typeAttributes =  $this->getEavAttributes();
+            $variantAttributes = [];
+            $categoriesIds = [];
+
 
             if ($variants = $this->variants) {
-                $variantAttributes = [];
                 foreach ($variants as $variant) {
                     $variantAttributes[] = $variant->getAttributes(
                         ['attribute_id', 'attribute_value', 'amount', 'type', 'sku']
                     );
                 }
-                $model->setProductVariants($variantAttributes);
             }
 
-            if ($model->save()) {
-                if ($categories = $this->categories) {
-                    $categoriesIds = [];
-                    foreach ($categories as $category) {
-                        $categoriesIds[] = $category->id;
-                    }
-                    $model->saveCategories($categoriesIds);
+            if ($categories = $this->categories) {
+                foreach ($categories as $category) {
+                    $categoriesIds[] = $category->id;
                 }
+            }
+
+            if(!$model->saveData($attributes, $typeAttributes, $variantAttributes, $categoriesIds)) {
+                throw new CDbException('Error copy product!');
             }
 
             $transaction->commit();
@@ -846,32 +848,42 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getLinkedProductsCriteria($type_code = null)
     {
         $criteria = new CDbCriteria();
-        $criteria->with = ['linkedProductsRelation', 'linkedProductsRelation.type'];
-        $criteria->together = true;
-        $criteria->compare('type.code', $type_code);
-        $criteria->compare('linkedProductsRelation.product_id', $this->id);
+
+        $criteria->join .= ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
+        $criteria->compare('linked.product_id', $this->id);
+        if ($type_code) {
+            $criteria->join .= ' JOIN {{store_product_link_type}} type ON type.id = linked.type_id';
+            $criteria->compare('type.code', $type_code);
+        }
 
         return $criteria;
     }
 
     /**
      * Список связанных с продуктом продуктов
-     * @param null|string $type_code
+     * @param null|string $typeCode
      * @return Product[]
      */
-    public function getLinkedProducts($type_code = null)
+    public function getLinkedProducts($typeCode = null)
     {
-        return Product::model()->findAll($this->getLinkedProductsCriteria($type_code));
+        return Product::model()->findAll($this->getLinkedProductsCriteria($typeCode));
     }
 
     /**
-     * @param null|string $type_code
+     * @param null|string $typeCode
      * @return CActiveDataProvider
      */
-    public function getLinkedProductsDataProvider($type_code = null)
+    public function getLinkedProductsDataProvider($typeCode = null)
     {
         return new CActiveDataProvider(get_class($this), [
-            'criteria' => $this->getLinkedProductsCriteria($type_code),
+            'criteria' => $this->getLinkedProductsCriteria($typeCode),
         ]);
+    }
+
+    public function searchByName($name)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addSearchCondition('name', $name);
+        return $this->findAll($criteria);
     }
 }

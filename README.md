@@ -10,24 +10,22 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
 [![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
-![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
+![Юпи!](http://amylabs.ru/assets/196fa697/images/Head_browser.png)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
+* [интернет-магазины](http://yupe-project.ru/ecommerce)
+* каталоги товаров
 * сайты-визитки
 * корпоративные порталы
 * блоги / сообщества
-* каталоги товаров
-* [интернет-магазины](http://yupe-project.ru/ecommerce)
 
 
-На Юпи! работает более 500 проектов, Юпи! активно используют [студии и команды разработчиков](http://yupe-project.ru/pages/friends).
+На Юпи! работает более 1000 проектов, Юпи! активно используют [студии и команды разработчиков](http://yupe-project.ru/partners).
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
 [Процесс установки](http://yupe.ru/docs/install.html) очень прост и занимает не более 5 минут!
-
-Удобная и простая панель управления позволяет управлять контентом сайта даже домохозяйке!
 
 Для успешной работы проекта на Юпи! вполне достаточно самого простого и дешевого хостинга, минимальные требования:
 
@@ -36,6 +34,9 @@
 * Composer
 * MySQL 5.x
 * Apaсhe/Nginx
+
+![Юпи!](http://amylabs.ru/web/images/shop/yupe-shop.png)
+
 
 Ссылки
 ------
@@ -47,14 +48,14 @@
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
 * [Документация](http://yupe.ru/docs/index.html)
 * [API](http://api.yupe.ru/)
-* [Подробнее о проекте](http://yupe.ru/pages/about)
+* [Подробнее о проекте](http://yupe-project.ru/about)
 * [Команда](http://yupe.ru/docs/yupe/team.html)
 * [Форум](http://yupe.ru/talk/)
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
 * [Группа Вконтакте](https://vk.com/yupecms)
-* [Разработка](http://yupe-project.ru/service/development) и [Поддержка](http://yupe-project.ru/service/support)
+* [Разработка](http://yupe-project.ru/service/development) и [поддержка](http://yupe-project.ru/service/support)
 
 [![Юпи! Market](http://yupe.ru/uploads/blogs/a0301fdec876e23050ff3d312d97ee88.png)](http://yupe.ru/marketplace)
 
@@ -93,4 +94,4 @@
 
 (c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
-![amyLabs](http://amylabs.ru/assets/8066f72d/images/logo1.png)
+![amyLabs](http://amylabs.ru/assets/196fa697/images/logo1.png)

@@ -11,10 +11,10 @@ $this->breadcrumbs = [
     </div>
 
     <div class='col-xs-6'>
-        <i class="glyphicon glyphicon-user"></i> <?php echo CHtml::link(CHtml::encode($user->getFullName()), ['/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name)]); ?>
+        <i class="glyphicon glyphicon-user"></i> <?= CHtml::link(CHtml::encode($user->getFullName()), ['/user/people/userInfo/', 'username' => CHtml::encode($user->nick_name)]); ?>
         <br/>
         <?php if ($user->visit_time): ?>
-            <i class="glyphicon glyphicon-time"></i> <?php echo Yii::t(
+            <i class="glyphicon glyphicon-time"></i> <?= Yii::t(
                 'UserModule.user',
                 'Last visit {visit_time}',
                 [
@@ -24,11 +24,11 @@ $this->breadcrumbs = [
         <?php endif; ?>
 
         <?php if ($user->location): ?>
-            <i class="glyphicon glyphicon-map-marker"></i> <?php echo CHtml::encode($user->location); ?><br/>
+            <i class="glyphicon glyphicon-map-marker"></i> <?= CHtml::encode($user->location); ?><br/>
         <?php endif; ?>
 
         <?php if ($user->site): ?>
-            <i class="glyphicon glyphicon-globe"></i> <?php echo CHtml::link(
+            <i class="glyphicon glyphicon-globe"></i> <?= CHtml::link(
                 $user->site,
                 $user->site,
                 ['rel' => 'nofollow', 'target' => '_blank']
@@ -43,7 +43,7 @@ $this->breadcrumbs = [
     <div class="col-xs-12">
         <?php if ($user->about): { ?>
             <blockquote>
-                <p><?php echo $user->about; ?></p>
+                <p><?= $user->about; ?></p>
             </blockquote>
         <?php } endif; ?>
     </div>
@@ -60,8 +60,8 @@ $this->breadcrumbs = [
         <div class="col-xs-12">
             <br/>
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#posts" role="tab" data-toggle="tab"><?php echo Yii::t('BlogModule.blog', 'Last posts'); ?></a></li>
-                <li><a href="#comments" role="tab" data-toggle="tab"><?php echo Yii::t('BlogModule.blog', 'Comments'); ?></a></li>
+                <li class="active"><a href="#posts" role="tab" data-toggle="tab"><?= Yii::t('BlogModule.blog', 'Last posts'); ?></a></li>
+                <li><a href="#comments" role="tab" data-toggle="tab"><?= Yii::t('BlogModule.blog', 'Comments'); ?></a></li>
             </ul>
 
             <div class="tab-content">

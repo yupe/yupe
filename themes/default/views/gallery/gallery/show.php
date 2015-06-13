@@ -12,16 +12,16 @@ $this->breadcrumbs = [
 ?>
 <div class="gallery-show">
 
-    <h1 class="page-header"><?php echo CHtml::encode($model->name); ?></h1>
+    <h1 class="page-header"><?= CHtml::encode($model->name); ?></h1>
 
-    <?php echo $model->description; ?>
+    <?= $model->description; ?>
 
     <?php $this->widget(
         'gallery.widgets.GalleryWidget',
         ['galleryId' => $model->id, 'gallery' => $model, 'limit' => 30]
     ); ?>
 
-    <?php if (Yii::app()->user->isAuthenticated()) : ?>
+    <?php if (Yii::app()->getUser()->isAuthenticated()) : ?>
         <?php if ($model->canAddPhoto) : ?>
             <?php $this->renderPartial('_form', ['model' => $image, 'gallery' => $model]); ?>
         <?php endif ?>

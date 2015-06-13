@@ -5,7 +5,6 @@ namespace yupe\components\behaviors;
 use Yii;
 use yupe\components\image\Imagine;
 use yupe\helpers\YFile;
-use Imagine\Image\ImageInterface;
 
 class ImageUploadBehavior extends FileUploadBehavior
 {
@@ -13,10 +12,10 @@ class ImageUploadBehavior extends FileUploadBehavior
     public $resizeOptions = [];
 
     protected $defaultResizeOptions = [
-        'width'   => 950,
-        'height'  => 950,
+        'width' => 950,
+        'height' => 950,
         'quality' => [
-            'jpegQuality'         => 75,
+            'jpegQuality' => 75,
             'pngCompressionLevel' => 7
         ],
     ];
@@ -61,6 +60,7 @@ class ImageUploadBehavior extends FileUploadBehavior
     {
         if (!$this->resizeOnUpload) {
             parent::saveFile();
+
             return;
         }
 
@@ -84,15 +84,18 @@ class ImageUploadBehavior extends FileUploadBehavior
             $this->resizeOptions['width'],
             $this->resizeOptions['height']
         )->save(
-            $path,
-            $this->resizeOptions['quality']
-        );
+                $path,
+                $this->resizeOptions['quality']
+            );
 
-        $this->owner->setAttribute($this->attributeName, $newFileName);
+        $this->getOwner()->setAttribute($this->attributeName, $newFileName);
     }
 
-    public function getImageUrl($width = 0, $height = 0, $options = ['jpeg_quality' => 90, 'png_compression_level' => 8])
-    {
+    public function getImageUrl(
+        $width = 0,
+        $height = 0,
+        array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
+    ) {
         $file = $this->getFilePath();
         $defaultImagePath = Yii::getPathOfAlias('webroot') . $this->defaultImage;
         $fileUploaded = is_file($file);

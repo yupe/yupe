@@ -12,7 +12,7 @@
  */
 class GalleryModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.6';
+    const VERSION = '0.9.7';
 
     public function getDependencies()
     {
@@ -26,7 +26,6 @@ class GalleryModule extends yupe\components\WebModule
     public function getParamsLabels()
     {
         return [
-            'adminMenuOrder' => Yii::t('GalleryModule.gallery', 'Menu items order'),
             'editor'         => Yii::t('GalleryModule.gallery', 'Visual Editor'),
         ];
     }
@@ -90,7 +89,6 @@ class GalleryModule extends yupe\components\WebModule
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->editors,
         ];
     }

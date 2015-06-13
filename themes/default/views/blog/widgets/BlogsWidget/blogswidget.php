@@ -11,19 +11,19 @@ $this->beginWidget(
     <?php foreach ($models as $model): ?>
         <li>
             <p>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     CHtml::encode($model->name),
                     ['/blog/blog/show/', 'slug' => CHtml::encode($model->slug)]
                 ); ?>
                 &rarr;
                 <i class="glyphicon glyphicon-user"></i>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     $model->membersCount,
                     ['/blog/blog/members', 'slug' => CHtml::encode($model->slug)]
                 ); ?>
                 &rarr;
                 <i class="glyphicon glyphicon-file"></i>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     $model->postsCount,
                     ['/blog/post/blog/', 'slug' => CHtml::encode($model->slug)]
                 ); ?>

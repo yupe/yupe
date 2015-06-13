@@ -19,24 +19,24 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
     $model->name
 ];
 ?>
-<h1 class="page-header"><?php echo CHtml::encode($model->name); ?></h1>
+<h1 class="page-header"><?= CHtml::encode($model->name); ?></h1>
 <div class="thumbnail">
-    <?php echo CHtml::image($model->getImageUrl(), $model->name); ?>
+    <?= CHtml::image($model->getImageUrl(), $model->name); ?>
 </div>
 <hr>
 <p>
-    <?php echo CHtml::image($model->user->getAvatar(16), $model->user->nick_name); ?> <?php echo CHtml::link(
+    <?= CHtml::image($model->user->getAvatar(16), $model->user->nick_name); ?> <?= CHtml::link(
         $model->user->nick_name,
         ['/user/people/userInfo', 'username' => $model->user->nick_name]
     ); ?>
-    <i class="fa fa-calendar"></i> <?php echo Yii::app()->getDateFormatter()->format(
+    <i class="fa fa-calendar"></i> <?= Yii::app()->getDateFormatter()->format(
         'dd MMMM yyyy г., hh:mm',
         $model->create_time
     ); ?>
 </p>
 
 <blockquote>
-    <p><?php echo CHtml::encode($model->description); ?></p>
+    <p><?= CHtml::encode($model->description); ?></p>
 </blockquote>
 
 <?php

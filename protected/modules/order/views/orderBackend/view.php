@@ -2,7 +2,7 @@
 /* @var $model Order */
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
-    Yii::t("OrderModule.order", "Order #").$model->id,
+    Yii::t('OrderModule.order', 'Order #').$model->id,
 ];
 
 $this->pageTitle = Yii::t('OrderModule.order', 'Orders - view');
@@ -71,7 +71,12 @@ $this->menu = [
                     return empty($model->delivery) ? '---' : $model->delivery->name;
                 }
             ],
-            'delivery_price',
+            [
+                'name' => 'delivery_price',
+                'value' => function($model) {
+                    return Yii::app()->numberFormatter->formatCurrency($model->delivery_price, 'RUB');
+                }
+            ],
             [
                 'name' => 'payment_method_id',
                 'value' => function($model){
@@ -80,7 +85,12 @@ $this->menu = [
             ],
             'paid',
             'payment_time',
-            'total_price',
+            [
+                'name' => 'total_price',
+                'value' => function($model) {
+                    return Yii::app()->numberFormatter->formatCurrency($model->getTotalPriceWithDelivery(), 'RUB');
+                }
+            ],
             'discount',
             'coupon_discount',
             'separate_delivery',

@@ -124,8 +124,6 @@ class UpdateManager extends CApplicationComponent
                     ]
                 )->json();
 
-                Yii::log(print_r($data), \CLogger::LEVEL_INFO, static::LOG_CATEGORY);
-
                 Yii::log(sprintf('Stop get updates from server...%s', json_encode($data)), \CLogger::LEVEL_INFO, static::LOG_CATEGORY);
 
                 Yii::app()->getCache()->set('yupe::update::info', $data, $this->cacheTime);

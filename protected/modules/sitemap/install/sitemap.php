@@ -3,11 +3,12 @@
 return [
     'module' => [
         'class' => 'application.modules.sitemap.SitemapModule',
+        'data' => []
     ],
     'import' => [],
     'component' => [],
     'rules' => [
         'sitemap.xml' => 'sitemap/sitemap/index',
-        'sitemap/sitemap<number:\d+>.xml' => 'sitemap/sitemap/part',
+        'sitemap/sitemap<number:\d+>.xml' => 'sitemap/sitemap/part'
     ],
 ];

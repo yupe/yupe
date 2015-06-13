@@ -18,20 +18,20 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Password recovery')];
 
 <div class="row">
     <div class="col-xs-12">
-        <?php echo $form->errorSummary($model); ?>
+        <?= $form->errorSummary($model); ?>
 
     </div>
 </div>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+        <?= $form->passwordFieldGroup($model, 'password'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup($model, 'cPassword'); ?>
+        <?= $form->passwordFieldGroup($model, 'cPassword'); ?>
     </div>
 </div>
 

@@ -305,7 +305,7 @@ class Migrator extends \CApplicationComponent
         ob_implicit_flush(false);
         $result = $migration->down();
         Yii::log($msg = ob_get_clean());
-        Yii::app()->cache->clear('getMigrationHistory');
+        Yii::app()->getCache()->clear('getMigrationHistory');
 
         if ($result !== false) {
             $db->createCommand()->delete(
@@ -400,11 +400,11 @@ class Migrator extends \CApplicationComponent
     {
         $db = $this->getDbConnection();
 
-        $allData = Yii::app()->cache->get('getMigrationHistory');
+        $allData = Yii::app()->getCache()->get('getMigrationHistory');
 
         if ($allData === false || !isset($allData[$module])) {
 
-            Yii::app()->cache->clear('getMigrationHistory');
+            Yii::app()->getCache()->clear('getMigrationHistory');
 
             $data = $db->cache(
                 3600,
@@ -419,7 +419,7 @@ class Migrator extends \CApplicationComponent
 
             $allData[$module] = $data;
 
-            Yii::app()->cache->set(
+            Yii::app()->getCache()->set(
                 'getMigrationHistory',
                 $allData,
                 3600,
@@ -448,7 +448,7 @@ class Migrator extends \CApplicationComponent
                 ['{table}' => $this->migrationTable]
             )
         );
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
+        $options = Yii::app()->getDb()->schema instanceof \CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $db->createCommand()->createTable(
             $db->tablePrefix . $this->migrationTable,
             [
@@ -551,6 +551,22 @@ class Migrator extends \CApplicationComponent
 
         foreach ($m as $i) {
             $modules[] = $i['module'];
+        }
+
+        return $modules;
+    }
+
+    /**
+     * Return installed modules id
+     *
+     * @return array
+     */
+    public function getInstalledModulesList()
+    {
+        $modules = [];
+
+        foreach (Yii::app()->getModules() as $id => $config) {
+            $modules[] = $id;
         }
 
         return $modules;

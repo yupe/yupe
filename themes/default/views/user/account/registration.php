@@ -16,36 +16,36 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
     ]
 ); ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'nick_name'); ?>
+        <?= $form->textFieldGroup($model, 'nick_name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?= $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+        <?= $form->passwordFieldGroup($model, 'password'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup($model, 'cPassword'); ?>
+        <?= $form->passwordFieldGroup($model, 'cPassword'); ?>
     </div>
 </div>
 
 <?php if ($module->showCaptcha && CCaptcha::checkRequirements()): { ?>
     <div class="row">
         <div class="col-xs-4">
-            <?php echo $form->textFieldGroup(
+            <?= $form->textFieldGroup(
                 $model,
                 'verifyCode',
                 ['hint' => Yii::t('UserModule.user', 'Please enter the text from the image')]
@@ -83,9 +83,8 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
     </div>
 </div>
 
-<hr/>
-
 <?php if (Yii::app()->hasModule('social')): { ?>
+    <hr/>
     <div class="row">
         <div class="col-xs-12">
             <?php

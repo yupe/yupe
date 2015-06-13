@@ -12,7 +12,7 @@
  */
 class ZendSearchModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public $indexFiles = 'runtime.search';
 
@@ -31,8 +31,11 @@ class ZendSearchModule extends yupe\components\WebModule
     public function getEditableParamsGroups()
     {
         return [
-            'main' => [
+            '1.main' => [
                 'label' => Yii::t('YupeModule.yupe', 'Main settings'),
+                'items' => [
+                    'indexFiles'
+                ]
             ],
         ];
     }

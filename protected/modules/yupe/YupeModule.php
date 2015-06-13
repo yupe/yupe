@@ -25,7 +25,7 @@ class YupeModule extends WebModule
     /**
      *
      */
-    const VERSION = '0.9.6';
+    const VERSION = '0.9.7-dev';
 
     /**
      * @var
@@ -812,10 +812,11 @@ class YupeModule extends WebModule
                 Yii::app()->getAssetManager()->publish(
                     Yii::getPathOfAlias('application.modules.yupe.views.assets')
                 ) . "/img/yupe_{$color}.png",
-                $text
+                $text,
+                ['alt' => CHtml::encode($text)]
             ),
             'http://yupe-project.ru?from=pb',
-            ['title' => CHtml::encode($text), 'alt' => CHtml::encode($text)]
+            ['title' => CHtml::encode($text)]
         );
     }
 

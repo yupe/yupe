@@ -152,7 +152,7 @@ class Mail extends CApplicationComponent
         try {
             return $this->_mailer->send();
         } catch (\Exception $e) {
-            Yii::log($e->__toString(), \CLogger::LEVEL_ERROR, 'mail');
+            \Yii::log($e->__toString(), \CLogger::LEVEL_ERROR, 'mail');
 
             return false;
         }

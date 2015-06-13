@@ -96,6 +96,10 @@ class Image extends yupe\models\YModel
                 'types'         => $module->allowedExtensions,
                 'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
+                'resizeOptions' => [
+                    'width'  => $module->width,
+                    'height' => $module->height
+                ]
             ],
             'sortable'    => [
                 'class'         => 'yupe\components\behaviors\SortableBehavior',

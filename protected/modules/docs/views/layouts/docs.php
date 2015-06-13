@@ -38,41 +38,41 @@
     $this->widget(
         'bootstrap.widgets.TbNavbar',
         [
-            'fixed'    => 'top',
-            'fluid'    => true,
+            'fixed' => 'top',
+            'fluid' => true,
             'collapse' => true,
-            'brand'    => CHtml::image(
-                    Yii::app()->getModule('yupe')->getLogo(),
-                    Yii::t('DocsModule.docs', 'Yupe! Documentation'),
-                    [
-                        'width'  => '38',
-                        'height' => '38',
-                        'title'  => Yii::t('DocsModule.docs', 'Yupe! Documentation'),
-                    ]
-                ),
+            'brand' => CHtml::image(
+                Yii::app()->getModule('yupe')->getLogo(),
+                Yii::t('DocsModule.docs', 'Yupe! Documentation'),
+                [
+                    'width' => '38',
+                    'height' => '38',
+                    'title' => Yii::t('DocsModule.docs', 'Yupe! Documentation'),
+                ]
+            ),
             'brandUrl' => CHtml::normalizeUrl(["index"]),
-            'items'    => [
+            'items' => [
                 [
                     'class' => 'bootstrap.widgets.TbMenu',
-                    'type'  => 'navbar',
+                    'type' => 'navbar',
                     'items' => $this->module->getArticles(),
                 ],
                 [
-                    'class'       => 'bootstrap.widgets.TbMenu',
-                    'type'        => 'navbar',
+                    'class' => 'bootstrap.widgets.TbMenu',
+                    'type' => 'navbar',
                     'htmlOptions' => ['class' => 'pull-right'],
                     'encodeLabel' => false,
-                    'items'       => array_merge(
+                    'items' => array_merge(
                         [
                             [
-                                'icon'        => 'fa fa-fw fa-home',
-                                'label'       => Yii::t('DocsModule.docs', 'Go home'),
-                                'url'         => Yii::app()->createAbsoluteUrl('/'),
+                                'icon' => 'fa fa-fw fa-home',
+                                'label' => Yii::t('DocsModule.docs', 'Go home'),
+                                'url' => Yii::app()->createAbsoluteUrl('/'),
                             ],
                             [
                                 'label' => $this->yupe->getVersion(),
-                                'icon'  => 'fa fa-fw fa-thumbs-up',
-                                'url'   => 'http://yupe.ru/?from=doc-navbar'
+                                'icon' => 'fa fa-fw fa-thumbs-up',
+                                'url' => 'http://yupe.ru/?from=doc-navbar'
                             ],
                         ],
                         $this->yupe->getLanguageSelectorArray()

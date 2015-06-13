@@ -1,5 +1,9 @@
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbCollapse'
+    'bootstrap.widgets.TbCollapse', [
+        'htmlOptions' => [
+            'id' => 'panel-user-stat'
+        ]
+    ]
 );?>
 
 
@@ -7,7 +11,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId();?>-widget">
+                <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId();?>">
                     <i class="fa fa-fw fa-user"></i> <?php echo Yii::t('UserModule.user', 'Users'); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $usersCount; ?></span>

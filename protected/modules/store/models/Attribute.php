@@ -148,17 +148,18 @@ class Attribute extends \yupe\models\YModel
             //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Список чекбоксов'),
             self::TYPE_CHECKBOX => Yii::t('StoreModule.attr', 'Checkbox'),
             //self::TYPE_IMAGE => Yii::t('StoreModule.store', 'Изображение'),
-            //self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
+            self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
         ];
     }
 
     public static function getTypeTitle($type)
     {
         $list = self::getTypesList();
+
         return $list[$type];
     }
 
-    public function renderField($value = null, $name = null, $htmlOptions = ['class' => 'form-control'])
+    public function renderField($value = null, $name = null, $htmlOptions = [])
     {
         $name = $name ?: 'Attribute[' . $this->name . ']';
         switch ($this->type) {
@@ -184,7 +185,7 @@ class Attribute extends \yupe\models\YModel
                 return CHtml::checkBoxList($name . '[]', $value, $data, $htmlOptions);
                 break;
             case self::TYPE_CHECKBOX:
-                return CHtml::checkBox($name, $value, $htmlOptions);
+                return CHtml::checkBox($name, $value, CMap::mergeArray(['uncheckValue' => 0], $htmlOptions));
                 break;
             case self::TYPE_NUMBER:
                 return CHtml::numberField($name, $value, $htmlOptions);
@@ -193,6 +194,8 @@ class Attribute extends \yupe\models\YModel
                 return CHtml::fileField($name, null, $htmlOptions);
                 break;
         }
+
+        return null;
     }
 
     public function renderValue($value)
@@ -215,15 +218,14 @@ class Attribute extends \yupe\models\YModel
                 $res = $value ? Yii::t("StoreModule.store", "Yes") : Yii::t("StoreModule.store", "No");
                 break;
         }
+
         return $res . $unit;
     }
 
     public function afterDelete()
     {
-        $conn = $this->getDbConnection();
         /* удаляем привязанные к товару атрибуты */
-        $command = $conn->createCommand("DELETE FROM {{store_product_attribute_eav}} WHERE `attribute`='{$this->name}'");
-        $command->execute();
+        $this->getDbConnection()->createCommand("DELETE FROM {{store_product_attribute_eav}} WHERE `attribute`='{$this->name}'")->execute();
 
         parent::afterDelete();
     }
@@ -246,38 +248,63 @@ class Attribute extends \yupe\models\YModel
         return $this->group instanceof AttributeGroup ? $this->group->name : '---';
     }
 
-    public function afterFind()
-    {
-        $tmp = '';
-        foreach ((array)$this->options as $option) {
-            $tmp .= $option->value . "\n";
-        }
-        $this->rawOptions = $tmp;
-    }
+
 
     public function afterSave()
     {
-        // удаляем старые значения
-        AttributeOption::model()->deleteAllByAttributes(['attribute_id' => $this->id]);
-
-        if (in_array($this->type, [Attribute::TYPE_DROPDOWN])) {
-            $newOptions = explode("\n", $this->rawOptions);
-            $newOptions = array_filter(
-                $newOptions,
-                function ($x) {
-                    return strlen(trim($x));
-                }
+        if ($this->type == Attribute::TYPE_DROPDOWN) {
+            // список новых значений опций атрибута, не пустые, без лишних пробелов по бокам, уникальные
+            $newOptions = array_unique(
+                array_filter(
+                    array_map('trim', explode("\n", $this->rawOptions))
+                )
             );
 
-            foreach (array_values((array)$newOptions) as $key => $op) {
+            // в нижнем регистре, чтобы не надо было переназначать привязку атрибутов в товарах
+            $newOptionsLower = array_map(
+                function ($x) {
+                    return mb_strtolower($x, 'utf-8');
+                },
+                $newOptions
+            );
+
+            $oldOptionsLower = []; // список имен опций, которые уже сохранены
+
+            // удалим те из них, которых нет, в остальных обновим значение и позицию
+            foreach ((array)$this->options as $option) {
+                /* @var $option AttributeOption */
+                $position = array_search(mb_strtolower($option->value), $newOptionsLower);
+                // опция была удалена
+                if ($position === false) {
+                    $option->delete();
+                } else {
+                    $oldOptionsLower[] = mb_strtolower($option->value, 'utf-8');
+                    $option->value = $newOptions[$position]; // если поменяли регистр опции
+                    $option->position = $position;
+                    $option->save();
+                }
+            }
+
+            // добавим оставшиеся
+            foreach (array_diff($newOptionsLower, $oldOptionsLower) as $position => $value) {
                 $option = new AttributeOption();
                 $option->attribute_id = $this->id;
-                $option->value = trim($op);
-                $option->position = $key;
+                $option->value = $newOptions[$position];
+                $option->position = $position;
                 $option->save();
             }
         }
 
         parent::afterSave();
+    }
+
+    public function isType($type)
+    {
+        return $type == $this->type;
+    }
+
+    public function isRequired()
+    {
+        return $this->required;
     }
 }

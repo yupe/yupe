@@ -125,7 +125,7 @@ class CustomGridView extends \TbExtendedGridView
     {
         \Booster::getBooster()->registerAssetJs('jquery.saveselection.gridview.js');
         $this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.afterUpdateGrid('" . $this->id . "');";
-        echo '<tr><td colspan="' . count($this->columns) . '">';
+        echo '<tr><td colspan="' . count($this->columns) . '" class="grid-toolbar">';
         if (!empty($this->bulk)) {
             $this->bulk->renderButtons();
         }

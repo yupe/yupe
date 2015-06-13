@@ -10,24 +10,42 @@ use Imagine\Image\ImagineInterface;
 use Imagine\Image\ManipulatorInterface;
 use Imagine\Image\Point;
 
+/**
+ * Class Thumbnailer
+ * @package yupe\components\image
+ */
 class Thumbnailer extends \CApplicationComponent
 {
+    /**
+     * @var string
+     */
     public $thumbDir = 'thumbs';
 
+    /**
+     * @var
+     */
     private $_basePath;
+    /**
+     * @var
+     */
     private $_baseUrl;
 
     /**
      * @param string $file Полный путь к исходному файлу в файловой системе
      * @param string $uploadDir Подпапка в папке с миниатюрами куда надо поместить изображение
-     * @param int $width Ширина изображения. Если не указана - будет вычислена из высоты
-     * @param int $height Высота изображения. Если не указана - будет вычислена из ширины
+     * @param float $width Ширина изображения. Если не указана - будет вычислена из высоты
+     * @param float $height Высота изображения. Если не указана - будет вычислена из ширины
      * @param array $options
      * @return string
      * @throws CException
      */
-    public function thumbnail($file, $uploadDir, $width = 0, $height = 0, $options = ['jpeg_quality' => 90, 'png_compression_level' => 8])
-    {
+    public function thumbnail(
+        $file,
+        $uploadDir,
+        $width = 0,
+        $height = 0,
+        array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
+    ) {
         if (!$width && !$height) {
             throw new CException("Incorrect width/height");
         }
@@ -67,7 +85,13 @@ class Thumbnailer extends \CApplicationComponent
                 $box = new Box($originalWidth * $height / $originalHeight, $height);
             }
 
-            $img->resize($box)->crop(new Point(max(0, round(($box->getWidth() - $width) / 2)), max(0, round(($box->getHeight() - $height) / 2))), new Box($width, $height))->save($thumbFile, $options);
+            $img->resize($box)->crop(
+                new Point(max(0, round(($box->getWidth() - $width) / 2)), max(
+                    0,
+                    round(($box->getHeight() - $height) / 2)
+                )),
+                new Box($width, $height)
+            )->save($thumbFile, $options);
         }
 
         $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;
@@ -75,6 +99,9 @@ class Thumbnailer extends \CApplicationComponent
         return $url;
     }
 
+    /**
+     * @return string
+     */
     public function getBasePath()
     {
         if ($this->_basePath === null) {
@@ -84,11 +111,17 @@ class Thumbnailer extends \CApplicationComponent
         return $this->_basePath;
     }
 
+    /**
+     * @param $value
+     */
     public function setBasePath($value)
     {
         $this->_basePath = rtrim($value, DIRECTORY_SEPARATOR);
     }
 
+    /**
+     * @return string
+     */
     public function getBaseUrl()
     {
         if ($this->_baseUrl === null) {
@@ -98,6 +131,9 @@ class Thumbnailer extends \CApplicationComponent
         return $this->_baseUrl;
     }
 
+    /**
+     * @param $value
+     */
     public function setBaseUrl($value)
     {
         $this->_baseUrl = rtrim($value, '/');

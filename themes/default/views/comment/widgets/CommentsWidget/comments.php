@@ -23,12 +23,12 @@ Yii::app()->clientScript
 
     <?php if ($this->showComments): ?>
         <?php if (empty($comments)): ?>
-            <p><?php echo Yii::t('CommentModule.comment', 'Be first!'); ?></p>
+            <p><?= Yii::t('CommentModule.comment', 'Be first!'); ?></p>
         <?php else: ?>
             <h2>
                 <small>
-                    <?php echo $this->title . ' ' . count($comments); ?>
-                    <?php echo CHtml::link(
+                    <?= Yii::t('CommentModule.comment', 'Comments') . ' ' . count($comments); ?>
+                    <?= CHtml::link(
                         CHtml::image(Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"),
                         [
                             '/comment/commentRss/feed',
@@ -50,7 +50,7 @@ Yii::app()->clientScript
     <?php if ($this->showForm): ?>
         <?php if (!$this->isAllowed()): ?>
             <div class="alert alert-warning">
-                <?php echo Yii::t(
+                <?= Yii::t(
                     'CommentModule.comment',
                     'Please, {login} or {register} for commenting!',
                     [
@@ -79,37 +79,37 @@ Yii::app()->clientScript
                     ]
                 ); ?>
 
-                <?php echo $form->errorSummary($model); ?>
-                <?php echo $form->hiddenField($model, 'model'); ?>
-                <?php echo $form->hiddenField($model, 'model_id'); ?>
-                <?php echo $form->hiddenField($model, 'parent_id'); ?>
-                <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
+                <?= $form->errorSummary($model); ?>
+                <?= $form->hiddenField($model, 'model'); ?>
+                <?= $form->hiddenField($model, 'model_id'); ?>
+                <?= $form->hiddenField($model, 'parent_id'); ?>
+                <?= CHtml::hiddenField('redirectTo', $redirectTo); ?>
 
-                <?php echo $form->textField($model, 'spamField', [
+                <?= $form->textField($model, 'spamField', [
                     'name' => $spamField,
                     'style' => 'position:absolute;display:none;visibility:hidden;',
                 ]); ?>
 
-                <?php echo $form->textField($model, 'comment', [
+                <?= $form->textField($model, 'comment', [
                     'style' => 'position:absolute;display:none;visibility:hidden;'
                 ]); ?>
 
                 <?php if (!Yii::app()->getUser()->isAuthenticated()) : ?>
                     <div class='row'>
                         <div class="col-sm-6">
-                            <?php echo $form->textFieldGroup($model, 'name'); ?>
+                            <?= $form->textFieldGroup($model, 'name'); ?>
                         </div>
                     </div>
 
                     <div class='row'>
                         <div class="col-sm-6">
-                            <?php echo $form->textFieldGroup($model, 'email'); ?>
+                            <?= $form->textFieldGroup($model, 'email'); ?>
                         </div>
                     </div>
 
                     <div class='row'>
                         <div class="col-sm-6">
-                            <?php echo $form->textFieldGroup($model, 'url'); ?>
+                            <?= $form->textFieldGroup($model, 'url'); ?>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -117,7 +117,7 @@ Yii::app()->clientScript
                 <div class='row'>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <?php echo $form->labelEx($model, 'text'); ?>
+                            <?= $form->labelEx($model, 'text'); ?>
                             <?php $this->widget(
                                 $module->getVisualEditor(),
                                 [
@@ -128,7 +128,7 @@ Yii::app()->clientScript
                                     ]
                                 ]
                             ); ?>
-                            <?php echo $form->error($model, 'text'); ?>
+                            <?= $form->error($model, 'text'); ?>
                         </div>
                     </div>
                 </div>
@@ -156,7 +156,7 @@ Yii::app()->clientScript
                         </div>
                         <div class='row'>
                             <div class="col-sm-5">
-                                <?php echo $form->textFieldGroup(
+                                <?= $form->textFieldGroup(
                                     $model,
                                     'verifyCode',
                                     [
@@ -178,10 +178,10 @@ Yii::app()->clientScript
                     <div class="col-sm-12">
                         <button class="btn btn-primary" id="add-comment" type="submit" name="add-comment">
                             <i class="glyphicon glyphicon-comment"></i>
-                            <?php echo Yii::t('CommentModule.comment', 'Create comment'); ?>
+                            <?= Yii::t('CommentModule.comment', 'Create comment'); ?>
                         </button>
                         <button class="btn btn-default" id="close-comment" type="button" style="display: none">
-                            <?php echo Yii::t('CommentModule.comment', 'Отмена'); ?>
+                            <?= Yii::t('CommentModule.comment', 'Отмена'); ?>
                         </button>
                     </div>
                 </div>

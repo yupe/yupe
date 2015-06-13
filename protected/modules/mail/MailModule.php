@@ -12,21 +12,31 @@
  */
 class MailModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.7';
 
     public function getParamsLabels()
     {
         return [
-            'adminMenuOrder' => Yii::t('MailModule.mail', 'Menu items order'),
-            'editor'         => Yii::t('MailModule.mail', 'Visual editor'),
+            'editor' => Yii::t('MailModule.mail', 'Visual editor'),
         ];
     }
 
     public function getEditableParams()
     {
         return [
-            'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
+        ];
+    }
+
+    public function getEditableParamsGroups()
+    {
+        return [
+            '1.main' => [
+                'label' => Yii::t('MailModule.mail', 'Visual editor settings'),
+                'items' => [
+                    'editor'
+                ]
+            ],
         ];
     }
 
@@ -130,25 +140,25 @@ class MailModule extends yupe\components\WebModule
         return [
             ['label' => Yii::t('MailModule.mail', 'Mail events')],
             [
-                'icon'  => 'fa fa-fw fa-list-alt',
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MailModule.mail', 'Messages list'),
-                'url'   => ['/mail/eventBackend/index']
+                'url' => ['/mail/eventBackend/index']
             ],
             [
-                'icon'  => 'fa fa-fw fa-plus-square',
+                'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MailModule.mail', 'Create event'),
-                'url'   => ['/mail/eventBackend/create']
+                'url' => ['/mail/eventBackend/create']
             ],
             ['label' => Yii::t('MailModule.mail', 'Mail templates')],
             [
-                'icon'  => 'fa fa-fw fa-list-alt',
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MailModule.mail', 'Templates list'),
-                'url'   => ['/mail/templateBackend/index']
+                'url' => ['/mail/templateBackend/index']
             ],
             [
-                'icon'  => 'fa fa-fw fa-plus-square',
+                'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MailModule.mail', 'Create template'),
-                'url'   => ['/mail/templateBackend/create']
+                'url' => ['/mail/templateBackend/create']
             ],
         ];
     }
@@ -186,60 +196,60 @@ class MailModule extends yupe\components\WebModule
     {
         return [
             [
-                'name'        => 'Mail.MailManager',
+                'name' => 'Mail.MailManager',
                 'description' => Yii::t('MailModule.mail', 'Manage mail events and templates'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => [
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
                     //mail events
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.Create',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.EventBackend.Create',
                         'description' => Yii::t('MailModule.mail', 'Creating mail event')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.Delete',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.EventBackend.Delete',
                         'description' => Yii::t('MailModule.mail', 'Removing mail event')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.Index',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.EventBackend.Index',
                         'description' => Yii::t('MailModule.mail', 'List of mail events')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.Update',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.EventBackend.Update',
                         'description' => Yii::t('MailModule.mail', 'Editing mail events')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.EventBackend.View',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.EventBackend.View',
                         'description' => Yii::t('MailModule.mail', 'Viewing mail events')
                     ],
                     //mail templates
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.Create',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.TemplateBackend.Create',
                         'description' => Yii::t('MailModule.mail', 'Creating mail event template')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.Delete',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.TemplateBackend.Delete',
                         'description' => Yii::t('MailModule.mail', 'Removing mail event template')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.Index',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.TemplateBackend.Index',
                         'description' => Yii::t('MailModule.mail', 'List of mail event templates')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.Update',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.TemplateBackend.Update',
                         'description' => Yii::t('MailModule.mail', 'Editing mail event templates')
                     ],
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Mail.TemplateBackend.View',
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Mail.TemplateBackend.View',
                         'description' => Yii::t('MailModule.mail', 'Viewing mail event templates')
                     ],
                 ]
