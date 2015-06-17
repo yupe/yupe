@@ -1,13 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 17.05.15
- * Time: 18:27
- */
-
-class DefautThemeEvents {
-
+class DefautThemeEvents
+{
     CONST BODY_END = 'template.body.end';
 
+    CONST BODY_START = 'template.body.start';
+
+    CONST HEAD_END = 'template.head.end';
+
+    CONST HEAD_START = 'template.head.start';
 }

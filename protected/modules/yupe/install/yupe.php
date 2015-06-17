@@ -35,16 +35,6 @@ return [
             ],
         ],
 
-        'eventManager'   => [
-            'class'  => 'yupe\components\EventManager',
-            'events' => [
-                'template.body.end' => [
-                    ['yupe\components\TestTemplateEvent', 'onBodyEnd']
-                ],
-
-            ]
-        ],
-
         // DAO simple wrapper:
         'dao' => ['class' => 'yupe\components\DAO'],
         'thumbnailer' => ['class' => 'yupe\components\image\Thumbnailer'],

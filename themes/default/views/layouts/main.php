@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?= Yii::app()->language; ?>">
 <head>
-
+    <?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::HEAD_START);?>
     <?php Yii::app()->getController()->widget(
         'vendor.chemezov.yii-seo.widgets.SeoHead',
         array(
@@ -35,9 +35,13 @@
     <![endif]-->
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.2/styles/github.min.css">
     <script src="http://yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+    <?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::HEAD_END);?>
 </head>
 
 <body>
+
+<?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::BODY_START);?>
+
 <?php if (Yii::app()->hasModule('menu')): ?>
     <?php $this->widget('application.modules.menu.widgets.MenuWidget', ['name' => 'top-menu']); ?>
 <?php endif; ?>
