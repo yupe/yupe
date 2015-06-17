@@ -2,6 +2,21 @@
 
 class PublisherController extends \yupe\components\controllers\FrontController
 {
+    public function actions()
+    {
+        return [
+            'AjaxImageUpload' => [
+                'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize'   => $this->module->maxSize,
+                'mimeTypes' => $this->module->mimeTypes,
+                'types'     => $this->module->allowedExtensions
+            ],
+            'AjaxImageChoose' => [
+                'class' => 'yupe\components\actions\YAjaxImageChooseAction'
+            ],
+        ];
+    }
+
     public function filters()
     {
         return [

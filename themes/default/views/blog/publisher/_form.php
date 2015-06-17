@@ -98,13 +98,13 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php
-        echo CHtml::image(
-            !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+        <?=
+            CHtml::image(
+            !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
             $model->title,
             [
                 'class' => 'preview-image',
-                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
             ]
         ); ?>
         <?= $form->fileFieldGroup(
@@ -134,6 +134,11 @@ $form = $this->beginWidget(
             [
                 'model'     => $model,
                 'attribute' => 'content',
+                'options' => [
+                    'imageUpload' => Yii::app()->createUrl('/blog/publisher/AjaxImageUpload'),
+                    'fileUpload' => false,
+                    'imageManagerJson' => Yii::app()->createUrl('/blog/publisher/AjaxImageChoose'),
+                ]
             ]
         );
 
