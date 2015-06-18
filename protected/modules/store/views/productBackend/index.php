@@ -74,7 +74,13 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                 'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'type_id',
                 'url' => $this->createUrl('/store/productBackend/inline'),
-                'source' => Type::model()->getFormattedList()
+                'source' => CMap::mergeArray(
+                    ['' => '---'],
+                    Type::model()->getFormattedList()
+                ),
+                'editable' => [
+                    'emptytext' => '---',
+                ],
             ],
             [
                 'name'  => 'category_id',

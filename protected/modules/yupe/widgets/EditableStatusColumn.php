@@ -49,6 +49,9 @@ class EditableStatusColumn extends \TbEditableColumn
     public function init()
     {
         $this->editable['options']['display'] = 'js:function(value, sourceData) {
+            if (typeof sourceData === "undefined") {
+                return false;
+            }
             var selected = $.grep(sourceData, function(o){ return value == o.value; })[0],
             itemsOptions = ' . json_encode($this->options) . ';
             var item = itemsOptions[value];
