@@ -249,7 +249,7 @@ class Image extends yupe\models\YModel
      **/
     public function canChange()
     {
-        return Yii::app()->user->isSuperUser() || Yii::app()->user->getId() == $this->user_id;
+        return Yii::app()->getUser()->isSuperUser() || Yii::app()->getUser()->getId() == $this->user_id;
     }
 
     /**

@@ -40,6 +40,13 @@ class Redactor extends \CInputWidget
                     fadeOut: {delay: 5000}
                 }).show();
                 }',
+            'imageUploadErrorCallback' => 'js:function (data) {
+                $(\'#notifications\').notify({
+                    message: {text: data.error},
+                    type: \'danger\',
+                    fadeOut: {delay: 5000}
+                }).show();
+                }',
             'toolbarFixedTopOffset'   => 53,
             'lang'                    => strtolower(substr(Yii::app()->language, -2)),
             'minHeight'               => 150,

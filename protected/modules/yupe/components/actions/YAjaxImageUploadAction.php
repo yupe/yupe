@@ -24,7 +24,7 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
 
     protected function uploadFile()
     {
-        if (!Yii::app()->hasModule('image')) {
+        if (!$this->uploadedFile || !Yii::app()->hasModule('image')) {
             return false;
         }
 

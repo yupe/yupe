@@ -135,9 +135,9 @@ $form = $this->beginWidget(
                 'model'     => $model,
                 'attribute' => 'content',
                 'options' => [
-                    'imageUpload' => Yii::app()->createUrl('/blog/publisher/AjaxImageUpload'),
+                    'imageUpload' => Yii::app()->createUrl('/blog/publisher/imageUpload'),
                     'fileUpload' => false,
-                    'imageManagerJson' => Yii::app()->createUrl('/blog/publisher/AjaxImageChoose'),
+                    'imageManagerJson' => false,
                 ]
             ]
         );

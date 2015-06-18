@@ -42,6 +42,9 @@ return [
         '/posts/archive'          => 'blog/archive/index',
         '/posts/categories'       => 'blog/post/categories',
         '/posts/<slug>/'          => 'blog/post/blog',
-        '/posts/category/<slug>' => 'blog/post/category'
+        '/posts/category/<slug>'  => 'blog/post/category',
+
+        '/post/imageUpload'       => 'blog/publisher/imageUpload',
+        '/post/imageChoose'       => 'blog/publisher/imageChoose',
     ],
 ];
