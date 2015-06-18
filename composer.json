@@ -49,12 +49,11 @@
         "issues": "https://github.com/yupe/yupe/issues",
         "forum": "http://yupe.ru/talk/",
         "source": "https://github.com/yupe/yupe/",
-        "irc": "https://gitter.im/yupe/yupe",
         "docs": "http://yupe.ru/docs/"
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": ">=1.1.16",
+        "yiisoft/yii": "1.1.16",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "1.3.*",
