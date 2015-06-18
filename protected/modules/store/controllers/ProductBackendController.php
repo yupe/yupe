@@ -135,6 +135,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 } else {
                     $this->redirect([$_POST['submit-type']]);
                 }
+            }else{
+                Yii::app()->getUser()->setFlash(
+                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('StoreModule.store', 'Failed to save product!')
+                );
             }
         }
 

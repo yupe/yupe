@@ -307,8 +307,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'class' => 'application.modules.store.components.behaviors.AttributesBehavior',
                 'tableName' => '{{store_product_attribute_eav}}',
                 'entityField' => 'product_id',
-                'preload' => false,
-                //'cacheId' => 'cache'
+                'preload' => false
             ],
             'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
@@ -491,6 +490,10 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function attribute($attribute)
     {
+        if($this->getIsNewRecord()) {
+            return null;
+        }
+
         return isset($this->_eavAttributes[$attribute]) ? $this->_eavAttributes[$attribute] : $this->getEavAttribute(
             $attribute
         );
