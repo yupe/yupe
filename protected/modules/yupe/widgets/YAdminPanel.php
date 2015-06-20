@@ -28,11 +28,10 @@ class YAdminPanel extends YWidget
 
         $cached = Yii::app()->getCache()->get($cacheKey);
 
-        if (false === $cached) {
+        //if (false === $cached) {
             $cached = $this->render(
                 $this->view,
                 [
-                    'modules' => Yii::app()->moduleManager->getModules(true),
                     'yupe' => $this->getController()->yupe
                 ],
                 true
@@ -43,7 +42,7 @@ class YAdminPanel extends YWidget
                 0,
                 new TagsCache('yupe', 'YAdminPanel', 'installedModules')
             );
-        }
+        //}
 
         echo $cached;
     }
