@@ -28,67 +28,12 @@ class YAdminMenu extends YWidget
 
         $cached = Yii::app()->getCache()->get($cacheKey);
 
-        /*$modules = [
-            [
-                'label' => 'Blogs',
-                'items' => [
-                    [
-                        'icon'  => 'fa fa-fw fa-list-alt',
-                        'label' => 'Manage blogs',
-                        'url'   => ['/blog/blogBackend/index']
-                    ],
-                    [
-                        'icon'  => 'fa fa-fw fa-plus-square',
-                        'label' => 'Add a blog',
-                        'url'   => ['/blog/blogBackend/create']
-                    ],
-                ]
-            ],
-            [
-                'label' => 'Posts',
-                'items' => [
-                    [
-                        'icon'  => 'fa fa-fw fa-list-alt',
-                        'label' => 'Manage posts',
-                        'url'   => ['/blog/postBackend/index']
-                    ],
-                    [
-                        'icon'  => 'fa fa-fw fa-plus-square',
-                        'label' => 'Add a post',
-                        'url'   => ['/blog/postBackend/create']
-                    ],
-                ]
-            ],
-            [
-                'label' => 'Members',
-                'items' => [
-                    [
-                        'icon'  => 'fa fa-fw fa-list-alt',
-                        'label' => 'Manage members',
-                        'url'   => ['/blog/userToBlogBackend/index']
-                    ],
-                    [
-                        'icon'  => 'fa fa-fw fa-plus-square',
-                        'label' => 'Add a member',
-                        'url'   => ['/blog/userToBlogBackend/create']
-                    ],
-                ]
-            ],
-        ];*/
+        if (false === $cached) {
 
-        $modules = Yii::app()->moduleManager->getModules(true);
-        /*echo "<pre>";
-        print_r($modules);
-        echo "</pre>";
-        die();*/
-
-        //if (false === $cached) {
-
-            //$modules = Yii::app()->moduleManager->getModules(true);
             $cached = $this->render(
                 $this->view,
                 [
-                    'modules' => $modules,
+                    'modules' => Yii::app()->moduleManager->getModules(true),
                 ],
                 true
             );
@@ -98,7 +43,7 @@ class YAdminMenu extends YWidget
                 0,
                 new TagsCache('yupe', 'YAdminMenu', 'installedModules')
             );
-        //}
+        }
 
         echo $cached;
     }
