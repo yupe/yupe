@@ -1,6 +1,6 @@
 <?php $this->beginContent($this->yupe->getBackendLayoutAlias("main")); ?>
 <div class="row">
-    <div class="col-sm-3 col-lg-2'">
+    <div class="col-sm-3 col-lg-2">
         <div class="panel panel-default" style="padding: 8px 0;">
             <?php $this->widget('yupe\widgets\YAdminMenu'); ?>
         </div>
