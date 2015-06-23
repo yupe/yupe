@@ -35,8 +35,7 @@ class EShoppingCart extends CMap
     public function init()
     {
         $this->restoreFromSession();
-        //@TODO подумать как убрать зависимости
-        $this->couponManager = new CouponManager();
+        $this->couponManager = Yii::app()->getComponent('couponManager');
     }
 
     public function getCouponManager()

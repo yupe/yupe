@@ -26,7 +26,10 @@ class CartController extends \yupe\components\controllers\FrontController
 
         $deliveryTypes = Delivery::model()->published()->findAll();
 
-        $this->render('index', ['positions' => $positions, 'order' => $order, 'coupons' => $coupons, 'deliveryTypes' => $deliveryTypes ]);
+        $this->render(
+            'index',
+            ['positions' => $positions, 'order' => $order, 'coupons' => $coupons, 'deliveryTypes' => $deliveryTypes]
+        );
     }
 
     public function actionAdd()
@@ -37,13 +40,13 @@ class CartController extends \yupe\components\controllers\FrontController
 
         $product = Yii::app()->getRequest()->getPost('Product');
 
-        if(empty($product) || empty($product['id'])) {
+        if (empty($product['id'])) {
             throw new CHttpException(404);
         }
 
         $model = CartProduct::model()->findByPk((int)$product['id']);
 
-        if(null === $model) {
+        if (null === $model) {
             throw new CHttpException(404);
         }
 
@@ -59,8 +62,8 @@ class CartController extends \yupe\components\controllers\FrontController
             }
         }
         $model->selectedVariants = $variants;
-        $quantity = isset($product['quantity']) ? (int)$product['quantity'] : 1;
-        Yii::app()->cart->put($model, $quantity ? : 1);
+        $quantity = empty($product['quantity']) ? 1 : (int)$product['quantity'];
+        Yii::app()->cart->put($model, $quantity);
         Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product successfully added to your basket'));
     }
 
@@ -71,7 +74,7 @@ class CartController extends \yupe\components\controllers\FrontController
         }
 
         $position = Yii::app()->cart->itemAt(Yii::app()->getRequest()->getPost('id'));
-        $quantity  = (int)Yii::app()->getRequest()->getPost('quantity');
+        $quantity = (int)Yii::app()->getRequest()->getPost('quantity');
         Yii::app()->cart->update($position, $quantity);
         Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Quantity changed'));
     }

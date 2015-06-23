@@ -1,7 +1,7 @@
 <?php
 
 /**
- * EEavBehavior class file.
+ * AttributesBehavior class file.
  *
  * Entity-Attribute-Value behavior.
  * Allows model to work with custom fields on the fly (EAV pattern).

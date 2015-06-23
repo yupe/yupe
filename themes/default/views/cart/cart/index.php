@@ -3,12 +3,11 @@
 /* @var $positions Product[] */
 /* @var $order Order */
 /* @var $coupons Coupon[] */
-Yii::app()->getClientScript()->registerCssFile(
-    Yii::app()->getModule('cart')->getAssetsUrl(). '/css/cart-frontend.css'
-);
 
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
+Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/cart-frontend.css');
 
 $this->title = Yii::t('CartModule.cart', 'Cart');
 $this->breadcrumbs = [
@@ -269,21 +268,22 @@ $this->breadcrumbs = [
                                     <tr>
                                         <td>
                                             <div>
-                                                <?= $form->labelEx($order, 'phone'); ?>
-                                                <?= $form->textField($order, 'phone', ['class' => 'form-control']); ?>
-                                                <?= $form->error($order, 'phone'); ?>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div>
                                                 <?= $form->labelEx($order, 'email'); ?>
                                                 <?= $form->emailField($order, 'email', ['class' => 'form-control']); ?>
                                                 <?= $form->error($order, 'email'); ?>
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <?= $form->labelEx($order, 'phone'); ?>
+                                                <?= $form->textField($order, 'phone', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'phone'); ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+
                                     <tr>
                                         <td>
                                             <div>

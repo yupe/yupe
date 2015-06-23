@@ -1,6 +1,6 @@
 <?php
 Yii::import('zii.behaviors.CTimestampBehavior');
-Yii::import('application.modules.store.components.behaviors.EEavBehavior');
+Yii::import('application.modules.store.components.behaviors.AttributesBehavior');
 Yii::import('application.modules.comment.components.ICommentable');
 
 /**

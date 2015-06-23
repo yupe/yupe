@@ -10,6 +10,11 @@ class CouponManager extends CComponent
         $this->restoreFromSession();
     }
 
+    public function init()
+    {
+
+    }
+
     public function getCoupons()
     {
         return $this->coupons;
