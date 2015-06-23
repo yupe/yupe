@@ -1167,7 +1167,7 @@ abstract class WebModule extends CWebModule
     {
         if ($this->visualEditor === null) {
             $yupe = Yii::app()->getModule('yupe');
-            $editor = $yupe->editor ?: $this->editor;
+            $editor = $this->editor ?: $yupe->editor;
             $this->visualEditor = isset($this->visualEditors[$editor]['class'])
                 ? $this->visualEditors[$editor]['class']
                 : $yupe->visualEditors[$editor]['class'];

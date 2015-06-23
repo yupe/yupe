@@ -88,7 +88,7 @@ class StoreModule extends WebModule
 
     public function getIsShowInAdminMenu()
     {
-        return false;
+        return true;
     }
 
     public function getExtendedNavigation()

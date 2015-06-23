@@ -59,11 +59,11 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <?php
         echo CHtml::image(
-            !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+            !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
             $model->name,
             [
                 'class' => 'preview-image img-thumbnail',
-                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
             ]
         ); ?>
         <?php echo $form->fileFieldGroup(
@@ -79,7 +79,6 @@ $form = $this->beginWidget(
         ); ?>
     </div>
 </div>
-
 <div class='row'>
     <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
         <?php echo $form->labelEx($model, 'description'); ?>
