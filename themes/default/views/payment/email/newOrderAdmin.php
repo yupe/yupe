@@ -90,7 +90,7 @@
     <?php foreach ($order->products as $orderProduct): ?>
         <?php $productUrl = Yii::app()->createAbsoluteUrl(
             '/store/catalog/show',
-            ['name' => $orderProduct->product->alias]
+            ['name' => $orderProduct->product->slug]
         ); ?>
         <tr>
             <td align="center"
