@@ -53,15 +53,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
                         'summaryText' => '',
                         'enableHistory' => true,
                         'cssFile' => false,
-                        'pager' => [
-                            'cssFile' => false,
-                            'htmlOptions' => ['class' => 'pagination'],
-                            'header' => '',
-                            'firstPageLabel' => '&lt;&lt;',
-                            'lastPageLabel' => '&gt;&gt;',
-                            'nextPageLabel' => '&gt;',
-                            'prevPageLabel' => '&lt;',
-                        ],
+                        'itemsCssClass' => 'row items',
                         'sortableAttributes' => [
                             'sku',
                             'name',
