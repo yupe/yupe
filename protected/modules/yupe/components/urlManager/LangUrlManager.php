@@ -119,7 +119,7 @@ class LangUrlManager extends CUrlManager
             }
         }
 
-        return parent::createUrl($route, $params, $ampersand);
+        return str_replace('%2F', '/', parent::createUrl($route, $params, $ampersand));
     }
 
     /**
