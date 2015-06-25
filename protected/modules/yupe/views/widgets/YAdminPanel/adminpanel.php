@@ -16,9 +16,7 @@ $mainAssets = Yii::app()->getAssetManager()->publish(
 $this->widget(
     'bootstrap.widgets.TbNavbar',
     [
-        //'type' => 'inverse',
         'fluid'    => true,
-        'collapse' => true,
         'fixed'    => 'top',
         'brand'    => CHtml::image(
             $mainAssets . '/img/logo.png',
@@ -34,103 +32,15 @@ $this->widget(
             [
                 'class' => 'bootstrap.widgets.TbMenu',
                 'type'  => 'navbar',
+                'encodeLabel' => false,
                 'items' => $modules
             ],
             [
                 'class'       => 'bootstrap.widgets.TbMenu',
-                'htmlOptions' => ['class' => 'navbar-right'],
+                'htmlOptions' => ['class' => 'navbar-right visible-xs hidden-sm hidden-md visible-lg'],
                 'type'        => 'navbar',
                 'encodeLabel' => false,
-                'items'       => array_merge(
-                    [
-                        [
-                            'icon'  => 'fa fa-fw fa-question-circle',
-                            'label' => Yii::t('YupeModule.yupe', 'Help'),
-                            'url'   => CHtml::normalizeUrl(['/yupe/backend/help']),
-                            'items' => [
-                                [
-                                    'icon'        => 'fa fa-fw fa-globe',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Official site'),
-                                    'url'         => 'http://yupe.ru?from=help',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-book',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Official docs'),
-                                    'url'         => 'http://yupe.ru/docs/index.html?from=help',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-th-large',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                    'url'         => 'https://github.com/yupe/yupe-ext',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-comment',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Forum'),
-                                    'url'         => 'http://yupe.ru/talk/?from=help',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-comment',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Chat'),
-                                    'url'         => 'http://gitter.im/yupe/yupe',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-globe',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Community on github'),
-                                    'url'         => 'https://github.com/yupe/yupe',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-thumbs-up',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                    'url'         => 'http://amylabs.ru/contact?from=help-support',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'        => 'fa fa-fw fa-warning',
-                                    'label'       => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                    'url'         => 'http://yupe.ru/contacts?from=panel',
-                                    'linkOptions' => ['target' => '_blank'],
-                                ],
-                                [
-                                    'icon'  => 'fa fa-fw fa-question-circle',
-                                    'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                    'url'   => ['/yupe/backend/help'],
-                                ],
-                            ]
-                        ],
-                        [
-                            'icon'  => 'fa fa-fw fa-home',
-                            'label' => Yii::t('YupeModule.yupe', 'Go home'),
-                            'url'   => Yii::app()->createAbsoluteUrl('/')
-                        ],
-                        [
-                            'icon'  => 'fa fa-fw fa-user',
-                            'label' => '<span class="label label-info">' . CHtml::encode(
-                                    Yii::app()->getUser()->getProfileField('fullName')
-                                ) . '</span>',
-                            'items' => [
-                                [
-                                    'icon'  => 'fa fa-fw fa-cog',
-                                    'label' => Yii::t('YupeModule.yupe', 'Profile'),
-                                    'url'   => CHtml::normalizeUrl(
-                                        (['/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()])
-                                    ),
-                                ],
-                                [
-                                    'icon'  => 'fa fa-fw fa-power-off',
-                                    'label' => Yii::t('YupeModule.yupe', 'Exit'),
-                                    'url'   => CHtml::normalizeUrl(['/user/account/logout']),
-                                ],
-                            ],
-                        ],
-                    ],
-                    $yupe->getLanguageSelectorArray()
-                ),
+                'items'       => $navbarRight,
             ],
         ],
     ]

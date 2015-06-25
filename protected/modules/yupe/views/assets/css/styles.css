@@ -301,3 +301,12 @@ input.form-control[type="file"] {
 .grid-toolbar {
     height: 40px;
 }
+
+/*navbar*/
+.navbar-default .navbar-nav>li>a {
+    padding: 15px 5px;
+}
+
+.navbar-brand {
+    padding: 7px 5px 15px 15px;
+}
