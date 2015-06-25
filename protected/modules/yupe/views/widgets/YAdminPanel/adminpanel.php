@@ -32,17 +32,13 @@ $this->widget(
         'brandUrl' => CHtml::normalizeUrl(["/yupe/backend/index"]),
         'items'    => [
             [
-                'class' => 'bootstrap.widgets.TbMenu',
-                'type'  => 'navbar',
-                'items' => $modules
-            ],
-            [
                 'class'       => 'bootstrap.widgets.TbMenu',
                 'htmlOptions' => ['class' => 'navbar-right'],
                 'type'        => 'navbar',
                 'encodeLabel' => false,
                 'items'       => array_merge(
                     [
+
                         [
                             'icon'  => 'fa fa-fw fa-question-circle',
                             'label' => Yii::t('YupeModule.yupe', 'Help'),

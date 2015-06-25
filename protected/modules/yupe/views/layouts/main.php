@@ -90,8 +90,7 @@
 <body>
 <div id="overall-wrap">
     <!-- mainmenu -->
-    <?php
-    $this->widget('yupe\widgets\YAdminPanel'); ?>
+    <?php $this->widget('yupe\widgets\YAdminPanel'); ?>
     <div class="container-fluid" id="page"><?= $content; ?></div>
     <div id="footer-guard"></div>
 </div>

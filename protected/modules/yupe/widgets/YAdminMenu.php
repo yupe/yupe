@@ -18,21 +18,22 @@ use CHtml;
 use CClientScript;
 use TagsCache;
 
-class YAdminPanel extends YWidget
+class YAdminMenu extends YWidget
 {
-    public $view = 'adminpanel';
+    public $view = 'adminmenu';
 
     public function run()
     {
-        $cacheKey = 'YAdminPanel::' . Yii::app()->getUser()->getId() . '::' . Yii::app()->getLanguage();
+        $cacheKey = 'YAdminMenu::' . Yii::app()->getUser()->getId() . '::' . Yii::app()->getLanguage();
 
         $cached = Yii::app()->getCache()->get($cacheKey);
 
-        //if (false === $cached) {
+        if (false === $cached) {
+
             $cached = $this->render(
                 $this->view,
                 [
-                    'yupe' => $this->getController()->yupe
+                    'modules' => Yii::app()->moduleManager->getModules(true),
                 ],
                 true
             );
@@ -40,9 +41,9 @@ class YAdminPanel extends YWidget
                 $cacheKey,
                 $cached,
                 0,
-                new TagsCache('yupe', 'YAdminPanel', 'installedModules')
+                new TagsCache('yupe', 'YAdminMenu', 'installedModules')
             );
-        //}
+        }
 
         echo $cached;
     }
