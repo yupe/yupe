@@ -32,18 +32,12 @@ $this->widget(
             [
                 'class' => 'bootstrap.widgets.TbMenu',
                 'type'  => 'navbar',
-                'htmlOptions' => ['class' => 'visible-xs hidden-sm visible-md visible-lg'],
+                'encodeLabel' => false,
                 'items' => $modules
             ],
             [
-                'class' => 'bootstrap.widgets.TbMenu',
-                'type'  => 'navbar',
-                'htmlOptions' => ['class' => 'hidden-xs visible-sm hidden-md'],
-                'items' => $modulesMobile
-            ],
-            [
                 'class'       => 'bootstrap.widgets.TbMenu',
-                'htmlOptions' => ['class' => 'navbar-right'],
+                'htmlOptions' => ['class' => 'navbar-right visible-xs hidden-sm hidden-md visible-lg'],
                 'type'        => 'navbar',
                 'encodeLabel' => false,
                 'items'       => $navbarRight,

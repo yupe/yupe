@@ -28,10 +28,11 @@ class YAdminPanel extends YWidget
 
         $cached = Yii::app()->getCache()->get($cacheKey);
 
-        $modules = $modulesMobile = Yii::app()->moduleManager->getModules(true);
-        foreach($modulesMobile as &$item){
-            $item['linkOptions'] = ['title'=>$item['label']];
-            $item['label'] = '';
+        $modules = Yii::app()->moduleManager->getModules(true);
+
+        foreach ($modules as &$item) {
+            $item['linkOptions'] = ['title' => $item['label']];
+            $item['label'] = CHtml::tag('span', ['class' => 'hidden-sm'], $item['label']);
         }
 
         if (false === $cached) {
@@ -39,7 +40,6 @@ class YAdminPanel extends YWidget
                 $this->view,
                 [
                     'modules' => $modules,
-                    'modulesMobile' => $modulesMobile,
                     'navbarRight' => $this->getNavbarRight(),
                 ],
                 true
@@ -61,7 +61,7 @@ class YAdminPanel extends YWidget
             [
                 [
                     'icon'  => 'fa fa-fw fa-question-circle',
-                    'label' => Yii::t('YupeModule.yupe', 'Help'),
+                    'label' => CHtml::tag('span',['class'=>'hidden-sm hidden-md hidden-lg'],Yii::t('YupeModule.yupe', 'Help')),
                     'url'   => CHtml::normalizeUrl(['/yupe/backend/help']),
                     'items' => [
                         [
@@ -121,7 +121,7 @@ class YAdminPanel extends YWidget
                 ],
                 [
                     'icon'  => 'fa fa-fw fa-home',
-                    'label' => Yii::t('YupeModule.yupe', 'Go home'),
+                    'label' => CHtml::tag('span',['class'=>'hidden-sm hidden-md hidden-lg'],Yii::t('YupeModule.yupe', 'Go home')),
                     'url'   => Yii::app()->createAbsoluteUrl('/')
                 ],
                 [
