@@ -46,7 +46,6 @@
                     Yii::app()->getModule('yupe')->getLogo(),
                     CHtml::encode(Yii::app()->name),
                     [
-                        'width'  => '38',
                         'height' => '38',
                         'title'  => CHtml::encode(Yii::app()->name),
                     ]
