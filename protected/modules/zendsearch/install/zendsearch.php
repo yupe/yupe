@@ -10,8 +10,8 @@ return [
                 'path'        => 'application.modules.news.models.News',
                 'module'      => 'news',
                 'titleColumn' => 'title',
-                'linkColumn'  => 'alias',
-                'linkPattern' => '/news/news/show?title={alias}',
+                'linkColumn'  => 'slug',
+                'linkPattern' => '/news/news/show?title={slug}',
                 'textColumns' => 'full_text,short_text,keywords,description',
             ],
             'Page' => [
