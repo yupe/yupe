@@ -1,0 +1,54 @@
+<?php
+/**
+ * Message translations.
+ *
+ * @author Anton Kucherov <idexter.ru@gmail.com>
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ *
+ * NOTE, this file must be saved in UTF-8 encoding.
+ */
+
+return [
+    'Links'                                                                             => 'Ресурси',
+    'Twitter'                                                                           => 'Твіттер',
+    'Vk.com'                                                                            => 'ВКонтакті',
+    'Facebook'                                                                          => 'Фейсбук',
+    'Google+'                                                                           => 'Google+',
+    'Blog'                                                                              => 'Блог',
+    'Our site'                                                                          => 'Сайт',
+    'Documentation'                                                                     => 'Документація',
+    'Support'                                                                           => 'Подтримка',
+    'Dcumentation'                                                                      => 'Документація',
+    'API'                                                                               => 'API',
+    'Forum'                                                                             => 'Форум',
+    'FAQ'                                                                               => 'Питання і відповіді',
+    'Contacts'                                                                          => 'Контакти',
+    'Yupe!'                                                                             => 'Юпі!',
+    'About project'                                                                     => 'Про проект',
+    'Team'                                                                              => 'Команда',
+    'GitHub'                                                                            => 'GitHub',
+    'Extensions'                                                                        => 'Доп. модулі',
+    'Facilities'                                                                        => 'Модливості',
+    'How to help us'                                                                    => 'Допомога проекту',
+    'Friends'                                                                           => 'Друзі',
+    'allframeworks'                                                                     => 'allframeworks',
+    'amyLabs'                                                                           => 'amyLabs',
+    'Do you want to be our friend?'                                                     => 'Хочеш у друзі?',
+    'Commertial support'                                                                => 'Комерційна підтримка',
+    'Internet projects development and maintenance'                                     => 'Разрабока і підтримка інтернет-проектів',
+    'Yupe! team'                                                                        => 'Юпі! team',
+    'Actions'                                                                           => 'Дії',
+    'City:'                                                                             => 'Місто:',
+    'We think, you are from'                                                            => 'Ми гадаємо, що ви із міста',
+    'Click on link to choose the city.'                                                 => 'Клікніті на посилання, щоб обрати це місто.',
+    'Records'                                                                           => 'Записи',
+    'read...'                                                                           => 'читати...',
+    'Error'                                                                             => 'Помилка',
+    'Page you try to request, was not found. You can go out from this page and {link}.' => 'Сторінку яку ви запитуєте не знайдено. Ви можете можете вийти із вказанної сторінки і {link}.',
+    'go to home page'                                                                   => 'перейти на головну сторінку сайту’',
+    'Finishing register'                                                                => 'Закінчення реєстрації',
+    'Register'                                                                          => 'Зареєструватися',
+    'Tag cloud'                                                                         => 'Хмара міток',
+];
