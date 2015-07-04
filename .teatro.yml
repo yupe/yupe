@@ -3,6 +3,7 @@ project:
   platform: php
 config:
   database: mysql
-  services: mysql
+  services: 
+    - mysql
 
   
