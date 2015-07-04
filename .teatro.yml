@@ -1,2 +1,6 @@
 project:
   root: public
+  platform: php
+config:
+  database: mysql
+  
