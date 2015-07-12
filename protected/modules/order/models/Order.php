@@ -584,7 +584,7 @@ class Order extends yupe\models\YModel
 
     public function isPaid()
     {
-        return $this->paid === static::PAID_STATUS_PAID;
+        return (int)$this->paid === static::PAID_STATUS_PAID;
     }
 
     public function pay(Payment $payment)
