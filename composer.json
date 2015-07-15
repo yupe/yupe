@@ -69,7 +69,8 @@
         "brussens/wysibb-yii": "dev-master",
         "2amigos/transliterator-helper": "dev-master",
         "chemezov/yii-seo": "1.0.*",
-        "yiiext/migrate-command": "dev-master"
+        "yiiext/migrate-command": "dev-master",
+        "samdark/sitemap": "2.0.*"
     },
     "repositories": {
         

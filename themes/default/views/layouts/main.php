@@ -84,6 +84,7 @@
             <?php endif; ?>
 
             <div class="widget blogs-widget">
+
                 <?php $this->widget(
                     'yupe\widgets\RandomDataWidget',
                     [

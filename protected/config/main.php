@@ -112,6 +112,7 @@ return [
             'languageInPath' => true,
             'langParam' => 'language',
             'urlFormat' => 'path',
+            'urlSuffix' => '',
             'showScriptName' => false,
             // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID' => 'cache',

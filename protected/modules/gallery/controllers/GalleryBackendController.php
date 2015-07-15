@@ -65,7 +65,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was created')
                 );
@@ -98,7 +98,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was updated')
                 );
@@ -132,7 +132,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('GalleryModule.gallery', 'Record was removed')
             );
@@ -231,7 +231,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     private function _addImage(Image $image, array $imageData, Gallery $gallery)
     {
         try {
-            $transaction = Yii::app()->db->beginTransaction();
+            $transaction = Yii::app()->getDb()->beginTransaction();
             $image->setAttributes($imageData);
 
             if ($image->save() && $gallery->addImage($image)) {
@@ -239,7 +239,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 $transaction->commit();
 
                 if (Yii::app()->getRequest()->getPost('ajax') === null) {
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
@@ -250,7 +250,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
             $transaction->rollback();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
@@ -293,7 +293,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 : Yii::app()->ajax->failure($message);
         }
 
-        Yii::app()->user->setFlash(
+        Yii::app()->getUser()->setFlash(
             $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
             $message
         );
@@ -344,9 +344,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 ];
             }
 
-            echo json_encode($data);
-
-            Yii::app()->end();
+           Yii::app()->ajax->raw($data);
         } else {
             throw new CHttpException(
                 404,
@@ -360,7 +358,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
      *
      * @param int $id - id-галереи
      * @param string $view - необходимая вьюшка
-     *
+     * @throws CHttpException
      * @return void
      **/
     public function actionReloadContent($id = null, $view = null)
