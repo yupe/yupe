@@ -732,16 +732,16 @@
         },
         {
             "name": "yiiext/imperavi-redactor-widget",
-            "version": "v1.3.12",
+            "version": "v1.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
-                "reference": "8dd35bb7a2d280bc97ce5d2d117c800d16e9017c"
+                "reference": "aa670ee97354a5cad07e363addfb0243c714a2b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/8dd35bb7a2d280bc97ce5d2d117c800d16e9017c",
-                "reference": "8dd35bb7a2d280bc97ce5d2d117c800d16e9017c",
+                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/aa670ee97354a5cad07e363addfb0243c714a2b4",
+                "reference": "aa670ee97354a5cad07e363addfb0243c714a2b4",
                 "shasum": ""
             },
             "type": "library",
@@ -767,7 +767,7 @@
                 "wysiwyg",
                 "yii"
             ],
-            "time": "2015-06-29 10:06:15"
+            "time": "2015-07-16 16:27:38"
         },
         {
             "name": "yiiext/migrate-command",
