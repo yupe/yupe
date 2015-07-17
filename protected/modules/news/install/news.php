@@ -13,7 +13,16 @@ return [
         'class' => 'application.modules.news.NewsModule',
     ],
     'import'    => [],
-    'component' => [],
+    'component' => [
+        'eventManager'   => [
+            'class'  => 'yupe\components\EventManager',
+            'events' => [
+                'sitemap.before.generate' => [
+                    ['\NewsSitemapGeneratorListener', 'onGenerate']
+                ]
+            ]
+        ]
+    ],
     'rules'     => [
         '/news/'        => 'news/news/index',
         '/news/<slug>' => 'news/news/show',

@@ -1,15 +1,43 @@
 <?php
 
+/**
+ * Class SitemapHelper
+ */
 class SitemapHelper
 {
+    /**
+     *
+     */
     const FREQUENCY_ALWAYS = 'always';
+    /**
+     *
+     */
     const FREQUENCY_HOURLY = 'hourly';
+    /**
+     *
+     */
     const FREQUENCY_DAILY = 'daily';
+    /**
+     *
+     */
     const FREQUENCY_WEEKLY = 'weekly';
+    /**
+     *
+     */
     const FREQUENCY_MONTHLY = 'monthly';
+    /**
+     *
+     */
     const FREQUENCY_YEARLY = 'yearly';
+    /**
+     *
+     */
     const FREQUENCY_NEVER = 'never';
 
+    /**
+     * @param $date
+     * @return bool|string
+     */
     public static function dateToW3C($date)
     {
         if (is_int($date)) {
@@ -19,6 +47,9 @@ class SitemapHelper
         }
     }
 
+    /**
+     * @return array
+     */
     public static function getChangeFreqList()
     {
         return [

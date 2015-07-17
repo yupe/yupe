@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'Sitemap is not deleted!' => 'Произошла ошибка, карта сайта не удалена!',
+    'Sitemap is deleted!' => 'Карта сайта удалена!',
+    'Regenerate sitemap' => 'Перегенерация карты сайта',
     'Module for management sitemap.xml' => 'Модуль для управления sitemap.xml',
     'The cache sitemap in hours' => 'Время кеширования sitemap в часах',
     'Services' => 'Сервисы',

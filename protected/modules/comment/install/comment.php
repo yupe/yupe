@@ -10,8 +10,8 @@
  * @link     http://yupe.ru
  **/
 return [
-    'module'    => [
-        'class'        => 'application.modules.comment.CommentModule',
+    'module' => [
+        'class' => 'application.modules.comment.CommentModule',
         'panelWidgets' => [
             'application.modules.comment.widgets.PanelCommentStatWidget' => [
                 'limit' => 5
@@ -26,7 +26,7 @@ return [
             ],
         ],
     ],
-    'import'    => [
+    'import' => [
         'application.modules.comment.models.*',
         'application.modules.comment.events.*',
         'application.modules.comment.listeners.*',
@@ -37,8 +37,8 @@ return [
         'commentManager' => [
             'class' => 'application.modules.comment.components.CommentManager',
         ],
-        'eventManager'   => [
-            'class'  => 'yupe\components\EventManager',
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
             'events' => [
                 'comment.add.success' => [
                     ['NewCommentListener', 'onSuccessAddComment']
@@ -60,11 +60,11 @@ return [
             'class' => 'application.modules.comment.commands.MigrateToNestedSets'
         ]
     ],
-    'rules'     => [
+    'rules' => [
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',
-        '/comment/comment/captcha/<v>'         => 'comment/comment/captcha/',
-        '/comment/add/'                        => 'comment/comment/add/',
-        '/comments/rss/<model>/<modelId>'      => 'comment/commentRss/feed',
-        '/comment/ajaxImageUpload'             => 'comment/comment/ajaxImageUpload',
+        '/comment/comment/captcha/<v>' => 'comment/comment/captcha/',
+        '/comment/add/' => 'comment/comment/add/',
+        '/comments/rss/<model>/<modelId>' => 'comment/commentRss/feed',
+        '/comment/ajaxImageUpload' => 'comment/comment/ajaxImageUpload',
     ],
 ];

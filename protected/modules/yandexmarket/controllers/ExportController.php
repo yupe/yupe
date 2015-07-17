@@ -117,8 +117,8 @@ class ExportController extends application\components\Controller
 
     private function getCategoriesElement()
     {
-        $models = StoreCategory::model()->findAll();
-        $res = '';
+        $models = StoreCategory::model()->published()->findAll();
+        $res = null;
         $res .= CHtml::openTag('categories');
 
         /* @var $models StoreCategory[] */
@@ -153,6 +153,10 @@ class ExportController extends application\components\Controller
         $res .= CHtml::openTag('offers');
         /* @var $model Product */
         foreach ($iterator as $model) {
+            //пропускам товар без производителя
+            if(empty($model->producer)) {
+                continue;
+            }
             $res .= CHtml::openTag(
                 'offer',
                 ['id' => $model->id, 'type' => 'vendor.model', 'available' => ($model->in_stock ? 'true' : 'false')]

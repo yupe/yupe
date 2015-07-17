@@ -11,19 +11,35 @@
  */
 class SitemapPage extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 0;
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return string
+     */
     public function tableName()
     {
         return '{{sitemap_page}}';
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -37,6 +53,9 @@ class SitemapPage extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -48,6 +67,9 @@ class SitemapPage extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -58,6 +80,9 @@ class SitemapPage extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria();
@@ -76,6 +101,9 @@ class SitemapPage extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -84,10 +112,34 @@ class SitemapPage extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
 
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('SitemapModule.sitemap', '*unknown*');
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        $provider = new CActiveDataProvider(SitemapPage::model()->active());
+
+        $data = [];
+
+        foreach(new CDataProviderIterator($provider) as $page) {
+            $data[] =  [
+                'location' => $page->url === '/' ? Yii::app()->getBaseUrl(true)  : Yii::app()->getBaseUrl(true).'/'.$page->url,
+                'changeFrequency' => $page->changefreq,
+                'priority' => $page->priority,
+                'lastModified' => null
+            ];
+        }
+
+        return $data;
     }
 }

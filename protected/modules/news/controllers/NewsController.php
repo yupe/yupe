@@ -26,7 +26,7 @@ class NewsController extends \yupe\components\controllers\FrontController
 
         // проверим что пользователь может просматривать эту новость
         if ($model->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
             );
@@ -41,18 +41,18 @@ class NewsController extends \yupe\components\controllers\FrontController
     {
         $dbCriteria = new CDbCriteria([
             'condition' => 't.status = :status',
-            'params'    => [
+            'params' => [
                 ':status' => News::STATUS_PUBLISHED,
             ],
-            'order'     => 't.create_time DESC',
-            'with'      => ['user'],
+            'order' => 't.create_time DESC',
+            'with' => ['user'],
         ]);
 
-        if (!Yii::app()->user->isAuthenticated()) {
+        if (!Yii::app()->getUser()->isAuthenticated()) {
             $dbCriteria->mergeWith(
                 [
                     'condition' => 'is_protected = :is_protected',
-                    'params'    => [
+                    'params' => [
                         ':is_protected' => News::PROTECTED_NO
                     ]
                 ]
@@ -63,7 +63,7 @@ class NewsController extends \yupe\components\controllers\FrontController
             $dbCriteria->mergeWith(
                 [
                     'condition' => 't.lang = :lang',
-                    'params'    => [':lang' => Yii::app()->language],
+                    'params' => [':lang' => Yii::app()->language],
                 ]
             );
         }
@@ -71,7 +71,7 @@ class NewsController extends \yupe\components\controllers\FrontController
         $dataProvider = new CActiveDataProvider('News', [
             'criteria' => $dbCriteria,
             'pagination' => [
-                'pageSize' => $this->module->perPage
+                'pageSize' => $this->getModule()->perPage
             ]
         ]);
         $this->render('index', ['dataProvider' => $dataProvider]);

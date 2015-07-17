@@ -2,13 +2,20 @@
 
 return [
     'module' => [
-        'class' => 'application.modules.sitemap.SitemapModule',
-        'data' => []
+        'class' => 'application.modules.sitemap.SitemapModule'
     ],
-    'import' => [],
-    'component' => [],
+    'import' => [
+        'application.modules.blog.listeners.SitemapGeneratorListener',
+        'application.modules.news.listeners.NewsSitemapGeneratorListener',
+        'application.modules.page.listeners.PageSitemapGeneratorListener',
+        'application.modules.store.listeners.StoreSitemapGeneratorListener'
+    ],
+    'component' => [
+        'sitemapGenerator' => [
+            'class' => 'application.modules.sitemap.components.SitemapGenerator'
+        ]
+    ],
     'rules' => [
-        'sitemap.xml' => 'sitemap/sitemap/index',
-        'sitemap/sitemap<number:\d+>.xml' => 'sitemap/sitemap/part'
-    ],
+        'sitemap.xml' => 'sitemap/sitemap/index'
+    ]
 ];

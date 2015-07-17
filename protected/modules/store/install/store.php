@@ -8,6 +8,14 @@ return [
         'application.modules.store.models.*',
     ],
     'component' => [
+        'eventManager'   => [
+            'class'  => 'yupe\components\EventManager',
+            'events' => [
+                'sitemap.before.generate' => [
+                    ['\StoreSitemapGeneratorListener', 'onGenerate']
+                ]
+            ]
+        ],
         'money' => [
             'class' => 'application.modules.store.components.Money',
         ],

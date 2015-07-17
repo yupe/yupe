@@ -6,11 +6,14 @@ class SitemapModule extends WebModule
 {
     public $data;
 
+    public $filePath = 'sitemap.xml';
+
     const VERSION = '0.9.7';
-    /**
-     * @var int - Время кеширования sitemap в часах
-     */
-    public $cacheTime = 12;
+
+    public function getSiteMapPath()
+    {
+        return Yii::getPathOfAlias('webroot') . '/' . $this->filePath;
+    }
 
     public function getName()
     {
@@ -35,7 +38,7 @@ class SitemapModule extends WebModule
     public function getEditableParams()
     {
         return [
-            'cacheTime',
+            'cacheTime'
         ];
     }
 
@@ -58,7 +61,8 @@ class SitemapModule extends WebModule
         $this->setImport(
             [
                 'sitemap.components.*',
-                'sitemap.models.*',
+                'sitemap.events.*',
+                'sitemap.models.*'
             ]
         );
     }
@@ -85,7 +89,7 @@ class SitemapModule extends WebModule
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'SitemapModule.SitemapBackend.manage',
                         'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap')
-                    ],
+                    ]
                 ]
             ]
         ];

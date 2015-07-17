@@ -1,6 +1,9 @@
 <?php
 
-class SitemapBackendController extends \yupe\components\controllers\BackController
+use yupe\components\controllers\BackController;
+use yupe\widgets\YFlashMessages;
+
+class SitemapBackendController extends BackController
 {
     public function accessRules()
     {
@@ -32,12 +35,6 @@ class SitemapBackendController extends \yupe\components\controllers\BackControll
         $sitemapPage = new SitemapPage('search');
         $sitemapPage->unsetAttributes();
         $sitemapPage->setAttributes(Yii::app()->getRequest()->getParam('SitemapPage', []));
-
-        if (Yii::app()->getRequest()->isPostRequest) {
-            \yupe\models\Settings::saveModuleSettings($this->getModule()->id, ['cacheTime' => Yii::app()->getRequest()->getParam('cacheTime')]);
-            $this->getModule()->getSettings(true);
-            $this->redirect('settings');
-        }
         $this->render('settings', ['sitemapPage' => $sitemapPage]);
     }
 
@@ -49,5 +46,20 @@ class SitemapBackendController extends \yupe\components\controllers\BackControll
             $model->save();
         }
         $this->redirect(['settings']);
+    }
+
+    public function actionRegenerate()
+    {
+        if(!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('do')) {
+            throw new CHttpException(404);
+        }
+
+        if(\yupe\helpers\YFile::rmIfExists($this->getModule()->getSiteMapPath())){
+            Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('SitemapModule.sitemap', 'Sitemap is deleted!'));
+            Yii::app()->ajax->success();
+        }
+
+        Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('SitemapModule.sitemap', 'Sitemap is not deleted!'));
+        Yii::app()->ajax->failure();
     }
 }

@@ -18,7 +18,16 @@ return [
         //'layout' => '//layouts/column2',
     ],
     'import'    => [],
-    'component' => [],
+    'component' => [
+        'eventManager'   => [
+            'class'  => 'yupe\components\EventManager',
+            'events' => [
+                'sitemap.before.generate' => [
+                    ['\PageSitemapGeneratorListener', 'onGenerate']
+                ]
+            ]
+        ]
+    ],
     'rules'     => [
         '/pages/<slug>' => 'page/page/show',
     ],

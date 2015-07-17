@@ -1,51 +1,26 @@
 <?php
-/* @var $module SitemapModule */
-$module = $this->getModule();
 
 $this->breadcrumbs = [
     Yii::t('YupeModule.yupe', 'Yupe!') => ['/yupe/backend/index'],
     Yii::t('YupeModule.yupe', 'Modules') => ['/yupe/backend/settings'],
-    $module->name,
+    $this->getModule()->name,
 ];
 ?>
 
 <h1>
-    <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($module->name); ?>"
-    <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($module->version); ?></small>
+    <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($this->getModule()->name); ?>"
+    <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($this->getModule()->version); ?></small>
 </h1>
 
-<?php /** @var TbActiveForm $form */
-$form = $this->beginWidget(
-    'booster.widgets.TbActiveForm',
+<?php $this->widget(
+    'bootstrap.widgets.TbButton',
     [
-        'htmlOptions' => ['class' => 'well'],
+        'buttonType' => 'submit',
+        'context' => 'primary',
+        'label' => Yii::t('SitemapModule.sitemap', 'Regenerate sitemap'),
+        'id' => 'regenerate-site-map'
     ]
 ); ?>
-
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label class="control-label required" for="cacheTime">
-                <?php echo $module->getParamsLabels()['cacheTime']; ?>
-            </label>
-            <?php echo CHtml::numberField('cacheTime', $module->cacheTime, ['min' => 0, 'step' => 'any', 'class' => 'form-control']); ?>
-            <div class="help-block" id="" style="">
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php echo CHtml::submitButton(
-    Yii::t('YupeModule.yupe', 'Save "{{name}}" module settings', ['{{name}}' => CHtml::encode($module->name)]),
-    [
-        'class' => 'btn btn-primary',
-        'id' => 'saveModuleSettings',
-        'name' => 'saveModuleSettings',
-    ]
-); ?>
-
-<?php $this->endWidget(); ?>
 
 <h3>
     <?= Yii::t('SitemapModule.sitemap', 'Pages') ?>
@@ -144,7 +119,7 @@ $form = $this->beginWidget(
                     'url' => $this->createUrl('/sitemap/sitemapBackend/inlinePage'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter' => CHtml::activeTextField($sitemapPage, 'url', ['class' => 'form-control']),
@@ -158,7 +133,7 @@ $form = $this->beginWidget(
                     'type' => 'select',
                     'source' => SitemapHelper::getChangeFreqList(),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter' => CHtml::activeDropDownList($sitemapPage, 'changefreq', SitemapHelper::getChangeFreqList(), ['class' => 'form-control', 'empty' => '']),
@@ -171,7 +146,7 @@ $form = $this->beginWidget(
                     'url' => $this->createUrl('/sitemap/sitemapBackend/inlinePage'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter' => CHtml::activeTextField($sitemapPage, 'priority', ['class' => 'form-control']),
@@ -192,3 +167,15 @@ $form = $this->beginWidget(
     ]
 );
 ?>
+
+<script type="text/javascript">
+    $('#regenerate-site-map').on('click', function(event){
+        event.preventDefault();
+        $.post('<?= Yii::app()->createUrl('/sitemap/sitemapBackend/regenerate');?>', {
+            'do' : true,
+            '<?= Yii::app()->getRequest()->csrfTokenName?>' : '<?= Yii::app()->getRequest()->csrfToken?>'
+        }, function(response){
+                 window.location.reload();
+        }, 'json')
+    });
+</script>

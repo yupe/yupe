@@ -23,6 +23,14 @@ return [
         'postManager' => [
             'class' => 'application.modules.blog.components.PostManager',
         ],
+        'eventManager'   => [
+            'class'  => 'yupe\components\EventManager',
+            'events' => [
+                'sitemap.before.generate' => [
+                    ['\SitemapGeneratorListener', 'onGenerate']
+                ]
+            ]
+        ]
     ],
     'rules'     => [
         '/post/<slug>.html'       => 'blog/post/show',
