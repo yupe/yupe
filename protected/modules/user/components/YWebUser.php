@@ -100,7 +100,7 @@ class YWebUser extends CWebUser
                 'id = :id AND access_level = :level',
                 [
                     ':level' => User::ACCESS_LEVEL_ADMIN,
-                    ':id'    => $this->getId()
+                    ':id' => $this->getId()
                 ]
             );
 
@@ -245,7 +245,8 @@ class YWebUser extends CWebUser
 
                 //перегенерировать токен авторизации
                 $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                    $user, (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 60 * 60
+                    $user,
+                    (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 60 * 60
                 );
 
                 $this->setState($this->authToken, $token->token);
@@ -279,7 +280,7 @@ class YWebUser extends CWebUser
         }
 
         //проверить токен авторизации
-        $token = isset($states[$this->authToken]) ? $states[$this->authToken] : null ;
+        $token = isset($states[$this->authToken]) ? $states[$this->authToken] : null;
 
         if (empty($token)) {
             return false;
@@ -294,30 +295,6 @@ class YWebUser extends CWebUser
         return true;
     }
 
-    /**
-     * @param  string $operation
-     * @param  null $userId
-     * @param  array $params
-     * @return bool
-     */
-    public function checkAccess($operation, $userId = null, $params = [])
-    {
-        if ($userId !== null) {
-            return (bool)Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);
-        }
-
-        $access = Yii::app()->getCache()->get($this->rbacCacheNameSpace . $this->getId());
-
-        if (!isset($access[$operation])) {
-            $access[$operation] = (bool)Yii::app()->getAuthManager()->checkAccess($operation, $this->getId(), $params);
-
-            Yii::app()->getCache()->set($this->rbacCacheNameSpace . $this->getId(), $access);
-
-            return (bool)$access[$operation];
-        }
-
-        return $access[$operation];
-    }
 
     /**
      * @param  IUserIdentity $identity

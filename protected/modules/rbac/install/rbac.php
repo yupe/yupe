@@ -1,27 +1,27 @@
 <?php
 
 return [
-    'module'    => [
+    'module' => [
         'class' => 'application.modules.rbac.RbacModule'
     ],
-    'import'    => [
+    'import' => [
         'application.modules.rbac.listeners.AccessControlListener'
     ],
     'component' => [
-        'authManager'   => [
-            'class'           => 'CDbAuthManager',
-            'connectionID'    => 'db',
+        'authManager' => [
+            'class' => 'CDbAuthManager',
+            'connectionID' => 'db',
             'assignmentTable' => '{{user_user_auth_assignment}}',
-            'itemChildTable'  => '{{user_user_auth_item_child}}',
-            'itemTable'       => '{{user_user_auth_item}}',
+            'itemChildTable' => '{{user_user_auth_item_child}}',
+            'itemTable' => '{{user_user_auth_item}}',
         ],
         // override core ModuleManager
         'moduleManager' => [
             'class' => 'application.modules.rbac.components.ModuleManager'
         ],
         //attach event handlers
-        'eventManager'  => [
-            'class'  => 'yupe\components\EventManager',
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
             'events' => [
                 // before backend controllers
                 'yupe.backend.controller.init' => [
