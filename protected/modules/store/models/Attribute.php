@@ -248,8 +248,6 @@ class Attribute extends \yupe\models\YModel
         return $this->group instanceof AttributeGroup ? $this->group->name : '---';
     }
 
-
-
     public function afterSave()
     {
         if ($this->type == Attribute::TYPE_DROPDOWN) {
@@ -306,5 +304,17 @@ class Attribute extends \yupe\models\YModel
     public function isRequired()
     {
         return $this->required;
+    }
+
+    /**
+     * @return string Список опций, разделенных переносом строки
+     */
+    public function getRawOptions()
+    {
+        $tmp = '';
+        foreach ((array)$this->options as $option) {
+            $tmp .= $option->value . "\n";
+        }
+        return $tmp;
     }
 }
