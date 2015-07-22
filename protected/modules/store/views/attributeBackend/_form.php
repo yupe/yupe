@@ -98,7 +98,7 @@ $form = $this->beginWidget(
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo CHtml::activeTextArea($model, 'rawOptions', ['rows' => 10, 'class' => 'form-control']); ?>
+                <?php echo CHtml::activeTextArea($model, 'rawOptions', ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
             </div>
         </div>
     </div>
