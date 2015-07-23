@@ -24,7 +24,7 @@ class YAdminPanel extends YWidget
     {
         $modules = Yii::app()->moduleManager->getModules(true);
 
-        foreach ($modules as $item) {
+        foreach ($modules as &$item) {
             $item['linkOptions'] = ['title' => $item['label']];
             $item['label'] = CHtml::tag('span', ['class' => 'hidden-sm'], $item['label']);
         }
