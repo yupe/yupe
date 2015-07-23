@@ -22,17 +22,10 @@ class YAdminPanel extends YWidget
 
     public function run()
     {
-        $modules = Yii::app()->moduleManager->getModules(true);
-
-        foreach ($modules as &$item) {
-            $item['linkOptions'] = ['title' => $item['label']];
-            $item['label'] = CHtml::tag('span', ['class' => 'hidden-sm'], $item['label']);
-        }
-
         $this->render(
             $this->view,
             [
-                'modules' => $modules
+                'modules' => Yii::app()->moduleManager->getModules(true)
             ]
         );
     }
