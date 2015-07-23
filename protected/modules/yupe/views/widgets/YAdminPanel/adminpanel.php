@@ -13,6 +13,12 @@
 $mainAssets = Yii::app()->getAssetManager()->publish(
     Yii::getPathOfAlias('application.modules.yupe.views.assets')
 );
+
+foreach ($modules as &$item) {
+    $item['linkOptions'] = ['title' => $item['label']];
+    $item['label'] = CHtml::tag('span', ['class' => 'hidden-sm'], $item['label']);
+}
+
 $this->widget(
     'bootstrap.widgets.TbNavbar',
     [
