@@ -18,8 +18,8 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuitemBackend.Index']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
-            ['allow', 'actions' => ['create', 'dynamicParent'], 'roles' => ['Menu.MenuitemBackend.Create']],
-            ['allow', 'actions' => ['update', 'inline', 'sortable', 'dynamicParent'], 'roles' => ['Menu.MenuitemBackend.Update']],
+            ['allow', 'actions' => ['create', 'dynamicParent', 'getjsonitems'], 'roles' => ['Menu.MenuitemBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'sortable', 'dynamicParent', 'getjsonitems'], 'roles' => ['Menu.MenuitemBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Menu.MenuitemBackend.Delete']],
             ['deny']
         ];
