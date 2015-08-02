@@ -17,7 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
-    'Visual editor settings' => 'Настройки визуальных редакторов',
     '--choose--' => '--выберите--',
     '--unknown--' => '--неизвестно--',
     '0.1' => '0.1',
@@ -113,6 +112,7 @@ return [
     'Viewing mail event templates' => 'Просмотр шаблона почтового события',
     'Viewing mail event' => 'Просмотр события',
     'Viewing mail events' => 'Просмотр постовых событий',
+    'Visual editor settings' => 'Настройки визуальных редакторов',
     'Visual editor' => 'Визуальный редактор',
     'yupe team' => 'yupe team',
 ];

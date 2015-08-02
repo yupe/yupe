@@ -17,8 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
-    'Images' => 'Изображения',
-    'Visual editor settings' => 'Настройки визуальных редакторов',
     "You can't write in this blog!" => 'Вы не можете писать в этот блог!',
     '*unknown*' => '*неизвестно*',
     '--choose blog--' => '--выберите блог--',
@@ -125,6 +123,7 @@ return [
     'If checked &ndash; Users are able to leave comments on the post' => 'Если галочка установлена &ndash; пользователи получат возможность комментировать данную запись в блоге',
     'Illegal characters in {attribute}' => 'Запрещенные символы в поле {attribute}',
     'Image' => 'Изображение',
+    'Images' => 'Изображения',
     'In this category located member administration functions' => 'В данном разделе представлены средства управления участниками',
     'In this category located post administration functions' => 'В данном разделе представлены средства управления записями',
     'It will be interesting' => 'Будет интересно',
@@ -283,6 +282,7 @@ return [
     'Viewing blogs' => 'Просмотр блога',
     'Viewing member' => 'Просмотр участника',
     'Viewing post' => 'Просмотр записи',
+    'Visual editor settings' => 'Настройки визуальных редакторов',
     'Visual editor' => 'Визуальный редактор',
     'Wait for confirmation' => 'Ожидайте подтверждения',
     'Write post!' => 'Написать пост',
