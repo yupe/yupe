@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'Create time' => 'Добавлен',
-    'Orders' => 'Заказы',
     '*unknown*' => '*неизвестно*',
     'Active' => 'Активен',
     'Add coupon and close' => 'Добавить купон и закрыть',
@@ -29,6 +27,7 @@ return [
     'Coupons list' => 'Список купонов',
     'Coupons' => 'Купоны',
     'Create coupon' => 'Добавить купон',
+    'Create time' => 'Добавлен',
     'Creating' => 'Добавление',
     'creating' => 'добавление',
     'Delete coupon' => 'Удалить купон',
@@ -44,6 +43,7 @@ return [
     'Min order price' => 'Минимальная сумма заказа',
     'Not active' => 'Неактивен',
     'Order #' => 'Заказ №',
+    'Orders' => 'Заказы',
     'Page not found!' => 'Запрошенная страница не найдена!',
     'Percent' => 'Процент',
     'Purchasing history' => 'История покупок',

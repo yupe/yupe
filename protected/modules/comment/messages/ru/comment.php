@@ -17,8 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
-    'RSS settings' => 'Настройки RSS',
-    'Models available for rss export (for example: Post, Blog etc.)' => 'Модели доступные для экспорта в RSS (например: Post, Blog и тд.)',
     '--choose--' => '--выберите--',
     '0.5' => '0.5',
     'Accepted tags' => 'Разрешенные теги',
@@ -84,6 +82,7 @@ return [
     'Minimum captcha length' => 'Минимальная длинна капчи',
     'Model type' => 'Тип модели',
     'Model' => 'Модель',
+    'Models available for rss export (for example: Post, Blog etc.)' => 'Модели доступные для экспорта в RSS (например: Post, Blog и тд.)',
     'Moderation' => 'На модерации',
     'Module for simple comments support' => 'Модуль для простых комментариев',
     'Module general settings' => 'Основные настройки модуля',
@@ -103,6 +102,7 @@ return [
     'Reply' => 'Ответить',
     'Requested page was not found!' => 'Запрошенная страница не найдена!',
     'RSS records count' => 'Количество записей в RSS',
+    'RSS settings' => 'Настройки RSS',
     'Save comment and close' => 'Сохранить комментарий и закрыть',
     'Save comment and continue' => 'Сохранить комментарий и продолжить',
     'Show captcha for guests' => 'Показывать капчу для гостей',

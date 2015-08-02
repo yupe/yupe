@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'Statuses' => 'Статусы',
-    'Allow order comments in admin panel' => 'Разрешить комментирование заказов в панели управления',
     '#' => '№',
     '(paid separately)' => '(оплачивается отдельно)',
     '*unknown*' => '*неизвестно*',
@@ -14,6 +12,7 @@ return [
     'Add status and continue' => 'Добавить статус и продолжить',
     'Add' => 'Добавить',
     'Address' => 'Адрес',
+    'Allow order comments in admin panel' => 'Разрешить комментирование заказов в панели управления',
     'Allow orders validation by number' => 'Разрешить проверку заказа по номеру',
     'are required' => 'обязательны.',
     'Check order' => 'Проверка заказа',
@@ -102,6 +101,7 @@ return [
     'Select product' => 'Выберите товар для добавления',
     'Separate delivery payment' => 'Доставка оплачивается отдельно',
     'Status' => 'Статус',
+    'Statuses' => 'Статусы',
     'Store' => 'Магазин',
     'The order created' => 'Заказ размещён!',
     'There are no selected products' => 'Не выбрано ни одного продукта',

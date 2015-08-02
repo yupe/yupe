@@ -17,22 +17,21 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
-    'Main settings' => 'Основные настройки',
-    'Store' => 'Интернет-магазин',
-    'Manage home page' => 'Управление главной страницей',
-    'Please activate "Blogs" or/and "Pages" module' => 'Активируйте модуль "блоги" и/или "страницы"',
     'Andrey Opeykin' => 'Андрей Опейкин',
     'Home page' => 'Главная',
-    'Pages count' => 'Кол-во записей (только для постов)',
     'Main page management module' => 'Модуль для управления главной страницей',
-    'Posts' => 'Посты',
-    'Page' => 'Страница',
+    'Main settings' => 'Основные настройки',
+    'Manage home page' => 'Настройка домашней страницы',
     'Page or post' => 'Страница или пост',
+    'Page' => 'Страница',
+    'Pages count' => 'Кол-во записей (только для постов)',
+    'Pages' => 'Страницы',
+    'Please activate "Blogs" or/and "Pages" module' => 'Активируйте модуль "блоги" и/или "страницы"',
+    'Posts' => 'Посты',
+    'read...' => 'читать...',
+    'Records' => 'Записи',
+    'Store' => 'Интернет-магазин',
+    'Structure' => 'Структура',
     'Whats will be displayed' => 'Что отображать',
     'Yupe!' => 'Юпи!',
-    'Records' => 'Записи',
-    'Pages' => 'Страницы',
-    'read...' => 'читать...',
-    'Structure' => 'Структура',
-    'Manage home page' => 'Настройка домашней страницы'
 ];

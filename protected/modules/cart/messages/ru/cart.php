@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'Catalog' => 'Каталог',
     'Add coupon' => 'Добавить купон',
     'Address' => 'Адрес получателя',
     'Amount' => 'Количество',
@@ -10,6 +9,7 @@ return [
     'Cart is cleared' => 'Корзина очищена',
     'Cart is empty' => 'Корзина пуста',
     'Cart' => 'Корзина',
+    'Catalog' => 'Каталог',
     'Coupons' => 'Купоны',
     'Create order and proceed to payment' => 'Создать заказ и перейти к оплате',
     'Delivery method aren\'t selected! The ordering is impossible!' => 'Не задано ни одного способа доставки ! Оформление заказа невозможно !',

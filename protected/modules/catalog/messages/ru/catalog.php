@@ -17,8 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
-    'Images' => 'Изображения',
-    'Visual editor settings' => 'Настройки визуальных редакторов',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',
     '0.2' => '0.2',
@@ -61,6 +59,7 @@ return [
     'ID' => 'ID',
     'Illegal characters in {attribute}' => 'Запрещенные символы в поле {attribute}',
     'Image' => 'Изображение',
+    'Images' => 'Изображения',
     'List of goods' => 'Просмотр списка товаров',
     'Main category of products' => 'Главная категория каталога товаров',
     'Manage catalog' => 'Управление товарами',
@@ -105,6 +104,7 @@ return [
     'Updated' => 'Обновлено',
     'User' => 'Добавил',
     'Viewing goods' => 'Просмотр товара',
+    'Visual editor settings' => 'Настройки визуальных редакторов',
     'Visual editor' => 'Визуальный редактор',
     'Yes' => 'Да',
     'yupe team' => 'yupe team',
