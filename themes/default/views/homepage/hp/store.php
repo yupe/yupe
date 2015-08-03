@@ -22,22 +22,14 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
         <section>
             <div class="grid">
                 <?php $this->widget(
-                    'zii.widgets.CListView',
+                    'bootstrap.widgets.TbListView',
                     [
                         'dataProvider' => $dataProvider,
                         'itemView' => '_product',
                         'summaryText' => '',
                         'enableHistory' => true,
                         'cssFile' => false,
-                        'pager' => [
-                            'cssFile' => false,
-                            'htmlOptions' => ['class' => 'pagination'],
-                            'header' => '',
-                            'firstPageLabel' => '&lt;&lt;',
-                            'lastPageLabel' => '&gt;&gt;',
-                            'nextPageLabel' => '&gt;',
-                            'prevPageLabel' => '&lt;',
-                        ],
+                        'itemsCssClass' => 'row items',
                         'sortableAttributes' => [
                             'sku',
                             'name',
