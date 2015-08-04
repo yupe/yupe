@@ -25,7 +25,7 @@ class CreateAction extends CAction
     /**
      * @var string model scenario
      */
-    public $modelScenario = 'create';
+    public $modelScenario = 'insert';
 
     /**
      * @var string|array|null|callable url for return after success create. If null, action will redirect on current page.
