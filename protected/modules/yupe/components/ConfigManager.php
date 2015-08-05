@@ -227,6 +227,9 @@ class ConfigManager extends CComponent
                     $moduleConfig,
                     require $userspace->getRealPath()
                 );
+                if (!empty($moduleConfig['rules'])) {
+                    $moduleConfig['rules'] = array_unique(array_reverse($moduleConfig['rules']));
+                }
             }
 
             // Просматриваем основные настройки для
@@ -400,7 +403,6 @@ class ConfigManager extends CComponent
                 $settings['components']['urlManager']['rules']
             );
         }
-        $settings['components']['urlManager']['rules'] = array_reverse(array_unique(array_reverse($settings['components']['urlManager']['rules'])));
         return $settings;
     }
 
