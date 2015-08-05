@@ -400,7 +400,7 @@ class ConfigManager extends CComponent
                 $settings['components']['urlManager']['rules']
             );
         }
-
+        $settings['components']['urlManager']['rules'] = array_unique(array_reverse($settings['components']['urlManager']['rules']));
         return $settings;
     }
 
