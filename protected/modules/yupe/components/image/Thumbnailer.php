@@ -38,7 +38,7 @@ class Thumbnailer extends \CApplicationComponent
      * @param string $uploadDir Подпапка в папке с миниатюрами куда надо поместить изображение
      * @param float $width Ширина изображения. Если не указана - будет вычислена из высоты
      * @param float $height Высота изображения. Если не указана - будет вычислена из ширины
-     * @param string $thumbMode Режим генерации миниатюры (inset, outbound)
+     * @param boolean $crop Обрезка миниатюры по размеру
      * @return string
      * @throws CException
      */
@@ -47,7 +47,7 @@ class Thumbnailer extends \CApplicationComponent
         $uploadDir,
         $width = 0,
         $height = 0,
-        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND
+        $crop = true
     ) {
         if (!$width && !$height) {
             throw new CException("Incorrect width/height");
@@ -56,6 +56,7 @@ class Thumbnailer extends \CApplicationComponent
         $name = $width . 'x' . $height . '_' . basename($file);
         $uploadPath = $this->getBasePath() . DIRECTORY_SEPARATOR . $uploadDir;
         $thumbFile = $uploadPath . DIRECTORY_SEPARATOR . $name;
+        $thumbMode = $crop ? ImageInterface::THUMBNAIL_OUTBOUND : ImageInterface::THUMBNAIL_INSET;
 
         if (!file_exists($thumbFile)) {
 

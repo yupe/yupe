@@ -95,7 +95,7 @@ class ImageUploadBehavior extends FileUploadBehavior
     public function getImageUrl(
         $width = 0,
         $height = 0,
-        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND
+        $crop = true
     ) {
         $file = $this->getFilePath();
         $defaultImagePath = Yii::getPathOfAlias('webroot') . $this->defaultImage;
@@ -116,7 +116,7 @@ class ImageUploadBehavior extends FileUploadBehavior
                 $this->uploadPath,
                 $width,
                 $height,
-                $thumbMode
+                $crop
             );
 
         }
