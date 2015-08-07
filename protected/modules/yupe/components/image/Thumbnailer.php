@@ -44,8 +44,8 @@ class Thumbnailer extends \CApplicationComponent
         $uploadDir,
         $width = 0,
         $height = 0,
-        array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8],
-        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND
+        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND,
+        array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
     ) {
         if (!$width && !$height) {
             throw new CException("Incorrect width/height");

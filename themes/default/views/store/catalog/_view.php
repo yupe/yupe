@@ -3,9 +3,7 @@
     <div class="col-item">
         <div class="photo">
             <a href="<?= $productUrl; ?>">
-                <img src="<?= $data->getImageUrl(190, 190,
-                    ['jpeg_quality' => 90, 'png_compression_level' => 8],
-                    \Imagine\Image\ImageInterface::THUMBNAIL_INSET); ?>"/>
+                <img src="<?= $data->getImageUrl(190, 190, \Imagine\Image\ImageInterface::THUMBNAIL_INSET); ?>"/>
             </a>
         </div>
         <div class="info separator">
