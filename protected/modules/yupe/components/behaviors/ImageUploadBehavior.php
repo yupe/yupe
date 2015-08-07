@@ -2,6 +2,7 @@
 
 namespace yupe\components\behaviors;
 
+use Imagine\Image\ImageInterface;
 use Yii;
 use yupe\components\image\Imagine;
 use yupe\helpers\YFile;
@@ -94,6 +95,7 @@ class ImageUploadBehavior extends FileUploadBehavior
     public function getImageUrl(
         $width = 0,
         $height = 0,
+        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND,
         array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
     ) {
         $file = $this->getFilePath();
@@ -115,6 +117,7 @@ class ImageUploadBehavior extends FileUploadBehavior
                 $this->uploadPath,
                 $width,
                 $height,
+                $thumbMode,
                 $options
             );
 

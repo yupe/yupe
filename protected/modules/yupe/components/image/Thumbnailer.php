@@ -44,6 +44,7 @@ class Thumbnailer extends \CApplicationComponent
         $uploadDir,
         $width = 0,
         $height = 0,
+        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND,
         array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
     ) {
         if (!$width && !$height) {
@@ -79,19 +80,7 @@ class Thumbnailer extends \CApplicationComponent
                 $height = $width / $originalWidth * $originalHeight;
             }
 
-            if ($width / $originalWidth > $height / $originalHeight) {
-                $box = new Box($width, $originalHeight * $width / $originalWidth);
-            } else {
-                $box = new Box($originalWidth * $height / $originalHeight, $height);
-            }
-
-            $img->resize($box)->crop(
-                new Point(max(0, round(($box->getWidth() - $width) / 2)), max(
-                    0,
-                    round(($box->getHeight() - $height) / 2)
-                )),
-                new Box($width, $height)
-            )->save($thumbFile, $options);
+            $img->thumbnail(new Box($width, $height), $thumbMode)->save($thumbFile, $options);
         }
 
         $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;
