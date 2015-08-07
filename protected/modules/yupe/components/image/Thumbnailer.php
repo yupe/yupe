@@ -1,13 +1,11 @@
 <?php
 namespace yupe\components\image;
 
-use Imagine\Image\ImageInterface;
 use Yii;
 use CException;
 use yupe\helpers\YFile;
 use Imagine\Image\Box;
-use Imagine\Image\ImagineInterface;
-use Imagine\Image\ManipulatorInterface;
+use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 
 /**
@@ -20,6 +18,11 @@ class Thumbnailer extends \CApplicationComponent
      * @var string
      */
     public $thumbDir = 'thumbs';
+
+    /**
+     * @var array
+     */
+    public $options = [];
 
     /**
      * @var
@@ -35,7 +38,7 @@ class Thumbnailer extends \CApplicationComponent
      * @param string $uploadDir Подпапка в папке с миниатюрами куда надо поместить изображение
      * @param float $width Ширина изображения. Если не указана - будет вычислена из высоты
      * @param float $height Высота изображения. Если не указана - будет вычислена из ширины
-     * @param array $options
+     * @param string $thumbMode Режим генерации миниатюры (inset, outbound)
      * @return string
      * @throws CException
      */
@@ -44,8 +47,7 @@ class Thumbnailer extends \CApplicationComponent
         $uploadDir,
         $width = 0,
         $height = 0,
-        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND,
-        array $options = ['jpeg_quality' => 90, 'png_compression_level' => 8]
+        $thumbMode = ImageInterface::THUMBNAIL_OUTBOUND
     ) {
         if (!$width && !$height) {
             throw new CException("Incorrect width/height");
@@ -80,7 +82,7 @@ class Thumbnailer extends \CApplicationComponent
                 $height = $width / $originalWidth * $originalHeight;
             }
 
-            $img->thumbnail(new Box($width, $height), $thumbMode)->save($thumbFile, $options);
+            $img->thumbnail(new Box($width, $height), $thumbMode)->save($thumbFile, $this->options);
         }
 
         $url = $this->getBaseUrl() . '/' . $uploadDir . '/' . $name;
