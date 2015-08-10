@@ -37,7 +37,13 @@ return [
 
         // DAO simple wrapper:
         'dao' => ['class' => 'yupe\components\DAO'],
-        'thumbnailer' => ['class' => 'yupe\components\image\Thumbnailer'],
+        'thumbnailer' => [
+            'class' => 'yupe\components\image\Thumbnailer',
+            'options' => [
+                'jpeg_quality' => 90,
+                'png_compression_level' => 8
+            ]
+        ],
         // подключение компонента для генерации ajax-ответов
         'ajax' => ['class' => 'yupe\components\AsyncResponse']
     ],
