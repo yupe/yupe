@@ -1,6 +1,6 @@
 <?php
 /**
- * Входной скрипт index:
+ * Entry point script:
  *
  * @category YupeScript
  * @package  YupeCMS
@@ -8,7 +8,11 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-// подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
+
+/**
+ * @link    http://www.yiiframework.ru/doc/guide/ru/basics.entry
+ */
+
 if (!ini_get('date.timezone')) {
     date_default_timezone_set('Europe/Moscow');
 }
@@ -19,7 +23,7 @@ if (!ini_get('mbstring.internal_encoding')) {
     mb_internal_encoding('UTF-8');
 }
 
-// две строки закомментировать на продакшн сервере
+// Comment next two lines on production
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
