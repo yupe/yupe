@@ -3,6 +3,14 @@ $this->breadcrumbs = [
     Yii::t('YupeModule.yupe', 'Yupe!') => ['settings'],
     Yii::t('YupeModule.yupe', 'Modules'),
 ];
+
+$script = "var url = document.location.toString();
+    if (url.match('#')) { $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show'); }
+    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+        if(history.pushState) { history.pushState(null, null, e.target.hash); } else { window.location.hash = e.target.hash; }
+    });";
+
+Yii::app()->getClientScript()->registerScript('tabs-remember', $script, CClientScript::POS_END);
 ?>
 
 <h1><?php echo Yii::t('YupeModule.yupe', 'Modules'); ?></h1>
