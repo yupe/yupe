@@ -38,6 +38,7 @@ if (count($modules)) :
 
     if (count($on)) {
         $tabs[] = [
+            'id' => 'mod-active',
             'label'   => Yii::t('YupeModule.yupe', 'Active') . "&nbsp;" . CHtml::tag(
                     'span',
                     ['class' => 'badge alert-success flash'],
@@ -49,6 +50,7 @@ if (count($modules)) :
     }
     if (count($has)) {
         $tabs[] = [
+            'id' => 'mod-updates',
             'label'   => Yii::t('YupeModule.yupe', 'Have updates') . "&nbsp;" . CHtml::tag(
                     'span',
                     ['class' => 'badge alert-warning'],
@@ -59,6 +61,7 @@ if (count($modules)) :
     }
     if (count($off)) {
         $tabs[] = [
+            'id' => 'mod-disabled',
             'label'   => Yii::t('YupeModule.yupe', 'Disabled') . "&nbsp;" . CHtml::tag(
                     'span',
                     ['class' => 'badge alert-danger'],
@@ -69,6 +72,7 @@ if (count($modules)) :
     }
     if (count($dis)) {
         $tabs[] = [
+            'id' => 'mod-inactive',
             'label'   => Yii::t('YupeModule.yupe', 'Not installed') . "&nbsp;" . CHtml::tag(
                     'span',
                     ['class' => 'badge'],
