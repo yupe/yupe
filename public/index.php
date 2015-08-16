@@ -32,7 +32,7 @@ require __DIR__ . '/../vendor/yiisoft/yii/framework/yii.php';
 $base = require __DIR__ . '/../protected/config/main.php';
 
 $confManager = new yupe\components\ConfigManager();
-$confManager->sentEnv(\yupe\components\ConfigManager::ENV_WEB);
+$confManager->setEnv(\yupe\components\ConfigManager::ENV_WEB);
 
 require __DIR__ . '/../vendor/autoload.php';
 
