@@ -249,7 +249,7 @@ class ConfigManager extends CComponent
         }
 
         //смерджим файл /protected/config/project.php
-        return $this->mergeSettings(CMap::mergeArray($settings, Yii::getPathOfAlias('application') . '/config/project.php'));
+        return $this->mergeSettings(CMap::mergeArray($settings, require Yii::getPathOfAlias('application') . '/config/project.php'));
     }
 
     /**
@@ -263,6 +263,8 @@ class ConfigManager extends CComponent
     public function merge(array $base = [])
     {
         $this->_baseConfig = $base;
+
+        $this->initPaths();
 
         return $this->getSettings();
     }
@@ -278,30 +280,65 @@ class ConfigManager extends CComponent
      */
     public function mergeSettings($settings = [])
     {
-        $categoriesForMerge = [
-            'preload',
-            'import',
-            'modules',
-            'components',
-            'aliases',
-            'commandMap'
-        ];
-
-        $this->_resultConfig = $this->_baseConfig;
-
-        foreach ($categoriesForMerge as $mergeCategory) {
-            $this->_resultConfig = CMap::mergeArray(
-                $this->_resultConfig,
-                [
-                    isset($this->_resultConfig[$mergeCategory])
-                        ? $this->_resultConfig[$mergeCategory]
+        $this->_resultConfig = CMap::mergeArray(
+            $this->_baseConfig,
+            [
+                // Preloaded components:
+                'preload'    => CMap::mergeArray(
+                    isset($this->_resultConfig['preload'])
+                        ? $this->_resultConfig['preload']
                         : [],
-                    isset($settings[$mergeCategory])
-                        ? $settings[$mergeCategory]
+                    isset($settings['preload'])
+                        ? $settings['preload']
                         : []
-                ]
-            );
-        }
+                ),
+                // Подключение основых путей
+                'import'     => CMap::mergeArray(
+                    isset($this->_resultConfig['import'])
+                        ? $this->_resultConfig['import']
+                        : [],
+                    isset($settings['import'])
+                        ? $settings['import']
+                        : []
+                ),
+                // Модули:
+                'modules'    => CMap::mergeArray(
+                    isset($this->_resultConfig['modules'])
+                        ? $this->_resultConfig['modules']
+                        : [],
+                    isset($settings['modules'])
+                        ? $settings['modules']
+                        : []
+                ),
+                // Компоненты:
+                'components' => CMap::mergeArray(
+                    isset($this->_resultConfig['components'])
+                        ? $this->_resultConfig['components']
+                        : [],
+                    isset($settings['component'])
+                        ? $settings['component']
+                        : []
+                ),
+                // Алиасы
+                'aliases' => CMap::mergeArray(
+                    isset($this->_resultConfig['aliases'])
+                        ? $this->_resultConfig['aliases']
+                        : [],
+                    isset($settings['aliases'])
+                        ? $settings['aliases']
+                        : []
+                ),
+                // Консольные команды:
+                'commandMap' => CMap::mergeArray(
+                    isset($this->_resultConfig['commandMap'])
+                        ? $this->_resultConfig['commandMap']
+                        : [],
+                    isset($settings['commandMap'])
+                        ? $settings['commandMap']
+                        : []
+                ),
+            ]
+        );
 
         if ($this->_env == self::ENV_WEB) {
             unset($this->_resultConfig['commandMap']);
