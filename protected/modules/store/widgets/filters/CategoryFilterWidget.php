@@ -5,6 +5,6 @@ class CategoryFilterWidget extends \yupe\widgets\YWidget
 
     public function run()
     {
-        $this->render($this->view, ['categories' => StoreCategory::model()->roots()->published()->cache($this->cacheTime)->findAll()]);
+        $this->render($this->view, ['categories' => StoreCategory::model()->roots()->published()->cache($this->cacheTime)->findAll(['order' => 'sort'])]);
     }
 } 
