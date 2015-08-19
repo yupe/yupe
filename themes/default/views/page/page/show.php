@@ -1,12 +1,11 @@
 <?php
 /* @var $model Page */
 /* @var $this PageController */
-?>
-<?php if ($model->layout): ?>
-    <?php $this->layout = "//layouts/{$model->layout}"; ?>
-<?php endif; ?>
 
-<?php
+if ($model->layout) {
+    $this->layout = "//layouts/{$model->layout}";
+}
+
 $this->title = [$model->title, Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = $this->getBreadCrumbs();
 $this->description = $model->description ?: Yii::app()->getModule('yupe')->siteDescription;

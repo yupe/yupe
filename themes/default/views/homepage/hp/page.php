@@ -1,4 +1,10 @@
 <?php
+/** @var Page $page */
+
+if ($page->layout) {
+    $this->layout = "//layouts/{$page->layout}";
+}
+
 $this->title = [$page->title, Yii::app()->getModule('yupe')->siteName];
 $this->breadcrumbs = [
     Yii::t('HomepageModule.homepage', 'Pages'),
