@@ -46,6 +46,7 @@ class ProductRepository extends CComponent
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
+                    'defaultOrder' => 't.position'
                 ],
             ]
         );
@@ -74,6 +75,7 @@ class ProductRepository extends CComponent
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
+                    'defaultOrder' => 't.position'
                 ],
             ]
         );
@@ -104,6 +106,7 @@ class ProductRepository extends CComponent
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
+                    'defaultOrder' => 't.position'
                 ],
             ]
         );
