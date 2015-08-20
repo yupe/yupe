@@ -13,6 +13,7 @@ class StoreModule extends WebModule
     public $maxFiles = 1;
     public $assetsPath = 'application.modules.store.views.assets';
     public $defaultImage = '/images/nophoto.jpg';
+    public $itemsPerPage = 20;
 
     public function getDependencies()
     {
@@ -46,7 +47,8 @@ class StoreModule extends WebModule
     {
         return [
             'uploadPath',
-            'editor' => Yii::app()->getModule('yupe')->editors
+            'editor' => Yii::app()->getModule('yupe')->editors,
+            'itemsPerPage'
         ];
     }
 
@@ -58,7 +60,8 @@ class StoreModule extends WebModule
                     'File uploads directory (relative to "{path}")', ['{path}' => Yii::getPathOfAlias('webroot').'/'.Yii::app()->getModule("yupe")->uploadPath]
                 ),
             'editor' => Yii::t('StoreModule.store', 'Visual editor'),
-            'defaultImage' => Yii::t('StoreModule.store', 'Default image')
+            'defaultImage' => Yii::t('StoreModule.store', 'Default image'),
+            'itemsPerPage' => Yii::t('StoreModule.store', 'Items per page'),
         ];
     }
 
@@ -78,6 +81,12 @@ class StoreModule extends WebModule
                     'editor'
                 ]
             ],
+            '2.store' => [
+                'label' => Yii::t('StoreModule.store', 'Store'),
+                'items' => [
+                    'itemsPerPage'
+                ]
+            ]
         ];
     }
 
