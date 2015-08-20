@@ -12,7 +12,7 @@ class ProductRepository extends CComponent
         $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
     }
 
-    public function getByFilter(array $mainSearchAttributes, array $eavSearchAttributes, $perPage = 20)
+    public function getByFilter(array $mainSearchAttributes, array $eavSearchAttributes)
     {
         $model = Product::model();
 
@@ -41,7 +41,7 @@ class ProductRepository extends CComponent
             [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)$perPage,
+                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
@@ -54,10 +54,9 @@ class ProductRepository extends CComponent
 
 
     /**
-     * @param int $perPage
      * @return CActiveDataProvider
      */
-    public function getListForIndexPage($perPage = 20)
+    public function getListForIndexPage()
     {
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
@@ -70,7 +69,7 @@ class ProductRepository extends CComponent
             [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)$perPage,
+                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
@@ -83,10 +82,9 @@ class ProductRepository extends CComponent
 
     /**
      * @param StoreCategory $category
-     * @param int $perPage
      * @return CActiveDataProvider
      */
-    public function getListForCategory(StoreCategory $category, $perPage = 20)
+    public function getListForCategory(StoreCategory $category)
     {
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
@@ -101,7 +99,7 @@ class ProductRepository extends CComponent
             [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)$perPage,
+                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
