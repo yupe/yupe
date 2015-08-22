@@ -17,6 +17,6 @@ return [
     'component' => [],
     'rules'     => [
         '/catalog'        => 'catalog/catalog/index',
-        '/catalog/<name>' => 'catalog/catalog/show',
+        '/catalog/<name>' => 'catalog/catalog/view',
     ],
 ];
