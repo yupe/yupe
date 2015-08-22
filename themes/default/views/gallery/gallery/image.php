@@ -14,7 +14,7 @@
 
 $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
 <?php $this->breadcrumbs = [
-    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/list'],
+    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
     $model->gallery->name => $model->gallery->getUrl(),
     $model->name
 ];
