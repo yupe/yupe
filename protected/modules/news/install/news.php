@@ -25,6 +25,6 @@ return [
     ],
     'rules'     => [
         '/news/'        => 'news/news/index',
-        '/news/<slug>' => 'news/news/show',
+        '/news/<slug>' => 'news/news/view',
     ],
 ];

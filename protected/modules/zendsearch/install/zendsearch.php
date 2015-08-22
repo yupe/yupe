@@ -11,7 +11,7 @@ return [
                 'module'      => 'news',
                 'titleColumn' => 'title',
                 'linkColumn'  => 'slug',
-                'linkPattern' => '/news/news/show?title={slug}',
+                'linkPattern' => '/news/news/view?title={slug}',
                 'textColumns' => 'full_text,short_text,keywords,description',
             ],
             'Page' => [

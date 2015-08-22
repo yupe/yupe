@@ -23,7 +23,7 @@
         'path' => 'application.modules.news.models.News',
         'titleColumn' => 'title',
         'linkColumn'	=> 'alias',
-        'linkPattern'	=> '/news/news/show?title={alias}',
+        'linkPattern'	=> '/news/news/view?title={alias}',
         'textColumns' => 'full_text,short_text,keywords,description',
    ),
    // индексируем посты

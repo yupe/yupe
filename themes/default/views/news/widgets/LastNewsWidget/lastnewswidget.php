@@ -9,7 +9,7 @@
                 <?php foreach ($models as $model): ?>
                     <li><?= CHtml::link(
                             $model->title,
-                            ['/news/news/show/', 'slug' => $model->slug]
+                            ['/news/news/view/', 'slug' => $model->slug]
                         ); ?></li>
                 <?php endforeach; ?>
             </ul>
