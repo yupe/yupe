@@ -31,7 +31,7 @@
          'path' => 'application.modules.blog.models.Post',
          'titleColumn' => 'title',
          'linkColumn' => 'slug',
-         'linkPattern' => '/blog/post/show?slug={slug}',
+         'linkPattern' => '/blog/post/view?slug={slug}',
          'textColumns' => 'slug,title,quote,content',
    ),
 ),

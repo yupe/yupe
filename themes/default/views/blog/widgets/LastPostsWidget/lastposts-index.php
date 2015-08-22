@@ -24,7 +24,7 @@
                 <?= CHtml::link(
                     $data->blog->name,
                     [
-                        '/blog/blog/show/',
+                        '/blog/blog/view/',
                         'slug' => CHtml::encode($data->blog->slug)
                     ]
                 ); ?>

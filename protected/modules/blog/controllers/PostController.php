@@ -25,7 +25,7 @@ class PostController extends \yupe\components\controllers\FrontController
      * @throws CHttpException
      * @return void
      */
-    public function actionShow($slug)
+    public function actionView($slug)
     {
         $post = Post::model()->get($slug, ['blog', 'createUser', 'comments.author']);
 
@@ -33,7 +33,7 @@ class PostController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Post was not found!'));
         }
 
-        $this->render('show', ['post' => $post]);
+        $this->render('view', ['post' => $post]);
     }
 
     /**
@@ -43,7 +43,7 @@ class PostController extends \yupe\components\controllers\FrontController
      * @throws CHttpException
      * @return void
      */
-    public function actionList($tag)
+    public function actionTag($tag)
     {
         $tag = CHtml::encode($tag);
 
@@ -53,7 +53,7 @@ class PostController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Posts not found!'));
         }
 
-        $this->render('list', ['posts' => $posts, 'tag' => $tag]);
+        $this->render('tag', ['posts' => $posts, 'tag' => $tag]);
     }
 
     public function actionBlog($slug)

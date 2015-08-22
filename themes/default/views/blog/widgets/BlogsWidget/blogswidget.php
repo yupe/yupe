@@ -13,7 +13,7 @@ $this->beginWidget(
             <p>
                 <?= CHtml::link(
                     CHtml::encode($model->name),
-                    ['/blog/blog/show/', 'slug' => CHtml::encode($model->slug)]
+                    ['/blog/blog/view/', 'slug' => CHtml::encode($model->slug)]
                 ); ?>
                 &rarr;
                 <i class="glyphicon glyphicon-user"></i>

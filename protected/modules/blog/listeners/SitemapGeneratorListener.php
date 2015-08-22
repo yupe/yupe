@@ -18,7 +18,7 @@ class SitemapGeneratorListener
 
         foreach (new CDataProviderIterator($blogsProvider) as $blog) {
             $generator->addItem(
-                Yii::app()->createAbsoluteUrl('/blog/blog/show', ['slug' => $blog->slug]),
+                Yii::app()->createAbsoluteUrl('/blog/blog/view', ['slug' => $blog->slug]),
                 $blog->update_time,
                 SitemapHelper::FREQUENCY_DAILY,
                 0.5
@@ -29,7 +29,7 @@ class SitemapGeneratorListener
 
         foreach (new CDataProviderIterator($postProvider) as $post) {
             $generator->addItem(
-                Yii::app()->createAbsoluteUrl('/blog/post/show', ['slug' => $post->slug]),
+                Yii::app()->createAbsoluteUrl('/blog/post/view', ['slug' => $post->slug]),
                 $post->update_time,
                 SitemapHelper::FREQUENCY_YEARLY,
                 0.5

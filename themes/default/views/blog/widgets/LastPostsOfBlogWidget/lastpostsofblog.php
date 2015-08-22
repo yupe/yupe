@@ -34,7 +34,7 @@
                         <?= CHtml::link(
                             CHtml::encode($post->blog->name),
                             [
-                                '/blog/blog/show/',
+                                '/blog/blog/view/',
                                 'slug' => CHtml::encode($post->blog->slug)
                             ]
                         ); ?>

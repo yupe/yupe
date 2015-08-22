@@ -38,7 +38,7 @@ class BlogController extends \yupe\components\controllers\FrontController
      *
      * @return void
      */
-    public function actionShow($slug = null)
+    public function actionView($slug = null)
     {
         $blog = Blog::model()->getBySlug($slug);
 
@@ -50,16 +50,13 @@ class BlogController extends \yupe\components\controllers\FrontController
             ));
         }
 
-        $this->render('show', ['blog' => $blog]);
+        $this->render('view', ['blog' => $blog]);
     }
 
     /**
      * "вступление" в блог
      *
-     * @param int $blogId - id-блога
      * @throw CHttpException
-     *
-     * @return void
      */
     public function actionJoin()
     {
@@ -94,9 +91,7 @@ class BlogController extends \yupe\components\controllers\FrontController
     /**
      * "покинуть" блог
      *
-     * @param  int $blogId - id-блога
      * @throw CHttpException
-     * @return void
      */
     public function actionLeave()
     {
