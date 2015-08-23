@@ -15,8 +15,8 @@ return [
     'import'    => [],
     'component' => [],
     'rules'     => [
-        '/albums'                 => '/gallery/gallery/list',
-        '/albums/<id:\d+>'        => '/gallery/gallery/show',
+        '/albums'                 => '/gallery/gallery/index',
+        '/albums/<id:\d+>'        => '/gallery/gallery/view',
         '/albums/images/<id:\d+>' => '/gallery/gallery/image'
     ],
 ];

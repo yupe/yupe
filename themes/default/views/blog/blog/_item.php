@@ -10,7 +10,7 @@
 
         <h2><?= CHtml::link(
                 CHtml::encode($data->name),
-                ['/blog/blog/show/', 'slug' => CHtml::encode($data->slug)]
+                ['/blog/blog/view/', 'slug' => CHtml::encode($data->slug)]
             ); ?></h2>
         <?= CHtml::image(
             $data->createUser->getAvatar(24),

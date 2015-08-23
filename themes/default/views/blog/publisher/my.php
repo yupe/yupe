@@ -19,7 +19,7 @@
             [
                 'name'   => 'blog_id',
                 'type'   => 'raw',
-                'value'  => 'CHtml::link($data->blog->name, array("/blog/blog/show", "slug" => $data->blog->slug))',
+                'value'  => 'CHtml::link($data->blog->name, array("/blog/blog/view", "slug" => $data->blog->slug))',
                 'filter' => CHtml::listData(Blog::model()->getList(), 'id', 'name')
             ],
             [

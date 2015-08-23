@@ -55,7 +55,7 @@ $this->widget(
         'dataProvider'       => $blogs->search(),
         'template'           => '{sorter}<br/><hr/>{items} {pager}',
         'sorterCssClass'     => 'sorter pull-left',
-        'itemView'           => '_view',
+        'itemView'           => '_item',
         'ajaxUpdate'         => false,
         'sortableAttributes' => [
             'name',

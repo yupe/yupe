@@ -44,7 +44,7 @@ class YFeedAction extends CAction
      *                     'author_nickname' => 'nick_name',
      *                     'content'         => 'full_text',
      *                     'datetime'        => 'creation_date',
-     *                     'link'            => '/news/news/show',
+     *                     'link'            => '/news/news/view',
      *                     'linkParams'      => array('title' => 'alias'),
      *                     'title'           => 'title',
      *                     'updated'         => 'change_date',

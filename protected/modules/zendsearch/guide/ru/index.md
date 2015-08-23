@@ -15,7 +15,7 @@
         'path' => 'application.modules.page.models.Page',
         'titleColumn' => 'title',
         'linkColumn'	=> 'slug',
-        'linkPattern'	=> '/page/page/show?slug={slug}',
+        'linkPattern'	=> '/page/page/view?slug={slug}',
         'textColumns' => 'body,title_short,keywords,description',
    ),
    // индексируем новости
@@ -23,7 +23,7 @@
         'path' => 'application.modules.news.models.News',
         'titleColumn' => 'title',
         'linkColumn'	=> 'alias',
-        'linkPattern'	=> '/news/news/show?title={alias}',
+        'linkPattern'	=> '/news/news/view?title={alias}',
         'textColumns' => 'full_text,short_text,keywords,description',
    ),
    // индексируем посты
@@ -31,7 +31,7 @@
          'path' => 'application.modules.blog.models.Post',
          'titleColumn' => 'title',
          'linkColumn' => 'slug',
-         'linkPattern' => '/blog/post/show?slug={slug}',
+         'linkPattern' => '/blog/post/view?slug={slug}',
          'textColumns' => 'slug,title,quote,content',
    ),
 ),

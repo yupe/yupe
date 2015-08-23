@@ -14,7 +14,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
 {
     const GALLERY_PER_PAGE = 10;
 
-    public function actionList()
+    public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider(
             'Gallery', [
@@ -24,10 +24,10 @@ class GalleryController extends \yupe\components\controllers\FrontController
             ]
         );
 
-        $this->render('list', ['dataProvider' => $dataProvider]);
+        $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
-    public function actionShow($id)
+    public function actionView($id)
     {
         if (($gallery = Gallery::model()->published()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
@@ -46,7 +46,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
-                    $this->redirect(['/gallery/gallery/show', 'id' => $gallery->id]);
+                    $this->redirect(['/gallery/gallery/view', 'id' => $gallery->id]);
                 }
             } catch (Exception $e) {
                 $transaction->rollback();
@@ -62,7 +62,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
         }
 
         $this->render(
-            'show',
+            'view',
             [
                 'image' => $image,
                 'model' => $gallery,
@@ -167,7 +167,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
                 );
 
                 $this->redirect(
-                    ['/gallery/gallery/show', 'id' => $image->gallery->id]
+                    ['/gallery/gallery/view', 'id' => $image->gallery->id]
                 );
             }
         }

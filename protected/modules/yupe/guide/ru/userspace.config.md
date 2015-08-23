@@ -34,11 +34,11 @@ return array(
     'import'    => array(),
     'component' => array(),
     'rules'     => array(
-        '/post/<slug>.html' => 'blog/post/show',
-        '/posts/tag/<tag>'  => 'blog/post/list',
+        '/post/<slug>.html' => 'blog/post/view',
+        '/posts/tag/<tag>'  => 'blog/post/tag',
         '/rss/blog/<blog>'  => 'blog/blogRss/feed',
         '/rss/posts/'       => 'blog/blogRss/feed',
-        '/blogs/<slug>'     => 'blog/blog/show',
+        '/blogs/<slug>'     => 'blog/blog/view',
         '/blogs'            => 'blog/blog/index',
         '/posts'            => 'blog/post/index',
         '/posts/archive'    => 'blog/archive/index',
@@ -61,7 +61,7 @@ return array(
         '/post/<slug>.html' => false, // запрет урл-ов из модуля для избежания дублирования страниц
         '/posts' => false, // запрет урл-ов из модуля для избежания дублирования страниц
         '/works' => 'works/index',
-        '/works/<slug>' => array('blog/post/show', 'urlSuffix' => '.html')       
+        '/works/<slug>' => array('blog/post/view', 'urlSuffix' => '.html')
     )
 );
 </code></pre>

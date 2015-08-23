@@ -10,7 +10,7 @@ $this->metaDescription = Yii::t('BlogModule.blog', 'Members of "{blog}" blog', [
 $this->metaKeywords = Yii::t('BlogModule.blog', 'Members');
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index'],
-    CHtml::encode($blog->name)         => ['/blog/blog/show', 'slug' => CHtml::encode($blog->slug)],
+    CHtml::encode($blog->name)         => ['/blog/blog/view', 'slug' => CHtml::encode($blog->slug)],
     Yii::t('UserModule.user', 'Users'),
 ];
 ?>

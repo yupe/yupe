@@ -64,7 +64,7 @@ class PublisherController extends \yupe\components\controllers\FrontController
 
                     $message = Yii::t('BlogModule.blog', 'Post published!');
 
-                    $redirect = ['/blog/post/show', 'slug' => $post->slug];
+                    $redirect = ['/blog/post/view', 'slug' => $post->slug];
                 }
 
                 Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, $message);

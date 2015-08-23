@@ -21,7 +21,7 @@
                         ); ?></span>
                     <?= CHtml::link(
                         CHtml::encode($post['title']),
-                        ['/blog/post/show/', 'slug' => CHtml::encode($post['slug'])]
+                        ['/blog/post/view/', 'slug' => CHtml::encode($post['slug'])]
                     ); ?>
                 </li>
             <?php endforeach; ?>

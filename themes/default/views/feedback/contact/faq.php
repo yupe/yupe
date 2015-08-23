@@ -20,6 +20,6 @@ $this->breadcrumbs = [
     'bootstrap.widgets.TbListView',
     [
         'dataProvider' => $dataProvider,
-        'itemView'     => '_view',
+        'itemView'     => '_item',
     ]
 ); ?>

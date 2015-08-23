@@ -20,7 +20,7 @@ class PageSitemapGeneratorListener
 
         foreach (new CDataProviderIterator($provider) as $item) {
             $generator->addItem(
-                Yii::app()->createAbsoluteUrl('/page/page/show', ['slug' => $item->slug]),
+                Yii::app()->createAbsoluteUrl('/page/page/view', ['slug' => $item->slug]),
                 strtotime($item->update_time),
                 SitemapHelper::FREQUENCY_WEEKLY,
                 0.5

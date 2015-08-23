@@ -77,7 +77,7 @@ class BlogRssController extends yupe\components\controllers\RssController
                     'author_nickname' => 'nick_name',
                     'content'         => 'content',
                     'datetime'        => 'create_time',
-                    'link'            => '/blog/post/show',
+                    'link'            => '/blog/post/view',
                     'linkParams'      => ['slug' => 'slug'],
                     'title'           => 'title',
                     'updated'         => 'update_time',

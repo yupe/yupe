@@ -230,7 +230,7 @@ class Good extends yupe\models\YModel
             ],
             'seo'                => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/catalog/catalog/show',
+                'route'  => '/catalog/catalog/view',
                 'params' => [
                     'name' => function ($data) {
                         return $data->slug;

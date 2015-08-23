@@ -11,7 +11,7 @@ return [
                 'module'      => 'news',
                 'titleColumn' => 'title',
                 'linkColumn'  => 'slug',
-                'linkPattern' => '/news/news/show?title={slug}',
+                'linkPattern' => '/news/news/view?title={slug}',
                 'textColumns' => 'full_text,short_text,keywords,description',
             ],
             'Page' => [
@@ -19,7 +19,7 @@ return [
                 'path'        => 'application.modules.page.models.Page',
                 'titleColumn' => 'title',
                 'linkColumn'  => 'slug',
-                'linkPattern' => '/page/page/show?slug={slug}',
+                'linkPattern' => '/page/page/view?slug={slug}',
                 'textColumns' => 'body,title_short,keywords,description',
             ],
         ],

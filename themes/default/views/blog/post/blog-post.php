@@ -11,7 +11,7 @@ $this->metaKeywords = $target->name;
 <?php
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
-    CHtml::encode($target->name)       => ['/blog/blog/show/', 'slug' => CHtml::encode($target->slug)],
+    CHtml::encode($target->name)       => ['/blog/blog/view/', 'slug' => CHtml::encode($target->slug)],
     Yii::t('BlogModule.blog', 'Records'),
 ];
 ?>

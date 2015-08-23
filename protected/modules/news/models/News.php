@@ -105,7 +105,7 @@ class News extends yupe\models\YModel
             ],
             'seo'         => [
                 'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/news/news/show',
+                'route'  => '/news/news/view',
                 'params' => [
                     'slug' => function ($data) {
                         return $data->slug;

@@ -34,7 +34,7 @@ public function actions()
                 'author_nickname' => 'nick_name',
                 'content'         => 'full_text',
                 'datetime'        => 'creation_date',
-                'link'            => '/news/news/show',
+                'link'            => '/news/news/view',
                 'linkParams'      => array('title' => 'alias'),
                 'title'           => 'title',
                 'updated'         => 'change_date',
@@ -70,7 +70,7 @@ public function actions()
 
 `'datetime' => 'creation_date',` - время создания ленты
 
-`'link' => '/news/news/show',` - линк на отображение
+`'link' => '/news/news/view',` - линк на отображение
 
 `'linkParams' => array('title' => 'alias'),` - парметры для формирования абсолютной ссылки
 

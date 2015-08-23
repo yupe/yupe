@@ -67,7 +67,7 @@ $this->menu = [
         <div style="margin-bottom: 20px;">
             <h6>
                 <span class="label label-info"><?php echo $model->date; ?></span>
-                <?php echo CHtml::link($model->title, ['/news/news/show', 'slug' => $model->slug]); ?>
+                <?php echo CHtml::link($model->title, ['/news/news/view', 'slug' => $model->slug]); ?>
             </h6>
 
             <p>

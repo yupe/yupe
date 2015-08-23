@@ -31,7 +31,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
      * @param $name
      * @throws CHttpException
      */
-    public function actionShow($name)
+    public function actionProduct($name)
     {
         $product = $this->productRepository->getBySlug($name);
 

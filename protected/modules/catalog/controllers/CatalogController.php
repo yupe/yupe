@@ -14,7 +14,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
 {
     const GOOD_PER_PAGE = 10;
 
-    public function actionShow($name)
+    public function actionView($name)
     {
         $model = Good::model()->published()->findByAttributes(['slug' => $name]);
 
@@ -22,7 +22,7 @@ class CatalogController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Product was not found!'));
         }
 
-        $this->render('show', ['model' => $model]);
+        $this->render('view', ['model' => $model]);
     }
 
     public function actionIndex()

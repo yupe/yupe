@@ -12,7 +12,7 @@ $this->beginWidget(
         <li>
             <?= CHtml::link(
                 CHtml::encode($model['title']),
-                ['/blog/post/show/', 'slug' => CHtml::encode($model['slug'])]
+                ['/blog/post/view/', 'slug' => CHtml::encode($model['slug'])]
             ); ?>
             <i class="glyphicon glyphicon-comment"></i>
             <?= $model['commentsCount']; ?>

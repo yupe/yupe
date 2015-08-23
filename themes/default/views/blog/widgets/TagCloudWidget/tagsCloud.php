@@ -9,7 +9,7 @@ $this->beginWidget(
 <?php foreach ($tags as $tag): ?>
     <div class="row">
         <div class="col-sm-6">
-            <?= CHtml::link($tag['name'], ['/blog/post/list/', 'tag' => $tag['name']]); ?>
+            <?= CHtml::link($tag['name'], ['/blog/post/tag/', 'tag' => $tag['name']]); ?>
         </div>
         <div class="col-sm-6">
             <span class="badge pull-right"><?= $tag['count']; ?></span>

@@ -33,11 +33,11 @@ return [
         ]
     ],
     'rules'     => [
-        '/post/<slug>.html'       => 'blog/post/show',
-        '/posts/tag/<tag>'        => 'blog/post/list',
+        '/post/<slug>.html'       => 'blog/post/view',
+        '/posts/tag/<tag>'        => 'blog/post/tag',
         '/rss/blog/<blog>'        => 'blog/blogRss/feed',
         '/rss/posts/'             => 'blog/blogRss/feed',
-        '/blogs/<slug>'           => 'blog/blog/show',
+        '/blogs/<slug>'           => 'blog/blog/view',
         '/blogs'                  => 'blog/blog/index',
         '/blog/join'              => 'blog/blog/join',
         '/blog/leave'             => 'blog/blog/leave',
