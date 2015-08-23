@@ -23,7 +23,7 @@ class PageController extends FrontController
     /**
      * экшн для отображения конкретной страницы, отображает опубликованные страницы и превью
      */
-    public function actionShow($slug)
+    public function actionView($slug)
     {
         $model = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->getUser()->isSuperUser())
             ? Page::model()->find(
@@ -58,7 +58,7 @@ class PageController extends FrontController
 
         $this->currentPage = $model;
 
-        $view = $model->view ? $model->view : 'show';
+        $view = $model->view ? $model->view : 'view';
 
         $this->render($view, ['model' => $model]);
     }

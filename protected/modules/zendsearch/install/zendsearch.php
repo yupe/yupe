@@ -19,7 +19,7 @@ return [
                 'path'        => 'application.modules.page.models.Page',
                 'titleColumn' => 'title',
                 'linkColumn'  => 'slug',
-                'linkPattern' => '/page/page/show?slug={slug}',
+                'linkPattern' => '/page/page/view?slug={slug}',
                 'textColumns' => 'body,title_short,keywords,description',
             ],
         ],

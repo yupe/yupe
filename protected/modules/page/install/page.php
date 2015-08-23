@@ -29,6 +29,6 @@ return [
         ]
     ],
     'rules'     => [
-        '/pages/<slug>' => 'page/page/show',
+        '/pages/<slug>' => 'page/page/view',
     ],
 ];
