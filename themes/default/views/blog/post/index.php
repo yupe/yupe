@@ -44,7 +44,7 @@ $this->metaKeywords = Yii::t('BlogModule.blog', 'Latest post');
         [
             'id'           => 'posts-list',
             'dataProvider' => $model->allPosts(),
-            'itemView'     => '_post',
+            'itemView'     => '_item',
             'template'     => "{items}\n{pager}",
             'ajaxUpdate'   => false,
             'htmlOptions'  => [

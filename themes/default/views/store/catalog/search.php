@@ -49,7 +49,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog
                     'bootstrap.widgets.TbListView',
                     [
                         'dataProvider' => $dataProvider,
-                        'itemView' => '_view',
+                        'itemView' => '_item',
                         'summaryText' => '',
                         'enableHistory' => true,
                         'cssFile' => false,

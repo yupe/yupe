@@ -45,7 +45,7 @@ $this->breadcrumbs = array_merge(
                     'bootstrap.widgets.TbListView',
                     [
                         'dataProvider' => $dataProvider,
-                        'itemView' => '_view',
+                        'itemView' => '_item',
                         'summaryText' => '',
                         'enableHistory' => true,
                         'cssFile' => false,

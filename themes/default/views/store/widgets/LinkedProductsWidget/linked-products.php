@@ -8,7 +8,7 @@
     [
         'dataProvider' => $dataProvider,
         'template' => '{items}',
-        'itemView' => '_view',
+        'itemView' => '_item',
         'cssFile' => false,
         'pager' => false,
     ]

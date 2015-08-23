@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для gallery/_view:
+ * Отображение для gallery/_item:
  *
  * @category YupeView
  * @package  YupeCMS

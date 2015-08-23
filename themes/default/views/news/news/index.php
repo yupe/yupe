@@ -9,6 +9,6 @@ $this->breadcrumbs = [Yii::t('NewsModule.news', 'News')];
     'bootstrap.widgets.TbListView',
     [
         'dataProvider' => $dataProvider,
-        'itemView'     => '_view',
+        'itemView'     => '_item',
     ]
 ); ?>
