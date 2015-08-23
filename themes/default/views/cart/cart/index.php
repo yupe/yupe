@@ -70,7 +70,7 @@ $this->breadcrumbs = [
                                 <input type="hidden" class="position-id" value="<?= $positionId; ?>"/>
 
                                 <div class="media">
-                                    <?php $productUrl = Yii::app()->createUrl('store/catalog/show', ['name' => $position->slug]); ?>
+                                    <?php $productUrl = Yii::app()->createUrl('store/catalog/product', ['name' => $position->slug]); ?>
                                     <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                         <img class="media-object" src="<?= $position->getProductModel()->getImageUrl(72, 72); ?>">
                                     </a>

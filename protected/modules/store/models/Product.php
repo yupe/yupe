@@ -655,7 +655,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getLink()
     {
-        return Yii::app()->createUrl('/store/catalog/show', ['name' => $this->slug]);
+        return Yii::app()->createUrl('/store/catalog/product', ['name' => $this->slug]);
     }
 
     public function getMainCategoryId()
@@ -824,8 +824,8 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getUrl($absolute = false)
     {
         return $absolute ?
-            Yii::app()->createAbsoluteUrl('/store/catalog/show', ['name' => $this->slug]) :
-            Yii::app()->createUrl('/store/catalog/show', ['name' => $this->slug]);
+            Yii::app()->createAbsoluteUrl('/store/catalog/product', ['name' => $this->slug]) :
+            Yii::app()->createUrl('/store/catalog/product', ['name' => $this->slug]);
     }
 
     /**
