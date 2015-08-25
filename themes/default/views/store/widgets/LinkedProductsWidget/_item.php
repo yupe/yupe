@@ -1,4 +1,4 @@
-<?php $productUrl = Yii::app()->createUrl('/store/catalog/product', ['name' => CHtml::encode($data->slug)]); ?>
+<?php $productUrl = Yii::app()->createUrl('store/product/view', ['name' => CHtml::encode($data->slug)]); ?>
 <div class="col-sm-4 col-item-block">
     <div class="col-item">
         <div class="photo">

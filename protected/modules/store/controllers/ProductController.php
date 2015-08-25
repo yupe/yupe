@@ -1,50 +1,27 @@
 <?php
 
-/**
- * Class CatalogController
- * @property ProductRepository $productRepository
- *
- */
-class CatalogController extends \yupe\components\controllers\FrontController
+use yupe\components\controllers\FrontController;
+
+class ProductController extends FrontController
 {
     /**
-     *
-     * @var
+     * @var ProductRepository
      */
     protected $productRepository;
 
+    /**
+     * @var AttributeFilter
+     */
     protected $attributeFilter;
 
-    /**
-     *
-     */
     public function init()
     {
         $this->productRepository = Yii::app()->getComponent('productRepository');
-
         $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
 
         parent::init();
     }
 
-    /**
-     * @param $name
-     * @throws CHttpException
-     */
-    public function actionProduct($name)
-    {
-        $product = $this->productRepository->getBySlug($name);
-
-        if (null === $product) {
-            throw new CHttpException(404, Yii::t('StoreModule.catalog', 'Product was not found!'));
-        }
-
-        $this->render('product', ['product' => $product]);
-    }
-
-    /**
-     *
-     */
     public function actionIndex()
     {
         $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
@@ -56,30 +33,18 @@ class CatalogController extends \yupe\components\controllers\FrontController
     }
 
     /**
-     * @param $path
+     * @param $name
      * @throws CHttpException
      */
-    public function actionCategory($path)
+    public function actionView($name)
     {
-        $category = StoreCategory::model()->findByPath($path);
+        $product = $this->productRepository->getBySlug($name);
 
-        if (null === $category) {
-            throw new CHttpException(404);
+        if (null === $product) {
+            throw new CHttpException(404, Yii::t('StoreModule.catalog', 'Product was not found!'));
         }
 
-        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
-            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]),
-            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
-        ) : $this->productRepository->getListForCategory($category);
-
-
-        $this->render(
-            'category',
-            [
-                'dataProvider' => $data,
-                'category' => $category
-            ]
-        );
+        $this->render('view', ['product' => $product]);
     }
 
     public function actionSearch()
@@ -102,9 +67,9 @@ class CatalogController extends \yupe\components\controllers\FrontController
                     'category' => $category,
                     'searchForm' => $form,
                     'dataProvider' => $this->productRepository->getByFilter(
-                            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]),
-                            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
-                        )
+                        $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]),
+                        $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+                    )
                 ]
             );
         }

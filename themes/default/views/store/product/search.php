@@ -1,34 +1,39 @@
 <?php
+
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
+
 /* @var $category StoreCategory */
 
-$this->title =  $category->getMetaTile();
-$this->metaDescription = $category->getMetaDescription();
-$this->metaKeywords =  $category->getMetaKeywords();
-
-$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/catalog/index']];
-
-$this->breadcrumbs = array_merge(
-    $this->breadcrumbs,
-    $category->getBreadcrumbs(true)
-);
+$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product/index']];
 
 ?>
 
+
 <div class="row">
     <div class="col-xs-12">
-        <h2><?= Yii::t('StoreModule.store', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
+        <h2>
+            <?php if($category):?>
+                <?= Yii::t('StoreModule.store', 'Search in category "{category}"', ['{category}' => $category->name]); ?>
+            <?php else:?>
+                <?= Yii::t("StoreModule.store", "Search"); ?>
+            <?php endif;?>
+        </h2>
     </div>
 </div>
 
 <div class="row">
-    <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['category' => $category->id]); ?>
+    <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['query' => $searchForm->q, 'category' => $searchForm->category]); ?>
 </div>
 <div class="row">
-    <form id="store-filter" name="store-filter" method="get">
+    <form id="store-filter" name="store-filter">
         <div class="col-sm-3">
+            <?php if(null === $category):?>
+                <div>
+                    <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
+                </div>
+            <?php endif;?>
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
             </div>
@@ -39,7 +44,6 @@ $this->breadcrumbs = array_merge(
     </form>
     <div class="col-sm-9">
         <section>
-
             <div class="grid">
                 <?php $this->widget(
                     'bootstrap.widgets.TbListView',
