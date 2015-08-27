@@ -35,6 +35,7 @@ return [
         '/store' => 'store/product/index',
         '/store/search' => 'store/product/search',
         '/store/show/<name:[\w_\/-]+>' => 'store/product/view',
+        '/store/categories' => 'store/category/index',
         '/store/<path:[\w_\/-]+>' => 'store/category/view',
         '/store/product/autocomplete' => 'store/product/autocomplete'
     ],

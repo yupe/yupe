@@ -21,6 +21,16 @@ class CategoryController extends FrontController
         parent::init();
     }
 
+    public function actionIndex()
+    {
+        $this->render('index', [
+            'dataProvider' => new CArrayDataProvider(StoreCategory::model()->getMenuList(1), [
+                'id' => 'id',
+                'pagination' => false
+            ]),
+        ]);
+    }
+
     /**
      * @param $path
      * @throws CHttpException
