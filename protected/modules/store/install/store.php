@@ -32,10 +32,11 @@ return [
         ]
     ],
     'rules' => [
-        '/store' => 'store/catalog/index',
-        '/store/search' => 'store/catalog/search',
-        '/store/show/<name:[\w_\/-]+>' => 'store/catalog/product',
-        '/store/<path:[\w_\/-]+>' => 'store/catalog/category',
-        '/store/catalog/autocomplete' => 'store/catalog/autocomplete'
+        '/store' => 'store/product/index',
+        '/store/search' => 'store/product/search',
+        '/store/show/<name:[\w_\/-]+>' => 'store/product/view',
+        '/store/categories' => 'store/category/index',
+        '/store/<path:[\w_\/-]+>' => 'store/category/view',
+        '/store/product/autocomplete' => 'store/product/autocomplete'
     ],
 ];

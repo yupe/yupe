@@ -2,7 +2,7 @@
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
         [
-            'action' => ['/store/catalog/search'],
+            'action' => ['/store/product/search'],
             'method' => 'get',
         ]
     )?>

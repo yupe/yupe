@@ -14,14 +14,14 @@ class m150210_063409_add_store_menu_item extends CDbMigration
 
             if(null !== $menu) {
 
-                $item = MenuItem::model()->find('href = :href', [':href' => '/store/catalog/index']);
+                $item = MenuItem::model()->find('href = :href', [':href' => '/store/product/index']);
 
                 if(null != $item) {
 
                     $item = new MenuItem();
                     $item->menu_id = $menu->id;
                     $item->title   = 'Магазин';
-                    $item->href    = '/store/catalog/index';
+                    $item->href    = '/store/product/index';
                     $item->parent_id = 0;
                     $item->condition_name = null;
                     $item->save();
@@ -38,7 +38,7 @@ class m150210_063409_add_store_menu_item extends CDbMigration
 
             Yii::import('application.modules.menu.MenuModule');
 
-            $item = MenuItem::model()->find('href = :href', [':href' => '/store/catalog/index']);
+            $item = MenuItem::model()->find('href = :href', [':href' => '/store/product/index']);
 
             if($item !== null) {
                 $item->delete();

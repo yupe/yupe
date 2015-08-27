@@ -50,7 +50,7 @@ class OrderController extends \yupe\components\controllers\FrontController
                     $this->redirect(['/order/order/view', 'url' => $model->url]);
                 }
 
-                $this->redirect(['/store/catalog/index']);
+                $this->redirect(['/store/product/index']);
 
             } else {
                 Yii::app()->getUser()->setFlash(

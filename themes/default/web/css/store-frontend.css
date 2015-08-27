@@ -1,3 +1,29 @@
+/* Категории */
+.category-item {
+    display: inline-block;
+    width: 30%;
+    min-width: 190px;
+    margin: 0 3% 5% 0;
+    vertical-align: top;
+}
+
+.category-item ul {
+    list-style: none;
+    font-size: 12px;
+    padding-left: 15px;
+}
+
+.category-item a {
+    color: #777;
+}
+
+.category-item-title {
+    display: block;
+    color: #428bca !important;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+}
+
 /* товар */
 .col-item-block {
     padding-right: 0;

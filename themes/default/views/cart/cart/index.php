@@ -11,7 +11,7 @@ Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/cart-frontend
 
 $this->title = Yii::t('CartModule.cart', 'Cart');
 $this->breadcrumbs = [
-    Yii::t("CartModule.cart", 'Catalog') => ['/store/catalog/index'],
+    Yii::t("CartModule.cart", 'Catalog') => ['/store/product/index'],
     Yii::t("CartModule.cart", 'Cart')
 ];
 ?>
@@ -70,7 +70,7 @@ $this->breadcrumbs = [
                                 <input type="hidden" class="position-id" value="<?= $positionId; ?>"/>
 
                                 <div class="media">
-                                    <?php $productUrl = Yii::app()->createUrl('store/catalog/product', ['name' => $position->slug]); ?>
+                                    <?php $productUrl = Yii::app()->createUrl('/store/product/view', ['name' => $position->slug]); ?>
                                     <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                         <img class="media-object" src="<?= $position->getProductModel()->getImageUrl(72, 72); ?>">
                                     </a>
@@ -306,7 +306,7 @@ $this->breadcrumbs = [
                     </tr>
                     <tr>
                         <td colspan="5" style="text-align: right;">
-                            <a href="<?= Yii::app()->createUrl('store/catalog/index'); ?>" class="btn btn-default">
+                            <a href="<?= Yii::app()->createUrl('store/product/index'); ?>" class="btn btn-default">
                                 <span class="glyphicon glyphicon-shopping-cart"></span>
                                 <?= Yii::t("CartModule.cart", "Back to catalog"); ?>
                             </a>
