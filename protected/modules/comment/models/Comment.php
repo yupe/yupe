@@ -101,7 +101,8 @@ class Comment extends yupe\models\YModel
             [
                 'verifyCode',
                 'captcha',
-                'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated()
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated(),
+                'captchaAction' => '/comment/comment/captcha',
             ],
             [
                 'id, model, model_id, create_time, name, email, url, text, status, ip, parent_id',
