@@ -11,31 +11,10 @@ class YandexMoneyPaymentSystem extends PaymentSystem
 {
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
     {
-        $settings = $payment->getPaymentSystemSettings();
-
-        $form = CHtml::form('https://' . $settings['mode'] . '.yandex.ru/eshop.xml');
-        $form .= CHtml::hiddenField('shopId', $settings['shopid']);
-        $form .= CHtml::hiddenField('scid', $settings['scid']);
-        $form .= CHtml::hiddenField('sum', $order->getTotalPriceWithDelivery());
-        $form .= CHtml::hiddenField('customerNumber', $order->user_id);
-        $form .= CHtml::hiddenField('paymentType', $settings['type']);
-        $form .= CHtml::hiddenField('orderNumber', $order->id);
-        $form .= CHtml::hiddenField('cps_phone', CHtml::encode($order->phone));
-        $form .= CHtml::hiddenField('cps_email', CHtml::encode($order->email));
-        $form .= CHtml::hiddenField('shopSuccessURL',
-            Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url]));
-        $form .= CHtml::hiddenField('shopFailURL',
-            Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url]));
-        $form .= CHtml::submitButton(Yii::t('YandexMoneyModule.ymoney', 'Pay'));
-        $form .= CHtml::endForm();
-
-        if ($return) {
-            return $form;
-        }
-
-        echo $form;
-
-        return true;
+        return Yii::app()->getController()->renderPartial('application.modules.yandexmoney.views.form', [
+            'settings' => $payment->getPaymentSystemSettings(),
+            'order' => $order
+        ], $return);
     }
 
     public function processCheckout(Payment $payment, CHttpRequest $request)
