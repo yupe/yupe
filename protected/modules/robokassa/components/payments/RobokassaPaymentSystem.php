@@ -11,15 +11,10 @@ class RobokassaPaymentSystem extends PaymentSystem
 {
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
     {
-        $settings = $payment->getPaymentSystemSettings();
-
         return Yii::app()->getController()->renderPartial('application.modules.robokassa.views.form', [
-            'action' => $settings['testmode'] ? "http://test.robokassa.ru/Index.aspx" : "https://merchant.roboxchange.com/Index.aspx",
-            'login' => $settings['login'],
-            'password' => $settings['password1'],
-            'language' => $settings['language'],
             'id' => $order->id,
-            'price' => Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id)
+            'price' => Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id),
+            'settings' => $payment->getPaymentSystemSettings()
         ], $return);
     }
 
