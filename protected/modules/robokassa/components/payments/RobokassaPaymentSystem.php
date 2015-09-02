@@ -13,33 +13,14 @@ class RobokassaPaymentSystem extends PaymentSystem
     {
         $settings = $payment->getPaymentSystemSettings();
 
-        $mrhLogin = $settings['login'];
-        $mrhPass1 = $settings['password1'];
-        $culture = $settings['language'];
-
-        $invId = $order->id;
-
-        $invDesc = Yii::t('RobokassaModule.robokassa', 'Payment order #{id} on "{site}" website', ['{id}' => $order->id, '{site}' => Yii::app()->getModule('yupe')->siteName]);
-
-        $outSum = Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id);
-
-        $crc = md5("$mrhLogin:$outSum:$invId:$mrhPass1");
-
-        $form = CHtml::form($settings['testmode'] ? "http://test.robokassa.ru/Index.aspx" : "https://merchant.roboxchange.com/Index.aspx");
-        $form .= CHtml::hiddenField('MrchLogin', $mrhLogin);
-        $form .= CHtml::hiddenField('OutSum', $outSum);
-        $form .= CHtml::hiddenField('InvId', $invId);
-        $form .= CHtml::hiddenField('Desc', $invDesc);
-        $form .= CHtml::hiddenField('SignatureValue', $crc);
-        $form .= CHtml::hiddenField('Culture', $culture);
-        $form .= CHtml::submitButton(Yii::t('RobokassaModule.robokassa','Pay'));
-        $form .= CHtml::endForm();
-
-        if ($return) {
-            return $form;
-        } else {
-            echo $form;
-        }
+        return Yii::app()->getController()->renderPartial('application.modules.robokassa.views.form', [
+            'action' => $settings['testmode'] ? "http://test.robokassa.ru/Index.aspx" : "https://merchant.roboxchange.com/Index.aspx",
+            'login' => $settings['login'],
+            'password' => $settings['password1'],
+            'language' => $settings['language'],
+            'id' => $order->id,
+            'price' => Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id)
+        ], $return);
     }
 
     public function processCheckout(Payment $payment, CHttpRequest $request)
