@@ -29,7 +29,7 @@ require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 $base = require dirname(__FILE__) . '/../protected/config/test.php';
 
 $confManager = new yupe\components\ConfigManager();
-$confManager->sentEnv(\yupe\components\ConfigManager::ENV_WEB);
+$confManager->setEnv(\yupe\components\ConfigManager::ENV_WEB);
 
 require dirname(__FILE__) . '/../vendor/autoload.php';
 
