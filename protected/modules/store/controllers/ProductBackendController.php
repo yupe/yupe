@@ -240,7 +240,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             throw new CHttpException(404);
         }
 
-        $this->renderPartial('_attribute_form', ['type' => $type, 'model' => new Product()]);
+        $this->renderPartial('_attribute_form', ['groups' => $type->getAttributeGroups(), 'model' => new Product()]);
     }
 
     public function actionVariantRow($id)
@@ -272,9 +272,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 }
             }
         }
-        Yii::app()->ajax->rawText(
-            CJSON::encode($out)
-        );
+        Yii::app()->ajax->success($out);
     }
 
 

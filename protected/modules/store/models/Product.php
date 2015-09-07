@@ -158,6 +158,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id', 'joinType' => 'INNER JOIN'],
             'linkedProducts' => [self::HAS_MANY, 'Product', ['linked_product_id' => 'id'], 'through' => 'linkedProductsRelation', 'joinType' => 'INNER JOIN'],
+            'attributesValues' => [self::HAS_MANY, 'AttributeValue', 'product_id']
         ];
     }
 
@@ -713,17 +714,11 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getAttributeGroups()
     {
-        $attributeGroups = [];
-
-        foreach ($this->getTypeAttributes() as $attribute) {
-            if ($attribute->group) {
-                $attributeGroups[$attribute->group->name][] = $attribute;
-            } else {
-                $attributeGroups[Yii::t('StoreModule.store', 'Without a group')][] = $attribute;
-            }
+        if(empty($this->type)) {
+            return [];
         }
 
-        return $attributeGroups;
+        return $this->type->getAttributeGroups();
     }
 
 

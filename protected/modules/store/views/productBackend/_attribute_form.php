@@ -3,22 +3,10 @@
 /* @var $type Type - передается при генерации формы через ajax */
 ?>
 
-
-<?php if (!empty($type->typeAttributes)): ?>
+<?php if (!empty($groups)): ?>
     <div class="row">
         <div class="col-sm-12">
-            <?php if (is_array($type->typeAttributes)): ?>
-                <?php
-                $attributeGroups = [];
-                foreach ($type->typeAttributes as $attribute) {
-                    if ($attribute->group) {
-                        $attributeGroups[$attribute->group->name][] = $attribute;
-                    } else {
-                        $attributeGroups[Yii::t('StoreModule.attribute', 'Without a group')][] = $attribute;
-                    }
-                }
-                ?>
-                <?php foreach ($attributeGroups as $groupName => $items): ?>
+                <?php foreach ($groups as $groupName => $items): ?>
                     <fieldset>
                         <legend><?= CHtml::encode($groupName); ?></legend>
                         <?php foreach ($items as $attribute): ?>
@@ -45,7 +33,6 @@
                         <?php endforeach; ?>
                     </fieldset>
                 <?php endforeach; ?>
-            <?php endif; ?>
         </div>
     </div>
 <?php else: ?>

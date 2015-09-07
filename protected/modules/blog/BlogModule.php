@@ -13,7 +13,7 @@ use yupe\components\WebModule;
 
 class BlogModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.7';
+    const VERSION = '0.9.9';
 
     public $mainPostCategory;
     public $minSize = 0;

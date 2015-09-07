@@ -21,13 +21,4 @@ class TypeAttribute extends \yupe\models\YModel
     {
         return parent::model($className);
     }
-
-    /*public function relations()
-    {
-        return array(
-            'attribute' => array(self::BELONGS_TO, 'Attribute', 'attribute_id'),
-        );
-    }*/
-
-    // TODO: удалять из eav товара все упоминания атрибутов
 }

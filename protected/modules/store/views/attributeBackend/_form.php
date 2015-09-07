@@ -32,20 +32,6 @@ $form = $this->beginWidget(
 <?php echo $form->errorSummary($model); ?>
 
 <div class='row'>
-    <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
-            $model,
-            'group_id',
-            [
-                'widgetOptions' => [
-                    'data'        => AttributeGroup::model()->getFormattedList(),
-                    'htmlOptions' => [
-                        'empty' => '---',
-                    ],
-                ],
-            ]
-        ); ?>
-    </div>
     <div class="col-sm-4">
         <?php echo $form->dropDownListGroup(
             $model,
@@ -56,6 +42,21 @@ $form = $this->beginWidget(
                     'htmlOptions' => [
                         'empty' => '---',
                         'id'    => 'attribute-type',
+                    ],
+                ],
+            ]
+        ); ?>
+    </div>
+
+    <div class="col-sm-3">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'group_id',
+            [
+                'widgetOptions' => [
+                    'data'        => AttributeGroup::model()->getFormattedList(),
+                    'htmlOptions' => [
+                        'empty' => '---',
                     ],
                 ],
             ]

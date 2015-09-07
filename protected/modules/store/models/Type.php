@@ -124,4 +124,19 @@ class Type extends \yupe\models\YModel
         }
         return $list;
     }
+
+    public function getAttributeGroups()
+    {
+        $attributeGroups = [];
+
+        foreach ($this->typeAttributes as $attribute) {
+            if ($attribute->group) {
+                $attributeGroups[$attribute->group->name][] = $attribute;
+            } else {
+                $attributeGroups[Yii::t('StoreModule.store', 'Without a group')][] = $attribute;
+            }
+        }
+
+        return $attributeGroups;
+    }
 }

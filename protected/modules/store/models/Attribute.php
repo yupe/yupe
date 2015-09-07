@@ -72,6 +72,7 @@ class Attribute extends \yupe\models\YModel
         return [
             'options' => [self::HAS_MANY, 'AttributeOption', 'attribute_id', 'order' => 'options.position ASC'],
             'group' => [self::BELONGS_TO, 'AttributeGroup', 'group_id'],
+            'value' => [self::BELONGS_TO, 'AttributeValue', 'attribute_id']
         ];
     }
 

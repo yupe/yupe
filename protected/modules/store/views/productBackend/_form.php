@@ -358,7 +358,7 @@ $form = $this->beginWidget(
 
     <div class="tab-pane" id="attributes">
         <div id="attributes-panel">
-            <?php $this->renderPartial('_attribute_form', ['type' => $model->type, 'model' => $model]); ?>
+            <?php $this->renderPartial('_attribute_form', ['groups' => $model->getAttributeGroups(), 'model' => $model]); ?>
         </div>
     </div>
 
