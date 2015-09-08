@@ -10,7 +10,7 @@
 class OrderStatus extends yupe\models\YModel
 {
     const STATUS_NEW = 1;
-    const STATUS_ACCEPTED = 2;
+    const STATUS_APPROVED = 2;
     const STATUS_FINISHED = 3;
     const STATUS_DELETED = 4;
 
@@ -83,7 +83,7 @@ class OrderStatus extends yupe\models\YModel
     {
         return [
             self::STATUS_FINISHED => ['class' => 'label-success'],
-            self::STATUS_ACCEPTED => ['class' => 'label-info'],
+            self::STATUS_APPROVED => ['class' => 'label-info'],
             self::STATUS_NEW => ['class' => 'label-default'],
             self::STATUS_DELETED => ['class' => 'label-danger'],
         ];

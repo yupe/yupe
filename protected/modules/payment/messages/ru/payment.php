@@ -39,6 +39,7 @@ return [
     'Record was updated!' => 'Запись изменена!',
     'Save payment and close' => 'Сохранить способ оплаты и закрыть',
     'Save payment and continue' => 'Сохранить способ оплаты и продолжить',
+    'Select a payment method' => '- Выберите платежную систему -',
     'Status' => 'Статус',
     'Store' => 'Магазин',
     'Title' => 'Название',
