@@ -188,7 +188,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     </td>
 
                 </tr>
-                <?php if (!$model->isPaid()  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
+                <?php if (!$model->isPaid() && !empty($model->delivery) && $model->delivery->hasPaymentMethods() && !$model->payment_method_id): ?>
                     <tr>
                         <td colspan="3">
                             <ul id="payment-methods">
@@ -212,7 +212,6 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                             </ul>
                         </td>
                     </tr>
-                    <?php if($model->delivery->hasPaymentMethods()):?>
                     <tr>
                         <td colspan="3">
                             <p class="text-right">
@@ -223,7 +222,6 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                             </p>
                         </td>
                     </tr>
-                    <?php endif;?>
                 <?php else: ?>
                     <tr>
                         <td colspan="3">

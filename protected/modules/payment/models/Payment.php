@@ -38,7 +38,7 @@ class Payment extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['name, position, status', 'required'],
+            ['name, position, status, module', 'required'],
             ['name', 'filter', 'filter' => 'trim'],
             ['currency_id', 'numerical', 'integerOnly' => true],
             ['name', 'length', 'max' => 255],

@@ -119,4 +119,5 @@ return [
     'View status list' => 'Просмотреть список статусов',
     'Viewing order' => 'Просмотр заказа',
     'You can not delete a system status.' => 'Вы не можете удалять системные статусы',
+    'Your order approved' => 'Ваш заказ подтвержден',
 ];
