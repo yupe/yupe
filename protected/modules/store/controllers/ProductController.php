@@ -2,6 +2,9 @@
 
 use yupe\components\controllers\FrontController;
 
+/**
+ * Class ProductController
+ */
 class ProductController extends FrontController
 {
     /**
@@ -14,6 +17,9 @@ class ProductController extends FrontController
      */
     protected $attributeFilter;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->productRepository = Yii::app()->getComponent('productRepository');
@@ -22,12 +28,19 @@ class ProductController extends FrontController
         parent::init();
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
-        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
-            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest()),
-            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
-        ) : $this->productRepository->getListForIndexPage();
+        $mainSearchParam = $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest());
+        $typesSearchParam = $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest());
+
+        if (!empty($mainSearchParam) || !empty($typesSearchParam)) {
+            $data = $this->productRepository->getByFilter($mainSearchParam, $typesSearchParam);
+        } else {
+            $data = $this->productRepository->getListForIndexPage();
+        }
 
         $this->render('index', ['dataProvider' => $data]);
     }
@@ -47,6 +60,9 @@ class ProductController extends FrontController
         $this->render('view', ['product' => $product]);
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionSearch()
     {
         if (!Yii::app()->getRequest()->getQuery('SearchForm')) {
@@ -68,7 +84,7 @@ class ProductController extends FrontController
                     'searchForm' => $form,
                     'dataProvider' => $this->productRepository->getByFilter(
                         $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]),
-                        $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+                        $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
                     )
                 ]
             );

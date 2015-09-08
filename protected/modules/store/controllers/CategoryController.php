@@ -45,7 +45,7 @@ class CategoryController extends FrontController
 
         $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
             $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]),
-            $this->attributeFilter->getEavAttributesForSearchFromQuery(Yii::app()->getRequest())
+            $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
         ) : $this->productRepository->getListForCategory($category);
 
 

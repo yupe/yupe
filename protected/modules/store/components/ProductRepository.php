@@ -12,32 +12,30 @@ class ProductRepository extends CComponent
         $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
     }
 
-    public function getByFilter(array $mainSearchAttributes, array $eavSearchAttributes)
+    public function getByFilter(array $mainSearchAttributes, array $typeSearchAttributes)
     {
-        $model = Product::model();
-
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
         $criteria->params = [];
-        $criteria->addCondition('status = :status');
+        $criteria->addCondition('t.status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
-        foreach($this->attributeFilter->getMainSearchParams() as $param => $field) {
-            if(!empty($mainSearchAttributes[$param])) {
-                $criteria->addInCondition($field, $mainSearchAttributes[$param]);
+        //поиск по категории и производителю
+        foreach ($this->attributeFilter->getMainSearchParams() as $param => $field) {
+            if (!empty($mainSearchAttributes[$param])) {
+                $criteria->addInCondition("t.".$field, $mainSearchAttributes[$param]);
             }
         }
 
-        if(!empty($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME])) {
+        //поиск по названию
+        if (!empty($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME])) {
             $criteria->addSearchCondition('name', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true);
         }
 
-        $eavCriteria = $model->getFilterByEavAttributesCriteria($eavSearchAttributes);
-
-        $criteria->mergeWith($eavCriteria);
+        $criteria->mergeWith($this->buildCriteriaForTypeAttributes($typeSearchAttributes));
 
         return new CActiveDataProvider(
-            $model,
+            'Product',
             [
                 'criteria' => $criteria,
                 'pagination' => [
@@ -50,6 +48,49 @@ class ProductRepository extends CComponent
                 ],
             ]
         );
+    }
+
+    protected function buildCriteriaForTypeAttributes(array $typeSearchAttributes)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->params = [];
+
+        $i = 0;
+
+        foreach ($typeSearchAttributes as $attribute => $params) {
+
+            if(empty($params['value'])) {
+                continue;
+            }
+
+            $alias = "attributes_values_{$i}";
+
+            $criteria->join .= " JOIN {{store_product_attribute_value}} {$alias} ON t.id = {$alias}.product_id ";
+
+            if (is_array($params['value'])) {
+                if (isset($params['value']['from']) || isset($params['value']['to'])) {
+                    $between = new CDbCriteria();
+                    $between->addBetweenCondition("{$alias}.".$params['column'], $params['value']['from'], $params['value']['to']);
+                    $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
+                    $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
+                    $criteria->mergeWith($between);
+                }else{
+                    $in = new CDbCriteria();
+                    $in->addInCondition("{$alias}.".$params['column'], $params['value']);
+                    $criteria->mergeWith($in);
+                }
+            } else {
+                $condition = new CDbCriteria();
+                $condition->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
+                $condition->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
+                $condition->addColumnCondition(["{$alias}.".$params['column'] => $params['value']]);
+                $criteria->mergeWith($condition);
+            }
+
+            $i++;
+        }
+
+        return $criteria;
     }
 
 
@@ -94,7 +135,7 @@ class ProductRepository extends CComponent
         $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $category->id]);
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
-        return  new CActiveDataProvider(
+        return new CActiveDataProvider(
             Product::model(),
             [
                 'criteria' => $criteria,
@@ -129,7 +170,7 @@ class ProductRepository extends CComponent
      * @param array $with
      * @return mixed
      */
-    public function getBySlug($slug, array $with = ['producer','type.typeAttributes', 'images', 'mainCategory', 'variants'])
+    public function getBySlug($slug, array $with = ['producer', 'type.typeAttributes', 'images', 'mainCategory', 'variants'])
     {
         return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
     }
