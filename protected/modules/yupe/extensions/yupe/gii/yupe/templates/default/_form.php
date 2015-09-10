@@ -27,21 +27,21 @@ echo <<<EOF
  *   @var \$this {$this->controllerClass}
  **/
 \$form = \$this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
+    'bootstrap.widgets.TbActiveForm', [
         'id'                     => '{$this->class2id($this->modelClass)}-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 );
 ?>\n
 EOF;
 ?>
 
 <div class="alert alert-info">
-    <?php echo "<?php echo Yii::t('{$this->mid}', 'Поля, отмеченные'); ?>\n"; ?>
+    <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'Поля, отмеченные'); ?>\n"; ?>
     <span class="required">*</span>
-    <?php echo "<?php echo Yii::t('{$this->mid}', 'обязательны.'); ?>\n"; ?>
+    <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'обязательны.'); ?>\n"; ?>
 </div>
 
 <?php echo "<?php echo \$form->errorSummary(\$model); ?>\n"; ?>
@@ -65,21 +65,19 @@ EOF;
 
 <?php
 echo <<<EOF
-    <?php
-    \$this->widget(
-        'bootstrap.widgets.TbButton', array(
+    <?php \$this->widget(
+        'bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
             'context'    => 'primary',
-            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
-        )
+            'label'      => Yii::t('{$this->getModuleTranslate()}', 'Сохранить {$this->vin} и продолжить'),
+        ]
     ); ?>
-    <?php
-    \$this->widget(
-        'bootstrap.widgets.TbButton', array(
+    <?php \$this->widget(
+        'bootstrap.widgets.TbButton', ]
             'buttonType' => 'submit',
-            'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
-        )
+            'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
+            'label'      => Yii::t('{$this->getModuleTranslate()}', 'Сохранить {$this->vin} и закрыть'),
+        ]
     ); ?>\n
 EOF;
 ?>

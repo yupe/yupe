@@ -24,50 +24,49 @@ echo <<<EOF
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-    \$this->breadcrumbs = array(
-        Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
-        Yii::t('{$this->mid}', '{$label}') => array('/{$this->mid}/{$this->controller}/index'),
-        Yii::t('{$this->mid}', 'Управление'),
-    );
+\$this->breadcrumbs = [
+    \$this->getModule()->getCategory() => [],
+    Yii::t('{$this->getModuleTranslate()}', '{$label}') => ['/{$this->mid}/{$this->controller}/index'],
+    Yii::t('{$this->getModuleTranslate()}', 'Управление'),
+];
 
-    \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - управление');
+\$this->pageTitle = Yii::t('{$this->getModuleTranslate()}', '{$label} - управление');
 
-    \$this->menu = array(
-        array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
-        array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
-    );
+\$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Управление {$this->mtvor}'), 'url' => ['/{$this->mid}/{$this->controller}/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Добавить {$this->vin}'), 'url' => ['/{$this->mid}/{$this->controller}/create']],
+];
 ?>
 EOF;
 ?>
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->mid}', '{$label}'); ?>\n"; ?>
-        <small><?php echo "<?php echo Yii::t('{$this->mid}', 'управление'); ?>"; ?></small>
+        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', '{$label}'); ?>\n"; ?>
+        <small><?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'управление'); ?>"; ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo "<?php echo Yii::t('{$this->mid}', 'Поиск {$this->mrod}');?>\n"; ?>
+        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'Поиск {$this->mrod}');?>\n"; ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
 
 <div id="search-toggle" class="collapse out search-form">
     <?php echo <<<EOF
-<?php
-Yii::app()->clientScript->registerScript('search', "
-    $('.search-form form').submit(function () {
-        $.fn.yiiGridView.update('{$this->class2id($this->modelClass)}-grid', {
-            data: $(this).serialize()
-        });
+    <?php Yii::app()->clientScript->registerScript('search', "
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('{$this->class2id($this->modelClass)}-grid', {
+                data: $(this).serialize()
+            });
 
-        return false;
-    });
-");
-\$this->renderPartial('_search', array('model' => \$model));
+            return false;
+        });
+    ");
+    \$this->renderPartial('_search', ['model' => \$model]);
 ?>\n
 EOF;
     ?>
@@ -75,28 +74,28 @@ EOF;
 
 <br/>
 
-<p> <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления {$this->mtvor}'); ?>\n"; ?></p>
+<p> <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'В данном разделе представлены средства управления {$this->mtvor}'); ?>\n"; ?></p>
 
-<?php echo "<?php\n"; ?> $this->widget('yupe\widgets\CustomGridView', array(
-'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
-'type'         => 'striped condensed',
-'dataProvider' => $model->search(),
-'filter'       => $model,
-'columns'      => array(
+<?php echo "<?php\n"; ?> $this->widget(
+    'yupe\widgets\CustomGridView',
+    [
+        'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
+        'type'         => 'striped condensed',
+        'dataProvider' => $model->search(),
+        'filter'       => $model,
+        'columns'      => [
 <?php
 $count = 0;
 foreach ($this->tableSchema->columns as $column) {
-    if (++$count == 7) {
-        echo "        /*\n";
+    if (++$count == 7 || $count >= 7) {
+        echo "//";
     }
-    echo "        '" . $column->name . "',\n";
-}
-if ($count >= 7) {
-    echo "        */\n";
+    echo "            '" . $column->name . "',\n";
 }
 ?>
-array(
-'class' => 'yupe\widgets\CustomButtonColumn',
-),
-),
-)); ?>
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
+); ?>

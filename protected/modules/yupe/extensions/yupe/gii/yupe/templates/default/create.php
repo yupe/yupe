@@ -25,27 +25,27 @@ echo <<<EOF
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-    \$this->breadcrumbs = array(
-        Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
-        Yii::t('{$this->mid}', '{$label}') => array('/{$this->mid}/{$this->controller}/index'),
-        Yii::t('{$this->mid}', 'Добавление'),
-    );
+\$this->breadcrumbs = [
+    \$this->getModule()->getCategory() => [],
+    Yii::t('{$this->getModuleTranslate()}', '{$label}') => ['/{$this->mid}/{$this->controller}/index'],
+    Yii::t('{$this->getModuleTranslate()}', 'Добавление'),
+];
 
-    \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - добавление');
+\$this->pageTitle = Yii::t('{$this->getModuleTranslate()}', '{$label} - добавление');
 
-    \$this->menu = array(
-        array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
-        array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
-    );
+\$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Управление {$this->mtvor}'), 'url' => ['/{$this->mid}/{$this->controller}/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Добавить {$this->vin}'), 'url' => ['/{$this->mid}/{$this->controller}/create']],
+];
 ?>
 EOF;
 ?>
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->mid}', '{$label}'); ?>\n"; ?>
-        <small><?php echo "<?php echo Yii::t('{$this->mid}', 'добавление'); ?>"; ?></small>
+        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', '{$label}'); ?>\n"; ?>
+        <small><?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'добавление'); ?>"; ?></small>
     </h1>
 </div>
 
-<?php echo "<?php echo \$this->renderPartial('_form', array('model' => \$model)); ?>"; ?>
+<?php echo "<?php echo \$this->renderPartial('_form', ['model' => \$model]); ?>"; ?>

@@ -26,43 +26,43 @@ echo <<<EOF
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-    \$this->breadcrumbs = array(
-        Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
-        Yii::t('{$this->mid}', '$label') => array('/{$this->mid}/{$this->controller}/index'),
-        \$model->{$nameColumn} => array('/{$this->mid}/{$this->controller}/view', 'id' => \$model->{$this->tableSchema->primaryKey}),
-        Yii::t('{$this->mid}', 'Редактирование'),
-    );
+\$this->breadcrumbs = [
+    \$this->getModule()->getCategory() => [],
+    Yii::t('{$this->getModuleTranslate()}', '$label') => ['/{$this->mid}/{$this->controller}/index'],
+    \$model->{$nameColumn} => ['/{$this->mid}/{$this->controller}/view', 'id' => \$model->{$this->tableSchema->primaryKey}],
+    Yii::t('{$this->getModuleTranslate()}', 'Редактирование'),
+];
 
-    \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - редактирование');
+\$this->pageTitle = Yii::t('{$this->getModuleTranslate()}', '{$label} - редактирование');
 
-    \$this->menu = array(
-        array('icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->mid}/{$this->controller}/index')),
-        array('icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->mid}/{$this->controller}/create')),
-        array('label' => Yii::t('{$this->mid}', '{$labelIm}') . ' «' . mb_substr(\$model->{$this->tableSchema->primaryKey}, 0, 32) . '»'),
-        array('icon' => 'fa fa-fw fa-pencil', 'label' => Yii::t('{$this->mid}', 'Редактирование {$this->rod}'), 'url' => array(
-            '/{$this->mid}/{$this->controller}/update',
-            'id' => \$model->{$this->tableSchema->primaryKey}
-        )),
-        array('icon' => 'fa fa-fw fa-eye', 'label' => Yii::t('{$this->mid}', 'Просмотреть {$this->vin}'), 'url' => array(
-            '/{$this->mid}/{$this->controller}/view',
-            'id' => \$model->{$this->tableSchema->primaryKey}
-        )),
-        array('icon' => 'fa fa-fw fa-trash-o', 'label' => Yii::t('{$this->mid}', 'Удалить {$this->vin}'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/{$this->mid}/{$this->controller}/delete', 'id' => \$model->{$this->tableSchema->primaryKey}),
-            'confirm' => Yii::t('{$this->mid}', 'Вы уверены, что хотите удалить {$this->vin}?'),
-            'csrf' => true,
-        )),
-    );
+\$this->menu = [
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Управление {$this->mtvor}'), 'url' => ['/{$this->mid}/{$this->controller}/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Добавить {$this->vin}'), 'url' => ['/{$this->mid}/{$this->controller}/create']],
+    ['label' => Yii::t('{$this->getModuleTranslate()}', '{$labelIm}') . ' «' . mb_substr(\$model->{$this->tableSchema->primaryKey}, 0, 32) . '»'],
+    ['icon' => 'fa fa-fw fa-pencil', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Редактирование {$this->rod}'), 'url' => [
+        '/{$this->mid}/{$this->controller}/update',
+        'id' => \$model->{$this->tableSchema->primaryKey}
+    ]],
+    ['icon' => 'fa fa-fw fa-eye', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Просмотреть {$this->vin}'), 'url' => [
+        '/{$this->mid}/{$this->controller}/view',
+        'id' => \$model->{$this->tableSchema->primaryKey}
+    ]],
+    ['icon' => 'fa fa-fw fa-trash-o', 'label' => Yii::t('{$this->getModuleTranslate()}', 'Удалить {$this->vin}'), 'url' => '#', 'linkOptions' => [
+        'submit' => ['/{$this->mid}/{$this->controller}/delete', 'id' => \$model->{$this->tableSchema->primaryKey}],
+        'confirm' => Yii::t('{$this->getModuleTranslate()}', 'Вы уверены, что хотите удалить {$this->vin}?'),
+        'csrf' => true,
+    ]],
+];
 ?>
 EOF;
 ?>
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->mid}', 'Редактирование') . ' ' . Yii::t('{$this->mid}', '{$this->rod}'); ?>"; ?>
+        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'Редактирование') . ' ' . Yii::t('{$this->getModuleTranslate()}', '{$this->rod}'); ?>"; ?>
         <br/>
         <small>&laquo;<?php echo "<?php echo \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo "<?php echo \$this->renderPartial('_form', array('model' => \$model)); ?>"; ?>
+<?php echo "<?php echo \$this->renderPartial('_form', ['model' => \$model]); ?>"; ?>

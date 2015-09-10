@@ -20,12 +20,12 @@ echo <<<EOF
  *   @link     http://yupe.ru
  **/
 \$form = \$this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
+    'bootstrap.widgets.TbActiveForm', [
         'action'      => Yii::app()->createUrl(\$this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 );
 ?>\n
 EOF;
@@ -33,8 +33,7 @@ EOF;
 
 <fieldset>
     <div class="row">
-        <?php
-        foreach ($this->tableSchema->columns as $column) {
+        <?php foreach ($this->tableSchema->columns as $column) {
             $field = $this->generateInputField($this->modelClass, $column);
             if (strpos($field, 'password') !== false) {
                 continue;
@@ -42,25 +41,23 @@ EOF;
 
             $activeRow = $this->generateActiveGroup($this->modelClass, $column);
             echo <<<EOF
-            <div class="col-sm-3">
-                <?php echo {$activeRow}; ?>
-            </div>\n
+<div class="col-sm-3">
+            <?php echo {$activeRow}; ?>
+        </div>\n\t\t
 EOF;
-        }
-        ?>
+        } ?>
     </div>
 </fieldset>
 
 <?php
 echo <<<EOF
-    <?php
-    \$this->widget(
-        'bootstrap.widgets.TbButton', array(
+    <?php \$this->widget(
+        'bootstrap.widgets.TbButton', [
             'context'     => 'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',
-            'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('{$this->mid}', 'Искать {$this->vin}'),
-        )
+            'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('{$this->getModuleTranslate()}', 'Искать {$this->vin}'),
+        ]
     ); ?>\n
 EOF;
 ?>
