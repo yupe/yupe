@@ -342,6 +342,7 @@ return [
     'Yupe! Generator helps to create CRUD for any model.' => 'Юпи! Генератор позволяет создать CRUD для любой модели.',
     'Yupe! Crud Generator!' => 'Юпи! Crud Генератор!',
     'Yupe! Module Generator!' => 'Юпи! Генератор модуля!',
+    'This generator will help you to generate base classes for the module Yupe.' => 'Этот генератор поможем вам сгенерировать базовые классы для модуля Yupe.',
     'Yupe!' => 'Юпи!',
     '{attribute} cannot be blank' => '{attribute} не может быть пустым',
     '{attribute} have illegal characters' => '{attribute} содержит недопустимые символы',

@@ -1,6 +1,6 @@
 <h1><?php echo Yii::t('YupeModule.yupe', 'Yupe! Generator module!'); ?></h1>
 
-<p>This generator helps you to generate the skeleton code needed by a Yii module.</p>
+<p><?php echo Yii::t('YupeModule.yupe', 'This generator will help you to generate base classes for the module Yupe.'); ?></p>
 
 <?php $form=$this->beginWidget('CCodeForm', array('model'=>$model)); ?>
 
@@ -15,5 +15,25 @@
 		</div>
 		<?php echo $form->error($model,'moduleID'); ?>
 	</div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'moduleCategory'); ?>
+        <?php echo $form->textField($model,'moduleCategory',array('size'=>65)); ?>
+        <div class="tooltip">
+            Каждый модуль должен принадлежать одной категории, именно по категориям делятся модули в панели управления.
+            Примеры категорий: <code>Content</code>, <code>User</code>.
+        </div>
+        <?php echo $form->error($model,'moduleCategory'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'moduleIcon'); ?>
+        <?php echo $form->textField($model,'moduleIcon',array('size'=>65)); ?>
+        <div class="tooltip">
+            Название иконки для меню админки. Примеры : <code>pencil</code>, <code>plus-square</code>.
+            Полный список можно посмотреть на сайте: <?php echo CHtml::link('fontawesome.ru','http://fontawesome.ru/icons/');; ?>
+        </div>
+        <?php echo $form->error($model,'moduleCategory'); ?>
+    </div>
 
 <?php $this->endWidget(); ?>

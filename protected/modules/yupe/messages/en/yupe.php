@@ -279,6 +279,7 @@ return [
     'Yupe! Generator helps to create CRUD for any model.' => '',
     'Yupe! Crud Generator!' => '',
     'Yupe! Module Generator!' => '',
+    'This generator will help you to generate base classes for the module Yupe.' => '',
     'Yupe! developers team' => '',
     'accept any kind of business and any proposals =)' => '',
     'dependent' => '',

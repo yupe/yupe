@@ -76,7 +76,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row sticky">
     <?php echo $form->labelEx($model, 'baseControllerClass'); ?>
-    <?php echo $form->textField($model, 'baseControllerClass', ['size' => 65]); ?>
+    <?php echo $form->dropDownList($model, 'baseControllerClass', $model->getBbaseControllerClassList(), ['style' => 'width: 484px;']); ?>
     <div class="tooltip">
         От этого класса будет унаследован новый класс контроллера CRUD.<br/>
         Пожалуйста, убедитесь, что класс существует и может быть автоматически загружаются.
