@@ -8,7 +8,7 @@
 
 Yii::import('gii.generators.crud.CrudGenerator');
 
-class YupeGenerator extends CrudGenerator
+class YupeCrudGenerator extends CrudGenerator
 {
-    public $codeModel = 'application.modules.yupe.extensions.yupe.gii.yupe.YupeCode';
+    public $codeModel = 'application.modules.yupe.extensions.yupe.gii.yupeCrud.YupeCrudCode';
 }

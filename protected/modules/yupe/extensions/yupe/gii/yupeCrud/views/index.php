@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerScript(
 "
 );
 ?>
-<h1><?php echo Yii::t('YupeModule.yupe', 'Yupe! Generator!'); ?></h1>
+<h1><?php echo Yii::t('YupeModule.yupe', 'Yupe! Crud Generator!'); ?></h1>
 
 <p><?php echo Yii::t('YupeModule.yupe', 'Yupe! Generator helps to create CRUD for any model.'); ?></p>
 

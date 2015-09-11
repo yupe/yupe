@@ -8,7 +8,7 @@
 
 Yii::import('gii.generators.crud.CrudCode');
 
-class YupeCode extends CrudCode
+class YupeCrudCode extends CrudCode
 {
 
     public $im;
