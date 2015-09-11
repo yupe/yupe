@@ -50,7 +50,7 @@ Yii::app()->clientScript->registerScript(
     <label>Модуль (id) для которого генерируется CRUD</label>
     <?php echo $form->textField($model, 'mid', ['size' => 65]); ?>
     <div class="tooltip">
-        Module id (e.g. page, user or news)
+        Модуль (id) (например <code>page</code>, <code>user</code> или <code>news</code>)
     </div>
     <?php echo $form->error($model, 'mid'); ?>
 </div>
@@ -59,14 +59,14 @@ Yii::app()->clientScript->registerScript(
     <?php echo $form->labelEx($model, 'controller'); ?>
     <?php echo $form->textField($model, 'controller', ['size' => 65]); ?>
     <div class="tooltip">
-        Controller ID is case-sensitive. CRUD controllers are often named after
-        the model class name that they are dealing with. Below are some examples:
+        Контроллер ID чувствителен к регистру. CRUD controllers are often named after
+        the model class name that they are dealing with. Ниже приведены некоторые примеры:
         <ul>
-            <li><code>post</code> generates <code>PostController.php</code></li>
-            <li><code>postTag</code> generates <code>PostTagController.php</code></li>
-            <li><code>admin/user</code> generates <code>admin/UserController.php</code>.
-                If the application has an <code>admin</code> module enabled,
-                it will generate <code>UserController</code> (and other CRUD code)
+            <li><code>post</code> генерируется <code>PostController.php</code></li>
+            <li><code>postTag</code> генерируется <code>PostTagController.php</code></li>
+            <li><code>admin/user</code> генерируется <code>admin/UserController.php</code>.
+                Если приложение имеет включенный модуль <code>admin</code>,
+                он будет генерироваться <code>UserController</code> (and other CRUD code)
                 within the module instead.
             </li>
         </ul>
@@ -78,8 +78,8 @@ Yii::app()->clientScript->registerScript(
     <?php echo $form->labelEx($model, 'baseControllerClass'); ?>
     <?php echo $form->textField($model, 'baseControllerClass', ['size' => 65]); ?>
     <div class="tooltip">
-        This is the class that the new CRUD controller class will extend from.
-        Please make sure the class exists and can be autoloaded.
+        От этого класса будет унаследован новый класс контроллера CRUD.<br/>
+        Пожалуйста, убедитесь, что класс существует и может быть автоматически загружаются.
     </div>
     <?php echo $form->error($model, 'baseControllerClass'); ?>
 </div>

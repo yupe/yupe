@@ -23,6 +23,7 @@ class YupeCode extends CrudCode
     public $mtvor;
 
     public $mid;
+    public $mName;
 
     public function rules()
     {
@@ -35,17 +36,60 @@ class YupeCode extends CrudCode
         );
     }
 
+    /**
+     * Меняем labels переменных
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return array_merge(parent::attributeLabels(), array(
+            'model'=>'Модель (название)',
+            'controller'=>'Контроллер (название)',
+            'baseControllerClass'=>'Базовый класс контроллера',
+        ));
+    }
+
     public function generateActiveGroup($modelClass, $column)
     {
         if ($column->type === 'boolean') {
-            return "\$form->checkBoxGroup(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+            return "\$form->checkBoxGroup(\$model, '{$column->name}', [
+            'widgetOptions' =>
+            [
+                'htmlOptions' => [
+                    'class' => 'popover-help',
+                    'data-original-title' => \$model->getAttributeLabel('{$column->name}'),
+                    'data-content' => \$model->getAttributeDescription('{$column->name}')
+                ]
+            ]
+        ])";
         } else {
             if (stripos($column->dbType, 'text') !== false) {
-                return "\$form->textAreaGroup(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+                return "\$form->textAreaGroup(\$model, '{$column->name}', [
+            'widgetOptions' => [
+                'htmlOptions' => [
+                    'class' => 'popover-help',
+                    'rows' => 6,
+                    'cols' => 50,
+                    'data-original-title' => \$model->getAttributeLabel('{$column->name}'),
+                    'data-content' => \$model->getAttributeDescription('{$column->name}')
+                ]
+            ]])";
             } elseif ($column->dbType == 'date') {
-                return "\$form->datePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"fa fa-calendar\"></i>'))";
+                return "\$form->datePickerGroup(\$model,'{$column->name}', [
+            'widgetOptions'=>[
+                'options' => [],
+                'htmlOptions' => []
+            ],
+            'prepend'=>'<i class=\"fa fa-calendar\"></i>'
+        ])";
             } elseif ($column->dbType == 'datetime') {
-                return "\$form->dateTimePickerGroup(\$model,'{$column->name}', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class=\"fa fa-calendar\"></i>'))";
+                return "\$form->dateTimePickerGroup(\$model,'{$column->name}', [
+            'widgetOptions' => [
+                'options' => [],
+                'htmlOptions'=>[]
+            ],
+            'prepend'=>'<i class=\"fa fa-calendar\"></i>'
+        ])";
             } else {
                 if ($column->isForeignKey) {
                     $relations = CActiveRecord::model($modelClass)->relations();
@@ -54,7 +98,11 @@ class YupeCode extends CrudCode
                             $relationModel = CActiveRecord::model($relation[1]);
                             $suggestedName = $this->suggestName($relationModel->tableSchema->columns)->name;
 
-                            return "\$form->dropDownListGroup(\$model, '{$relation[2]}', array('widgetOptions' => array('data' => CHtml::listData($relation[1]::model()->findAll(), 'id', '{$suggestedName}'))))";
+                            return "\$form->dropDownListGroup(\$model, '{$relation[2]}', [
+                    'widgetOptions' => [
+                        'data' => CHtml::listData($relation[1]::model()->findAll(), 'id', '{$suggestedName}')
+                    ]
+                ])";
                         }
                     }
                 } else {
@@ -65,9 +113,25 @@ class YupeCode extends CrudCode
                     }
 
                     if ($column->type !== 'string' || $column->size === null) {
-                        return "\$form->{$inputField}(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+                        return "\$form->{$inputField}(\$model, '{$column->name}', [
+                'widgetOptions' => [
+                    'htmlOptions' => [
+                        'class' => 'popover-help',
+                        'data-original-title' => \$model->getAttributeLabel('{$column->name}'),
+                        'data-content' => \$model->getAttributeDescription('{$column->name}')
+                    ]
+                ]
+            ])";
                     } else {
-                        return "\$form->{$inputField}(\$model, '{$column->name}', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))))";
+                        return "\$form->{$inputField}(\$model, '{$column->name}', [
+                'widgetOptions' => [
+                    'htmlOptions' => [
+                        'class' => 'popover-help',
+                        'data-original-title' => \$model->getAttributeLabel('{$column->name}'),
+                        'data-content' => \$model->getAttributeDescription('{$column->name}')
+                    ]
+                ]
+            ])";
                     }
                 }
             }
@@ -129,9 +193,22 @@ class YupeCode extends CrudCode
         return $this->getModulePath() . '/controllers/' . $id . 'Controller.php';
     }
 
+    /**
+     * Возвращается путь к папке модуля
+     * @return string
+     */
     public function getModulePath()
     {
         return Yii::app()->basePath . '/modules/' . $this->mid;
+    }
+
+    /**
+     * Возвращает строку категории для Yii::t()
+     * @return string
+     */
+    public function getModuleTranslate()
+    {
+        return ucfirst($this->mid) . 'Module.' . $this->mid;
     }
 
     public function getViewPath()
