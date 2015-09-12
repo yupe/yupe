@@ -8,8 +8,10 @@
 
 Yii::import('gii.generators.crud.CrudCode');
 
-class YupeCode extends CrudCode
+class YupeCrudCode extends CrudCode
 {
+    const BASE_CONTROLLER_BACKEND = '\yupe\components\controllers\BackController';
+    const BASE_CONTROLLER_FRONTEND = '\yupe\components\controllers\FrontController';
 
     public $im;
     public $rod;
@@ -214,5 +216,17 @@ class YupeCode extends CrudCode
     public function getViewPath()
     {
         return $this->getModulePath() . '/views/' . $this->getControllerID();
+    }
+
+    /**
+     * Возвращаем список возможных классов-родителей для контроллера
+     * @return array
+     */
+    public function getBbaseControllerClassList()
+    {
+        return [
+            self::BASE_CONTROLLER_BACKEND => self::BASE_CONTROLLER_BACKEND,
+            self::BASE_CONTROLLER_FRONTEND => self::BASE_CONTROLLER_FRONTEND,
+        ];
     }
 }

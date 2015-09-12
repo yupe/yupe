@@ -15,6 +15,7 @@
 - #2151: Рефакторинг Робокассы (@sabian)
 - #2152: Рефакторинг Яндекс.Кассы (@sabian)
 - #2163: Yupe Generator Update (@apexwire)
+- #2165: Yupe Module Generator Add (@apexwire)
 
 Версия 0.9.8 23 июля 2015
 -------------------------
