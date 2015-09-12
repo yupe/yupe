@@ -73,7 +73,7 @@ echo <<<EOF
         ]
     ); ?>
     <?php \$this->widget(
-        'bootstrap.widgets.TbButton', ]
+        'bootstrap.widgets.TbButton', [
             'buttonType' => 'submit',
             'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
             'label'      => Yii::t('{$this->getModuleTranslate()}', 'Сохранить {$this->vin} и закрыть'),
