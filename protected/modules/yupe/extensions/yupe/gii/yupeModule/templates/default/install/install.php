@@ -1,6 +1,6 @@
 <?php echo "<?php\n"; ?>
 /**
- * Файл настроек для модуля <?php echo $this->moduleID; ?>
+ * Файл настроек для модуля <?php echo $this->moduleID."\n"; ?>
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru

@@ -1,5 +1,4 @@
 <?php echo "<?php\n"; ?>
-
 /**
  * <?php echo ucfirst($this->moduleID); ?> install migration
  * Класс миграций для модуля <?php echo ucfirst($this->moduleID); ?>:
@@ -22,12 +21,12 @@ class m000000_000000_<?php echo $this->moduleID; ?>_base extends yupe\components
         $this->createTable(
             '{{<?php echo $this->moduleID; ?>_<?php echo $this->moduleID; ?>}}',
             [
-                'id'                => 'pk',
+                'id'             => 'pk',
                 //для удобства добавлены некоторые базовые поля, которые могут пригодиться.
                 'create_user_id' => "integer NOT NULL",
                 'update_user_id' => "integer NOT NULL",
-                'create_time'     => 'datetime NOT NULL',
-                'update_time'     => 'datetime NOT NULL',
+                'create_time'    => 'datetime NOT NULL',
+                'update_time'    => 'datetime NOT NULL',
             ],
             $this->getOptions()
         );
