@@ -302,6 +302,45 @@ class User extends yupe\models\YModel
      */
     public function beforeSave()
     {
+        if (Yii::app()->hasModule('rbac')) {
+            //если установлен модуль RDAC, то при смене доступа необходимо добавляться записи в таблицу {{user_user_auth_assignment}}
+
+            Yii::import('application.modules.rbac.models.*');
+
+            if ( $this->_oldAccess_level == self::ACCESS_LEVEL_USER && $this->access_level == self::ACCESS_LEVEL_ADMIN ) {
+                //добавляем роль "admin" для пользователя
+                if ( $this->id == Yii::app()->getUser()->getId() ) {
+                    $this->addError(
+                        'access_level',
+                        Yii::t('UserModule.user', 'You can\'t make this changes!')
+                    );
+
+                    return false;
+                }
+                $assign = new AuthAssignment();
+                $assign->itemname = AuthItem::ROLE_ADMIN;
+                $assign->userid = $this->id;
+                $assign->save();
+            }elseif ( $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN && $this->access_level == self::ACCESS_LEVEL_USER ) {
+                //удаляем роль "admin" у пользователя
+                if ( $this->id == Yii::app()->getUser()->getId() ) {
+                    $this->addError(
+                        'access_level',
+                        Yii::t('UserModule.user', 'You can\'t make this changes!')
+                    );
+
+                    return false;
+                }
+
+                $assign = AuthAssignment::model()->findByAttributes([
+                    'itemname' => AuthItem::ROLE_ADMIN,
+                    'userid' => $this->id
+                ]);
+                if ($assign)
+                    $assign->delete();
+            }
+        }
+
         if (!$this->getIsNewRecord() && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN) {
             // Запрещаем действия, при которых администратор
             // может быть заблокирован или сайт останется без
