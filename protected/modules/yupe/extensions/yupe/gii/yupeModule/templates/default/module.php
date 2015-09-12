@@ -1,12 +1,12 @@
 <?php echo "<?php\n"; ?>
 /**
- * <?php echo $this->moduleClass; ?> основной класс модуля <?php echo $this->moduleID; ?>
+ * <?php echo $this->moduleClass; ?> основной класс модуля <?php echo $this->moduleID."\n"; ?>
+ *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
- * @package yupe.modules.<?php echo $this->moduleID; ?>
+ * @package yupe.modules.<?php echo $this->moduleID."\n"; ?>
  * @since 0.1
- *
  */
 
 class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule

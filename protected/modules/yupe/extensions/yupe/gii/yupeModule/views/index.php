@@ -31,9 +31,9 @@
         <?php echo $form->textField($model,'moduleIcon',array('size'=>65)); ?>
         <div class="tooltip">
             Название иконки для меню админки. Примеры : <code>pencil</code>, <code>plus-square</code>.
-            Полный список можно посмотреть на сайте: <?php echo CHtml::link('fontawesome.ru','http://fontawesome.ru/icons/');; ?>
         </div>
         <?php echo $form->error($model,'moduleCategory'); ?>
+        <p>Полный список можно посмотреть на сайте: <?php echo CHtml::link('fontawesome.ru','http://fontawesome.ru/icons/'); ?></p>
     </div>
 
     <div class="row">

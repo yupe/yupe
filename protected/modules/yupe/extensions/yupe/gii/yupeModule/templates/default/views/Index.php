@@ -1,6 +1,6 @@
 <?php echo "<?php\n"; ?>
 /**
-* Отображение для <?php echo $this->moduleID; ?>/index:
+* Отображение для <?php echo $this->moduleID; ?>/index
 *
 * @category YupeView
 * @package  yupe
