@@ -1,6 +1,6 @@
 <?php echo "<?php\n"; ?>
 /**
-* <?php echo ucfirst($this->moduleID); ?>BackendController контроллер для <?php echo $this->moduleID; ?> на публичной части сайта
+* <?php echo ucfirst($this->moduleID); ?>Controller контроллер для <?php echo $this->moduleID; ?> на публичной части сайта
 *
 * @author yupe team <team@yupe.ru>
 * @link http://yupe.ru
@@ -10,7 +10,7 @@
 *
 */
 
-class <?php echo ucfirst($this->moduleID); ?>BackendController extends \yupe\components\controllers\FrontController
+class <?php echo ucfirst($this->moduleID); ?>Controller extends \yupe\components\controllers\FrontController
 {
     /**
      * Действие "по умолчанию"

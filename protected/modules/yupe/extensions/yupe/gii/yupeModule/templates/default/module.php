@@ -1,5 +1,4 @@
 <?php echo "<?php\n"; ?>
-
 /**
  * <?php echo $this->moduleClass; ?> основной класс модуля <?php echo $this->moduleID; ?>
  * @author yupe team <team@yupe.ru>
@@ -9,7 +8,6 @@
  * @since 0.1
  *
  */
-use yupe\components\WebModule;
 
 class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
 {
@@ -130,7 +128,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getDescription()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Module Description "<?php echo $this->moduleID; ?>"');
+        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Описание модуля "<?php echo $this->moduleID; ?>"');
     }
 
     /**

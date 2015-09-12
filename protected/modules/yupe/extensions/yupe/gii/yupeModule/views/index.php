@@ -36,4 +36,13 @@
         <?php echo $form->error($model,'moduleCategory'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'generateMigration'); ?>
+        <?php echo $form->checkBox($model,'generateMigration'); ?>
+        <div class="tooltip">
+            При включении данной опции, будет сгенерирован файл миграции.
+        </div>
+        <?php echo $form->error($model,'generateMigration'); ?>
+    </div>
+
 <?php $this->endWidget(); ?>

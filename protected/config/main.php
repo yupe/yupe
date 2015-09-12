@@ -58,14 +58,14 @@ return [
          * On production `gii` recommended disable
          * @link http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
          */
-        'gii'   => array(
+        /*'gii'   => array(
             'class'          => 'system.gii.GiiModule',
             'password'       => 'giiYupe',
             'generatorPaths' => array(
                 'application.modules.yupe.extensions.yupe.gii',
             ),
             'ipFilters'=>array(),
-        ),
+        ),*/
     ],
     'behaviors' => [
         'onBeginRequest' => [
