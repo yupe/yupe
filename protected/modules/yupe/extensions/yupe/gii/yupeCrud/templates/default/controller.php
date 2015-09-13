@@ -139,7 +139,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
         $model = new <?php echo $this->modelClass; ?>('search');
         $model->unsetAttributes(); // clear any default values
         if (Yii::app()->getRequest()->getParam('<?php echo $this->modelClass; ?>') !== null)
-            $model->setAttributes = Yii::app()->getRequest()->getParam('<?php echo $this->modelClass; ?>');
+            $model->setAttributes(Yii::app()->getRequest()->getParam('<?php echo $this->modelClass; ?>'));
         $this->render('index', ['model' => $model]);
     }
     
