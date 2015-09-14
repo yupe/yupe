@@ -23,6 +23,9 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
     <form id="store-filter" name="store-filter" method="get">
         <div class="col-sm-3">
             <div>
+                <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
+            </div>
+            <div>
                 <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
             </div>
             <div>

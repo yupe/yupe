@@ -236,6 +236,7 @@ class Attribute extends \yupe\models\YModel
         return $this->required;
     }
 
+
     /**
      * @return string Список опций, разделенных переносом строки
      */

@@ -16,6 +16,8 @@ class AttributeFilter extends CComponent
 
     const MAIN_SEARCH_PARAM_NAME = 'name';
 
+    const MAIN_SEARCH_PARAM_PRICE = 'price';
+
     /**
      * @var string
      */
@@ -55,6 +57,25 @@ class AttributeFilter extends CComponent
         return !empty($data) && in_array($value, $data);
     }
 
+    public function getMainSearchParamsValue($name, $suffix = null, CHttpRequest $request)
+    {
+        $data = $request->getQuery($name);
+
+        if (empty($data)) {
+            return null;
+        }
+
+        if (null === $suffix && !is_array($data)) {
+            return $data;
+        }
+
+        if (is_array($data) && null !== $suffix) {
+            return isset($data[$suffix]) ? $data[$suffix] : null;
+        }
+
+        return null;
+    }
+
     /**
      * @return array
      */
@@ -62,7 +83,8 @@ class AttributeFilter extends CComponent
     {
         return [
             self::MAIN_SEARCH_PARAM_CATEGORY => 'category_id',
-            self::MAIN_SEARCH_PARAM_PRODUCER => 'producer_id'
+            self::MAIN_SEARCH_PARAM_PRODUCER => 'producer_id',
+            self::MAIN_SEARCH_PARAM_PRICE => 'price'
         ];
     }
 
@@ -97,7 +119,7 @@ class AttributeFilter extends CComponent
      */
     public function getFieldValue(Attribute $attribute, $mode = null)
     {
-        if(null !== $mode) {
+        if (null !== $mode) {
             $data = Yii::app()->getRequest()->getParam($attribute->name);
             return is_array($data) && array_key_exists($mode, $data) ? $data[$mode] : null;
         }
@@ -172,13 +194,13 @@ class AttributeFilter extends CComponent
     {
         $attributes = Yii::app()->getCache()->get('Store::filter::attributes');
 
-        if(false === $attributes) {
+        if (false === $attributes) {
 
             $models = Attribute::model()->findAll(
-                ['select' => ['name','id', 'type']]
+                ['select' => ['name', 'id', 'type']]
             );
 
-            foreach($models as $model) {
+            foreach ($models as $model) {
                 $attributes[$model->name] = $model;
             }
 
@@ -189,13 +211,7 @@ class AttributeFilter extends CComponent
 
         $attributeValue = new AttributeValue();
 
-        foreach ($_GET as $param => $value) {
-
-            if(empty($attributes[$param])) {
-                continue;
-            }
-
-            $attribute = $attributes[$param];
+        foreach ($attributes as $name => $attribute) {
 
             $searchParams = $request->getQuery($attribute->name);
 

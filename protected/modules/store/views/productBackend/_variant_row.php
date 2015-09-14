@@ -17,10 +17,10 @@ if (!$variant->id) {
         <?php if ($variant->attribute->type == Attribute::TYPE_DROPDOWN): ?>
             <?php
             $option = AttributeOption::model()->findByAttributes(['attribute_id' => $variant->attribute_id, 'value' => $variant->attribute_value]);
-            echo $variant->attribute->renderField(($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attribute_option_id]');
+            echo AttributeRender::renderField($variant->attribute, ($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attribute_option_id]');
             ?>
         <?php else: ?>
-            <?= $variant->attribute->renderField($variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
+            <?= AttributeRender::renderField($variant->attribute, $variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
         <?php endif; ?>
     </td>
     <td>

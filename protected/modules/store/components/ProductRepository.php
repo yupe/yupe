@@ -20,10 +20,24 @@ class ProductRepository extends CComponent
         $criteria->addCondition('t.status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
-        //поиск по категории и производителю
+
+        //поиск по категории, производителю и цене
         foreach ($this->attributeFilter->getMainSearchParams() as $param => $field) {
-            if (!empty($mainSearchAttributes[$param])) {
-                $criteria->addInCondition("t.".$field, $mainSearchAttributes[$param]);
+
+            if (empty($mainSearchAttributes[$param])) {
+                continue;
+            }
+
+            if(isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
+                $criteria->addBetweenCondition("t." . $field, $mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to']);
+            }elseif(isset($mainSearchAttributes[$param]['from']) && !isset($mainSearchAttributes[$param]['to'])){
+                $criteria->addCondition("t.{$field} >= :attr_{$field}");
+                $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['from'];
+            }elseif(isset($mainSearchAttributes[$param]['to']) && !isset($mainSearchAttributes[$param]['from'])){
+                $criteria->addCondition("t.{$field} <= :attr_{$field}");
+                $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['to'];
+            }else {
+                $criteria->addInCondition("t." . $field, $mainSearchAttributes[$param]);
             }
         }
 
@@ -67,12 +81,27 @@ class ProductRepository extends CComponent
 
             $criteria->join .= " JOIN {{store_product_attribute_value}} {$alias} ON t.id = {$alias}.product_id ";
 
+            //@TODO подумать как улучшить
             if (is_array($params['value'])) {
-                if (isset($params['value']['from']) || isset($params['value']['to'])) {
+                if (isset($params['value']['from'], $params['value']['to'])) {
                     $between = new CDbCriteria();
                     $between->addBetweenCondition("{$alias}.".$params['column'], $params['value']['from'], $params['value']['to']);
                     $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                     $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
+                    $criteria->mergeWith($between);
+                }elseif(isset($params['value']['from']) && !isset($params['value']['to'])){
+                    $between = new CDbCriteria();
+                    $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
+                    $between->addCondition("{$alias}.{$params['column']} >= :attr_{$i}");
+                    $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
+                    $between->params[":attr_{$i}"] = $params['value']['from'];
+                    $criteria->mergeWith($between);
+                }elseif(isset($params['value']['to']) && !isset($params['value']['from'])) {
+                    $between = new CDbCriteria();
+                    $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
+                    $between->addCondition("{$alias}.{$params['column']} <= :attr_{$i}");
+                    $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
+                    $between->params[":attr_{$i}"] = $params['value']['to'];
                     $criteria->mergeWith($between);
                 }else{
                     $in = new CDbCriteria();

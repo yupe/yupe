@@ -455,6 +455,7 @@ $form = $this->beginWidget(
 
 <script type="text/javascript">
     $(function () {
+
         $('#product-form').submit(function () {
             var productForm = $(this);
             $('#category-tree a.jstree-clicked').each(function (index, element) {
