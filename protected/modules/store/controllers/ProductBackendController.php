@@ -240,7 +240,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             throw new CHttpException(404);
         }
 
-        $this->renderPartial('_attribute_form', ['type' => $type, 'model' => new Product()]);
+        $this->renderPartial('_attribute_form', ['groups' => $type->getAttributeGroups(), 'model' => new Product()]);
     }
 
     public function actionVariantRow($id)
@@ -263,18 +263,20 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         }
 
         $out = [];
+
         foreach ($type->typeAttributes as $attr) {
             if ($attr->type == Attribute::TYPE_DROPDOWN) {
                 $out[] = array_merge($attr->attributes, ['options' => $attr->options]);
             } else {
                 if (in_array($attr->type, [Attribute::TYPE_CHECKBOX, Attribute::TYPE_SHORT_TEXT])) {
                     $out[] = array_merge($attr->attributes, ['options' => []]);
+                }else{
+                    $out[] = $attr->attributes;
                 }
             }
         }
-        Yii::app()->ajax->rawText(
-            CJSON::encode($out)
-        );
+
+        Yii::app()->ajax->raw($out);
     }
 
 

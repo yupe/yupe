@@ -62,22 +62,6 @@ $form = $this->beginWidget(
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
-                <?= $form->dropDownListGroup(
-                    $model,
-                    'type_id',
-                    [
-                        'widgetOptions' => [
-                            'data' => Type::model()->getFormattedList(),
-                            'htmlOptions' => [
-                                'empty' => '---',
-                                'encode' => false,
-                                'id' => 'product-type',
-                            ],
-                        ]
-                    ]
-                ); ?>
-            </div>
             <div class="col-sm-4">
                 <?= $form->dropDownListGroup(
                     $model,
@@ -93,9 +77,7 @@ $form = $this->beginWidget(
                     ]
                 ); ?>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <?= $form->dropDownListGroup(
                     $model,
                     'producer_id',
@@ -110,7 +92,6 @@ $form = $this->beginWidget(
                 ); ?>
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-7">
                 <?= $form->textFieldGroup($model, 'name'); ?>
@@ -167,11 +148,6 @@ $form = $this->beginWidget(
         <div class='row'>
             <div class="col-sm-7">
                 <div class="form-group">
-                    <?= CHtml::label(
-                        Yii::t("StoreModule.category", 'Additional categories'),
-                        null,
-                        ['class' => 'control-label']
-                    ); ?>
                     <?php $this->widget(
                         'store.widgets.CategoryTreeWidget',
                         [
@@ -357,8 +333,26 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="attributes">
+        <div class="row">
+            <div class="col-sm-3">
+                <?= $form->dropDownListGroup(
+                    $model,
+                    'type_id',
+                    [
+                        'widgetOptions' => [
+                            'data' => Type::model()->getFormattedList(),
+                            'htmlOptions' => [
+                                'empty' => '---',
+                                'encode' => false,
+                                'id' => 'product-type',
+                            ],
+                        ]
+                    ]
+                ); ?>
+            </div>
+        </div>
         <div id="attributes-panel">
-            <?php $this->renderPartial('_attribute_form', ['type' => $model->type, 'model' => $model]); ?>
+            <?php $this->renderPartial('_attribute_form', ['groups' => $model->getAttributeGroups(), 'model' => $model]); ?>
         </div>
     </div>
 
@@ -461,6 +455,7 @@ $form = $this->beginWidget(
 
 <script type="text/javascript">
     $(function () {
+
         $('#product-form').submit(function () {
             var productForm = $(this);
             $('#category-tree a.jstree-clicked').each(function (index, element) {

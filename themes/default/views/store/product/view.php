@@ -75,7 +75,7 @@ $this->breadcrumbs = array_merge(
                                                         <span><?= CHtml::encode($attribute->title); ?></span>
                                                     </td>
                                                     <td class="value">
-                                                        <?= $attribute->renderValue($product->attribute($attribute->name)); ?>
+                                                        <?= AttributeRender::renderValue($attribute, $product->attribute($attribute)); ?>
                                                     </td>
                                                 </tr>
                                             <?php } endforeach; ?>

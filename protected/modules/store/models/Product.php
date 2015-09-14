@@ -1,6 +1,5 @@
 <?php
 Yii::import('zii.behaviors.CTimestampBehavior');
-Yii::import('application.modules.store.components.behaviors.AttributesBehavior');
 Yii::import('application.modules.comment.components.ICommentable');
 
 /**
@@ -63,8 +62,8 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public $category;
     public $selectedVariants = [];
-    private $_variants = [];
-    private $_eavAttributes = null;
+
+
 
     /**
      * Returns the static model of the specified AR class.
@@ -158,6 +157,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id', 'joinType' => 'INNER JOIN'],
             'linkedProducts' => [self::HAS_MANY, 'Product', ['linked_product_id' => 'id'], 'through' => 'linkedProductsRelation', 'joinType' => 'INNER JOIN'],
+            'attributesValues' => [self::HAS_MANY, 'AttributeValue', 'product_id']
         ];
     }
 
@@ -303,12 +303,6 @@ class Product extends yupe\models\YModel implements ICommentable
                 'createAttribute' => 'create_time',
                 'updateAttribute' => 'update_time',
             ],
-            'eavAttr' => [
-                'class' => 'application.modules.store.components.behaviors.AttributesBehavior',
-                'tableName' => '{{store_product_attribute_eav}}',
-                'entityField' => 'product_id',
-                'preload' => false
-            ],
             'imageUpload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'image',
@@ -335,15 +329,7 @@ class Product extends yupe\models\YModel implements ICommentable
             $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
-        foreach ((array)$this->_eavAttributes as $name => $value) {
-            $model = Attribute::model()->getAttributeByName($name);
-            if (!$model->isType(Attribute::TYPE_CHECKBOX) && $model->isRequired() && !$value) {
-                $this->addError(
-                    'eav.' . $name,
-                    Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $model->title])
-                );
-            }
-        }
+        //@TODO валидация аттрибутов
 
         return parent::beforeValidate();
     }
@@ -409,7 +395,7 @@ class Product extends yupe\models\YModel implements ICommentable
     /**
      * Устанавливает дополнительные категории товара
      *
-     * @param array $categories - список id категорий
+     * @param array $categoriesId - список id категорий
      * @return bool
      *
      */
@@ -469,34 +455,55 @@ class Product extends yupe\models\YModel implements ICommentable
             ->queryColumn();
     }
 
-    public function setTypeAttributes(array $attributes)
+    public function saveTypeAttributes(array $attributes)
     {
-        $this->_eavAttributes = $attributes;
-    }
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
-    /**
-     * @param $attributes
-     */
-    public function updateEavAttributes($attributes)
-    {
-        if (!is_array($attributes)) {
-            return;
+        try {
+
+            AttributeValue::model()->deleteAll('product_id = :id', [':id' => $this->id]);
+
+            foreach ($attributes as $attribute => $value) {
+                //необходимо определить в какое поле сохраняем значение
+                $model = new AttributeValue();
+                $model->store($attribute, $value, $this);
+            }
+
+            $transaction->commit();
+        }catch (Exception $e) {
+            $transaction->rollback();
+            return false;
         }
-        $this->deleteEavAttributes([], true);
-
-        $attributes = array_filter($attributes, 'strlen');
-        $this->setEavAttributes($attributes, true);
     }
 
-    public function attribute($attribute)
+    public function attribute($attribute, $default = null)
     {
         if($this->getIsNewRecord()) {
             return null;
         }
 
-        return isset($this->_eavAttributes[$attribute]) ? $this->_eavAttributes[$attribute] : $this->getEavAttribute(
-            $attribute
-        );
+        //@TODO переделать на получение в 1 запрос
+        $model = AttributeValue::model()->with('attribute')->find('product_id = :product AND attribute_id = :attribute', [
+            ':product'   => $this->id,
+            ':attribute' => $attribute->id
+        ]);
+
+        if(null === $model) {
+            return null;
+        }
+
+        return $model->value($default);
+    }
+
+    public function getTypesAttributesValues()
+    {
+        $data = [];
+
+        foreach($this->attributesValues as $attribute) {
+            $data[$attribute->attribute_id] = $attribute->value();
+        }
+
+        return $data;
     }
 
     public function beforeDelete()
@@ -515,14 +522,12 @@ class Product extends yupe\models\YModel implements ICommentable
 
         try {
             $this->setAttributes($attributes);
-            $this->setTypeAttributes($typeAttributes);
-            $this->setProductVariants($variants);
 
             if ($this->save()) {
 
-                $this->updateEavAttributes($this->_eavAttributes);
-                $this->updateVariants($this->_variants);
+                $this->saveVariants($variants);
                 $this->saveCategories($categories);
+                $this->saveTypeAttributes($typeAttributes);
 
                 $transaction->commit();
 
@@ -532,17 +537,11 @@ class Product extends yupe\models\YModel implements ICommentable
             return false;
         } catch (Exception $e) {
             $transaction->rollback();
-
             return false;
         }
     }
 
-    public function setProductVariants(array $variants)
-    {
-        $this->_variants = $variants;
-    }
-
-    private function updateVariants(array $variants)
+    private function saveVariants(array $variants)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
@@ -713,17 +712,11 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getAttributeGroups()
     {
-        $attributeGroups = [];
-
-        foreach ($this->getTypeAttributes() as $attribute) {
-            if ($attribute->group) {
-                $attributeGroups[$attribute->group->name][] = $attribute;
-            } else {
-                $attributeGroups[Yii::t('StoreModule.store', 'Without a group')][] = $attribute;
-            }
+        if(empty($this->type)) {
+            return [];
         }
 
-        return $attributeGroups;
+        return $this->type->getAttributeGroups();
     }
 
 
@@ -788,10 +781,8 @@ class Product extends yupe\models\YModel implements ICommentable
             $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
 
             $attributes = $model->attributes;
-            $typeAttributes =  $this->getEavAttributes();
-            $variantAttributes = [];
-            $categoriesIds = [];
-
+            $typeAttributes =  $this->getTypesAttributesValues();
+            $variantAttributes = $categoriesIds = [];
 
             if ($variants = $this->variants) {
                 foreach ($variants as $variant) {

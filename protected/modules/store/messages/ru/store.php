@@ -1,5 +1,8 @@
 <?php
 return [
+    'Price filter'   => 'По цене',
+    'from' => 'от',
+    'to'   => 'до',
     '% to the price' => '% к цене',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',
