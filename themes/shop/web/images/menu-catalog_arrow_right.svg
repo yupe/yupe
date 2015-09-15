@@ -1,0 +1,10 @@
+<!-- Generator: Avocode undefined - http://avocode.com -->
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width='6' height='8'>
+    <!-- <path class='arrow' stroke='2' fill="black" d="M 0 4 M 4 0" x='0' y='0' /> -->
+    <!-- <rect x='0' y='0' width='200' height='200' /> -->
+<polyline points="0,0 4,4 0,8" stroke='white' stroke-width='3' fill='none'/>
+<!--     <line x1='0' y1='0' x2='114' y2='114' stroke-width='12' stroke='#765373'/>
+    <line x1='114' y1='114' x2='0' y2='228' stroke-width='12' stroke='#765373'/> -->
+    <!-- <line x1="5" y1="5" x2="100" y2="100" stroke="#765373" stroke-width="8"/> -->
+    <!-- <line x1='0' y1='0' x2='0' y2='4' fill="black" /> -->
+</svg>
