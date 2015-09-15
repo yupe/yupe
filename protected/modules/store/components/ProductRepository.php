@@ -5,13 +5,24 @@
  */
 class ProductRepository extends CComponent
 {
+    /**
+     * @var
+     */
     protected $attributeFilter;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
     }
 
+    /**
+     * @param array $mainSearchAttributes
+     * @param array $typeSearchAttributes
+     * @return CActiveDataProvider
+     */
     public function getByFilter(array $mainSearchAttributes, array $typeSearchAttributes)
     {
         $criteria = new CDbCriteria();
@@ -28,15 +39,15 @@ class ProductRepository extends CComponent
                 continue;
             }
 
-            if(isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
+            if (isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
                 $criteria->addBetweenCondition("t." . $field, $mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to']);
-            }elseif(isset($mainSearchAttributes[$param]['from']) && !isset($mainSearchAttributes[$param]['to'])){
+            } elseif (isset($mainSearchAttributes[$param]['from']) && !isset($mainSearchAttributes[$param]['to'])) {
                 $criteria->addCondition("t.{$field} >= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['from'];
-            }elseif(isset($mainSearchAttributes[$param]['to']) && !isset($mainSearchAttributes[$param]['from'])){
+            } elseif (isset($mainSearchAttributes[$param]['to']) && !isset($mainSearchAttributes[$param]['from'])) {
                 $criteria->addCondition("t.{$field} <= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['to'];
-            }else {
+            } else {
                 $criteria->addInCondition("t." . $field, $mainSearchAttributes[$param]);
             }
         }
@@ -64,6 +75,10 @@ class ProductRepository extends CComponent
         );
     }
 
+    /**
+     * @param array $typeSearchAttributes
+     * @return CDbCriteria
+     */
     protected function buildCriteriaForTypeAttributes(array $typeSearchAttributes)
     {
         $criteria = new CDbCriteria();
@@ -73,7 +88,7 @@ class ProductRepository extends CComponent
 
         foreach ($typeSearchAttributes as $attribute => $params) {
 
-            if(empty($params['value'])) {
+            if (empty($params['value'])) {
                 continue;
             }
 
@@ -85,34 +100,34 @@ class ProductRepository extends CComponent
             if (is_array($params['value'])) {
                 if (isset($params['value']['from'], $params['value']['to'])) {
                     $between = new CDbCriteria();
-                    $between->addBetweenCondition("{$alias}.".$params['column'], $params['value']['from'], $params['value']['to']);
+                    $between->addBetweenCondition("{$alias}." . $params['column'], $params['value']['from'], $params['value']['to']);
                     $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                     $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
                     $criteria->mergeWith($between);
-                }elseif(isset($params['value']['from']) && !isset($params['value']['to'])){
+                } elseif (isset($params['value']['from']) && !isset($params['value']['to'])) {
                     $between = new CDbCriteria();
                     $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                     $between->addCondition("{$alias}.{$params['column']} >= :attr_{$i}");
                     $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
                     $between->params[":attr_{$i}"] = $params['value']['from'];
                     $criteria->mergeWith($between);
-                }elseif(isset($params['value']['to']) && !isset($params['value']['from'])) {
+                } elseif (isset($params['value']['to']) && !isset($params['value']['from'])) {
                     $between = new CDbCriteria();
                     $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                     $between->addCondition("{$alias}.{$params['column']} <= :attr_{$i}");
                     $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
                     $between->params[":attr_{$i}"] = $params['value']['to'];
                     $criteria->mergeWith($between);
-                }else{
+                } else {
                     $in = new CDbCriteria();
-                    $in->addInCondition("{$alias}.".$params['column'], $params['value']);
+                    $in->addInCondition("{$alias}." . $params['column'], $params['value']);
                     $criteria->mergeWith($in);
                 }
             } else {
                 $condition = new CDbCriteria();
                 $condition->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                 $condition->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
-                $condition->addColumnCondition(["{$alias}.".$params['column'] => $params['value']]);
+                $condition->addColumnCondition(["{$alias}." . $params['column'] => $params['value']]);
                 $criteria->mergeWith($condition);
             }
 
@@ -202,5 +217,16 @@ class ProductRepository extends CComponent
     public function getBySlug($slug, array $with = ['producer', 'type.typeAttributes', 'images', 'mainCategory', 'variants'])
     {
         return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
+    }
+
+    /**
+     * @param $name
+     * @return array|mixed|null
+     */
+    public function searchByName($name)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addSearchCondition('name', $name);
+        return Product::model()->findAll($criteria);
     }
 } 

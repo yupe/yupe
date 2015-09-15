@@ -65,6 +65,10 @@ class Product extends yupe\models\YModel implements ICommentable
 
     protected $_typeAttributes;
 
+    /**
+     * @var array кеш getVariantsOptions
+     */
+    protected $_variantsOptions = false;
 
 
     /**
@@ -331,13 +335,13 @@ class Product extends yupe\models\YModel implements ICommentable
             $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
-        foreach($this->getTypeAttributes() as $attribute) {
+        foreach ($this->getTypeAttributes() as $attribute) {
 
-            if($attribute->isType(Attribute::TYPE_CHECKBOX)) {
+            if ($attribute->isType(Attribute::TYPE_CHECKBOX)) {
                 continue;
             }
 
-            if($attribute->isRequired() && !isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id]) {
+            if ($attribute->isRequired() && !isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id]) {
                 $this->addError($attribute->title, Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $attribute->title]));
             }
         }
@@ -457,7 +461,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
             foreach ($attributes as $attribute => $value) {
 
-                if('' === $value) {
+                if (null == $value) {
                     continue;
                 }
                 //необходимо определить в какое поле сохраняем значение
@@ -466,7 +470,7 @@ class Product extends yupe\models\YModel implements ICommentable
             }
 
             $transaction->commit();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -474,17 +478,17 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function attribute($attribute, $default = null)
     {
-        if($this->getIsNewRecord()) {
+        if ($this->getIsNewRecord()) {
             return null;
         }
 
         //@TODO переделать на получение в 1 запрос
         $model = AttributeValue::model()->with('attribute')->find('product_id = :product AND attribute_id = :attribute', [
-            ':product'   => $this->id,
+            ':product' => $this->id,
             ':attribute' => $attribute->id
         ]);
 
-        if(null === $model) {
+        if (null === $model) {
             return null;
         }
 
@@ -495,7 +499,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $data = [];
 
-        foreach($this->attributesValues as $attribute) {
+        foreach ($this->attributesValues as $attribute) {
             $data[$attribute->attribute_id] = $attribute->value();
         }
 
@@ -710,7 +714,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
     public function getAttributeGroups()
     {
-        if(empty($this->type)) {
+        if (empty($this->type)) {
             return [];
         }
 
@@ -729,12 +733,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return $variantsGroups;
     }
 
-    /**
-     * @var array кеш getVariantsOptions
-     */
-    private $_variantsOptions = false;
-
-    /**
+     /**
      * Функция для подготовки специфичных настроек элементов option в select при выводе вариантов, которые будут использоваться в js при работе с вариантами
      * @return array
      */
@@ -779,7 +778,7 @@ class Product extends yupe\models\YModel implements ICommentable
             $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
 
             $attributes = $model->attributes;
-            $typeAttributes =  $this->getTypesAttributesValues();
+            $typeAttributes = $this->getTypesAttributesValues();
             $variantAttributes = $categoriesIds = [];
 
             if ($variants = $this->variants) {
@@ -796,7 +795,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 }
             }
 
-            if(!$model->saveData($attributes, $typeAttributes, $variantAttributes, $categoriesIds)) {
+            if (!$model->saveData($attributes, $typeAttributes, $variantAttributes, $categoriesIds)) {
                 throw new CDbException('Error copy product!');
             }
 
@@ -834,18 +833,18 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
     /**
-     * @param null|string $type_code
+     * @param null|string $typeCode
      * @return CDbCriteria
      */
-    public function getLinkedProductsCriteria($type_code = null)
+    public function getLinkedProductsCriteria($typeCode = null)
     {
         $criteria = new CDbCriteria();
 
         $criteria->join .= ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
         $criteria->compare('linked.product_id', $this->id);
-        if ($type_code) {
+        if (null !== $typeCode) {
             $criteria->join .= ' JOIN {{store_product_link_type}} type ON type.id = linked.type_id';
-            $criteria->compare('type.code', $type_code);
+            $criteria->compare('type.code', $typeCode);
         }
 
         return $criteria;
@@ -872,12 +871,6 @@ class Product extends yupe\models\YModel implements ICommentable
         ]);
     }
 
-    public function searchByName($name)
-    {
-        $criteria = new CDbCriteria();
-        $criteria->addSearchCondition('name', $name);
-        return $this->findAll($criteria);
-    }
 
     public function setTypeAttributes(array $attributes)
     {

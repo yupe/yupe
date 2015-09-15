@@ -6,7 +6,7 @@ if (!$variant->id) {
     $variant->id = rand(10000, 50000);
 } ?>
 <tr>
-    <?php if (!$new): ?>
+    <?php if (false === $new): ?>
         <input type="hidden" name="ProductVariant[<?= $variant->id; ?>][id]" value="<?= $variant->id; ?>"/>
     <?php endif; ?>
     <td>
@@ -14,11 +14,9 @@ if (!$variant->id) {
         <input type="hidden" value="<?= $variant->attribute_id; ?>" name="ProductVariant[<?= $variant->id; ?>][attribute_id]"/>
     </td>
     <td>
-        <?php if ($variant->attribute->type == Attribute::TYPE_DROPDOWN): ?>
-            <?php
-            $option = AttributeOption::model()->findByAttributes(['attribute_id' => $variant->attribute_id, 'value' => $variant->attribute_value]);
-            echo AttributeRender::renderField($variant->attribute, ($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attribute_option_id]');
-            ?>
+        <?php if ($variant->attribute->isType(Attribute::TYPE_DROPDOWN)): ?>
+            <?php $option = AttributeOption::model()->findByAttributes(['attribute_id' => $variant->attribute_id, 'value' => $variant->attribute_value]); ?>
+            <?= AttributeRender::renderField($variant->attribute, ($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attribute_option_id]'); ?>
         <?php else: ?>
             <?= AttributeRender::renderField($variant->attribute, $variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
         <?php endif; ?>

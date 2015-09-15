@@ -1,7 +1,28 @@
 <?php
 
+/**
+ * Class ProductBackendController
+ */
 class ProductBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @var
+     */
+    protected $productRepository;
+
+    /**
+     *
+     */
+    public function init()
+    {
+        $this->productRepository = Yii::app()->getComponent('productRepository');
+
+        parent::init();
+    }
+
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -25,6 +46,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -135,7 +159,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 } else {
                     $this->redirect([$_POST['submit-type']]);
                 }
-            }else{
+            } else {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('StoreModule.store', 'Failed to save product!')
@@ -149,6 +173,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $this->render('update', ['model' => $model, 'searchModel' => $searchModel]);
     }
 
+    /**
+     * @param Product $product
+     */
     public function updateProductImages(Product $product)
     {
         foreach (CUploadedFile::getInstancesByName('ProductImage') as $key => $image) {
@@ -160,6 +187,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         }
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionDeleteImage()
     {
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
@@ -232,6 +262,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         return $model;
     }
 
+    /**
+     * @param $id
+     * @throws CException
+     * @throws CHttpException
+     */
     public function actionTypeAttributesForm($id)
     {
         $type = Type::model()->findByPk($id);
@@ -243,6 +278,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $this->renderPartial('_attribute_form', ['groups' => $type->getAttributeGroups(), 'model' => new Product()]);
     }
 
+    /**
+     * @param $id
+     * @throws CException
+     */
     public function actionVariantRow($id)
     {
         $variant = new ProductVariant();
@@ -254,6 +293,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $this->renderPartial('_variant_row', ['variant' => $variant]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionTypeAttributes($id)
     {
         $type = Type::model()->findByPk($id);
@@ -270,7 +313,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             } else {
                 if (in_array($attr->type, [Attribute::TYPE_CHECKBOX, Attribute::TYPE_SHORT_TEXT])) {
                     $out[] = array_merge($attr->attributes, ['options' => []]);
-                }else{
+                } else {
                     $out[] = $attr->attributes;
                 }
             }
@@ -280,21 +323,23 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     }
 
 
+    /**
+     * @throws CHttpException
+     */
     public function actionAjaxSearch()
     {
         if (!Yii::app()->getRequest()->getQuery('q')) {
             throw new CHttpException(404);
         }
 
-        $model = Product::model()->searchByName(Yii::app()->getRequest()->getQuery('q'));
+        $model = $this->productRepository->searchByName(Yii::app()->getRequest()->getQuery('q'));
 
         $data = [];
 
         foreach ($model as $product) {
             $data[] = [
                 'id' => $product->id,
-                'name' => $product->name . ($product->sku ? " ({$product->sku}) " : ' ') . $product->getPrice(
-                    ) . ' ' . Yii::t('StoreModule.store', 'руб.'),
+                'name' => $product->name . ($product->sku ? " ({$product->sku}) " : ' ') . $product->getPrice() . ' ' . Yii::t('StoreModule.store', 'руб.'),
                 'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
             ];
         }
@@ -303,6 +348,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
     }
 
+    /**
+     *
+     */
     public function actionCopy()
     {
         if ($data = Yii::app()->getRequest()->getPost('items')) {
