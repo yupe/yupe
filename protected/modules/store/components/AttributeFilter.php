@@ -175,6 +175,14 @@ class AttributeFilter extends CComponent
         foreach ($this->getMainSearchParams() as $param => $field) {
             if ($request->getQuery($param)) {
                 $result[$param] = $request->getQuery($param);
+                if (is_array($result[$param])) {
+                    if (isset($result[$param]['to']) && null == $result[$param]['to']) {
+                        unset($result[$param]['to']);
+                    }
+                    if (isset($result[$param]['from']) && null == $result[$param]['from']) {
+                        unset($result[$param]['from']);
+                    }
+                }
             }
         }
 
@@ -214,6 +222,23 @@ class AttributeFilter extends CComponent
         foreach ($attributes as $name => $attribute) {
 
             $searchParams = $request->getQuery($attribute->name);
+
+            //пропускаем пустые значения
+            if (null === $searchParams) {
+                continue;
+            }
+
+            if (is_array($searchParams)) {
+                if (isset($searchParams['from']) && null == $searchParams['from']) {
+                    unset($searchParams['from']);
+                }
+                if (isset($searchParams['to']) && null == $searchParams['to']) {
+                    unset($searchParams['to']);
+                }
+                if (empty($searchParams)) {
+                    continue;
+                }
+            }
 
             $result[$attribute->name] = [
                 'value' => $searchParams,

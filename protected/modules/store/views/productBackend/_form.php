@@ -528,7 +528,6 @@ $form = $this->beginWidget(
 
         $('.product-delete-image').on('click', function (event) {
             event.preventDefault();
-            var deleteUrl = $(this).attr('href');
             var blockForDelete = $(this).closest('.product-image');
             $.ajax({
                 type: "POST",

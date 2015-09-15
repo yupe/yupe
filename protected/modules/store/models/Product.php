@@ -63,6 +63,8 @@ class Product extends yupe\models\YModel implements ICommentable
     public $category;
     public $selectedVariants = [];
 
+    protected $_typeAttributes;
+
 
 
     /**
@@ -329,7 +331,16 @@ class Product extends yupe\models\YModel implements ICommentable
             $this->slug = yupe\helpers\YText::translit($this->name);
         }
 
-        //@TODO валидация аттрибутов
+        foreach($this->getTypeAttributes() as $attribute) {
+
+            if($attribute->isType(Attribute::TYPE_CHECKBOX)) {
+                continue;
+            }
+
+            if($attribute->isRequired() && !isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id]) {
+                $this->addError($attribute->title, Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $attribute->title]));
+            }
+        }
 
         return parent::beforeValidate();
     }
@@ -371,25 +382,6 @@ class Product extends yupe\models\YModel implements ICommentable
             self::STATUS_IN_STOCK => Yii::t('StoreModule.store', 'In stock'),
             self::STATUS_NOT_IN_STOCK => Yii::t('StoreModule.store', 'Not in stock'),
         ];
-    }
-
-    /**
-     * category link
-     *
-     * @return string html caregory link
-     **/
-    public function getCategoryLink()
-    {
-        return $this->mainCategory instanceof StoreCategory
-            ? CHtml::link($this->mainCategory->name, ["/store/categoryBackend/view", "id" => $this->mainCategory->id])
-            : '---';
-    }
-
-    public function getProducerLink()
-    {
-        return $this->producer instanceof Producer
-            ? CHtml::link($this->producer->name_short, ["/store/producerBackend/view", "id" => $this->producer_id])
-            : '---';
     }
 
     /**
@@ -464,6 +456,10 @@ class Product extends yupe\models\YModel implements ICommentable
             AttributeValue::model()->deleteAll('product_id = :id', [':id' => $this->id]);
 
             foreach ($attributes as $attribute => $value) {
+
+                if('' === $value) {
+                    continue;
+                }
                 //необходимо определить в какое поле сохраняем значение
                 $model = new AttributeValue();
                 $model->store($attribute, $value, $this);
@@ -521,7 +517,9 @@ class Product extends yupe\models\YModel implements ICommentable
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
+
             $this->setAttributes($attributes);
+            $this->setTypeAttributes($typeAttributes);
 
             if ($this->save()) {
 
@@ -879,5 +877,10 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria = new CDbCriteria();
         $criteria->addSearchCondition('name', $name);
         return $this->findAll($criteria);
+    }
+
+    public function setTypeAttributes(array $attributes)
+    {
+        $this->_typeAttributes = $attributes;
     }
 }

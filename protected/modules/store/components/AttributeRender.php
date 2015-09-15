@@ -21,7 +21,7 @@ class AttributeRender
                 break;
             case Attribute::TYPE_DROPDOWN:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
-                return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, ($attribute->required ? [] : ['empty' => '---'])));
+                return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, (['empty' => '---'])));
                 break;
             case Attribute::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
