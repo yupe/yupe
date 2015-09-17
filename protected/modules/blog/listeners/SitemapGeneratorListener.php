@@ -20,7 +20,7 @@ class SitemapGeneratorListener
             $generator->addItem(
                 Yii::app()->createAbsoluteUrl('/blog/blog/view', ['slug' => $blog->slug]),
                 $blog->update_time,
-                SitemapHelper::FREQUENCY_DAILY,
+                SitemapHelper::FREQUENCY_WEEKLY,
                 0.5
             );
         }
@@ -31,7 +31,7 @@ class SitemapGeneratorListener
             $generator->addItem(
                 Yii::app()->createAbsoluteUrl('/blog/post/view', ['slug' => $post->slug]),
                 $post->update_time,
-                SitemapHelper::FREQUENCY_YEARLY,
+                SitemapHelper::FREQUENCY_WEEKLY,
                 0.5
             );
         }
