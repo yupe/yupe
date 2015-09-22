@@ -204,6 +204,8 @@ class AttributeFilter extends CComponent
 
         if (false === $attributes) {
 
+            $attributes = [];
+
             $models = Attribute::model()->findAll(
                 ['select' => ['name', 'id', 'type']]
             );
