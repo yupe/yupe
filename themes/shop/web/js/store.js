@@ -19,9 +19,7 @@ $(document).ready(function () {
     miniCartListeners();
 
     function showNotify(element, result, message) {
-        if ($.isFunction($.fn.notify)) {
-            $("#notifications").notify({message: {text: message}, 'type': result}).show();
-        }
+        $('#notifications').html('<div>' + message + '</div>').fadeIn().delay(3000).fadeOut();
     }
 
     function updatePrice() {

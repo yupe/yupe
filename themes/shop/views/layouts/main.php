@@ -158,5 +158,6 @@
     </div>
 </div>
 <?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::BODY_END);?>
+<div class='notifications top-right' id="notifications"></div>
 </body>
 </html>
