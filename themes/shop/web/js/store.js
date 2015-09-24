@@ -16,6 +16,8 @@ $(document).ready(function () {
     var cartFullCostElement = $('#cart-full-cost');
     var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
+    miniCartListeners();
+
     function showNotify(element, result, message) {
         if ($.isFunction($.fn.notify)) {
             $("#notifications").notify({message: {text: message}, 'type': result}).show();
@@ -86,7 +88,9 @@ $(document).ready(function () {
     });
 
     function updateCartWidget() {
-        $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'));
+        $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'), function(){
+            miniCartListeners();
+        });
     }
 
     $('#add-product-to-cart').click(function (e) {
@@ -214,6 +218,31 @@ $(document).ready(function () {
     $('input[name="Order[delivery_id]"]').change(function () {
         updateShippingCost();
     });
+
+    function miniCartListeners() {
+        $('.mini-cart-delete-product').click(function (e) {
+            e.preventDefault();
+            var el = $(this);
+            var data = {'id': el.data('position-id')};
+            data[yupeTokenName] = yupeToken;
+            $.ajax({
+                url: yupeCartDeleteProductUrl,
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.result) {
+                        updateCartWidget();
+                    }
+                }
+            });
+        });
+
+        $('#cart-toggle-link').click(function(e){
+            e.preventDefault();
+            $('#cart-mini').toggle();
+        });
+    }
 
     function getCartTotalCost() {
         var cost = 0;

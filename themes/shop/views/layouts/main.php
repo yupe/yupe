@@ -30,16 +30,19 @@
 
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
-    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/scripts/libs/select2/select2.css');
-    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/scripts/libs/slick/slick/slick.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/js/libs/select2/select2.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/js/libs/slick/slick/slick.css');
     Yii::app()->getClientScript()->registerCssFile($mainAssets . '/styles/common.css');
     Yii::app()->getClientScript()->registerCssFile('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/scripts/common.min.js', CClientScript::POS_END);
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/common.min.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?= Yii::app()->getRequest()->csrfTokenName;?>';
         var yupeToken = '<?= Yii::app()->getRequest()->getCsrfToken();?>';
+        var yupeCartDeleteProductUrl = '<?= Yii::app()->createUrl('/cart/cart/delete/')?>';
+        var yupeCartUpdateUrl = '<?= Yii::app()->createUrl('/cart/cart/update/')?>';
+        var yupeCartWidgetUrl = '<?= Yii::app()->createUrl('/cart/cart/widget/')?>';
     </script>
     <?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::HEAD_END);?>
 </head>
@@ -77,76 +80,11 @@
             <div class="header__item header-phone">
                 <div class="header__phone">8 (456) 123-45-67</div><a href="javascript:void(0);" class="header-phone-callback">Заказать звонок</a>
             </div>
-            <div class="header__item header-cart js-cart">
-                <div class="header-cart__icon">
-                    <div class="badge badge_light-blue">3</div>
+            <?php if (Yii::app()->hasModule('cart')): ?>
+                <div id="shopping-cart-widget">
+                    <?php $this->widget('application.modules.cart.widgets.ShoppingCartWidget'); ?>
                 </div>
-                <div class="header-cart__text-wrap">
-                    <div class="header-cart__label">Моя корзина
-                        <a href="javascript:void(0);" data-toggle="#cart-mini" class="header-cart__cart-toggle"></a>
-                        <div class="cart-mini" id="cart-mini">
-                            <div class="cart-mini__item js-cart__item">
-                                <input type="hidden" value="5678" class="js-cart__item-price" />
-                                <input type="hidden" value="1" class="js-cart__item-quantity" />
-                                <div class="cart-mini__thumbnail">
-                                    <img src="<?= $mainAssets ?>/images/content/product-small-1.jpg" class="cart-mini__img" />
-                                </div>
-                                <div class="cart-mini__info">
-                                    <div class="cart-mini__title"><a href="javascript:void(0);" class="cart-mini__link">Samsung Galaxy Alpha SM-G850F 32Gb</a>
-                                    </div>
-                                    <div class="product-price">5678<span class="ruble"> руб.</span>
-                                    </div>
-                                    <div class="product-price product-price_old">7890<span class="ruble"> руб.</span>
-                                    </div>
-                                </div>
-                                <div class="cart-mini__delete-btn js-cart__delete"><i class="fa fa-trash-o"></i>
-                                </div>
-                            </div>
-                            <div class="cart-mini__item js-cart__item">
-                                <input type="hidden" value="5678" class="js-cart__item-price" />
-                                <input type="hidden" value="1" class="js-cart__item-quantity" />
-                                <div class="cart-mini__thumbnail">
-                                    <img src="<?= $mainAssets ?>/images/content/product-small-2.jpg" class="cart-mini__img" />
-                                </div>
-                                <div class="cart-mini__info">
-                                    <div class="cart-mini__title"><a href="javascript:void(0);" class="cart-mini__link">Samsung Galaxy Alpha SM-G850F 32Gb</a>
-                                    </div>
-                                    <div class="product-price">5678<span class="ruble"> руб.</span>
-                                    </div>
-                                    <div class="product-price product-price_old">7890<span class="ruble"> руб.</span>
-                                    </div>
-                                </div>
-                                <div class="cart-mini__delete-btn js-cart__delete"><i class="fa fa-trash-o"></i>
-                                </div>
-                            </div>
-                            <div class="cart-mini__item js-cart__item">
-                                <input type="hidden" value="5678" class="js-cart__item-price" />
-                                <input type="hidden" value="1" class="js-cart__item-quantity" />
-                                <div class="cart-mini__thumbnail">
-                                    <img src="<?= $mainAssets ?>/images/content/product-small-3.jpg" class="cart-mini__img" />
-                                </div>
-                                <div class="cart-mini__info">
-                                    <div class="cart-mini__title"><a href="javascript:void(0);" class="cart-mini__link">Samsung Galaxy Alpha SM-G850F 32Gb</a>
-                                    </div>
-                                    <div class="product-price">5678<span class="ruble"> руб.</span>
-                                    </div>
-                                    <div class="product-price product-price_old">7890<span class="ruble"> руб.</span>
-                                    </div>
-                                </div>
-                                <div class="cart-mini__delete-btn js-cart__delete"><i class="fa fa-trash-o"></i>
-                                </div>
-                            </div>
-                            <div class="cart-mini__bottom"><a href="javascript:void(0);" class="btn btn_success">Оформить</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-cart__cost">
-                        <div class="header-cart__cost-title">Сумма:</div>
-                        <div class="header-cart__cost-price"><span class="js-cart__subtotal">1 345</span><span class="ruble"> руб.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="main__search grid">
