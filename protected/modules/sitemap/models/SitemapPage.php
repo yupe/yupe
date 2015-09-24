@@ -133,7 +133,7 @@ class SitemapPage extends yupe\models\YModel
 
         foreach(new CDataProviderIterator($provider) as $page) {
             $data[] =  [
-                'location' => $page->url === '/' ? Yii::app()->getBaseUrl(true)  : Yii::app()->getBaseUrl(true).'/'.$page->url,
+                'location' => $page->url === '/' ? Yii::app()->getBaseUrl(true)  : Yii::app()->getBaseUrl(true).$page->url,
                 'changeFrequency' => $page->changefreq,
                 'priority' => $page->priority,
                 'lastModified' => null

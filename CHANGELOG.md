@@ -17,6 +17,7 @@
 - #2152: Рефакторинг Яндекс.Кассы (@sabian)
 - #2163: Yupe Generator Update (@apexwire)
 - #2165: Yupe Module Generator Add (@apexwire)
+- #2175: layout (@apexwire)
 
 Версия 0.9.8 23 июля 2015
 -------------------------

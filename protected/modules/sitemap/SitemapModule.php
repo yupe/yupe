@@ -8,7 +8,7 @@ class SitemapModule extends WebModule
 
     public $filePath = 'sitemap.xml';
 
-    const VERSION = '0.9.7';
+    const VERSION = '0.9.9';
 
     public function getSiteMapPath()
     {

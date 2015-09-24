@@ -23,6 +23,8 @@ use application\components\Controller;
  */
 abstract class FrontController extends Controller
 {
+    public $mainAssets;
+
     /**
      * Вызывается при инициализации FrontController
      * Присваивает значения, необходимым переменным
@@ -34,6 +36,8 @@ abstract class FrontController extends Controller
         parent::init();
 
         Yii::app()->theme = $this->yupe->theme ?: 'default';
+
+        $this->mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
         $bootstrap = Yii::app()->getTheme()->getBasePath() . DIRECTORY_SEPARATOR . "bootstrap.php";
 
