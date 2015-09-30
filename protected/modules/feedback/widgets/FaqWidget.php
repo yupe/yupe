@@ -15,6 +15,8 @@ Yii::import('application.modules.feedback.models.FeedBack');
 class FaqWidget extends yupe\widgets\YWidget
 {
     public $view = 'faqwidget';
+    public $cacheTime = 3600;
+    public $limit = 10;
 
     public function run()
     {
