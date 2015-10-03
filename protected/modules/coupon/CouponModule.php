@@ -6,11 +6,6 @@ class CouponModule extends WebModule
 {
     const VERSION = '0.9.7';
 
-    public function getDependencies()
-    {
-        return ['cart'];
-    }
-
     public function getEditableParams()
     {
         return [];
