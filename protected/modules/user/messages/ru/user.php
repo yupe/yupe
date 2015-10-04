@@ -363,4 +363,6 @@ return [
     'Your profile was changed successfully' => 'Ваш профиль успешно изменен!',
     'yupe team' => 'yupe team',
     'Yupe!' => 'Юпи!',
+    'Generate user name automatically' => 'Генерировать имя пользователя автоматически',
+    'Generate password' => 'Сгенерировать пароль',
 ];

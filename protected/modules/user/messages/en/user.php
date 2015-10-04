@@ -343,4 +343,6 @@ return [
     'Email was updated.'                                                                                              => '',
     'Your password was changed successfully.'                                                                         => '',
     'Avatar extensions'                                                                                               => '',
+    'Generate user name automatically'                                                                                => '',
+    'Generate password'                                                                                               => '',
 ];

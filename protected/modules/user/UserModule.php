@@ -41,6 +41,7 @@ class UserModule extends WebModule
     public $avatarExtensions = 'jpg,png,gif,jpeg';
     public $usersPerPage = 20;
     public $badLoginCount = 3;
+    public $generateNickName = 0;
 
     public static $logCategory = 'application.modules.user';
     public $profiles = [];
@@ -137,7 +138,8 @@ class UserModule extends WebModule
                     'Session lifetime (in days) when "Remember me" options enabled'
                 ),
             'usersPerPage'             => Yii::t('UserModule.user', 'Users per page'),
-            'badLoginCount'            => Yii::t('UserModule.user', 'Number of login attempts')
+            'badLoginCount'            => Yii::t('UserModule.user', 'Number of login attempts'),
+            'generateNickName'         => Yii::t('UserModule.user', 'Generate user name automatically')
         ];
     }
 
@@ -165,7 +167,8 @@ class UserModule extends WebModule
             'sessionLifeTime',
             'usersPerPage',
             'emailAccountVerification' => $this->getChoice(),
-            'badLoginCount'
+            'badLoginCount',
+            'generateNickName'         => $this->getChoice(),
         ];
     }
 
@@ -175,7 +178,8 @@ class UserModule extends WebModule
             'main'      => [
                 'label' => Yii::t('UserModule.user', 'General module settings'),
                 'items' => [
-                    'sessionLifeTime'
+                    'sessionLifeTime',
+                    'generateNickName',
                 ]
             ],
             'avatar'    => [

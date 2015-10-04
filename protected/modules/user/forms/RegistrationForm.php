@@ -72,6 +72,22 @@ class RegistrationForm extends CFormModel
         ];
     }
 
+    /**
+     * Метод выполняется перед валидацией
+     *
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        $module = Yii::app()->getModule('user');
+
+        if ( $module->generateNickName ) {
+            $this->nick_name = 'user'.time();
+        }
+
+        return parent::beforeValidate();
+    }
+
     public function attributeLabels()
     {
         return [

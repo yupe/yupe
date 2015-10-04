@@ -1,5 +1,4 @@
-<?php
-$form = $this->beginWidget(
+<?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
         'id'                     => 'user-form',
@@ -18,14 +17,17 @@ $form = $this->beginWidget(
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row">
-    <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
-            $model,
-            'nick_name'
-        ); ?>
+<?php if ( !$this->module->generateNickName ) : ?>
+    <div class="row">
+        <div class="col-sm-7">
+            <?php echo $form->textFieldGroup(
+                $model,
+                'nick_name'
+            ); ?>
+        </div>
     </div>
-</div>
+<?php endif; ?>
+
 <div class="row">
     <div class="col-sm-7">
         <?php echo $form->textFieldGroup($model, 'email'); ?>

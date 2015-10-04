@@ -294,6 +294,21 @@ class User extends yupe\models\YModel
         parent::afterFind();
     }
 
+    /**
+     * Метод выполняется перед валидацией
+     *
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        $module = Yii::app()->getModule('user');
+
+        if ( $module->generateNickName ) {
+            $this->nick_name = 'user'.time();
+        }
+
+        return parent::beforeValidate();
+    }
 
     /**
      * Метод выполняемый перед сохранением:
