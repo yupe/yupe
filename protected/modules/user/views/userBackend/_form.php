@@ -17,17 +17,14 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php if ( !$this->module->generateNickName ) : ?>
-    <div class="row">
-        <div class="col-sm-7">
-            <?php echo $form->textFieldGroup(
-                $model,
-                'nick_name'
-            ); ?>
-        </div>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->textFieldGroup(
+            $model,
+            'nick_name'
+        ); ?>
     </div>
-<?php endif; ?>
-
+</div>
 <div class="row">
     <div class="col-sm-7">
         <?php echo $form->textFieldGroup($model, 'email'); ?>
