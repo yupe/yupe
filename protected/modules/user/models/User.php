@@ -295,22 +295,6 @@ class User extends yupe\models\YModel
     }
 
     /**
-     * Метод выполняется перед валидацией
-     *
-     * @return bool
-     */
-    public function beforeValidate()
-    {
-        $module = Yii::app()->getModule('user');
-
-        if ( $this->getIsNewRecord() && $module->generateNickName ) {
-            $this->nick_name = 'user'.time();
-        }
-
-        return parent::beforeValidate();
-    }
-
-    /**
      * Метод выполняемый перед сохранением:
      *
      * @return bool
