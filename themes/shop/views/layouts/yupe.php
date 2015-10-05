@@ -28,14 +28,12 @@
         ]
     );
 
-    $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
-
-    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/js/libs/select2/select2.css');
-    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/js/libs/slick/slick/slick.css');
-    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/styles/common.css');
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/select2/select2.css');
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/slick/slick/slick.css');
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/styles/common.css');
     Yii::app()->getClientScript()->registerCssFile('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/common.min.js');
+    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/common.min.js');
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?= Yii::app()->getRequest()->csrfTokenName;?>';
@@ -73,7 +71,7 @@
         <div class="header grid">
             <div class="header__item header-logo">
                 <a href="javascript:void(0);" class="header__logo-link">
-                    <img src="<?= $mainAssets ?>/images/logo.png" class="header-logo-image">
+                    <img src="<?= $this->mainAssets ?>/images/logo.png" class="header-logo-image">
                 </a>
             </div>
             <div class="header__item header-description">Магазин бытовой техники</div>

@@ -76,12 +76,18 @@ $(document).ready(function () {
 
 
     $('.product-quantity-increase').click(function () {
-        quantityElement.val(parseInt(quantityElement.val()) + 1);
+        var quantity = parseInt(quantityElement.text()) + 1;
+        quantityElement.text(quantity);
+        $('#total-price').text(parseInt($('#result-price').text()) * quantity);
     });
 
     $('.product-quantity-decrease').click(function () {
-        if (parseInt(quantityElement.val()) > 1) {
-            quantityElement.val(parseInt(quantityElement.val()) - 1);
+        var quantity = parseInt(quantityElement.text());
+
+        if (parseInt(quantityElement.text()) > 1) {
+            --quantity;
+            quantityElement.text(quantity);
+            $('#total-price').text(parseInt($('#result-price').text()) * quantity);
         }
     });
 

@@ -9,4 +9,4 @@ Yii::app()->getClientScript()->registerScript('baseUrl', "var baseUrl = '" . Yii
 // Favicon
 Yii::app()->getClientScript()->registerLinkTag('shortcut icon', null, Yii::app()->getTheme()->getAssetsUrl() . '/images/favicon.ico');
 
-Yii::import('themes.shop.DefautThemeEvents');
+Yii::import('themes.'.Yii::app()->theme->name.'.DefautThemeEvents');

@@ -7,9 +7,6 @@ $this->description = $product->getMetaDescription();
 $this->keywords = $product->getMetaKeywords();
 
 $mainAssets = Yii::app()->getModule('store')->getAssetsUrl();
-Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.simpleGal.js');
-
-Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/store-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->getTheme()->getAssetsUrl() . '/js/store.js');
 
 $this->breadcrumbs = array_merge(
@@ -18,223 +15,555 @@ $this->breadcrumbs = array_merge(
     [CHtml::encode($product->name)]
 );
 ?>
-<div class="row" xmlns="http://www.w3.org/1999/html">
-    <div class="col-sm-12">
-        <div class="row">
-            <div class="col-sm-12">
-                <span class="title"><?= CHtml::encode($product->name); ?></span>
+<div class="main__product-description grid">
+    <div class="product-description">
+        <div class="product-description__img-block grid-module-6">
+            <div class="product-gallery js-product-gallery">
+                <div class="product-gallery__body">
+                    <div data-product-image class="product-gallery__img-wrap">
+                        <img src="<?= $product->getImageUrl(); ?>" class="product-gallery__main-img">
+                    </div>
+                    <div class="product-gallery__label">
+                        <div class="product-label product-label_hit">
+                            <div class="product-label__text">Хит</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-gallery__nav">
+                    <a href="<?= $product->getImageUrl(); ?>" rel="group" data-product-thumbnail class="product-gallery__nav-item">
+                        <img src="<?= $product->getImageUrl(60, 60, false); ?>" alt="" class="product-gallery__nav-img">
+                    </a>
+                    <?php foreach ($product->getImages() as $key => $image): ?>
+                        <a href="<?= $image->getImageUrl(); ?>" rel="group" data-product-thumbnail class="product-gallery__nav-item">
+                            <img src="<?= $image->getImageUrl(60, 60, false); ?>" alt="" class="product-gallery__nav-img">
+                        </a>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 product-feature">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="thumbnails">
-                            <div class="image-preview">
-                                <img src="<?= $product->getImageUrl(); ?>" alt="" class="" id="main-image">
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4 col-md-4">
-                                    <a href="<?= $product->getImageUrl(); ?>" class="thumbnail">
-                                        <img src="<?= $product->getImageUrl(50, 50); ?>"/>
-                                    </a>
+        <div class="product-description__entry grid-module-6">
+            <div class="entry">
+                <div class="entry__toolbar">
+                    <div class="entry__toolbar-left">
+                        <div class="entry__toolbar-item">
+                            <div data-rate='4' class="rating">
+                                <div class="rating__label">4.2</div>
+                                <div class="rating__corner">
+                                    <div class="rating__triangle"></div>
                                 </div>
-                                <?php foreach ($product->getImages() as $key => $image): { ?>
-                                    <div class="col-xs-4 col-md-4">
-                                        <a href="<?= $image->getImageUrl(); ?>" class="thumbnail">
-                                            <img src="<?= $image->getImageUrl(50, 50); ?>"/>
-                                        </a>
+                            </div>
+                        </div>
+                        <div class="entry__toolbar-item"><a href="javascript:void(0);" class="reviews-link">6 отзывов</a>
+                        </div>
+                    </div>
+                    <div class="entry__toolbar-right"><a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-heart-o"></i></a><a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-balance-scale"></i></a>
+                    </div>
+                </div>
+                <div class="entry__title">
+                    <h1 class="h1"><?= CHtml::encode($product->name); ?></h1>
+                </div>
+                <div class="entry__wysiwyg">
+                    <div class="wysiwyg">
+                        <?= $product->short_description; ?>
+                    </div>
+                </div>
+
+                <?php if($product->getVariantsGroup()):?>
+
+                    <div class="entry__title">
+                        <h2 class="h3 h_upcase"><?= Yii::t("StoreModule.store", "Variants"); ?></h2>
+                    </div>
+                    <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
+                        <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
+                        <?= CHtml::hiddenField(
+                            Yii::app()->getRequest()->csrfTokenName,
+                            Yii::app()->getRequest()->csrfToken
+                        ); ?>
+
+                        <div class="entry__variants">
+                            <?php foreach ($product->getVariantsGroup() as $title => $variantsGroup): ?>
+                                <div class="entry__variant">
+                                    <div class="entry__variant-title"><?= CHtml::encode($title); ?></div>
+                                    <div class="entry__variant-value">
+                                        <?=
+                                        CHtml::dropDownList('ProductVariant[]', null, CHtml::listData($variantsGroup, 'id', 'optionValue'), [
+                                            'empty' => '',
+                                            'class' => 'js-select2 entry__variant-value-select noborder',
+                                            'options' => $product->getVariantsOptions()
+                                        ]); ?>
                                     </div>
-                                <?php } endforeach; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </form>
+                <?php endif; ?>
+                <div class="entry__price"><?= Yii::t("StoreModule.store", "Price"); ?>:
+                    <div class="product-price">
+                        <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
+                        <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
+                        <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span>
+                    </div>
+                </div>
+                <?php if (Yii::app()->hasModule('order')): ?>
+                    <div class="entry__count">
+                        <div class="entry__count-label">Кол-во:</div>
+                        <div class="entry__count-input">
+                            <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
+                                <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
+                                <input name="Product[quantity]" value="1" class="spinput__value" />
+                                <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
+                            </span>
+                        </div>
+                        <div class="entry__cart-button">
+                            <button class="btn btn_cart" id="add-product-to-cart" data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">Купить</button>
+                        </div>
+                    </div>
+                    <div class="entry__subtotal">
+                        <?= round($product->getResultPrice(), 2); ?> x <span id="product-quantity" >1</span> =
+                        <span id="total-price"><?= round($product->getResultPrice(), 2); ?></span>
+                        <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <div class="product-features">
+        <div class="product-features__block product-features__block_delivery">
+            <div class="product-features__header">Доставка</div>
+            <div class="product-features__item">Почта России</div>
+            <div class="product-features__item">Курьер</div>
+            <div class="product-features__item">Самовывоз</div>
+        </div>
+        <div class="product-features__block product-features__block_payment">
+            <div class="product-features__header">Оплата</div>
+            <div class="product-features__item">Наличные</div>
+            <div class="product-features__item">Online</div>
+            <div class="product-features__item">Сбербанк</div>
+        </div>
+        <div class="product-features__block product-features__block_warranty">
+            <div class="product-features__header">Гарантии</div>
+            <div class="product-features__item">Возврат</div>
+            <div class="product-features__item">Обмен</div>
+        </div>
+    </div>
+</div>
+
+<div class="main__linked-products grid">
+    <div class="h2">Вместе с этим товаром покупают</div>
+    <div class="linked-products">
+        <div class="cols">
+            <div class="product-linked col grid-module-3">
+                <div class="product-linked__checkbox">
+                    <input type="checkbox" class="checkbox js-product-linked__checkbox" checked="checked" id="NJm61ZgC" />
+                    <label for="NJm61ZgC" class="checkbox__label"></label>
+                </div>
+                <div class="product-linked__thumbnail">
+                    <a href="javascript:void(0);">
+                        <img src="<?= $this->mainAssets ?>/images/content/product-linked/3.jpg" class="product-linked__img" />
+                    </a>
+                </div>
+                <div class="product-linked__info">
+                    <div class="product-linked__title"><a href="javascript:void(0);" class="product-linked__link">Защитная пленка для телефона Luxcase для Sony Xperia Z3 Glossy</a>
+                    </div>
+                    <div class="product-linked__price">
+                        <div class="product-price">650<span class="ruble"> руб.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-linked col grid-module-3">
+                <div class="product-linked__checkbox">
+                    <input type="checkbox" class="checkbox js-product-linked__checkbox" checked="checked" id="EylQpJWxA" />
+                    <label for="EylQpJWxA" class="checkbox__label"></label>
+                </div>
+                <div class="product-linked__thumbnail">
+                    <a href="javascript:void(0);">
+                        <img src="<?= $this->mainAssets ?>/images/content/product-linked/4.jpg" class="product-linked__img" />
+                    </a>
+                </div>
+                <div class="product-linked__info">
+                    <div class="product-linked__title"><a href="javascript:void(0);" class="product-linked__link">Флип-кейс Euro-Line Vivid для Xperia Z3 (зеленый)</a>
+                    </div>
+                    <div class="product-linked__price">
+                        <div class="product-price">690<span class="ruble"> руб.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="linked-products__total">
+                <div class="linked-products__total-label">Ваша цена:</div>
+                <div class="linked-products__total-price"><span class="js-linked-products__total-price">36 500</span><span class="ruble"> руб.</span>
+                </div>
+                <div class="linked-products__total-cart"><a href="javascript:void(0);" class="btn btn_cart">В корзину</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main__product-tabs grid">
+    <div class="tabs tabs_classic tabs_gray js-tabs">
+        <ul data-nav="data-nav" class="tabs__list">
+            <li class="tabs__item"><a href="#spec" class="tabs__link">Характеристики</a>
+            </li>
+            <li class="tabs__item"><a href="#description" class="tabs__link">Описание</a>
+            </li>
+            <li class="tabs__item"><a href="#reviews" class="tabs__link">Отзывы (5)</a>
+            </li>
+            <li class="tabs__item"><a href="#similar" class="tabs__link">Похожие товары</a>
+            </li>
+        </ul>
+        <div class="tabs__bodies js-tabs-bodies">
+            <div id="spec" class="tabs__body js-tab">
+                <div class="product-spec">
+                    <div class="product-spec__body">
+                        <?= $product->data; ?>
+                    </div>
+                    <div class="product-spec__body">
+                        <h2 class="h3 product-spec__header">Экран</h2>
+                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Тип экрана</span></dt>
+                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">цветной IPS, сенсорный</span>
+                            </dd>
+                        </dl>
+                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Тип сенсорного экрана</span></dt>
+                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">мультитач, емкостный</span>
+                            </dd>
+                        </dl>
+                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Диагональ</span></dt>
+                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">4.7 дюйм.</span>
+                            </dd>
+                        </dl>
+                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Размер изображения</span></dt>
+                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">1334x750</span>
+                            </dd>
+                        </dl>
+                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Число пикселей на дюйм (PPI)</span></dt>
+                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">326</span>
+                            </dd>
+                        </dl>
+                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Автоматический поворот экрана</span></dt>
+                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">есть</span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div id="description" class="tabs__body js-tab">
+                <div class="wysiwyg">
+                    <p>Водонепроницаемый смартфон Sony Xperia Z3 воплотил в себе изящество дизайна и мощь высоких технологий.</p>
+                    <p>Новое творение Sony доказывает: красота долговечна.</p>
+                    <p>Ведь ультратонкий алюминиевый каркас с закругленными краями, панели из прочного закаленного стекла и эксклюзивный дизайн кнопки питания придают новому премиум-смартфону престижный элегантный вид. Но внешний вид – это еще не все, не так ли?</p>
+                    <p>Именно поэтому в Sony позаботились о сбалансированном симметричном дизайне, чтобы устройство идеально ложилось в руку.</p>
+                    <p>А благодаря простому и удобному интерфейсу пользоваться этим смартфоном удивительно комфортно.</p>
+                </div>
+            </div>
+            <div id="reviews" class="tabs__body js-tab">
+                <div class="product-reviews">
+                    <div class="product-reviews__body">
+                        <div class="product-review-item">
+                            <div class="product-review-user"><span class="product-review-user__name">Василий Иванов</span>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div data-rate='4' class="rating">
+                                    <div class="rating__label">4</div>
+                                    <div class="rating__corner">
+                                        <div class="rating__triangle"></div>
+                                    </div>
+                                </div><span class="product-review-item__rating-label">хорошая модель</span><span class="product-review-item__delivery">Опыт использования: несколько месяцев</span>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div class="product-review-item__title">Достоинства:</div>
+                                <div class="product-review-item__text">Хорошая камера, отличный и яркий экран. Качественная музыка! Быстро работает и не зависает.</div>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div class="product-review-item__title">Недостатки:</div>
+                                <div class="product-review-item__text">Большой размер, с трудом помещается в руку. Не смотря на то, что использую в чехле на задней крышке появились пятна(окислился металл).</div>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div class="product-review-item__title">Комментарий:</div>
+                                <div class="product-review-item__text">До этого был iPhone 5 gb 16 поменяла на данную модель. Хорошее качество выдержал несколько падений и ни царапины. Отлично ловит связи и быстро работает. Получаются отличные фотографии. Прост в использовании. Много различных хороших приложений.
+                                    Единственное не хватает памяти. Однозначно возьму и следующий iPhone.</div>
+                            </div>
+                            <div class="product-review-item__footer">15 августа , Санкт-Петербург
+                            </div>
+                        </div>
+                        <div class="product-review-item">
+                            <div class="product-review-user"><span class="product-review-user__name">Василий Иванов</span>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div data-rate='4' class="rating">
+                                    <div class="rating__label">4</div>
+                                    <div class="rating__corner">
+                                        <div class="rating__triangle"></div>
+                                    </div>
+                                </div><span class="product-review-item__rating-label">хорошая модель</span><span class="product-review-item__delivery">Опыт использования: несколько месяцев</span>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div class="product-review-item__title">Достоинства:</div>
+                                <div class="product-review-item__text">Хорошая камера, отличный и яркий экран. Качественная музыка! Быстро работает и не зависает.</div>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div class="product-review-item__title">Недостатки:</div>
+                                <div class="product-review-item__text">Большой размер, с трудом помещается в руку. Не смотря на то, что использую в чехле на задней крышке появились пятна(окислился металл).</div>
+                            </div>
+                            <div class="product-review-item__stat">
+                                <div class="product-review-item__title">Комментарий:</div>
+                                <div class="product-review-item__text">До этого был iPhone 5 gb 16 поменяла на данную модель. Хорошее качество выдержал несколько падений и ни царапины. Отлично ловит связи и быстро работает. Получаются отличные фотографии. Прост в использовании. Много различных хороших приложений.
+                                    Единственное не хватает памяти. Однозначно возьму и следующий iPhone.</div>
+                            </div>
+                            <div class="product-review-item__footer">15 августа , Санкт-Петербург
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8">
-
-                        <?php if($product->isInStock()):?>
-                            <span class="label label-success"><?= Yii::t("StoreModule.store", "In stock");?></span>
-                            <?php if($product->quantity):?>
-                                <span></span><?= $product->quantity; ?> <?= Yii::t("StoreModule.store", "in stock"); ?></span>
-                            <?php endif;?>
-                        <?php else:?>
-                            <span class="label label-danger"><?= Yii::t("StoreModule.store", "Not in stock");?></span>
-                        <?php endif;?>
-
-
-                        <div class="properties">
-                            <?php foreach ($product->getAttributeGroups() as $groupName => $items): { ?>
-                                <div class="propertyGroup">
-                                    <h4>
-                                        <span><?= CHtml::encode($groupName); ?></span>
-                                    </h4>
-                                    <table>
-                                        <tbody>
-                                            <?php foreach ($items as $attribute): { ?>
-                                                <tr>
-                                                    <td class="key">
-                                                        <span><?= CHtml::encode($attribute->title); ?></span>
-                                                    </td>
-                                                    <td class="value">
-                                                        <?= AttributeRender::renderValue($attribute, $product->attribute($attribute)); ?>
-                                                    </td>
-                                                </tr>
-                                            <?php } endforeach; ?>
-                                        </tbody>
-                                    </table>
+                    <div class="product-reviews__side"><a href="javascript:void(0);" class="btn btn_primary btn_wide">Написать отзыв</a>
+                        <div class="product-reviews__stat">Средняя оценка
+                            <div data-rate='4' class="rating">
+                                <div class="rating__label">4.2</div>
+                                <div class="rating__corner">
+                                    <div class="rating__triangle"></div>
                                 </div>
-                            <?php } endforeach; ?>
-                        </div>
-                        <br/>
-                        <h4><?= Yii::t("StoreModule.store", "Description"); ?></h4>
-                        <?= $product->short_description; ?>
-                        <?php if($product->getVariantsGroup()):?>
-                            <hr/>
-                            <h4><?= Yii::t("StoreModule.store", "Variants"); ?></h4>
-                        <?php endif;?>
-
-                        <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
-                            <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
-                            <?= CHtml::hiddenField(
-                                Yii::app()->getRequest()->csrfTokenName,
-                                Yii::app()->getRequest()->csrfToken
-                            ); ?>
-                            <table class="table table-condensed">
-                                <?php foreach ($product->getVariantsGroup() as $title => $variantsGroup): { ?>
-                                    <tr>
-                                        <td style="padding: 0;">
-                                            <?= CHtml::encode($title); ?>
-                                        </td>
-                                        <td>
-                                            <?=
-                                            CHtml::dropDownList(
-                                                'ProductVariant[]',
-                                                null,
-                                                CHtml::listData($variantsGroup, 'id', 'optionValue'),
-                                                ['empty' => '', 'class' => 'form-control', 'options' => $product->getVariantsOptions()]
-                                            ); ?>
-                                        </td>
-                                    </tr>
-                                <?php } endforeach; ?>
-                            </table>
-                            <div>
-                                <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
-
-                                <p>
-                                    <?= Yii::t("StoreModule.store", "Price"); ?>
-                                    : <?= round($product->getBasePrice(), 2); ?> <?= Yii::t("StoreModule.store", "RUB"); ?>
-                                </p>
-
-                                <p>
-                                    <?= Yii::t("StoreModule.store", "Fix price with discount"); ?>
-                                    : <?= round($product->getDiscountPrice(), 2); ?>
-                                    <?= Yii::t("StoreModule.store", "RUB"); ?>
-                                </p>
-
-                                <p>
-                                    <?= Yii::t("StoreModule.store", "Discount"); ?>: <?= round($product->discount); ?>%
-                                </p>
-
-                                <p>
-                                    <?= Yii::t("StoreModule.store", "Total price"); ?>: <span
-                                        id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
-                                    <?= Yii::t("StoreModule.store", "RUB"); ?>
-                                </p>
                             </div>
-
-                            <?php if (Yii::app()->hasModule('order')): ?>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-default product-quantity-decrease" type="button">-
-                                                </button>
-                                            </div>
-                                            <input type="text" class="text-center form-control" value="1"
-                                                   name="Product[quantity]" id="product-quantity"/>
-
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-default product-quantity-increase" type="button">+
-                                                </button>
-                                            </div>
+                            <div class="product-reviews__hint">2 оценки</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="similar" class="tabs__body js-tab">
+                <div data-show='4' data-scroll='4' data-infinite="data-infinite" class="h-slider js-slick">
+                    <div class="h-slider__buttons">
+                        <div class="btn h-slider__control h-slider__next js-slick__next"></div>
+                        <div class="btn h-slider__control h-slider__prev js-slick__prev"></div>
+                    </div>
+                    <div class="h-slider__slides js-slick__container">
+                        <div class="h-slider__slide">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img" />
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <button class="btn btn-success pull-left" id="add-product-to-cart"
-                                                data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">
-                                            <?= Yii::t("StoreModule.store", "Add to cart"); ?>
-                                        </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-slider__slide">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img" />
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
                                     </div>
                                 </div>
-                            <?php endif; ?>
-                        </form>
-                        <br>
-                        <hr>
+                            </div>
+                        </div>
+                        <div class="h-slider__slide">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img" />
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-slider__slide">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img" />
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-slider__slide">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img" />
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#description" data-toggle="tab"><?= Yii::t("StoreModule.store", "Description"); ?></a>
-            </li>
-            <li><a href="#data" data-toggle="tab"><?= Yii::t("StoreModule.store", "Data"); ?></a></li>
-            <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a></li>
-            <li><a href="#comments-tab" data-toggle="tab"><?= Yii::t("StoreModule.store", "Comments"); ?></a></li>
-        </ul>
-
-        <div class="tab-content">
-            <div class="tab-pane active" id="description">
-                <?= $product->description; ?>
+    </div>
+</div>
+<div class="main__recently-viewed-slider">
+    <div class="grid">
+        <div class="h3">Вы недавно смотрели</div>
+        <div data-show='3' data-scroll='3' data-infinite="data-infinite" class="h-slider js-slick">
+            <div class="h-slider__buttons h-slider__buttons_noclip">
+                <div class="btn h-slider__control h-slider__next js-slick__next"></div>
+                <div class="btn h-slider__control h-slider__prev js-slick__prev"></div>
             </div>
-            <div class="tab-pane" id="data">
-                <?= $product->data; ?>
-            </div>
-            <div class="tab-pane" id="attributes">
-                <table>
-                    <tr>
-                        <td><b><?= Yii::t("StoreModule.producer", "Producer"); ?>:</b></td>
-                        <td><?= CHtml::encode($product->getProducerName()); ?></td>
-                    </tr>
-                    <tr>
-                        <td><b><?= Yii::t("StoreModule.store", "SKU"); ?>:</b></td>
-                        <td><?= CHtml::encode($product->sku); ?></td>
-                    </tr>
-                    <tr>
-                        <td><b><?= Yii::t("StoreModule.store", "Length"); ?>:</b></td>
-                        <td><?= round($product->length, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?></td>
-                    </tr>
-                    <tr>
-                        <td><b><?= Yii::t("StoreModule.store", "Width"); ?>:</b></td>
-                        <td><?= round($product->width, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?></td>
-                    </tr>
-                    <tr>
-                        <td><b><?= Yii::t("StoreModule.store", "Height"); ?>:</b></td>
-                        <td><?= round($product->height, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?></td>
-                    </tr>
-                    <tr>
-                        <td><b><?= Yii::t("StoreModule.store", "Weight"); ?>:</b></td>
-                        <td><?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.store", "kg"); ?></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane" id="comments-tab">
-                <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-                    'redirectTo' => $product->getUrl(),
-                    'model' => $product,
-                ]); ?>
+            <div class="h-slider__slides js-slick__container">
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-12">
-        <?php $this->widget('application.modules.store.widgets.LinkedProductsWidget', ['product' => $product, 'code' => null,]); ?>
+</div>
+<div class="main__best-brands grid">
+    <div class="best-brands">
+        <div class="best-brands__title">
+            <div class="h3 h_upcase">Товары таких брендов</div>
+        </div>
+        <div class="best-brands__body">
+            <div class="grid">
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/apple.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/braun.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/lg.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/panasonic.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/philips.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/samsung.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/sharp.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/toshiba.png" class="best-brands__img">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<?php Yii::app()->getClientScript()->registerScript(
-    "product-images",
-    <<<JS
-        $(".thumbnails").simpleGal({
-    mainImage: "#main-image"
-});
-JS
-); ?>
