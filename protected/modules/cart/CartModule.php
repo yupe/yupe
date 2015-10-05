@@ -10,7 +10,7 @@ class CartModule extends WebModule
 
     public function getDependencies()
     {
-        return ['order'];
+        return ['order', 'coupon'];
     }
 
     public function getEditableParams()
