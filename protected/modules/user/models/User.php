@@ -303,7 +303,7 @@ class User extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('user');
 
-        if ( $module->generateNickName ) {
+        if ( $this->getIsNewRecord() && $module->generateNickName ) {
             $this->nick_name = 'user'.time();
         }
 

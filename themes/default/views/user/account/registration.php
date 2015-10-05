@@ -5,26 +5,27 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
-<?php Yii::app()->clientScript->registerScript('registration', "
-function str_rand(minlength) {
-    var result       = '';
-    var words        = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-    var max_position = words.length - 1;
-    for( i = 0; i < minlength; ++i ) {
-        position = Math.floor ( Math.random() * max_position );
-        result = result + words.substring(position, position + 1);
-    }
-    return result;
-}
+<script type='text/javascript'>
+    $(document).ready(function () {
+        function str_rand(minlength) {
+            var result       = '';
+            var words        = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+            var max_position = words.length - 1;
+            for( i = 0; i < minlength; ++i ) {
+                position = Math.floor ( Math.random() * max_position );
+                result = result + words.substring(position, position + 1);
+            }
+            return result;
+        }
 
-$('#generate_password').click(function() {
-    var pass = str_rand($(this).data('minlength'));
-    $('#RegistrationForm_password').attr('type', 'text');
-    $('#RegistrationForm_password').attr('value', pass);
-    $('#RegistrationForm_cPassword').attr('value', pass);
-
-});
-"); ?>
+        $('#generate_password').click(function() {
+            var pass = str_rand($(this).data('minlength'));
+            $('#RegistrationForm_password').attr('type', 'text');
+            $('#RegistrationForm_password').attr('value', pass);
+            $('#RegistrationForm_cPassword').attr('value', pass);
+        });
+    })
+</script>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
