@@ -341,7 +341,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 continue;
             }
 
-            if ($attribute->isRequired() && !isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id]) {
+            if ($attribute->isRequired() && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])) {
                 $this->addError($attribute->title, Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $attribute->title]));
             }
         }
