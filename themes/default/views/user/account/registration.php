@@ -30,8 +30,8 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'          => 'registration-form',
-        'type'        => 'vertical',
+        'id' => 'registration-form',
+        'type' => 'vertical',
         'htmlOptions' => [
             'class' => 'well',
         ]
@@ -62,7 +62,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
             [
-                'label'         => Yii::t('UserModule.user', 'Generate password'),
+                'label' => Yii::t('UserModule.user', 'Generate password'),
                 'htmlOptions' => [
                     'id' => 'generate_password',
                     'data-minlength' => $this->module->minPasswordLength
@@ -92,13 +92,13 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
                 'CCaptcha',
                 [
                     'showRefreshButton' => true,
-                    'imageOptions'      => [
+                    'imageOptions' => [
                         'width' => '150',
                     ],
-                    'buttonOptions'     => [
+                    'buttonOptions' => [
                         'class' => 'btn btn-default',
                     ],
-                    'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
+                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
                 ]
             ); ?>
         </div>
@@ -107,13 +107,12 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 
 <div class="row">
     <div class="col-xs-12">
-        <?php
-        $this->widget(
+        <?php $this->widget(
             'bootstrap.widgets.TbButton',
             [
                 'buttonType' => 'submit',
-                'context'    => 'primary',
-                'label'      => Yii::t('UserModule.user', 'Sign up'),
+                'context' => 'primary',
+                'label' => Yii::t('UserModule.user', 'Sign up'),
             ]
         ); ?>
     </div>
@@ -123,15 +122,13 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
     <hr/>
     <div class="row">
         <div class="col-xs-12">
-            <?php
-            $this->widget(
+            <?php $this->widget(
                 'vendor.nodge.yii-eauth.EAuthWidget',
                 [
-                    'action'             => '/social/login',
+                    'action' => '/social/login',
                     'predefinedServices' => ['google', 'facebook', 'vkontakte', 'twitter', 'github'],
                 ]
-            );
-            ?>
+            ); ?>
         </div>
     </div>
 <?php } endif; ?>

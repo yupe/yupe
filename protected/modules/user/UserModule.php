@@ -138,8 +138,8 @@ class UserModule extends WebModule
                     'Session lifetime (in days) when "Remember me" options enabled'
                 ),
             'usersPerPage'             => Yii::t('UserModule.user', 'Users per page'),
-            'badLoginCount'            => Yii::t('UserModule.user', 'Number of login attempts'),
-            'generateNickName'         => Yii::t('UserModule.user', 'Generate user name automatically')
+            'badLoginCount' => Yii::t('UserModule.user', 'Number of login attempts'),
+            'generateNickName' => Yii::t('UserModule.user', 'Generate user name automatically')
         ];
     }
 
@@ -150,13 +150,13 @@ class UserModule extends WebModule
             'avatarExtensions',
             'defaultAvatarPath',
             'avatarsDir',
-            'showCaptcha'              => $this->getChoice(),
+            'showCaptcha' => $this->getChoice(),
             'minCaptchaLength',
             'maxCaptchaLength',
             'minPasswordLength',
-            'autoRecoveryPassword'     => $this->getChoice(),
-            'recoveryDisabled'         => $this->getChoice(),
-            'registrationDisabled'     => $this->getChoice(),
+            'autoRecoveryPassword' => $this->getChoice(),
+            'recoveryDisabled' => $this->getChoice(),
+            'registrationDisabled' => $this->getChoice(),
             'notifyEmailFrom',
             'logoutSuccess',
             'loginSuccess',
@@ -168,7 +168,7 @@ class UserModule extends WebModule
             'usersPerPage',
             'emailAccountVerification' => $this->getChoice(),
             'badLoginCount',
-            'generateNickName'         => $this->getChoice(),
+            'generateNickName' => $this->getChoice(),
         ];
     }
 
