@@ -104,7 +104,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-xs-5">
         <?= $form->datePickerGroup(
             $model,
             'birth_date',
@@ -117,6 +117,24 @@ $form = $this->beginWidget(
                 'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>'
             ]
         ); ?>
+    </div>
+    <div class="col-xs-3">
+        <div class="form-group">
+            <?php echo $form->labelEx($model,'phone',['class' => 'control-label']); ?>
+            <?php $this->widget(
+                'CMaskedTextField',
+                [
+                    'model' => $model,
+                    'attribute' => 'phone',
+                    'mask' => '+7-999-999-9999',
+                    'placeholder' => '*',
+                    'htmlOptions' => [
+                        'class' => 'form-control'
+                    ]
+                ]
+            ); ?>
+            <?php echo $form->error($model,'phone'); ?>
+        </div>
     </div>
 </div>
 

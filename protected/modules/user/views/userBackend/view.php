@@ -94,6 +94,7 @@ $this->menu = [
             'location',
             'site',
             'birth_date',
+            'phone',
             'about',
             [
                 'name'  => 'gender',

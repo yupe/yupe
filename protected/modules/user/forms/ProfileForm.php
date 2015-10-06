@@ -25,6 +25,7 @@ class ProfileForm extends CFormModel
     public $avatar;
     public $site;
     public $location;
+    public $phone;
 
     public function rules()
     {
@@ -65,6 +66,12 @@ class ProfileForm extends CFormModel
                 'maxSize'    => $module->avatarMaxSize,
                 'allowEmpty' => true
             ],
+            [
+                'phone',
+                'match',
+                'pattern' => '/^((\+?7)(-?\d{3})-?)?(\d{3})(-?\d{4})$/',
+                'message' => 'Некорректный формат поля {attribute}'
+            ],
         ];
     }
 
@@ -82,6 +89,7 @@ class ProfileForm extends CFormModel
             'use_gravatar' => Yii::t('UserModule.user', 'Gravatar'),
             'site'         => Yii::t('UserModule.user', 'Site'),
             'location'     => Yii::t('UserModule.user', 'Location'),
+            'phone' => Yii::t('UserModule.user', 'Phone'),
         ];
     }
 

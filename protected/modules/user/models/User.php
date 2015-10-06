@@ -158,6 +158,12 @@ class User extends yupe\models\YModel
                 'on' => 'search'
             ],
             ['birth_date', 'default', 'setOnEmpty' => true, 'value' => null],
+            [
+                'phone',
+                'match',
+                'pattern' => '/^((\+?7)(-?\d{3})-?)?(\d{3})(-?\d{4})$/',
+                'message' => 'Некорректный формат поля {attribute}'
+            ],
         ];
     }
 
@@ -215,6 +221,7 @@ class User extends yupe\models\YModel
             'site' => Yii::t('UserModule.user', 'Site/blog'),
             'location' => Yii::t('UserModule.user', 'Location'),
             'about' => Yii::t('UserModule.user', 'About yourself'),
+            'phone' => Yii::t('UserModule.user', 'Phone'),
         ];
     }
 
