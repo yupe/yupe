@@ -17,6 +17,7 @@
 - #2163: Yupe Generator Update (@apexwire)
 - #2165: Yupe Module Generator Add (@apexwire)
 - #2175: layout (@apexwire)
+- #2186: Пользователи и RBAC (@apexwire)
 
 Версия 0.9.8 23 июля 2015
 -------------------------
