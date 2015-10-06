@@ -526,6 +526,25 @@ class User extends yupe\models\YModel
     }
 
     /**
+     * Получаем список пользователей с полным имем:
+     *
+     * @param string $separator - разделитель
+     *
+     * @return string
+     */
+    public static function getFullNameList($separator = ' ')
+    {
+        $list = [];
+        $yupe = Yii::app()->getModule('yupe');
+        
+        foreach(User::model()->cache($yupe->coreCacheTime)->findAll() as $user) {
+            $list[$user->id] = $user->getFullName($separator);
+        }
+
+        return $list;
+    }
+
+    /**
      * Получаем полное имя пользователя:
      *
      * @param string $separator - разделитель

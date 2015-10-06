@@ -1,22 +1,10 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('RbacModule.rbac', 'Actions') => ['index'],
+    Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
     Yii::t('RbacModule.rbac', 'User list'),
 ];
 
-$this->menu = [
-    [
-        'label' => Yii::t('RbacModule.rbac', 'Roles'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-user',
-                'label' => Yii::t('RbacModule.rbac', 'User list'),
-                'url'   => ['userList']
-            ],
-        ]
-    ],
-];
-
+$this->menu = $this->module->getNavigation();
 ?>
 <div class="page-header">
     <h3>

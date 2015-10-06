@@ -64,7 +64,7 @@ $form = $this->beginWidget(
                 'user_id',
                 [
                     'widgetOptions' => [
-                        'data'        => CHtml::listData(User::model()->findAll(), 'id', 'nick_name'),
+                        'data'        => User::getFullNameList(),
                         'htmlOptions' => [
                             'empty'               => '---',
                             'class'               => ' popover-help',

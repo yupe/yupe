@@ -36,7 +36,7 @@ $form = $this->beginWidget(
             'user_id',
             [
                 'widgetOptions' => [
-                    'data'        => CHtml::listData(User::model()->findAll(), 'id', 'nick_name'),
+                    'data'        => User::getFullNameList(),
                     'htmlOptions' => [
                         'class'               => 'span7 popover-help',
                         'data-original-title' => $model->getAttributeLabel('user_id'),

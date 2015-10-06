@@ -1,37 +1,10 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('RbacModule.rbac', 'Actions') => ['index'],
+    Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
     Yii::t('RbacModule.rbac', 'Import'),
 ];
 
-$this->menu = [
-    [
-        'label' => Yii::t('RbacModule.rbac', 'Roles'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
-                'url'   => ['/rbac/rbacBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('RbacModule.rbac', 'Create role'),
-                'url'   => ['/rbac/rbacBackend/create']
-            ],
-        ]
-    ],
-    [
-        'label' => Yii::t('RbacModule.rbac', 'Users'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('RbacModule.rbac', 'Users'),
-                'url'   => ['/rbac/rbacBackend/userList']
-            ],
-        ]
-    ],
-];
-
+$this->menu = $this->module->getNavigation();
 ?>
 
 <h3><?php echo Yii::t('RbacModule.rbac', 'Rules import'); ?></h3>
@@ -66,15 +39,13 @@ $this->menu = [
 
 <br/>
 
-<?php
-$this->widget(
+<?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => Yii::t('RbacModule.rbac', 'Import'),
     ]
-);
-?>
+); ?>
 
 <?php $this->endWidget(); ?>

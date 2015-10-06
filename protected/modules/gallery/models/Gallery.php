@@ -191,22 +191,6 @@ class Gallery extends yupe\models\YModel
     }
 
     /**
-     * get user list
-     *
-     * @return array of user list
-     **/
-    public function getUsersList()
-    {
-        return CHtml::listData(
-            ($users = User::model()->cache(0, new CDbCacheDependency('SELECT MAX(id) FROM {{user_user}}'))->findAll()),
-            'id',
-            function ($user) {
-                return CHtml::encode($user->fullName);
-            }
-        );
-    }
-
-    /**
      * get owner name
      *
      * @return string owner name
