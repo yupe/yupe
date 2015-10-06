@@ -67,7 +67,10 @@ $(document).ready(function () {
             }
         });
 
-        priceElement.html(parseFloat(newPrice.toFixed(2)));
+        var price = parseFloat(newPrice.toFixed(2));
+        priceElement.html(price);
+        $('#product-result-price').text(price);
+        $('#product-total-price').text(price * parseInt($('#product-quantity').text()));
     }
 
     $('select[name="ProductVariant[]"]').change(function () {
@@ -78,7 +81,7 @@ $(document).ready(function () {
     $('.product-quantity-increase').click(function () {
         var quantity = parseInt(quantityElement.text()) + 1;
         quantityElement.text(quantity);
-        $('#total-price').text(parseInt($('#result-price').text()) * quantity);
+        $('#product-total-price').text(parseInt($('#result-price').text()) * quantity);
     });
 
     $('.product-quantity-decrease').click(function () {
@@ -87,7 +90,7 @@ $(document).ready(function () {
         if (parseInt(quantityElement.text()) > 1) {
             --quantity;
             quantityElement.text(quantity);
-            $('#total-price').text(parseInt($('#result-price').text()) * quantity);
+            $('#product-total-price').text(parseInt($('#result-price').text()) * quantity);
         }
     });
 
@@ -100,7 +103,6 @@ $(document).ready(function () {
     $('#add-product-to-cart').click(function (e) {
         e.preventDefault();
         var button = $(this);
-        button.button('loading');
         var form = $(this).parents('form');
         $.ajax({
             type: 'post',
@@ -113,8 +115,6 @@ $(document).ready(function () {
                 }
                 showNotify(button, data.result ? 'success' : 'danger', data.data);
             }
-        }).always(function () {
-            button.button('reset');
         });
     });
 

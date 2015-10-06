@@ -67,14 +67,14 @@ $this->breadcrumbs = array_merge(
                         <?= $product->short_description; ?>
                     </div>
                 </div>
+                <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
+                    <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
 
-                <?php if($product->getVariantsGroup()):?>
+                    <?php if($product->getVariantsGroup()):?>
 
-                    <div class="entry__title">
-                        <h2 class="h3 h_upcase"><?= Yii::t("StoreModule.store", "Variants"); ?></h2>
-                    </div>
-                    <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
-                        <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
+                        <div class="entry__title">
+                            <h2 class="h3 h_upcase"><?= Yii::t("StoreModule.store", "Variants"); ?></h2>
+                        </div>
                         <?= CHtml::hiddenField(
                             Yii::app()->getRequest()->csrfTokenName,
                             Yii::app()->getRequest()->csrfToken
@@ -95,34 +95,35 @@ $this->breadcrumbs = array_merge(
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                    </form>
-                <?php endif; ?>
-                <div class="entry__price"><?= Yii::t("StoreModule.store", "Price"); ?>:
-                    <div class="product-price">
-                        <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
-                        <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
-                        <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span>
-                    </div>
-                </div>
-                <?php if (Yii::app()->hasModule('order')): ?>
-                    <div class="entry__count">
-                        <div class="entry__count-label">Кол-во:</div>
-                        <div class="entry__count-input">
-                            <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
-                                <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
-                                <input name="Product[quantity]" value="1" class="spinput__value" />
-                                <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
-                            </span>
-                        </div>
-                        <div class="entry__cart-button">
-                            <button class="btn btn_cart" id="add-product-to-cart" data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">Купить</button>
+                    <?php endif; ?>
+                    <div class="entry__price"><?= Yii::t("StoreModule.store", "Price"); ?>:
+                        <div class="product-price">
+                            <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
+                            <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
+                            <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span>
                         </div>
                     </div>
-                    <div class="entry__subtotal">
-                        <?= round($product->getResultPrice(), 2); ?> x <span id="product-quantity" >1</span> =
-                        <span id="total-price"><?= round($product->getResultPrice(), 2); ?></span>
-                        <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
-                <?php endif; ?>
+                    <?php if (Yii::app()->hasModule('order')): ?>
+                        <div class="entry__count">
+                            <div class="entry__count-label">Кол-во:</div>
+                            <div class="entry__count-input">
+                                <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
+                                    <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
+                                    <input name="Product[quantity]" value="1" class="spinput__value" />
+                                    <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
+                                </span>
+                            </div>
+                            <div class="entry__cart-button">
+                                <button class="btn btn_cart" id="add-product-to-cart" data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">Купить</button>
+                            </div>
+                        </div>
+                        <div class="entry__subtotal">
+                            <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
+                            <span id="product-quantity" >1</span> =
+                            <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
+                            <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                    <?php endif; ?>
+                </form>
             </div>
         </div>
     </div>
@@ -206,7 +207,7 @@ $this->breadcrumbs = array_merge(
             </li>
             <li class="tabs__item"><a href="#description" class="tabs__link">Описание</a>
             </li>
-            <li class="tabs__item"><a href="#reviews" class="tabs__link">Отзывы (5)</a>
+            <li class="tabs__item"><a href="#reviews" class="tabs__link">Отзывы</a>
             </li>
             <li class="tabs__item"><a href="#similar" class="tabs__link">Похожие товары</a>
             </li>
@@ -217,113 +218,20 @@ $this->breadcrumbs = array_merge(
                     <div class="product-spec__body">
                         <?= $product->data; ?>
                     </div>
-                    <div class="product-spec__body">
-                        <h2 class="h3 product-spec__header">Экран</h2>
-                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Тип экрана</span></dt>
-                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">цветной IPS, сенсорный</span>
-                            </dd>
-                        </dl>
-                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Тип сенсорного экрана</span></dt>
-                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">мультитач, емкостный</span>
-                            </dd>
-                        </dl>
-                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Диагональ</span></dt>
-                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">4.7 дюйм.</span>
-                            </dd>
-                        </dl>
-                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Размер изображения</span></dt>
-                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">1334x750</span>
-                            </dd>
-                        </dl>
-                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Число пикселей на дюйм (PPI)</span></dt>
-                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">326</span>
-                            </dd>
-                        </dl>
-                        <dl class="product-spec-item"><dt class="product-spec-item__name"><span class="product-spec-item__name-inner">Автоматический поворот экрана</span></dt>
-                            <dd class="product-spec-item__value"><span class="product-spec-item__value-inner">есть</span>
-                            </dd>
-                        </dl>
-                    </div>
                 </div>
             </div>
             <div id="description" class="tabs__body js-tab">
                 <div class="wysiwyg">
-                    <p>Водонепроницаемый смартфон Sony Xperia Z3 воплотил в себе изящество дизайна и мощь высоких технологий.</p>
-                    <p>Новое творение Sony доказывает: красота долговечна.</p>
-                    <p>Ведь ультратонкий алюминиевый каркас с закругленными краями, панели из прочного закаленного стекла и эксклюзивный дизайн кнопки питания придают новому премиум-смартфону престижный элегантный вид. Но внешний вид – это еще не все, не так ли?</p>
-                    <p>Именно поэтому в Sony позаботились о сбалансированном симметричном дизайне, чтобы устройство идеально ложилось в руку.</p>
-                    <p>А благодаря простому и удобному интерфейсу пользоваться этим смартфоном удивительно комфортно.</p>
+                    <?= $product->description ?>
                 </div>
             </div>
             <div id="reviews" class="tabs__body js-tab">
                 <div class="product-reviews">
-                    <div class="product-reviews__body">
-                        <div class="product-review-item">
-                            <div class="product-review-user"><span class="product-review-user__name">Василий Иванов</span>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div data-rate='4' class="rating">
-                                    <div class="rating__label">4</div>
-                                    <div class="rating__corner">
-                                        <div class="rating__triangle"></div>
-                                    </div>
-                                </div><span class="product-review-item__rating-label">хорошая модель</span><span class="product-review-item__delivery">Опыт использования: несколько месяцев</span>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div class="product-review-item__title">Достоинства:</div>
-                                <div class="product-review-item__text">Хорошая камера, отличный и яркий экран. Качественная музыка! Быстро работает и не зависает.</div>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div class="product-review-item__title">Недостатки:</div>
-                                <div class="product-review-item__text">Большой размер, с трудом помещается в руку. Не смотря на то, что использую в чехле на задней крышке появились пятна(окислился металл).</div>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div class="product-review-item__title">Комментарий:</div>
-                                <div class="product-review-item__text">До этого был iPhone 5 gb 16 поменяла на данную модель. Хорошее качество выдержал несколько падений и ни царапины. Отлично ловит связи и быстро работает. Получаются отличные фотографии. Прост в использовании. Много различных хороших приложений.
-                                    Единственное не хватает памяти. Однозначно возьму и следующий iPhone.</div>
-                            </div>
-                            <div class="product-review-item__footer">15 августа , Санкт-Петербург
-                            </div>
-                        </div>
-                        <div class="product-review-item">
-                            <div class="product-review-user"><span class="product-review-user__name">Василий Иванов</span>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div data-rate='4' class="rating">
-                                    <div class="rating__label">4</div>
-                                    <div class="rating__corner">
-                                        <div class="rating__triangle"></div>
-                                    </div>
-                                </div><span class="product-review-item__rating-label">хорошая модель</span><span class="product-review-item__delivery">Опыт использования: несколько месяцев</span>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div class="product-review-item__title">Достоинства:</div>
-                                <div class="product-review-item__text">Хорошая камера, отличный и яркий экран. Качественная музыка! Быстро работает и не зависает.</div>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div class="product-review-item__title">Недостатки:</div>
-                                <div class="product-review-item__text">Большой размер, с трудом помещается в руку. Не смотря на то, что использую в чехле на задней крышке появились пятна(окислился металл).</div>
-                            </div>
-                            <div class="product-review-item__stat">
-                                <div class="product-review-item__title">Комментарий:</div>
-                                <div class="product-review-item__text">До этого был iPhone 5 gb 16 поменяла на данную модель. Хорошее качество выдержал несколько падений и ни царапины. Отлично ловит связи и быстро работает. Получаются отличные фотографии. Прост в использовании. Много различных хороших приложений.
-                                    Единственное не хватает памяти. Однозначно возьму и следующий iPhone.</div>
-                            </div>
-                            <div class="product-review-item__footer">15 августа , Санкт-Петербург
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-reviews__side"><a href="javascript:void(0);" class="btn btn_primary btn_wide">Написать отзыв</a>
-                        <div class="product-reviews__stat">Средняя оценка
-                            <div data-rate='4' class="rating">
-                                <div class="rating__label">4.2</div>
-                                <div class="rating__corner">
-                                    <div class="rating__triangle"></div>
-                                </div>
-                            </div>
-                            <div class="product-reviews__hint">2 оценки</div>
-                        </div>
-                    </div>
+                    <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+                        'redirectTo' => $product->getUrl(),
+                        'model' => $product,
+                    ]); ?>
+
                 </div>
             </div>
             <div id="similar" class="tabs__body js-tab">
