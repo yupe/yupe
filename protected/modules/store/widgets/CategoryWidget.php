@@ -24,7 +24,7 @@ class CategoryWidget extends yupe\widgets\YWidget
     public function run()
     {
         $this->render($this->view,  [
-            'tree' => (new StoreCategory())->getMenuList($this->depth, $this->parent),
+            'tree' => (new StoreCategory())->published()->getMenuList($this->depth, $this->parent),
             'htmlOptions' => $this->htmlOptions
         ]);
     }
