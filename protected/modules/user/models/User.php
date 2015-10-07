@@ -129,9 +129,9 @@ class User extends yupe\models\YModel
                 'match',
                 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
             ],
             ['site', 'url', 'allowEmpty' => true],
             ['email', 'email'],
@@ -165,7 +165,7 @@ class User extends yupe\models\YModel
     {
         return [
             'CTimestampBehavior' => [
-                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
             ],
         ];

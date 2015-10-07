@@ -8,17 +8,17 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 <script type='text/javascript'>
     $(document).ready(function () {
         function str_rand(minlength) {
-            var result       = '';
-            var words        = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+            var result = '';
+            var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
             var max_position = words.length - 1;
-            for( i = 0; i < minlength; ++i ) {
-                position = Math.floor ( Math.random() * max_position );
+            for (i = 0; i < minlength; ++i) {
+                position = Math.floor(Math.random() * max_position);
                 result = result + words.substring(position, position + 1);
             }
             return result;
         }
 
-        $('#generate_password').click(function() {
+        $('#generate_password').click(function () {
             var pass = str_rand($(this).data('minlength'));
             $('#RegistrationForm_password').attr('type', 'text');
             $('#RegistrationForm_password').attr('value', pass);
@@ -40,7 +40,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 
 <?= $form->errorSummary($model); ?>
 
-<?php if ( !$this->module->generateNickName ) : ?>
+<?php if (!$this->module->generateNickName) : ?>
     <div class='row'>
         <div class="col-xs-6">
             <?= $form->textFieldGroup($model, 'nick_name'); ?>
