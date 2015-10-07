@@ -78,7 +78,7 @@ $form = $this->beginWidget(
                 [
                     'model' => $model,
                     'attribute' => 'phone',
-                    'mask' => '+7-999-999-9999',
+                    'mask' => $this->module->phoneMask,
                     'placeholder' => '*',
                     'htmlOptions' => [
                         'class' => 'form-control'
