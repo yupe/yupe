@@ -88,7 +88,7 @@
     <div class="main__search grid">
         <div class="search-bar">
             <div class="search-bar__wrapper"><a href="javascript:void(0);" data-toggle="#menu-catalog" class="search-bar__catalog-button">Каталог товаров</a>
-                <input type="text" placeholder="Suns meet with definition at the greatly exaggerated center!" class="search-bar__input">
+                <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
             </div>
             <?php $this->widget('application.modules.store.widgets.CategoryWidget'); ?>
         </div>
