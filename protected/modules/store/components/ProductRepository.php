@@ -176,6 +176,7 @@ class ProductRepository extends CComponent
         $criteria->with = ['categoryRelation' => ['together' => true]];
         $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
         $criteria->addCondition('status = :status');
+        $criteria->group = 't.id';
         $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $category->id]);
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
