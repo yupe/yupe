@@ -101,8 +101,6 @@ class StoreCategory extends \yupe\models\YModel
                 'parentRelation'       => 'parent',
                 'iconAttribute'        => 'categoryThumb',
                 'defaultCriteria'      => [
-                    'condition' => 'status = :status',
-                    'params'    => [':status' => self::STATUS_PUBLISHED],
                     'order'     => 't.sort'
                 ],
                 'useCache'             => true,
