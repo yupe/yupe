@@ -1,0 +1,10 @@
+<svg width="109" height="8" viewBox="0 0 109 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<g id="triangle">
+			<path d="M1 1h7L4.5 7 1 1z"/>
+		</g>
+	</defs>
+
+	<use x="0" y="0" xlink:href="#triangle" />
+	<use fill="#fdd42e" x="100" y="0" xlink:href="#triangle" />
+</svg>
