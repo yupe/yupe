@@ -1,5 +1,5 @@
 $(document).ajaxError(function () {
-    $('#notifications').notify({message: {text: 'Произошла ошибка =('}, 'type': 'danger'}).show();
+    $('#notifications').html('<div>Произошла ошибка =(</div>').fadeIn().delay(3000).fadeOut();
 });
 
 $(document).ready(function () {
@@ -180,15 +180,11 @@ $(document).ready(function () {
     }
 
     $('.cart-quantity-increase').click(function () {
-        var target = $($(this).data('target'));
-        target.val(parseInt(target.val()) + 1).trigger('change');
+        $($(this).data('target')).trigger('change');
     });
 
     $('.cart-quantity-decrease').click(function () {
-        var target = $($(this).data('target'));
-        if (parseInt(target.val()) > 1) {
-            target.val(parseInt(target.val()) - 1).trigger('change');
-        }
+        $($(this).data('target')).trigger('change');
     });
 
     $('.cart-delete-product').click(function (e) {
@@ -212,7 +208,7 @@ $(document).ready(function () {
     });
 
     $('.position-count').change(function () {
-        var tr = $(this).parents('tr');
+        var tr = $(this).parents('.cart-list__item');
         updatePositionSumPrice(tr);
         var quantity = tr.find('.position-count').val();
         var productId = tr.find('.position-id').val();
