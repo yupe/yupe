@@ -171,13 +171,16 @@ class ProductRepository extends CComponent
      */
     public function getListForCategory(StoreCategory $category)
     {
+        $categories = $category->getChildsArray();
+        $categories[] = $category->id;
+
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
         $criteria->with = ['categoryRelation' => ['together' => true]];
-        $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
+        $criteria->addInCondition('categoryRelation.category_id', $categories);
+        $criteria->addInCondition('t.category_id', $categories, 'OR');
         $criteria->addCondition('status = :status');
         $criteria->group = 't.id';
-        $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $category->id]);
         $criteria->params['status'] = Product::STATUS_ACTIVE;
 
         return new CActiveDataProvider(
