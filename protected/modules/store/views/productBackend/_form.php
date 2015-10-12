@@ -391,7 +391,7 @@ $form = $this->beginWidget(
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="variant-template variant form-inline">
+                    <div class="variant-template variant">
                         <table>
                             <thead>
                                 <tr>
