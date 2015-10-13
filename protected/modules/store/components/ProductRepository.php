@@ -39,6 +39,21 @@ class ProductRepository extends CComponent
                 continue;
             }
 
+            if ($param === 'category') {
+                $categories = [];
+
+                foreach($mainSearchAttributes[$param] as $categoryId) {
+                    $categories[] = $categoryId;
+                    $categories = CMap::mergeArray($categories, StoreCategory::model()->getChildsArray($categoryId));
+                }
+
+                $criteria->with = ['categoryRelation' => ['together' => true]];
+                $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
+                $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
+
+                continue;
+            }
+
             if (isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
                 $criteria->addBetweenCondition("t." . $field, $mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to']);
             } elseif (isset($mainSearchAttributes[$param]['from']) && !isset($mainSearchAttributes[$param]['to'])) {

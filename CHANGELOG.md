@@ -17,6 +17,8 @@
 - #2152: Рефакторинг Яндекс.Кассы (@sabian)
 - #2163: Yupe Generator Update (@apexwire)
 - #2165: Yupe Module Generator Add (@apexwire)
+- #2170: Исправлена ошибка верстки вариантов товара (@sabian)
+- #2171: Исправлена ошибка inline-редактированя в FireFox (@sabian)
 - #2175: layout (@apexwire)
 - #2183: Модуль "catalog" больше не входит в стандартную поставку, используйте модуль "store" (@yupe)
 
