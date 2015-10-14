@@ -103,13 +103,36 @@ $this->breadcrumbs = [
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="order-box__coupon">
-                <div class="coupon-box"><span class="coupon-box__label">Купон на скидку:</span>
-                    <input class="input coupon-box__input"><a href="javascript:void(0);"
-                                                              class="btn btn_primary coupon-box__button">Применить</a>
+            <?php if (Yii::app()->hasModule('coupon')): ?>
+                <div class="order-box__coupon">
+                    <div class="coupon-box"><span class="coupon-box__label"><?= Yii::t("CartModule.cart", "Coupons"); ?></span>
+                        <input id="coupon-code" class="input coupon-box__input">
+                        <button class="btn btn_primary coupon-box__button" type="button" id="add-coupon-code"><?= Yii::t("CartModule.cart", "Add coupon"); ?></button>
+                        <?php foreach ($coupons as $coupon): ?>
+                            <div class="fast-order__inputs coupon">
+                                <span class="label alert alert-info" title="<?= $coupon->name; ?>">
+                                    <?= $coupon->name; ?>
+                                    <button type="button" class="btn btn_primary close" data-dismiss="alert">&times;</button>
+                                    <?= CHtml::hiddenField(
+                                        "Order[couponCodes][{$coupon->code}]",
+                                        $coupon->code,
+                                        [
+                                            'class' => 'coupon-input',
+                                            'data-code' => $coupon->code,
+                                            'data-name' => $coupon->name,
+                                            'data-value' => $coupon->value,
+                                            'data-type' => $coupon->type,
+                                            'data-min-order-price' => $coupon->min_order_price,
+                                            'data-free-shipping' => $coupon->free_shipping,
+                                        ]
+                                    );?>
+                                </span>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="order-box__fast-order">
+            <?php endif; ?>
+            <!--div class="order-box__fast-order">
                 <div class="fast-order">
                     <div class="fast-order__header">
                         <h2 class="h2">Быстрый заказ:</h2>
@@ -129,10 +152,120 @@ $this->breadcrumbs = [
                                                        class="btn btn_big btn_wide btn_white">Оформить быстрый заказ</a>
                     </div>
                 </div>
-            </div>
+            </div-->
+            <?php if(!empty($deliveryTypes)):?>
+                <div class="order-box">
+                    <div class="order-box__header order-box__header_normal"><?= Yii::t("CartModule.cart", "Delivery method"); ?></div>
+                    <div class="order-box__body">
+                        <div class="order-box-delivery">
+                            <div class="order-box-delivery__type">
+                                <?php foreach ($deliveryTypes as $key => $delivery): ?>
+                                    <div class="rich-radio">
+                                        <input type="radio" name="Order[delivery_id]" id="delivery-<?= $delivery->id; ?>"
+                                               class="rich-radio__input"
+                                               hidden="hidden"
+                                               value="<?= $delivery->id; ?>"
+                                               data-price="<?= $delivery->price; ?>"
+                                               data-free-from="<?= $delivery->free_from; ?>"
+                                               data-available-from="<?= $delivery->available_from; ?>"
+                                               data-separate-payment="<?= $delivery->separate_payment; ?>">
+                                        <label for="delivery-<?= $delivery->id; ?>" class="rich-radio__label">
+                                            <div class="rich-radio-body">
+                                                <div class="rich-radio-body__content">
+                                                    <div class="rich-radio-body__heading">
+                                                        <span class="rich-radio-body__title">
+                                                            <?= $delivery->name; ?> - <?= $delivery->price; ?> <?= Yii::t("CartModule.cart", "RUB"); ?>
+                                                        </span>
+                                                    </div>
+                                                    <div class="rich-radio-body__text"><?= $delivery->description; ?></div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="order-box-delivery__address">
+                                <h3 class="h3"><?= Yii::t("CartModule.cart", "Address"); ?></h3>
+                                <div class="order-form">
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'name', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'name', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'name'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'email', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'email', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'email'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'phone', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'phone', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'phone'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'address', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'address', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'address'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'comment', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textArea($order, 'comment', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'comment'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else:?>
+                <div class="alert alert-danger">
+                    <?= Yii::t("CartModule.cart", "Delivery method aren't selected! The ordering is impossible!") ?>
+                </div>
+            <?php endif;?>
+
             <div class="order-box__bottom">
                 <div class="cart-box__subtotal">
-                    Итого: &nbsp;<span><?= Yii::app()->cart->getCount(); ?></span>&nbsp; товар(а)
+                    Итого: &nbsp;<span id="cart-total-product-count"><?= Yii::app()->cart->getCount(); ?></span>&nbsp; товар(а)
                     на сумму &nbsp;<span id="cart-full-cost-with-shipping">0</span><span class="ruble"> <?= Yii::t("CartModule.cart", "RUB"); ?></span>
                 </div>
                 <div class="cart-box__order-button">

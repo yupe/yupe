@@ -200,6 +200,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result) {
                     el.parents('tr').remove();
+                    $('#cart-total-product-count').text($('.cart-list .cart-item').length);
                     updateCartTotalCost();
                 }
             }
@@ -385,6 +386,7 @@ $(document).ready(function () {
         e.preventDefault();
         var code = $(this).siblings('input[type="hidden"]').data('code');
         var data = {'code': code};
+        var el = $(this).closest('.coupon');
         data[yupeTokenName] = yupeToken;
         $.ajax({
             url: '/coupon/remove',
@@ -394,6 +396,7 @@ $(document).ready(function () {
             success: function (data) {
                 showNotify(this, data.result ? 'success' : 'danger', data.data);
                 if (data.result) {
+                    el.remove();
                     updateAllCosts();
                 }
             }
