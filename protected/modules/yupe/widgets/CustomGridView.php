@@ -225,10 +225,6 @@ class CustomGridView extends \TbExtendedGridView
 
         parent::init();
         $this->reinstallDatePickers();
-
-        if($this->sortableRows) {
-            $this->reinstallSortable();
-        }
     }
 
     /**
@@ -482,79 +478,15 @@ JS
         );
     }
 
-    private function reinstallSortable()
+    public function registerCustomClientScript()
     {
-        $js = <<<JS
-            (function($){
-                var originalPos = null;
+        parent::registerCustomClientScript();
 
-                var fixHelperDimensions = function(e, tr) {
-                    originalPos = tr.prevAll().length;
-                    var originals = tr.children();
-                    var helper = tr.clone();
-                    helper.children().each(function(index) {
-                        $(this).width(originals.eq(index).width()+1).height(originals.eq(index).height()).css({ "border-bottom":"1px solid #ddd" });
-                    });
-                    return helper.css("border-right","1px solid #ddd");
-                };
-
-                $.fn.yiiGridView.sortable = function (id, action, callback, data) {
-                    if (data == null)
-                        data = {};
-
-                    var grid = $('#'+id) ;
-                    $("tbody", grid).sortable({
-                        helper: fixHelperDimensions,
-                        update: function(e,ui){
-                            // update keys
-                            var pos = $(ui.item).prevAll().length;
-                            if(originalPos !== null && originalPos != pos) {
-                                var keys = grid.children(".keys").children("span");
-                                var key = keys.eq(originalPos);
-                                var sort = [];//sort number values from to
-                                keys.each(function(i) {
-                                    sort[i] = $(this).attr('data-order');
-                                });
-
-                                if(originalPos < pos) {
-                                    keys.eq(pos).after(key);
-                                }
-                                if(originalPos > pos) {
-                                    keys.eq(pos).before(key);
-                                }
-                                originalPos = null;
-                            }
-                            var sortOrder = {};
-                            keys = grid.children(".keys").children("span");
-                            keys.each(function(i) {
-                                $(this).attr('data-order', sort[i]);
-                                sortOrder[$(this).text()] = sort[i];
-                            });
-
-                            data["sortOrder"] = sortOrder;
-
-                            if(action.length) {
-                                $.fn.yiiGridView.update(id, {
-                                        type:'POST',
-                                        url:action,
-                                        data:data,
-                                        success:function(){
-                                            grid.removeClass('grid-view-loading');
-                                        },
-                                        complete:function(){
-                                            if($.isFunction(callback)) {
-                                                callback(sortOrder);
-                                            }
-                                        }
-                                    });
-                            } else if($.isFunction(callback)) {
-                                callback(sortOrder);
-                            }
-                        }
-                    });
-                };
-            })(jQuery);
-JS;
-        Yii::app()->getClientScript()->registerScript('re-install-sortable', $js, CClientScript::POS_END);
+        if($this->sortableRows) {
+            $mainAssets = Yii::app()->getAssetManager()->publish(
+                Yii::getPathOfAlias('application.modules.yupe.views.assets')
+            );
+            Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/custom-grid-sortable.js', CClientScript::POS_END);
+        }
     }
 }
