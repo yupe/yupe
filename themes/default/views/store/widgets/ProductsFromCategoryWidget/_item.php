@@ -1,7 +1,8 @@
 <?php
+/**
+ * @var Product $product
+ */
 $productUrl = Yii::app()->createUrl('/store/product/view', ['name' => CHtml::encode($product->slug)]);
-$basePrice = (float)$product->getBasePrice();
-$price = $product->getResultPrice();
 ?>
 <div class="col-sm-1"></div>
 <div class="col-sm-10">

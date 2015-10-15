@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var StoreCategory $category
+ * @var array $products Product objects array
+ * @var Product $product
+ */
+?>
 <div class="row">
     <div class="col-sm-12">
         <div id="carousel" class="carousel slide" data-ride="carousel">

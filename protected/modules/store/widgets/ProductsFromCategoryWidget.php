@@ -6,20 +6,26 @@ Yii::import('application.modules.store.models.Product');
  *
  * Show products from specified category
  *
- * @property integer $categoryId Products category ID
+ * @property string $slug Products category slug
  * @property bool|integer $limit The number of products. Default: false (unlimited)
  * @property string $order The order of products. Default: id DESC
  * @property string $view Widget view file
  */
 class ProductsFromCategoryWidget extends \yupe\widgets\YWidget
 {
-    public $categoryId;
+    public $slug;
     public $limit = false;
     public $order = 't.id DESC';
     public $view = 'default';
 
     public function run()
     {
+        $category = StoreCategory::model()->getByAlias($this->slug);
+
+        if(!$category) {
+            return false;
+        }
+
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
         $criteria->with = ['categoryRelation' => ['together' => true]];
@@ -31,10 +37,13 @@ class ProductsFromCategoryWidget extends \yupe\widgets\YWidget
         $criteria->order = $this->order;
         $criteria->group = 't.id';
         $criteria->params = [
-            ':category_id' => (int)$this->categoryId,
+            ':category_id' => $category->id,
             ':status' => Product::STATUS_ACTIVE
         ];
 
-        $this->render($this->view, ['products' => Product::model()->findAll($criteria)]);
+        $this->render($this->view, [
+            'category' => $category,
+            'products' => Product::model()->findAll($criteria)
+        ]);
     }
 }
