@@ -196,7 +196,12 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result) {
                     el.parents('tr').remove();
-                    updateCartTotalCost();
+
+                    if($('.cart-position').length > 0) {
+                        updateCartTotalCost();
+                    } else {
+                        $('#cart-body').html(yupeCartEmptyMessage);
+                    }
                 }
             }
         });
