@@ -12,9 +12,9 @@ $price = $data->getResultPrice();
         </a>
         <div class="product-vertical__content"><a href="<?= $productUrl; ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
             <div class="product-vertical__price">
-                <div class="product-price"><?= $price ?><span class="ruble"> руб.</span></div>
+                <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
                 <?php if ($basePrice != $price): ?>
-                    <div class="product-price product-price_old"><?= $basePrice ?><span class="ruble"> руб.</span></div>
+                    <div class="product-price product-price_old"><?= $basePrice ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
                 <?php endif; ?>
             </div>
         </div>
@@ -32,7 +32,7 @@ $price = $data->getResultPrice();
                     <div class="product-vertical-extra__reviews"><a href="javascript:void(0);" class="reviews-link">6 отзывов</a></div>
                     <?php if($data->isInStock()):?>
                         <div class="product-vertical-extra__stock">
-                            <div class="in-stock">В наличии</div>
+                            <div class="in-stock"><?= Yii::t("StoreModule.store", "In stock");?></div>
                         </div>
                     <?php endif; ?>
                 </div>

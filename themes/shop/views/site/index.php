@@ -1,50 +1,167 @@
-<?php $this->pageTitle = Yii::app()->getModule('yupe')->siteName;?>
+<?php $this->pageTitle = Yii::app()->getModule('yupe')->siteName; ?>
 
-<h1>Congratulations!</h1>
-<p>You just have installed <a href="http://yupe.ru?from=mainpage" target='_blank'>Yupe! CMS</a>! We hope it was simple
-    and you haven't got any problems!?</p>
-<div class='alert alert-warning'>
-    <p><b>If you have questions about development and support - <a href='http://yupe.ru/contacts?from=mainpage-support'
-                                                                   target='_blank'>write us</a> !</b></p>
-
-    <p>Read us in <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs'
-                                                                                       target='_blank'>Vk.com</a>, <a
-            href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> or in <a
-            href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a>
-    </p>
+<div class="main__promo-slider grid">
+    <div data-show='1' data-scroll='1' data-infinite='1' data-autoplay='5000' data-speed='1500' data-dots='1' class="promo-slider js-slick promo-slider js-slick promo-slider_main">
+        <div class="promo-slider__slides js-slick__container">
+            <img src="<?= $this->mainAssets ?>/images/content/slider/1.png">
+            <img src="<?= $this->mainAssets ?>/images/content/slider/1.png">
+            <img src="<?= $this->mainAssets ?>/images/content/slider/1.png">
+            <img src="<?= $this->mainAssets ?>/images/content/slider/1.png">
+        </div>
+    </div>
 </div>
-<?php if (YII_DEBUG === true) : ?>
-    <p class='alert alert-info'>
-        If you have noticed that site work slowly - don't panic. It because debug mode is (YII_DEBUG) enabled. If you
-        disable it, site will work much more faster.
-        No reasons to be worried, when you deploy your site on production server, debug mode will de disabled
-        automaticly.
-    </p>
-<?php endif; ?>
-
-<p> You can start to edit you site from <code>SiteController</code> edition (/protected/controllers/SiteController)</p>
-<P> We made some blanks for you, for example, list of posts (from "Blog" module) you can find <?= CHtml::link(
-        'here',
-        ['/site/main']
-    ) ?> (SiteController/actionMain)</P>
-<p> For site management, please go to <?= CHtml::link('Control Panel', ['/yupe/backend/']); ?></p>
-
-<p> If you have questions or problems - review this sources:
-<ul>
-    <li>Our <a href='http://yupe.ru/talk/?from=mainpage'>forum</a></li>
-    <li><a href='https://github.com/yupe/yupe/issues'>Github</a></li>
-    <li>Our documentation <a href='http://yupe.ru/docs/index.html?from=mainpage'> we are working around it</a></li>
-</ul>
-
-<p>Yupe! extensions and widgets repository, you can found here: <a href="https://github.com/yupe/yupe-ext"
-                                                                   target="_blank">https://github.com/yupe/yupe-ext</a>
-</p>
-
-<p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Maybe you want to connect us for development our
-        project together, or maybe you want to help us?</a></p>
-
-<div class="alert">
-    <p>Donate us!</p>
-
-    <p>Yandex money on <b>41001846363811</b></p>
+<div class="main__hit-slider grid">
+    <div class="hit-slider js-overlay-items">
+        <div class="h2">Хиты</div>
+        <?php $this->widget('application.modules.store.widgets.ProductsFromCategoryWidget', ['slug' => 'HITS']); ?>
+    </div>
+</div>
+<div class="main__new-slider grid">
+    <div class="new-slider js-overlay-items">
+        <div class="h2">Новинки</div>
+        <?php $this->widget('application.modules.store.widgets.ProductsFromCategoryWidget', ['slug' => 'NEW']); ?>
+    </div>
+</div>
+<div class="main__recently-viewed-slider">
+    <div class="grid">
+        <div class="h3">Вы недавно смотрели</div>
+        <div data-show='3' data-scroll='3' data-infinite="data-infinite" class="h-slider js-slick">
+            <div class="h-slider__buttons h-slider__buttons_noclip">
+                <div class="btn h-slider__control h-slider__next js-slick__next"></div>
+                <div class="btn h-slider__control h-slider__prev js-slick__prev"></div>
+            </div>
+            <div class="h-slider__slides js-slick__container">
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-slider__slide">
+                    <div class="grid-module-4">
+                        <div class="product-mini">
+                            <div class="product-mini__thumbnail">
+                                <a href="javascript:void(0);">
+                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
+                                </a>
+                            </div>
+                            <div class="product-mini__info">
+                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                                </div>
+                                <div class="product-mini__price">
+                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main__best-brands grid">
+    <div class="best-brands">
+        <div class="best-brands__title">
+            <div class="h3 h_upcase">Бренды</div>
+        </div>
+        <div class="best-brands__body">
+            <div class="grid">
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/apple.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/braun.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/lg.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/panasonic.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/philips.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/samsung.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/sharp.png" class="best-brands__img">
+                </div>
+                <div class="best-brands__item grid-module-2">
+                    <img src="<?= $this->mainAssets ?>/images/content/brands/toshiba.png" class="best-brands__img">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
