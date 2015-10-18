@@ -306,7 +306,7 @@ class Coupon extends yupe\models\YModel
     {
         if (!is_null($this->quantity)) {
             $this->quantity -= 1;
-            $this->save();
+            $this->update(['quantity']);
         }
     }
 

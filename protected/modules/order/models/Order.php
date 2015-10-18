@@ -355,7 +355,7 @@ class Order extends yupe\models\YModel
         return $delta;
     }
 
-    public function saveData(array $attributes, array $products, array $coupons = [], $status = OrderStatus::STATUS_NEW)
+    public function saveData(array $attributes, array $products, $status = OrderStatus::STATUS_NEW)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
@@ -369,18 +369,11 @@ class Order extends yupe\models\YModel
                 return false;
             }
 
-            if (!empty($coupons)) {
-                if (!$this->applyCoupons($coupons)) {
-                    return false;
-                }
-            }
-
             $transaction->commit();
 
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
-
             return false;
         }
     }
@@ -393,30 +386,37 @@ class Order extends yupe\models\YModel
 
         $coupons = $this->getValidCoupons($coupons);
 
-        foreach ($coupons as $coupon) {
+        $transaction = Yii::app()->getDb()->beginTransaction();
 
-            $model = new OrderCoupon();
+        try {
 
-            $model->setAttributes(
-                [
-                    'order_id' => $this->id,
-                    'coupon_id' => $coupon->id,
-                    'create_time' => new CDbExpression('NOW()')
-                ]
-            );
+            foreach ($coupons as $coupon) {
 
-            $model->save();
+                $model = new OrderCoupon();
 
-            if ($this->getIsNewRecord()) {
+                $model->setAttributes(
+                    [
+                        'order_id' => $this->id,
+                        'coupon_id' => $coupon->id,
+                        'create_time' => new CDbExpression('NOW()')
+                    ]
+                );
+
+                $model->save();
+
                 $coupon->decreaseQuantity();
             }
+
+            $this->coupon_discount = $this->getCouponDiscount($coupons);
+
+            $this->delivery_price = $this->getDeliveryCost();
+
+            $transaction->commit();
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+            return false;
         }
-
-        $this->coupon_discount = $this->getCouponDiscount($coupons);
-
-        $this->delivery_price = $this->getDeliveryCost();
-
-        return true;
     }
 
     public function beforeSave()

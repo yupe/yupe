@@ -29,7 +29,11 @@ class OrderController extends \yupe\components\controllers\FrontController
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-            if ($model->saveData($order, $products, $coupons, (int)Yii::app()->getModule('order')->defaultStatus)) {
+            if ($model->saveData($order, $products, (int)Yii::app()->getModule('order')->defaultStatus)) {
+
+                if (!empty($coupons)) {
+                    $model->applyCoupons($coupons);
+                }
 
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
