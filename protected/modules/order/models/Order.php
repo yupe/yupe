@@ -507,14 +507,14 @@ class Order extends yupe\models\YModel
      */
     public function beforeSave()
     {
-        $productsCost = $this->getProductsCost();
+        $this->total_price = $this->getProductsCost();
 
         if ($this->getIsNewRecord()) {
             $this->url = md5(uniqid(time(), true));
             $this->ip = Yii::app()->getRequest()->userHostAddress;
             if ($this->getScenario() === self::SCENARIO_USER) {
                 $this->user_id = Yii::app()->getUser()->getId();
-                $this->delivery_price = $this->delivery ? $this->delivery->getCost($productsCost) : 0;
+                $this->delivery_price = $this->delivery ? $this->delivery->getCost($this->total_price) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }
         }
