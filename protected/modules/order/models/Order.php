@@ -2,11 +2,11 @@
 
 /**
  * @property integer $id
- * @property integer  $delivery_id
- * @property double  $delivery_price
- * @property integer  $payment_method_id
- * @property integer  $paid
- * @property string  $payment_time
+ * @property integer $delivery_id
+ * @property double $delivery_price
+ * @property integer $payment_method_id
+ * @property integer $paid
+ * @property string $payment_time
  * @property string $payment_details
  * @property double $total_price
  * @property double $discount
@@ -37,12 +37,27 @@ Yii::import('application.modules.order.events.OrderEvents');
 Yii::import('application.modules.order.events.PayOrderEvent');
 Yii::import('application.modules.order.events.OrderChangeStatusEvent');
 
+/**
+ * Class Order
+ */
 class Order extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const PAID_STATUS_NOT_PAID = 0;
+    /**
+     *
+     */
     const PAID_STATUS_PAID = 1;
 
+    /**
+     *
+     */
     const SCENARIO_USER = 'front';
+    /**
+     *
+     */
     const SCENARIO_ADMIN = 'admin';
 
     /**
@@ -50,12 +65,24 @@ class Order extends yupe\models\YModel
      */
     private $_orderProducts = [];
 
+    /**
+     * @var bool
+     */
     private $hasProducts = false; // ставим в true, когда в сценарии front добавляем хотя бы один продукт
 
+    /**
+     * @var
+     */
     protected $oldAttributes;
 
+    /**
+     * @var bool
+     */
     private $productsChanged = false; // менялся ли список продуктов в заказе
 
+    /**
+     * @var null
+     */
     private $_validCoupons = null;
 
     /**
@@ -66,6 +93,10 @@ class Order extends yupe\models\YModel
         return '{{store_order}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -102,6 +133,9 @@ class Order extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -115,6 +149,9 @@ class Order extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -125,6 +162,9 @@ class Order extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -170,6 +210,10 @@ class Order extends yupe\models\YModel
     }
 
 
+    /**
+     * @param null $couponId
+     * @return CActiveDataProvider
+     */
     public function search($couponId = null)
     {
         $criteria = new CDbCriteria;
@@ -213,6 +257,9 @@ class Order extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function searchCoupons()
     {
         $criteria = new CDbCriteria;
@@ -228,12 +275,18 @@ class Order extends yupe\models\YModel
         );
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->oldAttributes = $this->getAttributes();
         parent::afterFind();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if ($this->getScenario() === self::SCENARIO_USER) {
@@ -246,6 +299,9 @@ class Order extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    /**
+     * @return float|int
+     */
     public function getProductsCost()
     {
         $cost = 0;
@@ -258,16 +314,25 @@ class Order extends yupe\models\YModel
         return $cost;
     }
 
+    /**
+     * @return bool
+     */
     public function isCouponsAvailable()
     {
         return Yii::app()->hasModule('coupon');
     }
 
+    /**
+     * @return bool
+     */
     public function hasCoupons()
     {
         return !empty($this->couponsIds);
     }
 
+    /**
+     * @return array
+     */
     public function getCouponsCodes()
     {
         $codes = [];
@@ -279,11 +344,17 @@ class Order extends yupe\models\YModel
         return $codes;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCoupons()
     {
         return $this->coupons;
     }
 
+    /**
+     * @return int|mixed
+     */
     public function getDeliveryCost()
     {
         $cost = $this->delivery_price;
@@ -355,6 +426,12 @@ class Order extends yupe\models\YModel
         return $delta;
     }
 
+    /**
+     * @param array $attributes
+     * @param array $products
+     * @param int $status
+     * @return bool
+     */
     public function saveData(array $attributes, array $products, $status = OrderStatus::STATUS_NEW)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -378,6 +455,10 @@ class Order extends yupe\models\YModel
         }
     }
 
+    /**
+     * @param array $coupons
+     * @return bool
+     */
     public function applyCoupons(array $coupons)
     {
         if (!$this->isCouponsAvailable()) {
@@ -411,6 +492,8 @@ class Order extends yupe\models\YModel
 
             $this->delivery_price = $this->getDeliveryCost();
 
+            $this->update(['coupon_discount', 'delivery_price']);
+
             $transaction->commit();
             return true;
         } catch (Exception $e) {
@@ -419,6 +502,9 @@ class Order extends yupe\models\YModel
         }
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
         $productsCost = $this->getProductsCost();
@@ -435,12 +521,12 @@ class Order extends yupe\models\YModel
 
         $this->delivery_price = $this->getDeliveryCost();
 
-        /* итоговая цена получается из стоимости всех продуктов - скидка по купонам */
-        $this->total_price = $productsCost - $this->coupon_discount;
-
         return parent::beforeSave();
     }
 
+    /**
+     *
+     */
     public function afterDelete()
     {
         foreach ($this->products as $product) {
@@ -449,6 +535,9 @@ class Order extends yupe\models\YModel
         parent::afterDelete();
     }
 
+    /**
+     * @return array
+     */
     public function getPaidStatusList()
     {
         return [
@@ -457,6 +546,9 @@ class Order extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getPaidStatus()
     {
         $data = $this->getPaidStatusList();
@@ -554,6 +646,9 @@ class Order extends yupe\models\YModel
         OrderProduct::model()->deleteAll($criteria);
     }
 
+    /**
+     *
+     */
     public function afterSave()
     {
         $this->updateOrderProducts($this->_orderProducts);
@@ -561,16 +656,25 @@ class Order extends yupe\models\YModel
     }
 
 
+    /**
+     * @return float
+     */
     public function getTotalPrice()
     {
-        return (float)$this->total_price;
+        return (float)$this->total_price - (float)$this->discount - (float)$this->coupon_discount;
     }
 
+    /**
+     * @return float
+     */
     public function getDeliveryPrice()
     {
         return (float)$this->delivery_price;
     }
 
+    /**
+     * @return float
+     */
     public function getTotalPriceWithDelivery()
     {
         $price = $this->getTotalPrice();
@@ -582,11 +686,18 @@ class Order extends yupe\models\YModel
         return $price;
     }
 
+    /**
+     * @return bool
+     */
     public function isPaid()
     {
         return (int)$this->paid === static::PAID_STATUS_PAID;
     }
 
+    /**
+     * @param Payment $payment
+     * @return bool
+     */
     public function pay(Payment $payment)
     {
         if ($this->isPaid()) {
@@ -608,11 +719,18 @@ class Order extends yupe\models\YModel
         return $result;
     }
 
+    /**
+     * @param $url
+     * @return static
+     */
     public function findByUrl($url)
     {
         return $this->findByAttributes(['url' => $url]);
     }
 
+    /**
+     * @return bool
+     */
     public function isStatusChanged()
     {
         if ($this->oldAttributes['status_id'] != $this->status_id) {
@@ -625,6 +743,10 @@ class Order extends yupe\models\YModel
         return false;
     }
 
+    /**
+     * @param $number
+     * @return static
+     */
     public function findByNumber($number)
     {
         return $this->findByPk($number);
