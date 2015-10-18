@@ -15,18 +15,3 @@ $this->breadcrumbs = [
     CHtml::encode($target->name),
 ];
 ?>
-
-<p><?= Yii::t(
-        'BlogModule.blog',
-        'Posts of "{category}" category',
-        ['{category}' => CHtml::encode($target->name)]
-    ); ?></p>
-
-<?php $this->widget(
-    'bootstrap.widgets.TbListView',
-    [
-        'dataProvider' => $posts->search(),
-        'itemView'     => '_post',
-        'template'     => "{items}\n{pager}",
-    ]
-); ?>
