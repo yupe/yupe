@@ -31,8 +31,7 @@
                 <?php if ($data->imagesCount): ?>
                     <ul class="list-inline">
                         <li>
-                            <?= Yii::t('GalleryModule.gallery', 'Messages summary:'); ?> <span
-                                class="badge alert-info"><?= $data->imagesCount; ?></span>
+                            <?= Yii::t('GalleryModule.gallery', 'Messages summary:'); ?> <b><?= $data->imagesCount; ?></b>
                         </li>
                         <li>
                             <i class="glyphicon glyphicon-calendar"></i> <?= Yii::app()->dateFormatter->format(
