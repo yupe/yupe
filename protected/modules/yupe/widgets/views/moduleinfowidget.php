@@ -16,20 +16,26 @@
     <?php echo $module->description; ?><br/><br/>
     <table class="table">
         <tr>
-            <td><?php echo Yii::t('YupeModule.yupe', 'Author'); ?>:</td>
-            <td><?php echo CHtml::mailto($module->author, $module->authorEmail); ?></td>
+            <td>
+                <?php echo Yii::t('YupeModule.yupe', 'Author'); ?>:
+                <?php echo CHtml::mailto($module->author, $module->authorEmail); ?>
+            </td>
         </tr>
         <tr>
-            <td><?php echo Yii::t('YupeModule.yupe', 'Web-site'); ?>:</td>
-            <td><?php echo CHtml::link($module->url, $module->url); ?></td>
+            <td>
+                <?php echo Yii::t('YupeModule.yupe', 'Web-site'); ?>:
+                <?php echo CHtml::link($module->url, $module->url); ?>
+            </td>
         </tr>
         <tr>
-            <td><?php echo Yii::t('YupeModule.yupe', 'Docs'); ?>:</td>
-            <td><?php echo CHtml::link(
+            <td>
+                <?php echo Yii::t('YupeModule.yupe', 'Docs'); ?>:
+                <?php echo CHtml::link(
                     Yii::t('YupeModule.yupe', 'read on site'),
                     "http://yupe.ru/docs/{$module->id}/index.html?from=modinfowidget",
                     ['target' => '_blank']
-                ); ?></td>
+                ); ?>
+            </td>
         </tr>
     </table>
 </div>
