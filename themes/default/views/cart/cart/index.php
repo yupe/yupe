@@ -21,10 +21,11 @@ $this->breadcrumbs = [
     var yupeCartDeleteProductUrl = '<?= Yii::app()->createUrl('/cart/cart/delete/')?>';
     var yupeCartUpdateUrl = '<?= Yii::app()->createUrl('/cart/cart/update/')?>';
     var yupeCartWidgetUrl = '<?= Yii::app()->createUrl('/cart/cart/widget/')?>';
+    var yupeCartEmptyMessage = '<h1><?= Yii::t("CartModule.cart", "Cart is empty"); ?></h1><?= Yii::t("CartModule.cart", "There are no products in cart"); ?>';
 </script>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div id="cart-body" class="col-sm-12">
         <?php if (Yii::app()->cart->isEmpty()): ?>
             <h1><?= Yii::t("CartModule.cart", "Cart is empty"); ?></h1>
             <?= Yii::t("CartModule.cart", "There are no products in cart"); ?>
@@ -63,7 +64,7 @@ $this->breadcrumbs = [
                 </thead>
                 <tbody>
                     <?php foreach ($positions as $position): ?>
-                        <tr>
+                        <tr class="cart-position">
                             <td class="col-sm-5">
                                 <?php $positionId = $position->getId(); ?>
                                 <?= CHtml::hiddenField('OrderProduct[' . $positionId . '][product_id]', $position->id); ?>

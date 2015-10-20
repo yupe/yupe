@@ -73,7 +73,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-            if ($model->saveData($order, $products, $coupons)) {
+            if ($model->saveData($order, $products)) {
+
+                if (!empty($coupons)) {
+                    $model->applyCoupons($coupons);
+                }
 
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

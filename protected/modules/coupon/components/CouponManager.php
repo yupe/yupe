@@ -1,61 +1,85 @@
 <?php
 
+/**
+ * Class CouponManager
+ */
 class CouponManager extends CComponent
 {
+    /**
+     * @var array
+     */
     private $coupons = [];
+    /**
+     * @var string
+     */
     private $couponStateKey = 'cart_coupons';
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->restoreFromSession();
     }
 
+    /**
+     *
+     */
     public function init()
     {
 
     }
 
+    /**
+     * @return array
+     */
     public function getCoupons()
     {
         return $this->coupons;
     }
 
+    /**
+     *
+     */
     private function restoreFromSession()
     {
         $this->coupons = Yii::app()->getUser()->getState($this->couponStateKey, []);
     }
 
+    /**
+     *
+     */
     private function saveState()
     {
         Yii::app()->getUser()->setState($this->couponStateKey, $this->coupons);
     }
 
-    /**
-     * @param $code - Код купона
-     * @return bool|array - true - в случае успешного добавления, array - список ошибок
-     */
-    public function add($code)
+
+
+    public function add(Coupon $coupon)
     {
-        $code = strtoupper(trim($code));
-        if (in_array($code, $this->coupons)) {
-            return [Yii::t("CouponManager.coupon", 'Coupon already added')];
+        if (in_array($coupon->code, $this->coupons)) {
+            return [Yii::t("CouponModule.coupon", 'Coupon already added')];
         }
-        /* @var $coupon Coupon */
-        $coupon = Coupon::model()->getCouponByCode($code);
-        if (null !== $coupon) {
-            $price = Yii::app()->cart->getCost();
-            if ($coupon->getIsAvailable($price)) {
-                $this->coupons = array_unique(array_merge($this->coupons, [$code]));
-                $this->saveState();
-                return true;
-            } else {
-                return $coupon->getCouponErrors($price);
-            }
+
+        $price = Yii::app()->cart->getCost();
+
+        $errors = $coupon->getCouponErrors($price);
+
+        if (empty($errors)) {
+            $this->coupons = array_unique(array_merge($this->coupons, [$coupon->code]));
+            $this->saveState();
+            return true;
+        } else {
+            return $errors;
         }
 
         return false;
     }
 
+    /**
+     * @param $code
+     */
     public function remove($code)
     {
         $code = $code = strtoupper(trim($code));
@@ -63,12 +87,18 @@ class CouponManager extends CComponent
         $this->saveState();
     }
 
+    /**
+     *
+     */
     public function clear()
     {
         $this->coupons = [];
         $this->saveState();
     }
 
+    /**
+     *
+     */
     public function check()
     {
         if (Yii::app()->cart->isEmpty()) {
@@ -83,5 +113,16 @@ class CouponManager extends CComponent
                 $this->remove($code);
             }
         }
+    }
+
+    /**
+     * @param $code
+     * @return mixed
+     */
+    public function findCouponByCode($code)
+    {
+        $code = strtoupper(trim($code));
+
+        return Coupon::model()->getCouponByCode($code);
     }
 }

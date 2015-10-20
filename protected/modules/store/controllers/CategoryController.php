@@ -24,7 +24,7 @@ class CategoryController extends FrontController
     public function actionIndex()
     {
         $this->render('index', [
-            'dataProvider' => new CArrayDataProvider(StoreCategory::model()->getMenuList(1), [
+            'dataProvider' => new CArrayDataProvider(StoreCategory::model()->published()->getMenuList(1), [
                 'id' => 'id',
                 'pagination' => false
             ]),

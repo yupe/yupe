@@ -31,6 +31,7 @@ return [
     'Record removed!' => 'Запись удалена!',
     'Record updated!' => 'Запись изменена!',
     'Reply to your comment on the website "{app}"!' => 'Ответ на Ваш комментарий на сайте "{app}" !',
+    'Save' => 'Сохранить',
     'Save notification and close' => 'Сохранить уведомление и закрыть',
     'Save notification and continue' => 'Сохранить уведомление и продолжить',
     'Search notify' => 'Поиск увеломления',
