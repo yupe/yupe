@@ -477,4 +477,16 @@ JS
             CClientScript::POS_BEGIN
         );
     }
+
+    public function registerCustomClientScript()
+    {
+        parent::registerCustomClientScript();
+
+        if($this->sortableRows) {
+            $mainAssets = Yii::app()->getAssetManager()->publish(
+                Yii::getPathOfAlias('application.modules.yupe.views.assets')
+            );
+            Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/custom-grid-sortable.js', CClientScript::POS_END);
+        }
+    }
 }

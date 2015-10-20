@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'Coupon already added' => 'Данный купон уже добавлен!',
+    'Error add coupon' => 'При добавлении купона произошла ошибка!',
     '*unknown*' => '*неизвестно*',
     'Active' => 'Активен',
     'Add coupon and close' => 'Добавить купон и закрыть',
@@ -9,7 +11,6 @@ return [
     'Batch delete' => 'Массовое удаление купонов',
     'Clients only' => 'Только для клиентов',
     'Code' => 'Код',
-    'Coupon already added' => 'Купон уже добавлен',
     'Coupon expired' => 'Купон просрочен',
     'Coupon is available only for registered users' => 'Купон доступен только для зарегистрированных пользователей',
     'Coupon not found' => 'Купон не найден',

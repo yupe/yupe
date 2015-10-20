@@ -2,15 +2,27 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class CouponModule
+ */
 class CouponModule extends WebModule
 {
-    const VERSION = '0.9.7';
+    /**
+     *
+     */
+    const VERSION = '0.9.9';
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
@@ -28,51 +40,81 @@ class CouponModule extends WebModule
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/coupon/couponBackend/index';
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('CouponModule.coupon', 'Store');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('CouponModule.coupon', 'Coupons');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('CouponModule.coupon', 'Store coupon module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('CouponModule.coupon', 'amylabs team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('CouponModule.coupon', 'hello@amylabs.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-tags';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -84,6 +126,9 @@ class CouponModule extends WebModule
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [

@@ -328,7 +328,7 @@ class Post extends yupe\models\YModel implements ICommentable
             'Post', [
                 'criteria' => $criteria,
                 'sort'     => [
-                    'defaultOrder' => 'publish_time DESC',
+                    'defaultOrder' => 't.publish_time DESC, t.id DESC',
                 ]
             ]
         );

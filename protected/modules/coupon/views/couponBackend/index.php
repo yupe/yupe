@@ -49,7 +49,7 @@ $this->widget(
             [
                 'header' => Yii::t('CouponModule.coupon', 'Orders'),
                 'value'  => function($data) {
-                        return CHtml::link($data->ordersCount,[], ['class' => 'badge']);
+                        return CHtml::link($data->ordersCount,'', ['class' => 'badge']);
                     },
                 'type' => 'raw'
             ],

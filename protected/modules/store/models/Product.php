@@ -289,6 +289,7 @@ class Product extends yupe\models\YModel implements ICommentable
         if ($this->category) {
             $criteria->with = ['categoryRelation' => ['together' => true]];
             $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
+            $criteria->group = 't.id';
             $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category]);
         }
 
@@ -341,7 +342,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 continue;
             }
 
-            if ($attribute->isRequired() && !isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id]) {
+            if ($attribute->isRequired() && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])) {
                 $this->addError($attribute->title, Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $attribute->title]));
             }
         }

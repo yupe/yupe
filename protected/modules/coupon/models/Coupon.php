@@ -18,10 +18,22 @@ Yii::import('coupon.CouponModule'); // при вызове из корзины �
  */
 class Coupon extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
 
+    /**
+     *
+     */
     const TYPE_SUM = 0;
+    /**
+     *
+     */
     const TYPE_PERCENT = 1;
 
     /**
@@ -58,6 +70,9 @@ class Coupon extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -68,6 +83,9 @@ class Coupon extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -97,6 +115,9 @@ class Coupon extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -135,6 +156,9 @@ class Coupon extends yupe\models\YModel
         return parent::model($className);
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->start_time = !$this->start_time ? '' : date('Y-m-d', strtotime($this->start_time));
@@ -142,14 +166,20 @@ class Coupon extends yupe\models\YModel
         parent::afterFind();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->start_time = $this->start_time ? : null;
-        $this->end_time = $this->end_time ? : null;
+        $this->start_time = $this->start_time ?: null;
+        $this->end_time = $this->end_time ?: null;
 
         return parent::beforeSave();
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -158,6 +188,9 @@ class Coupon extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
@@ -165,6 +198,9 @@ class Coupon extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getTypeList()
     {
         return [
@@ -173,6 +209,9 @@ class Coupon extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getTypeTitle()
     {
         $data = $this->getTypeList();
@@ -180,11 +219,19 @@ class Coupon extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*unknown*');
     }
 
+    /**
+     * @param $code
+     * @return mixed
+     */
     public function getCouponByCode($code)
     {
         return $this->active()->findByAttributes(['code' => $code]);
     }
 
+    /**
+     * @param int $price
+     * @return array
+     */
     public function getCouponErrors($price = 0)
     {
         $errors = [];
@@ -202,8 +249,7 @@ class Coupon extends yupe\models\YModel
         if (!is_null($this->quantity) && $this->quantity <= 0) {
             $errors[] = Yii::t('CouponModule.coupon', 'Coupons are ended');
         }
-        if (!is_null($this->quantity_per_user) && !Yii::app()->getUser()->isGuest && ($this->getNumberUsagesByUser(
-                ) >= $this->quantity_per_user)
+        if (!is_null($this->quantity_per_user) && !Yii::app()->getUser()->getIsGuest() && ($this->getNumberUsagesByUser(Yii::app()->getUser()->getId()) >= $this->quantity_per_user)
         ) {
             $errors[] = Yii::t('CouponModule.coupon', 'You\'ve used up all your coupons');
         }
@@ -220,11 +266,19 @@ class Coupon extends yupe\models\YModel
         return $errors;
     }
 
+    /**
+     * @param int $price
+     * @return bool
+     */
     public function getIsAvailable($price = 0)
     {
         return !$this->getCouponErrors($price);
     }
 
+    /**
+     * @param $price
+     * @return float
+     */
     public function getDiscount($price)
     {
         $discount = 0.00;
@@ -245,19 +299,28 @@ class Coupon extends yupe\models\YModel
         return $discount;
     }
 
+    /**
+     *
+     */
     public function decreaseQuantity()
     {
         if (!is_null($this->quantity)) {
             $this->quantity -= 1;
-            $this->save();
+            $this->update(['quantity']);
         }
     }
 
-    public function getNumberUsagesByUser()
+    /**
+     * @return string
+     */
+    public function getNumberUsagesByUser($userId)
     {
-        return Order::model()->count(
-            'coupon_code like :code and user_id = :user_id',
-            [':code' => '%' . $this->code . '%', 'user_id' => Yii::app()->getUser()->getId()]
+        return OrderCoupon::model()->with(['order'])->count(
+            't.coupon_id = :id and order.user_id = :user_id',
+            [
+                ':id' => $this->id,
+                'user_id' => (int)$userId
+            ]
         );
     }
 }

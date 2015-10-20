@@ -131,14 +131,14 @@ class YAjaxFileUploadAction extends CAction
         }
 
         $name = $this->uploadedFile->name;
-        $extension = $this->uploadedFile->extensionName;
+        $extension = '.' . $this->uploadedFile->extensionName;
         // сгенерировать имя файла и сохранить его,
         // если не включено переименование, то все равно имя переводится в транслит, чтобы не было проблем
         $fileName = $this->rename ?
-            md5(time() . uniqid() . $name) . '.' . $extension :
+            md5(time() . uniqid() . $name) . $extension :
             YText::translit(
-                basename($name, $extension)
-            ) . '_' . time() . '.' . $extension;
+                str_ireplace($extension, '', $name)
+            ) . '_' . time() . $extension;
 
         if (!$this->uploadedFile->saveAs($this->uploadPath . $fileName)) {
             Yii::app()->ajax->raw(
