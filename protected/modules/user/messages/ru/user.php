@@ -364,4 +364,6 @@ return [
     'yupe team' => 'yupe team',
     'Yupe!' => 'Юпи!',
     'Phone' => 'Телефон',
+    'Phone - mask' => 'Телефон - маска',
+    'Phone - pattern' => 'Телефон - шаблон',
 ];

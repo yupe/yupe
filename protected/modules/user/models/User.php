@@ -129,9 +129,9 @@ class User extends yupe\models\YModel
                 'match',
                 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
             ],
             ['site', 'url', 'allowEmpty' => true],
             ['email', 'email'],
@@ -161,7 +161,7 @@ class User extends yupe\models\YModel
             [
                 'phone',
                 'match',
-                'pattern' => '/^((\+?7)(-?\d{3})-?)?(\d{3})(-?\d{4})$/',
+                'pattern' => $module->phonePattern,
                 'message' => 'Некорректный формат поля {attribute}'
             ],
         ];
@@ -171,7 +171,7 @@ class User extends yupe\models\YModel
     {
         return [
             'CTimestampBehavior' => [
-                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
             ],
         ];
@@ -543,8 +543,8 @@ class User extends yupe\models\YModel
     {
         $list = [];
         $yupe = Yii::app()->getModule('yupe');
-        
-        foreach(User::model()->cache($yupe->coreCacheTime)->findAll() as $user) {
+
+        foreach (User::model()->cache($yupe->coreCacheTime)->findAll() as $user) {
             $list[$user->id] = $user->getFullName($separator);
         }
 

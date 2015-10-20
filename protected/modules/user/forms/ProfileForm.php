@@ -62,14 +62,14 @@ class ProfileForm extends CFormModel
             [
                 'avatar',
                 'file',
-                'types'      => $module->avatarExtensions,
-                'maxSize'    => $module->avatarMaxSize,
+                'types' => $module->avatarExtensions,
+                'maxSize' => $module->avatarMaxSize,
                 'allowEmpty' => true
             ],
             [
                 'phone',
                 'match',
-                'pattern' => '/^((\+?7)(-?\d{3})-?)?(\d{3})(-?\d{4})$/',
+                'pattern' => $module->phonePattern,
                 'message' => 'Некорректный формат поля {attribute}'
             ],
         ];
@@ -78,17 +78,17 @@ class ProfileForm extends CFormModel
     public function attributeLabels()
     {
         return [
-            'first_name'   => Yii::t('UserModule.user', 'Name'),
-            'last_name'    => Yii::t('UserModule.user', 'Last name'),
-            'middle_name'  => Yii::t('UserModule.user', 'Family name'),
-            'nick_name'    => Yii::t('UserModule.user', 'User name'),
-            'gender'       => Yii::t('UserModule.user', 'Sex'),
-            'birth_date'   => Yii::t('UserModule.user', 'Birthday date'),
-            'about'        => Yii::t('UserModule.user', 'About yourself'),
-            'avatar'       => Yii::t('UserModule.user', 'Avatar'),
+            'first_name' => Yii::t('UserModule.user', 'Name'),
+            'last_name' => Yii::t('UserModule.user', 'Last name'),
+            'middle_name' => Yii::t('UserModule.user', 'Family name'),
+            'nick_name' => Yii::t('UserModule.user', 'User name'),
+            'gender' => Yii::t('UserModule.user', 'Sex'),
+            'birth_date' => Yii::t('UserModule.user', 'Birthday date'),
+            'about' => Yii::t('UserModule.user', 'About yourself'),
+            'avatar' => Yii::t('UserModule.user', 'Avatar'),
             'use_gravatar' => Yii::t('UserModule.user', 'Gravatar'),
-            'site'         => Yii::t('UserModule.user', 'Site'),
-            'location'     => Yii::t('UserModule.user', 'Location'),
+            'site' => Yii::t('UserModule.user', 'Site'),
+            'location' => Yii::t('UserModule.user', 'Location'),
             'phone' => Yii::t('UserModule.user', 'Phone'),
         ];
     }
