@@ -19,6 +19,9 @@
  */
 class AttributeValue extends yupe\models\YModel
 {
+    /**
+     * @var array
+     */
     private $attributes = [];
 
     /**
@@ -71,7 +74,7 @@ class AttributeValue extends yupe\models\YModel
             'string_value' => 'Str Value',
             'text_value' => 'Text Value',
             'option_value' => 'Option value',
-            'create_time'  => 'Create time'
+            'create_time' => 'Create time'
         );
     }
 
@@ -116,6 +119,12 @@ class AttributeValue extends yupe\models\YModel
         return parent::model($className);
     }
 
+    /**
+     * @param $attributeId
+     * @param $value
+     * @param Product $product
+     * @return bool
+     */
     public function store($attributeId, $value, Product $product)
     {
         $attribute = null;
@@ -153,6 +162,10 @@ class AttributeValue extends yupe\models\YModel
         return $this->save();
     }
 
+    /**
+     * @param null $default
+     * @return bool|float|int|null|string
+     */
     public function value($default = null)
     {
         switch ($this->attribute->type) {
@@ -176,15 +189,19 @@ class AttributeValue extends yupe\models\YModel
         }
     }
 
-    public function column(Attribute $attribute)
+    /**
+     * @param Attribute $attribute
+     * @return string
+     */
+    public function column($type)
     {
-        $type = (int)$attribute->type;
+        $type = (int)$type;
 
         $map = [
             Attribute::TYPE_DROPDOWN => 'option_value',
             Attribute::TYPE_CHECKBOX => 'number_value',
             Attribute::TYPE_NUMBER => 'number_value',
-            Attribute::TYPE_TEXT   => 'text_value',
+            Attribute::TYPE_TEXT => 'text_value',
             Attribute::TYPE_SHORT_TEXT => 'string_value'
         ];
 

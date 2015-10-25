@@ -24,16 +24,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.store', 'Fields with'); ?>
+    <?= Yii::t('StoreModule.store', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.store', 'are required'); ?>
+    <?= Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -49,7 +49,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'group_id',
             [
@@ -67,39 +67,39 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'title'); ?>
+        <?= $form->textFieldGroup($model, 'title'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'name', ['sourceAttribute' => 'title']); ?>
+        <?= $form->slugFieldGroup($model, 'name', ['sourceAttribute' => 'title']); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'unit'); ?>
+        <?= $form->textFieldGroup($model, 'unit'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->checkBoxGroup($model, 'required'); ?>
+        <?= $form->checkBoxGroup($model, 'required'); ?>
     </div>
 </div>
 
 
 <div class="row">
-    <div id="options" class="<?php echo !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
+    <div id="options" class="<?= !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
         <div class="row form-group">
             <div class="col-sm-12">
-                <?php echo Yii::t("StoreModule.attr", "Each option value must be on a new line."); ?>
+                <?= Yii::t("StoreModule.attr", "Each option value must be on a new line."); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo CHtml::activeTextArea($model, 'rawOptions', ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
+                <?= CHtml::activeTextArea($model, 'rawOptions', ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
             </div>
         </div>
     </div>
@@ -108,7 +108,7 @@ $form = $this->beginWidget(
 <script type="text/javascript">
     $(function () {
         $('#attribute-type').change(function () {
-            if ($.inArray(parseInt($(this).val()), [<?php echo join(',', Attribute::getTypesWithOptions());?>]) >= 0) {
+            if ($.inArray(parseInt($(this).val()), [<?= join(',', Attribute::getTypesWithOptions());?>]) >= 0) {
                 $('#options').removeClass('hidden');
             }
             else {

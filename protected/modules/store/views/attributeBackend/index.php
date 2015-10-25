@@ -13,15 +13,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.attr', 'Attributes'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
+        <?= Yii::t('StoreModule.attr', 'Attributes'); ?>
+        <small><?= Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <fieldset>
-            <legend><?php echo Yii::t("StoreModule.attr", "Attribute groups"); ?></legend>
+            <legend><?= Yii::t("StoreModule.attr", "Attribute groups"); ?></legend>
             <script type="text/javascript">
                 $(document).ready(function () {
                     var $container = $('body');
@@ -38,12 +38,12 @@ $this->menu = [
 
                     $container.on('click', '#add-attribute-group', function (e) {
                         e.preventDefault();
-                        var name = prompt('<?php echo Yii::t("StoreModule.store", "Title"); ?>');
+                        var name = prompt('<?= Yii::t("StoreModule.store", "Title"); ?>');
                         if (name) {
                             var data = {name: name};
-                            data["<?php echo Yii::app()->getRequest()->csrfTokenName?>"] = "<?php echo Yii::app()->getRequest()->csrfToken?>";
+                            data["<?= Yii::app()->getRequest()->csrfTokenName?>"] = "<?= Yii::app()->getRequest()->csrfToken?>";
                             $.ajax({
-                                url: '<?php echo Yii::app()->createUrl("/store/attributeBackend/groupCreate")?>',
+                                url: '<?= Yii::app()->createUrl("/store/attributeBackend/groupCreate")?>',
                                 type: 'post',
                                 data: data,
                                 dataType: 'json',
@@ -115,7 +115,7 @@ $this->menu = [
             ]
         ); ?>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         <?php $this->widget(
             'yupe\widgets\CustomGridView',
             [

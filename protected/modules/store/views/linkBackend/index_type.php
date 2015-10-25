@@ -45,14 +45,14 @@ $this->menu = [
         ]
     ); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+    <?= $form->errorSummary($model); ?>
 
     <div class="row">
         <div class="col-sm-6">
-            <?php echo $form->textFieldGroup($model, 'code'); ?>
+            <?= $form->textFieldGroup($model, 'code'); ?>
         </div>
         <div class="col-sm-6">
-            <?php echo $form->textFieldGroup($model, 'title'); ?>
+            <?= $form->textFieldGroup($model, 'title'); ?>
         </div>
     </div>
 

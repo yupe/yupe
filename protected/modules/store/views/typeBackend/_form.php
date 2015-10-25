@@ -39,11 +39,11 @@ $form = $this->beginWidget(
     <?= Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'main_category_id',
             [
@@ -62,14 +62,14 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 
 <div class='row'>
     <div class="col-sm-7 form-group">
-        <?php echo CHtml::activeLabel($model, 'categories'); ?>
+        <?= CHtml::activeLabel($model, 'categories'); ?>
         <?php $this->widget('store.widgets.CategoryTreeWidget', ['selectedCategories' => unserialize($model->categories), 'id' => 'category-tree']); ?>
     </div>
 </div>
@@ -114,7 +114,7 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <?php echo Yii::t("StoreModule.type", "Type attributes"); ?>
+                <?= Yii::t("StoreModule.type", "Type attributes"); ?>
             </div>
             <div class="panel-body">
                 <?php $this->widget('CTreeView', ['data' => $tree, 'collapsed' => true]); ?>

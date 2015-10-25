@@ -15,8 +15,8 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.store', 'Products'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
+        <?= Yii::t('StoreModule.store', 'Products'); ?>
+        <small><?= Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 

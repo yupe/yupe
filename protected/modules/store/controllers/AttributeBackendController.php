@@ -86,8 +86,10 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Attribute')) !== null) {
+            $currentType = $model->type;
             $model->setAttributes(Yii::app()->getRequest()->getPost('Attribute'));
-            if ($model->save()) {
+
+            if ($model->save() && $model->changeType($currentType, $model->type)) {
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
