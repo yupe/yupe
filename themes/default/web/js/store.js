@@ -196,16 +196,15 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result) {
                     el.parents('tr').remove();
-
-                    if($('.cart-position').length > 0) {
-                        updateCartTotalCost();
+                    updateCartTotalCost();
+                    if ($('.cart-position').length > 0) {
+                        updateCartWidget();
                     } else {
                         $('#cart-body').html(yupeCartEmptyMessage);
                     }
                 }
             }
         });
-
     });
 
     $('.position-count').change(function () {
@@ -284,7 +283,9 @@ $(document).ready(function () {
             return 0;
         }
         var selectedDeliveryType = $('input[name="Order[delivery_id]"]:checked');
-        if (!selectedDeliveryType[0]) {return 0;}
+        if (!selectedDeliveryType[0]) {
+            return 0;
+        }
         if (parseInt(selectedDeliveryType.data('separate-payment')) || parseFloat(selectedDeliveryType.data('free-from')) <= cartTotalCost) {
             return 0;
         } else {
@@ -313,7 +314,7 @@ $(document).ready(function () {
     checkFirstAvailableDeliveryType();
     updateAllCosts();
 
-    $('#start-payment').on('click',function () {
+    $('#start-payment').on('click', function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
     });
 

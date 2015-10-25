@@ -130,7 +130,7 @@ class CartModule extends WebModule
 
         $this->setImport(
             [
-                'cart.extensions.shopping-cart.*',
+                'cart.components.shopping-cart.*',
                 'cart.widgets.ShoppingCartWidget',
                 'cart.models.*',
             ]

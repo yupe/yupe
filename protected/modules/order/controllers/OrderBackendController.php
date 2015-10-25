@@ -67,9 +67,9 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
 
-            $order = Yii::app()->getRequest()->getPost('Order');
+            $order = Yii::app()->getRequest()->getPost('Order', []);
 
-            $products = Yii::app()->getRequest()->getPost('OrderProduct');
+            $products = Yii::app()->getRequest()->getPost('OrderProduct', []);
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
