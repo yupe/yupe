@@ -100,7 +100,10 @@
             </div>
             <div class="header__item header-description">Магазин бытовой техники</div>
             <div class="header__item header-phone">
-                <div class="header__phone">8 (456) 123-45-67</div><a href="javascript:void(0);" class="header-phone-callback">Заказать звонок</a>
+                <div class="header__phone">8 (456) 123-45-67</div>
+                <?php if (Yii::app()->hasModule('callback')): ?>
+                    <?php $this->widget('application.modules.callback.widgets.CallbackWidget'); ?>
+                <?php endif; ?>
             </div>
             <?php if (Yii::app()->hasModule('cart')): ?>
                 <div id="shopping-cart-widget">
