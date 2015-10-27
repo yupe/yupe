@@ -114,7 +114,7 @@
             <div class="search-bar__wrapper"><a href="javascript:void(0);" data-toggle="#menu-catalog" class="search-bar__catalog-button">Каталог товаров</a>
                 <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
             </div>
-            <?php $this->widget('application.modules.store.widgets.CategoryWidget'); ?>
+            <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['depth' => 2]); ?>
         </div>
     </div>
     <div class="main__breadcrumbs grid">
