@@ -62,7 +62,30 @@
                         <a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-balance-scale fa-lg fa-fw"></i> Сравнение</span><span class="badge badge_light-blue">2</span>
                         </a>
                     </div>
-                    <div class="navbar__user"><a href="javascript:void(0);" class="toolbar-button toolbar-button_dropdown"><span class="toolbar-button__label"><i class="fa fa-user fa-lg fa-fw"></i> Личный кабинет</span><span class="badge badge_light-blue"></span><div class="dropdown-menu"><div class="dropdown-menu__header">Иванов Василий</div><div class="dropdown-menu__item"><div class="dropdown-menu__link">Мои заказы</div></div><div class="dropdown-menu__item"><div class="dropdown-menu__link">Мои настройки</div></div><div class="dropdown-menu__item"><div class="dropdown-menu__link">Обратная связь</div></div><div class="dropdown-menu__separator"></div><div class="dropdown-menu__item"><div class="dropdown-menu__link dropdown-menu__link_exit">Выход</div></div></div></a>
+                    <div class="navbar__user">
+                        <a href="javascript:void(0);" class="toolbar-button toolbar-button_dropdown">
+                            <span class="toolbar-button__label">
+                                <i class="fa fa-user fa-lg fa-fw"></i> Личный кабинет
+                            </span>
+                            <span class="badge badge_light-blue"></span>
+
+                           <div class="dropdown-menu">
+                               <div class="dropdown-menu__header">Иванов Василий</div>
+                               <div class="dropdown-menu__item">
+                                   <div class="dropdown-menu__link">Мои заказы</div>
+                               </div>
+                               <div class="dropdown-menu__item">
+                                   <div class="dropdown-menu__link">Мои настройки</div>
+                               </div>
+                               <div class="dropdown-menu__item">
+                                   <div class="dropdown-menu__link">Обратная связь</div>
+                               </div>
+                               <div class="dropdown-menu__separator"></div>
+                               <div class="dropdown-menu__item">
+                                   <div class="dropdown-menu__link dropdown-menu__link_exit">Выход</div>
+                               </div>
+                           </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -71,13 +94,16 @@
     <div class="main__header">
         <div class="header grid">
             <div class="header__item header-logo">
-                <a href="javascript:void(0);" class="header__logo-link">
+                <a href="<?= Yii::app()->createUrl(Yii::app()->hasModule('homepage') ? '/homepage/hp/index' : '/site/index') ?>" class="header__logo-link">
                     <img src="<?= $this->mainAssets ?>/images/logo.png" class="header-logo-image">
                 </a>
             </div>
             <div class="header__item header-description">Магазин бытовой техники</div>
             <div class="header__item header-phone">
-                <div class="header__phone">8 (456) 123-45-67</div><a href="javascript:void(0);" class="header-phone-callback">Заказать звонок</a>
+                <div class="header__phone">8 (456) 123-45-67</div>
+                <?php if (Yii::app()->hasModule('callback')): ?>
+                    <?php $this->widget('application.modules.callback.widgets.CallbackWidget'); ?>
+                <?php endif; ?>
             </div>
             <?php if (Yii::app()->hasModule('cart')): ?>
                 <div id="shopping-cart-widget">
@@ -91,7 +117,7 @@
             <div class="search-bar__wrapper"><a href="javascript:void(0);" data-toggle="#menu-catalog" class="search-bar__catalog-button">Каталог товаров</a>
                 <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
             </div>
-            <?php $this->widget('application.modules.store.widgets.CategoryWidget'); ?>
+            <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['depth' => 2]); ?>
         </div>
     </div>
     <div class="main__breadcrumbs grid">
@@ -128,16 +154,10 @@
                         <?php endif; ?>
                     </div>
                     <div class="footer__group">
-                        <div class="footer__item"><a href="javascript:void(0);" class="footer__link">Телефония, МР3-плееры, GPS</a>
-                        </div>
-                        <div class="footer__item"><a href="javascript:void(0);" class="footer__link">Домашнее видео</a>
-                        </div>
-                        <div class="footer__item"><a href="javascript:void(0);" class="footer__link">Детские товары</a>
-                        </div>
-                        <div class="footer__item"><a href="javascript:void(0);" class="footer__link">Активный отдых и туризм</a>
-                        </div>
-                        <div class="footer__item"><a href="javascript:void(0);" class="footer__link">Музыкальные инструменты</a>
-                        </div>
+                        <?php $this->widget('application.modules.store.widgets.CategoryWidget', [
+                            'depth' => 0,
+                            'view' => 'footer'
+                        ]); ?>
                     </div>
                     <div class="footer__group">
                         <div class="footer__item footer__item_header">Контакты</div>
