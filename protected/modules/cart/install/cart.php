@@ -5,12 +5,12 @@ return [
         'class' => 'application.modules.cart.CartModule',
     ],
     'import' => [
-        'application.modules.cart.extensions.shopping-cart.*',
-        'application.modules.cart.models.*',
+        'application.modules.cart.components.shopping-cart.*',
+        'application.modules.cart.models.CartProduct',
     ],
     'component' => [
         'cart' => [
-            'class' => 'application.modules.cart.extensions.shopping-cart.EShoppingCart',
+            'class' => 'application.modules.cart.components.shopping-cart.EShoppingCart',
         ],
     ],
     'rules' => [

@@ -342,6 +342,9 @@ return [
     'Email was updated.' => '',
     'Your password was changed successfully.' => '',
     'Avatar extensions' => '',
+    'Phone' => '',
+    'Phone - mask' => '',
+    'Phone - pattern' => '',
     'Generate user name automatically' => '',
     'Generate password' => '',
 ];

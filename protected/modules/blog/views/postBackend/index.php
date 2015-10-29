@@ -182,7 +182,7 @@ $this->menu = [
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'create_user_id',
-                    CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(), 'id', 'nick_name'),
+                    User::getFullNameList(),
                     ['class' => 'form-control', 'empty' => '']
                 ),
             ],

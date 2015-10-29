@@ -110,11 +110,12 @@ $this->menu = [
                 'name'   => 'user_id',
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
-                'filter' => CHtml::listData(
-                    User::model()->cache($this->yupe->coreCacheTime)->findAll(),
-                    'id',
-                    'nick_name'
-                )
+                'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'user_id',
+                    User::getFullNameList(),
+                    ['class' => 'form-control', 'empty' => '']
+                ),
             ],
             [
                 'name'   => 'blog_id',

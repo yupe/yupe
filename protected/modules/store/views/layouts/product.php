@@ -13,5 +13,5 @@ $this->menu = array_merge([
 ?>
 
 <?php $this->beginContent($this->yupe->getBackendLayoutAlias('column2')); ?>
-<?php echo $content; ?>
+<?= $content; ?>
 <?php $this->endContent(); ?>

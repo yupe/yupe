@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class CartController
+ */
 class CartController extends \yupe\components\controllers\FrontController
 {
+    /**
+     *
+     */
     public function actionIndex()
     {
         $positions = Yii::app()->cart->getPositions();
@@ -32,6 +38,9 @@ class CartController extends \yupe\components\controllers\FrontController
         );
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionAdd()
     {
         if (!Yii::app()->getRequest()->getIsPostRequest()) {
@@ -67,6 +76,9 @@ class CartController extends \yupe\components\controllers\FrontController
         Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product successfully added to your basket'));
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionUpdate()
     {
         if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('id')) {
@@ -79,6 +91,9 @@ class CartController extends \yupe\components\controllers\FrontController
         Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Quantity changed'));
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionDelete()
     {
         if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('id')) {
@@ -89,6 +104,9 @@ class CartController extends \yupe\components\controllers\FrontController
         Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product removed from cart'));
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionClear()
     {
         if (!Yii::app()->getRequest()->getIsPostRequest()) {
@@ -99,6 +117,9 @@ class CartController extends \yupe\components\controllers\FrontController
         Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Cart is cleared'));
     }
 
+    /**
+     *
+     */
     public function actionWidget()
     {
         //$this->renderPartial('//cart/widgets/views/shoppingCart');

@@ -53,4 +53,11 @@ return [
     'Users' => 'Пользователи',
     'View action' => 'Просмотр действия',
     'Viewing roles' => 'Просмотр ролей',
+    'Create operation' => 'Добавить операцию',
+    'Creating operation' => 'Добавление операции',
+    'View operation' => 'Просмотр операции',
+    'Edit operation' => 'Редактирование операции',
+    'Remove operation' => 'Удалить операцию',
+    'Operation' => 'Операция',
+    'Do you really want to remove the operation?' => 'Вы действительно хотите удалить операцию?'
 ];

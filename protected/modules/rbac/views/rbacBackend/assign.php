@@ -19,13 +19,28 @@
     });
 </script>
 
-<?php
-$this->breadcrumbs = [
-    Yii::t('RbacModule.rbac', 'Actions')   => ['index'],
+<?php $this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'RBAC')   => ['index'],
     Yii::t('RbacModule.rbac', 'User list') => ['userList'],
     Yii::t('RbacModule.rbac', 'Rights assignment'),
 ];
-?>
+
+$this->menu = array_merge(
+    $this->module->getNavigation(),
+    [
+        ['label' => Yii::t('RbacModule.rbac', 'User Rights Assignment')],
+        [
+            'icon'        => 'fa fa-fw fa-pencil',
+            'encodeLabel' => false,
+            'label'       => Yii::t('RbacModule.rbac', 'Roles'),
+            'url'         => [
+                '/rbac/rbacBackend/assign',
+                'id' => $model->id
+            ]
+        ],
+
+    ]
+); ?>
 
 <h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?php echo $model->getFullName(); ?>"</h3>
 

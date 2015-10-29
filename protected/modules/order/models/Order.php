@@ -504,6 +504,7 @@ class Order extends yupe\models\YModel
 
     /**
      * @return bool
+     * @TODO вынести всю логику в saveData
      */
     public function beforeSave()
     {

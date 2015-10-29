@@ -158,6 +158,12 @@ class User extends yupe\models\YModel
                 'on' => 'search'
             ],
             ['birth_date', 'default', 'setOnEmpty' => true, 'value' => null],
+            [
+                'phone',
+                'match',
+                'pattern' => $module->phonePattern,
+                'message' => 'Некорректный формат поля {attribute}'
+            ],
         ];
     }
 
@@ -215,6 +221,7 @@ class User extends yupe\models\YModel
             'site' => Yii::t('UserModule.user', 'Site/blog'),
             'location' => Yii::t('UserModule.user', 'Location'),
             'about' => Yii::t('UserModule.user', 'About yourself'),
+            'phone' => Yii::t('UserModule.user', 'Phone'),
         ];
     }
 
@@ -522,6 +529,25 @@ class User extends yupe\models\YModel
             $size,
             $size
         );
+    }
+
+    /**
+     * Получаем список пользователей с полным имем:
+     *
+     * @param string $separator - разделитель
+     *
+     * @return string
+     */
+    public static function getFullNameList($separator = ' ')
+    {
+        $list = [];
+        $yupe = Yii::app()->getModule('yupe');
+
+        foreach (User::model()->cache($yupe->coreCacheTime)->findAll() as $user) {
+            $list[$user->id] = $user->getFullName($separator);
+        }
+
+        return $list;
     }
 
     /**

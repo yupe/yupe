@@ -245,7 +245,7 @@ class AttributeFilter extends CComponent
             $result[$attribute->name] = [
                 'value' => $searchParams,
                 'attribute_id' => (int)$attribute->id,
-                'column' => $attributeValue->column($attribute)
+                'column' => $attributeValue->column($attribute->type)
             ];
         }
 

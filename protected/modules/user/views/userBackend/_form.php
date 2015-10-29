@@ -67,8 +67,25 @@
                 ],
                 'prepend' => '<i class="fa fa-calendar"></i>',
             ]
-        );
-        ?>
+        ); ?>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <?php echo $form->labelEx($model,'phone',['class' => 'control-label']); ?>
+            <?php $this->widget(
+                'CMaskedTextField',
+                [
+                    'model' => $model,
+                    'attribute' => 'phone',
+                    'mask' => $this->module->phoneMask,
+                    'placeholder' => '*',
+                    'htmlOptions' => [
+                        'class' => 'form-control'
+                    ]
+                ]
+            ); ?>
+            <?php echo $form->error($model,'phone'); ?>
+        </div>
     </div>
 </div>
 <div class="row">

@@ -13,9 +13,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.category', 'Category'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'creating'); ?></small>
+        <?= Yii::t('StoreModule.category', 'Category'); ?>
+        <small><?= Yii::t('StoreModule.store', 'creating'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?= $this->renderPartial('_form', ['model' => $model]); ?>

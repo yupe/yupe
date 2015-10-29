@@ -15,17 +15,17 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('StoreModule.store', 'Fields with'); ?>
+    <?= Yii::t('StoreModule.store', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('StoreModule.store', 'are required'); ?>
+    <?= Yii::t('StoreModule.store', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 
 <div class='row'>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'parent_id',
             [
@@ -40,7 +40,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -53,12 +53,12 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
+        <?= $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>
@@ -72,7 +72,7 @@ $form = $this->beginWidget(
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             ]
         ); ?>
-        <?php echo $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'image',
             [
@@ -87,8 +87,8 @@ $form = $this->beginWidget(
 </div>
 
 <div class='row'>
-    <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'description'); ?>
+    <div class="col-sm-12 <?= $model->hasErrors('description') ? 'has-error' : ''; ?>">
+        <?= $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -97,13 +97,13 @@ $form = $this->beginWidget(
             ]
         ); ?>
         <p class="help-block"></p>
-        <?php echo $form->error($model, 'description'); ?>
+        <?= $form->error($model, 'description'); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-sm-12 <?php echo $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'short_description'); ?>
+    <div class="col-sm-12 <?= $model->hasErrors('short_description') ? 'has-error' : ''; ?>">
+        <?= $form->labelEx($model, 'short_description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -112,7 +112,7 @@ $form = $this->beginWidget(
             ]
         ); ?>
         <p class="help-block"></p>
-        <?php echo $form->error($model, 'short_description'); ?>
+        <?= $form->error($model, 'short_description'); ?>
     </div>
 </div>
 
@@ -122,7 +122,7 @@ $form = $this->beginWidget(
         <div class="panel-heading">
             <div class="panel-title">
                 <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
-                    <?php echo Yii::t('StoreModule.store', 'Data for SEO'); ?>
+                    <?= Yii::t('StoreModule.store', 'Data for SEO'); ?>
                 </a>
             </div>
         </div>
@@ -130,17 +130,17 @@ $form = $this->beginWidget(
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textFieldGroup($model, 'meta_title'); ?>
+                        <?= $form->textFieldGroup($model, 'meta_title'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textFieldGroup($model, 'meta_keywords'); ?>
+                        <?= $form->textFieldGroup($model, 'meta_keywords'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textAreaGroup($model, 'meta_description'); ?>
+                        <?= $form->textAreaGroup($model, 'meta_description'); ?>
                     </div>
                 </div>
             </div>

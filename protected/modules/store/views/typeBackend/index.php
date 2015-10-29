@@ -13,8 +13,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('StoreModule.type', 'Product types'); ?>
-        <small><?php echo Yii::t('StoreModule.store', 'administration'); ?></small>
+        <?= Yii::t('StoreModule.type', 'Product types'); ?>
+        <small><?= Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
 

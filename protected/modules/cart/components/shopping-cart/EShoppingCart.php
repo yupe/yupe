@@ -254,6 +254,4 @@ class EShoppingCart extends CMap
     {
         return !(bool)$this->getCount();
     }
-
-
 }

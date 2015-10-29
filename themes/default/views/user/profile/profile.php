@@ -5,12 +5,12 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'User profile')];
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'                     => 'profile-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'profile-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => [
-            'class'   => 'well',
+        'type' => 'vertical',
+        'htmlOptions' => [
+            'class' => 'well',
             'enctype' => 'multipart/form-data',
         ]
     ]
@@ -49,10 +49,10 @@ $form = $this->beginWidget(
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'disabled' => true,
-                        'class'    => Yii::app()->getUser()->profile->getIsVerifyEmail() ? 'text-success' : ''
+                        'class' => Yii::app()->getUser()->profile->getIsVerifyEmail() ? 'text-success' : ''
                     ],
                 ],
-                'append'        => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/profile/email']),
+                'append' => CHtml::link(Yii::t('UserModule.user', 'Change email'), ['/user/profile/email']),
             ]
         ); ?>
         <?php if (Yii::app()->getUser()->profile->getIsVerifyEmail()): { ?>
@@ -92,10 +92,10 @@ $form = $this->beginWidget(
             'gender',
             [
                 'widgetOptions' => [
-                    'data'        => User::model()->getGendersList(),
+                    'data' => User::model()->getGendersList(),
                     'htmlOptions' => [
                         'data-original-title' => $model->getAttributeLabel('gender'),
-                        'data-content'        => User::model()->getAttributeDescription('gender')
+                        'data-content' => User::model()->getAttributeDescription('gender')
                     ],
                 ],
             ]
@@ -104,7 +104,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-xs-5">
         <?= $form->datePickerGroup(
             $model,
             'birth_date',
@@ -114,9 +114,27 @@ $form = $this->beginWidget(
                         'format' => 'yyyy-mm-dd',
                     ],
                 ],
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>'
+                'prepend' => '<i class="glyphicon glyphicon-calendar"></i>'
             ]
         ); ?>
+    </div>
+    <div class="col-xs-3">
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'phone', ['class' => 'control-label']); ?>
+            <?php $this->widget(
+                'CMaskedTextField',
+                [
+                    'model' => $model,
+                    'attribute' => 'phone',
+                    'mask' => $this->module->phoneMask,
+                    'placeholder' => '*',
+                    'htmlOptions' => [
+                        'class' => 'form-control'
+                    ]
+                ]
+            ); ?>
+            <?php echo $form->error($model, 'phone'); ?>
+        </div>
     </div>
 </div>
 
@@ -158,8 +176,8 @@ $form = $this->beginWidget(
             'bootstrap.widgets.TbButton',
             [
                 'buttonType' => 'submit',
-                'context'    => 'primary',
-                'label'      => Yii::t('UserModule.user', 'Save profile'),
+                'context' => 'primary',
+                'label' => Yii::t('UserModule.user', 'Save profile'),
             ]
         ); ?>
         <?= CHtml::link(Yii::t('UserModule.user', 'Change password'), ['/user/profile/password'], ['class' => 'btn btn-default']); ?>
