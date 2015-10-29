@@ -26,16 +26,22 @@ class RbacModule extends WebModule
     public function getNavigation()
     {
         return [
-            ['label' => Yii::t('RbacModule.rbac', 'Roles')],
-            [
-                'icon'  => 'fa fa-fw fa-user',
-                'label' => Yii::t('RbacModule.rbac', 'Assign roles'),
-                'url'   => ['/rbac/rbacBackend/assign']
-            ],
+            ['label' => Yii::t('RbacModule.rbac', 'Operations')],
             [
                 'icon'  => 'fa fa-fw fa-align-left',
                 'label' => Yii::t('RbacModule.rbac', 'Manage operations'),
                 'url'   => ['/rbac/rbacBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('RbacModule.rbac', 'Create operation'),
+                'url'   => ['/rbac/rbacBackend/create']
+            ],
+            ['label' => Yii::t('RbacModule.rbac', 'Roles')],
+            [
+                'icon'  => 'fa fa-fw fa-user',
+                'label' => Yii::t('RbacModule.rbac', 'Assign roles'),
+                'url'   => ['/rbac/rbacBackend/userList']
             ],
             ['label' => Yii::t('RbacModule.rbac', 'RBAC')],
             [

@@ -117,8 +117,14 @@ $this->menu = [
             ],
             [
                 'name'   => 'owner',
-                'filter' => $model->getUsersList(),
                 'value'  => '$data->ownerName',
+                'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'owner',
+                    User::getFullNameList(),
+                    ['class' => 'form-control', 'empty' => '']
+                ),
+
             ],
             [
                 'name'   => 'imagesCount',

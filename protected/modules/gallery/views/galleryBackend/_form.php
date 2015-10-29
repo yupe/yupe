@@ -24,7 +24,7 @@ $form = $this->beginWidget(
             'owner',
             [
                 'widgetOptions' => [
-                    'data' => $model->getUsersList(),
+                    'data' => User::getFullNameList(),
                 ],
             ]
         ); ?>

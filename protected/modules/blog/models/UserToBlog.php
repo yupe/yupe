@@ -133,7 +133,7 @@ class UserToBlog extends yupe\models\YModel
             'blog_id' => Yii::t('BlogModule.blog', 'Please choose id of the blog.'),
             'role'    => Yii::t(
                     'BlogModule.blog',
-                    'Please choose user role:<br /><br /><span class="label label-success">User</span> &ndash; Can write and comment blog posts.<br /><br /><span class="label label-warning">Moderator</span> &ndash; Can delete, edit or block posts and comments. Can ban, add or remove members.<br /><br /><span class="label label-important">Administrator</span> &ndash; Can block, add or remove blogs and members.'
+                    'Please choose user role:<br /><br /><span class="label label-success">User</span> &ndash; Can write and comment blog posts.<br /><br /><span class="label label-warning">Moderator</span> &ndash; Can delete, edit or block posts and comments. Can ban, add or remove members.<br /><br /><span class="label label-danger">Administrator</span> &ndash; Can block, add or remove blogs and members.'
                 ),
             'status'  => Yii::t(
                     'BlogModule.blog',

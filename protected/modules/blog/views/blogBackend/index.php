@@ -184,7 +184,7 @@ $this->menu = [
                 'name'   => 'create_user_id',
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id))',
-                'filter' => CHtml::listData(User::model()->findAll(), 'id', 'nick_name')
+                'filter' => User::getFullNameList()
             ],
             [
                 'name'   => 'create_time',

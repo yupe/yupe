@@ -129,9 +129,9 @@ class User extends yupe\models\YModel
                 'match',
                 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
             ],
             ['site', 'url', 'allowEmpty' => true],
             ['email', 'email'],
@@ -158,6 +158,12 @@ class User extends yupe\models\YModel
                 'on' => 'search'
             ],
             ['birth_date', 'default', 'setOnEmpty' => true, 'value' => null],
+            [
+                'phone',
+                'match',
+                'pattern' => $module->phonePattern,
+                'message' => 'Некорректный формат поля {attribute}'
+            ],
         ];
     }
 
@@ -165,7 +171,7 @@ class User extends yupe\models\YModel
     {
         return [
             'CTimestampBehavior' => [
-                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
             ],
         ];
@@ -215,6 +221,7 @@ class User extends yupe\models\YModel
             'site' => Yii::t('UserModule.user', 'Site/blog'),
             'location' => Yii::t('UserModule.user', 'Location'),
             'about' => Yii::t('UserModule.user', 'About yourself'),
+            'phone' => Yii::t('UserModule.user', 'Phone'),
         ];
     }
 
@@ -523,6 +530,25 @@ class User extends yupe\models\YModel
             $size,
             $size
         );
+    }
+
+    /**
+     * Получаем список пользователей с полным имем:
+     *
+     * @param string $separator - разделитель
+     *
+     * @return string
+     */
+    public static function getFullNameList($separator = ' ')
+    {
+        $list = [];
+        $yupe = Yii::app()->getModule('yupe');
+
+        foreach (User::model()->cache($yupe->coreCacheTime)->findAll() as $user) {
+            $list[$user->id] = $user->getFullName($separator);
+        }
+
+        return $list;
     }
 
     /**

@@ -363,4 +363,7 @@ return [
     'Your profile was changed successfully' => 'Ваш профиль успешно изменен!',
     'yupe team' => 'yupe team',
     'Yupe!' => 'Юпи!',
+    'Phone' => 'Телефон',
+    'Phone - mask' => 'Телефон - маска',
+    'Phone - pattern' => 'Телефон - шаблон',
 ];
