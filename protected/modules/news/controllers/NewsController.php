@@ -44,7 +44,7 @@ class NewsController extends \yupe\components\controllers\FrontController
             'params' => [
                 ':status' => News::STATUS_PUBLISHED,
             ],
-            'order' => 't.create_time DESC',
+            'order' => 't.date DESC',
             'with' => ['user'],
         ]);
 
