@@ -197,7 +197,7 @@ class ContentBlock extends yupe\models\YModel
 
     public function getCategoryAlias()
     {
-        return empty($this->category) ? '<code_category>' : $this->category->alias;
+        return empty($this->category) ? '<code_category>' : $this->category->slug;
     }
 
     public function getStatusList()
