@@ -58,34 +58,47 @@
                     <?php endif; ?>
                 </div>
                 <div class="navbar__personal">
-                    <div class="navbar__toolbar"><a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue">33</span></a>
-                        <a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-balance-scale fa-lg fa-fw"></i> Сравнение</span><span class="badge badge_light-blue">2</span>
+                    <div class="navbar__toolbar"><a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue">0</span></a>
+                        <a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-balance-scale fa-lg fa-fw"></i> Сравнение</span><span class="badge badge_light-blue">0</span>
                         </a>
                     </div>
                     <div class="navbar__user">
-                        <a href="javascript:void(0);" class="toolbar-button toolbar-button_dropdown">
-                            <span class="toolbar-button__label">
-                                <i class="fa fa-user fa-lg fa-fw"></i> Личный кабинет
-                            </span>
-                            <span class="badge badge_light-blue"></span>
+                        <?php if (Yii::app()->getUser()->isGuest): ?>
+                            <a href="<?= Yii::app()->createUrl('/user/account/login') ?>" class="btn btn_login-button">
+                                <?= Yii::t('UserModule.user', 'Login'); ?>
+                            </a>
+                        <?php else: ?>
+                            <div class="toolbar-button toolbar-button_dropdown">
+                                <span class="toolbar-button__label">
+                                    <i class="fa fa-user fa-lg fa-fw"></i> Личный кабинет
+                                </span>
+                                <span class="badge badge_light-blue"></span>
 
-                           <div class="dropdown-menu">
-                               <div class="dropdown-menu__header">Иванов Василий</div>
-                               <div class="dropdown-menu__item">
-                                   <div class="dropdown-menu__link">Мои заказы</div>
+                               <div class="dropdown-menu">
+                                   <div class="dropdown-menu__header"><?= Yii::app()->getUser()->getProfile()->getFullName() ?></div>
+                                   <div class="dropdown-menu__item">
+                                       <div class="dropdown-menu__link">
+                                           <a href="<?= Yii::app()->createUrl('/order/user/index') ?>">Мои заказы</a>
+                                       </div>
+                                   </div>
+                                   <div class="dropdown-menu__item">
+                                       <div class="dropdown-menu__link">
+                                           <a href="<?= Yii::app()->createUrl('/user/profile/profile') ?>">
+                                               <?= Yii::t('UserModule.user', 'My profile') ?>
+                                           </a>
+                                       </div>
+                                   </div>
+                                   <div class="dropdown-menu__separator"></div>
+                                   <div class="dropdown-menu__item">
+                                       <div class="dropdown-menu__link dropdown-menu__link_exit">
+                                           <a href="<?= Yii::app()->createUrl('/user/account/logout') ?>">
+                                               <?= Yii::t('UserModule.user', 'Logout'); ?>
+                                           </a>
+                                       </div>
+                                   </div>
                                </div>
-                               <div class="dropdown-menu__item">
-                                   <div class="dropdown-menu__link">Мои настройки</div>
-                               </div>
-                               <div class="dropdown-menu__item">
-                                   <div class="dropdown-menu__link">Обратная связь</div>
-                               </div>
-                               <div class="dropdown-menu__separator"></div>
-                               <div class="dropdown-menu__item">
-                                   <div class="dropdown-menu__link dropdown-menu__link_exit">Выход</div>
-                               </div>
-                           </div>
-                        </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
