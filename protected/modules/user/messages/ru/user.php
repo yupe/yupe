@@ -172,6 +172,7 @@ return [
     'Location' => 'Расположение',
     'Login' => 'Войти',
     'login' => 'войти',
+    'Logout' => 'Выйти',
     'Mail event for automatic password recovery' => 'Почтовое событие при автоматическом восстановлении пароля',
     'Mail event for password recovery' => 'Почтовое событие при восстановлении пароля',
     'Mail event when new user was registered without activation' => 'Почтовое событие при регистрации нового пользователя без активации',
