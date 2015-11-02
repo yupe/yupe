@@ -11,7 +11,7 @@ $this->breadcrumbs = [
 
 <h4><strong><?= CHtml::link(
             CHtml::encode($category['name']),
-            ['/blog/post/category/', 'alias' => CHtml::encode($category['alias'])]
+            ['/blog/post/category/', 'slug' => CHtml::encode($category['slug'])]
         ); ?></strong>
     <?= strip_tags($category['description']); ?>
     <hr/>
