@@ -26,7 +26,7 @@ $this->breadcrumbs = [
     'bootstrap.widgets.TbListView',
     [
         'dataProvider' => $posts->search(),
-        'itemView'     => '_post',
+        'itemView'     => '_item',
         'template'     => "{items}\n{pager}",
     ]
 ); ?>
