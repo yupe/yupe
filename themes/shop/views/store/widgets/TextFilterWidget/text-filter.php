@@ -3,7 +3,7 @@
     <div class="filter-block__title">
         <div class="filter-block__list-item">
             <?= $attribute->title ?>
-            <?= CHtml::textField($filter->getFieldName($attribute), $filter->getFieldValue($attribute), ['class' => 'filter-input__control']) ?>
+            <?= CHtml::textField($filter->getFieldName($attribute), $filter->getFieldValue($attribute), ['class' => 'form-control']) ?>
         </div>
     </div>
 </div>
