@@ -69,16 +69,16 @@ $this->breadcrumbs = array_merge(
                 </div>
                 <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
                     <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
+                    <?= CHtml::hiddenField(
+                        Yii::app()->getRequest()->csrfTokenName,
+                        Yii::app()->getRequest()->csrfToken
+                    ); ?>
 
                     <?php if($product->getVariantsGroup()):?>
 
                         <div class="entry__title">
                             <h2 class="h3 h_upcase"><?= Yii::t("StoreModule.store", "Variants"); ?></h2>
                         </div>
-                        <?= CHtml::hiddenField(
-                            Yii::app()->getRequest()->csrfTokenName,
-                            Yii::app()->getRequest()->csrfToken
-                        ); ?>
 
                         <div class="entry__variants">
                             <?php foreach ($product->getVariantsGroup() as $title => $variantsGroup): ?>
