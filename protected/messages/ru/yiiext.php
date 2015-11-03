@@ -18,7 +18,7 @@
  */
 return [
     'Cannot create more than one root in single root mode.'                              => 'Не возможно создать более одного корня в режиме "1 корень"',
-    'Many roots mode is off.'                                                            => 'Режим с множеством корней отключен',
+    'Many roots mode is off.'                                                            => 'Режим со множеством корней отключен',
     'The node already is root node.'                                                     => 'Узел уже является коренным',
     'The node cannot be deleted because it is already deleted.'                          => 'Узел не может быть удален, т.к. уже является удаленным',
     'The node cannot be deleted because it is new.'                                      => 'Узел не может быть удален т.к. является новым узлом',
@@ -30,7 +30,7 @@ return [
     'The target node should not be deleted.'                                             => 'Целевой узел не должен быть удален',
     'The target node should not be descendant.'                                          => 'Целевой узел не должен быть зависимым',
     'The target node should not be root.'                                                => 'Целевой узел не должен быть корнем',
-    'The target node should not be self.'                                                => 'Целевой узел не должен быть сам собой :)',
-    'You should not use CActiveRecord::delete() method when NestedSetBehavior attached.' => 'Не стоит использовать CActiveRecord::delete() при использовании NestedSetBehavior',
-    'You should not use CActiveRecord::save() method when NestedSetBehavior attached.'   => 'Не стоит использовать CActiveRecord::save() при использовании NestedSetBehavior',
+    'The target node should not be himself.'                                             => 'Целевой узел не должен быть самим собой :)',
+    'You should not use CActiveRecord::delete() method when NestedSetBehavior attached.' => 'Не стоит использовать CActiveRecord::delete() при подключенном NestedSetBehavior',
+    'You should not use CActiveRecord::save() method when NestedSetBehavior attached.'   => 'Не стоит использовать CActiveRecord::save() при подключенном NestedSetBehavior',
 ];
