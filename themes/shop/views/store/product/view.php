@@ -203,11 +203,11 @@ $this->breadcrumbs = array_merge(
 <div class="main__product-tabs grid">
     <div class="tabs tabs_classic tabs_gray js-tabs">
         <ul data-nav="data-nav" class="tabs__list">
-            <li class="tabs__item"><a href="#spec" class="tabs__link">Характеристики</a>
+            <li class="tabs__item"><a href="#spec" class="tabs__link"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a>
             </li>
-            <li class="tabs__item"><a href="#description" class="tabs__link">Описание</a>
+            <li class="tabs__item"><a href="#description" class="tabs__link"><?= Yii::t("StoreModule.store", "Description"); ?></a>
             </li>
-            <li class="tabs__item"><a href="#reviews" class="tabs__link">Отзывы</a>
+            <li class="tabs__item"><a href="#reviews" class="tabs__link"><?= Yii::t("StoreModule.store", "Comments"); ?></a>
             </li>
             <li class="tabs__item"><a href="#similar" class="tabs__link">Похожие товары</a>
             </li>
@@ -216,7 +216,113 @@ $this->breadcrumbs = array_merge(
             <div id="spec" class="tabs__body js-tab">
                 <div class="product-spec">
                     <div class="product-spec__body">
-                        <?= $product->data; ?>
+                        <?php if ($product->producer_id): ?>
+                            <dl class="product-spec-item">
+                                <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.producer", "Producer"); ?>
+                                    </span>
+                                </dt>
+                                <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= CHtml::encode($product->getProducerName()); ?>
+                                    </span>
+                                </dd>
+                            </dl>
+                        <?php endif; ?>
+
+                        <?php if ($product->sku): ?>
+                            <dl class="product-spec-item">
+                                <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "SKU"); ?>
+                                    </span>
+                                </dt>
+                                <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= CHtml::encode($product->sku); ?>
+                                    </span>
+                                </dd>
+                            </dl>
+                        <?php endif; ?>
+
+                        <?php if ($product->length): ?>
+                            <dl class="product-spec-item">
+                                <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Length"); ?>
+                                    </span>
+                                </dt>
+                                <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->length, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                </dd>
+                            </dl>
+                        <?php endif; ?>
+
+                        <?php if ($product->width): ?>
+                            <dl class="product-spec-item">
+                                <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Width"); ?>
+                                    </span>
+                                </dt>
+                                <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->width, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                </dd>
+                            </dl>
+                        <?php endif; ?>
+
+                        <?php if ($product->height): ?>
+                            <dl class="product-spec-item">
+                                <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Height"); ?>
+                                    </span>
+                                </dt>
+                                <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->height, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                </dd>
+                            </dl>
+                        <?php endif; ?>
+
+                        <?php if ($product->weight): ?>
+                            <dl class="product-spec-item">
+                                <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Weight"); ?>
+                                    </span>
+                                </dt>
+                                <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                </dd>
+                            </dl>
+                        <?php endif; ?>
+
+                        <?php foreach ($product->getAttributeGroups() as $groupName => $items): ?>
+                            <h2 class="h3 product-spec__header"><?= CHtml::encode($groupName); ?></h2>
+                            <?php foreach ($items as $attribute):  ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                        <span class="product-spec-item__name-inner">
+                                            <?= CHtml::encode($attribute->title); ?>
+                                        </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                        <span class="product-spec-item__value-inner">
+                                            <?= AttributeRender::renderValue($attribute, $product->attribute($attribute)); ?>
+                                        </span>
+                                    </dd>
+                                </dl>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
