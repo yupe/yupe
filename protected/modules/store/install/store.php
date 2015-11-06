@@ -39,6 +39,6 @@ return [
         '/store/brand/<slug:[\w_\/-]+>' => 'store/producer/view',
         '/store/brands' => 'store/producer/index',
         '/store/<path:[\w_\/-]+>' => 'store/category/view',
-        '/store/product/autocomplete' => 'store/product/autocomplete',
+        '/store/product/autocomplete' => 'store/product/autocomplete'
     ],
 ];

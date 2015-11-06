@@ -73,8 +73,7 @@ class Producer extends yupe\models\YModel
     public function relations()
     {
         return [
-            'productCount' => [self::STAT, 'Product', 'producer_id'],
-            'products' => [self::HAS_MANY, 'Product', 'producer_id'],
+            'productCount' => [self::STAT, 'Product', 'producer_id']
         ];
     }
 
