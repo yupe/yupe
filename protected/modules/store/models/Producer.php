@@ -73,7 +73,8 @@ class Producer extends yupe\models\YModel
     public function relations()
     {
         return [
-            'productCount' => [self::STAT, 'Product', 'producer_id']
+            'productCount' => [self::STAT, 'Product', 'producer_id'],
+            'products' => [self::HAS_MANY, 'Product', 'producer_id'],
         ];
     }
 
@@ -184,5 +185,46 @@ class Producer extends yupe\models\YModel
     public function getFormattedList()
     {
         return CHtml::listData(Producer::model()->findAll(), 'id', 'name_short');
+    }
+
+    /**
+     * Get producer by slug
+     *
+     * @param $slug
+     * @return null|Producer
+     */
+    public function getBySlug($slug)
+    {
+        return $this->published()->find('slug = :slug', [':slug' => $slug]);
+    }
+
+    /**
+     * Get all brands
+     *
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return $this->published()->findAll();
+    }
+
+    /**
+     * Get all brands
+     *
+     * @return CActiveDataProvider
+     */
+    public function getAllDataProvider()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->scopes = ['published'];
+        $criteria->order = 'id';
+
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                'pageVar' => 'page',
+            ]
+        ]);
     }
 }

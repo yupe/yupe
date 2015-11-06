@@ -248,4 +248,31 @@ class ProductRepository extends CComponent
         $criteria->addSearchCondition('name', $name);
         return Product::model()->findAll($criteria);
     }
-} 
+
+    /**
+     * Get products by brand
+     *
+     * @param Producer $producer
+     * @return CActiveDataProvider
+     */
+    public function getByBrandProvider(Producer $producer)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'producer_id = :producer_id';
+        $criteria->params = [
+            ':producer_id' => $producer->id
+        ];
+
+        return new CActiveDataProvider(Product::model(), [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                'pageVar' => 'page',
+            ],
+            'sort' => [
+                'sortVar' => 'sort',
+                'defaultOrder' => 't.position'
+            ],
+        ]);
+    }
+}
