@@ -15,6 +15,7 @@ return [
     'Producers' => 'Производители',
     'Save producer and close' => 'Сохранить производителя и закрыть',
     'Save producer and continue' => 'Сохранить производителя и продолжить',
+    'The products of the manufacturer' => 'Все товары производителя',
     'Update producer' => 'Редактировать производителя',
     'Updating producer' => 'Редактирование производителя',
     'View producer list' => 'Просмотреть список производителей',

@@ -185,4 +185,51 @@ class Producer extends yupe\models\YModel
     {
         return CHtml::listData(Producer::model()->findAll(), 'id', 'name_short');
     }
+
+    /**
+     * Get producer by slug
+     *
+     * @param $slug
+     * @return null|Producer
+     */
+    public function getBySlug($slug)
+    {
+        return $this->published()->find('slug = :slug', [':slug' => $slug]);
+    }
+
+    /**
+     * Get all brands
+     *
+     * @param int $limit
+     * @param string $order
+     * @return mixed
+     */
+    public function getAll($limit = -1, $order = 'id ASC')
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = $order;
+        $criteria->limit = $limit;
+
+        return $this->published()->findAll($criteria);
+    }
+
+    /**
+     * Get all brands
+     *
+     * @return CActiveDataProvider
+     */
+    public function getAllDataProvider()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->scopes = ['published'];
+        $criteria->order = 'id';
+
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                'pageVar' => 'page',
+            ]
+        ]);
+    }
 }

@@ -454,38 +454,4 @@ $this->breadcrumbs = array_merge(
         </div>
     </div>
 </div>
-<div class="main__best-brands grid">
-    <div class="best-brands">
-        <div class="best-brands__title">
-            <div class="h3 h_upcase">Товары таких брендов</div>
-        </div>
-        <div class="best-brands__body">
-            <div class="grid">
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/apple.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/braun.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/lg.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/panasonic.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/philips.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/samsung.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/sharp.png" class="best-brands__img">
-                </div>
-                <div class="best-brands__item grid-module-2">
-                    <img src="<?= $this->mainAssets ?>/images/content/brands/toshiba.png" class="best-brands__img">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<?php $this->widget('application.modules.store.widgets.ProducersWidget') ?>
