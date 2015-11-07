@@ -11,7 +11,7 @@ return [
     'Manage messages' => 'Керування повідомленнями',
     'manage' => 'керування',
     'Messages' => 'Повідлмлення',
-    'Name' => 'І’мя',
+    'Name' => 'Ім’я',
     'Notification email' => 'Email, від котрого буде відправлено',
     'Notifications' => 'Сповіщення',
     'Page not found!' => 'Сторінку не знайдено!',
@@ -30,5 +30,5 @@ return [
     'Unknown request. Don\'t repeat it please!' => 'Хибний запит. Будь ласка, більше не повторюйте подібні запити!',
     'Update messages' => 'Оновлення повідомлень',
     'View messages list' => 'Перегляд списку повідомлень',
-    'Your message has been successfully sent.' => 'Ваше повідомлення було успішно надіслано.',
+    'Your message has been successfully sent.' => 'Ваше повідомлення було успішно надіслано.',
 ];
