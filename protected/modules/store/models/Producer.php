@@ -200,11 +200,17 @@ class Producer extends yupe\models\YModel
     /**
      * Get all brands
      *
+     * @param int $limit
+     * @param string $order
      * @return mixed
      */
-    public function getAll()
+    public function getAll($limit = -1, $order = 'id ASC')
     {
-        return $this->published()->findAll();
+        $criteria = new CDbCriteria();
+        $criteria->order = $order;
+        $criteria->limit = $limit;
+
+        return $this->published()->findAll($criteria);
     }
 
     /**

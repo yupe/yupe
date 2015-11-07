@@ -3,6 +3,18 @@ use yupe\components\controllers\FrontController;
 
 class ProducerController extends FrontController
 {
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    public function init()
+    {
+        $this->productRepository = Yii::app()->getComponent('productRepository');
+
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $this->render('index', [
@@ -18,11 +30,9 @@ class ProducerController extends FrontController
             throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
         }
 
-        $productRepository = Yii::app()->getComponent('productRepository');
-
         $this->render('view', [
             'brand' => $producer,
-            'products' => $productRepository->getByBrandProvider($producer)
+            'products' => $this->productRepository->getByBrandProvider($producer)
         ]);
     }
 }

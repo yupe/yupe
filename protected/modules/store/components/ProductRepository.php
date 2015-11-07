@@ -259,6 +259,7 @@ class ProductRepository extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->condition = 'producer_id = :producer_id';
+        $criteria->scopes = ['published'];
         $criteria->params = [
             ':producer_id' => $producer->id
         ];
