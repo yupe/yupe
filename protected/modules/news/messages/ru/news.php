@@ -35,7 +35,7 @@ return [
     'Content' => 'Контент',
     'Create article and close' => 'Добавить новость и закрыть',
     'Create article and continue' => 'Добавить новость и продолжить',
-    'Create article' => 'Добавить новость',
+    'Create news' => 'Добавить новость',
     'Create' => 'Добавление',
     'create' => 'добавление',
     'Created at' => 'Дата создания',

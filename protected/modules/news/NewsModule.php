@@ -196,7 +196,7 @@ class NewsModule extends WebModule
             ],
             [
                 'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('NewsModule.news', 'Create article'),
+                'label' => Yii::t('NewsModule.news', 'Create news'),
                 'url'   => ['/news/newsBackend/create']
             ],
             [

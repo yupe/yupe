@@ -1,9 +1,9 @@
 <div class="header__item header-cart js-cart" id="cart-widget" data-cart-widget-url="<?= Yii::app()->createUrl('/cart/cart/widget');?>">
     <div class="header-cart__icon">
-        <div class="badge badge_light-blue"><?= Yii::app()->cart->getCount(); ?></div>
+        <div class="badge badge_light-blue"><?= CHtml::link(Yii::app()->cart->getCount(), ['/cart/cart/index']);?></div>
     </div>
     <div class="header-cart__text-wrap">
-        <div class="header-cart__label"><?= Yii::t('CartModule.cart', 'Cart'); ?>
+        <div class="header-cart__label"><?= CHtml::link(Yii::t('CartModule.cart', 'Cart'), ['/cart/cart/index']);?>
             <a href="javascript:void(0);" data-toggle="#cart-mini" class="header-cart__cart-toggle" id="cart-toggle-link"></a>
             <div class="cart-mini" id="cart-mini">
                 <?php if (Yii::app()->cart->isEmpty()): ?>

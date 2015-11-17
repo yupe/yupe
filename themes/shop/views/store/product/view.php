@@ -15,443 +15,539 @@ $this->breadcrumbs = array_merge(
     [CHtml::encode($product->name)]
 );
 ?>
-<div class="main__product-description grid">
-    <div class="product-description">
-        <div class="product-description__img-block grid-module-6">
-            <div class="product-gallery js-product-gallery">
-                <div class="product-gallery__body">
-                    <div data-product-image class="product-gallery__img-wrap">
-                        <img src="<?= $product->getImageUrl(); ?>" class="product-gallery__main-img">
-                    </div>
-                    <div class="product-gallery__label">
-                        <div class="product-label product-label_hit">
-                            <div class="product-label__text">Хит</div>
+    <div class="main__product-description grid">
+        <div class="product-description">
+            <div class="product-description__img-block grid-module-6">
+                <div class="product-gallery js-product-gallery">
+                    <div class="product-gallery__body">
+                        <div data-product-image class="product-gallery__img-wrap">
+                            <img src="<?= $product->getImageUrl(); ?>" class="product-gallery__main-img">
                         </div>
+                        <?php if ($product->isSpecial()): ?>
+                            <div class="product-gallery__label">
+                                <div class="product-label product-label_hit">
+                                    <div class="product-label__text">Хит</div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                </div>
-                <div class="product-gallery__nav">
-                    <a href="<?= $product->getImageUrl(); ?>" rel="group" data-product-thumbnail class="product-gallery__nav-item">
-                        <img src="<?= $product->getImageUrl(60, 60, false); ?>" alt="" class="product-gallery__nav-img">
-                    </a>
-                    <?php foreach ($product->getImages() as $key => $image): ?>
-                        <a href="<?= $image->getImageUrl(); ?>" rel="group" data-product-thumbnail class="product-gallery__nav-item">
-                            <img src="<?= $image->getImageUrl(60, 60, false); ?>" alt="" class="product-gallery__nav-img">
+                    <div class="product-gallery__nav">
+                        <a href="<?= $product->getImageUrl(); ?>" rel="group" data-product-thumbnail
+                           class="product-gallery__nav-item">
+                            <img src="<?= $product->getImageUrl(60, 60, false); ?>" alt=""
+                                 class="product-gallery__nav-img">
                         </a>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-        <div class="product-description__entry grid-module-6">
-            <div class="entry">
-                <div class="entry__toolbar">
-                    <div class="entry__toolbar-left">
-                        <div class="entry__toolbar-item">
-                            <div data-rate='4' class="rating">
-                                <div class="rating__label">4.2</div>
-                                <div class="rating__corner">
-                                    <div class="rating__triangle"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="entry__toolbar-item"><a href="javascript:void(0);" class="reviews-link">6 отзывов</a>
-                        </div>
-                    </div>
-                    <div class="entry__toolbar-right"><a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-heart-o"></i></a><a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-balance-scale"></i></a>
-                    </div>
-                </div>
-                <div class="entry__title">
-                    <h1 class="h1"><?= CHtml::encode($product->name); ?></h1>
-                </div>
-                <div class="entry__wysiwyg">
-                    <div class="wysiwyg">
-                        <?= $product->short_description; ?>
-                    </div>
-                </div>
-                <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
-                    <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
-                    <?= CHtml::hiddenField(
-                        Yii::app()->getRequest()->csrfTokenName,
-                        Yii::app()->getRequest()->csrfToken
-                    ); ?>
-
-                    <?php if($product->getVariantsGroup()):?>
-
-                        <div class="entry__title">
-                            <h2 class="h3 h_upcase"><?= Yii::t("StoreModule.store", "Variants"); ?></h2>
-                        </div>
-
-                        <div class="entry__variants">
-                            <?php foreach ($product->getVariantsGroup() as $title => $variantsGroup): ?>
-                                <div class="entry__variant">
-                                    <div class="entry__variant-title"><?= CHtml::encode($title); ?></div>
-                                    <div class="entry__variant-value">
-                                        <?=
-                                        CHtml::dropDownList('ProductVariant[]', null, CHtml::listData($variantsGroup, 'id', 'optionValue'), [
-                                            'empty' => '',
-                                            'class' => 'js-select2 entry__variant-value-select noborder',
-                                            'options' => $product->getVariantsOptions()
-                                        ]); ?>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-                    <div class="entry__price"><?= Yii::t("StoreModule.store", "Price"); ?>:
-                        <div class="product-price">
-                            <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
-                            <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span>
-                        </div>
-                    </div>
-                    <?php if (Yii::app()->hasModule('order')): ?>
-                        <div class="entry__count">
-                            <div class="entry__count-label">Кол-во:</div>
-                            <div class="entry__count-input">
-                                <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
-                                    <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
-                                    <input name="Product[quantity]" value="1" class="spinput__value" />
-                                    <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
-                                </span>
-                            </div>
-                            <div class="entry__cart-button">
-                                <button class="btn btn_cart" id="add-product-to-cart" data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">Купить</button>
-                            </div>
-                        </div>
-                        <div class="entry__subtotal">
-                            <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
-                            <span id="product-quantity" >1</span> =
-                            <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
-                    <?php endif; ?>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="product-features">
-        <div class="product-features__block product-features__block_delivery">
-            <div class="product-features__header">Доставка</div>
-            <div class="product-features__item">Почта России</div>
-            <div class="product-features__item">Курьер</div>
-            <div class="product-features__item">Самовывоз</div>
-        </div>
-        <div class="product-features__block product-features__block_payment">
-            <div class="product-features__header">Оплата</div>
-            <div class="product-features__item">Наличные</div>
-            <div class="product-features__item">Online</div>
-            <div class="product-features__item">Сбербанк</div>
-        </div>
-        <div class="product-features__block product-features__block_warranty">
-            <div class="product-features__header">Гарантии</div>
-            <div class="product-features__item">Возврат</div>
-            <div class="product-features__item">Обмен</div>
-        </div>
-    </div>
-</div>
-
-<div class="main__linked-products grid">
-    <div class="h2">Вместе с этим товаром покупают</div>
-    <div class="linked-products">
-        <div class="cols">
-            <div class="product-linked col grid-module-3">
-                <div class="product-linked__checkbox">
-                    <input type="checkbox" class="checkbox js-product-linked__checkbox" checked="checked" id="NJm61ZgC" />
-                    <label for="NJm61ZgC" class="checkbox__label"></label>
-                </div>
-                <div class="product-linked__thumbnail">
-                    <a href="javascript:void(0);">
-                        <img src="<?= $this->mainAssets ?>/images/content/product-linked/3.jpg" class="product-linked__img" />
-                    </a>
-                </div>
-                <div class="product-linked__info">
-                    <div class="product-linked__title"><a href="javascript:void(0);" class="product-linked__link">Защитная пленка для телефона Luxcase для Sony Xperia Z3 Glossy</a>
-                    </div>
-                    <div class="product-linked__price">
-                        <div class="product-price">650<span class="ruble"> руб.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-linked col grid-module-3">
-                <div class="product-linked__checkbox">
-                    <input type="checkbox" class="checkbox js-product-linked__checkbox" checked="checked" id="EylQpJWxA" />
-                    <label for="EylQpJWxA" class="checkbox__label"></label>
-                </div>
-                <div class="product-linked__thumbnail">
-                    <a href="javascript:void(0);">
-                        <img src="<?= $this->mainAssets ?>/images/content/product-linked/4.jpg" class="product-linked__img" />
-                    </a>
-                </div>
-                <div class="product-linked__info">
-                    <div class="product-linked__title"><a href="javascript:void(0);" class="product-linked__link">Флип-кейс Euro-Line Vivid для Xperia Z3 (зеленый)</a>
-                    </div>
-                    <div class="product-linked__price">
-                        <div class="product-price">690<span class="ruble"> руб.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="linked-products__total">
-                <div class="linked-products__total-label">Ваша цена:</div>
-                <div class="linked-products__total-price"><span class="js-linked-products__total-price">36 500</span><span class="ruble"> руб.</span>
-                </div>
-                <div class="linked-products__total-cart"><a href="javascript:void(0);" class="btn btn_cart">В корзину</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="main__product-tabs grid">
-    <div class="tabs tabs_classic tabs_gray js-tabs">
-        <ul data-nav="data-nav" class="tabs__list">
-            <li class="tabs__item"><a href="#spec" class="tabs__link"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a>
-            </li>
-            <li class="tabs__item"><a href="#description" class="tabs__link"><?= Yii::t("StoreModule.store", "Description"); ?></a>
-            </li>
-            <li class="tabs__item"><a href="#reviews" class="tabs__link"><?= Yii::t("StoreModule.store", "Comments"); ?></a>
-            </li>
-            <li class="tabs__item"><a href="#similar" class="tabs__link">Похожие товары</a>
-            </li>
-        </ul>
-        <div class="tabs__bodies js-tabs-bodies">
-            <div id="spec" class="tabs__body js-tab">
-                <div class="product-spec">
-                    <div class="product-spec__body">
-                        <?php if ($product->producer_id): ?>
-                            <dl class="product-spec-item">
-                                <dt class="product-spec-item__name">
-                                    <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.producer", "Producer"); ?>
-                                    </span>
-                                </dt>
-                                <dd class="product-spec-item__value">
-                                    <span class="product-spec-item__value-inner">
-                                        <?= CHtml::encode($product->getProducerName()); ?>
-                                    </span>
-                                </dd>
-                            </dl>
-                        <?php endif; ?>
-
-                        <?php if ($product->sku): ?>
-                            <dl class="product-spec-item">
-                                <dt class="product-spec-item__name">
-                                    <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.store", "SKU"); ?>
-                                    </span>
-                                </dt>
-                                <dd class="product-spec-item__value">
-                                    <span class="product-spec-item__value-inner">
-                                        <?= CHtml::encode($product->sku); ?>
-                                    </span>
-                                </dd>
-                            </dl>
-                        <?php endif; ?>
-
-                        <?php if ($product->length): ?>
-                            <dl class="product-spec-item">
-                                <dt class="product-spec-item__name">
-                                    <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.store", "Length"); ?>
-                                    </span>
-                                </dt>
-                                <dd class="product-spec-item__value">
-                                    <span class="product-spec-item__value-inner">
-                                        <?= round($product->length, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
-                                    </span>
-                                </dd>
-                            </dl>
-                        <?php endif; ?>
-
-                        <?php if ($product->width): ?>
-                            <dl class="product-spec-item">
-                                <dt class="product-spec-item__name">
-                                    <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.store", "Width"); ?>
-                                    </span>
-                                </dt>
-                                <dd class="product-spec-item__value">
-                                    <span class="product-spec-item__value-inner">
-                                        <?= round($product->width, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
-                                    </span>
-                                </dd>
-                            </dl>
-                        <?php endif; ?>
-
-                        <?php if ($product->height): ?>
-                            <dl class="product-spec-item">
-                                <dt class="product-spec-item__name">
-                                    <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.store", "Height"); ?>
-                                    </span>
-                                </dt>
-                                <dd class="product-spec-item__value">
-                                    <span class="product-spec-item__value-inner">
-                                        <?= round($product->height, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
-                                    </span>
-                                </dd>
-                            </dl>
-                        <?php endif; ?>
-
-                        <?php if ($product->weight): ?>
-                            <dl class="product-spec-item">
-                                <dt class="product-spec-item__name">
-                                    <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.store", "Weight"); ?>
-                                    </span>
-                                </dt>
-                                <dd class="product-spec-item__value">
-                                    <span class="product-spec-item__value-inner">
-                                        <?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
-                                    </span>
-                                </dd>
-                            </dl>
-                        <?php endif; ?>
-
-                        <?php foreach ($product->getAttributeGroups() as $groupName => $items): ?>
-                            <h2 class="h3 product-spec__header"><?= CHtml::encode($groupName); ?></h2>
-                            <?php foreach ($items as $attribute):  ?>
-                                <dl class="product-spec-item">
-                                    <dt class="product-spec-item__name">
-                                        <span class="product-spec-item__name-inner">
-                                            <?= CHtml::encode($attribute->title); ?>
-                                        </span>
-                                    </dt>
-                                    <dd class="product-spec-item__value">
-                                        <span class="product-spec-item__value-inner">
-                                            <?= AttributeRender::renderValue($attribute, $product->attribute($attribute)); ?>
-                                        </span>
-                                    </dd>
-                                </dl>
-                            <?php endforeach; ?>
+                        <?php foreach ($product->getImages() as $key => $image): ?>
+                            <a href="<?= $image->getImageUrl(); ?>" rel="group" data-product-thumbnail
+                               class="product-gallery__nav-item">
+                                <img src="<?= $image->getImageUrl(60, 60, false); ?>" alt=""
+                                     class="product-gallery__nav-img">
+                            </a>
                         <?php endforeach; ?>
                     </div>
                 </div>
             </div>
-            <div id="description" class="tabs__body js-tab">
-                <div class="wysiwyg">
-                    <?= $product->description ?>
-                </div>
-            </div>
-            <div id="reviews" class="tabs__body js-tab">
-                <div class="product-reviews">
-                    <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-                        'redirectTo' => $product->getUrl(),
-                        'model' => $product,
-                    ]); ?>
+            <div class="product-description__entry grid-module-6">
+                <div class="entry">
+                    <div class="entry__toolbar">
+                        <div class="entry__toolbar-left">
+                            <div class="entry__toolbar-item">
+                                <div data-rate='4' class="rating">
+                                    <div class="rating__label">4.2</div>
+                                    <div class="rating__corner">
+                                        <div class="rating__triangle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="entry__toolbar-item"><a href="javascript:void(0);" class="reviews-link">6
+                                    отзывов</a>
+                            </div>
+                        </div>
+                        <div class="entry__toolbar-right"><a href="javascript:void(0);" class="entry__toolbar-button"><i
+                                    class="fa fa-heart-o"></i></a><a href="javascript:void(0);"
+                                                                     class="entry__toolbar-button"><i
+                                    class="fa fa-balance-scale"></i></a>
+                        </div>
+                    </div>
+                    <div class="entry__title">
+                        <h1 class="h1"><?= CHtml::encode($product->name); ?></h1>
+                    </div>
+                    <div class="entry__wysiwyg">
+                        <div class="wysiwyg">
+                            <?= $product->short_description; ?>
+                        </div>
+                    </div>
+                    <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
+                        <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
+                        <?= CHtml::hiddenField(
+                            Yii::app()->getRequest()->csrfTokenName,
+                            Yii::app()->getRequest()->csrfToken
+                        ); ?>
 
-                </div>
-            </div>
-            <div id="similar" class="tabs__body js-tab">
-                <?php $this->widget('application.modules.store.widgets.LinkedProductsWidget', ['product' => $product, 'code' => 'similar',]); ?>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="main__recently-viewed-slider">
-    <div class="grid">
-        <div class="h3">Вы недавно смотрели</div>
-        <div data-show='3' data-scroll='3' data-infinite="data-infinite" class="h-slider js-slick">
-            <div class="h-slider__buttons h-slider__buttons_noclip">
-                <div class="btn h-slider__control h-slider__next js-slick__next"></div>
-                <div class="btn h-slider__control h-slider__prev js-slick__prev"></div>
-            </div>
-            <div class="h-slider__slides js-slick__container">
-                <div class="h-slider__slide">
-                    <div class="grid-module-4">
-                        <div class="product-mini">
-                            <div class="product-mini__thumbnail">
-                                <a href="javascript:void(0);">
-                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
-                                </a>
+                        <?php if ($product->getVariantsGroup()): ?>
+
+                            <div class="entry__title">
+                                <h2 class="h3 h_upcase"><?= Yii::t("StoreModule.store", "Variants"); ?></h2>
                             </div>
-                            <div class="product-mini__info">
-                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
-                                </div>
-                                <div class="product-mini__price">
-                                    <div class="product-price">12304<span class="ruble"> руб.</span>
+
+                            <div class="entry__variants">
+                                <?php foreach ($product->getVariantsGroup() as $title => $variantsGroup): ?>
+                                    <div class="entry__variant">
+                                        <div class="entry__variant-title"><?= CHtml::encode($title); ?></div>
+                                        <div class="entry__variant-value">
+                                            <?=
+                                            CHtml::dropDownList('ProductVariant[]', null, CHtml::listData($variantsGroup, 'id', 'optionValue'), [
+                                                'empty' => '',
+                                                'class' => 'js-select2 entry__variant-value-select noborder',
+                                                'options' => $product->getVariantsOptions()
+                                            ]); ?>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="entry__price"><?= Yii::t("StoreModule.store", "Price"); ?>:
+                            <div class="product-price">
+                                <input type="hidden" id="base-price"
+                                       value="<?= round($product->getResultPrice(), 2); ?>"/>
+                                <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
+                                <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="h-slider__slide">
-                    <div class="grid-module-4">
-                        <div class="product-mini">
-                            <div class="product-mini__thumbnail">
-                                <a href="javascript:void(0);">
-                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
-                                </a>
-                            </div>
-                            <div class="product-mini__info">
-                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
+                        <?php if (Yii::app()->hasModule('order')): ?>
+                            <div class="entry__count">
+                                <div class="entry__count-label">Кол-во:</div>
+                                <div class="entry__count-input">
+                                <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
+                                    <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
+                                    <input name="Product[quantity]" value="1" class="spinput__value"/>
+                                    <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
+                                </span>
                                 </div>
-                                <div class="product-mini__price">
-                                    <div class="product-price">12304<span class="ruble"> руб.</span>
-                                    </div>
+                                <div class="entry__cart-button">
+                                    <button class="btn btn_cart" id="add-product-to-cart"
+                                            data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">Купить
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="h-slider__slide">
-                    <div class="grid-module-4">
-                        <div class="product-mini">
-                            <div class="product-mini__thumbnail">
-                                <a href="javascript:void(0);">
-                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
-                                </a>
-                            </div>
-                            <div class="product-mini__info">
-                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
-                                </div>
-                                <div class="product-mini__price">
-                                    <div class="product-price">12304<span class="ruble"> руб.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="h-slider__slide">
-                    <div class="grid-module-4">
-                        <div class="product-mini">
-                            <div class="product-mini__thumbnail">
-                                <a href="javascript:void(0);">
-                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
-                                </a>
-                            </div>
-                            <div class="product-mini__info">
-                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
-                                </div>
-                                <div class="product-mini__price">
-                                    <div class="product-price">12304<span class="ruble"> руб.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="h-slider__slide">
-                    <div class="grid-module-4">
-                        <div class="product-mini">
-                            <div class="product-mini__thumbnail">
-                                <a href="javascript:void(0);">
-                                    <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg" class="product-mini__img">
-                                </a>
-                            </div>
-                            <div class="product-mini__info">
-                                <div class="product-mini__title"><a href="javascript:void(0);" class="product-mini__link">Humani generis de regius</a>
-                                </div>
-                                <div class="product-mini__price">
-                                    <div class="product-price">12304<span class="ruble"> руб.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="entry__subtotal">
+                                <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
+                                <span id="product-quantity">1</span> =
+                                <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
+                                <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                        <?php endif; ?>
+                    </form>
                 </div>
             </div>
         </div>
+        <div class="product-features">
+            <div class="product-features__block product-features__block_delivery">
+                <div class="product-features__header">Доставка</div>
+                <div class="product-features__item">Почта России</div>
+                <div class="product-features__item">Курьер</div>
+                <div class="product-features__item">Самовывоз</div>
+            </div>
+            <div class="product-features__block product-features__block_payment">
+                <div class="product-features__header">Оплата</div>
+                <div class="product-features__item">Наличные</div>
+                <div class="product-features__item">Online</div>
+                <div class="product-features__item">Сбербанк</div>
+            </div>
+            <div class="product-features__block product-features__block_warranty">
+                <div class="product-features__header">Гарантии</div>
+                <div class="product-features__item">Возврат</div>
+                <div class="product-features__item">Обмен</div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="main__product-tabs grid">
+        <div class="tabs tabs_classic tabs_gray js-tabs">
+            <ul data-nav="data-nav" class="tabs__list">
+                <li class="tabs__item"><a href="#spec"
+                                          class="tabs__link"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a>
+                </li>
+                <li class="tabs__item"><a href="#description"
+                                          class="tabs__link"><?= Yii::t("StoreModule.store", "Description"); ?></a>
+                </li>
+                <li class="tabs__item"><a href="#reviews"
+                                          class="tabs__link"><?= Yii::t("StoreModule.store", "Comments"); ?></a>
+                </li>
+            </ul>
+            <div class="tabs__bodies js-tabs-bodies">
+                <div id="spec" class="tabs__body js-tab">
+                    <div class="product-spec">
+                        <div class="product-spec__body">
+                            <?php if ($product->producer_id): ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.producer", "Producer"); ?>
+                                    </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= CHtml::encode($product->getProducerName()); ?>
+                                    </span>
+                                    </dd>
+                                </dl>
+                            <?php endif; ?>
+
+                            <?php if ($product->sku): ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "SKU"); ?>
+                                    </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= CHtml::encode($product->sku); ?>
+                                    </span>
+                                    </dd>
+                                </dl>
+                            <?php endif; ?>
+
+                            <?php if ($product->length): ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Length"); ?>
+                                    </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->length, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                    </dd>
+                                </dl>
+                            <?php endif; ?>
+
+                            <?php if ($product->width): ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Width"); ?>
+                                    </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->width, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                    </dd>
+                                </dl>
+                            <?php endif; ?>
+
+                            <?php if ($product->height): ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Height"); ?>
+                                    </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->height, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                    </dd>
+                                </dl>
+                            <?php endif; ?>
+
+                            <?php if ($product->weight): ?>
+                                <dl class="product-spec-item">
+                                    <dt class="product-spec-item__name">
+                                    <span class="product-spec-item__name-inner">
+                                        <?= Yii::t("StoreModule.store", "Weight"); ?>
+                                    </span>
+                                    </dt>
+                                    <dd class="product-spec-item__value">
+                                    <span class="product-spec-item__value-inner">
+                                        <?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
+                                    </span>
+                                    </dd>
+                                </dl>
+                            <?php endif; ?>
+
+                            <?php foreach ($product->getAttributeGroups() as $groupName => $items): ?>
+                                <h2 class="h3 product-spec__header"><?= CHtml::encode($groupName); ?></h2>
+                                <?php foreach ($items as $attribute): ?>
+                                    <dl class="product-spec-item">
+                                        <dt class="product-spec-item__name">
+                                        <span class="product-spec-item__name-inner">
+                                            <?= CHtml::encode($attribute->title); ?>
+                                        </span>
+                                        </dt>
+                                        <dd class="product-spec-item__value">
+                                        <span class="product-spec-item__value-inner">
+                                            <?= AttributeRender::renderValue($attribute, $product->attribute($attribute)); ?>
+                                        </span>
+                                        </dd>
+                                    </dl>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <div id="description" class="tabs__body js-tab">
+                    <div class="wysiwyg">
+                        <?= $product->description ?>
+                    </div>
+                </div>
+                <div id="reviews" class="tabs__body js-tab">
+                    <div class="product-reviews">
+                        <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+                            'redirectTo' => $product->getUrl(),
+                            'model' => $product,
+                        ]); ?>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__recently-viewed-slider">
+        <div class="grid">
+            <div class="h3">Похожие товары</div>
+            <div data-show='3' data-scroll='3' data-infinite="data-infinite" class="h-slider js-slick">
+                <div class="h-slider__slides js-slick__container">
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__recently-viewed-slider">
+        <div class="grid">
+            <div class="h3">Вы недавно смотрели</div>
+            <div data-show='3' data-scroll='3' data-infinite="data-infinite" class="h-slider js-slick">
+                <div class="h-slider__buttons h-slider__buttons_noclip">
+                    <div class="btn h-slider__control h-slider__next js-slick__next"></div>
+                    <div class="btn h-slider__control h-slider__prev js-slick__prev"></div>
+                </div>
+                <div class="h-slider__slides js-slick__container">
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-slider__slide">
+                        <div class="grid-module-4">
+                            <div class="product-mini">
+                                <div class="product-mini__thumbnail">
+                                    <a href="javascript:void(0);">
+                                        <img src="<?= $this->mainAssets ?>/images/content/product-small-1.jpg"
+                                             class="product-mini__img">
+                                    </a>
+                                </div>
+                                <div class="product-mini__info">
+                                    <div class="product-mini__title"><a href="javascript:void(0);"
+                                                                        class="product-mini__link">Humani generis de
+                                            regius</a>
+                                    </div>
+                                    <div class="product-mini__price">
+                                        <div class="product-price">12304<span class="ruble"> руб.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <?php $this->widget('application.modules.store.widgets.ProducersWidget') ?>

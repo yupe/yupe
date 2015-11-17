@@ -9,21 +9,42 @@
  **/
 use \yupe\components\WebModule;
 
+/**
+ * Class CallbackModule
+ */
 class CallbackModule extends WebModule
 {
+    /**
+     *
+     */
     const VERSION = '0.9.9';
 
+    /**
+     * @var
+     */
     public $notifyEmailFrom;
 
+    /**
+     * @var
+     */
     public $notifyEmailsTo;
 
+    /**
+     * @var string
+     */
     public $phoneMask = '+7(999)999-99-99';
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return ['mail'];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [
@@ -33,6 +54,9 @@ class CallbackModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
         return [
@@ -42,6 +66,9 @@ class CallbackModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParamsGroups()
     {
         return [
@@ -56,6 +83,9 @@ class CallbackModule extends WebModule
         ];
     }
 
+    /**
+     * @return array|bool
+     */
     public function checkSelf()
     {
         $messages = [];
@@ -78,11 +108,17 @@ class CallbackModule extends WebModule
         return $messages;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('CallbackModule.callback', 'Services');
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
@@ -94,46 +130,73 @@ class CallbackModule extends WebModule
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/callback/callbackBackend/index';
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('CallbackModule.callback', 'Callback');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('CallbackModule.callback', 'Callback messages management module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('CallbackModule.callback', 'Oleg Filimonov');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('CallbackModule.callback', 'olegsabian@gmail.com');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-phone';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -143,6 +206,9 @@ class CallbackModule extends WebModule
         ]);
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [
@@ -171,6 +237,9 @@ class CallbackModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getNotifyTo()
     {
         return explode(',', $this->notifyEmailsTo);

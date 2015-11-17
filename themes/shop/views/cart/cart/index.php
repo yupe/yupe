@@ -68,7 +68,9 @@ $this->breadcrumbs = [
                                     <img src="<?= $position->getProductModel()->getImageUrl(90, 90, false); ?>" class="cart-item__img"/>
                                 </div>
                                 <div class="cart-item__content">
-                                    <div class="cart-item__category"><?= $position->getProductModel()->mainCategory->name ?></div>
+                                    <?php if($position->getProductModel()->getMainCategoryId()):?>
+                                        <div class="cart-item__category"><?= $position->getProductModel()->mainCategory->name ?></div>
+                                    <?php endif;?>
                                     <div class="cart-item__title">
                                         <a href="<?= $productUrl; ?>" class="cart-item__link"><?= $position->name; ?></a>
                                     </div>

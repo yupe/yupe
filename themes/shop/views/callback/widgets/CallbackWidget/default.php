@@ -68,11 +68,11 @@ Yii::import('application.modules.callback.CallbackModule');
                 </div>
 
                 <div class="fast-order__inputs">
-                    <button type="button" class="btn btn_big btn_white" data-toggle="#callback-request">
-                        <?= Yii::t('CallbackModule.callback', 'Close') ?>
-                    </button>
                     <button type="submit" class="btn btn_big btn_primary" id="callback-send">
                         <?= Yii::t('CallbackModule.callback', 'Send request') ?>
+                    </button>
+                    <button type="button" class="btn btn_big btn_white" data-toggle="#callback-request">
+                        <?= Yii::t('CallbackModule.callback', 'Close') ?>
                     </button>
                 </div>
             <?php $this->endWidget(); ?>

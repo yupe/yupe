@@ -50,19 +50,49 @@ Yii::import('application.modules.comment.components.ICommentable');
  */
 class Product extends yupe\models\YModel implements ICommentable
 {
+    /**
+     *
+     */
     const SPECIAL_NOT_ACTIVE = 0;
+    /**
+     *
+     */
     const SPECIAL_ACTIVE = 1;
 
+    /**
+     *
+     */
     const STATUS_ZERO = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 2;
 
+    /**
+     *
+     */
     const STATUS_NOT_IN_STOCK = 0;
+    /**
+     *
+     */
     const STATUS_IN_STOCK = 1;
 
+    /**
+     * @var
+     */
     public $category;
+    /**
+     * @var array
+     */
     public $selectedVariants = [];
 
+    /**
+     * @var
+     */
     protected $_typeAttributes;
 
     /**
@@ -167,6 +197,9 @@ class Product extends yupe\models\YModel implements ICommentable
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -299,6 +332,9 @@ class Product extends yupe\models\YModel implements ICommentable
         ]);
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
@@ -330,6 +366,9 @@ class Product extends yupe\models\YModel implements ICommentable
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->slug) {
@@ -350,6 +389,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return parent::beforeValidate();
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -359,6 +401,9 @@ class Product extends yupe\models\YModel implements ICommentable
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
@@ -366,6 +411,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getSpecialList()
     {
         return [
@@ -374,6 +422,17 @@ class Product extends yupe\models\YModel implements ICommentable
         ];
     }
 
+    /**
+     * @return int
+     */
+    public function isSpecial()
+    {
+        return $this->is_special;
+    }
+
+    /**
+     * @return string
+     */
     public function getSpecial()
     {
         $data = $this->getSpecialList();
@@ -381,6 +440,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('StoreModule.store', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getInStockList()
     {
         return [
@@ -443,6 +505,9 @@ class Product extends yupe\models\YModel implements ICommentable
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getCategoriesId()
     {
         return Yii::app()->getDb()->createCommand()
@@ -452,6 +517,10 @@ class Product extends yupe\models\YModel implements ICommentable
             ->queryColumn();
     }
 
+    /**
+     * @param array $attributes
+     * @return bool
+     */
     public function saveTypeAttributes(array $attributes)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -477,6 +546,11 @@ class Product extends yupe\models\YModel implements ICommentable
         }
     }
 
+    /**
+     * @param $attribute
+     * @param null $default
+     * @return bool|float|int|null|string
+     */
     public function attribute($attribute, $default = null)
     {
         if ($this->getIsNewRecord()) {
@@ -496,6 +570,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return $model->value($default);
     }
 
+    /**
+     * @return array
+     */
     public function getTypesAttributesValues()
     {
         $data = [];
@@ -507,6 +584,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return $data;
     }
 
+    /**
+     * @return bool
+     */
     public function beforeDelete()
     {
         // чтобы удалились файлики
@@ -517,6 +597,13 @@ class Product extends yupe\models\YModel implements ICommentable
         return parent::beforeDelete();
     }
 
+    /**
+     * @param array $attributes
+     * @param array $typeAttributes
+     * @param array $variants
+     * @param array $categories
+     * @return bool
+     */
     public function saveData(array $attributes, array $typeAttributes, array $variants, array $categories = [])
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -544,6 +631,10 @@ class Product extends yupe\models\YModel implements ICommentable
         }
     }
 
+    /**
+     * @param array $variants
+     * @return bool
+     */
     private function saveVariants(array $variants)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -578,11 +669,17 @@ class Product extends yupe\models\YModel implements ICommentable
         }
     }
 
+    /**
+     * @return float
+     */
     public function getBasePrice()
     {
         return $this->price;
     }
 
+    /**
+     * @return float
+     */
     public function getResultPrice()
     {
         return (float)$this->discount_price ?: (float)$this->price * (1 - ((float)$this->discount ?: 0) / 100);
@@ -650,21 +747,33 @@ class Product extends yupe\models\YModel implements ICommentable
         return $newPrice;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return $this->name;
     }
 
+    /**
+     * @return mixed
+     */
     public function getLink()
     {
         return Yii::app()->createUrl('/store/product/view', ['name' => $this->slug]);
     }
 
+    /**
+     * @return null|string
+     */
     public function getMainCategoryId()
     {
         return is_object($this->mainCategory) ? $this->mainCategory->id : null;
     }
 
+    /**
+     * @return array
+     */
     public function getTypeAttributes()
     {
         if (empty($this->type)) {
@@ -674,6 +783,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return (array)$this->type->typeAttributes;
     }
 
+    /**
+     * @return null|string
+     */
     public function getProducerName()
     {
         if (empty($this->producer)) {
@@ -683,36 +795,57 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->producer->name;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function isInStock()
     {
         return $this->in_stock;
     }
 
+    /**
+     * @return string
+     */
     public function getMetaTitle()
     {
         return $this->meta_title ?: $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getMetaDescription()
     {
         return $this->meta_description;
     }
 
+    /**
+     * @return string
+     */
     public function getMetaKeywords()
     {
         return $this->meta_keywords;
     }
 
+    /**
+     * @return ProductImage[]
+     */
     public function getImages()
     {
         return $this->images;
     }
 
+    /**
+     * @return array
+     */
     public function getAttributeGroups()
     {
         if (empty($this->type)) {
@@ -723,6 +856,9 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
 
+    /**
+     * @return array
+     */
     public function getVariantsGroup()
     {
         $variantsGroups = [];
@@ -734,7 +870,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return $variantsGroups;
     }
 
-     /**
+    /**
      * Функция для подготовки специфичных настроек элементов option в select при выводе вариантов, которые будут использоваться в js при работе с вариантами
      * @return array
      */
@@ -753,6 +889,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->_variantsOptions;
     }
 
+    /**
+     * @return float
+     */
     public function getDiscountPrice()
     {
         return $this->discount_price;
@@ -810,6 +949,10 @@ class Product extends yupe\models\YModel implements ICommentable
         return null;
     }
 
+    /**
+     * @param bool|false $absolute
+     * @return string
+     */
     public function getUrl($absolute = false)
     {
         return $absolute ?
@@ -873,6 +1016,9 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
 
+    /**
+     * @param array $attributes
+     */
     public function setTypeAttributes(array $attributes)
     {
         $this->_typeAttributes = $attributes;

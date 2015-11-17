@@ -202,6 +202,7 @@ $(document).ready(function () {
                     el.parents('tr').remove();
                     $('#cart-total-product-count').text($('.cart-list .cart-item').length);
                     updateCartTotalCost();
+                    updateCartWidget();
                 }
             }
         });

@@ -160,9 +160,7 @@ class ProductRepository extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
-        $criteria->params = [];
-        $criteria->addCondition('status = :status');
-        $criteria->params['status'] = Product::STATUS_ACTIVE;
+        $criteria->scopes = ['published'];
 
         return new CActiveDataProvider(
             Product::model(),
@@ -194,9 +192,8 @@ class ProductRepository extends CComponent
         $criteria->with = ['categoryRelation' => ['together' => true]];
         $criteria->addInCondition('categoryRelation.category_id', $categories);
         $criteria->addInCondition('t.category_id', $categories, 'OR');
-        $criteria->addCondition('status = :status');
         $criteria->group = 't.id';
-        $criteria->params['status'] = Product::STATUS_ACTIVE;
+        $criteria->scopes = ['published'];
 
         return new CActiveDataProvider(
             Product::model(),
@@ -222,10 +219,8 @@ class ProductRepository extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->params = [];
-        $criteria->addCondition('status = :status');
-        $criteria->params['status'] = Product::STATUS_ACTIVE;
         $criteria->addSearchCondition('name', $query, true);
-        return Product::model()->findAll($criteria);
+        return Product::model()->published()->findAll($criteria);
     }
 
     /**
@@ -246,7 +241,7 @@ class ProductRepository extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->addSearchCondition('name', $name);
-        return Product::model()->findAll($criteria);
+        return Product::model()->published()->findAll($criteria);
     }
 
     /**
