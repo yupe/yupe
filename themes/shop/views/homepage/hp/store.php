@@ -5,7 +5,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
 
-$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product/index']];
+$this->breadcrumbs = [Yii::t("HomepageModule.homepage", "Catalog") => ['/store/product/index']];
 
 ?>
 
@@ -13,12 +13,12 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product
     <div class="cols">
         <div class="col grid-module-3">
             <div class="catalog-filter">
-                <form id="store-filter" name="store-filter" method="get">
+                <?= CHtml::beginForm(['/store/product/index'], 'GET', ['name' => 'store-filter', 'id' => 'store-filter']);?>
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
-                </form>
+                <?= CHtml::endForm();?>
             </div>
         </div>
         <div class="col grid-module-9">

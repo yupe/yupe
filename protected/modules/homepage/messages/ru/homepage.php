@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Catalog' => 'Каталог',
     'Andrey Opeykin' => 'Андрей Опейкин',
     'Home page' => 'Главная',
     'Main page management module' => 'Модуль для управления главной страницей',
