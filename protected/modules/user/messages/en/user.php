@@ -346,4 +346,6 @@ return [
     'Phone' => '',
     'Phone - mask' => '',
     'Phone - pattern' => '',
+    'Generate user name automatically' => '',
+    'Generate password' => '',
 ];

@@ -43,6 +43,7 @@ class UserModule extends WebModule
     public $badLoginCount = 3;
     public $phoneMask = '+7-999-999-9999';
     public $phonePattern = '/^((\+?7)(-?\d{3})-?)?(\d{3})(-?\d{4})$/';
+    public $generateNickName = 0;
 
     public static $logCategory = 'application.modules.user';
     public $profiles = [];
@@ -141,7 +142,8 @@ class UserModule extends WebModule
             'usersPerPage' => Yii::t('UserModule.user', 'Users per page'),
             'badLoginCount' => Yii::t('UserModule.user', 'Number of login attempts'),
             'phoneMask' => Yii::t('UserModule.user', 'Phone - mask'),
-            'phonePattern' => Yii::t('UserModule.user', 'Phone - pattern')
+            'phonePattern' => Yii::t('UserModule.user', 'Phone - pattern'),
+            'generateNickName' => Yii::t('UserModule.user', 'Generate user name automatically')
         ];
     }
 
@@ -171,7 +173,8 @@ class UserModule extends WebModule
             'emailAccountVerification' => $this->getChoice(),
             'badLoginCount',
             'phoneMask',
-            'phonePattern'
+            'phonePattern',
+            'generateNickName' => $this->getChoice(),
         ];
     }
 
@@ -181,7 +184,8 @@ class UserModule extends WebModule
             'main' => [
                 'label' => Yii::t('UserModule.user', 'General module settings'),
                 'items' => [
-                    'sessionLifeTime'
+                    'sessionLifeTime',
+                    'generateNickName',
                 ]
             ],
             'avatar' => [

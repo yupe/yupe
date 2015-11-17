@@ -48,16 +48,16 @@ class RegistrationForm extends CFormModel
                 'match',
                 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
             ],
             ['nick_name', 'checkNickName'],
             [
                 'cPassword',
                 'compare',
                 'compareAttribute' => 'password',
-                'message'          => Yii::t('UserModule.user', 'Password is not coincide')
+                'message' => Yii::t('UserModule.user', 'Password is not coincide')
             ],
             ['email', 'email'],
             ['email', 'checkEmail'],
@@ -65,20 +65,36 @@ class RegistrationForm extends CFormModel
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
                 'allowEmpty' => !$this->isCaptchaEnabled(),
-                'message'    => Yii::t('UserModule.user', 'Check code incorrect')
+                'message' => Yii::t('UserModule.user', 'Check code incorrect')
             ],
             ['verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()],
             ['verifyCode', 'emptyOnInvalid']
         ];
     }
 
+    /**
+     * Метод выполняется перед валидацией
+     *
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        $module = Yii::app()->getModule('user');
+
+        if ($module->generateNickName) {
+            $this->nick_name = 'user' . time();
+        }
+
+        return parent::beforeValidate();
+    }
+
     public function attributeLabels()
     {
         return [
-            'nick_name'  => Yii::t('UserModule.user', 'User name'),
-            'email'      => Yii::t('UserModule.user', 'Email'),
-            'password'   => Yii::t('UserModule.user', 'Password'),
-            'cPassword'  => Yii::t('UserModule.user', 'Password confirmation'),
+            'nick_name' => Yii::t('UserModule.user', 'User name'),
+            'email' => Yii::t('UserModule.user', 'Email'),
+            'password' => Yii::t('UserModule.user', 'Password'),
+            'cPassword' => Yii::t('UserModule.user', 'Password confirmation'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         ];
     }

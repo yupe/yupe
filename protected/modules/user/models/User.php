@@ -301,7 +301,6 @@ class User extends yupe\models\YModel
         parent::afterFind();
     }
 
-
     /**
      * Метод выполняемый перед сохранением:
      *

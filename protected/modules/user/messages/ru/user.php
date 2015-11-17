@@ -367,4 +367,6 @@ return [
     'Phone' => 'Телефон',
     'Phone - mask' => 'Телефон - маска',
     'Phone - pattern' => 'Телефон - шаблон',
+    'Generate user name automatically' => 'Генерировать имя пользователя автоматически',
+    'Generate password' => 'Сгенерировать пароль',
 ];
