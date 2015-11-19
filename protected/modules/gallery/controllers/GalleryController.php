@@ -12,14 +12,23 @@
  **/
 class GalleryController extends \yupe\components\controllers\FrontController
 {
+    /**
+     *
+     */
     const GALLERY_PER_PAGE = 10;
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider(
             'Gallery', [
                 'criteria' => [
                     'scopes' => 'published'
+                ],
+                'sort' => [
+                    'defaultOrder' => 'id DESC',
                 ]
             ]
         );
@@ -27,6 +36,11 @@ class GalleryController extends \yupe\components\controllers\FrontController
         $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
+    /**
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
+     */
     public function actionView($id)
     {
         if (($gallery = Gallery::model()->published()->findByPk($id)) === null) {
@@ -70,6 +84,10 @@ class GalleryController extends \yupe\components\controllers\FrontController
         );
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionImage($id)
     {
         $model = Image::model()->findByPk((int)$id);
@@ -81,13 +99,11 @@ class GalleryController extends \yupe\components\controllers\FrontController
         $this->render('image', ['model' => $model]);
     }
 
+
     /**
-     * Ajax/Get-обёртка для удаления изображения:
-     *
-     * @param int $id - id-изображения
-     *
-     * @return void
-     **/
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionDeleteImage($id = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false) {
@@ -98,10 +114,10 @@ class GalleryController extends \yupe\components\controllers\FrontController
             'GalleryModule.gallery',
             'Image #{id} {result} deleted',
             [
-                '{id}'     => $id,
+                '{id}' => $id,
                 '{result}' => ($result = $image->delete())
-                        ? Yii::t('GalleryModule.gallery', 'успешно')
-                        : Yii::t('GalleryModule.gallery', 'не')
+                    ? Yii::t('GalleryModule.gallery', 'успешно')
+                    : Yii::t('GalleryModule.gallery', 'не')
             ]
         );
 
@@ -123,13 +139,12 @@ class GalleryController extends \yupe\components\controllers\FrontController
         );
     }
 
+
     /**
-     * Ajax/Get-обёртка для редактирования изображения:
-     *
-     * @param int $id - id-изображения
-     *
-     * @return void
-     **/
+     * @param null $id
+     * @throws CException
+     * @throws CHttpException
+     */
     public function actionEditImage($id = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false) {
@@ -156,7 +171,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
                     Yii::app()->ajax->success(
                         [
                             'message' => $message,
-                            'type'    => 'saved',
+                            'type' => 'saved',
                         ]
                     );
                 }
