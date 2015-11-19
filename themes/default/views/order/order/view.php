@@ -51,7 +51,8 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                     <td class="col-sm-3 text-center">
                         <p class="text-right lead">
                             <strong>
-                                <span class=""><?= $position->getTotalPrice(); ?></span> <?= Yii::t("OrderModule.order", "RUB"); ?>
+                                <span
+                                    class=""><?= $position->getTotalPrice(); ?></span> <?= Yii::t("OrderModule.order", "RUB"); ?>
                             </strong>
                         </p>
                     </td>
@@ -213,18 +214,16 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                         </ul>
                     </td>
                 </tr>
-                <?php if ($model->delivery->hasPaymentMethods()): ?>
-                    <tr>
-                        <td colspan="3">
-                            <p class="text-right">
-                                <button type="submit" class="btn btn-success" id="start-payment">
-                                    <?= Yii::t("OrderModule.order", "Pay"); ?>
-                                    <span class="glyphicon glyphicon-play"></span>
-                                </button>
-                            </p>
-                        </td>
-                    </tr>
-                <?php endif; ?>
+                <tr>
+                    <td colspan="3">
+                        <p class="text-right">
+                            <button type="submit" class="btn btn-success" id="start-payment">
+                                <?= Yii::t("OrderModule.order", "Pay"); ?>
+                                <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                        </p>
+                    </td>
+                </tr>
             <?php else: ?>
                 <tr>
                     <td colspan="3">
