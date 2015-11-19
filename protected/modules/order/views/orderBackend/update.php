@@ -63,8 +63,8 @@ $this->menu = [
 
 <?php if(Yii::app()->getModule('order')->enableComments):?>
     <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+            'view' => 'application.modules.order.views.orderBackend.comments',
             'redirectTo' => Yii::app()->createUrl('/order/orderBackendUpdate', ['id' => $model->id]),
             'model' => $model,
-        ]); ?>
-
+       ]); ?>
 <?php endif;?>

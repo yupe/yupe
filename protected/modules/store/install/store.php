@@ -8,8 +8,8 @@ return [
         'application.modules.store.models.*',
     ],
     'component' => [
-        'eventManager'   => [
-            'class'  => 'yupe\components\EventManager',
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
             'events' => [
                 'sitemap.before.generate' => [
                     ['\StoreSitemapGeneratorListener', 'onGenerate']
@@ -26,7 +26,7 @@ return [
             'class' => 'application.modules.store.components.AttributeFilter'
         ],
         'session' => [
-            'class'   => 'CHttpSession',
+            'class' => 'CHttpSession',
             'timeout' => 86400,
             'cookieParams' => ['httponly' => true]
         ]
@@ -38,7 +38,6 @@ return [
         '/store/categories' => 'store/category/index',
         '/store/brand/<slug:[\w_\/-]+>' => 'store/producer/view',
         '/store/brands' => 'store/producer/index',
-        '/store/<path:[\w_\/-]+>' => 'store/category/view',
-        '/store/product/autocomplete' => 'store/product/autocomplete'
+        '/store/<path:[\w_\/-]+>' => 'store/category/view'
     ],
 ];

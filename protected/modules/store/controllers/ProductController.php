@@ -90,20 +90,4 @@ class ProductController extends FrontController
             );
         }
     }
-
-    /**
-     *
-     */
-    public function actionAutocomplete()
-    {
-        $query = Yii::app()->getRequest()->getQuery('term');
-
-        $result = [];
-
-        if (strlen($query) > 2) {
-            $result = $this->productRepository->search($query);
-        }
-
-        Yii::app()->ajax->raw($result);
-    }
 }

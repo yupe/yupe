@@ -5,7 +5,7 @@ use yupe\components\Event;
 Yii::import('application.modules.store.models.Product');
 
 /**
- * Class SitemapGeneratorListener
+ * Class StoreSitemapGeneratorListener
  */
 class StoreSitemapGeneratorListener
 {
