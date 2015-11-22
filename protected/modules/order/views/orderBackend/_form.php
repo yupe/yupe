@@ -25,307 +25,305 @@ $form = $this->beginWidget(
 
 <?= $form->errorSummary($model); ?>
 <div class="row">
-<div class="col-sm-8">
-<div class="row">
-    <div class="col-sm-4">
-        <?=
-        $form->dropDownListGroup(
-            $model,
-            'status_id',
-            [
-                'widgetOptions' => [
-                    'data' => OrderStatus::model()->getList(),
-                ],
-            ]
-        ); ?>
-    </div>
-    <div class="col-sm-4">
-        <?=
-        $form->datePickerGroup(
-            $model,
-            'date',
-            [
-                'widgetOptions' => [
-                    'options' => [
-                        'format' => 'dd.mm.yyyy',
-                        'weekStart' => 1,
-                        'autoclose' => true,
-
-                    ],
-                    'htmlOptions' => ['id' => 'orderDate'],
-                ],
-                'prepend' => '<i class="fa fa-calendar"></i>',
-            ]
-        );
-        ?>
-    </div>
-    <div class="col-sm-4">
-        <?= $form->labelEx($model, 'user_id'); ?>
-        <?php $this->widget(
-            'bootstrap.widgets.TbSelect2',
-            [
-                'model' => $model,
-                'attribute' => 'user_id',
-                'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
-                'options' => [
-                    'placeholder' => Yii::t('OrderModule.order', 'User'),
-                    'width' => '100%',
-                    'allowClear' => true,
-                ]
-            ]
-        );?>
-    </div>
-</div>
-<div class="row">
     <div class="col-sm-12">
-        <label class="checkbox">
-            <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t(
-                'OrderModule.order',
-                'Inform buyer about order status'
-            ); ?>
-        </label>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Products'); ?></span>
+        <div class="row">
+            <div class="col-sm-4">
+                <?=
+                $form->dropDownListGroup(
+                    $model,
+                    'status_id',
+                    [
+                        'widgetOptions' => [
+                            'data' => OrderStatus::model()->getList(),
+                        ],
+                    ]
+                ); ?>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div id="products" class="col-sm-12">
-                        <?php $totalProductCost = 0; ?>
-                        <?php foreach ((array)$model->products as $orderProduct): ?>
-                            <?php $totalProductCost += $orderProduct->price * $orderProduct->quantity; ?>
-                            <?php $this->renderPartial('_product_row', ['model' => $orderProduct]); ?>
-                        <?php endforeach; ?>
+            <div class="col-sm-4">
+                <?=
+                $form->datePickerGroup(
+                    $model,
+                    'date',
+                    [
+                        'widgetOptions' => [
+                            'options' => [
+                                'format' => 'dd.mm.yyyy',
+                                'weekStart' => 1,
+                                'autoclose' => true,
+
+                            ],
+                            'htmlOptions' => ['id' => 'orderDate'],
+                        ],
+                        'prepend' => '<i class="fa fa-calendar"></i>',
+                    ]
+                );
+                ?>
+            </div>
+            <div class="col-sm-4">
+                <?= $form->labelEx($model, 'user_id'); ?>
+                <?php $this->widget(
+                    'bootstrap.widgets.TbSelect2',
+                    [
+                        'model' => $model,
+                        'attribute' => 'user_id',
+                        'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
+                        'options' => [
+                            'placeholder' => Yii::t('OrderModule.order', 'User'),
+                            'width' => '100%',
+                            'allowClear' => true,
+                        ]
+                    ]
+                ); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="checkbox">
+                    <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t(
+                        'OrderModule.order',
+                        'Inform buyer about order status'
+                    ); ?>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title"><?= Yii::t('OrderModule.order', 'Products'); ?></span>
+                    </div>
+                    <div class="panel-body">
+                        <table id="products" class="table table-hover table-responsive">
+                            <tr>
+                                <th>Изображение</th>
+                                <th>Наименование</th>
+                                <th>Варианты</th>
+                                <th>Количество (шт.)</th>
+                                <th>Цена (руб.)</th>
+                                <th></th>
+                            </tr>
+                            <?php $totalProductCost = 0; ?>
+                            <?php foreach ((array)$model->products as $orderProduct): ?>
+                                <?php $totalProductCost += $orderProduct->price * $orderProduct->quantity; ?>
+                                <?php $this->renderPartial('_product_row', ['model' => $orderProduct]); ?>
+                            <?php endforeach; ?>
+                        </table>
+
+                        <div class="row" id="orderAddProduct">
+                            <div class="col-sm-10">
+                                <?php $this->widget(
+                                    'bootstrap.widgets.TbSelect2',
+                                    [
+                                        'name' => 'ProductSelect',
+                                        'asDropDownList' => false,
+                                        'options' => [
+                                            'minimumInputLength' => 2,
+                                            'placeholder' => 'Select product',
+                                            'width' => '100%',
+                                            'allowClear' => true,
+                                            'ajax' => [
+                                                'url' => Yii::app()->controller->createUrl('/store/productBackend/ajaxSearch'),
+                                                'dataType' => 'json',
+                                                'data' => 'js:function(term, page) { return {q: term }; }',
+                                                'results' => 'js:function(data) { return {results: data}; }',
+                                            ],
+                                            'formatResult' => 'js:productFormatResult',
+                                            'formatSelection' => 'js:productFormatSelection',
+                                        ],
+                                        'htmlOptions' => [
+                                            'id' => 'product-select'
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-primary btn-sm" href="#" id="add-product"><?= Yii::t(
+                                        'OrderModule.order',
+                                        'Add'
+                                    ); ?></a>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <h4>
+                                <?= Yii::t('OrderModule.order', 'Total'); ?>:
+                                <span id="total-product-cost"><?= $totalProductCost; ?></span>
+                                <?= Yii::t('OrderModule.order', 'RUB'); ?>
+                            </h4>
+                        </div>
                     </div>
                 </div>
-                <div class="row product-row" id="orderAddProduct">
-                    <div class="col-sm-10">
-                        <?php $this->widget(
-                            'bootstrap.widgets.TbSelect2',
-                            [
-                                'name' => 'ProductSelect',
-                                'asDropDownList' => false,
-                                'options' => [
-                                    'minimumInputLength' => 2,
-                                    'placeholder' => 'Select product',
-                                    'width' => '100%',
-                                    'allowClear' => true,
-                                    'ajax' => [
-                                        'url' => Yii::app()->controller->createUrl('/store/productBackend/ajaxSearch'),
-                                        'dataType' => 'json',
-                                        'data' => 'js:function(term, page) { return {q: term }; }',
-                                        'results' => 'js:function(data) { return {results: data}; }',
-                                    ],
-                                    'formatResult' => 'js:productFormatResult',
-                                    'formatSelection' => 'js:productFormatSelection',
-                                ],
-                                'htmlOptions' => [
-                                    'id' => 'product-select'
-                                ],
-                            ]
-                        );?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title"><?= Yii::t('OrderModule.order', 'Delivery'); ?></span>
                     </div>
-                    <div class="col-sm-2">
-                        <a class="btn btn-default btn-sm" href="#" id="add-product"><?= Yii::t(
-                                'OrderModule.order',
-                                'Add'
-                            ); ?></a>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <?php
+                                $options = [];
+                                /* @var $delivery Delivery */
+                                foreach ((array)Delivery::model()->published()->findAll() as $delivery) {
+                                    $options[$delivery->id] = [
+                                        'data-separate-payment' => $delivery->separate_payment,
+                                        'data-price' => $delivery->price,
+                                        'data-available-from' => $delivery->available_from
+                                    ];
+                                }; ?>
+                                <?=
+                                $form->dropDownListGroup(
+                                    $model,
+                                    'delivery_id',
+                                    [
+                                        'widgetOptions' => [
+                                            'data' => CHtml::listData(Delivery::model()->published()->findAll(), 'id', 'name'),
+                                            'htmlOptions' => [
+                                                'empty' => Yii::t('OrderModule.order', 'Not selected'),
+                                                'id' => 'delivery-type',
+                                                'options' => $options,
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <?= $form->textFieldGroup($model, 'delivery_price'); ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <br/>
+                                <?= $form->checkBoxGroup($model, 'separate_delivery'); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="text-right">
-                    <h4>
-                        <?= Yii::t('OrderModule.order', 'Total'); ?>:
-                        <span id="total-product-cost"><?= $totalProductCost; ?></span>
-                        <?= Yii::t('OrderModule.order', 'RUB'); ?>
-                    </h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title"><?= Yii::t('OrderModule.order', 'Payment') ?></span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <?=
+                                $form->dropDownListGroup(
+                                    $model,
+                                    'payment_method_id',
+                                    [
+                                        'widgetOptions' => [
+                                            'data' => CHtml::listData(Payment::model()->published()->findAll(), 'id', 'name'),
+                                            'htmlOptions' => [
+                                                'empty' => Yii::t('OrderModule.order', 'Not selected'),
+                                            ],
+                                        ],
+                                    ]
+                                ); ?>
+                            </div>
+                            <div class="col-sm-2">
+                                <br/>
+                                <?= $form->checkBoxGroup($model, 'paid'); ?>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <br/>
+                                <h4>
+                                    <?= Yii::t('OrderModule.order', 'Total'); ?>
+                                    : <?= $model->getTotalPriceWithDelivery(); ?> <?= Yii::t(
+                                        'OrderModule.order',
+                                        'RUB'
+                                    ); ?>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?= $form->textAreaGroup($model, 'note'); ?>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title"><?= Yii::t('OrderModule.order', 'Order details'); ?></span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'name'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'phone'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'email'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'address'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textAreaGroup($model, 'comment'); ?>
+                            </div>
+                        </div>
+                        <?php if (!$model->isNewRecord): ?>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <?= CHtml::link(
+                                        Yii::t('OrderModule.order', 'Link to order'),
+                                        ['/order/order/view', 'url' => $model->url]
+                                    ); ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Delivery'); ?></span>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-4">
+    <?php if (Yii::app()->hasModule('coupon')): ?>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title"><?= Yii::t('OrderModule.order', 'Coupons'); ?></span>
+                </div>
+                <div class="panel-body coupons">
+                    <?php if ($model->hasCoupons()): ?>
                         <?php
-                        $options = [];
-                        /* @var $delivery Delivery */
-                        foreach ((array)Delivery::model()->published()->findAll() as $delivery) {
-                            $options[$delivery->id] = [
-                                'data-separate-payment' => $delivery->separate_payment,
-                                'data-price' => $delivery->price,
-                                'data-available-from' => $delivery->available_from
-                            ];
-                        };?>
-                        <?=
-                        $form->dropDownListGroup(
-                            $model,
-                            'delivery_id',
+                        $this->widget(
+                            'yupe\widgets\CustomGridView',
                             [
-                                'widgetOptions' => [
-                                    'data' => CHtml::listData(Delivery::model()->published()->findAll(), 'id', 'name'),
-                                    'htmlOptions' => [
-                                        'empty' => Yii::t('OrderModule.order', 'Not selected'),
-                                        'id' => 'delivery-type',
-                                        'options' => $options,
-                                    ],
-                                ],
-                            ]
-                        ); ?>
-                    </div>
-                    <div class="col-sm-4">
-                        <?= $form->textFieldGroup($model, 'delivery_price'); ?>
-                    </div>
-                    <div class="col-sm-4">
-                        <br/>
-                        <?= $form->checkBoxGroup($model, 'separate_delivery'); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Payment') ?></span>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <?=
-                        $form->dropDownListGroup(
-                            $model,
-                            'payment_method_id',
-                            [
-                                'widgetOptions' => [
-                                    'data' => CHtml::listData(Payment::model()->published()->findAll(), 'id', 'name'),
-                                    'htmlOptions' => [
-                                        'empty' => Yii::t('OrderModule.order', 'Not selected'),
-                                    ],
-                                ],
-                            ]
-                        ); ?>
-                    </div>
-                    <div class="col-sm-2">
-                        <br/>
-                        <?= $form->checkBoxGroup($model, 'paid'); ?>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <br/>
-                        <h4>
-                            <?= Yii::t('OrderModule.order', 'Total'); ?>: <?= $model->getTotalPriceWithDelivery(); ?> <?= Yii::t(
-                                'OrderModule.order',
-                                'RUB'
-                            ); ?>
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <?= $form->textAreaGroup($model, 'note'); ?>
-    </div>
-</div>
-</div>
-
-<div class="col-sm-4">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="panel-title"><?= Yii::t('OrderModule.order', 'Order details'); ?></span>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->textFieldGroup($model, 'name'); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->textFieldGroup($model, 'phone'); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->textFieldGroup($model, 'email'); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->textFieldGroup($model, 'address'); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->textAreaGroup($model, 'comment'); ?>
-                </div>
-            </div>
-            <?php if (!$model->isNewRecord): ?>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <?= CHtml::link(
-                            Yii::t('OrderModule.order', 'Link to order'),
-                            ['/order/order/view', 'url' => $model->url]
-                        ); ?>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
-<?php if (Yii::app()->hasModule('coupon')): ?>
-    <div class="col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="panel-title"><?= Yii::t('OrderModule.order', 'Coupons'); ?></span>
-            </div>
-            <div class="panel-body coupons">
-                <?php if ($model->hasCoupons()): ?>
-                    <?php
-                    $this->widget(
-                        'yupe\widgets\CustomGridView',
-                        [
-                            'id' => 'order-coupon-grid',
-                            'type' => 'condensed',
-                            'dataProvider' => $model->searchCoupons(),
-                            'actionsButtons' => false,
-                            'bulkActions' => [false],
-                            'template' => '{items}',
-                            'columns' => [
-                                [
-                                    'name' => 'coupon_id',
-                                    'value' => function ($data) {
+                                'id' => 'order-coupon-grid',
+                                'type' => 'condensed',
+                                'dataProvider' => $model->searchCoupons(),
+                                'actionsButtons' => false,
+                                'bulkActions' => [false],
+                                'template' => '{items}',
+                                'columns' => [
+                                    [
+                                        'name' => 'coupon_id',
+                                        'value' => function ($data) {
                                             return CHtml::link(
                                                 $data->coupon->code,
                                                 ['/coupon/couponBackend/update', 'id' => $data->coupon_id]
                                             );
                                         },
-                                    'type' => 'html'
-                                ],
-                                'name' => 'create_time'
+                                        'type' => 'html'
+                                    ],
+                                    'name' => 'create_time'
+                                ]
                             ]
-                        ]
-                    );
-                    ?>
-                <?php endif; ?>
+                        );
+                        ?>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
 </div>
 
 <?php $this->widget(
@@ -334,9 +332,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => $model->getIsNewRecord() ? Yii::t('OrderModule.order', 'Add order and continue') : Yii::t(
-                'OrderModule.order',
-                'Save order and continue'
-            ),
+            'OrderModule.order',
+            'Save order and continue'
+        ),
     ]
 ); ?>
 
@@ -346,9 +344,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label' => $model->getIsNewRecord() ? Yii::t('OrderModule.order', 'Add order and close') : Yii::t(
-                'OrderModule.order',
-                'Save order and close'
-            ),
+            'OrderModule.order',
+            'Save order and close'
+        ),
     ]
 ); ?>
 
