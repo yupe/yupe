@@ -42,7 +42,7 @@ class ProductRepository extends CComponent
             if ($param === 'category') {
                 $categories = [];
 
-                foreach($mainSearchAttributes[$param] as $categoryId) {
+                foreach ($mainSearchAttributes[$param] as $categoryId) {
                     $categories[] = $categoryId;
                     $categories = CMap::mergeArray($categories, StoreCategory::model()->getChildsArray($categoryId));
                 }
@@ -231,6 +231,16 @@ class ProductRepository extends CComponent
     public function getBySlug($slug, array $with = ['producer', 'type.typeAttributes', 'images', 'mainCategory', 'variants'])
     {
         return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
+    }
+
+    /**
+     * @param $id
+     * @param array $with
+     * @return mixed
+     */
+    public function getById($id, array $with = ['producer', 'type.typeAttributes', 'images', 'mainCategory', 'variants'])
+    {
+        return Product::model()->published()->with($with)->findByPk($id);
     }
 
     /**

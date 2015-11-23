@@ -37,7 +37,7 @@ $price = $data->getResultPrice();
                     <?php endif; ?>
                 </div>
                 <div class="product-vertical-extra__toolbar">
-                    <div class="product-vertical-extra__button"><i class="fa fa-heart-o"></i></div>
+                    <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $data]);?>
                     <div class="product-vertical-extra__button"><i class="fa fa-balance-scale"></i></div>
                     <div class="product-vertical-extra__cart">
                         <?php if (Yii::app()->hasModule('cart')): ?>

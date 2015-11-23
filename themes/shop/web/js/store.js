@@ -1,3 +1,8 @@
+
+function showNotify(element, result, message) {
+    $('#notifications').html('<div>' + message + '</div>').fadeIn().delay(3000).fadeOut();
+}
+
 $(document).ajaxError(function () {
     $('#notifications').html('<div>Произошла ошибка =(</div>').fadeIn().delay(3000).fadeOut();
 });
@@ -5,7 +10,7 @@ $(document).ajaxError(function () {
 $(document).ready(function () {
     var cartWidgetSelector = '#shopping-cart-widget';
 
-    /*страница продукта*/
+   /*страница продукта*/
     var priceElement = $('#result-price'); //итоговая цена на странице продукта
     var basePrice = parseFloat($('#base-price').val()); //базовая цена на странице продукта
     var quantityElement = $('#product-quantity');
@@ -17,10 +22,6 @@ $(document).ready(function () {
     var cartFullCostWithShippingElement = $('#cart-full-cost-with-shipping');
 
     miniCartListeners();
-
-    function showNotify(element, result, message) {
-        $('#notifications').html('<div>' + message + '</div>').fadeIn().delay(3000).fadeOut();
-    }
 
     function updatePrice() {
         var _basePrice = basePrice;

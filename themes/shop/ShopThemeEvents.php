@@ -1,5 +1,5 @@
 <?php
-class DefautThemeEvents
+class ShopThemeEvents
 {
     CONST BODY_END = 'template.body.end';
 

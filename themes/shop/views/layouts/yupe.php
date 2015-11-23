@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    \yupe\components\TemplateEvent::fire(DefautThemeEvents::HEAD_START);
+    \yupe\components\TemplateEvent::fire(ShopThemeEvents::HEAD_START);
 
     Yii::app()->getController()->widget(
         'vendor.chemezov.yii-seo.widgets.SeoHead',
@@ -31,7 +31,7 @@
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/select2/select2.css');
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/slick/slick/slick.css');
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/styles/common.css');
-    Yii::app()->getClientScript()->registerCssFile('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+    Yii::app()->getClientScript()->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css');
 
     Yii::app()->getClientScript()->registerCoreScript('jquery');
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/common.min.js', CClientScript::POS_END);
@@ -44,11 +44,11 @@
         var yupeCartUpdateUrl = '<?= Yii::app()->createUrl('/cart/cart/update/')?>';
         var yupeCartWidgetUrl = '<?= Yii::app()->createUrl('/cart/cart/widget/')?>';
     </script>
-    <?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::HEAD_END);?>
+    <?php \yupe\components\TemplateEvent::fire(ShopThemeEvents::HEAD_END);?>
 </head>
 
 <body>
-<?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::BODY_START);?>
+<?php \yupe\components\TemplateEvent::fire(ShopThemeEvents::BODY_START);?>
 <div class="main">
     <div class="main__navbar">
         <div class="navbar">
@@ -59,7 +59,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="navbar__personal">
-                    <div class="navbar__toolbar"><a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue">0</span></a>
+                    <div class="navbar__toolbar"><a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue" id="yupe-store-favorite-total"><?= Yii::app()->favorite->count();?></span></a>
                         <a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-balance-scale fa-lg fa-fw"></i> Сравнение</span><span class="badge badge_light-blue">0</span>
                         </a>
                     </div>
@@ -190,7 +190,7 @@
         </div>
     </div>
 </div>
-<?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::BODY_END);?>
+<?php \yupe\components\TemplateEvent::fire(ShopThemeEvents::BODY_END);?>
 <div class='notifications top-right' id="notifications"></div>
 </body>
 </html>
