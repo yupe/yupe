@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * Class UserManager
+ */
 class UserManager extends CApplicationComponent
 {
+    /**
+     * @var
+     */
     public $hasher;
 
+    /**
+     * @var
+     */
     public $tokenStorage;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -15,27 +27,37 @@ class UserManager extends CApplicationComponent
         $this->setTokenStorage(Yii::createComponent($this->tokenStorage));
     }
 
+    /**
+     * @param TokenStorage $tokenStorage
+     */
     public function setTokenStorage(TokenStorage $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
 
+    /**
+     * @param Hasher $hasher
+     */
     public function setHasher(Hasher $hasher)
     {
         $this->hasher = $hasher;
     }
 
+    /**
+     * @param RegistrationForm $form
+     * @return bool|User
+     */
     public function createUser(RegistrationForm $form)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-            
+
             $user = new User;
 
             $userData = $form->getAttributes();
 
-            foreach(['cPassword', 'password', 'verifyCode','disableCaptcha'] as $attribute) {
+            foreach (['cPassword', 'password', 'verifyCode', 'disableCaptcha'] as $attribute) {
                 unset($userData[$attribute]);
             }
 
@@ -83,6 +105,10 @@ class UserManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param $token
+     * @return bool
+     */
     public function activateUser($token)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -115,7 +141,7 @@ class UserManager extends CApplicationComponent
                         'UserModule.user',
                         'Account with activate_key = {activate_key} was activated!',
                         [
-                            '{activate_key}' => $token
+                            '{activate_key}' => $token,
                         ]
                     ),
                     CLogger::LEVEL_INFO,
@@ -123,17 +149,22 @@ class UserManager extends CApplicationComponent
                 );
 
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_ACCOUNT, new UserActivateEvent($token, $userModel));
+                Yii::app()->eventManager->fire(
+                    UserEvents::SUCCESS_ACTIVATE_ACCOUNT,
+                    new UserActivateEvent($token, $userModel)
+                );
 
                 $transaction->commit();
 
                 return true;
             }
 
-            throw new CException(Yii::t(
-                'UserModule.user',
-                'There was a problem with the activation of the account. Please refer to the site\'s administration.'
-            ));
+            throw new CException(
+                Yii::t(
+                    'UserModule.user',
+                    'There was a problem with the activation of the account. Please refer to the site\'s administration.'
+                )
+            );
         } catch (Exception $e) {
             $transaction->rollback();
 
@@ -143,6 +174,10 @@ class UserManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param $email
+     * @return bool
+     */
     public function passwordRecovery($email)
     {
         Yii::app()->eventManager->fire(UserEvents::BEFORE_PASSWORD_RECOVERY, new UserPasswordRecoveryEvent($email));
@@ -154,7 +189,7 @@ class UserManager extends CApplicationComponent
         $user = User::model()->active()->find(
             'email = :email',
             [
-                ':email' => $email
+                ':email' => $email,
             ]
         );
 
@@ -191,6 +226,12 @@ class UserManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param $token
+     * @param null $password
+     * @param bool|true $notify
+     * @return bool
+     */
     public function activatePassword($token, $password = null, $notify = true)
     {
         $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
@@ -245,6 +286,11 @@ class UserManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param User $user
+     * @param $password
+     * @return bool
+     */
     public function changeUserPassword(User $user, $password)
     {
         $user->hash = $this->hasher->hashPassword($password);
@@ -252,6 +298,12 @@ class UserManager extends CApplicationComponent
         return $user->save();
     }
 
+    /**
+     * @param User $user
+     * @param $email
+     * @param bool|true $confirm
+     * @return bool
+     */
     public function changeUserEmail(User $user, $email, $confirm = true)
     {
         if ($user->email == $email) {
@@ -288,6 +340,10 @@ class UserManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param $token
+     * @return bool
+     */
     public function verifyEmail($token)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
@@ -347,6 +403,10 @@ class UserManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
     public function isUserExist($email)
     {
         return User::model()->active()->find('email = :email', ['email' => $email]);

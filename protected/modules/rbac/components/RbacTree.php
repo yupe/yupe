@@ -11,8 +11,8 @@ class RbacTree
      */
     private $itemsGroupedByTypes = [
         AuthItem::TYPE_OPERATION => [],
-        AuthItem::TYPE_TASK      => [],
-        AuthItem::TYPE_ROLE      => []
+        AuthItem::TYPE_TASK => [],
+        AuthItem::TYPE_ROLE => [],
     ];
     /**
      * @var array - список правил в формате name => AuthItem object
@@ -37,7 +37,7 @@ class RbacTree
 
     public function __construct($user = null)
     {
-        $this->user = $user ? : Yii::app()->user;
+        $this->user = $user ?: Yii::app()->user;
         $this->getData();
     }
 
@@ -92,7 +92,7 @@ class RbacTree
         $children = $this->getTextItemChildren($itemName);
 
         return [
-            'text'     => $this->getTextItem($this->itemsList[$itemName]),
+            'text' => $this->getTextItem($this->itemsList[$itemName]),
             'children' => $children,
         ];
     }
@@ -130,8 +130,8 @@ class RbacTree
                 CHtml::checkBox(
                     'AuthItem[]',
                     $this->permissionList[$item['name']],
-                    ['class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-' . uniqid()]
-                ) . $this->getItemDescription($item),
+                    ['class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-'.uniqid()]
+                ).$this->getItemDescription($item),
                 null
             )
         );
@@ -139,7 +139,7 @@ class RbacTree
 
     private function getItemDescription($item)
     {
-        return $item->description . " ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
+        return $item->description." ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
     }
 
     /**

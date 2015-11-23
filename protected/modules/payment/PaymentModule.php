@@ -2,75 +2,131 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class PaymentModule
+ */
 class PaymentModule extends WebModule
 {
+    /**
+     *
+     */
     const VERSION = '0.9.9';
 
+    /**
+     * @var string
+     */
     public $pathAssets = 'payment.views.assets';
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return ['store'];
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('PaymentModule.payment', 'Store');
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('PaymentModule.payment', 'Payment methods list'), 'url' => ['/payment/paymentBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('PaymentModule.payment', 'Create payment'), 'url' => ['/payment/paymentBackend/create']],
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('PaymentModule.payment', 'Payment methods list'),
+                'url' => ['/payment/paymentBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('PaymentModule.payment', 'Create payment'),
+                'url' => ['/payment/paymentBackend/create'],
+            ],
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/payment/paymentBackend/index';
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [];
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('PaymentModule.payment', 'Payment');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('PaymentModule.payment', 'Payment orders module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('PaymentModule.payment', 'amylabs team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('PaymentModule.payment', 'hello@amylabs.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-usd';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -79,11 +135,14 @@ class PaymentModule extends WebModule
             [
                 'payment.models.*',
                 'payment.components.payments.*',
-                'payment.listeners.*'
+                'payment.listeners.*',
             ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [

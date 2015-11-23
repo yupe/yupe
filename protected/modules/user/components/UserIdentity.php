@@ -26,9 +26,9 @@ class UserIdentity extends CUserIdentity
         $user = User::model()->active()->find(
             [
                 'condition' => 'email = :username OR nick_name = :username',
-                'params'    => [
-                    ':username' => $this->username
-                ]
+                'params' => [
+                    ':username' => $this->username,
+                ],
             ]
         );
 

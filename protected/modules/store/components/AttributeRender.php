@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * Class AttributeRender
+ */
 class AttributeRender
 {
+    /**
+     * @param $attribute
+     * @param null $value
+     * @param null $name
+     * @param array $htmlOptions
+     * @return mixed|null|string
+     */
     public static function renderField($attribute, $value = null, $name = null, $htmlOptions = [])
     {
-        $name = $name ?: 'Attribute[' . $attribute->id . ']';
+        $name = $name ?: 'Attribute['.$attribute->id.']';
         switch ($attribute->type) {
             case Attribute::TYPE_SHORT_TEXT:
                 return CHtml::textField($name, $value, $htmlOptions);
@@ -14,18 +24,20 @@ class AttributeRender
                     Yii::app()->getModule('store')->getVisualEditor(),
                     [
                         'name' => $name,
-                        'value' => $value
+                        'value' => $value,
                     ],
                     true
                 );
                 break;
             case Attribute::TYPE_DROPDOWN:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
+
                 return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, (['empty' => '---'])));
                 break;
             case Attribute::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
-                return CHtml::checkBoxList($name . '[]', $value, $data, $htmlOptions);
+
+                return CHtml::checkBoxList($name.'[]', $value, $data, $htmlOptions);
                 break;
             case Attribute::TYPE_CHECKBOX:
                 return CHtml::checkBox($name, $value, CMap::mergeArray(['uncheckValue' => 0], $htmlOptions));
@@ -41,9 +53,14 @@ class AttributeRender
         return null;
     }
 
+    /**
+     * @param $attribute
+     * @param $value
+     * @return string
+     */
     public function renderValue($attribute, $value)
     {
-        $unit = $attribute->unit ? ' ' . $attribute->unit : '';
+        $unit = $attribute->unit ? ' '.$attribute->unit : '';
         $res = '';
         switch ($attribute->type) {
             case Attribute::TYPE_TEXT:
@@ -62,6 +79,6 @@ class AttributeRender
                 break;
         }
 
-        return $res . $unit;
+        return $res.$unit;
     }
 }

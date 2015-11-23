@@ -12,7 +12,7 @@
  */
 class QueueModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.5';
+    const VERSION = '0.9.9';
 
     public $workerNamesMap;
 

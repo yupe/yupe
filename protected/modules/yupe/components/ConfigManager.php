@@ -26,10 +26,16 @@ use CException;
  * Class ConfigManager
  * @package yupe\components
  */
-class ConfigManager extends CComponent
+class ConfigManager extends \CApplicationComponent
 {
+    /**
+     *
+     */
     const ENV_WEB = 'web';
 
+    /**
+     *
+     */
     const ENV_CONSOLE = 'console';
     // Настройки:
     /**
@@ -85,8 +91,14 @@ class ConfigManager extends CComponent
      */
     public $cacheFileName = 'cached_settings';
 
+    /**
+     * @var string
+     */
     protected $env = self::ENV_WEB;
 
+    /**
+     * @param $env
+     */
     public function sentEnv($env)
     {
         $this->env = $env;

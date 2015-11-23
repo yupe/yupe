@@ -3,7 +3,7 @@
 /**
  * Class ProductRepository
  */
-class ProductRepository extends CComponent
+class ProductRepository extends CApplicationComponent
 {
     /**
      * @var

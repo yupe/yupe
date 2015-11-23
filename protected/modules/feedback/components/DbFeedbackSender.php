@@ -2,12 +2,26 @@
 
 use yupe\components\Mail;
 
+/**
+ * Class DbFeedbackSender
+ */
 class DbFeedbackSender implements IFeedbackSender
 {
+    /**
+     * @var Mail
+     */
     protected $mail;
 
+    /**
+     * @var FeedbackModule
+     */
     protected $module;
 
+    /**
+     * DbFeedbackSender constructor.
+     * @param Mail $mail
+     * @param FeedbackModule $module
+     */
     public function __construct(Mail $mail, FeedbackModule $module)
     {
         $this->mail = $mail;
@@ -15,18 +29,22 @@ class DbFeedbackSender implements IFeedbackSender
         $this->module = $module;
     }
 
+    /**
+     * @param IFeedbackForm $form
+     * @return bool
+     */
     public function send(IFeedbackForm $form)
     {
         $feedback = new FeedBack();
 
         $feedback->setAttributes(
             [
-                'name'  => $form->getName(),
+                'name' => $form->getName(),
                 'email' => $form->getEmail(),
                 'theme' => $form->getTheme(),
-                'text'  => $form->getText(),
+                'text' => $form->getText(),
                 'phone' => $form->getPhone(),
-                'type'  => $form->getType(),
+                'type' => $form->getType(),
             ]
         );
 
@@ -42,6 +60,11 @@ class DbFeedbackSender implements IFeedbackSender
         return false;
     }
 
+    /**
+     * @param IFeedbackForm $form
+     * @param FeedBack|null $feedBack
+     * @return bool
+     */
     public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null)
     {
         $emailBody = Yii::app()->controller->renderPartial(

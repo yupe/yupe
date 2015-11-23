@@ -2,15 +2,27 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class YandexMarketModule
+ */
 class YandexMarketModule extends WebModule
 {
-    const VERSION = '0.9.7';
+    /**
+     *
+     */
+    const VERSION = '0.9.9';
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return ['store'];
     }
 
+    /**
+     * @return array|bool
+     */
     public function checkSelf()
     {
         $messages = [];
@@ -18,64 +30,108 @@ class YandexMarketModule extends WebModule
         return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
 
+    /**
+     * @return bool
+     */
     public function getEditableParams()
     {
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('YandexMarketModule.default', 'Store');
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/yandexmarket/exportBackend/index';
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YandexMarketModule.default', 'Export lists'), 'url' => ['/yandexmarket/exportBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YandexMarketModule.default', 'Create export list'), 'url' => ['/yandexmarket/exportBackend/create']]
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('YandexMarketModule.default', 'Export lists'),
+                'url' => ['/yandexmarket/exportBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('YandexMarketModule.default', 'Create export list'),
+                'url' => ['/yandexmarket/exportBackend/create'],
+            ],
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('YandexMarketModule.default', 'Yandex.Market');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('YandexMarketModule.default', 'Module to export products in the yml file');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('YandexMarketModule.default', 'amylabs team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('YandexMarketModule.default', 'hello@amylabs.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-upload';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -88,6 +144,9 @@ class YandexMarketModule extends WebModule
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [

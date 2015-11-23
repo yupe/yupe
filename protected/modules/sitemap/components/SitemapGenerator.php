@@ -5,20 +5,12 @@ use samdark\sitemap\Sitemap;
 /**
  * Class SitemapGenerator
  */
-class SitemapGenerator extends CComponent
+class SitemapGenerator extends CApplicationComponent
 {
     /**
      * @var array
      */
     protected $data = [];
-
-    /**
-     *
-     */
-    public function init()
-    {
-
-    }
 
     /**
      * @param $location
@@ -32,7 +24,7 @@ class SitemapGenerator extends CComponent
             'location' => $location,
             'lastModified' => $lastModified,
             'changeFrequency' => $changeFrequency,
-            'priority' => $priority
+            'priority' => $priority,
         ];
     }
 
@@ -41,7 +33,7 @@ class SitemapGenerator extends CComponent
      */
     public function generate($sitemapFile, array $data)
     {
-        if(!empty($data)) {
+        if (!empty($data)) {
             $this->data = array_merge($this->data, $data);
         }
 

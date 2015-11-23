@@ -27,7 +27,7 @@ abstract class ConsoleCommand extends CConsoleCommand
      */
     public function getCache()
     {
-        if(is_object($this->cache)) {
+        if (is_object($this->cache)) {
             return $this->cache;
         }
 
@@ -86,7 +86,7 @@ abstract class ConsoleCommand extends CConsoleCommand
     {
         $this->log(sprintf('Lock command "%s" for time %d', get_class($this), $time));
 
-        $this->getCache()->set(sprintf('yupe::command::run::%s', get_class($this)),'locked',(int)$time);
+        $this->getCache()->set(sprintf('yupe::command::run::%s', get_class($this)), 'locked', (int)$time);
     }
 
     /**
@@ -115,7 +115,7 @@ abstract class ConsoleCommand extends CConsoleCommand
 
     public function endIfLocked($message = null)
     {
-        if($this->isLocked()){
+        if ($this->isLocked()) {
             $this->end($message);
         }
     }

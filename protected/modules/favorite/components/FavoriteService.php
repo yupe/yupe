@@ -33,6 +33,7 @@ class FavoriteService extends CApplicationComponent
     protected function setData(array $data)
     {
         $this->session->add($this->key, $data);
+
         return true;
     }
 
@@ -61,7 +62,10 @@ class FavoriteService extends CApplicationComponent
 
         $this->setData($products);
 
-        Yii::app()->eventManager->fire(FavoriteEvents::ADD_TO_FAVORITE, new FavoriteServiceEvent($productId, $this->session));
+        Yii::app()->eventManager->fire(
+            FavoriteEvents::ADD_TO_FAVORITE,
+            new FavoriteServiceEvent($productId, $this->session)
+        );
 
         return true;
     }
@@ -77,7 +81,11 @@ class FavoriteService extends CApplicationComponent
 
         if (isset($products[$productId])) {
             unset($products[$productId]);
-            Yii::app()->eventManager->fire(FavoriteEvents::REMOVE_FROM_FAVORITE, new FavoriteServiceEvent($productId, $this->session));
+            Yii::app()->eventManager->fire(
+                FavoriteEvents::REMOVE_FROM_FAVORITE,
+                new FavoriteServiceEvent($productId, $this->session)
+            );
+
             return $this->setData($products);
         }
 
@@ -111,7 +119,9 @@ class FavoriteService extends CApplicationComponent
         $criteria = new CDbCriteria();
         $criteria->scopes = ['published'];
         $criteria->addInCondition('t.id', array_keys($products));
-        return new CActiveDataProvider(Product::model(), [
+
+        return new CActiveDataProvider(
+            Product::model(), [
             'criteria' => $criteria,
             'pagination' => [
                 'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
@@ -119,8 +129,9 @@ class FavoriteService extends CApplicationComponent
             ],
             'sort' => [
                 'sortVar' => 'sort',
-                'defaultOrder' => 't.position'
+                'defaultOrder' => 't.position',
             ],
-        ]);
+        ]
+        );
     }
 }

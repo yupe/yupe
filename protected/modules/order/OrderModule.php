@@ -2,53 +2,92 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class OrderModule
+ */
 class OrderModule extends WebModule
 {
+    /**
+     *
+     */
     const VERSION = '0.9.9';
 
+    /**
+     * @var
+     */
     public $notifyEmailFrom;
 
+    /**
+     * @var
+     */
     public $notifyEmailsTo;
 
+    /**
+     * @var string
+     */
     public $assetsPath = 'order.views.assets';
 
+    /**
+     * @var int
+     */
     public $showOrder = 1;
 
+    /**
+     * @var int
+     */
     public $enableCheck = 1;
 
+    /**
+     * @var int
+     */
     public $defaultStatus = 1;
 
+    /**
+     * @var int
+     */
     public $enableComments = 1;
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return ['store', 'payment', 'delivery', 'mail'];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [
             'notifyEmailFrom',
             'notifyEmailsTo',
-            'showOrder'   => $this->getChoice(),
+            'showOrder' => $this->getChoice(),
             'enableCheck' => $this->getChoice(),
             'defaultStatus' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name'),
-            'enableComments' => $this->getChoice()
+            'enableComments' => $this->getChoice(),
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
         return [
             'notifyEmailFrom' => Yii::t('OrderModule.order', 'Notification email'),
-            'notifyEmailsTo'  => Yii::t('OrderModule.order', 'Recipients of notifications (comma separated)'),
-            'showOrder'       => Yii::t('OrderModule.order', 'Public ordering page'),
-            'enableCheck'     => Yii::t('OrderModule.order', 'Allow orders validation by number'),
-            'defaultStatus'   => Yii::t('OrderModule.order', 'Default order status'),
-            'enableComments'  => Yii::t('OrderModule.order', 'Allow order comments in admin panel')
+            'notifyEmailsTo' => Yii::t('OrderModule.order', 'Recipients of notifications (comma separated)'),
+            'showOrder' => Yii::t('OrderModule.order', 'Public ordering page'),
+            'enableCheck' => Yii::t('OrderModule.order', 'Allow orders validation by number'),
+            'defaultStatus' => Yii::t('OrderModule.order', 'Default order status'),
+            'enableComments' => Yii::t('OrderModule.order', 'Allow order comments in admin panel'),
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParamsGroups()
     {
         return [
@@ -58,8 +97,8 @@ class OrderModule extends WebModule
                     'defaultStatus',
                     'showOrder',
                     'enableCheck',
-                    'enableComments'
-                ]
+                    'enableComments',
+                ],
             ],
             '1.notify' => [
                 'label' => Yii::t('OrderModule.order', 'Notifications'),
@@ -71,59 +110,100 @@ class OrderModule extends WebModule
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('OrderModule.order', 'Store');
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-gift', 'label' => Yii::t('OrderModule.order', 'Orders'), 'url' => ['/order/orderBackend/index']],
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Statuses'), 'url' => ['/order/statusBackend/index']]
+            [
+                'icon' => 'fa fa-fw fa-gift',
+                'label' => Yii::t('OrderModule.order', 'Orders'),
+                'url' => ['/order/orderBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('OrderModule.order', 'Statuses'),
+                'url' => ['/order/statusBackend/index'],
+            ],
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/order/orderBackend/index';
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('OrderModule.order', 'Orders');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('OrderModule.order', 'Orders manage module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('OrderModule.order', 'amylabs team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('OrderModule.order', 'hello@amylabs');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-gift';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -131,11 +211,14 @@ class OrderModule extends WebModule
         $this->setImport(
             [
                 'order.models.*',
-                'order.forms.*'
+                'order.forms.*',
             ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [
@@ -201,6 +284,9 @@ class OrderModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getNotifyTo()
     {
         return explode(',', $this->notifyEmailsTo);

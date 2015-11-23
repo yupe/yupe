@@ -3,13 +3,13 @@
 /**
  * Class Money - заглушка для конвертора валют
  */
-class Money extends CComponent
+class Money extends CApplicationComponent
 {
-    public function init()
-    {
-
-    }
-
+    /**
+     * @param $sum
+     * @param $currencyId
+     * @return mixed
+     */
     public function convert($sum, $currencyId)
     {
         return $sum;

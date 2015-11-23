@@ -2,8 +2,19 @@
 
 use yupe\models\YModel;
 
+/**
+ * Class CommentManager
+ */
 class CommentManager extends CApplicationComponent
 {
+    /**
+     * @param $params
+     * @param $module
+     * @param $user
+     * @param null $request
+     * @return bool|Comment
+     * @throws CException
+     */
     public function create($params, $module, $user, $request = null)
     {
         if ($user->isAuthenticated()) {
@@ -28,12 +39,12 @@ class CommentManager extends CApplicationComponent
         }
 
         /**
-        * Реализована проверка прав на возможность добавления комментария в конкретную модель
-        * Для того чтобы осушествить проверку у модели должен быть public метод: commitValidation()
-        * Если метод вернет значение: false, то предполагается что для данной сушности добавление комментария запрещено
-        **/
+         * Реализована проверка прав на возможность добавления комментария в конкретную модель
+         * Для того чтобы осушествить проверку у модели должен быть public метод: commitValidation()
+         * Если метод вернет значение: false, то предполагается что для данной сушности добавление комментария запрещено
+         **/
         $model = YModel::model($comment->model)->findByPk($comment->model_id);
-        if ( ($model instanceof ICommentAllowed) && $model->isCommentAllowed() === false ) {
+        if (($model instanceof ICommentAllowed) && $model->isCommentAllowed() === false) {
             throw new CException(Yii::t('CommentModule.comment', 'Not have permission to add a comment!'));
         }
 
@@ -96,21 +107,31 @@ class CommentManager extends CApplicationComponent
         }
     }
 
+    /**
+     * @param $model
+     * @param $modelId
+     * @param int $status
+     * @return static[]
+     */
     public function getCommentsForModel($model, $modelId, $status = Comment::STATUS_APPROVED)
     {
-         return Comment::model()->with(['author'])->findAll(
-             [
-                 'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status AND t.lft > 1',
-                 'params'    => [
-                     ':model'   => $model,
-                     ':modelId' => (int)$modelId,
-                     ':status'  => (int)$status,
-                 ],
-                 'order'     => 't.lft',
-             ]
-         );
+        return Comment::model()->with(['author'])->findAll(
+            [
+                'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status AND t.lft > 1',
+                'params' => [
+                    ':model' => $model,
+                    ':modelId' => (int)$modelId,
+                    ':status' => (int)$status,
+                ],
+                'order' => 't.lft',
+            ]
+        );
     }
 
+    /**
+     * @param array $items
+     * @return bool
+     */
     public function multiApprove(array $items)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();

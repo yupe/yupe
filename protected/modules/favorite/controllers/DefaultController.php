@@ -48,18 +48,22 @@ class DefaultController extends FrontController
         }
 
         if ($this->favorite->add($productId)) {
-            Yii::app()->ajax->raw([
-                'result' => true,
-                'data' => Yii::t('FavoriteModule.favorite', 'Success added!'),
-                'count' => $this->favorite->count()
-            ]);
+            Yii::app()->ajax->raw(
+                [
+                    'result' => true,
+                    'data' => Yii::t('FavoriteModule.favorite', 'Success added!'),
+                    'count' => $this->favorite->count(),
+                ]
+            );
         }
 
-        Yii::app()->ajax->raw([
-            'message' => Yii::t('FavoriteModule.favorite', 'Error =('),
-            'result' => false,
-            'count' => $this->favorite->count()
-        ]);
+        Yii::app()->ajax->raw(
+            [
+                'message' => Yii::t('FavoriteModule.favorite', 'Error =('),
+                'result' => false,
+                'count' => $this->favorite->count(),
+            ]
+        );
     }
 
     /**
@@ -78,18 +82,22 @@ class DefaultController extends FrontController
         }
 
         if ($this->favorite->remove($productId)) {
-            Yii::app()->ajax->raw([
-                'result' => true,
-                'data' => Yii::t('FavoriteModule.favorite', 'Success removed!'),
-                'count' => $this->favorite->count()
-            ]);
+            Yii::app()->ajax->raw(
+                [
+                    'result' => true,
+                    'data' => Yii::t('FavoriteModule.favorite', 'Success removed!'),
+                    'count' => $this->favorite->count(),
+                ]
+            );
         }
 
-        Yii::app()->ajax->raw([
-            'message' => Yii::t('FavoriteModule.favorite', 'Error =('),
-            'result' => false,
-            'count' => $this->favorite->count()
-        ]);
+        Yii::app()->ajax->raw(
+            [
+                'message' => Yii::t('FavoriteModule.favorite', 'Error =('),
+                'result' => false,
+                'count' => $this->favorite->count(),
+            ]
+        );
     }
 
     /**

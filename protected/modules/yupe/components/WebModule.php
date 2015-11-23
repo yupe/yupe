@@ -130,6 +130,9 @@ abstract class WebModule extends CWebModule
      * @var string
      */
     public $assetsPath;
+    /**
+     * @var
+     */
     private $_assetsUrl;
 
     /**
@@ -194,7 +197,7 @@ abstract class WebModule extends CWebModule
      */
     public function getUrl()
     {
-        return 'http://yupe.ru';
+        return 'http://yupe-project.ru';
     }
 
     /**

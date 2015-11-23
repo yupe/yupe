@@ -1,5 +1,5 @@
 <?php
-class CallbackManager extends CComponent
+class CallbackManager extends CApplicationComponent
 {
     /** @var CallbackController */
     private $view;

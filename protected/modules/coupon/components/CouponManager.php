@@ -3,7 +3,7 @@
 /**
  * Class CouponManager
  */
-class CouponManager extends CComponent
+class CouponManager extends CApplicationComponent
 {
     /**
      * @var array
@@ -55,7 +55,6 @@ class CouponManager extends CComponent
     }
 
 
-
     public function add(Coupon $coupon)
     {
         if (in_array($coupon->code, $this->coupons)) {
@@ -69,6 +68,7 @@ class CouponManager extends CComponent
         if (empty($errors)) {
             $this->coupons = array_unique(array_merge($this->coupons, [$coupon->code]));
             $this->saveState();
+
             return true;
         } else {
             return $errors;
@@ -103,6 +103,7 @@ class CouponManager extends CComponent
     {
         if (Yii::app()->cart->isEmpty()) {
             $this->clear();
+
             return;
         }
         $price = Yii::app()->cart->getCost();

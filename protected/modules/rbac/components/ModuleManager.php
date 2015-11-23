@@ -44,8 +44,8 @@ class ModuleManager extends \yupe\components\ModuleManager
                 if (!isset($menu[$key]['visible'])) {
                     $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app(
                         )->getUser()->checkAccess(
-                                $role
-                            );
+                            $role
+                        );
                 }
                 $visible = $menu[$key]['visible'];
             }

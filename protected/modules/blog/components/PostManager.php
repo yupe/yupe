@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Class PostManager
+ */
 class PostManager extends CApplicationComponent
 {
+    /**
+     * @param Post $post
+     * @param int $limit
+     * @return array|mixed|null|static[]
+     */
     public function getSimilarPosts(Post $post, $limit = 10)
     {
         $criteria = new CDbCriteria();

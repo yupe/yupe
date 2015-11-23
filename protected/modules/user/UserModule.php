@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
-    const VERSION = '0.9.7';
+    const VERSION = '0.9.9';
 
     public $accountActivationSuccess = '/user/account/login';
     public $accountActivationFailure = '/user/account/registration';

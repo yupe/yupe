@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class TokenStorage
+ */
 class TokenStorage extends CApplicationComponent
 {
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -9,6 +15,12 @@ class TokenStorage extends CApplicationComponent
         $this->deleteExpired();
     }
 
+    /**
+     * @param User $user
+     * @param $expire
+     * @param $type
+     * @return bool|UserToken
+     */
     public function create(User $user, $expire, $type)
     {
         $expire = (int)$expire;
@@ -26,17 +38,25 @@ class TokenStorage extends CApplicationComponent
         return false;
     }
 
+    /**
+     * @param $type
+     * @param User $user
+     * @return int
+     */
     public function deleteByTypeAndUser($type, User $user)
     {
         return UserToken::model()->deleteAll(
             'type = :type AND user_id = :user_id',
             [
-                ':type'    => (int)$type,
-                ':user_id' => $user->id
+                ':type' => (int)$type,
+                ':user_id' => $user->id,
             ]
         );
     }
 
+    /**
+     * @return int
+     */
     public function deleteExpired()
     {
         $deleted = UserToken::model()->deleteAll('expire < NOW()');
@@ -46,6 +66,11 @@ class TokenStorage extends CApplicationComponent
         return $deleted;
     }
 
+    /**
+     * @param User $user
+     * @param int $expire
+     * @return bool|UserToken
+     */
     public function createAccountActivationToken(User $user, $expire = 86400)
     {
         $this->deleteByTypeAndUser(UserToken::TYPE_ACTIVATE, $user);
@@ -53,6 +78,11 @@ class TokenStorage extends CApplicationComponent
         return $this->create($user, $expire, UserToken::TYPE_ACTIVATE);
     }
 
+    /**
+     * @param User $user
+     * @param int $expire
+     * @return bool|UserToken
+     */
     public function createPasswordRecoveryToken(User $user, $expire = 86400)
     {
         $this->deleteByTypeAndUser(UserToken::TYPE_CHANGE_PASSWORD, $user);
@@ -60,6 +90,11 @@ class TokenStorage extends CApplicationComponent
         return $this->create($user, $expire, UserToken::TYPE_CHANGE_PASSWORD);
     }
 
+    /**
+     * @param User $user
+     * @param int $expire
+     * @return bool|UserToken
+     */
     public function createEmailVerifyToken(User $user, $expire = 86400)
     {
         $this->deleteByTypeAndUser(UserToken::TYPE_EMAIL_VERIFY, $user);
@@ -67,6 +102,11 @@ class TokenStorage extends CApplicationComponent
         return $this->create($user, $expire, UserToken::TYPE_EMAIL_VERIFY);
     }
 
+    /**
+     * @param User $user
+     * @param int $expire
+     * @return bool|UserToken
+     */
     public function createCookieAuthToken(User $user, $expire = 86400)
     {
         $this->deleteByTypeAndUser(UserToken::TYPE_COOKIE_AUTH, $user);
@@ -74,18 +114,30 @@ class TokenStorage extends CApplicationComponent
         return $this->create($user, $expire, UserToken::TYPE_COOKIE_AUTH);
     }
 
+    /**
+     * @param $token
+     * @param $type
+     * @param int $status
+     * @return static
+     */
     public function get($token, $type, $status = UserToken::STATUS_NEW)
     {
         return UserToken::model()->find(
             'token = :token AND type = :type AND status = :status',
             [
-                ':token'  => $token,
-                ':type'   => (int)$type,
-                ':status' => (int)$status
+                ':token' => $token,
+                ':type' => (int)$type,
+                ':status' => (int)$status,
             ]
         );
     }
 
+    /**
+     * @param UserToken $token
+     * @param bool|true $invalidate
+     * @return bool
+     * @throws CDbException
+     */
     public function activate(UserToken $token, $invalidate = true)
     {
         $token->status = UserToken::STATUS_ACTIVATE;
@@ -96,8 +148,8 @@ class TokenStorage extends CApplicationComponent
                     'id != :id AND user_id = :user_id AND type = :type',
                     [
                         ':user_id' => $token->user_id,
-                        ':type'    => $token->type,
-                        ':id'      => $token->id
+                        ':type' => $token->type,
+                        ':id' => $token->id,
                     ]
                 );
             }

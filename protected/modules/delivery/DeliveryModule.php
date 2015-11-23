@@ -1,73 +1,126 @@
 <?php
 use yupe\components\WebModule;
 
+/**
+ * Class DeliveryModule
+ */
 class DeliveryModule extends WebModule
 {
-    const VERSION = '0.9.5';
+    /**
+     *
+     */
+    const VERSION = '0.9.9';
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return ['store', 'payment'];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [];
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('DeliveryModule.delivery', 'Store');
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('DeliveryModule.delivery', 'Delivery lists'), 'url' => ['/delivery/deliveryBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('DeliveryModule.delivery', 'Create delivery'), 'url' => ['/delivery/deliveryBackend/create']],
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('DeliveryModule.delivery', 'Delivery lists'),
+                'url' => ['/delivery/deliveryBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('DeliveryModule.delivery', 'Create delivery'),
+                'url' => ['/delivery/deliveryBackend/create'],
+            ],
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/delivery/deliveryBackend/index';
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('DeliveryModule.delivery', 'Delivery');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('DeliveryModule.delivery', 'Delivery module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('DeliveryModule.delivery', 'amylabs team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('DeliveryModule.delivery', 'hello@amylabs.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-plane';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -79,6 +132,9 @@ class DeliveryModule extends WebModule
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [

@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class EmailFeedbackSender
+ */
 class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
 {
+    /**
+     * @param IFeedbackForm $form
+     * @return bool
+     */
     public function send(IFeedbackForm $form)
     {
         $emailBody = Yii::app()->controller->renderPartial('feedbackEmail', ['model' => $form], true);
@@ -17,6 +24,11 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
         return true;
     }
 
+    /**
+     * @param IFeedbackForm $form
+     * @param FeedBack|null $feedBack
+     * @return bool
+     */
     public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null)
     {
         $emailBody = Yii::app()->controller->renderPartial(

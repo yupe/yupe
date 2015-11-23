@@ -1,17 +1,23 @@
 <?php
 
-class PaymentManager extends CComponent
+/**
+ * Class PaymentManager
+ */
+class PaymentManager extends CApplicationComponent
 {
+    /**
+     * @var null
+     */
     private $_paymentSystems = null;
+    /**
+     * @var null
+     */
     private $_formattedList = null;
 
+    /**
+     * @var array
+     */
     public $paymentSystems = [];
-
-    public function init()
-    {
-
-    }
-
 
     /**
      * Возвращает список зарегестрированных платежных систем в формате array(id_payment_system => payment_system_object, ...)
@@ -31,6 +37,7 @@ class PaymentManager extends CComponent
             $systems[$id] = $system;
         }
         $this->_paymentSystems = $systems;
+
         return $this->_paymentSystems;
     }
 
@@ -49,6 +56,7 @@ class PaymentManager extends CComponent
             $list[$id] = $params['name'];
         }
         $this->_formattedList = $list;
+
         return $this->_formattedList;
     }
 
@@ -63,6 +71,7 @@ class PaymentManager extends CComponent
         if (isset($systems[$id])) {
             return $systems[$id];
         }
+
         return null;
     }
 }

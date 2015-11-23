@@ -2,46 +2,79 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class SitemapModule
+ */
 class SitemapModule extends WebModule
 {
+    /**
+     * @var
+     */
     public $data;
 
+    /**
+     * @var string
+     */
     public $filePath = 'sitemap.xml';
 
+    /**
+     *
+     */
     const VERSION = '0.9.9';
 
+    /**
+     * @return string
+     */
     public function getSiteMapPath()
     {
-        return Yii::getPathOfAlias('webroot') . '/' . $this->filePath;
+        return Yii::getPathOfAlias('webroot').'/'.$this->filePath;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('SitemapModule.sitemap', 'Sitemap');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('SitemapModule.sitemap', 'Module for management sitemap.xml');
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-cog';
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('SitemapModule.sitemap', 'Services');
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [
-            'cacheTime'
+            'cacheTime',
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
         return [
@@ -49,11 +82,17 @@ class SitemapModule extends WebModule
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -62,21 +101,30 @@ class SitemapModule extends WebModule
             [
                 'sitemap.components.*',
                 'sitemap.events.*',
-                'sitemap.models.*'
+                'sitemap.models.*',
             ]
         );
     }
 
+    /**
+     * @return mixed
+     */
     public function getSettingsUrl()
     {
         return Yii::app()->createUrl('/sitemap/sitemapBackend/settings');
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/sitemap/sitemapBackend/settings';
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [
@@ -88,10 +136,10 @@ class SitemapModule extends WebModule
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'SitemapModule.SitemapBackend.manage',
-                        'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap')
-                    ]
-                ]
-            ]
+                        'description' => Yii::t('SitemapModule.sitemap', 'Manage sitemap'),
+                    ],
+                ],
+            ],
         ];
     }
 }

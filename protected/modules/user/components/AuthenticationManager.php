@@ -1,9 +1,19 @@
 <?php
 
+/**
+ * Class AuthenticationManager
+ */
 class AuthenticationManager extends CApplicationComponent
 {
+    /**
+     * @var string
+     */
     protected $badLoginCount = 'badLoginCount';
 
+    /**
+     * @param IWebUser $user
+     * @return bool
+     */
     public function logout(IWebUser $user)
     {
         Yii::app()->eventManager->fire(UserEvents::BEFORE_LOGOUT, new UserLogoutEvent(Yii::app()->getUser()));
@@ -21,6 +31,12 @@ class AuthenticationManager extends CApplicationComponent
         return true;
     }
 
+    /**
+     * @param LoginForm $form
+     * @param IWebUser $user
+     * @param CHttpRequest|null $request
+     * @return bool
+     */
     public function login(LoginForm $form, IWebUser $user, CHttpRequest $request = null)
     {
         if ($form->hasErrors()) {
@@ -51,7 +67,7 @@ class AuthenticationManager extends CApplicationComponent
                     'User with {email} was logined with IP-address {ip}!',
                     [
                         '{email}' => $form->email,
-                        '{ip}'    => $request->getUserHostAddress(),
+                        '{ip}' => $request->getUserHostAddress(),
                     ]
                 ),
                 CLogger::LEVEL_INFO,
@@ -70,9 +86,9 @@ class AuthenticationManager extends CApplicationComponent
                 'UserModule.user',
                 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!',
                 [
-                    '{email}'    => $form->email,
+                    '{email}' => $form->email,
                     '{password}' => $form->password,
-                    '{ip}'       => $request->getUserHostAddress(),
+                    '{ip}' => $request->getUserHostAddress(),
                 ]
             ),
             CLogger::LEVEL_ERROR,
@@ -82,11 +98,19 @@ class AuthenticationManager extends CApplicationComponent
         return false;
     }
 
+    /**
+     * @param IWebUser $user
+     * @return int
+     */
     public function getBadLoginCount(IWebUser $user)
     {
         return (int)$user->getState($this->badLoginCount, 0);
     }
 
+    /**
+     * @param IWebUser $user
+     * @param $count
+     */
     public function setBadLoginCount(IWebUser $user, $count)
     {
         $user->setState($this->badLoginCount, (int)$count);

@@ -12,7 +12,7 @@
  */
 class ZendSearchModule extends yupe\components\WebModule
 {
-    const VERSION = '0.9.7';
+    const VERSION = '0.9.9';
 
     public $indexFiles = 'runtime.search';
 
@@ -34,8 +34,8 @@ class ZendSearchModule extends yupe\components\WebModule
             '1.main' => [
                 'label' => Yii::t('YupeModule.yupe', 'Main settings'),
                 'items' => [
-                    'indexFiles'
-                ]
+                    'indexFiles',
+                ],
             ],
         ];
     }
@@ -121,10 +121,10 @@ class ZendSearchModule extends yupe\components\WebModule
     {
         return [
             [
-                'icon'  => 'fa fa-fw fa-list-alt',
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('ZendSearchModule.zendsearch', 'Index'),
-                'url'   => ['/zendsearch/manageBackend/index']
-            ]
+                'url' => ['/zendsearch/manageBackend/index'],
+            ],
         ];
     }
 
@@ -132,17 +132,17 @@ class ZendSearchModule extends yupe\components\WebModule
     {
         return [
             [
-                'name'        => 'ZendSearch.ZendSearchManager',
+                'name' => 'ZendSearch.ZendSearchManager',
                 'description' => Yii::t('ZendSearchModule.zendsearch', 'Manage search index'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => [
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
                     [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Zendsearch.ManageBackend.Create',
-                        'description' => Yii::t('ZendSearchModule.zendsearch', 'Reindex site')
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Zendsearch.ManageBackend.Create',
+                        'description' => Yii::t('ZendSearchModule.zendsearch', 'Reindex site'),
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

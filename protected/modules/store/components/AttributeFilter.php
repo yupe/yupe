@@ -3,7 +3,7 @@
 /**
  * Class AttributeFilter
  */
-class AttributeFilter extends CComponent
+class AttributeFilter extends CApplicationComponent
 {
     /**
      *
@@ -35,14 +35,6 @@ class AttributeFilter extends CComponent
      * @var string
      */
     public $stringTemplate = '%s';
-
-    /**
-     *
-     */
-    public function init()
-    {
-
-    }
 
     /**
      * @param $paramName

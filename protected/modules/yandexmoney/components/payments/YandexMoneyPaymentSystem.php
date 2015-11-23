@@ -7,16 +7,33 @@
 
 Yii::import('application.modules.yandexmoney.YandexMoneyModule');
 
+/**
+ * Class YandexMoneyPaymentSystem
+ */
 class YandexMoneyPaymentSystem extends PaymentSystem
 {
+    /**
+     * @param Payment $payment
+     * @param Order $order
+     * @param bool|false $return
+     * @return mixed|string
+     */
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
     {
-        return Yii::app()->getController()->renderPartial('application.modules.yandexmoney.views.form', [
-            'settings' => $payment->getPaymentSystemSettings(),
-            'order' => $order
-        ], $return);
+        return Yii::app()->getController()->renderPartial(
+            'application.modules.yandexmoney.views.form',
+            [
+                'settings' => $payment->getPaymentSystemSettings(),
+                'order' => $order,
+            ],
+            $return
+        );
     }
 
+    /**
+     * @param Payment $payment
+     * @param CHttpRequest $request
+     */
     public function processCheckout(Payment $payment, CHttpRequest $request)
     {
         $settings = $payment->getPaymentSystemSettings();
@@ -29,7 +46,7 @@ class YandexMoneyPaymentSystem extends PaymentSystem
             'shopId' => $settings['shopid'],
             'invoiceId' => $request->getParam('invoiceId'),
             'customerNumber' => $request->getParam('customerNumber'),
-            'password' => $settings['password']
+            'password' => $settings['password'],
         ];
 
         /* @var $order Order */
@@ -69,8 +86,11 @@ class YandexMoneyPaymentSystem extends PaymentSystem
 
         if ($params['action'] === 'paymentAviso' && $order->pay($payment)) {
             Yii::log(
-                Yii::t('YandexMoneyModule.ymoney', 'The order #{n} has been payed successfully.',
-                    $order->getPrimaryKey()),
+                Yii::t(
+                    'YandexMoneyModule.ymoney',
+                    'The order #{n} has been payed successfully.',
+                    $order->getPrimaryKey()
+                ),
                 CLogger::LEVEL_INFO
             );
 
@@ -78,6 +98,11 @@ class YandexMoneyPaymentSystem extends PaymentSystem
         }
     }
 
+    /**
+     * @param array $params
+     * @param string $message
+     * @param int $code
+     */
     private function showResponse(array $params, $message = '', $code = 0)
     {
         header("Content-type: text/xml; charset=utf-8");
@@ -86,7 +111,7 @@ class YandexMoneyPaymentSystem extends PaymentSystem
         $writer->openURI('php://output');
         $writer->startDocument('1.0', 'UTF-8');
 
-        $writer->startElement($params['action'] . 'Response');
+        $writer->startElement($params['action'].'Response');
 
         $writer->startAttribute('performedDatetime');
         $writer->text(date('c'));

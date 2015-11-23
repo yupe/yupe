@@ -68,7 +68,7 @@ class DAO extends \CComponent
     protected function getCriteria()
     {
         return $this->_criteria
-            ? : (
+            ?: (
             $this->_criteria = new \CDbCriteria()
             );
     }
@@ -82,7 +82,7 @@ class DAO extends \CComponent
     protected function getCommand()
     {
         return $this->_command
-            ? : (
+            ?: (
             $this->_command = Yii::app()
                 ->getDb()
                 ->createCommand()
@@ -98,7 +98,7 @@ class DAO extends \CComponent
     protected function getSchema()
     {
         return $this->_schema
-            ? : (
+            ?: (
             $this->_schema = Yii::app()
                 ->getDb()
                 ->getSchema()
@@ -132,7 +132,7 @@ class DAO extends \CComponent
     {
         return preg_replace(
             '/{{(.*?)}}/',
-            $this->getSchema()->getDbConnection()->tablePrefix . '\1',
+            $this->getSchema()->getDbConnection()->tablePrefix.'\1',
             $table
         );
     }
