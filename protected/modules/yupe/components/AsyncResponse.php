@@ -28,6 +28,10 @@ namespace yupe\components;
 use CApplicationComponent;
 use Yii;
 
+/**
+ * Class AsyncResponse
+ * @package yupe\components
+ */
 class AsyncResponse extends CApplicationComponent
 {
     /**
@@ -65,7 +69,7 @@ class AsyncResponse extends CApplicationComponent
         echo json_encode(
             [
                 $this->resultParamName => $this->success,
-                $this->dataParamName   => $data,
+                $this->dataParamName => $data,
             ]
         );
 
@@ -82,7 +86,7 @@ class AsyncResponse extends CApplicationComponent
         echo json_encode(
             [
                 $this->resultParamName => $this->failure,
-                $this->dataParamName   => $data,
+                $this->dataParamName => $data,
             ]
         );
 
@@ -100,14 +104,16 @@ class AsyncResponse extends CApplicationComponent
         Yii::app()->end();
     }
 
+
     /**
      * @param $data
+     * @param null $status
      */
     public function rawText($data, $status = null)
     {
         $status = (int)$status;
 
-        if($status) {
+        if ($status) {
             http_response_code($status);
         }
 

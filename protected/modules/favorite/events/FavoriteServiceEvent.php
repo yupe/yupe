@@ -6,7 +6,7 @@
 class FavoriteServiceEvent extends \yupe\components\Event
 {
     /**
-     * @var Product
+     * @var
      */
     protected $product;
 
@@ -49,12 +49,12 @@ class FavoriteServiceEvent extends \yupe\components\Event
 
     /**
      * FavoriteServiceEvent constructor.
-     * @param $product
-     * @param $session
+     * @param $productId
+     * @param CHttpSession $session
      */
-    public function __construct(Product $product, CHttpSession $session)
+    public function __construct($productId, CHttpSession $session)
     {
-        $this->product = $product;
+        $this->product = $productId;
         $this->session = $session;
     }
 }

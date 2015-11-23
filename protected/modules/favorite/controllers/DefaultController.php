@@ -1,51 +1,102 @@
 <?php
 
-class DefaultController extends \yupe\components\controllers\FrontController
+use yupe\components\controllers\FrontController;
+
+/**
+ * Class DefaultController
+ */
+class DefaultController extends FrontController
 {
-	/**
-	 * @var FavoriteService
-	 *
-	 */
+    /**
+     * @var FavoriteService
+     *
+     */
 
-	protected $favorite;
+    protected $favorite;
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $productRepository;
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
 
 
-	public function init()
-	{
-		$this->favorite = Yii::app()->getComponent('favorite');
+    /**
+     *
+     */
+    public function init()
+    {
+        $this->favorite = Yii::app()->getComponent('favorite');
 
-		$this->productRepository = Yii::app()->getComponent('productRepository');
+        $this->productRepository = Yii::app()->getComponent('productRepository');
 
-		parent::init();
-	}
+        parent::init();
+    }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionAdd()
-	{
-        if(!Yii::app()->getRequest()->getIsPostRequest()){
-			throw new CHttpException(404);
-		}
+    {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
+            throw new CHttpException(404);
+        }
 
-		$productId = (int)Yii::app()->getRequest()->getPost('id');
+        $productId = (int)Yii::app()->getRequest()->getPost('id');
 
-		if(!$productId) {
-			throw new CHttpException(404);
-		}
+        if (!$productId) {
+            throw new CHttpException(404);
+        }
 
-		$product = $this->productRepository->getById($productId);
+        if ($this->favorite->add($productId)) {
+            Yii::app()->ajax->raw([
+                'result' => true,
+                'data' => Yii::t('FavoriteModule.favorite', 'Success added!'),
+                'count' => $this->favorite->count()
+            ]);
+        }
 
-		if(null === $product) {
-			throw new CHttpException(404);
-		}
+        Yii::app()->ajax->raw([
+            'message' => Yii::t('FavoriteModule.favorite', 'Error =('),
+            'result' => false,
+            'count' => $this->favorite->count()
+        ]);
+    }
 
-		if($this->favorite->add($product)) {
-            Yii::app()->ajax->success(Yii::t('FavoriteModule.favorite', 'Success added!'));
-		}
+    /**
+     * @throws CHttpException
+     */
+    public function actionRemove()
+    {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
+            throw new CHttpException(404);
+        }
 
-		Yii::app()->ajax->failure(Yii::t('FavoriteModule.favorite', 'Error added!'));
-	}
+        $productId = (int)Yii::app()->getRequest()->getPost('id');
+
+        if (!$productId) {
+            throw new CHttpException(404);
+        }
+
+        if ($this->favorite->remove($productId)) {
+            Yii::app()->ajax->raw([
+                'result' => true,
+                'data' => Yii::t('FavoriteModule.favorite', 'Success removed!'),
+                'count' => $this->favorite->count()
+            ]);
+        }
+
+        Yii::app()->ajax->raw([
+            'message' => Yii::t('FavoriteModule.favorite', 'Error =('),
+            'result' => false,
+            'count' => $this->favorite->count()
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function actionIndex()
+    {
+        $this->render('index', ['dataProvider' => $this->favorite->products()]);
+    }
 }

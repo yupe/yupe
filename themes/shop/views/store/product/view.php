@@ -63,7 +63,7 @@ $this->breadcrumbs = array_merge(
                                 отзывов</a>
                         </div>
                     </div>
-                    <div class="entry__toolbar-right yupe-store-favorite-add" data-id="<?= $product->id; ?>">
+                    <div class="entry__toolbar-right">
                         <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $product, 'view' => '_in-product']);?>
                         <a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-balance-scale"></i></a>
                     </div>

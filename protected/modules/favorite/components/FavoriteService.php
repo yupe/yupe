@@ -26,6 +26,10 @@ class FavoriteService extends CApplicationComponent
     }
 
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     protected function setData(array $data)
     {
         $this->session->add($this->key, $data);
@@ -46,33 +50,34 @@ class FavoriteService extends CApplicationComponent
 
 
     /**
-     * @param Product $product
+     * @param $productId
      * @return bool
      */
-    public function add(Product $product)
+    public function add($productId)
     {
         $products = $this->getData();
 
-        if(isset($products[$product->id])) {
-            return false;
-        }
-
-        $products[$product->id] = time();
+        $products[$productId] = time();
 
         $this->setData($products);
 
-        Yii::app()->eventManager->fire(FavoriteEvents::ADD_TO_FAVORITE, new FavoriteServiceEvent($product, $this->session));
+        Yii::app()->eventManager->fire(FavoriteEvents::ADD_TO_FAVORITE, new FavoriteServiceEvent($productId, $this->session));
 
         return true;
     }
 
 
+    /**
+     * @param $productId
+     * @return bool
+     */
     public function remove($productId)
     {
         $products = $this->getData();
 
-        if(isset($products[$productId])) {
-            isset($products[$productId]);
+        if (isset($products[$productId])) {
+            unset($products[$productId]);
+            Yii::app()->eventManager->fire(FavoriteEvents::REMOVE_FROM_FAVORITE, new FavoriteServiceEvent($productId, $this->session));
             return $this->setData($products);
         }
 
@@ -90,13 +95,32 @@ class FavoriteService extends CApplicationComponent
     }
 
     /**
-     * @param Product $product
+     * @param $productId
      * @return bool
      */
-    public function has(Product $product)
+    public function has($productId)
     {
         $products = $this->getData();
 
-        return isset($products[$product->id]);
+        return isset($products[$productId]);
+    }
+
+    public function products()
+    {
+        $products = $this->getData();
+        $criteria = new CDbCriteria();
+        $criteria->scopes = ['published'];
+        $criteria->addInCondition('t.id', array_keys($products));
+        return new CActiveDataProvider(Product::model(), [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                'pageVar' => 'page',
+            ],
+            'sort' => [
+                'sortVar' => 'sort',
+                'defaultOrder' => 't.position'
+            ],
+        ]);
     }
 }
