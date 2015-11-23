@@ -60,8 +60,10 @@
                 </div>
                 <div class="navbar__personal">
                     <div class="navbar__toolbar"><a href="<?= Yii::app()->createUrl('/favorite/default/index');?>" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue" id="yupe-store-favorite-total"><?= Yii::app()->favorite->count();?></span></a>
+                        <?php if(Yii::app()->hasModule('compare')):?>
                         <a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-balance-scale fa-lg fa-fw"></i> Сравнение</span><span class="badge badge_light-blue">0</span>
                         </a>
+                        <?php endif;?>
                     </div>
                     <div class="navbar__user">
                         <?php if (Yii::app()->getUser()->isGuest): ?>

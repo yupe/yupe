@@ -65,7 +65,9 @@ $this->breadcrumbs = array_merge(
                     </div>
                     <div class="entry__toolbar-right">
                         <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $product, 'view' => '_in-product']);?>
-                        <a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-balance-scale"></i></a>
+                        <?php if(Yii::app()->hasModule('compare')):?>
+                            <a href="javascript:void(0);" class="entry__toolbar-button"><i class="fa fa-balance-scale"></i></a>
+                        <?php endif;?>
                     </div>
                 </div>
                 <div class="entry__title">

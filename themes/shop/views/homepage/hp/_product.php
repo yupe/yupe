@@ -38,7 +38,9 @@ $price = $data->getResultPrice();
                 </div>
                 <div class="product-vertical-extra__toolbar">
                     <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $data]);?>
-                    <div class="product-vertical-extra__button"><i class="fa fa-balance-scale"></i></div>
+                    <?php if(Yii::app()->hasModule('compare')):?>
+                        <div class="product-vertical-extra__button"><i class="fa fa-balance-scale"></i></div>
+                    <?php endif;?>
                     <div class="product-vertical-extra__cart">
                         <?php if (Yii::app()->hasModule('cart')): ?>
                             <a href="javascript:void(0);" class="btn btn_cart quick-add-product-to-cart" data-product-id="<?= $data->id; ?>" data-cart-add-url="<?= Yii::app()->createUrl('/cart/cart/add');?>">
