@@ -39,7 +39,6 @@ $this->breadcrumbs = [
         ],
         'htmlOptions' => [
             'hideErrorMessage' => false,
-            'class' => 'order-form',
         ]
     ]); ?>
 
