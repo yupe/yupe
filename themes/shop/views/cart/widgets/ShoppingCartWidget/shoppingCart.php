@@ -31,7 +31,7 @@
                         </div>
                     <?php endforeach; ?>
                     <div class="cart-mini__bottom">
-                        <a href="<?= Yii::app()->createUrl('cart/cart/index'); ?>" class="btn btn_success">Оформить</a>
+                        <a href="<?= Yii::app()->createUrl('cart/cart/index'); ?>" class="btn btn_success">Оформить заказ</a>
                     </div>
                 <?php endif; ?>
             </div>

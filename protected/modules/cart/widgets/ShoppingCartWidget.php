@@ -1,5 +1,11 @@
 <?php
 
+Yii::import('application.modules.store.models.*');
+Yii::import('application.modules.cart.CartModule');
+
+/**
+ * Class ShoppingCartWidget
+ */
 class ShoppingCartWidget extends yupe\widgets\YWidget
 {
     /**
@@ -7,16 +13,16 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
      */
     public $id;
 
+    /**
+     * @var string
+     */
     public $view = 'shoppingCart';
 
-    public function init()
-    {
-        Yii::import('application.modules.store.models.*');
-        Yii::import('application.modules.cart.CartModule');
-    }
-
+    /**
+     * @throws CException
+     */
     public function run()
     {
-        $this->render($this->view, [ 'id' => $this->id ]);
+        $this->render($this->view, ['id' => $this->id]);
     }
 }

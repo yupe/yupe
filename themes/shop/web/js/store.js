@@ -1,4 +1,3 @@
-
 function showNotify(element, result, message) {
     $('#notifications').html('<div>' + message + '</div>').fadeIn().delay(3000).fadeOut();
 }
@@ -10,7 +9,7 @@ $(document).ajaxError(function () {
 $(document).ready(function () {
     var cartWidgetSelector = '#shopping-cart-widget';
 
-   /*страница продукта*/
+    /*страница продукта*/
     var priceElement = $('#result-price'); //итоговая цена на странице продукта
     var basePrice = parseFloat($('#base-price').val()); //базовая цена на странице продукта
     var quantityElement = $('#product-quantity');
@@ -96,7 +95,7 @@ $(document).ready(function () {
     });
 
     function updateCartWidget() {
-        $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'), function(){
+        $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'), function () {
             miniCartListeners();
         });
     }
@@ -200,14 +199,15 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.result) {
-                    el.parents('tr').remove();
+                    if ($('.cart-list .cart-item').length == 0) {
+                        $('.order-box').hide();
+                    }
                     $('#cart-total-product-count').text($('.cart-list .cart-item').length);
                     updateCartTotalCost();
                     updateCartWidget();
                 }
             }
         });
-
     });
 
     $('.position-count').change(function () {
@@ -241,7 +241,7 @@ $(document).ready(function () {
             });
         });
 
-        $('#cart-toggle-link').click(function(e){
+        $('#cart-toggle-link').click(function (e) {
             e.preventDefault();
             $('#cart-mini').toggle();
         });
@@ -311,7 +311,9 @@ $(document).ready(function () {
             return 0;
         }
         var selectedDeliveryType = $('input[name="Order[delivery_id]"]:checked');
-        if (!selectedDeliveryType[0]) {return 0;}
+        if (!selectedDeliveryType[0]) {
+            return 0;
+        }
         if (parseInt(selectedDeliveryType.data('separate-payment')) || parseFloat(selectedDeliveryType.data('free-from')) <= cartTotalCost) {
             return 0;
         } else {
@@ -340,7 +342,7 @@ $(document).ready(function () {
     checkFirstAvailableDeliveryType();
     updateAllCosts();
 
-    $('#start-payment').on('click',function () {
+    $('#start-payment').on('click', function () {
         $('.payment-method-radio:checked').parents('.payment-method').find('form').submit();
     });
 
