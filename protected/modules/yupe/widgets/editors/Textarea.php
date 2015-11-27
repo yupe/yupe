@@ -5,11 +5,21 @@ use Yii;
 use CInputWidget;
 use CHtml;
 
+/**
+ * Class Textarea
+ * @package yupe\widgets\editors
+ */
 class Textarea extends \CInputWidget
 {
 
+    /**
+     * @var array
+     */
     public $options = [];
 
+    /**
+     *
+     */
     public function run()
     {
         if ($this->model) {
@@ -23,12 +33,15 @@ class Textarea extends \CInputWidget
         }
     }
 
+    /**
+     * @return array
+     */
     public function getOptions()
     {
         return [
             'class' => 'form-control',
-            'rows'  => '10',
-            'style' => 'resize: vertical;'
+            'rows' => '10',
+            'style' => 'resize: vertical;',
         ];
     }
 }

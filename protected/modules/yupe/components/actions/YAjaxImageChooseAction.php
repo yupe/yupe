@@ -16,13 +16,20 @@ use Yii;
 use CAction;
 use Image;
 
+/**
+ * Class YAjaxImageChooseAction
+ * @package yupe\components\actions
+ */
 class YAjaxImageChooseAction extends CAction
 {
+    /**
+     *
+     */
     public function run()
     {
         if (Yii::app()->hasModule("image")) {
-            $upPath = Yii::app()->getBaseUrl() . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath .
-                DIRECTORY_SEPARATOR . Yii::app()->getModule('image')->uploadPath .
+            $upPath = Yii::app()->getBaseUrl().DIRECTORY_SEPARATOR.Yii::app()->getModule('yupe')->uploadPath.
+                DIRECTORY_SEPARATOR.Yii::app()->getModule('image')->uploadPath.
                 DIRECTORY_SEPARATOR;
 
             $images = Image::model()->findAllByAttributes(
@@ -34,9 +41,9 @@ class YAjaxImageChooseAction extends CAction
             if (!empty($images)) {
                 foreach ($images as $img) {
                     $forJson[] = [
-                        'thumb' => $upPath . $img->file,
-                        'image' => $upPath . $img->file,
-                        'title' => $upPath . $img->name
+                        'thumb' => $upPath.$img->file,
+                        'image' => $upPath.$img->file,
+                        'title' => $upPath.$img->name,
                     ];
                 }
             }

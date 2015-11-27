@@ -85,6 +85,11 @@
     ?>
     <link rel="shortcut icon" href="<?= $mainAssets; ?>/img/favicon.ico"/>
 
+    <script type="text/javascript">
+        var yupeTokenName = '<?= Yii::app()->getRequest()->csrfTokenName;?>';
+        var yupeToken = '<?= Yii::app()->getRequest()->getCsrfToken();?>';
+    </script>
+
 </head>
 
 <body>

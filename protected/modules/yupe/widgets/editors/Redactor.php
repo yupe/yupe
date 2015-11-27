@@ -48,7 +48,7 @@ class Redactor extends \CInputWidget
                 }).show();
                 }',
             'toolbarFixedTopOffset'   => 53,
-            'lang'                    => strtolower(substr(Yii::app()->language, -2)),
+            'lang'                    => strtolower(substr(Yii::app()->getLanguage(), -2)),
             'minHeight'               => 150,
             'uploadImageFields' => [
                 Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
