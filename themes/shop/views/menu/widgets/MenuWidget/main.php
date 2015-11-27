@@ -1,6 +1,4 @@
 <?php
-Yii::import('application.modules.menu.components.YMenu');
-
 $this->widget('zii.widgets.CMenu', [
     'items' => $this->params['items'],
     'itemCssClass' => 'top-menu__item',
