@@ -75,7 +75,7 @@ $this->breadcrumbs = [
                                     <img src="<?= $position->getProductModel()->getImageUrl(90, 90, false); ?>"
                                          class="cart-item__img"/>
                                 </div>
-                                <div class="cart-item__content">
+                                <div class="cart-item__content grid-module-4">
                                     <?php if ($position->getProductModel()->getMainCategoryId()): ?>
                                         <div class="cart-item__category"><?= $position->getProductModel(
                                             )->mainCategory->name ?></div>
@@ -85,6 +85,10 @@ $this->breadcrumbs = [
                                                 $position->name
                                             ); ?></a>
                                     </div>
+                                    <?php foreach ($position->selectedVariants as $variant): ?>
+                                        <h6><?= $variant->attribute->title; ?>: <?= $variant->getOptionValue(); ?></h6>
+                                        <?= CHtml::hiddenField('OrderProduct[' . $positionId . '][variant_ids][]', $variant->id); ?>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                             <div class="cart-item__price">
