@@ -27,6 +27,8 @@ $(document).ready(function () {
 
     $('.js-tabs').tabs();
 
+    $(".js-select2").select2();
+
     function updatePrice() {
         var _basePrice = basePrice;
         var variants = [];
