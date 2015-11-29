@@ -22,6 +22,11 @@ $(document).ready(function () {
 
     miniCartListeners();
 
+    // Галерея дополнительных изображений в карточке товара
+    $('.js-product-gallery').productGallery();
+
+    $('.js-tabs').tabs();
+
     function updatePrice() {
         var _basePrice = basePrice;
         var variants = [];
