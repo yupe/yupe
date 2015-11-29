@@ -10,7 +10,7 @@
                         $producer->id,
                         Yii::app()->getRequest()
                     ), ['value' => $producer->id, 'id' => 'brand_' . $producer->id, 'class' => 'checkbox']); ?>
-                    <?= CHtml::label($producer->name, 'brand[]', ['class' => 'checkbox__label']);?>
+                    <?= CHtml::label($producer->name, 'brand_' . $producer->id, ['class' => 'checkbox__label']);?>
                 </div>
             <?php endforeach;?>
         </div>
