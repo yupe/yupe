@@ -28,7 +28,7 @@
         ]
     );
 
-    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/slick/slick/slick.css');
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/styles/slick.css');
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/styles/common.css');
     Yii::app()->getClientScript()->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css');
 
