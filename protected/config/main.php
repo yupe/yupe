@@ -162,7 +162,7 @@ return [
             'enableCsrfValidation' => true,
             'csrfCookie' => ['httpOnly' => true],
             'csrfTokenName' => 'YUPE_TOKEN',
-            'enableCookieValidation' => true,
+            'enableCookieValidation' => true
         ],
         'session' => ['cookieParams' => ['httponly' => true]],
         /**

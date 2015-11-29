@@ -37,7 +37,9 @@ $price = $data->getResultPrice();
                     <?php endif; ?>
                 </div>
                 <div class="product-vertical-extra__toolbar">
-                    <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $data]);?>
+                    <?php if(Yii::app()->hasModule('favorite')):?>
+                        <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $data]);?>
+                    <?php endif;?>
                     <?php if(Yii::app()->hasModule('compare')):?>
                         <div class="product-vertical-extra__button"><i class="fa fa-balance-scale"></i></div>
                     <?php endif;?>

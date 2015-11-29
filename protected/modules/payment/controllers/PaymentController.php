@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Class PaymentController
+ */
 class PaymentController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @param null $id
+     * @throws CException
+     * @throws CHttpException
+     */
     public function actionProcess($id = null)
     {
         /* @var $payment Payment */
@@ -19,6 +27,5 @@ class PaymentController extends \yupe\components\controllers\FrontController
                 $this->redirect(['/order/order/view', 'url' => $result->url]);
             }
         }
-
     }
 }

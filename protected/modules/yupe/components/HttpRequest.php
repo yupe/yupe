@@ -32,8 +32,7 @@ class HttpRequest extends CHttpRequest
     {
         parent::normalizeRequest();
 
-        if ($this->enableCsrfValidation && !empty($this->noCsrfValidationRoutes)) {
-            // for fixing csrf validation disabling
+        if ($this->enableCsrfValidation && !empty($this->noCsrfValidationRoutes) && $this->getIsPostRequest()) {
 
             try {
                 $url = Yii::app()->getUrlManager()->parseUrl($this);

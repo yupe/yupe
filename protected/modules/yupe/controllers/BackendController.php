@@ -54,6 +54,12 @@ class BackendController extends yupe\components\controllers\BackController
                 'mimeTypes' => $this->module->mimeTypes,
                 'types'     => $this->module->allowedExtensions
             ],
+            'AjaxImageUploadCKE' => array(
+                'class'     => 'yupe\components\actions\YAjaxImageUploadCKEAction',
+                'maxSize'   => $this->module->maxSize,
+                'mimeTypes' => $this->module->mimeTypes,
+                'types'     => $this->module->allowedExtensions
+            ),
         ];
     }
 

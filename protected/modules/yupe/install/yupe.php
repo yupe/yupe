@@ -34,52 +34,51 @@ return [
                 ],
             ],
         ],
-
         // DAO simple wrapper:
         'dao' => ['class' => 'yupe\components\DAO'],
         'thumbnailer' => [
             'class' => 'yupe\components\image\Thumbnailer',
             'options' => [
                 'jpeg_quality' => 90,
-                'png_compression_level' => 8
-            ]
+                'png_compression_level' => 8,
+            ],
         ],
         // подключение компонента для генерации ajax-ответов
-        'ajax' => ['class' => 'yupe\components\AsyncResponse']
+        'ajax' => ['class' => 'yupe\components\AsyncResponse'],
     ],
-    'rules'     => [],
-    'module'    => [
-    'components' => [
-        'bootstrap' => [
-            'class' => 'vendor.clevertech.yii-booster.src.components.Booster',
-            'coreCss' => true,
-            'responsiveCss' => true,
-            'yiiCss' => true,
-            'jqueryCss' => true,
-            'enableJS' => true,
-            'fontAwesomeCss' => true,
-            'enableNotifierJS' => false,
+    'rules' => [],
+    'module' => [
+        'components' => [
+            'bootstrap' => [
+                'class' => 'vendor.clevertech.yii-booster.src.components.Booster',
+                'coreCss' => true,
+                'responsiveCss' => true,
+                'yiiCss' => true,
+                'jqueryCss' => true,
+                'enableJS' => true,
+                'fontAwesomeCss' => true,
+                'enableNotifierJS' => false,
+            ],
         ],
-    ],
-    'visualEditors' => [
-        'redactor' => [
-            'class' => 'yupe\widgets\editors\Redactor',
+        'visualEditors' => [
+            'redactor' => [
+                'class' => 'yupe\widgets\editors\Redactor',
+            ],
+            'ckeditor' => [
+                'class' => 'yupe\widgets\editors\CKEditor',
+            ],
+            'textarea' => [
+                'class' => 'yupe\widgets\editors\Textarea',
+            ],
         ],
-        'ckeditor' => [
-            'class' => 'yupe\widgets\editors\CKEditor',
-        ],
-        'textarea' => [
-            'class' => 'yupe\widgets\editors\Textarea',
-        ],
-    ],
-]
+    ]
     ,
     'commandMap' => [
         'yupe' => [
             'class' => 'application.modules.yupe.commands.YupeCommand',
         ],
         'testenv' => [
-            'class' => 'application.modules.yupe.commands.TestEnvCommand'
-        ]
-    ]
+            'class' => 'application.modules.yupe.commands.TestEnvCommand',
+        ],
+    ],
 ];
