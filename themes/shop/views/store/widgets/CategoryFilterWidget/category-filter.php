@@ -9,8 +9,8 @@
                             AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY,
                             $category->id,
                             Yii::app()->getRequest()
-                        ),['value' => $category->id, 'id' => 'category_'. $category->id, 'class' => 'checkbox']);?>
-                        <?= CHtml::label($category->name, 'category[]', ['class' => 'checkbox__label']);?>
+                        ),['value' => $category->id, 'id' => 'filter-category-' . $category->id, 'class' => 'checkbox']);?>
+                        <?= CHtml::label($category->name, 'filter-category-' . $category->id, ['class' => 'checkbox__label']);?>
                     </div>
                 <?php endforeach;?>
             </div>
