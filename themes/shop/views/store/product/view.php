@@ -6,8 +6,7 @@ $this->pageTitle = $product->getMetaTitle();
 $this->description = $product->getMetaDescription();
 $this->keywords = $product->getMetaKeywords();
 
-$mainAssets = Yii::app()->getModule('store')->getAssetsUrl();
-Yii::app()->getClientScript()->registerScriptFile(Yii::app()->getTheme()->getAssetsUrl() . '/js/store.js');
+Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/store.js', CClientScript::POS_END);
 
 $this->breadcrumbs = array_merge(
     [Yii::t("StoreModule.store", 'Catalog') => ['/store/product/index']],
@@ -123,7 +122,7 @@ $this->breadcrumbs = array_merge(
                             <div class="entry__count-input">
                                 <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
                                     <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
-                                    <input name="Product[quantity]" value="1" class="spinput__value"/>
+                                    <input name="Product[quantity]" value="1" class="spinput__value" id="product-quantity-input"/>
                                     <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
                                 </span>
                             </div>
