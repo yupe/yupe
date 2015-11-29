@@ -199,6 +199,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.result) {
+                    el.closest('.cart-list__item').remove();
+
                     if ($('.cart-list .cart-item').length == 0) {
                         $('.order-box').hide();
                     }
@@ -331,9 +333,6 @@ $(document).ready(function () {
     }
 
     refreshDeliveryTypes();
-    //checkFirstAvailableDeliveryType();
-    //updateFullCostWithShipping();
-    //updateCartTotalCost();
 
     function updateAllCosts() {
         updateCartTotalCost();

@@ -46,7 +46,7 @@
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/toggle.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/select2.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/spinput.js', CClientScript::POS_END);
-    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/cart.js', CClientScript::POS_END);
+//    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/cart.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/common.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/store.js', CClientScript::POS_END);
     ?>
