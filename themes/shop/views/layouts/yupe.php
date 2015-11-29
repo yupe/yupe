@@ -28,7 +28,6 @@
         ]
     );
 
-    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/select2/select2.css');
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/js/libs/slick/slick/slick.css');
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/styles/common.css');
     Yii::app()->getClientScript()->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css');
@@ -44,7 +43,6 @@
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/slick.min.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/tabs.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/toggle.js', CClientScript::POS_END);
-    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/select2.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/common.js', CClientScript::POS_END);
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/store.js', CClientScript::POS_END);
     ?>
