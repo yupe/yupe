@@ -85,7 +85,7 @@ class LangUrlManager extends CUrlManager
             $this->langs = Yii::app()->getModule('yupe')->availableLanguages;
 
             // Разделяем на массив и удаляем пустые элементы:
-            $this->languages = explode(",", $this->langs);
+            $this->languages = explode(',', $this->langs);
         }
     }
 
@@ -105,7 +105,7 @@ class LangUrlManager extends CUrlManager
         if (count($this->languages) > 1) {
             // Если язык не указан - берем текущий
             if (!isset($params[$this->langParam])) {
-                $params[$this->langParam] = Yii::app()->language;
+                $params[$this->langParam] = Yii::app()->getLanguage();
             }
 
             // Если указан "нативный" язык и к тому же он текущий,

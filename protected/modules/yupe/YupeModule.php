@@ -210,7 +210,7 @@ class YupeModule extends WebModule
             ];
         }
 
-        if (Yii::app()->db->enableProfiling) {
+        if (Yii::app()->getDb()->enableProfiling) {
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
@@ -220,7 +220,7 @@ class YupeModule extends WebModule
             ];
         }
 
-        if (Yii::app()->db->enableParamLogging) {
+        if (Yii::app()->getDb()->enableParamLogging) {
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
@@ -259,7 +259,7 @@ class YupeModule extends WebModule
             ];
         }
 
-        if (!is_writable(Yii::app()->runtimePath)) {
+        if (!is_writable(Yii::app()->getRuntimePath())) {
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
@@ -291,7 +291,7 @@ class YupeModule extends WebModule
             ];
         }
 
-        if (!Yii::app()->db->schemaCachingDuration) {
+        if (!Yii::app()->getDb()->schemaCachingDuration) {
             $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(

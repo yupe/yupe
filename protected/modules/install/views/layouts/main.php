@@ -142,7 +142,7 @@
     <br/>
     <a href="http://amylabs.ru/?from=install" target="_blank">
         <?php echo Yii::t('YupeModule.yupe', 'Development and support'); ?></a> - <a
-        href="http://amylabs.ru/?from=yupe-install" target="_blank">amyLabs</a>
+        href="http://amylabs.ru/?from=yupe-install" target="_blank">amylabs</a>
     <br/>
     <?php echo Yii::powered(); ?>
 </footer>

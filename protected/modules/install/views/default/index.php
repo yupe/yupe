@@ -62,7 +62,7 @@
                 'icon'       => 'iconflags iconflags-' . $lang,
                 'label'      => isset($lang_label) ? $lang_label : $lang,
                 'buttonType' => 'link',
-                'url'        => ['/install/default/environment', 'language' => $lang],
+                'url'        => ['/install/default/environment', Yii::app()->getUrlManager()->langParam => $lang],
             ]
         ); ?>
     <?php } endforeach; ?>

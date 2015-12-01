@@ -79,7 +79,7 @@ class DefaultController extends yupe\components\controllers\BackController
         $this->session['InstallForm'] = array_merge(
             $this->session['InstallForm'],
             [
-                $actionId . 'Finished' => true,
+                $actionId.'Finished' => true,
             ]
         );
 
@@ -147,71 +147,71 @@ class DefaultController extends yupe\components\controllers\BackController
         $requirements = [
             [
                 Yii::t('InstallModule.install', 'Assets folder'),
-                $this->_checkWritable($webRoot . '/assets/'),
+                $this->_checkWritable($webRoot.'/assets/'),
                 Yii::t(
                     'InstallModule.install',
                     'You need to set write permissions for the directory {folder}assets',
                     [
-                        '{folder}' => $webRoot . $dp,
+                        '{folder}' => $webRoot.$dp,
                     ]
                 ),
             ],
             [
                 Yii::t('InstallModule.install', 'Runtime folder'),
-                $this->_checkWritable($app . '/runtime/'),
+                $this->_checkWritable($app.'/runtime/'),
                 Yii::t(
                     'InstallModule.install',
                     'You need to set write permissions for the directory {folder}',
                     [
-                        '{folder}' => $app . $dp . 'runtime',
+                        '{folder}' => $app.$dp.'runtime',
                     ]
                 ),
             ],
             [
                 Yii::t('InstallModule.install', 'Uploads folder'),
-                $this->_checkWritable($webRoot . '/uploads/'),
+                $this->_checkWritable($webRoot.'/uploads/'),
                 Yii::t(
                     'InstallModule.install',
                     'You need to set write permissions for the directory {folder}',
                     [
-                        '{folder}' => $webRoot . $dp . 'uploads',
+                        '{folder}' => $webRoot.$dp.'uploads',
                     ]
                 ),
             ],
             [
                 Yii::t('InstallModule.install', 'Modules folder'),
-                $this->_checkWritable($app . '/config/modules/'),
+                $this->_checkWritable($app.'/config/modules/'),
                 Yii::t(
                     'InstallModule.install',
                     'You need to set write permissions for the directory {folder}',
                     [
-                        '{folder}' => $app . $dp . 'config' . $dp . 'modules',
+                        '{folder}' => $app.$dp.'config'.$dp.'modules',
                     ]
                 ),
             ],
             [
                 Yii::t('InstallModule.install', 'ModulesBack folder'),
-                $this->_checkWritable($app . '/config/modulesBack/'),
+                $this->_checkWritable($app.'/config/modulesBack/'),
                 Yii::t(
                     'InstallModule.install',
                     'You need to set write permissions for the directory {folder}',
                     [
-                        '{folder}' => $app . $dp . 'config' . $dp . 'modulesBack',
+                        '{folder}' => $app.$dp.'config'.$dp.'modulesBack',
                     ]
                 ),
             ],
             [
                 Yii::t('InstallModule.install', 'File db.php'),
                 $this->_checkConfigFileWritable(
-                    $app . $dp . 'config/db.back.php',
-                    $app . $dp . 'config/db.php'
+                    $app.$dp.'config/db.back.php',
+                    $app.$dp.'config/db.php'
                 ),
                 Yii::t(
                     'InstallModule.install',
                     'You should copy {from file} to {to file} and give it permission to write',
                     [
-                        '{from file}' => $app . $dp . 'config' . $dp . 'db.back.php',
-                        '{to file}'   => $app . $dp . 'config' . $dp . 'db.php'
+                        '{from file}' => $app.$dp.'config'.$dp.'db.back.php',
+                        '{to file}' => $app.$dp.'config'.$dp.'db.php',
                     ]
                 ),
             ],
@@ -246,7 +246,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         'At startup errors occured, please check the permissions for the all the files and directories (see the above errors)'
                     )
                         : $commentOk,
-                ]
+                ],
             ]
         );
 
@@ -255,8 +255,8 @@ class DefaultController extends yupe\components\controllers\BackController
             [
                 'data' => [
                     'requirements' => $requirements,
-                    'result'       => $result,
-                ]
+                    'result' => $result,
+                ],
             ]
         );
     }
@@ -319,7 +319,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 true,
                 extension_loaded("json"),
                 'php_json',
-                Yii::t('InstallModule.install', 'Функции для работы с json')
+                Yii::t('InstallModule.install', 'Функции для работы с json'),
             ],
             [
                 Yii::t('InstallModule.install', 'Zend OPcache'),
@@ -394,7 +394,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'To use memcached, set the value of the property {useMemcachedLink} equal {code_true}.',
                     [
                         '{useMemcachedLink}' => '<a href="http://www.yiiframework.com/doc/api/CMemCache#useMemcached-detail">CMemCache::useMemcached</a>',
-                        '{code_true}'        => '<code>true</code>',
+                        '{code_true}' => '<code>true</code>',
                     ]
                 ) : '',
             ],
@@ -407,7 +407,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'InstallModule.install',
                     'The Alternative PHP Cache (APC) is a free and open opcode cache for PHP. Its goal is to provide a free, open, and robust framework for caching and optimizing PHP intermediate code. {b}Optional{/b}.',
                     [
-                        '{b}'  => '<b>',
+                        '{b}' => '<b>',
                         '{/b}' => '</b>',
                     ]
                 ),
@@ -423,11 +423,11 @@ class DefaultController extends yupe\components\controllers\BackController
                 Yii::t('InstallModule.install', 'mbstring extension'),
                 true,
                 extension_loaded("mbstring"),
-                '<a href="http://php.net/manual/ru/ref.mbstring.php">' . Yii::t(
+                '<a href="http://php.net/manual/ru/ref.mbstring.php">'.Yii::t(
                     'InstallModule.install',
                     'Multibyte strings'
-                ) . '</a>',
-                Yii::t('InstallModule.install', 'Multibyte String Functions')
+                ).'</a>',
+                Yii::t('InstallModule.install', 'Multibyte String Functions'),
             ],
             [
                 Yii::t(
@@ -440,7 +440,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 false,
                 '' === $message = $this->_checkCaptchaSupport(),
                 '<a href="http://www.yiiframework.com/doc/api/CCaptchaAction">CCaptchaAction</a>',
-                $message
+                $message,
             ],
             [
                 Yii::t('InstallModule.install', 'Ctype extension'),
@@ -450,14 +450,14 @@ class DefaultController extends yupe\components\controllers\BackController
                  <a href="http://www.yiiframework.com/doc/api/CDateFormatter">CDateTimeParser</a>,
                  <a href="http://www.yiiframework.com/doc/api/CTextHighlighter">CTextHighlighter</a>,
                  <a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>',
-                ''
+                '',
             ],
             [
                 Yii::t('InstallModule.install', 'Configuration option safe_mode'),
                 true,
                 !ini_get('safe_mode'),
-                '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">' .
-                Yii::t('InstallModule.install', 'Security and Safe Mode') .
+                '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">'.
+                Yii::t('InstallModule.install', 'Security and Safe Mode').
                 '</a>',
                 Yii::t('InstallModule.install', 'You should disable the directive safe_mode.'),
             ],
@@ -480,8 +480,8 @@ class DefaultController extends yupe\components\controllers\BackController
             [
                 'data' => [
                     'requirements' => $requirements,
-                    'result'       => $result,
-                ]
+                    'result' => $result,
+                ],
             ]
         );
     }
@@ -502,7 +502,7 @@ class DefaultController extends yupe\components\controllers\BackController
             'SCRIPT_FILENAME',
             'PHP_SELF',
             'HTTP_ACCEPT',
-            'HTTP_USER_AGENT'
+            'HTTP_USER_AGENT',
         ];
         $missing = [];
         foreach ($vars as $var) {
@@ -531,8 +531,8 @@ class DefaultController extends yupe\components\controllers\BackController
                 'InstallModule.install',
                 'Could not obtain information about the location. Please check whether the correct value in the variable {path_info} (or {php_self} and {script_name}).',
                 [
-                    '{path_info}'   => '$_SERVER["PATH_INFO"]',
-                    '{php_self}'    => '$_SERVER["PHP_SELF"]',
+                    '{path_info}' => '$_SERVER["PATH_INFO"]',
+                    '{php_self}' => '$_SERVER["PHP_SELF"]',
                     '{script_name}' => '$_SERVER["SCRIPT_NAME"]',
                 ]
             );
@@ -568,7 +568,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'InstallModule.install',
                     'GD extension installed {br} without the support of FreeType',
                     [
-                        '{br}' => '<br />'
+                        '{br}' => '<br />',
                     ]
                 );
             }
@@ -586,7 +586,7 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $this->_markFinished('requirements');
 
-        $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
+        $dbConfFile = Yii::app()->basePath.'/config/'.'db.php';
 
         $form = new InstallForm('dbSettings');
 
@@ -596,7 +596,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $this->session['InstallForm'] = array_merge(
                     $this->session['InstallForm'],
                     [
-                        'dbSettings'     => $form->attributes,
+                        'dbSettings' => $form->attributes,
                         'dbSettingsStep' => false,
                         'dbSettingsFile' => true,
                     ]
@@ -611,16 +611,16 @@ class DefaultController extends yupe\components\controllers\BackController
             $form->setAttributes($_POST['InstallForm']);
 
             if ($form->validate()) {
-                $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
-                $port = ($form->port == '') ? '' : 'port=' . $form->port . ';';
-                $dbName = empty($form->createDb) ? 'dbname=' . $form->dbName : '';
+                $socket = ($form->socket == '') ? '' : 'unix_socket='.$form->socket.';';
+                $port = ($form->port == '') ? '' : 'port='.$form->port.';';
+                $dbName = empty($form->createDb) ? 'dbname='.$form->dbName : '';
                 $dbTypes = $form->getDbTypes();
                 $dbType = (isset($dbTypes[$form->dbType])
                     ? $dbTypes[$form->dbType]
                     : $dbTypes[InstallForm::DB_MYSQL]);
 
-                $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
-                $port = ($form->port == '') ? '' : 'port=' . $form->port . ';';
+                $socket = ($form->socket == '') ? '' : 'unix_socket='.$form->socket.';';
+                $port = ($form->port == '') ? '' : 'port='.$form->port.';';
                 $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}{$dbName}";
 
                 try {
@@ -632,7 +632,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         Yii::t(
                             'InstallModule.install',
                             'Couldn\'t connect to DB with these params!'
-                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                        ).'<br />'.$connectionString.'<br />'.$e->getMessage()
                     );
                     Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
@@ -640,16 +640,16 @@ class DefaultController extends yupe\components\controllers\BackController
 
                 if ($form->createDb) {
                     try {
-                        $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
+                        $sql = 'CREATE DATABASE '.($connection->schema instanceof CMysqlSchema ? ' `'.$form->dbName.'` CHARACTER SET=utf8' : $form->dbName);
                         $connection->createCommand($sql)->execute();
-                        $connectionString .= 'dbname=' . $form->dbName;
+                        $connectionString .= 'dbname='.$form->dbName;
                     } catch (Exception $e) {
                         $form->addError(
                             '',
                             Yii::t(
                                 'InstallModule.install',
                                 'Failed to create the database!'
-                            ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                            ).'<br />'.$connectionString.'<br />'.$e->getMessage()
                         );
                         Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
                         Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
@@ -670,25 +670,25 @@ class DefaultController extends yupe\components\controllers\BackController
 
                         Yii::app()->setComponent('db', $connection);
                         $dbParams = [
-                            'class'                 => 'CDbConnection',
-                            'connectionString'      => $connectionString,
-                            'username'              => $form->dbUser,
-                            'password'              => $form->dbPassword,
-                            'emulatePrepare'        => true,
-                            'charset'               => 'utf8',
-                            'enableParamLogging'    => "{debug}",
-                            'enableProfiling'       => "{debug}",
+                            'class' => 'CDbConnection',
+                            'connectionString' => $connectionString,
+                            'username' => $form->dbUser,
+                            'password' => $form->dbPassword,
+                            'emulatePrepare' => true,
+                            'charset' => 'utf8',
+                            'enableParamLogging' => "{debug}",
+                            'enableProfiling' => "{debug}",
                             'schemaCachingDuration' => 108000,
-                            'tablePrefix'           => $form->tablePrefix,
-                            'pdoClass'              => 'yupe\extensions\NestedPDO',
+                            'tablePrefix' => $form->tablePrefix,
+                            'pdoClass' => 'yupe\extensions\NestedPDO',
                         ];
 
                         $dbConfString = "<?php\n return "
-                            . str_replace(
+                            .str_replace(
                                 "'{debug}'",
                                 "defined('YII_DEBUG') && YII_DEBUG ? true : 0",
                                 var_export($dbParams, true)
-                            ) . ";\n";
+                            ).";\n";
 
                         $fh = fopen($dbConfFile, 'w+');
                         if (!$fh) {
@@ -705,7 +705,7 @@ class DefaultController extends yupe\components\controllers\BackController
                                 $this->session['InstallForm'] = array_merge(
                                     $this->session['InstallForm'],
                                     [
-                                        'dbSettings'     => $form->attributes,
+                                        'dbSettings' => $form->attributes,
                                         'dbSettingsStep' => true,
                                         'dbSettingsFile' => true,
                                     ]
@@ -733,7 +733,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         Yii::t(
                             'InstallModule.install',
                             'Couldn\'t connect to DB!'
-                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                        ).'<br />'.$connectionString.'<br />'.$e->getMessage()
                     );
                     Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
@@ -751,10 +751,10 @@ class DefaultController extends yupe\components\controllers\BackController
             '_view',
             [
                 'data' => [
-                    'model'  => $form,
+                    'model' => $form,
                     'result' => $result,
-                    'file'   => $dbConfFile,
-                ]
+                    'file' => $dbConfFile,
+                ],
             ]
         );
     }
@@ -776,7 +776,7 @@ class DefaultController extends yupe\components\controllers\BackController
             $this->session['InstallForm'] = array_merge(
                 $this->session['InstallForm'],
                 [
-                    'moduleToInstall'    => $_POST,
+                    'moduleToInstall' => $_POST,
                     'modulesInstallStep' => true,
                 ]
             );
@@ -791,7 +791,7 @@ class DefaultController extends yupe\components\controllers\BackController
             $this->session['InstallForm'] = array_merge(
                 $this->session['InstallForm'],
                 [
-                    'moduleToInstall'    => $_POST,
+                    'moduleToInstall' => $_POST,
                     'modulesInstallStep' => false,
                 ]
             );
@@ -800,7 +800,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
             foreach ($modules as &$m) {
                 $modulesByName[$m->id] = $m;
-                if ($m->getIsNoDisable() || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id])) {
+                if ($m->getIsNoDisable() || (isset($_POST['module_'.$m->id]) && $_POST['module_'.$m->id])) {
                     $toInstall[$m->id] = $m;
                 }
             }
@@ -818,7 +818,7 @@ class DefaultController extends yupe\components\controllers\BackController
                                     'Module "{module}" depends on the module "{dep}", which is not activated.',
                                     [
                                         '{module}' => $m->name,
-                                        '{dep}'    => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
+                                        '{dep}' => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep,
                                     ]
                                 )
                             );
@@ -833,7 +833,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
                 Yii::app()->configManager->flushDump();
 
-                $files = glob(Yii::app()->moduleManager->getModulesConfig() . "*.php");
+                $files = glob(Yii::app()->moduleManager->getModulesConfig()."*.php");
                 foreach ($files as $file) {
                     $name = pathinfo($file, PATHINFO_FILENAME);
                     if ($name == 'yupe' || $name == 'install') {
@@ -845,10 +845,10 @@ class DefaultController extends yupe\components\controllers\BackController
                     $fileConfigBack = Yii::app()->moduleManager->getModulesConfigBack($name);
 
                     if ($name != \yupe\components\ModuleManager::CORE_MODULE && ((!(@is_file($fileModule) && @md5_file(
-                                            $fileModule
-                                        ) == @md5_file(
-                                            $fileConfig
-                                        )) && !@copy($fileConfig, $fileConfigBack)) || !@unlink($fileConfig))
+                                        $fileModule
+                                    ) == @md5_file(
+                                        $fileConfig
+                                    )) && !@copy($fileConfig, $fileConfigBack)) || !@unlink($fileConfig))
                     ) {
                         $error = true;
                         Yii::app()->getUser()->setFlash(
@@ -873,8 +873,8 @@ class DefaultController extends yupe\components\controllers\BackController
             '_view',
             [
                 'data' => [
-                    'modules' => $modules
-                ]
+                    'modules' => $modules,
+                ],
             ]
         );
     }
@@ -892,16 +892,16 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $color = [
             'warning' => 'FF9600',
-            'error'   => 'FF0000',
+            'error' => 'FF0000',
         ];
 
-        $msg = CHtml::tag("b", [], $module->name . ": ") . $msg;
+        $msg = CHtml::tag("b", [], $module->name.": ").$msg;
         if (isset($color[$category])) {
-            $msg = CHtml::openTag("span", ['style' => ('color: #' . $color[$category])]) . $msg . CHtml::closeTag(
+            $msg = CHtml::openTag("span", ['style' => ('color: #'.$color[$category])]).$msg.CHtml::closeTag(
                     "span"
                 );
         }
-        echo $msg . "<br />";
+        echo $msg."<br />";
     }
 
     /**
@@ -916,11 +916,13 @@ class DefaultController extends yupe\components\controllers\BackController
         $modules = Yii::app()->moduleManager->getModulesDisabled();
 
         if (empty($name) || !isset($modules[$name])) {
-            throw new CHttpException(404, Yii::t(
+            throw new CHttpException(
+                404, Yii::t(
                 'InstallModule.install',
                 'The module {name} not found!',
                 ['{name}' => $name]
-            ));
+            )
+            );
         }
 
         ob_start();
@@ -956,7 +958,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $this->session['InstallForm'] = array_merge(
                     $this->session['InstallForm'],
                     [
-                        'createUser'     => $model->attributes,
+                        'createUser' => $model->attributes,
                         'createUserStep' => false,
                     ]
                 );
@@ -980,16 +982,16 @@ class DefaultController extends yupe\components\controllers\BackController
 
                 $user->setAttributes(
                     [
-                        'nick_name'     => $model->userName,
-                        'email'         => $model->userEmail,
-                        'gender'        => User::GENDER_THING,
-                        'access_level'  => User::ACCESS_LEVEL_ADMIN,
-                        'status'        => User::STATUS_ACTIVE,
+                        'nick_name' => $model->userName,
+                        'email' => $model->userEmail,
+                        'gender' => User::GENDER_THING,
+                        'access_level' => User::ACCESS_LEVEL_ADMIN,
+                        'status' => User::STATUS_ACTIVE,
                         'email_confirm' => User::EMAIL_CONFIRM_YES,
-                        'hash'          => Yii::app()->userManager->hasher->hashPassword(
-                                $model->userPassword
-                            ),
-                        'birth_date'    => null
+                        'hash' => Yii::app()->userManager->hasher->hashPassword(
+                            $model->userPassword
+                        ),
+                        'birth_date' => null,
                     ]
                 );
 
@@ -1018,7 +1020,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $this->session['InstallForm'] = array_merge(
                         $this->session['InstallForm'],
                         [
-                            'createUser'     => $model->attributes,
+                            'createUser' => $model->attributes,
                             'createUserStep' => true,
                         ]
                     );
@@ -1035,8 +1037,8 @@ class DefaultController extends yupe\components\controllers\BackController
             '_view',
             [
                 'data' => [
-                    'model' => $model
-                ]
+                    'model' => $model,
+                ],
             ]
         );
     }
@@ -1056,7 +1058,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 $this->session['InstallForm'] = array_merge(
                     $this->session['InstallForm'],
                     [
-                        'siteSettings'     => $model->attributes,
+                        'siteSettings' => $model->attributes,
                         'siteSettingsStep' => false,
                     ]
                 );
@@ -1070,7 +1072,7 @@ class DefaultController extends yupe\components\controllers\BackController
             $model->setAttributes($_POST['InstallForm']);
 
             if ($model->validate()) {
-                $transaction = Yii::app()->db->beginTransaction();
+                $transaction = Yii::app()->getDb()->beginTransaction();
 
                 try {
                     Settings::model()->deleteAll();
@@ -1083,20 +1085,37 @@ class DefaultController extends yupe\components\controllers\BackController
                                  'siteKeyWords',
                                  'email',
                                  'theme',
-                                 'backendTheme'
+                                 'backendTheme',
                              ] as $param) {
                         $settings = new Settings();
                         $model->email = $model->siteEmail;
 
                         $settings->setAttributes(
                             [
-                                'module_id'   => 'yupe',
-                                'param_name'  => $param,
+                                'module_id' => 'yupe',
+                                'param_name' => $param,
                                 'param_value' => $model->$param,
-                                'user_id'     => $user[0]->id,
+                                'user_id' => $user[0]->id,
                             ]
                         );
 
+                        if ($settings->save()) {
+                            continue;
+                        } else {
+                            throw new CDbException(print_r($settings->getErrors(), true));
+                        }
+                    }
+
+                    foreach (['defaultLanguage', 'defaultBackendLanguage'] as $param) {
+                        $settings = new Settings();
+                        $settings->setAttributes(
+                            [
+                                'module_id' => 'yupe',
+                                'param_name' => $param,
+                                'param_value' => Yii::app()->getLanguage(),
+                                'user_id' => $user[0]->id,
+                            ]
+                        );
                         if ($settings->save()) {
                             continue;
                         } else {
@@ -1114,7 +1133,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     // попробуем создать каталог assets
                     $assetsPath = dirname(
                             Yii::app()->getRequest()->getScriptFile()
-                        ) . '/' . CAssetManager::DEFAULT_BASEPATH;
+                        ).'/'.CAssetManager::DEFAULT_BASEPATH;
 
                     if (!is_dir($assetsPath)) {
                         @mkdir($assetsPath);
@@ -1123,12 +1142,12 @@ class DefaultController extends yupe\components\controllers\BackController
                     $this->session['InstallForm'] = array_merge(
                         $this->session['InstallForm'],
                         [
-                            'siteSettings'     => $model->attributes,
+                            'siteSettings' => $model->attributes,
                             'siteSettingsStep' => true,
                         ]
                     );
                     $this->_setSession();
-                    $this->redirect(['/install/default/sitesettings']);
+                    $this->redirect(['/install/default/finish']);
                 } catch (CDbException $e) {
                     $transaction->rollback();
 
@@ -1149,10 +1168,10 @@ class DefaultController extends yupe\components\controllers\BackController
             '_view',
             [
                 'data' => [
-                    'model'         => $model,
-                    'themes'        => $this->yupe->getThemes(),
-                    'backendThemes' => $this->yupe->getThemes(true)
-                ]
+                    'model' => $model,
+                    'themes' => $this->yupe->getThemes(),
+                    'backendThemes' => $this->yupe->getThemes(true),
+                ],
             ]
         );
     }

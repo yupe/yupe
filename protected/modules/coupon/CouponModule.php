@@ -12,6 +12,11 @@ class CouponModule extends WebModule
      */
     const VERSION = '0.9.9';
 
+    public function getDependencies()
+    {
+        return ['order'];
+    }
+
     /**
      * @return array
      */

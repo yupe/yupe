@@ -88,7 +88,7 @@ return [
             'globals' => ['html' => 'CHtml'],
             'filters' => ['jencode' => 'CJSON::encode']
         ],
-        'debug' => ['class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug', 'internalUrls' => false],
+        'debug' => ['class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug', 'internalUrls' => true],
         /**
          * Database settings be used only after Yupe install         *
          * @link http://www.yiiframework.ru/doc/guide/ru/database.overview

@@ -18,9 +18,7 @@ use CHttpCookie;
 class LanguageBehavior extends CBehavior
 {
     public $lang = false;
-
     private $_lang = false;
-    private $_defaultLang = false;
     private $_langFromUrl = false;
 
     /**
@@ -35,8 +33,8 @@ class LanguageBehavior extends CBehavior
      */
     public function attach($owner)
     {
-        $this->lm = Yii::app()->getUrlManager();
-        if (count($this->lm->languages) > 1 && is_array($this->lm->languages)) {
+        $this->lm = $owner->getUrlManager();
+        if (is_array($this->lm->languages) && count($this->lm->languages) > 1) {
             $owner->attachEventHandler('onBeginRequest', [$this, 'handleLanguageBehavior']);
         }
     }
@@ -48,7 +46,7 @@ class LanguageBehavior extends CBehavior
      */
     public function getLang()
     {
-        if ($this->_lang === false) {
+        if (false === $this->_lang) {
             $lang = $this->getUrlLang() ?: ($this->getCookieLang() ?: $this->lm->getAppLang());
             $this->_lang = in_array($lang, $this->lm->languages) ? $lang : null;
         }
@@ -83,10 +81,7 @@ class LanguageBehavior extends CBehavior
      */
     public function getCookieLang()
     {
-        $r = Yii::app()->getRequest();
-        $lang = isset($r->cookies[$this->lm->langParam]) ? $r->cookies[$this->lm->langParam]->value : null;
-
-        return $lang;
+        return isset(Yii::app()->getRequest()->cookies[$this->lm->langParam]) ? Yii::app()->getRequest()->cookies[$this->lm->langParam]->value : null;
     }
 
     /**
@@ -103,6 +98,7 @@ class LanguageBehavior extends CBehavior
 
         // язык передан в url, но он равен дефолтному языку
         if ($this->getUrlLang() !== null && $this->lang === false) {
+
             Yii::app()->getRequest()->redirect(Yii::app()->getHomeUrl() . $this->lm->getCleanUrl(Yii::app()->getRequest()->url));
         }
     }
@@ -120,6 +116,6 @@ class LanguageBehavior extends CBehavior
         Yii::app()->getRequest()->cookies[$this->lm->langParam] = new CHttpCookie($this->lm->langParam, $language);
 
         // И наконец, выставляем язык приложения:
-        Yii::app()->language = $language;
+        Yii::app()->setLanguage($language);
     }
 }
