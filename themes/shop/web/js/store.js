@@ -22,13 +22,6 @@ $(document).ready(function () {
 
     miniCartListeners();
 
-    // Галерея дополнительных изображений в карточке товара
-    $('.js-product-gallery').productGallery();
-
-    $('.js-tabs').tabs();
-
-    $(".js-select2").select2();
-
     function updatePrice() {
         var _basePrice = basePrice;
         var variants = [];
@@ -85,36 +78,24 @@ $(document).ready(function () {
     });
 
 
-    $('.product-quantity-increase').click(function () {
+    $('.product-quantity-increase').on('click', function () {
         var quantity = parseInt(quantityElement.text()) + 1;
         quantityElement.text(quantity);
-        $('#product-quantity-input').val(quantity);
         $('#product-total-price').text(parseInt($('#result-price').text()) * quantity);
     });
 
-    $('.product-quantity-decrease').click(function () {
+    $('.product-quantity-decrease').on('click', function () {
         var quantity = parseInt(quantityElement.text());
-
         if (parseInt(quantityElement.text()) > 1) {
             --quantity;
             quantityElement.text(quantity);
-            $('#product-quantity-input').val(quantity);
             $('#product-total-price').text(parseInt($('#result-price').text()) * quantity);
         }
     });
 
-    $('#product-quantity-input').change(function () {
-        var el = $(this);
-        quantity = parseInt(el.val());
-
-        if (quantity <= 0) {
-            quantity = 1;
-        }
-
-        el.val(quantity);
-        quantityElement.text(quantity);
-        $('#product-total-price').text(parseInt($('#result-price').text()) * quantity);
-    });
+    $('#product-quantity-input').on('keyup', function(event){
+        $('#product-total-price').text(parseInt($('#result-price').text()) * parseInt($(this).val()));
+    })
 
     function updateCartWidget() {
         $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'), function () {
@@ -122,7 +103,7 @@ $(document).ready(function () {
         });
     }
 
-    $('#add-product-to-cart').click(function (e) {
+    $('#add-product-to-cart').on('click', function (e) {
         e.preventDefault();
         var button = $(this);
         var form = $(this).parents('form');
@@ -202,15 +183,11 @@ $(document).ready(function () {
     }
 
     $('.cart-quantity-increase').click(function () {
-        var target = $($(this).data('target'));
-        target.val(parseInt(target.val()) + 1).trigger('change');
+        $($(this).data('target')).trigger('change');
     });
 
     $('.cart-quantity-decrease').click(function () {
-        var target = $($(this).data('target'));
-        if (parseInt(target.val()) > 1) {
-            target.val(parseInt(target.val()) - 1).trigger('change');
-        }
+        $($(this).data('target')).trigger('change');
     });
 
     $('.cart-delete-product').click(function (e) {
@@ -225,8 +202,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.result) {
-                    el.closest('.cart-list__item').remove();
-
                     if ($('.cart-list .cart-item').length == 0) {
                         $('.order-box').hide();
                     }
@@ -239,16 +214,10 @@ $(document).ready(function () {
     });
 
     $('.position-count').change(function () {
-        var el = $(this).parents('.cart-list__item');
-        var quantity = parseInt(el.find('.position-count').val());
-        var productId = el.find('.position-id').val();
-
-        if (quantity <= 0) {
-            quantity = 1;
-            el.find('.position-count').val(quantity);
-        }
-
-        updatePositionSumPrice(el);
+        var tr = $(this).parents('.cart-list__item');
+        updatePositionSumPrice(tr);
+        var quantity = tr.find('.position-count').val();
+        var productId = tr.find('.position-id').val();
         changePositionQuantity(productId, quantity);
     });
 
@@ -365,6 +334,9 @@ $(document).ready(function () {
     }
 
     refreshDeliveryTypes();
+    //checkFirstAvailableDeliveryType();
+    //updateFullCostWithShipping();
+    //updateCartTotalCost();
 
     function updateAllCosts() {
         updateCartTotalCost();

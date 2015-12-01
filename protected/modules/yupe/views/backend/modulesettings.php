@@ -7,21 +7,21 @@ $this->breadcrumbs = [
 ?>
 
 <h1>
-    <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($module->name); ?>"
-    <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($module->version); ?></small>
+    <?= Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?= CHtml::encode($module->name); ?>"
+    <small><?= Yii::t('YupeModule.yupe', 'version'); ?> <?= CHtml::encode($module->version); ?></small>
 </h1>
 
 <br/>
 
 <?php if (is_array($groups) && count($groups)): { ?>
-    <?php echo CHtml::beginForm(
+    <?= CHtml::beginForm(
         ['/yupe/backend/saveModulesettings'],
         'post',
         [
             'class' => 'well',
         ]
     ); ?>
-    <?php echo CHtml::hiddenField('module_id', $module->getId()); ?>
+    <?= CHtml::hiddenField('module_id', $module->getId()); ?>
     <div class="row">
         <div class="col-sm-8">
             <?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
@@ -60,7 +60,7 @@ $this->breadcrumbs = [
 
     <div class="row">
         <div class="col-sm-12">
-            <?php echo CHtml::submitButton(
+            <?= CHtml::submitButton(
                 Yii::t(
                     'YupeModule.yupe',
                     'Save "{{name}}" module settings',
@@ -76,7 +76,7 @@ $this->breadcrumbs = [
             ); ?>
         </div>
     </div>
-    <?php echo CHtml::endForm(); ?>
+    <?= CHtml::endForm(); ?>
 <?php } else: { ?>
-    <b><?php echo Yii::t('YupeModule.yupe', 'There is no parameters which you cat change for this module...'); ?></b>
+    <b><?= Yii::t('YupeModule.yupe', 'There is no parameters which you cat change for this module...'); ?></b>
 <?php } endif; ?>

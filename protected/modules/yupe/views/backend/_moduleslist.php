@@ -97,41 +97,41 @@ endif;
 function moduleRow($module, &$updates, &$modules)
 {
     ?>
-    <tr class="<?php echo ($module->getIsActive()) ? (is_array(
+    <tr class="<?= ($module->getIsActive()) ? (is_array(
         $module->checkSelf()
     ) ? 'danger' : '') : 'text-muted'; ?>">
-        <td><?php echo $module->icon ? "<i class='" . $module->getIcon() . "'>&nbsp;</i> " : ""; ?></td>
+        <td><?= $module->icon ? "<i class='" . $module->getIcon() . "'>&nbsp;</i> " : ""; ?></td>
         <td>
-            <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->getCategory()); ?></small>
+            <small style="font-size: 80%;"><?= Yii::t('YupeModule.yupe', $module->getCategory()); ?></small>
             <br/>
             <?php if ($module->getIsActive() || $module->getIsNoDisable()): ?>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     $module->getName() . ' <small>(' . $module->getId() . ')</small>',
                     $module->getAdminPageLinkNormalize()
                 ); ?>
             <?php else: ?>
-                <span><?php echo $module->getName() . ' <small>(' . $module->getId() . ')</small>'; ?></span>
+                <span><?= $module->getName() . ' <small>(' . $module->getId() . ')</small>'; ?></span>
             <?php endif; ?>
         </td>
         <td>
-            <small class='label label-info'><?php echo $module->getVersion(); ?></small>
+            <small class='label label-info'><?= $module->getVersion(); ?></small>
         </td>
         <td>
             <?php if ($module->isMultiLang()) : ?>
                 <i class="fa fa-fw fa-globe"
-                   title="<?php echo Yii::t('YupeModule.yupe', 'Multilanguage module'); ?>"></i>
+                   title="<?= Yii::t('YupeModule.yupe', 'Multilanguage module'); ?>"></i>
             <?php endif; ?>
         </td>
         <td>
-            <?php echo $module->description; ?>
+            <?= $module->description; ?>
             <br/>
-            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t(
+            <small style="font-size: 80%;"> <?= "<b>" . Yii::t(
                         'YupeModule.yupe',
                         "Author:"
                     ) . "</b> " . $module->getAuthor(); ?>
-                (<a href="mailto:<?php echo $module->getAuthorEmail(); ?>"><?php echo $module->getAuthorEmail(); ?></a>)
+                (<a href="mailto:<?= $module->getAuthorEmail(); ?>"><?= $module->getAuthorEmail(); ?></a>)
                 &nbsp;
-                <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Module site:') . "</b> " . CHtml::link(
+                <?= "<b>" . Yii::t('YupeModule.yupe', 'Module site:') . "</b> " . CHtml::link(
                         $module->getUrl(),
                         $module->getUrl()
                     ); ?></small>
@@ -185,7 +185,7 @@ function moduleRow($module, &$updates, &$modules)
         </td>
         <td class="button-column">
             <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     '<i class="fa fa-fw fa-wrench" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',
                         'Settings'
@@ -276,11 +276,11 @@ function modulesTable($modules, &$updates, &$allmodules, &$controller)
         <thead>
         <tr>
             <th></th>
-            <th style="width: 150px;"><?php echo Yii::t('YupeModule.yupe', 'Name'); ?></th>
-            <th style="width: 32px;"><?php echo Yii::t('YupeModule.yupe', 'Version'); ?></th>
+            <th style="width: 150px;"><?= Yii::t('YupeModule.yupe', 'Name'); ?></th>
+            <th style="width: 32px;"><?= Yii::t('YupeModule.yupe', 'Version'); ?></th>
             <th style="width: 32px;"></th>
-            <th><?php echo Yii::t('YupeModule.yupe', 'Description'); ?></th>
-            <th><?php echo Yii::t('YupeModule.yupe', 'Dependencies'); ?></th>
+            <th><?= Yii::t('YupeModule.yupe', 'Description'); ?></th>
+            <th><?= Yii::t('YupeModule.yupe', 'Dependencies'); ?></th>
             <th></th>
         </tr>
         </thead>

@@ -6,7 +6,7 @@
 class ProductBackendController extends yupe\components\controllers\BackController
 {
     /**
-     * @var
+     * @var ProductRepository
      */
     protected $productRepository;
 

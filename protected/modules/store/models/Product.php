@@ -318,6 +318,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('average_price', $this->average_price);
         $criteria->compare('recommended_price', $this->recommended_price);
         $criteria->compare('in_stock', $this->in_stock);
+        $criteria->with = ['mainCategory', 'categories'];
 
         if ($this->category) {
             $criteria->with = ['categoryRelation' => ['together' => true]];

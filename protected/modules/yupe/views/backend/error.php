@@ -1,6 +1,6 @@
 <?php $this->pageTitle = Yii::t('default', 'Error') . ' ' . $error['code'] . ' - ' . $this->yupe->siteName; ?>
 
-<h2><?php echo Yii::t('default', 'Error') . ' ' . $error['code']; ?>!</h2>
+<h2><?= Yii::t('default', 'Error') . ' ' . $error['code']; ?>!</h2>
 
 <?php
 switch ($error['code']) {
@@ -28,5 +28,5 @@ switch ($error['code']) {
 ?>
 
 <p class="alert alert-danger">
-    <?php echo $msg; ?>
+    <?= $msg; ?>
 </p>
