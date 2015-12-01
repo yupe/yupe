@@ -109,7 +109,10 @@ $this->widget(
         'comment',
         'menu',
         'image',
-        'category'
+        'category',
+        'callback',
+        'favorite',
+        'yandexmoney'
     ];
     foreach ($data['modules'] as $module) : {
         if (!is_object($module)) {
