@@ -1,5 +1,6 @@
 <?php
 Yii::import('application.modules.comment.CommentModule');
+
 /**
  * Comment Widget
  *
@@ -17,13 +18,34 @@ class CommentsWidget extends yupe\widgets\YWidget
      * @var CActiveRecord
      */
     public $model;
+    /**
+     * @var
+     */
     public $redirectTo;
+    /**
+     * @var
+     */
     public $status;
+    /**
+     * @var bool
+     */
     public $showComments = true;
+    /**
+     * @var bool
+     */
     public $showForm = true;
+    /**
+     * @var bool
+     */
     public $allowGuestComment = false;
+    /**
+     * @var string
+     */
     public $view = 'comments';
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (null === $this->model && empty($this->comments)) {
@@ -61,26 +83,37 @@ class CommentsWidget extends yupe\widgets\YWidget
     public function run()
     {
         $model = new Comment;
-        $model->setAttributes([
-            'model' => get_class($this->model),
-            'model_id' => $this->model->id,
-        ]);
+        $model->setAttributes(
+            [
+                'model' => get_class($this->model),
+                'model_id' => $this->model->id,
+            ]
+        );
 
-        $this->render($this->view, [
-            'comments' => $this->getComments(),
-            'model' => $model,
-            'redirectTo' => $this->redirectTo,
-            'spamField' => Yii::app()->getUser()->getState('spamField'),
-            'spamFieldValue' => Yii::app()->getUser()->getState('spamFieldValue'),
-            'module' => Yii::app()->getModule('comment')
-        ]);
+        $this->render(
+            $this->view,
+            [
+                'comments' => $this->getComments(),
+                'model' => $model,
+                'redirectTo' => $this->redirectTo,
+                'spamField' => Yii::app()->getUser()->getState('spamField'),
+                'spamFieldValue' => Yii::app()->getUser()->getState('spamFieldValue'),
+                'module' => Yii::app()->getModule('comment'),
+            ]
+        );
     }
 
+    /**
+     * @return bool
+     */
     public function isAllowed()
     {
         return $this->allowGuestComment || !Yii::app()->getUser()->getIsGuest();
     }
 
+    /**
+     * @return array
+     */
     protected function getComments()
     {
         if ($this->showComments) {
@@ -99,6 +132,9 @@ class CommentsWidget extends yupe\widgets\YWidget
         return [];
     }
 
+    /**
+     * @return string
+     */
     protected function getCacheKey()
     {
         $class = get_class($this->model);
@@ -106,6 +142,9 @@ class CommentsWidget extends yupe\widgets\YWidget
         return "Comment{$class}{$this->model->id}";
     }
 
+    /**
+     *
+     */
     protected function generateTokens()
     {
         Yii::app()->getUser()->setState('spamField', md5(Yii::app()->userManager->hasher->generateRandomToken(8)));

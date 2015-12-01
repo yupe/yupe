@@ -52,10 +52,10 @@ class CommentController extends \yupe\components\controllers\FrontController
                 'backColor' => 0xFFFFFF,
             ],
             'ajaxImageUpload' => [
-                'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
-                'maxSize'   => $this->module->maxSize,
+                'class' => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize' => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types'     => $this->module->allowedExtensions
+                'types' => $this->module->allowedExtensions,
             ],
         ];
     }
@@ -77,7 +77,10 @@ class CommentController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') == 'comment-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+                'ajax'
+            ) == 'comment-form'
+        ) {
             echo CActiveForm::validate(new Comment());
             Yii::app()->end();
         }
@@ -86,7 +89,13 @@ class CommentController extends \yupe\components\controllers\FrontController
 
             $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
 
-            if (($comment = Yii::app()->commentManager->create(Yii::app()->getRequest()->getPost('Comment'), $module, Yii::app()->getUser(), Yii::app()->getRequest()))) {
+            if (($comment = Yii::app()->commentManager->create(
+                Yii::app()->getRequest()->getPost('Comment'),
+                $module,
+                Yii::app()->getUser(),
+                Yii::app()->getRequest()
+            ))
+            ) {
 
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
@@ -96,9 +105,9 @@ class CommentController extends \yupe\components\controllers\FrontController
                         [
                             'message' => Yii::t('CommentModule.comment', 'You record was created. Thanks.'),
                             'comment' => [
-                                'parent_id' => $comment->parent_id
+                                'parent_id' => $comment->parent_id,
                             ],
-                            'commentContent' => $commentContent
+                            'commentContent' => $commentContent,
                         ]
                     );
                 }
@@ -116,7 +125,7 @@ class CommentController extends \yupe\components\controllers\FrontController
 
                     Yii::app()->ajax->failure(
                         [
-                            'message' => Yii::t('CommentModule.comment', 'Record was not added!')
+                            'message' => Yii::t('CommentModule.comment', 'Record was not added!'),
                         ]
                     );
                 }
@@ -133,7 +142,7 @@ class CommentController extends \yupe\components\controllers\FrontController
 
                 Yii::app()->ajax->failure(
                     [
-                        'message' => Yii::t('CommentModule.comment', $e->getMessage())
+                        'message' => Yii::t('CommentModule.comment', $e->getMessage()),
                     ]
                 );
             }

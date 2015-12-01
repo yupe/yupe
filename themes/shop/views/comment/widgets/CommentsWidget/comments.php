@@ -50,7 +50,7 @@ Yii::app()->clientScript
                     <?php $form = $this->beginWidget(
                         'CActiveForm',
                         [
-                            'action' => Yii::app()->createUrl('/comment/add/'),
+                            'action' => Yii::app()->createUrl('/comment/comment/add/'),
                             'id' => 'comment-form',
                         ]
                     ); ?>

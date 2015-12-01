@@ -68,7 +68,7 @@ Yii::app()->clientScript
                 <?php $form = $this->beginWidget(
                     'bootstrap.widgets.TbActiveForm',
                     [
-                        'action' => Yii::app()->createUrl('/comment/add/'),
+                        'action' => Yii::app()->createUrl('/comment/comment/add/'),
                         'id' => 'comment-form',
                         'type' => 'vertical',
                         'enableAjaxValidation' => true,
