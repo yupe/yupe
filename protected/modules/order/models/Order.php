@@ -143,7 +143,7 @@ class Order extends yupe\models\YModel
             'delivery' => [self::BELONGS_TO, 'Delivery', 'delivery_id'],
             'payment' => [self::BELONGS_TO, 'Payment', 'payment_method_id'],
             'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
-            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+            'client' => [self::BELONGS_TO, 'Client', 'user_id'],
             'couponsIds' => [self::HAS_MANY, 'OrderCoupon', 'order_id'],
             'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds']
         ];
@@ -184,9 +184,9 @@ class Order extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('OrderModule.order', '#'),
-            'delivery_id' => Yii::t('OrderModule.order', 'Delivery'),
+            'delivery_id' => Yii::t('OrderModule.order', 'Delivery method'),
             'delivery_price' => Yii::t('OrderModule.order', 'Delivery price'),
-            'payment_method_id' => Yii::t('OrderModule.order', 'Payment'),
+            'payment_method_id' => Yii::t('OrderModule.order', 'Payment method'),
             'paid' => Yii::t('OrderModule.order', 'Paid'),
             'payment_time' => Yii::t('OrderModule.order', 'Paid date'),
             'payment_details' => Yii::t('OrderModule.order', 'Payment details'),
@@ -196,7 +196,7 @@ class Order extends yupe\models\YModel
             'separate_delivery' => Yii::t('OrderModule.order', 'Separate delivery payment'),
             'status_id' => Yii::t('OrderModule.order', 'Status'),
             'date' => Yii::t('OrderModule.order', 'Date'),
-            'user_id' => Yii::t('OrderModule.order', 'User'),
+            'user_id' => Yii::t('OrderModule.order', 'Client'),
             'name' => Yii::t('OrderModule.order', 'Client'),
             'address' => Yii::t('OrderModule.order', 'Address'),
             'phone' => Yii::t('OrderModule.order', 'Phone'),

@@ -1,0 +1,101 @@
+<?php
+
+$this->breadcrumbs = [
+    Yii::t('OrderModule.order', 'Clients') => ['/order/clientBackend/index'],
+    Yii::t('OrderModule.order', 'Manage'),
+];
+
+$this->pageTitle = Yii::t('OrderModule.order', 'Clients - manage');
+
+$this->menu = [
+    [
+        'label' => Yii::t('OrderModule.order', 'Clients'),
+        'items' => [
+            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage clients'), 'url' => ['/order/clientBackend/index']],
+            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create client'), 'url' => ['/user/userBackend/create']],
+        ]
+    ]
+];
+?>
+<div>
+    <h1>
+        <?= Yii::t('OrderModule.order', 'Clients'); ?>
+        <small><?= Yii::t('OrderModule.order', 'manage'); ?></small>
+    </h1>
+</div>
+
+
+<?php
+$this->widget(
+    'yupe\widgets\CustomGridView',
+    [
+        'id' => 'order-grid',
+        'type' => 'condensed',
+        'dataProvider' => $model->search(),
+        'filter' => $model,
+        'columns' => [
+            [
+                'name' => 'last_name',
+                'type' => 'html',
+                'value' => function($data){
+                    return CHtml::link($data->last_name, ['/order/clientBackend/view', 'id' => $data->id]);
+                }
+            ],
+            [
+                'name' => 'first_name',
+                'type' => 'html',
+                'value' => function($data){
+                    return CHtml::link($data->first_name, ['/order/clientBackend/view', 'id' => $data->id]);
+                }
+            ],
+            [
+                'name' => 'middle_name',
+                'type' => 'html',
+                'value' => function($data){
+                    return CHtml::link($data->middle_name, ['/order/clientBackend/view', 'id' => $data->id]);
+                }
+            ],
+            [
+                'name' => 'email',
+                'type' => 'html',
+                'value' => function($data){
+                    return CHtml::link($data->email, ['/order/clientBackend/view', 'id' => $data->id]);
+                }
+            ],
+            [
+                'name' => 'phone',
+                'type' => 'html',
+                'value' => function($data){
+                    return CHtml::link($data->phone, ['/order/clientBackend/view', 'id' => $data->id]);
+                }
+            ],
+            [
+                'header' => Yii::t('OrderModule.order', 'Orders'),
+                'type'   => 'html',
+                'value'  => function($data){
+                    return CHtml::link($data->getOrderNumber(), ['/order/orderBackend/index', 'Order[user_id]' => $data->id]);
+                },
+            ],
+            [
+                'header' => Yii::t('OrderModule.order', 'Money'),
+                'value' => function($data){
+                    return Yii::app()->numberFormatter->formatCurrency($data->getOrderSum(), "RUB");
+                }
+            ],
+            [
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/user/userBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Client::STATUS_ACTIVE     => ['class' => 'label-success'],
+                    Client::STATUS_BLOCK      => ['class' => 'label-danger'],
+                    Client::STATUS_NOT_ACTIVE => ['class' => 'label-warning'],
+                ],
+            ],
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
+); ?>

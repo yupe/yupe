@@ -103,11 +103,14 @@ $this->menu = [
                 'name' => 'user_id',
                 'type' => 'raw',
                 'value' => function($model) {
-                        return $model->user ?
-                            CHtml::link($model->user->nick_name, ['/user/userBackend/view', 'id' => $model->user_id]) : '---';
+                        return $model->client ?
+                            CHtml::link($model->client->getFullName(), ['/order/clientBackend/view', 'id' => $model->user_id]) : '---';
                     },
             ],
-            'name',
+            [
+                'name' => 'name',
+                'visible' => !isset($model->client)
+            ],
             'address',
             'phone',
             'email',

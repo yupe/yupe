@@ -125,6 +125,11 @@ class OrderModule extends WebModule
     {
         return [
             [
+                'icon' => 'fa fa-fw fa-users',
+                'label' => Yii::t('OrderModule.order', 'Clients'),
+                'url' => ['/order/clientBackend/index'],
+            ],
+            [
                 'icon' => 'fa fa-fw fa-gift',
                 'label' => Yii::t('OrderModule.order', 'Orders'),
                 'url' => ['/order/orderBackend/index'],
@@ -182,7 +187,7 @@ class OrderModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('OrderModule.order', 'hello@amylabs');
+        return Yii::t('OrderModule.order', 'hello@amylabs.ru');
     }
 
     /**
@@ -190,7 +195,7 @@ class OrderModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://amylabs.ru';
+        return 'http://yupe-project.ru';
     }
 
     /**

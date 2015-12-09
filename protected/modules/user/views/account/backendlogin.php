@@ -1,16 +1,4 @@
 <?php
-/**
- * Файл отображения для account/backendlogin:
- *
- * @category YupeView
- * @package  yupe
- * @author   AKulikov <tuxuls@gmail.com>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.1
- * @link     http://yupe.ru
- *
- **/
-
 $this->layout = 'login';
 $this->yupe->getComponent('bootstrap');
 $this->pageTitle = Yii::t('UserModule.user', 'Authorization');
@@ -18,7 +6,10 @@ Yii::app()->getClientScript()->registerCssFile(
     Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.user.views.assets') . '/css/backendlogin.css'
     )
-); ?>
+);
+
+
+?>
 <div class="wrapper">
     <div class="login-form">
         <?php
@@ -30,18 +21,18 @@ Yii::app()->getClientScript()->registerCssFile(
             ]
         ); ?>
         <fieldset>
-            <legend><?php echo Yii::t('UserModule.user', 'Authorize please'); ?></legend>
-            <?php echo $form->errorSummary($model); ?>
+            <legend><?= Yii::t('UserModule.user', 'Authorize please'); ?></legend>
+            <?= $form->errorSummary($model); ?>
             <div class='row'>
                 <div class="col-xs-12">
-                    <?php echo $form->textFieldGroup($model, 'email'); ?>
+                    <?= $form->textFieldGroup($model, 'email'); ?>
                 </div>
                 <div class="col-xs-12">
-                    <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+                    <?= $form->passwordFieldGroup($model, 'password'); ?>
                 </div>
                 <?php if ($this->getModule()->sessionLifeTime > 0): { ?>
                     <div class="col-xs-12">
-                        <?php echo $form->checkBoxGroup($model, 'remember_me'); ?>
+                        <?= $form->checkBoxGroup($model, 'remember_me'); ?>
                     </div>
                 <?php } endif; ?>
 
@@ -52,7 +43,7 @@ Yii::app()->getClientScript()->registerCssFile(
                         <?php if (CCaptcha::checkRequirements('gd')): { ?>
                             <div>
                                 <?php $this->widget('CCaptcha', ['showRefreshButton' => true]); ?>
-                                <?php echo $form->textFieldGroup(
+                                <?= $form->textFieldGroup(
                                     $model,
                                     'verifyCode',
                                     ['hint' => Yii::t('UserModule.user', 'Please enter the text from the image')]
@@ -67,7 +58,7 @@ Yii::app()->getClientScript()->registerCssFile(
             <?php if (!$this->getModule()->recoveryDisabled): { ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <?php echo CHtml::link(
+                        <?= CHtml::link(
                             Yii::t('UserModule.user', 'Forgot password?'),
                             ['/user/account/recovery']
                         ); ?>

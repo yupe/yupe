@@ -10,11 +10,12 @@
  * @version  0.7
  * @link     http://yupe.ru
  *
- **/
-use yupe\helpers\Url;
-
+ */
 class LoginAction extends CAction
 {
+    /**
+     *
+     */
     public function run()
     {
         /**

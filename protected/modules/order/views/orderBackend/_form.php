@@ -66,24 +66,14 @@ $form = $this->beginWidget(
                     [
                         'model' => $model,
                         'attribute' => 'user_id',
-                        'data' => CHtml::listData(User::model()->active()->findAll(), 'id', 'email'),
+                        'data' => CHtml::listData(Client::model()->findAll(), 'id', 'email'),
                         'options' => [
-                            'placeholder' => Yii::t('OrderModule.order', 'User'),
+                            'placeholder' => Yii::t('OrderModule.order', 'Client'),
                             'width' => '100%',
                             'allowClear' => true,
                         ]
                     ]
                 ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <label class="checkbox">
-                    <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t(
-                        'OrderModule.order',
-                        'Inform buyer about order status'
-                    ); ?>
-                </label>
             </div>
         </div>
         <div class="row">
@@ -118,7 +108,7 @@ $form = $this->beginWidget(
                                         'asDropDownList' => false,
                                         'options' => [
                                             'minimumInputLength' => 2,
-                                            'placeholder' => 'Select product',
+                                            'placeholder' => Yii::t('OrderModule.order','Select product'),
                                             'width' => '100%',
                                             'allowClear' => true,
                                             'ajax' => [
@@ -237,8 +227,56 @@ $form = $this->beginWidget(
                         </div>
                     </div>
                 </div>
-                <?= $form->textAreaGroup($model, 'note'); ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title"><?= Yii::t('OrderModule.order', 'Note') ?></span>
+                    </div>
+                    <div class="panel-body">
+                        <?= $form->textAreaGroup($model, 'note', ['label' => false]); ?>
+                    </div>
+                </div>
             </div>
+            <?php if(!$model->getIsNewRecord() && isset($model->client)):?>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title"><?= Yii::t('OrderModule.order', 'Client'); ?></span>
+                    </div>
+                    <div class="panel-body">
+                        <?php $this->widget(
+                            'bootstrap.widgets.TbDetailView',
+                            [
+                                'data' => $model->client,
+                                'attributes' => [
+                                    [
+                                        'name' => 'full_name',
+                                        'value' => CHtml::link($model->client->getFullName(), ['/order/clientBackend/view', 'id' => $model->client->id]),
+                                        'type'  => 'html'
+                                    ],
+                                    'nick_name',
+                                    [
+                                        'name'  => 'email',
+                                        'value' => CHtml::mailto($model->client->email, $model->client->email),
+                                        'type'  => 'html'
+                                    ],
+                                    'birth_date',
+                                    'phone',
+                                    [
+                                        'label' => Yii::t('OrderModule.order', 'Orders'),
+                                        'value' => CHtml::link($model->client->getOrderNumber(), ['/order/orderBackend/index', 'Order[user_id]' => $model->client->id]),
+                                        'type'  => 'html'
+                                    ],
+                                    [
+                                        'label' => Yii::t('OrderModule.order', 'Money'),
+                                        'value' => Yii::app()->numberFormatter->formatCurrency($model->client->getOrderSum(), 'RUB')
+                                    ]
+                                ],
+                            ]
+                        ); ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif;?>
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -270,7 +308,7 @@ $form = $this->beginWidget(
                                 <?= $form->textAreaGroup($model, 'comment'); ?>
                             </div>
                         </div>
-                        <?php if (!$model->isNewRecord): ?>
+                        <?php if (!$model->getIsNewRecord()): ?>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <?= CHtml::link(
@@ -286,13 +324,13 @@ $form = $this->beginWidget(
         </div>
     </div>
     <?php if (Yii::app()->hasModule('coupon')): ?>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span class="panel-title"><?= Yii::t('OrderModule.order', 'Coupons'); ?></span>
                 </div>
+                <?php if ($model->hasCoupons()): ?>
                 <div class="panel-body coupons">
-                    <?php if ($model->hasCoupons()): ?>
                         <?php
                         $this->widget(
                             'yupe\widgets\CustomGridView',
@@ -319,11 +357,22 @@ $form = $this->beginWidget(
                             ]
                         );
                         ?>
-                    <?php endif; ?>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     <?php endif; ?>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <label class="checkbox">
+            <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t(
+                'OrderModule.order',
+                'Inform buyer about order status'
+            ); ?>
+        </label>
+    </div>
 </div>
 
 <?php $this->widget(

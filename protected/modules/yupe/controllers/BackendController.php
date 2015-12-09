@@ -24,8 +24,14 @@
  **/
 use yupe\models\Settings;
 
+/**
+ * Class BackendController
+ */
 class BackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -39,26 +45,29 @@ class BackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'AjaxFileUpload' => [
-                'class'     => 'yupe\components\actions\YAjaxFileUploadAction',
-                'maxSize'   => $this->module->maxSize,
+                'class' => 'yupe\components\actions\YAjaxFileUploadAction',
+                'maxSize' => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types'     => $this->module->allowedExtensions
+                'types' => $this->module->allowedExtensions,
             ],
             'AjaxImageUpload' => [
-                'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
-                'maxSize'   => $this->module->maxSize,
+                'class' => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize' => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types'     => $this->module->allowedExtensions
+                'types' => $this->module->allowedExtensions,
             ],
             'AjaxImageUploadCKE' => array(
-                'class'     => 'yupe\components\actions\YAjaxImageUploadCKEAction',
-                'maxSize'   => $this->module->maxSize,
+                'class' => 'yupe\components\actions\YAjaxImageUploadCKEAction',
+                'maxSize' => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types'     => $this->module->allowedExtensions
+                'types' => $this->module->allowedExtensions,
             ),
         ];
     }
@@ -117,7 +126,7 @@ class BackendController extends yupe\components\controllers\BackController
                     'YupeModule.yupe',
                     'There is an error: {error}',
                     [
-                        '{error}' => implode('<br />', (array)$e->getMessage())
+                        '{error}' => implode('<br />', (array)$e->getMessage()),
                     ]
                 )
             );
@@ -145,10 +154,16 @@ class BackendController extends yupe\components\controllers\BackController
 
         /* если есть ключ в массиве параметров, то значит этот параметр выпадающий список в вариантами */
         if (array_key_exists($param, $editableParams)) {
-            $res .= CHtml::dropDownList($param, $module->{$param}, $editableParams[$param], ['class' => 'form-control', 'empty' => Yii::t('YupeModule.yupe', '--choose--')]);
+            $res .= CHtml::dropDownList(
+                $param,
+                $module->{$param},
+                $editableParams[$param],
+                ['class' => 'form-control', 'empty' => Yii::t('YupeModule.yupe', '--choose--')]
+            );
         } else {
             $res .= CHtml::textField($param, $module->{$param}, ['class' => 'form-control']);
         }
+
         return $res;
     }
 
@@ -219,10 +234,10 @@ class BackendController extends yupe\components\controllers\BackController
             if (!($module = Yii::app()->getModule($moduleId))) {
                 throw new CHttpException(
                     404, Yii::t(
-                        'YupeModule.yupe',
-                        'Module "{module}" was not found!',
-                        ['{module}' => $moduleId]
-                    )
+                    'YupeModule.yupe',
+                    'Module "{module}" was not found!',
+                    ['{module}' => $moduleId]
+                )
                 );
             }
 
@@ -233,7 +248,7 @@ class BackendController extends yupe\components\controllers\BackController
                         'YupeModule.yupe',
                         'Settings for "{module}" saved successfully!',
                         [
-                            '{module}' => $module->getName()
+                            '{module}' => $module->getName(),
                         ]
                     )
                 );
@@ -285,10 +300,10 @@ class BackendController extends yupe\components\controllers\BackController
         $this->render(
             'themesettings',
             [
-                'themes'        => $this->yupe->getThemes(),
-                'theme'         => $theme,
+                'themes' => $this->yupe->getThemes(),
+                'theme' => $theme,
                 'backendThemes' => $this->yupe->getThemes(true),
-                'backendTheme'  => $backendTheme,
+                'backendTheme' => $backendTheme,
             ]
         );
     }
@@ -361,7 +376,8 @@ class BackendController extends yupe\components\controllers\BackController
             );
 
             $this->redirect(
-                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer() : ["/yupe/backend"]
+                Yii::app()->getRequest()->getUrlReferrer() !== null ? Yii::app()->getRequest()->getUrlReferrer(
+                ) : ["/yupe/backend"]
             );
         }
     }
@@ -385,7 +401,7 @@ class BackendController extends yupe\components\controllers\BackController
     private function _cleanAssets()
     {
         try {
-            $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+            $dirsList = glob(Yii::app()->assetManager->getBasePath().DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
             if (is_array($dirsList)) {
                 foreach ($dirsList as $item) {
                     yupe\helpers\YFile::rmDir($item);
@@ -400,11 +416,10 @@ class BackendController extends yupe\components\controllers\BackController
         }
     }
 
+
     /**
-     * Ajax-метод для очистки кеша и ресурсов (assets)
-     *
-     * @return void
-     **/
+     * @throws CHttpException
+     */
     public function actionAjaxflush()
     {
         if (!Yii::app()->getRequest()->getIsPostRequest()
@@ -485,6 +500,9 @@ class BackendController extends yupe\components\controllers\BackController
         }
     }
 
+    /**
+     *
+     */
     public function actionError()
     {
         $error = Yii::app()->getErrorHandler()->error;
@@ -498,9 +516,12 @@ class BackendController extends yupe\components\controllers\BackController
         }
     }
 
+    /**
+     *
+     */
     public function actionTransliterate()
     {
-        $data = Yii::app()->request->getParam('data') ?: Yii::app()->request->getPost('data');
+        $data = Yii::app()->getRequest()->getParam('data') ?: Yii::app()->getRequest()->getPost('data');
 
         echo \yupe\helpers\YText::translit($data);
     }

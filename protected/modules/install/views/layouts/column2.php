@@ -25,10 +25,10 @@
         </div>
         <div class="alert alert-warning">
             <strong><?= Yii::app()->name; ?></strong> разрабатывается
-            <a href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной
+            <a href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при
             поддержке <?= CHtml::link(
-                'amyLabs',
-                'http://amylabs.ru',
+                'amylabs',
+                'http://amylabs.ru?from=yupe-install',
                 ['target' => '_blank']
             ); ?>!
             <strong><?= CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении

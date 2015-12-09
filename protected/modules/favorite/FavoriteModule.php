@@ -23,6 +23,14 @@ class FavoriteModule extends \yupe\components\WebModule
     }
 
     /**
+     * @return bool
+     */
+    public function getIsShowInAdminMenu()
+    {
+        return false;
+    }
+
+    /**
      * @return array
      */
     public function getDependencies()

@@ -11,6 +11,7 @@
  * @property string  $last_name
  * @property string  $nick_name
  * @property string  $email
+ * @property string  $phone
  * @property integer $gender
  * @property string  $avatar
  * @property string  $hash
@@ -153,7 +154,7 @@ class User extends yupe\models\YModel
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['create_time', 'length', 'max' => 50],
             [
-                'id, update_time, create_time, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, visit_time',
+                'id, update_time, create_time, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, visit_time, phone',
                 'safe',
                 'on' => 'search'
             ],
@@ -266,6 +267,7 @@ class User extends yupe\models\YModel
         $criteria->compare('t.last_name', $this->last_name, true);
         $criteria->compare('t.nick_name', $this->nick_name, true);
         $criteria->compare('t.email', $this->email, true);
+        $criteria->compare('t.phone', $this->phone, true);
         $criteria->compare('t.gender', $this->gender);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('t.access_level', $this->access_level);

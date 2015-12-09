@@ -161,7 +161,7 @@ class StoreModule extends WebModule
                 'label' => Yii::t('StoreModule.store', 'Catalog'),
                 'items' => [
                     [
-                        'icon' => 'fa fa-fw fa-shopping-cart',
+                        'icon' => 'fa fa-fw fa-reorder',
                         'label' => Yii::t('StoreModule.store', 'Products'),
                         'url' => ['/store/productBackend/index'],
                         'items' => [
@@ -316,7 +316,7 @@ class StoreModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://amylabs.ru';
+        return 'http://yupe-project.ru';
     }
 
     /**

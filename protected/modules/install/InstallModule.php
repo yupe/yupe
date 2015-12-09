@@ -4,7 +4,7 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2013 amylabs && Yupe! team
  * @package yupe.modules.install
  * @since 0.1
  *

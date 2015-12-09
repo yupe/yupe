@@ -25,12 +25,17 @@
     if (($langs = $this->yupe->getLanguageSelectorArray()) != []) {
         Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
     }
+    $path = Yii::app()->getAssetManager()->publish(
+        Yii::getPathOfAlias('application.modules.user.views.assets') . '/css/moscow-city.jpg'
+    );
     ?>
     <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
 
 </head>
 
-<body>
+
+
+<body style='background-image: url("<?= $path;?>")'>
 <div id="overall-wrap">
     <!-- mainmenu -->
     <?php $brandTitle = Yii::t('UserModule.user', 'Control panel'); ?>

@@ -48,10 +48,13 @@ $this->widget(
                 'name' => 'id',
                 'htmlOptions' => ['width' => '90px'],
                 'type' => 'raw',
-                'value' => 'CHtml::link(Yii::t("OrderModule.order", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id))',
+                'value' => function($data){
+                    return CHtml::link(Yii::t("OrderModule.order", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id));
+                },
             ],
             [
                 'name'   => 'date',
+                'type'   => 'html',
                 'filter' => $this->widget('booster.widgets.TbDatePicker', [
                             'model'=>$model,
                             'attribute'=>'date',
@@ -61,17 +64,24 @@ $this->widget(
                             'htmlOptions' => [
                                 'class' => 'form-control',
                             ],
-                        ], true)
+                        ], true),
+                'value' => function($data){
+                    return CHtml::link($data->date, array("/order/orderBackend/update", "id" => $data->id));
+                },
             ],
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => '$data->name . ($data->note ? "<br><div class=\"note\">$data->note</div>" : "")',
+                'value' => function($data){
+                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->client->id]) : $data->name;
+                },
                 'htmlOptions' => ['width' => '400px'],
             ],
             [
                 'name' => 'total_price',
-                'value' => 'Yii::app()->numberFormatter->formatCurrency($data->getTotalPriceWithDelivery(), "RUB")'
+                'value' => function($data){
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->getTotalPriceWithDelivery(), "RUB");
+                }
             ],
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
@@ -91,17 +101,11 @@ $this->widget(
                 ],
             ],
             [
-                'name'   => 'payment_time',
-                'filter' => $this->widget('booster.widgets.TbDatePicker', [
-                            'model'=>$model,
-                            'attribute'=>'payment_time',
-                            'options' => [
-                                'format' => 'yyyy-mm-dd'
-                            ],
-                            'htmlOptions' => [
-                                'class' => 'form-control',
-                            ],
-                        ], true)
+                'name'   => 'delivery_id',
+                'filter' => CHtml::listData(Delivery::model()->findAll(), 'id', 'name'),
+                'value'  => function($data){
+                    return $data->delivery->name;
+                }
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

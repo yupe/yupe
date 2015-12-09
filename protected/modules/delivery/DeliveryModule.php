@@ -107,7 +107,7 @@ class DeliveryModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://amylabs.ru';
+        return 'http://yupe-project.ru';
     }
 
     /**
