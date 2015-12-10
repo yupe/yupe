@@ -70,6 +70,7 @@ $this->widget(
                 }
             ],
             [
+                'name'   => 'ordersTotalNumber',
                 'header' => Yii::t('OrderModule.order', 'Orders'),
                 'type'   => 'html',
                 'value'  => function($data){
@@ -77,24 +78,22 @@ $this->widget(
                 },
             ],
             [
+                'name'   => 'ordersTotalSum',
                 'header' => Yii::t('OrderModule.order', 'Money'),
                 'value' => function($data){
                     return Yii::app()->numberFormatter->formatCurrency($data->getOrderSum(), "RUB");
                 }
             ],
             [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/user/userBackend/inline'),
-                'source'  => $model->getStatusList(),
-                'options' => [
-                    Client::STATUS_ACTIVE     => ['class' => 'label-success'],
-                    Client::STATUS_BLOCK      => ['class' => 'label-danger'],
-                    Client::STATUS_NOT_ACTIVE => ['class' => 'label-warning'],
-                ],
-            ],
-            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'buttons' => [
+                    'update' => [
+                        'url' => '["/user/userBackend/update", "id" => $data->id]'
+                    ],
+                    'delete' => [
+                        'url' => '["/user/userBackend/delete", "id" => $data->id]'
+                    ]
+                ]
             ],
         ],
     ]

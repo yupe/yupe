@@ -80,7 +80,13 @@ $this->widget(
             [
                 'name' => 'total_price',
                 'value' => function($data){
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->getTotalPriceWithDelivery(), "RUB");
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, "RUB");
+                }
+            ],
+            [
+                'name' => 'delivery_price',
+                'value' => function($data){
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->delivery_price, "RUB");
                 }
             ],
             [

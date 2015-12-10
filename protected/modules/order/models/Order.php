@@ -123,12 +123,12 @@ class Order extends yupe\models\YModel
             [
                 'user_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
                 'unsafe',
-                'on' => self::SCENARIO_USER
+                'on' => self::SCENARIO_USER,
             ],
             [
                 'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
                 'safe',
-                'on' => 'search'
+                'on' => 'search',
             ],
         ];
     }
@@ -145,7 +145,7 @@ class Order extends yupe\models\YModel
             'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
             'client' => [self::BELONGS_TO, 'Client', 'user_id'],
             'couponsIds' => [self::HAS_MANY, 'OrderCoupon', 'order_id'],
-            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds']
+            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds'],
         ];
     }
 
@@ -220,20 +220,19 @@ class Order extends yupe\models\YModel
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
-        $criteria->compare('delivery_id', $this->delivery_id, false);
-        $criteria->compare('delivery_price', $this->delivery_price, false);
-        $criteria->compare('payment_method_id', $this->payment_method_id, false);
-        $criteria->compare('paid', $this->paid, false);
-        $criteria->compare('payment_time', $this->payment_time, true);
+        $criteria->compare('delivery_id', $this->delivery_id);
+        $criteria->compare('delivery_price', $this->delivery_price);
+        $criteria->compare('payment_method_id', $this->payment_method_id);
+        $criteria->compare('paid', $this->paid);
+        $criteria->compare('payment_time', $this->payment_time);
         $criteria->compare('payment_details', $this->payment_details, true);
-        $criteria->compare('total_price', $this->total_price, false);
-        $criteria->compare('discount', $this->discount, false);
-        $criteria->compare('coupon_discount', $this->coupon_discount, false);
-        $criteria->compare('separate_delivery', $this->separate_delivery, false);
-        $criteria->compare('status_id', $this->status_id, false);
-        $criteria->compare('date', $this->date, true);
-        $criteria->compare('user_id', $this->user_id, false);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('total_price', $this->total_price);
+        $criteria->compare('discount', $this->discount);
+        $criteria->compare('coupon_discount', $this->coupon_discount);
+        $criteria->compare('separate_delivery', $this->separate_delivery);
+        $criteria->compare('status_id', $this->status_id);
+        $criteria->compare('date', $this->date);
+        $criteria->compare('user_id', $this->user_id);
         $criteria->compare('address', $this->address, true);
         $criteria->compare('phone', $this->phone, true);
         $criteria->compare('email', $this->email, true);
@@ -241,7 +240,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('ip', $this->ip, true);
         $criteria->compare('url', $this->url, true);
         $criteria->compare('note', $this->note, true);
-        $criteria->compare('modified', $this->modified, true);
+        $criteria->compare('modified', $this->modified);
 
         if (null !== $couponId) {
             $criteria->with = ['couponsIds' => ['together' => true]];
@@ -249,10 +248,19 @@ class Order extends yupe\models\YModel
             $criteria->params = CMap::mergeArray($criteria->params, [':id' => (int)$couponId]);
         }
 
+        if (null !== $this->name) {
+            $clientCriteria = new CDbCriteria();
+            $clientCriteria->with['client'] = ['together' => true];
+            $clientCriteria->addSearchCondition('client.last_name', $this->name, true, 'OR');
+            $clientCriteria->addSearchCondition('client.first_name', $this->name, true, 'OR');
+            $clientCriteria->addSearchCondition('client.middle_name', $this->name, true, 'OR');
+            $criteria->mergeWith($clientCriteria, 'OR');
+        }
+
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => $this->getTableAlias() . '.id DESC'],
+                'sort' => ['defaultOrder' => $this->getTableAlias().'.id DESC'],
             ]
         );
     }
@@ -451,6 +459,7 @@ class Order extends yupe\models\YModel
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -479,7 +488,7 @@ class Order extends yupe\models\YModel
                     [
                         'order_id' => $this->id,
                         'coupon_id' => $coupon->id,
-                        'create_time' => new CDbExpression('NOW()')
+                        'create_time' => new CDbExpression('NOW()'),
                     ]
                 );
 
@@ -495,9 +504,11 @@ class Order extends yupe\models\YModel
             $this->update(['coupon_discount', 'delivery_price']);
 
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }

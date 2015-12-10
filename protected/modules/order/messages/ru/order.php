@@ -112,7 +112,7 @@ return [
     'Store' => 'Магазин',
     'The order created' => 'Заказ размещён!',
     'There are no selected products' => 'Не выбрано ни одного продукта',
-    'Total price' => 'Итоговая стоимость',
+    'Total price' => 'Стоимость',
     'Total' => 'Всего',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Update date' => 'Дата изменения',
