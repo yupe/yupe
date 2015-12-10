@@ -3,6 +3,7 @@
 /* @var $positions Product[] */
 /* @var $order Order */
 /* @var $coupons Coupon[] */
+/* @var $form CActiveForm */
 
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
@@ -251,16 +252,64 @@ $this->breadcrumbs = [
                                     <div class="order-form__row">
                                         <div class="order-form__item">
                                             <div class="form-group">
-                                                <?= $form->labelEx(
-                                                    $order,
-                                                    'address',
-                                                    ['class' => 'form-group__label']
-                                                ); ?>
+                                                <?= $form->labelEx($order, 'zipcode', ['class' => 'form-group__label']); ?>
                                                 <div class="form-group__input">
-                                                    <?= $form->textField($order, 'address', ['class' => 'input']); ?>
+                                                    <?= $form->textField($order, 'zipcode', ['class' => 'input']); ?>
                                                 </div>
                                                 <div class="form-group__help">
-                                                    <?= $form->error($order, 'address'); ?>
+                                                    <?= $form->error($order, 'zipcode'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'country', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'country', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'country'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'city', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'city', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'city'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'street', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'street', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'street'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
+                                                <?= $form->labelEx($order, 'house', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'house', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'house'); ?>
                                                 </div>
                                             </div>
                                         </div>

@@ -24,6 +24,11 @@
  * @property string $url
  * @property string $note
  * @property string $modified
+ * @property string $zipcode
+ * @property string $country
+ * @property string $city
+ * @property string $street
+ * @property string $house
  *
  * @property OrderProduct[] $products
  * @property Delivery $delivery
@@ -112,13 +117,15 @@ class Order extends yupe\models\YModel
         return [
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
-            ['name, email, address, phone', 'filter', 'filter' => 'trim'],
+            ['name, email, phone, zipcode, country, city, street, house', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
             ['delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true],
             ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
-            ['name, address, phone, email', 'length', 'max' => 255],
+            ['name, phone, email, city, street', 'length', 'max' => 255],
             ['comment, note', 'length', 'max' => 1024],
-            //array('payment_details', 'safe'),
+            ['zipcode', 'length', 'max' => 30],
+            ['house', 'length', 'max' => 50],
+            ['country', 'length', 'max' => 150],
             ['url', 'unique'],
             [
                 'user_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
@@ -126,7 +133,7 @@ class Order extends yupe\models\YModel
                 'on' => self::SCENARIO_USER,
             ],
             [
-                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
+                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, phone, email, comment, ip, url, note, modified',
                 'safe',
                 'on' => 'search',
             ],
@@ -145,7 +152,7 @@ class Order extends yupe\models\YModel
             'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
             'client' => [self::BELONGS_TO, 'Client', 'user_id'],
             'couponsIds' => [self::HAS_MANY, 'OrderCoupon', 'order_id'],
-            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds'],
+            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds']
         ];
     }
 
@@ -198,7 +205,6 @@ class Order extends yupe\models\YModel
             'date' => Yii::t('OrderModule.order', 'Date'),
             'user_id' => Yii::t('OrderModule.order', 'Client'),
             'name' => Yii::t('OrderModule.order', 'Client'),
-            'address' => Yii::t('OrderModule.order', 'Address'),
             'phone' => Yii::t('OrderModule.order', 'Phone'),
             'email' => Yii::t('OrderModule.order', 'Email'),
             'comment' => Yii::t('OrderModule.order', 'Comment'),
@@ -206,6 +212,11 @@ class Order extends yupe\models\YModel
             'url' => Yii::t('OrderModule.order', 'Url'),
             'note' => Yii::t('OrderModule.order', 'Note'),
             'modified' => Yii::t('OrderModule.order', 'Update date'),
+            'zipcode' => Yii::t('OrderModule.order', 'Zipcode'),
+            'country' => Yii::t('OrderModule.order', 'Country'),
+            'city' => Yii::t('OrderModule.order', 'City'),
+            'street' => Yii::t('OrderModule.order', 'Street'),
+            'house' => Yii::t('OrderModule.order', 'House'),
         ];
     }
 
@@ -227,13 +238,14 @@ class Order extends yupe\models\YModel
         $criteria->compare('payment_time', $this->payment_time);
         $criteria->compare('payment_details', $this->payment_details, true);
         $criteria->compare('total_price', $this->total_price);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('total_price', $this->total_price);
         $criteria->compare('discount', $this->discount);
         $criteria->compare('coupon_discount', $this->coupon_discount);
         $criteria->compare('separate_delivery', $this->separate_delivery);
         $criteria->compare('status_id', $this->status_id);
         $criteria->compare('date', $this->date);
         $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('address', $this->address, true);
         $criteria->compare('phone', $this->phone, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('comment', $this->comment, true);
@@ -459,7 +471,6 @@ class Order extends yupe\models\YModel
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
-
             return false;
         }
     }
@@ -488,7 +499,7 @@ class Order extends yupe\models\YModel
                     [
                         'order_id' => $this->id,
                         'coupon_id' => $coupon->id,
-                        'create_time' => new CDbExpression('NOW()'),
+                        'create_time' => new CDbExpression('NOW()')
                     ]
                 );
 
@@ -504,11 +515,9 @@ class Order extends yupe\models\YModel
             $this->update(['coupon_discount', 'delivery_price']);
 
             $transaction->commit();
-
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
-
             return false;
         }
     }
