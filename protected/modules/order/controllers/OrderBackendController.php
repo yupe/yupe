@@ -52,9 +52,9 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
                 if (!isset($_POST['submit-type'])) {
                     $this->redirect(['update', 'id' => $model->id]);
-                } else {
-                    $this->redirect([$_POST['submit-type']]);
                 }
+
+                $this->redirect([$_POST['submit-type']]);
             }
         }
 
@@ -73,7 +73,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-            if ($model->saveData($order, $products)) {
+            if ($model->create($order, $products)) {
 
                 if (!empty($coupons)) {
                     $model->applyCoupons($coupons);
@@ -145,7 +145,8 @@ class OrderBackendController extends yupe\components\controllers\BackController
     public function loadModel($id)
     {
         $model = Order::model()->findByPk($id);
-        if ($model === null) {
+
+        if (null === $model) {
             throw new CHttpException(404, Yii::t('OrderModule.order', 'Page not found!'));
         }
 
@@ -166,4 +167,35 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $product->product = Product::model()->findByPk($_GET['OrderProduct']['product_id']);
         $this->renderPartial('_product_row', ['model' => $product]);
     }
+
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionAjaxClientSearch()
+    {
+        if (!Yii::app()->getRequest()->getQuery('q')) {
+            throw new CHttpException(404);
+        }
+
+        $query = Yii::app()->getRequest()->getQuery('q');
+
+        $model = new Client('search');
+        $model->first_name = $query;
+        $model->last_name = $query;
+        $model->middle_name = $query;
+        $model->nick_name = $query;
+
+        $data = [];
+
+        foreach ($model->search()->getData() as $client) {
+            $data[] = [
+                'id' => $client->id,
+                'name' => sprintf('%s (%s %s)', $client->getFullName(), $client->phone, $client->email)
+            ];
+        }
+
+        Yii::app()->ajax->raw($data);
+    }
+
 }

@@ -326,6 +326,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     /**
      * @throws CHttpException
      */
+
     public function actionAjaxSearch()
     {
         if (!Yii::app()->getRequest()->getQuery('q')) {
@@ -345,7 +346,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         }
 
         Yii::app()->ajax->raw($data);
-
     }
 
     /**

@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class UserController
+ */
 class UserController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @return array
+     */
     public function filters()
     {
         return [
@@ -9,6 +15,9 @@ class UserController extends \yupe\components\controllers\FrontController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -17,15 +26,18 @@ class UserController extends \yupe\components\controllers\FrontController
         ];
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $this->render(
             'index',
             [
                 'orders' => Order::model()->findAllByAttributes(
-                        ['user_id' => Yii::app()->getUser()->getId()],
-                        ['order' => 'date DESC']
-                    )
+                    ['user_id' => Yii::app()->getUser()->getId()],
+                    ['order' => 'date DESC']
+                ),
             ]
         );
     }

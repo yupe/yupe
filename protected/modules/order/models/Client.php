@@ -81,12 +81,12 @@ class Client extends User
     {
         $criteria = new CDbCriteria();
 
-        $criteria->compare('t.first_name', $this->first_name, true);
-        $criteria->compare('t.middle_name', $this->middle_name, true);
-        $criteria->compare('t.last_name', $this->last_name, true);
-        $criteria->compare('t.nick_name', $this->nick_name, true);
-        $criteria->compare('t.email', $this->email, true);
-        $criteria->compare('t.phone', $this->phone, true);
+        $criteria->compare('t.first_name', $this->first_name, true, 'OR');
+        $criteria->compare('t.middle_name', $this->middle_name, true, 'OR');
+        $criteria->compare('t.last_name', $this->last_name, true, 'OR');
+        $criteria->compare('t.nick_name', $this->nick_name, true, 'OR');
+        $criteria->compare('t.email', $this->email, true, 'OR');
+        $criteria->compare('t.phone', $this->phone, true, 'OR');
         $criteria->compare('t.gender', $this->gender);
 
         $orderTable = Order::model()->tableName();

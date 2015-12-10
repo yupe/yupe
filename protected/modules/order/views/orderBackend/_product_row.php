@@ -16,22 +16,22 @@ $id = $model->id;
 <tr class="product-row">
     <td>
         <?php if (!$new): ?>
-            <input type="hidden" name="OrderProduct[<?php echo $id; ?>][id]" value="<?php echo $id; ?>"/>
+            <input type="hidden" name="OrderProduct[<?= $id; ?>][id]" value="<?= $id; ?>"/>
         <?php endif; ?>
         <?php if ($productExists): ?>
-            <input type="hidden" class="product-base-price" value="<?php echo $product->getResultPrice(); ?>"/>
-            <input type="hidden" name="OrderProduct[<?php echo $id; ?>][product_id]"
-                   value="<?php echo $product->id; ?>"/>
+            <input type="hidden" class="product-base-price" value="<?= $product->getResultPrice(); ?>"/>
+            <input type="hidden" name="OrderProduct[<?= $id; ?>][product_id]"
+                   value="<?= $product->id; ?>"/>
             <img src="<?= $product->getImageUrl(40, 40); ?>" alt="" class="img-thumbnail"/>
         <?php endif; ?>
     </td>
     <td <?php if (!$hasVariants): ?> colspan="2" <?php endif; ?>>
         <?php if ($productExists): ?>
-            <?php echo CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
+            <?= CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
             <br/>
-            [<?php echo $product->getResultPrice(); ?><?php echo Yii::t("OrderModule.order", "RUB"); ?>]
+            [<?= $product->getResultPrice(); ?><?= Yii::t("OrderModule.order", "RUB"); ?>]
         <?php else: ?>
-            <?php echo $model->product_name; ?>
+            <?= $model->product_name; ?>
         <?php endif; ?>
     </td>
     <?php if ($hasVariants): ?>
@@ -71,10 +71,10 @@ $id = $model->id;
             <?php foreach ($variantGroups as $title => $variantGroup): ?>
                 <div class="row">
                     <div class="col-sm-5">
-                        <?php echo $title; ?>
+                        <?= $title; ?>
                     </div>
                     <div class="col-sm-7">
-                        <?php echo CHtml::dropDownList(
+                        <?= CHtml::dropDownList(
                             'OrderProduct[' . $id . '][variant_ids][]',
                             isset($variantGroupsSelected[$title]) ? $variantGroupsSelected[$title] : null,
                             CHtml::listData($variantGroup, 'id', 'optionValue'),
@@ -84,15 +84,15 @@ $id = $model->id;
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p class="text-muted"><?php echo Yii::t("OrderModule.order", "Product deleted"); ?></p>
+            <p class="text-muted"><?= Yii::t("OrderModule.order", "Product deleted"); ?></p>
         <?php endif; ?>
     </td>
     <?php endif; ?>
     <td>
-        <?php echo CHtml::activeTextField($model, 'quantity', ['class' => 'form-control product-quantity', 'name' => 'OrderProduct[' . $id . '][quantity]']); ?>
+        <?= CHtml::activeTextField($model, 'quantity', ['class' => 'form-control product-quantity', 'name' => 'OrderProduct[' . $id . '][quantity]']); ?>
     </td>
     <td>
-        <?php echo CHtml::activeTextField($model, 'price', ['class' => 'form-control product-price', 'name' => 'OrderProduct[' . $id . '][price]']); ?>
+        <?= CHtml::activeTextField($model, 'price', ['class' => 'form-control product-price', 'name' => 'OrderProduct[' . $id . '][price]']); ?>
     </td>
     <td>
         <a href="#" class="btn btn-sm btn-danger remove-product"><i class="fa fa-fw fa-times"></i></a>

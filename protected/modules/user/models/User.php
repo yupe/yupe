@@ -543,9 +543,8 @@ class User extends yupe\models\YModel
     public static function getFullNameList($separator = ' ')
     {
         $list = [];
-        $yupe = Yii::app()->getModule('yupe');
 
-        foreach (User::model()->cache($yupe->coreCacheTime)->findAll() as $user) {
+        foreach (User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll() as $user) {
             $list[$user->id] = $user->getFullName($separator);
         }
 

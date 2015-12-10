@@ -25,9 +25,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Orders'); ?>
-        <small><?php echo Yii::t('OrderModule.order', 'creating'); ?></small>
+        <?= Yii::t('OrderModule.order', 'Orders'); ?>
+        <small><?= Yii::t('OrderModule.order', 'creating'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?= $this->renderPartial('_form', ['model' => $model]); ?>

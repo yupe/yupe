@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class OrderController
+ */
 class OrderController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @param null $url
+     * @throws CHttpException
+     */
     public function actionView($url = null)
     {
         if (!Yii::app()->getModule('order')->showOrder && !Yii::app()->getUser()->isAuthenticated()) {
@@ -17,6 +24,9 @@ class OrderController extends \yupe\components\controllers\FrontController
         $this->render('view', ['model' => $model]);
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Order(Order::SCENARIO_USER);
@@ -29,7 +39,7 @@ class OrderController extends \yupe\components\controllers\FrontController
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-            if ($model->saveData($order, $products, (int)Yii::app()->getModule('order')->defaultStatus)) {
+            if ($model->create($order, $products, Yii::app()->getUser()->getId(), (int)Yii::app()->getModule('order')->defaultStatus)) {
 
                 if (!empty($coupons)) {
                     $model->applyCoupons($coupons);
@@ -67,6 +77,9 @@ class OrderController extends \yupe\components\controllers\FrontController
         $this->redirect(Yii::app()->getUser()->getReturnUrl($_SERVER['HTTP_REFERER']));
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionCheck()
     {
         if (!Yii::app()->getModule('order')->enableCheck) {

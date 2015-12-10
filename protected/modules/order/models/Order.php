@@ -244,7 +244,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('coupon_discount', $this->coupon_discount);
         $criteria->compare('separate_delivery', $this->separate_delivery);
         $criteria->compare('status_id', $this->status_id);
-        $criteria->compare('date', $this->date);
+        $criteria->compare('date', $this->date, true);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('phone', $this->phone, true);
         $criteria->compare('email', $this->email, true);
@@ -252,7 +252,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('ip', $this->ip, true);
         $criteria->compare('url', $this->url, true);
         $criteria->compare('note', $this->note, true);
-        $criteria->compare('modified', $this->modified);
+        $criteria->compare('modified', $this->modified, true);
 
         if (null !== $couponId) {
             $criteria->with = ['couponsIds' => ['together' => true]];
@@ -266,6 +266,7 @@ class Order extends yupe\models\YModel
             $clientCriteria->addSearchCondition('client.last_name', $this->name, true, 'OR');
             $clientCriteria->addSearchCondition('client.first_name', $this->name, true, 'OR');
             $clientCriteria->addSearchCondition('client.middle_name', $this->name, true, 'OR');
+            $clientCriteria->addSearchCondition('client.nick_name', $this->name, true, 'OR');
             $criteria->mergeWith($clientCriteria, 'OR');
         }
 
@@ -450,15 +451,18 @@ class Order extends yupe\models\YModel
      * @param array $attributes
      * @param array $products
      * @param int $status
+     * @param int $client
+     *
      * @return bool
      */
-    public function saveData(array $attributes, array $products, $status = OrderStatus::STATUS_NEW)
+    public function create(array $attributes, array $products, $client = null, $status = OrderStatus::STATUS_NEW)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
 
             $this->status_id = (int)$status;
+            $this->user_id = $client;
             $this->setAttributes($attributes);
             $this->setProducts($products);
 
@@ -534,7 +538,6 @@ class Order extends yupe\models\YModel
             $this->url = md5(uniqid(time(), true));
             $this->ip = Yii::app()->getRequest()->userHostAddress;
             if ($this->getScenario() === self::SCENARIO_USER) {
-                $this->user_id = Yii::app()->getUser()->getId();
                 $this->delivery_price = $this->delivery ? $this->delivery->getCost($this->total_price) : 0;
                 $this->separate_delivery = $this->delivery ? $this->delivery->separate_payment : null;
             }

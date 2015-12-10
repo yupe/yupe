@@ -49,7 +49,7 @@ $this->widget(
                 'htmlOptions' => ['width' => '90px'],
                 'type' => 'raw',
                 'value' => function($data){
-                    return CHtml::link(Yii::t("OrderModule.order", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id));
+                    return CHtml::link($data->id, array("/order/orderBackend/update", "id" => $data->id));
                 },
             ],
             [
@@ -73,7 +73,7 @@ $this->widget(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function($data){
-                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->client->id]) : $data->name;
+                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->client->id], ['target' => '_blank']) : $data->name;
                 },
                 'htmlOptions' => ['width' => '400px'],
             ],

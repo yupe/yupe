@@ -54,8 +54,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('OrderModule.order', 'Viewing order'); ?>
-        <small>&laquo;<?php echo Yii::t('OrderModule.order', '#'); ?><?php echo $model->id; ?>&raquo;</small>
+        <?= Yii::t('OrderModule.order', 'Viewing order'); ?>
+        <small>&laquo;<?= Yii::t('OrderModule.order', '#'); ?><?= $model->id; ?>&raquo;</small>
     </h1>
 </div>
 
