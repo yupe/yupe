@@ -300,7 +300,27 @@ $form = $this->beginWidget(
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <?= $form->textFieldGroup($model, 'address'); ?>
+                                <?= $form->textFieldGroup($model, 'zipcode'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'country'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'city'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'street'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->textFieldGroup($model, 'house'); ?>
                             </div>
                         </div>
                         <div class="row">

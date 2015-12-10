@@ -16,7 +16,7 @@ class CartController extends \yupe\components\controllers\FrontController
             $user = Yii::app()->getUser()->getProfile();
             $order->name = $user->getFullName();
             $order->email = $user->email;
-            $order->address = $user->location;
+            $order->city = $user->location;
         }
 
         $coupons = [];

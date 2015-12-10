@@ -14,10 +14,21 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
         </div>
         <div class="order-box__body">
             <div class="detail-view">
-                <?php if (!empty($model->address)): ?>
+                <?php
+                $address = [
+                    $model->zipcode,
+                    $model->country,
+                    $model->city,
+                    $model->street,
+                    $model->house,
+                ];
+
+                $address = array_filter($address);
+
+                if (count($address)): ?>
                     <div class="detail-view__item">
-                        <div class="detail-view__title"><?= CHtml::activeLabel($model, 'address'); ?>:</div>
-                        <div class="detail-view__text"><?= CHtml::encode($model->address); ?></div>
+                        <div class="detail-view__title"><?= Yii::t("OrderModule.order", "Address"); ?>:</div>
+                        <div class="detail-view__text"><?= CHtml::encode(implode(', ', $address)); ?></div>
                     </div>
                 <?php endif; ?>
 
@@ -73,7 +84,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                             </div>
                             <div class="cart-item__content">
                                 <div class="cart-item__category"><?= $position->product->mainCategory->name ?></div>
-                                <div class="cart-item__title">
+                                <div class="cart-item__title grid-module-4">
                                     <a href="<?= Yii::app()->createUrl('/store/product/view', ['name' => $position->product->slug]) ?>" class="cart-item__link">
                                         <?= CHtml::encode($position->product->name); ?>
                                     </a>
