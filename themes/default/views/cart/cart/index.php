@@ -288,9 +288,45 @@ $this->breadcrumbs = [
                                     <tr>
                                         <td>
                                             <div>
-                                                <?= $form->labelEx($order, 'address'); ?>
-                                                <?= $form->textField($order, 'address', ['class' => 'form-control']); ?>
-                                                <?= $form->error($order, 'address'); ?>
+                                                <?= $form->labelEx($order, 'zipcode'); ?>
+                                                <?= $form->textField($order, 'zipcode', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'zipcode'); ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <?= $form->labelEx($order, 'country'); ?>
+                                                <?= $form->textField($order, 'country', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'country'); ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <?= $form->labelEx($order, 'city'); ?>
+                                                <?= $form->textField($order, 'city', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'city'); ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <?= $form->labelEx($order, 'street'); ?>
+                                                <?= $form->textField($order, 'street', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'street'); ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <?= $form->labelEx($order, 'house'); ?>
+                                                <?= $form->textField($order, 'house', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'house'); ?>
                                             </div>
                                         </td>
                                     </tr>

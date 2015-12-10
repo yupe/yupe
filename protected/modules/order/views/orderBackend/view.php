@@ -111,7 +111,11 @@ $this->menu = [
                 'name' => 'name',
                 'visible' => !isset($model->client)
             ],
-            'address',
+            'zipcode',
+            'country',
+            'city',
+            'street',
+            'house',
             'phone',
             'email',
             'comment',

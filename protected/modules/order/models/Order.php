@@ -16,7 +16,6 @@
  * @property string $date
  * @property integer $user_id
  * @property string $name
- * @property string $address
  * @property string $phone
  * @property string $email
  * @property string $comment
@@ -24,6 +23,11 @@
  * @property string $url
  * @property string $note
  * @property string $modified
+ * @property string $zipcode
+ * @property string $country
+ * @property string $city
+ * @property string $street
+ * @property string $house
  *
  * @property OrderProduct[] $products
  * @property Delivery $delivery
@@ -112,23 +116,25 @@ class Order extends yupe\models\YModel
         return [
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
-            ['name, email, address, phone', 'filter', 'filter' => 'trim'],
+            ['name, email, phone, zipcode, country, city, street, house', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
             ['delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true],
             ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
-            ['name, address, phone, email', 'length', 'max' => 255],
+            ['name, phone, email, city, street', 'length', 'max' => 255],
             ['comment, note', 'length', 'max' => 1024],
-            //array('payment_details', 'safe'),
+            ['zipcode', 'length', 'max' => 30],
+            ['house', 'length', 'max' => 50],
+            ['country', 'length', 'max' => 150],
             ['url', 'unique'],
             [
                 'user_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
                 'unsafe',
-                'on' => self::SCENARIO_USER
+                'on' => self::SCENARIO_USER,
             ],
             [
-                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, address, phone, email, comment, ip, url, note, modified',
+                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, phone, email, comment, ip, url, note, modified',
                 'safe',
-                'on' => 'search'
+                'on' => 'search',
             ],
         ];
     }
@@ -198,7 +204,6 @@ class Order extends yupe\models\YModel
             'date' => Yii::t('OrderModule.order', 'Date'),
             'user_id' => Yii::t('OrderModule.order', 'Client'),
             'name' => Yii::t('OrderModule.order', 'Client'),
-            'address' => Yii::t('OrderModule.order', 'Address'),
             'phone' => Yii::t('OrderModule.order', 'Phone'),
             'email' => Yii::t('OrderModule.order', 'Email'),
             'comment' => Yii::t('OrderModule.order', 'Comment'),
@@ -206,6 +211,11 @@ class Order extends yupe\models\YModel
             'url' => Yii::t('OrderModule.order', 'Url'),
             'note' => Yii::t('OrderModule.order', 'Note'),
             'modified' => Yii::t('OrderModule.order', 'Update date'),
+            'zipcode' => Yii::t('OrderModule.order', 'Zipcode'),
+            'country' => Yii::t('OrderModule.order', 'Country'),
+            'city' => Yii::t('OrderModule.order', 'City'),
+            'street' => Yii::t('OrderModule.order', 'Street'),
+            'house' => Yii::t('OrderModule.order', 'House'),
         ];
     }
 
@@ -234,7 +244,6 @@ class Order extends yupe\models\YModel
         $criteria->compare('date', $this->date, true);
         $criteria->compare('user_id', $this->user_id, false);
         $criteria->compare('name', $this->name, true);
-        $criteria->compare('address', $this->address, true);
         $criteria->compare('phone', $this->phone, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('comment', $this->comment, true);
