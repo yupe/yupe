@@ -70,12 +70,7 @@ $form = $this->beginWidget(
                         'model' => $model,
                         'attribute' => 'user_id',
                         'asDropDownList' => false,
-                        'data' => [
-                            $model->user_id => $model->client->getFullName()
-                        ],
-                        'value' => $model->user_id,
                         'options' => [
-                            'val' => $model->user_id,
                             'minimumInputLength' => 2,
                             'placeholder' => Yii::t('OrderModule.order', 'Select client'),
                             'width' => '100%',
@@ -90,6 +85,9 @@ $form = $this->beginWidget(
                             ],
                             'formatResult' => 'js:productFormatResult',
                             'formatSelection' => 'js:productFormatSelection',
+                            'initSelection' => $model->client ?
+                                'js:function(element,callback){callback({name:"'.$model->client->getFullName().'"})}'
+                                : false,
                         ],
                         'htmlOptions' => [
                             'id' => 'client-select',
