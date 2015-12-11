@@ -28,6 +28,7 @@
  * @property string $city
  * @property string $street
  * @property string $house
+ * @property string $apartment
  *
  * @property OrderProduct[] $products
  * @property Delivery $delivery
@@ -116,7 +117,7 @@ class Order extends yupe\models\YModel
         return [
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
-            ['name, email, phone, zipcode, country, city, street, house', 'filter', 'filter' => 'trim'],
+            ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
             ['delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true],
             ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
@@ -125,6 +126,7 @@ class Order extends yupe\models\YModel
             ['zipcode', 'length', 'max' => 30],
             ['house', 'length', 'max' => 50],
             ['country', 'length', 'max' => 150],
+            ['apartment', 'length', 'max' => 10],
             ['url', 'unique'],
             [
                 'user_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, ip, url, modified',
@@ -216,6 +218,7 @@ class Order extends yupe\models\YModel
             'city' => Yii::t('OrderModule.order', 'City'),
             'street' => Yii::t('OrderModule.order', 'Street'),
             'house' => Yii::t('OrderModule.order', 'House'),
+            'apartment' => Yii::t('OrderModule.order', 'Apartment'),
         ];
     }
 
@@ -778,6 +781,6 @@ class Order extends yupe\models\YModel
 
     public function getAddress()
     {
-        return sprintf('%s %s %s %s %s', $this->country, $this->city, $this->street, $this->house, $this->zipcode);
+        return sprintf('%s %s %s %s %s %s', $this->country, $this->city, $this->street, $this->house, $this->apartment, $this->zipcode);
     }
 }

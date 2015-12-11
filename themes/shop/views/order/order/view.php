@@ -14,21 +14,10 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
         </div>
         <div class="order-box__body">
             <div class="detail-view">
-                <?php
-                $address = [
-                    $model->zipcode,
-                    $model->country,
-                    $model->city,
-                    $model->street,
-                    $model->house,
-                ];
-
-                $address = array_filter($address);
-
-                if (count($address)): ?>
+                <?php if ($model->getAddress()): ?>
                     <div class="detail-view__item">
                         <div class="detail-view__title"><?= Yii::t("OrderModule.order", "Address"); ?>:</div>
-                        <div class="detail-view__text"><?= CHtml::encode(implode(', ', $address)); ?></div>
+                        <div class="detail-view__text"><?= CHtml::encode($model->getAddress()); ?></div>
                     </div>
                 <?php endif; ?>
 

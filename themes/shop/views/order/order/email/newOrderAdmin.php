@@ -61,24 +61,13 @@
             </td>
         </tr>
     <?php endif; ?>
-    <?php
-    $address = [
-        $order->zipcode,
-        $order->country,
-        $order->city,
-        $order->street,
-        $order->house,
-    ];
-
-    $address = array_filter($address);
-
-    if (count($address)): ?>
+    <?php if ($order->getAddress()): ?>
         <tr>
             <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
                 Адрес доставки
             </td>
             <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                <?= CHtml::encode(implode(', ', $address)); ?>
+                <?= CHtml::encode($order->getAddress()); ?>
             </td>
         </tr>
     <?php endif; ?>

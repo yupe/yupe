@@ -332,6 +332,15 @@ $this->breadcrumbs = [
                                     </tr>
                                     <tr>
                                         <td>
+                                            <div>
+                                                <?= $form->labelEx($order, 'apartment'); ?>
+                                                <?= $form->textField($order, 'apartment', ['class' => 'form-control']); ?>
+                                                <?= $form->error($order, 'apartment'); ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <?= $form->labelEx($order, 'comment'); ?>
                                             <?= $form->textArea($order, 'comment', ['class' => 'form-control']); ?>
                                         </td>

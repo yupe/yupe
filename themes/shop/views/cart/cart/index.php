@@ -317,6 +317,19 @@ $this->breadcrumbs = [
                                     <div class="order-form__row">
                                         <div class="order-form__item">
                                             <div class="form-group">
+                                                <?= $form->labelEx($order, 'apartment', ['class' => 'form-group__label']); ?>
+                                                <div class="form-group__input">
+                                                    <?= $form->textField($order, 'apartment', ['class' => 'input']); ?>
+                                                </div>
+                                                <div class="form-group__help">
+                                                    <?= $form->error($order, 'apartment'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-form__row">
+                                        <div class="order-form__item">
+                                            <div class="form-group">
                                                 <?= $form->labelEx(
                                                     $order,
                                                     'comment',
