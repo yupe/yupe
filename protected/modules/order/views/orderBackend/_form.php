@@ -229,12 +229,17 @@ $form = $this->beginWidget(
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <?= $form->textFieldGroup($model, 'street'); ?>
                             </div>
-
-                            <div class="col-sm-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
                                 <?= $form->textFieldGroup($model, 'house'); ?>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <?= $form->textFieldGroup($model, 'apartment'); ?>
                             </div>
                         </div>
                     </div>

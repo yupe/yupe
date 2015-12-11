@@ -166,24 +166,13 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                                 <?= CHtml::encode($model->email); ?>
                             </td>
                         </tr>
-                        <?php
-                        $address = [
-                            $model->zipcode,
-                            $model->country,
-                            $model->city,
-                            $model->street,
-                            $model->house,
-                        ];
-
-                        $address = array_filter($address);
-
-                        if (count($address)): ?>
+                        <?php if ($model->getAddress()): ?>
                             <tr>
                                 <td>
                                     <?= Yii::t("OrderModule.order", "Address"); ?>
                                 </td>
                                 <td>
-                                    <?= CHtml::encode(implode(', ', $address)); ?>
+                                    <?= CHtml::encode($model->getAddress()); ?>
                                 </td>
                             </tr>
                         <?php endif; ?>
