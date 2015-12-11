@@ -16,7 +16,6 @@
  * @property string $date
  * @property integer $user_id
  * @property string $name
- * @property string $address
  * @property string $phone
  * @property string $email
  * @property string $comment
@@ -775,5 +774,10 @@ class Order extends yupe\models\YModel
     public function findByNumber($number)
     {
         return $this->findByPk($number);
+    }
+
+    public function getAddress()
+    {
+        return sprintf('%s %s %s %s %s', $this->country, $this->city, $this->street, $this->house, $this->zipcode);
     }
 }
