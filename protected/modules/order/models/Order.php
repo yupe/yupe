@@ -202,7 +202,7 @@ class Order extends yupe\models\YModel
             'coupon_discount' => Yii::t('OrderModule.order', 'Discount coupon'),
             'separate_delivery' => Yii::t('OrderModule.order', 'Separate delivery payment'),
             'status_id' => Yii::t('OrderModule.order', 'Status'),
-            'date' => Yii::t('OrderModule.order', 'Date'),
+            'date' => Yii::t('OrderModule.order', 'Created'),
             'user_id' => Yii::t('OrderModule.order', 'Client'),
             'name' => Yii::t('OrderModule.order', 'Client'),
             'phone' => Yii::t('OrderModule.order', 'Phone'),
@@ -228,6 +228,7 @@ class Order extends yupe\models\YModel
     public function search($couponId = null)
     {
         $criteria = new CDbCriteria;
+        $criteria->with = ['delivery', 'payment', 'client', 'status'];
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
@@ -255,7 +256,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('modified', $this->modified, true);
 
         if (null !== $couponId) {
-            $criteria->with = ['couponsIds' => ['together' => true]];
+            $criteria->with['couponsIds'] = ['together' => true];
             $criteria->addCondition('couponsIds.coupon_id = :id');
             $criteria->params = CMap::mergeArray($criteria->params, [':id' => (int)$couponId]);
         }
@@ -455,7 +456,7 @@ class Order extends yupe\models\YModel
      *
      * @return bool
      */
-    public function create(array $attributes, array $products, $client = null, $status = OrderStatus::STATUS_NEW)
+    public function store(array $attributes, array $products, $client = null, $status = OrderStatus::STATUS_NEW)
     {
         $transaction = Yii::app()->getDb()->beginTransaction();
 
@@ -631,7 +632,7 @@ class Order extends yupe\models\YModel
                     $orderProduct->price = $op['price'];
                 }
 
-                $orderProduct->variant_ids = $variantIds;
+                $orderProduct->variantIds = $variantIds;
                 $orderProduct->quantity = $op['quantity'];
 
                 $orderProductsObjectsArray[] = $orderProduct;

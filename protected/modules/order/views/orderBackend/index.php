@@ -83,12 +83,7 @@ $this->widget(
                     return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, "RUB");
                 }
             ],
-            [
-                'name' => 'delivery_price',
-                'value' => function($data){
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->delivery_price, "RUB");
-                }
-            ],
+
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status_id',
@@ -108,9 +103,16 @@ $this->widget(
             ],
             [
                 'name'   => 'delivery_id',
+                'header' => Yii::t('OrderModule.order', 'Delivery'),
                 'filter' => CHtml::listData(Delivery::model()->findAll(), 'id', 'name'),
                 'value'  => function($data){
                     return $data->delivery->name;
+                }
+            ],
+            [
+                'name' => 'delivery_price',
+                'value' => function($data){
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->delivery_price, "RUB");
                 }
             ],
             [

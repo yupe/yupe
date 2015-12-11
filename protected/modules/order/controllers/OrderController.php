@@ -39,7 +39,7 @@ class OrderController extends \yupe\components\controllers\FrontController
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-            if ($model->create($order, $products, Yii::app()->getUser()->getId(), (int)Yii::app()->getModule('order')->defaultStatus)) {
+            if ($model->store($order, $products, Yii::app()->getUser()->getId(), (int)Yii::app()->getModule('order')->defaultStatus)) {
 
                 if (!empty($coupons)) {
                     $model->applyCoupons($coupons);

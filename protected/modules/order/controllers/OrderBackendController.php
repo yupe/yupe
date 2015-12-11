@@ -31,7 +31,12 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
     public function actionView($id)
     {
-        $this->render('view', ['model' => $this->loadModel($id)]);
+        $model = $this->loadModel($id);
+
+        $products = new CActiveDataProvider('OrderProduct');
+        $products->setData($model->products);
+
+        $this->render('view', ['model' => $model, 'products' => $products]);
     }
 
     public function actionCreate()
@@ -73,7 +78,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
-            if ($model->create($order, $products)) {
+            if ($model->store($order, $products)) {
 
                 if (!empty($coupons)) {
                     $model->applyCoupons($coupons);

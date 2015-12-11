@@ -16,9 +16,15 @@
  */
 class OrderProduct extends \yupe\models\YModel
 {
-    /* @var $variant_ids Array - массив id вариантов, котороые нужно установить у продукта */
-    public $variant_ids = [];
+    /* @var $variantIds Array - массив id вариантов, котороые нужно установить у продукта */
+    public $variantIds = [];
+    /**
+     * @var array
+     */
     private $oldVariants = [];
+    /**
+     * @var array
+     */
     public $variantsArray = [];
 
     /**
@@ -29,11 +35,18 @@ class OrderProduct extends \yupe\models\YModel
         return '{{store_order_product}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -45,6 +58,9 @@ class OrderProduct extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -53,6 +69,9 @@ class OrderProduct extends \yupe\models\YModel
         ];
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->variantsArray = array_filter((array)unserialize($this->variants));
@@ -61,20 +80,26 @@ class OrderProduct extends \yupe\models\YModel
         }
     }
 
+    /**
+     *
+     */
     public function afterValidate()
     {
         parent::afterValidate();
-        $this->variant_ids = (array)$this->variant_ids;
+        $this->variantIds = (array)$this->variantIds;
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
         if (Product::model()->exists('id = :product_id', [":product_id" => $this->product_id])) {
-            $this->variant_ids = array_filter($this->variant_ids);
+            $this->variantIds = array_filter($this->variantIds);
 
             // удаляем варианты, которые не были выбраны, старые не трогаем, чтобы оставить данные, на случай, если вариант был удален из системы
             foreach ($this->oldVariants as $key => $var) {
-                if (!in_array($var['id'], $this->variant_ids)) {
+                if (!in_array($var['id'], $this->variantIds)) {
                     unset($this->oldVariants[$key]);
                 }
             }
@@ -85,7 +110,7 @@ class OrderProduct extends \yupe\models\YModel
                 $this->oldVariants
             );
             $newVariants = [];
-            foreach ($this->variant_ids as $varId) {
+            foreach ($this->variantIds as $varId) {
                 if (!in_array($varId, $oldVariantIds)) {
                     /* @var $variant ProductVariant */
                     $variant = ProductVariant::model()->findByPk($varId);
@@ -105,11 +130,25 @@ class OrderProduct extends \yupe\models\YModel
             $combinedVariants = array_merge($this->oldVariants, $newVariants);
             $this->variants = serialize($combinedVariants);
         }
+
         return parent::beforeSave();
     }
 
+    /**
+     * @return float
+     */
     public function getTotalPrice()
     {
         return (float)$this->price * $this->quantity;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'sku' => Yii::t('OrderModule.order', 'Sku'),
+            'product_name' => Yii::t('OrderModule.order', 'Product'),
+            'quantity' => Yii::t('OrderModule.order', 'Quantity'),
+            'price' => Yii::t('OrderModule.order', 'Price')
+        ];
     }
 }
