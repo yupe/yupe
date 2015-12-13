@@ -12,10 +12,9 @@
  **/
 class HpController extends \yupe\components\controllers\FrontController
 {
+
     /**
-     * Index action:
-     *
-     * @return void
+     * @throws CHttpException
      */
     public function actionIndex()
     {

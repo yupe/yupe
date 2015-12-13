@@ -33,6 +33,13 @@ $this->widget(
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
+        'actionsButtons' => [
+            CHtml::link(
+                Yii::t('OrderModule.order', 'Add'),
+                ['/user/userBackend/create'],
+                ['class' => 'btn btn-success pull-right btn-sm']
+            )
+        ],
         'columns' => [
             [
                 'name' => 'last_name',
@@ -81,7 +88,7 @@ $this->widget(
                 'name'   => 'ordersTotalSum',
                 'header' => Yii::t('OrderModule.order', 'Money'),
                 'value' => function($data){
-                    return Yii::app()->numberFormatter->formatCurrency($data->getOrderSum(), "RUB");
+                    return Yii::app()->numberFormatter->formatCurrency($data->getOrderSum(), Yii::app()->getModule('store')->currency);
                 }
             ],
             [

@@ -53,7 +53,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin'],],
-            ['allow', 'actions' => ['index', 'ajaxSearch'], 'roles' => ['Store.ProductBackend.Index'],],
+            ['allow', 'actions' => ['index'], 'roles' => ['Store.ProductBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProductBackend.View'],],
             ['allow', 'actions' => ['create', 'copy'], 'roles' => ['Store.ProductBackend.Create'],],
             [
@@ -320,32 +320,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         }
 
         Yii::app()->ajax->raw($out);
-    }
-
-
-    /**
-     * @throws CHttpException
-     */
-
-    public function actionAjaxSearch()
-    {
-        if (!Yii::app()->getRequest()->getQuery('q')) {
-            throw new CHttpException(404);
-        }
-
-        $model = $this->productRepository->searchByName(Yii::app()->getRequest()->getQuery('q'));
-
-        $data = [];
-
-        foreach ($model as $product) {
-            $data[] = [
-                'id' => $product->id,
-                'name' => $product->name . ($product->sku ? " ({$product->sku}) " : ' ') . $product->getPrice() . ' ' . Yii::t('StoreModule.store', 'руб.'),
-                'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
-            ];
-        }
-
-        Yii::app()->ajax->raw($data);
     }
 
     /**

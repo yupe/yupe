@@ -375,15 +375,6 @@ class YupeModule extends WebModule
     public function getEditableParamsGroups()
     {
         return [
-            'main'     => [
-                'label' => Yii::t('YupeModule.yupe', 'Main settings admin panel'),
-                'items' => [
-                    'hidePanelUrls',
-                    'allowedIp',
-                    'email',
-                    'coreCacheTime'
-                ]
-            ],
             'site'     => [
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
                 'items' => [
@@ -416,6 +407,15 @@ class YupeModule extends WebModule
                     'allowedExtensions',
                     'mimeTypes',
                     'maxSize',
+                ]
+            ],
+            'main'     => [
+                'label' => Yii::t('YupeModule.yupe', 'Main settings admin panel'),
+                'items' => [
+                    'hidePanelUrls',
+                    'allowedIp',
+                    'email',
+                    'coreCacheTime'
                 ]
             ],
         ];
@@ -619,7 +619,7 @@ class YupeModule extends WebModule
      **/
     public function getUrl()
     {
-        return Yii::t('YupeModule.yupe', 'http://yupe.ru');
+        return Yii::t('YupeModule.yupe', 'http://yupe-project.ru');
     }
 
     /**

@@ -163,7 +163,7 @@ class ProductRepository extends CApplicationComponent
         $criteria->scopes = ['published'];
 
         return new CActiveDataProvider(
-            Product::model(),
+            'Product',
             [
                 'criteria' => $criteria,
                 'pagination' => [
@@ -251,7 +251,10 @@ class ProductRepository extends CApplicationComponent
     {
         $criteria = new CDbCriteria();
         $criteria->addSearchCondition('name', $name);
-        return Product::model()->published()->findAll($criteria);
+        $provider = new CActiveDataProvider(Product::model()->published(), [
+            'criteria' => $criteria
+        ]);
+        return new CDataProviderIterator($provider);
     }
 
     /**

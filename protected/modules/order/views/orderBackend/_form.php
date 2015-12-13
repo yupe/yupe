@@ -133,7 +133,7 @@ $form = $this->beginWidget(
                                             'allowClear' => true,
                                             'ajax' => [
                                                 'url' => Yii::app()->getController()->createUrl(
-                                                    '/store/productBackend/ajaxSearch'
+                                                    '/order/orderBackend/ajaxProductSearch'
                                                 ),
                                                 'dataType' => 'json',
                                                 'data' => 'js:function(term, page) { return {q: term }; }',
@@ -159,7 +159,7 @@ $form = $this->beginWidget(
                             <h4>
                                 <?= Yii::t('OrderModule.order', 'Total'); ?>:
                                 <span id="total-product-cost"><?= $totalProductCost; ?></span>
-                                <?= Yii::t('OrderModule.order', 'RUB'); ?>
+                                <?= Yii::t('OrderModule.order', Yii::app()->getModule('store')->currency); ?>
                             </h4>
                         </div>
                     </div>
@@ -277,7 +277,7 @@ $form = $this->beginWidget(
                                     <?= Yii::t('OrderModule.order', 'Total'); ?>
                                     : <?= $model->getTotalPriceWithDelivery(); ?> <?= Yii::t(
                                         'OrderModule.order',
-                                        'RUB'
+                                        Yii::app()->getModule('store')->currency
                                     ); ?>
                                 </h4>
                             </div>
@@ -333,7 +333,7 @@ $form = $this->beginWidget(
                                             'label' => Yii::t('OrderModule.order', 'Money'),
                                             'value' => Yii::app()->getNumberFormatter()->formatCurrency(
                                                 $model->client->getOrderSum(),
-                                                'RUB'
+                                                Yii::app()->getModule('store')->currency
                                             ),
                                         ],
                                     ],

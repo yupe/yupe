@@ -2,8 +2,14 @@
 
 use yupe\components\controllers\BackController;
 
+/**
+ * Class ClientBackendController
+ */
 class ClientBackendController extends BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -17,6 +23,9 @@ class ClientBackendController extends BackController
     }
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Client('search');
@@ -27,14 +36,18 @@ class ClientBackendController extends BackController
         $this->render('index', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionView($id)
     {
         $model = Client::model()->findByPk($id);
 
-        if(null === $model) {
+        if (null === $model) {
             throw new CHttpException(404);
         }
 
-        $this->render('view', ['model' => $model]);
+        $this->render('view', ['model' => $model, 'order' => new Order(), 'orders' => $model->getOrders()]);
     }
 }

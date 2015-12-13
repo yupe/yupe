@@ -153,7 +153,7 @@ class ProductVariant extends \yupe\models\YModel
                 case self::TYPE_BASE_PRICE:
                     $value .= ' (' . Yii::t("StoreModule.store", 'price') . ': ' . $this->amount . ' ' . Yii::t(
                             "StoreModule.store",
-                            'RUB'
+                            Yii::app()->getModule('store')->currency
                         ) . '.)';
                     break;
             }

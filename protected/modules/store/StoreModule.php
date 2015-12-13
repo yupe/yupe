@@ -13,6 +13,18 @@ class StoreModule extends WebModule
     const VERSION = '0.9.9';
 
     /**
+     * @var
+     */
+    public $phone;
+
+    /**
+     * @var
+     */
+    public $email;
+
+    public $currency = 'RUB';
+
+    /**
      * @var string
      */
     public $uploadPath = 'store';
@@ -77,6 +89,16 @@ class StoreModule extends WebModule
         return true;
     }
 
+    public function getCurrencyList()
+    {
+        return [
+            'USD' => 'USD',
+            'RUB' => 'RUB',
+            'EUR' => 'EUR'
+        ];
+    }
+
+
     /**
      * @return array
      */
@@ -86,6 +108,9 @@ class StoreModule extends WebModule
             'uploadPath',
             'editor' => Yii::app()->getModule('yupe')->editors,
             'itemsPerPage',
+            'phone',
+            'email',
+            'currency' => $this->getCurrencyList()
         ];
     }
 
@@ -103,6 +128,9 @@ class StoreModule extends WebModule
             'editor' => Yii::t('StoreModule.store', 'Visual editor'),
             'defaultImage' => Yii::t('StoreModule.store', 'Default image'),
             'itemsPerPage' => Yii::t('StoreModule.store', 'Items per page'),
+            'phone' => Yii::t('StoreModule.store', 'Phone'),
+            'email' => Yii::t('StoreModule.store', 'Email'),
+            'currency' => Yii::t('StoreModule.store', 'Currency')
         ];
     }
 
@@ -112,23 +140,31 @@ class StoreModule extends WebModule
     public function getEditableParamsGroups()
     {
         return [
-            '0.main' => [
+            '0.store' => [
+                'label' => Yii::t('StoreModule.store', 'Store'),
+                'items' => [
+                    'phone',
+                    'email',
+                    'itemsPerPage'
+                ],
+            ],
+            '1.store' => [
+                'label' => Yii::t('StoreModule.store', 'Currency'),
+                'items' => [
+                    'currency'
+                ],
+            ],
+            '2.main' => [
                 'label' => Yii::t('StoreModule.store', 'Images'),
                 'items' => [
                     'uploadPath',
                     'defaultImage',
                 ],
             ],
-            '1.main' => [
+            '3.main' => [
                 'label' => Yii::t('StoreModule.store', 'Visual editor settings'),
                 'items' => [
                     'editor',
-                ],
-            ],
-            '2.store' => [
-                'label' => Yii::t('StoreModule.store', 'Store'),
-                'items' => [
-                    'itemsPerPage',
                 ],
             ],
         ];

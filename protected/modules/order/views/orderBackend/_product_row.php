@@ -29,7 +29,7 @@ $id = $model->id;
         <?php if ($productExists): ?>
             <?= CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
             <br/>
-            [<?= $product->getResultPrice(); ?><?= Yii::t("OrderModule.order", "RUB"); ?>]
+            [<?= $product->getResultPrice(); ?><?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?>]
         <?php else: ?>
             <?= $model->product_name; ?>
         <?php endif; ?>

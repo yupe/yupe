@@ -14,7 +14,7 @@
                                                     class="product-mini__link"><?= Chtml::encode($data->getName()); ?></a>
                 </div>
                 <div class="product-mini__price">
-                    <div class="product-price"><?= $data->getResultPrice(); ?><span class="ruble"> руб.</span>
+                    <div class="product-price"><?= $data->getResultPrice(); ?><span class="ruble"> <?= Yii::app()->getModule('store')->currency;?></span>
                     </div>
                 </div>
             </div>

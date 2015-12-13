@@ -73,14 +73,14 @@ $this->widget(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function($data){
-                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->client->id], ['target' => '_blank']) : $data->name;
+                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/orderBackend/update', 'id' => $data->id]) : $data->name;
                 },
                 'htmlOptions' => ['width' => '400px'],
             ],
             [
                 'name' => 'total_price',
                 'value' => function($data){
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, "RUB");
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, Yii::app()->getModule('store')->currency);
                 }
             ],
 
@@ -112,7 +112,7 @@ $this->widget(
             [
                 'name' => 'delivery_price',
                 'value' => function($data){
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->delivery_price, "RUB");
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->delivery_price, Yii::app()->getModule('store')->currency);
                 }
             ],
             [

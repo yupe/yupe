@@ -16,6 +16,15 @@ class Client extends User
     public $ordersTotalSum;
 
     /**
+     * @param null|string $className
+     * @return User|static
+     */
+    static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
      * @return array|mixed
      */
     public function relations()
@@ -53,6 +62,26 @@ class Client extends User
     public function getOrderSum()
     {
         return $this->ordersSum;
+    }
+
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function getOrders()
+    {
+        $provider = new CActiveDataProvider(
+            'Order', [
+                'criteria' => [
+                    'condition' => 'user_id = :user',
+                    'params' => [
+                        ':user' => $this->id,
+                    ],
+                ],
+            ]
+        );
+
+        return $provider;
     }
 
     /**
@@ -106,22 +135,22 @@ class Client extends User
 
         return new CActiveDataProvider(
             __CLASS__, [
-            'criteria' => $criteria,
-            'sort' => [
-                'defaultOrder' => 'visit_time DESC',
-                'attributes' => [
-                    'ordersTotalNumber' => [
-                        'asc' => 'ordersTotalNumber ASC',
-                        'desc' => 'ordersTotalNumber DESC',
+                'criteria' => $criteria,
+                'sort' => [
+                    'defaultOrder' => 'visit_time DESC',
+                    'attributes' => [
+                        'ordersTotalNumber' => [
+                            'asc' => 'ordersTotalNumber ASC',
+                            'desc' => 'ordersTotalNumber DESC',
+                        ],
+                        'ordersTotalSum' => [
+                            'asc' => 'ordersTotalSum ASC',
+                            'desc' => 'ordersTotalSum DESC',
+                        ],
+                        '*',
                     ],
-                    'ordersTotalSum' => [
-                        'asc' => 'ordersTotalSum ASC',
-                        'desc' => 'ordersTotalSum DESC',
-                    ],
-                    '*',
                 ],
-            ],
-        ]
+            ]
         );
     }
 }

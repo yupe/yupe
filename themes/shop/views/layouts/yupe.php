@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= Yii::app()->language; ?>">
+<html lang="<?= Yii::app()->getLanguage(); ?>">
 
 <head>
     <?php
@@ -126,9 +126,9 @@
                     <img src="<?= $this->mainAssets ?>/images/logo.png" class="header-logo-image">
                 </a>
             </div>
-            <div class="header__item header-description">Магазин бытовой техники</div>
+            <div class="header__item header-description"><?= CHtml::encode(Yii::app()->getModule('yupe')->siteName);?></div>
             <div class="header__item header-phone">
-                <div class="header__phone">8 (456) 123-45-67</div>
+                <div class="header__phone"><?= CHtml::encode(Yii::app()->getModule('store')->phone);?></div>
                 <?php if (Yii::app()->hasModule('callback')): ?>
                     <?php $this->widget('application.modules.callback.widgets.CallbackWidget'); ?>
                 <?php endif; ?>
@@ -189,9 +189,8 @@
                     </div>
                     <div class="footer__group">
                         <div class="footer__item footer__item_header">Контакты</div>
-                        <div class="footer__item"><i class="fa fa-phone fa-fw"></i> (123) 456-78-90, 0 (123) 456-78-90</div>
-                        <div class="footer__item"><i class="fa fa-envelope fa-fw"></i> E-mail: partner@YupeStore.net</div>
-                        <div class="footer__item"><i class="fa fa-skype fa-fw"></i> Skype: YupeStore</div>
+                        <div class="footer__item"><i class="fa fa-phone fa-fw"></i> <?= CHtml::encode(Yii::app()->getModule('store')->phone);?></div>
+                        <div class="footer__item"><i class="fa fa-envelope fa-fw"></i> E-mail: <?= CHtml::encode(Yii::app()->getModule('store')->email);?></div>
                     </div>
                     <div class="footer__group">
                         <div class="footer__item footer__item_header">Работаем</div>

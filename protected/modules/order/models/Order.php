@@ -153,7 +153,7 @@ class Order extends yupe\models\YModel
             'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
             'client' => [self::BELONGS_TO, 'Client', 'user_id'],
             'couponsIds' => [self::HAS_MANY, 'OrderCoupon', 'order_id'],
-            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds']
+            'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds'],
         ];
     }
 
@@ -478,6 +478,7 @@ class Order extends yupe\models\YModel
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -506,7 +507,7 @@ class Order extends yupe\models\YModel
                     [
                         'order_id' => $this->id,
                         'coupon_id' => $coupon->id,
-                        'create_time' => new CDbExpression('NOW()')
+                        'create_time' => new CDbExpression('NOW()'),
                     ]
                 );
 
@@ -522,9 +523,11 @@ class Order extends yupe\models\YModel
             $this->update(['coupon_discount', 'delivery_price']);
 
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -779,8 +782,36 @@ class Order extends yupe\models\YModel
         return $this->findByPk($number);
     }
 
+    /**
+     * @return string
+     */
     public function getAddress()
     {
-        return sprintf('%s %s %s %s %s %s', $this->country, $this->city, $this->street, $this->house, $this->apartment, $this->zipcode);
+        return sprintf(
+            '%s %s %s %s %s %s',
+            $this->country,
+            $this->city,
+            $this->street,
+            $this->house,
+            $this->apartment,
+            $this->zipcode
+        );
+    }
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function getProducts()
+    {
+        return new CActiveDataProvider(
+            'OrderProduct', [
+            'criteria' => [
+                'condition' => 'order_id = :id',
+                'params' => [
+                    ':id' => $this->id,
+                ],
+            ],
+        ]
+        );
     }
 }

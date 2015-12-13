@@ -1,7 +1,29 @@
 <?php
 
+/**
+ * Class OrderBackendController
+ */
 class OrderBackendController extends yupe\components\controllers\BackController
 {
+
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    /**
+     *
+     */
+    public function init()
+    {
+        $this->productRepository = Yii::app()->getComponent('productRepository');
+
+        parent::init();
+    }
+
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -10,12 +32,15 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 'model' => 'Order',
                 'validAttributes' => [
                     'status_id',
-                    'paid'
-                ]
-            ]
+                    'paid',
+                ],
+            ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -29,16 +54,20 @@ class OrderBackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionView($id)
     {
         $model = $this->loadModel($id);
 
-        $products = new CActiveDataProvider('OrderProduct');
-        $products->setData($model->products);
-
-        $this->render('view', ['model' => $model, 'products' => $products]);
+        $this->render('view', ['model' => $model, 'products' => $model->getProducts()]);
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Order();
@@ -66,6 +95,10 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $this->render('create', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -110,6 +143,11 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $this->render('update', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -125,13 +163,18 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t(
+            throw new CHttpException(
+                400, Yii::t(
                 'OrderModule.order',
                 'Unknown request. Don\'t repeat it please!'
-            ));
+            )
+            );
         }
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Order('search');
@@ -158,6 +201,9 @@ class OrderBackendController extends yupe\components\controllers\BackController
         return $model;
     }
 
+    /**
+     * @param Order $model
+     */
     protected function performAjaxValidation(Order $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'order-form') {
@@ -166,6 +212,9 @@ class OrderBackendController extends yupe\components\controllers\BackController
         }
     }
 
+    /**
+     * @throws CException
+     */
     public function actionProductRow()
     {
         $product = new OrderProduct();
@@ -196,11 +245,36 @@ class OrderBackendController extends yupe\components\controllers\BackController
         foreach ($model->search()->getData() as $client) {
             $data[] = [
                 'id' => $client->id,
-                'name' => sprintf('%s (%s %s)', $client->getFullName(), $client->phone, $client->email)
+                'name' => sprintf('%s (%s %s)', $client->getFullName(), $client->phone, $client->email),
             ];
         }
 
         Yii::app()->ajax->raw($data);
     }
 
+
+    /**
+     * @throws CHttpException
+     */
+
+    public function actionAjaxProductSearch()
+    {
+        if (!Yii::app()->getRequest()->getQuery('q')) {
+            throw new CHttpException(404);
+        }
+
+        $data = [];
+
+        $model = $this->productRepository->searchByName(Yii::app()->getRequest()->getQuery('q'));
+
+        foreach ($model as $product) {
+            $data[] = [
+                'id' => $product->id,
+                'name' => $product->name . ($product->sku ? " ({$product->sku}) " : ' ') . $product->getPrice() . ' ' . Yii::t('StoreModule.store', Yii::app()->getModule('store')->currency),
+                'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
+            ];
+        }
+
+        Yii::app()->ajax->raw($data);
+    }
 }

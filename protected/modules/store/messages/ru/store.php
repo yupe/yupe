@@ -1,5 +1,8 @@
 <?php
 return [
+    'Currency' => 'Валюта',
+    'Phone' => 'Телефон магазига',
+    'Email' => 'Email магазина',
     'Price filter'   => 'По цене',
     'from' => 'от',
     'to'   => 'до',
