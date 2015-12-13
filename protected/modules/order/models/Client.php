@@ -106,7 +106,7 @@ class Client extends User
      *
      * @return CActiveDataProvider
      */
-    public function search()
+    public function search($pageSize = 10)
     {
         $criteria = new CDbCriteria();
 
