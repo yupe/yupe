@@ -526,7 +526,8 @@ class YupeModule extends WebModule
                         'linkOptions' => [
                             'class'  => 'flushAction',
                             'method' => 'assetsFlush',
-                        ]
+                        ],
+                        'visible' => !Yii::app()->getAssetManager()->linkAssets
                     ],
                     [
                         'icon'        => 'fa fa-fw fa-trash-o',
@@ -535,7 +536,8 @@ class YupeModule extends WebModule
                         'linkOptions' => [
                             'class'  => 'flushAction',
                             'method' => 'cacheAssetsFlush',
-                        ]
+                        ],
+                        'visible' => !Yii::app()->getAssetManager()->linkAssets
                     ],
                 ]
             ],

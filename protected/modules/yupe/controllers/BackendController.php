@@ -400,6 +400,10 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     private function _cleanAssets()
     {
+        if(Yii::app()->getAssetManager()->linkAssets) {
+            return true;
+        }
+
         try {
             $dirsList = glob(Yii::app()->assetManager->getBasePath().DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
             if (is_array($dirsList)) {
