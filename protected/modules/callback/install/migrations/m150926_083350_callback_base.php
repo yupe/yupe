@@ -1,6 +1,6 @@
 <?php
 
-class m150926_083350_callback_base extends EDbMigration
+class m150926_083350_callback_base extends yupe\components\DbMigration
 {
 	public function safeUp()
 	{

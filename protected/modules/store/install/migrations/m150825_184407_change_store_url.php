@@ -1,6 +1,6 @@
 <?php
 
-class m150825_184407_change_store_url extends EDbMigration
+class m150825_184407_change_store_url extends yupe\components\DbMigration
 {
 	public function safeUp()
 	{
