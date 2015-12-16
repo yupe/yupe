@@ -16,7 +16,8 @@ return [
             'migrationTable' => '{{migrations}}',
             'applicationModuleName' => 'yupe',
             'migrationSubPath' => 'install.migrations',
-            'connectionID'=>'db',
+            'connectionID' => 'db',
+            'templateFile' => 'application.modules.yupe.migrations.migration-template',
         ],
     ],
     'import' => [
