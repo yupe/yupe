@@ -110,6 +110,26 @@ abstract class YModel extends CActiveRecord
         return (isset($descriptions[$attribute])) ? $descriptions[$attribute] : '';
     }
 
+	/**
+	 * Подключение внешних поведений (behavior).
+	 *
+	 * Этот метод переопределяет базовый метод Yii, чтобы при подключении вызывалось событие onAttachBehavior.
+	 * Перед вызовом проверяется, есть ли у behavior'а такой метод или нет.
+	 * Бывает необходимо, чтобы behavior инициализировал какие-нибудь данные сразу после подключения к модели.
+	 *
+	 * @author Zalatov A.
+	 *
+	 * @param array $behaviors Список behavior'ов, которые должны быть подключены
+	 */
+	public function attachBehaviors($behaviors) {
+		foreach($behaviors as $name => $behavior) {
+			$behavior_instance = $this->attachBehavior($name, $behavior);
+			if (method_exists($behavior_instance, 'onAttachBehavior')) {
+				$behavior_instance->onAttachBehavior();
+			}
+		}
+	}
+
     /**
      * Загружаем модель по её PK
      *
