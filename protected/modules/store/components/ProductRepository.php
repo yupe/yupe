@@ -50,7 +50,7 @@ class ProductRepository extends CApplicationComponent
                 $criteria->with = ['categoryRelation' => ['together' => true]];
                 $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
                 $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
-
+                $criteria->group = 't.id';
                 continue;
             }
 

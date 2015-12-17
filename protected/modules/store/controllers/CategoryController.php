@@ -23,12 +23,17 @@ class CategoryController extends FrontController
 
     public function actionIndex()
     {
-        $this->render('index', [
-            'dataProvider' => new CArrayDataProvider(StoreCategory::model()->published()->getMenuList(1), [
-                'id' => 'id',
-                'pagination' => false
-            ]),
-        ]);
+        $this->render(
+            'index',
+            [
+                'dataProvider' => new CArrayDataProvider(
+                    StoreCategory::model()->published()->getMenuList(1), [
+                    'id' => 'id',
+                    'pagination' => false,
+                ]
+                ),
+            ]
+        );
     }
 
     /**
@@ -44,7 +49,10 @@ class CategoryController extends FrontController
         }
 
         $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
-            $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]),
+            $this->attributeFilter->getMainAttributesForSearchFromQuery(
+                Yii::app()->getRequest(),
+                [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]
+            ),
             $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
         ) : $this->productRepository->getListForCategory($category);
 
@@ -53,7 +61,7 @@ class CategoryController extends FrontController
             'view',
             [
                 'dataProvider' => $data,
-                'category' => $category
+                'category' => $category,
             ]
         );
     }

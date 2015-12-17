@@ -27,7 +27,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
                 'dataProvider' => $dataProvider,
                 'itemView' => '_item',
                 'summaryText' => '',
-                'cssFile' => false,
+                'cssFile' => false
             ]
         ); ?>
     </div>
