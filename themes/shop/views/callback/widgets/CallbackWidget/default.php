@@ -4,8 +4,6 @@
  * @var string $phoneMask
  * @var CActiveForm $form
  */
-
-Yii::import('application.modules.callback.CallbackModule');
 ?>
 <a href="javascript:void(0);" data-toggle="#callback-request" class="header-phone-callback" id="callback-link">
     <?= Yii::t('CallbackModule.callback', 'Request a call back') ?>
@@ -14,20 +12,17 @@ Yii::import('application.modules.callback.CallbackModule');
 <div id="callback-request" class="callback-request">
     <div class="grid">
         <div class="grid-module-3">
-            <?php $form = $this->beginWidget(
-                'CActiveForm',
-                [
-                    'id' => 'callback-form',
-                    'action' => Yii::app()->createUrl('/callback/callback/send'),
-                    'enableClientValidation' => true,
-                    'clientOptions' => [
-                        'validateOnSubmit' => true,
-                        'afterValidate' => 'js:callbackSendForm'
-                    ],
-                ]
-            ); ?>
+            <?php $form = $this->beginWidget('CActiveForm', [
+                'id' => 'callback-form',
+                'action' => Yii::app()->createUrl('/callback/callback/send'),
+                'enableClientValidation' => true,
+                'clientOptions' => [
+                    'validateOnSubmit' => true,
+                    'afterValidate' => 'js:callbackSendForm',
+                ],
+            ]); ?>
 
-                <?= $form->errorSummary($model); ?>
+            <?= $form->errorSummary($model); ?>
 
                 <div class="fast-order__inputs">
                     <?= $form->labelEx($model, 'name'); ?>
@@ -79,28 +74,3 @@ Yii::import('application.modules.callback.CallbackModule');
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function callbackSendForm(form, data, hasError) {
-        if (hasError) return false;
-
-        $.ajax({
-            url: '<?= Yii::app()->createUrl('/callback/callback/send') ?>',
-            type: 'POST',
-            data: form.serialize(),
-            success: function (response) {
-                if (response.result) {
-                    document.getElementById("callback-form").reset();
-                }
-                $('#callback-link').click();
-                $('#notifications').html('<div>' + response.data + '</div>').fadeIn().delay(3000).fadeOut();
-            },
-            error: function () {
-                $('#callback-request').click();
-                $('#notifications').html(
-                    '<div><?= Yii::t('CallbackModule.callback', 'Sorry, an error has occurred.') ?></div>'
-                ).fadeIn().delay(3000).fadeOut();
-            }
-        });
-        return false;
-    }
-</script>
