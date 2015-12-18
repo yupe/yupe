@@ -34,7 +34,6 @@ $this->breadcrumbs = array_merge(
             <?php $this->widget(
                 'zii.widgets.CListView', [
                     'dataProvider' => $dataProvider,
-                    'ajaxUpdate' => false,
                     'itemView' => '//store/product/_item',
                     'template' => '
                         <div class="catalog-controls">

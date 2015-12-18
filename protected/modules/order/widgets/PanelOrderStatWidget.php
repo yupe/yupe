@@ -21,7 +21,7 @@ class PanelOrderStatWidget extends \yupe\widgets\YWidget
 
         $cacheTime = Yii::app()->getController()->yupe->coreCacheTime;
         $model = Order::model();
-        $dependency = new CDbCacheDependency('select max(modified) from ' . $model->tableName());
+        $dependency = new CDbCacheDependency('select max(modified) from ' . Order::model()->tableName());
 
         $this->render(
             'panel-stat',

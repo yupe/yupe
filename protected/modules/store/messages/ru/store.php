@@ -1,5 +1,6 @@
 <?php
 return [
+    'External id' => 'ID во внешней системе',
     'Currency' => 'Валюта',
     'Phone' => 'Телефон магазига',
     'Email' => 'Email магазина',

@@ -34,6 +34,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property double $purchase_price
  * @property double $recommended_price
  * @property integer $position
+ * @property integer $external_id
  *
  * @method getImageUrl($width = 0, $height = 0, $options = [])
  *
@@ -132,7 +133,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'filter' => 'trim'
             ],
             [
-                'status, is_special, producer_id, type_id, quantity, in_stock, category_id',
+                'status, is_special, producer_id, type_id, quantity, in_stock, category_id, external_id',
                 'numerical',
                 'integerOnly' => true
             ],
@@ -253,7 +254,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
             'average_price' => Yii::t('StoreModule.store', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
-            'position' => Yii::t('StoreModule.store', 'Position')
+            'position' => Yii::t('StoreModule.store', 'Position'),
+            'external_id' => Yii::t('StoreModule.store', 'External id')
         ];
     }
 
@@ -359,7 +361,6 @@ class Product extends yupe\models\YModel implements ICommentable
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 ],
-                'defaultImage' => Yii::app()->getTheme()->getAssetsUrl() . $module->defaultImage,
             ],
             'sortable' => [
                 'class' => 'yupe\components\behaviors\SortableBehavior'

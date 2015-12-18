@@ -18,8 +18,17 @@
  */
 class Producer extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_ZERO = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 2;
 
     /**
@@ -48,32 +57,38 @@ class Producer extends yupe\models\YModel
             [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
-                'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
+                'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}'),
             ],
             ['slug', 'unique'],
             [
                 'id, name_short, name, slug, status, order, image, short_description, description, meta_title, meta_keywords, meta_description',
                 'safe',
-                'on' => 'search'
+                'on' => 'search',
             ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
             'published' => [
                 'condition' => 'status = :status',
                 'params' => [':status' => self::STATUS_ACTIVE],
-                'order' => 'name ASC'
+                'order' => 'name ASC',
             ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
-            'productCount' => [self::STAT, 'Product', 'producer_id']
+            'productCount' => [self::STAT, 'Product', 'producer_id'],
         ];
     }
 
@@ -144,6 +159,9 @@ class Producer extends yupe\models\YModel
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
@@ -155,16 +173,18 @@ class Producer extends yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath . '/producer' : null,
+                'uploadPath' => $module !== null ? $module->uploadPath.'/producer' : null,
                 'resizeOptions' => [
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 ],
-                'defaultImage' => Yii::app()->getTheme()->getAssetsUrl() . $module->defaultImage,
             ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -174,6 +194,9 @@ class Producer extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
@@ -181,6 +204,9 @@ class Producer extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('StoreModule.store', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getFormattedList()
     {
         return CHtml::listData(Producer::model()->findAll(), 'id', 'name_short');
@@ -224,12 +250,14 @@ class Producer extends yupe\models\YModel
         $criteria->scopes = ['published'];
         $criteria->order = 'id';
 
-        return new CActiveDataProvider(get_class($this), [
+        return new CActiveDataProvider(
+            get_class($this), [
             'criteria' => $criteria,
             'pagination' => [
                 'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
                 'pageVar' => 'page',
-            ]
-        ]);
+            ],
+        ]
+        );
     }
 }

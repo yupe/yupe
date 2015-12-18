@@ -63,4 +63,4 @@ $this->breadcrumbs = [Yii::t("HomepageModule.homepage", "Catalog") => ['/store/p
         </div>
     </div>
 </div>
-<?php $this->widget('application.modules.store.widgets.ProducersWidget') ?>
+<?php $this->widget('application.modules.store.widgets.ProducersWidget', ['limit' => 25]);?>
