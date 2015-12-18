@@ -4,8 +4,6 @@
  * @var string $phoneMask
  * @var TbActiveForm $form
  */
-
-Yii::import('application.modules.callback.CallbackModule');
 ?>
 
 <div class="row">
@@ -91,36 +89,3 @@ Yii::import('application.modules.callback.CallbackModule');
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function callbackSendForm(form, data, hasError) {
-        if (hasError) return false;
-
-        $.ajax({
-            url: '<?= Yii::app()->createUrl('/callback/callback/send') ?>',
-            type: 'POST',
-            data: form.serialize(),
-            success: function (response) {
-                if (response.result) {
-                    document.getElementById("callback-form").reset();
-                }
-                $('#callbackModal').modal('hide');
-
-                $('#notifications').notify({
-                    message: {text: response.data},
-                    type: 'success',
-                    fadeOut: {delay: 5000}
-                }).show();
-            },
-            error: function () {
-                $('#callbackModal').modal('hide');
-
-                $('#notifications').notify({
-                    message: {text: '<?= Yii::t('CallbackModule.callback', 'Sorry, an error has occurred.') ?>'},
-                    type: 'danger',
-                    fadeOut: {delay: 5000}
-                }).show();
-            }
-        });
-        return false;
-    }
-</script>
