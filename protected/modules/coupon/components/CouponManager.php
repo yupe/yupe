@@ -57,7 +57,9 @@ class CouponManager extends CApplicationComponent
 
     public function add(Coupon $coupon)
     {
-        if (in_array($coupon->code, $this->coupons)) {
+        $code = mb_strtoupper($coupon->code);
+
+        if (in_array($code, $this->coupons)) {
             return [Yii::t("CouponModule.coupon", 'Coupon already added')];
         }
 
@@ -66,15 +68,13 @@ class CouponManager extends CApplicationComponent
         $errors = $coupon->getCouponErrors($price);
 
         if (empty($errors)) {
-            $this->coupons = array_unique(array_merge($this->coupons, [$coupon->code]));
+            $this->coupons = array_unique(array_merge($this->coupons, [$code]));
             $this->saveState();
 
             return true;
-        } else {
-            return $errors;
         }
 
-        return false;
+        return $errors;
     }
 
     /**
@@ -82,8 +82,10 @@ class CouponManager extends CApplicationComponent
      */
     public function remove($code)
     {
-        $code = $code = strtoupper(trim($code));
-        $this->coupons = array_diff($this->coupons, [$code]);
+        $this->coupons = array_diff($this->coupons, [
+            mb_strtoupper(trim($code)),
+        ]);
+
         $this->saveState();
     }
 
@@ -106,10 +108,12 @@ class CouponManager extends CApplicationComponent
 
             return;
         }
+
         $price = Yii::app()->cart->getCost();
         foreach ($this->coupons as $code) {
             /* @var $coupon Coupon */
             $coupon = Coupon::model()->getCouponByCode($code);
+
             if (!$coupon->getIsAvailable($price)) {
                 $this->remove($code);
             }
@@ -118,12 +122,11 @@ class CouponManager extends CApplicationComponent
 
     /**
      * @param $code
+     *
      * @return mixed
      */
     public function findCouponByCode($code)
     {
-        $code = strtoupper(trim($code));
-
-        return Coupon::model()->getCouponByCode($code);
+        return Coupon::model()->getCouponByCode(mb_strtoupper(trim($code)));
     }
 }
