@@ -28,9 +28,9 @@ class CategoryController extends FrontController
             [
                 'dataProvider' => new CArrayDataProvider(
                     StoreCategory::model()->published()->getMenuList(1), [
-                    'id' => 'id',
-                    'pagination' => false,
-                ]
+                        'id' => 'id',
+                        'pagination' => false,
+                    ]
                 ),
             ]
         );
@@ -65,5 +65,4 @@ class CategoryController extends FrontController
             ]
         );
     }
-
 }

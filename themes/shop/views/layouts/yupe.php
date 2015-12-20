@@ -145,7 +145,10 @@
             <div class="search-bar__wrapper"><a href="javascript:void(0);" data-toggle="#menu-catalog" class="search-bar__catalog-button">Каталог товаров</a>
                 <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['query' => Yii::app()->getRequest()->getQuery('SearchForm')['q']]); ?>
             </div>
-            <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['depth' => 2]); ?>
+            <?php if($this->beginCache('store::category::menu', ['duration' => $this->yupe->coreCacheTime])):?>
+                <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['depth' => 2]); ?>
+                <?php $this->endCache();?>
+            <?php endif;?>
         </div>
     </div>
     <div class="main__breadcrumbs grid">
@@ -182,10 +185,14 @@
                         <?php endif; ?>
                     </div>
                     <div class="footer__group">
+                        <?php if($this->beginCache('store::category::footer', ['duration' => $this->yupe->coreCacheTime])):?>
                         <?php $this->widget('application.modules.store.widgets.CategoryWidget', [
                             'depth' => 0,
                             'view' => 'footer'
                         ]); ?>
+
+                            <?php $this->endCache();?>
+                        <?php endif;?>
                     </div>
                     <div class="footer__group">
                         <div class="footer__item footer__item_header">Контакты</div>

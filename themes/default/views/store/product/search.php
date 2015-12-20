@@ -35,7 +35,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product
                 </div>
             <?php endif;?>
             <div>
-                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
             </div>
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>

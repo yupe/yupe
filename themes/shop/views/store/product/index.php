@@ -15,14 +15,17 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
 <div class="main__catalog grid">
     <div class="cols">
         <div class="col grid-module-3">
+            <?php if($this->beginCache('store::filters')):?>
             <div class="catalog-filter">
                 <form id="store-filter" name="store-filter" method="get">
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
-                    <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+                    <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
                 </form>
             </div>
+            <?php  $this->endCache();?>
+            <?php endif;?>
         </div>
         <div class="col grid-module-9">
             <?php $this->widget(
@@ -66,4 +69,4 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
         </div>
     </div>
 </div>
-<?php $this->widget('application.modules.store.widgets.ProducersWidget') ?>
+<?php $this->widget('application.modules.store.widgets.ProducersWidget', ['limit' => 25]) ?>

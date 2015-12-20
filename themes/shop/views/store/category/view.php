@@ -18,14 +18,17 @@ $this->breadcrumbs = array_merge(
 <div class="main__catalog grid">
     <div class="cols">
         <div class="col grid-module-3">
+            <?php if($this->beginCache('store::filters', ['duration' => $this->yupe->coreCacheTime])):?>
             <div class="catalog-filter">
                 <form id="store-filter" name="store-filter" method="get">
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
-                    <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+                    <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
                 </form>
             </div>
+                <?php  $this->endCache();?>
+            <?php endif;?>
         </div>
         <div class="col grid-module-9">
             <div class="entry__title">

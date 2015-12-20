@@ -130,4 +130,4 @@
         </div>
     </div>
 </div>
-<?php $this->widget('application.modules.store.widgets.ProducersWidget') ?>
+<?php $this->widget('application.modules.store.widgets.ProducersWidget', ['limit' => 25]) ?>
