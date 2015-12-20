@@ -30,18 +30,24 @@ $this->widget(
             [
                 'name' => 'image',
                 'type' => 'raw',
-                'value' => 'CHtml::image($data->getImageUrl(50, 50), "", array("width" => 50, "height" => 50, "class" => "img-thumbnail"))',
+                'value' => function($data){
+                    return CHtml::image(StoreImage::producer($data, 40, 40), $data->name, ["width" => 40, "height" => 40, "class" => "img-thumbnail"]);
+                },
                 'filter' => false
             ],
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->name, array("/store/producerBackend/update", "id" => $data->id))',
+                'value' => function($data){
+                    return CHtml::link($data->name, array("/store/producerBackend/update", "id" => $data->id));
+                },
             ],
             [
                 'name' => 'name_short',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->name_short, array("/store/producerBackend/update", "id" => $data->id))',
+                'value' => function($data){
+                    return CHtml::link($data->name_short, array("/store/producerBackend/update", "id" => $data->id));
+                },
             ],
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',

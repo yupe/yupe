@@ -31,7 +31,7 @@ $this->breadcrumbs = array_merge(
                     <div class="col-sm-4">
                         <div class="thumbnails">
                             <div class="image-preview">
-                                <img src="<?= $product->getImageUrl(); ?>" alt="" class="" id="main-image">
+                                <img src="<?= StoreImage::product($product); ?>" alt="<?= CHtml::encode($product->name); ?>" class="" id="main-image">
                             </div>
                             <div class="row">
                                 <div class="col-xs-4 col-md-4">

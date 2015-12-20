@@ -47,7 +47,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
             [
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::image($data->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]);
+                    return CHtml::image(StoreImage::product($data, 40, 40), $data->name, ["width" => 40, "height" => 40, "class" => "img-thumbnail"]);
                 },
             ],
             [
@@ -72,11 +72,11 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
-                'name' => 'type_id',
+                'name' => 'producer_id',
                 'url' => $this->createUrl('/store/productBackend/inline'),
                 'source' => CMap::mergeArray(
                     ['' => '---'],
-                    Type::model()->getFormattedList()
+                    Producer::model()->getFormattedList()
                 ),
                 'editable' => [
                     'emptytext' => '---',

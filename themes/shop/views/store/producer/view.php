@@ -27,7 +27,7 @@ $this->breadcrumbs = [
 
 <div class="main__recently-viewed-slider">
     <div class="col grid-module-3">
-        <img src="<?= $brand->getImageUrl() ?>" alt="">
+        <img src="<?= StoreImage::producer($brand, 100, 100);?>" alt="<?= CHtml::encode($brand->name); ?>">
     </div>
     <div class="col grid-module-8">
         <?= $brand->description ?>

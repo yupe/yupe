@@ -49,11 +49,7 @@ $this->menu = [
                 'name' => 'image',
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return $data->image ? CHtml::image(
-                        $data->getImageUrl(50, 50),
-                        $data->name,
-                        array("width" => 50, "height" => 50, "class" => "img-thumbnail")
-                    ) : "";
+                    return CHtml::image(StoreImage::category($data, 40, 40), $data->name, ["width" => 40, "height" => 40, "class" => "img-thumbnail"]);
                 },
                 'filter' => false,
             ],

@@ -20,7 +20,7 @@ $this->breadcrumbs = array_merge(
             <div class="product-gallery js-product-gallery">
                 <div class="product-gallery__body">
                     <div data-product-image class="product-gallery__img-wrap">
-                        <img src="<?= $product->getImageUrl(); ?>" class="product-gallery__main-img">
+                        <img src="<?= StoreImage::product($product); ?>" class="product-gallery__main-img">
                     </div>
                     <?php if ($product->isSpecial()): ?>
                         <div class="product-gallery__label">
@@ -31,7 +31,7 @@ $this->breadcrumbs = array_merge(
                     <?php endif; ?>
                 </div>
                 <div class="product-gallery__nav">
-                    <a href="<?= $product->getImageUrl(); ?>" rel="group" data-product-thumbnail
+                    <a href="<?= StoreImage::product($product); ?>" rel="group" data-product-thumbnail
                        class="product-gallery__nav-item">
                         <img src="<?= $product->getImageUrl(60, 60, false); ?>" alt=""
                              class="product-gallery__nav-img">
@@ -49,19 +49,6 @@ $this->breadcrumbs = array_merge(
         <div class="product-description__entry grid-module-6">
             <div class="entry">
                 <div class="entry__toolbar">
-                    <div class="entry__toolbar-left">
-                        <div class="entry__toolbar-item">
-                            <div data-rate='4' class="rating">
-                                <div class="rating__label">4.2</div>
-                                <div class="rating__corner">
-                                    <div class="rating__triangle"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="entry__toolbar-item"><a href="javascript:void(0);" class="reviews-link">6
-                                отзывов</a>
-                        </div>
-                    </div>
                     <div class="entry__toolbar-right">
                         <?php if(Yii::app()->hasModule('favorite')):?>
                             <?php $this->widget('application.modules.favorite.widgets.FavoriteControl', ['product' => $product, 'view' => '_in-product']);?>
@@ -113,7 +100,7 @@ $this->breadcrumbs = array_merge(
                             <input type="hidden" id="base-price"
                                    value="<?= round($product->getResultPrice(), 2); ?>"/>
                             <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span>
+                            <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
                         </div>
                     </div>
                     <?php if (Yii::app()->hasModule('order')): ?>
@@ -136,7 +123,7 @@ $this->breadcrumbs = array_merge(
                             <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
                             <span id="product-quantity">1</span> =
                             <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                            <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                     <?php endif; ?>
                 </form>
             </div>

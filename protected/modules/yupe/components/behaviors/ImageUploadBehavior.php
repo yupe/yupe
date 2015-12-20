@@ -7,17 +7,30 @@ use yupe\components\image\Imagine;
 use Imagine\Image\ImageInterface;
 use yupe\helpers\YFile;
 
+/**
+ * Class ImageUploadBehavior
+ * @package yupe\components\behaviors
+ */
 class ImageUploadBehavior extends FileUploadBehavior
 {
+    /**
+     * @var bool
+     */
     public $resizeOnUpload = true;
+    /**
+     * @var array
+     */
     public $resizeOptions = [];
 
+    /**
+     * @var array
+     */
     protected $defaultResizeOptions = [
         'width' => 950,
         'height' => 950,
         'quality' => [
             'jpegQuality' => 75,
-            'pngCompressionLevel' => 7
+            'pngCompressionLevel' => 7,
         ],
     ];
 
@@ -26,6 +39,9 @@ class ImageUploadBehavior extends FileUploadBehavior
      */
     public $defaultImage = null;
 
+    /**
+     * @param \CComponent $event
+     */
     public function attach($event)
     {
         parent::attach($event);
@@ -38,18 +54,24 @@ class ImageUploadBehavior extends FileUploadBehavior
         }
     }
 
+    /**
+     *
+     */
     protected function removeFile()
     {
         parent::removeFile();
         $this->removeThumbs();
     }
 
+    /**
+     *
+     */
     protected function removeThumbs()
     {
         $filename = pathinfo($this->getFilePath(), PATHINFO_BASENAME);
 
         $iterator = new \GlobIterator(
-            Yii::app()->thumbnailer->getBasePath() . '/' . $this->uploadPath . '/' . '*_' . $filename
+            Yii::app()->thumbnailer->getBasePath().'/'.$this->uploadPath.'/'.'*_'.$filename
         );
 
         foreach ($iterator as $file) {
@@ -57,6 +79,9 @@ class ImageUploadBehavior extends FileUploadBehavior
         }
     }
 
+    /**
+     * @throws \CHttpException
+     */
     public function saveFile()
     {
         if (!$this->resizeOnUpload) {
@@ -85,20 +110,26 @@ class ImageUploadBehavior extends FileUploadBehavior
             $this->resizeOptions['width'],
             $this->resizeOptions['height']
         )->save(
-                $path,
-                $this->resizeOptions['quality']
-            );
+            $path,
+            $this->resizeOptions['quality']
+        );
 
         $this->getOwner()->setAttribute($this->attributeName, $newFileName);
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     * @param bool|true $crop
+     * @return null|string
+     */
     public function getImageUrl(
         $width = 0,
         $height = 0,
         $crop = true
     ) {
         $file = $this->getFilePath();
-        $defaultImagePath = Yii::getPathOfAlias('webroot') . $this->defaultImage;
+        $defaultImagePath = Yii::getPathOfAlias('webroot').$this->defaultImage;
         $fileUploaded = is_file($file);
 
         if (!$fileUploaded) {
