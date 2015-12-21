@@ -16,8 +16,17 @@ use CHttpException;
 use Yii;
 use yupe\components\WebModule;
 
+/**
+ * Class YBackAccessControl
+ * @package yupe\filters
+ */
 class YBackAccessControl extends CAccessControlFilter
 {
+    /**
+     * @param \CFilterChain $filterChain
+     * @return bool
+     * @throws CHttpException
+     */
     public function preFilter($filterChain)
     {
         $ips = $filterChain->controller->yupe->getAllowedIp();

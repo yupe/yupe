@@ -40,7 +40,7 @@ class YFile extends CFileHelper
     public static function pathIsWritable($name, $ext, $path)
     {
         if (self::checkPath($path)) {
-            return $path . self::getTranslatedName($name) . '.' . $ext;
+            return $path.self::getTranslatedName($name).'.'.$ext;
         } else {
             return false;
         }
@@ -94,7 +94,7 @@ class YFile extends CFileHelper
             $dirHandle = opendir($path);
             while (false !== ($file = readdir($dirHandle))) {
                 if ($file != '.' && $file != '..') {
-                    $tmpPath = $path . '/' . $file;
+                    $tmpPath = $path.'/'.$file;
 
                     if (is_dir($tmpPath)) {
                         self::rmDir($tmpPath);
@@ -142,13 +142,17 @@ class YFile extends CFileHelper
     }
 
 
+    /**
+     * @param $file
+     * @return bool
+     */
     public static function rmIfExists($file)
     {
-        if(!file_exists($file)) {
+        if (!file_exists($file)) {
             return true;
         }
 
-        if(is_dir($file)) {
+        if (is_dir($file)) {
             return static::rmDir($file);
         }
 

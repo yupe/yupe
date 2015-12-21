@@ -48,7 +48,7 @@ class StoreCategory extends \yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     *
+     * @param string $className
      * @return StoreCategory the static model class
      */
     public static function model($className = __CLASS__)

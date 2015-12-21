@@ -16,13 +16,24 @@ namespace yupe\models;
 
 use CFormModel;
 
+/**
+ * Class YFormModel
+ * @package yupe\models
+ */
 abstract class YFormModel extends CFormModel
 {
+    /**
+     * @return array
+     */
     public function attributeDescriptions()
     {
         return [];
     }
 
+    /**
+     * @param $attribute
+     * @return string
+     */
     public function getAttributeDescription($attribute)
     {
         $descriptions = $this->attributeDescriptions();

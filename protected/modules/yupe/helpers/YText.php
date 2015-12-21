@@ -17,13 +17,26 @@ namespace yupe\helpers;
 use CHtmlPurifier;
 use dosamigos\yii\helpers\TransliteratorHelper;
 
+/**
+ * Class YText
+ * @package yupe\helpers
+ */
 class YText
 {
+    /**
+     * @param $lang
+     * @return string
+     */
     public static function langToflag($lang)
     {
         return "<i class='iconflags iconflags-{$lang}'></i>";
     }
 
+    /**
+     * @param $str
+     * @param string $separator
+     * @return mixed|string
+     */
     public static function translit($str, $separator = '-')
     {
         // Escape the separator.
@@ -70,7 +83,7 @@ class YText
         $out = "";
 
         foreach (explode(' ', trim($str)) as $val) {
-            $out .= $val . ' ';
+            $out .= $val.' ';
 
             if (mb_strlen($out) >= $n) {
                 $out = trim($out);
@@ -78,7 +91,7 @@ class YText
 
                 return (mb_strlen($out) == mb_strlen($str))
                     ? $out
-                    : $p->purify($out . $end_char);
+                    : $p->purify($out.$end_char);
             }
         }
     }
@@ -101,13 +114,13 @@ class YText
             return $str;
         }
 
-        preg_match('/^\s*+(?:\S++\s*+){1,' . (int)$limit . '}/', $str, $matches);
+        preg_match('/^\s*+(?:\S++\s*+){1,'.(int)$limit.'}/', $str, $matches);
 
         if (mb_strlen($str) == mb_strlen($matches[0])) {
             $end_char = '';
         }
 
-        return rtrim($matches[0]) . $end_char;
+        return rtrim($matches[0]).$end_char;
     }
 
     /**
@@ -128,7 +141,7 @@ class YText
             return $str;
         }
 
-        $str = ' ' . $str . ' ';
+        $str = ' '.$str.' ';
 
         // \w, \b and a few others do not match on a unicode character
         // set for performance reasons. As a result words like über
@@ -139,13 +152,13 @@ class YText
         foreach ($censored as $badword) {
             if ($replacement != '') {
                 $str = preg_replace(
-                    "/({$delim})(" . str_replace('\*', '\w*?', preg_quote($badword, '/')) . ")({$delim})/i",
+                    "/({$delim})(".str_replace('\*', '\w*?', preg_quote($badword, '/')).")({$delim})/i",
                     "\\1{$replacement}\\3",
                     $str
                 );
             } else {
                 $str = preg_replace(
-                    "/({$delim})(" . str_replace('\*', '\w*?', preg_quote($badword, '/')) . ")({$delim})/ie",
+                    "/({$delim})(".str_replace('\*', '\w*?', preg_quote($badword, '/')).")({$delim})/ie",
                     "'\\1'.str_repeat('#', strlen('\\2')).'\\3'",
                     $str
                 );
@@ -174,7 +187,7 @@ class YText
         }
 
         if ($phrase != '') {
-            return preg_replace('/(' . preg_quote($phrase, '/') . ')/i', $tag_open . "\\1" . $tag_close, $str);
+            return preg_replace('/('.preg_quote($phrase, '/').')/i', $tag_open."\\1".$tag_close, $str);
         }
 
         return $str;
@@ -214,7 +227,7 @@ class YText
         if (preg_match_all("|(\{unwrap\}.+?\{/unwrap\})|s", $str, $matches)) {
             for ($i = 0; $i < count($matches['0']); $i++) {
                 $unwrap[] = $matches['1'][$i];
-                $str = str_replace($matches['1'][$i], "{{unwrapped" . $i . "}}", $str);
+                $str = str_replace($matches['1'][$i], "{{unwrapped".$i."}}", $str);
             }
         }
 
@@ -229,7 +242,7 @@ class YText
             // Is the line within the allowed character count?
             // If so we'll join it to the output and continue
             if (strlen($line) <= $charlim) {
-                $output .= $line . "\n";
+                $output .= $line."\n";
                 continue;
             }
 
@@ -247,14 +260,14 @@ class YText
 
             // If $temp contains data it means we had to split up an over-length
             // word into smaller chunks so we'll add it back to our current line
-            $output .= ($temp != '') ? $temp . "\n" . $line : $line;
+            $output .= ($temp != '') ? $temp."\n".$line : $line;
             $output .= "\n";
         }
 
         // Put our markers back
         if (count($unwrap) > 0) {
             foreach ($unwrap as $key => $val) {
-                $output = str_replace("{{unwrapped" . $key . "}}", $val, $output);
+                $output = str_replace("{{unwrapped".$key."}}", $val, $output);
             }
         }
 
@@ -264,6 +277,10 @@ class YText
         return $output;
     }
 
+    /**
+     * @param $str
+     * @return string
+     */
     public static function asciiToEntities($str)
     {
         $count = 1;
@@ -279,7 +296,7 @@ class YText
                  * fair that we output that entity and restart $temp before continuing. -Paul
                  */
                 if (count($temp) == 1) {
-                    $out .= '&#' . array_shift($temp) . ';';
+                    $out .= '&#'.array_shift($temp).';';
                     $count = 1;
                 }
 
@@ -296,7 +313,7 @@ class YText
                         ? (($temp['0'] % 16) * 4096) + (($temp['1'] % 64) * 64) + ($temp['2'] % 64)
                         : (($temp['0'] % 32) * 64) + ($temp['1'] % 64);
 
-                    $out .= '&#' . $number . ';';
+                    $out .= '&#'.$number.';';
                     $count = 1;
                     $temp = [];
                 }
@@ -306,6 +323,11 @@ class YText
         return $out;
     }
 
+    /**
+     * @param $str
+     * @param bool|true $all
+     * @return mixed
+     */
     public static function entitiesToAscii($str, $all = true)
     {
         if (preg_match_all('/\&#(\d+)\;/', $str, $matches)) {

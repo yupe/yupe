@@ -30,13 +30,23 @@ use CActiveDataProvider;
 use CMap;
 use TagsCache;
 
+/**
+ * Class Settings
+ * @package yupe\models
+ */
 class Settings extends YModel
 {
     /*
         TYPE_CORE - для модуля,
         TYPE_USER - для пользователей
     */
+    /**
+     *
+     */
     const TYPE_CORE = 1;
+    /**
+     *
+     */
     const TYPE_USER = 2;
 
     /**
@@ -77,18 +87,21 @@ class Settings extends YModel
                 [
                     'id, module_id, param_name, param_value, create_time, update_time, user_id',
                     'safe',
-                    'on' => 'search'
+                    'on' => 'search',
                 ],
             ],
             $this->rulesFromModule
         );
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
         $this->update_time = new CDbExpression('NOW()');
 
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->create_time = $this->update_time;
         }
 
@@ -116,13 +129,13 @@ class Settings extends YModel
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('YupeModule.yupe', 'ID'),
-            'module_id'     => Yii::t('YupeModule.yupe', 'Module'),
-            'param_name'    => Yii::t('YupeModule.yupe', 'Parameter name'),
-            'param_value'   => Yii::t('YupeModule.yupe', 'Parameter value'),
+            'id' => Yii::t('YupeModule.yupe', 'ID'),
+            'module_id' => Yii::t('YupeModule.yupe', 'Module'),
+            'param_name' => Yii::t('YupeModule.yupe', 'Parameter name'),
+            'param_value' => Yii::t('YupeModule.yupe', 'Parameter value'),
             'create_time' => Yii::t('YupeModule.yupe', 'Creation date'),
-            'update_time'   => Yii::t('YupeModule.yupe', 'Change date'),
-            'user_id'       => Yii::t('YupeModule.yupe', 'User'),
+            'update_time' => Yii::t('YupeModule.yupe', 'Change date'),
+            'user_id' => Yii::t('YupeModule.yupe', 'User'),
         ];
     }
 
@@ -148,12 +161,11 @@ class Settings extends YModel
         return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
+
     /**
-     * Получает настройки модуля из базы данных (системные)
-     *
-     * @param  string $module_id Идентификатор модуля
-     * @param  mixed $params Список параметров, которые требуется прочитать
-     * @return array  Экземпляры класса Settings, соответствующие запрошенным параметрам
+     * @param $moduleId
+     * @param array|null $params
+     * @return array
      */
     public static function fetchModuleSettings($moduleId, array $params = null)
     {
@@ -189,11 +201,11 @@ class Settings extends YModel
         return $settings;
     }
 
+
     /**
-     * Сохраняет настройки модуля
-     * @param string $module_id Идентификатор модуля
-     * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
-     *
+     * @param $moduleId
+     * @param $paramValues
+     * @return bool
      */
     public static function saveModuleSettings($moduleId, $paramValues)
     {

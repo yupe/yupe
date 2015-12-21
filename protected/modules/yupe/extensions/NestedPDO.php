@@ -2,14 +2,27 @@
 
 namespace yupe\extensions;
 
+/**
+ * Class NestedPDO
+ * @package yupe\extensions
+ */
 class NestedPDO extends \PDO
 {
     // Database drivers that support SAVEPOINTs.
+    /**
+     * @var array
+     */
     protected static $savepointTransactions = ["pgsql", "mysql"];
 
     // The current transaction level.
+    /**
+     * @var int
+     */
     protected $transLevel = 0;
 
+    /**
+     * @return bool
+     */
     protected function nestable()
     {
         return in_array(
@@ -18,6 +31,9 @@ class NestedPDO extends \PDO
         );
     }
 
+    /**
+     *
+     */
     public function beginTransaction()
     {
         if ($this->transLevel == 0 || !$this->nestable()) {
@@ -29,6 +45,9 @@ class NestedPDO extends \PDO
         $this->transLevel++;
     }
 
+    /**
+     *
+     */
     public function commit()
     {
         $this->transLevel--;
@@ -40,6 +59,9 @@ class NestedPDO extends \PDO
         }
     }
 
+    /**
+     *
+     */
     public function rollBack()
     {
         $this->transLevel--;
