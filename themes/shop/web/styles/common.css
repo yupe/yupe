@@ -991,6 +991,37 @@ a {
     padding: 0 14px 1px
 }
 
+.catalog__category-item {
+    display: inline-block;
+    width: 280px;
+    margin: 0 10px 40px 0;
+    vertical-align: top;
+}
+
+.catalog__category-item a {
+    color: #22b5cd;
+}
+
+.catalog__category-item a:hover {
+    text-decoration: underline;
+}
+
+.catalog__category-item ul {
+    list-style: none;
+    font-size: 12px;
+    padding-left: 15px;
+}
+
+.catalog__category-item ul a {
+    color: #777;
+}
+
+.catalog__category-item-title {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+}
+
 .coupon-box {
     padding: 60px;
     background-color: #eeec51;
