@@ -165,6 +165,13 @@ class StoreCategory extends \yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    public function afterSave()
+    {
+        Yii::app()->cache->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
+
+        return parent::afterSave();
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
