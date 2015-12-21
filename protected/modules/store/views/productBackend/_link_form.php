@@ -151,7 +151,7 @@ $linkTypes = ProductLinkType::getFormattedList();
                         'filter' => CHtml::activeDropDownList(
                                 $searchModel,
                                 'category',
-                                StoreCategory::model()->getFormattedList(),
+                                StoreCategoryHelper::formattedList(),
                                 ['encode' => false, 'empty' => '', 'class' => 'form-control']
                             ),
                         'htmlOptions' => ['width' => '220px'],

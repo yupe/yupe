@@ -30,9 +30,9 @@ $form = $this->beginWidget(
             'parent_id',
             [
                 'widgetOptions' => [
-                    'data'        => StoreCategory::model()->getFormattedList(),
+                    'data' => StoreCategoryHelper::formattedList(),
                     'htmlOptions' => [
-                        'empty'  => Yii::t('StoreModule.store', '--no--'),
+                        'empty' => Yii::t('StoreModule.store', '--no--'),
                         'encode' => false,
                     ],
                 ],

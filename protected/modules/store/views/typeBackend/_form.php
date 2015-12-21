@@ -48,7 +48,7 @@ $form = $this->beginWidget(
             'main_category_id',
             [
                 'widgetOptions' => [
-                    'data' => StoreCategory::model()->getFormattedList(),
+                    'data' => StoreCategoryHelper::formattedList(),
                     'htmlOptions' => [
                         'empty' => '---',
                         'encode' => false,

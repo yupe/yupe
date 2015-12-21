@@ -75,7 +75,7 @@ $this->menu = [
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'parent_id',
-                    StoreCategory::model()->getFormattedList(),
+                    StoreCategoryHelper::formattedList(),
                     ['encode' => false, 'empty' => '', 'class' => 'form-control']
                 ),
             ],
