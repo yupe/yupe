@@ -4,6 +4,7 @@ class StoreCategoryHelper
 {
     const CACHE_CATEGORY_TREE = 'Store::StoreCategory::CategoryTree';
     const CACHE_CATEGORY_LIST = 'Store::StoreCategory::CategoryList';
+    const CACHE_CATEGORY_TAG = 'yupe::store::categories';
 
     /**
      * Get store categories tree
@@ -45,7 +46,7 @@ class StoreCategoryHelper
 
         $flatten(self::tree());
 
-        Yii::app()->getCache()->set(self::CACHE_CATEGORY_LIST, $formattedList);
+        Yii::app()->getCache()->set(self::CACHE_CATEGORY_LIST, $formattedList, 0, new TagsCache(self::CACHE_CATEGORY_TAG));
 
         return $formattedList;
     }
@@ -82,7 +83,7 @@ class StoreCategoryHelper
             return $value['parent_id'] == 0;
         });
 
-        Yii::app()->getCache()->set(self::CACHE_CATEGORY_TREE, $tree);
+        Yii::app()->getCache()->set(self::CACHE_CATEGORY_TREE, $tree, 0, new TagsCache(self::CACHE_CATEGORY_TAG));
 
         return $tree;
     }
