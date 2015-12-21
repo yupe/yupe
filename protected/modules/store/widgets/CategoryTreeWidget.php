@@ -81,7 +81,7 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
                     'class' => (in_array($node['id'], $this->selectedCategories) ? 'jstree-clicked' : '')
                 ]
             );
-            if (count($node['items'])) {
+            if (isset($node['items'])) {
                 echo CHtml::openTag('ul');
                 $this->createHtmlTree($node['items']);
                 echo CHtml::closeTag('ul');

@@ -14,52 +14,17 @@ class StoreCategoryHelper
     {
         $tree = Yii::app()->getCache()->get(self::CACHE_CATEGORY_TREE);
 
-        if ($tree) {
-            return $tree[0];
-        }
-
-        $tree = [];
-        $data = StoreCategory::model()->findAll(['order' => 'sort']);
-
-        $generate_tree = function (&$branch) use (&$generate_tree, &$tree) {
-            foreach ($branch as &$item) {
-                if (!isset($tree[$item['id']])) {
-                    $item['items'] = [];
-                    continue;
-                }
-
-                $item['items'] = $tree[$item['id']];
-                unset($tree[$item['id']]);
-
-                $generate_tree($item['items']);
-            }
-        };
-
-        foreach ($data as $item) {
-            $tree[$item->parent_id ?: 0][] = [
-                'id' => $item->id,
-                'name' => $item->name,
-            ];
-        }
-
-        foreach ($tree as $key => &$branch) {
-            if ($key > 0) {
-                continue;
-            }
-            $generate_tree($branch);
-        }
-
-        Yii::app()->getCache()->set(self::CACHE_CATEGORY_TREE, $tree);
-
-        return $tree[0];
+        return $tree ?: self::generateTree();
     }
 
     /**
      * Get store categories formatted list (id => name)
      *
+     * @param string $prefix
+     *
      * @return array
      */
-    public static function formattedList()
+    public static function formattedList($prefix = '&emsp;')
     {
         $formattedList = Yii::app()->getCache()->get(self::CACHE_CATEGORY_LIST);
 
@@ -69,10 +34,10 @@ class StoreCategoryHelper
 
         $formattedList = [];
 
-        $flatten = function ($tree, $level = 0) use (&$flatten, &$formattedList) {
+        $flatten = function ($tree, $level = 0) use (&$flatten, &$formattedList, $prefix) {
             foreach ($tree as $item) {
-                $formattedList[$item['id']] = str_repeat('&emsp;', $level) . $item['name'];
-                if (count($item['items'])) {
+                $formattedList[$item['id']] = str_repeat($prefix, $level) . $item['name'];
+                if (isset($item['items'])) {
                     $flatten($item['items'], $level + 1);
                 }
             }
@@ -83,5 +48,42 @@ class StoreCategoryHelper
         Yii::app()->getCache()->set(self::CACHE_CATEGORY_LIST, $formattedList);
 
         return $formattedList;
+    }
+
+    /**
+     * Generate store category tree
+     *
+     * @param string $order
+     *
+     * @return array
+     */
+    private static function generateTree($order = 'sort')
+    {
+        $tree = [];
+        $data = StoreCategory::model()->findAll(['order' => $order]);
+
+        foreach ($data as $item) {
+            $tree[$item->id] = [
+                'id' => $item->id,
+                'parent_id' => $item->parent_id,
+                'name' => $item->name,
+                'status' => $item->status,
+            ];
+        }
+
+        foreach ($tree as $key => &$value) {
+            if (isset($tree[$value['parent_id']])) {
+                $tree[$value['parent_id']]['items'][$key] = &$value;
+            }
+            unset($value);
+        }
+
+        $tree = array_filter($tree, function ($value) {
+            return $value['parent_id'] == 0;
+        });
+
+        Yii::app()->getCache()->set(self::CACHE_CATEGORY_TREE, $tree);
+
+        return $tree;
     }
 }
