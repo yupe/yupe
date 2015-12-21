@@ -6,6 +6,7 @@ return [
     ],
     'import' => [
         'application.modules.store.models.*',
+        'application.modules.store.helpers.*',
         'application.modules.store.components.helpers.StoreImage'
     ],
     'component' => [

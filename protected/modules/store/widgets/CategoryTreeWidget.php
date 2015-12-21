@@ -49,27 +49,15 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
 
     public function run()
     {
-        $data = StoreCategory::model()->getMenuList(10);
-
-        echo CHtml::openTag(
-            'div',
-            [
-                'id' => $this->id,
-            ]
-        );
-        echo CHtml::openTag('ul');
-        $this->createHtmlTree($data);
-        echo CHtml::closeTag('ul');
-        echo CHtml::closeTag('div');
-
         $options = CJavaScript::encode($this->options);
 
-        Yii::app()->clientScript->registerScript(
-            'JsTreeScript',
-            "
-			$('#{$this->id}').jstree({$options});
-		"
-        );
+        echo CHtml::openTag('div', ['id' => $this->id]);
+            echo CHtml::openTag('ul');
+                $this->createHtmlTree(StoreCategoryHelper::tree());
+            echo CHtml::closeTag('ul');
+        echo CHtml::closeTag('div');
+
+        Yii::app()->clientScript->registerScript('JsTreeScript', "$('#{$this->id}').jstree({$options})");
     }
 
     /**
@@ -86,7 +74,7 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
                 ]
             );
             echo CHtml::link(
-                CHtml::encode($node['label']),
+                CHtml::encode($node['name']),
                 '#',
                 [
                     'data-category-id' => $node['id'],

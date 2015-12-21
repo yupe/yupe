@@ -48,6 +48,7 @@ class StoreCategory extends \yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
+     *
      * @return StoreCategory the static model class
      */
     public static function model($className = __CLASS__)
@@ -101,7 +102,7 @@ class StoreCategory extends \yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath.'/category' : null,
+                'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
             ],
             'CategoryTreeBehavior' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
@@ -209,6 +210,7 @@ class StoreCategory extends \yupe\models\YModel
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
+     *
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function search()
@@ -260,44 +262,6 @@ class StoreCategory extends \yupe\models\YModel
     }
 
     /**
-     * @param bool|false $selfId
-     * @return array
-     */
-    public function getAllCategoryList($selfId = false)
-    {
-        $conditionArray = ($selfId)
-            ? ['condition' => 'id != :id', 'params' => [':id' => $selfId]]
-            : [];
-
-        $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);
-
-        return CHtml::listData($category, 'id', 'name');
-    }
-
-    /**
-     * @param null $parent_id
-     * @param int $level
-     * @return array|mixed
-     */
-    public function getFormattedList($parent_id = null, $level = 0)
-    {
-        $list = [];
-
-        $categories = StoreCategory::model()->findAllByAttributes(['parent_id' => $parent_id], ['order' => 'name']);
-
-        foreach ($categories as $key => $category) {
-
-            $category->name = str_repeat('&emsp;', $level).$category->name;
-
-            $list[$category->id] = $category->name;
-
-            $list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1));
-        }
-
-        return $list;
-    }
-
-    /**
      * @return string
      */
     public function getParentName()
@@ -307,16 +271,14 @@ class StoreCategory extends \yupe\models\YModel
 
     /**
      * @param $slug
+     *
      * @return array|mixed|null
      */
     public function getByAlias($slug)
     {
-        return self::model()->published()->find(
-            'slug = :slug',
-            [
-                ':slug' => $slug,
-            ]
-        );
+        return self::model()->published()->find('slug = :slug', [
+            ':slug' => $slug,
+        ]);
     }
 
     /**
@@ -325,8 +287,7 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl.'/store/'.$this->getPath().Yii::app()->getUrlManager(
-                )->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
         }
 
         return $this->_url;
