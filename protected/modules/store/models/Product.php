@@ -41,7 +41,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * The followings are the available model relations:
  * @property Type $type
  * @property Producer $producer
- * @property StoreCategory $mainCategory
+ * @property StoreCategory $category
  * @property ProductImage $mainImage
  * @property ProductImage[] $images
  * @property ProductVariant[] $variants
@@ -172,7 +172,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'producer' => [self::BELONGS_TO, 'Producer', 'producer_id'],
             'categoryRelation' => [self::HAS_MANY, 'ProductCategory', 'product_id'],
             'categories' => [self::HAS_MANY, 'StoreCategory', ['category_id' => 'id'], 'through' => 'categoryRelation'],
-            'mainCategory' => [self::BELONGS_TO, 'StoreCategory', ['category_id' => 'id']],
+            'category' => [self::BELONGS_TO, 'StoreCategory', ['category_id' => 'id']],
             'images' => [self::HAS_MANY, 'ProductImage', 'product_id'],
             'variants' => [
                 self::HAS_MANY,
@@ -320,7 +320,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('average_price', $this->average_price);
         $criteria->compare('recommended_price', $this->recommended_price);
         $criteria->compare('in_stock', $this->in_stock);
-        $criteria->with = ['mainCategory', 'categories'];
+        $criteria->with = ['category', 'categories'];
 
         if ($this->category) {
             $criteria->with = ['categoryRelation' => ['together' => true]];
@@ -768,9 +768,9 @@ class Product extends yupe\models\YModel implements ICommentable
     /**
      * @return null|string
      */
-    public function getMainCategoryId()
+    public function getCategoryId()
     {
-        return is_object($this->mainCategory) ? $this->mainCategory->id : null;
+        return is_object($this->category) ? $this->category->id : null;
     }
 
     /**

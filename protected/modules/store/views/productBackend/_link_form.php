@@ -139,7 +139,7 @@ $linkTypes = ProductLinkType::getFormattedList();
                     [
                         'name' => 'category_id',
                         'value' => function ($data) {
-                                $categoryList = '<span class="label label-primary">' . (isset($data->mainCategory) ? $data->mainCategory->name : '---') . '</span>';
+                                $categoryList = '<span class="label label-primary">' . (isset($data->category) ? $data->category->name : '---') . '</span>';
 
                                 foreach ($data->categories as $category) {
                                     $categoryList .= '<br>' . $category->name;

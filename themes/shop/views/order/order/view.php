@@ -72,8 +72,8 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                                 <img src="<?= $position->product->getImageUrl(250, 250, false); ?>" class="cart-item__img" />
                             </div>
                             <div class="cart-item__content">
-                                <?php if(isset($position->product->mainCategory)):?>
-                                    <div class="cart-item__category"><?= $position->product->mainCategory->name ?></div>
+                                <?php if(isset($position->product->category)):?>
+                                    <div class="cart-item__category"><?= $position->product->category->name ?></div>
                                 <?php endif?>
                                 <div class="cart-item__title grid-module-4">
                                     <a href="<?= Yii::app()->createUrl('/store/product/view', ['name' => $position->product->slug]) ?>" class="cart-item__link">

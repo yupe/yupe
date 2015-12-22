@@ -77,9 +77,9 @@ $this->breadcrumbs = [
                                          class="cart-item__img"/>
                                 </div>
                                 <div class="cart-item__content grid-module-4">
-                                    <?php if ($position->getProductModel()->getMainCategoryId()): ?>
+                                    <?php if ($position->getProductModel()->getCategoryId()): ?>
                                         <div class="cart-item__category"><?= $position->getProductModel(
-                                            )->mainCategory->name ?></div>
+                                            )->category->name ?></div>
                                     <?php endif; ?>
                                     <div class="cart-item__title">
                                         <a href="<?= $productUrl; ?>" class="cart-item__link"><?= CHtml::encode(

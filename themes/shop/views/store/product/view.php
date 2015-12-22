@@ -10,7 +10,7 @@ Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/store
 
 $this->breadcrumbs = array_merge(
     [Yii::t("StoreModule.store", 'Catalog') => ['/store/product/index']],
-    $product->mainCategory ? $product->mainCategory->getBreadcrumbs(true) : [],
+    $product->category ? $product->category->getBreadcrumbs(true) : [],
     [CHtml::encode($product->name)]
 );
 ?>

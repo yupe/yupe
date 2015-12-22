@@ -228,7 +228,7 @@ class ProductRepository extends CApplicationComponent
      * @param array $with
      * @return mixed
      */
-    public function getBySlug($slug, array $with = ['producer', 'type.typeAttributes', 'images', 'mainCategory', 'variants'])
+    public function getBySlug($slug, array $with = ['producer', 'type.typeAttributes', 'images', 'category', 'variants'])
     {
         return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
     }
@@ -238,7 +238,7 @@ class ProductRepository extends CApplicationComponent
      * @param array $with
      * @return mixed
      */
-    public function getById($id, array $with = ['producer', 'type.typeAttributes', 'images', 'mainCategory', 'variants'])
+    public function getById($id, array $with = ['producer', 'type.typeAttributes', 'images', 'category', 'variants'])
     {
         return Product::model()->published()->with($with)->findByPk($id);
     }
