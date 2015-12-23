@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('StoreModule.attr', 'Attributes') => ['/store/attributeBackend/index'],
-    $model->name => ['/store/attributeBackend/view', 'id' => $model->id],
+    $model->title => ['/store/attributeBackend/view', 'id' => $model->id],
     Yii::t('StoreModule.store', 'Edition'),
 ];
 
@@ -43,7 +43,7 @@ $this->menu = [
 <div class="page-header">
     <h1>
         <?php echo Yii::t('StoreModule.attr', 'Updating attribute'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
