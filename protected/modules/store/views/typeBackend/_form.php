@@ -1,23 +1,4 @@
-<script type="text/javascript">
-    $(document).ready(function () {
-        function changeChildNodes(elem) {
-            $(elem).closest('li').find('input').attr('checked', elem.checked);
-        }
 
-        $('.group-checkbox').change(function () {
-            changeChildNodes(this);
-        });
-
-        // не знаю, зачем так грубо
-        $('#type-form').submit(function () {
-            var typeForm = $(this);
-            $('#category-tree a.jstree-clicked').each(function (index, element) {
-                typeForm.append('<input type="hidden" name="categories[]" value="' + $(element).data('category-id') + '" />');
-            });
-        });
-
-    })
-</script>
 <?php
 /**
  * @var $model Type
@@ -41,24 +22,6 @@ $form = $this->beginWidget(
 
 <?= $form->errorSummary($model); ?>
 
-<div class='row'>
-    <div class="col-sm-7">
-        <?= $form->dropDownListGroup(
-            $model,
-            'main_category_id',
-            [
-                'widgetOptions' => [
-                    'data' => StoreCategoryHelper::formattedList(),
-                    'htmlOptions' => [
-                        'empty' => '---',
-                        'encode' => false,
-                        'id' => 'main_category_id',
-                    ],
-                ],
-            ]
-        ); ?>
-    </div>
-</div>
 
 <div class='row'>
     <div class="col-sm-7">
@@ -66,13 +29,6 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-
-<div class='row'>
-    <div class="col-sm-7 form-group">
-        <?= CHtml::activeLabel($model, 'categories'); ?>
-        <?php $this->widget('store.widgets.CategoryTreeWidget', ['selectedCategories' => unserialize($model->categories), 'id' => 'category-tree']); ?>
-    </div>
-</div>
 
 <div class="row">
     <?php $tree = [];
@@ -114,7 +70,7 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <?= Yii::t("StoreModule.type", "Type attributes"); ?>
+                <?= Yii::t("StoreModule.store", "Type attributes"); ?>
             </div>
             <div class="panel-body">
                 <?php $this->widget('CTreeView', ['data' => $tree, 'collapsed' => true]); ?>
@@ -128,7 +84,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.type', 'Add type and continue') : Yii::t('StoreModule.type', 'Save type and continue'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add type and continue') : Yii::t('StoreModule.store', 'Save type and continue'),
     ]
 ); ?>
 
@@ -137,7 +93,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.type', 'Add type and close') : Yii::t('StoreModule.type', 'Save type and close'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add type and close') : Yii::t('StoreModule.store', 'Save type and close'),
     ]
 ); ?>
 

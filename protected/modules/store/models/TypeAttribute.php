@@ -17,6 +17,10 @@ class TypeAttribute extends \yupe\models\YModel
         return '{{store_type_attribute}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);

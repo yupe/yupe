@@ -83,10 +83,6 @@ class Product extends yupe\models\YModel implements ICommentable
     const STATUS_IN_STOCK = 1;
 
     /**
-     * @var
-     */
-    public $category;
-    /**
      * @var array
      */
     public $selectedVariants = [];
@@ -223,7 +219,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
             'category_id' => Yii::t('StoreModule.category', 'Category'),
-            'type_id' => Yii::t('StoreModule.type', 'Type'),
+            'type_id' => Yii::t('StoreModule.store', 'Type'),
             'name' => Yii::t('StoreModule.store', 'Title'),
             'price' => Yii::t('StoreModule.store', 'Price'),
             'discount_price' => Yii::t('StoreModule.store', 'Discount price'),

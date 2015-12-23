@@ -34,5 +34,5 @@ return [
     'Updating attribute' => 'Редактирование атрибута',
     'View attribute list' => 'Просмотреть список атрибутов',
     'View attribute' => 'Просмотреть',
-    'Viewing attribute' => 'Просмотр атрибута',
+    'Viewing attribute' => 'Просмотр атрибута'
 ];

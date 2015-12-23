@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class TypeBackendController
+ */
 class TypeBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -15,27 +21,22 @@ class TypeBackendController extends yupe\components\controllers\BackController
         ];
     }
 
-    public function actionView($id)
-    {
-        $this->render('view', ['model' => $this->loadModel($id)]);
-    }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Type();
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('Type')) !== null) {
-            $model->setAttributes($data);
-            $model->categories = serialize(Yii::app()->getRequest()->getPost('categories'));
-            if ($model->save()) {
-                $model->setTypeAttributes(Yii::app()->getRequest()->getPost('attributes'));
 
-                Yii::app()->user->setFlash(
+            $model->setAttributes($data);
+
+            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes'))) {
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.type', 'Тип товара создан.')
+                    Yii::t('StoreModule.store', 'Product type is created')
                 );
 
                 $this->redirect(
@@ -46,29 +47,34 @@ class TypeBackendController extends yupe\components\controllers\BackController
                 );
             }
         }
-        //$criteria = new CDbCriteria();
-        //$criteria->addNotInCondition('id', CHtml::listData($model->attributeRelation, 'attribute_id', 'attribute_id'));
-        $availableAttributes = Attribute::model()->findAll();
-        $this->render('create', ['model' => $model, 'availableAttributes' => $availableAttributes]);
+
+        $this->render(
+            'create',
+            [
+                'model' => $model,
+                'availableAttributes' => Attribute::model()->findAll(),
+            ]
+        );
     }
 
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('Type')) !== null) {
-            $model->setAttributes($data);
-            $model->categories = serialize(Yii::app()->getRequest()->getPost('categories'));
-            if ($model->save()) {
-                $model->setTypeAttributes(Yii::app()->getRequest()->getPost('attributes'));
 
-                Yii::app()->user->setFlash(
+            $model->setAttributes($data);
+
+            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes'))) {
+
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.type', 'Тип обновлен.')
+                    Yii::t('StoreModule.store', 'Product type is updated')
                 );
 
                 $this->redirect(
@@ -89,39 +95,28 @@ class TypeBackendController extends yupe\components\controllers\BackController
     }
 
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            $transaction = Yii::app()->db->beginTransaction();
-
-            try {
-                // поддерживаем удаление только из POST-запроса
-                $this->loadModel($id)->delete();
-                // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-
-                $transaction->commit();
-
-                if (!isset($_GET['ajax'])) {
-                    $this->redirect(
-                        (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
-                    );
-                }
-            } catch (Exception $e) {
-                $transaction->rollback();
-
-                Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            }
+            $this->loadModel($id)->delete();
 
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('StoreModule.type', 'Bad request. Please don\'t use similar requests anymore')
+                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore')
             );
         }
     }
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Type('search');
@@ -143,21 +138,19 @@ class TypeBackendController extends yupe\components\controllers\BackController
     {
         $model = Type::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.type', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
         }
+
         return $model;
     }
 
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param CModel $model - модель, которую необходимо валидировать
-     *
-     * @return void
-     */
+
     protected function performAjaxValidation(Attribute $model)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'attribute-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+                'ajax'
+            ) === 'attribute-form'
+        ) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
