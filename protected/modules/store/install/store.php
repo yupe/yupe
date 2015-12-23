@@ -22,7 +22,10 @@ return [
             'class' => 'application.modules.store.components.Money',
         ],
         'productRepository' => [
-            'class' => 'application.modules.store.components.ProductRepository'
+            'class' => 'application.modules.store.components.repository.ProductRepository'
+        ],
+        'categoryRepository' => [
+            'class' => 'application.modules.store.components.repository.StoreCategoryRepository'
         ],
         'attributesFilter' => [
             'class' => 'application.modules.store.components.AttributeFilter'

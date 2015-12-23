@@ -102,7 +102,7 @@ class StoreCategory extends \yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
+                'uploadPath' => $module !== null ? $module->uploadPath.'/category' : null,
             ],
             'CategoryTreeBehavior' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
@@ -153,21 +153,13 @@ class StoreCategory extends \yupe\models\YModel
         ];
     }
 
+
     /**
-     * @return bool
+     *
      */
-    public function beforeValidate()
-    {
-        if (!$this->slug) {
-            $this->slug = yupe\helpers\YText::translit($this->name);
-        }
-
-        return parent::beforeValidate();
-    }
-
     public function afterSave()
     {
-        Yii::app()->cache->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
+        Yii::app()->getCache()->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
 
         return parent::afterSave();
     }
@@ -276,17 +268,7 @@ class StoreCategory extends \yupe\models\YModel
         return $this->parent ? $this->parent->name : '---';
     }
 
-    /**
-     * @param $slug
-     *
-     * @return array|mixed|null
-     */
-    public function getByAlias($slug)
-    {
-        return self::model()->published()->find('slug = :slug', [
-            ':slug' => $slug,
-        ]);
-    }
+
 
     /**
      * @return string
@@ -294,7 +276,8 @@ class StoreCategory extends \yupe\models\YModel
     public function getUrl()
     {
         if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl . '/store/' . $this->getPath() . Yii::app()->getUrlManager()->urlSuffix;
+            $this->_url = Yii::app()->getRequest()->baseUrl.'/store/'.$this->getPath().Yii::app()->getUrlManager(
+                )->urlSuffix;
         }
 
         return $this->_url;

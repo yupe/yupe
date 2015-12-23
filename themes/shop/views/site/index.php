@@ -19,7 +19,7 @@
 <div class="main__new-slider grid">
     <div class="new-slider js-overlay-items">
         <div class="h2">Новинки</div>
-        <?php $this->widget('application.modules.store.widgets.ProductsFromCategoryWidget', ['slug' => 'NEW']); ?>
+        <?php $this->widget('application.modules.store.widgets.ProductsFromCategoryWidget', ['slug' => 'chasy']); ?>
     </div>
 </div>
 <div class="main__recently-viewed-slider">

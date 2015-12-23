@@ -13,37 +13,61 @@ Yii::import('application.modules.store.models.Product');
  */
 class ProductsFromCategoryWidget extends \yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $slug;
+    /**
+     * @var bool
+     */
     public $limit = false;
+    /**
+     * @var string
+     */
     public $order = 't.id DESC';
+    /**
+     * @var string
+     */
     public $view = 'default';
 
+    /**
+     * @var StoreCategoryRepository $categoryRepository
+     */
+    protected $categoryRepository;
+
+    /**
+     * @var ProductRepository $productRepository
+     */
+    protected $productRepository;
+
+    /**
+     *
+     */
+    public function init()
+    {
+        $this->categoryRepository = Yii::app()->getComponent('categoryRepository');
+        $this->productRepository = Yii::app()->getComponent('productRepository');
+        parent::init();
+    }
+
+    /**
+     * @return bool
+     * @throws CException
+     */
     public function run()
     {
-        $category = StoreCategory::model()->getByAlias($this->slug);
+        $category = $this->categoryRepository->getByAlias($this->slug);
 
-        if(!$category) {
+        if (null === $category) {
             return false;
         }
 
-        $criteria = new CDbCriteria();
-        $criteria->select = 't.*';
-        $criteria->with = ['categoryRelation' => ['together' => true]];
-        $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
-        $criteria->addCondition('status = :status');
-        if ($this->limit) {
-            $criteria->limit = $this->limit;
-        }
-        $criteria->order = $this->order;
-        $criteria->group = 't.id';
-        $criteria->params = [
-            ':category_id' => $category->id,
-            ':status' => Product::STATUS_ACTIVE
-        ];
-
-        $this->render($this->view, [
-            'category' => $category,
-            'products' => Product::model()->findAll($criteria)
-        ]);
+        $this->render(
+            $this->view,
+            [
+                'category' => $category,
+                'products' => $this->productRepository->getListForCategory($category, $this->limit),
+            ]
+        );
     }
 }

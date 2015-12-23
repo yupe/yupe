@@ -12,7 +12,7 @@
         <div class="btn h-slider__control h-slider__prev js-slick__prev"></div>
     </div>
     <div class="h-slider__slides js-slick__container">
-        <?php foreach ($products as $i => $product): ?>
+        <?php foreach ($products->getData() as $product): ?>
             <?php $this->render('_item', ['product' => $product]) ?>
         <?php endforeach; ?>
     </div>

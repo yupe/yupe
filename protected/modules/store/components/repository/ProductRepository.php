@@ -180,9 +180,10 @@ class ProductRepository extends CApplicationComponent
 
     /**
      * @param StoreCategory $category
+     * @param integer $limit
      * @return CActiveDataProvider
      */
-    public function getListForCategory(StoreCategory $category)
+    public function getListForCategory(StoreCategory $category, $limit = null)
     {
         $categories = $category->getChildsArray();
         $categories[] = $category->id;
@@ -194,6 +195,9 @@ class ProductRepository extends CApplicationComponent
         $criteria->addInCondition('t.category_id', $categories, 'OR');
         $criteria->group = 't.id';
         $criteria->scopes = ['published'];
+        if($limit){
+            $criteria->limit = $limit;
+        }
 
         return new CActiveDataProvider(
             Product::model(),
