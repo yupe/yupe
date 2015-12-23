@@ -94,7 +94,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                     return $categoryList;
                 },
                 'type' => 'raw',
-                'filter' => CHtml::activeDropDownList($model, 'category', StoreCategoryHelper::formattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
+                'filter' => CHtml::activeDropDownList($model, 'category_id', StoreCategoryHelper::formattedList(), ['encode' => false, 'empty' => '', 'class' => 'form-control']),
                 'htmlOptions' => ['width' => '220px'],
             ],
             [
