@@ -218,7 +218,7 @@ return [
     'Page after activation error' => 'Страница неудачной активации аккаунта',
     'Page after admin authorization' => 'Страница после авторизации админстратора',
     'Page after authorization' => 'Страница после авторизации',
-    'Page after login' => 'Страница после выхода с сайта',
+    'Page after logout' => 'Страница после выхода с сайта',
     'Page after success register' => 'Страница после успешной регистрации',
     'Password confirmation' => 'Подтверждение пароля',
     'Password for {user} user was changed successfully' => 'Успешная смена пароля для пользоателя {user}!',

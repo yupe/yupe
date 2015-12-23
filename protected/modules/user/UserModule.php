@@ -118,7 +118,7 @@ class UserModule extends WebModule
             'accountActivationSuccess' => Yii::t('UserModule.user', 'Page after account activation'),
             'accountActivationFailure' => Yii::t('UserModule.user', 'Page after activation error'),
             'loginSuccess' => Yii::t('UserModule.user', 'Page after authorization'),
-            'logoutSuccess' => Yii::t('UserModule.user', 'Page after login'),
+            'logoutSuccess' => Yii::t('UserModule.user', 'Page after logout'),
             'notifyEmailFrom' => Yii::t('UserModule.user', 'From which email send a message'),
             'autoRecoveryPassword' => Yii::t('UserModule.user', 'Automatic password recovery'),
             'recoveryDisabled' => Yii::t('UserModule.user', 'Disable password recovery'),

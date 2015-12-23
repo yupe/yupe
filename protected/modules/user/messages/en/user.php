@@ -224,7 +224,7 @@ return [
     'Page after authorization' => '',
     'Page after admin authorization' => '',
     'Page after account activation' => '',
-    'Page after login' => '',
+    'Page after logout' => '',
     'Page after success register' => '',
     'Now You can' => '',
     'Now you can' => '',
