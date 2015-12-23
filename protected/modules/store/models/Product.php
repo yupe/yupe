@@ -151,7 +151,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ['is_special', 'boolean'],
             ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
             [
-                'id, type_id, producer_id, sku, name, slug, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category',
+                'id, type_id, producer_id, sku, name, slug, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category_id',
                 'safe',
                 'on' => 'search'
             ],
@@ -243,7 +243,6 @@ class Product extends yupe\models\YModel implements ICommentable
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
             'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
             'in_stock' => Yii::t('StoreModule.store', 'Stock status'),
-            'category' => Yii::t('StoreModule.category', 'Category'),
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
@@ -311,18 +310,17 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('producer_id', $this->producer_id);
-        $criteria->compare('category_id', $this->category_id);
         $criteria->compare('purchase_price', $this->purchase_price);
         $criteria->compare('average_price', $this->average_price);
         $criteria->compare('recommended_price', $this->recommended_price);
         $criteria->compare('in_stock', $this->in_stock);
         $criteria->with = ['category', 'categories'];
 
-        if ($this->category) {
+        if ($this->category_id) {
             $criteria->with = ['categoryRelation' => ['together' => true]];
             $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
             $criteria->group = 't.id';
-            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category]);
+            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category_id]);
         }
 
         return new CActiveDataProvider(get_class($this), [
