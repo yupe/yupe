@@ -1,4 +1,5 @@
 <?php
+use yupe\components\Event;
 
 /**
  * @property string $id
@@ -159,7 +160,7 @@ class StoreCategory extends \yupe\models\YModel
      */
     public function afterSave()
     {
-        Yii::app()->getCache()->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
+        Yii::app()->eventManager->fire(StoreEvents::CATEGORY_AFTER_SAVE, new Event($this));
 
         return parent::afterSave();
     }
