@@ -189,10 +189,7 @@ class AttributeValue extends yupe\models\YModel
         }
     }
 
-    /**
-     * @param Attribute $attribute
-     * @return string
-     */
+
     public function column($type)
     {
         $type = (int)$type;

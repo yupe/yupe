@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * @property integer $id
@@ -19,6 +18,10 @@ class ProductCategory extends \yupe\models\YModel
         return '{{store_product_category}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);

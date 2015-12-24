@@ -101,9 +101,7 @@ class StoreCategory extends \yupe\models\YModel
             ],
             'CategoryTreeBehavior' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
-                'titleAttribute' => 'name',
                 'aliasAttribute' => 'slug',
-                'urlAttribute' => 'url',
                 'requestPathAttribute' => 'path',
                 'parentAttribute' => 'parent_id',
                 'parentRelation' => 'parent',

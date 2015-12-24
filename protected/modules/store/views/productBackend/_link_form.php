@@ -2,7 +2,7 @@
 /* @var $searchModel ProductSearch */
 /* @var $product Product */
 
-$linkTypes = ProductLinkType::getFormattedList();
+$linkTypes = CHtml::listData(ProductLinkType::model()->findAll(['order' => 'title ASC']), 'id', 'title');
 ?>
 
 

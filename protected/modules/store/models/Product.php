@@ -367,10 +367,6 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function beforeValidate()
     {
-        if (!$this->slug) {
-            $this->slug = yupe\helpers\YText::translit($this->name);
-        }
-
         foreach ($this->getTypeAttributes() as $attribute) {
 
             if ($attribute->isType(Attribute::TYPE_CHECKBOX)) {
