@@ -268,21 +268,6 @@ class StoreCategory extends \yupe\models\YModel
         return $this->parent ? $this->parent->name : '---';
     }
 
-
-
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl.'/store/'.$this->getPath().Yii::app()->getUrlManager(
-                )->urlSuffix;
-        }
-
-        return $this->_url;
-    }
-
     /**
      * @return string
      */
