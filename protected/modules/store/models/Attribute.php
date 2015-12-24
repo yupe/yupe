@@ -115,12 +115,12 @@ class Attribute extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'Id'),
-            'name' => Yii::t('StoreModule.attr', 'Name'),
+            'name' => Yii::t('StoreModule.store', 'Name'),
             'title' => Yii::t('StoreModule.store', 'Title'),
             'type' => Yii::t('StoreModule.store', 'Type'),
-            'required' => Yii::t('StoreModule.attr', 'Required'),
-            'group_id' => Yii::t('StoreModule.attr', 'Group'),
-            'unit' => Yii::t('StoreModule.attr', 'Unit'),
+            'required' => Yii::t('StoreModule.store', 'Required'),
+            'group_id' => Yii::t('StoreModule.store', 'Group'),
+            'unit' => Yii::t('StoreModule.store', 'Unit'),
         ];
     }
 
@@ -131,12 +131,12 @@ class Attribute extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'Id'),
-            'name' => Yii::t('StoreModule.attr', 'Name'),
+            'name' => Yii::t('StoreModule.store', 'Name'),
             'title' => Yii::t('StoreModule.store', 'Title'),
             'type' => Yii::t('StoreModule.store', 'Type'),
-            'required' => Yii::t('StoreModule.attr', 'Required'),
-            'group_id' => Yii::t('StoreModule.attr', 'Group'),
-            'unit' => Yii::t('StoreModule.attr', 'Unit'),
+            'required' => Yii::t('StoreModule.store', 'Required'),
+            'group_id' => Yii::t('StoreModule.store', 'Group'),
+            'unit' => Yii::t('StoreModule.store', 'Unit'),
         ];
     }
 
@@ -177,11 +177,11 @@ class Attribute extends \yupe\models\YModel
     public static function getTypesList()
     {
         return [
-            self::TYPE_SHORT_TEXT => Yii::t('StoreModule.attr', 'Short text (up to 250 characters)'),
-            self::TYPE_TEXT => Yii::t('StoreModule.attr', 'Text'),
-            self::TYPE_DROPDOWN => Yii::t('StoreModule.attr', 'Dropdown list'),
+            self::TYPE_SHORT_TEXT => Yii::t('StoreModule.store', 'Short text (up to 250 characters)'),
+            self::TYPE_TEXT => Yii::t('StoreModule.store', 'Text'),
+            self::TYPE_DROPDOWN => Yii::t('StoreModule.store', 'Dropdown list'),
             //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Список чекбоксов'),
-            self::TYPE_CHECKBOX => Yii::t('StoreModule.attr', 'Checkbox'),
+            self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Checkbox'),
             //self::TYPE_IMAGE => Yii::t('StoreModule.store', 'Изображение'),
             self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
         ];

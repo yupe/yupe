@@ -27,7 +27,7 @@ class ProducerController extends FrontController
         $producer = Producer::model()->getBySlug($slug);
 
         if (!$producer) {
-            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
 
         $this->render('view', [

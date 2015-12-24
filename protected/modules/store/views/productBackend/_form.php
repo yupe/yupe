@@ -9,7 +9,7 @@
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
-    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.attr", "Attributes"); ?></a></li>
+    <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.store", "Attributes"); ?></a></li>
     <li><a href="#images" data-toggle="tab"><?= Yii::t("StoreModule.store", "Images"); ?></a></li>
     <li><a href="#variants" data-toggle="tab"><?= Yii::t("StoreModule.store", "Variants"); ?></a></li>
     <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Stock"); ?></a></li>
@@ -377,7 +377,7 @@ $form = $this->beginWidget(
     <div class="tab-pane" id="variants">
         <div class="row">
             <div class="col-sm-12 form-group">
-                <label class="control-label" for=""><?= Yii::t("StoreModule.attr", "Attribute"); ?></label>
+                <label class="control-label" for=""><?= Yii::t("StoreModule.store", "Attribute"); ?></label>
 
                 <div class="form-inline">
                     <div class="form-group">
@@ -395,7 +395,7 @@ $form = $this->beginWidget(
                         <table>
                             <thead>
                                 <tr>
-                                    <td><?= Yii::t("StoreModule.attr", "Attribute"); ?></td>
+                                    <td><?= Yii::t("StoreModule.store", "Attribute"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Value"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Price type"); ?></td>
                                     <td><?= Yii::t("StoreModule.store", "Price"); ?></td>

@@ -138,7 +138,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
     {
         $model = Type::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
 
         return $model;

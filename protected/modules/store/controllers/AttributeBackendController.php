@@ -62,7 +62,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.attribute', 'Атрибут создан.')
+                    Yii::t('StoreModule.store', 'Attribute created')
                 );
 
                 $this->redirect(
@@ -93,7 +93,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.attribute', 'Атрибут изменен.')
+                    Yii::t('StoreModule.store', 'Attribute updated')
                 );
 
                 $this->redirect(
@@ -143,7 +143,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('StoreModule.attribute', 'Bad request. Please don\'t use similar requests anymore')
+                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore')
             );
         }
     }
@@ -175,7 +175,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     {
         $model = Attribute::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.attribute', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
         return $model;
     }

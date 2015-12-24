@@ -171,7 +171,7 @@ $this->breadcrumbs = array_merge(
                             <dl class="product-spec-item">
                                 <dt class="product-spec-item__name">
                                     <span class="product-spec-item__name-inner">
-                                        <?= Yii::t("StoreModule.producer", "Producer"); ?>
+                                        <?= Yii::t("StoreModule.store", "Producer"); ?>
                                     </span>
                                 </dt>
                                 <dd class="product-spec-item__value">

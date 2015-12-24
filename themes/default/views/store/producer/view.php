@@ -13,15 +13,15 @@ $this->keywords = $brand->meta_keywords;
 
 $this->breadcrumbs = [
     Yii::t("StoreModule.store", 'Catalog') => ['/store/product/index'],
-    Yii::t('StoreModule.producer', 'Producers list') => ['/store/producer/index'],
-    Yii::t('StoreModule.producer', 'The products of the manufacturer') . ' "' . CHtml::encode($brand->name) . '"'
+    Yii::t('StoreModule.store', 'Producers list') => ['/store/producer/index'],
+    Yii::t('StoreModule.store', 'The products of the manufacturer') . ' "' . CHtml::encode($brand->name) . '"'
 ];
 
 ?>
 <div class="row">
     <div class="col-xs-12">
         <h2>
-            <?= Yii::t('StoreModule.producer', 'The products of the manufacturer'); ?>
+            <?= Yii::t('StoreModule.store', 'The products of the manufacturer'); ?>
             &laquo;<?= CHtml::encode($brand->name) ?>&raquo;
         </h2>
     </div>

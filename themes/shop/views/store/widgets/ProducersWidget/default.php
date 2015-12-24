@@ -8,7 +8,7 @@
     <div class="main__best-brands grid">
         <div class="best-brands">
             <div class="best-brands__title">
-                <div class="h3 h_upcase"><?= Yii::t('StoreModule.producer', 'Producers list'); ?></div>
+                <div class="h3 h_upcase"><?= Yii::t('StoreModule.store', 'Producers list'); ?></div>
             </div>
             <div class="best-brands__body">
                 <div class="grid">
