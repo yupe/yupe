@@ -57,7 +57,7 @@ class AttributeOption extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'position' => Yii::t('StoreModule.attr', 'Position'),
+            'position' => Yii::t('StoreModule.store', 'Position'),
             'value' => Yii::t('StoreModule.store', 'Value'),
         ];
     }
@@ -69,7 +69,7 @@ class AttributeOption extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'position' => Yii::t('StoreModule.attr', 'Position'),
+            'position' => Yii::t('StoreModule.store', 'Position'),
             'value' => Yii::t('StoreModule.store', 'Value'),
         ];
     }

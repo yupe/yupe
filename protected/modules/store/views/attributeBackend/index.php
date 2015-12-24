@@ -1,19 +1,19 @@
 <?php
 $this->breadcrumbs = [
-    Yii::t('StoreModule.attr', 'Attributes') => ['/store/attributeBackend/index'],
+    Yii::t('StoreModule.store', 'Attributes') => ['/store/attributeBackend/index'],
     Yii::t('StoreModule.store', 'Manage'),
 ];
 
-$this->pageTitle = Yii::t('StoreModule.attr', 'Attributes - manage');
+$this->pageTitle = Yii::t('StoreModule.store', 'Attributes - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.attr', 'Manage attributes'), 'url' => ['/store/attributeBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.attr', 'Create attribute'), 'url' => ['/store/attributeBackend/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Manage attributes'), 'url' => ['/store/attributeBackend/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Create attribute'), 'url' => ['/store/attributeBackend/create']],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?= Yii::t('StoreModule.attr', 'Attributes'); ?>
+        <?= Yii::t('StoreModule.store', 'Attributes'); ?>
         <small><?= Yii::t('StoreModule.store', 'administration'); ?></small>
     </h1>
 </div>
@@ -21,7 +21,7 @@ $this->menu = [
 <div class="row">
     <div class="col-sm-4">
         <fieldset>
-            <legend><?= Yii::t("StoreModule.attr", "Attribute groups"); ?></legend>
+            <legend><?= Yii::t("StoreModule.store", "Attribute groups"); ?></legend>
             <script type="text/javascript">
                 $(document).ready(function () {
                     var $container = $('body');

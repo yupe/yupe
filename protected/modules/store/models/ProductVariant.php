@@ -93,7 +93,7 @@ class ProductVariant extends \yupe\models\YModel
         return [
             'id' => Yii::t('StoreModule.store', 'Id'),
             'product_id' => Yii::t('StoreModule.store', 'Product'),
-            'attribute_id' => Yii::t('StoreModule.attr', 'Attribute'),
+            'attribute_id' => Yii::t('StoreModule.store', 'Attribute'),
             'attribute_value' => Yii::t('StoreModule.store', 'Attribute value'),
             'type' => Yii::t('StoreModule.store', 'Price type'),
             'amount' => Yii::t('StoreModule.store', 'Price'),

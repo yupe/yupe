@@ -192,7 +192,7 @@ $this->breadcrumbs = array_merge(
             <div class="tab-pane" id="attributes">
                 <table>
                     <tr>
-                        <td><b><?= Yii::t("StoreModule.producer", "Producer"); ?>:</b></td>
+                        <td><b><?= Yii::t("StoreModule.store", "Producer"); ?>:</b></td>
                         <td><?= CHtml::encode($product->getProducerName()); ?></td>
                     </tr>
                     <tr>

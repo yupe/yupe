@@ -77,7 +77,7 @@ class LinkBackendController extends yupe\components\controllers\BackController
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.store', 'Record was added!')
+                    Yii::t('StoreModule.store', 'Record was created!')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['typeIndex']));
@@ -107,7 +107,7 @@ class LinkBackendController extends yupe\components\controllers\BackController
     {
         $model = ProductLink::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
 
         return $model;

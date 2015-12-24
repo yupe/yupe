@@ -5,13 +5,13 @@
 
 $this->breadcrumbs = [
     Yii::t("StoreModule.store", 'Catalog') => ['/store/product/index'],
-    Yii::t('StoreModule.producer', 'Producers list')
+    Yii::t('StoreModule.store', 'Producers list')
 ];
 
 ?>
 <div class="main__title grid">
     <h1 class="h2">
-        <?= Yii::t('StoreModule.producer', 'Producers list'); ?>
+        <?= Yii::t('StoreModule.store', 'Producers list'); ?>
     </h1>
 </div>
 
