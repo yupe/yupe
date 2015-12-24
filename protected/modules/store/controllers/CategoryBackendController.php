@@ -105,7 +105,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.store', 'Category was changed!')
+                    Yii::t('StoreModule.category', 'Category was changed!')
                 );
 
                 $this->redirect(
