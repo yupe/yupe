@@ -36,7 +36,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property integer $position
  * @property integer $external_id
  *
- * @method getImageUrl($width = 0, $height = 0, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
  * The followings are the available model relations:
  * @property Type $type

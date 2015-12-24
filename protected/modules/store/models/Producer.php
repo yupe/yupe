@@ -14,7 +14,7 @@
  * @property string $meta_description
  * @property string $meta_keywords
  *
- * @method getImageUrl($width = 0, $height = 0, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  */
 class Producer extends yupe\models\YModel
 {

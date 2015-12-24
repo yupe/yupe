@@ -19,7 +19,7 @@ use yupe\components\Event;
  *
  * @method StoreCategory published()
  * @method StoreCategory roots()
- * @method getImageUrl($width = 0, $height = 0, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
  */
 class StoreCategory extends \yupe\models\YModel
