@@ -69,7 +69,7 @@ class HpController extends \yupe\components\controllers\FrontController
 
             $view = 'store';
 
-            Yii::import('application.modules.store.components.ProductRepository');
+            Yii::import('application.modules.store.components.repository.ProductRepository');
 
             $data = [
                 'dataProvider' => (new ProductRepository())->getListForIndexPage()
