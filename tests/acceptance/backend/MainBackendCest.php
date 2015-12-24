@@ -1,27 +1,29 @@
 <?php
-namespace feedback;
+namespace tests\acceptance\backend;
 
 use \WebGuy;
+use tests\acceptance\pages\CommonPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class MainBackendCest
 {
     public function tryToTestMainBackend(WebGuy $I, $scenario)
     {
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
         $I->am('guest user');
         $I->amGoingTo('try access to admin area');
-        $I->amOnPage(\CommonPage::PANEL_URL . 'login');
+        $I->amOnPage(CommonPage::PANEL_URL . 'login');
         $I->seeInCurrentUrl('/backend/login');
         $I->see('Пожалуйста, авторизуйтесь');
         $I->fillField('LoginForm[password]', 'wrong password');
-        $I->fillField('LoginForm[email]', \CommonPage::TEST_USER_NAME);
+        $I->fillField('LoginForm[email]', CommonPage::TEST_USER_NAME);
         $I->click('Войти');
-        $I->see('Email или пароль введены неверно!', \CommonPage::ERROR_CSS_CLASS);
+        $I->see('Email или пароль введены неверно!', CommonPage::ERROR_CSS_CLASS);
 
-        $I->fillField('LoginForm[password]', \CommonPage::TEST_PASSWORD);
+        $I->fillField('LoginForm[password]', CommonPage::TEST_PASSWORD);
         $I->click('Войти');
-        //$I->see('Вы успешно авторизовались!', \CommonPage::SUCCESS_CSS_CLASS);
-        $I->amOnPage(\CommonPage::PANEL_URL);
+        //$I->see('Вы успешно авторизовались!', CommonPage::SUCCESS_CSS_CLASS);
+        $I->amOnPage(CommonPage::PANEL_URL);
         $I->see('Панель управления "Юпи!"', 'h1');
 
         //simple check all modules
@@ -39,9 +41,6 @@ class MainBackendCest
 
         $I->amOnPage('/backend/gallery/gallery');
         $I->see('Галереи', 'h1');
-
-        $I->amOnPage('/backend/catalog/catalog');
-        $I->see('Товары', 'h1');
 
         $I->amOnPage('/backend/comment/comment');
         $I->see('Комментарии', 'h1');
@@ -92,21 +91,20 @@ class MainBackendCest
         $I->amGoingTo('change theme settings');
         $I->amOnPage('/backend/themesettings');
         $I->click('Сохранить настройки тем оформления');
-        $I->see('Настройки темы успешно сохранены!', \CommonPage::SUCCESS_CSS_CLASS);
+        $I->see('Настройки темы успешно сохранены!', CommonPage::SUCCESS_CSS_CLASS);
 
         $I->amGoingTo('change module settings');
         $I->amOnPage('/backend/modulesettings?module=yupe');
         $I->fillField('siteDescription', 'Changed site description!');
         $I->click('Сохранить настройки модуля "Юпи!"');
-        $I->see('Настройки модуля "Юпи!" сохранены!', \CommonPage::SUCCESS_CSS_CLASS);
+        $I->see('Настройки модуля "Юпи!" сохранены!', CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInField('siteDescription', 'Changed site description!');
 
         $I->amGoingTo('test modules page');
         $I->amOnPage('/backend/settings');
         $I->see('Модули', 'h1');
-        $I->see('20');
-        $I->see('21');
-        $I->see('1');
+        $I->seeLink('Юпи! (yupe)', '/backend/settings');
+        $I->seeLink('Пользователи (user)', '/backend/user/user');
 
         //$I->amGoingTo('disable catalog module');
         //$I->clickWithRightButton("[module='catalog']");

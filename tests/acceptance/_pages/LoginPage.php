@@ -1,4 +1,5 @@
 <?php
+namespace tests\acceptance\pages;
 
 class LoginPage
 {

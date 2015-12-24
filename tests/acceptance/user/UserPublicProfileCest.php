@@ -1,5 +1,8 @@
 <?php
+namespace tests\acceptance\user;
+
 use \WebGuy;
+use tests\acceptance\pages\EditProfilePage;
 
 class UserPublicProfileCest
 {

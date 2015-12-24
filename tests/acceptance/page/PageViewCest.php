@@ -1,7 +1,10 @@
 <?php
-namespace page;
+namespace tests\acceptance\page;
 
 use \WebGuy;
+use tests\acceptance\pages\LoginPage;
+use tests\acceptance\pages\CommonPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class PageViewCest
 { // tests
@@ -19,10 +22,10 @@ class PageViewCest
 
         $I->wantToTest('protected page...');
         $I->amOnPage('/pages/zaschischennaja-stranica');
-        $I->seeInCurrentUrl(\LoginPage::$URL);
-        $I->see('Для просмотра этой страницы Вам необходимо авторизоваться!', \CommonPage::ERROR_CSS_CLASS);
+        $I->seeInCurrentUrl(LoginPage::$URL);
+        $I->see('Для просмотра этой страницы Вам необходимо авторизоваться!', CommonPage::ERROR_CSS_CLASS);
 
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
         $I->login('yupe@yupe.local', 'testpassword');
         $I->amOnPage('/pages/zaschischennaja-stranica');
         $I->seeInTitle('Защищенная страница');

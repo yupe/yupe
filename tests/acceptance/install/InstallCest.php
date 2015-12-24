@@ -1,5 +1,8 @@
 <?php
+namespace tests\acceptance\install;
+
 use \WebGuy;
+use tests\acceptance\pages\CommonPage;
 
 class InstallCest
 {
@@ -37,7 +40,7 @@ class InstallCest
 
         // environment check
         $I->seeInCurrentUrl('environment');
-        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Шаг 2 из 8 : "Проверка окружения!', 'span');
         $I->seeLink('< Назад');
         $I->seeLink('Продолжить >');
@@ -45,7 +48,7 @@ class InstallCest
         // requirements check
         $I->click('Продолжить >');
         $I->seeInCurrentUrl('requirements');
-        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Шаг 3 из 8 : "Проверка системных требований', 'span');
         $I->seeLink('< Назад');
         $I->seeLink('Продолжить >');
@@ -71,9 +74,9 @@ class InstallCest
         $I->see('Проверить подключение и продолжить >');
 
         $I->click('Проверить подключение и продолжить >');
-        $I->see('Необходимо исправить следующие ошибки:', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Необходимо заполнить поле «Название базы данных».', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Необходимо заполнить поле «Пользователь».', \CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо исправить следующие ошибки:', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо заполнить поле «Название базы данных».', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо заполнить поле «Пользователь».', CommonPage::ERROR_CSS_CLASS);
 
         $dbConfig = $I->getDbConfig();
         $I->fillField('InstallForm[dbName]', $dbConfig["dbname"]);
@@ -81,11 +84,11 @@ class InstallCest
         $I->fillField('InstallForm[dbPassword]', $dbConfig["password"]);
 
         $I->click('Проверить подключение и продолжить >');
-        $I->dontSee('Не удалось создать БД!', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Не удалось создать БД!', CommonPage::ERROR_CSS_CLASS);
 
         $I->see('Шаг 5 из 8 : "Установка модулей');
         $I->seeInCurrentUrl('modulesinstall');
-        $I->see('Доступно модулей:', \CommonPage::SUCCESS_CSS_CLASS);
+        $I->see('Доступно модулей:', CommonPage::SUCCESS_CSS_CLASS);
         $I->see('20', '.label-info');
         $I->see('7', '.label-info');
 
@@ -133,14 +136,14 @@ class InstallCest
         $I->fillField('InstallForm[userPassword]', 'testpassword');
         $I->fillField('InstallForm[cPassword]', 'testpass');
         $I->click('Продолжить >');
-        $I->see('Необходимо исправить следующие ошибки', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Пароли не совпадают!', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Email не является правильным E-Mail адресом.', \CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо исправить следующие ошибки', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Пароли не совпадают!', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Email не является правильным E-Mail адресом.', CommonPage::ERROR_CSS_CLASS);
 
         $I->fillField('InstallForm[userEmail]', 'yupe@yupe.local');
         $I->fillField('InstallForm[cPassword]', 'testpassword');
         $I->click('Продолжить >');
-        $I->dontSee('Необходимо исправить следующие ошибки', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Необходимо исправить следующие ошибки', CommonPage::ERROR_CSS_CLASS);
 
         $I->seeInCurrentUrl('sitesettings');
         $I->see('Шаг 7 из 8 : "Настройки проекта"', 'span');
