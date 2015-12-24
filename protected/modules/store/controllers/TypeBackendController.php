@@ -33,7 +33,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes($data);
 
-            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes'))) {
+            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))) {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Product type is created')
@@ -70,7 +70,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes($data);
 
-            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes'))) {
+            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))) {
 
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -104,6 +104,12 @@ class TypeBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
             $this->loadModel($id)->delete();
+
+            if (!Yii::app()->getRequest()->getQuery('ajax')) {
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                );
+            }
 
         } else {
             throw new CHttpException(

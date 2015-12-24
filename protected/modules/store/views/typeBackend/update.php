@@ -20,14 +20,6 @@ $this->menu = [
         ]
     ],
     [
-        'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('StoreModule.store', 'View type'),
-        'url' => [
-            '/store/typeBackend/view',
-            'id' => $model->id
-        ]
-    ],
-    [
         'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.store', 'Delete type'),
         'url' => '#',
