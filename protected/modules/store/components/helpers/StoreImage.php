@@ -2,24 +2,46 @@
 
 class StoreImage
 {
-    public static function producer(Producer $producer, $width = null, $height = null)
+    /**
+     * @param Producer $producer
+     * @param int $width
+     * @param int $height
+     * @param bool|true $crop
+     * @return mixed
+     */
+    public static function producer(Producer $producer, $width = 0, $height = 0, $crop = true)
     {
-        $image = $producer->getImageUrl($width, $height);
-
-        return $image ? $image : Yii::app()->getTheme()->getAssetsUrl().Yii::app()->getModule('store')->defaultImage;
+        return $producer->getImageUrl($width, $height, $crop, static::getDefaultImage());
     }
 
-    public static function category(StoreCategory $category, $width = null, $height = null)
+    /**
+     * @param StoreCategory $category
+     * @param int $width
+     * @param int $height
+     * @param bool|true $crop
+     * @return mixed
+     */
+    public static function category(StoreCategory $category, $width = 0, $height = 0, $crop = true)
     {
-        $image = $category->getImageUrl($width, $height);
-
-        return $image ? $image : Yii::app()->getTheme()->getAssetsUrl().Yii::app()->getModule('store')->defaultImage;
+        return $category->getImageUrl($width, $height, $crop, static::getDefaultImage());
     }
 
-    public static function product(Product $product, $width = null, $height = null)
+    /**
+     * @param Product $product
+     * @param int $width
+     * @param int $height
+     * @param bool|true $crop
+     * @return mixed
+     */
+    public static function product(Product $product, $width = 0, $height = 0, $crop = true)
     {
-        $image = $product->getImageUrl($width, $height);
+        return $product->getImageUrl($width, $height, $crop, static::getDefaultImage());
+    }
 
-        return $image ? $image : Yii::app()->getTheme()->getAssetsUrl().Yii::app()->getModule('store')->defaultImage;
+    public static function getDefaultImage()
+    {
+        /* @var $theme \yupe\components\Theme */
+        $theme = Yii::app()->getTheme();
+        return $theme->getAssetsUrl() . Yii::app()->getModule('store')->defaultImage;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+use yupe\components\Event;
 
 /**
  * @property string $id
@@ -18,7 +19,7 @@
  *
  * @method StoreCategory published()
  * @method StoreCategory roots()
- * @method getImageUrl($width = 0, $height = 0, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
  */
 class StoreCategory extends \yupe\models\YModel
@@ -159,7 +160,7 @@ class StoreCategory extends \yupe\models\YModel
      */
     public function afterSave()
     {
-        Yii::app()->getCache()->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
+        Yii::app()->eventManager->fire(StoreEvents::CATEGORY_AFTER_SAVE, new Event($this));
 
         return parent::afterSave();
     }

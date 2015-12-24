@@ -47,7 +47,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.producer', 'Запись добавлена!')
+                    Yii::t('StoreModule.store', 'Record was created!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -73,7 +73,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('StoreModule.producer', 'Запись обновлена!')
+                    Yii::t('StoreModule.store', 'Record was updated!')
                 );
 
                 if (!isset($_POST['submit-type'])) {
@@ -93,14 +93,14 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('StoreModule.producer', 'Запись удалена!')
+                Yii::t('StoreModule.store', 'Record was removed!')
             );
 
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t('StoreModule.producer', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore'));
         }
     }
 
@@ -118,7 +118,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
     {
         $model = Producer::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.producer', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
         return $model;
     }

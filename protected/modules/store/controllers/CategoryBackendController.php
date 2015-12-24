@@ -201,7 +201,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     {
         $model = StoreCategory::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
         return $model;
     }

@@ -36,7 +36,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property integer $position
  * @property integer $external_id
  *
- * @method getImageUrl($width = 0, $height = 0, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
  * The followings are the available model relations:
  * @property Type $type
@@ -218,7 +218,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'category_id' => Yii::t('StoreModule.category', 'Category'),
+            'category_id' => Yii::t('StoreModule.store', 'Category'),
             'type_id' => Yii::t('StoreModule.store', 'Type'),
             'name' => Yii::t('StoreModule.store', 'Title'),
             'price' => Yii::t('StoreModule.store', 'Price'),
@@ -241,7 +241,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'width' => Yii::t('StoreModule.store', 'Width, m.'),
             'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
-            'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
+            'producer_id' => Yii::t('StoreModule.store', 'Producer'),
             'in_stock' => Yii::t('StoreModule.store', 'Stock status'),
             'meta_title' => Yii::t('StoreModule.store', 'Meta title'),
             'meta_keywords' => Yii::t('StoreModule.store', 'Meta keywords'),
@@ -261,7 +261,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'category_id' => Yii::t('StoreModule.category', 'Category'),
+            'category_id' => Yii::t('StoreModule.store', 'Category'),
             'name' => Yii::t('StoreModule.store', 'Title'),
             'price' => Yii::t('StoreModule.store', 'Price'),
             'sku' => Yii::t('StoreModule.store', 'SKU'),
@@ -281,7 +281,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'width' => Yii::t('StoreModule.store', 'Width, m.'),
             'weight' => Yii::t('StoreModule.store', 'Weight, kg.'),
             'quantity' => Yii::t('StoreModule.store', 'Quantity'),
-            'producer_id' => Yii::t('StoreModule.producer', 'Producer'),
+            'producer_id' => Yii::t('StoreModule.store', 'Producer'),
             'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
             'average_price' => Yii::t('StoreModule.store', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),

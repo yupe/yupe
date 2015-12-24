@@ -51,8 +51,8 @@ class AttributeGroup extends yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'ID'),
-            'name' => Yii::t('StoreModule.attr', 'Group title'),
-            'position' => Yii::t('StoreModule.attr', 'Position'),
+            'name' => Yii::t('StoreModule.store', 'Group title'),
+            'position' => Yii::t('StoreModule.store', 'Position'),
         ];
     }
 

@@ -147,7 +147,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context'    => 'primary',
-        'label'      => $model->getIsNewRecord() ? Yii::t('StoreModule.producer', 'Add producer and continue') : Yii::t('StoreModule.producer', 'Save producer and continue'),
+        'label'      => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add producer and continue') : Yii::t('StoreModule.store', 'Save producer and continue'),
     ]
 ); ?>
 
@@ -156,7 +156,7 @@ $form = $this->beginWidget(
     [
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->getIsNewRecord() ? Yii::t('StoreModule.producer', 'Add producer and close') : Yii::t('StoreModule.producer', 'Save producer and close'),
+        'label'       => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add producer and close') : Yii::t('StoreModule.store', 'Save producer and close'),
     ]
 ); ?>
 

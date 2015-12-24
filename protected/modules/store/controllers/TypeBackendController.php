@@ -33,7 +33,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes($data);
 
-            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes'))) {
+            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))) {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Product type is created')
@@ -70,7 +70,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes($data);
 
-            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes'))) {
+            if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))) {
 
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -105,6 +105,12 @@ class TypeBackendController extends yupe\components\controllers\BackController
 
             $this->loadModel($id)->delete();
 
+            if (!Yii::app()->getRequest()->getQuery('ajax')) {
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                );
+            }
+
         } else {
             throw new CHttpException(
                 400,
@@ -138,7 +144,7 @@ class TypeBackendController extends yupe\components\controllers\BackController
     {
         $model = Type::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page was not found!'));
+            throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
 
         return $model;

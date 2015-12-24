@@ -6,8 +6,10 @@ return [
     ],
     'import' => [
         'application.modules.store.models.*',
-        'application.modules.store.helpers.*',
-        'application.modules.store.components.helpers.StoreImage'
+        'application.modules.store.events.*',
+        'application.modules.store.listeners.*',
+        'application.modules.store.components.helpers.StoreImage',
+        'application.modules.store.components.helpers.StoreCategoryHelper',
     ],
     'component' => [
         'eventManager' => [
@@ -15,7 +17,10 @@ return [
             'events' => [
                 'sitemap.before.generate' => [
                     ['\StoreSitemapGeneratorListener', 'onGenerate']
-                ]
+                ],
+                'category.after.save' => [
+                    ['\StoreCategoryListener', 'onAfterSave']
+                ],
             ]
         ],
         'money' => [
