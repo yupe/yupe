@@ -116,10 +116,10 @@ class Type extends \yupe\models\YModel
 
             TypeAttribute::model()->deleteAllByAttributes(['type_id' => $this->id]);
 
-            foreach ($attributes as $attribute_id) {
+            foreach ($attributes as $attributeId) {
                 $typeAttribute = new TypeAttribute();
                 $typeAttribute->type_id = $this->id;
-                $typeAttribute->attribute_id = (int)$attribute_id;
+                $typeAttribute->attribute_id = (int)$attributeId;
                 $typeAttribute->save();
             }
 

@@ -15,16 +15,28 @@
  */
 class ProductVariant extends \yupe\models\YModel
 {
+    /**
+     *
+     */
     const TYPE_SUM = 0;
+    /**
+     *
+     */
     const TYPE_PERCENT = 1;
+    /**
+     *
+     */
     const TYPE_BASE_PRICE = 2;
 
+    /**
+     * @var int
+     */
     public $amount = 0;
 
     /**
      * @var
      */
-    public $attribute_option_id;
+    public $attributeOptionId;
 
     /**
      * @return string the associated database table name
@@ -50,27 +62,28 @@ class ProductVariant extends \yupe\models\YModel
     {
         return [
             ['attribute_id, product_id, amount, type', 'required'],
-            ['id, attribute_id, product_id, type, attribute_option_id, position', 'numerical', 'integerOnly' => true],
+            ['id, attribute_id, product_id, type, attributeOptionId, position', 'numerical', 'integerOnly' => true],
             ['type', 'in', 'range' => [self::TYPE_SUM, self::TYPE_PERCENT, self::TYPE_BASE_PRICE]],
             ['amount', 'numerical'],
             ['sku', 'length', 'max' => 50],
             ['attribute_value', 'length', 'max' => 255],
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             ['id, attribute_id, attribute_value, product_id, amount, type, sku', 'safe', 'on' => 'search'],
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
-        if ($this->attribute_option_id) {
-            $option = AttributeOption::model()->findByPk($this->attribute_option_id);
+        if ($this->attributeOptionId) {
+            $option = AttributeOption::model()->findByPk($this->attributeOptionId);
             $this->attribute_value = $option ? $option->value : null;
         }
         if (!$this->attribute_value) {
             $this->addErrors(
                 [
-                    'attribute_value' => Yii::t('StoreModule.store', 'You must specify the attribute value')
+                    'attribute_value' => Yii::t('StoreModule.store', 'You must specify the attribute value'),
                 ]
             );
         }
@@ -78,6 +91,9 @@ class ProductVariant extends \yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -102,15 +118,21 @@ class ProductVariant extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
             'sortable' => [
-                'class' => 'yupe\components\behaviors\SortableBehavior'
-            ]
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+            ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getTypeList()
     {
         return [
@@ -120,9 +142,13 @@ class ProductVariant extends \yupe\models\YModel
         ];
     }
 
-    public function getOptionValue($includeCost = false)
+
+    /**
+     * @return null|string
+     */
+    public function getOptionValue()
     {
-        $value = "";
+        $value = null;
         switch ($this->attribute->type) {
             case Attribute::TYPE_CHECKBOX:
                 $value = $this->attribute_value ? Yii::t('StoreModule.store', 'Yes') : Yii::t(
@@ -135,28 +161,6 @@ class ProductVariant extends \yupe\models\YModel
             case Attribute::TYPE_NUMBER:
                 $value = $this->attribute_value;
                 break;
-        }
-        if ($includeCost) {
-            switch ($this->type) {
-                case self::TYPE_SUM:
-                    $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . ' ' . Yii::t(
-                            "StoreModule.store",
-                            'RUB to the price'
-                        ) . ')';
-                    break;
-                case self::TYPE_PERCENT:
-                    $value .= ' (' . ($this->amount > 0 ? '+' : '') . $this->amount . Yii::t(
-                            "StoreModule.store",
-                            '% to the price'
-                        ) . ')';
-                    break;
-                case self::TYPE_BASE_PRICE:
-                    $value .= ' (' . Yii::t("StoreModule.store", 'price') . ': ' . $this->amount . ' ' . Yii::t(
-                            "StoreModule.store",
-                            Yii::app()->getModule('store')->currency
-                        ) . '.)';
-                    break;
-            }
         }
 
         return $value;

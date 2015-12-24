@@ -33,12 +33,6 @@ class StoreCategory extends \yupe\models\YModel
      */
     const STATUS_PUBLISHED = 1;
 
-
-    /**
-     * @var
-     */
-    private $_url;
-
     /**
      * @return string the associated database table name
      */
@@ -113,7 +107,6 @@ class StoreCategory extends \yupe\models\YModel
                 'requestPathAttribute' => 'path',
                 'parentAttribute' => 'parent_id',
                 'parentRelation' => 'parent',
-                'iconAttribute' => 'categoryThumb',
                 'defaultCriteria' => [
                     'order' => 't.sort',
                 ],
@@ -291,13 +284,5 @@ class StoreCategory extends \yupe\models\YModel
     public function getMetaKeywords()
     {
         return $this->meta_keywords;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategoryThumb()
-    {
-        return $this->getImageUrl(190, 190);
     }
 }
