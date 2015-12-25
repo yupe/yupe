@@ -354,7 +354,7 @@ class Page extends yupe\models\YModel
 
     public function isProtected()
     {
-        return (int)$this->is_protected === self::PROTECTED_YES;
+        return (bool)$this->is_protected === self::PROTECTED_YES;
     }
 
     /**
