@@ -7,16 +7,26 @@
  */
 class ProductLinkType extends yupe\models\YModel
 {
+    /**
+     * @return string
+     */
     public function tableName()
     {
         return '{{store_product_link_type}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -29,6 +39,9 @@ class ProductLinkType extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -38,6 +51,9 @@ class ProductLinkType extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -49,13 +65,8 @@ class ProductLinkType extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => 't.title']
+                'sort' => ['defaultOrder' => 't.title'],
             ]
         );
-    }
-
-    public static function getFormattedList()
-    {
-        return CHtml::listData(self::model()->findAll(['order' => 'title ASC']), 'id', 'title');
     }
 }

@@ -19,7 +19,7 @@ use yupe\components\Event;
  *
  * @method StoreCategory published()
  * @method StoreCategory roots()
- * @method getImageUrl($width = 0, $height = 0, $options = [])
+ * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
  */
 class StoreCategory extends \yupe\models\YModel
@@ -32,12 +32,6 @@ class StoreCategory extends \yupe\models\YModel
      *
      */
     const STATUS_PUBLISHED = 1;
-
-
-    /**
-     * @var
-     */
-    private $_url;
 
     /**
      * @return string the associated database table name
@@ -107,13 +101,10 @@ class StoreCategory extends \yupe\models\YModel
             ],
             'CategoryTreeBehavior' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
-                'titleAttribute' => 'name',
                 'aliasAttribute' => 'slug',
-                'urlAttribute' => 'url',
                 'requestPathAttribute' => 'path',
                 'parentAttribute' => 'parent_id',
                 'parentRelation' => 'parent',
-                'iconAttribute' => 'categoryThumb',
                 'defaultCriteria' => [
                     'order' => 't.sort',
                 ],
@@ -269,21 +260,6 @@ class StoreCategory extends \yupe\models\YModel
         return $this->parent ? $this->parent->name : '---';
     }
 
-
-
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        if ($this->_url === null) {
-            $this->_url = Yii::app()->getRequest()->baseUrl.'/store/'.$this->getPath().Yii::app()->getUrlManager(
-                )->urlSuffix;
-        }
-
-        return $this->_url;
-    }
-
     /**
      * @return string
      */
@@ -306,13 +282,5 @@ class StoreCategory extends \yupe\models\YModel
     public function getMetaKeywords()
     {
         return $this->meta_keywords;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategoryThumb()
-    {
-        return $this->getImageUrl(190, 190);
     }
 }

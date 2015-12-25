@@ -54,7 +54,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        if (($post = Post::model()->loadModel($id)) === null) {
+        if (($post = Post::model()->find($id)) === null) {
 
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
         }
@@ -105,7 +105,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionUpdate($id)
     {
-        if (($model = Post::model()->loadModel($id)) === null) {
+        if (($model = Post::model()->find($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         }
 
@@ -153,7 +153,7 @@ class PostBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
 
-            if (($post = Post::model()->loadModel($id)) === null) {
+            if (($post = Post::model()->find($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
             } else {
                 $post->delete();

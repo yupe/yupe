@@ -163,7 +163,7 @@ $form = $this->beginWidget(
             <div class="col-sm-7">
                 <?php
                 echo CHtml::image(
-                    !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
+                    !$model->getIsNewRecord() && $model->image ? $model->getImageUrl(200, 200, true) : '#',
                     $model->name,
                     [
                         'class' => 'preview-image img-thumbnail',
@@ -171,7 +171,7 @@ $form = $this->beginWidget(
                     ]
                 ); ?>
 
-                <?php if (!$model->isNewRecord && $model->image): ?>
+                <?php if (!$model->getIsNewRecord() && $model->image): ?>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>

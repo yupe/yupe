@@ -16,7 +16,7 @@ if (!$variant->id) {
     <td>
         <?php if ($variant->attribute->isType(Attribute::TYPE_DROPDOWN)): ?>
             <?php $option = AttributeOption::model()->findByAttributes(['attribute_id' => $variant->attribute_id, 'value' => $variant->attribute_value]); ?>
-            <?= AttributeRender::renderField($variant->attribute, ($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attribute_option_id]'); ?>
+            <?= AttributeRender::renderField($variant->attribute, ($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attributeOptionId]', ['class' => 'form-control']); ?>
         <?php else: ?>
             <?= AttributeRender::renderField($variant->attribute, $variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
         <?php endif; ?>

@@ -58,6 +58,9 @@ class DCategoryBehavior extends CActiveRecordBehavior
      */
     public $defaultCriteria = [];
 
+    /**
+     * @var bool
+     */
     public $useCache = true;
 
     /**
@@ -70,9 +73,21 @@ class DCategoryBehavior extends CActiveRecordBehavior
      */
     public $defaultCachePrefix = 'categorybehavior::model::';
 
+    /**
+     * @var
+     */
     protected $_primaryKey;
+    /**
+     * @var
+     */
     protected $_tableSchema;
+    /**
+     * @var
+     */
     protected $_tableName;
+    /**
+     * @var
+     */
     protected $_criteria;
 
     /**
@@ -87,6 +102,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
         $command = $this->createFindCommand($criteria);
         $result = $command->queryColumn();
         $this->clearOwnerCriteria();
+
         return $result;
     }
 
@@ -175,7 +191,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
                 'url' => $item->{$this->urlAttribute},
                 'icon' => $this->iconAttribute !== null ? $item->{$this->iconAttribute} : '',
                 'active' => $active,
-                'itemOptions' => ['class' => 'item_' . $item->getPrimaryKey()],
+                'itemOptions' => ['class' => 'item_'.$item->getPrimaryKey()],
                 'linkOptions' => $active ? ['rel' => 'nofollow'] : [],
             ];
         }
@@ -192,10 +208,11 @@ class DCategoryBehavior extends CActiveRecordBehavior
     {
         $model = $this->cached($this->getOwner())->find(
             [
-                'condition' => 't.' . $this->aliasAttribute . '=:alias',
+                'condition' => 't.'.$this->aliasAttribute.'=:alias',
                 'params' => [':alias' => $alias],
             ]
         );
+
         return $model;
     }
 
@@ -206,7 +223,12 @@ class DCategoryBehavior extends CActiveRecordBehavior
      */
     public function getLinkActive()
     {
-        return mb_strpos(Yii::app()->request->getParam($this->requestPathAttribute), $this->getOwner()->{$this->aliasAttribute}, null, 'UTF-8') === 0;
+        return mb_strpos(
+            Yii::app()->request->getParam($this->requestPathAttribute),
+            $this->getOwner()->{$this->aliasAttribute},
+            null,
+            'UTF-8'
+        ) === 0;
     }
 
     /**
@@ -218,6 +240,10 @@ class DCategoryBehavior extends CActiveRecordBehavior
         return '#';
     }
 
+    /**
+     * @param $attributes
+     * @return array|\CDbDataReader
+     */
     protected function getFullAssocData($attributes)
     {
         $criteria = $this->getOwnerCriteria();
@@ -227,16 +253,26 @@ class DCategoryBehavior extends CActiveRecordBehavior
 
         $command = $this->createFindCommand($criteria);
         $this->clearOwnerCriteria();
+
         return $command->queryAll();
     }
 
+    /**
+     * @param $criteria
+     * @return \CDbCommand
+     */
     protected function createFindCommand($criteria)
     {
         $builder = new CDbCommandBuilder(Yii::app()->db->getSchema());
         $command = $builder->createFindCommand($this->tableName, $criteria);
+
         return $command;
     }
 
+    /**
+     * @param null $model
+     * @return \CComponent|null
+     */
     protected function cached($model = null)
     {
         if ($model === null) {
@@ -244,71 +280,111 @@ class DCategoryBehavior extends CActiveRecordBehavior
         }
 
         $connection = $model->getDbConnection();
-        return $this->useCache ? $model->cache($connection->queryCachingDuration, new \TagsCache($this->getCacheTag())) : $model;
+
+        return $this->useCache ? $model->cache(
+            $connection->queryCachingDuration,
+            new \TagsCache($this->getCacheTag())
+        ) : $model;
     }
 
+    /**
+     * @param $attributes
+     * @return array
+     */
     protected function aliasAttributes($attributes)
     {
         $aliasesAttributes = [];
         foreach ($attributes as $attribute) {
-            $aliasesAttributes[] = 't.' . $attribute;
+            $aliasesAttributes[] = 't.'.$attribute;
         }
+
         return $aliasesAttributes;
     }
 
+    /**
+     * @return mixed
+     */
     protected function getPrimaryKeyAttribute()
     {
         if ($this->_primaryKey === null) {
             $this->_primaryKey = $this->tableSchema->primaryKey;
         }
+
         return $this->_primaryKey;
     }
 
+    /**
+     * @return mixed
+     */
     protected function getTableSchema()
     {
         if ($this->_tableSchema === null) {
             $this->_tableSchema = $this->getOwner()->getMetaData()->tableSchema;
         }
+
         return $this->_tableSchema;
     }
 
+    /**
+     * @return mixed
+     */
     protected function getTableName()
     {
         if ($this->_tableName === null) {
             $this->_tableName = $this->getOwner()->tableName();
         }
+
         return $this->_tableName;
     }
 
+    /**
+     * @return mixed
+     */
     protected function getOwnerCriteria()
     {
         $criteria = clone $this->getOwner()->getDbCriteria();
         $criteria->mergeWith($this->defaultCriteria);
         $this->_criteria = clone $criteria;
+
         return $criteria;
     }
 
+    /**
+     *
+     */
     protected function clearOwnerCriteria()
     {
         $this->getOwner()->setDbCriteria(new CDbCriteria());
     }
 
+    /**
+     * @return mixed
+     */
     protected function getOriginalCriteria()
     {
         return clone $this->_criteria;
     }
 
+    /**
+     * @return string
+     */
     protected function getCacheTag()
     {
-        return $this->cacheTag ?: $this->defaultCachePrefix . get_class($this->getOwner());
+        return $this->cacheTag ?: $this->defaultCachePrefix.get_class($this->getOwner());
     }
 
+    /**
+     * @param \CEvent $event
+     */
     public function afterSave($event)
     {
         Yii::app()->getCache()->clear($this->getCacheTag());
         parent::afterSave($event);
     }
 
+    /**
+     * @param \CEvent $event
+     */
     public function afterDelete($event)
     {
         Yii::app()->getCache()->clear($this->getCacheTag());

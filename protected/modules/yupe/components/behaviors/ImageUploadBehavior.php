@@ -4,7 +4,6 @@ namespace yupe\components\behaviors;
 
 use Yii;
 use yupe\components\image\Imagine;
-use Imagine\Image\ImageInterface;
 use yupe\helpers\YFile;
 
 /**
@@ -121,37 +120,29 @@ class ImageUploadBehavior extends FileUploadBehavior
      * @param int $width
      * @param int $height
      * @param bool|true $crop
+     * @param null $defaultImage
      * @return null|string
      */
-    public function getImageUrl(
-        $width = 0,
-        $height = 0,
-        $crop = true
-    ) {
+    public function getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
+    {
         $file = $this->getFilePath();
-        $defaultImagePath = Yii::getPathOfAlias('webroot').$this->defaultImage;
-        $fileUploaded = is_file($file);
+        $webRoot = Yii::getPathOfAlias('webroot');
+        $defaultImage = $defaultImage ?: $this->defaultImage;
 
-        if (!$fileUploaded) {
-            if (is_file($defaultImagePath)) {
-                $file = $defaultImagePath;
-            } else {
-                return null;
-            }
+        if (null === $file && (null === $defaultImage || !is_file($webRoot . $defaultImage))) {
+            return null;
         }
 
         if ($width || $height) {
-
             return Yii::app()->thumbnailer->thumbnail(
-                $file,
+                $file ?: $webRoot . $defaultImage,
                 $this->uploadPath,
                 $width,
                 $height,
                 $crop
             );
-
         }
 
-        return $fileUploaded ? $this->getFileUrl() : $this->defaultImage;
+        return $file ? $this->getFileUrl() : $defaultImage;
     }
 }

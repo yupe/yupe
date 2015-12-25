@@ -34,8 +34,6 @@ class ProductImage extends \yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['product_id', 'numerical', 'integerOnly' => true],
             ['name, title', 'length', 'max' => 250],
@@ -43,6 +41,9 @@ class ProductImage extends \yupe\models\YModel
     }
 
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -50,23 +51,26 @@ class ProductImage extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $module = Yii::app()->getModule('store');
 
         return [
             'imageUpload' => [
-                'class'          => 'yupe\components\behaviors\ImageUploadBehavior',
-                'attributeName'  => 'name',
-                'minSize'        => $module->minSize,
-                'maxSize'        => $module->maxSize,
-                'types'          => $module->allowedExtensions,
-                'uploadPath'     => $module->uploadPath . '/product',
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'attributeName' => 'name',
+                'minSize' => $module->minSize,
+                'maxSize' => $module->maxSize,
+                'types' => $module->allowedExtensions,
+                'uploadPath' => $module->uploadPath.'/product',
                 'resizeOnUpload' => true,
-                'resizeOptions'  => [
-                    'maxWidth'  => 900,
+                'resizeOptions' => [
+                    'maxWidth' => 900,
                     'maxHeight' => 900,
-                ]
+                ],
             ],
         ];
     }

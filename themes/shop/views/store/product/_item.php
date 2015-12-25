@@ -7,7 +7,7 @@ $price = $data->getResultPrice();
     <article class="product-vertical">
         <a href="<?= $productUrl; ?>">
             <div class="product-vertical__thumbnail">
-                <img src="<?= $data->getImageUrl(150, 280, false); ?>" class="product-vertical__img" />
+                <img src="<?= StoreImage::product($data, 150, 280, false) ?>" class="product-vertical__img" />
             </div>
         </a>
         <div class="product-vertical__content"><a href="<?= $productUrl; ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>

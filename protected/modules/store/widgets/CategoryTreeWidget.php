@@ -39,8 +39,8 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
     public function init()
     {
         $moduleAssets = Yii::app()->getModule('store')->getAssetsUrl();
-        Yii::app()->clientScript->registerScriptFile($moduleAssets . '/js/jstree/jstree.min.js');
-        Yii::app()->clientScript->registerCssFile($moduleAssets . '/js/jstree/themes/default/style.min.css');
+        Yii::app()->getClientScript()->registerScriptFile($moduleAssets . '/js/jstree/jstree.min.js');
+        Yii::app()->getClientScript()->registerCssFile($moduleAssets . '/js/jstree/themes/default/style.min.css');
 
         if (!is_array($this->selectedCategories)) {
             $this->selectedCategories = [];
@@ -57,7 +57,7 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
             echo CHtml::closeTag('ul');
         echo CHtml::closeTag('div');
 
-        Yii::app()->clientScript->registerScript('JsTreeScript', "$('#{$this->id}').jstree({$options})");
+        Yii::app()->getClientScript()->registerScript('JsTreeScript', "$('#{$this->id}').jstree({$options})");
     }
 
     /**

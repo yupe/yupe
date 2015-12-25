@@ -12,16 +12,26 @@
  */
 class ProductLink extends yupe\models\YModel
 {
+    /**
+     * @return string
+     */
     public function tableName()
     {
         return '{{store_product_link}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -34,14 +44,17 @@ class ProductLink extends yupe\models\YModel
                     'condition' => 'linked_product_id = :linked_product_id',
                     'params' => [
                         ':linked_product_id' => $this->linked_product_id,
-                    ]
-                ]
+                    ],
+                ],
             ],
             ['id, type_id, product_id, linked_product_id', 'safe', 'on' => 'search'],
         ];
     }
 
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -51,6 +64,9 @@ class ProductLink extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -61,6 +77,9 @@ class ProductLink extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;

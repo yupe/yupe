@@ -106,6 +106,7 @@ class StoreModule extends WebModule
     {
         return [
             'uploadPath',
+            'defaultImage',
             'editor' => Yii::app()->getModule('yupe')->editors,
             'itemsPerPage',
             'phone',
