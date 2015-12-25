@@ -16,10 +16,10 @@ class UserSteps extends WebGuy
         $I->wantTo('Check success login...');
         $I->fillField(LoginPage::$emailField, $email);
         $I->fillField(LoginPage::$passwordField, $password);
-        $I->click(CommonPage::LOGIN_LABEL, CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->click(CommonPage::LOGIN_BTN_CONTEXT);
         $I->dontSee('Email или пароль введены неверно!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Вы успешно авторизовались!', CommonPage::SUCCESS_CSS_CLASS);
-        $I->seeLink(LogoutPage::$linkLabel);
+        $I->see('Панель управления "Юпи!"', 'h1');
     }
 
     public function logout()

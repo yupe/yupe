@@ -3,13 +3,14 @@ namespace tests\acceptance\comment;
 
 use \WebGuy;
 use tests\acceptance\pages\CommonPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class CommentCest
 {
     // tests
     public function tryToTestCommentsAntispam(WebGuy $I, $scenario)
     {
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
 
         $I->login(CommonPage::TEST_USER_NAME, CommonPage::TEST_PASSWORD);
         $I->am('admin');
