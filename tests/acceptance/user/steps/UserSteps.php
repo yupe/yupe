@@ -19,7 +19,7 @@ class UserSteps extends WebGuy
         $I->click(CommonPage::LOGIN_BTN_CONTEXT);
         $I->dontSee('Email или пароль введены неверно!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Вы успешно авторизовались!', CommonPage::SUCCESS_CSS_CLASS);
-        $I->see('Панель управления "Юпи!"', 'h1');
+        $I->see(CommonPage::PANEL_LABEL, 'h1');
     }
 
     public function logout()

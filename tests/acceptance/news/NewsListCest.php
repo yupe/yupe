@@ -3,6 +3,7 @@ namespace tests\acceptance\news;
 
 use \WebGuy;
 use tests\acceptance\pages\NewsPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class NewsListCest
 {
@@ -17,7 +18,7 @@ class NewsListCest
         $I->dontSeeLink('Вторая не опубликованная новость');
 
         $I->am('authorized user');
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
         $I->login('yupe@yupe.local', 'testpassword');
         $I->amGoingTo('test news list for authorized user...');
         $I->amOnPage(NewsPage::URL);

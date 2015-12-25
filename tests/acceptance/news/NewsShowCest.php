@@ -4,6 +4,7 @@ namespace tests\acceptance\news;
 use \WebGuy;
 use tests\acceptance\pages\NewsPage;
 use tests\acceptance\pages\CommonPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class NewsShowCest
 {
@@ -33,7 +34,7 @@ class NewsShowCest
         $I->see('Для просмотра этой страницы Вам необходимо авторизоваться!', CommonPage::ERROR_CSS_CLASS);
 
         $I->am('authorized user');
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
         $I->login('yupe@yupe.local', 'testpassword');
         $I->amGoingTo('test show protected news for authorized user...');
         $I->amOnPage(NewsPage::route('tretja-novost-tolko-dlja-avtorizovannyh'));

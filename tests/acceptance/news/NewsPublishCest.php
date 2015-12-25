@@ -4,12 +4,13 @@ namespace tests\acceptance\news;
 use \WebGuy;
 use tests\acceptance\pages\NewsPage;
 use tests\acceptance\pages\CommonPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class NewsPublishCest
 {
     public function tryToTestPagePublishing(WebGuy $I, $scenario)
     {
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
         $I->login(CommonPage::TEST_USER_NAME, CommonPage::TEST_PASSWORD);
         $I->am('admin');
         $I->amGoingTo('test publishing news...');
@@ -21,7 +22,7 @@ class NewsPublishCest
         $I->amOnPage(CommonPage::PANEL_URL . 'news/news/update/2');
         $I->see('Редактирование новости');
         $I->see('Вторая не опубликованная новость');
-        $I->fillField('News[status]', 1);
+        $I->selectOption('News[status]', 'Опубликовано');
         $I->click('Сохранить новость и продолжить');
         $I->see('Новость обновлена!', CommonPage::SUCCESS_CSS_CLASS);
 
