@@ -55,7 +55,7 @@ class MainFrontendCest
         $I->wantToTest('show published page...');
         $I->amOnPage('/pages/opublikovannaja-starnica');
         $I->seeInTitle('Опубликованная страница');
-        $I->see('Опубликованная страница', 'h3');
+        $I->see('Опубликованная страница', 'h1');
         $I->see('Опубликованная страница текст');
 
         //users
