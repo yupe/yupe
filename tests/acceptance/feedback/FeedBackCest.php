@@ -4,6 +4,7 @@ namespace tests\acceptance\feedback;
 use \WebGuy;
 use tests\acceptance\pages\CommonPage;
 use tests\acceptance\pages\FeedBackPage;
+use tests\acceptance\user\steps\UserSteps;
 
 class FeedBackCest
 {
@@ -54,15 +55,15 @@ class FeedBackCest
         $I->dontSeeLink('test_theme');
 
         $I->amGoingTo('mark feedback message as faq');
-        $I = new WebGuy\UserSteps($scenario);
+        $I = new UserSteps($scenario);
         $I->loginAsAdminAndGoToThePanel(CommonPage::TEST_USER_NAME, CommonPage::TEST_PASSWORD);
 
         $I->amOnPage('/backend/feedback/feedback');
         $I->see('test_name');
         $I->amOnPage('/backend/feedback/feedback/update/1');
         $I->selectOption('FeedBack[status]', 'Ответ отправлен');
-        $I->dontSeeCheckboxIsChecked('FeedBack[is_faq]');
-        $I->checkOption('FeedBack[is_faq]');
+        $I->dontSeeCheckboxIsChecked('#FeedBack_is_faq');
+        $I->checkOption('#FeedBack_is_faq');
         $I->executeJs('$("textarea[name^=FeedBack]").show();');
         $I->fillField('FeedBack[answer]', 'test_answer');
         $I->click('Сохранить сообщение и закрыть');
