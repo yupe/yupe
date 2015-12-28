@@ -14,14 +14,14 @@ $this->pageTitle = Yii::t('NewsModule.news', 'News - management');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('NewsModule.news', 'News management'),
-        'url'   => ['/news/newsBackend/index']
+        'url' => ['/news/newsBackend/index'],
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('NewsModule.news', 'Create article'),
-        'url'   => ['/news/newsBackend/create']
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('NewsModule.news', 'Create news'),
+        'url' => ['/news/newsBackend/create'],
     ],
 ];
 ?>
@@ -61,64 +61,64 @@ $this->menu = [
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     [
-        'id'           => 'news-grid',
+        'id' => 'news-grid',
         'dataProvider' => $model->search(),
-        'filter'       => $model,
-        'columns'      => [
+        'filter' => $model,
+        'columns' => [
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'title',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'title',
                 'editable' => [
-                    'url'    => $this->createUrl('/news/newsBackend/inline'),
-                    'mode'   => 'inline',
+                    'url' => $this->createUrl('/news/newsBackend/inline'),
+                    'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ]
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
+                    ],
                 ],
-                'filter'   => CHtml::activeTextField($model, 'title', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'title', ['class' => 'form-control']),
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'slug',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'slug',
                 'editable' => [
-                    'url'    => $this->createUrl('/news/newsBackend/inline'),
-                    'mode'   => 'inline',
+                    'url' => $this->createUrl('/news/newsBackend/inline'),
+                    'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ]
+                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
+                    ],
                 ],
-                'filter'   => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
             ],
             'date',
             [
-                'name'   => 'category_id',
-                'value'  => '$data->getCategoryName()',
+                'name' => 'category_id',
+                'value' => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'category_id',
                     Category::model()->getFormattedList(Yii::app()->getModule('news')->mainCategory),
                     ['class' => 'form-control', 'encode' => false, 'empty' => '']
-                )
+                ),
             ],
             [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/news/newsBackend/inline'),
-                'source'  => $model->getStatusList(),
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'status',
+                'url' => $this->createUrl('/news/newsBackend/inline'),
+                'source' => $model->getStatusList(),
                 'options' => [
-                    News::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    News::STATUS_PUBLISHED => ['class' => 'label-success'],
                     News::STATUS_MODERATION => ['class' => 'label-warning'],
-                    News::STATUS_DRAFT      => ['class' => 'label-default'],
+                    News::STATUS_DRAFT => ['class' => 'label-default'],
                 ],
             ],
             [
-                'name'   => 'lang',
-                'value'  => '$data->getFlag()',
+                'name' => 'lang',
+                'value' => '$data->getFlag()',
                 'filter' => $this->yupe->getLanguagesList(),
-                'type'   => 'html'
+                'type' => 'html',
             ],
             [
-                'class' => 'yupe\widgets\CustomButtonColumn'
+                'class' => 'yupe\widgets\CustomButtonColumn',
             ],
         ],
     ]

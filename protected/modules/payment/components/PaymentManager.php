@@ -20,7 +20,7 @@ class PaymentManager extends CApplicationComponent
     public $paymentSystems = [];
 
     /**
-     * Возвращает список зарегестрированных платежных систем в формате array(id_payment_system => payment_system_object, ...)
+     * Возвращает список зарегистрированных платежных систем в формате array(id_payment_system => payment_system_object, ...)
      *
      * @return array
      * @throws CException

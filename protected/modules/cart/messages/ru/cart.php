@@ -12,7 +12,7 @@ return [
     'Catalog' => 'Каталог',
     'Coupons' => 'Купоны',
     'Create order and proceed to payment' => 'Создать заказ и перейти к оплате',
-    'Delivery method aren\'t selected! The ordering is impossible!' => 'Не задано ни одного способа доставки ! Оформление заказа невозможно !',
+    'Delivery method aren\'t selected! The ordering is impossible!' => 'Не задано ни одного способа доставки! Оформление заказа невозможно!',
     'Delivery method' => 'Способ доставки',
     'Delivery price' => 'Стоимость доставки',
     'free from' => 'бесплатно от',

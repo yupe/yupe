@@ -2,9 +2,9 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'action'      => Yii::app()->createUrl($this->route),
-        'method'      => 'get',
-        'type'        => 'vertical',
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+        'type' => 'vertical',
         'htmlOptions' => ['class' => 'well'],
     ]
 ); ?>
@@ -23,12 +23,12 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'options' => [
-                        'format'    => 'dd-mm-yyyy',
+                        'format' => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ],
                 ],
-                'prepend'       => '<i class="fa fa-calendar"></i>',
+                'prepend' => '<i class="fa fa-calendar"></i>',
             ]
         );
         ?>
@@ -42,7 +42,7 @@ $form = $this->beginWidget(
             'category_id',
             [
                 'widgetOptions' => [
-                    'data'        => CHtml::listData($this->module->categoryList, 'id', 'name'),
+                    'data' => CHtml::listData($this->module->categoryList, 'id', 'name'),
                     'htmlOptions' => [
                         'empty' => Yii::t('NewsModule.news', '-no matter-'),
                     ],
@@ -66,7 +66,7 @@ $form = $this->beginWidget(
             'status',
             [
                 'widgetOptions' => [
-                    'data'        => $model->getStatusList(),
+                    'data' => $model->getStatusList(),
                     'htmlOptions' => [
                         'empty' => Yii::t('NewsModule.news', '-no matter-'),
                     ],
@@ -83,7 +83,7 @@ $form = $this->beginWidget(
             'is_protected',
             [
                 'widgetOptions' => [
-                    'data'        => $model->getProtectedStatusList(),
+                    'data' => $model->getProtectedStatusList(),
                     'htmlOptions' => [
                         'empty' => '---',
                     ],
@@ -96,10 +96,10 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'context'     => 'primary',
+        'context' => 'primary',
         'encodeLabel' => false,
-        'buttonType'  => 'submit',
-        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
+        'buttonType' => 'submit',
+        'label' => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'NewsModule.news',
                 'Find article'
             ),

@@ -8,42 +8,42 @@ $this->pageTitle = Yii::t('NewsModule.news', 'News - show');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('NewsModule.news', 'News management'),
-        'url'   => ['/news/newsBackend/index']
+        'url' => ['/news/newsBackend/index'],
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('NewsModule.news', 'Create article'),
-        'url'   => ['/news/newsBackend/create']
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('NewsModule.news', 'Create news'),
+        'url' => ['/news/newsBackend/create'],
     ],
     ['label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'],
     [
-        'icon'  => 'fa fa-fw fa-pencil',
+        'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('NewsModule.news', 'Edit news'),
-        'url'   => [
+        'url' => [
             '/news/newsBackend/update',
-            'id' => $model->id
-        ]
+            'id' => $model->id,
+        ],
     ],
     [
-        'icon'  => 'fa fa-fw fa-eye',
+        'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('NewsModule.news', 'View news article'),
-        'url'   => [
+        'url' => [
             '/news/newsBackend/view',
-            'id' => $model->id
-        ]
+            'id' => $model->id,
+        ],
     ],
     [
-        'icon'        => 'fa fa-fw fa-trash-o',
-        'label'       => Yii::t('NewsModule.news', 'Remove news'),
-        'url'         => '#',
+        'icon' => 'fa fa-fw fa-trash-o',
+        'label' => Yii::t('NewsModule.news', 'Remove news'),
+        'url' => '#',
         'linkOptions' => [
-            'submit'  => ['/news/newsBackend/delete', 'id' => $model->id],
-            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
+            'submit' => ['/news/newsBackend/delete', 'id' => $model->id],
+            'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('NewsModule.news', 'Do you really want to remove the article?'),
-            'csrf'    => true,
-        ]
+            'csrf' => true,
+        ],
     ],
 ];
 ?>

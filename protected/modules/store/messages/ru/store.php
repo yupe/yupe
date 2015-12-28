@@ -14,7 +14,7 @@ return [
     'Add producer and continue' => 'Добавить производителя и продолжить',
     'Add product and close' => 'Добавить товар и закрыть',
     'Add product and continue' => 'Добавить товар и продолжить',
-    'Add them ?' => 'Добавить ?',
+    'Add them ?' => 'Добавить?',
     'Add to cart' => 'Добавить в корзину',
     'Add translate in to {lang}' => 'Добавить перевод на {lang} язык',
     'Add type and close' => 'Добавить тип и закрыть',
