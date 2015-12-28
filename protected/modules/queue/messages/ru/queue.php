@@ -39,7 +39,7 @@ return [
     'Edit task.' => 'Редактировать задание',
     'Edit' => 'Редактирование',
     'Editing queue' => 'Редактирование задания очереди',
-    'Error json_encode !' => 'Ошибка json_encode !',
+    'Error json_encode !' => 'Ошибка json_encode!',
     'Error' => 'Ошибка',
     'Fields with' => 'Поля, отмеченные',
     'Find task' => 'Искать задание',

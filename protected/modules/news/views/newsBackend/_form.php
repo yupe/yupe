@@ -7,11 +7,11 @@
 $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm',
     [
-        'id'                     => 'news-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'news-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
     ]
 ); ?>
 <div class="alert alert-info">
@@ -31,12 +31,12 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'options' => [
-                        'format'    => 'dd-mm-yyyy',
+                        'format' => 'dd-mm-yyyy',
                         'weekStart' => 1,
                         'autoclose' => true,
                     ],
                 ],
-                'prepend'       => '<i class="fa fa-calendar"></i>',
+                'prepend' => '<i class="fa fa-calendar"></i>',
             ]
         );
         ?>
@@ -61,7 +61,7 @@ $form = $this->beginWidget(
                 'lang',
                 [
                     'widgetOptions' => [
-                        'data'        => $languages,
+                        'data' => $languages,
                         'htmlOptions' => [
                             'empty' => Yii::t('NewsModule.news', '-no matter-'),
                         ],
@@ -107,12 +107,12 @@ $form = $this->beginWidget(
             'category_id',
             [
                 'widgetOptions' => [
-                    'data'        => Category::model()->getFormattedList(
+                    'data' => Category::model()->getFormattedList(
                         (int)Yii::app()->getModule('news')->mainCategory
                     ),
                     'htmlOptions' => [
-                        'empty'  => Yii::t('NewsModule.news', '--choose--'),
-                        'encode' => false
+                        'empty' => Yii::t('NewsModule.news', '--choose--'),
+                        'encode' => false,
                     ],
                 ],
             ]
@@ -140,7 +140,7 @@ $form = $this->beginWidget(
             $model->title,
             [
                 'class' => 'preview-image',
-                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none',
             ]
         ); ?>
 
@@ -159,9 +159,9 @@ $form = $this->beginWidget(
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'onchange' => 'readURL(this);',
-                        'style'    => 'background-color: inherit;'
-                    ]
-                ]
+                        'style' => 'background-color: inherit;',
+                    ],
+                ],
             ]
         ); ?>
     </div>
@@ -173,7 +173,7 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'full_text',
             ]
         ); ?>
@@ -193,7 +193,7 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'short_text',
             ]
         ); ?>
@@ -253,8 +253,8 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and continue') : Yii::t(
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and continue') : Yii::t(
             'NewsModule.news',
             'Save news article and continue'
         ),
@@ -264,9 +264,9 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType'  => 'submit',
+        'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and close') : Yii::t(
+        'label' => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and close') : Yii::t(
             'NewsModule.news',
             'Save news article and close'
         ),

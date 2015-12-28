@@ -8,14 +8,14 @@ $this->pageTitle = Yii::t('NewsModule.news', 'News - create');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('NewsModule.news', 'News management'),
-        'url'   => ['/news/newsBackend/index']
+        'url' => ['/news/newsBackend/index'],
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
-        'label' => Yii::t('NewsModule.news', 'Create article'),
-        'url'   => ['/news/newsBackend/create']
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('NewsModule.news', 'Create news'),
+        'url' => ['/news/newsBackend/create'],
     ],
 ];
 ?>
