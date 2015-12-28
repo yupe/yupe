@@ -21,12 +21,12 @@ class CommentCest
         $I->see("Первая публичная запись в опубликованном блоге", "h4");
         $I->fillField('Comment[text]', "Antispam Test");
         $I->click("Добавить комментарий");
-        $I->wait(3);
+        $I->wait(1);
         $I->see("Спасибо, Ваша запись добавлена!", CommonPage::SUCCESS_CSS_CLASS);
 
         $I->fillField('Comment[text]', "Antispam Test");
         $I->click("Добавить комментарий");
-        $I->wait(3);
+        $I->wait(1);
         $I->see("Запись не добавлена!", CommonPage::ERROR_CSS_CLASS);
 
         $I->wait(15);
