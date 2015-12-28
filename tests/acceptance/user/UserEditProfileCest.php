@@ -11,7 +11,7 @@ class UserEditProfileCest
 {
     public function testEditUserProfile(WebGuy $I, $scenario)
     {
-        $I->dontSeeLink(EditProfilePage::URL);
+//        $I->dontSeeLink(EditProfilePage::URL);
         $I->amOnPage(EditProfilePage::URL);
         $I->seeInCurrentUrl('login');
         $I->wantTo('Test user profile form...');

@@ -49,12 +49,12 @@ class UserRecoveryPasswordCest
         $key = $I->grabFromDatabase('yupe_user_tokens', 'token', ['user_id' => 1, 'type' => 2, 'status' => 0]);
         $I->amOnPage(RecoveryPage::getRecoveryRoute($key));
 
-        $I->see('Восстановление пароля');
-        $I->see('Смена пароля', '.btn');
+        $I->see('Восстановить пароль');
+        $I->see('Изменить пароль');
 
         $I->fillField('ChangePasswordForm[password]', '11111111');
         $I->fillField('ChangePasswordForm[cPassword]', '11111111');
-        $I->click('Смена пароля', '.btn');
+        $I->click('Изменить пароль');
 
         $I->seeInCurrentUrl(LoginPage::$URL);
         //$I->see('Успешное восстановение пароля!', \CommonPage::SUCCESS_CSS_CLASS);

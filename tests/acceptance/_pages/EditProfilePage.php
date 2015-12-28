@@ -6,7 +6,7 @@ class EditProfilePage
     // include url of current page
     const URL = '/profile';
 
-    public static $emailField = 'ProfileForm[email]';
+    public static $emailField = 'User[email]';
 
     public static function getPublicProfileUrl($user)
     {

@@ -1050,8 +1050,7 @@ CREATE TABLE `yupe_user_tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_user_tokens` (`id`, `user_id`, `token`, `type`, `status`, `create_time`, `update_time`, `ip`, `expire_time`) VALUES
-  (1,	1,	'ef5145bedaca7f17957350d817fd9807',	1,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:31',	'127.0.0.1',	'0000-00-00 00:00:00'),
-  (2,	1,	'a53d3c57af2096e56cdd531ad003a9d3',	3,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:30',	'127.0.0.1',	'0000-00-00 00:00:00');
+  (1,	1,	'ef5145bedaca7f17957350d817fd9807',	1,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:31',	'127.0.0.1',	'0000-00-00 00:00:00');
 
 DROP TABLE IF EXISTS `yupe_user_user`;
 CREATE TABLE `yupe_user_user` (
@@ -1203,4 +1202,4 @@ INSERT INTO `yupe_yupe_settings` (`id`, `module_id`, `param_name`, `param_value`
   (51,	'user',	'badLoginCount',	'3',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
   (52,	'user',	'phoneMask',	'+7-999-999-9999',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
   (53,	'user',	'phonePattern',	'/^((\\+?7)(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$/',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
-  (54,	'user',	'generateNickName',	'1',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1);
+  (54,	'user',	'generateNickName',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1);

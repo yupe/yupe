@@ -34,7 +34,7 @@ class UserRegistrationCest
         $I->fillField(RegistrationPage::$emailField, 'test');
         $I->fillField(RegistrationPage::$passwordField, $testPassword);
         $I->fillField(RegistrationPage::$cpasswordField, '111');
-        $I->click(RegistrationPage::$buttonLabel, '.btn-primary');
+        $I->click('button[type=submit]');
 
         $I->see('Email не является правильным E-Mail адресом', CommonPage::ERROR_CSS_CLASS);
         $I->see('Пароли не совпадают', CommonPage::ERROR_CSS_CLASS);
@@ -48,14 +48,14 @@ class UserRegistrationCest
         $I->fillField(RegistrationPage::$emailField, 'yupe@yupe.local');
         $I->fillField(RegistrationPage::$passwordField, $testPassword);
         $I->fillField(RegistrationPage::$cpasswordField, $testPassword);
-        $I->click(RegistrationPage::$buttonLabel, '.btn-primary');
+        $I->click('button[type=submit]');
         $I->see('Имя пользователя уже занято', CommonPage::ERROR_CSS_CLASS);
         $I->see('Email уже занят', CommonPage::ERROR_CSS_CLASS);
 
         $I->wantTo('Test success registration...');
         $I->fillField(RegistrationPage::$nickNameField, $testNickName);
         $I->fillField(RegistrationPage::$emailField, $testEMail);
-        $I->click(RegistrationPage::$buttonLabel, '.btn-primary');
+        $I->click('button[type=submit]');
 
         $I->see('Учетная запись создана! Проверьте Вашу почту!', CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInCurrentUrl('login');
@@ -76,7 +76,7 @@ class UserRegistrationCest
         $I->wantTo('Test that new user cant login without account activation...');
         $I->fillField(LoginPage::$emailField, $testEMail);
         $I->fillField(LoginPage::$passwordField, $testPassword);
-        $I->click(CommonPage::LOGIN_LABEL, CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->click(CommonPage::LOGIN_BTN_CONTEXT);
         $I->see('Email или пароль введены неверно!', CommonPage::ERROR_CSS_CLASS);
 
         $I->wantTo('Test account activation...');

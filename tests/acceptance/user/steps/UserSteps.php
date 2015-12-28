@@ -19,7 +19,6 @@ class UserSteps extends WebGuy
         $I->click(CommonPage::LOGIN_BTN_CONTEXT);
         $I->dontSee('Email или пароль введены неверно!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Вы успешно авторизовались!', CommonPage::SUCCESS_CSS_CLASS);
-        $I->see(CommonPage::PANEL_LABEL, 'h1');
     }
 
     public function logout()
@@ -39,9 +38,12 @@ class UserSteps extends WebGuy
         $I = $this;
         $I->login(LoginPage::$userEmail, LoginPage::$userPassword);
         $I->amOnPage(EditProfilePage::URL);
-        $I->fillField(EditProfilePage::$emailField, $email);
-        $I->see('Внимание! После смены e-mail адреса', '.text-warning');
-        $I->click('Сохранить профиль', CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->click('Изменить email');
+        $I->seeInCurrentUrl('/profile/email');
+        $I->fillField('ProfileEmailForm[email]', $email);
+        $I->see('Внимание! После смены e-mail адреса', '.alert-warning');
+        $I->click('Изменить email');
+        $I->seeInCurrentUrl('/profile');
         $I->see('Вам необходимо продтвердить новый e-mail, проверьте почту!', CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInDatabase('yupe_user_user', ['email_confirm' => 0, 'email' => $email]);
         //check token

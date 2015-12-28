@@ -25,7 +25,7 @@ class UserLoginCest
         $I->wantTo('Check form with wrong data...');
         $I->fillField(LoginPage::$emailField, 'test@test.ru');
         $I->fillField(LoginPage::$passwordField, 'testpass');
-        $I->click(CommonPage::LOGIN_LABEL);
+        $I->click(CommonPage::LOGIN_BTN_CONTEXT);
         $I->see('Email или пароль введены неверно!', CommonPage::ERROR_CSS_CLASS);
 
         $I = new UserSteps($scenario);
