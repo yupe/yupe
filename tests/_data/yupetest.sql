@@ -1,5 +1,3 @@
--- Adminer 4.2.1 MySQL dump
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
@@ -54,7 +52,7 @@ CREATE TABLE `yupe_blog_post` (
   `slug` varchar(150) NOT NULL,
   `lang` char(2) DEFAULT NULL,
   `title` varchar(250) NOT NULL,
-  `quote` text NOT NULL,
+  `quote` text,
   `content` text NOT NULL,
   `link` varchar(250) NOT NULL DEFAULT '',
   `status` int(11) NOT NULL DEFAULT '0',
@@ -136,38 +134,16 @@ CREATE TABLE `yupe_blog_user_to_blog` (
   CONSTRAINT `fk_yupe_blog_user_to_blog_blog_user_to_blog_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-DROP TABLE IF EXISTS `yupe_catalog_good`;
-CREATE TABLE `yupe_catalog_good` (
+DROP TABLE IF EXISTS `yupe_callback`;
+CREATE TABLE `yupe_callback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) DEFAULT NULL,
-  `name` varchar(250) NOT NULL,
-  `price` decimal(19,3) NOT NULL DEFAULT '0.000',
-  `article` varchar(100) DEFAULT NULL,
-  `image` varchar(250) DEFAULT NULL,
-  `short_description` text,
-  `description` text NOT NULL,
-  `slug` varchar(150) NOT NULL,
-  `data` text,
-  `is_special` tinyint(1) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `create_time` datetime NOT NULL,
-  `update_time` datetime NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `change_user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ux_yupe_catalog_good_alias` (`slug`),
-  KEY `ix_yupe_catalog_good_status` (`status`),
-  KEY `ix_yupe_catalog_good_category` (`category_id`),
-  KEY `ix_yupe_catalog_good_user` (`user_id`),
-  KEY `ix_yupe_catalog_good_change_user` (`change_user_id`),
-  KEY `ix_yupe_catalog_good_article` (`article`),
-  KEY `ix_yupe_catalog_good_price` (`price`),
-  CONSTRAINT `fk_yupe_catalog_good_category` FOREIGN KEY (`category_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
-  CONSTRAINT `fk_yupe_catalog_good_change_user` FOREIGN KEY (`change_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
-  CONSTRAINT `fk_yupe_catalog_good_user` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `time` varchar(255) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_category_category`;
 CREATE TABLE `yupe_category_category` (
@@ -186,7 +162,6 @@ CREATE TABLE `yupe_category_category` (
   KEY `ix_yupe_category_category_status` (`status`),
   CONSTRAINT `fk_yupe_category_category_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_comment_comment`;
 CREATE TABLE `yupe_comment_comment` (
@@ -221,7 +196,6 @@ CREATE TABLE `yupe_comment_comment` (
   CONSTRAINT `fk_yupe_comment_comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_contentblock_content_block`;
 CREATE TABLE `yupe_contentblock_content_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -235,9 +209,8 @@ CREATE TABLE `yupe_contentblock_content_block` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_contentblock_content_block_code` (`code`),
   KEY `ix_yupe_contentblock_content_block_type` (`type`),
-  KEY `status` (`status`)
+  KEY `ix_yupe_contentblock_content_block_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_dictionary_dictionary_data`;
 CREATE TABLE `yupe_dictionary_dictionary_data` (
@@ -263,7 +236,6 @@ CREATE TABLE `yupe_dictionary_dictionary_data` (
   CONSTRAINT `fk_yupe_dictionary_dictionary_data_update_user_id` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_dictionary_dictionary_group`;
 CREATE TABLE `yupe_dictionary_dictionary_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -281,7 +253,6 @@ CREATE TABLE `yupe_dictionary_dictionary_group` (
   CONSTRAINT `fk_yupe_dictionary_dictionary_group_create_user_id` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `fk_yupe_dictionary_dictionary_group_update_user_id` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_feedback_feedback`;
 CREATE TABLE `yupe_feedback_feedback` (
@@ -310,7 +281,6 @@ CREATE TABLE `yupe_feedback_feedback` (
   CONSTRAINT `fk_yupe_feedback_feedback_answer_user` FOREIGN KEY (`answer_user`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `fk_yupe_feedback_feedback_category` FOREIGN KEY (`category_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_gallery_gallery`;
 CREATE TABLE `yupe_gallery_gallery` (
@@ -383,7 +353,6 @@ CREATE TABLE `yupe_mail_mail_event` (
   UNIQUE KEY `ux_yupe_mail_mail_event_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_mail_mail_template`;
 CREATE TABLE `yupe_mail_mail_template` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -402,7 +371,6 @@ CREATE TABLE `yupe_mail_mail_template` (
   KEY `ix_yupe_mail_mail_template_event_id` (`event_id`),
   CONSTRAINT `fk_yupe_mail_mail_template_event_id` FOREIGN KEY (`event_id`) REFERENCES `yupe_mail_mail_event` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_menu_menu`;
 CREATE TABLE `yupe_menu_menu` (
@@ -467,40 +435,107 @@ CREATE TABLE `yupe_migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
-  (1,	'user',	'm000000_000000_user_base',	1386585435),
-  (2,	'user',	'm131019_212911_user_tokens',	1386585435),
-  (3,	'user',	'm131025_152911_clean_user_table',	1386585437),
-  (4,	'user',	'm131026_002234_prepare_hash_user_password',	1386585438),
-  (5,	'user',	'm131106_111552_user_restore_fields',	1386585438),
-  (6,	'user',	'm131121_190850_modify_tokes_table',	1386585439),
-  (7,	'yupe',	'm000000_000000_yupe_base',	1386585440),
-  (8,	'yupe',	'm130527_154455_yupe_change_unique_index',	1386585441),
-  (9,	'category',	'm000000_000000_category_base',	1386585442),
-  (10,	'category',	'm131103_044317_category_nestedsets',	1386585445),
-  (11,	'image',	'm000000_000000_image_base',	1386585447),
-  (12,	'comment',	'm000000_000000_comment_base',	1386585449),
-  (13,	'comment',	'm130704_095200_comment_nestedsets',	1386585451),
-  (14,	'gallery',	'm000000_000000_gallery_base',	1386585453),
-  (15,	'gallery',	'm130427_120500_gallery_creation_user',	1386585454),
-  (16,	'news',	'm000000_000000_news_base',	1386585457),
-  (17,	'catalog',	'm000000_000000_good_base',	1386585460),
-  (18,	'menu',	'm000000_000000_menu_base',	1386585462),
-  (19,	'menu',	'm121220_001126_menu_test_data',	1386585462),
-  (20,	'menu',	'm131017_064101_fix_menu_test_data',	1386585462),
-  (21,	'feedback',	'm000000_000000_feedback_base',	1386585464),
-  (22,	'queue',	'm000000_000000_queue_base',	1386585465),
-  (23,	'queue',	'm131007_031000_queue_fix_index',	1386585465),
-  (24,	'blog',	'm000000_000000_blog_base',	1386585475),
-  (25,	'blog',	'm130503_091124_BlogPostImage',	1386585475),
-  (26,	'blog',	'm130529_151602_add_post_category',	1386585476),
-  (27,	'dictionary',	'm000000_000000_dictionary_base',	1386585480),
-  (28,	'yeeki',	'm000000_000000_yeeki_base',	1386585484),
-  (29,	'contentblock',	'm000000_000000_contentblock_base',	1386585484),
-  (30,	'page',	'm000000_000000_page_base',	1386585487),
-  (31,	'page',	'm130115_155600_columns_rename',	1386585487),
-  (32,	'page',	'm140115_083618_add_layout',	1386585487),
-  (33,	'page',	'm140620_072543_add_view',	1386585487),
-  (34,	'mail',	'm000000_000000_mail_base',	1386585489);
+  (1,	'user',	'm000000_000000_user_base',	1449572900),
+  (2,	'user',	'm131019_212911_user_tokens',	1449572901),
+  (3,	'user',	'm131025_152911_clean_user_table',	1449572909),
+  (4,	'user',	'm131026_002234_prepare_hash_user_password',	1449572913),
+  (5,	'user',	'm131106_111552_user_restore_fields',	1449572914),
+  (6,	'user',	'm131121_190850_modify_tokes_table',	1449572916),
+  (7,	'user',	'm140812_100348_add_expire_to_token_table',	1449572918),
+  (8,	'user',	'm150416_113652_rename_fields',	1449572919),
+  (9,	'user',	'm151006_000000_user_add_phone',	1449572921),
+  (10,	'yupe',	'm000000_000000_yupe_base',	1449572925),
+  (11,	'yupe',	'm130527_154455_yupe_change_unique_index',	1449572926),
+  (12,	'yupe',	'm150416_125517_rename_fields',	1449572927),
+  (13,	'category',	'm000000_000000_category_base',	1449572932),
+  (14,	'category',	'm150415_150436_rename_fields',	1449572932),
+  (15,	'store',	'm140812_160000_store_attribute_group_base',	1449572933),
+  (16,	'store',	'm140812_170000_store_attribute_base',	1449572936),
+  (17,	'store',	'm140812_180000_store_attribute_option_base',	1449572940),
+  (18,	'store',	'm140813_200000_store_category_base',	1449572943),
+  (19,	'store',	'm140813_210000_store_type_base',	1449572944),
+  (20,	'store',	'm140813_220000_store_type_attribute_base',	1449572946),
+  (21,	'store',	'm140813_230000_store_producer_base',	1449572947),
+  (22,	'store',	'm140814_000000_store_product_base',	1449572957),
+  (23,	'store',	'm140814_000010_store_product_category_base',	1449572960),
+  (24,	'store',	'm140814_000013_store_product_attribute_eav_base',	1449572964),
+  (25,	'store',	'm140814_000018_store_product_image_base',	1449572965),
+  (26,	'store',	'm140814_000020_store_product_variant_base',	1449572969),
+  (27,	'store',	'm141014_210000_store_product_category_column',	1449572972),
+  (28,	'store',	'm141015_170000_store_product_image_column',	1449572974),
+  (29,	'store',	'm141218_091834_default_null',	1449572975),
+  (30,	'store',	'm150210_063409_add_store_menu_item',	1449572975),
+  (31,	'store',	'm150210_105811_add_price_column',	1449572978),
+  (32,	'store',	'm150210_131238_order_category',	1449572979),
+  (33,	'store',	'm150211_105453_add_position_for_product_variant',	1449572981),
+  (34,	'store',	'm150226_065935_add_product_position',	1449572983),
+  (35,	'store',	'm150416_112008_rename_fields',	1449572983),
+  (36,	'store',	'm150417_180000_store_product_link_base',	1449572987),
+  (37,	'store',	'm150825_184407_change_store_url',	1449572988),
+  (38,	'store',	'm150907_084604_new_attributes',	1449572991),
+  (39,	'mail',	'm000000_000000_mail_base',	1449572995),
+  (40,	'payment',	'm140815_170000_store_payment_base',	1449572996),
+  (41,	'image',	'm000000_000000_image_base',	1449573002),
+  (42,	'image',	'm150226_121100_image_order',	1449573003),
+  (43,	'image',	'm150416_080008_rename_fields',	1449573003),
+  (44,	'comment',	'm000000_000000_comment_base',	1449573008),
+  (45,	'comment',	'm130704_095200_comment_nestedsets',	1449573014),
+  (46,	'comment',	'm150415_151804_rename_fields',	1449573014),
+  (47,	'blog',	'm000000_000000_blog_base',	1449573038),
+  (48,	'blog',	'm130503_091124_BlogPostImage',	1449573039),
+  (49,	'blog',	'm130529_151602_add_post_category',	1449573042),
+  (50,	'blog',	'm140226_052326_add_community_fields',	1449573045),
+  (51,	'blog',	'm140714_110238_blog_post_quote_type',	1449573046),
+  (52,	'blog',	'm150406_094809_blog_post_quote_type',	1449573048),
+  (53,	'blog',	'm150414_180119_rename_date_fields',	1449573048),
+  (54,	'delivery',	'm140815_190000_store_delivery_base',	1449573049),
+  (55,	'delivery',	'm140815_200000_store_delivery_payment_base',	1449573052),
+  (56,	'order',	'm140814_200000_store_order_base',	1449573060),
+  (57,	'order',	'm150324_105949_order_status_table',	1449573063),
+  (58,	'order',	'm150416_100212_rename_fields',	1449573063),
+  (59,	'order',	'm150514_065554_change_order_price',	1449573063),
+  (60,	'coupon',	'm140816_200000_store_coupon_base',	1449573064),
+  (61,	'coupon',	'm150414_124659_add_order_coupon_table',	1449573067),
+  (62,	'coupon',	'm150415_153218_rename_fields',	1449573067),
+  (63,	'page',	'm000000_000000_page_base',	1449573073),
+  (64,	'page',	'm130115_155600_columns_rename',	1449573074),
+  (65,	'page',	'm140115_083618_add_layout',	1449573075),
+  (66,	'page',	'm140620_072543_add_view',	1449573076),
+  (67,	'page',	'm150312_151049_change_body_type',	1449573077),
+  (68,	'page',	'm150416_101038_rename_fields',	1449573078),
+  (69,	'dictionary',	'm000000_000000_dictionary_base',	1449573086),
+  (70,	'dictionary',	'm150415_183050_rename_fields',	1449573087),
+  (71,	'callback',	'm150926_083350_callback_base',	1449573091),
+  (72,	'queue',	'm000000_000000_queue_base',	1449573092),
+  (73,	'queue',	'm131007_031000_queue_fix_index',	1449573093),
+  (74,	'rbac',	'm140115_131455_auth_item',	1449573095),
+  (75,	'rbac',	'm140115_132045_auth_item_child',	1449573097),
+  (76,	'rbac',	'm140115_132319_auth_item_assign',	1449573100),
+  (77,	'rbac',	'm140702_230000_initial_role_data',	1449573100),
+  (78,	'menu',	'm000000_000000_menu_base',	1449573104),
+  (79,	'menu',	'm121220_001126_menu_test_data',	1449573104),
+  (80,	'contentblock',	'm000000_000000_contentblock_base',	1449573106),
+  (81,	'contentblock',	'm140715_130737_add_category_id',	1449573107),
+  (82,	'contentblock',	'm150127_130425_add_status_column',	1449573108),
+  (83,	'notify',	'm141031_091039_add_notify_table',	1449573110),
+  (84,	'social',	'm000000_000000_social_profile',	1449573112),
+  (85,	'feedback',	'm000000_000000_feedback_base',	1449573116),
+  (86,	'feedback',	'm150415_184108_rename_fields',	1449573117),
+  (87,	'yandexmarket',	'm141110_090000_yandex_market_export_base',	1449573117),
+  (88,	'gallery',	'm000000_000000_gallery_base',	1449573121),
+  (89,	'gallery',	'm130427_120500_gallery_creation_user',	1449573123),
+  (90,	'gallery',	'm150416_074146_rename_fields',	1449573123),
+  (91,	'news',	'm000000_000000_news_base',	1449573127),
+  (92,	'news',	'm150416_081251_rename_fields',	1449573128),
+  (93,	'sitemap',	'm141004_130000_sitemap_page',	1449573129),
+  (94,	'sitemap',	'm141004_140000_sitemap_page_data',	1449573129),
+  (100,	'store',	'm151218_081635_add_external_id_fields',	1450702133),
+  (101,	'store',	'm151218_082939_add_external_id_ix',	1450702133),
+  (102,	'store',	'm151218_142113_add_product_index',	1450702133),
+  (103,	'store',	'm151223_140722_drop_product_type_categories',	1450943031),
+  (104,	'order',	'm000000_000000_base_order',	1450950290),
+  (105,	'order',	'm151209_185124_split_address',	1450950291),
+  (106,	'order',	'm151211_115447_add_appartment_field',	1450950291);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -547,7 +582,6 @@ CREATE TABLE `yupe_notify_settings` (
   CONSTRAINT `fk_yupe_notify_settings_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_page_page`;
 CREATE TABLE `yupe_page_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -567,8 +601,8 @@ CREATE TABLE `yupe_page_page` (
   `status` int(11) NOT NULL,
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
   `order` int(11) NOT NULL DEFAULT '0',
-  `view` varchar(250) DEFAULT NULL,
   `layout` varchar(250) DEFAULT NULL,
+  `view` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_page_page_slug_lang` (`slug`,`lang`),
   KEY `ix_yupe_page_page_status` (`status`),
@@ -582,7 +616,7 @@ CREATE TABLE `yupe_page_page` (
   CONSTRAINT `fk_yupe_page_page_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_page_page` (`id`, `category_id`, `lang`, `parent_id`, `create_time`, `update_time`, `user_id`, `change_user_id`, `title_short`, `title`, `slug`, `body`, `keywords`, `description`, `status`, `is_protected`, `order`, `view`, `layout`) VALUES
+INSERT INTO `yupe_page_page` (`id`, `category_id`, `lang`, `parent_id`, `create_time`, `update_time`, `user_id`, `change_user_id`, `title_short`, `title`, `slug`, `body`, `keywords`, `description`, `status`, `is_protected`, `order`, `layout`, `view`) VALUES
   (1,	NULL,	'ru',	NULL,	'2013-09-19 19:38:33',	'2013-09-19 19:38:33',	1,	1,	'Опубликованная страница',	'Опубликованная страница',	'opublikovannaja-starnica',	'<p>\r\n	Опубликованная страница текст\r\n</p>',	'сео слова',	'сео описание',	1,	0,	0,	NULL,	NULL),
   (2,	NULL,	'ru',	NULL,	'2013-09-19 19:47:43',	'2013-09-19 19:47:43',	1,	1,	'Скрытая страница',	'Скрытая страница',	'skrytaja-stranica',	'<p>\r\n	Скрытая страница текст\r\n</p>',	'',	'',	0,	0,	0,	NULL,	NULL),
   (3,	NULL,	'ru',	NULL,	'2013-09-19 19:55:47',	'2013-09-19 19:55:47',	1,	1,	'Защищенная страница',	'Защищенная страница',	'zaschischennaja-stranica',	'<p>\r\n	Защищенная страница текст\r\n</p>',	'',	'',	1,	1,	0,	NULL,	NULL);
@@ -599,10 +633,9 @@ CREATE TABLE `yupe_queue_queue` (
   `status` int(11) NOT NULL DEFAULT '0',
   `notice` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ux_yupe_queue_queue_worker` (`worker`),
-  UNIQUE KEY `ux_yupe_queue_queue_priority` (`priority`)
+  KEY `ux_yupe_queue_queue_worker` (`worker`),
+  KEY `ux_yupe_queue_queue_priority` (`priority`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_sitemap_page`;
 CREATE TABLE `yupe_sitemap_page` (
@@ -614,7 +647,6 @@ CREATE TABLE `yupe_sitemap_page` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_sitemap_page_url` (`url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_social_user`;
 CREATE TABLE `yupe_social_user` (
@@ -628,7 +660,6 @@ CREATE TABLE `yupe_social_user` (
   KEY `fk_yupe_social_user_user_id` (`user_id`),
   CONSTRAINT `fk_yupe_social_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_attribute`;
 CREATE TABLE `yupe_store_attribute` (
@@ -646,7 +677,6 @@ CREATE TABLE `yupe_store_attribute` (
   CONSTRAINT `fk_yupe_store_attribute_group` FOREIGN KEY (`group_id`) REFERENCES `yupe_store_attribute_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_attribute_group`;
 CREATE TABLE `yupe_store_attribute_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -654,7 +684,6 @@ CREATE TABLE `yupe_store_attribute_group` (
   `position` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_attribute_option`;
 CREATE TABLE `yupe_store_attribute_option` (
@@ -667,7 +696,6 @@ CREATE TABLE `yupe_store_attribute_option` (
   KEY `ix_yupe_store_attribute_option_position` (`position`),
   CONSTRAINT `fk_yupe_store_attribute_option_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `yupe_store_attribute` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_category`;
 CREATE TABLE `yupe_store_category` (
@@ -683,13 +711,14 @@ CREATE TABLE `yupe_store_category` (
   `meta_keywords` varchar(250) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '1',
+  `external_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_category_alias` (`slug`),
   KEY `ix_yupe_store_category_parent_id` (`parent_id`),
   KEY `ix_yupe_store_category_status` (`status`),
+  KEY `yupe_store_category_external_id_ix` (`external_id`),
   CONSTRAINT `fk_yupe_store_category_parent` FOREIGN KEY (`parent_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_coupon`;
 CREATE TABLE `yupe_store_coupon` (
@@ -709,7 +738,6 @@ CREATE TABLE `yupe_store_coupon` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_delivery`;
 CREATE TABLE `yupe_store_delivery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -725,7 +753,6 @@ CREATE TABLE `yupe_store_delivery` (
   KEY `idx_yupe_store_delivery_position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_delivery_payment`;
 CREATE TABLE `yupe_store_delivery_payment` (
   `delivery_id` int(11) NOT NULL,
@@ -735,7 +762,6 @@ CREATE TABLE `yupe_store_delivery_payment` (
   CONSTRAINT `fk_yupe_store_delivery_payment_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `yupe_store_delivery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_delivery_payment_payment` FOREIGN KEY (`payment_id`) REFERENCES `yupe_store_payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_order`;
 CREATE TABLE `yupe_store_order` (
@@ -754,7 +780,7 @@ CREATE TABLE `yupe_store_order` (
   `date` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL DEFAULT '',
-  `address` varchar(255) NOT NULL DEFAULT '',
+  `street` varchar(255) NOT NULL DEFAULT '',
   `phone` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
   `comment` varchar(1024) NOT NULL DEFAULT '',
@@ -762,6 +788,11 @@ CREATE TABLE `yupe_store_order` (
   `url` varchar(255) DEFAULT NULL,
   `note` varchar(1024) NOT NULL DEFAULT '',
   `modified` datetime DEFAULT NULL,
+  `zipcode` varchar(30) DEFAULT NULL,
+  `country` varchar(150) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `house` varchar(50) DEFAULT NULL,
+  `apartment` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `udx_yupe_store_order_url` (`url`),
   KEY `idx_yupe_store_order_user_id` (`user_id`),
@@ -776,7 +807,6 @@ CREATE TABLE `yupe_store_order` (
   CONSTRAINT `fk_yupe_store_order_user` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_order_coupon`;
 CREATE TABLE `yupe_store_order_coupon` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -789,7 +819,6 @@ CREATE TABLE `yupe_store_order_coupon` (
   CONSTRAINT `fk_yupe_store_order_coupon_coupon` FOREIGN KEY (`coupon_id`) REFERENCES `yupe_store_coupon` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_yupe_store_order_coupon_order` FOREIGN KEY (`order_id`) REFERENCES `yupe_store_order` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_order_product`;
 CREATE TABLE `yupe_store_order_product` (
@@ -809,7 +838,6 @@ CREATE TABLE `yupe_store_order_product` (
   CONSTRAINT `fk_yupe_store_order_product_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_order_status`;
 CREATE TABLE `yupe_store_order_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -817,7 +845,6 @@ CREATE TABLE `yupe_store_order_status` (
   `is_system` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_payment`;
 CREATE TABLE `yupe_store_payment` (
@@ -832,7 +859,6 @@ CREATE TABLE `yupe_store_payment` (
   PRIMARY KEY (`id`),
   KEY `idx_yupe_store_payment_position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_producer`;
 CREATE TABLE `yupe_store_producer` (
@@ -851,7 +877,6 @@ CREATE TABLE `yupe_store_producer` (
   PRIMARY KEY (`id`),
   KEY `ix_yupe_store_producer_slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_product`;
 CREATE TABLE `yupe_store_product` (
@@ -886,6 +911,7 @@ CREATE TABLE `yupe_store_product` (
   `purchase_price` decimal(19,3) DEFAULT NULL,
   `recommended_price` decimal(19,3) DEFAULT NULL,
   `position` int(11) NOT NULL DEFAULT '1',
+  `external_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_product_alias` (`slug`),
   KEY `ix_yupe_store_product_status` (`status`),
@@ -896,23 +922,34 @@ CREATE TABLE `yupe_store_product` (
   KEY `ix_yupe_store_product_create_time` (`create_time`),
   KEY `ix_yupe_store_product_update_time` (`update_time`),
   KEY `fk_yupe_store_product_category` (`category_id`),
+  KEY `yupe_store_product_external_id_ix` (`external_id`),
+  KEY `ix_yupe_store_product_sku` (`sku`),
+  KEY `ix_yupe_store_product_name` (`name`),
   CONSTRAINT `fk_yupe_store_product_category` FOREIGN KEY (`category_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_product_producer` FOREIGN KEY (`producer_id`) REFERENCES `yupe_store_producer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_product_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-DROP TABLE IF EXISTS `yupe_store_product_attribute_eav`;
-CREATE TABLE `yupe_store_product_attribute_eav` (
+DROP TABLE IF EXISTS `yupe_store_product_attribute_value`;
+CREATE TABLE `yupe_store_product_attribute_value` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
-  `attribute` varchar(250) NOT NULL,
-  `value` text,
-  KEY `ix_yupe_store_product_attribute_eav_product_id` (`product_id`),
-  KEY `ix_yupe_store_product_attribute_eav_attribute` (`attribute`),
-  CONSTRAINT `fk_yupe_store_product_attribute_eav_attribute` FOREIGN KEY (`attribute`) REFERENCES `yupe_store_attribute` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_yupe_store_product_attribute_eav_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `attribute_id` int(11) NOT NULL,
+  `number_value` double DEFAULT NULL,
+  `string_value` varchar(250) DEFAULT NULL,
+  `text_value` text,
+  `option_value` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `yupe_fk_product_attribute_product` (`product_id`),
+  KEY `yupe_fk_product_attribute_attribute` (`attribute_id`),
+  KEY `yupe_fk_product_attribute_option` (`option_value`),
+  KEY `yupe_ix_product_attribute_number_value` (`number_value`),
+  KEY `yupe_ix_product_attribute_string_value` (`string_value`),
+  CONSTRAINT `yupe_fk_product_attribute_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `yupe_store_attribute` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `yupe_fk_product_attribute_option` FOREIGN KEY (`option_value`) REFERENCES `yupe_store_attribute_option` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `yupe_fk_product_attribute_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_product_category`;
 CREATE TABLE `yupe_store_product_category` (
@@ -926,7 +963,6 @@ CREATE TABLE `yupe_store_product_category` (
   CONSTRAINT `fk_yupe_store_product_category_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_product_image`;
 CREATE TABLE `yupe_store_product_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -937,7 +973,6 @@ CREATE TABLE `yupe_store_product_image` (
   KEY `fk_yupe_store_product_image_product` (`product_id`),
   CONSTRAINT `fk_yupe_store_product_image_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_product_link`;
 CREATE TABLE `yupe_store_product_link` (
@@ -954,7 +989,6 @@ CREATE TABLE `yupe_store_product_link` (
   CONSTRAINT `fk_yupe_store_product_link_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_product_link_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_product_link_type`;
 CREATE TABLE `yupe_store_product_link_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -964,7 +998,6 @@ CREATE TABLE `yupe_store_product_link_type` (
   UNIQUE KEY `ux_yupe_store_product_link_type_code` (`code`),
   UNIQUE KEY `ux_yupe_store_product_link_type_title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_product_variant`;
 CREATE TABLE `yupe_store_product_variant` (
@@ -984,19 +1017,13 @@ CREATE TABLE `yupe_store_product_variant` (
   CONSTRAINT `fk_yupe_store_product_variant_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_store_type`;
 CREATE TABLE `yupe_store_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `main_category_id` int(11) DEFAULT NULL,
-  `categories` text,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ux_yupe_store_type_name` (`name`),
-  KEY `fk_yupe_store_type_main_category` (`main_category_id`),
-  CONSTRAINT `fk_yupe_store_type_main_category` FOREIGN KEY (`main_category_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  UNIQUE KEY `ux_yupe_store_type_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_store_type_attribute`;
 CREATE TABLE `yupe_store_type_attribute` (
@@ -1005,7 +1032,6 @@ CREATE TABLE `yupe_store_type_attribute` (
   PRIMARY KEY (`type_id`,`attribute_id`),
   CONSTRAINT `fk_yupe_store_type_attribute_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_user_tokens`;
 CREATE TABLE `yupe_user_tokens` (
@@ -1017,14 +1043,14 @@ CREATE TABLE `yupe_user_tokens` (
   `create_time` datetime NOT NULL,
   `update_time` datetime DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
-  `expire_time` datetime DEFAULT NULL,
+  `expire_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yupe_user_tokens_user_id` (`user_id`)
+  KEY `ix_yupe_user_tokens_user_id` (`user_id`),
+  CONSTRAINT `fk_yupe_user_tokens_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_user_tokens` (`id`, `user_id`, `token`, `type`, `status`, `create_time`, `update_time`, `ip`, `expire_time`) VALUES
-  (1,	1,	'ef5145bedaca7f17957350d817fd9807',	1,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:31',	'127.0.0.1',	NULL),
-  (2,	1,	'a53d3c57af2096e56cdd531ad003a9d3',	3,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:30',	'127.0.0.1',	NULL);
+  (1,	1,	'ef5145bedaca7f17957350d817fd9807',	1,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:31',	'127.0.0.1',	'0000-00-00 00:00:00');
 
 DROP TABLE IF EXISTS `yupe_user_user`;
 CREATE TABLE `yupe_user_user` (
@@ -1043,18 +1069,19 @@ CREATE TABLE `yupe_user_user` (
   `status` int(11) NOT NULL DEFAULT '2',
   `access_level` int(11) NOT NULL DEFAULT '0',
   `visit_time` datetime DEFAULT NULL,
-  `avatar` varchar(150) DEFAULT NULL,
-  `hash` varchar(255) NOT NULL DEFAULT '0d9f05b1bda566dfb5676d15e45d02a80.05778000 1429948336',
-  `email_confirm` tinyint(1) NOT NULL DEFAULT '0',
   `create_time` datetime NOT NULL,
+  `avatar` varchar(150) DEFAULT NULL,
+  `hash` varchar(255) NOT NULL DEFAULT '476f7eefe7a02b04c12ed886d3c98a6c0.66696900 1449572909',
+  `email_confirm` tinyint(1) NOT NULL DEFAULT '0',
+  `phone` char(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_user_user_nick_name` (`nick_name`),
   UNIQUE KEY `ux_yupe_user_user_email` (`email`),
   KEY `ix_yupe_user_user_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_user_user` (`id`, `update_time`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `visit_time`, `avatar`, `hash`, `email_confirm`, `create_time`) VALUES
-  (1,	'2013-11-05 20:02:30',	'',	'',	'',	'yupe',	'yupe@yupe.local',	0,	NULL,	'',	'',	'',	1,	1,	'2013-11-05 20:02:31',	NULL,	'$2a$13$kV7qdBBM3MPYW.6LAKeiv.iIAMDa4BZFhwzjMWhCm78UmDT8wDH7G',	1,	'2013-11-05 20:02:30');
+INSERT INTO `yupe_user_user` (`id`, `update_time`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `visit_time`, `create_time`, `avatar`, `hash`, `email_confirm`, `phone`) VALUES
+  (1,	'2013-11-05 20:02:30',	'',	'',	'',	'yupe',	'yupe@yupe.local',	0,	NULL,	'',	'',	'',	1,	1,	'2015-12-27 10:36:10',	'2013-11-05 20:02:30',	NULL,	'$2a$13$kV7qdBBM3MPYW.6LAKeiv.iIAMDa4BZFhwzjMWhCm78UmDT8wDH7G',	1,	NULL);
 
 DROP TABLE IF EXISTS `yupe_user_user_auth_assignment`;
 CREATE TABLE `yupe_user_user_auth_assignment` (
@@ -1095,7 +1122,6 @@ CREATE TABLE `yupe_user_user_auth_item_child` (
   CONSTRAINT `fk_yupe_user_user_auth_itemchild_parent` FOREIGN KEY (`parent`) REFERENCES `yupe_user_user_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS `yupe_yandex_market_export`;
 CREATE TABLE `yupe_yandex_market_export` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1103,7 +1129,6 @@ CREATE TABLE `yupe_yandex_market_export` (
   `settings` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `yupe_yupe_settings`;
 CREATE TABLE `yupe_yupe_settings` (
@@ -1124,12 +1149,72 @@ CREATE TABLE `yupe_yupe_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_yupe_settings` (`id`, `module_id`, `param_name`, `param_value`, `create_time`, `update_time`, `user_id`, `type`) VALUES
-  (1,	'yupe',	'siteDescription',	'Юпи! - самый быстрый способ создать сайт на Yii',	'2013-09-13 19:15:35',	'2013-09-13 19:15:35',	1,	1),
-  (2,	'yupe',	'siteName',	'Юпи!',	'2013-09-13 19:15:35',	'2013-09-13 19:15:35',	1,	1),
-  (3,	'yupe',	'siteKeyWords',	'Юпи!, yupe, yii, cms, цмс',	'2013-09-13 19:15:35',	'2013-09-13 19:15:35',	1,	1),
-  (4,	'yupe',	'email',	'yupe@yupetest.ru',	'2013-09-13 19:15:35',	'2013-09-13 19:15:35',	1,	1),
-  (5,	'yupe',	'theme',	'default',	'2013-09-13 19:15:35',	'2013-09-13 19:15:35',	1,	1),
-  (6,	'yupe',	'backendTheme',	'',	'2013-09-13 19:15:35',	'2013-09-13 19:15:35',	1,	1),
-  (7,	'page',	'pageSize',	'10',	'2015-04-25 14:16:15',	'2015-04-25 14:16:15',	1,	2);
+  (1,	'yupe',	'siteDescription',	'Юпи! - самый простой способ создать сайт на Yii!',	'2015-12-08 14:12:28',	'2015-12-08 14:12:28',	1,	1),
+  (2,	'yupe',	'siteName',	'Юпи! Магазин бытовой техники',	'2015-12-08 14:12:28',	'2015-12-13 11:26:44',	1,	1),
+  (3,	'yupe',	'siteKeyWords',	'Юпи!, yupe, цмс, yii',	'2015-12-08 14:12:28',	'2015-12-08 14:12:28',	1,	1),
+  (4,	'yupe',	'email',	'root@mail.ru',	'2015-12-08 14:12:28',	'2015-12-08 14:12:28',	1,	1),
+  (5,	'yupe',	'theme',	'default',	'2015-12-08 14:12:28',	'2015-12-23 13:16:17',	1,	1),
+  (6,	'yupe',	'backendTheme',	'',	'2015-12-08 14:12:28',	'2015-12-08 14:12:28',	1,	1),
+  (7,	'yupe',	'defaultLanguage',	'ru',	'2015-12-08 14:12:28',	'2015-12-08 14:12:28',	1,	1),
+  (8,	'yupe',	'defaultBackendLanguage',	'ru',	'2015-12-08 14:12:28',	'2015-12-08 14:12:28',	1,	1),
+  (9,	'yupe',	'coreCacheTime',	'3600',	'2015-12-13 11:26:44',	'2015-12-13 11:26:44',	1,	1),
+  (10,	'yupe',	'uploadPath',	'uploads',	'2015-12-13 11:26:44',	'2015-12-13 11:26:44',	1,	1),
+  (11,	'yupe',	'editor',	'redactor',	'2015-12-13 11:26:44',	'2015-12-13 11:26:44',	1,	1),
+  (12,	'yupe',	'availableLanguages',	'ru,en,zh_cn',	'2015-12-13 11:26:44',	'2015-12-13 11:26:44',	1,	1),
+  (13,	'yupe',	'allowedIp',	'',	'2015-12-13 11:26:44',	'2015-12-13 11:26:44',	1,	1),
+  (14,	'yupe',	'hidePanelUrls',	'0',	'2015-12-13 11:26:45',	'2015-12-13 11:26:45',	1,	1),
+  (15,	'yupe',	'logo',	'images/logo.png',	'2015-12-13 11:26:45',	'2015-12-13 11:26:45',	1,	1),
+  (16,	'yupe',	'allowedExtensions',	'gif, jpeg, png, jpg, zip, rar',	'2015-12-13 11:26:45',	'2015-12-13 11:26:45',	1,	1),
+  (17,	'yupe',	'mimeTypes',	'image/gif, image/jpeg, image/png, application/zip, application/rar',	'2015-12-13 11:26:45',	'2015-12-13 11:26:45',	1,	1),
+  (18,	'yupe',	'maxSize',	'5242880',	'2015-12-13 11:26:45',	'2015-12-13 11:26:45',	1,	1),
+  (19,	'store',	'uploadPath',	'store',	'2015-12-13 11:34:51',	'2015-12-13 11:34:51',	1,	1),
+  (20,	'store',	'editor',	'redactor',	'2015-12-13 11:34:51',	'2015-12-13 11:34:51',	1,	1),
+  (21,	'store',	'itemsPerPage',	'21',	'2015-12-13 11:34:51',	'2015-12-18 16:39:22',	1,	1),
+  (22,	'store',	'phone',	'02',	'2015-12-13 11:34:51',	'2015-12-13 11:34:51',	1,	1),
+  (23,	'store',	'email',	'02@02.ru',	'2015-12-13 11:34:51',	'2015-12-13 11:34:51',	1,	1),
+  (24,	'homepage',	'mode',	'3',	'2015-12-13 11:38:42',	'2015-12-13 11:38:42',	1,	1),
+  (25,	'homepage',	'target',	'',	'2015-12-13 11:38:43',	'2015-12-13 11:38:43',	1,	1),
+  (26,	'homepage',	'limit',	'',	'2015-12-13 11:38:43',	'2015-12-13 11:38:43',	1,	1),
+  (27,	'store',	'currency',	'RUB',	'2015-12-13 12:36:42',	'2015-12-20 16:01:25',	1,	1),
+  (28,	'product',	'pageSize',	'15',	'2015-12-18 10:54:51',	'2015-12-18 10:54:51',	1,	2),
+  (29,	'producer',	'pageSize',	'20',	'2015-12-18 14:10:21',	'2015-12-18 14:10:21',	1,	2),
+  (30,	'user',	'avatarMaxSize',	'5242880',	'2015-12-22 11:59:43',	'2015-12-22 11:59:43',	1,	1),
+  (31,	'user',	'avatarExtensions',	'jpg,png,gif,jpeg',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (32,	'user',	'defaultAvatarPath',	'images/avatar.png',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (33,	'user',	'avatarsDir',	'avatars',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (34,	'user',	'showCaptcha',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (35,	'user',	'minCaptchaLength',	'3',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (36,	'user',	'maxCaptchaLength',	'6',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (37,	'user',	'minPasswordLength',	'8',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (38,	'user',	'autoRecoveryPassword',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (39,	'user',	'recoveryDisabled',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (40,	'user',	'registrationDisabled',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (41,	'user',	'notifyEmailFrom',	'test@test.ru',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (42,	'user',	'logoutSuccess',	'/',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (43,	'user',	'loginSuccess',	'/',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (44,	'user',	'accountActivationSuccess',	'/user/account/login',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (45,	'user',	'accountActivationFailure',	'/user/account/registration',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (46,	'user',	'loginAdminSuccess',	'/yupe/backend/index',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (47,	'user',	'registrationSuccess',	'/user/account/login',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (48,	'user',	'sessionLifeTime',	'7',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (49,	'user',	'usersPerPage',	'20',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (50,	'user',	'emailAccountVerification',	'1',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (51,	'user',	'badLoginCount',	'3',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (52,	'user',	'phoneMask',	'+7-999-999-9999',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (53,	'user',	'phonePattern',	'/^((\\+?7)(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$/',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (54,	'user',	'generateNickName',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
+  (55, 'comment', 'allowGuestComment', '0', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (56, 'comment', 'defaultCommentStatus', '0', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (57, 'comment', 'autoApprove', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (58, 'comment', 'notify', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (59, 'comment', 'email', 'root@mail.ru', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (60, 'comment', 'showCaptcha', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (61, 'comment', 'minCaptchaLength', '3', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (62, 'comment', 'maxCaptchaLength', '6', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (63, 'comment', 'rssCount', '10', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (64, 'comment', 'allowedTags', 'p,br,strong,img[src|style],a[href]', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (65, 'comment', 'antiSpamInterval', '10', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (66, 'comment', 'stripTags', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (67, 'comment', 'editor', 'textarea', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
+  (68, 'comment', 'modelsAvailableForRss', '', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1);
 
--- 2015-04-30 14:39:30

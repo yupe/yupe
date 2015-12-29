@@ -1,15 +1,22 @@
 <?php
+namespace tests\acceptance\install;
+
 use \WebGuy;
+use tests\acceptance\pages\CommonPage;
 
 class InstallCest
 {
+    public function _before(WebGuy $I)
+    {
+        copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');
+    }
     /**
      * @group install
      */
     public function testInstall(WebGuy $I)
     {
         $I->amGoingTo('test Yupe! installation process!');
-        $I->amOnPage('/ru/install/default');
+        $I->amOnPage('/install/default/index');
 
         // begin install
         $I->seeInTitle('Yupe! установка Yupe!');
@@ -19,7 +26,7 @@ class InstallCest
         $I->see('английский');
 
         // check external link
-        $I->seeLink('amyLabs');
+        $I->seeLink('amylabs');
         $I->seeLink('форум');
 
         $I->click('русский');
@@ -37,7 +44,7 @@ class InstallCest
 
         // environment check
         $I->seeInCurrentUrl('environment');
-        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Шаг 2 из 8 : "Проверка окружения!', 'span');
         $I->seeLink('< Назад');
         $I->seeLink('Продолжить >');
@@ -45,7 +52,7 @@ class InstallCest
         // requirements check
         $I->click('Продолжить >');
         $I->seeInCurrentUrl('requirements');
-        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', CommonPage::ERROR_CSS_CLASS);
         $I->see('Шаг 3 из 8 : "Проверка системных требований', 'span');
         $I->seeLink('< Назад');
         $I->seeLink('Продолжить >');
@@ -71,9 +78,9 @@ class InstallCest
         $I->see('Проверить подключение и продолжить >');
 
         $I->click('Проверить подключение и продолжить >');
-        $I->see('Необходимо исправить следующие ошибки:', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Необходимо заполнить поле «Название базы данных».', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Необходимо заполнить поле «Пользователь».', \CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо исправить следующие ошибки:', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо заполнить поле «Название базы данных».', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо заполнить поле «Пользователь».', CommonPage::ERROR_CSS_CLASS);
 
         $dbConfig = $I->getDbConfig();
         $I->fillField('InstallForm[dbName]', $dbConfig["dbname"]);
@@ -81,15 +88,15 @@ class InstallCest
         $I->fillField('InstallForm[dbPassword]', $dbConfig["password"]);
 
         $I->click('Проверить подключение и продолжить >');
-        $I->dontSee('Не удалось создать БД!', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Не удалось создать БД!', CommonPage::ERROR_CSS_CLASS);
 
         $I->see('Шаг 5 из 8 : "Установка модулей');
         $I->seeInCurrentUrl('modulesinstall');
-        $I->see('Доступно модулей:', \CommonPage::SUCCESS_CSS_CLASS);
-        $I->see('20', '.label-info');
-        $I->see('7', '.label-info');
+        $I->see('Доступно модулей:', CommonPage::SUCCESS_CSS_CLASS);
+        $I->see('34', '.label-info');
+        $I->see('10', '.label-info');
 
-        $links = ['Рекомендованные', 'Только основные', 'Все'];
+        $links = ['Интернет-магазин', 'Только основные', 'Все'];
 
         foreach ($links as $link) {
             $I->see($link, '.btn-info');
@@ -100,7 +107,10 @@ class InstallCest
 
         $I->click('Все');
 
-        $I->click('Продолжить >');
+//        $I->click('Продолжить >');
+        $I->executeJS("$('#modules-modal').modal('toggle');");
+        $I->waitForElementVisible('#modules-modal', 5);
+
         $I->see('Будет установлено', 'h4');
         $I->see('Отмена');
         $I->click('Продолжить >', '.modal-footer');
@@ -110,8 +120,8 @@ class InstallCest
         $I->see('Идет установка модулей...', 'h1');
         $I->see('Журнал установки', 'h3');
 
-        $I->wait(30000);
-        $I->see('20 / 20');
+        $I->wait(30);
+        $I->see('34 / 34');
         $I->see('Установка завершена', 'h4');
         $I->see('Поздравляем, установка выбранных вами модулей завершена.');
         $I->see('Смотреть журнал');
@@ -133,18 +143,18 @@ class InstallCest
         $I->fillField('InstallForm[userPassword]', 'testpassword');
         $I->fillField('InstallForm[cPassword]', 'testpass');
         $I->click('Продолжить >');
-        $I->see('Необходимо исправить следующие ошибки', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Пароли не совпадают!', \CommonPage::ERROR_CSS_CLASS);
-        $I->see('Email не является правильным E-Mail адресом.', \CommonPage::ERROR_CSS_CLASS);
+        $I->see('Необходимо исправить следующие ошибки', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Пароли не совпадают!', CommonPage::ERROR_CSS_CLASS);
+        $I->see('Email не является правильным E-Mail адресом.', CommonPage::ERROR_CSS_CLASS);
 
         $I->fillField('InstallForm[userEmail]', 'yupe@yupe.local');
         $I->fillField('InstallForm[cPassword]', 'testpassword');
         $I->click('Продолжить >');
-        $I->dontSee('Необходимо исправить следующие ошибки', \CommonPage::ERROR_CSS_CLASS);
+        $I->dontSee('Необходимо исправить следующие ошибки', CommonPage::ERROR_CSS_CLASS);
 
         $I->seeInCurrentUrl('sitesettings');
         $I->see('Шаг 7 из 8 : "Настройки проекта"', 'span');
-        $I->checkOption('InstallForm[theme]', 'default');
+        $I->selectOption('InstallForm[theme]', 'default');
         $I->seeInField('InstallForm[siteName]', 'Юпи!');
         $I->seeInField('InstallForm[siteDescription]', 'Юпи! - самый простой способ создать сайт на Yii!');
         $I->seeInField('InstallForm[siteKeyWords]', 'Юпи!, yupe, цмс, yii');
@@ -156,13 +166,12 @@ class InstallCest
         $I->click('Продолжить >');
         $I->seeInCurrentUrl('finish');
         $I->see('Шаг 8 из 8 : "Окончание установки', 'span');
-        $I->see('Поздравляем, установка Юпи! завершена!', 'h1');
+        $I->see('Поздравляем, установка "Юпи!" завершена!', 'h1');
         $I->seeLink('ПЕРЕЙТИ НА САЙТ');
         $I->seeLink('ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ');
 
         // check site
-        $I->amOnPage('/ru');
+        $I->amOnPage('/ru/site/index');
         $I->see('Поздравляем!', 'h1');
-        $I->seeLink('Разработка и поддержка интернет-проектов');
     }
 }

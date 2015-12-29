@@ -1,4 +1,5 @@
 <?php
+namespace tests\acceptance\pages;
 
 class CommonPage
 {
@@ -17,4 +18,6 @@ class CommonPage
     const TEST_USER_NAME = 'yupe@yupe.local';
 
     const TEST_PASSWORD = 'testpassword';
+
+    const LOGIN_BTN_CONTEXT = '//*[@id="login-btn"]';
 }
