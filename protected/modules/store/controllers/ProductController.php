@@ -73,21 +73,21 @@ class ProductController extends FrontController
 
         $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
 
-        if ($form->validate()) {
+        $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
 
-            $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
-
-            $this->render(
-                'search',
-                [
-                    'category' => $category,
-                    'searchForm' => $form,
-                    'dataProvider' => $this->productRepository->getByFilter(
-                        $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest(), [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]),
-                        $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
-                    )
-                ]
-            );
-        }
+        $this->render(
+            'search',
+            [
+                'category' => $category,
+                'searchForm' => $form,
+                'dataProvider' => $this->productRepository->getByFilter(
+                    $this->attributeFilter->getMainAttributesForSearchFromQuery(
+                        Yii::app()->getRequest(),
+                        [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]
+                    ),
+                    $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
+                ),
+            ]
+        );
     }
 }

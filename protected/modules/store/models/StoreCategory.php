@@ -108,6 +108,7 @@ class StoreCategory extends \yupe\models\YModel
                 'defaultCriteria' => [
                     'order' => 't.sort',
                 ],
+                'titleAttribute' => 'name',
                 'useCache' => true,
             ],
             'sortable' => [
