@@ -1039,6 +1039,13 @@ a {
     width: 200px !important
 }
 
+.coupon {
+    display: inline-block;
+    color: #fff;
+    background-color: #22b5cd;
+    padding-left: 20px;
+}
+
 .detail-view {
     margin-bottom: 40px
 }
