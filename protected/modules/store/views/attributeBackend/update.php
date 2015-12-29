@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('StoreModule.store', 'Attributes') => ['/store/attributeBackend/index'],
-    $model->name => ['/store/attributeBackend/view', 'id' => $model->id],
+    $model->title => ['/store/attributeBackend/view', 'id' => $model->id],
     Yii::t('StoreModule.store', 'Edition'),
 ];
 

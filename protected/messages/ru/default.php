@@ -48,7 +48,7 @@ return [
     'Error'                                                                             => 'Ошибка',
     'Page you try to request, was not found. You can go out from this page and {link}.' => 'Страница которую вы запросили не найдена. Вы можете покинуть данную страницу и {link}.',
     'go to home page'                                                                   => 'перейти на главную страницу сайта',
-    'Finishing register'                                                                => 'Окончание регистрации',
-    'Register'                                                                          => 'Зарегестрироваться',
+    'Finishing register'                                                                => 'Завершение регистрации',
+    'Register'                                                                          => 'Зарегистрироваться',
     'Tag cloud'                                                                         => 'Облако меток',
 ];
