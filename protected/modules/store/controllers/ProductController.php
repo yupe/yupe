@@ -33,8 +33,14 @@ class ProductController extends FrontController
      */
     public function actionIndex()
     {
-        $mainSearchParam = $this->attributeFilter->getMainAttributesForSearchFromQuery(Yii::app()->getRequest());
         $typesSearchParam = $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest());
+
+        $mainSearchParam = $this->attributeFilter->getMainAttributesForSearchFromQuery(
+            Yii::app()->getRequest(),
+            [
+                AttributeFilter::MAIN_SEARCH_PARAM_NAME => Yii::app()->getRequest()->getQuery(AttributeFilter::MAIN_SEARCH_QUERY_NAME)
+            ]
+        );
 
         if (!empty($mainSearchParam) || !empty($typesSearchParam)) {
             $data = $this->productRepository->getByFilter($mainSearchParam, $typesSearchParam);
@@ -42,7 +48,12 @@ class ProductController extends FrontController
             $data = $this->productRepository->getListForIndexPage();
         }
 
-        $this->render('index', ['dataProvider' => $data]);
+        $this->render(
+            'index',
+            [
+                'dataProvider' => $data,
+            ]
+        );
     }
 
     /**
@@ -58,36 +69,5 @@ class ProductController extends FrontController
         }
 
         $this->render('view', ['product' => $product]);
-    }
-
-    /**
-     * @throws CHttpException
-     */
-    public function actionSearch()
-    {
-        if (!Yii::app()->getRequest()->getQuery('SearchForm')) {
-            throw new CHttpException(404);
-        }
-
-        $form = new SearchForm();
-
-        $form->setAttributes(Yii::app()->getRequest()->getQuery('SearchForm'));
-
-        $category = $form->category ? StoreCategory::model()->findByPk($form->category) : null;
-
-        $this->render(
-            'search',
-            [
-                'category' => $category,
-                'searchForm' => $form,
-                'dataProvider' => $this->productRepository->getByFilter(
-                    $this->attributeFilter->getMainAttributesForSearchFromQuery(
-                        Yii::app()->getRequest(),
-                        [AttributeFilter::MAIN_SEARCH_PARAM_NAME => $form->q]
-                    ),
-                    $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
-                ),
-            ]
-        );
     }
 }

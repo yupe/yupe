@@ -15,6 +15,7 @@ $this->breadcrumbs = [Yii::t("HomepageModule.homepage", "Catalog") => ['/store/p
             <?php if($this->beginCache('store::filters')):?>
             <div class="catalog-filter">
                 <?= CHtml::beginForm(['/store/product/index'], 'GET', ['name' => 'store-filter', 'id' => 'store-filter']);?>
+                    <?php $this->widget('application.modules.store.widgets.filters.QFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>

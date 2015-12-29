@@ -24,7 +24,7 @@ $this->breadcrumbs = array_merge(
 </div>
 
 <div class="row">
-    <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['category' => $category->id]); ?>
+    <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
 </div>
 <div class="row">
     <form id="store-filter" name="store-filter" method="get">

@@ -414,8 +414,8 @@ class DCategoryTreeBehavior extends DCategoryBehavior
      */
     public function getBreadcrumbs($lastLink = false)
     {
-        if ($lastLink) {
-            $breadcrumbs = [$this->getOwner()->{$this->titleAttribute} => $this->getOwner()->{$this->urlAttribute}];
+        if (true === $lastLink) {
+            $breadcrumbs = [$this->getOwner()->{$this->titleAttribute} => Yii::app()->createUrl('/store/category/view', ['path' => $this->path])];
         } else {
             $breadcrumbs = [$this->getOwner()->{$this->titleAttribute}];
         }
@@ -424,7 +424,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $i = 50;
 
         while ($i-- && $this->cached($page)->{$this->parentRelation}) {
-            $breadcrumbs[$page->{$this->parentRelation}->{$this->titleAttribute}] = $page->{$this->parentRelation}->{$this->urlAttribute};
+            $breadcrumbs[$page->{$this->parentRelation}->{$this->titleAttribute}] = Yii::app()->createUrl('/store/category/view', ['path' => $page->{$this->parentRelation}->path]);
             $page = $page->{$this->parentRelation};
         }
 

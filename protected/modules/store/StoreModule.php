@@ -220,40 +220,6 @@ class StoreModule extends WebModule
                         ],
                     ],
                     [
-                        'icon' => 'fa fa-fw fa-list-alt',
-                        'label' => Yii::t('StoreModule.store', 'Types'),
-                        'url' => ['/store/typeBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Types list'),
-                                'url' => ['/store/typeBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create type'),
-                                'url' => ['/store/typeBackend/create'],
-                            ],
-                        ],
-                    ],
-                    [
-                        'icon' => 'fa fa-fw fa-pencil-square-o',
-                        'label' => Yii::t('StoreModule.store', 'Attributes'),
-                        'url' => ['/store/attributeBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Attributes list'),
-                                'url' => ['/store/attributeBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create attribute'),
-                                'url' => ['/store/attributeBackend/create'],
-                            ],
-                        ],
-                    ],
-                    [
                         'icon' => 'fa fa-fw fa-folder-open',
                         'label' => Yii::t('StoreModule.store', 'Categories'),
                         'url' => ['/store/categoryBackend/index'],
@@ -284,6 +250,40 @@ class StoreModule extends WebModule
                                 'icon' => 'fa fa-fw fa-plus-square',
                                 'label' => Yii::t('StoreModule.store', 'Create producer'),
                                 'url' => ['/store/producerBackend/create'],
+                            ],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-pencil-square-o',
+                        'label' => Yii::t('StoreModule.store', 'Attributes'),
+                        'url' => ['/store/attributeBackend/index'],
+                        'items' => [
+                            [
+                                'icon' => 'fa fa-fw fa-list-alt',
+                                'label' => Yii::t('StoreModule.store', 'Attributes list'),
+                                'url' => ['/store/attributeBackend/index'],
+                            ],
+                            [
+                                'icon' => 'fa fa-fw fa-plus-square',
+                                'label' => Yii::t('StoreModule.store', 'Create attribute'),
+                                'url' => ['/store/attributeBackend/create'],
+                            ],
+                        ],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
+                        'label' => Yii::t('StoreModule.store', 'Types'),
+                        'url' => ['/store/typeBackend/index'],
+                        'items' => [
+                            [
+                                'icon' => 'fa fa-fw fa-list-alt',
+                                'label' => Yii::t('StoreModule.store', 'Types list'),
+                                'url' => ['/store/typeBackend/index'],
+                            ],
+                            [
+                                'icon' => 'fa fa-fw fa-plus-square',
+                                'label' => Yii::t('StoreModule.store', 'Create type'),
+                                'url' => ['/store/typeBackend/create'],
                             ],
                         ],
                     ],
@@ -329,7 +329,7 @@ class StoreModule extends WebModule
      */
     public function getDescription()
     {
-        return Yii::t('StoreModule.store', 'Store module');
+        return Yii::t('StoreModule.store', 'Store');
     }
 
     /**

@@ -14,9 +14,20 @@ class AttributeFilter extends CApplicationComponent
      */
     const MAIN_SEARCH_PARAM_CATEGORY = 'category';
 
+    /**
+     *
+     */
     const MAIN_SEARCH_PARAM_NAME = 'name';
 
+    /**
+     *
+     */
     const MAIN_SEARCH_PARAM_PRICE = 'price';
+
+    /**
+     *
+     */
+    const MAIN_SEARCH_QUERY_NAME = 'q';
 
     /**
      * @var string
@@ -49,6 +60,12 @@ class AttributeFilter extends CApplicationComponent
         return !empty($data) && in_array($value, $data);
     }
 
+    /**
+     * @param $name
+     * @param null $suffix
+     * @param CHttpRequest $request
+     * @return mixed|null
+     */
     public function getMainSearchParamsValue($name, $suffix = null, CHttpRequest $request)
     {
         $data = $request->getQuery($name);
@@ -76,7 +93,7 @@ class AttributeFilter extends CApplicationComponent
         return [
             self::MAIN_SEARCH_PARAM_CATEGORY => 'category_id',
             self::MAIN_SEARCH_PARAM_PRODUCER => 'producer_id',
-            self::MAIN_SEARCH_PARAM_PRICE => 'price'
+            self::MAIN_SEARCH_PARAM_PRICE => 'price',
         ];
     }
 
@@ -113,6 +130,7 @@ class AttributeFilter extends CApplicationComponent
     {
         if (null !== $mode) {
             $data = Yii::app()->getRequest()->getParam($attribute->name);
+
             return is_array($data) && array_key_exists($mode, $data) ? $data[$mode] : null;
         }
 
@@ -237,7 +255,7 @@ class AttributeFilter extends CApplicationComponent
             $result[$attribute->name] = [
                 'value' => $searchParams,
                 'attribute_id' => (int)$attribute->id,
-                'column' => $attributeValue->column($attribute->type)
+                'column' => $attributeValue->column($attribute->type),
             ];
         }
 

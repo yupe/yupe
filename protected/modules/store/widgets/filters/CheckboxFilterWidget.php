@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * Class CheckboxFilterWidget
+ */
 class CheckboxFilterWidget extends \yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'checkbox-filter';
 
+    /**
+     * @var
+     */
     public $attribute;
 
+    /**
+     * @throws Exception
+     */
     public function init()
     {
         if (is_string($this->attribute)) {
@@ -19,6 +31,9 @@ class CheckboxFilterWidget extends \yupe\widgets\YWidget
         parent::init();
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->render($this->view, ['attribute' => $this->attribute]);

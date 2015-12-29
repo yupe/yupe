@@ -143,7 +143,7 @@
     <div class="main__search grid">
         <div class="search-bar">
             <div class="search-bar__wrapper"><a href="javascript:void(0);" data-toggle="#menu-catalog" class="search-bar__catalog-button">Каталог товаров</a>
-                <?php $this->widget('application.modules.store.widgets.SearchProductWidget', ['query' => Yii::app()->getRequest()->getQuery('SearchForm')['q']]); ?>
+                <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
             </div>
             <?php if($this->beginCache('store::category::menu', ['duration' => $this->yupe->coreCacheTime])):?>
                 <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['depth' => 2]); ?>

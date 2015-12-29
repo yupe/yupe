@@ -99,7 +99,7 @@ class StoreCategory extends \yupe\models\YModel
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module !== null ? $module->uploadPath.'/category' : null,
             ],
-            'CategoryTreeBehavior' => [
+            'tree' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
                 'aliasAttribute' => 'slug',
                 'requestPathAttribute' => 'path',
