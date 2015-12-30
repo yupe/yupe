@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Callback
  *
@@ -31,7 +32,18 @@ class Callback extends \yupe\models\YModel
             ['name, comment', 'filter', 'filter' => 'trim'],
             ['name', 'length', 'max' => 30],
             ['time', 'length', 'max' => 5],
-            ['time', 'match', 'pattern' => '/^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/', 'message' => Yii::t('CallbackModule.callback', 'Incorrect time value')],
+            [
+                'time',
+                'match',
+                'pattern' => '/^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/',
+                'message' => Yii::t('CallbackModule.callback', 'Incorrect time value'),
+            ],
+            [
+                'phone',
+                'match',
+                'pattern' => Yii::app()->getModule('callback')->phonePattern,
+                'message' => Yii::t('CallbackModule.callback', 'Incorrect phone value'),
+            ],
             ['comment', 'length', 'max' => 255],
             ['status', 'numerical', 'integerOnly' => true],
             ['id, name, phone, time, comment, status', 'safe', 'on' => 'search'],
@@ -54,11 +66,11 @@ class Callback extends \yupe\models\YModel
         return [
             'new' => [
                 'condition' => 'status = :status',
-                'params'    => [':status' => self::STATUS_NEW],
+                'params' => [':status' => self::STATUS_NEW],
             ],
-            'processed'    => [
+            'processed' => [
                 'condition' => 'status = :status',
-                'params'    => [':status' => self::STATUS_PROCESSED],
+                'params' => [':status' => self::STATUS_PROCESSED],
             ],
         ];
     }
@@ -82,7 +94,7 @@ class Callback extends \yupe\models\YModel
     {
         return [
             self::STATUS_NEW => 'Новый',
-            self::STATUS_PROCESSED => 'Обработан'
+            self::STATUS_PROCESSED => 'Обработан',
         ];
     }
 
@@ -90,7 +102,7 @@ class Callback extends \yupe\models\YModel
     {
         return [
             self::STATUS_NEW => ['class' => 'label-danger'],
-            self::STATUS_PROCESSED => ['class' => 'label-success']
+            self::STATUS_PROCESSED => ['class' => 'label-success'],
         ];
     }
 }

@@ -35,6 +35,11 @@ class CallbackModule extends WebModule
     public $phoneMask = '+7(999)999-99-99';
 
     /**
+     * @var string
+     */
+    public $phonePattern = '/^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/';
+
+    /**
      * @return array
      */
     public function getDependencies()
@@ -51,6 +56,7 @@ class CallbackModule extends WebModule
             'notifyEmailFrom',
             'notifyEmailsTo',
             'phoneMask',
+            'phonePattern',
         ];
     }
 
@@ -63,6 +69,7 @@ class CallbackModule extends WebModule
             'notifyEmailFrom' => Yii::t('CallbackModule.callback', 'Notification email'),
             'notifyEmailsTo'  => Yii::t('CallbackModule.callback', 'Recipients of notifications (comma separated)'),
             'phoneMask' => Yii::t('CallbackModule.callback', 'Phone mask'),
+            'phonePattern' => Yii::t('CallbackModule.callback', 'Phone pattern'),
         ];
     }
 
@@ -78,6 +85,7 @@ class CallbackModule extends WebModule
                     'notifyEmailFrom',
                     'notifyEmailsTo',
                     'phoneMask',
+                    'phonePattern',
                 ],
             ],
         ];
