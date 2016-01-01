@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('application.modules.store.forms.SearchForm');
+Yii::import('application.modules.store.components.AttributeFilter');
 
 /**
  * Class SearchProductWidget
