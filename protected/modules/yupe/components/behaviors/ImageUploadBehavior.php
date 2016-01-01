@@ -4,6 +4,7 @@ namespace yupe\components\behaviors;
 
 use Yii;
 use yupe\components\image\Imagine;
+use yupe\components\image\Thumbnailer;
 use yupe\helpers\YFile;
 
 /**
@@ -39,11 +40,18 @@ class ImageUploadBehavior extends FileUploadBehavior
     public $defaultImage = null;
 
     /**
-     * @param \CComponent $event
+     * @var Thumbnailer $thumbnailer ;
      */
-    public function attach($event)
+    protected $thumbnailer;
+
+    /**
+     * @param \CComponent $owner
+     */
+    public function attach($owner)
     {
-        parent::attach($event);
+        parent::attach($owner);
+
+        $this->thumbnailer = Yii::app()->thumbnailer;
 
         if ($this->resizeOnUpload) {
             $this->resizeOptions = array_merge(
@@ -70,7 +78,7 @@ class ImageUploadBehavior extends FileUploadBehavior
         $filename = pathinfo($this->getFilePath(), PATHINFO_BASENAME);
 
         $iterator = new \GlobIterator(
-            Yii::app()->thumbnailer->getBasePath().'/'.$this->uploadPath.'/'.'*_'.$filename
+            $this->thumbnailer->getBasePath().'/'.$this->uploadPath.'/'.'*_'.$filename
         );
 
         foreach ($iterator as $file) {
@@ -84,13 +92,11 @@ class ImageUploadBehavior extends FileUploadBehavior
     public function saveFile()
     {
         if (!$this->resizeOnUpload) {
-            parent::saveFile();
-
-            return;
+            return parent::saveFile();
         }
 
         $newFileName = $this->generateFilename();
-        $path = Yii::app()->uploadManager->getFilePath($newFileName, $this->getUploadPath());
+        $path = $this->uploadManager->getFilePath($newFileName, $this->getUploadPath());
 
         if (!YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME))) {
             throw new \CHttpException(
@@ -128,13 +134,13 @@ class ImageUploadBehavior extends FileUploadBehavior
         $webRoot = Yii::getPathOfAlias('webroot');
         $defaultImage = $defaultImage ?: $this->defaultImage;
 
-        if (null === $file && (null === $defaultImage || !is_file($webRoot . $defaultImage))) {
+        if (null === $file && (null === $defaultImage || !is_file($webRoot.$defaultImage))) {
             return null;
         }
 
         if ($width || $height) {
-            return Yii::app()->thumbnailer->thumbnail(
-                $file ?: $webRoot . $defaultImage,
+            return $this->thumbnailer->thumbnail(
+                $file ?: $webRoot.$defaultImage,
                 $this->uploadPath,
                 $width,
                 $height,

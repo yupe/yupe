@@ -53,9 +53,7 @@ class UploadManager extends \CApplicationComponent
      */
     public function getFilePath($name, $uploadPath)
     {
-        $file = $this->basePath . DIRECTORY_SEPARATOR . $uploadPath . DIRECTORY_SEPARATOR . $name;
-
-        return is_file($file) ? $file : null;
+        return $this->basePath.DIRECTORY_SEPARATOR.$uploadPath.DIRECTORY_SEPARATOR.$name;
     }
 
     /**
