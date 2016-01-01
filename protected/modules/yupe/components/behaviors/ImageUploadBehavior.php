@@ -92,7 +92,6 @@ class ImageUploadBehavior extends FileUploadBehavior
         $newFileName = $this->generateFilename();
         $path = Yii::app()->uploadManager->getFilePath($newFileName, $this->getUploadPath());
 
-
         if (!YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME))) {
             throw new \CHttpException(
                 500,

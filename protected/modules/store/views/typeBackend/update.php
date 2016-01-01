@@ -1,8 +1,7 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('StoreModule.store', 'Product types') => ['/store/typeBackend/index'],
-    $model->name => ['/store/typeBackend/view', 'id' => $model->id],
-    Yii::t('StoreModule.store', 'Edition'),
+    $model->name,
 ];
 
 $this->pageTitle = Yii::t('StoreModule.store', 'Product types - edition');
