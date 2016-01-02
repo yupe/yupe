@@ -94,7 +94,7 @@ $this->breadcrumbs = [
                             </div>
                             <div class="cart-item__price">
                                 <span class="position-price"><?= $position->getPrice(); ?></span>
-                                <span class="ruble"> <?= Yii::t("CartModule.cart", "RUB"); ?></span>
+                                <span class="ruble"> <?= Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency); ?></span>
                             </div>
                             <div class="cart-item__quantity">
                                 <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
@@ -111,7 +111,7 @@ $this->breadcrumbs = [
                             </div>
                             <div class="cart-item__summ">
                                 <span class="position-sum-price"><?= $position->getSumPrice(); ?></span>
-                                <span class="ruble"> <?= Yii::t("CartModule.cart", "RUB"); ?></span>
+                                <span class="ruble"> <?= Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency); ?></span>
 
                                 <div class="cart-item__action">
                                     <a class="js-cart__delete cart-delete-product"

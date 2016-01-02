@@ -13,8 +13,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('DeliveryModule.delivery', 'Delivery methods'); ?>
-        <small><?php echo Yii::t('DeliveryModule.delivery', 'manage'); ?></small>
+        <?= Yii::t('DeliveryModule.delivery', 'Delivery methods'); ?>
+        <small><?= Yii::t('DeliveryModule.delivery', 'manage'); ?></small>
     </h1>
 </div>
 

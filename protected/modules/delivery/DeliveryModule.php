@@ -115,7 +115,7 @@ class DeliveryModule extends WebModule
      */
     public function getIcon()
     {
-        return 'fa fa-fw fa-plane';
+        return 'fa fa-fw fa-car';
     }
 
     /**

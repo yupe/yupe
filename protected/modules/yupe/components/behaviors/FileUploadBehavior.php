@@ -240,9 +240,11 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function getFilePath()
     {
-        return $this->uploadManager->getFilePath(
+        $file = $this->uploadManager->getFilePath(
             $this->getOwner()->{$this->attributeName},
             $this->getUploadPath()
         );
+
+        return file_exists($file) ? $file : null;
     }
 }

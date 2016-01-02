@@ -13,9 +13,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('DeliveryModule.delivery', 'Delivery methods'); ?>
-        <small><?php echo Yii::t('DeliveryModule.delivery', 'creating'); ?></small>
+        <?= Yii::t('DeliveryModule.delivery', 'Delivery methods'); ?>
+        <small><?= Yii::t('DeliveryModule.delivery', 'creating'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model, 'payments' => $payments]); ?>
+<?= $this->renderPartial('_form', ['model' => $model, 'payments' => $payments]); ?>
