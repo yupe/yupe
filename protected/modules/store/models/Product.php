@@ -722,7 +722,11 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function hasDiscount()
     {
-        return $this->getBasePrice() !== $this->getDiscountPrice();
+        if($this->discount_price || $this->discount) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

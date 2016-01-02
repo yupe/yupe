@@ -86,7 +86,7 @@ $this->breadcrumbs = array_merge(
                                     <div class="entry__variant-value">
                                         <?=
                                         CHtml::dropDownList('ProductVariant[]', null, CHtml::listData($variantsGroup, 'id', 'optionValue'), [
-                                            'empty' => '',
+                                            'empty' => '--выберите--',
                                             'class' => 'js-select2 entry__variant-value-select noborder',
                                             'options' => $product->getVariantsOptions()
                                         ]); ?>
@@ -101,6 +101,9 @@ $this->breadcrumbs = array_merge(
                                    value="<?= round($product->getResultPrice(), 2); ?>"/>
                             <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
                             <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
+                            <?php if ($product->hasDiscount()): ?>
+                                <div class="product-price product-price_old"><?= $product->getBasePrice() ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php if (Yii::app()->hasModule('order')): ?>
