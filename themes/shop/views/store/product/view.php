@@ -102,7 +102,7 @@ $this->breadcrumbs = array_merge(
                             <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
                             <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
                             <?php if ($product->hasDiscount()): ?>
-                                <div class="product-price product-price_old"><?= $product->getBasePrice() ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
+                                <div class="product-price product-price_old"><?= round($product->getBasePrice(), 2) ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                             <?php endif; ?>
                         </div>
                     </div>
