@@ -1,5 +1,8 @@
 <?php
 return [
+    'Rest' => 'Остаток',
+    'Availability' => 'Наличие',
+    'New price' => 'Новая',
     '% to the price' => '% к цене',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',

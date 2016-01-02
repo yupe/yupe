@@ -17,8 +17,8 @@
 * Wiki - работает через [модуль yeeki](http://rmcreative.ru/blog/post/yeeki).
 * Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
-* Создание и запуск полноценного [интернет-магазина](http://yupe-project.ru/ecommerce) (каталог, заказы, купоны, оплата, доставка)
+* Создание и запуск полноценного [интернет-магазина](http://yupe.ru/ecommerce) (каталог, заказы, купоны, оплата, доставка)
 
 **Дополнительные модули можете найти в нашем [каталоге модулей и тем](http://yupe.ru/marketplace) -  ["Юпи! Market"](http://yupe.ru/marketplace)**
 
-**Если вам не хватает какой-то функциональности - [напишите нам](http://yupe-project.ru/contacts) и мы Вам обязательно поможем!**
+**Если вам не хватает какой-то функциональности - [напишите нам](http://yupe.ru/contacts) и мы Вам обязательно поможем!**

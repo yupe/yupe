@@ -1,7 +1,6 @@
 <?php
 $productUrl = Yii::app()->createUrl('/store/product/view', ['name' => CHtml::encode($data->slug)]);
 $basePrice = (float)$data->getBasePrice();
-$price = $data->getResultPrice();
 ?>
 <div class="catalog__item">
     <article class="product-vertical">
@@ -12,9 +11,9 @@ $price = $data->getResultPrice();
         </a>
         <div class="product-vertical__content"><a href="<?= $productUrl; ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
             <div class="product-vertical__price">
-                <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
-                <?php if ($basePrice != $price): ?>
-                    <div class="product-price product-price_old"><?= $basePrice ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                <div class="product-price"><?= $data->getResultPrice() ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
+                <?php if ($data->hasDiscount()): ?>
+                    <div class="product-price product-price_old"><?= $basePrice ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                 <?php endif; ?>
             </div>
         </div>

@@ -353,7 +353,7 @@ class StoreModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://yupe-project.ru';
+        return 'http://yupe.ru';
     }
 
     /**

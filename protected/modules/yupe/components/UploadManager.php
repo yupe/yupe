@@ -26,15 +26,14 @@ class UploadManager extends \CApplicationComponent
      * @param $uploadPath
      * @param $fileName
      * @return bool
-     * @throws \CHttpException
+     * @throws \CException
      */
     public function save(CUploadedFile $fileInstance, $uploadPath, $fileName)
     {
         $path = $this->getFilePath($fileName, $uploadPath);
 
         if (!YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME))) {
-            throw new \CHttpException(
-                500,
+            throw new \CException(
                 Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not acceptable for write!',

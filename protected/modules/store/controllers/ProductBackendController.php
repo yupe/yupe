@@ -33,10 +33,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                     'status',
                     'in_stock',
                     'price',
-                    'discount',
                     'discount_price',
                     'sku',
-                    'type_id'
+                    'type_id',
+                    'quantity'
                 ]
             ],
             'sortable' => [

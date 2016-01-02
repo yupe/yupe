@@ -126,16 +126,16 @@ class Product extends yupe\models\YModel implements ICommentable
             [
                 'name, description, short_description, slug, price, discount_price, discount, data, status, is_special',
                 'filter',
-                'filter' => 'trim'
+                'filter' => 'trim',
             ],
             [
                 'status, is_special, producer_id, type_id, quantity, in_stock, category_id, external_id',
                 'numerical',
-                'integerOnly' => true
+                'integerOnly' => true,
             ],
             [
                 'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
-                'store\components\validators\NumberValidator'
+                'store\components\validators\NumberValidator',
             ],
             ['name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250],
             ['discount_price, discount', 'default', 'value' => null],
@@ -144,7 +144,7 @@ class Product extends yupe\models\YModel implements ICommentable
             [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
-                'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}')
+                'message' => Yii::t('StoreModule.store', 'Illegal characters in {attribute}'),
             ],
             ['slug', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
@@ -153,7 +153,7 @@ class Product extends yupe\models\YModel implements ICommentable
             [
                 'id, type_id, producer_id, sku, name, slug, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category_id',
                 'safe',
-                'on' => 'search'
+                'on' => 'search',
             ],
         ];
     }
@@ -175,7 +175,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'ProductVariant',
                 ['product_id'],
                 'with' => ['attribute'],
-                'order' => 'variants.position ASC'
+                'order' => 'variants.position ASC',
             ],
             'comments' => [
                 self::HAS_MANY,
@@ -184,13 +184,19 @@ class Product extends yupe\models\YModel implements ICommentable
                 'on' => 'model = :model AND comments.status = :status',
                 'params' => [
                     ':model' => __CLASS__,
-                    ':status' => Comment::STATUS_APPROVED
+                    ':status' => Comment::STATUS_APPROVED,
                 ],
-                'order' => 'comments.lft'
+                'order' => 'comments.lft',
             ],
             'linkedProductsRelation' => [self::HAS_MANY, 'ProductLink', 'product_id', 'joinType' => 'INNER JOIN'],
-            'linkedProducts' => [self::HAS_MANY, 'Product', ['linked_product_id' => 'id'], 'through' => 'linkedProductsRelation', 'joinType' => 'INNER JOIN'],
-            'attributesValues' => [self::HAS_MANY, 'AttributeValue', 'product_id']
+            'linkedProducts' => [
+                self::HAS_MANY,
+                'Product',
+                ['linked_product_id' => 'id'],
+                'through' => 'linkedProductsRelation',
+                'joinType' => 'INNER JOIN',
+            ],
+            'attributesValues' => [self::HAS_MANY, 'AttributeValue', 'product_id'],
         ];
     }
 
@@ -250,7 +256,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'average_price' => Yii::t('StoreModule.store', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
             'position' => Yii::t('StoreModule.store', 'Position'),
-            'external_id' => Yii::t('StoreModule.store', 'External id')
+            'external_id' => Yii::t('StoreModule.store', 'External id'),
         ];
     }
 
@@ -323,10 +329,12 @@ class Product extends yupe\models\YModel implements ICommentable
             $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category_id]);
         }
 
-        return new CActiveDataProvider(get_class($this), [
+        return new CActiveDataProvider(
+            get_class($this), [
             'criteria' => $criteria,
-            'sort' => ['defaultOrder' => 't.position']
-        ]);
+            'sort' => ['defaultOrder' => 't.position'],
+        ]
+        );
     }
 
     /**
@@ -337,19 +345,19 @@ class Product extends yupe\models\YModel implements ICommentable
         $module = Yii::app()->getModule('store');
 
         return [
-            'CTimestampBehavior' => [
+            'time' => [
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
                 'createAttribute' => 'create_time',
                 'updateAttribute' => 'update_time',
             ],
-            'imageUpload' => [
+            'upload' => [
                 'class' => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'image',
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module->uploadPath . '/product',
+                'uploadPath' => $module->uploadPath.'/product',
                 'resizeOnUpload' => true,
                 'resizeOptions' => [
                     'maxWidth' => 900,
@@ -357,8 +365,8 @@ class Product extends yupe\models\YModel implements ICommentable
                 ],
             ],
             'sortable' => [
-                'class' => 'yupe\components\behaviors\SortableBehavior'
-            ]
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+            ],
         ];
     }
 
@@ -373,12 +381,31 @@ class Product extends yupe\models\YModel implements ICommentable
                 continue;
             }
 
-            if ($attribute->isRequired() && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])) {
-                $this->addError($attribute->title, Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $attribute->title]));
+            if ($attribute->isRequired(
+                ) && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])
+            ) {
+                $this->addError(
+                    $attribute->title,
+                    Yii::t("StoreModule.store", "{title} attribute is required", ['title' => $attribute->title])
+                );
             }
         }
 
+        if (!$this->isInStock()) {
+            $this->setEmptyQuantity();
+        }
+
         return parent::beforeValidate();
+    }
+
+    /**
+     * @return $this
+     */
+    public function setEmptyQuantity()
+    {
+        $this->quantity = 0;
+
+        return $this;
     }
 
     /**
@@ -478,7 +505,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 foreach ($categoriesId as $id) {
                     $data[] = [
                         'product_id' => $this->id,
-                        'category_id' => (int)$id
+                        'category_id' => (int)$id,
                     ];
                 }
 
@@ -534,6 +561,7 @@ class Product extends yupe\models\YModel implements ICommentable
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -550,10 +578,13 @@ class Product extends yupe\models\YModel implements ICommentable
         }
 
         //@TODO переделать на получение в 1 запрос
-        $model = AttributeValue::model()->with('attribute')->find('product_id = :product AND attribute_id = :attribute', [
-            ':product' => $this->id,
-            ':attribute' => $attribute->id
-        ]);
+        $model = AttributeValue::model()->with('attribute')->find(
+            'product_id = :product AND attribute_id = :attribute',
+            [
+                ':product' => $this->id,
+                ':attribute' => $attribute->id,
+            ]
+        );
 
         if (null === $model) {
             return null;
@@ -619,6 +650,7 @@ class Product extends yupe\models\YModel implements ICommentable
             return false;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
     }
@@ -674,7 +706,23 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function getResultPrice()
     {
-        return (float)$this->discount_price ?: (float)$this->price * (1 - ((float)$this->discount ?: 0) / 100);
+        return (float)$this->getDiscountPrice() ?: (float)$this->price * (1 - ((float)$this->discount ?: 0) / 100);
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountPrice()
+    {
+        return $this->discount_price;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDiscount()
+    {
+        return $this->getBasePrice() !== $this->getDiscountPrice();
     }
 
     /**
@@ -690,7 +738,7 @@ class Product extends yupe\models\YModel implements ICommentable
         );
         sort($variantIds);
 
-        return 'product_' . $this->id . '_' . join('_', $variantIds);
+        return 'product_'.$this->id.'_'.implode('_', $variantIds);
     }
 
     /**
@@ -882,14 +930,6 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
     /**
-     * @return float
-     */
-    public function getDiscountPrice()
-    {
-        return $this->discount_price;
-    }
-
-    /**
      * @return null|Product
      * @throws CDbException
      */
@@ -904,10 +944,10 @@ class Product extends yupe\models\YModel implements ICommentable
             $similarNamesCount = Yii::app()->getDb()->createCommand()
                 ->select('count(*)')
                 ->from($this->tableName())
-                ->where("name like :name", [':name' => $this->name . ' [%]'])
+                ->where("name like :name", [':name' => $this->name.' [%]'])
                 ->queryScalar();
 
-            $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
+            $model->name = $this->name.' ['.($similarNamesCount + 1).']';
 
             $attributes = $model->attributes;
             $typeAttributes = $this->getTypesAttributesValues();
@@ -1002,9 +1042,11 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function getLinkedProductsDataProvider($typeCode = null)
     {
-        return new CActiveDataProvider(get_class($this), [
+        return new CActiveDataProvider(
+            get_class($this), [
             'criteria' => $this->getLinkedProductsCriteria($typeCode),
-        ]);
+        ]
+        );
     }
 
 

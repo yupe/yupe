@@ -149,7 +149,7 @@ $form = $this->beginWidget(
                         'tags'        => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
                         'placeholder' => Yii::t('BlogModule.blog', 'tags'),
                     ],
-                    'value'          => join(", ", $model->getTags()),
+                    'value'          => implode(", ", $model->getTags()),
                     'htmlOptions'    => [
                         'class'               => 'form-control popover-help',
                         'data-original-title' => $model->getAttributeLabel('tags'),

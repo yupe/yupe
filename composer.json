@@ -66,7 +66,6 @@
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
         "guzzlehttp/guzzle": "5.3.0",
-        "brussens/wysibb-yii": "dev-master",
         "2amigos/transliterator-helper": "dev-master",
         "chemezov/yii-seo": "1.0.*",
         "yiiext/migrate-command": "dev-master",

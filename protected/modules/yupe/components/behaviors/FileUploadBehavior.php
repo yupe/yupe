@@ -119,7 +119,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
     protected function getUploadedFileInstance()
     {
         return $this->fileInstanceName === null
-            ? CUploadedFile::getInstance($this->owner, $this->attributeName)
+            ? CUploadedFile::getInstance($this->getOwner(), $this->attributeName)
             : CUploadedFile::getInstanceByName($this->fileInstanceName);
     }
 
@@ -131,7 +131,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
         $instance = $this->getUploadedFileInstance();
 
         if ($this->checkScenario() && $instance) {
-            $this->owner->{$this->attributeName} = $instance;
+            $this->getOwner()->{$this->attributeName} = $instance;
         }
     }
 
@@ -148,7 +148,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
 
         if ($this->checkScenario() && Yii::app()->getRequest()->getPost($this->deleteFileKey)) {
             $this->removeFile();
-            $this->owner->{$this->attributeName} = null;
+            $this->getOwner()->{$this->attributeName} = null;
         }
         parent::beforeSave($event);
     }
@@ -180,7 +180,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
      */
     public function checkScenario()
     {
-        return in_array($this->owner->scenario, $this->scenarios);
+        return in_array($this->getOwner()->scenario, $this->scenarios);
     }
 
     /**
@@ -190,8 +190,8 @@ class FileUploadBehavior extends CActiveRecordBehavior
     public function saveFile()
     {
         $newFileName = $this->generateFilename();
-        $this->uploadManager->save($this->getUploadedFileInstance(), $this->getUploadPath(), $newFileName);
-        $this->owner->setAttribute($this->attributeName, $newFileName);
+        $this->getOwner()->setAttribute($this->attributeName, $newFileName);
+        return $this->uploadManager->save($this->getUploadedFileInstance(), $this->getUploadPath(), $newFileName);
     }
 
     /**
@@ -245,6 +245,6 @@ class FileUploadBehavior extends CActiveRecordBehavior
             $this->getUploadPath()
         );
 
-        return file_exists($file) ? $file : null;
+        return is_file($file) ? $file : null;
     }
 }

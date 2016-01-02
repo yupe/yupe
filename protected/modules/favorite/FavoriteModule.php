@@ -99,7 +99,7 @@ class FavoriteModule extends \yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('FavoriteModule.favorite', 'http://yupe-project.ru');
+        return Yii::t('FavoriteModule.favorite', 'http://yupe.ru');
     }
 
     /**

@@ -41,7 +41,7 @@ $this->breadcrumbs = [
     <p><b>
             <?= Yii::t(
                 'YupeModule.yupe',
-                'On business support and development you can always <a href="http://yupe-project.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe-project.ru/contacts/?form=help" target="_blank">http://yupe-project.ru/contacts</a>)'
+                'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)'
             ); ?>
         </b></p>
 </div>
@@ -57,7 +57,7 @@ $this->breadcrumbs = [
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Official Yupe! site', ['target' => '_blank']),
-    'http://yupe-project.ru/?form=help'
+    'http://yupe.ru/?form=help'
 ); ?> - <?= Yii::t('YupeModule.yupe', 'use most!'); ?>
 
 <br/><br/>
@@ -135,7 +135,7 @@ $this->breadcrumbs = [
         [
             '{link}' => CHtml::link(
                 Yii::t('YupeModule.yupe', 'feedback form'),
-                'http://yupe-project.ru/contacts?from=help',
+                'http://yupe.ru/contacts?from=help',
                 ['target' => '_blank']
             ),
         ]

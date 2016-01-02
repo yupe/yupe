@@ -105,14 +105,8 @@ $this->widget(
                 'name'   => 'delivery_id',
                 'header' => Yii::t('OrderModule.order', 'Delivery'),
                 'filter' => CHtml::listData(Delivery::model()->findAll(), 'id', 'name'),
-                'value'  => function($data){
+                'value'  => function(Order $data){
                     return $data->delivery->name;
-                }
-            ],
-            [
-                'name' => 'delivery_price',
-                'value' => function($data){
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->delivery_price, Yii::app()->getModule('store')->currency);
                 }
             ],
             [

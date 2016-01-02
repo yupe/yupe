@@ -87,7 +87,7 @@ class ImageUploadBehavior extends FileUploadBehavior
     }
 
     /**
-     * @throws \CHttpException
+     * @throws \CException
      */
     public function saveFile()
     {
@@ -99,8 +99,7 @@ class ImageUploadBehavior extends FileUploadBehavior
         $path = $this->uploadManager->getFilePath($newFileName, $this->getUploadPath());
 
         if (!YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME))) {
-            throw new \CHttpException(
-                500,
+            throw new \CException(
                 Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not acceptable for write!',

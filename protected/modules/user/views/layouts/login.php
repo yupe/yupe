@@ -72,7 +72,7 @@
                                     [
                                         'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official site'),
-                                        'url'         => 'http://yupe-project.ru?from=help',
+                                        'url'         => 'http://yupe.ru?from=help',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
@@ -126,7 +126,7 @@
                                     [
                                         'icon'        => 'fa fa-fw fa-question-circle',
                                         'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                        'url'   => 'http://yupe-project.ru/about?from=help-support',
+                                        'url'   => 'http://yupe.ru/about?from=help-support',
                                     ],
                                 ]
                             ],

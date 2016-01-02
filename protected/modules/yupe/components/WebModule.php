@@ -197,7 +197,7 @@ abstract class WebModule extends CWebModule
      */
     public function getUrl()
     {
-        return 'http://yupe-project.ru';
+        return 'http://yupe.ru';
     }
 
     /**

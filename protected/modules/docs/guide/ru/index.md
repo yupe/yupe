@@ -14,7 +14,7 @@ API-документация по классам и компонентам "Юп
 
 ## Дополнительная информация и помощь ##
 
-* [Официальный сайт](http://yupe-project.ru/)
+* [Официальный сайт](http://yupe.ru/)
 * [Сообщество разработчиков](http://yupe.ru/)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
@@ -25,4 +25,4 @@ API-документация по классам и компонентам "Юп
 
 ## Коммерческая поддержка ##
 
-Мы и [наши партнеры](http://yupe-project.ru/partners) занимаемся [разработкой](http://yupe-project.ru/service/development) и [поддержкой](http://yupe-project.ru/service/support) проектов на "Юпи!"
+Мы и [наши партнеры](http://yupe.ru/partners) занимаемся [разработкой](http://yupe.ru/service/development) и [поддержкой](http://yupe.ru/service/support) проектов на "Юпи!"

@@ -213,7 +213,7 @@ return [
     'Official Yupe! site' => 'Официальный сайт Юпи!',
     'Official Yupe! twitter' => 'Официальный твиттер Юпи!',
     'Ok' => 'Да',
-    'On business support and development you can always <a href="http://yupe-project.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe-project.ru/contacts/?form=help" target="_blank">http://yupe-project.ru/contacts</a>)' => 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe-project.ru/contacts?form=help" target="_blank">написать нам</a> (<a href="http://yupe-project.ru/contacts/?form=help" target="_blank">http://yupe-project.ru/contacts</a>)',
+    'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)' => 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/contacts?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)',
     'Opeykin Andrey' => 'Опейкин Андрей',
     'Order development and support' => 'Разработка и поддержка',
     'Order development and/or support' => 'Заказать разработку/поддержку',
