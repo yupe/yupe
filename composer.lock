@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "73e49d7459a3410ab8457c23185ebc46",
-    "content-hash": "d48de619792d8fdddb4911010d57083b",
+    "hash": "9143e7a82e84e993167da992a69c842b",
+    "content-hash": "e0f6f76eb4c65ffc7d6153632a031e47",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -44,17 +44,6 @@
                 "yii"
             ],
             "time": "2014-01-08 17:37:55"
-        },
-        {
-            "name": "brussens/wysibb-yii",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/brussens/wysibb-yii",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2014-09-11 23:49:40"
         },
         {
             "name": "chemezov/yii-seo",
@@ -2533,7 +2522,6 @@
     "stability-flags": {
         "yiiext/nested-set-behavior": 20,
         "nodge/yii-eauth": 20,
-        "brussens/wysibb-yii": 20,
         "2amigos/transliterator-helper": 20,
         "yiiext/migrate-command": 20
     },
