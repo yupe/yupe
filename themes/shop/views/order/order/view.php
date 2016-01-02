@@ -29,21 +29,6 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
                 <?php endif; ?>
             </div>
             <div class="detail-view">
-                <?php if (!empty($model->email)): ?>
-                    <div class="detail-view__item">
-                        <div class="detail-view__title"><?= CHtml::activeLabel($model, 'email'); ?>:</div>
-                        <div class="detail-view__text"><?= CHtml::encode($model->email); ?></div>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (!empty($model->phone)): ?>
-                    <div class="detail-view__item">
-                        <div class="detail-view__title"><?= CHtml::activeLabel($model, 'phone'); ?>:</div>
-                        <div class="detail-view__text"><?= CHtml::encode($model->phone); ?></div>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="detail-view">
                 <div class="detail-view__item">
                     <div class="detail-view__title"><?= CHtml::activeLabel($model, 'delivery_id'); ?>:</div>
                     <div class="detail-view__text"><?= CHtml::encode($model->delivery->name); ?></div>
@@ -57,7 +42,7 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
     <div class="order-box">
         <div class="order-box__header order-box__header_black">
             <div class="cart-list-header">
-                <div class="cart-list__column cart-list__column_info">Наименование</div>
+                <div class="cart-list__column">Наименование</div>
                 <div class="cart-list__column">Цена</div>
                 <div class="cart-list__column">Количество</div>
                 <div class="cart-list__column">Сумма</div>
@@ -67,37 +52,23 @@ $this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::ap
             <?php foreach ((array)$model->products as $position): ?>
                 <div class="cart-list__item js-cart__item">
                     <div class="cart-item js-cart__item">
-                        <div class="cart-item__info">
-                            <div class="cart-item__thumbnail">
-                                <img src="<?= $position->product->getImageUrl(250, 250, false); ?>" class="cart-item__img" />
-                            </div>
-                            <div class="cart-item__content">
-                                <?php if(isset($position->product->category)):?>
-                                    <div class="cart-item__category"><?= $position->product->category->name ?></div>
-                                <?php endif?>
-                                <div class="cart-item__title grid-module-4">
-                                    <a href="<?= Yii::app()->createUrl('/store/product/view', ['name' => $position->product->slug]) ?>" class="cart-item__link">
-                                        <?= CHtml::encode($position->product->name); ?>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cart-item__price"><?= $position->price; ?><span class="ruble"> <?= Yii::t("OrderModule.order", "RUB"); ?></span></div>
+                        <div class="cart-item__info"><?= CHtml::encode($position->product_name); ?></div>
+                        <div class="cart-item__price"><?= $position->price; ?><span class="ruble"> <?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?></span></div>
                         <div class="cart-item__quantity"><?= $position->quantity; ?></div>
-                        <div class="cart-item__summ"><?= $position->getTotalPrice(); ?><span class="ruble"> <?= Yii::t("OrderModule.order", "RUB"); ?></span></div>
+                        <div class="cart-item__summ"><?= $position->getTotalPrice(); ?><span class="ruble"> <?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?></span></div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
         <div class="order-box__bottom">
             <div class="order-box__subtotal"><?= Yii::t("OrderModule.order", "Total"); ?>:
-                <div class="product-price"><?= $model->getTotalPrice(); ?><span class="ruble"> <?= Yii::t("OrderModule.order", "RUB"); ?></span></div>
+                <div class="product-price"><?= $model->getTotalPrice(); ?><span class="ruble"> <?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?></span></div>
             </div>
             <div class="order-box__subtotal"><?= Yii::t("OrderModule.order", "Delivery price"); ?>:
-                <div class="product-price"><?= $model->getDeliveryPrice();?><span class="ruble"> <?= Yii::t("OrderModule.order", "RUB"); ?></span></div>
+                <div class="product-price"><?= $model->getDeliveryPrice();?><span class="ruble"> <?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?></span></div>
             </div>
             <div class="order-box__subtotal order-box__subtotal_big"><?= Yii::t("OrderModule.order", "Total"); ?>:
-                <div class="product-price"><?= $model->getTotalPriceWithDelivery(); ?><span class="ruble"> <?= Yii::t("OrderModule.order", "RUB"); ?></span></div>
+                <div class="product-price"><?= $model->getTotalPriceWithDelivery(); ?><span class="ruble"> <?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?></span></div>
             </div>
         </div>
     </div>

@@ -73,7 +73,7 @@ $this->widget(
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function($data){
-                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/orderBackend/update', 'id' => $data->id]) : $data->name;
+                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->user_id]) : $data->name;
                 },
                 'htmlOptions' => ['width' => '400px'],
             ],
