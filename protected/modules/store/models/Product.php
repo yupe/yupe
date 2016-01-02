@@ -302,7 +302,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('id', $this->id);
         $criteria->compare('type_id', $this->type_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('price', $this->price);
@@ -311,7 +311,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('description', $this->description, true);
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('data', $this->data, true);
-        $criteria->compare('is_special', $this->is_special, true);
+        $criteria->compare('is_special', $this->is_special);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('update_time', $this->update_time, true);
