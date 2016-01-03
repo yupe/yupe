@@ -134,7 +134,7 @@ $(document).ready(function () {
         var el = $(this);
         quantity = parseFloat(el.val());
 
-        if (quantity <= 0) {
+        if (quantity <= 0 || isNaN(quantity)) {
             quantity = 1;
         }
 
@@ -223,7 +223,7 @@ $(document).ready(function () {
         var quantity = parseInt(el.find('.position-count').val());
         var productId = el.find('.position-id').val();
 
-        if (quantity <= 0) {
+        if (quantity <= 0 || isNaN(quantity)) {
             quantity = 1;
             el.find('.position-count').val(quantity);
         }
