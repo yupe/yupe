@@ -3239,6 +3239,8 @@ a {
 }
 
 .product-vertical-extra__top {
+    display: block;
+    overflow: hidden;
     margin: 0 15px;
     padding: 14px 0;
     border-top: 1px solid #dbdbdb
