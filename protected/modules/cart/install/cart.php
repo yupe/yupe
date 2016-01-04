@@ -6,6 +6,7 @@ return [
     ],
     'import' => [
         'application.modules.cart.components.shopping-cart.*',
+        'application.modules.cart.events.*',
         'application.modules.cart.models.CartProduct',
     ],
     'component' => [

@@ -8,26 +8,19 @@ class CouponManager extends CApplicationComponent
     /**
      * @var array
      */
-    private $coupons = [];
+    protected $coupons = [];
     /**
      * @var string
      */
-    private $couponStateKey = 'cart_coupons';
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->restoreFromSession();
-    }
+    protected $couponStateKey = 'yupe::store::coupons';
 
     /**
      *
      */
     public function init()
     {
-
+        $this->coupons = Yii::app()->getUser()->getState($this->couponStateKey, []);
+        parent::init();
     }
 
     /**
@@ -41,14 +34,6 @@ class CouponManager extends CApplicationComponent
     /**
      *
      */
-    private function restoreFromSession()
-    {
-        $this->coupons = Yii::app()->getUser()->getState($this->couponStateKey, []);
-    }
-
-    /**
-     *
-     */
     private function saveState()
     {
         Yii::app()->getUser()->setState($this->couponStateKey, $this->coupons);
@@ -57,7 +42,7 @@ class CouponManager extends CApplicationComponent
 
     public function add(Coupon $coupon)
     {
-        $code = mb_strtoupper($coupon->code);
+        $code = mb_strtoupper(trim($coupon->code));
 
         if (in_array($code, $this->coupons)) {
             return [Yii::t("CouponModule.coupon", 'Coupon already added')];
@@ -105,14 +90,13 @@ class CouponManager extends CApplicationComponent
     {
         if (Yii::app()->cart->isEmpty()) {
             $this->clear();
-
             return;
         }
 
         $price = Yii::app()->cart->getCost();
         foreach ($this->coupons as $code) {
             /* @var $coupon Coupon */
-            $coupon = Coupon::model()->getCouponByCode($code);
+            $coupon = $this->findCouponByCode($code);
 
             if (!$coupon->getIsAvailable($price)) {
                 $this->remove($code);

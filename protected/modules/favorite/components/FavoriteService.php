@@ -18,6 +18,11 @@ class FavoriteService extends CApplicationComponent
     protected $session;
 
     /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    /**
      * @return mixed|null
      */
     protected function getData()
@@ -43,6 +48,8 @@ class FavoriteService extends CApplicationComponent
     public function init()
     {
         $this->session = Yii::app()->getSession();
+
+        $this->productRepository = Yii::app()->getComponent('productRepository');
 
         if (null === $this->session->get($this->key)) {
             $this->session->add($this->key, []);
@@ -97,9 +104,7 @@ class FavoriteService extends CApplicationComponent
      */
     public function count()
     {
-        $products = $this->getData();
-
-        return count($products);
+        return count($this->getData());
     }
 
     /**
@@ -113,25 +118,11 @@ class FavoriteService extends CApplicationComponent
         return isset($products[$productId]);
     }
 
+    /**
+     * @return mixed
+     */
     public function products()
     {
-        $products = $this->getData();
-        $criteria = new CDbCriteria();
-        $criteria->scopes = ['published'];
-        $criteria->addInCondition('t.id', array_keys($products));
-
-        return new CActiveDataProvider(
-            Product::model(), [
-            'criteria' => $criteria,
-            'pagination' => [
-                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
-                'pageVar' => 'page',
-            ],
-            'sort' => [
-                'sortVar' => 'sort',
-                'defaultOrder' => 't.position',
-            ],
-        ]
-        );
+        return $this->productRepository->getByIds(array_keys($this->getData()));
     }
 }

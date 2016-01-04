@@ -126,5 +126,4 @@ class CartController extends \yupe\components\controllers\FrontController
         // хочет отправить куки новые для авторизации каждый раз
         $this->widget('cart.widgets.ShoppingCartWidget', ['id' => 'shopping-cart-widget']);
     }
-
 }

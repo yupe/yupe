@@ -55,7 +55,11 @@ class ProductRepository extends CApplicationComponent
             }
 
             if (isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
-                $criteria->addBetweenCondition("t." . $field, $mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to']);
+                $criteria->addBetweenCondition(
+                    "t.".$field,
+                    $mainSearchAttributes[$param]['from'],
+                    $mainSearchAttributes[$param]['to']
+                );
             } elseif (isset($mainSearchAttributes[$param]['from']) && !isset($mainSearchAttributes[$param]['to'])) {
                 $criteria->addCondition("t.{$field} >= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['from'];
@@ -63,7 +67,7 @@ class ProductRepository extends CApplicationComponent
                 $criteria->addCondition("t.{$field} <= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['to'];
             } else {
-                $criteria->addInCondition("t." . $field, $mainSearchAttributes[$param]);
+                $criteria->addInCondition("t.".$field, $mainSearchAttributes[$param]);
             }
         }
 
@@ -84,7 +88,7 @@ class ProductRepository extends CApplicationComponent
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position'
+                    'defaultOrder' => 't.position',
                 ],
             ]
         );
@@ -115,7 +119,11 @@ class ProductRepository extends CApplicationComponent
             if (is_array($params['value'])) {
                 if (isset($params['value']['from'], $params['value']['to'])) {
                     $between = new CDbCriteria();
-                    $between->addBetweenCondition("{$alias}." . $params['column'], $params['value']['from'], $params['value']['to']);
+                    $between->addBetweenCondition(
+                        "{$alias}.".$params['column'],
+                        $params['value']['from'],
+                        $params['value']['to']
+                    );
                     $between->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                     $between->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
                     $criteria->mergeWith($between);
@@ -135,14 +143,14 @@ class ProductRepository extends CApplicationComponent
                     $criteria->mergeWith($between);
                 } else {
                     $in = new CDbCriteria();
-                    $in->addInCondition("{$alias}." . $params['column'], $params['value']);
+                    $in->addInCondition("{$alias}.".$params['column'], $params['value']);
                     $criteria->mergeWith($in);
                 }
             } else {
                 $condition = new CDbCriteria();
                 $condition->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                 $condition->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
-                $condition->addColumnCondition(["{$alias}." . $params['column'] => $params['value']]);
+                $condition->addColumnCondition(["{$alias}.".$params['column'] => $params['value']]);
                 $criteria->mergeWith($condition);
             }
 
@@ -172,7 +180,7 @@ class ProductRepository extends CApplicationComponent
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position'
+                    'defaultOrder' => 't.position',
                 ],
             ]
         );
@@ -195,7 +203,7 @@ class ProductRepository extends CApplicationComponent
         $criteria->addInCondition('t.category_id', $categories, 'OR');
         $criteria->group = 't.id';
         $criteria->scopes = ['published'];
-        if($limit){
+        if ($limit) {
             $criteria->limit = $limit;
         }
 
@@ -209,7 +217,7 @@ class ProductRepository extends CApplicationComponent
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position'
+                    'defaultOrder' => 't.position',
                 ],
             ]
         );
@@ -224,6 +232,7 @@ class ProductRepository extends CApplicationComponent
         $criteria = new CDbCriteria();
         $criteria->params = [];
         $criteria->addSearchCondition('name', $query, true);
+
         return Product::model()->published()->findAll($criteria);
     }
 
@@ -232,8 +241,10 @@ class ProductRepository extends CApplicationComponent
      * @param array $with
      * @return mixed
      */
-    public function getBySlug($slug, array $with = ['producer', 'type.typeAttributes', 'images', 'category', 'variants'])
-    {
+    public function getBySlug(
+        $slug,
+        array $with = ['producer', 'type.typeAttributes', 'images', 'category', 'variants']
+    ) {
         return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
     }
 
@@ -255,9 +266,12 @@ class ProductRepository extends CApplicationComponent
     {
         $criteria = new CDbCriteria();
         $criteria->addSearchCondition('name', $name);
-        $provider = new CActiveDataProvider(Product::model()->published(), [
-            'criteria' => $criteria
-        ]);
+        $provider = new CActiveDataProvider(
+            Product::model()->published(), [
+            'criteria' => $criteria,
+        ]
+        );
+
         return new CDataProviderIterator($provider);
     }
 
@@ -273,10 +287,11 @@ class ProductRepository extends CApplicationComponent
         $criteria->condition = 'producer_id = :producer_id';
         $criteria->scopes = ['published'];
         $criteria->params = [
-            ':producer_id' => $producer->id
+            ':producer_id' => $producer->id,
         ];
 
-        return new CActiveDataProvider(Product::model(), [
+        return new CActiveDataProvider(
+            Product::model(), [
             'criteria' => $criteria,
             'pagination' => [
                 'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
@@ -284,8 +299,34 @@ class ProductRepository extends CApplicationComponent
             ],
             'sort' => [
                 'sortVar' => 'sort',
-                'defaultOrder' => 't.position'
+                'defaultOrder' => 't.position',
             ],
-        ]);
+        ]
+        );
+    }
+
+    /**
+     * @param array $ids
+     * @return CActiveDataProvider
+     */
+    public function getByIds(array $ids)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->scopes = ['published'];
+        $criteria->addInCondition('t.id', $ids);
+
+        return new CActiveDataProvider(
+            Product::model(), [
+                'criteria' => $criteria,
+                'pagination' => [
+                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                    'pageVar' => 'page',
+                ],
+                'sort' => [
+                    'sortVar' => 'sort',
+                    'defaultOrder' => 't.position',
+                ],
+            ]
+        );
     }
 }

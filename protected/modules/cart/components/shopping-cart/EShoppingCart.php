@@ -24,7 +24,12 @@ class EShoppingCart extends CMap
     /**
      * @var CouponManager
      */
-    private $couponManager;
+    protected $couponManager;
+
+    /**
+     * @var \yupe\components\EventManager
+     */
+    protected $eventManager;
 
     /**
      * Cart-wide discount sum
@@ -36,6 +41,7 @@ class EShoppingCart extends CMap
     {
         $this->restoreFromSession();
         $this->couponManager = Yii::app()->getComponent('couponManager');
+        $this->eventManager  = Yii::app()->getComponent('eventManager');
     }
 
     public function getCouponManager()
@@ -73,7 +79,7 @@ class EShoppingCart extends CMap
         }
 
         $this->update($position, $quantity);
-
+        $this->eventManager->fire(CartEvents::CART_ADD_ITEM, new CartEvent(Yii::app()->getUser(), $this));
     }
 
 
@@ -98,8 +104,8 @@ class EShoppingCart extends CMap
     {
         parent::remove($key);
         $this->applyDiscounts();
-        $this->onRemovePosition(new CEvent($this));
         $this->saveState();
+        $this->eventManager->fire(CartEvents::CART_REMOVE_ITEM, new CartEvent(Yii::app()->getUser(), $this));
     }
 
 
@@ -114,10 +120,6 @@ class EShoppingCart extends CMap
      */
     public function update(IECartPosition $position, $quantity)
     {
-        if (!($position instanceof CComponent)) {
-            throw new InvalidArgumentException('invalid argument 1, product must implement CComponent interface');
-        }
-
         $key = $position->getId();
 
         $position->detachBehavior("CartPosition");
@@ -133,8 +135,8 @@ class EShoppingCart extends CMap
         }
 
         $this->applyDiscounts();
-        $this->onUpdatePosition(new CEvent($this));
         $this->saveState();
+        $this->eventManager->fire(CartEvents::CART_UPDATE, new CartEvent(Yii::app()->getUser(), $this));
     }
 
     /**
@@ -181,25 +183,6 @@ class EShoppingCart extends CMap
         return $price;
     }
 
-    /**
-     * onRemovePosition event
-     * @param  $event
-     * @return void
-     */
-    public function onRemovePosition($event)
-    {
-        $this->raiseEvent('onRemovePosition', $event);
-    }
-
-    /**
-     * onUpdatePoistion event
-     * @param  $event
-     * @return void
-     */
-    public function onUpdatePosition($event)
-    {
-        $this->raiseEvent('onUpdatePosition', $event);
-    }
 
     /**
      * Apply discounts to all positions
