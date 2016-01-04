@@ -5,7 +5,7 @@
 $brandUrl = Yii::app()->createUrl('/store/producer/view', ['slug' => $data->slug])
 ?>
 
-<div class="catalog__item">
+<div class="brand__item">
 <div class="product-mini">
     <div class="product-mini__thumbnail">
         <a href="<?= $brandUrl ?>">
