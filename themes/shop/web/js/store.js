@@ -114,14 +114,14 @@ $(document).ready(function () {
     });
 
     $('.product-quantity-increase').on('click', function () {
-        var quantity = parseFloat(quantityElement.text()) + 1;
+        var quantity = parseInt(quantityElement.text()) + 1;
         quantityElement.text(quantity);
         $('#product-quantity-input').val(quantity);
         $('#product-total-price').text(parseFloat($('#result-price').text()) * quantity);
     });
 
     $('.product-quantity-decrease').on('click', function () {
-        var quantity = parseFloat(quantityElement.text());
+        var quantity = parseInt(quantityElement.text());
         if (parseInt(quantityElement.text()) > 1) {
             --quantity;
             quantityElement.text(quantity);
@@ -132,7 +132,7 @@ $(document).ready(function () {
 
     $('#product-quantity-input').change(function (event) {
         var el = $(this);
-        quantity = parseFloat(el.val());
+        quantity = parseInt(el.val());
 
         if (quantity <= 0 || isNaN(quantity)) {
             quantity = 1;

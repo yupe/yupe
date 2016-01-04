@@ -85,6 +85,17 @@ $(document).ready(function () {
         }
     });
 
+    quantityElement.change(function (event) {
+        var el = $(this);
+        quantity = parseInt(el.val());
+
+        if (quantity <= 0 || isNaN(quantity)) {
+            quantity = 1;
+        }
+
+        el.val(quantity);
+    });
+
     function updateCartWidget() {
         $(cartWidgetSelector).load($('#cart-widget').data('cart-widget-url'));
     }
@@ -209,9 +220,15 @@ $(document).ready(function () {
 
     $('.position-count').change(function () {
         var tr = $(this).parents('tr');
-        updatePositionSumPrice(tr);
-        var quantity = tr.find('.position-count').val();
+        var quantity = parseInt(tr.find('.position-count').val());
         var productId = tr.find('.position-id').val();
+
+        if (quantity <= 0 || isNaN(quantity)) {
+            quantity = 1;
+            tr.find('.position-count').val(quantity);
+        }
+
+        updatePositionSumPrice(tr);
         changePositionQuantity(productId, quantity);
     });
 
