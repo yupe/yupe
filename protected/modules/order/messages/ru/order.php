@@ -30,6 +30,7 @@ return [
     'City' => 'Город',
     'Client' => 'Клиент',
     'Clients' => 'Клиенты',
+    'Clients - manage' => 'Клиенты - управление',
     'Comment' => 'Комментарий',
     'Completed' => 'Выполнен',
     'Country' => 'Страна',
