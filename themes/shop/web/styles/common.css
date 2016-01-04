@@ -1639,6 +1639,10 @@ a {
     line-height: 140px
 }
 
+.header-phone {
+    margin-left: 50px;
+}
+
 .header__phone {
     margin-top: 55px;
     color: #000;
