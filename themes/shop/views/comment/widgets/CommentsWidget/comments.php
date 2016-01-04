@@ -153,6 +153,7 @@ Yii::app()->clientScript
         <?php endif; ?>
 
     </div>
+    <?php if(Yii::app()->hasModule('reviews')):?>
     <div class="product-reviews__side"><!-- a href="javascript:void(0);" class="btn btn_primary btn_wide">Написать отзыв</a -->
         <div class="product-reviews__stat">Средняя оценка
             <div data-rate='4' class="rating">
@@ -164,5 +165,6 @@ Yii::app()->clientScript
             <div class="product-reviews__hint">2 оценки</div>
         </div>
     </div>
+    <?php endif;?>
 <?php endif; ?>
 

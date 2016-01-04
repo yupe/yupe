@@ -4,7 +4,7 @@ $currency = Yii::app()->getModule('store')->currency;
 <div class="header__item header-cart js-cart" id="cart-widget" data-cart-widget-url="<?= Yii::app()->createUrl('/cart/cart/widget'); ?>">
     <div class="header-cart__icon">
         <div class="badge badge_light-blue">
-            <?= CHtml::link(Yii::app()->cart->getCount(), ['/cart/cart/index']); ?>
+            <?= CHtml::link(Yii::app()->cart->getItemsCount(), ['/cart/cart/index']); ?>
         </div>
     </div>
     <div class="header-cart__text-wrap">

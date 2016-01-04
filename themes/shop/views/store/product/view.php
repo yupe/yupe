@@ -179,7 +179,9 @@ $this->breadcrumbs = array_merge(
                                 </dt>
                                 <dd class="product-spec-item__value">
                                     <span class="product-spec-item__value-inner">
-                                        <?= CHtml::encode($product->getProducerName()); ?>
+                                        <?php if($product->getProducerName()):?>
+                                            <?= CHtml::link($product->getProducerName(), ['/store/producer/view', 'slug' => $product->producer->slug]);?>
+                                        <?php endif;?>
                                     </span>
                                 </dd>
                             </dl>

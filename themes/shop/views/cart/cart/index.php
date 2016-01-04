@@ -188,7 +188,7 @@ $this->breadcrumbs = [
                                                             <?= $delivery->name; ?>
                                                             - <?= $delivery->price; ?> <?= Yii::t(
                                                                 "CartModule.cart",
-                                                                "RUB"
+                                                                Yii::app()->getModule('store')->currency
                                                             ); ?>
                                                         </span>
                                                     </div>
@@ -359,11 +359,11 @@ $this->breadcrumbs = [
 
             <div class="order-box__bottom">
                 <div class="cart-box__subtotal">
-                    Итого: &nbsp;<span id="cart-total-product-count"><?= Yii::app()->cart->getCount(); ?></span>&nbsp;
-                    товар(а)
+                    Итого: &nbsp;<span id="cart-total-product-count"><?= Yii::app()->cart->getItemsCount(); ?></span>&nbsp;
+                    товар(ов)
                     на сумму &nbsp;<span id="cart-full-cost-with-shipping">0</span><span class="ruble"> <?= Yii::t(
                             "CartModule.cart",
-                            "RUB"
+                            Yii::app()->getModule('store')->currency
                         ); ?></span>
                 </div>
                 <div class="cart-box__order-button">

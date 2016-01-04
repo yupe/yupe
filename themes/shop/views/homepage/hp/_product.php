@@ -21,6 +21,7 @@ $price = $data->getResultPrice();
         <div class="product-vertical__extra">
             <div class="product-vertical-extra">
                 <div class="product-vertical-extra__top">
+                    <?php if(Yii::app()->hasModule('reviews')):?>
                     <div class="product-vertical-extra__rating">
                         <div data-rate='5' class="rating">
                             <div class="rating__label">4.5</div>
@@ -30,6 +31,7 @@ $price = $data->getResultPrice();
                         </div>
                     </div>
                     <div class="product-vertical-extra__reviews"><a href="javascript:void(0);" class="reviews-link">6 отзывов</a></div>
+                    <?php endif;?>
                     <?php if($data->isInStock()):?>
                         <div class="product-vertical-extra__stock">
                             <div class="in-stock"><?= Yii::t("StoreModule.store", "In stock");?></div>

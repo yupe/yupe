@@ -1,13 +1,8 @@
-<?php
-/* @var $comment Comment */
-$level = $comment->getLevel()
-?>
-
-<div class="comments-item <?= $level > 0 ? 'comments-item-child' : '' ?>"
-     data-level="<?= $level; ?>"
+<div class="comments-item <?= $comment->getLevel() > 0 ? 'comments-item-child' : '' ?>"
+     data-level="<?= $comment->getLevel(); ?>"
      data-pid="<?= $comment->parent_id; ?>"
      data-id="<?= $comment->id; ?>"
-     style="margin-left: <?=(30 * $level); ?>px;">
+     style="margin-left: <?= (30 * $level); ?>px;">
 
     <div class="comments-item-main">
         <div class="comments-item-avatar">
@@ -35,9 +30,9 @@ $level = $comment->getLevel()
                     '#',
                     [
                         'rel' => $comment->id,
-                        'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->create_time),
+                        'data-id' => $comment->id.'_'.str_replace(' ', '_', $comment->create_time),
                         'class' => 'reply',
-                        'title' => Yii::t('CommentModule.comment', 'Reply')
+                        'title' => Yii::t('CommentModule.comment', 'Reply'),
                     ]
                 ); ?>
             </div>

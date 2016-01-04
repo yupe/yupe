@@ -1,6 +1,9 @@
 <?php
 use yupe\components\controllers\FrontController;
 
+/**
+ * Class ProducerController
+ */
 class ProducerController extends FrontController
 {
     /**
@@ -8,6 +11,9 @@ class ProducerController extends FrontController
      */
     protected $productRepository;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->productRepository = Yii::app()->getComponent('productRepository');
@@ -15,13 +21,23 @@ class ProducerController extends FrontController
         parent::init();
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
-        $this->render('index', [
-            'brands' => Producer::model()->getAllDataProvider()
-        ]);
+        $this->render(
+            'index',
+            [
+                'brands' => Producer::model()->getAllDataProvider(),
+            ]
+        );
     }
 
+    /**
+     * @param $slug
+     * @throws CHttpException
+     */
     public function actionView($slug)
     {
         $producer = Producer::model()->getBySlug($slug);
@@ -30,9 +46,12 @@ class ProducerController extends FrontController
             throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
 
-        $this->render('view', [
-            'brand' => $producer,
-            'products' => $this->productRepository->getByBrandProvider($producer)
-        ]);
+        $this->render(
+            'view',
+            [
+                'brand' => $producer,
+                'products' => $this->productRepository->getByBrandProvider($producer),
+            ]
+        );
     }
 }

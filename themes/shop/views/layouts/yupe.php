@@ -78,7 +78,7 @@
                         <?php endif;?>
                     </div>
                     <div class="navbar__user">
-                        <?php if (Yii::app()->getUser()->isGuest): ?>
+                        <?php if (Yii::app()->getUser()->getIsGuest()): ?>
                             <a href="<?= Yii::app()->createUrl('/user/account/login') ?>" class="btn btn_login-button">
                                 <?= Yii::t('UserModule.user', 'Login'); ?>
                             </a>

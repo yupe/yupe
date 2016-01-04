@@ -54,7 +54,6 @@ class EShoppingCart extends CMap
                 parent::add($key, $product);
             }
         }
-
     }
 
     /**
