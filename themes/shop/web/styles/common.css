@@ -3006,6 +3006,10 @@ a {
     margin-right: 0
 }
 
+.product-reviews__body .alert {
+    margin-top: 30px
+}
+
 .product-reviews__side {
     float: left;
     clear: none;
@@ -4295,10 +4299,22 @@ label.error, .errorMessage, .text-error {
     padding: 20px;
 }
 
+.alert a {
+    font-weight: bold;
+}
+
+.alert a:hover {
+    text-decoration: underline;
+}
+
 .alert-error {
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
+}
+
+.alert-error a {
+    color: #843534;
 }
 
 .alert-info {
@@ -4307,16 +4323,27 @@ label.error, .errorMessage, .text-error {
     border-color: #bce8f1;
 }
 
+.alert-info a {
+    color: #245269;
+}
+
 .alert-success {
     color: #3c763d;
     background-color: #dff0d8;
     border-color: #d6e9c6;
 }
 
+.alert-success a {
+    color: #2b542c;
+}
+
 .alert-warning {
     color: #8a6d3b;
     background-color: #fcf8e3;
     border-color: #faebcc;
+}
+.alert-warning a {
+    color: #66512c;
 }
 
 
