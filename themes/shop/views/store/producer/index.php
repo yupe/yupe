@@ -17,8 +17,7 @@ $this->breadcrumbs = [
 
 <div class="main__catalog grid">
     <div class="cols">
-        <div class="col grid-module-2"></div>
-        <div class="col grid-module-9">
+        <div class="col grid-module-12">
             <?php $this->widget('zii.widgets.CListView', [
                 'dataProvider' => $brands,
                 'itemView' => '_item',

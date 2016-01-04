@@ -451,6 +451,17 @@ a {
     vertical-align: middle
 }
 
+.brand__item {
+    display: inline-block;
+    width: 277px;
+    margin: 0 20px 20px 0;
+}
+
+.brand__item:nth-child(4) {
+    clear: both;
+    margin-right: 0;
+}
+
 .breadcrumbs {
     color: #b8b8b8
 }
