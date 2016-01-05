@@ -254,7 +254,7 @@ class Producer extends yupe\models\YModel
             get_class($this), [
             'criteria' => $criteria,
             'pagination' => [
-                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                'pageSize' => 20,
                 'pageVar' => 'page',
             ],
         ]
