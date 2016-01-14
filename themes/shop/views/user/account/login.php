@@ -11,6 +11,8 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 </div>
 <div class="main__cart-box grid">
     <div class="grid-module-6">
+        <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
+
         <?php $form = $this->beginWidget('CActiveForm', [
             'id' => 'login-form',
             'enableClientValidation' => true
