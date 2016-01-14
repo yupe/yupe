@@ -304,7 +304,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
         $criteria->compare('id', $this->id);
         $criteria->compare('type_id', $this->type_id);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('t.name', $this->name, true);
         $criteria->compare('price', $this->price);
         $criteria->compare('sku', $this->sku, true);
         $criteria->compare('short_description', $this->short_description, true);
@@ -952,6 +952,8 @@ class Product extends yupe\models\YModel implements ICommentable
                 ->queryScalar();
 
             $model->name = $this->name.' ['.($similarNamesCount + 1).']';
+            $model->slug  = \yupe\helpers\YText::translit($model->name);
+            $model->image = $this->image;
 
             $attributes = $model->attributes;
             $typeAttributes = $this->getTypesAttributesValues();
