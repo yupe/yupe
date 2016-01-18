@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var Coupon $model
+ */
+
 $this->breadcrumbs = [
     Yii::t('CouponModule.coupon', 'Coupons') => ['/coupon/couponBackend/index'],
     Yii::t('CouponModule.coupon', 'Creating'),
@@ -7,8 +11,16 @@ $this->breadcrumbs = [
 $this->pageTitle = Yii::t('CouponModule.coupon', 'Coupons - creating');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Manage coupons'), 'url' => ['/coupon/couponBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('CouponModule.coupon', 'Create coupon'), 'url' => ['/coupon/couponBackend/create']],
+    [
+        'icon' => 'fa fa-fw fa-list-alt',
+        'label' => Yii::t('CouponModule.coupon', 'Manage coupons'),
+        'url' => ['/coupon/couponBackend/index'],
+    ],
+    [
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('CouponModule.coupon', 'Create coupon'),
+        'url' => ['/coupon/couponBackend/create'],
+    ],
 ];
 ?>
 <div class="page-header">

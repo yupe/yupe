@@ -1,8 +1,23 @@
+<?php
+/**
+ * @var Coupon $model
+ * @var TbActiveForm $form
+ * @var Order $order
+ */
+?>
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#coupon" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "Coupon"); ?></a></li>
-    <?php if(!$model->getIsNewRecord()):?>
-        <li><a href="#history" data-toggle="tab"><?php echo Yii::t("CouponModule.coupon", "Purchasing history"); ?></a></li>
-    <?php endif;?>
+    <li class="active">
+        <a href="#coupon" data-toggle="tab">
+            <?php echo Yii::t("CouponModule.coupon", "Coupon"); ?>
+        </a>
+    </li>
+    <?php if (!$model->getIsNewRecord()): ?>
+        <li>
+            <a href="#history" data-toggle="tab">
+                <?php echo Yii::t("CouponModule.coupon", "Purchasing history"); ?>
+            </a>
+        </li>
+    <?php endif; ?>
 </ul>
 
 <div class="tab-content">
@@ -164,19 +179,21 @@
         <?php $this->endWidget(); ?>
     </div>
 
-    <?php  if (!$model->getIsNewRecord()):?>
-    <div class="tab-pane panel-body" id="history">
+    <?php if (!$model->getIsNewRecord()): ?>
+        <div class="tab-pane panel-body" id="history">
 
-        <?php
+            <?php
             Yii::app()->getModule('order');
             $order = new Order('search');
             $order->unsetAttributes();
+            $order->couponId = $model->id;
+
             $this->widget(
                 'yupe\widgets\CustomGridView',
                 [
                     'id' => 'order-grid',
                     'type' => 'condensed',
-                    'dataProvider' => $order->search($model->id),
+                    'dataProvider' => $order->search(),
                     'filter' => $order,
                     'rowCssClassExpression' => '$data->paid == Order::PAID_STATUS_PAID ? "alert-success" : ""',
                     'ajaxUrl' => Yii::app()->createUrl('/order/orderBackend/index'),
@@ -187,35 +204,51 @@
                             'name' => 'id',
                             'htmlOptions' => ['width' => '90px'],
                             'type' => 'raw',
-                            'value' => 'CHtml::link(Yii::t("CouponModule.coupon", "Order #").$data->id, array("/order/orderBackend/update", "id" => $data->id))',
+                            'value' => function (Order $data) {
+                                return CHtml::link(
+                                    Yii::t('CouponModule.coupon', 'Order #') . $data->id,
+                                    ['/order/orderBackend/update', 'id' => $data->id]
+                                );
+                            },
                         ],
                         [
                             'name' => 'name',
                             'type' => 'raw',
-                            'value' => '$data->name . ($data->note ? "<br><div class=\"note\">$data->note</div>" : "")',
+                            'value' => function (Order $data) {
+                                $result = $data->name;
+
+                                if ($data->note) {
+                                    $result .= CHtml::tag('br');
+                                    $result .= CHtml::tag('small', [], $data->note);
+                                }
+
+                                return $result;
+                            },
                             'htmlOptions' => ['width' => '400px'],
                         ],
                         'total_price',
                         [
                             'name' => 'paid',
-                            'value' => '$data->getPaidStatus()',
+                            'value' => function (Order $data) {
+                                return $data->getPaidStatus();
+                            },
                             'filter' => $order->getPaidStatusList(),
                         ],
                         [
-                            'name' => 'date'
+                            'name' => 'date',
                         ],
                         [
-                            'name'  => 'status',
-                            'type'  => 'raw',
-                            'value' => function($data) {
-                                  return $data->status->getTitle();
-                                },
-                            'filter' => OrderStatus::model()->getList()
+                            'name' => 'status_id',
+                            'type' => 'raw',
+                            'value' => function (Order $data) {
+                                return $data->status->getTitle();
+                            },
+                            'filter' => OrderStatus::model()->getList(),
                         ],
                     ],
                 ]
             );
-        ?>
-    </div>
-    <?php endif;?>
+            ?>
+        </div>
+    <?php endif; ?>
 </div>

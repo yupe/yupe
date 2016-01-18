@@ -65,6 +65,8 @@ class Order extends yupe\models\YModel
      */
     const SCENARIO_ADMIN = 'admin';
 
+    public $couponId = null;
+
     /**
      * @var OrderProduct[]
      */
@@ -119,7 +121,7 @@ class Order extends yupe\models\YModel
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
-            ['delivery_id, separate_delivery, payment_method_id, paid, user_id', 'numerical', 'integerOnly' => true],
+            ['delivery_id, separate_delivery, payment_method_id, paid, user_id, couponId', 'numerical', 'integerOnly' => true],
             ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
             ['name, phone, email, city, street', 'length', 'max' => 255],
             ['comment, note', 'length', 'max' => 1024],
@@ -224,10 +226,9 @@ class Order extends yupe\models\YModel
 
 
     /**
-     * @param null $couponId
      * @return CActiveDataProvider
      */
-    public function search($couponId = null)
+    public function search()
     {
         $criteria = new CDbCriteria;
         $criteria->with = ['delivery', 'payment', 'client', 'status'];
@@ -257,10 +258,10 @@ class Order extends yupe\models\YModel
         $criteria->compare('note', $this->note, true);
         $criteria->compare('modified', $this->modified, true);
 
-        if (null !== $couponId) {
+        if (null !== $this->couponId) {
             $criteria->with['couponsIds'] = ['together' => true];
             $criteria->addCondition('couponsIds.coupon_id = :id');
-            $criteria->params = CMap::mergeArray($criteria->params, [':id' => (int)$couponId]);
+            $criteria->params = CMap::mergeArray($criteria->params, [':id' => $this->couponId]);
         }
 
         if (null !== $this->name) {

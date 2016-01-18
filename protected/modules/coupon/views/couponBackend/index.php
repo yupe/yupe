@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var Coupon $model
+ */
+
 $this->breadcrumbs = [
     Yii::t('CouponModule.coupon', 'Coupons') => ['/coupon/couponBackend/index'],
     Yii::t('CouponModule.coupon', 'Manage'),
@@ -7,8 +11,16 @@ $this->breadcrumbs = [
 $this->pageTitle = Yii::t('CouponModule.coupon', 'Coupons - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('CouponModule.coupon', 'Manage coupons'), 'url' => ['/coupon/couponBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('CouponModule.coupon', 'Create coupon'), 'url' => ['/coupon/couponBackend/create']],
+    [
+        'icon' => 'fa fa-fw fa-list-alt',
+        'label' => Yii::t('CouponModule.coupon', 'Manage coupons'),
+        'url' => ['/coupon/couponBackend/index'],
+    ],
+    [
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('CouponModule.coupon', 'Create coupon'),
+        'url' => ['/coupon/couponBackend/create'],
+    ],
 ];
 ?>
 <div class="page-header">
@@ -31,16 +43,18 @@ $this->widget(
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->name, array("/coupon/couponBackend/update", "id" => $data->id))',
+                'value' => function (Coupon $data) {
+                    return CHtml::link($data->name, ['/coupon/couponBackend/update', 'id' => $data->id]);
+                },
             ],
             'code',
             'start_time',
             'end_time',
             [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/coupon/couponBackend/inline'),
-                'source'  => $model->getStatusList(),
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'status',
+                'url' => $this->createUrl('/coupon/couponBackend/inline'),
+                'source' => $model->getStatusList(),
                 'options' => [
                     Coupon::STATUS_ACTIVE => ['class' => 'label-success'],
                     Coupon::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
@@ -48,10 +62,14 @@ $this->widget(
             ],
             [
                 'header' => Yii::t('CouponModule.coupon', 'Orders'),
-                'value'  => function($data) {
-                        return CHtml::link($data->ordersCount,'', ['class' => 'badge']);
-                    },
-                'type' => 'raw'
+                'value' => function (Coupon $data) {
+                    return CHtml::link(
+                        $data->ordersCount,
+                        ['/order/orderBackend/index', 'Order[couponId]' => $data->id],
+                        ['class' => 'badge']
+                    );
+                },
+                'type' => 'raw',
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

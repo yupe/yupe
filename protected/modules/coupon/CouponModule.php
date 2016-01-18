@@ -34,12 +34,12 @@ class CouponModule extends WebModule
             [
                 'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('CouponModule.coupon', 'Coupons list'),
-                'url' => ['/coupon/couponBackend/index']
+                'url' => ['/coupon/couponBackend/index'],
             ],
             [
                 'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('CouponModule.coupon', 'Create coupon'),
-                'url' => ['/coupon/couponBackend/create']
+                'url' => ['/coupon/couponBackend/create'],
             ],
 
         ];
