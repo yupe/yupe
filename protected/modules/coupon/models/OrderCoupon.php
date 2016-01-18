@@ -4,14 +4,15 @@
  * This is the model class for table "{{store_order_coupon}}".
  *
  * The followings are the available columns in table '{{store_order_coupon}}':
+ *
  * @property integer $id
  * @property integer $order_id
  * @property integer $coupon_id
  * @property string $create_time
  *
  * The followings are the available model relations:
- * @property StoreCoupon $coupon
- * @property StoreOrder $order
+ * @property Coupon $coupon
+ * @property Order $order
  */
 class OrderCoupon extends \yupe\models\YModel
 {
@@ -28,15 +29,11 @@ class OrderCoupon extends \yupe\models\YModel
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('order_id, coupon_id, create_time', 'required'),
-			array('order_id, coupon_id', 'numerical', 'integerOnly'=>true),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, order_id, coupon_id, create_time', 'safe', 'on'=>'search'),
-		);
+		return [
+			['order_id, coupon_id, create_time', 'required'],
+			['order_id, coupon_id', 'numerical', 'integerOnly' => true],
+			['id, order_id, coupon_id, create_time', 'safe', 'on' => 'search'],
+		];
 	}
 
 	/**
@@ -44,12 +41,10 @@ class OrderCoupon extends \yupe\models\YModel
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'coupon' => array(self::BELONGS_TO, 'Coupon', 'coupon_id'),
-			'order' => array(self::BELONGS_TO, 'Order', 'order_id'),
-		);
+		return [
+			'coupon' => [self::BELONGS_TO, 'Coupon', 'coupon_id'],
+			'order' => [self::BELONGS_TO, 'Order', 'order_id'],
+		];
 	}
 
 	/**
@@ -57,12 +52,12 @@ class OrderCoupon extends \yupe\models\YModel
 	 */
 	public function attributeLabels()
 	{
-		return array(
+		return [
 			'id' => 'ID',
 			'order_id' => 'Order',
-			'coupon_id' =>  Yii::t('CouponModule.coupon', 'Code'),
-			'create_time' =>  Yii::t('CouponModule.coupon', 'Create time')
-		);
+			'coupon_id' => Yii::t('CouponModule.coupon', 'Code'),
+			'create_time' => Yii::t('CouponModule.coupon', 'Create time'),
+		];
 	}
 
 	/**
@@ -81,25 +76,26 @@ class OrderCoupon extends \yupe\models\YModel
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('order_id',$this->order_id);
-		$criteria->compare('coupon_id',$this->coupon_id);
-		$criteria->compare('create_time',$this->create_time,true);
+		$criteria->compare('id', $this->id);
+		$criteria->compare('order_id', $this->order_id);
+		$criteria->compare('coupon_id', $this->coupon_id);
+		$criteria->compare('create_time', $this->create_time, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+		return new CActiveDataProvider($this, [
+			'criteria' => $criteria,
+		]);
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 *
 	 * @param string $className active record class name.
 	 * @return OrderCoupon the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}

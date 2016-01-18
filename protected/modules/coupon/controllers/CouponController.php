@@ -28,12 +28,19 @@ class CouponController extends FrontController
         parent::init();
     }
 
+    public function filters()
+    {
+        return [
+            'postOnly'
+        ];
+    }
+
     /**
      * @throws CHttpException
      */
     public function actionAdd()
     {
-        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getParam('code')) {
+        if (!Yii::app()->getRequest()->getParam('code')) {
             throw new CHttpException(404);
         }
 
@@ -69,11 +76,8 @@ class CouponController extends FrontController
      */
     public function actionRemove()
     {
-        if (!Yii::app()->getRequest()->getIsPostRequest()) {
-            throw new CHttpException(404);
-        }
-
         $code = strtoupper(Yii::app()->getRequest()->getParam('code'));
+
         if ($code) {
             $this->couponManager->remove($code);
             Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Coupon «{code}» deleted", ['{code}' => $code]));
@@ -87,10 +91,6 @@ class CouponController extends FrontController
      */
     public function actionClear()
     {
-        if (!Yii::app()->getRequest()->getIsPostRequest()) {
-            throw new CHttpException(404);
-        }
-
         $this->couponManager->clear();
         Yii::app()->ajax->success(Yii::t("CouponModule.coupon", "Coupons are deleted"));
     }

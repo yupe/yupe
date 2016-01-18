@@ -1,5 +1,5 @@
 <?php
-Yii::import('coupon.CouponModule'); // при вызове из корзины падает без этого
+Yii::import('application.modules.coupon.CouponModule');
 /**
  * @property integer $id
  * @property string $name

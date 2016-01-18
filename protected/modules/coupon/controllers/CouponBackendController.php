@@ -6,12 +6,12 @@ class CouponBackendController extends yupe\components\controllers\BackController
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Coupon',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Coupon',
                 'validAttributes' => [
-                    'status'
-                ]
-            ]
+                    'status',
+                ],
+            ],
         ];
     }
 
@@ -36,12 +36,10 @@ class CouponBackendController extends yupe\components\controllers\BackController
     public function actionCreate()
     {
         $model = new Coupon();
+        $attributes = Yii::app()->getRequest()->getPost('Coupon');
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Coupon'])) {
-            $model->attributes = $_POST['Coupon'];
+        if ($attributes) {
+            $model->attributes = $attributes;
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -49,25 +47,26 @@ class CouponBackendController extends yupe\components\controllers\BackController
                     Yii::t('CouponModule.coupon', 'Record created!')
                 );
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(['update', 'id' => $model->id]);
-                } else {
-                    $this->redirect([$_POST['submit-type']]);
+                $submitType = Yii::app()->getRequest()->getPost('submit-type');
+
+                if ($submitType) {
+                    $this->redirect([$submitType]);
                 }
+
+                $this->redirect(['update', 'id' => $model->id]);
             }
         }
+
         $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        $attributes = Yii::app()->getRequest()->getPost('Coupon');
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Coupon'])) {
-            $model->attributes = $_POST['Coupon'];
+        if ($attributes) {
+            $model->attributes = $attributes;
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -75,31 +74,34 @@ class CouponBackendController extends yupe\components\controllers\BackController
                     Yii::t('CouponModule.coupon', 'Record updated!')
                 );
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(['update', 'id' => $model->id]);
-                } else {
-                    $this->redirect([$_POST['submit-type']]);
+                $submitType = Yii::app()->getRequest()->getPost('submit-type');
+
+                if ($submitType) {
+                    $this->redirect([$submitType]);
                 }
+
+                $this->redirect(['update', 'id' => $model->id]);
             }
         }
+
         $this->render('update', ['model' => $model]);
     }
 
     public function actionDelete($id)
     {
-        if (Yii::app()->getRequest()->getIsPostRequest()) {
-            $this->loadModel($id)->delete();
-
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('CouponModule.coupon', 'Record removed!')
-            );
-
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
-            }
-        } else {
+        if (!Yii::app()->getRequest()->getIsPostRequest()) {
             throw new CHttpException(400, Yii::t('CouponModule.coupon', 'Unknown request. Don\'t repeat it please!'));
+        }
+
+        $this->loadModel($id)->delete();
+
+        Yii::app()->user->setFlash(
+            yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+            Yii::t('CouponModule.coupon', 'Record removed!')
+        );
+
+        if (!Yii::app()->getRequest()->getQuery('ajax')) {
+            $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', ['index']));
         }
     }
 
@@ -107,10 +109,14 @@ class CouponBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new Coupon('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Coupon'])) {
-            $model->attributes = $_GET['Coupon'];
+        $attributes = Yii::app()->getRequest()->getQuery('Coupon');
+
+        $model->unsetAttributes();
+
+        if ($attributes) {
+            $model->attributes = $attributes;
         }
+
         $this->render('index', ['model' => $model]);
     }
 
@@ -121,15 +127,7 @@ class CouponBackendController extends yupe\components\controllers\BackController
         if ($model === null) {
             throw new CHttpException(404, Yii::t('CouponModule.coupon', 'Page not found!'));
         }
+
         return $model;
-    }
-
-
-    protected function performAjaxValidation(Coupon $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'coupon-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }
