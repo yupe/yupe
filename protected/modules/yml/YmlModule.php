@@ -3,14 +3,14 @@
 use yupe\components\WebModule;
 
 /**
- * Class YandexMarketModule
+ * Class YmlModule
  */
-class YandexMarketModule extends WebModule
+class YmlModule extends WebModule
 {
     /**
      *
      */
-    const VERSION = '0.9.9';
+    const VERSION = '1.0';
 
     /**
      * @return array
@@ -43,7 +43,7 @@ class YandexMarketModule extends WebModule
      */
     public function getCategory()
     {
-        return Yii::t('YandexMarketModule.default', 'Store');
+        return Yii::t('YmlModule.default', 'Store');
     }
 
     /**
@@ -51,7 +51,7 @@ class YandexMarketModule extends WebModule
      */
     public function getAdminPageLink()
     {
-        return '/yandexmarket/exportBackend/index';
+        return '/yml/exportBackend/index';
     }
 
     /**
@@ -62,13 +62,13 @@ class YandexMarketModule extends WebModule
         return [
             [
                 'icon' => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('YandexMarketModule.default', 'Export lists'),
-                'url' => ['/yandexmarket/exportBackend/index'],
+                'label' => Yii::t('YmlModule.default', 'Export lists'),
+                'url' => ['/yml/exportBackend/index'],
             ],
             [
                 'icon' => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('YandexMarketModule.default', 'Create export list'),
-                'url' => ['/yandexmarket/exportBackend/create'],
+                'label' => Yii::t('YmlModule.default', 'Create export list'),
+                'url' => ['/yml/exportBackend/create'],
             ],
         ];
     }
@@ -86,7 +86,7 @@ class YandexMarketModule extends WebModule
      */
     public function getName()
     {
-        return Yii::t('YandexMarketModule.default', 'Yandex.Market');
+        return Yii::t('YmlModule.default', 'Yml export');
     }
 
     /**
@@ -94,7 +94,7 @@ class YandexMarketModule extends WebModule
      */
     public function getDescription()
     {
-        return Yii::t('YandexMarketModule.default', 'Module to export products in the yml file');
+        return Yii::t('YmlModule.default', 'Module to export products in the yml file');
     }
 
     /**
@@ -102,7 +102,7 @@ class YandexMarketModule extends WebModule
      */
     public function getAuthor()
     {
-        return Yii::t('YandexMarketModule.default', 'amylabs team');
+        return Yii::t('YmlModule.default', 'amylabs team');
     }
 
     /**
@@ -110,7 +110,7 @@ class YandexMarketModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('YandexMarketModule.default', 'hello@amylabs.ru');
+        return Yii::t('YmlModule.default', 'hello@amylabs.ru');
     }
 
     /**
@@ -118,7 +118,7 @@ class YandexMarketModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://yupe.ru';
+        return 'http://yupe-project.ru';
     }
 
     /**
@@ -138,8 +138,8 @@ class YandexMarketModule extends WebModule
 
         $this->setImport(
             [
-                'application.modules.yandexmarket.models.*',
-                'application.modules.store.models.*',
+                'application.modules.yml.models.Export',
+                'application.modules.store.models.Product',
             ]
         );
     }
@@ -153,32 +153,32 @@ class YandexMarketModule extends WebModule
             [
                 'type' => AuthItem::TYPE_TASK,
                 'name' => 'YandexMarket.ExportBackend.Management',
-                'description' => Yii::t('YandexMarketModule.default', 'Manage export lists'),
+                'description' => Yii::t('YmlModule.default', 'Manage export lists'),
                 'items' => [
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'YandexMarket.ExportBackend.Index',
-                        'description' => Yii::t('YandexMarketModule.default', 'Export lists'),
+                        'description' => Yii::t('YmlModule.default', 'Export lists'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'YandexMarket.ExportBackend.Create',
-                        'description' => Yii::t('YandexMarketModule.default', 'Create export list'),
+                        'description' => Yii::t('YmlModule.default', 'Create export list'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'YandexMarket.ExportBackend.Update',
-                        'description' => Yii::t('YandexMarketModule.default', 'Update export list'),
+                        'description' => Yii::t('YmlModule.default', 'Update export list'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'YandexMarket.ExportBackend.View',
-                        'description' => Yii::t('YandexMarketModule.default', 'View export list'),
+                        'description' => Yii::t('YmlModule.default', 'View export list'),
                     ],
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'YandexMarket.ExportBackend.Delete',
-                        'description' => Yii::t('YandexMarketModule.default', 'Delete export list'),
+                        'description' => Yii::t('YmlModule.default', 'Delete export list'),
                     ],
                 ],
             ],

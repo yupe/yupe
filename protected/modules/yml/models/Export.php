@@ -10,7 +10,7 @@
 class Export extends \yupe\models\YModel
 {
     /**
-     * @var array Массив id брендов, которые будут выведены
+     * @var array
      */
     public $brands = [];
 
@@ -19,13 +19,37 @@ class Export extends \yupe\models\YModel
      */
     public $categories = [];
 
+    /**
+     * @var
+     */
     public $shop_name;
+    /**
+     * @var
+     */
     public $shop_company;
+    /**
+     * @var
+     */
     public $shop_url;
+    /**
+     * @var
+     */
     public $shop_platform;
+    /**
+     * @var
+     */
     public $shop_version;
+    /**
+     * @var
+     */
     public $shop_agency;
+    /**
+     * @var
+     */
     public $shop_email;
+    /**
+     * @var
+     */
     public $shop_cpa;
 
     /**
@@ -33,7 +57,7 @@ class Export extends \yupe\models\YModel
      */
     public function tableName()
     {
-        return '{{yandex_market_export}}';
+        return '{{yml_export}}';
     }
 
     /**
@@ -69,19 +93,25 @@ class Export extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('YandexMarketModule.default', 'Id'),
-            'name' => Yii::t('YandexMarketModule.default', 'Title'),
-            'settings' => Yii::t('YandexMarketModule.default', 'Settings'),
-            'brands' => Yii::t('YandexMarketModule.default', 'Brands'),
-            'categories' => Yii::t('YandexMarketModule.default', 'Categories'),
-            'shop_name' => Yii::t('YandexMarketModule.default', 'Store short title'),
-            'shop_company' => Yii::t('YandexMarketModule.default', 'Company name'),
-            'shop_url' => Yii::t('YandexMarketModule.default', 'Store URL'),
-            'shop_platform' => Yii::t('YandexMarketModule.default', 'Store CMS'),
-            'shop_version' => Yii::t('YandexMarketModule.default', 'CMS version'),
-            'shop_agency' => Yii::t('YandexMarketModule.default', 'The name of the Agency which provides technical support to the online store and is responsible for the performance of the website'),
-            'shop_email' => Yii::t('YandexMarketModule.default', 'Contact the developers of CMS or tech support agency'),
-            'shop_cpa' => Yii::t('YandexMarketModule.default', 'To participate in the "Buy at Market" program'),
+            'id' => Yii::t('YmlModule.default', 'Id'),
+            'name' => Yii::t('YmlModule.default', 'Title'),
+            'settings' => Yii::t('YmlModule.default', 'Settings'),
+            'brands' => Yii::t('YmlModule.default', 'Brands'),
+            'categories' => Yii::t('YmlModule.default', 'Categories'),
+            'shop_name' => Yii::t('YmlModule.default', 'Store short title'),
+            'shop_company' => Yii::t('YmlModule.default', 'Company name'),
+            'shop_url' => Yii::t('YmlModule.default', 'Store URL'),
+            'shop_platform' => Yii::t('YmlModule.default', 'Store CMS'),
+            'shop_version' => Yii::t('YmlModule.default', 'CMS version'),
+            'shop_agency' => Yii::t(
+                'YmlModule.default',
+                'The name of the Agency which provides technical support to the online store and is responsible for the performance of the website'
+            ),
+            'shop_email' => Yii::t(
+                'YmlModule.default',
+                'Contact the developers of CMS or tech support agency'
+            ),
+            'shop_cpa' => Yii::t('YmlModule.default', 'To participate in the "Buy at Market" program'),
         ];
     }
 
@@ -103,6 +133,9 @@ class Export extends \yupe\models\YModel
         );
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $settings = json_decode($this->settings);
@@ -120,6 +153,9 @@ class Export extends \yupe\models\YModel
     }
 
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         $settings = [

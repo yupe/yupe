@@ -14,59 +14,53 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('YandexMarketModule.default', 'Fields with'); ?>
+    <?= Yii::t('YmlModule.default', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('YandexMarketModule.default', 'are required'); ?>
+    <?= Yii::t('YmlModule.default', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
-    <div class="col-sm-3">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+    <div class="col-sm-7">
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-7">
         <div class="row">
-            <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_name'); ?>
+            <div class="col-sm-6">
+                <?= $form->textFieldGroup($model, 'shop_name'); ?>
+            </div>
+            <div class="col-sm-6">
+                <?= $form->textFieldGroup($model, 'shop_url'); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_company'); ?>
+                <?= $form->textFieldGroup($model, 'shop_company'); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <?= $form->textFieldGroup($model, 'shop_platform'); ?>
+            </div>
+            <div class="col-sm-6">
+                <?= $form->textFieldGroup($model, 'shop_version'); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <?= $form->textFieldGroup($model, 'shop_agency'); ?>
+            </div>
+            <div class="col-sm-6">
+                <?= $form->textFieldGroup($model, 'shop_email'); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_url'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_platform'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_version'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_agency'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <?php echo $form->textFieldGroup($model, 'shop_email'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <?php echo $form->checkboxGroup($model, 'shop_cpa'); ?>
+                <?= $form->checkboxGroup($model, 'shop_cpa'); ?>
             </div>
         </div>
     </div>
@@ -74,8 +68,8 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-3">
-        <?php echo CHtml::hiddenField('Export[brands]'); ?>
-        <?php echo $form->dropDownListGroup(
+        <?= CHtml::hiddenField('Export[brands]'); ?>
+        <?= $form->dropDownListGroup(
             $model,
             'brands',
             [
@@ -87,9 +81,9 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo CHtml::activeLabel($model, Yii::t('YandexMarketModule.default', 'Categories')); ?>
+        <?= CHtml::activeLabel($model, Yii::t('YmlModule.default', 'Categories')); ?>
         <?php $this->widget('store.widgets.CategoryTreeWidget', ['selectedCategories' => $model->categories, 'id' => 'category-tree']); ?>
-        <?php echo CHtml::hiddenField('Export[categories]'); ?>
+        <?= CHtml::hiddenField('Export[categories]'); ?>
     </div>
 </div>
 
@@ -99,7 +93,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('YandexMarketModule.default', 'Add list and close') : Yii::t('YandexMarketModule.default', 'Save list and continue'),
+        'label' => $model->getIsNewRecord() ? Yii::t('YmlModule.default', 'Add list and close') : Yii::t('YmlModule.default', 'Save list and continue'),
     ]
 ); ?>
 
@@ -108,7 +102,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('YandexMarketModule.default', 'Add list and close') : Yii::t('YandexMarketModule.default', 'Save list and close'),
+        'label' => $model->getIsNewRecord() ? Yii::t('YmlModule.default', 'Add list and close') : Yii::t('YmlModule.default', 'Save list and close'),
     ]
 ); ?>
 

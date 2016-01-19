@@ -698,7 +698,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function getBasePrice()
     {
-        return $this->price;
+        return (float)$this->price;
     }
 
     /**

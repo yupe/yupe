@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class ExportBackendController
+ */
 class ExportBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -15,18 +21,25 @@ class ExportBackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Export();
+        $model->setAttributes([
+            'shop_platform' => Yii::app()->name,
+            'shop_version'  => Yii::app()->getModule('yupe')->version
+        ]);
 
         if (($data = Yii::app()->getRequest()->getPost('Export')) !== null) {
             $model->setAttributes($data);
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YandexMarketModule.default', 'Record was created!')
+                    Yii::t('YmlModule.default', 'Record was created!')
                 );
 
                 $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['create']));
@@ -37,6 +50,10 @@ class ExportBackendController extends yupe\components\controllers\BackController
     }
 
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -46,12 +63,14 @@ class ExportBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YandexMarketModule.default', 'Record was updated!')
+                    Yii::t('YmlModule.default', 'Record was updated!')
                 );
 
-                $this->redirect((array)Yii::app()->getRequest()->getPost('submit-type', ['update', 'id' => $model->id,]));
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost('submit-type', ['update', 'id' => $model->id,])
+                );
             }
         }
 
@@ -59,6 +78,10 @@ class ExportBackendController extends yupe\components\controllers\BackController
     }
 
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -78,12 +101,15 @@ class ExportBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('YandexMarketModule.default', 'Unknown request. Don\'t repeat it please!')
+                Yii::t('YmlModule.default', 'Unknown request. Don\'t repeat it please!')
             );
         }
     }
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Export('search');
@@ -105,8 +131,9 @@ class ExportBackendController extends yupe\components\controllers\BackController
     {
         $model = Export::model()->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('YandexMarketModule.default', 'Page not found!'));
+            throw new CHttpException(404, Yii::t('YmlModule.default', 'Page not found!'));
         }
+
         return $model;
     }
 
@@ -119,7 +146,10 @@ class ExportBackendController extends yupe\components\controllers\BackController
      */
     protected function performAjaxValidation(Attribute $model)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'export-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+                'ajax'
+            ) === 'export-form'
+        ) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
