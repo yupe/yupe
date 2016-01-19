@@ -1,4 +1,4 @@
-<?php $this->title = [Yii::t('BlogModule.blog', 'Categories'), Yii::app()->getModule('yupe')->siteName]; ?>
+<?php $this->title = Yii::t('BlogModule.blog', 'Categories'); ?>
 
 <?php
 $this->breadcrumbs = [

@@ -1,4 +1,4 @@
-<?php $this->title = [Yii::t('FeedbackModule.feedback', 'FAQ'), Yii::app()->getModule('yupe')->siteName]; ?>
+<?php $this->title = Yii::t('FeedbackModule.feedback', 'FAQ'); ?>
 
 <?php
 $this->breadcrumbs = [

@@ -3,9 +3,9 @@
  * @var $this PostController
  * @var $target Blog
  */
-$this->title = [Yii::t('BlogModule.blog', 'Posts of "{blog}" blog', ['{blog}' => CHtml::encode($target->name)]), Yii::app()->getModule('yupe')->siteName];
-$this->metaDescription = Yii::t('BlogModule.blog', 'Posts of "{blog}" blog', ['{blog}' => CHtml::encode($target->name)]);
-$this->metaKeywords = $target->name;
+$this->title = Yii::t('BlogModule.blog', 'Posts of "{blog}" blog', ['{blog}' => CHtml::encode($target->name)]);
+$this->description = Yii::t('BlogModule.blog', 'Posts of "{blog}" blog', ['{blog}' => CHtml::encode($target->name)]);
+$this->keywords = $target->name;
 ?>
 
 <?php

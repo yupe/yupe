@@ -1,5 +1,5 @@
 <?php
-$this->title = [Yii::t('UserModule.user', 'Sign in'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('UserModule.user', 'Sign in');
 $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 ?>
 <div class="main__title grid">

@@ -8,7 +8,7 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->title = [Yii::t('OrderModule.order', 'Check order'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('OrderModule.order', 'Check order');
 ?>
 
 <div class="main__title grid">

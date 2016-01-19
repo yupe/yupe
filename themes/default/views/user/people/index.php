@@ -1,5 +1,5 @@
 <?php
-$this->title = [Yii::t('UserModule.user', 'Users'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('UserModule.user', 'Users');
 $this->breadcrumbs = [
     Yii::t('UserModule.user', 'Users'),
 ];

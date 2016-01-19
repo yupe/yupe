@@ -1,4 +1,4 @@
-<?php $this->title = [Yii::t('default', 'Error') . ' ' . $error['code'], Yii::app()->getModule('yupe')->siteName]; ?>
+<?php $this->title = Yii::t('default', 'Error') . ' ' . $error['code']; ?>
 <div class="main__title grid">
     <h1 class="h2"><?= Yii::t('default', 'Error') . ' ' . $error['code']; ?>!</h1>
 </div>

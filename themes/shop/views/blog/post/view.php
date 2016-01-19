@@ -3,9 +3,9 @@
  * @var $this PostController
  */
 
-$this->title = [$post->title, Yii::app()->getModule('yupe')->siteName];
-$this->metaDescription = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
-$this->metaKeywords = !empty($post->keywords) ? $post->keywords : implode(', ', $post->getTags());
+$this->title = $post->title;
+$this->description = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
+$this->keywords = !empty($post->keywords) ? $post->keywords : implode(', ', $post->getTags());
 
 Yii::app()->clientScript->registerScript(
     "ajaxBlogToken",

@@ -383,15 +383,6 @@ class Post extends yupe\models\YModel implements ICommentable
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
             ],
-            'seo'                => [
-                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/blog/post/view',
-                'params' => [
-                    'slug' => function ($data) {
-                        return $data->slug;
-                    }
-                ],
-            ],
         ];
     }
 

@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <h4>
             <strong>
-                <?= CHtml::link(CHtml::encode($data->title), $data->getUrl()); ?>
+                <?= CHtml::link(CHtml::encode($data->title), ['/blog/post/view/', 'slug' => $data->slug]); ?>
             </strong>
         </h4>
     </div>
@@ -22,7 +22,7 @@
 
         <p>
             <i class="glyphicon glyphicon-user"></i> <?= CHtml::link($data->createUser->nick_name, ['/user/people/userInfo', 'username' => $data->createUser->nick_name]); ?>
-            | <i class="glyphicon glyphicon-pencil"></i> <?= CHtml::link(CHtml::encode($data->blog->name), $data->blog->getUrl()); ?>
+            | <i class="glyphicon glyphicon-pencil"></i> <?= CHtml::link(CHtml::encode($data->blog->name), ['/blog/blog/view', 'slug' => $data->blog->slug]); ?>
             | <i class="glyphicon glyphicon-calendar"></i> <?= Yii::app()->getDateFormatter()->formatDateTime($data->publish_time, "short", "short"); ?>
             | <i class="glyphicon glyphicon-comment"></i>  <?= CHtml::link($data->commentsCount, $data->getUrl(['#' => 'comments'])); ?>
             | <i class="glyphicon glyphicon-tags"></i>

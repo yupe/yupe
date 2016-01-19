@@ -1,5 +1,5 @@
 <?php $this->title = $model->theme; ?>
-<?php $this->metaKeywords = implode(',', explode(' ', $model->theme)); ?>
+<?php $this->keywords = implode(',', explode(' ', $model->theme)); ?>
 
 <?php
 $this->breadcrumbs = [

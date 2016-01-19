@@ -17,17 +17,11 @@ use CHtml;
 use Yii;
 use CException;
 use CHttpException;
-use yupe\widgets\YWidget;
 
 /**
  * Class Controller
  * @package yupe\components\controllers
  *
- * @property string|array $title
- * @property string $metaDescription
- * @property string $metaKeywords
- * @property array $metaProperties
- * @property string $canonical
  */
 abstract class Controller extends \CController
 {
@@ -57,12 +51,17 @@ abstract class Controller extends \CController
      */
     public $headerTypeId = ContentType::TYPE_HTML;
 
-    public function behaviors()
-    {
-        return array(
-            'seo' => array('class' => 'vendor.chemezov.yii-seo.behaviors.SeoBehavior'),
-        );
-    }
+    public $title;
+
+    /**
+     * @var
+     */
+    public $description;
+
+    /**
+     * @var
+     */
+    public $keywords;
 
     /**
      * For backward capability
@@ -136,7 +135,7 @@ abstract class Controller extends \CController
                             'Widget "{widget}" was not found! Please enable "{module}" module!',
                             [
                                 '{widget}' => $className,
-                                '{module}' => $modulePath[2]
+                                '{module}' => $modulePath[2],
                             ]
                         ), 1
                     );
@@ -161,7 +160,7 @@ abstract class Controller extends \CController
             echo CHtml::tag(
                 'p',
                 [
-                    'class' => 'alert alert-danger'
+                    'class' => 'alert alert-danger',
                 ],
                 $e->getCode()
                     ? $e->getMessage()
@@ -169,7 +168,7 @@ abstract class Controller extends \CController
                     'YupeModule.yupe',
                     'Error occurred during the render widget ({widget}): {error}',
                     [
-                        '{error}'  => $e->getMessage(),
+                        '{error}' => $e->getMessage(),
                         '{widget}' => $className,
                     ]
                 )
@@ -196,13 +195,12 @@ abstract class Controller extends \CController
         return parent::processOutput($output);
     }
 
+
     /**
-     * Если вызван ошибочный запрос:
-     *
-     * @param string $message - сообщение
-     * @param integer $error - код ошибки
-     *
-     * @return void
+     * @param null $message
+     * @param int $error
+     * @return mixed
+     * @throws CHttpException
      */
     protected function badRequest($message = null, $error = 400)
     {
@@ -238,7 +236,7 @@ abstract class Controller extends \CController
                         'CProfileLogRoute',
                         'CWebLogRoute',
                         'YiiDebugToolbarRoute',
-                        'DbProfileLogRoute'
+                        'DbProfileLogRoute',
                     ]
                 )
                 ) {

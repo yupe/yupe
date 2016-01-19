@@ -11,7 +11,7 @@ $this->beginWidget(
         <li>
             <?= CHtml::link(
                 CHtml::encode($model->title),
-                $model->getUrl()
+                ['/blog/post/view', 'slug' => $model->slug]
             ); ?>
             <nobr>
                 <i class="glyphicon glyphicon-comment"></i> <?= $model->getCommentCount(); ?>

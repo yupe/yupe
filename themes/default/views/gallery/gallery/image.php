@@ -12,10 +12,10 @@
  * @var $model Image
  **/
 
-$this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
+$this->title = $model->name; ?>
 <?php $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
-    $model->gallery->name => $model->gallery->getUrl(),
+    $model->gallery->name => ['/gallery/gallery/view', 'id' => $model->gallery->id],
     $model->name
 ];
 ?>
@@ -41,6 +41,6 @@ $this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
 
 <?php
 $this->widget('application.modules.comment.widgets.CommentsWidget', [
-    'redirectTo' => $model->gallery->getUrl(),
+    'redirectTo' => Yii::app()->createUrl('/gallery/gallery/view', ['id' => $model->gallery->id]),
     'model' => $model,
 ]);

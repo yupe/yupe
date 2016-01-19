@@ -7,7 +7,7 @@
     <div class="posts-list-block-header">
         <?= CHtml::link(
             CHtml::encode($data->title),
-            $data->getUrl()
+            ['/blog/post/view', 'slug' => $data->slug]
         ); ?>
     </div>
 
@@ -25,7 +25,7 @@
 	        <span>
 	            <i class="glyphicon glyphicon-pencil"></i>
 
-                <?= CHtml::link(CHtml::encode($data->blog->name), $data->blog->getUrl()); ?>
+                <?= CHtml::link(CHtml::encode($data->blog->name), ['/blog/blog/view', 'slug' => $data->blog->slug]); ?>
 	        </span>
 
 	        <span>
@@ -65,7 +65,7 @@
 
                 <?= CHtml::link(
                     $data->getCommentCount(),
-                    $data->getUrl(['#' => 'comments'])
+                    ['/blog/post/view', 'slug' => $data->slug]
                 ); ?>
 	        </span>
         </div>

@@ -4,7 +4,7 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/order-frontend.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->title = [Yii::t('OrderModule.order', 'Order #{n}', [$model->id]), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
 ?>
 <div class="row">
     <div class="col-sm-12">

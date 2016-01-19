@@ -105,15 +105,6 @@ class Image extends yupe\models\YModel
                 'class'         => 'yupe\components\behaviors\SortableBehavior',
                 'attributeName' => 'sort'
             ],
-            'seo'         => [
-                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/gallery/gallery/image',
-                'params' => [
-                    'id' => function ($data) {
-                        return $data->id;
-                    }
-                ],
-            ],
         ];
     }
 

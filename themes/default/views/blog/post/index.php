@@ -2,9 +2,9 @@
 /**
  * @var $this PostController
  */
-$this->title = [Yii::t('BlogModule.blog', 'Latest posts'), Yii::app()->getModule('yupe')->siteName];
-$this->metaDescription = Yii::t('BlogModule.blog', 'Latest post');
-$this->metaKeywords = Yii::t('BlogModule.blog', 'Latest post');
+$this->title = Yii::t('BlogModule.blog', 'Latest posts');
+$this->description = Yii::t('BlogModule.blog', 'Latest post');
+$this->keywords = Yii::t('BlogModule.blog', 'Latest post');
 ?>
 
 <?php $this->breadcrumbs = [

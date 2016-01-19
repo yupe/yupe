@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09d8b7860c5855766f07e7d31f80cd77",
-    "content-hash": "a2952acb1c1592e218383b36b82ec9e1",
+    "hash": "cc0030d4cd119cf806d13f37effeed42",
+    "content-hash": "5177d2f180a8d273ea9913ccdc741e9d",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -44,44 +44,6 @@
                 "yii"
             ],
             "time": "2014-01-08 17:37:55"
-        },
-        {
-            "name": "chemezov/yii-seo",
-            "version": "v1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/chemezov/yii-seo.git",
-                "reference": "f9be971f5235f638cec9ee6d48a3b10ac0545c05"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/chemezov/yii-seo/zipball/f9be971f5235f638cec9ee6d48a3b10ac0545c05",
-                "reference": "f9be971f5235f638cec9ee6d48a3b10ac0545c05",
-                "shasum": ""
-            },
-            "type": "yii-extension",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Christoffer Niska",
-                    "email": "christoffer.niska@gmail.com",
-                    "homepage": "http://www.cniska.net/"
-                },
-                {
-                    "name": "Mikhail Chemezov",
-                    "homepage": "http://www.zexed.net/"
-                }
-            ],
-            "description": "Search engine optimization for the Yii PHP framework.",
-            "homepage": "https://github.com/chemezov/yii-seo",
-            "keywords": [
-                "seo",
-                "yii"
-            ],
-            "time": "2015-08-19 04:10:50"
         },
         {
             "name": "clevertech/yii-booster",

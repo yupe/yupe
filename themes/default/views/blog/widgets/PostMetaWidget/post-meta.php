@@ -27,7 +27,7 @@
 
             <?= CHtml::link(
                 $post->getCommentCount(),
-                $post->getUrl(['#' => 'comments'])
+                ['/blog/post/view', 'slug' => $post->slug]
             ); ?>
         </span>
     </div>

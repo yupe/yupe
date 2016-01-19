@@ -6,7 +6,7 @@
         <?php foreach ($posts as $data): ?>
             <li><?= CHtml::link(
                     CHtml::encode($data->title),
-                    $data->getUrl()
+                    ['/blog/post/view', 'slug' => $data->slug]
                 ); ?></li>
         <?php endforeach ?>
     </ul>

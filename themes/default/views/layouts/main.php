@@ -2,19 +2,15 @@
 <html lang="<?= Yii::app()->language; ?>">
 <head>
     <?php \yupe\components\TemplateEvent::fire(DefautThemeEvents::HEAD_START);?>
-    <?php Yii::app()->getController()->widget(
-        'vendor.chemezov.yii-seo.widgets.SeoHead',
-        [
-            'httpEquivs' => [
-                'Content-Type' => 'text/html; charset=utf-8',
-                'X-UA-Compatible' => 'IE=edge,chrome=1',
-                'Content-Language' => 'ru-RU'
-            ],
-            'defaultTitle' => $this->yupe->siteName,
-            'defaultDescription' => $this->yupe->siteDescription,
-            'defaultKeywords' => $this->yupe->siteKeyWords,
-        ]
-    ); ?>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Content-Language" content="ru-RU" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title><?= $this->title;?></title>
+    <meta name="description" content="<?= $this->description;?>" />
+    <meta name="keywords" content="<?= $this->keywords;?>" />
 
     <?php
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/css/main.css');

@@ -3,9 +3,9 @@
  * @var $this PostController
  */
 
-$this->title = [$post->title, Yii::app()->getModule('yupe')->siteName];
-$this->metaDescription = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
-$this->metaKeywords = !empty($post->keywords) ? $post->keywords : implode(', ', $post->getTags());
+$this->title = $post->title;
+$this->description = !empty($post->description) ? $post->description : strip_tags($post->getQuote());
+$this->keywords = !empty($post->keywords) ? $post->keywords : implode(', ', $post->getTags());
 
 Yii::app()->clientScript->registerScript(
     "ajaxBlogToken",
@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript(
 
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
-    CHtml::encode($post->blog->name)   => $post->blog->getUrl(),
+    CHtml::encode($post->blog->name)   => ['/blog/blog/view', 'slug' => $post->blog->slug],
     $post->title,
 ];
 ?>
@@ -32,7 +32,7 @@ $this->breadcrumbs = [
                     <i class="glyphicon glyphicon-pencil"></i>
                     <?= CHtml::link(
                         CHtml::encode($post->blog->name),
-                        $post->blog->getUrl()
+                        ['/blog/blog/view', 'slug' => $post->blog->slug]
                     ); ?>
                 </span>
                 <span>
@@ -112,7 +112,7 @@ $this->breadcrumbs = [
 <div class="comments-section">
 
     <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-        'redirectTo' => $post->getUrl(),
+        'redirectTo' => Yii::app()->createUrl('/blog/post/view', ['slug' => $post->slug]),
         'model' => $post,
     ]); ?>
 

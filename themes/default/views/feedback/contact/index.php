@@ -1,5 +1,5 @@
 <?php
-$this->title = [Yii::t('FeedbackModule.feedback', 'Contacts'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('FeedbackModule.feedback', 'Contacts');
 $this->breadcrumbs = [Yii::t('FeedbackModule.feedback', 'Contacts')];
 Yii::import('application.modules.feedback.FeedbackModule');
 Yii::import('application.modules.install.InstallModule');

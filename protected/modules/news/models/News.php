@@ -103,15 +103,6 @@ class News extends yupe\models\YModel
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
             ],
-            'seo'         => [
-                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/news/news/view',
-                'params' => [
-                    'slug' => function ($data) {
-                        return $data->slug;
-                    }
-                ],
-            ],
         ];
     }
 

@@ -1,7 +1,7 @@
 <?php
 /* @var $model ProfileForm */
 
-$this->title = [Yii::t('UserModule.user', 'Change password'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('UserModule.user', 'Change password');
 $this->breadcrumbs = [
     Yii::t('UserModule.user', 'User profile') => ['/user/profile/profile'],
     Yii::t('UserModule.user', 'Change password')

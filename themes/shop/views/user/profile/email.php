@@ -2,7 +2,7 @@
 /**
  * @var CActiveForm $form
  */
-$this->title = [Yii::t('UserModule.user', 'Change email'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('UserModule.user', 'Change email');
 $this->breadcrumbs = [
     Yii::t('UserModule.user', 'User profile') => ['/user/profile/profile'],
     Yii::t('UserModule.user', 'Change email')

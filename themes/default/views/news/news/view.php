@@ -13,9 +13,9 @@
  **/
 ?>
 <?php
-$this->title = [$model->title, Yii::app()->getModule('yupe')->siteName];
-$this->metaDescription = $model->description;
-$this->metaKeywords = $model->keywords;
+$this->title = $model->title;
+$this->description = $model->description;
+$this->keywords = $model->keywords;
 ?>
 
 <?php

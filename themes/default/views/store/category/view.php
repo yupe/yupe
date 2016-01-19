@@ -5,8 +5,8 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 /* @var $category StoreCategory */
 
 $this->title =  $category->getMetaTile();
-$this->metaDescription = $category->getMetaDescription();
-$this->metaKeywords =  $category->getMetaKeywords();
+$this->description = $category->getMetaDescription();
+$this->keywords =  $category->getMetaKeywords();
 
 $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product/index']];
 

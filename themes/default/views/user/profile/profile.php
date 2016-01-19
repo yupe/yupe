@@ -1,5 +1,5 @@
 <?php
-$this->title = [Yii::t('UserModule.user', 'User profile'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('UserModule.user', 'User profile');
 $this->breadcrumbs = [Yii::t('UserModule.user', 'User profile')];
 
 $form = $this->beginWidget(

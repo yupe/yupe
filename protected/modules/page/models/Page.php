@@ -102,15 +102,6 @@ class Page extends yupe\models\YModel
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
             ],
-            'seo' => [
-                'class' => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route' => '/page/page/view',
-                'params' => [
-                    'slug' => function ($data) {
-                        return $data->slug;
-                    }
-                ],
-            ],
         ];
     }
 

@@ -12,7 +12,7 @@
  * @var $dataProvider CActiveDataProvider
  **/
 
-$this->title = [Yii::t('GalleryModule.gallery', 'Image galleries'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('GalleryModule.gallery', 'Image galleries');
 $this->breadcrumbs = [Yii::t('GalleryModule.gallery', 'Image galleries')];
 
 ?>

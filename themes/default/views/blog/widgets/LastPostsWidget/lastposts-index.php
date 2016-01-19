@@ -3,7 +3,7 @@
         <div class="posts-list-block-header">
             <?= CHtml::link(
                 CHtml::encode($data->title),
-                $data->getUrl()
+                ['/blog/post/view', 'slug' => $data->slug]
             ); ?>
         </div>
 
@@ -64,7 +64,7 @@
 
                 <?= CHtml::link(
                     $data->getCommentCount(),
-                    $data->getUrl(['#' => 'comments'])
+                    ['/blog/post/view', 'slug' => $data->slug]
                 ); ?>
             </span>
             </div>

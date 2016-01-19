@@ -12,7 +12,7 @@
  * @var $model Image
  **/
 
-$this->title = [$model->name, Yii::app()->getModule('yupe')->siteName]; ?>
+$this->title = $model->name; ?>
 <?php $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
     $model->gallery->name => $model->gallery->getUrl(),

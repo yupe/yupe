@@ -63,21 +63,6 @@ class Gallery extends yupe\models\YModel
         ];
     }
 
-    public function behaviors()
-    {
-        return [
-            'seo' => [
-                'class'  => 'vendor.chemezov.yii-seo.behaviors.SeoActiveRecordBehavior',
-                'route'  => '/gallery/gallery/view',
-                'params' => [
-                    'id' => function ($data) {
-                        return $data->id;
-                    }
-                ],
-            ],
-        ];
-    }
-
     /**
      * @return array relational rules.
      */

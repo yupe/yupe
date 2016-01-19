@@ -1,5 +1,5 @@
 <?php
-$this->title = [CHtml::encode($user->nick_name), Yii::app()->getModule('yupe')->siteName];
+$this->title = CHtml::encode($user->nick_name);
 $this->breadcrumbs = [
     Yii::t('UserModule.user', 'Users') => ['/user/people/index/'],
     CHtml::encode($user->getfullName()),

@@ -2,7 +2,7 @@
 /**
  * @var CActiveForm $form
  */
-$this->title = [Yii::t('UserModule.user', 'Password recovery'), Yii::app()->getModule('yupe')->siteName];
+$this->title = Yii::t('UserModule.user', 'Password recovery');
 $this->breadcrumbs = [Yii::t('UserModule.user', 'Password recovery')];
 ?>
 <div class="main__title grid">
