@@ -550,12 +550,15 @@ class Product extends yupe\models\YModel implements ICommentable
 
             foreach ($attributes as $attribute => $value) {
 
-                if (null == $value) {
+                if (null === $value) {
                     continue;
                 }
-                //необходимо определить в какое поле сохраняем значение
+
                 $model = new AttributeValue();
-                $model->store($attribute, $value, $this);
+
+                if(false === $model->store($attribute, $value, $this)){
+                    throw new InvalidArgumentException('Error store attribute!');
+                }
             }
 
             $transaction->commit();

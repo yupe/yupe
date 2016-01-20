@@ -141,7 +141,7 @@ class AttributeValue extends yupe\models\YModel
                 $this->option_value = empty($value) ? null : (int)$value;
                 break;
             case Attribute::TYPE_CHECKBOX:
-                $this->number_value = (bool)$value;
+                $this->number_value = empty($value) ? 0 : 1;
                 break;
             case Attribute::TYPE_NUMBER:
                 $this->number_value = empty($value) ? null : (float)$value;
