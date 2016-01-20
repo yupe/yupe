@@ -48,7 +48,7 @@
                     'type',
                     [
                         'widgetOptions' => [
-                            'data' => $model->getTypeList(),
+                            'data' => CouponTypeHelper::all(),
                         ],
                     ]
                 ); ?>
@@ -59,7 +59,7 @@
                     'status',
                     [
                         'widgetOptions' => [
-                            'data' => $model->getStatusList(),
+                            'data' => CouponStatusHelper::all(),
                         ],
                     ]
                 ); ?>

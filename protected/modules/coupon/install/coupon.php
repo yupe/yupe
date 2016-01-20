@@ -5,7 +5,8 @@ return [
         'class' => 'application.modules.coupon.CouponModule',
     ],
     'import' => [
-        'application.modules.coupon.models.*'
+        'application.modules.coupon.models.*',
+        'application.modules.coupon.helpers.*',
     ],
     'component' => [
         'couponManager' => [
