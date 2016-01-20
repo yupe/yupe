@@ -68,7 +68,7 @@ $this->menu = [
             'code',
             [
                 'name' => 'type',
-                'value' => $model->getTypeTitle(),
+                'value' => CouponType::title($model->type),
             ],
             'value',
             'min_order_price',
@@ -80,7 +80,8 @@ $this->menu = [
             'quantity_per_user',
             [
                 'name' => 'status',
-                'value' => $model->statusTitle,
+                'type' => 'raw',
+                'value' => CouponStatus::coloredLabel($model->status),
             ],
 
         ],

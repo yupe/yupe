@@ -18,23 +18,6 @@ Yii::import('application.modules.coupon.CouponModule');
  */
 class Coupon extends yupe\models\YModel
 {
-    /**
-     *
-     */
-    const STATUS_NOT_ACTIVE = 0;
-    /**
-     *
-     */
-    const STATUS_ACTIVE = 1;
-
-    /**
-     *
-     */
-    const TYPE_SUM = 0;
-    /**
-     *
-     */
-    const TYPE_PERCENT = 1;
 
     /**
      * @return string the associated database table name
@@ -55,8 +38,8 @@ class Coupon extends yupe\models\YModel
             ['name, code, status, type', 'required'],
             ['name, code', 'filter', 'filter' => 'trim'],
             ['name, code', 'length', 'max' => 255],
-            ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['type', 'in', 'range' => array_keys($this->getTypeList())],
+            ['status', 'in', 'range' => CouponStatus::keys()],
+            ['type', 'in', 'range' => CouponType::keys()],
             ['value, min_order_price', 'numerical'],
             ['quantity, quantity_per_user', 'numerical', 'integerOnly' => true],
             ['registered_user, free_shipping', 'in', 'range' => [0, 1]],
@@ -78,7 +61,7 @@ class Coupon extends yupe\models\YModel
         return [
             'active' => [
                 'condition' => 'status = :status',
-                'params' => [':status' => self::STATUS_ACTIVE],
+                'params' => [':status' => CouponStatus::STATUS_ACTIVE],
             ],
         ];
     }
@@ -178,48 +161,6 @@ class Coupon extends yupe\models\YModel
     }
 
     /**
-     * @return array
-     */
-    public function getStatusList()
-    {
-        return [
-            self::STATUS_ACTIVE => Yii::t("CouponModule.coupon", 'Active'),
-            self::STATUS_NOT_ACTIVE => Yii::t("CouponModule.coupon", 'Not active'),
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatusTitle()
-    {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*unknown*');
-    }
-
-    /**
-     * @return array
-     */
-    public function getTypeList()
-    {
-        return [
-            self::TYPE_SUM => Yii::t("CouponModule.coupon", 'Sum'),
-            self::TYPE_PERCENT => Yii::t("CouponModule.coupon", 'Percent'),
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getTypeTitle()
-    {
-        $data = $this->getTypeList();
-
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t("CouponModule.coupon", '*unknown*');
-    }
-
-    /**
      * @param $code
      * @return mixed
      */
@@ -236,7 +177,7 @@ class Coupon extends yupe\models\YModel
     {
         $errors = [];
 
-        if ($this->status == self::STATUS_NOT_ACTIVE) {
+        if ($this->status == CouponStatus::STATUS_NOT_ACTIVE) {
             $errors[] = Yii::t('CouponModule.coupon', 'Not active');
         }
         if ($price < $this->min_order_price) {
@@ -288,10 +229,10 @@ class Coupon extends yupe\models\YModel
         }
 
         switch ($this->type) {
-            case self::TYPE_SUM:
+            case CouponType::TYPE_SUM:
                 $discount += $this->value;
                 break;
-            case self::TYPE_PERCENT:
+            case CouponType::TYPE_PERCENT:
                 $discount += ($this->value / 100) * $price;
                 break;
         }

@@ -54,11 +54,8 @@ $this->widget(
                 'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'status',
                 'url' => $this->createUrl('/coupon/couponBackend/inline'),
-                'source' => $model->getStatusList(),
-                'options' => [
-                    Coupon::STATUS_ACTIVE => ['class' => 'label-success'],
-                    Coupon::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
-                ],
+                'source' => CouponStatus::all(),
+                'options' => CouponStatus::colors(),
             ],
             [
                 'header' => Yii::t('CouponModule.coupon', 'Orders'),
