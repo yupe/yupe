@@ -13,55 +13,78 @@
  **/
 class LoginForm extends yupe\models\YFormModel
 {
+    /**
+     *
+     */
     const LOGIN_LIMIT_SCENARIO = 'loginLimit';
 
+    /**
+     * @var
+     */
     public $email;
+    /**
+     * @var
+     */
     public $password;
+    /**
+     * @var
+     */
     public $remember_me;
+    /**
+     * @var
+     */
     public $verifyCode;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         $module = Yii::app()->getModule('user');
 
         return [
             ['email, password', 'required'],
-//            array('email', 'email'),
             ['remember_me', 'boolean'],
             [
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
                 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(),
-                'message'    => Yii::t('UserModule.user', 'Check code incorrect'),
-                'on'         => 'loginLimit'
+                'message' => Yii::t('UserModule.user', 'Check code incorrect'),
+                'on' => 'loginLimit',
             ],
             [
                 'verifyCode',
                 'captcha',
                 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(),
-                'on'         => self::LOGIN_LIMIT_SCENARIO
+                'on' => self::LOGIN_LIMIT_SCENARIO,
             ],
-            ['verifyCode', 'emptyOnInvalid']
+            ['verifyCode', 'emptyOnInvalid'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
-            'email'       => Yii::t('UserModule.user', 'Email/Login'),
-            'password'    => Yii::t('UserModule.user', 'Password'),
+            'email' => Yii::t('UserModule.user', 'Email/Login'),
+            'password' => Yii::t('UserModule.user', 'Password'),
             'remember_me' => Yii::t('UserModule.user', 'Remember me'),
-            'verifyCode'  => Yii::t('UserModule.user', 'Check code'),
+            'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeDescriptions()
     {
         return [
-            'email'       => Yii::t('UserModule.user', 'Email/Login'),
-            'password'    => Yii::t('UserModule.user', 'Password'),
+            'email' => Yii::t('UserModule.user', 'Email/Login'),
+            'password' => Yii::t('UserModule.user', 'Password'),
             'remember_me' => Yii::t('UserModule.user', 'Remember me'),
-            'verifyCode'  => Yii::t('UserModule.user', 'Check code'),
+            'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         ];
     }
 
