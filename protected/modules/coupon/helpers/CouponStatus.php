@@ -1,6 +1,6 @@
 <?php
 
-class CouponStatusHelper
+class CouponStatus
 {
     const STATUS_NOT_ACTIVE = 0;
     const STATUS_ACTIVE = 1;

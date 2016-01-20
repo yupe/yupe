@@ -1,5 +1,5 @@
 <?php
-class CouponTypeHelper
+class CouponType
 {
     const TYPE_SUM = 0;
     const TYPE_PERCENT = 1;

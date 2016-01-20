@@ -68,7 +68,7 @@ $this->menu = [
             'code',
             [
                 'name' => 'type',
-                'value' => CouponTypeHelper::title($model->type),
+                'value' => CouponType::title($model->type),
             ],
             'value',
             'min_order_price',
@@ -81,7 +81,7 @@ $this->menu = [
             [
                 'name' => 'status',
                 'type' => 'raw',
-                'value' => CouponStatusHelper::coloredLabel($model->status),
+                'value' => CouponStatus::coloredLabel($model->status),
             ],
 
         ],

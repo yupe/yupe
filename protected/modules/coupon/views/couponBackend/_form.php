@@ -48,7 +48,7 @@
                     'type',
                     [
                         'widgetOptions' => [
-                            'data' => CouponTypeHelper::all(),
+                            'data' => CouponType::all(),
                         ],
                     ]
                 ); ?>
@@ -59,7 +59,7 @@
                     'status',
                     [
                         'widgetOptions' => [
-                            'data' => CouponStatusHelper::all(),
+                            'data' => CouponStatus::all(),
                         ],
                     ]
                 ); ?>

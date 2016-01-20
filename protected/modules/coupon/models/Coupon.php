@@ -38,8 +38,8 @@ class Coupon extends yupe\models\YModel
             ['name, code, status, type', 'required'],
             ['name, code', 'filter', 'filter' => 'trim'],
             ['name, code', 'length', 'max' => 255],
-            ['status', 'in', 'range' => CouponStatusHelper::keys()],
-            ['type', 'in', 'range' => CouponTypeHelper::keys()],
+            ['status', 'in', 'range' => CouponStatus::keys()],
+            ['type', 'in', 'range' => CouponType::keys()],
             ['value, min_order_price', 'numerical'],
             ['quantity, quantity_per_user', 'numerical', 'integerOnly' => true],
             ['registered_user, free_shipping', 'in', 'range' => [0, 1]],
@@ -61,7 +61,7 @@ class Coupon extends yupe\models\YModel
         return [
             'active' => [
                 'condition' => 'status = :status',
-                'params' => [':status' => CouponStatusHelper::STATUS_ACTIVE],
+                'params' => [':status' => CouponStatus::STATUS_ACTIVE],
             ],
         ];
     }
@@ -177,7 +177,7 @@ class Coupon extends yupe\models\YModel
     {
         $errors = [];
 
-        if ($this->status == CouponStatusHelper::STATUS_NOT_ACTIVE) {
+        if ($this->status == CouponStatus::STATUS_NOT_ACTIVE) {
             $errors[] = Yii::t('CouponModule.coupon', 'Not active');
         }
         if ($price < $this->min_order_price) {
@@ -229,10 +229,10 @@ class Coupon extends yupe\models\YModel
         }
 
         switch ($this->type) {
-            case CouponTypeHelper::TYPE_SUM:
+            case CouponType::TYPE_SUM:
                 $discount += $this->value;
                 break;
-            case CouponTypeHelper::TYPE_PERCENT:
+            case CouponType::TYPE_PERCENT:
                 $discount += ($this->value / 100) * $price;
                 break;
         }
