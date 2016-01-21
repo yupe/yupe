@@ -31,7 +31,7 @@
 
 <p> If you have questions or problems - review this sources:
 <ul>
-    <li>Our <a href='http://yupe.ru/talk/?from=mainpage'>forum</a></li>
+    <li>Our <a href='http://talk.yupe.ru/?from=mainpage'>forum</a></li>
     <li><a href='https://github.com/yupe/yupe/issues'>Github</a></li>
     <li>Our documentation <a href='http://yupe.ru/docs/index.html?from=mainpage'> we are working around it</a></li>
 </ul>

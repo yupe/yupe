@@ -22,7 +22,7 @@
                 <li><a href="http://yupe.ru/docs/index.html"
                        target="_blank"><?= Yii::t('default', 'Documentation'); ?></a></li>
                 <li><a href="http://api.yupe.ru/" target="_blank"><?= Yii::t('default', 'API'); ?></a></li>
-                <li><a href="http://yupe.ru/talk/" target="_blank"><?= Yii::t('default', 'Forum'); ?></a></li>
+                <li><a href="http://talk.yupe.ru/" target="_blank"><?= Yii::t('default', 'Forum'); ?></a></li>
                 <li><a href="http://yupe.ru/faq/" target="_blank"><?= Yii::t('default', 'FAQ'); ?></a></li>
                 <li><a href="http://yupe.ru/contacts?from=footer"
                        target="_blank"><?= Yii::t('default', 'Contacts'); ?></a></li>

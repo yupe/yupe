@@ -79,7 +79,7 @@
                                     [
                                         'icon'        => 'fa fa-fw fa-comment',
                                         'label'       => Yii::t('YupeModule.yupe', 'Forum'),
-                                        'url'         => 'http://yupe.ru/talk/?from=install',
+                                        'url'         => 'http://talk.yupe.ru/?from=install',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [

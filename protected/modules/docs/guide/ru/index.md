@@ -18,7 +18,7 @@ API-документация по классам и компонентам "Юп
 * [Сообщество разработчиков](http://yupe.ru/)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
-* [Форум поддержки](http://yupe.ru/talk/)
+* [Форум поддержки](http://talk.yupe.ru/)
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Группа Вконтакте](https://vk.com/yupecms)
 

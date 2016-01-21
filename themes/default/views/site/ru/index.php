@@ -33,7 +33,7 @@
 
 <p> При возникновении вопросов или проблем - обращайтесь:
 <ul>
-    <li>на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a></li>
+    <li>на наш <a href='http://talk.yupe.ru/?from=mainpage'>форум</a></li>
     <li>на <a href='https://github.com/yupe/yupe/issues'>Github</a></li>
     <li>к документации <a href='http://yupe.ru/docs/index.html?from=mainpage'> которая начинает наполняться </a></li>
 </ul>

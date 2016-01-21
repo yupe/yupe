@@ -78,7 +78,7 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-comment',
                                     'label' => Yii::t('YupeModule.yupe', 'Forum'),
-                                    'url' => 'http://yupe.ru/talk/?from=help',
+                                    'url' => 'http://talk.yupe.ru/?from=help',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [

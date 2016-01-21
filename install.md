@@ -11,7 +11,7 @@
 - [Сообщайте об ошибках, замечаниях или предложениях](https://github.com/yupe/yupe/issues)
 - Расскажите друзьям о Юпи!
 - [Следите за обновлениями в twitter](https://twitter.com/YupeCms)
-- [Общайтесь на форуме](http://yupe.ru/talk/)
+- [Общайтесь на форуме](http://talk.yupe.ru/)
 - [Помогайте проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 - [Присылайте pull requests](https://github.com/yupe/yupe/pulls) (патчи)
 - Отдыхайте и наслаждайтесь жизнью!

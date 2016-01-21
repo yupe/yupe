@@ -52,7 +52,7 @@ Links
 * [API](http://api.yupe.ru/)
 * [More about project](http://yupe.ru/pages/about)
 * [Our team](http://yupe.ru/docs/yupe/team.html)
-* [Forum](http://yupe.ru/talk/)
+* [Forum](http://talk.yupe.ru/)
 * [Contacts](http://yupe.ru/contacts)
 * [How can I help you project?](http://yupe.ru/docs/yupe/assistance.project.html)
 * [Twitter](https://twitter.com/#!/YupeCms)

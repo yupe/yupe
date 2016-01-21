@@ -5,7 +5,7 @@
                 [
                     '{link}'     => CHtml::link(
                             Yii::t('InstallModule.install', 'our forum'),
-                            'http://yupe.ru/talk/viewforum.php?id=10',
+                            'http://talk.yupe.ru/viewforum.php?id=10',
                             ['target' => '_blank']
                         ),
                     '{feedback}' => CHtml::link(

@@ -50,7 +50,7 @@
 * [API](http://api.yupe.ru/)
 * [Подробнее о проекте](http://yupe-project.ru/about)
 * [Команда](http://yupe.ru/docs/yupe/team.html)
-* [Форум](http://yupe.ru/talk/)
+* [Форум](http://talk.yupe.ru/)
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
