@@ -16,7 +16,7 @@ class Url
     public static function redirectUrl($url)
     {
         $baseUrl = Yii::app()->getBaseUrl();
-        if (strpos($url, ':') || (!empty($baseUrl) && strpos($url, Yii::app()->getBaseUrl()) !== false)) {
+        if (strpos($url, ':') || (!empty($baseUrl) && strpos($url, $baseUrl) !== false)) {
             return $url;
         }
 
