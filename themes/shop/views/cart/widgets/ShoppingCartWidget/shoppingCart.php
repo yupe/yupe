@@ -9,7 +9,7 @@ $currency = Yii::app()->getModule('store')->currency;
     </div>
     <div class="header-cart__text-wrap">
         <div class="header-cart__label"><?= CHtml::link(Yii::t('CartModule.cart', 'Cart'), ['/cart/cart/index']); ?>
-            <a href="javascript:void(0);" data-toggle="#cart-mini" class="header-cart__cart-toggle" id="cart-toggle-link"></a>
+            <a href="javascript:void(0);" class="header-cart__cart-toggle" id="cart-toggle-link"></a>
             <div class="cart-mini" id="cart-mini">
                 <?php if (Yii::app()->cart->isEmpty()): ?>
                     <p><?= Yii::t('CartModule.cart', 'There are no products in cart'); ?></p>
