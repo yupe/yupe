@@ -45,11 +45,11 @@ class BlogBackendController extends yupe\components\controllers\BackController
      **/
     public function actionView($id)
     {
-        if (($model = Blog::model()->find($id)) !== null) {
-            $this->render('view', ['model' => $model]);
-        } else {
+        if (($model = Blog::model()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
+
+        $this->render('view', ['model' => $model]);
     }
 
     /**
@@ -91,7 +91,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
      **/
     public function actionUpdate($id)
     {
-        if (($model = Blog::model()->find($id)) === null) {
+        if (($model = Blog::model()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
 
@@ -130,7 +130,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
             // поддерживаем удаление только из POST-запроса
-            if (($model = Blog::model()->find($id)) === null) {
+            if (($model = Blog::model()->findByPk($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
             }
 
