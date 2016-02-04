@@ -25,7 +25,7 @@ return [
     'Payment methods - creating' => 'Способы оплаты - добавление',
     'Payment methods - edition' => 'Способы оплаты - редактирование',
     'Payment methods - manage' => 'Способы оплаты - управление',
-    'Payment methods list' => 'Список способов оплаты',
+    'Payment methods list' => 'Способы оплаты',
     'Payment methods' => 'Способы оплаты',
     'Payment orders module' => 'Модуль для приема оплаты заказов',
     'Payment system notifications HTTP link' => 'Ссылка для HTTP уведомлений платежной системы',

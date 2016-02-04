@@ -302,7 +302,7 @@ return [
     'To activate your email please follow the {link}' => 'Для активации email, пожалуйста, перейдите по {link}',
     'To recover your password please follow the link' => 'Для восстановления пароля, пожалуйста, перейдите по',
     'To reset your password please follow the link ' => 'Для сброса пароля,пожалуйста, перейдите по ',
-    'Token list' => 'Список токенов',
+    'Token list' => 'Токены',
     'Token management' => 'Управление токенами',
     'Token' => 'Токен',
     'Tokens' => 'Токены',

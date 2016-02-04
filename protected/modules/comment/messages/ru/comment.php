@@ -39,7 +39,7 @@ return [
     'Comments - edit' => 'Комментарии - редактирование',
     'Comments - management' => 'Комментарии - управление',
     'Comments - show' => 'Комментарии - просмотр',
-    'Comments list' => 'Список комментариев',
+    'Comments list' => 'Комментарии',
     'Comments moderation' => 'Модерация комментариев',
     'Comments' => 'Комментарии',
     'Content' => 'Контент',

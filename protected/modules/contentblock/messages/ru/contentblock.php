@@ -31,7 +31,7 @@ return [
     'Administration' => 'Управление',
     'administration' => 'управление',
     'are required.' => 'обязательны для заполнения',
-    'Blocks list' => 'Список блоков',
+    'Blocks list' => 'Блоки',
     'Blocks' => 'Блоки',
     'Category "{category}" does not exist, please enter the unsettled category' => 'Категория "{category}" не существует, введите пожалуйста сушествующую категорию',
     'Category' => 'Категория',
