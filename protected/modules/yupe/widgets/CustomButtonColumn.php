@@ -33,17 +33,17 @@ class CustomButtonColumn extends \TbButtonColumn
     /**
      * @var array
      */
-    public $viewButtonOptions = ['class' => 'btn btn-sm btn-default'];
+    public $viewButtonOptions = ['class' => 'view btn btn-sm btn-default'];
 
     /**
      * @var array
      */
-    public $deleteButtonOptions = ['class' => 'btn btn-sm btn-default'];
+    public $deleteButtonOptions = ['class' => 'delete btn btn-sm btn-default'];
 
     /**
      * @var array
      */
-    public $updateButtonOptions = ['class' => 'btn btn-sm btn-default'];
+    public $updateButtonOptions = ['class' => 'update btn btn-sm btn-default'];
 
     /**
      * @var array
