@@ -100,7 +100,7 @@ return [
     'Paid' => 'Оплачено',
     'Pay' => 'Оплатить',
     'Payment details' => 'Детали платежа',
-    'Payment method' => 'Способ оплаты',
+    'Payment method' => 'Оплата',
     'Payment' => 'Оплата',
     'PCs' => 'шт.',
     'Personal account' => 'Личный кабинет',

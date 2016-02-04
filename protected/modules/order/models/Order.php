@@ -234,7 +234,7 @@ class Order extends yupe\models\YModel
         $criteria->with = ['delivery', 'payment', 'client', 'status'];
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('t.name', $this->name, true);
         $criteria->compare('delivery_id', $this->delivery_id);
         $criteria->compare('delivery_price', $this->delivery_price);
         $criteria->compare('payment_method_id', $this->payment_method_id);
@@ -242,14 +242,13 @@ class Order extends yupe\models\YModel
         $criteria->compare('payment_time', $this->payment_time);
         $criteria->compare('payment_details', $this->payment_details, true);
         $criteria->compare('total_price', $this->total_price);
-        $criteria->compare('name', $this->name, true);
         $criteria->compare('total_price', $this->total_price);
         $criteria->compare('discount', $this->discount);
         $criteria->compare('coupon_discount', $this->coupon_discount);
         $criteria->compare('separate_delivery', $this->separate_delivery);
-        $criteria->compare('status_id', $this->status_id);
+        $criteria->compare('t.status_id', $this->status_id);
         $criteria->compare('date', $this->date, true);
-        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('t.user_id', $this->user_id);
         $criteria->compare('phone', $this->phone, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('comment', $this->comment, true);
@@ -275,7 +274,7 @@ class Order extends yupe\models\YModel
         }
 
         return new CActiveDataProvider(
-            $this, [
+            __CLASS__, [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => $this->getTableAlias().'.id DESC'],
             ]

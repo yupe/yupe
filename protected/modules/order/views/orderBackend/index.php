@@ -66,7 +66,7 @@ $this->widget(
                             ],
                         ], true),
                 'value' => function($data){
-                    return CHtml::link($data->date, array("/order/orderBackend/update", "id" => $data->id));
+                    return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'), array("/order/orderBackend/update", "id" => $data->id));
                 },
             ],
             [
@@ -90,6 +90,13 @@ $this->widget(
                 'url'     => $this->createUrl('/order/orderBackend/inline'),
                 'source'  => OrderStatus::model()->getList(),
                 'options' => OrderStatus::model()->getLabels(),
+            ],
+            [
+                'name' => 'payment_method_id',
+                'value' => function($data){
+                    return $data->payment ? $data->payment->name : '---';
+                },
+                'filter' => CHtml::listData(Payment::model()->findAll(), 'id', 'name')
             ],
             [
                 'class'=> 'yupe\widgets\EditableStatusColumn',
