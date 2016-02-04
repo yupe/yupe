@@ -14,7 +14,7 @@ class CustomButtonColumn extends \TbButtonColumn
     /**
      * @var string
      */
-    public $template = '<div class="btn-group">{front_view} {view} {update} {delete}</div>';
+    public $template = '{front_view} {view} {update} {delete}';
     /**
      * @var string the view button icon (defaults to 'eye-open').
      */
@@ -76,6 +76,8 @@ class CustomButtonColumn extends \TbButtonColumn
     protected function initDefaultButtons()
     {
         parent::initDefaultButtons();
+
+        $this->template = '<div class="btn-group">'.$this->template.'</div>';
 
         if ($this->frontViewButtonLabel === null) {
             $this->frontViewButtonLabel = Yii::t('zii', 'View');
