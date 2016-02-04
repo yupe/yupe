@@ -80,10 +80,8 @@ class Settings extends YModel
             [
                 ['module_id, param_name', 'required'],
                 ['module_id, param_name', 'length', 'max' => 100],
-                ['param_value', 'length', 'max' => 255],
+                ['param_value', 'length', 'max' => 500],
                 ['user_id', 'numerical', 'integerOnly' => true],
-                //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-                //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
                 [
                     'id, module_id, param_name, param_value, create_time, update_time, user_id',
                     'safe',
@@ -105,7 +103,6 @@ class Settings extends YModel
             $this->create_time = $this->update_time;
         }
 
-        // Пользователя можно получить только для веб-приложения
         $this->user_id = Yii::app()->hasComponent('user') ? Yii::app()->getUser()->getId() : null;
 
         return parent::beforeSave();
@@ -116,8 +113,6 @@ class Settings extends YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'user' => [self::BELONGS_TO, 'User', 'user_id'],
         ];
@@ -145,9 +140,6 @@ class Settings extends YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);

@@ -114,7 +114,7 @@ abstract class WebModule extends CWebModule
      * Разрешенные mime types файлов для загрузки
      *
      */
-    public $mimeTypes = 'image/gif, image/jpeg, image/png, application/zip, application/rar';
+    public $mimeTypes = 'image/gif,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/zip,application/x-rar,application/x-rar-compressed, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
     /**
      * @var string
@@ -123,7 +123,7 @@ abstract class WebModule extends CWebModule
      * Разрешенные расширения файлов для загрузки
      */
 
-    public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar';
+    public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar, doc, docx, xls, xlsx, pdf';
 
     /**
      * Путь к ресурсам модуля, например application.modules.yupe.views.assets
