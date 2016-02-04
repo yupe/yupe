@@ -13,8 +13,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('PaymentModule.payment', 'Payment methods'); ?>
-        <small><?php echo Yii::t('PaymentModule.payment', 'administration'); ?></small>
+        <?= Yii::t('PaymentModule.payment', 'Payment methods'); ?>
+        <small><?= Yii::t('PaymentModule.payment', 'administration'); ?></small>
     </h1>
 </div>
 
@@ -48,7 +48,8 @@ $this->widget(
                 ]
             ],
             [
-                'class' => 'yupe\widgets\CustomButtonColumn'
+                'class' => 'yupe\widgets\CustomButtonColumn',
+                'template' => '{update}{delete}'
             ]
         ]
     ]

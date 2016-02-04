@@ -1,42 +1,52 @@
 <?php
 
+/**
+ * Class PaymentBackendController
+ */
 class PaymentBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Payment',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Payment',
                 'validAttributes' => [
-                    'status'
-                ]
+                    'status',
+                ],
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
-                'model' => 'Payment'
-            ]
+                'model' => 'Payment',
+            ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Payment.PaymentBackend.Index'],],
-            ['allow', 'actions' => ['view'], 'roles' => ['Payment.PaymentBackend.View'],],
             ['allow', 'actions' => ['create', 'paymentSystemSettings'], 'roles' => ['Payment.PaymentBackend.Create'],],
-            ['allow', 'actions' => ['update', 'sortable', 'inline', 'paymentSystemSettings'], 'roles' => ['Payment.PaymentBackend.Update'],],
+            [
+                'allow',
+                'actions' => ['update', 'sortable', 'inline', 'paymentSystemSettings'],
+                'roles' => ['Payment.PaymentBackend.Update'],
+            ],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Payment.PaymentBackend.Delete'],],
             ['deny',],
         ];
     }
 
-    public function actionView($id)
-    {
-        $this->render('view', ['model' => $this->loadModel($id)]);
-    }
-
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Payment();
@@ -67,6 +77,10 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         $this->render('create', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -90,6 +104,11 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         $this->render('update', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -109,6 +128,9 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
     }
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Payment('search');
@@ -131,10 +153,14 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         if ($model === null) {
             throw new CHttpException(404, Yii::t('PaymentModule.payment', 'Page not found!'));
         }
+
         return $model;
     }
 
 
+    /**
+     * @param Payment $model
+     */
     protected function performAjaxValidation(Payment $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'payment-form') {
@@ -143,6 +169,9 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         }
     }
 
+    /**
+     * @throws CException
+     */
     public function actionPaymentSystemSettings()
     {
         $payment = Payment::model()->findByPk(Yii::app()->request->getParam('payment_id'));

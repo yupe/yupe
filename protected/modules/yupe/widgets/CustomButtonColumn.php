@@ -5,9 +5,16 @@ use Yii;
 
 Yii::import('bootstrap.widgets.TbButtonColumn');
 
+/**
+ * Class CustomButtonColumn
+ * @package yupe\widgets
+ */
 class CustomButtonColumn extends \TbButtonColumn
 {
-    public $template = '{front_view} {view} {update} {delete}';
+    /**
+     * @var string
+     */
+    public $template = '<div class="btn-group">{front_view} {view} {update} {delete}</div>';
     /**
      * @var string the view button icon (defaults to 'eye-open').
      */
@@ -23,53 +30,70 @@ class CustomButtonColumn extends \TbButtonColumn
      */
     public $deleteButtonIcon = 'fa fa-fw fa-trash-o';
 
-    public $frontViewGetUrlMethodName = 'getUrl';
+    /**
+     * @var array
+     */
+    public $viewButtonOptions = ['class' => 'btn btn-sm btn-default'];
 
+    /**
+     * @var array
+     */
+    public $deleteButtonOptions = ['class' => 'btn btn-sm btn-default'];
+
+    /**
+     * @var array
+     */
+    public $updateButtonOptions = ['class' => 'btn btn-sm btn-default'];
+
+    /**
+     * @var array
+     */
+    public $htmlOptions = ['class' => 'grid-action-column'];
+
+    /**
+     * @var
+     */
     public $frontViewButtonLabel;
 
+    /**
+     * @var string
+     */
     public $frontViewButtonIcon = 'fa fa-fw fa-external-link-square';
 
+    /**
+     * @var
+     */
     public $frontViewButtonUrl;
 
+    /**
+     * @var array
+     */
     public $frontViewButtonOptions = ['class' => 'front-view', 'target' => '_blank'];
 
+    /**
+     *
+     */
     protected function initDefaultButtons()
     {
         parent::initDefaultButtons();
-
-
-        /* Кнопка просмотра на фронте */
 
         if ($this->frontViewButtonLabel === null) {
             $this->frontViewButtonLabel = Yii::t('zii', 'View');
         }
 
-        $button = array(
-            'label' => $this->frontViewButtonLabel,
-            'url' => $this->frontViewButtonUrl ?: function ($data) {
-                try {
-                    return $data->{$this->frontViewGetUrlMethodName}();
-                } catch (\Exception $e) {
-                    return null;
-                }
-            },
-            'options' => $this->frontViewButtonOptions,
-            'icon' => $this->frontViewButtonIcon,
-        );
-
-        if (isset($this->buttons['front_view'])) {
-            $this->buttons['front_view'] = array_merge($button, $this->buttons['front_view']);
+        if ($this->frontViewButtonUrl) {
+            $this->buttons['front_view'] = [
+                'label' => $this->frontViewButtonLabel,
+                'url' => $this->frontViewButtonUrl,
+                'options' => $this->frontViewButtonOptions,
+                'icon' => $this->frontViewButtonIcon,
+            ];
         } else {
-            /* показывать кнопку только если задали ей свой url, или модель имеет метод для получения url*/
-            $button['visible'] = function ($row, $data) {
-                // todo: найти нормальный способ узнавания есть ли у модели метод
-                try {
-                    return $this->frontViewButtonUrl || method_exists($data, $this->frontViewGetUrlMethodName) || (bool)$data->{$this->frontViewGetUrlMethodName}();
-                } catch (\Exception $e) {
+            $this->buttons['front_view'] = [
+                'visible' => function () {
                     return false;
-                }
-            };
-            $this->buttons['front_view'] = $button;
+                },
+            ];
         }
     }
 }

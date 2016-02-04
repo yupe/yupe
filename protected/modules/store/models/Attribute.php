@@ -115,7 +115,7 @@ class Attribute extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'Id'),
-            'name' => Yii::t('StoreModule.store', 'Name'),
+            'name' => Yii::t('StoreModule.store', 'Alias'),
             'title' => Yii::t('StoreModule.store', 'Title'),
             'type' => Yii::t('StoreModule.store', 'Type'),
             'required' => Yii::t('StoreModule.store', 'Required'),
@@ -131,7 +131,7 @@ class Attribute extends \yupe\models\YModel
     {
         return [
             'id' => Yii::t('StoreModule.store', 'Id'),
-            'name' => Yii::t('StoreModule.store', 'Name'),
+            'name' => Yii::t('StoreModule.store', 'Alias'),
             'title' => Yii::t('StoreModule.store', 'Title'),
             'type' => Yii::t('StoreModule.store', 'Type'),
             'required' => Yii::t('StoreModule.store', 'Required'),

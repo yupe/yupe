@@ -5,6 +5,10 @@
     text-align: left;
 }
 
+.grid-action-column .btn-group{
+    display: flex;
+}
+
 .shortcuts .shortcut {
     min-height: 114px;
     text-align: center;

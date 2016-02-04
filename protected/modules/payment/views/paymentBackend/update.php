@@ -1,7 +1,6 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('PaymentModule.payment', 'Payment methods') => ['/payment/paymentBackend/index'],
-    $model->name => ['/payment/paymentBackend/view', 'id' => $model->id],
     Yii::t('PaymentModule.payment', 'Edition')
 ];
 
@@ -16,14 +15,6 @@ $this->menu = [
         'label' => Yii::t('PaymentModule.payment', 'Update payment'),
         'url' => [
             '/payment/paymentBackend/update',
-            'id' => $model->id
-        ]
-    ],
-    [
-        'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('PaymentModule.payment', 'View payment'),
-        'url' => [
-            '/payment/paymentBackend/view',
             'id' => $model->id
         ]
     ],

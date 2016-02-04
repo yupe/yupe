@@ -1,7 +1,6 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('DeliveryModule.delivery', 'Delivery methods') => ['/delivery/deliveryBackend/index'],
-    $model->name => ['/delivery/deliveryBackend/view', 'id' => $model->id],
     Yii::t('DeliveryModule.delivery', 'Edition'),
 ];
 
@@ -16,14 +15,6 @@ $this->menu = [
         'label' => Yii::t('DeliveryModule.delivery', 'Update delivery'),
         'url' => [
             '/delivery/deliveryBackend/update',
-            'id' => $model->id
-        ]
-    ],
-    [
-        'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('DeliveryModule.delivery', 'View delivery'),
-        'url' => [
-            '/delivery/deliveryBackend/view',
             'id' => $model->id
         ]
     ],

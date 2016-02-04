@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class DeliveryBackendController
+ */
 class DeliveryBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -9,22 +15,24 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Delivery',
                 'validAttributes' => [
-                    'status'
-                ]
+                    'status',
+                ],
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
-                'model' => 'Delivery'
-            ]
+                'model' => 'Delivery',
+            ],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Delivery.DeliveryBackend.Index'],],
-            ['allow', 'actions' => ['view'], 'roles' => ['Delivery.DeliveryBackend.View'],],
             ['allow', 'actions' => ['create'], 'roles' => ['Delivery.DeliveryBackend.Create'],],
             ['allow', 'actions' => ['update', 'sortable', 'inline'], 'roles' => ['Delivery.DeliveryBackend.Update'],],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Delivery.DeliveryBackend.Delete'],],
@@ -32,18 +40,13 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
         ];
     }
 
-    public function actionView($id)
-    {
-        $this->render('view', ['model' => $this->loadModel($id)]);
-    }
 
-
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Delivery();
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (isset($_POST['Delivery'])) {
             $model->attributes = $_POST['Delivery'];
@@ -72,6 +75,10 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
         $this->render('create', ['model' => $model, 'payments' => $payments]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -101,6 +108,10 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
         $this->render('update', ['model' => $model, 'payments' => $payments]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -115,14 +126,19 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
-            throw new CHttpException(400, Yii::t(
+            throw new CHttpException(
+                400, Yii::t(
                 'DeliveryModule.delivery',
                 'Unknown request. Don\'t repeat it please!'
-            ));
+            )
+            );
         }
     }
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Delivery('search');
@@ -134,6 +150,11 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
     }
 
 
+    /**
+     * @param $id
+     * @return array|mixed|null
+     * @throws CHttpException
+     */
     public function loadModel($id)
     {
         $model = Delivery::model()->findByPk($id);
@@ -145,6 +166,9 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
     }
 
 
+    /**
+     * @param Delivery $model
+     */
     protected function performAjaxValidation(Delivery $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'delivery-form') {

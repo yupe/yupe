@@ -1,20 +1,32 @@
 <?php
 
+/**
+ * Class AttributeBackendController
+ */
 class AttributeBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.AttributeBackend.Index'],],
-            ['allow', 'actions' => ['view'], 'roles' => ['Store.AttributeBackend.View'],],
             ['allow', 'actions' => ['create', 'groupCreate'], 'roles' => ['Store.AttributeBackend.Create'],],
-            ['allow', 'actions' => ['update', 'sortable', 'inlineEditGroup', 'groupCreate'], 'roles' => ['Store.AttributeBackend.Update'],],
+            [
+                'allow',
+                'actions' => ['update', 'sortable', 'inlineEditGroup', 'groupCreate'],
+                'roles' => ['Store.AttributeBackend.Update'],
+            ],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.AttributeBackend.Delete'],],
             ['deny',],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -25,22 +37,11 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
-                'model' => 'AttributeGroup'
-            ]
+                'model' => 'AttributeGroup',
+            ],
         ];
     }
 
-    /**
-     * Отображает атрибут по указанному идентификатору
-     *
-     * @param integer $id Идентификатор атрибута для отображения
-     *
-     * @return void
-     */
-    public function actionView($id)
-    {
-        $this->render('view', ['model' => $this->loadModel($id)]);
-    }
 
     /**
      * Создает новую модель атрибута.
@@ -78,6 +79,10 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     }
 
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -116,6 +121,10 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         );
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -149,6 +158,9 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     }
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Attribute('search');
@@ -177,6 +189,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         if ($model === null) {
             throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
+
         return $model;
     }
 
@@ -189,12 +202,18 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
      */
     protected function performAjaxValidation(Attribute $model)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'attribute-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+                'ajax'
+            ) === 'attribute-form'
+        ) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
 
+    /**
+     *
+     */
     public function actionGroupCreate()
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {

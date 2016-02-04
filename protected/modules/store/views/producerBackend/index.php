@@ -81,6 +81,16 @@ $this->widget(
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'frontViewButtonUrl' => function($data){
+                    return Yii::app()->createUrl('/store/producer/view', ['slug' => $data->slug]);
+                },
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                            return $data->status == Producer::STATUS_ACTIVE;
+                        }
+                    ]
+                ]
             ],
         ],
     ]

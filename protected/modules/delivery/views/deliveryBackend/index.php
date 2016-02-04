@@ -51,6 +51,7 @@ $this->widget(
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'template' => '{update}{delete}'
             ],
         ],
     ]

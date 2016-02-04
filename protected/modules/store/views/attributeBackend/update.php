@@ -1,7 +1,6 @@
 <?php
 $this->breadcrumbs = [
     Yii::t('StoreModule.store', 'Attributes') => ['/store/attributeBackend/index'],
-    $model->title => ['/store/attributeBackend/view', 'id' => $model->id],
     Yii::t('StoreModule.store', 'Edition'),
 ];
 
@@ -16,14 +15,6 @@ $this->menu = [
         'label' => Yii::t('StoreModule.store', 'Update attribute'),
         'url' => [
             '/store/attributeBackend/update',
-            'id' => $model->id
-        ]
-    ],
-    [
-        'icon' => 'fa fa-fw fa-eye',
-        'label' => Yii::t('StoreModule.store', 'View attribute'),
-        'url' => [
-            '/store/attributeBackend/view',
             'id' => $model->id
         ]
     ],

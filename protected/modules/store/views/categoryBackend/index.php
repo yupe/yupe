@@ -102,6 +102,9 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'frontViewButtonUrl' => function($data){
+                    return Yii::app()->createUrl('/store/category/view', ['path' => $data->path]);
+                },
                 'buttons' => [
                     'front_view' => [
                         'visible' => function ($row, $data) {

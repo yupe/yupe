@@ -147,6 +147,7 @@ $this->menu = [
                     ],
                     [
                         'class' => 'yupe\widgets\CustomButtonColumn',
+                        'template' => '{update}{delete}'
                     ],
                 ],
             ]
