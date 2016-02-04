@@ -30,7 +30,7 @@ return [
     'Categories - edit' => 'Категории - редактирование',
     'Categories - manage' => 'Категории - управление',
     'Categories - show' => 'Категории - просмотр',
-    'Categories list' => 'Список категорий',
+    'Categories list' => 'Категории',
     'Categories' => 'Категории',
     'Categories/Sections' => 'Категории/разделы',
     'Category manage' => 'Управление категориями',

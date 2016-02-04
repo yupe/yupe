@@ -25,7 +25,7 @@ return [
     'Coupons amount' => 'Количество купонов',
     'Coupons are deleted' => 'Купоны удалены',
     'Coupons are ended' => 'Купоны закончились',
-    'Coupons list' => 'Список купонов',
+    'Coupons list' => 'Купоны',
     'Coupons' => 'Купоны',
     'Create coupon' => 'Добавить купон',
     'Create time' => 'Добавлен',

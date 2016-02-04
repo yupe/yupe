@@ -98,7 +98,7 @@ return [
     'Messages - manage' => 'Сообщения   - управление',
     'Messages - view' => 'Сообщения   - просмотр',
     'Messages categories' => 'Категории сообщений',
-    'Messages list' => 'Список сообщений',
+    'Messages list' => 'Сообщения',
     'Messages management' => 'Управление сообщениями  ',
     'Minimum captcha length' => 'Минимальная длинна капчи',
     'Module for feedback management' => 'Модуль для работы с сообщениями',

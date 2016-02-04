@@ -11,7 +11,7 @@ return [
     'Creating' => 'Добавление',
     'creating' => 'добавление',
     'Delete delivery' => 'Удалить способ доставки',
-    'Delivery lists' => 'Список способов доставки',
+    'Delivery lists' => 'Способы доставки',
     'Delivery method' => 'Способ доставки',
     'Delivery methods - creating' => 'Способы доставки - добавление',
     'Delivery methods - edition' => 'Способы доставки - редактирование',

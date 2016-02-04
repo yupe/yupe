@@ -17,7 +17,7 @@ return [
     'Do you really want to remove this export list?' => 'Вы уверены, что хотите удалить выгрузку?',
     'Edition' => 'Редактирование',
     'Export list' => 'Выгрузка товаров',
-    'Export lists' => 'Список выгрузок',
+    'Export lists' => 'Выгрузки',
     'Fields with' => 'Поля, отмеченные',
     'Manage export lists' => 'Управление экспортом',
     'Manage' => 'Управление',

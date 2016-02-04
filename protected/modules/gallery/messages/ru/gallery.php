@@ -52,7 +52,7 @@ return [
     'Galleries - edit' => 'Галереи - редактирование',
     'Galleries - manage' => 'Галереи - управление',
     'Galleries - show' => 'Галереи - просмотр',
-    'Galleries list' => 'Список галерей',
+    'Galleries list' => 'Галереи',
     'Galleries' => 'Галереи',
     'Gallery images' => 'Изображения галереи',
     'Gallery management' => 'Управление галереями',
