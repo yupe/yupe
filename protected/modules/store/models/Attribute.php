@@ -74,8 +74,6 @@ class Attribute extends \yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['name, title', 'filter', 'filter' => 'trim'],
             ['name, type, title', 'required'],

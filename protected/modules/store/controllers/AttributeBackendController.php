@@ -53,9 +53,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     {
         $model = new Attribute();
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (($data = Yii::app()->getRequest()->getPost('Attribute')) !== null) {
 
             $model->setAttributes($data);
@@ -86,9 +83,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Attribute')) !== null) {
             $currentType = $model->type;
@@ -129,12 +123,11 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            $transaction = Yii::app()->db->beginTransaction();
+            $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
                 // поддерживаем удаление только из POST-запроса
                 $this->loadModel($id)->delete();
-                // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 
                 $transaction->commit();
 
@@ -145,7 +138,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 }
             } catch (Exception $e) {
                 $transaction->rollback();
-
                 Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             }
 
@@ -164,13 +156,19 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     public function actionIndex()
     {
         $model = new Attribute('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();
+
+        $attributeGroup = new AttributeGroup('search');
+        $attributeGroup->unsetAttributes();
 
         if (isset($_GET['Attribute'])) {
-            $model->attributes = $_GET['Attribute'];
+            $model->setAttributes($_GET['Attribute']);
         }
 
-        $this->render('index', ['model' => $model]);
+        $this->render('index', [
+            'model' => $model,
+            'attributeGroup' => $attributeGroup
+        ]);
     }
 
     /**

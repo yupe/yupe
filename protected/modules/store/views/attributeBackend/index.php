@@ -19,57 +19,12 @@ $this->menu = [
 </div>
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <fieldset>
             <legend><?= Yii::t("StoreModule.store", "Attribute groups"); ?></legend>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    var $container = $('body');
-                    $container.on('click', '#clear-attribute-group-filter', function (e) {
-                        e.preventDefault();
-                        $("#Attribute_group_id").val('').trigger("change");
-                        $('#attribute-group-grid').find('tr').removeClass('selected');
-                    });
 
-                    // TODO: вызывается два раза, надо сделать, чтобы обновление грида происходило только один раз
-                    $container.on('change', "#attribute-group-grid input[type=checkbox]", function () {
-                        changeGroupFilter();
-                    });
-
-                    $container.on('click', '#add-attribute-group', function (e) {
-                        e.preventDefault();
-                        var name = prompt('<?= Yii::t("StoreModule.store", "Title"); ?>');
-                        if (name) {
-                            var data = {name: name};
-                            data["<?= Yii::app()->getRequest()->csrfTokenName?>"] = "<?= Yii::app()->getRequest()->csrfToken?>";
-                            $.ajax({
-                                url: '<?= Yii::app()->createUrl("/store/attributeBackend/groupCreate")?>',
-                                type: 'post',
-                                data: data,
-                                dataType: 'json',
-                                success: function (data) {
-                                    if (data.result) {
-                                        $.fn.yiiGridView.update('attribute-group-grid');
-                                    }
-                                    else {
-                                        console.log(data.data);
-                                    }
-                                }
-                            });
-                        }
-                    });
-                });
-
-                function changeGroupFilter() {
-                    if (!$('#attribute-group-grid').find('a.editable-open')[0]) {
-                        $("#Attribute_group_id").val($.fn.yiiGridView.getSelection('attribute-group-grid')).trigger("change");
-                    }
-                }
-            </script>
         </fieldset>
         <?php
-        $attributeGroup = new AttributeGroup('search');
-        $attributeGroup->unsetAttributes();
         $this->widget(
             'yupe\widgets\CustomGridView',
             [
@@ -115,7 +70,7 @@ $this->menu = [
             ]
         ); ?>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <?php $this->widget(
             'yupe\widgets\CustomGridView',
             [
@@ -126,23 +81,31 @@ $this->menu = [
                 'columns' => [
                     [
                         'name' => 'group_id',
-                        'value' => '$data->getGroupTitle()',
+                        'value' => function($data){
+                            return $data->getGroupTitle();
+                        },
                         'filter' => CHtml::activeDropDownList($model, 'group_id', AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
                     ],
                     [
                         'name' => 'name',
                         'type' => 'raw',
-                        'value' => 'CHtml::link($data->name, array("/store/attributeBackend/update", "id" => $data->id))',
+                        'value' => function($data){
+                            return CHtml::link($data->name, array("/store/attributeBackend/update", "id" => $data->id));
+                        },
                     ],
                     [
                         'name' => 'title',
                         'type' => 'raw',
-                        'value' => 'CHtml::link($data->title, array("/store/attributeBackend/update", "id" => $data->id))',
+                        'value' => function($data){
+                            return CHtml::link($data->title, array("/store/attributeBackend/update", "id" => $data->id));
+                        },
                     ],
                     [
                         'name' => 'type',
                         'type' => 'text',
-                        'value' => '$data->getTypeTitle($data->type)',
+                        'value' => function($data){
+                            return $data->getTypeTitle($data->type);
+                        },
                         'filter' => $model->getTypesList()
                     ],
                     [
@@ -154,3 +117,45 @@ $this->menu = [
         ); ?>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $container = $('body');
+        $container.on('click', '#clear-attribute-group-filter', function (e) {
+            e.preventDefault();
+            $("#Attribute_group_id").val('').trigger("change");
+            $('#attribute-group-grid').find('tr').removeClass('selected');
+        });
+
+        // TODO: вызывается два раза, надо сделать, чтобы обновление грида происходило только один раз
+        $container.on('change', "#attribute-group-grid input[type=checkbox]", function () {
+            changeGroupFilter();
+        });
+
+        $container.on('click', '#add-attribute-group', function (e) {
+            e.preventDefault();
+            var name = prompt('<?= Yii::t("StoreModule.store", "Title"); ?>');
+            if (name) {
+                var data = {name: name};
+                data["<?= Yii::app()->getRequest()->csrfTokenName?>"] = "<?= Yii::app()->getRequest()->csrfToken?>";
+                $.ajax({
+                    url: '<?= Yii::app()->createUrl("/store/attributeBackend/groupCreate")?>',
+                    type: 'post',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.result) {
+                            $.fn.yiiGridView.update('attribute-group-grid');
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function changeGroupFilter() {
+        if (!$('#attribute-group-grid').find('a.editable-open')[0]) {
+            $("#Attribute_group_id").val($.fn.yiiGridView.getSelection('attribute-group-grid')).trigger("change");
+        }
+    }
+</script>
