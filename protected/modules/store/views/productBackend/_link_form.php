@@ -11,7 +11,9 @@ $linkTypes = CHtml::listData(ProductLinkType::model()->findAll(['order' => 'titl
         <h3><?= Yii::t('StoreModule.store', 'Products related with "{name}"', ['{name}' => $product->name]); ?></h3>
         <?php
         $linked = new ProductLink('search');
-        $linked->setAttributes(Yii::app()->getRequest()->getParam('ProductLink'));
+        $linked->setAttributes(
+            Yii::app()->getRequest()->getParam('ProductLink')
+        );
         $linked->product_id = $product->id;
         $this->widget(
             'yupe\widgets\CustomGridView',
@@ -150,7 +152,7 @@ $linkTypes = CHtml::listData(ProductLinkType::model()->findAll(['order' => 'titl
                         'type' => 'raw',
                         'filter' => CHtml::activeDropDownList(
                             $searchModel,
-                            'category',
+                            'category_id',
                             StoreCategoryHelper::formattedList(),
                             ['encode' => false, 'empty' => '', 'class' => 'form-control']
                         ),

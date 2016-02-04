@@ -167,8 +167,12 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             }
         }
 
+
         $searchModel = new ProductSearch('search');
         $searchModel->unsetAttributes();
+        $searchModel->setAttributes(
+            Yii::app()->getRequest()->getQuery('ProductSearch')
+        );
 
         $this->render('update', ['model' => $model, 'searchModel' => $searchModel]);
     }
