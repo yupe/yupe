@@ -142,7 +142,8 @@
                     'homeLink' => '<li><a href="/">' . Yii::t('Yii.zii', 'Home') . '</a>',
                     'activeLinkTemplate' => '<li><a href="{url}">{label}</a>',
                     'inactiveLinkTemplate' => '<li><a>{label}</a>',
-                    'htmlOptions' => []
+                    'htmlOptions' => [],
+                    'encodeLabel' => false
                 ]
             );?>
         </div>

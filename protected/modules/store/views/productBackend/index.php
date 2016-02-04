@@ -170,6 +170,9 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'frontViewButtonUrl' => function($data){
+                    return Yii::app()->createUrl('/store/product/view', ['name' => $data->slug]);
+                },
                 'buttons' => [
                     'front_view' => [
                         'visible' => function ($row, $data) {
