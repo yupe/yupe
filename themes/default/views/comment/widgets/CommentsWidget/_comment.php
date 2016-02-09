@@ -7,6 +7,7 @@ $level = $comment->getLevel()
      data-level="<?= $level; ?>"
      data-pid="<?= $comment->parent_id; ?>"
      data-id="<?= $comment->id; ?>"
+     id="comment-<?= $comment->id; ?>"
      style="margin-left: <?=(30 * $level); ?>px;">
 
     <div class="comments-item-main">

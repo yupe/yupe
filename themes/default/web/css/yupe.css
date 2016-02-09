@@ -776,7 +776,7 @@ a.reply {
 /* страница профиля пользователя */
 
 .profile-comment {
-
+    padding-bottom: 20px;
 }
 
 .profile-comment .comments-item {
@@ -794,6 +794,10 @@ a.reply {
 
 .profile-comment .post-link .count {
     color: #ff0000;
+}
+
+.profile-comment .comment-link {
+    padding-left: 7px;
 }
 
 /* виджеты в sidebar */

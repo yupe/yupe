@@ -24,7 +24,7 @@
                                 </time>
                             </span>
                             <span class="comment-link">
-                                <?= CHtml::link('#', $comment->post->getUrl(['#' => 'comment-' . $comment->id])) ?>
+                                <?= CHtml::link('<span class="fa fa-sign-out"></span>', $comment->post->getLink(['#' => 'comment-' . $comment->id])) ?>
                             </span>
                         </div>
                     </div>
