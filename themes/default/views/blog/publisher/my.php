@@ -24,7 +24,7 @@
             ],
             [
                 'name'  => 'title',
-                'value' => 'CHtml::link($data->title, $data->url)',
+                'value' => 'CHtml::link($data->title, $data->getLink())',
                 'type'  => 'html'
             ],
             [
