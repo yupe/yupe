@@ -9,8 +9,6 @@
 namespace yupe\components\actions;
 
 use CAction;
-use yupe\models\YModel;
-use CHttpException;
 use Yii;
 use CEvent;
 use yupe\widgets\YFlashMessages;

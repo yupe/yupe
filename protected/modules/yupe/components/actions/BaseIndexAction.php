@@ -14,10 +14,8 @@ namespace yupe\components\actions;
 use CAction;
 use Yii;
 use CEvent;
-use CActiveDataProvider;
 use CDbCriteria;
 use CMap;
-use CException;
 
 class BaseIndexAction extends CAction
 {
