@@ -13,6 +13,10 @@ use CHtml;
 
 Yii::import('bootstrap.widgets.TbActiveForm', true);
 
+/**
+ * Class ActiveForm
+ * @package yupe\widgets
+ */
 class ActiveForm extends TbActiveForm
 {
     /**
@@ -41,7 +45,9 @@ class ActiveForm extends TbActiveForm
             throw new \CException('Set up source field params for slug field!');
         }
 
-        $sourceID = isset($options['sourceName']) ? CHtml::getIdByName($options['sourceName']) : CHtml::getIdByName(CHtml::resolveName($options['sourceModel'], $options['sourceAttribute']));
+        $sourceID = isset($options['sourceName']) ? CHtml::getIdByName($options['sourceName']) : CHtml::getIdByName(
+            CHtml::resolveName($options['sourceModel'], $options['sourceAttribute'])
+        );
         $targetID = CHtml::getIdByName(CHtml::resolveName($model, $attribute));
 
         $updateUrl = Yii::app()->createUrl('/yupe/backend/transliterate');
@@ -82,7 +88,7 @@ class ActiveForm extends TbActiveForm
         });
 JS;
 
-        Yii::app()->clientScript->registerScript($this->getId(), $JS, \CClientScript::POS_END);
+        Yii::app()->getClientScript()->registerScript($this->getId(), $JS, \CClientScript::POS_END);
 
         return $this->textFieldGroup($model, $attribute, $options);
     }

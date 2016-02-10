@@ -16,16 +16,26 @@ namespace yupe\widgets;
 use Yii;
 use CHtml;
 
+/**
+ * Class YAdminPanel
+ * @package yupe\widgets
+ */
 class YAdminPanel extends YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'adminpanel';
 
+    /**
+     * @throws \CException
+     */
     public function run()
     {
         $this->render(
             $this->view,
             [
-                'modules' => Yii::app()->moduleManager->getModules(true)
+                'modules' => Yii::app()->moduleManager->getModules(true),
             ]
         );
     }

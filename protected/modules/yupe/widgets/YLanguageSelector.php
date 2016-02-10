@@ -14,12 +14,26 @@ namespace yupe\widgets;
 
 use Yii;
 
+/**
+ * Class YLanguageSelector
+ * @package yupe\widgets
+ */
 class YLanguageSelector extends YWidget
 {
+    /**
+     * @var bool
+     */
     public $enableFlag = true;
 
+    /**
+     * @var string
+     */
     public $view = 'languageselector';
 
+    /**
+     * @return bool
+     * @throws \CException
+     */
     public function run()
     {
         $langs = array_keys($this->getController()->yupe->getLanguagesList());
@@ -38,16 +52,16 @@ class YLanguageSelector extends YWidget
         }
 
         if ($this->enableFlag) {
-            Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/flags.css');
+            Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl().'/css/flags.css');
         }
 
         $this->render(
             $this->view,
             [
-                'langs'           => $langs,
+                'langs' => $langs,
                 'currentLanguage' => Yii::app()->getLanguage(),
-                'cleanUrl'        => Yii::app()->getUrlManager()->getCleanUrl(Yii::app()->getRequest()->getUrl()),
-                'homeUrl'         => Yii::app()->getHomeUrl() . (Yii::app()->getHomeUrl()[strlen(
+                'cleanUrl' => Yii::app()->getUrlManager()->getCleanUrl(Yii::app()->getRequest()->getUrl()),
+                'homeUrl' => Yii::app()->getHomeUrl().(Yii::app()->getHomeUrl()[strlen(
                         Yii::app()->getHomeUrl()
                     ) - 1] != "/" ? '/' : ''),
             ]

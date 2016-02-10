@@ -12,17 +12,42 @@
  **/
 namespace yupe\widgets;
 
+/**
+ * Class YFlashMessages
+ * @package yupe\widgets
+ */
 class YFlashMessages extends YWidget
 {
+    /**
+     *
+     */
     const SUCCESS_MESSAGE = 'success';
+    /**
+     *
+     */
     const INFO_MESSAGE = 'info';
+    /**
+     *
+     */
     const WARNING_MESSAGE = 'warning';
+    /**
+     *
+     */
     const ERROR_MESSAGE = 'error';
 
+    /**
+     * @var array
+     */
     public $options = [];
 
+    /**
+     * @var string
+     */
     public $view = 'flashmessages';
 
+    /**
+     * @throws \CException
+     */
     public function run()
     {
         $this->render($this->view, ['options' => $this->options]);

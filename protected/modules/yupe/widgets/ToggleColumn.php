@@ -6,6 +6,10 @@ use CHtml;
 
 Yii::import('booster.widgets.TbToggleColumn');
 
+/**
+ * Class ToggleColumn
+ * @package yupe\widgets
+ */
 class ToggleColumn extends \TbToggleColumn
 {
     /**
@@ -51,7 +55,7 @@ class ToggleColumn extends \TbToggleColumn
             if (!isset($button['htmlOptions']['data-toggle'])) {
                 $button['htmlOptions']['data-toggle'] = 'tooltip';
             }
-            echo CHtml::link('<i class="' . $button['icon'] . '"></i>', $button['url'], $button['htmlOptions']);
+            echo CHtml::link('<i class="'.$button['icon'].'"></i>', $button['url'], $button['htmlOptions']);
         } else {
             $button['label'] = $this->getButtonLabel($checked);
             $button['class'] = 'booster.widgets.TbButton';
@@ -62,9 +66,12 @@ class ToggleColumn extends \TbToggleColumn
         }
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     private function getButtonLabel($value)
     {
-
         return $value === null ? $this->emptyButtonLabel : ($value ? $this->checkedButtonLabel : $this->uncheckedButtonLabel);
     }
 }
