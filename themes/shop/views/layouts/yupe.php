@@ -26,6 +26,9 @@
     <title><?= $this->pageTitle;?></title>
     <meta name="description" content="<?= $this->description;?>" />
     <meta name="keywords" content="<?= $this->keywords;?>" />
+    <?php if ($this->canonical): ?>
+        <link rel="canonical" href="<?= $this->canonical ?>" />
+    <?php endif; ?>
 
     <script type="text/javascript">
         var yupeTokenName = '<?= Yii::app()->getRequest()->csrfTokenName;?>';

@@ -6,6 +6,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 $this->title =  $category->getMetaTile();
 $this->description = $category->getMetaDescription();
 $this->keywords =  $category->getMetaKeywords();
+$this->canonical = $category->getMetaCanonical();
 
 $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product/index']];
 
@@ -32,7 +33,7 @@ $this->breadcrumbs = array_merge(
         </div>
         <div class="col grid-module-9">
             <div class="entry__title">
-                <h1 class="h1"><?= Yii::t('StoreModule.store', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h1>
+                <h1 class="h1"><?= CHtml::encode($category->getTitle()); ?></h1>
             </div>
             <?php $this->widget(
                 'zii.widgets.CListView', [

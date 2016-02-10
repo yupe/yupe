@@ -35,6 +35,8 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property double $recommended_price
  * @property integer $position
  * @property integer $external_id
+ * @property string $title
+ * @property string $meta_canonical
  *
  * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
@@ -124,7 +126,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return [
             ['name, slug', 'required', 'except' => 'search'],
             [
-                'name, description, short_description, slug, price, discount_price, discount, data, status, is_special',
+                'name, title, description, short_description, slug, price, discount_price, discount, data, status, is_special',
                 'filter',
                 'filter' => 'trim',
             ],
@@ -137,7 +139,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
                 'store\components\validators\NumberValidator',
             ],
-            ['name, meta_keywords, meta_title, meta_description, image', 'length', 'max' => 250],
+            ['name, title, meta_keywords, meta_title, meta_description, meta_canonical, image', 'length', 'max' => 250],
             ['discount_price, discount', 'default', 'value' => null],
             ['sku', 'length', 'max' => 100],
             ['slug', 'length', 'max' => 150],
@@ -150,6 +152,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_special', 'boolean'],
             ['length, height, width, weight', 'default', 'setOnEmpty' => true, 'value' => null],
+            ['meta_canonical', 'url'],
             [
                 'id, type_id, producer_id, sku, name, slug, price, discount_price, discount, short_description, description, data, is_special, length, height, width, weight, quantity, in_stock, status, create_time, update_time, meta_title, meta_description, meta_keywords, category_id',
                 'safe',
@@ -257,6 +260,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
             'position' => Yii::t('StoreModule.store', 'Position'),
             'external_id' => Yii::t('StoreModule.store', 'External id'),
+            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
         ];
     }
 
@@ -291,6 +296,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
             'average_price' => Yii::t('StoreModule.store', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
+            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
         ];
     }
 
@@ -799,7 +806,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function getTitle()
     {
-        return $this->name;
+        return $this->title ?: $this->name;
     }
 
     /**
@@ -880,6 +887,16 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getMetaKeywords()
     {
         return $this->meta_keywords;
+    }
+
+    /**
+     * Get canonical url
+     *
+     * @return string
+     */
+    public function getMetaCanonical()
+    {
+        return $this->meta_canonical;
     }
 
     /**

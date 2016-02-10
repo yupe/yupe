@@ -5,6 +5,7 @@
 $this->title = $product->getMetaTitle();
 $this->description = $product->getMetaDescription();
 $this->keywords = $product->getMetaKeywords();
+$this->canonical = $product->getMetaCanonical();
 
 $mainAssets = Yii::app()->getModule('store')->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.simpleGal.js');
@@ -22,7 +23,7 @@ $this->breadcrumbs = array_merge(
     <div class="col-sm-12">
         <div class="row">
             <div class="col-sm-12">
-                <span class="title"><?= CHtml::encode($product->name); ?></span>
+                <h1 class="title"><?= CHtml::encode($product->getTitle()); ?></h1>
             </div>
         </div>
         <div class="row">
