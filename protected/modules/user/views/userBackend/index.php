@@ -188,7 +188,7 @@ $this->menu = [
                         'icon'  => 'fa fa-fw fa-lock',
                         'label' => Yii::t('UserModule.user', 'Change password'),
                         'url'   => 'array("/user/userBackend/changepassword", "id" => $data->id)',
-                        'options' => ['class' => 'front-view btn btn-sm btn-default']
+                        'options' => ['class' => 'change-password btn btn-sm btn-default']
                     ],
                     'sendactivation' => [
                         'label'   => Yii::t('UserModule.user', 'Send activation confirm'),
@@ -196,7 +196,7 @@ $this->menu = [
                         'icon'    => 'fa fa-fw fa-repeat',
                         'visible' => '$data->status != User::STATUS_ACTIVE',
                         'options' => [
-                            'class' => 'user sendactivation'
+                            'class' => 'user sendactivation btn btn-sm btn-default'
                         ]
                     ],
                 ],

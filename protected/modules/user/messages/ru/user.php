@@ -181,7 +181,7 @@ return [
     'Mail event when user was activated successfully' => 'Почтовое событие при успешной активации пользователя',
     'Mail notices' => 'Почтовые уведомления',
     'male' => 'мужской',
-    'Manage users' => 'Управление пользователями',
+    'Manage users' => 'Все пользователи',
     'Management' => 'Управление',
     'management' => 'управление',
     'Maximum avatar size' => 'Максимальный размер аватарки',

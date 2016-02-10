@@ -83,7 +83,6 @@ $this->widget(
                     return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, Yii::app()->getModule('store')->currency);
                 }
             ],
-
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status_id',

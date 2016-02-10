@@ -6,22 +6,24 @@
  */
 ?>
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbCollapse', [
+    'bootstrap.widgets.TbCollapse',
+    [
         'htmlOptions' => [
-            'id' => 'panel-order-stat'
-        ]
+            'id' => 'panel-order-stat',
+        ],
     ]
-);?>
+); ?>
 
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="fa fa-gift"></i> <?php echo Yii::t('OrderModule.order', 'Orders'); ?>
+                    <i class="fa fa-gift"></i> <?= Yii::t('OrderModule.order', 'Orders'); ?>
                 </a>
-                <span class="badge alert-success"><?php echo Yii::t('OrderModule.order', 'New'); ?>: <?php echo $newOrdersCount; ?></span>
-                <span class="badge alert-info"><?php echo Yii::t('OrderModule.order', 'Total'); ?>: <?php echo $ordersCount; ?></span>
+                <span class="badge alert-success"><?= Yii::t('OrderModule.order', 'New'); ?>
+                    : <?= $newOrdersCount; ?></span>
+                <span class="badge alert-info"><?= Yii::t('OrderModule.order', 'Total'); ?>: <?= $ordersCount; ?></span>
             </h4>
         </div>
 
@@ -37,7 +39,7 @@
                                 'dataProvider' => $dataProvider,
                                 'template' => '{items}',
                                 'htmlOptions' => [
-                                    'class' => false
+                                    'class' => false,
                                 ],
                                 'columns' => [
                                     [
@@ -45,30 +47,49 @@
                                         'htmlOptions' => ['width' => '90px'],
                                         'type' => 'raw',
                                         'value' => function ($data) {
-                                            return CHtml::link(Yii::t('OrderModule.order', 'Order #') . $data->id, ["/order/orderBackend/update", "id" => $data->id]);
+                                            return CHtml::link(
+                                                Yii::t('OrderModule.order', 'Order #').$data->id,
+                                                ["/order/orderBackend/update", "id" => $data->id]
+                                            );
                                         },
                                     ],
                                     [
-                                        'name' => 'date'
+                                        'name' => 'date',
+                                        'value' => function($data){
+                                            return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'), array("/order/orderBackend/update", "id" => $data->id));
+                                        },
+                                        'type' => 'raw'
                                     ],
                                     [
                                         'name' => 'name',
                                         'htmlOptions' => ['width' => '400px'],
                                     ],
-                                    'total_price',
                                     [
+                                        'name' => 'total_price',
+                                        'value' => function ($data) {
+                                            return Yii::app()->getNumberFormatter()->formatCurrency(
+                                                $data->total_price,
+                                                Yii::app()->getModule('store')->currency
+                                            );
+                                        },
+                                    ],
+                                    [
+                                        'class' => 'yupe\widgets\EditableStatusColumn',
                                         'name' => 'status_id',
-                                        'value' => function ($data) {
-                                            return $data->status->getTitle();
-                                        },
+                                        'url' => $this->controller->createUrl('/order/orderBackend/inline'),
+                                        'source' => OrderStatus::model()->getList(),
+                                        'options' => OrderStatus::model()->getLabels(),
                                     ],
                                     [
+                                        'class' => 'yupe\widgets\EditableStatusColumn',
                                         'name' => 'paid',
-                                        'value' => function ($data) {
-                                            return $data->getPaidStatus();
-                                        },
+                                        'url' => $this->controller->createUrl('/order/orderBackend/inline'),
+                                        'source' => Order::model()->getPaidStatusList(),
+                                        'options' => [
+                                            Order::PAID_STATUS_NOT_PAID => ['class' => 'label-danger'],
+                                            Order::PAID_STATUS_PAID => ['class' => 'label-success'],
+                                        ],
                                     ],
-                                    'payment_time',
                                 ],
                             ]
                         ); ?>

@@ -25,7 +25,7 @@ class YupeModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.0-dev';
+    const VERSION = '1.0-beta-1';
 
     /**
      * @var
@@ -503,8 +503,8 @@ class YupeModule extends WebModule
                 'items'       => [
                     [
                         'icon'        => 'fa fa-fw fa-trash-o',
-                        'label'       => Yii::t('YupeModule.yupe', 'Clean settings cache'),
-                        'url'         => ['/yupe/backend/flushDumpSettings'],
+                        'label'       => Yii::t('YupeModule.yupe', 'Clean cache'),
+                        'url'         => ['/yupe/backend/ajaxflush', 'method' => 1],
                         'linkOptions' => [
                             'class'  => 'flushAction',
                             'method' => 'cacheFlush',
@@ -512,8 +512,8 @@ class YupeModule extends WebModule
                     ],
                     [
                         'icon'        => 'fa fa-fw fa-trash-o',
-                        'label'       => Yii::t('YupeModule.yupe', 'Clean cache'),
-                        'url'         => ['/yupe/backend/ajaxflush', 'method' => 1],
+                        'label'       => Yii::t('YupeModule.yupe', 'Clean settings cache'),
+                        'url'         => ['/yupe/backend/flushDumpSettings'],
                         'linkOptions' => [
                             'class'  => 'flushAction',
                             'method' => 'cacheFlush',
