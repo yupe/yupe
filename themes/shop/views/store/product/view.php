@@ -21,7 +21,11 @@ $this->breadcrumbs = array_merge(
             <div class="product-gallery js-product-gallery">
                 <div class="product-gallery__body">
                     <div data-product-image class="product-gallery__img-wrap">
-                        <img src="<?= StoreImage::product($product); ?>" class="product-gallery__main-img">
+                        <img src="<?= StoreImage::product($product); ?>"
+                             class="product-gallery__main-img"
+                             alt="<?= CHtml::encode($product->getImageAlt()); ?>"
+                             title="<?= CHtml::encode($product->getImageTitle()); ?>"
+                        >
                     </div>
                     <?php if ($product->isSpecial()): ?>
                         <div class="product-gallery__label">

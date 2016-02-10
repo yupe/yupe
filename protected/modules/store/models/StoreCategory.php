@@ -15,6 +15,8 @@ use yupe\components\Event;
  * @property integer $external_id
  * @property string $title
  * @property string $meta_canonical
+ * @property string $image_alt
+ * @property string $image_title
  *
  * @property-read StoreCategory $parent
  * @property-read StoreCategory[] $children
@@ -71,7 +73,7 @@ class StoreCategory extends \yupe\models\YModel
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
             ['status', 'length', 'max' => 11],
-            ['name, title, image, meta_title, meta_keywords, meta_description, meta_canonical', 'length', 'max' => 250],
+            ['name, title, image, image_alt, image_title, meta_title, meta_keywords, meta_description, meta_canonical', 'length', 'max' => 250],
             ['slug', 'length', 'max' => 150],
             [
                 'slug',
@@ -181,6 +183,8 @@ class StoreCategory extends \yupe\models\YModel
             'external_id' => Yii::t('StoreModule.store', 'External id'),
             'title' => Yii::t('StoreModule.store', 'SEO_Title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
+            'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
+            'image_title' => Yii::t('StoreModule.store', 'Image title'),
         ];
     }
 
@@ -204,6 +208,8 @@ class StoreCategory extends \yupe\models\YModel
             'sort' => Yii::t('StoreModule.store', 'Order'),
             'title' => Yii::t('StoreModule.store', 'SEO_Title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
+            'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
+            'image_title' => Yii::t('StoreModule.store', 'Image title'),
         ];
     }
 
@@ -305,5 +311,25 @@ class StoreCategory extends \yupe\models\YModel
     public function getMetaCanonical()
     {
         return $this->meta_canonical;
+    }
+
+    /**
+     * Get image alt tag text
+     *
+     * @return string
+     */
+    public function getImageAlt()
+    {
+        return $this->image_alt ?: $this->getTitle();
+    }
+
+    /**
+     * Get image title tag text
+     *
+     * @return string
+     */
+    public function getImageTitle()
+    {
+        return $this->image_title ?: $this->getTitle();
     }
 }

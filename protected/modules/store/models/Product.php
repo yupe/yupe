@@ -37,6 +37,8 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property integer $external_id
  * @property string $title
  * @property string $meta_canonical
+ * @property string $image_alt
+ * @property string $image_title
  *
  * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
  *
@@ -139,7 +141,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
                 'store\components\validators\NumberValidator',
             ],
-            ['name, title, meta_keywords, meta_title, meta_description, meta_canonical, image', 'length', 'max' => 250],
+            ['name, title, meta_keywords, meta_title, meta_description, meta_canonical, image, image_alt, image_title', 'length', 'max' => 250],
             ['discount_price, discount', 'default', 'value' => null],
             ['sku', 'length', 'max' => 100],
             ['slug', 'length', 'max' => 150],
@@ -262,6 +264,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'external_id' => Yii::t('StoreModule.store', 'External id'),
             'title' => Yii::t('StoreModule.store', 'SEO_Title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
+            'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
+            'image_title' => Yii::t('StoreModule.store', 'Image title'),
         ];
     }
 
@@ -298,6 +302,8 @@ class Product extends yupe\models\YModel implements ICommentable
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
             'title' => Yii::t('StoreModule.store', 'SEO_Title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
+            'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
+            'image_title' => Yii::t('StoreModule.store', 'Image title'),
         ];
     }
 
@@ -1082,5 +1088,25 @@ class Product extends yupe\models\YModel implements ICommentable
     public function setTypeAttributes(array $attributes)
     {
         $this->_typeAttributes = $attributes;
+    }
+
+    /**
+     * Get image alt tag text
+     *
+     * @return string
+     */
+    public function getImageAlt()
+    {
+        return $this->image_alt ?: $this->getTitle();
+    }
+
+    /**
+     * Get image title tag text
+     *
+     * @return string
+     */
+    public function getImageTitle()
+    {
+        return $this->image_title ?: $this->getTitle();
     }
 }
