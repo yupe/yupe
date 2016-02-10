@@ -162,15 +162,34 @@ $form = $this->beginWidget(
 
         <div class='row'>
             <div class="col-sm-7">
-                <?=
-                CHtml::image(
-                    !$model->getIsNewRecord() && $model->image ? $model->getImageUrl(200, 200, true) : '#',
-                    $model->name,
-                    [
-                        'class' => 'preview-image img-thumbnail',
-                        'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
-                    ]
-                ); ?>
+                <div class="preview-image-wrapper<?= !$model->isNewRecord && $model->image ? '' : ' hidden' ?>">
+                    <div class="btn-group image-settings">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="collapse" data-target="#image-settings"><span class="fa fa-gear"></span></button>
+                        <div id="image-settings" class="dropdown-menu">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <?= $form->textFieldGroup($model, 'image_alt'); ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <?= $form->textFieldGroup($model, 'image_title'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?=
+                    CHtml::image(
+                        !$model->getIsNewRecord() && $model->image ? $model->getImageUrl(200, 200, true) : '#',
+                        $model->name,
+                        [
+                            'class' => 'preview-image img-thumbnail',
+                            'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
+                        ]
+                    ); ?>
+                </div>
 
                 <?php if (!$model->getIsNewRecord() && $model->image): ?>
                     <div class="checkbox">

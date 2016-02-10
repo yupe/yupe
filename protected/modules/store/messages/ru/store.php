@@ -129,6 +129,8 @@ return [
     'ID' => 'ID',
     'Illegal characters in {attribute}' => 'Запрещенные символы в поле {attribute}',
     'Image' => 'Изображение',
+    'Image alt' => 'Текст тега alt',
+    'Image title' => 'Текст тега title',
     'Images' => 'Изображения',
     'Import' => 'Импорт',
     'In stock' => 'В наличии',

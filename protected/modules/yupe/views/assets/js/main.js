@@ -206,6 +206,7 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
+            $('.preview-image-wrapper').removeClass('hidden');
             $('.preview-image').attr('src', e.target.result).show();
         };
 

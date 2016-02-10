@@ -63,15 +63,35 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php
-        echo CHtml::image(
-            !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
-            $model->name,
-            [
-                'class' => 'preview-image img-thumbnail',
-                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
-            ]
-        ); ?>
+        <div class="preview-image-wrapper<?= !$model->isNewRecord && $model->image ? '' : ' hidden' ?>">
+            <div class="btn-group image-settings">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="collapse" data-target="#image-settings"><span class="fa fa-gear"></span></button>
+                <div id="image-settings" class="dropdown-menu">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <?= $form->textFieldGroup($model, 'image_alt'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <?= $form->textFieldGroup($model, 'image_title'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php
+            echo CHtml::image(
+                !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
+                $model->name,
+                [
+                    'class' => 'preview-image img-thumbnail',
+                    'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                ]
+            ); ?>
+        </div>
         <?= $form->fileFieldGroup(
             $model,
             'image',
