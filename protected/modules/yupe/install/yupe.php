@@ -34,8 +34,6 @@ return [
                 ],
             ],
         ],
-        // DAO simple wrapper:
-        'dao' => ['class' => 'yupe\components\DAO'],
         'thumbnailer' => [
             'class' => 'yupe\components\image\Thumbnailer',
             'options' => [

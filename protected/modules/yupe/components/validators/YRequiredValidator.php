@@ -15,12 +15,29 @@ namespace yupe\components\validators;
 use CValidator;
 use Yii;
 
+/**
+ * Class YRequiredValidator
+ * @package yupe\components\validators
+ */
 class YRequiredValidator extends CValidator
 {
+    /**
+     * @var
+     */
     public $requiredValue;
+    /**
+     * @var bool
+     */
     public $strict = false;
+    /**
+     * @var bool
+     */
     public $allowEmpty = false;
 
+    /**
+     * @param \CModel $object
+     * @param string $attribute
+     */
     protected function validateAttribute($object, $attribute)
     {
         $value = $object->$attribute;

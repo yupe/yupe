@@ -14,68 +14,95 @@
  *
  **/
 
+/**
+ * Class TestEnvCommand
+ */
 class TestEnvCommand extends CConsoleCommand
 {
+    /**
+     *
+     */
     const COMMAND_DIR = __DIR__;
+    /**
+     *
+     */
     const ROOT_DIR = "/../..";
+    /**
+     *
+     */
     const CONFIG_DIR = "/../config";
+    /**
+     *
+     */
     const TESTS_DIR = "/../../tests";
 
+    /**
+     * @var array
+     */
     public $dbOptions = ['dbname' => 'yupe_test', 'dbuser' => 'root', 'dbpass' => ''];
 
+    /**
+     *
+     */
     public function actionIndex()
     {
-        echo self::COMMAND_DIR . "\n";
-        echo self::COMMAND_DIR . self::ROOT_DIR . "\n";
-        echo self::COMMAND_DIR . self::CONFIG_DIR . "\n";
-        echo self::COMMAND_DIR . self::TESTS_DIR . "\n";
+        echo self::COMMAND_DIR."\n";
+        echo self::COMMAND_DIR.self::ROOT_DIR."\n";
+        echo self::COMMAND_DIR.self::CONFIG_DIR."\n";
+        echo self::COMMAND_DIR.self::TESTS_DIR."\n";
         $this->readOptions();
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $this->createConfigFile(
-            self::COMMAND_DIR . self::CONFIG_DIR,
+            self::COMMAND_DIR.self::CONFIG_DIR,
             'db-test.php',
             'db.back.php'
         );
         $this->createConfigFile(
-            self::COMMAND_DIR . self::ROOT_DIR,
+            self::COMMAND_DIR.self::ROOT_DIR,
             'codeception.yml',
             'codeception.dist.yml'
         );
         $this->createConfigFile(
-            self::COMMAND_DIR . self::TESTS_DIR,
+            self::COMMAND_DIR.self::TESTS_DIR,
             'acceptance.suite.yml',
             'acceptance.suite.dist.yml'
         );
         $this->createConfigFile(
-            self::COMMAND_DIR . self::TESTS_DIR,
+            self::COMMAND_DIR.self::TESTS_DIR,
             'functional.suite.yml',
             'functional.suite.dist.yml'
         );
         $this->createConfigFile(
-            self::COMMAND_DIR . self::TESTS_DIR,
+            self::COMMAND_DIR.self::TESTS_DIR,
             'unit.suite.yml',
             'unit.suite.dist.yml'
         );
 
         $this->readOptions();
 
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::CONFIG_DIR . "/db-test.php");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::ROOT_DIR . "/codeception.yml");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR . "/acceptance.suite.yml");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR . "/functional.suite.yml");
-        $this->replaceDbOptionsInConfig(self::COMMAND_DIR . self::TESTS_DIR . "/unit.suite.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR.self::CONFIG_DIR."/db-test.php");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR.self::ROOT_DIR."/codeception.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR.self::TESTS_DIR."/acceptance.suite.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR.self::TESTS_DIR."/functional.suite.yml");
+        $this->replaceDbOptionsInConfig(self::COMMAND_DIR.self::TESTS_DIR."/unit.suite.yml");
     }
 
+    /**
+     *
+     */
     public function actionReset()
     {
-        $this->removeConfigFile(self::COMMAND_DIR . self::CONFIG_DIR . "/db-test.php");
-        $this->removeConfigFile(self::COMMAND_DIR . self::ROOT_DIR . "/codeception.yml");
-        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR . "/acceptance.suite.yml");
-        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR . "/functional.suite.yml");
-        $this->removeConfigFile(self::COMMAND_DIR . self::TESTS_DIR . "/unit.suite.yml");
+        $this->removeConfigFile(self::COMMAND_DIR.self::CONFIG_DIR."/db-test.php");
+        $this->removeConfigFile(self::COMMAND_DIR.self::ROOT_DIR."/codeception.yml");
+        $this->removeConfigFile(self::COMMAND_DIR.self::TESTS_DIR."/acceptance.suite.yml");
+        $this->removeConfigFile(self::COMMAND_DIR.self::TESTS_DIR."/functional.suite.yml");
+        $this->removeConfigFile(self::COMMAND_DIR.self::TESTS_DIR."/unit.suite.yml");
     }
 
     /**
@@ -87,9 +114,9 @@ class TestEnvCommand extends CConsoleCommand
      */
     private function createConfigFile($dir, $fileName, $distFileName)
     {
-        $config = $dir . "/" . $fileName;
+        $config = $dir."/".$fileName;
         if (!file_exists($config)) {
-            return copy($dir . '/' . $distFileName, $config);
+            return copy($dir.'/'.$distFileName, $config);
         }
 
         return false;

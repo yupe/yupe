@@ -22,10 +22,20 @@ use Yii;
 use yupe\widgets\YFlashMessages;
 use yupe\helpers\YFile;
 
+/**
+ * Class ModuleManager
+ * @package yupe\components
+ */
 class ModuleManager extends \CApplicationComponent
 {
+    /**
+     *
+     */
     const CORE_MODULE = 'yupe';
 
+    /**
+     *
+     */
     const INSTALL_MODULE = 'install';
 
     /**
@@ -59,9 +69,9 @@ class ModuleManager extends \CApplicationComponent
 
         $this->categoryIcon = [
             Yii::t('YupeModule.yupe', 'Services') => 'fa fa-fw fa-briefcase',
-            Yii::t('YupeModule.yupe', 'Yupe!')    => 'fa fa-fw fa-cog',
-            Yii::t('YupeModule.yupe', 'Content')  => 'fa fa-fw fa-file',
-            $this->otherCategoryName              => 'fa fa-fw fa-cog',
+            Yii::t('YupeModule.yupe', 'Yupe!') => 'fa fa-fw fa-cog',
+            Yii::t('YupeModule.yupe', 'Content') => 'fa fa-fw fa-file',
+            $this->otherCategoryName => 'fa fa-fw fa-cog',
         ];
 
         $this->categorySort = [
@@ -100,7 +110,7 @@ class ModuleManager extends \CApplicationComponent
                 }
             }
 
-            $modulesNavigation = Yii::app()->getCache()->get('YupeModulesNavigation-' . Yii::app()->getLanguage());
+            $modulesNavigation = Yii::app()->getCache()->get('YupeModulesNavigation-'.Yii::app()->getLanguage());
 
             if ($modulesNavigation === false) {
 
@@ -130,10 +140,10 @@ class ModuleManager extends \CApplicationComponent
 
                     // Шаблон категорий
                     $modulesNavigation[$keyCategory] = [
-                        'label'          => $keyCategory,
+                        'label' => $keyCategory,
                         //'url' => '#',
-                        'items'          => [],
-                        'submenuOptions' => ["id" => "mainmenu_" . $uniqueMenuId]
+                        'items' => [],
+                        'submenuOptions' => ["id" => "mainmenu_".$uniqueMenuId],
                     ];
                     $uniqueMenuId++;
 
@@ -152,9 +162,9 @@ class ModuleManager extends \CApplicationComponent
                             $modSettings = [
                                 '---',
                                 [
-                                    'icon'  => 'fa fa-fw fa-cog',
+                                    'icon' => 'fa fa-fw fa-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Module settings'),
-                                    'url'   => $modules[$key]->getSettingsUrl(),
+                                    'url' => $modules[$key]->getSettingsUrl(),
                                 ],
                             ];
                         }
@@ -171,11 +181,11 @@ class ModuleManager extends \CApplicationComponent
 
                         // Шаблон модулей
                         $data = [
-                            'icon'           => $modules[$key]->icon,
-                            'label'          => $modules[$key]->name,
-                            'url'            => $modules[$key]->adminPageLinkNormalize,
-                            'submenuOptions' => ["id" => "submenu_" . $key],
-                            'items'          => [],
+                            'icon' => $modules[$key]->icon,
+                            'label' => $modules[$key]->name,
+                            'url' => $modules[$key]->adminPageLinkNormalize,
+                            'submenuOptions' => ["id" => "submenu_".$key],
+                            'items' => [],
                         ];
 
                         // Добавляем подменю у модулей
@@ -217,7 +227,7 @@ class ModuleManager extends \CApplicationComponent
                 );
 
                 Yii::app()->getCache()->set(
-                    'YupeModulesNavigation-' . Yii::app()->language,
+                    'YupeModulesNavigation-'.Yii::app()->language,
                     $modulesNavigation,
                     0,
                     $chain
@@ -231,9 +241,10 @@ class ModuleManager extends \CApplicationComponent
         }
 
         $modulesNavigation = array_merge($modulesNavigation, $modulesExtendedNavigation);
+
         return ($navigationOnly === true) ? $modulesNavigation : [
-            'modules'           => $modules,
-            'yiiModules'        => $yiiModules,
+            'modules' => $modules,
+            'yiiModules' => $yiiModules,
             'modulesNavigation' => $modulesNavigation,
         ];
     }
@@ -260,23 +271,23 @@ class ModuleManager extends \CApplicationComponent
                 $modPath = Yii::getPathOfAlias('application.modules');
                 $cacheFile = Yii::app()->configManager->cacheFileName;
 
-                foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
+                foreach (new GlobIterator($modConfigs.'/*.php') as $item) {
 
                     if (is_dir(
-                            $modPath . '/' . $item->getBaseName('.php')
+                            $modPath.'/'.$item->getBaseName('.php')
                         ) == false && $cacheFile != $item->getBaseName('.php')
                     ) {
 
                         Yii::app()->getCache()->flush();
 
-                        unlink($modConfigs . '/' . $item->getBaseName());
+                        unlink($modConfigs.'/'.$item->getBaseName());
 
                         throw new Exception(
                             Yii::t(
                                 'YupeModule.yupe',
                                 'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted. Module is {module}...',
                                 [
-                                    'module' => $item->getBaseName()
+                                    'module' => $item->getBaseName(),
                                 ]
                             )
                         );
@@ -353,11 +364,11 @@ class ModuleManager extends \CApplicationComponent
         $module = null;
         if ($path) {
             //посмотреть внутри файл с окончанием Module.php
-            $files = glob($path . '/' . $name . '/' . '*Module.php');
+            $files = glob($path.'/'.$name.'/'.'*Module.php');
             if (count($files) == 1) {
                 $className = pathinfo($files[0], PATHINFO_FILENAME);
-                Yii::app()->getCache()->set('tmpImports', 'application.modules.' . $name . '.' . $className);
-                Yii::import('application.modules.' . $name . '.' . $className);
+                Yii::app()->getCache()->set('tmpImports', 'application.modules.'.$name.'.'.$className);
+                Yii::import('application.modules.'.$name.'.'.$className);
                 $module = Yii::createComponent($className, $name, null, false);
             }
         }
@@ -375,7 +386,7 @@ class ModuleManager extends \CApplicationComponent
      */
     public function getModulesConfig($module = false)
     {
-        return Yii::app()->getBasePath() . '/config/modules/' . ($module ? $module . '.php' : '');
+        return Yii::app()->getBasePath().'/config/modules/'.($module ? $module.'.php' : '');
     }
 
     /**
@@ -389,7 +400,7 @@ class ModuleManager extends \CApplicationComponent
 
     public function getModulesConfigBack($module = '')
     {
-        $path = Yii::app()->getBasePath() . '/config/modulesBack/';
+        $path = Yii::app()->getBasePath().'/config/modulesBack/';
 
         return empty($module) ? $path : $path.$module.'.php';
     }
@@ -405,7 +416,7 @@ class ModuleManager extends \CApplicationComponent
     public function getModulesConfigDefault($module = '')
     {
         return empty($module) ? Yii::getPathOfAlias('application.modules') :
-            Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
+            Yii::getPathOfAlias('application.modules.'.$module).'/install/'.$module.'.php';
     }
 
     /**
@@ -423,13 +434,13 @@ class ModuleManager extends \CApplicationComponent
             return false;
         }
 
-        $modulePath = Yii::app()->moduleManager->getModulesConfigDefault() . DIRECTORY_SEPARATOR . $module;
+        $modulePath = Yii::app()->moduleManager->getModulesConfigDefault().DIRECTORY_SEPARATOR.$module;
 
         if (!is_dir($modulePath)) {
             return false;
         }
 
-        $files = glob($modulePath . DIRECTORY_SEPARATOR . '*Module.php');
+        $files = glob($modulePath.DIRECTORY_SEPARATOR.'*Module.php');
 
         return empty($files) ? false : true;
     }
@@ -453,6 +464,7 @@ class ModuleManager extends \CApplicationComponent
             )
         ) {
             Yii::app()->configManager->flushDump();
+
             return true;
         }
 

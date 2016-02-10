@@ -15,10 +15,23 @@ use Yii;
 use CException;
 use CHttpCookie;
 
+/**
+ * Class LanguageBehavior
+ * @package yupe\components\urlManager
+ */
 class LanguageBehavior extends CBehavior
 {
+    /**
+     * @var bool
+     */
     public $lang = false;
+    /**
+     * @var bool
+     */
     private $_lang = false;
+    /**
+     * @var bool
+     */
     private $_langFromUrl = false;
 
     /**
@@ -81,7 +94,8 @@ class LanguageBehavior extends CBehavior
      */
     public function getCookieLang()
     {
-        return isset(Yii::app()->getRequest()->cookies[$this->lm->langParam]) ? Yii::app()->getRequest()->cookies[$this->lm->langParam]->value : null;
+        return isset(Yii::app()->getRequest()->cookies[$this->lm->langParam]) ? Yii::app()->getRequest(
+        )->cookies[$this->lm->langParam]->value : null;
     }
 
     /**
@@ -99,7 +113,9 @@ class LanguageBehavior extends CBehavior
         // язык передан в url, но он равен дефолтному языку
         if ($this->getUrlLang() !== null && $this->lang === false) {
 
-            Yii::app()->getRequest()->redirect(Yii::app()->getHomeUrl() . $this->lm->getCleanUrl(Yii::app()->getRequest()->url));
+            Yii::app()->getRequest()->redirect(
+                Yii::app()->getHomeUrl().$this->lm->getCleanUrl(Yii::app()->getRequest()->url)
+            );
         }
     }
 

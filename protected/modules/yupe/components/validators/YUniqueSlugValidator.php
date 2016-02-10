@@ -14,8 +14,17 @@ namespace yupe\components\validators;
 
 use CUniqueValidator;
 
+/**
+ * Class YUniqueSlugValidator
+ * @package yupe\components\validators
+ */
 class YUniqueSlugValidator extends CUniqueValidator
 {
+    /**
+     * @param \CModel $object
+     * @param string $attribute
+     * @throws \CException
+     */
     protected function validateAttribute($object, $attribute)
     {
         $this->criteria = ['condition' => 'lang = :lang', 'params' => [':lang' => $object->lang]];

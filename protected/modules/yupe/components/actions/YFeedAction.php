@@ -17,6 +17,10 @@ use Yii;
 use EFeed;
 use DateTime;
 
+/**
+ * Class YFeedAction
+ * @package yupe\components\actions
+ */
 class YFeedAction extends CAction
 {
     /**
@@ -55,22 +59,34 @@ class YFeedAction extends CAction
      **/
 
     public $data;
+    /**
+     * @var
+     */
     public $description;
+    /**
+     * @var array
+     */
     public $itemFields = [
         // author_object, если не задан - у
         // item-елемента запросится author_nickname
-        'author_object'   => null,
+        'author_object' => null,
         // author nick_name param
         'author_nickname' => 'nick_name',
-        'content'         => null,
-        'datetime'        => null,
-        'link'            => null,
-        'linkParams'      => null,
-        'title'           => null,
-        'updated'         => null,
+        'content' => null,
+        'datetime' => null,
+        'link' => null,
+        'linkParams' => null,
+        'title' => null,
+        'updated' => null,
 
     ];
+    /**
+     * @var
+     */
     public $link;
+    /**
+     * @var
+     */
     public $title;
 
     /**

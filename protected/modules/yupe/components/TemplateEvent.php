@@ -11,6 +11,10 @@ use Yii;
 class TemplateEvent
 {
 
+    /**
+     * @param $eventName
+     * @param Event|null $event
+     */
     public static function fire($eventName, Event $event = null)
     {
         if (null === $event) {

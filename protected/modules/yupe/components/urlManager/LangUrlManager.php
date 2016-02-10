@@ -18,14 +18,36 @@ namespace yupe\components\urlManager;
 use CUrlManager;
 use Yii;
 
+/**
+ * Class LangUrlManager
+ * @package yupe\components\urlManager
+ */
 class LangUrlManager extends CUrlManager
 {
+    /**
+     * @var
+     */
     public $languages;
+    /**
+     * @var
+     */
     public $langs;
+    /**
+     * @var string
+     */
     public $langParam = 'language';
+    /**
+     * @var bool
+     */
     public $languageInPath = true;
+    /**
+     * @var bool
+     */
     public $preferredLanguage = false;
 
+    /**
+     * @var bool
+     */
     private $_appLang = false;
 
     /**
@@ -48,7 +70,7 @@ class LangUrlManager extends CUrlManager
             $newRules = [];
 
             foreach ($this->rules as $rule => $p) {
-                $rule = '/<' . $this->langParam . ':(' . $langs . ')>/' . ltrim($rule, '/');
+                $rule = '/<'.$this->langParam.':('.$langs.')>/'.ltrim($rule, '/');
                 $newRules[$rule] = $p;
             }
 
@@ -113,8 +135,10 @@ class LangUrlManager extends CUrlManager
             if ($this->getAppLang() == $params[$this->langParam]) {
                 unset($params[$this->langParam]);
             } else {
-                if (trim($route, '/') == "") {;
-                    return Yii::app()->getHomeUrl() . $params[$this->langParam];
+                if (trim($route, '/') == "") {
+                    ;
+
+                    return Yii::app()->getHomeUrl().$params[$this->langParam];
                 }
             }
         }
@@ -139,7 +163,7 @@ class LangUrlManager extends CUrlManager
 
         // Убираем homeUrl из адреса:
         $url = preg_replace(
-            "#^(" . Yii::app()->getRequest()->scriptUrl . "|" . Yii::app()->getRequest()->baseUrl . ")#",
+            "#^(".Yii::app()->getRequest()->scriptUrl."|".Yii::app()->getRequest()->baseUrl.")#",
             '',
             $url
         );
@@ -152,7 +176,7 @@ class LangUrlManager extends CUrlManager
             if ($url[strlen($url) - 1] != '/') {
                 $url .= '/';
             }
-            $url = preg_replace("#^(" . implode("|", $this->languages) . ")/#", '', $url);
+            $url = preg_replace("#^(".implode("|", $this->languages).")/#", '', $url);
         }
         // Убираем косую черту в конце пути для единоообразия
         if ($url != '' && $url[strlen($url) - 1] == '/') {
@@ -166,7 +190,7 @@ class LangUrlManager extends CUrlManager
                 unset($param[$this->langParam]);
             }
             if ($param != []) {
-                $url .= '?' . http_build_query($param);
+                $url .= '?'.http_build_query($param);
             }
         }
 
@@ -185,11 +209,12 @@ class LangUrlManager extends CUrlManager
     public function replaceLangUrl($url, $lang = false)
     {
         $url = $this->getCleanUrl($url);
+
         return $lang !== false
             ? (
             $this->languageInPath
-                ? $lang . ($url != '' ? '/' . $url : '')
-                : $url . (strstr($url, '?') ? '&' : '?') . $this->langParam . '=' . $lang
+                ? $lang.($url != '' ? '/'.$url : '')
+                : $url.(strstr($url, '?') ? '&' : '?').$this->langParam.'='.$lang
             )
             : $url;
     }

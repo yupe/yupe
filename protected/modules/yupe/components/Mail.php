@@ -15,6 +15,10 @@ namespace yupe\components;
 
 use CApplicationComponent;
 
+/**
+ * Class Mail
+ * @package yupe\components
+ */
 class Mail extends CApplicationComponent
 {
     /**
@@ -46,6 +50,9 @@ class Mail extends CApplicationComponent
      */
     public $layout;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->_mailer = new \PHPMailer();
@@ -84,32 +91,53 @@ class Mail extends CApplicationComponent
         parent::init();
     }
 
+    /**
+     * @return \PHPMailer
+     */
     public function getMailer()
     {
         return $this->_mailer;
     }
 
+    /**
+     * @return string
+     */
     public function getSubject()
     {
         return $this->_mailer->Subject;
     }
 
+    /**
+     * @param $subject
+     */
     public function setSubject($subject)
     {
         $this->_mailer->Subject = $subject;
     }
 
+    /**
+     * @param $address
+     * @param string $name
+     * @throws \phpmailerException
+     */
     public function setFrom($address, $name = '')
     {
         $this->_mailer->setFrom($address, $name);
         $this->_mailer->addReplyTo($address, $name);
     }
 
+    /**
+     * @param $address
+     * @param string $name
+     */
     public function addAddress($address, $name = '')
     {
         $this->_mailer->addAddress($address, $name);
     }
 
+    /**
+     *
+     */
     public function reset()
     {
         $this->init();
