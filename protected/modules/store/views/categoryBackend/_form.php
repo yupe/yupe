@@ -130,6 +130,11 @@ $form = $this->beginWidget(
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
+                        <?= $form->textFieldGroup($model, 'title'); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
                         <?= $form->textFieldGroup($model, 'meta_title'); ?>
                     </div>
                 </div>
@@ -141,6 +146,11 @@ $form = $this->beginWidget(
                 <div class="row">
                     <div class="col-sm-7">
                         <?= $form->textAreaGroup($model, 'meta_description'); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <?= $form->textFieldGroup($model, 'meta_canonical'); ?>
                     </div>
                 </div>
             </div>

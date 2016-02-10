@@ -5,6 +5,7 @@
 $this->pageTitle = $product->getMetaTitle();
 $this->description = $product->getMetaDescription();
 $this->keywords = $product->getMetaKeywords();
+$this->canonical = $product->getMetaCanonical();
 
 Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/store.js', CClientScript::POS_END);
 
@@ -59,7 +60,7 @@ $this->breadcrumbs = array_merge(
                     </div>
                 </div>
                 <div class="entry__title">
-                    <h1 class="h1"><?= CHtml::encode($product->name); ?></h1>
+                    <h1 class="h1"><?= CHtml::encode($product->getTitle()); ?></h1>
                 </div>
                 <div class="entry__wysiwyg">
                     <div class="wysiwyg">

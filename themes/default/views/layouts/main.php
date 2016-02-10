@@ -12,6 +12,10 @@
     <meta name="description" content="<?= $this->description;?>" />
     <meta name="keywords" content="<?= $this->keywords;?>" />
 
+    <?php if ($this->canonical): ?>
+        <link rel="canonical" href="<?= $this->canonical ?>" />
+    <?php endif; ?>
+
     <?php
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/css/main.css');
     Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/css/flags.css');

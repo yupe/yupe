@@ -64,6 +64,13 @@ abstract class Controller extends \CController
     public $keywords;
 
     /**
+     * Canonical url
+     *
+     * @var null
+     */
+    public $canonical = null;
+
+    /**
      * For backward capability
      *
      * @deprecated

@@ -13,6 +13,8 @@ use yupe\components\Event;
  * @property integer $parent_id
  * @property integer $sort
  * @property integer $external_id
+ * @property string $title
+ * @property string $meta_canonical
  *
  * @property-read StoreCategory $parent
  * @property-read StoreCategory[] $children
@@ -58,7 +60,7 @@ class StoreCategory extends \yupe\models\YModel
     {
         return [
             [
-                'name, description, short_description, slug, meta_title, meta_keywords, meta_description',
+                'name, title, description, short_description, slug, meta_title, meta_keywords, meta_description',
                 'filter',
                 'filter' => 'trim',
             ],
@@ -69,7 +71,7 @@ class StoreCategory extends \yupe\models\YModel
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
             ['status', 'length', 'max' => 11],
-            ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
+            ['name, title, image, meta_title, meta_keywords, meta_description, meta_canonical', 'length', 'max' => 250],
             ['slug', 'length', 'max' => 150],
             [
                 'slug',
@@ -78,6 +80,7 @@ class StoreCategory extends \yupe\models\YModel
             ],
             ['slug', 'unique'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['meta_canonical', 'url'],
             ['id, parent_id, name, description, sort, short_description, slug, status', 'safe', 'on' => 'search'],
         ];
     }
@@ -176,6 +179,8 @@ class StoreCategory extends \yupe\models\YModel
             'status' => Yii::t('StoreModule.store', 'Status'),
             'sort' => Yii::t('StoreModule.store', 'Order'),
             'external_id' => Yii::t('StoreModule.store', 'External id'),
+            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
         ];
     }
 
@@ -197,6 +202,8 @@ class StoreCategory extends \yupe\models\YModel
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
             'sort' => Yii::t('StoreModule.store', 'Order'),
+            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
         ];
     }
 
@@ -261,6 +268,11 @@ class StoreCategory extends \yupe\models\YModel
         return $this->parent ? $this->parent->name : '---';
     }
 
+    public function getTitle()
+    {
+        return $this->title ?: $this->name;
+    }
+
     /**
      * @return string
      */
@@ -283,5 +295,15 @@ class StoreCategory extends \yupe\models\YModel
     public function getMetaKeywords()
     {
         return $this->meta_keywords;
+    }
+
+    /**
+     * Get canonical url
+     *
+     * @return string
+     */
+    public function getMetaCanonical()
+    {
+        return $this->meta_canonical;
     }
 }

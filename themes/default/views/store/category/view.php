@@ -7,6 +7,7 @@ Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 $this->title =  $category->getMetaTile();
 $this->description = $category->getMetaDescription();
 $this->keywords =  $category->getMetaKeywords();
+$this->canonical = $category->getMetaCanonical();
 
 $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product/index']];
 
@@ -19,7 +20,7 @@ $this->breadcrumbs = array_merge(
 
 <div class="row">
     <div class="col-xs-12">
-        <h2><?= Yii::t('StoreModule.store', 'Products in category "{category}"', ['{category}' => CHtml::encode($category->name)]); ?></h2>
+        <h1><?= CHtml::encode($category->getTitle()); ?></h1>
     </div>
 </div>
 
