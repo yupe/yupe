@@ -248,7 +248,7 @@ return [
     'Recovery password code {code} was not found!' => 'Код восстановления пароля {code} не найден!',
     'Recovery password key was not found! Please try one more!' => 'Ключ сброса пароля не найден!',
     'Redirecting' => 'Перенаправления',
-    'Register date' => 'Дата регистрации',
+    'Register date' => 'Регистрация',
     'Register Ip' => 'Ip регистрации',
     'Register new user' => 'Регистрация нового пользователя',
     'Register' => 'Зарегистрироваться',

@@ -167,10 +167,16 @@ $this->menu = [
             ],
             [
                 'name'   => 'create_time',
-                'filter' => false
+                'filter' => false,
+                'value'  => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->create_time);
+                },
             ],
             [
                 'name'   => 'visit_time',
+                'value'  => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->visit_time);
+                },
                 'filter' => false
             ],
             [
@@ -182,6 +188,7 @@ $this->menu = [
                         'icon'  => 'fa fa-fw fa-lock',
                         'label' => Yii::t('UserModule.user', 'Change password'),
                         'url'   => 'array("/user/userBackend/changepassword", "id" => $data->id)',
+                        'options' => ['class' => 'front-view btn btn-sm btn-default']
                     ],
                     'sendactivation' => [
                         'label'   => Yii::t('UserModule.user', 'Send activation confirm'),

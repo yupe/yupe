@@ -92,6 +92,31 @@ $this->widget(
                 }
             ],
             [
+                'name'   => 'create_time',
+                'filter' => false,
+                'value'  => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->create_time);
+                },
+            ],
+            [
+                'name'   => 'visit_time',
+                'value'  => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->visit_time);
+                },
+                'filter' => false
+            ],
+            [
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/user/userBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    User::STATUS_ACTIVE     => ['class' => 'label-success'],
+                    User::STATUS_BLOCK      => ['class' => 'label-danger'],
+                    User::STATUS_NOT_ACTIVE => ['class' => 'label-warning'],
+                ],
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
                 'buttons' => [
                     'update' => [

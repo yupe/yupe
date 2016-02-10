@@ -57,7 +57,6 @@
         "symfony/event-dispatcher": "3.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
-        "guzzlehttp/guzzle": "6.*",
         "2amigos/transliterator-helper": "dev-master",
         "yiiext/migrate-command": "dev-master",
         "samdark/sitemap": "2.0.*"

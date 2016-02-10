@@ -68,7 +68,7 @@ class CustomButtonColumn extends \TbButtonColumn
     /**
      * @var array
      */
-    public $frontViewButtonOptions = ['class' => 'front-view', 'target' => '_blank'];
+    public $frontViewButtonOptions = ['class' => 'front-view btn btn-sm btn-default', 'target' => '_blank'];
 
     /**
      *

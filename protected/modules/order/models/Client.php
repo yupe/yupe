@@ -117,6 +117,7 @@ class Client extends User
         $criteria->compare('t.email', $this->email, true, 'OR');
         $criteria->compare('t.phone', $this->phone, true, 'OR');
         $criteria->compare('t.gender', $this->gender);
+        $criteria->compare('t.status', $this->status);
 
         $orderTable = Order::model()->tableName();
         $orderNumberSql = "(select count(*) from {$orderTable} o where o.user_id = t.id) ";
