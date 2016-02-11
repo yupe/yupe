@@ -19,11 +19,11 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'                     => 'post-write',
-        'enableAjaxValidation'   => false,
+        'id' => 'post-write',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
     ]
 );
 
@@ -42,13 +42,13 @@ $form = $this->beginWidget(
             'blog_id',
             [
                 'widgetOptions' => [
-                    'data' => ['' => '---'] + CHtml::listData($blogs,
-                            'id',
-                            'name'
-                        ),
-                ]
+                    'data' => CHtml::listData($blogs, 'id', 'name'),
+                    'htmlOptions' => [
+                        'empty' => '---',
+                    ]
+                ],
             ]
-        );?>
+        ); ?>
     </div>
 </div>
 
@@ -60,9 +60,9 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('title'),
-                        'data-content'        => $model->getAttributeDescription('title')
+                        'data-content' => $model->getAttributeDescription('title'),
                     ],
                 ],
             ]
@@ -78,9 +78,9 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
-                        'data-content'        => $model->getAttributeDescription('slug')
+                        'data-content' => $model->getAttributeDescription('slug'),
                     ],
                 ],
             ]
@@ -91,7 +91,7 @@ $form = $this->beginWidget(
 <div class="row">
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#tags").val('<?= join(',',$model->getTags());?>');
+            $("#tags").val('<?= join(',', $model->getTags());?>');
         });
     </script>
 </div>
@@ -99,12 +99,12 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-7">
         <?=
-            CHtml::image(
+        CHtml::image(
             !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
             $model->title,
             [
                 'class' => 'preview-image',
-                'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
+                'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
             ]
         ); ?>
         <?= $form->fileFieldGroup(
@@ -114,9 +114,9 @@ $form = $this->beginWidget(
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'onchange' => 'readURL(this);',
-                        'style'    => 'background-color: inherit;'
-                    ]
-                ]
+                        'style' => 'background-color: inherit;',
+                    ],
+                ],
             ]
         ); ?>
     </div>
@@ -132,13 +132,13 @@ $form = $this->beginWidget(
         $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'content',
                 'options' => [
                     'imageUpload' => Yii::app()->createUrl('/blog/publisher/imageUpload'),
                     'fileUpload' => false,
                     'imageManagerJson' => false,
-                ]
+                ],
             ]
         );
 
@@ -158,7 +158,7 @@ $form = $this->beginWidget(
         $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'quote',
             ]
         );
@@ -177,16 +177,16 @@ $form = $this->beginWidget(
                 'booster.widgets.TbSelect2',
                 [
                     'asDropDownList' => false,
-                    'name'           => 'tags',
-                    'options'        => [
-                        'tags'            => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                        'placeholder'     => Yii::t('BlogModule.blog', 'tags'),
-                        'tokenSeparators' => [',', ' ']
+                    'name' => 'tags',
+                    'options' => [
+                        'tags' => $tags,
+                        'placeholder' => Yii::t('BlogModule.blog', 'tags'),
+                        'tokenSeparators' => [',', ' '],
                     ],
-                    'htmlOptions'    => [
-                        'class'               => 'form-control popover-help',
+                    'htmlOptions' => [
+                        'class' => 'form-control popover-help',
                         'data-original-title' => $model->getAttributeLabel('tags'),
-                        'data-content'        => $model->getAttributeDescription('tags')
+                        'data-content' => $model->getAttributeDescription('tags'),
                     ],
                 ]
             ); ?>
@@ -202,9 +202,9 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('link'),
-                        'data-content'        => $model->getAttributeDescription('link')
+                        'data-content' => $model->getAttributeDescription('link'),
                     ],
                 ],
             ]

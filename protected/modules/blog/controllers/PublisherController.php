@@ -33,8 +33,7 @@ class PublisherController extends \yupe\components\controllers\FrontController
 
             $post = Post::model()->findUserPost($postId, Yii::app()->getUser()->getId());
 
-            if (null === $post) {
-
+            if ($post === null) {
                 throw new CHttpException(404);
             }
 
@@ -73,10 +72,11 @@ class PublisherController extends \yupe\components\controllers\FrontController
             }
         }
 
-        $this->render(
-            'write',
-            ['post' => $post, 'blogs' => (new Blog())->getListForUser(Yii::app()->getUser()->getId())]
-        );
+        $this->render('write', [
+            'post' => $post,
+            'blogs' => (new Blog())->getListForUser(Yii::app()->getUser()->getId()),
+            'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+        ]);
     }
 
     public function actionMy()
