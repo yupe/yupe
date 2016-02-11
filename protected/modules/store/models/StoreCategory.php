@@ -114,6 +114,15 @@ class StoreCategory extends \yupe\models\YModel
                     'order' => 't.sort',
                 ],
                 'titleAttribute' => 'name',
+                'iconAttribute' => function(StoreCategory $item){
+                    return $item->getImageUrl(150, 150);
+                },
+                'iconAltAttribute' => function(StoreCategory $item){
+                    return $item->getImageAlt();
+                },
+                'iconTitleAttribute' => function(StoreCategory $item){
+                    return $item->getImageTitle();
+                },
                 'useCache' => true,
             ],
             'sortable' => [
