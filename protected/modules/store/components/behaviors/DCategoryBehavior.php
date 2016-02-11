@@ -44,6 +44,11 @@ class DCategoryBehavior extends CActiveRecordBehavior
      * which construct correct url for using our getMenuList().
      */
     public $iconAttribute;
+
+    public $iconAltAttribute;
+
+    public $iconTitleAttribute;
+
     /**
      * @var string model property, which return true for active menu item.
      * Optionally declare own getLinkActive() method in your model.

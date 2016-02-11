@@ -295,7 +295,9 @@ class DCategoryTreeBehavior extends DCategoryBehavior
                         'id' => $item->getPrimaryKey(),
                         'label' => $item->name,
                         'url' =>  Yii::app()->createUrl('/store/category/view', ['path' => $item->path]),
-                        'icon' => $this->iconAttribute !== null ? $item->{$this->iconAttribute} : '',
+                        'icon' => $this->getAttributeValue('iconAttribute', $item),
+                        'icon_alt' => $this->getAttributeValue('iconAltAttribute', $item),
+                        'icon_title' => $this->getAttributeValue('iconTitleAttribute', $item),
                         'active' => $active,
                         'itemOptions' => ['class' => 'item_'.$item->getPrimaryKey()],
                         'linkOptions' => $active ? ['rel' => 'nofollow'] : [],
@@ -310,6 +312,15 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         }
 
         return $resultArray;
+    }
+
+    private function getAttributeValue($name, $item)
+    {
+        if (is_callable($this->{$name})) {
+            return call_user_func($this->{$name}, $item);
+        }
+
+        return $this->{$name} !== null ? $item->{$this->{$name}} : '';
     }
 
     /**
