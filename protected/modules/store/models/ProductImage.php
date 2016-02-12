@@ -6,6 +6,7 @@
  * @property integer $product_id
  * @property string $name
  * @property string $title
+ * @property string $alt
  *
  * @property-read Product $product
  * @method getImageUrl($width = 0, $height = 0, $options = [])
@@ -36,7 +37,7 @@ class ProductImage extends \yupe\models\YModel
     {
         return [
             ['product_id', 'numerical', 'integerOnly' => true],
-            ['name, title', 'length', 'max' => 250],
+            ['name, title, alt', 'length', 'max' => 250],
         ];
     }
 
@@ -81,7 +82,8 @@ class ProductImage extends \yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'title' => Yii::t('StoreModule.store', 'Title'),
+            'title' => Yii::t('StoreModule.store', 'Image title'),
+            'alt' => Yii::t('StoreModule.store', 'Image alt'),
         ];
     }
 
@@ -91,7 +93,8 @@ class ProductImage extends \yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'title' => Yii::t('StoreModule.store', 'Title'),
+            'title' => Yii::t('StoreModule.store', 'Image title'),
+            'alt' => Yii::t('StoreModule.store', 'Image alt'),
         ];
     }
 }
