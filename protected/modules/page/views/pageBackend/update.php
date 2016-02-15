@@ -50,12 +50,12 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('PageModule.page', 'Edit page'); ?><br/>
-        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <?= Yii::t('PageModule.page', 'Edit page'); ?><br/>
+        <small>&laquo;<?= $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial(
+<?= $this->renderPartial(
     '_form',
     [
         'menuId'       => $menuId,

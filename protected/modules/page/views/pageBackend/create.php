@@ -21,12 +21,12 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('PageModule.page', 'Pages'); ?>
-        <small><?php echo Yii::t('PageModule.page', 'create'); ?></small>
+        <?= Yii::t('PageModule.page', 'Pages'); ?>
+        <small><?= Yii::t('PageModule.page', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial(
+<?= $this->renderPartial(
     '_form',
     [
         'menuId'       => $menuId,

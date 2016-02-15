@@ -49,23 +49,23 @@ $this->menu = [
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('PageModule.page', 'Show page'); ?>
-        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <?= Yii::t('PageModule.page', 'Show page'); ?>
+        <small>&laquo;<?= $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
-<h2><?php echo $model->title; ?></h2>
+<h2><?= $model->title; ?></h2>
 
-<small><?php echo Yii::t('PageModule.page', 'Author'); ?>
-    : <?php echo ($model->changeAuthor instanceof User) ? $model->changeAuthor->getFullName() : Yii::t(
+<small><?= Yii::t('PageModule.page', 'Author'); ?>
+    : <?= ($model->changeAuthor instanceof User) ? $model->changeAuthor->getFullName() : Yii::t(
         'PageModule.page',
         'Removed'
     ); ?></small>
 <br/>
 <br/>
 
-<p><?php echo $model->body; ?></p>
+<p><?= $model->body; ?></p>
 <br/>
 
 <li class="fa fa-fw fa-globe"></li>
-<?php echo CHtml::link($model->getAbsoluteUrl(), $model->getAbsoluteUrl()); ?>
+<?= CHtml::link(Yii::app()->createAbsoluteUrl('/page/page/view', ['slug' => $model->slug]), Yii::app()->createAbsoluteUrl('/page/page/view', ['slug' => $model->slug])); ?>
