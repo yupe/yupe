@@ -24,7 +24,7 @@
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
-[Процесс установки](http://yupe.ru/docs/install.html) очень прост и занимает не более 5 минут!
+[Процесс установки](http://docs.yupe.ru/install/) очень прост и занимает не более 5 минут!
 
 Для успешной работы проекта на Юпи! вполне достаточно самого простого и дешевого хостинга, минимальные требования:
 
@@ -46,13 +46,13 @@
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
 * [Руководство](http://guides-v1.yupe-project.ru/)
-* [Документация](http://yupe.ru/docs/index.html)
+* [Документация](http://docs.yupe.ru/)
 * [API](http://api.yupe.ru/)
 * [Подробнее о проекте](http://yupe-project.ru/about)
-* [Команда](http://yupe.ru/docs/yupe/team.html)
+* [Команда](http://docs.yupe.ru/team/)
 * [Форум](http://talk.yupe.ru/)
 * [Контакты](http://yupe.ru/contacts)
-* [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
+* [Как помочь проекту](http://docs.yupe.ru/assistance.project/)
 * [twitter](https://twitter.com/#!/YupeCms)
 * [Группа Вконтакте](https://vk.com/yupecms)
 * [Разработка](http://yupe-project.ru/service/development) и [поддержка](http://yupe-project.ru/service/support)

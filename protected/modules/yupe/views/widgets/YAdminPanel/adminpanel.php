@@ -66,13 +66,13 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-book',
                                     'label' => Yii::t('YupeModule.yupe', 'Official docs'),
-                                    'url' => 'http://yupe.ru/docs/index.html?from=help',
+                                    'url' => 'http://docs.yupe.ru/?from=help',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [
                                     'icon' => 'fa fa-fw fa-th-large',
                                     'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                    'url' => 'https://github.com/yupe/yupe-ext',
+                                    'url' => 'http://yupe.ru/marketplace?from=help',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [
@@ -88,7 +88,7 @@ $this->widget(
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [
-                                    'icon' => 'fa fa-fw fa-globe',
+                                    'icon' => 'fa fa-fw fa-github',
                                     'label' => Yii::t('YupeModule.yupe', 'Community on github'),
                                     'url' => 'https://github.com/yupe/yupe',
                                     'linkOptions' => ['target' => '_blank'],

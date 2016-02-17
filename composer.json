@@ -41,7 +41,7 @@
         "issues": "https://github.com/yupe/yupe/issues",
         "forum": "http://talk.yupe.ru/",
         "source": "https://github.com/yupe/yupe/",
-        "docs": "http://yupe.ru/docs/"
+        "docs": "http://docs.yupe.ru/"
     },
     "require": {
         "php": ">=5.4",
