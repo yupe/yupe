@@ -3,6 +3,7 @@
  * @var $this ProductBackendController
  * @var $model Product
  * @var $form \yupe\widgets\ActiveForm
+ * @var ImageGroup $imageGroup
  */
 ?>
 <?php Yii::app()->getClientScript()->registerCssFile($this->getModule()->getAssetsUrl().'/css/store-backend.css'); ?>
@@ -15,8 +16,8 @@
     <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Stock"); ?></a></li>
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
     <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.store", "Linked products"); ?></a></li>
+    <li><a href="#image-groups" data-toggle="modal"><?= Yii::t("StoreModule.store", "Image groups"); ?></a></li>
 </ul>
-
 
 <?php
 $form = $this->beginWidget(
@@ -315,43 +316,81 @@ $form = $this->beginWidget(
             </div>
         </div>
         <div class="row">
-            <?php $imageModel = new ProductImage(); ?>
-            <div id="product-images">
-                <div class="image-template hidden form-group">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label for=""><?= Yii::t("StoreModule.store", "File"); ?></label>
-                            <input type="file" class="image-file"/>
-                        </div>
-                        <div class="col-sm-7">
-                            <label for=""><?= Yii::t("StoreModule.store", "Title"); ?></label>
-                            <input type="text" class="image-title form-control"/>
-                        </div>
-                        <div class="col-sm-2" style="padding-top: 24px">
-                            <button class="button-delete-image btn btn-default" type="button"><i
-                                    class="fa fa-fw fa-trash-o"></i></button>
+            <div class="col-xs-12">
+                <?php $imageModel = new ProductImage(); ?>
+                <div id="product-images">
+                    <div class="image-template hidden form-group">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-2">
+                                <label for=""><?= Yii::t("StoreModule.store", "File"); ?></label>
+                                <input type="file" class="image-file"/>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <label for=""><?= Yii::t("StoreModule.store", "Group"); ?></label>
+                                <?= CHtml::dropDownList('', null, ImageGroupHelper::all(), [
+                                    'empty' => Yii::t('StoreModule.store', '--choose--'),
+                                    'class' => 'form-control image-group image-group-dropdown'
+                                ]) ?>
+                            </div>
+                            <div class="col-xs-5 col-sm-3">
+                                <label for=""><?= Yii::t("StoreModule.store", "Image title"); ?></label>
+                                <input type="text" class="image-title form-control"/>
+                            </div>
+                            <div class="col-xs-5 col-sm-3">
+                                <label for=""><?= Yii::t("StoreModule.store", "Image alt"); ?></label>
+                                <input type="text" class="image-alt form-control"/>
+                            </div>
+                            <div class="col-xs-2 col-sm-1" style="padding-top: 24px">
+                                <button class="button-delete-image btn btn-default" type="button"><i
+                                        class="fa fa-fw fa-trash-o"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <?php if (!$model->getIsNewRecord() && $model->images): ?>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th><?= Yii::t("StoreModule.store", "Image title"); ?></th>
+                                <th><?= Yii::t("StoreModule.store", "Image alt"); ?></th>
+                                <th><?= Yii::t("StoreModule.store", "Group"); ?></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($model->images as $image): ?>
+                                <tr>
+                                    <td>
+                                        <img src="<?= $image->getImageUrl(100, 100); ?>" alt="" class="img-responsive"/>
+                                    </td>
+                                    <td>
+                                        <?= CHtml::textField('ProductImage[' . $image->id . '][title]', $image->title, ['class' => 'form-control']) ?>
+                                    </td>
+                                    <td>
+                                        <?= CHtml::textField('ProductImage[' . $image->id . '][alt]', $image->alt, ['class' => 'form-control']) ?>
+                                    </td>
+                                    <td>
+                                        <?= CHtml::dropDownList(
+                                            'ProductImage[' . $image->id . '][group_id]',
+                                            $image->group_id,
+                                            ImageGroupHelper::all(),
+                                            ['empty' => Yii::t('StoreModule.store', '--choose--'), 'class' => 'form-control image-group-dropdown']
+                                        ) ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <a data-id="<?= $image->id; ?>" href="<?= Yii::app()->createUrl(
+                                            '/store/productBackend/deleteImage',
+                                            ['id' => $image->id]
+                                        ); ?>" class="btn btn-default product-delete-image"><i class="fa fa-fw fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
             </div>
-
-            <?php if (!$model->getIsNewRecord()): ?>
-                <?php foreach ($model->images as $image): ?>
-
-                    <div class="product-image">
-                        <div>
-                            <img src="<?= $image->getImageUrl(150, 150); ?>" alt="" class="img-thumbnail"/>
-                        </div>
-                        <div>
-                            <a data-id="<?= $image->id; ?>" href="<?= Yii::app()->createUrl(
-                                '/store/productBackend/deleteImage',
-                                ['id' => $image->id]
-                            ); ?>" class="pull-right product-delete-image"><i class="fa fa-fw fa-times"></i></a>
-                        </div>
-                    </div>
-
-                <?php endforeach; ?>
-            <?php endif; ?>
         </div>
     </div>
 
@@ -489,6 +528,8 @@ $form = $this->beginWidget(
 
 <?php $this->endWidget(); ?>
 
+<?php $this->renderPartial('_image_groups_modal', ['imageGroup' => $imageGroup]) ?>
+
 <script type="text/javascript">
     $(function () {
 
@@ -550,9 +591,14 @@ $form = $this->beginWidget(
 
         $('#button-add-image').on('click', function () {
             var newImage = $("#product-images .image-template").clone().removeClass('image-template').removeClass('hidden');
+            var key = $.now();
+
             newImage.appendTo("#product-images");
-            newImage.find(".image-file").attr('name', 'ProductImage[][name]');
-            newImage.find(".image-title").attr('name', 'ProductImage[][title]');
+            newImage.find(".image-file").attr('name', 'ProductImage[new_' + key + '][name]');
+            newImage.find(".image-title").attr('name', 'ProductImage[new_' + key + '][title]');
+            newImage.find(".image-alt").attr('name', 'ProductImage[new_' + key + '][alt]');
+            newImage.find(".image-group").attr('name', 'ProductImage[new_' + key + '][group_id]');
+
             return false;
         });
 
@@ -564,7 +610,7 @@ $form = $this->beginWidget(
 
         $('.product-delete-image').on('click', function (event) {
             event.preventDefault();
-            var blockForDelete = $(this).closest('.product-image');
+            var blockForDelete = $(this).closest('tr');
             $.ajax({
                 type: "POST",
                 data: {

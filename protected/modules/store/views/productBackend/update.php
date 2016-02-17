@@ -52,4 +52,8 @@ $this->menu = [
     </h1>
 </div>
 
-<?= $this->renderPartial('_form', ['model' => $model, 'searchModel' => $searchModel]); ?>
+<?= $this->renderPartial('_form', [
+    'model' => $model,
+    'searchModel' => $searchModel,
+    'imageGroup' => $imageGroup,
+]); ?>

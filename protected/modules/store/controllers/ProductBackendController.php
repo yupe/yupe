@@ -127,7 +127,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 );
             }
         }
-        $this->render('create', ['model' => $model]);
+        $this->render('create', [
+            'model' => $model,
+            'imageGroupModel' => ImageGroup::model(),
+        ]);
     }
 
     /**
@@ -174,7 +177,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->getRequest()->getQuery('ProductSearch')
         );
 
-        $this->render('update', ['model' => $model, 'searchModel' => $searchModel]);
+        $this->render('update', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'imageGroup' => ImageGroup::model(),
+        ]);
     }
 
     /**
@@ -182,11 +189,17 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function updateProductImages(Product $product)
     {
-        foreach (CUploadedFile::getInstancesByName('ProductImage') as $key => $image) {
-            $productImage = new ProductImage();
-            $productImage->product_id = $product->id;
+        foreach (Yii::app()->getRequest()->getPost('ProductImage') as $key => $val) {
+
+            $productImage = ProductImage::model()->findByPk($key);
+
+            if (!$productImage) {
+                $productImage = new ProductImage();
+                $productImage->product_id = $product->id;
+                $productImage->addFileInstanceName('ProductImage[' . $key . '][name]');
+            }
+
             $productImage->attributes = $_POST['ProductImage'][$key];
-            $productImage->addFileInstanceName('ProductImage[' . $key . '][name]');
             $productImage->save();
         }
     }
