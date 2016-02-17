@@ -16,7 +16,6 @@
     <li><a href="#stock" data-toggle="tab"><?= Yii::t("StoreModule.store", "Stock"); ?></a></li>
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("StoreModule.store", "SEO"); ?></a></li>
     <li><a href="#linked" data-toggle="tab"><?= Yii::t("StoreModule.store", "Linked products"); ?></a></li>
-    <li><a href="#image-groups" data-toggle="modal"><?= Yii::t("StoreModule.store", "Image groups"); ?></a></li>
 </ul>
 
 <?php
@@ -307,11 +306,16 @@ $form = $this->beginWidget(
 
     <div class="tab-pane" id="images">
         <div class="row form-group">
-            <div class="col-sm-2">
+            <div class="col-xs-2">
                 <?= Yii::t("StoreModule.store", "Images"); ?>
             </div>
-            <div class="col-sm-2">
+            <div class="col-xs-2">
                 <button id="button-add-image" type="button" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>
+                </button>
+            </div>
+            <div class="col-sm-3 col-sm-offset-5 text-right">
+                <button type="button" data-toggle="modal" data-target="#image-groups" class="btn btn-primary">
+                    <?= Yii::t("StoreModule.store", "Image groups"); ?>
                 </button>
             </div>
         </div>
