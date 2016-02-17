@@ -141,7 +141,11 @@ class Product extends yupe\models\YModel implements ICommentable
                 'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
                 'store\components\validators\NumberValidator',
             ],
-            ['name, title, meta_keywords, meta_title, meta_description, meta_canonical, image, image_alt, image_title', 'length', 'max' => 250],
+            [
+                'name, title, meta_keywords, meta_title, meta_description, meta_canonical, image, image_alt, image_title',
+                'length',
+                'max' => 250,
+            ],
             ['discount_price, discount', 'default', 'value' => null],
             ['sku', 'length', 'max' => 100],
             ['slug', 'length', 'max' => 150],
@@ -344,9 +348,9 @@ class Product extends yupe\models\YModel implements ICommentable
 
         return new CActiveDataProvider(
             get_class($this), [
-            'criteria' => $criteria,
-            'sort' => ['defaultOrder' => 't.position'],
-        ]
+                'criteria' => $criteria,
+                'sort' => ['defaultOrder' => 't.update_time DESC, t.create_time DESC'],
+            ]
         );
     }
 
@@ -569,7 +573,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
                 $model = new AttributeValue();
 
-                if(false === $model->store($attribute, $value, $this)){
+                if (false === $model->store($attribute, $value, $this)) {
                     throw new InvalidArgumentException('Error store attribute!');
                 }
             }
@@ -738,7 +742,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function hasDiscount()
     {
-        if($this->discount_price || $this->discount) {
+        if ($this->discount_price || $this->discount) {
             return true;
         }
 
@@ -978,7 +982,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 ->queryScalar();
 
             $model->name = $this->name.' ['.($similarNamesCount + 1).']';
-            $model->slug  = \yupe\helpers\YText::translit($model->name);
+            $model->slug = \yupe\helpers\YText::translit($model->name);
             $model->image = $this->image;
 
             $attributes = $model->attributes;
@@ -1076,8 +1080,8 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return new CActiveDataProvider(
             get_class($this), [
-            'criteria' => $this->getLinkedProductsCriteria($typeCode),
-        ]
+                'criteria' => $this->getLinkedProductsCriteria($typeCode),
+            ]
         );
     }
 

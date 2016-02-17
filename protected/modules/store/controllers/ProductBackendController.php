@@ -36,13 +36,13 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                     'discount_price',
                     'sku',
                     'type_id',
-                    'quantity'
-                ]
+                    'quantity',
+                ],
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
-                'model' => 'Product'
-            ]
+                'model' => 'Product',
+            ],
         ];
     }
 
@@ -127,10 +127,13 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 );
             }
         }
-        $this->render('create', [
-            'model' => $model,
-            'imageGroupModel' => ImageGroup::model(),
-        ]);
+        $this->render(
+            'create',
+            [
+                'model' => $model,
+                'imageGroupModel' => ImageGroup::model(),
+            ]
+        );
     }
 
     /**
@@ -177,11 +180,14 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->getRequest()->getQuery('ProductSearch')
         );
 
-        $this->render('update', [
-            'model' => $model,
-            'searchModel' => $searchModel,
-            'imageGroup' => ImageGroup::model(),
-        ]);
+        $this->render(
+            'update',
+            [
+                'model' => $model,
+                'searchModel' => $searchModel,
+                'imageGroup' => ImageGroup::model(),
+            ]
+        );
     }
 
     /**
@@ -189,18 +195,17 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function updateProductImages(Product $product)
     {
-        foreach (Yii::app()->getRequest()->getPost('ProductImage') as $key => $val) {
-
-            $productImage = ProductImage::model()->findByPk($key);
-
-            if (!$productImage) {
-                $productImage = new ProductImage();
-                $productImage->product_id = $product->id;
-                $productImage->addFileInstanceName('ProductImage[' . $key . '][name]');
+        if (Yii::app()->getRequest()->getPost('ProductImage')) {
+            foreach (Yii::app()->getRequest()->getPost('ProductImage') as $key => $val) {
+                $productImage = ProductImage::model()->findByPk($key);
+                if (null === $productImage) {
+                    $productImage = new ProductImage();
+                    $productImage->product_id = $product->id;
+                    $productImage->addFileInstanceName('ProductImage['.$key.'][name]');
+                }
+                $productImage->attributes = $_POST['ProductImage'][$key];
+                $productImage->save();
             }
-
-            $productImage->attributes = $_POST['ProductImage'][$key];
-            $productImage->save();
         }
     }
 
@@ -257,8 +262,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     {
         $model = new Product('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Product'])) {
-            $model->attributes = $_GET['Product'];
+        if (Yii::app()->getRequest()->getQuery('Product')) {
+            $model->setAttributes(
+                Yii::app()->getRequest()->getQuery('Product')
+            );
         }
         $this->render('index', ['model' => $model]);
     }
@@ -304,7 +311,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $variant = new ProductVariant();
         $variant->setAttributes(
             [
-                'attribute_id' => (int)$id
+                'attribute_id' => (int)$id,
             ]
         );
         $this->renderPartial('_variant_row', ['variant' => $variant]);
