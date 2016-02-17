@@ -3,7 +3,9 @@
     <div class="col-item">
         <div class="photo">
             <a href="<?= $productUrl; ?>">
-                <img src="<?= $data->getImageUrl(190, 190); ?>"/>
+                <img src="<?= $data->getImageUrl(190, 190); ?>"
+                     alt="<?= CHtml::encode($data->getImageAlt()); ?>"
+                     title="<?= CHtml::encode($data->getImageTitle()); ?>" />
             </a>
         </div>
         <div class="info separator">

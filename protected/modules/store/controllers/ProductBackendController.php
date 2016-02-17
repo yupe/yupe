@@ -127,7 +127,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 );
             }
         }
-        $this->render('create', ['model' => $model]);
+        $this->render('create', [
+            'model' => $model,
+            'imageGroupModel' => ImageGroup::model(),
+        ]);
     }
 
     /**
@@ -174,7 +177,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->getRequest()->getQuery('ProductSearch')
         );
 
-        $this->render('update', ['model' => $model, 'searchModel' => $searchModel]);
+        $this->render('update', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'imageGroup' => ImageGroup::model(),
+        ]);
     }
 
     /**

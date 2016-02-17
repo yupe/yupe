@@ -8,8 +8,7 @@ return [
         'application.modules.store.models.*',
         'application.modules.store.events.*',
         'application.modules.store.listeners.*',
-        'application.modules.store.components.helpers.StoreImage',
-        'application.modules.store.components.helpers.StoreCategoryHelper',
+        'application.modules.store.components.helpers.*',
     ],
     'component' => [
         'eventManager' => [

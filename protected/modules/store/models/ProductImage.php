@@ -7,8 +7,10 @@
  * @property string $name
  * @property string $title
  * @property string $alt
+ * @property integer $group_id
  *
  * @property-read Product $product
+ * @property-read ImageGroup $group
  * @method getImageUrl($width = 0, $height = 0, $options = [])
  */
 class ProductImage extends \yupe\models\YModel
@@ -36,7 +38,7 @@ class ProductImage extends \yupe\models\YModel
     public function rules()
     {
         return [
-            ['product_id', 'numerical', 'integerOnly' => true],
+            ['product_id, group_id', 'numerical', 'integerOnly' => true],
             ['name, title, alt', 'length', 'max' => 250],
         ];
     }
@@ -49,6 +51,7 @@ class ProductImage extends \yupe\models\YModel
     {
         return [
             'product' => [self::BELONGS_TO, 'Product', 'product_id'],
+            'group' => [self::BELONGS_TO, 'ImageGroup', 'group_id'],
         ];
     }
 
@@ -84,6 +87,7 @@ class ProductImage extends \yupe\models\YModel
         return [
             'title' => Yii::t('StoreModule.store', 'Image title'),
             'alt' => Yii::t('StoreModule.store', 'Image alt'),
+            'group_id' => Yii::t('StoreModule.store', 'Group'),
         ];
     }
 
@@ -95,6 +99,7 @@ class ProductImage extends \yupe\models\YModel
         return [
             'title' => Yii::t('StoreModule.store', 'Image title'),
             'alt' => Yii::t('StoreModule.store', 'Image alt'),
+            'group_id' => Yii::t('StoreModule.store', 'Group'),
         ];
     }
 }

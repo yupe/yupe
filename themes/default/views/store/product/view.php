@@ -40,13 +40,17 @@ $this->breadcrumbs = array_merge(
                             <div class="row">
                                 <div class="col-xs-4 col-md-4">
                                     <a href="<?= $product->getImageUrl(); ?>" class="thumbnail">
-                                        <img src="<?= $product->getImageUrl(50, 50); ?>"/>
+                                        <img src="<?= $product->getImageUrl(50, 50); ?>"
+                                             alt="<?= CHtml::encode($product->getImageAlt()); ?>"
+                                             title="<?= CHtml::encode($product->getImageTitle()); ?>" />
                                     </a>
                                 </div>
                                 <?php foreach ($product->getImages() as $key => $image): { ?>
                                     <div class="col-xs-4 col-md-4">
                                         <a href="<?= $image->getImageUrl(); ?>" class="thumbnail">
-                                            <img src="<?= $image->getImageUrl(50, 50); ?>"/>
+                                            <img src="<?= $image->getImageUrl(50, 50); ?>"
+                                                 alt="<?= CHtml::encode($image->alt) ?>"
+                                                 title="<?= CHtml::encode($image->title) ?>" />
                                         </a>
                                     </div>
                                 <?php } endforeach; ?>
@@ -58,7 +62,7 @@ $this->breadcrumbs = array_merge(
                         <?php if($product->isInStock()):?>
                             <span class="label label-success"><?= Yii::t("StoreModule.store", "In stock");?></span>
                             <?php if($product->quantity):?>
-                                <span></span><?= $product->quantity; ?> <?= Yii::t("StoreModule.store", "in stock"); ?></span>
+                                <span><?= $product->quantity; ?> <?= Yii::t("StoreModule.store", "in stock"); ?></span>
                             <?php endif;?>
                         <?php else:?>
                             <span class="label label-danger"><?= Yii::t("StoreModule.store", "Not in stock");?></span>
