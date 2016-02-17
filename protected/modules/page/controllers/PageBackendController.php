@@ -12,8 +12,14 @@
  */
 Yii::import('application.modules.menu.models.*');
 
+/**
+ * Class PageBackendController
+ */
 class PageBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -23,18 +29,21 @@ class PageBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['create'], 'roles' => ['Page.PageBackend.Create']],
             ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Page.PageBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Page.PageBackend.Delete']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Page',
-                'validAttributes' => ['title', 'slug', 'status', 'title_short']
-            ]
+                'validAttributes' => ['title', 'slug', 'status', 'title_short'],
+            ],
         ];
     }
 
@@ -146,7 +155,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     'PageModule.page',
                     'You add translation for {lang}',
                     [
-                        '{lang}' => $languages[$lang]
+                        '{lang}' => $languages[$lang],
                     ]
                 )
             );
@@ -170,7 +179,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                 'pages' => Page::model()->getFormattedList(),
                 'languages' => $languages,
                 'menuId' => $menuId,
-                'menuParentId' => $menuParentId
+                'menuParentId' => $menuParentId,
             ]
         );
     }
@@ -239,7 +248,7 @@ class PageBackendController extends yupe\components\controllers\BackController
 
             $menuItem = MenuItem::model()->findByAttributes(
                 [
-                    "title" => $oldTitle
+                    "title" => $oldTitle,
                 ]
             );
 
@@ -255,7 +264,7 @@ class PageBackendController extends yupe\components\controllers\BackController
             'slug = :slug AND id != :id',
             [
                 ':slug' => $model->slug,
-                ':id' => $model->id
+                ':id' => $model->id,
             ]
         );
 
@@ -265,13 +274,13 @@ class PageBackendController extends yupe\components\controllers\BackController
                 'langModels' => CHtml::listData($langModels, 'lang', 'id'),
                 'model' => $model,
                 'pages' => Page::model()->getFormattedList(
-                        null,
-                        0,
-                        ['condition' => 'id != :id', 'params' => [':id' => $model->id]]
-                    ),
+                    null,
+                    0,
+                    ['condition' => 'id != :id', 'params' => [':id' => $model->id]]
+                ),
                 'languages' => $this->yupe->getLanguagesList(),
                 'menuId' => $menuId,
-                'menuParentId' => $menuParentId
+                'menuParentId' => $menuParentId,
             ]
         );
     }

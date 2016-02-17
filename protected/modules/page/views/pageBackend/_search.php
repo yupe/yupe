@@ -10,7 +10,7 @@ $form = $this->beginWidget(
 <fieldset class="inline">
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'parent_id',
                 [
@@ -25,7 +25,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -40,27 +40,27 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'slug'); ?>
+            <?= $form->textFieldGroup($model, 'slug'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'title'); ?>
+            <?= $form->textFieldGroup($model, 'title'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'title_short'); ?>
+            <?= $form->textFieldGroup($model, 'title_short'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'keywords'); ?>
+            <?= $form->textFieldGroup($model, 'keywords'); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'description'); ?>
+            <?= $form->textFieldGroup($model, 'description'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'category_id',
                 [
@@ -77,7 +77,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'body'); ?>
+            <?= $form->textFieldGroup($model, 'body'); ?>
         </div>
     </div>
 
